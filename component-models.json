@@ -202,7 +202,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "logo_altText",
+        "name": "logo_alttext",
         "label": "Logo Alt Text",
         "required": true
       },
@@ -345,58 +345,6 @@
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "component": "object-list",
-        "valueType": "array",
-        "name": "right_nav_items",
-        "label": "Right Navigation Items",
-        "fields": [
-          {
-            "component": "text",
-            "name": "label",
-            "label": "Menu Label",
-            "required": true
-          },
-          {
-            "component": "aem-content",
-            "name": "link",
-            "label": "Menu Link"
-          }
-        ]
-      },
-      {
-        "component": "object-list",
-        "valueType": "array",
-        "name": "icon_buttons",
-        "label": "Icon Buttons",
-        "fields": [
-          {
-            "component": "select",
-            "name": "icon_type",
-            "label": "Icon Type",
-            "options": [
-              {
-                "value": "search",
-                "label": "Search"
-              },
-              {
-                "value": "cart",
-                "label": "Shopping Cart"
-              },
-              {
-                "value": "user",
-                "label": "User Account"
-              }
-            ],
-            "required": true
-          },
-          {
-            "component": "aem-content",
-            "name": "link",
-            "label": "Icon Link"
           }
         ]
       }
