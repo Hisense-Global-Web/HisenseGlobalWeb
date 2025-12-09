@@ -43,10 +43,18 @@
           "multi": false
         },
         {
-          "component": "richtext",
+          "component": "text",
           "name": "text",
           "value": "",
           "label": "Text",
+          "valueType": "string"
+
+        },
+          {
+          "component": "richtext",
+          "name": "richtext",
+          "value": "",
+          "label": "Rich Text",
           "valueType": "string"
         }
       ]
