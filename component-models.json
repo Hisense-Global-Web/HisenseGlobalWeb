@@ -190,6 +190,219 @@
     ]
   },
   {
+    "id": "homepageHeader",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logo_image",
+        "label": "Logo Image",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "logo_altText",
+        "label": "Logo Alt Text",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "mask_background",
+        "label": "Fullscreen Mask Background (e.g. rgba(0,0,0,0.8))",
+        "defaultValue": "rgba(0,0,0,0.8)"
+      },
+      {
+        "component": "object-list",
+        "valueType": "array",
+        "name": "nav_items",
+        "label": "Main Navigation (Mega Menu)",
+        "fields": [
+          {
+            "component": "text",
+            "name": "label",
+            "label": "Menu Label",
+            "required": true
+          },
+          {
+            "component": "aem-content",
+            "name": "link",
+            "label": "Menu Link"
+          },
+          {
+            "component": "object",
+            "name": "mega_menu",
+            "label": "Mega Menu Content (Show on Hover)",
+            "fields": [
+              {
+                "component": "object-list",
+                "name": "content_blocks",
+                "label": "Mega Menu Content Blocks",
+                "fields": [
+                  {
+                    "component": "select",
+                    "name": "block_type",
+                    "label": "Block Type",
+                    "options": [
+                      {
+                        "value": "product_grid",
+                        "label": "Product Grid (Image + Name)"
+                      },
+                      {
+                        "value": "text_links",
+                        "label": "Text Link List"
+                      },
+                      {
+                        "value": "buttons",
+                        "label": "Button Group"
+                      }
+                    ],
+                    "required": true
+                  },
+                  {
+                    "component": "text",
+                    "name": "title",
+                    "label": "Block Title (Optional)"
+                  },
+                  {
+                    "component": "object-list",
+                    "name": "products",
+                    "label": "Products (for Product Grid)",
+                    "showIf": {
+                      "field": "block_type",
+                      "equals": "product_grid"
+                    },
+                    "fields": [
+                      {
+                        "component": "reference",
+                        "name": "image",
+                        "label": "Product Image",
+                        "required": true
+                      },
+                      {
+                        "component": "text",
+                        "name": "name",
+                        "label": "Product Name",
+                        "required": true
+                      },
+                      {
+                        "component": "aem-content",
+                        "name": "link",
+                        "label": "Product Link"
+                      }
+                    ]
+                  },
+                  {
+                    "component": "object-list",
+                    "name": "links",
+                    "label": "Links (for Text Link List)",
+                    "showIf": {
+                      "field": "block_type",
+                      "equals": "text_links"
+                    },
+                    "fields": [
+                      {
+                        "component": "text",
+                        "name": "label",
+                        "label": "Link Label",
+                        "required": true
+                      },
+                      {
+                        "component": "aem-content",
+                        "name": "link",
+                        "label": "Link URL"
+                      }
+                    ]
+                  },
+                  {
+                    "component": "object-list",
+                    "name": "buttons",
+                    "label": "Buttons (for Button Group)",
+                    "showIf": {
+                      "field": "block_type",
+                      "equals": "buttons"
+                    },
+                    "fields": [
+                      {
+                        "component": "text",
+                        "name": "label",
+                        "label": "Button Text",
+                        "required": true
+                      },
+                      {
+                        "component": "text",
+                        "name": "icon",
+                        "label": "Icon Name (Optional, e.g. arrow-right)"
+                      },
+                      {
+                        "component": "aem-content",
+                        "name": "link",
+                        "label": "Button Link"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "object-list",
+        "valueType": "array",
+        "name": "right_nav_items",
+        "label": "Right Navigation Items",
+        "fields": [
+          {
+            "component": "text",
+            "name": "label",
+            "label": "Menu Label",
+            "required": true
+          },
+          {
+            "component": "aem-content",
+            "name": "link",
+            "label": "Menu Link"
+          }
+        ]
+      },
+      {
+        "component": "object-list",
+        "valueType": "array",
+        "name": "icon_buttons",
+        "label": "Icon Buttons",
+        "fields": [
+          {
+            "component": "select",
+            "name": "icon_type",
+            "label": "Icon Type",
+            "options": [
+              {
+                "value": "search",
+                "label": "Search"
+              },
+              {
+                "value": "cart",
+                "label": "Shopping Cart"
+              },
+              {
+                "value": "user",
+                "label": "User Account"
+              }
+            ],
+            "required": true
+          },
+          {
+            "component": "aem-content",
+            "name": "link",
+            "label": "Icon Link"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "hero",
     "fields": [
       {

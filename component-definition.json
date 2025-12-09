@@ -143,6 +143,222 @@
           }
         },
         {
+          "title": "Header",
+          "id": "homepageHeader",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "MegaMenuHeader",
+                  "model": "homepageHeader",
+                  "logo_image": "/content/dam/hisenense/logo.png",
+                  "logo_altText": "Hisense Logo",
+                  "mask_background": "rgba(0,0,0,0.8)",
+                  "nav_items": [
+                    {
+                      "label": "TV",
+                      "link": "/tv",
+                      "mega_menu": {
+                        "content_blocks": [
+                          {
+                            "block_type": "product_grid",
+                            "title": "",
+                            "products": [
+                              {
+                                "image": "/content/dam/hisenense/tv/rgb-miniled.png",
+                                "name": "RGB MiniLED",
+                                "link": "/tv/rgb-miniled"
+                              },
+                              {
+                                "image": "/content/dam/hisenense/tv/uled-miniled.png",
+                                "name": "ULED MiniLED",
+                                "link": "/tv/uled-miniled"
+                              },
+                              {
+                                "image": "/content/dam/hisenense/tv/lifestyle.png",
+                                "name": "Lifestyle TV",
+                                "link": "/tv/lifestyle"
+                              },
+                              {
+                                "image": "/content/dam/hisenense/tv/qled.png",
+                                "name": "QLED",
+                                "link": "/tv/qled"
+                              },
+                              {
+                                "image": "/content/dam/hisenense/tv/fhd.png",
+                                "name": "FHD",
+                                "link": "/tv/fhd"
+                              }
+                            ]
+                          },
+                          {
+                            "block_type": "text_links",
+                            "title": "Product support",
+                            "links": [
+                              {
+                                "label": "Register your TV",
+                                "link": "/support/register-tv"
+                              },
+                              {
+                                "label": "Chat with us",
+                                "link": "/support/chat"
+                              },
+                              {
+                                "label": "Where to buy",
+                                "link": "/store-locator"
+                              }
+                            ]
+                          },
+                          {
+                            "block_type": "buttons",
+                            "buttons": [
+                              {
+                                "label": "Explore TVs",
+                                "icon": "arrow-right",
+                                "link": "/tv"
+                              },
+                              {
+                                "label": "View All",
+                                "link": "/tv/all-models"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "label": "Projectors",
+                      "link": "/projectors",
+                      "mega_menu": {
+                        "content_blocks": [
+                          {
+                            "block_type": "product_grid",
+                            "title": "",
+                            "products": [
+                              {
+                                "image": "/content/dam/hisenense/proj/4k.png",
+                                "name": "4K Projectors",
+                                "link": "/projectors/4k"
+                              },
+                              {
+                                "image": "/content/dam/hisenense/proj/portable.png",
+                                "name": "Portable Projectors",
+                                "link": "/projectors/portable"
+                              }
+                            ]
+                          },
+                          {
+                            "block_type": "buttons",
+                            "buttons": [
+                              {
+                                "label": "Explore Projectors",
+                                "link": "/projectors"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "label": "Audio",
+                      "link": "/audio",
+                      "mega_menu": {
+                        "content_blocks": [
+                          {
+                            "block_type": "product_grid",
+                            "products": [
+                              {
+                                "image": "/content/dam/hisenense/audio/soundbar.png",
+                                "name": "Soundbars",
+                                "link": "/audio/soundbars"
+                              },
+                              {
+                                "image": "/content/dam/hisenense/audio/speaker.png",
+                                "name": "Speakers",
+                                "link": "/audio/speakers"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "label": "Appliances",
+                      "link": "/appliances",
+                      "mega_menu": {
+                        "content_blocks": [
+                          {
+                            "block_type": "product_grid",
+                            "products": [
+                              {
+                                "image": "/content/dam/hisenense/app/fridge.png",
+                                "name": "Fridges",
+                                "link": "/appliances/fridges"
+                              },
+                              {
+                                "image": "/content/dam/hisenense/app/washer.png",
+                                "name": "Washers",
+                                "link": "/appliances/washers"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "label": "Air product",
+                      "link": "/air-product",
+                      "mega_menu": {
+                        "content_blocks": [
+                          {
+                            "block_type": "product_grid",
+                            "products": [
+                              {
+                                "image": "/content/dam/hisenense/air/ac.png",
+                                "name": "Air Conditioners",
+                                "link": "/air-product/conditioners"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "label": "Commercial",
+                      "link": "/commercial"
+                    }
+                  ],
+                  "right_nav_items": [
+                    {
+                      "label": "Company",
+                      "link": "/company"
+                    },
+                    {
+                      "label": "Support",
+                      "link": "/support"
+                    }
+                  ],
+                  "icon_buttons": [
+                    {
+                      "icon_type": "search",
+                      "link": "/search"
+                    },
+                    {
+                      "icon_type": "cart",
+                      "link": "/cart"
+                    },
+                    {
+                      "icon_type": "user",
+                      "link": "/account"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Hero",
           "id": "hero",
           "plugins": {
