@@ -161,6 +161,58 @@
     ]
   },
   {
+    "id": "carousel-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "carousel-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "cta",
+        "value": "",
+        "label": "CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaLabel",
+        "value": "",
+        "label": "CTA Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {
