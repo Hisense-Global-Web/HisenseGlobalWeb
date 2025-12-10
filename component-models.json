@@ -148,7 +148,7 @@
         "component": "select",
         "name": "classes",
         "value": "",
-        "label": "Cards options",
+        "label": "ards options",
         "description": "",
         "valueType": "string",
         "options": [
@@ -161,6 +161,25 @@
             "value": "side-by-side"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
