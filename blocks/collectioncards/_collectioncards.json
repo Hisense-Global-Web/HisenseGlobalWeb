@@ -42,5 +42,13 @@
     }
     
   ],
-  "filters": [ ]
+  "filters": [
+    {
+      "id": "collectioncards",
+      "components": [
+       
+        "cards"
+      ]
+    }
+   ]
 }

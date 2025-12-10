@@ -13,7 +13,6 @@
       "button",
       "title",
       "hero",
-      "collectioncards",
       "cards",
       "columns",
       "fragment"
@@ -23,6 +22,12 @@
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "collectioncards",
+    "components": [
+      "cards"
     ]
   },
   {
