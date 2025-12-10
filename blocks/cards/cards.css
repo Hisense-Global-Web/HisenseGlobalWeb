@@ -8,12 +8,21 @@
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
+  border-radius: 20px;
+  overflow: hidden;
   background-color: var(--background-color);
+  position: relative;
 }
 
 .cards .cards-card-body {
-  margin: 16px;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: white;
+  font-size: 20px;
 }
 
 .cards .cards-card-image {
@@ -22,6 +31,6 @@
 
 .cards > ul > li img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1;
   object-fit: cover;
 }

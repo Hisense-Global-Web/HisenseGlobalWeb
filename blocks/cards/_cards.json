@@ -49,13 +49,6 @@
           "label": "Text",
           "valueType": "string"
 
-        },
-          {
-          "component": "richtext",
-          "name": "richtext",
-          "value": "",
-          "label": "Rich Text",
-          "valueType": "string"
         }
       ]
     }
