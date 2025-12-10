@@ -36,25 +36,46 @@
       "id":"cards",
       "fields":[
          {
-          "component": "select",
-          "name": "classes",
-          "value": "",
-          "label": "Card options",
+                    "component": "select",
+                    "name": "classes",
+                    "value": "",
+                    "label": "Cards options",
+                    "description": "",
+                    "valueType": "string",
+                    "options": [
+                        {
+                            "name": "Default",
+                            "value": ""
+                        },
+                        {
+                            "name": "Side-by-side",
+                            "value": "side-by-side"
+                        }
+                    ]
+                }
+              
+      ]
+    },
+    {
+      "id": "card",
+      "fields": [
+        {
+          "component": "reference",
           "valueType": "string",
-          "options": [
-            {
-              "label": "Cover Img",
-              "value": "cover"
-            },
-            {
-              "label": "Center Img",
-              "value": "center"
-            }
-          ]
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "name": "text",
+          "value": "",
+          "label": "Text",
+          "valueType": "string"
+
         }
       ]
     }
-   
      
   ],
   "filters": [
