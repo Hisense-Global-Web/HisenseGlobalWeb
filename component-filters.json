@@ -25,12 +25,6 @@
     ]
   },
   {
-    "id": "collectioncards",
-    "components": [
-      "cards"
-    ]
-  },
-  {
     "id": "columns",
     "components": [
       "column"

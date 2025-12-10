@@ -184,29 +184,6 @@
     ]
   },
   {
-    "id": "collectioncards",
-    "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "value": "",
-        "label": "Card options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default",
-            "value": ""
-          },
-          {
-            "name": "Side-by-side",
-            "value": "side-by-side"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "columns",
     "fields": [
       {
