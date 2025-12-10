@@ -28,13 +28,9 @@
             "component": "select",
             "name": "classes",
             "value": "",
-            "label": "Banner options",
+            "label": "Banner classes options",
             "valueType": "string",
             "options": [
-                {
-                    "name": "banner",
-                    "value": "banner"
-                },
                 {
                     "name": "banner-img-right",
                     "value": "banner-img-right"
