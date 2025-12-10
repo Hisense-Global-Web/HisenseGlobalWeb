@@ -113,36 +113,6 @@
           }
         },
         {
-          "title": "Collectcard",
-          "id": "collectcard",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Collectcard",
-                  "filter": "collectcard"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Card",
-          "id": "car",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Card",
-                  "model": "car"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Columns",
           "id": "columns",
           "plugins": {
