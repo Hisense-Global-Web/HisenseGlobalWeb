@@ -113,6 +113,36 @@
           }
         },
         {
+          "title": "Collectioncards",
+          "id": "collectioncards",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Collectioncards",
+                  "filter": "collectioncards"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Collectioncards",
+          "id": "collectioncards",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Collectioncard",
+                  "model": "collectioncard"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Columns",
           "id": "columns",
           "plugins": {
