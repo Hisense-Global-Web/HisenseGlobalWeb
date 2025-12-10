@@ -165,25 +165,6 @@
     ]
   },
   {
-    "id": "card",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "collectcard",
     "fields": [
       {
@@ -203,7 +184,12 @@
             "value": "side-by-side"
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "id": "card",
+    "fields": [
       {
         "component": "reference",
         "valueType": "string",
@@ -212,7 +198,7 @@
         "multi": false
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "text",
         "value": "",
         "label": "Text",

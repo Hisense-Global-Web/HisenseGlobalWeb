@@ -19,7 +19,7 @@
     ]
   },
   {
-    "id": "cards",
+    "id": "collectcard",
     "components": [
       "card"
     ]
