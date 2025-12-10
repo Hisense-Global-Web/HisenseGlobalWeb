@@ -145,24 +145,22 @@
     "id": "card",
     "fields": [
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "text",
+        "component": "select",
+        "name": "classes",
         "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "colloectionCard",
-    "fields": [
+        "label": "Card options",
+        "valueType": "string",
+        "options": [
+          {
+            "label": "Cover Img",
+            "value": "cover"
+          },
+          {
+            "label": "Center Img",
+            "value": "center"
+          }
+        ]
+      },
       {
         "component": "reference",
         "valueType": "string",

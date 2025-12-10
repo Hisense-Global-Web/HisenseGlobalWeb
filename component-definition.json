@@ -113,21 +113,6 @@
           }
         },
         {
-          "title": "Colloection Card",
-          "id": "colloectionCard",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "colloectionCard",
-                  "model": "colloectionCard"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Columns",
           "id": "columns",
           "plugins": {
