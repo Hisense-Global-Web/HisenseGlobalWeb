@@ -184,26 +184,8 @@
     ]
   },
   {
-    "id": "collectioncard",
+    "id": "collectcard",
     "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "value": "",
-        "label": "ards options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default",
-            "value": ""
-          },
-          {
-            "name": "Side-by-side",
-            "value": "side-by-side"
-          }
-        ]
-      },
       {
         "component": "reference",
         "valueType": "string",
@@ -213,6 +195,13 @@
       },
       {
         "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
         "name": "text",
         "value": "",
         "label": "Text",
