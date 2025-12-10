@@ -43,37 +43,14 @@
           "multi": false
         },
         {
-          "component": "text",
+          "component": "richtext",
           "name": "text",
           "value": "",
           "label": "Text",
           "valueType": "string"
-
-        }
-
-      ]
-    },{
-      "id":"cards",
-      "fields":[
-         {
-          "component": "select",
-          "name": "classes",
-          "label": "Card options",
-          "valueType": "string",
-          "options": [
-            {
-              "label": "Cover Img",
-              "value": "cover"
-            },
-            {
-              "label": "Center Img",
-              "value": "center"
-            }
-          ]
         }
       ]
     }
-     
   ],
   "filters": [
     {
