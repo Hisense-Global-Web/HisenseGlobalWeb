@@ -21,7 +21,8 @@
   {
     "id": "cards",
     "components": [
-      "card"
+      "card",
+      "colloectionCard"
     ]
   },
   {
