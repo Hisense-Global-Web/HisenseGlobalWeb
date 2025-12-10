@@ -19,9 +19,15 @@
     ]
   },
   {
-    "id": "collectcard",
+    "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "collectcard",
+    "components": [
+      "car"
     ]
   },
   {

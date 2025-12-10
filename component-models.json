@@ -142,23 +142,40 @@
     ]
   },
   {
+    "id": "card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "cards",
     "fields": [
       {
         "component": "select",
         "name": "classes",
-        "value": "",
-        "label": "ards options",
-        "description": "",
+        "label": "Card options",
         "valueType": "string",
         "options": [
           {
-            "name": "Default",
-            "value": ""
+            "label": "Cover Img",
+            "value": "cover"
           },
           {
-            "name": "Side-by-side",
-            "value": "side-by-side"
+            "label": "Center Img",
+            "value": "center"
           }
         ]
       }
@@ -188,7 +205,7 @@
     ]
   },
   {
-    "id": "card",
+    "id": "car",
     "fields": [
       {
         "component": "reference",
