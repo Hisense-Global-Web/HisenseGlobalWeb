@@ -41,35 +41,11 @@
                 }
               
       ]
-    },
-    {
-      "id": "card",
-      "fields": [
-        {
-          "component": "reference",
-          "valueType": "string",
-          "name": "image",
-          "label": "Image",
-          "multi": false
-        },
-        {
-          "component": "text",
-          "name": "text",
-          "value": "",
-          "label": "Text",
-          "valueType": "string"
-
-        }
-      ]
     }
+   
      
   ],
   "filters": [
-    {
-      "id": "cards",
-      "components": [
-        "card"
-      ]
-    }
+   
   ]
 }
