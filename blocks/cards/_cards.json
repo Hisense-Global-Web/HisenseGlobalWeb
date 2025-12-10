@@ -35,23 +35,6 @@
     {
       "id": "card",
       "fields": [
-         {
-          "component": "select",
-          "name": "classes",
-          "value": "",
-          "label": "Card options",
-          "valueType": "string",
-          "options": [
-            {
-              "label": "Cover Img",
-              "value": "cover"
-            },
-            {
-              "label": "Center Img",
-              "value": "center"
-            }
-          ]
-        },
         {
           "component": "reference",
           "valueType": "string",
@@ -68,6 +51,27 @@
 
         }
 
+      ]
+    },{
+      "id":"cards",
+      "fields":[
+         {
+          "component": "select",
+          "name": "classes",
+          "value": "",
+          "label": "Card options",
+          "valueType": "string",
+          "options": [
+            {
+              "label": "Cover Img",
+              "value": "cover"
+            },
+            {
+              "label": "Center Img",
+              "value": "center"
+            }
+          ]
+        }
       ]
     }
      
