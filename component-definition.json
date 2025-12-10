@@ -128,8 +128,8 @@
           }
         },
         {
-          "title": "Collectioncards",
-          "id": "collectioncards",
+          "title": "Collectioncard",
+          "id": "collectioncard",
           "plugins": {
             "xwalk": {
               "page": {
