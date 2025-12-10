@@ -145,6 +145,23 @@
     "id": "banner",
     "fields": [
       {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Banner options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "banner",
+            "value": "banner"
+          },
+          {
+            "name": "banner-img-right",
+            "value": "banner-img-right"
+          }
+        ]
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "collection_image",

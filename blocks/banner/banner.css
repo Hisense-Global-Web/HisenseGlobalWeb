@@ -10,6 +10,8 @@
 }
 
 .block.banner {
+    padding: 92px 0 0 68px;
+
     .button-container {
         margin: 0;
         padding: 0;
@@ -25,7 +27,7 @@
             text-align: center;
             border: 1px solid #fff;
             padding: 0;
-            margin: 30px 0 0 68px;
+            margin-top: 30px;
         }
     }
 
@@ -48,7 +50,7 @@
         font-weight: 400;
         color: #fff;
         line-height: 46px;
-        margin: 92px 0 10px 68px;
+        margin-bottom: 10px;
     }
 
     p {
@@ -56,12 +58,16 @@
         color: #fff;
         line-height: 22px;
         margin: 0;
-        margin-left: 68px;
         width: 282px;
     }
 }
 
-.block.category {
+.block.banner-img-right {
+    padding: 92px 0 0 68px;
+    box-sizing: border-box;
+    background: linear-gradient( #f1fafa, #E6FAFA );
+    height: 100%;
+
     h1, h2, h3, h4, h5, h6, p, .button-container .button  {
         color: #000;
     }

@@ -10,9 +10,10 @@
             "template": {
               "name": "Banner",
               "model": "banner",
-              "hero_text": "<h5>Perfection, Any Content, Anytime</h5><h1>From the first setup to everyday use.designed to feel effortless —— so you can focus on what really matters.</h1>",
-              "hero_ctaPrimary": "/",
-              "hero_ctaPrimaryText": "Learn more"
+              "classes": "banner",
+              "collection_text": "<h5>Perfection, Any Content, Anytime</h5><h1>From the first setup to everyday use.designed to feel effortless —— so you can focus on what really matters.</h1>",
+              "collection_ctaPrimary": "/",
+              "collection_ctaPrimaryText": "Learn more"
             }
           }
         }
@@ -23,6 +24,23 @@
     {
       "id": "banner",
       "fields": [
+        {
+            "component": "select",
+            "name": "classes",
+            "value": "",
+            "label": "Banner options",
+            "valueType": "string",
+            "options": [
+                {
+                    "name": "banner",
+                    "value": "banner"
+                },
+                {
+                    "name": "banner-img-right",
+                    "value": "banner-img-right"
+                }
+            ]
+        },
         {
           "component": "reference",
           "valueType": "string",
