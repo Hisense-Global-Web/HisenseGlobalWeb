@@ -161,7 +161,7 @@
     ]
   },
   {
-    "id": "collectionHero",
+    "id": "collectionBanner",
     "fields": [
       {
         "component": "reference",
