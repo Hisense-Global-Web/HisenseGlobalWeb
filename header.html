@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hisense Navigation</title>
+    <style>
+        /* 基础重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        /* 导航栏容器：固定顶部 */
+        #navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            z-index: 999;
+        }
+
+        /* 导航内容容器：flex布局 */
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        /* 左侧logo */
+        .nav-logo {
+            width: 80px; /* 占位宽度 */
+        }
+        .nav-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* 中间导航按钮区域：flex布局 */
+        .nav-links {
+            display: flex;
+        }
+        .nav-link {
+            cursor: pointer;
+            padding: 1rem 2rem;
+        }
+
+        /* 右侧功能区：flex布局 */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .nav-action-btn {
+            width: 20px; /* 占位宽度 */
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* 下拉内容 + 遮罩：默认隐藏 */
+        .nav-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            padding: 2rem;
+            border-top: 1px solid #eee;
+            z-index: 998;
+        }
+        .nav-mask {
+            display: none;
+            position: fixed;
+            top: 60px; /* 与导航栏高度一致 */
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 60px);
+            background: rgba(0,0,0,0.5);
+            z-index: 997;
+        }
+
+        /* 导航按钮 hover 及下拉内容 hover 时保持显示 */
+        .nav-link:hover .nav-dropdown,
+        .nav-link .nav-dropdown:hover,
+        /* 遮罩层：导航按钮 hover 或下拉内容 hover 时显示 */
+        .nav-link:hover ~ .nav-mask,
+        .nav-link .nav-dropdown:hover ~ .nav-mask,
+        .nav-mask:hover {
+            display: block;
+        }
+
+        /* 下拉内容布局：flex */
+        .dropdown-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1440px;
+            margin: 0 auto;
+            /* 下拉内容层级高于遮罩，且宽度自适应 */
+            position: relative;
+            z-index: 999;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .dropdown-products {
+            display: flex;
+            gap: 2rem;
+        }
+        .dropdown-product {
+            text-align: center;
+        }
+        .dropdown-product-img {
+            width: 80px;
+            height: 60px;
+            background: #f0f0f0; /* 占位背景 */
+            margin-bottom: 0.5rem;
+        }
+        .dropdown-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .dropdown-btns {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+        .dropdown-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #00b42a;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+        }
+        .dropdown-btn.primary {
+            background: #00b42a;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏根节点 -->
+    <div id="navigation">
+        <div class="nav-container">
+            <!-- Logo区域 -->
+            <div class="nav-logo">
+                <img src="mock-logo.png" alt="Logo">
+            </div>
+
+            <!-- 中间导航按钮 -->
+            <div class="nav-links">
+                <!-- TV按钮（含下拉） -->
+                <div class="nav-link">
+                    TV
+                    <!-- TV下拉内容 -->
+                    <div class="nav-dropdown">
+                        <div class="dropdown-content">
+                            <div>
+                                <div class="dropdown-products">
+                                    <div class="dropdown-product">
+                                        <div class="dropdown-product-img"></div>
+                                        <span>RGB MiniLED</span>
+                                    </div>
+                                    <div class="dropdown-product">
+                                        <div class="dropdown-product-img"></div>
+                                        <span>ULED MiniLED</span>
+                                    </div>
+                                    <div class="dropdown-product">
+                                        <div class="dropdown-product-img"></div>
+                                        <span>Lifestyle TV</span>
+                                    </div>
+                                    <div class="dropdown-product">
+                                        <div class="dropdown-product-img"></div>
+                                        <span>QLED</span>
+                                    </div>
+                                    <div class="dropdown-product">
+                                        <div class="dropdown-product-img"></div>
+                                        <span>FHD</span>
+                                    </div>
+                                </div>
+                                <div class="dropdown-btns">
+                                    <button class="dropdown-btn primary">Explore TVs</button>
+                                    <button class="dropdown-btn">View All</button>
+                                </div>
+                            </div>
+                            <div class="dropdown-links">
+                                <a href="#">Product support</a>
+                                <a href="#">Register your TV</a>
+                                <a href="#">Chat with us</a>
+                                <a href="#">Where to buy</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 其他导航按钮（示例） -->
+                <div class="nav-link">Projectors</div>
+                <div class="nav-link">Audio</div>
+                <div class="nav-link">Appliances</div>
+                <div class="nav-link">Air product</div>
+                <div class="nav-link">Commercial</div>
+                <div class="nav-link">Company</div>
+                <div class="nav-link">Support</div>
+            </div>
+
+            <!-- 右侧功能按钮 -->
+            <div class="nav-actions">
+                <div class="nav-action-btn">
+                    <svg>/* 搜索SVG占位 */</svg>
+                </div>
+                <div class="nav-action-btn">
+                    <svg>/* 购物车SVG占位 */</svg>
+                </div>
+                <div class="nav-action-btn">
+                    <svg>/* 用户SVG占位 */</svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 全屏遮罩（默认隐藏） -->
+    <div class="nav-mask" id="nav-mask"></div>
+
+    <!-- 页面主体（占位） -->
+    <main style="margin-top: 80px; padding: 2rem; height: calc(100vh - 80px);">
+        <p>页面内容...</p>
+    </main>
+</body>
+</html>
