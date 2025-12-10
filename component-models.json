@@ -164,30 +164,22 @@
     "id": "collectioncards",
     "fields": [
       {
-        "component": "richtext",
-        "name": "text",
+        "component": "select",
+        "name": "classes",
         "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "collectioncard",
-    "fields": [
-      {
-        "component": "reference",
+        "label": "Card options",
+        "description": "",
         "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Side-by-side",
+            "value": "side-by-side"
+          }
+        ]
       }
     ]
   },

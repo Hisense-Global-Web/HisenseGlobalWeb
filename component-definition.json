@@ -128,21 +128,6 @@
           }
         },
         {
-          "title": "Collectioncard",
-          "id": "collectioncard",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Collectioncard",
-                  "model": "collectioncard"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Columns",
           "id": "columns",
           "plugins": {

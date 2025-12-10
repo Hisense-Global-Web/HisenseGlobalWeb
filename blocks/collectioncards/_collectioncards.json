@@ -14,64 +14,33 @@
           }
         }
       }
-    },
-    {
-      "title": "Collectioncard",
-      "id": "collectioncard",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Collectioncard",
-              "model": "collectioncard"
-            }
-          }
-        }
-      }
     }
   ],
   "models": [
     {
       "id": "collectioncards",
       "fields": [
-       
         {
-          "component": "richtext",
-          "name": "text",
+          "component": "select",
+          "name": "classes",
           "value": "",
-          "label": "Text",
-          "valueType": "string"
-        }
-      ]
-    },
-    {
-      "id": "collectioncard",
-      "fields": [
-        {
-          "component": "reference",
+          "label": "Card options",
+          "description": "",
           "valueType": "string",
-          "name": "image",
-          "label": "Image",
-          "multi": false
-        },
-        {
-          "component": "richtext",
-          "name": "text",
-          "value": "",
-          "label": "Text",
-          "valueType": "string"
+          "options": [
+              {
+                  "name": "Default",
+                  "value": ""
+              },
+              {
+                  "name": "Side-by-side",
+                  "value": "side-by-side"
+              }
+          ]
         }
       ]
     }
     
   ],
-  "filters": [
-    {
-      "id": "collectioncards",
-      "components": [
-        "collectioncard"
-      ]
-    }
-  ]
+  "filters": [ ]
 }

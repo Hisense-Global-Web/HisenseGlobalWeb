@@ -14,7 +14,6 @@
       "title",
       "hero",
       "cards",
-      "collectioncards",
       "columns",
       "fragment"
     ]
@@ -23,12 +22,6 @@
     "id": "cards",
     "components": [
       "card"
-    ]
-  },
-  {
-    "id": "collectioncards",
-    "components": [
-      "collectioncard"
     ]
   },
   {
