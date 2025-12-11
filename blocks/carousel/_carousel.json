@@ -33,48 +33,6 @@
   ],
   "models":[
     {
-      "id": "carousel",
-      "nestedBlocks": [
-        {
-          "id": "carouselItem",
-          "title": "Carousel Item"
-        }
-      ],
-      "fields": [],
-      "variantions": [
-        {
-          "id": "default",
-          "label": "Default Carousel",
-          "default": {
-            "showControls": true,
-            "showIndicators": true,
-            "loop": true,
-            "autoplay": false
-          }
-        },
-        {
-          "id": "fullscreen",
-          "label": "FullScreen Carousel",
-          "default": {
-            "showControls": false,
-            "showIndicators": true,
-            "loop": true,
-            "autoplay": false,
-            "delay": 5000
-          }
-        },
-        {
-          "id": "cardCarousel",
-          "label": "Card Carousel",
-          "default": {
-            "showControls": true,
-            "showIndicators": false,
-            "loop": false
-          }
-        }
-      ]
-    },
-    {
       "id": "carouselItem",
       "fields": [
         {
@@ -118,6 +76,18 @@
           "value": "",
           "label": "CTA Label Secondary",
           "valueType": "string"
+        }
+      ],
+      "variations": [
+        {
+          "component": "select",
+          "name": "type",
+          "value": "",
+          "label": "Theme Type",
+          "options": [
+            {"value": "dark","text":  "dark"},
+            {"value":  "light","text": "light"}
+          ]
         }
       ]
     }
