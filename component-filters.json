@@ -16,15 +16,13 @@
       "cards",
       "columns",
       "fragment",
-      "collectionsection",
-      "centercards"
+      "collectionsection"
     ]
   },
   {
     "id": "cards",
     "components": [
-      "card",
-      "centercard"
+      "card"
     ]
   },
   {

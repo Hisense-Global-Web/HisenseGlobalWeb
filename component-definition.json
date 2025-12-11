@@ -114,22 +114,6 @@
           }
         },
         {
-          "title": "Center Card",
-          "id": "centercard",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Center Card",
-                  "model": "centercard",
-                  "classes": "defaultcard"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Center Cards",
           "id": "centercards",
           "plugins": {

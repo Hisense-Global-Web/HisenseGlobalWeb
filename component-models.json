@@ -184,21 +184,25 @@
     ]
   },
   {
-    "id": "centercard",
+    "id": "centercards",
     "fields": [
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "text",
+        "component": "select",
+        "name": "classes",
         "value": "",
-        "label": "Text",
-        "valueType": "string"
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Side-by-side",
+            "value": "side-by-side"
+          }
+        ]
       }
     ]
   },
