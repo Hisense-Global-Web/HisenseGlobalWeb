@@ -17,19 +17,13 @@
       "columns",
       "fragment",
       "collectionsection",
-      "centercards"
+      "recards"
     ]
   },
   {
     "id": "cards",
     "components": [
       "card"
-    ]
-  },
-  {
-    "id": "centercards",
-    "components": [
-      "centercard"
     ]
   },
   {
@@ -45,6 +39,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "recards",
+    "components": [
+      "recard"
     ]
   }
 ]
