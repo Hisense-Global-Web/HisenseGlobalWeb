@@ -206,14 +206,14 @@
     "id": "collectionsection",
     "fields": [
       {
-        "component": "text",
+        "component": "richtext",
         "name": "title",
         "value": "",
         "label": "Title",
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "richtext",
         "name": "subtitle",
         "value": "",
         "label": "Sub Title",

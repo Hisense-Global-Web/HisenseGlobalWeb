@@ -7,7 +7,7 @@
   gap: 24px;
 }
 
-.cards > ul > li {
+.contentcards > ul > li {
   border-radius: 20px;
   overflow: hidden;
   background-color: var(--background-color);
