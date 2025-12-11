@@ -203,7 +203,7 @@
     ]
   },
   {
-    "id": "centertcards",
+    "id": "centercards",
     "fields": [
       {
         "component": "select",
@@ -226,7 +226,7 @@
     ]
   },
   {
-    "id": "centertcard",
+    "id": "centercard",
     "fields": [
       {
         "component": "reference",

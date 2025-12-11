@@ -28,9 +28,9 @@
     ]
   },
   {
-    "id": "centertcards",
+    "id": "centercards",
     "components": [
-      "centertcard"
+      "centercard"
     ]
   },
   {
