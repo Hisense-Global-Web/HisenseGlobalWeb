@@ -174,7 +174,7 @@
             "name": "items",
             "label": "Slides",
             "type": "array",
-            "multi": "true",
+            "multi": true,
             "valueType": "object",
             "items": {
               "$ref": "#/definitions/carousel-item"
@@ -187,22 +187,6 @@
         "name": "tabProperties",
         "label": "Properties",
         "fields": [
-          {
-            "component": "select",
-            "name": "autoplay",
-            "label": "Autoplay",
-            "type": "boolean",
-            "options": [
-              {
-                "name": "Enable",
-                "value": "true"
-              },
-              {
-                "name": "Disable",
-                "value": "false"
-              }
-            ]
-          },
           {
             "component": "select",
             "name": "theme",
@@ -218,52 +202,39 @@
                 "value": "black"
               }
             ]
+          },
+          {
+            "component": "richtext",
+            "name": "text",
+            "value": "",
+            "label": "Text",
+            "valueType": "string"
+          },
+          {
+            "component": "aem-content",
+            "name": "carousel_ctaPrimary",
+            "label": "Primary CTA",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "carousel_ctaPrimaryText",
+            "label": "Primary CTA Label",
+            "valueType": "string"
+          },
+          {
+            "component": "aem-content",
+            "name": "carousel_ctaSecondary",
+            "label": "Secondary CTA",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "carousel_ctaSecondaryText",
+            "label": "Secondary CTA Label",
+            "valueType": "string"
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "carousel-item",
-    "title": "Carousel Item",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "carousel_ctaPrimary",
-        "label": "Primary CTA",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "carousel_ctaPrimaryText",
-        "label": "Primary CTA Label",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "carousel_ctaSecondary",
-        "label": "Secondary CTA",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "carousel_ctaSecondaryText",
-        "label": "Secondary CTA Label",
-        "valueType": "string"
       }
     ]
   },

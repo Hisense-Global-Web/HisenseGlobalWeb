@@ -122,7 +122,11 @@
                 "template": {
                   "name": "Carousel",
                   "filter": "carousel",
-                  "model": "carousel"
+                  "model": "carousel",
+                  "carousel_ctaPrimary": "/",
+                  "carousel_ctaPrimaryText": "Buy Now",
+                  "carousel_ctaSecondary": "/",
+                  "carousel_ctaSecondaryText": "Buy Now"
                 }
               }
             }
@@ -137,11 +141,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Carousel Item",
-                  "model": "carousel-item",
-                  "carousel_ctaPrimary": "/",
-                  "carousel_ctaPrimaryText": "Buy Now",
-                  "carousel_ctaSecondary": "/",
-                  "carousel_ctaSecondaryText": "Buy Now"
+                  "model": "carousel-item"
                 }
               }
             }
