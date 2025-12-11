@@ -122,14 +122,19 @@
                 "template": {
                   "name": "Carousel",
                   "filter": "carousel",
-                  "model": "carousel"
+                  "model": "carousel",
+                  "carousel_text": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
+                  "carousel_ctaPrimary": "/",
+                  "carousel_ctaPrimaryText": "Buy now",
+                  "carousel_ctaSecondary": "/",
+                  "carousel_ctaSecondaryText": "Learn more"
                 }
               }
             }
           },
           "fields": [
             {
-              "component": "multifield",
+              "component": "array",
               "name": "items",
               "type": "array",
               "multi": true,
@@ -143,22 +148,6 @@
         {
           "title": "Carousel Item",
           "id": "carousel-item",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Carousel Item",
-                  "model": "carousel-item",
-                  "hero_text": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
-                  "hero_ctaPrimary": "/",
-                  "hero_ctaPrimaryText": "Buy now",
-                  "hero_ctaSecondary": "/",
-                  "hero_ctaSecondaryText": "Learn more"
-                }
-              }
-            }
-          },
           "fields": [
             {
               "component": "reference",
