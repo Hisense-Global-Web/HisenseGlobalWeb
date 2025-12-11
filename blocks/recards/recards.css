@@ -8,21 +8,24 @@
 }
 
 .recards > ul > li {
-  border-radius: 20px;
-  overflow: hidden;
   background-color: var(--background-color);
   position: relative;
 }
 
 .recards .recards-card-body {
   position: absolute;
-  top: 0;
-  text-align: center;
   display: flex;
   justify-content: center;
   width: 100%;
-  color: white;
-  font-size: 20px;
+  text-align: center;
+  top: 40px;
+  font-size: 24px;
+  color: #000;
+
+}
+
+.recards p{
+  margin: 0;
 }
 
 .recards .recards-card-image {
