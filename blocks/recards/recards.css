@@ -10,6 +10,8 @@
 .recards > ul > li {
   background-color: var(--background-color);
   position: relative;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 .recards .recards-card-body {
