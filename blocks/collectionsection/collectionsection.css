@@ -8,12 +8,12 @@
  
 }
 
-.collectionsection:first-child {
+.collectionsection div:first-child {
    color: #00AAA6;
    font-size: 16px;
   }
   
-.collectionsection:last-child {
+.collectionsection div:last-child {
     font-size: 34px;
     color: #333;
     margin-top: 10px;
