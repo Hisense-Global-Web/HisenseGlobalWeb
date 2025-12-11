@@ -47,11 +47,11 @@
           "label": "Items",
           "fields": [
             {
-              "component": "array",
+              "component": "multifield",
               "name": "items",
               "label": "Slides",
               "type": "array",
-              "multi": true,
+              "multi": "true",
               "valueType": "object",
               "items": {
                 "$ref": "#/definitions/carousel-item"
