@@ -14,19 +14,7 @@
             }
           }
         }
-      },
-      "fields": [
-        {
-          "component": "multifield",
-          "name": "items",
-          "type": "array",
-          "multi": true,
-          "valueType": "object",
-          "items": {
-            "$ref": "#/definitions/carousel-item"
-          }
-        }
-      ]
+      }
     },
     {
       "title": "Carousel Item",
@@ -37,16 +25,85 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Carousel Item",
-              "model": "carousel-item",
-              "hero_text": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
-              "hero_ctaPrimary": "/",
-              "hero_ctaPrimaryText": "Buy now",
-              "hero_ctaSecondary": "/",
-              "hero_ctaSecondaryText": "Learn more"
+              "filter": "carousel-item",
+              "model": "carousel-item"
             }
           }
         }
-      },
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "carousel",
+      "title": "Carousel",
+      "fields": [
+        {
+          "component": "tab",
+          "name": "tabItems",
+          "label": "Items",
+          "fields": [
+            {
+              "component": "multifield",
+              "name": "items",
+              "label": "Slides",
+              "type": "array",
+              "multi": true,
+              "valueType": "object",
+              "items": {
+                "$ref": "#/definitions/carousel-item"
+              }
+            }
+          ]
+        },
+        {
+          "component": "tab",
+          "name": "tabProperties",
+          "label": "Properties",
+          "fields": [
+            {
+              "component": "select",
+              "name": "autoplay",
+              "label": "Autoplay",
+              "type": "boolean",
+              "options": [
+                {
+                  "name": "Enable",
+                  "value": "true"
+                },
+                {
+                  "name": "Disable",
+                  "value": "false"
+                }
+              ]
+            },
+            {
+              "component": "text",
+              "name": "interval",
+              "label": "Slide Interval (ms)",
+              "valueType": "number",
+              "defaultValue": 5000
+            }
+          ]
+        },
+        {
+          "component": "tab",
+          "name": "tabAccessibility",
+          "label": "Accessibility",
+          "fields": [
+            {
+              "component": "text",
+              "name": "ariaLabel",
+              "label": "Label (Aria-Label)",
+              "valueType": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "carousel-item",
+      "title": "Carousel Item",
       "fields": [
         {
           "component": "reference",
@@ -66,39 +123,29 @@
           "component": "aem-content",
           "name": "carousel_ctaPrimary",
           "label": "Primary CTA",
-          "valueType": "string"
+          "valueType": "string",
+          "defaultValue": "/"
         },
         {
           "component": "text",
           "name": "carousel_ctaPrimaryText",
           "label": "Primary CTA Label",
-          "valueType": "string"
+          "valueType": "string",
+          "defaultVale": "Buy Now"
         },
         {
           "component": "aem-content",
           "name": "carousel_ctaSecondary",
           "label": "Secondary CTA",
-          "valueType": "string"
+          "valueType": "string",
+          "defaultValue": "/"
         },
         {
           "component": "text",
           "name": "carousel_ctaSecondaryText",
           "label": "Secondary CTA Label",
-          "valueType": "string"
-        }
-      ]
-    }
-  ],
-  "models": [
-    {
-      "id": "carousel",
-      "title": "Carousel",
-      "fields": [
-        {
-          "component": "reference",
           "valueType": "string",
-          "name": "carouselRef",
-          "label": "Carousel Configuration"
+          "defaultValue": "Learn More"
         }
       ]
     }
@@ -107,7 +154,8 @@
     {
       "id": "carousel",
       "components": [
-        "carousel"
+        "carousel",
+        "carousel-item"
       ]
     }
   ]
