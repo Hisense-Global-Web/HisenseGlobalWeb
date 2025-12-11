@@ -17,7 +17,7 @@
     },
     {
       "title": "Content Card",
-      "id": "contentcards",
+      "id": "contentcard",
       "plugins": {
         "xwalk": {
           "page": {
