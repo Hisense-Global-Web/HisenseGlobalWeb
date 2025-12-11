@@ -178,32 +178,12 @@
         "valueType": "string"
       },
       {
-        "component": "aem-content",
-        "name": "ctaPrimary",
+        "component": "button",
+        "name": "btnPrimary",
         "value": "",
-        "label": "CTA Primary",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "ctaLabelPrimary",
-        "value": "",
-        "label": "CTA Label Primary",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "ctaSecondary",
-        "value": "",
-        "label": "CTA Secondary",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "ctaLabelSecondary",
-        "value": "",
-        "label": "CTA Label Secondary",
-        "valueType": "string"
+        "label": "button Primary",
+        "valueType": "string",
+        "multi": true
       }
     ],
     "variations": [
