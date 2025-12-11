@@ -203,29 +203,6 @@
     ]
   },
   {
-    "id": "centercards",
-    "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "value": "",
-        "label": "Card options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default",
-            "value": ""
-          },
-          {
-            "name": "Sidebyside",
-            "value": "sidebyside"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "centercard",
     "fields": [
       {
