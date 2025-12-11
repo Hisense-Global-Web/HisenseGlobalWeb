@@ -194,6 +194,19 @@
           "loop": false
         }
       }
+    ],
+    "nestedBlocks": [
+      {
+        "id": "carouselItem",
+        "title": "Carousel Item",
+        "allowedComponents": [
+          "image",
+          "text",
+          "icon",
+          "button",
+          "video"
+        ]
+      }
     ]
   },
   {

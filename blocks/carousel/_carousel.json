@@ -49,20 +49,19 @@
             "loop": false
           }
         }
-      ]
-    }
-  ],
-  "nestedBloks":[
-    {
-      "id": "carouselItem",
-      "title": "Carousel Item",
-      "description": "An individual item within the carousel.",
-      "allowedComponents": [
-        "image",
-        "text",
-        "icon",
-        "button",
-        "video"
+      ],
+      "nestedBlocks":[
+        {
+          "id": "carouselItem",
+          "title": "Carousel Item",
+          "allowedComponents": [
+            "image",
+            "text",
+            "icon",
+            "button",
+            "video"
+          ]
+        }
       ]
     }
   ],
