@@ -36,6 +36,17 @@
     {
       "title": "Carousel Item",
       "id": "carousel-item",
+      "plugins": {
+      "xwalk": {
+        "page": {
+          "resourceType": "core/franklin/components/block/v1/block/item",
+          "template": {
+            "name": "Carousel Item",
+            "model": "carousel-item"
+          }
+        }
+      }
+    },
       "fields": [
         {
           "component": "reference",
@@ -84,10 +95,36 @@
       "title": "Carousel",
       "fields": [
         {
-          "component": "reference",
+          "component": "select",
           "valueType": "string",
-          "name": "carouselRef",
-          "label": "Carousel Configuration"
+          "name": "select",
+          "label": "Select Theme",
+          "options": [
+            {"name": "light","value": "light"},
+            {"name": "dark","value": "dark"}
+          ]
+        },
+        {
+          "component": "container",
+          "name": "test",
+          "label": "Multi Image",
+          "multi": true,
+          "fields": [
+            {
+              "component": "reference",
+              "valueType": "string",
+              "name": "image",
+              "label": "Image",
+              "multi": false
+            },
+            {
+              "component": "richtext",
+              "name": "text",
+              "value": "",
+              "label": "Text",
+              "valueType": "string"
+            }
+          ]
         }
       ]
     }
