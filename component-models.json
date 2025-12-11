@@ -161,45 +161,14 @@
     ]
   },
   {
-    "id": "carousel-item",
+    "id": "carousel",
+    "title": "Carousel",
     "fields": [
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "carousel_ctaPrimary",
-        "label": "Primary CTA",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "carousel_ctaPrimaryText",
-        "label": "Primary CTA Label",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "carousel_ctaSecondary",
-        "label": "Secondary CTA",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "carousel_ctaSecondaryText",
-        "label": "Secondary CTA Label",
-        "valueType": "string"
+        "name": "carouselRef",
+        "label": "Carousel Configuration"
       }
     ]
   },
