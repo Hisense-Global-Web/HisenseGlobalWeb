@@ -137,8 +137,11 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Carousel Item",
-                  "filter": "carousel-item",
-                  "model": "carousel-item"
+                  "model": "carousel-item",
+                  "carousel_ctaPrimary": "/",
+                  "carousel_ctaPrimaryText": "Buy Now",
+                  "carousel_ctaSecondary": "/",
+                  "carousel_ctaSecondaryText": "Buy Now"
                 }
               }
             }

@@ -170,7 +170,7 @@
         "label": "Items",
         "fields": [
           {
-            "component": "multifield",
+            "component": "array",
             "name": "items",
             "label": "Slides",
             "type": "array",
@@ -204,24 +204,20 @@
             ]
           },
           {
-            "component": "text",
-            "name": "interval",
-            "label": "Slide Interval (ms)",
-            "valueType": "number",
-            "defaultValue": 5000
-          }
-        ]
-      },
-      {
-        "component": "tab",
-        "name": "tabAccessibility",
-        "label": "Accessibility",
-        "fields": [
-          {
-            "component": "text",
-            "name": "ariaLabel",
-            "label": "Label (Aria-Label)",
-            "valueType": "string"
+            "component": "select",
+            "name": "theme",
+            "label": "Theme",
+            "type": "string",
+            "options": [
+              {
+                "name": "light",
+                "value": "light"
+              },
+              {
+                "name": "black",
+                "value": "black"
+              }
+            ]
           }
         ]
       }
@@ -249,29 +245,25 @@
         "component": "aem-content",
         "name": "carousel_ctaPrimary",
         "label": "Primary CTA",
-        "valueType": "string",
-        "defaultValue": "/"
+        "valueType": "string"
       },
       {
         "component": "text",
         "name": "carousel_ctaPrimaryText",
         "label": "Primary CTA Label",
-        "valueType": "string",
-        "defaultVale": "Buy Now"
+        "valueType": "string"
       },
       {
         "component": "aem-content",
         "name": "carousel_ctaSecondary",
         "label": "Secondary CTA",
-        "valueType": "string",
-        "defaultValue": "/"
+        "valueType": "string"
       },
       {
         "component": "text",
         "name": "carousel_ctaSecondaryText",
         "label": "Secondary CTA Label",
-        "valueType": "string",
-        "defaultValue": "Learn More"
+        "valueType": "string"
       }
     ]
   },
