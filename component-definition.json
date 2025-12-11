@@ -130,7 +130,20 @@
                 }
               }
             }
-          }
+          },
+          "fields": [
+            {
+              "component": "multifield",
+              "name": "items",
+              "label": "Items",
+              "type": "array",
+              "multi": true,
+              "valueType": "object",
+              "items": {
+                "$ref": "#/definitions/carousel-item"
+              }
+            }
+          ]
         },
         {
           "title": "Carousel Item",

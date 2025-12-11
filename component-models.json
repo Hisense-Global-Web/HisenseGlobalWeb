@@ -170,15 +170,9 @@
         "label": "Items",
         "fields": [
           {
-            "component": "multifield",
-            "name": "items",
-            "label": "Slides",
-            "type": "array",
-            "multi": true,
-            "valueType": "object",
-            "items": {
-              "$ref": "#/definitions/carousel-item"
-            }
+            "component": "reference",
+            "name": "carouselImage",
+            "label": "Carousel Image"
           }
         ]
       },
