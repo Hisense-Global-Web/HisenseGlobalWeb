@@ -22,13 +22,14 @@
   {
     "id": "cards",
     "components": [
-      "card"
+      "card",
+      "centercard"
     ]
   },
   {
     "id": "collectionsection",
     "components": [
-      "itemcard"
+      "cards"
     ]
   },
   {

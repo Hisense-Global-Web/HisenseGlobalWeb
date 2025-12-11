@@ -106,7 +106,24 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Card",
-                  "model": "card"
+                  "model": "card",
+                  "classes": "defaultcard"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Center Card",
+          "id": "centercard",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Center Card",
+                  "model": "centercard",
+                  "classes": "defaultcard"
                 }
               }
             }
@@ -123,21 +140,6 @@
                   "name": "Collectionsection",
                   "filter": "collectionsection",
                   "classes": "collectionsection"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Card",
-          "id": "itemcard",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Card",
-                  "model": "itemcard"
                 }
               }
             }
