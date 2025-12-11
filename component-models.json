@@ -166,16 +166,16 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "subtitle",
-        "label": "Subtitle",
-        "multi": false
+        "name": "category",
+        "label": "Category",
+        "value": ""
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "title",
         "label": "Title",
-        "multi": false
+        "value": ""
       }
     ]
   },
@@ -198,17 +198,47 @@
       },
       {
         "component": "aem-content",
-        "name": "cta",
-        "value": "",
-        "label": "CTA",
+        "name": "carousel_ctaPrimary",
+        "label": "Primary CTA",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "ctaLabel",
-        "value": "",
-        "label": "CTA Label",
+        "name": "carousel_ctaPrimaryText",
+        "label": "Primary CTA Label",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "carousel_ctaSecondary",
+        "label": "Secondary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "carousel_ctaSecondaryText",
+        "label": "Secondary CTA Label",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "label": "Select",
+        "name": "select",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "default"
+          },
+          {
+            "name": "hide Button",
+            "value": "hide Button"
+          },
+          {
+            "name": "hide Indocators",
+            "value": "hide Indocators"
+          }
+        ]
       }
     ]
   },

@@ -1,5 +1,9 @@
-.carousel .carousel-item-container {
+.carousel .carousel-items-container {
   position: relative;
+  max-height: 860px;
+  max-width: 100%;
+  height: 306px;
+  width: 1080px;
 }
 
 .carousel .carousel-items,
