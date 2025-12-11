@@ -133,7 +133,7 @@
           },
           "fields": [
             {
-              "component": "multifield",
+              "component": "array",
               "name": "items",
               "label": "Items",
               "type": "array",

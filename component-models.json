@@ -165,20 +165,21 @@
     "title": "Carousel",
     "fields": [
       {
-        "component": "tab",
-        "name": "tabItems",
-        "label": "Items",
+        "component": "fieldset",
+        "name": "ItemsGroup",
+        "label": "Items Management",
         "fields": [
           {
             "component": "reference",
             "name": "carouselImage",
-            "label": "Carousel Image"
+            "label": "Carousel Image",
+            "valueType": "string"
           }
         ]
       },
       {
-        "component": "tab",
-        "name": "tabProperties",
+        "component": "fieldset",
+        "name": "PropertiesGroup",
         "label": "Properties",
         "fields": [
           {
