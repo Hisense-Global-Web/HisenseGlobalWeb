@@ -205,11 +205,11 @@
         ]
       },
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
+        "name": "image",
+        "label": "Image",
+        "multi": false
       },
       {
         "component": "richtext",
