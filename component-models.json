@@ -176,10 +176,15 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
-      },
+      }
+    ]
+  },
+  {
+    "id": "item",
+    "fields": [
       {
         "component": "aem-content",
-        "name": "cta primary",
+        "name": "cta-primary",
         "value": "",
         "label": "CTA Primary",
         "valueType": "string"
@@ -193,7 +198,7 @@
       },
       {
         "component": "aem-content",
-        "name": "cta secondary",
+        "name": "cta-secondary",
         "value": "",
         "label": "CTA Secondary",
         "valueType": "string"
