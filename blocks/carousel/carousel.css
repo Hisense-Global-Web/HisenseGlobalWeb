@@ -140,6 +140,32 @@
   left: calc(50% - 2px);
 }
 
+/* default mode */
+.carousel-default {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+/* fullscreen mode */
+.carousel-fullscreen {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.carousel-fullscreen .carousel-item-indicators {
+    width: 368px;
+    height: 4px;
+    margin-left: 4px;
+}
+
+/* card mode */
+.carousel-card .carousel-items-container{
+    border-radius: 20px;
+    border: 1px solid #E0E0E0;
+    padding: 30px 0;
+}
+
 @media (width >= 600px) {
   .carousel .carousel-navigation-buttons {
     left: 24px;

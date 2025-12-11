@@ -1,101 +1,94 @@
 {
-  "definitions": [
-    {
-      "title": "Carousel",
-      "id": "carousel",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Carousel",
-              "filter": "carousel"
-            }
-          }
-        }
+  "definitions":{
+    "title": "Carousel",
+    "description": "A carousel component that displays multiple items in a slideshow format.",
+    "type": "object",
+    "properties": {
+      "autoplay": {
+        "type": "boolean",
+        "title": "Autoplay",
+        "description": "Enable or disable autoplay for the carousel.",
+        "default": false
+      },
+      "autoplaySpeed": {
+        "type": "integer",
+        "title": "Autoplay Speed",
+        "description": "The speed (in milliseconds) at which the carousel should autoplay.",
+        "default": 3000,
+        "minimum": 1000
+      },
+      "showIndicators": {
+        "type": "boolean",
+        "title": "Show Indicators",
+        "description": "Show or hide slide indicators.",
+        "default": true
+      },
+      "showControls": {
+        "type": "boolean",
+        "title": "Show Controls",
+        "description": "Show or hide slide controls.",
+        "default": true
       }
     },
-    {
-      "title": "Carousel Item",
-      "id": "carousel-item",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-            "name": "Carousel Item",
-            "model": "carousel-item"
-            }
-          }
-        }
-      }
-    }
-  ],
-  "models": [
+    "required": []
+  },
+  "models":[
     {
       "id": "carousel",
-      "fields": []
-    },
-    {
-      "id": "carousel-item",
-      "fields": [
+      "fields": [],
+      "variantions": [
         {
-          "component": "reference",
-          "valueType": "string",
-          "name": "image",
-          "label": "Image",
-          "multi": false
+          "id": "default",
+          "label": "Default Carousel",
+          "default": {
+            "showControls": true,
+            "showIndicators": true,
+            "loop": true,
+            "autoplay": false
+          }
         },
         {
-          "component": "richtext",
-          "name": "text",
-          "value": "",
-          "label": "Text",
-          "valueType": "string"
+          "id": "fullscreen",
+          "label": "FullScreen Carousel",
+          "default": {
+            "showControls": false,
+            "showIndicators": true,
+            "loop": true,
+            "autoplay": false,
+            "delay": 5000
+          }
         },
         {
-          "component": "aem-content",
-          "name": "carousel_ctaPrimary",
-          "label": "Primary CTA",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "carousel_ctaPrimaryText",
-          "label": "Primary CTA Label",
-          "valueType": "string"
-        },
-        {
-          "component": "aem-content",
-          "name": "carousel_ctaSecondary",
-          "label": "Secondary CTA",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "carousel_ctaSecondaryText",
-          "label": "Secondary CTA Label",
-          "valueType": "string"
-        },
-        {
-          "component": "select",
-          "label": "Select",
-          "name": "select",
-          "valueType": "string",
-          "options": [
-            { "name": "Default", "value": "default" },
-            { "name": "hide Button", "value": "hide Button" },
-            { "name": "hide Indicators", "value": "hide Indicators" }
-          ]
+          "id": "cardCarousel",
+          "label": "Card Carousel",
+          "default": {
+            "showControls": true,
+            "showIndicators": false,
+            "loop": false
+          }
         }
       ]
     }
   ],
-  "filters": [
+  "nestedBloks":[
+    {
+      "id": "carouselItem",
+      "title": "Carousel Item",
+      "description": "An individual item within the carousel.",
+      "allowedComponents": [
+        "image",
+        "text",
+        "icon",
+        "button",
+        "video"
+      ]
+    }
+  ],
+  "filters":[
     {
       "id": "carousel",
       "components": [
-        "carousel-item"
+        "carouselItem"
       ]
     }
   ]

@@ -162,68 +162,37 @@
   },
   {
     "id": "carousel",
-    "fields": []
-  },
-  {
-    "id": "carousel-item",
-    "fields": [
+    "fields": [],
+    "variantions": [
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
+        "id": "default",
+        "label": "Default Carousel",
+        "default": {
+          "showControls": true,
+          "showIndicators": true,
+          "loop": true,
+          "autoplay": false
+        }
       },
       {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
+        "id": "fullscreen",
+        "label": "FullScreen Carousel",
+        "default": {
+          "showControls": false,
+          "showIndicators": true,
+          "loop": true,
+          "autoplay": false,
+          "delay": 5000
+        }
       },
       {
-        "component": "aem-content",
-        "name": "carousel_ctaPrimary",
-        "label": "Primary CTA",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "carousel_ctaPrimaryText",
-        "label": "Primary CTA Label",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "carousel_ctaSecondary",
-        "label": "Secondary CTA",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "carousel_ctaSecondaryText",
-        "label": "Secondary CTA Label",
-        "valueType": "string"
-      },
-      {
-        "component": "select",
-        "label": "Select",
-        "name": "select",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default",
-            "value": "default"
-          },
-          {
-            "name": "hide Button",
-            "value": "hide Button"
-          },
-          {
-            "name": "hide Indicators",
-            "value": "hide Indicators"
-          }
-        ]
+        "id": "cardCarousel",
+        "label": "Card Carousel",
+        "default": {
+          "showControls": true,
+          "showIndicators": false,
+          "loop": false
+        }
       }
     ]
   },
