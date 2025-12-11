@@ -15,38 +15,6 @@
           }
         }
       }
-    },
-     {
-      "title": "Default Card",
-      "id": "itemcard",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Default Card",
-              "model": "itemcard",
-               "classes": "itemcard"
-            }
-          }
-        }
-      }
-    },
-     {
-      "title": "Center Card",
-      "id": "centercard",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Center Card",
-              "model": "centercard",
-               "classes": "centercard"
-            }
-          }
-        }
-      }
     }
    
   ],
@@ -55,85 +23,23 @@
       "id": "collectionsection",
       "fields": [
         {
-          "component": "select",
-          "name": "classes",
+          "component": "text",
+          "name": "title",
           "value": "",
-          "label": "Card options",
-          "description": "",
-          "valueType": "string",
-          "options": [
-              {
-                  "name": "Default",
-                  "value": ""
-              },
-              {
-                  "name": "Side-by-side",
-                  "value": "side-by-side"
-              }
-          ]
-        },
-       {
-          "component": "reference",
-          "valueType": "string",
-          "name": "image",
-          "label": "Image",
-          "multi": false
-        },
-        {
-          "component": "richtext",
-          "name": "text",
-          "value": "",
-          "label": "Text",
+          "label": "Title",
           "valueType": "string"
-        }
-      ]
-    },
-     {
-      "id": "itemcard",
-      "fields": [
-        {
-          "component": "reference",
-          "valueType": "string",
-          "name": "image",
-          "label": "Image",
-          "multi": false
         },
         {
-          "component": "richtext",
-          "name": "text",
+          "component": "text",
+          "name": "subtitle",
           "value": "",
-          "label": "Text",
-          "valueType": "string"
-        }
-      ]
-    },
-     {
-      "id": "centercard",
-      "fields": [
-        {
-          "component": "reference",
-          "valueType": "string",
-          "name": "image",
-          "label": "Image",
-          "multi": false
-        },
-        {
-          "component": "richtext",
-          "name": "text",
-          "value": "",
-          "label": "Text",
+          "label": "Sub Title",
           "valueType": "string"
         }
       ]
     }
   ],
   "filters": [
-  {
-      "id": "collectionsection",
-      "components": [
-        "itemcard",
-        "centercard"
-      ]
-    }
+  
   ]
 }

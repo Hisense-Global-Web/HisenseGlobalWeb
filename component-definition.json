@@ -146,38 +146,6 @@
           }
         },
         {
-          "title": "Default Card",
-          "id": "itemcard",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Default Card",
-                  "model": "itemcard",
-                  "classes": "itemcard"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Center Card",
-          "id": "centercard",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Center Card",
-                  "model": "centercard",
-                  "classes": "centercard"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Columns",
           "id": "columns",
           "plugins": {
@@ -187,6 +155,37 @@
                 "template": {
                   "columns": "2",
                   "rows": "1"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cover Cards",
+          "id": "covercards",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Cover Cards",
+                  "filter": "covercards"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cover Card",
+          "id": "covercard",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Cover Card",
+                  "model": "covercard",
+                  "classes": "covercard"
                 }
               }
             }

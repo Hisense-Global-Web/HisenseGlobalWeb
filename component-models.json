@@ -206,73 +206,17 @@
     "id": "collectionsection",
     "fields": [
       {
-        "component": "select",
-        "name": "classes",
+        "component": "text",
+        "name": "title",
         "value": "",
-        "label": "Card options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default",
-            "value": ""
-          },
-          {
-            "name": "Side-by-side",
-            "value": "side-by-side"
-          }
-        ]
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
+        "label": "Title",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "itemcard",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
       },
       {
-        "component": "richtext",
-        "name": "text",
+        "component": "text",
+        "name": "subtitle",
         "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "centercard",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
+        "label": "Sub Title",
         "valueType": "string"
       }
     ]
@@ -293,6 +237,48 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
+      }
+    ]
+  },
+  {
+    "id": "covercards",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Side-by-side",
+            "value": "side-by-side"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "covercard",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },

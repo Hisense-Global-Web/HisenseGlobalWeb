@@ -16,20 +16,14 @@
       "cards",
       "columns",
       "fragment",
-      "collectionsection"
+      "collectionsection",
+      "covercards"
     ]
   },
   {
     "id": "cards",
     "components": [
       "card",
-      "centercard"
-    ]
-  },
-  {
-    "id": "collectionsection",
-    "components": [
-      "itemcard",
       "centercard"
     ]
   },
@@ -46,6 +40,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "covercards",
+    "components": [
+      "covercard"
     ]
   }
 ]
