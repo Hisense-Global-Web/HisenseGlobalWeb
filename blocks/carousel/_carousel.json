@@ -33,7 +33,7 @@
   ],
   "models": [
     {
-      "id": "carousel-item",
+      "id": "carousel",
       "fields": [
         {
          "component": "text",
