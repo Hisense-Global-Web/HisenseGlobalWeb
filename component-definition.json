@@ -161,31 +161,31 @@
           }
         },
         {
-          "title": "Cover Cards",
-          "id": "covercards",
+          "title": "Content Cards",
+          "id": "contentcards",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Cover Cards",
-                  "filter": "covercards"
+                  "name": "Content Cards",
+                  "filter": "contentcards"
                 }
               }
             }
           }
         },
         {
-          "title": "Cover Card",
-          "id": "covercard",
+          "title": "Content Card",
+          "id": "contentcard",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Cover Card",
-                  "model": "covercard",
-                  "classes": "covercard"
+                  "name": "Content Card",
+                  "model": "contentcard",
+                  "classes": "contentcard"
                 }
               }
             }

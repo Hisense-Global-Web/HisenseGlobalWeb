@@ -1,4 +1,4 @@
-.covercards > ul {
+.contentcards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -14,7 +14,7 @@
   position: relative;
 }
 
-.covercards .cards-card-body {
+.contentcards .cards-card-body {
   position: absolute;
   top: 0;
   text-align: center;
@@ -25,11 +25,11 @@
   font-size: 20px;
 }
 
-.covercards .cards-card-image {
+.contentcards .cards-card-image {
   line-height: 0;
 }
 
-.covercards > ul > li img {
+.contentcards > ul > li img {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;

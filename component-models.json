@@ -241,7 +241,7 @@
     ]
   },
   {
-    "id": "covercards",
+    "id": "contentcards",
     "fields": [
       {
         "component": "select",
@@ -264,7 +264,7 @@
     ]
   },
   {
-    "id": "covercard",
+    "id": "contentcard",
     "fields": [
       {
         "component": "reference",
