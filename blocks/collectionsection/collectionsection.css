@@ -5,13 +5,16 @@
 
 .collectionsection {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+ 
 }
 
-
-@media (width >= 900px) {
-  .collectionsection {
-    padding: 40px 32px;
+.collectionsection:first-child {
+   color: #00AAA6;
+   font-size: 16px;
   }
-}
+  
+.collectionsection:last-child {
+    font-size: 34px;
+    color: #333;
+    margin-top: 10px;
+  }
