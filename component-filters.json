@@ -26,6 +26,12 @@
     ]
   },
   {
+    "id": "collectionsection",
+    "components": [
+      "itemcard"
+    ]
+  },
+  {
     "id": "columns",
     "components": [
       "column"
