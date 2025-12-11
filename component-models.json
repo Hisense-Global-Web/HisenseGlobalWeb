@@ -162,22 +162,7 @@
   },
   {
     "id": "carousel",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "category",
-        "label": "Category",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title",
-        "value": ""
-      }
-    ]
+    "fields": []
   },
   {
     "id": "carousel-item",
@@ -235,8 +220,8 @@
             "value": "hide Button"
           },
           {
-            "name": "hide Indocators",
-            "value": "hide Indocators"
+            "name": "hide Indicators",
+            "value": "hide Indicators"
           }
         ]
       }
