@@ -1,4 +1,4 @@
-.contentcards > ul {
+.content-cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -7,14 +7,14 @@
   gap: 24px;
 }
 
-.contentcards > ul > li {
+.content-cards > ul > li {
   border-radius: 20px;
   overflow: hidden;
   background-color: var(--background-color);
   position: relative;
 }
 
-.contentcards .cards-card-body {
+.content-cards .cards-card-body {
   position: absolute;
   top: 0;
   text-align: center;
@@ -25,11 +25,11 @@
   font-size: 20px;
 }
 
-.contentcards .cards-card-image {
+.content-cards .cards-card-image {
   line-height: 0;
 }
 
-.contentcards > ul > li img {
+.content-cards > ul > li img {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;

@@ -241,7 +241,7 @@
     ]
   },
   {
-    "id": "contentcards",
+    "id": "content-cards",
     "fields": [
       {
         "component": "select",
@@ -264,7 +264,7 @@
     ]
   },
   {
-    "id": "contentcard",
+    "id": "content-card",
     "fields": [
       {
         "component": "reference",
