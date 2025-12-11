@@ -130,6 +130,37 @@
           }
         },
         {
+          "title": "Center Cards",
+          "id": "centertcards",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Center Cards",
+                  "filter": "centertcards"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Center Card",
+          "id": "centertcard",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Center Card",
+                  "model": "centertcard",
+                  "classes": "centertcard"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Collectionsection",
           "id": "collectionsection",
           "plugins": {
@@ -155,37 +186,6 @@
                 "template": {
                   "columns": "2",
                   "rows": "1"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Content Cards",
-          "id": "contentcards",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Content Cards",
-                  "filter": "contentcards"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Content Card",
-          "id": "contentcard",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Content Card",
-                  "model": "contentcard",
-                  "classes": "contentcard"
                 }
               }
             }

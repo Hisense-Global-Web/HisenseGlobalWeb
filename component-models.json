@@ -203,6 +203,48 @@
     ]
   },
   {
+    "id": "centertcards",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Sidebyside",
+            "value": "sidebyside"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "centertcard",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "collectionsection",
     "fields": [
       {
@@ -237,48 +279,6 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
-      }
-    ]
-  },
-  {
-    "id": "contentcards",
-    "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "value": "",
-        "label": "Card options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default",
-            "value": ""
-          },
-          {
-            "name": "Sidebyside",
-            "value": "sidebyside"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "contentcard",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
       }
     ]
   },
