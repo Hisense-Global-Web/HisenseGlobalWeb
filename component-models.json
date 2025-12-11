@@ -162,7 +162,12 @@
   },
   {
     "id": "carousel",
-    "fields": [],
+    "nestedBlocks": [
+      {
+        "id": "carouselItem",
+        "title": "Carousel Item"
+      }
+    ],
     "variantions": [
       {
         "id": "default",
@@ -194,62 +199,52 @@
           "loop": false
         }
       }
-    ],
-    "nestedBlocks": [
+    ]
+  },
+  {
+    "id": "carouselItem",
+    "fields": [
       {
-        "id": "carouselItem",
-        "title": "Carousel Item",
-        "fields": [
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "image",
-            "label": "Image",
-            "multi": false
-          },
-          {
-            "component": "richtext",
-            "name": "text",
-            "value": "",
-            "label": "Text",
-            "valueType": "string"
-          },
-          {
-            "component": "aem-content",
-            "name": "ctaPrimary",
-            "value": "",
-            "label": "CTA Primary",
-            "valueType": "string"
-          },
-          {
-            "component": "text",
-            "name": "ctaLabelPrimary",
-            "value": "",
-            "label": "CTA Label Primary",
-            "valueType": "string"
-          },
-          {
-            "component": "aem-content",
-            "name": "ctaSecondary",
-            "value": "",
-            "label": "CTA Secondary",
-            "valueType": "string"
-          },
-          {
-            "component": "text",
-            "name": "ctaLabelSecondary",
-            "value": "",
-            "label": "CTA Label Secondary",
-            "valueType": "string"
-          }
-        ],
-        "allowedComponents": [
-          "image",
-          "text",
-          "icon",
-          "button",
-          "video"
-        ]
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "ctaPrimary",
+        "value": "",
+        "label": "CTA Primary",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaLabelPrimary",
+        "value": "",
+        "label": "CTA Label Primary",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "ctaSecondary",
+        "value": "",
+        "label": "CTA Secondary",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaLabelSecondary",
+        "value": "",
+        "label": "CTA Label Secondary",
+        "valueType": "string"
       }
     ]
   },
