@@ -29,7 +29,8 @@
   {
     "id": "collectionsection",
     "components": [
-      "cards"
+      "itemcard",
+      "centercard"
     ]
   },
   {
