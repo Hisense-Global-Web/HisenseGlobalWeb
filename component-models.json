@@ -165,71 +165,10 @@
     "title": "Carousel",
     "fields": [
       {
-        "component": "fieldset",
-        "name": "ItemsGroup",
-        "label": "Items Management",
-        "fields": [
-          {
-            "component": "reference",
-            "name": "carouselImage",
-            "label": "Carousel Image",
-            "valueType": "string"
-          }
-        ]
-      },
-      {
-        "component": "fieldset",
-        "name": "PropertiesGroup",
-        "label": "Properties",
-        "fields": [
-          {
-            "component": "select",
-            "name": "theme",
-            "label": "Theme",
-            "type": "string",
-            "options": [
-              {
-                "name": "light",
-                "value": "light"
-              },
-              {
-                "name": "black",
-                "value": "black"
-              }
-            ]
-          },
-          {
-            "component": "richtext",
-            "name": "text",
-            "value": "",
-            "label": "Text",
-            "valueType": "string"
-          },
-          {
-            "component": "aem-content",
-            "name": "carousel_ctaPrimary",
-            "label": "Primary CTA",
-            "valueType": "string"
-          },
-          {
-            "component": "text",
-            "name": "carousel_ctaPrimaryText",
-            "label": "Primary CTA Label",
-            "valueType": "string"
-          },
-          {
-            "component": "aem-content",
-            "name": "carousel_ctaSecondary",
-            "label": "Secondary CTA",
-            "valueType": "string"
-          },
-          {
-            "component": "text",
-            "name": "carousel_ctaSecondaryText",
-            "label": "Secondary CTA Label",
-            "valueType": "string"
-          }
-        ]
+        "component": "reference",
+        "valueType": "string",
+        "name": "carouselRef",
+        "label": "Carousel Configuration"
       }
     ]
   },
