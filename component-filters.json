@@ -28,7 +28,7 @@
   {
     "id": "carousel",
     "components": [
-      "carouselItem"
+      "carousel-item"
     ]
   },
   {

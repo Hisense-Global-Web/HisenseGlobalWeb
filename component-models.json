@@ -161,7 +161,7 @@
     ]
   },
   {
-    "id": "carouselItem",
+    "id": "carousel-item",
     "fields": [
       {
         "component": "reference",
@@ -178,12 +178,18 @@
         "valueType": "string"
       },
       {
-        "component": "button",
-        "name": "btnPrimary",
+        "component": "aem-content",
+        "name": "cta",
         "value": "",
-        "label": "button Primary",
-        "valueType": "string",
-        "multi": true
+        "label": "CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "ctaLabel",
+        "value": "",
+        "label": "CTA Label",
+        "valueType": "string"
       }
     ],
     "variations": [
