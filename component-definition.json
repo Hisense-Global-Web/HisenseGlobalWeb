@@ -146,7 +146,7 @@
           }
         },
         {
-          "title": "Card",
+          "title": "Default Card",
           "id": "itemcard",
           "plugins": {
             "xwalk": {
@@ -162,7 +162,7 @@
           }
         },
         {
-          "title": "Card",
+          "title": "Center Card",
           "id": "centercard",
           "plugins": {
             "xwalk": {
