@@ -176,57 +176,30 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "item",
-    "fields": [
+      },
       {
         "component": "aem-content",
-        "name": "cta-primary",
-        "value": "",
-        "label": "CTA Primary",
+        "name": "carousel_ctaPrimary",
+        "label": "Primary CTA",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "ctaPrimaryLabel",
-        "value": "",
-        "label": "CTA Primary Label",
+        "name": "carousel_ctaPrimaryText",
+        "label": "Primary CTA Label",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "cta-secondary",
-        "value": "",
-        "label": "CTA Secondary",
+        "name": "carousel_ctaSecondary",
+        "label": "Secondary CTA",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "ctaSecondaryLabel",
-        "value": "",
-        "label": "CTA Secondary Label",
+        "name": "carousel_ctaSecondaryText",
+        "label": "Secondary CTA Label",
         "valueType": "string"
-      }
-    ],
-    "variations": [
-      {
-        "component": "select",
-        "name": "type",
-        "value": "",
-        "label": "Theme Type",
-        "options": [
-          {
-            "value": "dark",
-            "text": "dark"
-          },
-          {
-            "value": "light",
-            "text": "light"
-          }
-        ]
       }
     ]
   },

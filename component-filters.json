@@ -28,8 +28,7 @@
   {
     "id": "carousel",
     "components": [
-      "carousel-item",
-      "item"
+      "carousel-item"
     ]
   },
   {
