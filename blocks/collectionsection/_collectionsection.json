@@ -24,7 +24,7 @@
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Card",
+              "name": "Default Card",
               "model": "itemcard",
                "classes": "itemcard"
             }
@@ -40,7 +40,7 @@
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Card",
+              "name": "Center Card",
               "model": "centercard",
                "classes": "centercard"
             }
