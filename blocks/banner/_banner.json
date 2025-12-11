@@ -10,7 +10,7 @@
             "template": {
               "name": "Banner",
               "model": "banner",
-              "classes": "banner",
+              "classes": "banner-text",
               "collection_text": "<h5>Perfection, Any Content, Anytime</h5><h1>From the first setup to everyday use.designed to feel effortless —— so you can focus on what really matters.</h1>",
               "collection_ctaPrimary": "/",
               "collection_ctaPrimaryText": "Learn more"
@@ -31,6 +31,10 @@
             "label": "Banner classes options",
             "valueType": "string",
             "options": [
+                {
+                    "name": "Default",
+                    "value": ""
+                },
                 {
                     "name": "banner-img-right",
                     "value": "banner-img-right"

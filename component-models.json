@@ -152,6 +152,10 @@
         "valueType": "string",
         "options": [
           {
+            "name": "Default",
+            "value": ""
+          },
+          {
             "name": "banner-img-right",
             "value": "banner-img-right"
           }
