@@ -2,14 +2,14 @@
   "definitions": [
     {
       "title": "Content Cards",
-      "id": "content-cards",
+      "id": "contentcards",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Content Cards",
-              "filter": "content-cards"
+              "filter": "contentcards"
             }
           }
         }
@@ -17,15 +17,15 @@
     },
     {
       "title": "Content Card",
-      "id": "content-cards",
+      "id": "contentcards",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Content Card",
-              "model": "content-card",
-              "classes": "content-card"
+              "model": "contentcard",
+              "classes": "contentcard"
             }
           }
         }
@@ -34,7 +34,7 @@
   ],
   "models": [
      {
-      "id": "content-cards",
+      "id": "contentcards",
       "fields": [
         {
           "component": "select",
@@ -49,15 +49,15 @@
                   "value": ""
               },
               {
-                  "name": "Side-by-side",
-                  "value": "side-by-side"
+                  "name": "Sidebyside",
+                  "value": "sidebyside"
               }
           ]
         }
       ]
     },
     {
-      "id": "content-card",
+      "id": "contentcard",
       "fields": [
         {
           "component": "reference",
@@ -78,9 +78,9 @@
   ],
   "filters": [
     {
-      "id": "content-cards",
+      "id": "contentcards",
       "components": [
-        "content-card"
+        "contentcard"
       ]
     }
   ]

@@ -241,7 +241,7 @@
     ]
   },
   {
-    "id": "content-cards",
+    "id": "contentcards",
     "fields": [
       {
         "component": "select",
@@ -256,15 +256,15 @@
             "value": ""
           },
           {
-            "name": "Side-by-side",
-            "value": "side-by-side"
+            "name": "Sidebyside",
+            "value": "sidebyside"
           }
         ]
       }
     ]
   },
   {
-    "id": "content-card",
+    "id": "contentcard",
     "fields": [
       {
         "component": "reference",
