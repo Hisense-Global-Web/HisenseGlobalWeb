@@ -10,19 +10,14 @@
             "template": {
               "name": "Carousel",
               "filter": "carousel",
-              "model": "carousel",
-              "carousel_text": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
-              "carousel_ctaPrimary": "/",
-              "carousel_ctaPrimaryText": "Buy now",
-              "carousel_ctaSecondary": "/",
-              "carousel_ctaSecondaryText": "Learn more"
+              "model": "carousel"
             }
           }
         }
       },
       "fields": [
         {
-          "component": "array",
+          "component": "container",
           "name": "items",
           "type": "array",
           "multi": true,
@@ -37,16 +32,21 @@
       "title": "Carousel Item",
       "id": "carousel-item",
       "plugins": {
-      "xwalk": {
-        "page": {
-          "resourceType": "core/franklin/components/block/v1/block/item",
-          "template": {
-            "name": "Carousel Item",
-            "model": "carousel-item"
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Carousel Item",
+              "model": "carousel-item",
+              "carousel_text": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
+              "carousel_ctaPrimary": "/",
+              "carousel_ctaPrimaryText": "Buy now",
+              "carousel_ctaSecondary": "/",
+              "carousel_ctaSecondaryText": "Learn more"
+            }
           }
         }
-      }
-    },
+      },
       "fields": [
         {
           "component": "reference",
@@ -95,27 +95,16 @@
       "title": "Carousel",
       "fields": [
         {
-          "component": "select",
-          "valueType": "string",
-          "name": "select",
-          "label": "Select Theme",
-          "options": [
-            {"name": "light","value": "light"},
-            {"name": "dark","value": "dark"}
-          ]
-        },
-        {
           "component": "container",
           "name": "test",
-          "label": "Multi Image",
+          "label": "Carousel Item",
           "multi": true,
           "fields": [
             {
               "component": "reference",
               "valueType": "string",
               "name": "image",
-              "label": "Image",
-              "multi": false
+              "label": "Image"
             },
             {
               "component": "richtext",
@@ -124,6 +113,18 @@
               "label": "Text",
               "valueType": "string"
             }
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "select",
+          "label": "Select Theme",
+          "options": [
+            {"name": "light","value": "light"},
+            {"name": "dark","value": "dark"}
           ]
         }
       ]

@@ -165,6 +165,29 @@
     "title": "Carousel",
     "fields": [
       {
+        "component": "container",
+        "name": "test",
+        "label": "Carousel Item",
+        "multi": true,
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "image",
+            "label": "Image"
+          },
+          {
+            "component": "richtext",
+            "name": "text",
+            "value": "",
+            "label": "Text",
+            "valueType": "string"
+          }
+        ]
+      }
+    ],
+    "variations": [
+      {
         "component": "select",
         "valueType": "string",
         "name": "select",
@@ -177,28 +200,6 @@
           {
             "name": "dark",
             "value": "dark"
-          }
-        ]
-      },
-      {
-        "component": "container",
-        "name": "test",
-        "label": "Multi Image",
-        "multi": true,
-        "fields": [
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "image",
-            "label": "Image",
-            "multi": false
-          },
-          {
-            "component": "richtext",
-            "name": "text",
-            "value": "",
-            "label": "Text",
-            "valueType": "string"
           }
         ]
       }
