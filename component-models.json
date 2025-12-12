@@ -162,7 +162,6 @@
   },
   {
     "id": "carousel-item",
-    "title": "Carousel Item",
     "fields": [
       {
         "component": "reference",
