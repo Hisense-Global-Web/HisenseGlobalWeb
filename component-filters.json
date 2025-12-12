@@ -19,6 +19,18 @@
     ]
   },
   {
+    "id": "cardcarousel",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "cardslide",
+    "components": [
+      "imagecard"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"

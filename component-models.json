@@ -142,6 +142,40 @@
     ]
   },
   {
+    "id": "cardcarousel",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes_variant",
+        "label": "Variant",
+        "options": [
+          {
+            "name": "1 Slide",
+            "value": "1-slide"
+          },
+          {
+            "name": "2 Slides",
+            "value": "2-slides"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "value": "",
+        "label": "Heading"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -205,6 +239,25 @@
         "name": "imageAlt",
         "label": "Alt",
         "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "imagecard",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
       },
       {
         "component": "richtext",

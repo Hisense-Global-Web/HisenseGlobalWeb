@@ -1,0 +1,68 @@
+{
+  "definitions": [
+    {
+      "title": "Card Carousel",
+      "id": "cardcarousel",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/columns/v1/columns",
+            "template": {
+              "classes_variant": "2-slides"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "cardcarousel",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes_variant",
+          "label": "Variant",
+          "options": [
+            {
+              "name": "1 Slide",
+              "value": "1-slide"
+            },
+            {
+              "name": "2 Slides",
+              "value": "2-slides"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "value": "",
+          "label": "Title"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "heading",
+          "value": "",
+          "label": "Heading"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "cardcarousel",
+      "components": [
+        "column"
+      ]
+    },
+    {
+      "id": "cardslide",
+      "components": [
+        "imagecard"
+      ]
+    }
+  ]
+}
