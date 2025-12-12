@@ -28,54 +28,46 @@
       "title": "Carousel",
       "fields": [
         {
-          "component": "container",
-          "name": "test",
-          "label": "Carousel Item",
-          "multi": true,
-          "fields": [
-            {
-              "component": "reference",
-              "valueType": "string",
-              "name": "image",
-              "label": "Image",
-              "multi": false
-            },
-            {
-              "component": "richtext",
-              "name": "text",
-              "value": "",
-              "label": "Text",
-              "valueType": "string"
-            },
-            {
-              "component": "aem-content",
-              "name": "carousel_ctaPrimary",
-              "label": "Primary CTA",
-              "valueType": "string",
-              "value": "/"
-            },
-            {
-              "component": "text",
-              "name": "carousel_ctaPrimaryText",
-              "label": "Primary CTA Label",
-              "valueType": "string",
-              "value": "Buy Now"
-            },
-            {
-              "component": "aem-content",
-              "name": "carousel_ctaSecondary",
-              "label": "Secondary CTA",
-              "valueType": "string",
-              "value": "/"
-            },
-            {
-              "component": "text",
-              "name": "carousel_ctaSecondaryText",
-              "label": "Secondary CTA Label",
-              "valueType": "string",
-              "value": "Larn More"
-            }
-          ]
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Text",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "carousel_ctaPrimary",
+          "label": "Primary CTA",
+          "valueType": "string",
+          "value": "/"
+        },
+        {
+          "component": "text",
+          "name": "carousel_ctaPrimaryText",
+          "label": "Primary CTA Label",
+          "valueType": "string",
+          "value": "Buy Now"
+        },
+        {
+          "component": "aem-content",
+          "name": "carousel_ctaSecondary",
+          "label": "Secondary CTA",
+          "valueType": "string",
+          "value": "/"
+        },
+        {
+          "component": "text",
+          "name": "carousel_ctaSecondaryText",
+          "label": "Secondary CTA Label",
+          "valueType": "string",
+          "value": "Larn More"
         }
       ],
       "variations": [

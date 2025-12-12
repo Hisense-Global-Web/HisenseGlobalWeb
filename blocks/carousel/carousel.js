@@ -1,5 +1,3 @@
-import { readBlockConfig } from '../../scripts/aem.js';
-
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
@@ -96,10 +94,9 @@ let carouselId = 0;
 
 export default async function decorate(block) {
   carouselId += 1;
-  const config = readBlockConfig(block);
   // carousel block
   block.setAttribute('id', `carousel-${carouselId}`);
-  const rows = config.querySelectorAll(':scope > div');
+  const rows = block.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
 
   block.setAttribute('role', 'region');
@@ -110,12 +107,6 @@ export default async function decorate(block) {
   const slidesWrapper = document.createElement('ul');
   slidesWrapper.classList.add('carousel-items');
   block.prepend(slidesWrapper);
-  // carousel container -> img
-  // if (config.test && config.test.image) {
-  //   const img = document.createElement('img');
-  //   img.src = config.test.image;
-  //   block.append(img);
-  // }
   // more than 2 image to create indicators & nav controls
   let slideIndicators;
   if (!isSingleSlide) {
