@@ -1,0 +1,20 @@
+.collectionsection-container .collectionsection-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.collectionsection {
+  position: relative;
+ 
+}
+
+.collectionsection div:first-child div p{
+   color: #00AAA6;
+   font-size: 16px;
+  }
+  
+.collectionsection div:last-child div p{
+    font-size: 34px;
+    color: #333;
+    margin-top: 10px;
+  }
