@@ -74,8 +74,8 @@ function bindButtonEvents(block) {
   const buttons = block.querySelectorAll('.carousel-item');
   buttons.forEach((buttonNode) => {
     const defaultButton = buttonNode.querySelectorAll('.button');
-    const activeButton = defaultButton[0];
-    activeButton.classList.add('active');
+    const activeButton = defaultButton.length && defaultButton[0];
+    if (activeButton) activeButton.classList.add('active');
   });
 }
 function createSlide(row, slideIndex, carouselId) {
