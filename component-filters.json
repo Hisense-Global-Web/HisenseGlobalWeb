@@ -68,5 +68,11 @@
       "navigationItem",
       "navigationAction"
     ]
+  },
+  {
+    "id": "navigationItem",
+    "components": [
+      "navigationDropdownProduct"
+    ]
   }
 ]
