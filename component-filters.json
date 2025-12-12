@@ -60,5 +60,11 @@
     "components": [
       "recard"
     ]
+  },
+  {
+    "id": "navigation",
+    "components": [
+      "navigationItem"
+    ]
   }
 ]
