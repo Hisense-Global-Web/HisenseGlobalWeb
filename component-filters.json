@@ -15,8 +15,7 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "navigation"
+      "fragment"
     ]
   },
   {
@@ -43,7 +42,8 @@
   {
     "id": "navigation",
     "components": [
-      "navigationItem"
+      "navigationItem",
+      "navigationAction"
     ]
   }
 ]
