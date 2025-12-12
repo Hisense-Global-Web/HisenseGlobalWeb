@@ -38,5 +38,11 @@
       "button",
       "title"
     ]
+  },
+  {
+    "id": "navigation",
+    "components": [
+      "navigationItem"
+    ]
   }
 ]
