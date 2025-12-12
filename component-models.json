@@ -251,8 +251,22 @@
       },
       {
         "component": "aem-content",
-        "name": "link",
-        "label": "Link"
+        "name": "dropdownProducts",
+        "label": "Dropdown Products",
+        "multi": true
+      },
+      {
+        "component": "aem-content",
+        "name": "dropdownLinks",
+        "label": "Dropdown Links",
+        "multi": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "dropdownButtons",
+        "label": "Dropdown Buttons",
+        "multi": true
       }
     ]
   },
@@ -284,37 +298,6 @@
         "component": "aem-content",
         "name": "link",
         "label": "Link"
-      }
-    ]
-  },
-  {
-    "id": "navigationDropdownProduct",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "productImage",
-        "label": "Product Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "productImageAlt",
-        "label": "Product Image Alt",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Product Title",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "productLink",
-        "label": "Product Link"
       }
     ]
   }

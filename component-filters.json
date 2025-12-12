@@ -15,8 +15,7 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "navigation"
+      "fragment"
     ]
   },
   {
@@ -45,12 +44,6 @@
     "components": [
       "navigationItem",
       "navigationAction"
-    ]
-  },
-  {
-    "id": "navigationItem",
-    "components": [
-      "navigationDropdownProduct"
     ]
   }
 ]
