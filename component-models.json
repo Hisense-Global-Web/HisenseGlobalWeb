@@ -182,28 +182,28 @@
         "name": "carousel_ctaPrimary",
         "label": "Primary CTA",
         "valueType": "string",
-        "value": ""
+        "value": "/"
       },
       {
         "component": "text",
         "name": "carousel_ctaPrimaryText",
         "label": "Primary CTA Label",
         "valueType": "string",
-        "value": ""
+        "value": "required when you selected assets"
       },
       {
         "component": "aem-content",
         "name": "carousel_ctaSecondary",
         "label": "Secondary CTA",
         "valueType": "string",
-        "value": ""
+        "value": "/"
       },
       {
         "component": "text",
         "name": "carousel_ctaSecondaryText",
         "label": "Secondary CTA Label",
         "valueType": "string",
-        "value": ""
+        "value": "required when you selected assets"
       }
     ]
   },
