@@ -1,3 +1,5 @@
+import { readBlockConfig } from '../../scripts/aem.js';
+
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
@@ -91,10 +93,13 @@ function createSlide(row, slideIndex, carouselId) {
 }
 
 let carouselId = 0;
+
 export default async function decorate(block) {
   carouselId += 1;
+  const config = readBlockConfig(block);
+  // carousel block
   block.setAttribute('id', `carousel-${carouselId}`);
-  const rows = block.querySelectorAll(':scope > div');
+  const rows = config.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
 
   block.setAttribute('role', 'region');
@@ -105,11 +110,17 @@ export default async function decorate(block) {
   const slidesWrapper = document.createElement('ul');
   slidesWrapper.classList.add('carousel-items');
   block.prepend(slidesWrapper);
-
+  // carousel container -> img
+  // if (config.test && config.test.image) {
+  //   const img = document.createElement('img');
+  //   img.src = config.test.image;
+  //   block.append(img);
+  // }
+  // more than 2 image to create indicators & nav controls
   let slideIndicators;
   if (!isSingleSlide) {
     const slideIndicatorsNav = document.createElement('nav');
-    slideIndicatorsNav.setAttribute('aria-label', 'Carousel Slide Controls');
+    slideIndicatorsNav.setAttribute('aria-label', 'Carousel Slide Indicators');
     slideIndicators = document.createElement('ol');
     slideIndicators.classList.add('carousel-item-indicators');
     slideIndicatorsNav.append(slideIndicators);
@@ -133,7 +144,7 @@ export default async function decorate(block) {
       const indicator = document.createElement('li');
       indicator.classList.add('carousel-item-indicator');
       indicator.dataset.targetSlide = idx;
-      indicator.innerHTML = `<button type="button" aria-label="'Show Slide' ${idx + 1} 'of' ${rows.length}"></button>`;
+      indicator.innerHTML = `<button type="button" aria-label="'Show Slide' ${idx + 1} 'of' ${rows.length}" class="indicator-button"></button>`;
       slideIndicators.append(indicator);
     }
     row.remove();

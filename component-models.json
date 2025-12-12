@@ -188,25 +188,29 @@
             "component": "aem-content",
             "name": "carousel_ctaPrimary",
             "label": "Primary CTA",
-            "valueType": "string"
+            "valueType": "string",
+            "value": "/"
           },
           {
             "component": "text",
             "name": "carousel_ctaPrimaryText",
             "label": "Primary CTA Label",
-            "valueType": "string"
+            "valueType": "string",
+            "value": "Buy Now"
           },
           {
             "component": "aem-content",
             "name": "carousel_ctaSecondary",
             "label": "Secondary CTA",
-            "valueType": "string"
+            "valueType": "string",
+            "value": "/"
           },
           {
             "component": "text",
             "name": "carousel_ctaSecondaryText",
             "label": "Secondary CTA Label",
-            "valueType": "string"
+            "valueType": "string",
+            "value": "Larn More"
           }
         ]
       }
