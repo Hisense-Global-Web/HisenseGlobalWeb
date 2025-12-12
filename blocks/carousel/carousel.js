@@ -85,10 +85,10 @@
 // }
 
 // creat carousel item
-function createSlide(row, slideIndex, carouselId) {
+function createSlide(row, slideIndex) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
-  slide.setAttribute('id', `carousel-${carouselId}-item-${slideIndex}`);
+  slide.setAttribute('id', `carousel-item-${slideIndex}`);
   slide.classList.add('carousel-item');
 
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
@@ -96,42 +96,35 @@ function createSlide(row, slideIndex, carouselId) {
     slide.append(column);
   });
 
-  const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
-  if (labeledBy) {
-    slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
-  }
+  // const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
+  // if (labeledBy) {
+  //   slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
+  // }
 
   return slide;
 }
 
-let carouselId = 0;
-
 export default async function decorate(block) {
-  carouselId += 1;
   // carousel block
-  block.setAttribute('id', `carousel-${carouselId}`);
   const rows = block.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
-  // cta-content has a className
-  // const ctaButtons = block.querySelectorAll('.button');
 
   const slidesContainer = document.createElement('div');
-  slidesContainer.classList.add('carousel-items-container');
+  slidesContainer.classList.add('slides-container');
 
   const slidesWrapper = document.createElement('ul');
-  slidesWrapper.classList.add('carousel-items');
+  slidesWrapper.classList.add('slides-wrapper');
   block.prepend(slidesWrapper);
 
   // more than 2 image to create indicators & nav controls
-  let slideIndicators;
+  let slideControls;
   if (!isSingleSlide) {
-    const slideIndicatorsNav = document.createElement('nav');
-    slideIndicatorsNav.setAttribute('aria-label', 'Carousel Slide Indicators');
-    slideIndicatorsNav.classList.add('indicators');
-    slideIndicators = document.createElement('ol');
-    slideIndicators.classList.add('carousel-item-indicators');
-    slideIndicatorsNav.append(slideIndicators);
-    block.append(slideIndicatorsNav);
+    const slideNav = document.createElement('nav');
+    slideNav.classList.add('slide-navigation');
+    slideControls = document.createElement('ol');
+    slideControls.classList.add('carousel-controls');
+    slideNav.append(slideControls);
+    block.append(slideNav);
 
     const slideNavButtons = document.createElement('div');
     slideNavButtons.classList.add('carousel-navigation-buttons');
@@ -144,15 +137,15 @@ export default async function decorate(block) {
   }
   // creat indicator box
   rows.forEach((row, idx) => {
-    const slide = createSlide(row, idx, carouselId);
+    const slide = createSlide(row, idx);
     slidesWrapper.append(slide);
 
-    if (slideIndicators) {
+    if (slideControls) {
       const indicatorItem = document.createElement('li');
       indicatorItem.classList.add('carousel-item-indicator');
       indicatorItem.dataset.targetSlide = idx;
       indicatorItem.innerHTML = `<button type="button" aria-label="'Show Slide' ${idx + 1} 'of' ${rows.length}" class="indicator-button"></button>`;
-      slideIndicators.append(indicatorItem);
+      slideControls.append(indicatorItem);
     }
     row.remove();
   });
