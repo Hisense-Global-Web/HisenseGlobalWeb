@@ -161,8 +161,8 @@
     ]
   },
   {
-    "id": "carousel",
-    "title": "Carousel",
+    "id": "carousel-item",
+    "title": "Carousel Item",
     "fields": [
       {
         "component": "reference",
@@ -174,7 +174,7 @@
       {
         "component": "richtext",
         "name": "text",
-        "value": "",
+        "value": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
         "label": "Text",
         "valueType": "string"
       },
@@ -183,7 +183,7 @@
         "name": "carousel_ctaPrimary",
         "label": "Primary CTA",
         "valueType": "string",
-        "value": "/"
+        "value": "#"
       },
       {
         "component": "text",
@@ -197,7 +197,7 @@
         "name": "carousel_ctaSecondary",
         "label": "Secondary CTA",
         "valueType": "string",
-        "value": "/"
+        "value": "#"
       },
       {
         "component": "text",
@@ -207,6 +207,7 @@
         "value": "Larn More"
       }
     ],
+    "variationName": "themeType",
     "variations": [
       {
         "component": "select",
