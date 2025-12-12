@@ -65,7 +65,8 @@
   {
     "id": "navigation",
     "components": [
-      "navigationItem"
+      "navigationItem",
+      "navigationAction"
     ]
   }
 ]
