@@ -144,7 +144,25 @@
                 }
               }
             }
-          }
+          },
+          "variations": [
+            {
+              "component": "select",
+              "valueType": "string",
+              "name": "select",
+              "label": "Select Theme",
+              "options": [
+                {
+                  "name": "light",
+                  "value": "light"
+                },
+                {
+                  "name": "dark",
+                  "value": "dark"
+                }
+              ]
+            }
+          ]
         },
         {
           "title": "Columns",
