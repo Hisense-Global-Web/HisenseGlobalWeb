@@ -14,6 +14,13 @@
     height: 100%;
 }
 
+.carousel .indicators {
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    bottom: 0;
+}
+
 .carousel .carousel-items,
 .carousel .carousel-item-indicators {
     list-style: none;
@@ -78,7 +85,6 @@
 }
 
 .carousel-container .carousel-indicators {
-    position: absolute;
     bottom: -25px;
     height: 58px;
     width: 100%;
@@ -105,19 +111,42 @@
     opacity: 0.42;
     margin: 0;
     padding: 0;
-    border-radius: 50%;
-    background-color: #FFF;
+    background-color: var(--background-color);
     transition: background-color 0.2s;
 }
 
 .carousel .carousel-item-content .button-container {
     display: inline-block;
+    font-size: 14px;
+    text-align: center;
+    margin-right: 10px;
+    gap: 10px;
+}
+
+.carousel .carousel-item-content .button-container .button {
+    width: 144px;
+    line-height: 52px;
+    text-align: center;
+    border: 1px solid var(--background-color);
+    color: var(--background-color);
+    background-color: transparent;
+}
+
+.carousel .carousel-item-content .button-container .button.active {
+    background-color: #00AAA6;
+    border-color: #00AAA6;
+    color: white;
 }
 
 .carousel .carousel-item-indicator button:disabled,
 .carousel .carousel-item-indicator button:hover,
 .carousel .carousel-item-indicator button:focus-visible {
-    background-color: var(--text-color);
+    width: 68px;
+}
+
+.carousel .carousel-item-indicator button:disabled {
+    opacity: 1;
+    background-color: var(--background-color);
 }
 
 .carousel .carousel-navigation-buttons {
