@@ -142,6 +142,61 @@
     ]
   },
   {
+    "id": "banner",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Banner classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "text-color-black",
+            "value": "text-color-black"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "collection_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "collection_imageAlt",
+        "label": "Image Alt Text",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "collection_text",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "collection_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "collection_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "cardcarousel",
     "fields": [
       {
@@ -176,6 +231,29 @@
     ]
   },
   {
+    "id": "cards",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Side-by-side",
+            "value": "side-by-side"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -190,6 +268,25 @@
         "name": "text",
         "value": "",
         "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "collectionsection",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "subtitle",
+        "value": "",
+        "label": "Sub Title",
         "valueType": "string"
       }
     ]
@@ -229,16 +326,59 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
+        "name": "hero_image",
         "label": "Image",
         "multi": false
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
+        "name": "hero_imageAlt",
+        "label": "Image Alt Text",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "hero_text",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "hero_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "hero_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "hero_ctaSecondary",
+        "label": "Secondary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "hero_ctaSecondaryText",
+        "label": "Secondary CTA Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "imagecard",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
       },
       {
         "component": "richtext",
@@ -250,7 +390,30 @@
     ]
   },
   {
-    "id": "imagecard",
+    "id": "recards",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Side-by-side",
+            "value": "side-by-side"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "recard",
     "fields": [
       {
         "component": "reference",

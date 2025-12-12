@@ -15,7 +15,10 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "collectionsection",
+      "recards",
+      "banner"
     ]
   },
   {
@@ -49,6 +52,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "recards",
+    "components": [
+      "recard"
     ]
   }
 ]
