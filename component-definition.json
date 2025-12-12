@@ -182,7 +182,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Navigation Item",
-                  "model": "navigationItem"
+                  "model": "navigationItem",
+                  "filter": "navigationItem"
                 }
               }
             }
@@ -198,6 +199,21 @@
                 "template": {
                   "name": "Navigation Action",
                   "model": "navigationAction"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Navigation Dropdown Product",
+          "id": "navigationDropdownProduct",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Navigation Dropdown Product",
+                  "model": "navigationDropdownProduct"
                 }
               }
             }
