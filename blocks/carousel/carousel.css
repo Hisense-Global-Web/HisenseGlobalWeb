@@ -10,11 +10,11 @@
 
 .carousel-container .carousel-wrapper,
 .carousel .carousel-items,
-.slides-container {
+.carousel-items-container {
     height: 100%;
 }
 
-.carousel .slide-navigation {
+.carousel .indicators {
     position: absolute;
     height: 60px;
     width: 100%;
@@ -22,23 +22,22 @@
 }
 
 .carousel .carousel-items,
-.carousel .carousel-controls {
+.carousel .carousel-item-indicators {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.carousel .slides-wrapper {
+.carousel .carousel-items {
     display: flex;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     overflow: hidden;
-    height: 100%;
     margin: 0;
     padding: 0;
 }
 
-.carousel .slides-wrapper::-webkit-scrollbar {
+.carousel .carousel-items::-webkit-scrollbar {
     display: none;
 }
 
@@ -91,7 +90,7 @@
     width: 100%;
 }
 
-.carousel .carousel-controls {
+.carousel .carousel-item-indicators {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -100,7 +99,7 @@
     line-height: 0;
 }
 
-.carousel .carousel-controls.active {
+.carousel .carousel-item-indicators.active {
     width: 68px;
     height: 8px;
     border-radius: 100%;
@@ -156,7 +155,7 @@
     transform: translateY(-50%);
     left: 12px;
     right: 12px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: space-between;
     z-index: 1;
