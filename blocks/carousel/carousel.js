@@ -115,8 +115,8 @@ export default async function decorate(block) {
   // cta-content has a className
   // const ctaButtons = block.querySelectorAll('.button');
 
-  const carouselContainer = document.createElement('div');
-  carouselContainer.classList.add('carousel-items-container');
+  const slidesContainer = document.createElement('div');
+  slidesContainer.classList.add('carousel-items-container');
 
   const slidesWrapper = document.createElement('ul');
   slidesWrapper.classList.add('carousel-items');
@@ -135,13 +135,12 @@ export default async function decorate(block) {
 
     const slideNavButtons = document.createElement('div');
     slideNavButtons.classList.add('carousel-navigation-buttons');
-    slideNavButtons.setAttribute('disabled', true);
     slideNavButtons.innerHTML = `
       <button type="button" class= "slide-prev" aria-label="'Previous Slide'"></button>
       <button type="button" class="slide-next" aria-label="'Next Slide'"></button>
     `;
 
-    carouselContainer.append(slideNavButtons);
+    slidesContainer.append(slideNavButtons);
   }
   // creat indicator box
   rows.forEach((row, idx) => {
@@ -158,8 +157,8 @@ export default async function decorate(block) {
     row.remove();
   });
 
-  carouselContainer.append(slidesWrapper);
-  block.prepend(carouselContainer);
+  slidesContainer.append(slidesWrapper);
+  block.prepend(slidesContainer);
 
   // if (!isSingleSlide) {
   //   bindEvents(block);
