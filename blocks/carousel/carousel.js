@@ -1,3 +1,4 @@
+// update current carouselItem and relative indicators
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
@@ -16,19 +17,20 @@ function updateActiveSlide(slide) {
     });
   });
 
-  const indicators = block.querySelectorAll('.carousel-item-indicator');
-  indicators.forEach((indicator, idx) => {
-    const button = indicator.querySelector('button');
+  const carouselIndicators = block.querySelectorAll('.carousel-item-indicator');
+  carouselIndicators.forEach((indicator, idx) => {
+    const carouselButton = indicator.querySelector('button');
     if (idx !== slideIndex) {
-      button.removeAttribute('disabled');
-      button.removeAttribute('aria-current');
+      carouselButton.removeAttribute('disabled');
+      carouselButton.removeAttribute('aria-current');
     } else {
-      button.setAttribute('disabled', true);
-      button.setAttribute('aria-current', true);
+      carouselButton.setAttribute('disabled', true);
+      carouselButton.setAttribute('aria-current', true);
     }
   });
 }
 
+// scroll to current carouselItem
 function showSlide(block, slideIndex = 0) {
   const slides = block.querySelectorAll('.carousel-item');
   let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
@@ -43,6 +45,7 @@ function showSlide(block, slideIndex = 0) {
   });
 }
 
+// indicators event
 function bindEvents(block) {
   const slideIndicators = block.querySelector('.carousel-item-indicators');
   if (!slideIndicators) return;
@@ -70,14 +73,18 @@ function bindEvents(block) {
     slideObserver.observe(slide);
   });
 }
+
+// ctaButton Event
 function bindButtonEvents(block) {
-  const buttons = block.querySelectorAll('.carousel-item');
-  buttons.forEach((buttonNode) => {
+  const carouselButtons = block.querySelectorAll('.carousel-item');
+  carouselButtons.forEach((buttonNode) => {
     const defaultButton = buttonNode.querySelectorAll('.button');
     const activeButton = defaultButton[0];
     activeButton.classList.add('active');
   });
 }
+
+// creat carousel item
 function createSlide(row, slideIndex, carouselId) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
@@ -114,6 +121,7 @@ export default async function decorate(block) {
   const slidesWrapper = document.createElement('ul');
   slidesWrapper.classList.add('carousel-items');
   block.prepend(slidesWrapper);
+
   // more than 2 image to create indicators & nav controls
   let slideIndicators;
   if (!isSingleSlide) {
@@ -127,6 +135,7 @@ export default async function decorate(block) {
 
     const slideNavButtons = document.createElement('div');
     slideNavButtons.classList.add('carousel-navigation-buttons');
+    slideNavButtons.setAttribute('disabled', true);
     slideNavButtons.innerHTML = `
       <button type="button" class= "slide-prev" aria-label="'Previous Slide'"></button>
       <button type="button" class="slide-next" aria-label="'Next Slide'"></button>
@@ -134,17 +143,17 @@ export default async function decorate(block) {
 
     carouselContainer.append(slideNavButtons);
   }
-  // creat li div; put carousel-items into this div
+  // creat indicator box
   rows.forEach((row, idx) => {
     const slide = createSlide(row, idx, carouselId);
     slidesWrapper.append(slide);
 
     if (slideIndicators) {
-      const indicator = document.createElement('li');
-      indicator.classList.add('carousel-item-indicator');
-      indicator.dataset.targetSlide = idx;
-      indicator.innerHTML = `<button type="button" aria-label="'Show Slide' ${idx + 1} 'of' ${rows.length}" class="indicator-button"></button>`;
-      slideIndicators.append(indicator);
+      const indicatorItem = document.createElement('li');
+      indicatorItem.classList.add('carousel-item-indicator');
+      indicatorItem.dataset.targetSlide = idx;
+      indicatorItem.innerHTML = `<button type="button" aria-label="'Show Slide' ${idx + 1} 'of' ${rows.length}" class="indicator-button"></button>`;
+      slideIndicators.append(indicatorItem);
     }
     row.remove();
   });

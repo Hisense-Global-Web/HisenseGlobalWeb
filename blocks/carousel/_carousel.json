@@ -24,7 +24,11 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Carousel Item",
-              "model": "carousel-item"
+              "model": "carousel-item",
+              "carousel_ctaPrimary": "/",
+              "carousel_ctaPrimaryText": "Buy Now",
+              "carousel_ctaSecondary": "/",
+              "carousel_ctaSecondaryText": "Larn more"
             }
           }
         }
@@ -54,31 +58,30 @@
           "name": "carousel_ctaPrimary",
           "label": "Primary CTA",
           "valueType": "string",
-          "value": "#"
+          "value": ""
         },
         {
           "component": "text",
           "name": "carousel_ctaPrimaryText",
           "label": "Primary CTA Label",
           "valueType": "string",
-          "value": "Buy Now"
+          "value": ""
         },
         {
           "component": "aem-content",
           "name": "carousel_ctaSecondary",
           "label": "Secondary CTA",
           "valueType": "string",
-          "value": "#"
+          "value": ""
         },
         {
           "component": "text",
           "name": "carousel_ctaSecondaryText",
           "label": "Secondary CTA Label",
           "valueType": "string",
-          "value": "Larn More"
+          "value": ""
         }
       ],
-      "variationName": "themeType",
       "variations": [
         {
           "component": "select",

@@ -155,7 +155,7 @@
     transform: translateY(-50%);
     left: 12px;
     right: 12px;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     z-index: 1;
