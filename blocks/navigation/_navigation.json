@@ -22,11 +22,10 @@
       "plugins": {
         "xwalk": {
           "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
+            "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Navigation Item",
-              "model": "navigationItem",
-              "filter": "navigationItem"
+              "model": "navigationItem"
             }
           }
         }
@@ -42,21 +41,6 @@
             "template": {
               "name": "Navigation Action",
               "model": "navigationAction"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Navigation Dropdown Product",
-      "id": "navigationDropdownProduct",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Navigation Dropdown Product",
-              "model": "navigationDropdownProduct"
             }
           }
         }
@@ -100,8 +84,22 @@
         },
         {
           "component": "aem-content",
-          "name": "link",
-          "label": "Link"
+          "name": "dropdownProducts",
+          "label": "Dropdown Products",
+          "multi": true
+        },
+        {
+          "component": "aem-content",
+          "name": "dropdownLinks",
+          "label": "Dropdown Links",
+          "multi": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "dropdownButtons",
+          "label": "Dropdown Buttons",
+          "multi": true
         }
       ]
     },
@@ -135,37 +133,6 @@
           "label": "Link"
         }
       ]
-    },
-    {
-      "id": "navigationDropdownProduct",
-      "fields": [
-        {
-          "component": "reference",
-          "valueType": "string",
-          "name": "productImage",
-          "label": "Product Image",
-          "multi": false
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "productImageAlt",
-          "label": "Product Image Alt",
-          "value": ""
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "title",
-          "label": "Product Title",
-          "value": ""
-        },
-        {
-          "component": "aem-content",
-          "name": "productLink",
-          "label": "Product Link"
-        }
-      ]
     }
   ],
   "filters": [
@@ -174,12 +141,6 @@
       "components": [
         "navigationItem",
         "navigationAction"
-      ]
-    },
-    {
-      "id": "navigationItem",
-      "components": [
-        "navigationDropdownProduct"
       ]
     }
   ]
