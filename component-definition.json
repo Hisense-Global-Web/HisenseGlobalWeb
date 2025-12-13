@@ -322,7 +322,7 @@
                   "name": "Navigation",
                   "model": "navigation",
                   "filter": "navigation",
-                  "class": "navigation-block"
+                  "classNames": "navigation-block"
                 }
               }
             }
@@ -338,7 +338,7 @@
                 "template": {
                   "name": "Navigation Item",
                   "model": "navigationItem",
-                  "class": "navigation-item"
+                  "classNames": "navigation-item"
                 }
               }
             }
@@ -354,7 +354,7 @@
                 "template": {
                   "name": "Navigation Action",
                   "model": "navigationAction",
-                  "class": "navigation-action"
+                  "classNames": "navigation-action"
                 }
               }
             }
