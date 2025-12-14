@@ -95,7 +95,35 @@
           "component": "aem-content",
           "name": "dropdownLinks",
           "label": "Dropdown Links",
-          "multi": true
+          "multi": true,
+          "fields": [
+            {
+              "component": "reference",
+              "valueType": "string",
+              "name": "image",
+              "label": "Image",
+              "multi": false
+            },
+            {
+              "component": "aem-content",
+              "name": "link",
+              "label": "Link"
+            },
+            {
+              "component": "text",
+              "valueType": "string",
+              "name": "alt",
+              "label": "Alt",
+              "value": ""
+            },
+            {
+              "component": "text",
+              "valueType": "string",
+              "name": "text",
+              "label": "Text",
+              "value": ""
+            }
+          ]
         },
         {
           "component": "text",
