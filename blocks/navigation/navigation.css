@@ -1,1 +1,147 @@
 /* navigation styles */
+
+/* 兼容编辑模式和预览模式 */
+.section.navigation-logo-container.navigation-item-container.navigation-action-container,
+.section[class*="navigation"] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #F4F8F7;
+  border-bottom: 1px solid #F4F8F7;
+  z-index: 999;
+  font-family: 'Hisense Sans Alfabet', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  padding: 0 25px;
+  max-width: 1200px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+/* 左侧logo区域 */
+.navigation-logo-wrapper {
+  order: 1;
+  min-width: 100px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.navigation-logo-wrapper .navigation-logo {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.navigation-logo-wrapper picture,
+.navigation-logo-wrapper img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+/* 隐藏编辑模式下的 alt 和 link 字段显示 */
+.navigation-logo-wrapper .navigation-logo > div:nth-child(2),
+.navigation-logo-wrapper .navigation-logo > div:nth-child(3) {
+  display: none;
+}
+
+/* 中间导航按钮区域：flex布局 */
+.navigation-item-wrapper {
+  order: 2;
+  display: inline-flex;
+  height: 100%;
+  padding-left: 0;
+}
+
+.navigation-item-wrapper:first-of-type {
+  padding-left: 38px;
+}
+
+.navigation-item-wrapper .navigation-item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 18px;
+  cursor: pointer;
+}
+
+/* 隐藏编辑模式下的 link 字段显示，只显示 text */
+.navigation-item-wrapper .navigation-item > div:first-child {
+  display: none;
+}
+
+.navigation-item-wrapper .navigation-item > div:last-child p {
+  margin: 0;
+  padding: 0;
+}
+
+/* 右侧功能区：flex布局 */
+.navigation-action-wrapper {
+  order: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+.navigation-action-wrapper:first-of-type {
+  margin-left: auto;
+}
+
+.navigation-action-wrapper:not(:last-child) {
+  margin-right: 30px;
+}
+
+.navigation-action-wrapper .navigation-action {
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+  cursor: pointer;
+}
+
+/* 隐藏编辑模式下的 icon 和 link 字段显示，只显示 text */
+.navigation-action-wrapper .navigation-action > div:first-child,
+.navigation-action-wrapper .navigation-action > div:last-child {
+  display: none;
+}
+
+.navigation-action-wrapper .navigation-action > div:nth-child(2) p {
+  margin: 0;
+  padding: 0;
+}
+
+
+.nav-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 10px 0 70px;
+  border-top: 1px solid #eee;
+  z-index: 998;
+}
+
+.nav-mask {
+  display: none;
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 100px);
+  background: rgb(0 0 0 / 50%);
+  z-index: 997;
+}
+
+
+.nav-link:hover .nav-dropdown,
+.nav-link .nav-dropdown:hover,
+.nav-link:hover .nav-mask,
+.nav-link .nav-dropdown:hover .nav-mask {
+  display: block;
+}
