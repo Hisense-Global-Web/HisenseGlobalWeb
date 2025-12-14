@@ -42,7 +42,9 @@
   {
     "id": "navigation",
     "components": [
-      "navigationItem"
+      "navigationItem",
+      "navigationLink",
+      "navigationAction"
     ]
   }
 ]
