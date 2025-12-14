@@ -105,44 +105,30 @@
     justify-content: space-between;
 }
 
-.carousel-container .carousel-indicators {
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    bottom: 0;
-    height: 58px;
-    width: 100%;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
 .carousel .carousel-item-indicators {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 12px;
+    padding: 12px;
+    line-height: 0;
+    list-style: none;
 }
 
-.carousel .carousel-item-indicator {
+.carousel .carousel-item-indicators.active {
+    width: 68px;
+    height: 8px;
+    border-radius: 100%;
+}
+
+.carousel .carousel-item-indicator button {
     width: 8px;
     height: 8px;
     opacity: 0.42;
-    cursor: pointer;
+    margin: 0;
+    padding: 0;
     background-color: var(--background-color);
-    border-radius: 50%;
-    margin-right: 10px;
     transition: background-color 0.2s;
-}
-
-.carousel .carousel-item-indicators.active,
-.carousel .carousel-item-indicators:disabled {
-    width: 68px;
-    height: 8px;
-    border-radius: 4px;
-    opacity: 1;
 }
 
 .carousel-item-indicator .indicator-button:not([aria-current="true"]):hover,

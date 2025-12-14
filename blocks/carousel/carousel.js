@@ -1,98 +1,79 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 // import { createOptimizedPicture } from '../../scripts/aem.js';
 
-// function updateActiveState(block, slideIndex) {
-//   block.dataset.activeSlide = String(slideIndex);
-//   const slides = block.querySelectorAll('.carousel-item');
-//   slides.forEach((slide, idx) => {
-//     const isActive = idx === slideIndex;
-//
-//     slide.setAttribute('aria-hidden', String(!isActive));
-//     slide.querySelectorAll('a').forEach((link) => {
-//       link.setAttribute('tabindex', isActive ? '0' : '-1');
-//     });
-//   });
-//   const indicators = block.querySelectorAll('.carousel-item-indicator button');
-//   indicators.forEach((button, idx) => {
-//     const isActive = idx === slideIndex;
-//     button.setAttribute('aria-current', String(isActive));
-//   });
-// }
+function updateActiveSlide(slide) {
+  const block = slide.closest('.carousel');
+  const slideIndex = parseInt(slide.dataset.slideIndex, 10);
+  block.dataset.activeSlide = slideIndex;
 
-// function showSlide(block, slideIndex = 0) {
-//   const slides = block.querySelectorAll('.carousel-item');
-//   const slidesCount = slides.length;
-//
-//   // 循环逻辑：处理边界条件（首尾相连）
-//   let realSlideIndex = slideIndex % slidesCount;
-//   if (realSlideIndex < 0) {
-//     realSlideIndex += slidesCount;
-//   }
-//
-//   const activeSlide = slides[realSlideIndex];
-//
-//   // 滚动到目标位置
-//   block.querySelector('.carousel-items').scrollTo({
-//     top: 0,
-//     left: activeSlide.offsetLeft,
-//     behavior: 'smooth',
-//   });
-//
-//   // 在滚动完成后（或立即）更新状态
-//   updateActiveState(block, realSlideIndex);
-// }
+  const slides = block.querySelectorAll('.carousel-item');
+  slides.forEach((aSlide, idx) => {
+    aSlide.setAttribute('aria-hidden', idx !== slideIndex);
+    aSlide.querySelectorAll('a').forEach((link) => {
+      if (idx !== slideIndex) {
+        link.setAttribute('tabindex', '-1');
+      } else {
+        link.removeAttribute('tabindex');
+      }
+    });
+  });
 
-// export function bindEvents(block) {
-//   // --- 1. 绑定指示器点击事件 ---
-//   const slideIndicators = block.querySelector('.carousel-item-indicators');
-//   if (slideIndicators) {
-//     slideIndicators.querySelectorAll('button').forEach((button) => {
-//       button.addEventListener('click', (e) => {
-//         const slideIndicator = e.currentTarget.parentElement;
-//         // 使用 showSlide 切换到目标索引
-//         showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
-//       });
-//     });
-//   }
-//
-//   // --- 2. 绑定 Prev/Next 按钮事件 ---
-//   const activeIndex = () => parseInt(block.dataset.activeSlide || '0', 10);
-//
-//   block.querySelector('.slide-prev')?.addEventListener('click', () => {
-//     showSlide(block, activeIndex() - 1);
-//   });
-//
-//   block.querySelector('.slide-next')?.addEventListener('click', () => {
-//     showSlide(block, activeIndex() + 1);
-//   });
-//
-//   // --- 3. 绑定 IntersectionObserver ---
-//   // 用于在用户手动滚动时自动更新状态
-//   const slideObserver = new IntersectionObserver((entries) => {
-//     entries.forEach((entry) => {
-//       // 只有当幻灯片在视野内超过 50% 时才视为活动
-//       if (entry.isIntersecting) {
-//         const slideIndex = parseInt(entry.target.dataset.slideIndex, 10);
-//         updateActiveState(block, slideIndex);
-//       }
-//     });
-//   }, { threshold: 0.5 });
-//
-//   block.querySelectorAll('.carousel-item').forEach((slide) => {
-//     slideObserver.observe(slide);
-//   });
-//
-//   // 初始状态设置：确保在加载时显示第一张幻灯片的状态
-//   if (block.querySelectorAll('.carousel-item').length > 0) {
-//     updateActiveState(block, 0);
-//   }
-// }
+  const indicators = block.querySelectorAll('.carousel-item-indicator');
+  indicators.forEach((indicator, idx) => {
+    const button = indicator.querySelector('button');
+    if (idx !== slideIndex) {
+      button.removeAttribute('disabled');
+      button.removeAttribute('aria-current');
+    } else {
+      button.setAttribute('disabled', true);
+      button.setAttribute('aria-current', true);
+    }
+  });
+}
 
-function createSlide(row) {
+function showSlide(block, slideIndex = 0) {
+  const slides = block.querySelectorAll('.carousel-item');
+  let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
+  if (slideIndex >= slides.length) realSlideIndex = 0;
+  const activeSlide = slides[realSlideIndex];
+  activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
+  block.querySelector('.carousel-items-container').scrollTo({
+    top: 0,
+    left: activeSlide.offsetLeft,
+    behavior: 'smooth',
+  });
+}
+
+function bindEvents(block) {
+  const slideIndicators = block.querySelector('.carousel-item-indicators');
+  if (!slideIndicators) return;
+  const slideObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) updateActiveSlide(entry.target);
+    });
+  }, { threshold: 0.5 });
+  block.querySelectorAll('.carousel-item').forEach((slide) => {
+    slideObserver.observe(slide);
+  });
+  slideIndicators.querySelectorAll('button').forEach((button) => {
+    button.addEventListener('click', (e) => {
+      const slideIndicator = e.currentTarget.parentElement;
+      showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
+    });
+  });
+
+  block.querySelector('.slide-prev').addEventListener('click', () => {
+    showSlide(block, parseInt(block.dataset.activeSlide, 10) - 1);
+  });
+  block.querySelector('.slide-next').addEventListener('click', () => {
+    showSlide(block, parseInt(block.dataset.activeSlide, 10) + 1);
+  });
+}
+function createSlide(row, slideIndex) {
   const slide = document.createElement('li');
   moveInstrumentation(row, slide);
   slide.classList.add('carousel-item');
-
+  slide.dataset.slideIndex = slideIndex;
   [...row.children].forEach((column, colIdx) => {
     if (colIdx === 0) column.classList.add('carousel-item-image');
     else if (colIdx === 1) column.classList.add('carousel-item-content');
@@ -121,18 +102,15 @@ export default async function decorate(block) {
       <button type="button" class="slide-next" aria-label="'Next Slide'"></button>
     `;
   }
-  [...block.children].forEach((row) => {
-    const slide = createSlide(row);
+  [...block.children].forEach((row, idx) => {
+    const slide = createSlide(row, idx);
     wholeContainer.append(slide);
-    // wholeContainer.querySelectorAll('picture > img').forEach((img) => {
-    //   const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '100%' }]);
-    //   moveInstrumentation(img, optimizedPic.querySelector('img'));
-    //   img.closest('picture').replaceWith(optimizedPic);
-    // });
     if (slideIndicators) {
       const indicator = document.createElement('li');
       indicator.classList.add('carousel-item-indicator');
-      // indicator.dataset.targetSlide = String(idx);
+      indicator.dataset.targetSlide = idx;
+      indicator.innerHTML = `
+        <button type="button" class="indicator-button"></button>`;
       slideIndicators.append(indicator);
     }
     row.remove();
@@ -140,7 +118,7 @@ export default async function decorate(block) {
   block.prepend(wholeContainer);
   block.append(slideIndicatorsNav);
   block.append(slideNavButtons);
-  // if (!isSingleSlide) {
-  //   bindEvents(block);
-  // }
+  if (!isSingleSlide) {
+    bindEvents(block);
+  }
 }
