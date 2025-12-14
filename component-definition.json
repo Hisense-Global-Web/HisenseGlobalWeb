@@ -257,6 +257,7 @@
                 "template": {
                   "name": "Footer Legal Links",
                   "model": "footerLegalLinks",
+                  "filter": "footerLegalLinks",
                   "classes": "footer-legal-links"
                 }
               }
