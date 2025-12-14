@@ -1,0 +1,41 @@
+{
+  "definitions": [
+    {
+      "title": "Footer Legal Link Item",
+      "id": "footerLegalLinkItem",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Footer Legal Link Item",
+              "model": "footerLegalLinkItem",
+              "classes": "footer-legal-link-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "footerLegalLinkItem",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "text",
+          "label": "Link Text",
+          "value": ""
+        },
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
+

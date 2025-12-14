@@ -122,23 +122,27 @@ export default function decorate(block) {
       const legalLinksDiv = document.createElement('div');
       legalLinksDiv.className = 'footer-legal-links';
 
-      // 获取所有链接项（container 字段会生成多个 div）
-      const linkItems = legalBlock.querySelectorAll('[data-aue-prop="links"] > div');
-      linkItems.forEach((item) => {
-        const linkField = item.querySelector('[data-aue-prop="link"]');
-        const textField = item.querySelector('[data-aue-prop="text"]');
-        if (linkField || textField) {
-          const a = document.createElement('a');
-          a.className = 'footer-legal-link';
-          const linkAnchor = linkField?.querySelector('a');
-          a.href = linkAnchor?.href || linkAnchor?.getAttribute('href') || '#';
-          a.textContent = textField?.textContent.trim() || linkField?.textContent.trim() || '';
-          legalLinksDiv.appendChild(a);
+      // 获取所有 footer-legal-link-item block items
+      const linkItemWrappers = legalBlock.querySelectorAll('.footer-legal-link-item-wrapper');
+      linkItemWrappers.forEach((itemWrapper) => {
+        const itemBlock = itemWrapper.querySelector('.footer-legal-link-item');
+        if (itemBlock) {
+          const linkField = itemBlock.querySelector('[data-aue-prop="link"]');
+          const textField = itemBlock.querySelector('[data-aue-prop="text"]');
+          if (linkField || textField) {
+            const a = document.createElement('a');
+            a.className = 'footer-legal-link';
+            const linkAnchor = linkField?.querySelector('a');
+            a.href = linkAnchor?.href || linkAnchor?.getAttribute('href') || '#';
+            a.textContent = textField?.textContent.trim() || '';
+            legalLinksDiv.appendChild(a);
+          }
         }
       });
 
       footerBottom.appendChild(legalLinksDiv);
 
+      // 版权信息
       const copyrightField = legalBlock.querySelector('[data-aue-prop="copyright"]');
       if (copyrightField) {
         const copyrightDiv = document.createElement('div');
@@ -155,4 +159,3 @@ export default function decorate(block) {
   block.textContent = '';
   block.appendChild(footer);
 }
-

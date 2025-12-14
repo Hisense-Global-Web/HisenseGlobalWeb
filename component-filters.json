@@ -73,6 +73,12 @@
     ]
   },
   {
+    "id": "footerLegalLinks",
+    "components": [
+      "footerLegalLinkItem"
+    ]
+  },
+  {
     "id": "footerLogo",
     "components": [
       "footerSocial"
