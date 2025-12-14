@@ -43,6 +43,7 @@
   {
     "id": "navigation",
     "components": [
+      "navigationLogo",
       "navigationItem",
       "navigationLink",
       "navigationAction"

@@ -274,6 +274,30 @@
     ]
   },
   {
+    "id": "navigationLogo",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "alt",
+        "label": "Alt Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      }
+    ]
+  },
+  {
     "id": "navigation",
     "fields": [
       {
