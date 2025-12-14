@@ -491,6 +491,18 @@
     "fields": []
   },
   {
+    "id": "footerLegalLinks",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "copyright",
+        "label": "Copyright Text",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "footerLegalLinkItem",
     "fields": [
       {
@@ -504,18 +516,6 @@
         "component": "aem-content",
         "name": "link",
         "label": "Link"
-      }
-    ]
-  },
-  {
-    "id": "footerLegalLinks",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "copyright",
-        "label": "Copyright Text",
-        "value": ""
       }
     ]
   },
