@@ -90,6 +90,7 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 
 function createSlide(row) {
   const slide = document.createElement('li');
+  moveInstrumentation(row, slide);
   slide.classList.add('carousel-item');
 
   [...row.children].forEach((column, colIdx) => {
@@ -125,18 +126,18 @@ export default async function decorate(block) {
   [...block.children].forEach((row) => {
     const slide = createSlide(row);
     wholeContainer.append(slide);
+    wholeContainer.querySelectorAll('picture > img').forEach((img) => {
+      const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '100%' }]);
+      moveInstrumentation(img, optimizedPic.querySelector('img'));
+      img.closest('picture').replaceWith(optimizedPic);
+    });
     // if (slideIndicators) {
     //   const indicator = document.createElement('li');
     //   indicator.classList.add('carousel-item-indicator');
     //   indicator.dataset.targetSlide = String(idx);
     //   slideIndicators.append(indicator);
     // }
-    // row.remove();
-  });
-  wholeContainer.querySelectorAll('picture > img').forEach((img) => {
-    const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '100%' }]);
-    moveInstrumentation(img, optimizedPic.querySelector('img'));
-    img.closest('picture').replaceWith(optimizedPic);
+    row.remove();
   });
   block.prepend(wholeContainer);
   // if (!isSingleSlide) {
