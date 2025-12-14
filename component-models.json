@@ -236,6 +236,26 @@
         "component": "aem-content",
         "name": "logoLink",
         "label": "Logo Link"
+      },
+      {
+        "component": "container",
+        "name": "navItems",
+        "label": "Navigation Items",
+        "multi": true,
+        "fields": [
+          {
+            "component": "aem-content",
+            "name": "link",
+            "label": "Link"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "text",
+            "label": "Text",
+            "value": ""
+          }
+        ]
       }
     ]
   }
