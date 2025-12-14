@@ -1,41 +1,83 @@
 /* footer-container styles */
 
+/* 兼容编辑模式和预览模式 */
 .section.footer-container-block,
 .section[class*="footer-container"] {
   background: rgb(230 250 250 / 50%);
 }
 
+/* Footer内容容器：Flex布局 */
 .section.footer-container-block > *,
 .section[class*="footer-container"] > * {
   max-width: 1080px;
   margin: 0 auto;
 }
 
+/* 编辑模式下的样式优化 */
 .section.footer-container-block[data-aue-resource],
 .section[class*="footer-container"][data-aue-resource] {
   padding: 20px;
   min-height: 200px;
 }
 
+/* 编辑模式下 wrapper 的样式 */
 .footer-logo-wrapper,
-.footer-social-wrapper,
 .footer-nav-column-wrapper,
-.footer-nav-column-list-wrapper,
-.footer-legal-links-wrapper,
-.footer-legal-link-item-wrapper {
-  margin: 10px 0;
+.footer-legal-links-wrapper {
+  margin: 15px 0;
+  padding: 15px;
+  border: 2px dashed #999;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 80%);
+  position: relative;
+}
+
+.footer-logo-wrapper::before,
+.footer-nav-column-wrapper::before,
+.footer-legal-links-wrapper::before {
+  content: attr(data-aue-label);
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background: #fff;
+  padding: 2px 8px;
+  font-size: 11px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* 编辑模式下 block items 的样式（没有 wrapper 的情况） */
+.footer-logo[data-aue-type="container"] > div[data-aue-model="footerSocial"],
+.footer-nav-column[data-aue-type="container"] > div[data-aue-model="footerNavColumnList"],
+.footer-legal-links[data-aue-type="container"] > div[data-aue-model="footerLegalLinkItem"] {
+  margin: 8px 0;
   padding: 10px;
   border: 1px dashed #ccc;
   border-radius: 4px;
-  background: rgb(255 255 255 / 50%);
+  background: rgb(248 248 248 / 80%);
+  position: relative;
 }
 
+.footer-logo[data-aue-type="container"] > div[data-aue-model="footerSocial"]::before,
+.footer-nav-column[data-aue-type="container"] > div[data-aue-model="footerNavColumnList"]::before,
+.footer-legal-links[data-aue-type="container"] > div[data-aue-model="footerLegalLinkItem"]::before {
+  content: attr(data-aue-label);
+  position: absolute;
+  top: -8px;
+  left: 8px;
+  background: #f8f8f8;
+  padding: 1px 6px;
+  font-size: 10px;
+  color: #888;
+}
+
+/* 隐藏编辑模式下的配置字段显示 */
 .footer-logo-wrapper .footer-logo > div:nth-child(2) {
-  display: none; 
+  display: none;
 }
 
 .footer-nav-column-wrapper .footer-nav-column > div:first-child {
-  display: none; 
+  display: none;
 }
 
 .footer-nav-column-list-wrapper .footer-nav-column-list > div:first-child {
@@ -46,6 +88,20 @@
   display: none;
 }
 
+/* 编辑模式下，直接子元素（block items）的隐藏 */
+.footer-logo[data-aue-type="container"] > div[data-aue-model="footerSocial"] > div:last-child {
+  display: none;
+}
+
+.footer-nav-column[data-aue-type="container"] > div[data-aue-model="footerNavColumnList"] > div:first-child {
+  display: none;
+}
+
+.footer-legal-links[data-aue-type="container"] > div[data-aue-model="footerLegalLinkItem"] > div:first-child {
+  display: none;
+}
+
+/* 预览模式样式 */
 footer#footer {
   background: rgb(230 250 250 / 50%);
 }
@@ -109,6 +165,7 @@ footer#footer {
 .footer-nav-column-list {
   list-style: none;
   margin-bottom: 27px;
+  padding: 0;
 }
 
 .footer-nav-column-item {
@@ -162,4 +219,3 @@ footer#footer {
   font-weight: 400;
   color: rgb(51 51 51 / 100%);
 }
-
