@@ -36,22 +36,9 @@
       "id": "carousel-item",
       "fields": [
         {
-          "component": "tab",
-          "name": "configTab",
-          "label": "Config",
-          "tabId": "config"
-        },
-        {
-          "component": "tab",
-          "name": "itemsTab",
-          "label": "Items",
-          "tabId": "items"
-        },
-        {
           "component": "fieldset",
           "name": "configContainer",
           "label": "Config Container",
-          "tabId": "config",
           "fields": [
             {
               "component": "select",
@@ -80,7 +67,6 @@
           "component": "fieldset",
           "name": "itemsContainer",
           "label": "Items Container",
-          "tabId": "items",
           "fields": [
             {
               "component": "reference",
