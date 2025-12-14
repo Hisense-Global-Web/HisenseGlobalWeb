@@ -243,11 +243,17 @@
     "id": "navigationItem",
     "fields": [
       {
-        "component": "text",
+        "component": "select",
         "valueType": "string",
         "name": "type",
         "label": "Type",
-        "value": "navigationItem"
+        "value": "navigationItem",
+        "options": [
+          {
+            "name": "Navigation Item",
+            "value": "navigationItem"
+          }
+        ]
       },
       {
         "component": "aem-content",
@@ -267,12 +273,18 @@
     "id": "navigationLink",
     "fields": [
       {
-        "component": "text",
+        "component": "select",
         "valueType": "string",
         "name": "type",
         "label": "Type",
         "value": "navigationLink",
-        "hidden": true
+        "hidden": true,
+        "options": [
+          {
+            "name": "Navigation Link",
+            "value": "navigationLink"
+          }
+        ]
       },
       {
         "component": "text",
@@ -292,12 +304,18 @@
     "id": "navigationAction",
     "fields": [
       {
-        "component": "text",
+        "component": "select",
         "valueType": "string",
         "name": "type",
         "label": "Type",
         "value": "navigationAction",
-        "hidden": true
+        "hidden": true,
+        "options": [
+          {
+            "name": "Navigation Action",
+            "value": "navigationAction"
+          }
+        ]
       },
       {
         "component": "reference",
