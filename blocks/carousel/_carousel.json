@@ -28,13 +28,8 @@
             }
           }
         }
-      }
-    }
-  ],
-  "models": [
-    {
-      "id": "carousel",
-      "fields": [
+      },
+      "variations": [
         {
           "component": "select",
           "valueType": "string",
@@ -57,7 +52,9 @@
           ]
         }
       ]
-    },
+    }
+  ],
+  "models": [
     {
       "id": "carousel-item",
       "fields": [
