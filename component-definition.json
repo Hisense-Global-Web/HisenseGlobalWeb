@@ -211,7 +211,7 @@
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/section/v1/section",
+                "resourceType": "core/franklin/components/container/v1/container",
                 "template": {
                   "name": "Navigation",
                   "model": "navigation",
