@@ -1,27 +1,13 @@
-.carousel-container {
-    height: 860px;
-    width: 100%;
-}
-
-.carousel {
-    position: relative;
-    height: 100%;
-}
-
 .carousel-container .carousel-wrapper,
-.carousel .carousel-items,
 .carousel-items-container {
-    height: 100%;
+    height: 860px;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.carousel .indicators {
-    position: absolute;
-    height: 60px;
-    width: 100%;
-    bottom: 0;
+.carousel {
+    position: relative;
 }
 
 .carousel .carousel-items-container {
@@ -65,20 +51,16 @@
 .carousel .carousel-item .carousel-item-image picture > img {
     width: 100%;
     height: 100%;
-
-    /* background-size: cover; */
-
-    /* background-repeat: no-repeat; */
     object-fit: cover;
 }
 
 .carousel .carousel-item .carousel-item-content,
 .carousel .carousel-item .carousel-item-cta {
     z-index: 1;
-    margin: 0 0 0 120px;
+    margin-left: 120px;
     color: var(--background-color);
     position: relative;
-    width: var(--item-content-width, auto);
+    width: auto;
 }
 
 .carousel .carousel-item .carousel-item-content {
@@ -106,12 +88,19 @@
 }
 
 .carousel .carousel-item-indicators {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 12px;
-    padding: 12px;
-    line-height: 0;
+    margin: 0;
+    padding: 0;
+    height: 60px;
+    width: 100%;
     list-style: none;
 }
 
@@ -140,11 +129,10 @@
     display: inline-block;
     font-size: 14px;
     text-align: center;
-    margin-right: 10px;
     gap: 10px;
 }
 
-.carousel .carousel-item-content .button-container .button {
+.carousel .carousel-item-cta .button-container .button {
     width: 144px;
     line-height: 52px;
     text-align: center;
@@ -153,7 +141,7 @@
     background-color: transparent;
 }
 
-.carousel .carousel-item-content .button-container .button.active {
+.carousel .carousel-item-cta .button-container .button.active {
     background-color: #00AAA6;
     border-color: #00AAA6;
     color: white;
@@ -181,9 +169,9 @@
     justify-content: space-between;
     z-index: 1;
 }
-
 /* stylelint-disable-next-line no-descending-specificity */
 .carousel .carousel-navigation-buttons button {
+    display: none;
     position: relative;
     width: 44px;
     height: 44px;
@@ -222,9 +210,5 @@
     .carousel .carousel-navigation-buttons {
         left: 24px;
         right: 24px;
-    }
-
-    .carousel .carousel-item .carousel-item-content[data-align='justify'] {
-        --item-content-width: auto;
     }
 }

@@ -1,32 +1,17 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-// import { createOptimizedPicture } from '../../scripts/aem.js';
 
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
   block.dataset.activeSlide = slideIndex;
 
-  const slides = block.querySelectorAll('.carousel-item');
-  slides.forEach((aSlide, idx) => {
-    aSlide.setAttribute('aria-hidden', idx !== slideIndex);
-    aSlide.querySelectorAll('a').forEach((link) => {
-      if (idx !== slideIndex) {
-        link.setAttribute('tabindex', '-1');
-      } else {
-        link.removeAttribute('tabindex');
-      }
-    });
-  });
-
   const indicators = block.querySelectorAll('.carousel-item-indicator');
   indicators.forEach((indicator, idx) => {
     const button = indicator.querySelector('button');
     if (idx !== slideIndex) {
       button.removeAttribute('disabled');
-      button.removeAttribute('aria-current');
     } else {
       button.setAttribute('disabled', true);
-      button.setAttribute('aria-current', true);
     }
   });
 }
@@ -36,7 +21,6 @@ function showSlide(block, slideIndex = 0) {
   let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
   if (slideIndex >= slides.length) realSlideIndex = 0;
   const activeSlide = slides[realSlideIndex];
-  activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
   block.querySelector('.carousel-items-container').scrollTo({
     top: 0,
     left: activeSlide.offsetLeft,
@@ -88,13 +72,10 @@ export default async function decorate(block) {
   wholeContainer.classList.add('carousel-items-container');
   let slideIndicators;
   let slideNavButtons;
-  let slideIndicatorsNav;
+
   if (!isSingleSlide) {
-    slideIndicatorsNav = document.createElement('nav');
-    slideIndicatorsNav.classList.add('indicators');
     slideIndicators = document.createElement('ol');
     slideIndicators.classList.add('carousel-item-indicators');
-    slideIndicatorsNav.append(slideIndicators);
     slideNavButtons = document.createElement('div');
     slideNavButtons.classList.add('carousel-navigation-buttons');
     slideNavButtons.innerHTML = `
@@ -104,11 +85,15 @@ export default async function decorate(block) {
   }
   [...block.children].forEach((row, idx) => {
     const slide = createSlide(row, idx);
+    const ctaContent = slide.querySelector('.button');
+    if (ctaContent) {
+      ctaContent.classList.add('active');
+    }
     wholeContainer.append(slide);
     if (slideIndicators) {
       const indicator = document.createElement('li');
       indicator.classList.add('carousel-item-indicator');
-      indicator.dataset.targetSlide = idx;
+      indicator.dataset.targetSlide = String(idx);
       indicator.innerHTML = `
         <button type="button" class="indicator-button"></button>`;
       slideIndicators.append(indicator);
@@ -116,7 +101,7 @@ export default async function decorate(block) {
     row.remove();
   });
   block.prepend(wholeContainer);
-  block.append(slideIndicatorsNav);
+  block.append(slideIndicators);
   block.append(slideNavButtons);
   if (!isSingleSlide) {
     bindEvents(block);
