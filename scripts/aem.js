@@ -687,6 +687,10 @@ async function loadSectionResources(section) {
       const containerClass = [...section.classList].find((cls) => cls.endsWith('-container'));
       if (containerClass) {
         sectionName = containerClass.replace(/-container$/, '');
+        // 如果 sectionName 是 footer-*-container，那么设置 sectionName 为 footer-container
+        if (sectionName.match(/^footer-.*$/)) {
+          sectionName = 'footer-container';
+        }
       } else {
         const sectionClasses = [...section.classList].filter(
           (cls) => cls !== 'section' && !cls.endsWith('-container') && !cls.endsWith('-wrapper'),
@@ -716,6 +720,7 @@ async function loadSectionResources(section) {
                 await mod.default(section);
               }
             } catch (error) {
+              // eslint-disable-next-line no-console
               console.debug(`No module found for section ${sectionName}`, error);
             }
             resolve();
@@ -724,6 +729,7 @@ async function loadSectionResources(section) {
         await Promise.all([cssLoaded, decorationComplete]);
         section.dataset.sectionResourceStatus = 'loaded';
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.debug(`Failed to load section resources for ${sectionName}`, error);
         section.dataset.sectionResourceStatus = 'loaded';
       }
