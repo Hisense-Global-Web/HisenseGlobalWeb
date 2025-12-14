@@ -161,12 +161,12 @@
     ]
   },
   {
-    "id": "carousel-item",
+    "id": "carousel",
     "fields": [
       {
         "component": "select",
         "valueType": "string",
-        "name": "themeType",
+        "name": "theme-type",
         "label": "Select Theme",
         "options": [
           {
@@ -182,7 +182,7 @@
       {
         "component": "select",
         "valueType": "string",
-        "name": "carouselType",
+        "name": "carousel-type",
         "label": "Select Carousel Type",
         "options": [
           {
@@ -198,7 +198,12 @@
             "value": "card"
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "id": "carousel-item",
+    "fields": [
       {
         "component": "reference",
         "valueType": "string",

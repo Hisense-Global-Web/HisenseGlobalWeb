@@ -33,12 +33,12 @@
   ],
   "models": [
     {
-      "id": "carousel-item",
+      "id": "carousel",
       "fields": [
         {
           "component": "select",
           "valueType": "string",
-          "name": "themeType",
+          "name": "theme-type",
           "label": "Select Theme",
           "options": [
             {"name": "light","value": "light"},
@@ -48,14 +48,19 @@
         {
           "component": "select",
           "valueType": "string",
-          "name": "carouselType",
+          "name": "carousel-type",
           "label": "Select Carousel Type",
           "options": [
             {"name": "hero Carousel Type","value": "hero"},
             {"name": "icon Carousel Type","value": "icon"},
             {"name": "card Carousel Type","value": "card"}
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "carousel-item",
+      "fields": [
         {
           "component": "reference",
           "valueType": "string",
