@@ -92,7 +92,7 @@
           "multi": true
         },
         {
-          "component": "aem-content",
+          "component": "container",
           "name": "dropdownLinks",
           "label": "Dropdown Links",
           "multi": true,
