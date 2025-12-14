@@ -738,5 +738,60 @@
         "value": ""
       }
     ]
+  },
+  {
+    "id": "navigationLink",
+    "fields": [
+      {
+        "component": "hidden",
+        "valueType": "string",
+        "name": "type",
+        "label": "Type",
+        "value": "navigationLink"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      }
+    ]
+  },
+  {
+    "id": "navigationAction",
+    "fields": [
+      {
+        "component": "hidden",
+        "valueType": "string",
+        "name": "type",
+        "label": "Type",
+        "value": "navigationAction"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      }
+    ]
   }
 ]
