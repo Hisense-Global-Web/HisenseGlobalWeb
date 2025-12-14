@@ -99,8 +99,7 @@
           "valueType": "string",
           "name": "type",
           "label": "Type",
-          "value": "navigationItem",
-          "readOnly": true
+          "value": "navigationItem"
         },
         {
           "component": "aem-content",
