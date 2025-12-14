@@ -719,6 +719,13 @@
     "id": "navigationItem",
     "fields": [
       {
+        "component": "hidden",
+        "valueType": "string",
+        "name": "type",
+        "label": "Type",
+        "value": "navigationItem"
+      },
+      {
         "component": "aem-content",
         "name": "link",
         "label": "Link"
