@@ -248,7 +248,7 @@
         "name": "type",
         "label": "Type",
         "value": "navigationItem",
-        "hidden": true
+        "readOnly": true
       },
       {
         "component": "aem-content",
