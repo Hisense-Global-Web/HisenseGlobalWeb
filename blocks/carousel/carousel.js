@@ -106,23 +106,21 @@ export default async function decorate(block) {
   const wholeContainer = document.createElement('ul');
   wholeContainer.classList.add('carousel-items-container');
   let slideIndicators;
+  let slideNavButtons;
+  let slideIndicatorsNav;
   if (!isSingleSlide) {
-    const slideIndicatorsNav = document.createElement('nav');
+    slideIndicatorsNav = document.createElement('nav');
     slideIndicatorsNav.classList.add('indicators');
     slideIndicators = document.createElement('ol');
     slideIndicators.classList.add('carousel-item-indicators');
     slideIndicatorsNav.append(slideIndicators);
-    block.append(slideIndicatorsNav);
-
-    const slideNavButtons = document.createElement('div');
+    slideNavButtons = document.createElement('div');
     slideNavButtons.classList.add('carousel-navigation-buttons');
     slideNavButtons.innerHTML = `
       <button type="button" class= "slide-prev" aria-label="'Previous Slide'"></button>
       <button type="button" class="slide-next" aria-label="'Next Slide'"></button>
     `;
-    block.append(slideNavButtons);
   }
-
   [...block.children].forEach((row) => {
     const slide = createSlide(row);
     wholeContainer.append(slide);
@@ -140,6 +138,8 @@ export default async function decorate(block) {
     row.remove();
   });
   block.prepend(wholeContainer);
+  block.append(slideIndicatorsNav);
+  block.append(slideNavButtons);
   // if (!isSingleSlide) {
   //   bindEvents(block);
   // }
