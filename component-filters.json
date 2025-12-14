@@ -2,8 +2,7 @@
   {
     "id": "main",
     "components": [
-      "section",
-      "navigation"
+      "section"
     ]
   },
   {
@@ -38,13 +37,6 @@
       "image",
       "button",
       "title"
-    ]
-  },
-  {
-    "id": "navigation",
-    "components": [
-      "navigationItem",
-      "navigationAction"
     ]
   }
 ]
