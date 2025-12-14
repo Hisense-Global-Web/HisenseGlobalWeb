@@ -102,7 +102,6 @@ function createSlide(row, slideIndex) {
   return slide;
 }
 export default async function decorate(block) {
-  const rows = block.querySelectorAll(':scope > div');
   // const isSingleSlide = rows.length < 2;
   const wholeContainer = document.createElement('ul');
   wholeContainer.classList.add('carousel-items-container');
@@ -125,7 +124,7 @@ export default async function decorate(block) {
   //   block.append(slideNavButtons);
   // }
 
-  rows.forEach((row, idx) => {
+  [...block.children].forEach((row, idx) => {
     const slide = createSlide(row, idx);
     wholeContainer.append(slide);
     wholeContainer.querySelectorAll('picture > img').forEach((img) => {
