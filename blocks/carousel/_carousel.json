@@ -36,16 +36,6 @@
       "id": "carousel-item",
       "fields": [
         {
-          "component": "select",
-          "valueType": "string",
-          "name": "theme-type",
-          "label": "Select Theme",
-          "options": [
-            {"name": "light","value": "light"},
-            {"name": "dark","value": "dark"}
-          ]
-        },
-        {
           "component": "reference",
           "valueType": "string",
           "name": "image",

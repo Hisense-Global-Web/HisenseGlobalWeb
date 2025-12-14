@@ -1,4 +1,14 @@
-.carousel-container {
+.whole-container {
+    height: 860px;
+    width: 100%;
+}
+
+.whole-container div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 860px;
     width: 100%;
 }
