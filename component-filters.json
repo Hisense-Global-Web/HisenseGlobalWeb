@@ -3,7 +3,8 @@
     "id": "main",
     "components": [
       "section",
-      "navigation"
+      "navigation",
+      "footerContainer"
     ]
   },
   {
@@ -38,6 +39,26 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "footerContainer",
+    "components": [
+      "footerLogo",
+      "footerNavColumn",
+      "footerLegalLinks"
+    ]
+  },
+  {
+    "id": "footerLogo",
+    "components": [
+      "footerSocial"
+    ]
+  },
+  {
+    "id": "footerNavColumn",
+    "components": [
+      "footerNavColumnList"
     ]
   },
   {
