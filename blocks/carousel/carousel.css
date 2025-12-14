@@ -12,6 +12,9 @@
 .carousel .carousel-items,
 .carousel-items-container {
     height: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .carousel .indicators {
@@ -21,14 +24,7 @@
     bottom: 0;
 }
 
-.carousel .carousel-items,
-.carousel .carousel-item-indicators {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.carousel .carousel-items {
+.carousel .carousel-items-container {
     display: flex;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
@@ -80,7 +76,6 @@
 .carousel .carousel-item .carousel-item-cta {
     z-index: 1;
     margin: 0 0 0 120px;
-    padding: 16px;
     color: var(--background-color);
     position: relative;
     width: var(--item-content-width, auto);
@@ -125,6 +120,13 @@
 }
 
 .carousel .carousel-item-indicators {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel .carousel-item-indicator {
     width: 8px;
     height: 8px;
     opacity: 0.42;
@@ -188,7 +190,7 @@
     transform: translateY(-50%);
     left: 12px;
     right: 12px;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     z-index: 1;
