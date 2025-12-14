@@ -34,12 +34,36 @@
   "models": [
     {
       "id": "carousel-item",
+      "variations": [
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "themeType",
+          "label": "Select Theme",
+          "options": [
+            {"name": "light","value": "light"},
+            {"name": "dark","value": "dark"}
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "carouselType",
+          "label": "Select Carousel Type",
+          "options": [
+            {"name": "hero Carousel Type","value": "hero"},
+            {"name": "icon Carousel Type","value": "icon"},
+            {"name": "card Carousel Type","value": "card"}
+          ]
+        }
+      ],
       "fields": [
         {
           "component": "reference",
           "valueType": "string",
           "name": "image",
           "label": "Image",
+          "required": true,
           "multi": false
         },
         {
@@ -54,28 +78,52 @@
           "name": "carousel_ctaPrimary",
           "label": "Primary CTA",
           "valueType": "string",
-          "value": "/"
+          "value": "/",
+          "conditions": [
+            {
+              "field": "themeType",
+              "eq": "hero"
+            }
+          ]
         },
         {
           "component": "text",
           "name": "carousel_ctaPrimaryText",
           "label": "Primary CTA Label",
           "valueType": "string",
-          "value": "required when you selected assets"
+          "value": "required when you selected Primary CTA",
+          "conditions": [
+            {
+              "field": "themeType",
+              "eq": "hero"
+            }
+          ]
         },
         {
           "component": "aem-content",
           "name": "carousel_ctaSecondary",
           "label": "Secondary CTA",
           "valueType": "string",
-          "value": "/"
+          "value": "/",
+          "conditions": [
+            {
+              "field": "themeType",
+              "eq": "hero"
+            }
+          ]
         },
         {
           "component": "text",
           "name": "carousel_ctaSecondaryText",
           "label": "Secondary CTA Label",
           "valueType": "string",
-          "value": "required when you selected assets"
+          "value": "required when you Secondary CTA",
+          "conditions": [
+            {
+              "field": "themeType",
+              "eq": "hero"
+            }
+          ]
         }
       ]
     }
