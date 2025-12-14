@@ -95,11 +95,12 @@
       "id": "navigationItem",
       "fields": [
         {
-          "component": "hidden",
+          "component": "text",
           "valueType": "string",
           "name": "type",
           "label": "Type",
-          "value": "navigationItem"
+          "value": "navigationItem",
+          "hidden": true
         },
         {
           "component": "aem-content",
@@ -119,11 +120,12 @@
       "id": "navigationLink",
       "fields": [
         {
-          "component": "hidden",
+          "component": "text",
           "valueType": "string",
           "name": "type",
           "label": "Type",
-          "value": "navigationLink"
+          "value": "navigationLink",
+          "hidden": true
         },
         {
           "component": "text",
@@ -143,11 +145,12 @@
       "id": "navigationAction",
       "fields": [
         {
-          "component": "hidden",
+          "component": "text",
           "valueType": "string",
           "name": "type",
           "label": "Type",
-          "value": "navigationAction"
+          "value": "navigationAction",
+          "hidden": true
         },
         {
           "component": "reference",
