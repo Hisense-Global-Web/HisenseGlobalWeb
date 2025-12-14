@@ -164,137 +164,63 @@
     "id": "carousel-item",
     "fields": [
       {
-        "component": "tab",
-        "name": "configTab",
-        "label": "Config",
-        "tabId": "configs"
-      },
-      {
-        "component": "fieldset",
-        "name": "configContainer",
-        "label": "Config Container",
-        "type": "array",
-        "tabId": "configs",
-        "fields": [
+        "component": "select",
+        "valueType": "string",
+        "name": "theme-type",
+        "label": "Select Theme",
+        "options": [
           {
-            "component": "select",
-            "valueType": "string",
-            "name": "theme-type",
-            "label": "Select Theme",
-            "options": [
-              {
-                "name": "light",
-                "value": "light"
-              },
-              {
-                "name": "dark",
-                "value": "dark"
-              }
-            ]
+            "name": "light",
+            "value": "light"
           },
           {
-            "component": "select",
-            "valueType": "string",
-            "name": "carousel-type",
-            "label": "Select Carousel Type",
-            "options": [
-              {
-                "name": "hero Carousel Type",
-                "value": "hero"
-              },
-              {
-                "name": "icon Carousel Type",
-                "value": "icon"
-              },
-              {
-                "name": "card Carousel Type",
-                "value": "card"
-              }
-            ]
+            "name": "dark",
+            "value": "dark"
           }
         ]
       },
       {
-        "component": "tab",
-        "name": "itemsTab",
-        "label": "Items",
-        "tabId": "items"
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "required": true,
+        "multi": false
       },
       {
-        "component": "fieldset",
-        "name": "itemsContainer",
-        "label": "Carousel Items List",
-        "type": "array",
-        "tabId": "items",
-        "fields": [
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "image",
-            "label": "Image",
-            "required": true,
-            "multi": false
-          },
-          {
-            "component": "richtext",
-            "name": "text",
-            "value": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
-            "label": "Text",
-            "valueType": "string"
-          },
-          {
-            "component": "aem-content",
-            "name": "carousel_ctaPrimary",
-            "label": "Primary CTA",
-            "valueType": "string",
-            "value": "/",
-            "conditions": [
-              {
-                "field": "carouselType",
-                "eq": "hero"
-              }
-            ]
-          },
-          {
-            "component": "text",
-            "name": "carousel_ctaPrimaryText",
-            "label": "Primary CTA Label",
-            "valueType": "string",
-            "value": "Required if you has Primary CTA content",
-            "conditions": [
-              {
-                "field": "carouselType",
-                "eq": "hero"
-              }
-            ]
-          },
-          {
-            "component": "aem-content",
-            "name": "carousel_ctaSecondary",
-            "label": "Secondary CTA",
-            "valueType": "string",
-            "value": "/",
-            "conditions": [
-              {
-                "field": "carouselType",
-                "eq": "hero"
-              }
-            ]
-          },
-          {
-            "component": "text",
-            "name": "carousel_ctaSecondaryText",
-            "label": "Secondary CTA Label",
-            "valueType": "string",
-            "value": "Required if you has Secondary CTA content",
-            "conditions": [
-              {
-                "field": "carouselType",
-                "eq": "hero"
-              }
-            ]
-          }
-        ]
+        "component": "richtext",
+        "name": "text",
+        "value": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "carousel_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string",
+        "value": "/"
+      },
+      {
+        "component": "text",
+        "name": "carousel_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string",
+        "value": "Required if you has Primary CTA content"
+      },
+      {
+        "component": "aem-content",
+        "name": "carousel_ctaSecondary",
+        "label": "Secondary CTA",
+        "valueType": "string",
+        "value": "/"
+      },
+      {
+        "component": "text",
+        "name": "carousel_ctaSecondaryText",
+        "label": "Secondary CTA Label",
+        "valueType": "string",
+        "value": "Required if you has Secondary CTA content"
       }
     ]
   },
