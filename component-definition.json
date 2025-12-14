@@ -360,6 +360,22 @@
           }
         },
         {
+          "title": "Navigation Logo",
+          "id": "navigationLogo",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Navigation Logo",
+                  "model": "navigationLogo",
+                  "classes": "navigation-logo"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Navigation",
           "id": "navigation",
           "plugins": {

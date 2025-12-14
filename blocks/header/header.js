@@ -132,7 +132,9 @@ export default async function decorate(block) {
     brandLink.closest('.button-container').className = '';
   }
 
-  const navSections = nav.querySelector('.navigation-container');
+  const navSections = Array.from(nav.querySelectorAll('[class*="navigation-"][class*="-container"]')).find(
+    (el) => el.className.match(/navigation-\w+-container/),
+  );
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');

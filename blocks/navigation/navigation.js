@@ -1,3 +1,3 @@
-export default function decorate() {
-  // Navigation
+export default function decorate(block) {
+  console.log('Navigation', block);
 }
