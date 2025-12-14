@@ -184,28 +184,25 @@
     "fields": []
   },
   {
-    "id": "footerLegalLinks",
+    "id": "footerLegalLinkItem",
     "fields": [
       {
-        "component": "container",
-        "name": "links",
-        "label": "Legal Links",
-        "multi": true,
-        "fields": [
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "text",
-            "label": "Link Text",
-            "value": ""
-          },
-          {
-            "component": "aem-content",
-            "name": "link",
-            "label": "Link"
-          }
-        ]
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Link Text",
+        "value": ""
       },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      }
+    ]
+  },
+  {
+    "id": "footerLegalLinks",
+    "fields": [
       {
         "component": "text",
         "valueType": "string",

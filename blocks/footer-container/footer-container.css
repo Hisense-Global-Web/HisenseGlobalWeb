@@ -21,7 +21,8 @@
 .footer-social-wrapper,
 .footer-nav-column-wrapper,
 .footer-nav-column-list-wrapper,
-.footer-legal-links-wrapper {
+.footer-legal-links-wrapper,
+.footer-legal-link-item-wrapper {
   margin: 10px 0;
   padding: 10px;
   border: 1px dashed #ccc;
@@ -38,7 +39,11 @@
 }
 
 .footer-nav-column-list-wrapper .footer-nav-column-list > div:first-child {
-  display: none; 
+  display: none;
+}
+
+.footer-legal-link-item-wrapper .footer-legal-link-item > div:first-child {
+  display: none;
 }
 
 footer#footer {
