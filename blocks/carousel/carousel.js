@@ -1,5 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { createOptimizedPicture } from '../../scripts/aem.js';
+// import { createOptimizedPicture } from '../../scripts/aem.js';
 
 // function updateActiveState(block, slideIndex) {
 //   block.dataset.activeSlide = String(slideIndex);
@@ -102,41 +102,41 @@ function createSlide(row) {
   return slide;
 }
 export default async function decorate(block) {
-  // const isSingleSlide = rows.length < 2;
+  const isSingleSlide = [...block.children].length < 2;
   const wholeContainer = document.createElement('ul');
   wholeContainer.classList.add('carousel-items-container');
-  // let slideIndicators;
-  // if (!isSingleSlide) {
-  //   const slideIndicatorsNav = document.createElement('nav');
-  //   slideIndicatorsNav.classList.add('indicators');
-  //   slideIndicators = document.createElement('ol');
-  //   slideIndicators.classList.add('carousel-item-indicators');
-  //   slideIndicatorsNav.append(slideIndicators);
-  //   block.append(slideIndicatorsNav);
-  //
-  //   const slideNavButtons = document.createElement('div');
-  //   slideNavButtons.classList.add('carousel-navigation-buttons');
-  //   slideNavButtons.innerHTML = `
-  //     <button type="button" class= "slide-prev" aria-label="'Previous Slide'"></button>
-  //     <button type="button" class="slide-next" aria-label="'Next Slide'"></button>
-  //   `;
-  //   block.append(slideNavButtons);
-  // }
+  let slideIndicators;
+  if (!isSingleSlide) {
+    const slideIndicatorsNav = document.createElement('nav');
+    slideIndicatorsNav.classList.add('indicators');
+    slideIndicators = document.createElement('ol');
+    slideIndicators.classList.add('carousel-item-indicators');
+    slideIndicatorsNav.append(slideIndicators);
+    block.append(slideIndicatorsNav);
+
+    const slideNavButtons = document.createElement('div');
+    slideNavButtons.classList.add('carousel-navigation-buttons');
+    slideNavButtons.innerHTML = `
+      <button type="button" class= "slide-prev" aria-label="'Previous Slide'"></button>
+      <button type="button" class="slide-next" aria-label="'Next Slide'"></button>
+    `;
+    block.append(slideNavButtons);
+  }
 
   [...block.children].forEach((row) => {
     const slide = createSlide(row);
     wholeContainer.append(slide);
-    wholeContainer.querySelectorAll('picture > img').forEach((img) => {
-      const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '100%' }]);
-      moveInstrumentation(img, optimizedPic.querySelector('img'));
-      img.closest('picture').replaceWith(optimizedPic);
-    });
-    // if (slideIndicators) {
-    //   const indicator = document.createElement('li');
-    //   indicator.classList.add('carousel-item-indicator');
-    //   indicator.dataset.targetSlide = String(idx);
-    //   slideIndicators.append(indicator);
-    // }
+    // wholeContainer.querySelectorAll('picture > img').forEach((img) => {
+    //   const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '100%' }]);
+    //   moveInstrumentation(img, optimizedPic.querySelector('img'));
+    //   img.closest('picture').replaceWith(optimizedPic);
+    // });
+    if (slideIndicators) {
+      const indicator = document.createElement('li');
+      indicator.classList.add('carousel-item-indicator');
+      // indicator.dataset.targetSlide = String(idx);
+      slideIndicators.append(indicator);
+    }
     row.remove();
   });
   block.prepend(wholeContainer);
