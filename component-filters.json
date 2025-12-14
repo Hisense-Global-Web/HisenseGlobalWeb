@@ -3,7 +3,8 @@
     "id": "main",
     "components": [
       "section",
-      "navigation"
+      "navigation",
+      "footerContainer"
     ]
   },
   {
@@ -61,6 +62,26 @@
     "id": "recards",
     "components": [
       "recard"
+    ]
+  },
+  {
+    "id": "footerContainer",
+    "components": [
+      "footerLogo",
+      "footerNavColumn",
+      "footerLegalLinks"
+    ]
+  },
+  {
+    "id": "footerLogo",
+    "components": [
+      "footerSocial"
+    ]
+  },
+  {
+    "id": "footerNavColumn",
+    "components": [
+      "footerNavColumnList"
     ]
   },
   {
