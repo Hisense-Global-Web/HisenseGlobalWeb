@@ -1,45 +1,24 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
-/**
- * 更新活动幻灯片、指示器和链接的 ARIA 状态和 tabindex。
- * @param {HTMLElement} block - 整个轮播组件的根元素 (.carousel)。
- * @param {number} slideIndex - 当前活动幻灯片的索引。
- */
 function updateActiveState(block, slideIndex) {
-  // 1. 更新主状态
   block.dataset.activeSlide = String(slideIndex);
-
-  // 2. 更新所有幻灯片的状态和可访问性 (tabindex)
   const slides = block.querySelectorAll('.carousel-item');
   slides.forEach((slide, idx) => {
     const isActive = idx === slideIndex;
 
-    slide.setAttribute('aria-hidden', !isActive);
-
-    // 禁用非活动幻灯片中的链接，以提高可访问性
+    slide.setAttribute('aria-hidden', String(!isActive));
     slide.querySelectorAll('a').forEach((link) => {
       link.setAttribute('tabindex', isActive ? '0' : '-1');
     });
   });
-
-  // 3. 更新所有指示器按钮的状态
   const indicators = block.querySelectorAll('.carousel-item-indicator button');
   indicators.forEach((button, idx) => {
     const isActive = idx === slideIndex;
-
-    // 使用 disabled 和 aria-current 来标记活动状态 (用于CSS样式)
-    button.setAttribute('aria-current', isActive);
-    // 尽管设置了 aria-current，但指示器通常仍应保持可点击（不禁用）
-    // 如果需要实现点击禁用效果（如你的原代码），则添加以下行：
-    // button.disabled = isActive;
+    button.setAttribute('aria-current', String(isActive));
   });
 }
-/**
- * 滚动到指定的幻灯片索引。
- * @param {HTMLElement} block - 整个轮播组件的根元素 (.carousel)。
- * @param {number} slideIndex - 目标幻灯片的索引 (可以是负数或超出范围)。
- */
+
 function showSlide(block, slideIndex = 0) {
   const slides = block.querySelectorAll('.carousel-item');
   const slidesCount = slides.length;
