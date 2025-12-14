@@ -34,7 +34,7 @@
   "models": [
     {
       "id": "carousel-item",
-      "variations": [
+      "fields": [
         {
           "component": "select",
           "valueType": "string",
@@ -55,9 +55,7 @@
             {"name": "icon Carousel Type","value": "icon"},
             {"name": "card Carousel Type","value": "card"}
           ]
-        }
-      ],
-      "fields": [
+        },
         {
           "component": "reference",
           "valueType": "string",
@@ -81,7 +79,7 @@
           "value": "/",
           "conditions": [
             {
-              "field": "themeType",
+              "field": "carouselType",
               "eq": "hero"
             }
           ]
@@ -91,10 +89,10 @@
           "name": "carousel_ctaPrimaryText",
           "label": "Primary CTA Label",
           "valueType": "string",
-          "value": "required when you selected Primary CTA",
+          "value": "Required if you has Primary CTA content",
           "conditions": [
             {
-              "field": "themeType",
+              "field": "carouselType",
               "eq": "hero"
             }
           ]
@@ -107,7 +105,7 @@
           "value": "/",
           "conditions": [
             {
-              "field": "themeType",
+              "field": "carouselType",
               "eq": "hero"
             }
           ]
@@ -117,10 +115,10 @@
           "name": "carousel_ctaSecondaryText",
           "label": "Secondary CTA Label",
           "valueType": "string",
-          "value": "required when you Secondary CTA",
+          "value": "Required if you has Secondary CTA content",
           "conditions": [
             {
-              "field": "themeType",
+              "field": "carouselType",
               "eq": "hero"
             }
           ]
