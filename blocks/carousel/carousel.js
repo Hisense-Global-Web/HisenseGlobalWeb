@@ -103,27 +103,27 @@ function createSlide(row, slideIndex) {
 }
 export default async function decorate(block) {
   const rows = block.querySelectorAll(':scope > div');
-  const isSingleSlide = rows.length < 2;
+  // const isSingleSlide = rows.length < 2;
   const wholeContainer = document.createElement('ul');
   wholeContainer.classList.add('carousel-items-container');
   block.prepend(wholeContainer);
-  let slideIndicators;
-  if (!isSingleSlide) {
-    const slideIndicatorsNav = document.createElement('nav');
-    slideIndicatorsNav.classList.add('indicators');
-    slideIndicators = document.createElement('ol');
-    slideIndicators.classList.add('carousel-item-indicators');
-    slideIndicatorsNav.append(slideIndicators);
-    block.append(slideIndicatorsNav);
-
-    const slideNavButtons = document.createElement('div');
-    slideNavButtons.classList.add('carousel-navigation-buttons');
-    slideNavButtons.innerHTML = `
-      <button type="button" class= "slide-prev" aria-label="'Previous Slide'"></button>
-      <button type="button" class="slide-next" aria-label="'Next Slide'"></button>
-    `;
-    block.append(slideNavButtons);
-  }
+  // let slideIndicators;
+  // if (!isSingleSlide) {
+  //   const slideIndicatorsNav = document.createElement('nav');
+  //   slideIndicatorsNav.classList.add('indicators');
+  //   slideIndicators = document.createElement('ol');
+  //   slideIndicators.classList.add('carousel-item-indicators');
+  //   slideIndicatorsNav.append(slideIndicators);
+  //   block.append(slideIndicatorsNav);
+  //
+  //   const slideNavButtons = document.createElement('div');
+  //   slideNavButtons.classList.add('carousel-navigation-buttons');
+  //   slideNavButtons.innerHTML = `
+  //     <button type="button" class= "slide-prev" aria-label="'Previous Slide'"></button>
+  //     <button type="button" class="slide-next" aria-label="'Next Slide'"></button>
+  //   `;
+  //   block.append(slideNavButtons);
+  // }
 
   rows.forEach((row, idx) => {
     const slide = createSlide(row, idx);
@@ -133,12 +133,12 @@ export default async function decorate(block) {
       moveInstrumentation(img, optimizedPic.querySelector('img'));
       img.closest('picture').replaceWith(optimizedPic);
     });
-    if (slideIndicators) {
-      const indicator = document.createElement('li');
-      indicator.classList.add('carousel-item-indicator');
-      indicator.dataset.targetSlide = String(idx);
-      slideIndicators.append(indicator);
-    }
+    // if (slideIndicators) {
+    //   const indicator = document.createElement('li');
+    //   indicator.classList.add('carousel-item-indicator');
+    //   indicator.dataset.targetSlide = String(idx);
+    //   slideIndicators.append(indicator);
+    // }
     row.remove();
   });
   // if (!isSingleSlide) {
