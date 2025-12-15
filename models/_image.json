@@ -18,6 +18,21 @@
       "id": "image",
       "fields": [
         {
+          "component": "select",
+          "name": "classes",
+          "label": "Border Radius",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "Round",
+              "value": "round"
+            }
+          ]
+        },
+        {
           "component": "reference",
           "name": "image",
           "label": "Image",

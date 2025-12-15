@@ -21,6 +21,21 @@
       "id": "imagecard",
       "fields": [
         {
+          "component": "select",
+          "name": "classes",
+          "label": "Variant",
+          "options": [
+            {
+              "name": "Carousel - 1 Slide",
+              "value": "1-slide"
+            },
+            {
+              "name": "Carousel -2 Slides",
+              "value": "2-slides"
+            }
+          ]
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",

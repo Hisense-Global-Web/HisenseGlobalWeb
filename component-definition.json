@@ -107,7 +107,7 @@
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/columns/v1/columns",
+                "resourceType": "core/franklin/components/carousel/v1/carousel",
                 "template": {
                   "classes_variant": "2-slides"
                 }

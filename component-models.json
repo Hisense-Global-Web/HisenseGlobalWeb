@@ -27,6 +27,21 @@
     "id": "image",
     "fields": [
       {
+        "component": "select",
+        "name": "classes",
+        "label": "Border Radius",
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Round",
+            "value": "round"
+          }
+        ]
+      },
+      {
         "component": "reference",
         "name": "image",
         "label": "Image",
@@ -75,6 +90,26 @@
           {
             "name": "h6",
             "value": "h6"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "text",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Theme",
+        "options": [
+          {
+            "name": "Light",
+            "value": ""
+          },
+          {
+            "name": "Dark",
+            "value": "dark"
           }
         ]
       }
@@ -295,6 +330,21 @@
     "id": "columns",
     "fields": [
       {
+        "component": "select",
+        "name": "classes",
+        "label": "Variant",
+        "options": [
+          {
+            "name": "Carousel - 1 Slide",
+            "value": "1-slide"
+          },
+          {
+            "name": "Carousel -2 Slides",
+            "value": "2-slides"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "number",
         "name": "columns",
@@ -373,6 +423,21 @@
   {
     "id": "imagecard",
     "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Variant",
+        "options": [
+          {
+            "name": "Carousel - 1 Slide",
+            "value": "1-slide"
+          },
+          {
+            "name": "Carousel -2 Slides",
+            "value": "2-slides"
+          }
+        ]
+      },
       {
         "component": "reference",
         "valueType": "string",
