@@ -40,6 +40,7 @@
   --header-light-color: #333;
   --header-dark-color: #fff;
   --header-active-color: var(--header-light-color);
+  --header-backgroundcolor: rgba(244, 248, 247, 1)
 }
 
 .header-dark-mode {
