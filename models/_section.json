@@ -48,11 +48,11 @@
         },
         {
           "component": "select",
-          "name": "classes_image",
+          "name": "style_image",
           "label": "Image Style",
           "options": [
             {
-              "name": "default",
+              "name": "Default",
               "value": ""
             },
             {
