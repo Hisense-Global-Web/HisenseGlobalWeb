@@ -1,15 +1,38 @@
 /* navigation styles */
 
 /* 兼容编辑模式和预览模式 */
+
+/* 导航栏容器：固定顶部 */
+#nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #F4F8F7;
+    border-bottom: 1px solid #F4F8F7;
+    z-index: 999;
+    font-family: Hisense Sans Alfabet;
+    font-weight: 400;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+#nav * {
+  box-sizing: border-box;
+}
+#nav .nav-hamburger, #nav .section.nav-brand {
+  display: none;
+}
+
+
 .section.navigation-logo-container.navigation-item-container.navigation-action-container,
 .section[class*="navigation"] {
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   background: #F4F8F7;
   border-bottom: 1px solid #F4F8F7;
-  z-index: 999;
+  z-index: 999; */
   font-family: 'Hisense Sans Alfabet', sans-serif;
   font-weight: 400;
   font-size: 14px;
@@ -28,6 +51,7 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
+  margin-right: 38px;
 }
 
 .navigation-logo-wrapper .navigation-logo {
@@ -88,8 +112,16 @@
   gap: 0;
 }
 
-.navigation-action-wrapper:first-of-type {
+.navigation-item-wrapper + .navigation-action-wrapper {
   margin-left: auto;
+}
+
+.navigation-action-wrapper picture,
+.navigation-action-wrapper img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  display: block;
 }
 
 .navigation-action-wrapper:not(:last-child) {
@@ -103,8 +135,8 @@
   cursor: pointer;
 }
 
-/* 隐藏编辑模式下的 icon 和 link 字段显示，只显示 text */
-.navigation-action-wrapper .navigation-action > div:first-child,
+/* 隐藏编辑模式下的 link 字段显示，只显示 text */
+/* .navigation-action-wrapper .navigation-action > div:first-child, */
 .navigation-action-wrapper .navigation-action > div:last-child {
   display: none;
 }
