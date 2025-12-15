@@ -6,10 +6,12 @@
       "plugins": {
         "xwalk": {
           "page": {
-            "resourceType": "core/franklin/components/columns/v1/columns",
+            "resourceType": "core/franklin/components/section/v1/section",
             "template": {
-              "columns": "3",
-              "rows": "1"
+              "name": "Navigation Secondary Container",
+              "model": "navigationSecondaryContainer",
+              "filter": "navigationSecondaryContainer",
+              "classes": "navigation-secondary-container"
             }
           }
         }
@@ -40,8 +42,7 @@
     {
       "id": "navigationSecondaryContainer",
       "components": [
-        "navigationLink",
-        "navigationAction"
+        "columns"
       ]
     }
   ]

@@ -93,8 +93,7 @@
   {
     "id": "navigationSecondaryContainer",
     "components": [
-      "navigationLink",
-      "navigationAction"
+      "columns"
     ]
   },
   {
