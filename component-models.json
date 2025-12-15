@@ -36,6 +36,36 @@
         "component": "text",
         "name": "imageAlt",
         "label": "Alt Text"
+      },
+      {
+        "component": "select",
+        "name": "style",
+        "label": "Style",
+        "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
+          {
+            "name": "Rounded",
+            "value": "rounded"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "classes_ratio",
+        "label": "Ratio",
+        "options": [
+          {
+            "name": "4:3",
+            "value": "four-by-three"
+          },
+          {
+            "name": "3:2",
+            "value": "three-by-two"
+          }
+        ]
       }
     ]
   },
