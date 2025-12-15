@@ -21,7 +21,7 @@
       "id": "video",
       "fields": [
         {
-          "component": "reference",
+          "component": "aem-content",
           "valueType": "string",
           "name": "Video",
           "label": "Video",
