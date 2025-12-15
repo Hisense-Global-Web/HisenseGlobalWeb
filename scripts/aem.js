@@ -113,8 +113,6 @@ function sampleRUM(checkpoint, data) {
             ? new Blob([rumData], { type: 'application/json' })
             : rumData;
           navigator.sendBeacon(url, body);
-          // eslint-disable-next-line no-console
-          console.debug(`ping:${ck}`, pingData);
         };
         sampleRUM.sendPing('top', timeShift());
 
@@ -167,8 +165,7 @@ function setup() {
         [window.hlx.codeBasePath] = scriptURL.href.split('/scripts/scripts.js');
       }
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
+      // swallow setup errors silently
     }
   }
 }

@@ -125,7 +125,7 @@ function extractNavColumnsData(container) {
 
 /**
  * 从 footer-legal-links block 中提取
-*/
+ */
 function extractLegalLinksData(container) {
   const legalLinksData = {
     links: [],
