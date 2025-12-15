@@ -19,7 +19,22 @@
       "fields": [
         {
           "component": "select",
-          "name": "classes",
+          "name": "classes_ratio",
+          "label": "Ratio",
+          "options": [
+            {
+              "name": "4:3",
+              "value": "four-by-three"
+            },
+            {
+              "name": "3:2",
+              "value": "three-by-two"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_borderRadius",
           "label": "Border Radius",
           "options": [
             {

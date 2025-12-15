@@ -25,12 +25,14 @@
   {
     "id": "cardcarousel",
     "components": [
-      "column"
+      "cardslide"
     ]
   },
   {
     "id": "cardslide",
     "components": [
+      "image",
+      "text",
       "imagecard"
     ]
   },
