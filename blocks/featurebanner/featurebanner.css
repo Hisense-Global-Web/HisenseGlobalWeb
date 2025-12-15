@@ -1,3 +1,32 @@
 .feaaturebanner-container .feaaturebanner-wrapper {
-    width: 1440px;
+  width: 1440px;
+}
+
+.pdp-feature-banner-container .pdp-feature-banner-wrapper {
+  width: 1440px;
+  min-height: 810px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0 auto;
+  position: relative;
+}
+
+.pdp-feature-banner {
+  padding-left: 160px;
+  height: 100%;
+
+  picture {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    object-fit: cover;
+    box-sizing: border-box;
+  }
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
 }
