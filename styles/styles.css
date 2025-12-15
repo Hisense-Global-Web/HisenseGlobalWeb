@@ -307,6 +307,10 @@ main > .section:first-of-type {
 	margin-top: 0;
 }
 
+main .section.navigation-item-container {
+  display: none !important;
+}
+
 @media (width >= 900px) {
 	main > .section > div {
 		padding: 0 32px;
