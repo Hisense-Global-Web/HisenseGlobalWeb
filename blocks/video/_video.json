@@ -22,9 +22,16 @@
       "fields": [
         {
           "component": "reference",
-          "valueType": "",
+          "valueType": "string",
           "name": "Video",
           "label": "Video",
+          "multi": false
+        },
+         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
           "multi": false
         }
       ]
