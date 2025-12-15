@@ -26,12 +26,31 @@
           "label": "Variant",
           "options": [
             {
+              "name": "Default",
+              "value": ""
+            },
+            {
               "name": "Carousel - 1 Slide",
-              "value": "1-slide"
+              "value": "carousel-1-slide"
             },
             {
               "name": "Carousel -2 Slides",
-              "value": "2-slides"
+              "value": "carousel-2-slides"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_ratio",
+          "label": "Media Ratio",
+          "options": [
+            {
+              "name": "4:3",
+              "value": "four-by-three"
+            },
+            {
+              "name": "3:2",
+              "value": "three-by-two"
             }
           ]
         },
@@ -66,7 +85,6 @@
         "image",
         "button",
         "title",
-        "image",
         "imagecard"
       ]
     }

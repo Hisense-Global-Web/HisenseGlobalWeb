@@ -27,36 +27,6 @@
     "id": "image",
     "fields": [
       {
-        "component": "select",
-        "name": "classes_ratio",
-        "label": "Ratio",
-        "options": [
-          {
-            "name": "4:3",
-            "value": "four-by-three"
-          },
-          {
-            "name": "3:2",
-            "value": "three-by-two"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "classes_borderRadius",
-        "label": "Border Radius",
-        "options": [
-          {
-            "name": "None",
-            "value": ""
-          },
-          {
-            "name": "Round",
-            "value": "round"
-          }
-        ]
-      },
-      {
         "component": "reference",
         "name": "image",
         "label": "Image",
@@ -159,13 +129,17 @@
         "description": "The label shown for this section in the Content Tree"
       },
       {
-        "component": "multiselect",
+        "component": "select",
         "name": "style",
         "label": "Style",
         "options": [
           {
-            "name": "Highlight",
-            "value": "highlight"
+            "name": "Light",
+            "value": "light"
+          },
+          {
+            "name": "Dark",
+            "value": "dark"
           }
         ]
       }
@@ -223,40 +197,6 @@
         "name": "collection_ctaPrimaryText",
         "label": "Primary CTA Label",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "cardcarousel",
-    "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "label": "Variant",
-        "options": [
-          {
-            "name": "1 Slide",
-            "value": "1-slide"
-          },
-          {
-            "name": "2 Slides",
-            "value": "2-slides"
-          }
-        ]
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "value": "",
-        "label": "Title"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "heading",
-        "value": "",
-        "label": "Heading"
       }
     ]
   },
@@ -330,12 +270,31 @@
         "label": "Variant",
         "options": [
           {
+            "name": "Default",
+            "value": ""
+          },
+          {
             "name": "Carousel - 1 Slide",
-            "value": "1-slide"
+            "value": "carousel-1-slide"
           },
           {
             "name": "Carousel -2 Slides",
-            "value": "2-slides"
+            "value": "carousel-2-slides"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "classes_ratio",
+        "label": "Media Ratio",
+        "options": [
+          {
+            "name": "4:3",
+            "value": "four-by-three"
+          },
+          {
+            "name": "3:2",
+            "value": "three-by-two"
           }
         ]
       },

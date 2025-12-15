@@ -15,6 +15,11 @@
   order: 0;
 }
 
+.columns.carousel-1-slides > img,
+.columns.carousel-2-slides > img {
+	border-radius: 20px;
+}
+
 .columns > div > .columns-img-col img {
   display: block;
 }

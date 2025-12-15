@@ -18,22 +18,7 @@
       "fragment",
       "collectionsection",
       "recards",
-      "banner",
-      "cardcarousel"
-    ]
-  },
-  {
-    "id": "cardcarousel",
-    "components": [
-      "cardslide"
-    ]
-  },
-  {
-    "id": "cardslide",
-    "components": [
-      "image",
-      "text",
-      "imagecard"
+      "banner"
     ]
   },
   {
@@ -55,7 +40,6 @@
       "image",
       "button",
       "title",
-      "image",
       "imagecard"
     ]
   },

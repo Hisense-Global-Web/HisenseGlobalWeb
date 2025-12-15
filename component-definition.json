@@ -70,7 +70,8 @@
               "page": {
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
-                  "model": "section"
+                  "model": "section",
+                  "style": "light"
                 }
               }
             }
@@ -96,37 +97,6 @@
                   "collection_text": "<h5>Perfection, Any Content, Anytime</h5><h1>From the first setup to everyday use.designed to feel effortless —— so you can focus on what really matters.</h1>",
                   "collection_ctaPrimary": "/",
                   "collection_ctaPrimaryText": "Learn more"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Card Carousel",
-          "id": "cardcarousel",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/columns/v1/columns",
-                "template": {
-                  "name": "Card Carousel",
-                  "model": "cardcarousel",
-                  "classes_variant": "2-slides"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Card Slide",
-          "id": "cardslide",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/columns/v1/columns",
-                "template": {
-                  "name": "Card Slide",
-                  "model": "cardslide"
                 }
               }
             }
