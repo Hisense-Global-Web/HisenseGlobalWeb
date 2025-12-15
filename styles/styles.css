@@ -19,6 +19,11 @@
 	--link-color: #3b63fb;
 	--link-hover-color: #1d3ecf;
 
+	/* background colors */
+	--background-light: white;
+	--background-grey: #f7f7f7;
+	--background-dark: #000;
+
 	/* fonts */
 	--font-family: 'Hisense Sans Alfabet', sans-serif;
 
@@ -253,9 +258,20 @@ main > .section:first-of-type {
 }
 
 /* section metadata */
-main .section.light,
 main .section.highlight {
 	background-color: var(--light-color);
 	margin: 0;
 	padding: 40px 0;
+}
+
+main .section.light {
+	background-color: var(--background-light);
+}
+
+main .section.grey {
+	background-color: var(--background-grey);
+}
+
+main .section.dark {
+	background-color: var(--background-dark);
 }

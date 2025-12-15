@@ -8,7 +8,8 @@
           "page": {
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
-              "model": "section"
+              "model": "section",
+              "style": "light"
             }
           }
         }
@@ -26,13 +27,21 @@
           "description": "The label shown for this section in the Content Tree"
         },
         {
-          "component": "multiselect",
+          "component": "select",
           "name": "style",
-          "label": "Style",
+          "label": "Background Style",
           "options": [
             {
-              "name": "Highlight",
-              "value": "highlight"
+              "name": "Light",
+              "value": "light"
+            },
+            {
+              "name": "Dark",
+              "value": "dark"
+            },
+            {
+              "name": "Grey",
+              "value": "grey"
             }
           ]
         }
