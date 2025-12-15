@@ -179,11 +179,11 @@ footer#footer {
 #footer .footer-nav-column-link {
   font-size: 12px;
   font-weight: 400;
-  color: rgb(0, 0, 0, 100%);
+  color: rgb(0 0 0 / 100%);
   text-decoration: none;
 }
 
-.footer-nav-column-link:hover {
+#footer .footer-nav-column-link:hover {
   color: #00b42a;
 }
 
