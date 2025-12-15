@@ -338,6 +338,21 @@
           }
         },
         {
+          "title": "Navigation Secondary Container",
+          "id": "navigationSecondaryContainer",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/columns/v1/columns",
+                "template": {
+                  "columns": "3",
+                  "rows": "1"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Navigation",
           "id": "navigation",
           "plugins": {

@@ -68,6 +68,13 @@
     ]
   },
   {
+    "id": "navigationSecondaryContainer",
+    "components": [
+      "navigationLink",
+      "navigationAction"
+    ]
+  },
+  {
     "id": "navigation",
     "components": [
       "navigationLogo",

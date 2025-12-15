@@ -396,6 +396,24 @@
     ]
   },
   {
+    "id": "navigationSecondaryContainer",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "columns",
+        "value": "3",
+        "label": "Columns",
+        "description": "Number of columns(min 1,max 3)",
+        "validations": {
+          "numberMin": 1,
+          "numberMax": 3,
+          "customErrorMsg": "Columns must be between 1 and 3"
+        }
+      }
+    ]
+  },
+  {
     "id": "navigation",
     "fields": [
       {
