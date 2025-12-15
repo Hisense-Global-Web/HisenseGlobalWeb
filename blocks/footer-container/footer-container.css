@@ -210,14 +210,14 @@ footer#footer {
   flex-wrap: wrap;
 }
 
-.footer-legal-link {
+#footer .footer-legal-link {
   text-decoration: none;
   font-size: 12px;
   font-weight: 400;
   color: rgb(51 51 51 / 100%);
 }
 
-.footer-copyright {
+#footer .footer-copyright {
   font-size: 12px;
   font-weight: 400;
   color: rgb(51 51 51 / 100%);
