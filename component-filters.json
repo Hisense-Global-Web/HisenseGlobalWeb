@@ -17,8 +17,7 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "navigationSecondaryContainer"
+      "fragment"
     ]
   },
   {
@@ -71,8 +70,7 @@
   {
     "id": "navigationSecondaryContainer",
     "components": [
-      "navigationLink",
-      "navigationAction"
+      "columns"
     ]
   },
   {
