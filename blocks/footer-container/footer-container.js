@@ -124,7 +124,7 @@ function extractNavColumnsData(container) {
 }
 
 /**
- * 从 footer-legal-links block 中提取法律链接数据
+ * 从 footer-legal-links block 中提取
 */
 function extractLegalLinksData(container) {
   const legalLinksData = {
@@ -132,19 +132,27 @@ function extractLegalLinksData(container) {
     copyright: '',
   };
 
-  const legalBlock = container.querySelector('.footer-legal-links');
-  if (!legalBlock) {
+  const legalLinksBlock = container.querySelector('.footer-legal-links');
+  if (!legalLinksBlock) {
     return legalLinksData;
   }
 
-  const copyrightField = legalBlock.querySelector('[data-aue-prop="copyright"]');
-  if (copyrightField) {
-    legalLinksData.copyright = copyrightField.textContent.trim();
+  const legalItemRows = Array.from(legalLinksBlock.children).filter((child) => child.tagName === 'DIV');
+
+  // 第一个 div 作为版权信息来源
+  let legalLinksStartIndex = 0;
+  if (legalItemRows.length > 0) {
+    const copyrightRow = legalItemRows[0];
+    const copyrightText = copyrightRow.textContent.trim();
+    if (copyrightText) {
+      legalLinksData.copyright = copyrightText;
+      legalLinksStartIndex = 1;
+    }
   }
 
-  const legalDivs = Array.from(legalBlock.children).filter((child) => child.tagName === 'DIV');
-  legalDivs.forEach((div, index) => {
-    if (index === 0 && !div.textContent.trim() && !div.querySelector('p')) {
+  legalItemRows.forEach((row, index) => {
+    // 跳过已作为版权信息使用的第一个 div
+    if (index < legalLinksStartIndex) {
       return;
     }
 
@@ -153,18 +161,20 @@ function extractLegalLinksData(container) {
       link: '#',
     };
 
-    const childDivs = Array.from(div.children).filter((child) => child.tagName === 'DIV');
-    if (childDivs.length > 0) {
-      const textDiv = childDivs[0];
-      const p = textDiv.querySelector('p');
-      if (p && !p.classList.contains('button-container')) {
-        linkData.text = p.textContent.trim();
+    const linkColumns = Array.from(row.children).filter((child) => child.tagName === 'DIV');
+    if (linkColumns.length > 0) {
+      const linkLabelColumn = linkColumns[0];
+      const labelParagraph = linkLabelColumn.querySelector('p');
+      if (labelParagraph && !labelParagraph.classList.contains('button-container')) {
+        linkData.text = labelParagraph.textContent.trim();
+      } else if (!labelParagraph && linkLabelColumn.textContent.trim()) {
+        linkData.text = linkLabelColumn.textContent.trim();
       }
     }
 
-    if (childDivs.length > 1) {
-      const linkDiv = childDivs[1];
-      const link = linkDiv.querySelector('a');
+    if (linkColumns.length > 1) {
+      const linkAnchorColumn = linkColumns[1];
+      const link = linkAnchorColumn.querySelector('a');
       if (link) {
         linkData.link = link.href || link.getAttribute('href') || '#';
       }
