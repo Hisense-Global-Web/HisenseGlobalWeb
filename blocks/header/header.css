@@ -21,9 +21,6 @@
   box-sizing: border-box;
 }
 
-#nav .nav-hamburger, #nav .section.nav-brand {
-  display: none;
-}
 
 
 .section.navigation-logo-container.navigation-item-container.navigation-action-container,
