@@ -1,3 +1,11 @@
+main > .section:first-of-type {
+    margin: 0;
+}
+
+main > .section > div {
+    max-width: 100%;
+}
+
 .carousel-container .carousel-wrapper,
 .carousel-items-container {
     height: 860px;
