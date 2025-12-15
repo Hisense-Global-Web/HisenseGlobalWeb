@@ -1,9 +1,9 @@
 .feaaturebanner-container .feaaturebanner-wrapper {
-  width: 1440px;
+  width: 100%;
 }
 
-.pdp-feature-banner-container .pdp-feature-banner-wrapper {
-  width: 1440px;
+.featurebanner-container .featurebanner-wrapper {
+  width: 100%;
   min-height: 810px;
   display: flex;
   align-items: center;
@@ -12,9 +12,22 @@
   position: relative;
 }
 
-.pdp-feature-banner {
+.featurebanner {
   padding-left: 160px;
   height: 100%;
+  color: #fff;
+
+  &::after {
+    content: '';
+    box-sizing: border-box;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, rgb(0 0 0 / 60%), rgb(0 0 0 / 0%));
+ }
 
   picture {
     position: absolute;
@@ -29,4 +42,34 @@
     width: 100%;
     height: 100%;
   }
+
+  h1+p,
+  h2+p,
+  h3+p,
+  h4+p,
+  h5+p,
+  h6+p {
+    width: 402px;
+    margin: 0;
+  }
+
+  p:first-child + p {
+    width: 402px;
+    color: #00AAA6;
+    margin: 0;
+    font-size: 20px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    width: 402px;
+    font-size: 42px;
+    margin: 0 0 10px;
+    line-height: 110%;
+  }
+
 }
