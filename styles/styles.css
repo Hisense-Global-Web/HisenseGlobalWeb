@@ -84,6 +84,13 @@
 	--spacing-vertical-m: 60px;
 	--spacing-vertical-l: 80px;
 	--spacing-vertical-xl: 120px;
+
+  --header-light-color: #333333;
+  --header-dark-color: #ffffff;
+  --header-active-color: var(--header-light-color);
+}
+.header-dark-mode {
+  --header-active-color: var(--header-dark-color);
 }
 
 @media (width >= 900px) {
