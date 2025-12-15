@@ -14,7 +14,7 @@ function extractLogoData(container) {
   }
 
   const logoDivs = Array.from(logoBlock.children).filter((child) => child.tagName === 'DIV');
-  
+
   if (logoDivs.length > 0) {
     const firstDiv = logoDivs[0];
     const logoPicture = firstDiv.querySelector('picture');
@@ -178,7 +178,6 @@ function extractLegalLinksData(container) {
   return legalLinksData;
 }
 
-
 export default function decorate(block) {
   const isEditorMode = block.hasAttribute('data-aue-resource')
     || block.hasAttribute('data-aue-type')
@@ -322,4 +321,3 @@ export default function decorate(block) {
     block.appendChild(section);
   }
 }
-
