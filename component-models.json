@@ -307,7 +307,7 @@
         "valueType": "string",
         "name": "Video",
         "label": "Video",
-        "multi": false
+        "multi": true
       },
       {
         "component": "reference",
