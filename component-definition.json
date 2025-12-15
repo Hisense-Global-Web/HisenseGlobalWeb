@@ -109,7 +109,24 @@
               "page": {
                 "resourceType": "core/franklin/components/columns/v1/columns",
                 "template": {
+                  "name": "Card Carousel",
+                  "model": "cardcarousel",
                   "classes_variant": "2-slides"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Card Slide",
+          "id": "cardslide",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/columns/v1/columns",
+                "template": {
+                  "name": "Card Slide",
+                  "model": "cardslide"
                 }
               }
             }
