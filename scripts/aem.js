@@ -704,6 +704,12 @@ async function loadSectionResources(section) {
   }
 
   if (sectionName) {
+    // 如果容器是驼峰式命名，那么改成xxx-xxx式命名（这是block的文件名格式）
+    const camelCasePattern = /^[a-z]+[A-Z][A-Za-z0-9]*$/;
+    if (camelCasePattern.test(sectionName)) {
+      sectionName = sectionName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+    }
+
     const sectionStatus = section.dataset.sectionResourceStatus;
 
     if (sectionStatus !== 'loading' && sectionStatus !== 'loaded') {
