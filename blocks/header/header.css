@@ -8,8 +8,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: #F4F8F7;
-    border-bottom: 1px solid #F4F8F7;
+    background: var(--header-backgroundcolor);
+    border-bottom: 1px solid var(--header-backgroundcolor);
     z-index: 999;
     font-family: var(--font-family);
     font-weight: 400;
