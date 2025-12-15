@@ -51,7 +51,10 @@
         "cards",
         "columns",
         "fragment",
-        "carousel"
+        "carousel",
+        "collectionsection",
+        "recards",
+        "banner"
       ]
     }
   ]
