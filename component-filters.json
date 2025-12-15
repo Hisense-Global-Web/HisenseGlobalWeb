@@ -16,6 +16,7 @@
       "cards",
       "columns",
       "fragment",
+      "carousel",
       "collectionsection",
       "recards",
       "banner"
@@ -25,6 +26,12 @@
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "carousel-item"
     ]
   },
   {
