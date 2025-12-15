@@ -25,7 +25,7 @@
           "valueType": "string",
           "name": "Video",
           "label": "Video",
-          "multi": true
+          "multi": false
         },
          {
           "component": "reference",
