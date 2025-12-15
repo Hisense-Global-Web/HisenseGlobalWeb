@@ -45,13 +45,6 @@ function bindEvents(block) {
       showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
     });
   });
-
-  block.querySelector('.slide-prev').addEventListener('click', () => {
-    showSlide(block, parseInt(block.dataset.activeSlide, 10) - 1);
-  });
-  block.querySelector('.slide-next').addEventListener('click', () => {
-    showSlide(block, parseInt(block.dataset.activeSlide, 10) + 1);
-  });
 }
 function createSlide(row, slideIndex) {
   const slide = document.createElement('li');
@@ -71,17 +64,10 @@ export default async function decorate(block) {
   const wholeContainer = document.createElement('ul');
   wholeContainer.classList.add('carousel-items-container');
   let slideIndicators;
-  let slideNavButtons;
 
   if (!isSingleSlide) {
     slideIndicators = document.createElement('ol');
     slideIndicators.classList.add('carousel-item-indicators');
-    slideNavButtons = document.createElement('div');
-    slideNavButtons.classList.add('carousel-navigation-buttons');
-    slideNavButtons.innerHTML = `
-      <button type="button" class= "slide-prev" aria-label="'Previous Slide'"></button>
-      <button type="button" class="slide-next" aria-label="'Next Slide'"></button>
-    `;
   }
   [...block.children].forEach((row, idx) => {
     const slide = createSlide(row, idx);
@@ -102,7 +88,6 @@ export default async function decorate(block) {
   });
   block.prepend(wholeContainer);
   block.append(slideIndicators);
-  block.append(slideNavButtons);
   if (!isSingleSlide) {
     bindEvents(block);
   }
