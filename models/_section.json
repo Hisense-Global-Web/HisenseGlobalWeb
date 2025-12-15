@@ -9,7 +9,8 @@
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
               "model": "section",
-              "style": "light"
+              "style": "light",
+              "classes_image": ""
             }
           }
         }
@@ -42,6 +43,21 @@
             {
               "name": "Grey",
               "value": "grey"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_image",
+          "label": "Image Style",
+          "options": [
+            {
+              "name": "default",
+              "value": ""
+            },
+            {
+              "name": "Rounded",
+              "value": "rounded"
             }
           ]
         }
