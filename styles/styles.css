@@ -297,3 +297,7 @@ main .section.dark {
 	background-color: var(--background-dark);
 	color: var(--text-dark);
 }
+
+main .section.image-rounded img {
+	border-radius: 20px;
+}
