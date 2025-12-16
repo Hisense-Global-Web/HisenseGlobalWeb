@@ -186,7 +186,8 @@ export default async function decorate(block) {
       });
     }
     const dropdownData = dropdowns[idx];
-    if (dropdownData && (dropdownData.products.length || dropdownData.links.length || dropdownData.btns.length)) {
+    if (dropdownData
+      && (dropdownData.products.length || dropdownData.links.length || dropdownData.btns.length)) {
       const mask = document.createElement('div');
       mask.className = 'nav-mask';
       mask.id = 'nav-mask';
