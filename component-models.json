@@ -1014,6 +1014,11 @@
         "name": "image",
         "label": "Image",
         "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text"
       }
     ]
   },
