@@ -9,7 +9,8 @@
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
               "model": "section",
-              "style": "light"
+              "style": "light",
+              "classes_image": ""
             }
           }
         }
@@ -29,7 +30,7 @@
         {
           "component": "select",
           "name": "style",
-          "label": "Background Style",
+          "label": "Section Theme",
           "options": [
             {
               "name": "Light",
@@ -42,6 +43,48 @@
             {
               "name": "Grey",
               "value": "grey"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "style_spacing",
+          "label": "Section Spacing",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "Small",
+              "value": "vertical-padding-s"
+            },
+            {
+              "name": "Medium",
+              "value": "vertical-padding-m"
+            },
+            {
+              "name": "Large",
+              "value": "vertical-padding-l"
+            },
+            {
+              "name": "Extra Large",
+              "value": "vertical-padding-xl"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "style_image",
+          "label": "Image Style",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Rounded",
+              "value": "image-rounded"
             }
           ]
         }
