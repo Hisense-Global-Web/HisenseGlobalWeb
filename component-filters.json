@@ -4,8 +4,7 @@
     "components": [
       "section",
       "navigation",
-      "footerContainer",
-      "navigationSecondaryContainer"
+      "footerContainer"
     ]
   },
   {
@@ -56,8 +55,7 @@
       "text",
       "image",
       "button",
-      "title",
-      "imageLink"
+      "title"
     ]
   },
   {
