@@ -1,1 +1,5 @@
 /* navigation styles */
+main .section.navigation-logo-container.navigation-item-container.navigation-action-container, .section[class*="navigation"]{
+  display: flex;
+  max-width: initial;
+}
