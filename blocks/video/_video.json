@@ -21,8 +21,8 @@
       "id": "video",
       "fields": [
         {
-          "component": "aem-content-fragment",
-          "valueType": "string",
+          "component": "aem-content",
+          "valueType": "",
           "name": "Video",
           "label": "Video",
           "multi": false
