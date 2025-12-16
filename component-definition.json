@@ -70,7 +70,9 @@
               "page": {
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
-                  "model": "section"
+                  "model": "section",
+                  "style": "light",
+                  "classes_image": ""
                 }
               }
             }
@@ -82,6 +84,25 @@
       "title": "Blocks",
       "id": "blocks",
       "components": [
+        {
+          "title": "Banner",
+          "id": "banner",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Banner",
+                  "model": "banner",
+                  "classes": "banner-text",
+                  "collection_text": "<h5>Perfection, Any Content, Anytime</h5><h1>From the first setup to everyday use.designed to feel effortless —— so you can focus on what really matters.</h1>",
+                  "collection_ctaPrimary": "/",
+                  "collection_ctaPrimaryText": "Learn more"
+                }
+              }
+            }
+          }
+        },
         {
           "title": "Cards",
           "id": "cards",
@@ -108,6 +129,36 @@
                   "name": "Card",
                   "model": "card",
                   "classes": "defaultcard"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Carousel",
+          "id": "carousel",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Carousel",
+                  "filter": "carousel"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Carousel Item",
+          "id": "carousel-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Carousel Item",
+                  "model": "carousel-item"
                 }
               }
             }
@@ -168,7 +219,12 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Hero",
-                  "model": "hero"
+                  "model": "hero",
+                  "hero_text": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
+                  "hero_ctaPrimary": "/",
+                  "hero_ctaPrimaryText": "Buy now",
+                  "hero_ctaSecondary": "/",
+                  "hero_ctaSecondaryText": "Learn more"
                 }
               }
             }
