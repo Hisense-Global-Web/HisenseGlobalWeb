@@ -46,12 +46,12 @@
           "valueType": "string",
           "options": [
               {
-                  "name": "Default",
-                  "value": ""
+                  "name": "Cover Style",
+                  "value": "cover-style"
               },
               {
-                  "name": "Side-by-side",
-                  "value": "side-by-side"
+                  "name": "Center Style",
+                  "value": "center-style"
               }
           ]
         }
