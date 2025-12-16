@@ -113,10 +113,17 @@ function buildDropdown(data) {
   data.links.forEach((link) => {
     const div = document.createElement('div');
     if (link.href && link.href !== '#') {
-      const a = document.createElement('a');
-      a.href = link.href;
-      a.textContent = link.text;
-      div.append(a);
+      // const a = document.createElement('a');
+      // a.href = link.href;
+      // a.textContent = link.text;
+      // div.append(a);
+      const textParts = link.text.split('/').map((part) => part.trim()).filter((part) => part);
+      textParts.forEach((part) => {
+        const a = document.createElement('a');
+        a.href = link.href;
+        a.textContent = part;
+        div.append(a);
+      });
     } else {
       div.textContent = link.text;
     }
