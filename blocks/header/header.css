@@ -111,7 +111,6 @@
   padding: 0 18px;
   display: flex;
   align-items: center;
-  position: relative;
 }
 
 .navigation-item-wrapper .navigation-item {
@@ -266,6 +265,9 @@
 .dropdown-links div {
   height: 15px;
 }
+.dropdown-links div:nth-child(2n) {
+  display: none;
+}
 
 .dropdown-btns {
   margin-top: 60px;
@@ -279,6 +281,11 @@
   border: 1px solid #DCF2F2;
   border-radius: 10px;
   cursor: pointer;
+  background: #DCF2F2;
+  color: #333;
+}
+
+.dropdown-btn:hover {
   background: #DCF2F2;
 }
 
@@ -299,4 +306,8 @@
 .nav-link:hover .nav-mask,
 .nav-link .nav-dropdown:hover .nav-mask {
   display: block;
+}
+.nav-link:hover .nav-mask:hover,
+.nav-link .nav-dropdown:hover .nav-mask:hover {
+  display: none;
 }
