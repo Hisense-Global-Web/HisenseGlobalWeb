@@ -22,7 +22,8 @@
       "carousel",
       "collectionsection",
       "recards",
-      "banner"
+      "banner",
+      "card"
     ]
   },
   {
@@ -49,7 +50,8 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "card"
     ]
   },
   {

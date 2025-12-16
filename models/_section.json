@@ -109,7 +109,8 @@
         "carousel",
         "collectionsection",
         "recards",
-        "banner"
+        "banner",
+        "card"
       ]
     }
   ]
