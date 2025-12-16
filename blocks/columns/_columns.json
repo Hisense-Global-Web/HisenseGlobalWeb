@@ -36,15 +36,8 @@
             {
               "name": "Carousel -2 Slides",
               "value": "carousel-2-slides"
-            },
-            {
-              "name": "Collection Cover Card",
-              "value": "collection-cover-card"
-            },
-            {
-              "name": "Collection  Center Card",
-              "value": "collection-center-card"
             }
+           
           ]
         },
         {
@@ -92,8 +85,7 @@
         "text",
         "image",
         "button",
-        "title",
-        "slide"
+        "title"
 
       ]
     }

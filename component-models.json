@@ -280,11 +280,25 @@
         "multi": false
       },
       {
-        "component": "text",
-        "name": "url",
+        "component": "richtext",
+        "name": "title",
         "value": "",
-        "label": "url",
+        "label": "Title",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "card_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string",
+        "value": "/"
+      },
+      {
+        "component": "text",
+        "name": "card_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string",
+        "value": "Required if you has Primary CTA content"
       }
     ]
   },
@@ -374,14 +388,6 @@
           {
             "name": "Carousel -2 Slides",
             "value": "carousel-2-slides"
-          },
-          {
-            "name": "Collection Cover Card",
-            "value": "collection-cover-card"
-          },
-          {
-            "name": "Collection  Center Card",
-            "value": "collection-center-card"
           }
         ]
       },

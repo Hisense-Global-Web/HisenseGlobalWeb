@@ -128,9 +128,7 @@
                 "template": {
                   "name": "Card",
                   "model": "card",
-                  "classes": "defaultcard",
-                  "collection_ctaPrimary": "/",
-                  "collection_ctaPrimaryText": "Learn more"
+                  "classes": "defaultcard"
                 }
               }
             }

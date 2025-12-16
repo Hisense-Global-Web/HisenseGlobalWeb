@@ -25,9 +25,7 @@
             "template": {
               "name": "Card",
               "model": "card",
-              "classes": "defaultcard",
-              "collection_ctaPrimary": "/",
-              "collection_ctaPrimaryText": "Learn more"
+              "classes": "defaultcard"
             }
           }
         }
@@ -69,11 +67,25 @@
           "multi": false
         },
          {
-          "component": "text",
-          "name": "url",
+          "component": "richtext",
+          "name": "title",
           "value": "",
-          "label": "url",
+          "label": "Title",
           "valueType": "string"
+        },
+         {
+          "component": "aem-content",
+          "name": "card_ctaPrimary",
+          "label": "Primary CTA",
+          "valueType": "string",
+          "value": "/"
+        },
+        {
+          "component": "text",
+          "name": "card_ctaPrimaryText",
+          "label": "Primary CTA Label",
+          "valueType": "string",
+          "value": "Required if you has Primary CTA content"
         }
       ]
     }
