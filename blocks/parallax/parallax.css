@@ -1,0 +1,5 @@
+.parallax-container {
+	position: relative;
+	height: 400vh;
+	overflow: hidden;
+}
