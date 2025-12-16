@@ -303,7 +303,7 @@
     "id": "video",
     "fields": [
       {
-        "component": "aem-experience-fragment",
+        "component": "aem-content-fragment",
         "valueType": "",
         "name": "Video",
         "label": "Video",
