@@ -81,6 +81,14 @@
   display: block;
 }
 
+.dropdown-links div {
+  height: 15px;
+}
+
+.dropdown-links div:nth-child(2n) {
+  display: none;
+}
+
 /* 隐藏编辑模式下的 alt 和 link 字段显示 */
 .navigation-logo-wrapper .navigation-logo > div:nth-child(2),
 .navigation-logo-wrapper .navigation-logo > div:nth-child(3) {
@@ -258,15 +266,8 @@
   padding-left: 34px;
   margin-left: 60px;
   margin-top: auto;
-  color: #666666;
+  color: #666;
   font-weight: 500;
-}
-
-.dropdown-links div {
-  height: 15px;
-}
-.dropdown-links div:nth-child(2n) {
-  display: none;
 }
 
 .dropdown-btns {
@@ -307,6 +308,7 @@
 .nav-link .nav-dropdown:hover .nav-mask {
   display: block;
 }
+
 .nav-link:hover .nav-mask:hover,
 .nav-link .nav-dropdown:hover .nav-mask:hover {
   display: none;
