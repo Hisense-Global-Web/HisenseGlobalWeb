@@ -303,9 +303,9 @@
     "id": "video",
     "fields": [
       {
-        "component": "aem-content",
+        "component": "container",
         "valueType": "",
-        "name": "Video",
+        "name": "Videos",
         "label": "Video",
         "multi": false
       },
