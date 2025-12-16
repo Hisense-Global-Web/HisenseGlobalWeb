@@ -107,13 +107,13 @@
           "title": "Cards",
           "id": "cards",
           "plugins": {
-            "aem": {
+            "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Cards",
                   "model": "cards",
-                  "filter": "cards"
+                  "filter": "card"
                 }
               }
             }
@@ -123,7 +123,7 @@
           "title": "Card",
           "id": "card",
           "plugins": {
-            "aem": {
+            "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
