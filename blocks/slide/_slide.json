@@ -22,26 +22,46 @@
       "id": "slide",
       "fields": [
         {
+          "component": "select",
+          "name": "classes",
+          "value": "",
+          "label": "Card options",
+          "description": "",
+          "valueType": "string",
+          "options": [
+              {
+                  "name": "Default",
+                  "value": ""
+              },
+              {
+                  "name": "Cover Style",
+                  "value": "cover-style"
+              }
+          ]
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "slide_image",
           "label": "Image",
           "multi": false
         },
+        
         {
-          "component": "text",
-          "valueType": "string",
+          "component": "richtext",
           "name": "slide_title",
           "label": "Title",
+          "valueType": "string",
           "required": false
         },
         {
-          "component": "richtext",
-          "name": "slide_text",
-          "label": "Text",
+          "component": "text",
           "valueType": "string",
+          "name": "slide_link",
+          "label": "Link",
           "required": false
         }
+
       ]
     }
   ],
