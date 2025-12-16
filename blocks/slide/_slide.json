@@ -23,7 +23,7 @@
       "fields": [
         {
           "component": "select",
-          "name": "classes",
+          "name": "style",
           "value": "",
           "label": "Card options",
           "description": "",
