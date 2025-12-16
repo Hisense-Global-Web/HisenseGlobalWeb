@@ -1,0 +1,11 @@
+.description {
+  text-align: center;
+}
+
+.block.description.text-align-left {
+  text-align: left;
+}
+
+.block.description.text-align-right {
+  text-align: right;
+}
