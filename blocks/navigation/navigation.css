@@ -21,3 +21,9 @@ main .section.navigation-logo-container.navigation-item-container.navigation-act
 .columns-wrapper .columns > div > div:nth-child(2) {
   grid-template-columns: repeat(2, 1fr);
 }
+
+.nav-dropdown .dropdown-links div {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
