@@ -1016,9 +1016,10 @@
         "multi": false
       },
       {
-        "component": "text",
+        "component": "richtext",
         "name": "text",
-        "label": "Text"
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
