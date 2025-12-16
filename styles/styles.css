@@ -87,6 +87,7 @@
 
   --header-light-color: #333333;
   --header-dark-color: #ffffff;
+	--nav-height: 100px;
   --header-light-color: #333;
   --header-dark-color: #fff;
   --header-active-color: var(--header-light-color);
@@ -319,7 +320,7 @@ main > .section:first-of-type {
 }
 
 main .section.navigation-item-container {
-  display: none !important;
+  display: none;
 }
 
 main > .footer-container.section {
