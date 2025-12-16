@@ -303,9 +303,9 @@
     "id": "video",
     "fields": [
       {
-        "component": "container",
+        "component": "aem-experience-fragment",
         "valueType": "",
-        "name": "Videos",
+        "name": "Video",
         "label": "Video",
         "multi": false
       },
