@@ -526,6 +526,32 @@
     ]
   },
   {
+    "id": "slide",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "slide_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "slide_title",
+        "label": "Title",
+        "required": false
+      },
+      {
+        "component": "richtext",
+        "name": "slide_text",
+        "label": "Text",
+        "valueType": "string",
+        "required": false
+      }
+    ]
+  },
+  {
     "id": "video",
     "fields": [
       {
