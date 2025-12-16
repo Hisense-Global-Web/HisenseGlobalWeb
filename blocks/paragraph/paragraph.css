@@ -1,0 +1,11 @@
+.paragraph {
+  text-align: center;
+}
+
+.block.paragraph.text-align-left {
+  text-align: left;
+}
+
+.block.paragraph.text-align-right {
+  text-align: right;
+}

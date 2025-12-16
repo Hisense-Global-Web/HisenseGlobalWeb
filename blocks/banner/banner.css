@@ -1,5 +1,5 @@
 .banner-container .banner-wrapper {
-  width: 1080px;
+  width: 1120px;
   min-height: 432px;
   display: flex;
   align-items: center;
@@ -8,7 +8,6 @@
   padding: 0;
   margin: 30px auto;
   position: relative;
-
 }
 
 .block.banner {

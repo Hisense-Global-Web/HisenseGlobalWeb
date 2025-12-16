@@ -469,6 +469,46 @@
     ]
   },
   {
+    "id": "paragraph",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Banner classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "text-align-left",
+            "value": "text-align-left"
+          },
+          {
+            "name": "text-align-right",
+            "value": "text-align-right"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "paragraph_smallTit",
+        "label": "Small title",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "paragrph_text",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "recards",
     "fields": [
       {
