@@ -1,3 +1,8 @@
+.cards {
+  width: 1120px;
+  margin: 30px auto;
+  position: relative;
+}
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -33,5 +38,13 @@
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
+}
+.cards .cards-card-cta{
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
