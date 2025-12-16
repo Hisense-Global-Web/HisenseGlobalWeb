@@ -3,3 +3,21 @@ main .section.navigation-logo-container.navigation-item-container.navigation-act
   display: flex;
   max-width: initial;
 }
+
+.columns-wrapper .columns > div {
+  flex-direction: column;
+}
+
+.columns-wrapper .columns > div > div {
+  width: 100%;
+  display: grid;
+  row-gap: 30px;
+  column-gap: 10px;
+}
+
+.columns-wrapper .columns > div > div:first-child {
+  grid-template-columns: repeat(4, 1fr);
+}
+.columns-wrapper .columns > div > div:nth-child(2) {
+  grid-template-columns: repeat(2, 1fr);
+}
