@@ -12,7 +12,7 @@ export default function decorate(block) {
   video.style.border = '1px solid #ccc';
   video.poster = '';
   const source = document.createElement('source');
-  source.src = './content/dam/hisense/file_example_MP4_1280_10MG.mp4'; // 替换为你的视频路径
+  source.src = 'https://author-p174152-e1855821.adobeaemcloud.com/ui#/aem/assetdetails.html/content/dam/hisense/us/collection-cards/2025UXfinal_30S_1013.mp4'; // 替换为你的视频路径
   source.type = 'video/mp4';
   // 添加备用文本
   video.innerHTML = '';
@@ -28,4 +28,5 @@ export default function decorate(block) {
   video.addEventListener('play', () => {
     console.log('视频开始播放');
   });
+  block.replaceChildren(newDiv);
 }

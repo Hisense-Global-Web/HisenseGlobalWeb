@@ -175,10 +175,10 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "text",
+        "component": "text",
+        "name": "url",
         "value": "",
-        "label": "Text",
+        "label": "url",
         "valueType": "string"
       }
     ]
@@ -295,6 +295,13 @@
         "name": "text",
         "value": "",
         "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "url",
+        "value": "",
+        "label": "url",
         "valueType": "string"
       }
     ]
