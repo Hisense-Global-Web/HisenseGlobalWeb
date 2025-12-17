@@ -2,8 +2,7 @@
 
 .plp-section,
 main > .plp-section,
-section.plp-section,
-[data-class="plp-section"] {
+section.plp-section {
   width: 1120px;
   max-width: 100%;
   margin-left: auto !important;
