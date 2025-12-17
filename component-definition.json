@@ -75,6 +75,23 @@
               }
             }
           }
+        },
+        {
+          "title": "PLP Section",
+          "id": "plp-section",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "model": "plp-section",
+                  "filter": "plp-section",
+                  "key-value": true,
+                  "background": "#ddd"
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -152,6 +169,39 @@
                 "template": {
                   "name": "Hero",
                   "model": "hero"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "PLP Section",
+          "id": "plp-section",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "model": "plp-section",
+                  "filter": "plp-section",
+                  "key-value": true,
+                  "background": "#ddd"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Product Filters Carousel",
+          "id": "product-filters-carousel",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Product Filters Carousel",
+                  "model": "product-filters-carousel",
+                  "key-value": true
                 }
               }
             }

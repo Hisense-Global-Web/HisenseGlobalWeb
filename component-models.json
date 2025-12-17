@@ -142,6 +142,22 @@
     ]
   },
   {
+    "id": "plp-section",
+    "fields": [
+      {
+        "component": "text",
+        "name": "class",
+        "label": "Class"
+      },
+      {
+        "component": "text",
+        "name": "background",
+        "value": "#ddd",
+        "label": "Background Color"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -212,6 +228,60 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "plp-section",
+    "fields": [
+      {
+        "component": "text",
+        "name": "class",
+        "label": "Class"
+      },
+      {
+        "component": "text",
+        "name": "background",
+        "value": "#ddd",
+        "label": "Background Color"
+      }
+    ]
+  },
+  {
+    "id": "product-filters-carousel",
+    "fields": [
+      {
+        "component": "container",
+        "name": "items",
+        "label": "Filter Items",
+        "multi": true,
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "image",
+            "label": "Image",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "alt",
+            "label": "Alt Text"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "title",
+            "label": "Text"
+          },
+          {
+            "component": "aem-content",
+            "valueType": "string",
+            "name": "link",
+            "label": "Link"
+          }
+        ]
       }
     ]
   }

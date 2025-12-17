@@ -13,6 +13,23 @@
           }
         }
       }
+    },
+    {
+      "title": "PLP Section",
+      "id": "plp-section",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "model": "plp-section",
+              "filter": "plp-section",
+              "key-value": true,
+              "background": "#ddd"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
@@ -37,6 +54,22 @@
           ]
         }
       ]
+    },
+    {
+      "id": "plp-section",
+      "fields": [
+        {
+          "component": "text",
+          "name": "class",
+          "label": "Class"
+        },
+        {
+          "component": "text",
+          "name": "background",
+          "value": "#ddd",
+          "label": "Background Color"
+        }
+      ]
     }
   ],
   "filters": [
@@ -51,6 +84,12 @@
         "cards",
         "columns",
         "fragment"
+      ]
+    },
+    {
+      "id": "plp-section",
+      "components": [
+        "product-filters-carousel"
       ]
     }
   ]

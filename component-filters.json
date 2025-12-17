@@ -19,6 +19,12 @@
     ]
   },
   {
+    "id": "plp-section",
+    "components": [
+      "product-filters-carousel"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
@@ -37,6 +43,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "plp-section",
+    "components": [
+      "product-filters-carousel"
     ]
   }
 ]
