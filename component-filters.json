@@ -19,7 +19,8 @@
       "carousel",
       "collectionsection",
       "recards",
-      "banner"
+      "banner",
+      "icon-component"
     ]
   },
   {
@@ -47,6 +48,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "icon-component",
+    "components": [
+      "icon-item"
     ]
   },
   {

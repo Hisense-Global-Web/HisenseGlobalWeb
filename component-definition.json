@@ -231,6 +231,36 @@
           }
         },
         {
+          "title": "Icon Component",
+          "id": "icon-component",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Icon Component",
+                  "filter": "icon-component"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Icon Item",
+          "id": "icon-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Icon Item",
+                  "model": "icon-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Recards",
           "id": "recards",
           "plugins": {

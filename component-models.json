@@ -469,6 +469,63 @@
     ]
   },
   {
+    "id": "icon-component",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Icon Component Options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "text-direction-left",
+            "value": "text-direction-left"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "icon-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "required": true,
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "icon_cta",
+        "label": "CTA",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "icon_ctaLabel",
+        "label": "CTA Label",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "recards",
     "fields": [
       {
