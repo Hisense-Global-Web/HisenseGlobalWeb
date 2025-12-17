@@ -26,6 +26,7 @@
           "name": "items",
           "label": "Filter Items",
           "multi": true,
+          "key-value": true,
           "fields": [
             {
               "component": "reference",
