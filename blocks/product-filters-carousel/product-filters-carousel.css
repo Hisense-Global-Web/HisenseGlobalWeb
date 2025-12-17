@@ -154,7 +154,7 @@ main > .plp-section:first-of-type {
 
 .product-filters-carousel[data-aue-resource] > div[data-aue-resource] > div:first-child {
   width: 112px;
-  height: 80px;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
