@@ -469,7 +469,7 @@
     ]
   },
   {
-    "id": "icon_item",
+    "id": "iconItem",
     "fields": [
       {
         "component": "reference",

@@ -17,14 +17,14 @@
     },
     {
       "title": "Icon Item",
-      "id": "icon_item",
+      "id": "iconItem",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Icon Item",
-              "model": "icon_item",
+              "model": "iconItem",
               "classes": "default-icon"
             }
           }
@@ -34,7 +34,7 @@
   ],
   "models": [
     {
-      "id": "icon_item",
+      "id": "iconItem",
       "fields": [
         {
           "component": "reference",
@@ -72,7 +72,7 @@
     {
       "id": "iconComponent",
       "components": [
-        "icon_item"
+        "iconItem"
       ]
     }
   ]
