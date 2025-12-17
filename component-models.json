@@ -470,26 +470,7 @@
   },
   {
     "id": "iconComponent",
-    "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "value": "",
-        "label": "Icon Component Options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default",
-            "value": ""
-          },
-          {
-            "name": "text-direction-left",
-            "value": "text-direction-left"
-          }
-        ]
-      }
-    ]
+    "fields": []
   },
   {
     "id": "iconItem",
