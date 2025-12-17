@@ -1,41 +1,41 @@
 {
   "definitions": [
     {
-      "title": "Cards",
-      "id": "cards",
+      "title": "Recards",
+      "id": "recards",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Cards",
-              "model": "cards"
-            
+              "name": "Recards",
+              "filter": "recards"
             }
           }
         }
       }
     },
     {
-      "title": "Card",
-      "id": "card",
+      "title": "Recard",
+      "id": "recard",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Card",
-              "model": "card",
-              "classes": "defaultcard"
+              "name": "Recard",
+              "model": "recard",
+              "classes": "recard"
             }
           }
         }
       }
     }
+    
   ],
   "models": [
      {
-      "id": "cards",
+      "id": "recards",
       "fields": [
         {
           "component": "select",
@@ -46,57 +46,50 @@
           "valueType": "string",
           "options": [
               {
-                  "name": "Cover Style",
-                  "value": "cover-style"
+                  "name": "Default",
+                  "value": ""
               },
               {
-                  "name": "Center Style",
-                  "value": "center-style"
+                  "name": "Side-by-side",
+                  "value": "side-by-side"
               }
           ]
         }
       ]
     },
+   
     {
-      "id": "card",
+      "id": "recard",
       "fields": [
-         {
-          "component": "richtext",
-          "name": "title",
-          "value": "",
-          "label": "Title",
-          "valueType": "string"
-        },
-         {
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",
           "label": "Image",
           "multi": false
         },
-         {
-          "component": "aem-content",
-          "name": "card_ctaPrimary",
-          "label": "Primary CTA",
-          "valueType": "string",
-          "value": "/"
-        },
         {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Text",
+          "valueType": "string"
+        },
+         {
           "component": "text",
-          "name": "card_ctaPrimaryText",
-          "label": "Primary CTA Label",
-          "valueType": "string",
-          "value": "Required if you has Primary CTA content"
+          "name": "url",
+          "value": "",
+          "label": "url",
+          "valueType": "string"
         }
       ]
     }
-   
   ],
   "filters": [
     {
-      "id": "cards",
+      "id": "recards",
       "components": [
-        "card"
+        "recard"
       ]
     }
   ]

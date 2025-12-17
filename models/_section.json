@@ -8,7 +8,9 @@
           "page": {
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
-              "model": "section"
+              "model": "section",
+              "style": "light",
+              "classes_image": ""
             }
           }
         }
@@ -26,13 +28,63 @@
           "description": "The label shown for this section in the Content Tree"
         },
         {
-          "component": "multiselect",
+          "component": "select",
           "name": "style",
-          "label": "Style",
+          "label": "Section Theme",
           "options": [
             {
-              "name": "Highlight",
-              "value": "highlight"
+              "name": "Light",
+              "value": "light"
+            },
+            {
+              "name": "Dark",
+              "value": "dark"
+            },
+            {
+              "name": "Grey",
+              "value": "grey"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "style_spacing",
+          "label": "Section Spacing",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "Small",
+              "value": "vertical-padding-s"
+            },
+            {
+              "name": "Medium",
+              "value": "vertical-padding-m"
+            },
+            {
+              "name": "Large",
+              "value": "vertical-padding-l"
+            },
+            {
+              "name": "Extra Large",
+              "value": "vertical-padding-xl"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "style_image",
+          "label": "Image Style",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Rounded",
+              "value": "image-rounded"
             }
           ]
         }
@@ -50,7 +102,16 @@
         "hero",
         "cards",
         "columns",
-        "fragment"
+        "fragment",
+        "collectionsection",
+        "recards",
+        "video",
+        "carousel",
+        "collectionsection",
+        "recards",
+        "banner",
+        "slide",
+        "featurebanner"
       ]
     }
   ]

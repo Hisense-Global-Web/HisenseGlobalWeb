@@ -17,13 +17,28 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "collectionsection",
+      "recards",
+      "video",
+      "carousel",
+      "collectionsection",
+      "recards",
+      "banner",
+      "slide",
+      "featurebanner"
     ]
   },
   {
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "carousel-item"
     ]
   },
   {
@@ -80,6 +95,12 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
+    ]
+  },
+  {
+    "id": "recards",
+    "components": [
+      "recard"
     ]
   }
 ]

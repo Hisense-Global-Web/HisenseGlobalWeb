@@ -129,13 +129,141 @@
         "description": "The label shown for this section in the Content Tree"
       },
       {
-        "component": "multiselect",
+        "component": "select",
         "name": "style",
-        "label": "Style",
+        "label": "Section Theme",
         "options": [
           {
-            "name": "Highlight",
-            "value": "highlight"
+            "name": "Light",
+            "value": "light"
+          },
+          {
+            "name": "Dark",
+            "value": "dark"
+          },
+          {
+            "name": "Grey",
+            "value": "grey"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_spacing",
+        "label": "Section Spacing",
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Small",
+            "value": "vertical-padding-s"
+          },
+          {
+            "name": "Medium",
+            "value": "vertical-padding-m"
+          },
+          {
+            "name": "Large",
+            "value": "vertical-padding-l"
+          },
+          {
+            "name": "Extra Large",
+            "value": "vertical-padding-xl"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_image",
+        "label": "Image Style",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Rounded",
+            "value": "image-rounded"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "banner",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Banner classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "text-color-black",
+            "value": "text-color-black"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "collection_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "collection_imageAlt",
+        "label": "Image Alt Text",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "collection_text",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "collection_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "collection_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cards",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Cover Style",
+            "value": "cover-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
           }
         ]
       }
@@ -145,6 +273,13 @@
     "id": "card",
     "fields": [
       {
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -152,10 +287,84 @@
         "multi": false
       },
       {
+        "component": "aem-content",
+        "name": "card_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string",
+        "value": "/"
+      },
+      {
+        "component": "text",
+        "name": "card_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string",
+        "value": "Required if you has Primary CTA content"
+      }
+    ]
+  },
+  {
+    "id": "carousel-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "required": true,
+        "multi": false
+      },
+      {
         "component": "richtext",
         "name": "text",
-        "value": "",
+        "value": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
         "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "carousel_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string",
+        "value": "/"
+      },
+      {
+        "component": "text",
+        "name": "carousel_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string",
+        "value": "Required if you has Primary CTA content"
+      },
+      {
+        "component": "aem-content",
+        "name": "carousel_ctaSecondary",
+        "label": "Secondary CTA",
+        "valueType": "string",
+        "value": "/"
+      },
+      {
+        "component": "text",
+        "name": "carousel_ctaSecondaryText",
+        "label": "Secondary CTA Label",
+        "valueType": "string",
+        "value": "Required if you has Secondary CTA content"
+      }
+    ]
+  },
+  {
+    "id": "collectionsection",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "subtitle",
+        "value": "",
+        "label": "Sub Title",
         "valueType": "string"
       }
     ]
@@ -163,6 +372,40 @@
   {
     "id": "columns",
     "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Variant",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Carousel - 1 Slide",
+            "value": "carousel-1-slide"
+          },
+          {
+            "name": "Carousel -2 Slides",
+            "value": "carousel-2-slides"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "classes_ratio",
+        "label": "Media Ratio",
+        "options": [
+          {
+            "name": "4:3",
+            "value": "four-by-three"
+          },
+          {
+            "name": "3:2",
+            "value": "three-by-two"
+          }
+        ]
+      },
       {
         "component": "text",
         "valueType": "number",
@@ -176,6 +419,32 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
+      }
+    ]
+  },
+  {
+    "id": "featurebanner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "featurebanner_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "featurebanner_imageAlt",
+        "label": "Image Alt Text",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "featurebanner_text",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
       }
     ]
   },
@@ -293,54 +562,47 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
+        "name": "hero_image",
         "label": "Image",
         "multi": false
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
+        "name": "hero_imageAlt",
+        "label": "Image Alt Text",
+        "required": true
       },
       {
         "component": "richtext",
-        "name": "text",
-        "value": "",
+        "name": "hero_text",
         "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "imageLink",
-    "fields": [
-      {
-        "component": "reference",
         "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "alt",
-        "label": "Alt Text",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title",
-        "value": ""
+        "required": true
       },
       {
         "component": "aem-content",
-        "name": "link",
-        "label": "Link"
+        "name": "hero_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "hero_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "hero_ctaSecondary",
+        "label": "Secondary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "hero_ctaSecondaryText",
+        "label": "Secondary CTA Label",
+        "valueType": "string"
       }
     ]
   },
@@ -446,6 +708,125 @@
         "name": "logoAlt",
         "label": "Logo Alt",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "recards",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Side-by-side",
+            "value": "side-by-side"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "recard",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "url",
+        "value": "",
+        "label": "url",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "slide",
+    "fields": [
+      {
+        "component": "select",
+        "name": "style",
+        "value": "",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Cover Style",
+            "value": "cover-style"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "slide_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "slide_title",
+        "label": "Title",
+        "valueType": "string",
+        "required": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "slide_link",
+        "label": "Link",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "video",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "",
+        "name": "Video",
+        "label": "Video",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "img",
+        "label": "img",
+        "multi": false
       }
     ]
   }
