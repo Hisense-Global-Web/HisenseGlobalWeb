@@ -423,6 +423,32 @@
     ]
   },
   {
+    "id": "featurebanner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "featurebanner_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "featurebanner_imageAlt",
+        "label": "Image Alt Text",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "featurebanner_text",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
