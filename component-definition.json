@@ -254,7 +254,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Icon Item",
-                  "model": "iconItem"
+                  "model": "iconItem",
+                  "classes": "default-icon"
                 }
               }
             }
