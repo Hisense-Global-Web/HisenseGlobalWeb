@@ -248,41 +248,32 @@
     ]
   },
   {
-    "id": "product-filters-carousel",
+    "id": "product-filters-carousel-item",
     "fields": [
       {
-        "component": "container",
-        "name": "items",
-        "label": "Filter Items",
-        "multi": true,
-        "key-value": true,
-        "fields": [
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "image",
-            "label": "Image",
-            "multi": false
-          },
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "alt",
-            "label": "Alt Text"
-          },
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "title",
-            "label": "Text"
-          },
-          {
-            "component": "aem-content",
-            "valueType": "string",
-            "name": "link",
-            "label": "Link"
-          }
-        ]
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "alt",
+        "label": "Alt Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Text"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link"
       }
     ]
   }

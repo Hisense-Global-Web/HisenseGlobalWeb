@@ -50,5 +50,11 @@
     "components": [
       "product-filters-carousel"
     ]
+  },
+  {
+    "id": "product-filters-carousel",
+    "components": [
+      "product-filters-carousel-item"
+    ]
   }
 ]
