@@ -133,7 +133,7 @@ main > .plp-section:first-of-type {
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 0;
-  height: 80px;
+  height: auto;
 }
 
 .product-filters-carousel[data-aue-resource]::-webkit-scrollbar {
