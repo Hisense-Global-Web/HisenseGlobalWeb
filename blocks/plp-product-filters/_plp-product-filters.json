@@ -93,7 +93,6 @@
           "name": "tags",
           "label": "Tags",
           "multi": true,
-          "root": "/content/cq:tags/hisense/product",
           "required": true
         }
       ]
