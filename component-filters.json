@@ -2,7 +2,8 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "plp-section"
     ]
   },
   {
@@ -43,12 +44,6 @@
       "image",
       "button",
       "title"
-    ]
-  },
-  {
-    "id": "plp-section",
-    "components": [
-      "product-filters-carousel"
     ]
   }
 ]
