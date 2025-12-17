@@ -289,7 +289,6 @@
         "valueType": "string",
         "name": "tags",
         "label": "Tags",
-        "multi": true,
         "required": true
       }
     ]
