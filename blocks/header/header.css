@@ -119,6 +119,7 @@
   padding: 0 18px;
   display: flex;
   align-items: center;
+  color: var(--header-active-color);
 }
 
 .navigation-item-wrapper .navigation-item {
