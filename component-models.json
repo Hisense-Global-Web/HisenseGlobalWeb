@@ -436,15 +436,13 @@
         "component": "text",
         "valueType": "string",
         "name": "description_smallTit",
-        "label": "Small title",
-        "required": true
+        "label": "Small title"
       },
       {
         "component": "richtext",
         "name": "description_text",
         "label": "Text",
-        "valueType": "string",
-        "required": true
+        "valueType": "string"
       }
     ]
   },

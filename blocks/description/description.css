@@ -1,5 +1,24 @@
 .description {
   text-align: center;
+  width: 740px;
+  margin: 0 auto;
+
+  h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+    margin: 0;
+  }
+
+  p:first-child {
+    color: var(--color-hisense-teal);
+    font-weight: 700;
+    font-size: 20px;
+    margin: 0 0 8px;
+    line-height: 22px;
+  }
+
+  h1, h2, h3, h4,h5,h6 {
+    margin: 0 0  12px;
+  }
+
 }
 
 .block.description.text-align-left {
