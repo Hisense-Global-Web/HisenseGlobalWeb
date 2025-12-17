@@ -1,0 +1,4 @@
+.icon-component {
+  display: flex;
+  flex-flow: row nowrap;
+}
