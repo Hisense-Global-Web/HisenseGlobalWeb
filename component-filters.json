@@ -20,7 +20,7 @@
       "collectionsection",
       "recards",
       "banner",
-      "icon-component"
+      "iconComponent"
     ]
   },
   {
@@ -51,9 +51,9 @@
     ]
   },
   {
-    "id": "icon-component",
+    "id": "iconComponent",
     "components": [
-      "icon-item"
+      "iconItem"
     ]
   },
   {
