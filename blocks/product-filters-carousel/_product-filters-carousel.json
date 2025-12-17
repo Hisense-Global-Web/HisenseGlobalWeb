@@ -41,25 +41,29 @@
           "valueType": "string",
           "name": "image",
           "label": "Image",
-          "multi": false
+          "multi": false,
+          "required": true
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "alt",
-          "label": "Alt Text"
+          "label": "Alt Text",
+          "required": true
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "title",
-          "label": "Text"
+          "label": "Text",
+          "required": true
         },
         {
           "component": "aem-content",
           "valueType": "string",
           "name": "link",
-          "label": "Link"
+          "label": "Link",
+          "required": true
         }
       ]
     }
