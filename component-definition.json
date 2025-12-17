@@ -247,14 +247,14 @@
         },
         {
           "title": "Icon Item",
-          "id": "iconItem",
+          "id": "icon_item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Icon Item",
-                  "model": "iconItem",
+                  "model": "icon_item",
                   "classes": "default-icon"
                 }
               }

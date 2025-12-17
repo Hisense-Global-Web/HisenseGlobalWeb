@@ -54,7 +54,7 @@
     "id": "iconComponent",
     "components": [
       "text",
-      "iconItem"
+      "icon_item"
     ]
   },
   {
