@@ -3,7 +3,7 @@
     "id": "main",
     "components": [
       "section",
-      "plp-product-filters"
+      "plp-section"
     ]
   },
   {
@@ -51,12 +51,6 @@
     "id": "plp-product-filters",
     "components": [
       "plp-product-tag"
-    ]
-  },
-  {
-    "id": "plp-section",
-    "components": [
-      "product-filters-carousel"
     ]
   },
   {
