@@ -125,7 +125,7 @@
   color: rgb(0 0 0 / 100%);
 }
 
-/*编辑模式样式，尽量保持与浏览模式一致的UI */
+/* 编辑模式样式，尽量保持与浏览模式一致的UI */
 .plp-product-filters[data-aue-resource] {
   display: flex;
   justify-content: space-between;
