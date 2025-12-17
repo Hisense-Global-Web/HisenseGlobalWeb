@@ -258,12 +258,12 @@
         "valueType": "string",
         "options": [
           {
-            "name": "Default",
-            "value": ""
+            "name": "Cover Style",
+            "value": "cover-style"
           },
           {
-            "name": "Side-by-side",
-            "value": "side-by-side"
+            "name": "Center Style",
+            "value": "center-style"
           }
         ]
       }
@@ -273,6 +273,13 @@
     "id": "card",
     "fields": [
       {
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -280,11 +287,18 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
+        "component": "aem-content",
+        "name": "card_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string",
+        "value": "/"
+      },
+      {
+        "component": "text",
+        "name": "card_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string",
+        "value": "Required if you has Primary CTA content"
       }
     ]
   },
@@ -533,6 +547,83 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "url",
+        "value": "",
+        "label": "url",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "slide",
+    "fields": [
+      {
+        "component": "select",
+        "name": "style",
+        "value": "",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Cover Style",
+            "value": "cover-style"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "slide_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "slide_title",
+        "label": "Title",
+        "valueType": "string",
+        "required": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "slide_link",
+        "label": "Link",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "video",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "",
+        "name": "Video",
+        "label": "Video",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "img",
+        "label": "img",
+        "multi": false
       }
     ]
   }
