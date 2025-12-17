@@ -1,4 +1,4 @@
-.recards > ul {
+.center-style > ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -7,14 +7,14 @@
   gap: 24px;
 }
 
-.recards > ul > li {
+.center-style > ul > li {
   background-color: var(--background-color);
   position: relative;
   border-radius: 20px;
   overflow: hidden;
 }
 
-.recards .recards-card-body {
+.center-style .cards-card-body {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -26,15 +26,15 @@
 
 }
 
-.recards p{
+.center-style p{
   margin: 0;
 }
 
-.recards .recards-card-image {
+.center-style .cards-card-image {
   line-height: 0;
 }
 
-.recards > ul > li img {
+.center-style > ul > li img {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;

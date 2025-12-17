@@ -1,9 +1,10 @@
-.cards {
+.cards-container {
   width: 1120px;
   margin: 30px auto;
   position: relative;
 }
-.cards > ul {
+
+.cover-style > ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -12,14 +13,14 @@
   gap: 24px;
 }
 
-.cards > ul > li {
+.cover-style > ul > li {
   border-radius: 20px;
   overflow: hidden;
   background-color: var(--background-color);
   position: relative;
 }
 
-.cards .cards-card-body {
+.cover-style .cards-card-body {
   position: absolute;
   top: 0;
   text-align: center;
@@ -30,16 +31,17 @@
   font-size: 20px;
 }
 
-.cards .cards-card-image {
+.cover-style .cards-card-image {
   line-height: 0;
 }
 
-.cards > ul > li img {
+.cover-style > ul > li img {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
 }
-.cards .cards-card-cta{
+
+.cover-style .cards-card-cta{
   position: absolute;
   bottom: 0;
   text-align: center;
@@ -47,4 +49,61 @@
   justify-content: center;
   width: 100%;
 }
+
+
+.center-style > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  gap: 24px;
+}
+
+.center-style > ul > li {
+  background-color: var(--color-hisense-green-04);
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  margin: 40.5px auto 24px;
+  justify-content: center;
+  height: 300px;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.center-style .cards-card-body {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  top: 40px;
+  font-size: 24px;
+  color: #000;
+  
+}
+
+.center-style p{
+  margin: 0;
+}
+
+.center-style .cards-card-image {
+  margin: 0;
+}
+
+.center-style > ul > li img {
+  width: 174px;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.center-style > ul > li:hover img {
+  width: 196px;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
 
