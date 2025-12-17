@@ -16,11 +16,16 @@
       "cards",
       "columns",
       "fragment",
+      "collectionsection",
+      "recards",
+      "video",
       "carousel",
       "collectionsection",
       "recards",
       "banner",
       "description"
+      "slide",
+      "featurebanner"
     ]
   },
   {
