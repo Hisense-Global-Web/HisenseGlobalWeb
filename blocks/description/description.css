@@ -4,7 +4,7 @@
   margin: 0 auto;
 
   h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
-    margin: 0;
+    margin: 12px 0 0;
   }
 
   p:first-child {
@@ -16,7 +16,7 @@
   }
 
   h1, h2, h3, h4,h5,h6 {
-    margin: 0 0  12px;
+    margin: 0;
   }
 
 }
