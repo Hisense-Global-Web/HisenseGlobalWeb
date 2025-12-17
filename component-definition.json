@@ -216,7 +216,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Product Filters Carousel Item",
-                  "model": "product-filters-carousel-item"
+                  "model": "product-filters-carousel-item",
+                  "key-value": true
                 }
               }
             }
