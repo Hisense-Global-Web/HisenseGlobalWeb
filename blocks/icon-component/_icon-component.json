@@ -53,13 +53,6 @@
               "value": "text-left"
             }
           ]
-        },
-        {
-          "component": "title",
-          "name": "text",
-          "value": "",
-          "label": "Text",
-          "valueType": "string"
         }
       ]
     },

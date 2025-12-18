@@ -19,10 +19,10 @@ function updatePosition(block) {
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
-  cards.forEach((item) => {
-    const link = item.querySelector('a');
+  cards.forEach((card) => {
+    const link = card.querySelector('a');
     const url = link?.href;
-    item.addEventListener('click', () => {
+    card.addEventListener('click', () => {
       if (url) window.location.href = url;
     });
   });
@@ -44,40 +44,31 @@ function bindEvent(block) {
 export default async function decorate(block) {
   const iconContainer = document.createElement('div');
   iconContainer.classList.add('icon-viewport');
-
   const iconBlocks = document.createElement('ul');
   iconBlocks.classList.add('icon-track');
   iconContainer.appendChild(iconBlocks);
 
   [...block.children].forEach((child) => {
-    child.classList.add('item');
     const iconBlock = document.createElement('li');
-
-    [...child.children].forEach((subchild) => {
-      if (subchild.querySelector('picture')) {
-        subchild.querySelector('picture').closest('div').classList.add('item-picture');
+    child.classList.add('item');
+    [...child.children].forEach((item) => {
+      if (item.querySelector('picture')) {
+        item.querySelector('picture').closest('div').classList.add('item-picture');
       }
-      if (subchild.querySelector('.button-container')) {
-        subchild.querySelector('.button-container').closest('div').classList.add('item-cta');
-      }
-      if (!subchild.innerHTML) subchild.remove();
+      if (!item.innerHTML) item.remove();
     });
-
     iconBlock.appendChild(child);
     iconBlocks.appendChild(iconBlock);
+    // child.remove();
   });
-  block.prepend(iconContainer);
-  // prev and next button
-  let buttonContainer;
-  if (iconBlocks.children.length > 0) {
-    buttonContainer = document.createElement('div');
-    buttonContainer.classList.add('pagination');
-    buttonContainer.innerHTML = `
-        <button type="button" class="slide-prev" disabled></button>
-        <button type="button" class="slide-next"></button>
-      `;
-  }
+  const buttonContainer = document.createElement('div');
+  buttonContainer.classList.add('pagination');
+  buttonContainer.innerHTML = `
+      <button type="button" class="slide-prev" disabled></button>
+      <button type="button" class="slide-next"></button>
+    `;
   block.appendChild(buttonContainer);
+  block.appendChild(iconContainer);
   bindEvent(block);
   window.addEventListener('resize', updatePosition);
 }
