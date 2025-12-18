@@ -49,8 +49,8 @@ export default async function decorate(block) {
   iconContainer.appendChild(iconBlocks);
 
   [...block.children].forEach((child) => {
-    const iconBlock = document.createElement('li');
     child.classList.add('item');
+    const iconBlock = document.createElement('li');
     [...child.children].forEach((item) => {
       if (item.querySelector('picture')) {
         item.querySelector('picture').closest('div').classList.add('item-picture');
@@ -69,7 +69,7 @@ export default async function decorate(block) {
       <button type="button" class="slide-prev" disabled></button>
       <button type="button" class="slide-next"></button>
     `;
-  block.appendChild(buttonContainer);
+  iconContainer.appendChild(buttonContainer);
   block.appendChild(iconContainer);
   bindEvent(block);
   window.addEventListener('resize', updatePosition);

@@ -521,14 +521,14 @@
         "name": "icon_cta",
         "label": "CTA",
         "valueType": "string",
-        "value": ""
+        "value": "/"
       },
       {
         "component": "text",
         "name": "icon_ctaLabel",
         "label": "CTA Label",
         "valueType": "string",
-        "value": ""
+        "value": "required"
       }
     ]
   },
