@@ -17,6 +17,15 @@ export default async function decorate(block) {
   const image = block.querySelector('img');
   if (!image) return;
 
+  const picture = block.querySelector('div:first-child');
+  picture.classList.add('parallax-image-container');
+  const text = block.querySelector('div:nth-child(2)');
+  text.classList.add('text-overlay');
+
+  const overlay = document.createElement('div');
+  overlay.classList.add('gradient-overlay');
+  document.body.appendChild(overlay);
+
   try {
     await loadScript('https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js');
     await loadScript('https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js');
@@ -30,22 +39,64 @@ export default async function decorate(block) {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.timeline({
+  const scrollDurationHeight = window.innerHeight * 3;
+  block.style.height = `${scrollDurationHeight}px`; // Set the actual scroll height
+
+  const tl = gsap.timeline({
     scrollTrigger: {
       trigger: block,
-      start: 'top top', // Start when the top of the section hits the top of the viewport
-      end: 'bottom top', // End when the bottom of the section leaves the viewport
-      scrub: 1, // Smoothly sync animation to scroll position
-      pin: true,
-      // markers: true,
+      start: 'top top',
+      end: `+=${scrollDurationHeight}`, // End after the defined scroll distance
+      scrub: 1,
+      pin: true, // Pins the entire 'block' while the animation runs
+      // markers: true
     },
-  })
-    .fromTo(
-      image,
-      { scale: 2 },
-      {
-        scale: 1,
-        ease: 'power1.inOut',
-      },
-    );
+  });
+
+  tl.fromTo(
+    image,
+    { scale: 2 },
+    {
+      scale: 1,
+      ease: 'power1.inOut',
+    },
+    1,
+  );
+
+  // tl.fromTo(
+  //   overlay,
+  //   { opacity: 0 },
+  //   { opacity: 1, ease: 'none' },
+  //   0,
+  // );
+  //
+  // tl.to(
+  //   overlay,
+  //   { opacity: 0, ease: 'none' },
+  //   0.5,
+  // );
+
+  tl.fromTo(
+    text,
+    {
+      opacity: 0,
+      yPercent: 200,
+    },
+    {
+      opacity: 1,
+      yPercent: -200,
+      ease: 'none',
+    },
+    0,
+  );
+
+  tl.to(
+    text,
+    {
+      opacity: 0,
+      yPercent: -400,
+      ease: 'none',
+    },
+    0.5,
+  );
 }
