@@ -1,0 +1,95 @@
+{
+  "definitions": [
+    {
+      "title": "Icon Info",
+      "id": "iconInfo",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Icon Info",
+              "model": "iconInfo",
+              "filter": "iconInfo"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Icon Info Item",
+      "id": "infoItem",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Info Item",
+              "model": "infoItem"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "iconInfo",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "value": "",
+          "label": "Icon Options",
+          "description": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "text-left",
+              "value": "text-left"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "infoItem",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "info_image",
+          "label": "Image",
+          "required": true,
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "info_imageAlt",
+          "label": "Image Alt Text",
+          "required": true
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Text",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "iconInfo",
+      "components": [
+        "infoItem"
+      ]
+    }
+  ]
+}

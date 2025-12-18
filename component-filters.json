@@ -91,6 +91,12 @@
     ]
   },
   {
+    "id": "iconInfo",
+    "components": [
+      "infoItem"
+    ]
+  },
+  {
     "id": "navigationSecondaryContainer",
     "components": [
       "columns"
