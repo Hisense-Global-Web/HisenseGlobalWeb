@@ -220,7 +220,15 @@ footer#footer {
   display: flex;
   gap: 13.3px;
 }
-
+.footer-social-imgbox {
+  position: relative;
+}
+.footer-social-imgbox a{
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 10
+}
 /* stylelint-disable-next-line no-descending-specificity */
 .footer-logo .footer-social img {
   height: 33.3px;
@@ -243,8 +251,8 @@ footer#footer {
 .footer-nav-column-title {
   font-weight: 400;
   margin-bottom: 9px;
-  font-size: 10px;
-  line-height: 14px;
+  font-size: 14px;
+  line-height: 20px;
   color: rgb(0 0 0 / 100%);
 }
 

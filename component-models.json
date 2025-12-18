@@ -552,6 +552,13 @@
         "component": "aem-content",
         "name": "link",
         "label": "Link"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Link Icon",
+        "multi": false
       }
     ]
   },
@@ -641,6 +648,111 @@
         "name": "hero_ctaSecondaryText",
         "label": "Secondary CTA Label",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "navigationAction",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      }
+    ]
+  },
+  {
+    "id": "navigationItem",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "navigationLink",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      }
+    ]
+  },
+  {
+    "id": "navigationLogo",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "alt",
+        "label": "Alt Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      }
+    ]
+  },
+  {
+    "id": "navigationSecondaryContainer",
+    "fields": []
+  },
+  {
+    "id": "navigation",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logo",
+        "label": "Logo",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "logoAlt",
+        "label": "Logo Alt",
+        "value": ""
       }
     ]
   },
@@ -760,168 +872,6 @@
         "name": "img",
         "label": "img",
         "multi": false
-      }
-    ]
-  },
-  {
-    "id": "video",
-    "fields": [
-      {
-        "component": "aem-content",
-        "valueType": "",
-        "name": "Video",
-        "label": "Video",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "img",
-        "label": "img",
-        "multi": false
-      }
-    ]
-  },
-  {
-    "id": "imageLink",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "alt",
-        "label": "Alt Text",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link"
-      }
-    ]
-  },
-  {
-    "id": "navigationAction",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "icon",
-        "label": "Icon",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "text",
-        "label": "Text",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link"
-      }
-    ]
-  },
-  {
-    "id": "navigationItem",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "text",
-        "label": "Text",
-        "value": ""
-      }
-    ]
-  },
-  {
-    "id": "navigationLink",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "text",
-        "label": "Text",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link"
-      }
-    ]
-  },
-  {
-    "id": "navigationLogo",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "alt",
-        "label": "Alt Text",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link"
-      }
-    ]
-  },
-  {
-    "id": "navigationSecondaryContainer",
-    "fields": []
-  },
-  {
-    "id": "navigation",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "logo",
-        "label": "Logo",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "logoAlt",
-        "label": "Logo Alt",
-        "value": ""
       }
     ]
   }

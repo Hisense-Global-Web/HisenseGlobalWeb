@@ -58,12 +58,6 @@
     ]
   },
   {
-    "id": "recards",
-    "components": [
-      "recard"
-    ]
-  },
-  {
     "id": "footerContainer",
     "components": [
       "footerLogo",
@@ -102,6 +96,12 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
+    ]
+  },
+  {
+    "id": "recards",
+    "components": [
+      "recard"
     ]
   }
 ]

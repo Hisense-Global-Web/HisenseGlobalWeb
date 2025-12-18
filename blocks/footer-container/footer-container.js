@@ -45,15 +45,27 @@ function extractLogoData(container) {
     }
 
     const socialPicture = div.querySelector('picture');
+    const imgBox = document.createElement('div');
+    imgBox.className = 'footer-social-imgbox';
     if (socialPicture) {
       const socialImg = socialPicture.querySelector('img');
+      const socialLink = div.querySelector('a');
       if (socialImg) {
-        logoData.social.push(socialImg.cloneNode(true));
+        imgBox.appendChild(socialImg);
+        if (socialLink) {
+          imgBox.appendChild(socialLink);
+        }
+        logoData.social.push(imgBox.cloneNode(true));
       }
     } else {
       const socialImg = div.querySelector('img');
+      const socialLink = div.querySelector('a');
       if (socialImg) {
-        logoData.social.push(socialImg.cloneNode(true));
+        imgBox.appendChild(socialImg);
+        if (socialLink) {
+          imgBox.appendChild(socialLink);
+        }
+        logoData.social.push(imgBox.cloneNode(true));
       }
     }
   });

@@ -32,6 +32,13 @@
           "component": "aem-content",
           "name": "link",
           "label": "Link"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "icon",
+          "label": "Link Icon",
+          "multi": false
         }
       ]
     }
