@@ -1,4 +1,4 @@
-.center-style > ul {
+.slide > ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -7,36 +7,32 @@
   gap: 24px;
 }
 
-.center-style > ul > li {
-  background-color: var(--background-color);
-  position: relative;
+.slide > ul > li {
   border-radius: 20px;
   overflow: hidden;
+  background-color: var(--background-color);
+  position: relative;
 }
 
-.center-style .cards-card-body {
+.slide .cards-card-body {
   position: absolute;
+  top: 0;
+  text-align: center;
   display: flex;
   justify-content: center;
   width: 100%;
-  text-align: center;
-  top: 40px;
-  font-size: 24px;
-  color: #000;
-
+  color: white;
+  font-size: 20px;
 }
 
-.center-style p{
-  margin: 0;
-}
-
-.center-style .cards-card-image {
+.slide .cards-card-image {
   line-height: 0;
 }
 
-.center-style > ul > li img {
+.slide > ul > li img {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
 }
+
 
