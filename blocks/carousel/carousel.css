@@ -128,11 +128,6 @@ main > .section > div {
     transition: background-color 0.2s;
 }
 
-.carousel-item-indicator .indicator-button:not([aria-current="true"]):hover,
-.carousel-item-indicator .indicator-button:not([aria-current="true"]):focus {
-    opacity: 0.8;
-}
-
 .carousel .carousel-item-content .button-container {
     display: inline-block;
     font-size: 14px;
@@ -155,13 +150,17 @@ main > .section > div {
     color: white;
 }
 
-.carousel .carousel-item-indicator button:disabled,
-.carousel .carousel-item-indicator button:hover,
-.carousel .carousel-item-indicator button:focus-visible {
-    width: 68px;
+.carousel .carousel-item-indicator button:disabled {
+  width: 68px;
+  opacity: 1;
+  background-color: var(--background-color);
 }
 
-.carousel .carousel-item-indicator button:disabled {
+.light .carousel-item-indicator button:disabled {
+  background-color: var(--color-hisense-green-02);
+}
+
+.carousel .carousel-item-indicator button:hover,
+.carousel .carousel-item-indicator button:focus-visible {
     opacity: 1;
-    background-color: var(--background-color);
 }

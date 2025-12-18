@@ -44,39 +44,77 @@
           "multi": false
         },
         {
-          "component": "richtext",
-          "name": "text",
-          "value": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
-          "label": "Text",
-          "valueType": "string"
+          "component": "select",
+          "name": "style",
+          "label": "Section Theme",
+          "options": [
+            {
+              "name": "Light",
+              "value": "light"
+            },
+            {
+              "name": "Dark",
+              "value": "dark"
+            }
+          ]
         },
         {
-          "component": "aem-content",
-          "name": "carousel_ctaPrimary",
-          "label": "Primary CTA",
+          "component": "container",
+          "label": "Text Content",
+          "name": "container_text",
           "valueType": "string",
-          "value": "/"
+          "fields": [
+            {
+              "component": "text",
+              "name": "text_special",
+              "value": "<h5>ULED X Mini-LED Series UX</h5>",
+              "label": "Colorful Text(teal)",
+              "valueType": "string"
+            },
+            {
+              "component": "richtext",
+              "name": "text_normal",
+              "value": "Perfection, any content, anytime",
+              "label": "Text",
+              "valueType": "string"
+            }
+          ]
         },
         {
-          "component": "text",
-          "name": "carousel_ctaPrimaryText",
-          "label": "Primary CTA Label",
+          "component": "container",
+          "label": "Button Content",
+          "name": "container_button",
           "valueType": "string",
-          "value": "Required if you has Primary CTA content"
-        },
-        {
-          "component": "aem-content",
-          "name": "carousel_ctaSecondary",
-          "label": "Secondary CTA",
-          "valueType": "string",
-          "value": "/"
-        },
-        {
-          "component": "text",
-          "name": "carousel_ctaSecondaryText",
-          "label": "Secondary CTA Label",
-          "valueType": "string",
-          "value": "Required if you has Secondary CTA content"
+          "fields": [
+            {
+              "component": "aem-content",
+              "name": "carousel_ctaPrimary",
+              "label": "Primary CTA",
+              "valueType": "string",
+              "value": "/"
+            },
+            {
+              "component": "text",
+              "name": "carousel_ctaPrimaryText",
+              "label": "Primary CTA Label",
+              "valueType": "string",
+              "value": "Required if you has Primary CTA content"
+            },
+            {
+              "component": "aem-content",
+              "name": "carousel_ctaSecondary",
+              "label": "Secondary CTA",
+              "valueType": "string",
+              "value": "/"
+            },
+            {
+              "component": "text",
+              "name": "carousel_ctaSecondaryText",
+              "label": "Secondary CTA Label",
+              "valueType": "string",
+              "value": "Required if you has Primary CTA content"
+            }
+          ]
         }
       ]
     }
