@@ -415,6 +415,22 @@
           }
         },
         {
+          "title": "Info Card Item",
+          "id": "infoCardItem",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Info Card Item",
+                  "model": "infoCardItem",
+                  "classes": "info-cad-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Info card",
           "id": "infoCard",
           "plugins": {
@@ -426,22 +442,6 @@
                   "model": "infoCard",
                   "filter": "infoCard",
                   "classes": "info-card-container"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Info Item",
-          "id": "infoItem",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Info Item",
-                  "model": "infoItem",
-                  "classes": "info-card-item"
                 }
               }
             }

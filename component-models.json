@@ -702,6 +702,26 @@
     ]
   },
   {
+    "id": "infoCardItem",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "required": true,
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "info_content",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "infoCard",
     "fields": [
       {
@@ -721,26 +741,6 @@
             "value": "text-center"
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "infoItem",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "required": true,
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "info_content",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
       }
     ]
   },

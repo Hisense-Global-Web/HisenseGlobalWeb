@@ -1,0 +1,44 @@
+{
+  "definitions": [
+    {
+      "title": "Info Card Item",
+      "id": "infoCardItem",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Info Card Item",
+              "model": "infoCardItem",
+              "classes": "info-cad-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "infoCardItem",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "required": true,
+          "multi": false
+        },
+        {
+          "component": "richtext",
+          "name": "info_content",
+          "value": "",
+          "label": "Text",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
+
