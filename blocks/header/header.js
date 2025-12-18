@@ -74,11 +74,45 @@ function parseDropdownProducts(col) {
 
 function parseDropdownLinks(col) {
   if (!col) return [];
-  return Array.from(col.querySelectorAll('p')).flatMap((p) => {
-    const text = p.textContent.trim();
-    const href = p.querySelector('a')?.href || '#';
-    return text ? [{ text, href }] : [];
-  });
+  const imageLinkItems = Array.from(col.querySelectorAll('.image-link'));
+
+  // 情况1 image-link 模式
+  if (imageLinkItems.length) {
+    return imageLinkItems.map((item) => {
+      const textElement = item.querySelector('div:nth-child(3) > div');
+      const text = textElement ? textElement.textContent.trim() : '';
+
+      const linkElement = item.querySelector('.button-container a.button');
+      const href = linkElement ? linkElement.getAttribute('href') : '';
+
+      return {
+        text,
+        href,
+      };
+    });
+  }
+
+  // 情况2 <p> 列表模式
+  // return Array.from(col.querySelectorAll('p')).flatMap((p) => {
+  //   const text = p.textContent.trim();
+  //   const href = p.querySelector('a')?.href || '#';
+  //   return text ? [{ text, href }] : [];
+  // });
+  const items = Array.from(col.querySelectorAll('p:not(.button-container) + p.button-container'));
+  if (items.length) {
+    return items.map((buttonContainer) => {
+      // 1. 获取文本：找到按钮容器的前一个 <p>（即文本所在的 <p>）
+      const textElement = buttonContainer.previousElementSibling;
+      const text = textElement ? textElement.textContent.trim() : '';
+
+      // 2. 获取链接：从按钮容器内的 <a> 提取 href
+      const linkElement = buttonContainer.querySelector('a.button');
+      const href = linkElement ? linkElement.getAttribute('href') : '';
+
+      // 返回格式化对象
+      return { text, href };
+    });
+  } return [];
 }
 
 function parseDropdownBtns(col) {
@@ -133,17 +167,10 @@ function buildDropdown(data) {
   data.links.forEach((link) => {
     const div = document.createElement('div');
     if (link.href && link.href !== '#') {
-      // const a = document.createElement('a');
-      // a.href = link.href;
-      // a.textContent = link.text;
-      // div.append(a);
-      const textParts = link.text.split('/').map((part) => part.trim()).filter((part) => part);
-      textParts.forEach((part) => {
-        const a = document.createElement('a');
-        a.href = link.href;
-        a.textContent = part;
-        div.append(a);
-      });
+      const a = document.createElement('a');
+      a.href = link.href;
+      a.textContent = link.text;
+      div.append(a);
     } else {
       div.textContent = link.text;
     }
