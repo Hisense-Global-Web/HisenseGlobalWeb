@@ -44,33 +44,38 @@ function bindEvent(block) {
 export default async function decorate(block) {
   const iconContainer = document.createElement('div');
   iconContainer.classList.add('icon-viewport');
+
   const iconBlocks = document.createElement('ul');
   iconBlocks.classList.add('icon-track');
   iconContainer.appendChild(iconBlocks);
+
   [...block.children].forEach((child) => {
     child.classList.add('item');
     const iconBlock = document.createElement('li');
-    [...child.children].forEach((item) => {
-      if (item.querySelector('picture')) {
-        item.querySelector('picture').closest('div').classList.add('item-picture');
+
+    [...child.children].forEach((subchild) => {
+      if (subchild.querySelector('picture')) {
+        subchild.querySelector('picture').closest('div').classList.add('item-picture');
       }
-      if (item.querySelector('.button-container')) {
-        item.querySelector('.button-container').closest('div').classList.add('item-cta');
+      if (subchild.querySelector('.button-container')) {
+        subchild.querySelector('.button-container').closest('div').classList.add('item-cta');
       }
-      if (!item.innerHTML) item.remove();
+      if (!subchild.innerHTML) subchild.remove();
     });
+
     iconBlock.appendChild(child);
     iconBlocks.appendChild(iconBlock);
-    if (iconBlocks.children.length > 0) {
-      const buttonContainer = document.createElement('div');
-      buttonContainer.classList.add('pagination');
-      buttonContainer.innerHTML = `
+  });
+  // prev and next button
+  if (iconBlocks.children.length > 0) {
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList.add('pagination');
+    buttonContainer.innerHTML = `
         <button type="button" class="slide-prev" disabled></button>
         <button type="button" class="slide-next"></button>
       `;
-      iconContainer.appendChild(buttonContainer);
-    }
-  });
+    iconContainer.appendChild(buttonContainer);
+  }
   block.appendChild(iconContainer);
   bindEvent(block);
   window.addEventListener('resize', updatePosition);
