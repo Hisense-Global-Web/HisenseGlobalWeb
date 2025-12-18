@@ -95,6 +95,8 @@
     {
       "id": "iconComponent",
       "components": [
+        "text",
+        "title",
         "iconItem"
       ]
     }

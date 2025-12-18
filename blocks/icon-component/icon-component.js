@@ -3,7 +3,6 @@ const visibleCards = 4; // 视口内显示的卡片数量
 
 function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
-  // 获取实时宽度，解决 offsetWidth 为 0 的问题
   const cardWidth = singleItem.offsetWidth;
   const gap = 24;
   return cardWidth + gap;
@@ -57,8 +56,8 @@ export default async function decorate(block) {
   const buttonContainer = document.createElement('div');
   buttonContainer.classList.add('pagination');
   buttonContainer.innerHTML = `
-      <button type="button" class="slide-prev" disabled>&lt;</button>
-      <button type="button" class="slide-next">&gt;</button>
+      <button type="button" class="slide-prev" disabled></button>
+      <button type="button" class="slide-next"></button>
     `;
   block.appendChild(buttonContainer);
   block.appendChild(iconContainer);
