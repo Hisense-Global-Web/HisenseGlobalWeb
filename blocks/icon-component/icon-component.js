@@ -61,16 +61,16 @@ export default async function decorate(block) {
     });
     iconBlock.appendChild(child);
     iconBlocks.appendChild(iconBlock);
-  });
-  if (iconBlocks.children.length > 0) {
-    const buttonContainer = document.createElement('div');
-    buttonContainer.classList.add('pagination');
-    buttonContainer.innerHTML = `
+    if (iconBlocks.children.length > 0) {
+      const buttonContainer = document.createElement('div');
+      buttonContainer.classList.add('pagination');
+      buttonContainer.innerHTML = `
         <button type="button" class="slide-prev" disabled></button>
         <button type="button" class="slide-next"></button>
       `;
-    iconContainer.appendChild(buttonContainer);
-  }
+      iconContainer.appendChild(buttonContainer);
+    }
+  });
   block.appendChild(iconContainer);
   bindEvent(block);
   window.addEventListener('resize', updatePosition);
