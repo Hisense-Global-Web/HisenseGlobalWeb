@@ -666,28 +666,28 @@
     ]
   },
   {
-    "id": "video",
+    "id": "videoinfo",
     "fields": [
       {
-        "component": "aem-content",
-        "valueType": "",
-        "name": "Video",
-        "label": "Video",
-        "multi": false
+        "component": "richtext",
+        "name": "info",
+        "value": "info",
+        "label": "Info",
+        "valueType": "string"
       },
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
       },
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "img",
-        "label": "img",
-        "multi": false
+        "component": "richtext",
+        "name": "description",
+        "value": "Description",
+        "label": "description",
+        "valueType": "string"
       }
     ]
   }
