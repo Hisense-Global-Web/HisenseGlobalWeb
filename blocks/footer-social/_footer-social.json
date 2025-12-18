@@ -32,10 +32,7 @@
         {
           "component": "aem-content",
           "name": "link",
-          "label": "Link",
-          "validation": {
-            "maxLength": 7
-          }
+          "label": "Link"
         }
       ]
     }
