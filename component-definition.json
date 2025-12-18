@@ -415,16 +415,16 @@
           }
         },
         {
-          "title": "Icon Info",
-          "id": "iconInfo",
+          "title": "Info card",
+          "id": "infoCard",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Icon Info",
-                  "model": "iconInfo",
-                  "filter": "iconInfo"
+                  "name": "Info card",
+                  "model": "infoCard",
+                  "filter": "infoCard"
                 }
               }
             }

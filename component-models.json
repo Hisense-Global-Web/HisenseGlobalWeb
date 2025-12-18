@@ -702,13 +702,13 @@
     ]
   },
   {
-    "id": "iconInfo",
+    "id": "infoCard",
     "fields": [
       {
         "component": "select",
         "name": "classes",
         "value": "",
-        "label": "Icon Options",
+        "label": "Info card Options",
         "description": "",
         "valueType": "string",
         "options": [

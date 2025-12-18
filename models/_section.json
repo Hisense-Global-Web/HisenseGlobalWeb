@@ -113,7 +113,8 @@
         "description",
         "slide",
         "featurebanner",
-        "iconComponent"
+        "iconComponent",
+        "infoCard"
       ]
     }
   ]

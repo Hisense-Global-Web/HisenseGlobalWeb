@@ -28,7 +28,8 @@
       "description",
       "slide",
       "featurebanner",
-      "iconComponent"
+      "iconComponent",
+      "infoCard"
     ]
   },
   {
@@ -91,7 +92,7 @@
     ]
   },
   {
-    "id": "iconInfo",
+    "id": "infoCard",
     "components": [
       "infoItem"
     ]
