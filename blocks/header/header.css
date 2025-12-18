@@ -282,10 +282,15 @@
   cursor: pointer;
   background: #DCF2F2;
   color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dropdown-btn:hover {
   background: #DCF2F2;
+  color: #333;
+  text-decoration: none;
 }
 
 .nav-mask {
