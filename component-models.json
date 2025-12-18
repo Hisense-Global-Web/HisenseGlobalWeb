@@ -725,7 +725,7 @@
     ]
   },
   {
-    "id": "infoCard",
+    "id": "infoItem",
     "fields": [
       {
         "component": "reference",
