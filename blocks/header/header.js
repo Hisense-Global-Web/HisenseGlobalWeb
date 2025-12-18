@@ -89,7 +89,7 @@ function parseDropdownLinks(col) {
         text,
         href,
       };
-    });
+    }).filter((item) => item.text);
   }
 
   // 情况2 <p> 列表模式
@@ -111,7 +111,7 @@ function parseDropdownLinks(col) {
 
       // 返回格式化对象
       return { text, href };
-    });
+    }).filter((item) => item.text);
   } return [];
 }
 

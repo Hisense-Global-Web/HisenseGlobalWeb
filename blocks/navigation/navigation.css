@@ -10,6 +10,10 @@ main .section.navigation-logo-container.navigation-item-container.navigation-act
   flex-direction: column;
 }
 
+.nav-dropdown .dropdown-links div a {
+  color: rgb(102 102 102 / 100%)
+}
+
 .section[data-aue-model="navigationSecondaryContainer"] .columns-wrapper .columns > div {
   flex-direction: column;
 }

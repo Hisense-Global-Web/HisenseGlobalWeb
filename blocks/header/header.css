@@ -85,10 +85,6 @@
   height: 15px;
 }
 
-.dropdown-links div:nth-child(2n) {
-  display: none;
-}
-
 /* 隐藏编辑模式下的 alt 和 link 字段显示 */
 .navigation-logo-wrapper .navigation-logo > div:nth-child(2),
 .navigation-logo-wrapper .navigation-logo > div:nth-child(3) {
