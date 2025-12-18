@@ -47,7 +47,6 @@ export default async function decorate(block) {
   const iconBlocks = document.createElement('ul');
   iconBlocks.classList.add('icon-track');
   iconContainer.appendChild(iconBlocks);
-
   [...block.children].forEach((child) => {
     child.classList.add('item');
     const iconBlock = document.createElement('li');
@@ -63,13 +62,15 @@ export default async function decorate(block) {
     iconBlock.appendChild(child);
     iconBlocks.appendChild(iconBlock);
   });
-  const buttonContainer = document.createElement('div');
-  buttonContainer.classList.add('pagination');
-  buttonContainer.innerHTML = `
-      <button type="button" class="slide-prev" disabled></button>
-      <button type="button" class="slide-next"></button>
-    `;
-  iconContainer.appendChild(buttonContainer);
+  if (iconBlocks.children.length > 0) {
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList.add('pagination');
+    buttonContainer.innerHTML = `
+        <button type="button" class="slide-prev" disabled></button>
+        <button type="button" class="slide-next"></button>
+      `;
+    iconContainer.appendChild(buttonContainer);
+  }
   block.appendChild(iconContainer);
   bindEvent(block);
   window.addEventListener('resize', updatePosition);
