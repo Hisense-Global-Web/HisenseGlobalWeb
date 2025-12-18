@@ -28,6 +28,7 @@
   gap: 20px;
   flex-shrink: 0;
   cursor: pointer;
+  background-color: white;
 
   &:hover {
     width: 279px;

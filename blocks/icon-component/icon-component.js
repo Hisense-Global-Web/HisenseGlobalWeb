@@ -66,17 +66,18 @@ export default async function decorate(block) {
     iconBlock.appendChild(child);
     iconBlocks.appendChild(iconBlock);
   });
+  block.prepend(iconContainer);
   // prev and next button
+  let buttonContainer;
   if (iconBlocks.children.length > 0) {
-    const buttonContainer = document.createElement('div');
+    buttonContainer = document.createElement('div');
     buttonContainer.classList.add('pagination');
     buttonContainer.innerHTML = `
         <button type="button" class="slide-prev" disabled></button>
         <button type="button" class="slide-next"></button>
       `;
-    iconContainer.appendChild(buttonContainer);
   }
-  block.appendChild(iconContainer);
+  block.appendChild(buttonContainer);
   bindEvent(block);
   window.addEventListener('resize', updatePosition);
 }
