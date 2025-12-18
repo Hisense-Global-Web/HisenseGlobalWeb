@@ -924,5 +924,101 @@
         "multi": false
       }
     ]
+  },
+  {
+    "id": "plp-product-filters",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "results",
+        "label": "Results Text",
+        "value": "{count} RESULT",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "reset",
+        "label": "Reset Filters Text",
+        "value": "Reset filters",
+        "required": true
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "sortBy",
+        "label": "Sort By",
+        "value": "Price: Highest To Lowest",
+        "required": true,
+        "options": [
+          {
+            "name": "Size: Largest To Smallest",
+            "value": "Size: Largest To Smallest"
+          },
+          {
+            "name": "Price: Highest To Lowest",
+            "value": "Price: Highest To Lowest"
+          },
+          {
+            "name": "Newest",
+            "value": "Newest"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "plp-product-tag",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Filter Tag Title",
+        "required": true
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "cq:tags",
+        "label": "Tags",
+        "rootPath": "/content/cq:tags/hisense/product"
+      }
+    ]
+  },
+  {
+    "id": "product-filters-carousel-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "alt",
+        "label": "Alt Text",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Text",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link",
+        "required": true
+      }
+    ]
   }
 ]
