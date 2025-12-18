@@ -424,22 +424,9 @@
                 "template": {
                   "name": "Info card",
                   "model": "infoCard",
-                  "filter": "infoCard"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Icon Info Item",
-          "id": "infoItem",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Info Item",
-                  "model": "infoItem"
+                  "filter": "infoCard",
+                  "classes": "info-card-block",
+                  "info_content": "<p>This is info card title.</p><p>This is info card content detail.</p>"
                 }
               }
             }

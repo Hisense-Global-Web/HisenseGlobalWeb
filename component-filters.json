@@ -56,7 +56,8 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "infoCard"
     ]
   },
   {
@@ -92,10 +93,7 @@
     ]
   },
   {
-    "id": "infoCard",
-    "components": [
-      "infoItem"
-    ]
+    "id": "infoCard"
   },
   {
     "id": "navigationSecondaryContainer",
