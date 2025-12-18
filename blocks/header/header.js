@@ -29,8 +29,28 @@ function parseActions(root) {
 }
 
 function parseDropdownProducts(col) {
+  if (!col) return [];
+
+  const imageLinkItems = Array.from(col.querySelectorAll('.image-link'));
+
+  // 情况1 image-link 模式
+  if (imageLinkItems.length) {
+    return imageLinkItems.map((item) => {
+      const img = item.querySelector('img')?.src || '';
+      const directChildren = Array.from(item.children);
+      let text = '';
+      if (directChildren[1]) {
+        text = directChildren[1].textContent.trim();
+      } else {
+        text = item.textContent.trim();
+      }
+
+      return { img, text };
+    });
+  }
+
+  // 情况2 <p> 列表模式
   const products = [];
-  if (!col) return products;
   const children = Array.from(col.children);
   for (let i = 0; i < children.length; i += 1) {
     const node = children[i];
