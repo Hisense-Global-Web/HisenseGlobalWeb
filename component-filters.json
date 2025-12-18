@@ -2,7 +2,9 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "navigation",
+      "footerContainer"
     ]
   },
   {
@@ -59,6 +61,47 @@
     "id": "recards",
     "components": [
       "recard"
+    ]
+  },
+  {
+    "id": "footerContainer",
+    "components": [
+      "footerLogo",
+      "footerNavColumn",
+      "footerLegalLinks"
+    ]
+  },
+  {
+    "id": "footerLegalLinks",
+    "components": [
+      "footerLegalLinkItem"
+    ]
+  },
+  {
+    "id": "footerLogo",
+    "components": [
+      "footerSocial"
+    ]
+  },
+  {
+    "id": "footerNavColumn",
+    "components": [
+      "footerNavColumnList"
+    ]
+  },
+  {
+    "id": "navigationSecondaryContainer",
+    "components": [
+      "columns"
+    ]
+  },
+  {
+    "id": "navigation",
+    "components": [
+      "navigationLogo",
+      "navigationItem",
+      "navigationLink",
+      "navigationAction"
     ]
   }
 ]
