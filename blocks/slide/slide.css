@@ -1,0 +1,38 @@
+.slide > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  gap: 24px;
+}
+
+.slide > ul > li {
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: var(--background-color);
+  position: relative;
+}
+
+.slide .cards-card-body {
+  position: absolute;
+  top: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: white;
+  font-size: 20px;
+}
+
+.slide .cards-card-image {
+  line-height: 0;
+}
+
+.slide > ul > li img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+

@@ -1,0 +1,37 @@
+{
+  "definitions": [
+    {
+      "title": "Navigation Secondary Container",
+      "id": "navigationSecondaryContainer",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "name": "Navigation Secondary Container",
+              "model": "navigationSecondaryContainer",
+              "filter": "navigationSecondaryContainer",
+              "classes": "navigation-secondary-container"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "navigationSecondaryContainer",
+      "fields": []
+    }
+  ],
+  "filters": [
+    {
+      "id": "navigationSecondaryContainer",
+      "components": [
+        "columns"
+      ]
+    }
+  ]
+}
+
+
