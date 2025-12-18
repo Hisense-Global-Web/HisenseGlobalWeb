@@ -383,7 +383,7 @@
         },
         {
           "title": "Image Link",
-          "id": "image-link",
+          "id": "imageLink",
           "plugins": {
             "xwalk": {
               "page": {
@@ -472,7 +472,8 @@
                   "name": "Navigation Secondary Container",
                   "model": "navigationSecondaryContainer",
                   "filter": "navigationSecondaryContainer",
-                  "classes": "navigation-secondary-container"
+                  "classes": "navigation-secondary-container",
+                  "key-value": true
                 }
               }
             }

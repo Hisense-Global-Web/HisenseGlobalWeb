@@ -40,37 +40,6 @@
     ]
   },
   {
-    "id": "imageLink",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "alt",
-        "label": "Alt Text",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link"
-      }
-    ]
-  },
-  {
     "id": "title",
     "fields": [
       {
@@ -684,6 +653,37 @@
     ]
   },
   {
+    "id": "imageLink",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "alt",
+        "label": "Alt Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      }
+    ]
+  },
+  {
     "id": "navigationAction",
     "fields": [
       {
@@ -767,7 +767,15 @@
   },
   {
     "id": "navigationSecondaryContainer",
-    "fields": []
+    "fields": [
+      {
+        "component": "text",
+        "name": "section-name",
+        "label": "Section Name",
+        "value": "navigation-secondary-container",
+        "valueType": "string"
+      }
+    ]
   },
   {
     "id": "navigation",
