@@ -37,6 +37,7 @@
               "name": "Carousel -2 Slides",
               "value": "carousel-2-slides"
             }
+           
           ]
         },
         {
@@ -85,6 +86,7 @@
         "image",
         "button",
         "title"
+
       ]
     }
   ]
