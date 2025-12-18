@@ -107,7 +107,8 @@
         "collectionsection",
         "recards",
         "banner",
-        "description"
+        "description",
+        "featurebanner"
       ]
     }
   ]
