@@ -185,8 +185,11 @@
 }
 
 /* 预览模式样式 */
-footer#footer {
+footer {
   background: rgb(230 250 250 / 50%);
+}
+footer footer {
+  background: initial;
 }
 
 .footer-container {

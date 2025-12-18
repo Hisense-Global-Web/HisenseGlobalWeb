@@ -290,7 +290,7 @@ export default function decorate(block) {
           a.textContent = itemData.text;
           li.appendChild(a);
           const img = document.createElement('img');
-          img.src = 'icons/share.svg';
+          img.src = '/content/dam/hisense/image/icon/share.svg';
           li.appendChild(img);
 
           ul.appendChild(li);
