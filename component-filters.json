@@ -49,11 +49,5 @@
       "button",
       "title"
     ]
-  },
-  {
-    "id": "recards",
-    "components": [
-      "recard"
-    ]
   }
 ]
