@@ -364,3 +364,7 @@ main .section.vertical-padding-l {
 main .section.vertical-padding-xl {
 	padding: var(--spacing-vertical-xl) 0;
 }
+
+.display-none {
+  display: none;
+}

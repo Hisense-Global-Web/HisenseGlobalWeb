@@ -289,6 +289,9 @@ export default function decorate(block) {
           a.href = itemData.link;
           a.textContent = itemData.text;
           li.appendChild(a);
+          const img = document.createElement('img');
+          img.src = 'icons/share.svg';
+          li.appendChild(img);
 
           ul.appendChild(li);
         });
