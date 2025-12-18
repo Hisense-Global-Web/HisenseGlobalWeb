@@ -547,6 +547,61 @@
     ]
   },
   {
+    "id": "pdpproduct",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Pdpproduct classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "text-color-black",
+            "value": "text-color-black"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "collection_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "collection_imageAlt",
+        "label": "Image Alt Text",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "collection_text",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "collection_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "collection_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "recards",
     "fields": [
       {
@@ -636,32 +691,6 @@
         "name": "slide_link",
         "label": "Link",
         "required": false
-      }
-    ]
-  },
-  {
-    "id": "video",
-    "fields": [
-      {
-        "component": "aem-content",
-        "valueType": "",
-        "name": "Video",
-        "label": "Video",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "img",
-        "label": "img",
-        "multi": false
       }
     ]
   },
