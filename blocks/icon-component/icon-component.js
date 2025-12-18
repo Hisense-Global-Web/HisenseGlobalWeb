@@ -19,6 +19,14 @@ function updatePosition(block) {
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
+  cards.forEach((item) => {
+    const link = item.querySelector('a');
+    const url = link?.href;
+    item.addEventListener('click', () => {
+      if (url) window.location.href = url;
+    });
+  });
+  // prev and next button
   block.querySelector('.slide-prev').addEventListener('click', () => {
     if (index > 0) {
       index -= 1;
@@ -47,11 +55,13 @@ export default async function decorate(block) {
       if (item.querySelector('picture')) {
         item.querySelector('picture').closest('div').classList.add('item-picture');
       }
+      if (item.querySelector('.button-container')) {
+        item.querySelector('.button-container').closest('div').classList.add('item-cta');
+      }
       if (!item.innerHTML) item.remove();
     });
     iconBlock.appendChild(child);
     iconBlocks.appendChild(iconBlock);
-    // child.remove();
   });
   const buttonContainer = document.createElement('div');
   buttonContainer.classList.add('pagination');
