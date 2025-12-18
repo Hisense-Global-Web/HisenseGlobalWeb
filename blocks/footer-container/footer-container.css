@@ -258,6 +258,7 @@ footer footer {
 .footer-nav-column-title {
   font-weight: 400;
   margin-bottom: 9px;
+  margin-top: 0;
   font-size: 14px;
   line-height: 20px;
   color: rgb(0 0 0 / 100%);
