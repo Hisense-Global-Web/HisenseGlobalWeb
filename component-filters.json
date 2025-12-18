@@ -27,7 +27,8 @@
       "banner",
       "description",
       "slide",
-      "featurebanner"
+      "featurebanner",
+      "iconComponent"
     ]
   },
   {
@@ -58,12 +59,6 @@
     ]
   },
   {
-    "id": "recards",
-    "components": [
-      "recard"
-    ]
-  },
-  {
     "id": "footerContainer",
     "components": [
       "footerLogo",
@@ -90,6 +85,12 @@
     ]
   },
   {
+    "id": "iconComponent",
+    "components": [
+      "iconItem"
+    ]
+  },
+  {
     "id": "navigationSecondaryContainer",
     "components": [
       "columns"
@@ -102,6 +103,12 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
+    ]
+  },
+  {
+    "id": "recards",
+    "components": [
+      "recard"
     ]
   }
 ]
