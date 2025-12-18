@@ -95,7 +95,7 @@
   {
     "id": "infoCard",
     "components": [
-      "infoItem"
+      "infoCardItem"
     ]
   },
   {
