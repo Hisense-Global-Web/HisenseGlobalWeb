@@ -424,7 +424,7 @@
                 "template": {
                   "name": "Info Card Item",
                   "model": "infoCardItem",
-                  "classes": "info-cad-item"
+                  "classes": "info-card-item"
                 }
               }
             }
