@@ -1,3 +1,25 @@
+function isInternalLink(href) {
+  if (!href || href === '#' || href === '/') {
+    return true;
+  }
+
+  if (href.startsWith('/')) {
+    return true;
+  }
+
+  if (!href.includes('://')) {
+    return true;
+  }
+
+  try {
+    const linkUrl = new URL(href);
+    const currentUrl = new URL(window.location.href);
+    return linkUrl.hostname === currentUrl.hostname;
+  } catch (e) {
+    return true;
+  }
+}
+
 /**
  * 从 footer-logo block 中提取 logo 数据
 */
@@ -332,9 +354,13 @@ export default function decorate(block) {
           a.href = itemData.link;
           a.textContent = itemData.text;
           li.appendChild(a);
-          const img = document.createElement('img');
-          img.src = '/content/dam/hisense/image/icon/share.svg';
-          li.appendChild(img);
+
+          // 只有非内链才显示图标
+          if (!isInternalLink(itemData.link)) {
+            const img = document.createElement('img');
+            img.src = '/content/dam/hisense/image/icon/share.svg';
+            li.appendChild(img);
+          }
 
           ul.appendChild(li);
         });
