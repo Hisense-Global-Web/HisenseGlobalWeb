@@ -35,6 +35,12 @@
           "name": "alt",
           "label": "Alt Text",
           "value": ""
+        },
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link",
+          "required": true
         }
       ]
     }

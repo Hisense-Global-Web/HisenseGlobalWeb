@@ -515,7 +515,8 @@
       {
         "component": "aem-content",
         "name": "link",
-        "label": "Link"
+        "label": "Link",
+        "required": true
       }
     ]
   },
@@ -535,6 +536,12 @@
         "name": "alt",
         "label": "Alt Text",
         "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "required": true
       }
     ]
   },
@@ -551,7 +558,8 @@
       {
         "component": "aem-content",
         "name": "link",
-        "label": "Link"
+        "label": "Link",
+        "required": true
       },
       {
         "component": "reference",
@@ -588,7 +596,8 @@
       {
         "component": "aem-content",
         "name": "link",
-        "label": "Link"
+        "label": "Link",
+        "required": true
       }
     ]
   },
