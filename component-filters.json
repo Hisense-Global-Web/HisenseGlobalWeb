@@ -93,7 +93,10 @@
     ]
   },
   {
-    "id": "infoCard"
+    "id": "infoCard",
+    "components": [
+      "infoItem"
+    ]
   },
   {
     "id": "navigationSecondaryContainer",

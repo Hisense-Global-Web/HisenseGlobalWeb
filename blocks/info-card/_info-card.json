@@ -11,8 +11,22 @@
               "name": "Info card",
               "model": "infoCard",
               "filter": "infoCard",
-              "classes": "info-card-block",
-              "info_content": "<p>This is info card title.</p><p>This is info card content detail.</p>"
+              "classes": "info-card-container"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Info Item",
+      "id": "infoItem",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Info Item",
+              "model": "infoItem"
             }
           }
         }
@@ -27,7 +41,7 @@
           "component": "select",
           "name": "classes",
           "value": "",
-          "label": "Info card Options",
+          "label": "Icon Options",
           "description": "",
           "valueType": "string",
           "options": [
@@ -40,21 +54,19 @@
               "value": "text-center"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "infoCard",
+      "fields": [
         {
           "component": "reference",
           "valueType": "string",
-          "name": "info_image",
+          "name": "image",
           "label": "Image",
           "required": true,
           "multi": false
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "info_imageAlt",
-          "label": "Image Alt Text",
-          "required": true
         },
         {
           "component": "richtext",
@@ -68,7 +80,10 @@
   ],
   "filters": [
     {
-      "id": "infoCard"
+      "id": "infoCard",
+      "components": [
+        "infoItem"
+      ]
     }
   ]
 }

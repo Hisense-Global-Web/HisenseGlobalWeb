@@ -708,7 +708,7 @@
         "component": "select",
         "name": "classes",
         "value": "",
-        "label": "Info card Options",
+        "label": "Icon Options",
         "description": "",
         "valueType": "string",
         "options": [
@@ -721,21 +721,19 @@
             "value": "text-center"
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "id": "infoCard",
+    "fields": [
       {
         "component": "reference",
         "valueType": "string",
-        "name": "info_image",
+        "name": "image",
         "label": "Image",
         "required": true,
         "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "info_imageAlt",
-        "label": "Image Alt Text",
-        "required": true
       },
       {
         "component": "richtext",
