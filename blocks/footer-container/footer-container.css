@@ -8,7 +8,7 @@
 
 .section.footer-container-block > *,
 .section[class*="footer-container"] > *,
-.footer-wrapper{
+#footer {
   max-width: 1080px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -188,6 +188,7 @@
 footer {
   background: rgb(230 250 250 / 50%);
 }
+
 footer footer {
   background: initial;
 }
@@ -306,7 +307,9 @@ footer footer {
 /* stylelint-disable-next-line no-descending-specificity */
 .footer-legal-links {
   display: flex;
-  gap: 6rem;
+  gap: 10px 111px;
+  max-width: 950px;
+  overflow: hidden;
   flex-wrap: wrap;
 }
 
