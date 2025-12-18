@@ -109,5 +109,17 @@
     "components": [
       "recard"
     ]
+  },
+  {
+    "id": "plp-product-filters",
+    "components": [
+      "plp-product-tag"
+    ]
+  },
+  {
+    "id": "product-filters-carousel",
+    "components": [
+      "product-filters-carousel-item"
+    ]
   }
 ]
