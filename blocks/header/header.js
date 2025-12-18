@@ -33,7 +33,6 @@ function parseDropdownProducts(col) {
 
   const imageLinkItems = Array.from(col.querySelectorAll('.image-link'));
 
-  // 情况1 image-link 模式
   if (imageLinkItems.length) {
     return imageLinkItems.map((item) => {
       const img = item.querySelector('img')?.src || '';
@@ -49,7 +48,6 @@ function parseDropdownProducts(col) {
     });
   }
 
-  // 情况2 <p> 列表模式
   const products = [];
   const children = Array.from(col.children);
   for (let i = 0; i < children.length; i += 1) {
@@ -76,7 +74,6 @@ function parseDropdownLinks(col) {
   if (!col) return [];
   const imageLinkItems = Array.from(col.querySelectorAll('.image-link'));
 
-  // 情况1 image-link 模式
   if (imageLinkItems.length) {
     return imageLinkItems.map((item) => {
       const textElement = item.querySelector('div:nth-child(3) > div');
@@ -92,24 +89,15 @@ function parseDropdownLinks(col) {
     }).filter((item) => item.text);
   }
 
-  // 情况2 <p> 列表模式
-  // return Array.from(col.querySelectorAll('p')).flatMap((p) => {
-  //   const text = p.textContent.trim();
-  //   const href = p.querySelector('a')?.href || '#';
-  //   return text ? [{ text, href }] : [];
-  // });
   const items = Array.from(col.querySelectorAll('p:not(.button-container) + p.button-container'));
   if (items.length) {
     return items.map((buttonContainer) => {
-      // 1. 获取文本：找到按钮容器的前一个 <p>（即文本所在的 <p>）
       const textElement = buttonContainer.previousElementSibling;
       const text = textElement ? textElement.textContent.trim() : '';
 
-      // 2. 获取链接：从按钮容器内的 <a> 提取 href
       const linkElement = buttonContainer.querySelector('a.button');
       const href = linkElement ? linkElement.getAttribute('href') : '';
 
-      // 返回格式化对象
       return { text, href };
     }).filter((item) => item.text);
   } return [];
@@ -117,7 +105,56 @@ function parseDropdownLinks(col) {
 
 function parseDropdownBtns(col) {
   if (!col) return [];
-  return Array.from(col.querySelectorAll('p')).map((p) => p.textContent.trim()).filter(Boolean);
+
+  const results = [];
+
+  const imageLinks = col.querySelectorAll('.image-link');
+  if (imageLinks.length > 0) {
+    imageLinks.forEach((imageLink) => {
+      const titleDiv = imageLink.querySelector('div[data-aue-prop="title"]');
+      const text = titleDiv ? titleDiv.textContent.trim() : '';
+
+      const buttonContainer = imageLink.querySelector('.button-container');
+      const linkElement = buttonContainer ? buttonContainer.querySelector('a') : null;
+      const href = linkElement ? linkElement.getAttribute('href') : '';
+
+      if (text) {
+        results.push({ text, href: href || '#' });
+      }
+    });
+    return results;
+  }
+
+  const paragraphs = Array.from(col.querySelectorAll('p'));
+  for (let i = 0; i < paragraphs.length; i += 1) {
+    const p = paragraphs[i];
+
+    if (p.classList.contains('button-container')) {
+      const linkElement = p.querySelector('a');
+      const href = linkElement ? linkElement.getAttribute('href') : '';
+
+      let text = '';
+      if (i > 0 && !paragraphs[i - 1].classList.contains('button-container')) {
+        text = paragraphs[i - 1].textContent.trim();
+      } else {
+        text = linkElement ? (linkElement.getAttribute('title') || linkElement.textContent.trim()) : '';
+      }
+
+      if (text) {
+        results.push({ text, href: href || '#' });
+      }
+    } else {
+      const nextP = paragraphs[i + 1];
+      if (!nextP || !nextP.classList.contains('button-container')) {
+        const text = p.textContent.trim();
+        if (text) {
+          results.push({ text, href: '#' });
+        }
+      }
+    }
+  }
+
+  return results;
 }
 
 function parseDropdowns(root) {
@@ -181,11 +218,12 @@ function buildDropdown(data) {
 
   const btnWrap = document.createElement('div');
   btnWrap.className = 'dropdown-btns';
-  data.btns.forEach((text) => {
-    const btn = document.createElement('button');
-    btn.className = 'dropdown-btn';
-    btn.textContent = text;
-    btnWrap.append(btn);
+  data.btns.forEach((btnData) => {
+    const link = document.createElement('a');
+    link.className = 'dropdown-btn';
+    link.textContent = btnData.text || '';
+    link.href = btnData.href || '#';
+    btnWrap.append(link);
   });
 
   content.append(main, btnWrap);
