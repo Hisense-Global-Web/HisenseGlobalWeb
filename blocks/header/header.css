@@ -229,6 +229,7 @@
 
 .dropdown-main {
   display: flex;
+  justify-content: space-between;
 }
 
 .dropdown-products {
