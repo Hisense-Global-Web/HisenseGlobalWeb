@@ -582,12 +582,16 @@
         "valueType": "string",
         "name": "icon",
         "label": "Social Icon",
+        "required": true,
         "multi": false
       },
       {
         "component": "aem-content",
         "name": "link",
-        "label": "Link"
+        "label": "Link",
+        "validation": {
+          "maxLength": 7
+        }
       }
     ]
   },
