@@ -38,6 +38,7 @@ function observeMouse(block, index) {
   let currentIndex = index;
   const images = block.querySelectorAll('.carousel-item');
   let timer;
+  if (block.hasAttribute('data-aue-resource')) return;
   const autoPlay = () => {
     timer = setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
@@ -60,7 +61,6 @@ function observeMouse(block, index) {
       });
     });
   }
-  if (block.hasAttribute('data-aue-resource')) return;
   autoPlay();
 }
 function bindEvents(block) {
