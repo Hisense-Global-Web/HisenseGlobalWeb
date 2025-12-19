@@ -111,7 +111,7 @@ function parseDropdownBtns(col) {
   const imageLinks = col.querySelectorAll('.image-link');
   if (imageLinks.length > 0) {
     imageLinks.forEach((imageLink) => {
-      const titleDiv = imageLink.querySelector('div[data-aue-prop="title"]');
+      const titleDiv = imageLink.querySelector(':nth-last-child(2) > div');
       const text = titleDiv ? titleDiv.textContent.trim() : '';
 
       const buttonContainer = imageLink.querySelector('.button-container');
