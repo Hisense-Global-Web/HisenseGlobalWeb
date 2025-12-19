@@ -107,12 +107,12 @@
         "recards",
         "video",
         "carousel",
-        "collectionsection",
-        "recards",
         "banner",
         "description",
         "featurebanner",
-        "videoinfo"
+        "videoinfo",
+        "slide",
+        "iconComponent"
       ]
     }
   ]

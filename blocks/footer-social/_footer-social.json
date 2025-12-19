@@ -1,0 +1,43 @@
+{
+  "definitions": [
+    {
+      "title": "Footer Social",
+      "id": "footerSocial",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Footer Social",
+              "model": "footerSocial",
+              "classes": "footer-social"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "footerSocial",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "icon",
+          "label": "Social Icon",
+          "required": true,
+          "multi": false
+        },
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
+

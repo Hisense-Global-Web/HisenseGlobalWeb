@@ -2,7 +2,9 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "navigation",
+      "footerContainer"
     ]
   },
   {
@@ -20,12 +22,12 @@
       "recards",
       "video",
       "carousel",
-      "collectionsection",
-      "recards",
       "banner",
       "description",
       "featurebanner",
-      "videoinfo"
+      "videoinfo",
+      "slide",
+      "iconComponent"
     ]
   },
   {
@@ -52,7 +54,55 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "imageLink"
+    ]
+  },
+  {
+    "id": "footerContainer",
+    "components": [
+      "footerLogo",
+      "footerNavColumn",
+      "footerLegalLinks"
+    ]
+  },
+  {
+    "id": "footerLegalLinks",
+    "components": [
+      "footerLegalLinkItem"
+    ]
+  },
+  {
+    "id": "footerLogo",
+    "components": [
+      "footerSocial"
+    ]
+  },
+  {
+    "id": "footerNavColumn",
+    "components": [
+      "footerNavColumnList"
+    ]
+  },
+  {
+    "id": "iconComponent",
+    "components": [
+      "iconItem"
+    ]
+  },
+  {
+    "id": "navigationSecondaryContainer",
+    "components": [
+      "columns"
+    ]
+  },
+  {
+    "id": "navigation",
+    "components": [
+      "navigationLogo",
+      "navigationItem",
+      "navigationLink",
+      "navigationAction"
     ]
   },
   {

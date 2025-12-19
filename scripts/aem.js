@@ -113,8 +113,6 @@ function sampleRUM(checkpoint, data) {
             ? new Blob([rumData], { type: 'application/json' })
             : rumData;
           navigator.sendBeacon(url, body);
-          // eslint-disable-next-line no-console
-          console.debug(`ping:${ck}`, pingData);
         };
         sampleRUM.sendPing('top', timeShift());
 
@@ -167,8 +165,7 @@ function setup() {
         [window.hlx.codeBasePath] = scriptURL.href.split('/scripts/scripts.js');
       }
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
+      // swallow setup errors silently
     }
   }
 }
@@ -673,6 +670,76 @@ async function waitForFirstImage(section) {
   });
 }
 
+async function loadSectionResources(section) {
+  let sectionName = null;
+
+  const model = section.getAttribute('data-aue-model');
+  if (model) {
+    sectionName = model;
+  } else {
+    const itemContainerClass = [...section.classList].find((cls) => cls.endsWith('-item-container'));
+    if (itemContainerClass) {
+      sectionName = itemContainerClass.replace(/-item-container$/, '');
+    } else {
+      const containerClass = [...section.classList].find((cls) => cls.endsWith('-container'));
+      if (containerClass) {
+        sectionName = containerClass.replace(/-container$/, '');
+        // 如果 sectionName 是 footer-*-container，那么设置 sectionName 为 footer-container
+        if (sectionName.match(/^footer-.*$/)) {
+          sectionName = 'footer-container';
+        }
+      } else {
+        const sectionClasses = [...section.classList].filter(
+          (cls) => cls !== 'section' && !cls.endsWith('-container') && !cls.endsWith('-wrapper'),
+        );
+
+        if (sectionClasses.length > 0) {
+          [sectionName] = sectionClasses;
+        }
+      }
+    }
+  }
+
+  if (sectionName) {
+    // 如果容器是驼峰式命名，那么改成xxx-xxx式命名（这是block的文件名格式）
+    const camelCasePattern = /^[a-z]+[A-Z][A-Za-z0-9]*$/;
+    if (camelCasePattern.test(sectionName)) {
+      sectionName = sectionName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+    }
+
+    const sectionStatus = section.dataset.sectionResourceStatus;
+
+    if (sectionStatus !== 'loading' && sectionStatus !== 'loaded') {
+      section.dataset.sectionResourceStatus = 'loading';
+      try {
+        const cssLoaded = loadCSS(`${window.hlx.codeBasePath}/blocks/${sectionName}/${sectionName}.css`);
+        const decorationComplete = new Promise((resolve) => {
+          (async () => {
+            try {
+              const mod = await import(
+                `${window.hlx.codeBasePath}/blocks/${sectionName}/${sectionName}.js`
+              );
+              if (mod.default) {
+                await mod.default(section);
+              }
+            } catch (error) {
+              // eslint-disable-next-line no-console
+              console.debug(`No module found for section ${sectionName}`, error);
+            }
+            resolve();
+          })();
+        });
+        await Promise.all([cssLoaded, decorationComplete]);
+        section.dataset.sectionResourceStatus = 'loaded';
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.debug(`Failed to load section resources for ${sectionName}`, error);
+        section.dataset.sectionResourceStatus = 'loaded';
+      }
+    }
+  }
+}
+
 /**
  * Loads all blocks in a section.
  * @param {Element} section The section element
@@ -682,6 +749,9 @@ async function loadSection(section, loadCallback) {
   const status = section.dataset.sectionStatus;
   if (!status || status === 'initialized') {
     section.dataset.sectionStatus = 'loading';
+
+    await loadSectionResources(section);
+
     const blocks = [...section.querySelectorAll('div.block')];
     for (let i = 0; i < blocks.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
