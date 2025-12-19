@@ -118,12 +118,8 @@ function parseDropdownBtns(col) {
   const imageLinks = col.querySelectorAll('.image-link');
   if (imageLinks.length > 0) {
     imageLinks.forEach((imageLink) => {
-      const titleDiv = imageLink.querySelector(':nth-last-child(2) > div');
-      const title3Div = imageLink.querySelector(':nth-last-child(3) > div');
-      const text = titleDiv ? titleDiv.textContent.trim() : '';
-      const textOther = imageLink.children[2].textContent.trim() ?? '';
-      const altText = title3Div ? title3Div.textContent.trim() : '';
-      console.log(text, altText, textOther);
+      const altText = imageLink.children[1]?.textContent.trim() ?? '';
+      const text = imageLink.children[2]?.textContent.trim() ?? '';
       const linkElement = imageLink.querySelector('a');
       const href = linkElement ? linkElement.getAttribute('href') : '';
 
