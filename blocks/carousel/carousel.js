@@ -51,6 +51,15 @@ function observeMouse(block, index) {
   block.addEventListener('mouseleave', () => {
     autoPlay();
   });
+  if (block.classList.contains('only-picture')) {
+    images.forEach((image) => {
+      const link = image.querySelector('a');
+      const url = link?.href;
+      image.addEventListener('click', () => {
+        if (url) window.location.href = url;
+      });
+    });
+  }
   if (document.querySelector('#exc')) return;
   autoPlay();
 }
@@ -111,12 +120,12 @@ function createSlide(block, row, slideIndex) {
   slide.append(div);
   return slide;
 }
+
 export default async function decorate(block) {
   const isSingleSlide = [...block.children].length < 2;
   const wholeContainer = document.createElement('ul');
   wholeContainer.classList.add('carousel-items-container');
   let slideIndicators;
-
   if (!isSingleSlide) {
     slideIndicators = document.createElement('ol');
     slideIndicators.classList.add('carousel-item-indicators');
@@ -139,7 +148,7 @@ export default async function decorate(block) {
     row.remove();
   });
   block.prepend(wholeContainer);
-  block.append(slideIndicators);
+  if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);
   }
