@@ -60,7 +60,7 @@ function observeMouse(block, index) {
       });
     });
   }
-  if (document.querySelector('#exc')) return;
+  if (block.hasAttribute('data-aue-resource')) return;
   autoPlay();
 }
 function bindEvents(block) {
