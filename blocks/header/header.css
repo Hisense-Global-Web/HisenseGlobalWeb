@@ -118,6 +118,10 @@
   color: var(--header-active-color);
 }
 
+.nav-link:hover {
+  font-weight: bold;
+}
+
 .navigation-item-wrapper .navigation-item {
   display: flex;
   align-items: center;
