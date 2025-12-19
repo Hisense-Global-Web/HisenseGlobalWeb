@@ -1,4 +1,22 @@
 .videoinfo-container .videoinfo-wrapper {
+  width: 1120px;
   max-width: unset;
   padding: 0;
+  margin: 120px auto 0;;
+  font-family: 'Hisense Sans Alfabet', sans-serif;
+}
+
+.videoinfo [data-aue-prop="info"] {
+  color: #00AAA6;
+  font-size:20px;
+}
+
+.videoinfo [data-aue-prop="title"] {
+  color: white;
+  font-size:42px;
+}
+
+.videoinfo [data-aue-prop="description"] {
+  color: white;
+  font-size:16px;
 }
