@@ -1,4 +1,8 @@
 
+.cards-wrapper{
+  width: 1120px;
+  margin: 20px auto;
+}
 
 .cover-style > ul {
   list-style: none;
