@@ -156,8 +156,12 @@
 }
 
 /* 右侧功能区：flex布局 */
-.navigation-action-wrapper {
+.navigation-link-wrapper {
   order: 3;
+}
+
+.navigation-action-wrapper {
+  order: 4;
   display: inline-flex;
   align-items: center;
   gap: 0;
