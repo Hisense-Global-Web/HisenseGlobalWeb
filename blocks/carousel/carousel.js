@@ -3,8 +3,6 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
-  block.dataset.activeSlide = slideIndex;
-
   const indicators = block.querySelectorAll('.carousel-item-indicator');
   indicators.forEach((indicator, idx) => {
     const button = indicator.querySelector('button');
@@ -16,18 +14,45 @@ function updateActiveSlide(slide) {
   });
 }
 
-function showSlide(block, slideIndex = 0) {
+function showSlide(block, slideIndex) {
   const slides = block.querySelectorAll('.carousel-item');
   let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
   if (slideIndex >= slides.length) realSlideIndex = 0;
   const activeSlide = slides[realSlideIndex];
+
+  if ([...activeSlide.classList].includes('dark')) {
+    block.classList.add('dark');
+    document.querySelector('#navigation').classList.add('header-dark-mode');
+  } else {
+    block.classList.remove('dark');
+    document.querySelector('#navigation').classList.remove('header-dark-mode');
+  }
   block.querySelector('.carousel-items-container').scrollTo({
     top: 0,
     left: activeSlide.offsetLeft,
-    behavior: 'smooth',
+    behavior: 'instant',
   });
 }
 
+function observeMouse(block, index) {
+  let currentIndex = index;
+  const images = block.querySelectorAll('.carousel-item');
+  let timer;
+  const autoPlay = () => {
+    timer = setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      showSlide(block, currentIndex);
+    }, 3000);
+  };
+  block.addEventListener('mouseenter', () => {
+    clearInterval(timer);
+    timer = null;
+  });
+  block.addEventListener('mouseleave', () => {
+    autoPlay();
+  });
+  autoPlay();
+}
 function bindEvents(block) {
   const slideIndicators = block.querySelector('.carousel-item-indicators');
   if (!slideIndicators) return;
@@ -46,17 +71,43 @@ function bindEvents(block) {
     });
   });
 }
-function createSlide(row, slideIndex) {
+function createSlide(block, row, slideIndex) {
   const slide = document.createElement('li');
+  const div = document.createElement('div');
+  div.setAttribute('class', 'carousel-content');
   moveInstrumentation(row, slide);
   slide.classList.add('carousel-item');
   slide.dataset.slideIndex = slideIndex;
   [...row.children].forEach((column, colIdx) => {
-    if (colIdx === 0) column.classList.add('carousel-item-image');
-    else if (colIdx === 1) column.classList.add('carousel-item-content');
-    else column.classList.add('carousel-item-cta');
-    slide.append(column);
+    let theme;
+    switch (colIdx) {
+      case 0:
+        column.classList.add('carousel-item-image');
+        break;
+      case 1:
+        column.classList.add('carousel-item-theme');
+        theme = column.querySelector('p').innerHTML;
+        slide.classList.add(theme === 'true' ? 'dark' : 'light');
+        column.innerHTML = '';
+        break;
+      case 2:
+        column.classList.add('carousel-item-content');
+        if ([...column.children].length > 1) {
+          column.firstElementChild.classList.add('teal-text');
+          column.lastElementChild.classList.add('change-text');
+        }
+        break;
+      default:
+        column.classList.add('carousel-item-cta');
+    }
+    if (column.innerHTML === '') return;
+    if ([2, 3].includes(colIdx)) {
+      div.appendChild(column);
+    } else {
+      slide.append(column);
+    }
   });
+  slide.append(div);
   return slide;
 }
 export default async function decorate(block) {
@@ -70,7 +121,7 @@ export default async function decorate(block) {
     slideIndicators.classList.add('carousel-item-indicators');
   }
   [...block.children].forEach((row, idx) => {
-    const slide = createSlide(row, idx);
+    const slide = createSlide(block, row, idx);
     const ctaContent = slide.querySelector('.button');
     if (ctaContent) {
       ctaContent.classList.add('active');
@@ -91,4 +142,5 @@ export default async function decorate(block) {
   if (!isSingleSlide) {
     bindEvents(block);
   }
+  observeMouse(block, 0);
 }

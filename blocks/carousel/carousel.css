@@ -4,7 +4,8 @@ main > .section:first-of-type {
 
 .carousel-container .carousel-wrapper,
 .carousel-items-container {
-  height: 860px;
+  max-height: 860px;
+  height: auto;
   width: 100%;
   list-style: none;
   margin: 0;
@@ -13,6 +14,7 @@ main > .section:first-of-type {
 
 .carousel {
   position: relative;
+  color: black;
 
   .carousel-items-container {
     display: flex;
@@ -40,9 +42,11 @@ main > .section:first-of-type {
     height: 100%;
 
   .carousel-item-image {
-    position: absolute;
-    top: 0;
-    left: 0;
+    /* position: absolute; */
+
+    /* top: 0; */
+
+    /* left: 0; */
     width: 100%;
     height: 860px;
 
@@ -58,16 +62,25 @@ main > .section:first-of-type {
     }
   }
 
+  .carousel-content {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-left: 120px;
+    transform: translateY(-50%);
+  }
+
   .carousel-item-content,
   .carousel-item-cta {
-    z-index: 1;
-    margin-left: 120px;
-    color: var(--color-hisense-black);
-    position: relative;
     width: auto;
   }
 
-  .carousel-item-content .teal {
+  .carousel-item-content {
+    top: -50%;
+  }
+
+  .carousel-item-content .teal-text {
     color: var(--color-hisense-teal);
     font-weight: bold;
   }
@@ -155,19 +168,24 @@ main > .section:first-of-type {
       background-color: var(--color-hisense-grey-02);
       width: 68px;
     }
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 
-.carousel .dark {
-  .carousel-item {
+.carousel.dark .carousel-item {
+    color: white;
+
     .carousel-item-content,
     .carousel-item-cta {
       color: var(--background-light);
 
       .button-container {
         .button {
-          border: 1px solid var(--background-light);
           color: var(--background-light);
+          border-color: var(--background-light);
 
           &:hover {
             background-color: white;
@@ -175,26 +193,33 @@ main > .section:first-of-type {
             color: black;
           }
 
-          &.active:hover {
-            background-color: #00B5B1;
-            border-color: #00B5B1;
+          &.active {
+            color: white;
+            border-color: #00AAA6;
+
+            &:hover {
+              background-color: #00B5B1;
+              border-color: #00B5B1;
+            }
           }
         }
       }
     }
-  }
+}
 
-  .carousel-item-indicators {
-    button {
+.carousel.dark .carousel-item-indicators {
+  button {
+    background-color: var(--background-light);
+    opacity: 0.42;
+
+    &:disabled {
+      opacity: 1;
       background-color: var(--background-light);
-      opacity: 0.42;
+    }
 
-      &:disabled {
-        opacity: 1;
-        background-color: var(--background-light);
-      }
+    &:hover {
+      opacity: 1;
     }
   }
-
 }
 

@@ -336,7 +336,7 @@
             "component": "richtext",
             "name": "text_normal",
             "value": "Perfection, any content, anytime",
-            "label": "Text",
+            "label": "Content",
             "valueType": "string"
           }
         ]
@@ -373,7 +373,7 @@
             "name": "carousel_ctaSecondaryText",
             "label": "Secondary CTA Label",
             "valueType": "string",
-            "value": "Required if you has Primary CTA content"
+            "value": "Required if you has Secondary CTA content"
           }
         ]
       }
