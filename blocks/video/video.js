@@ -1,20 +1,15 @@
 export default function decorate(block) {
   /* change to ul, li */
-
-  console.log('...block.children');
-  console.log(...block.children);
   let videourl;
   let imgUrl;
   [...block.children].forEach((row) => {
     const link = row.querySelector('a');
     if (link) {
       videourl = link.href;
-      console.log('videourl', videourl, link.href);
     }
     const img = row.querySelector('img');
     if (img) {
       imgUrl = img.src;
-      console.log('imgUrl', imgUrl, img.src);
     }
   });
   const newDiv = document.createElement('div');
@@ -38,11 +33,9 @@ export default function decorate(block) {
   newDiv.appendChild(video);
 
   video.addEventListener('loadeddata', () => {
-    console.log('视频已加载');
   });
 
   video.addEventListener('play', () => {
-    console.log('视频开始播放');
   });
   block.replaceChildren(newDiv);
 }
