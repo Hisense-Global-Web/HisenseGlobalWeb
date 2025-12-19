@@ -12,6 +12,7 @@
   max-width: 1080px;
   margin: 0 auto;
   box-sizing: border-box;
+  background: initial;
 }
 
 .section.footer-container-block[data-aue-resource],
@@ -187,10 +188,6 @@
 /* 预览模式样式 */
 footer {
   background: rgb(230 250 250 / 50%);
-}
-
-footer footer {
-  background: initial;
 }
 
 .footer-container {
