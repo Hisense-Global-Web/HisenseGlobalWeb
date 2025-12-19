@@ -702,26 +702,6 @@
     ]
   },
   {
-    "id": "infoCardBox",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "required": true,
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "info_content",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "infoCardSection",
     "fields": [
       {
@@ -746,7 +726,23 @@
   },
   {
     "id": "infoCard",
-    "fields": []
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "required": true,
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "info_content",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
   },
   {
     "id": "navigationAction",

@@ -100,12 +100,6 @@
     ]
   },
   {
-    "id": "infoCard",
-    "components": [
-      "infoCardBox"
-    ]
-  },
-  {
     "id": "navigationSecondaryContainer",
     "components": [
       "columns"
