@@ -257,14 +257,22 @@
 }
 
 .dropdown-product-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100px;
   height: 100px;
   margin-bottom: 12px;
+  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
+}
+
+.dropdown-product:hover .dropdown-product-img{
+  transform: scale(1.1);
 }
 
 .dropdown-product-img img {
-  width: 100%;
-  height: 100%;
+  width: 90px;
+  height: auto;
 }
 
 .dropdown-product-text {
