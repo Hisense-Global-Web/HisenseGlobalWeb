@@ -22,10 +22,10 @@ function showSlide(block, slideIndex) {
   const nav = document.querySelector('#navigation');
   if ([...activeSlide.classList].includes('dark')) {
     block.classList.add('dark');
-    if (nav) nav.classList.add('header-dark-mode');
+    if (nav) document.querySelector('#navigation').classList.add('header-dark-mode');
   } else {
     block.classList.remove('dark');
-    if (nav) nav.classList.remove('header-dark-mode');
+    if (nav) document.querySelector('#navigation').classList.remove('header-dark-mode');
   }
   block.querySelector('.carousel-items-container').scrollTo({
     top: 0,

@@ -3,6 +3,7 @@
     "id": "main",
     "components": [
       "section",
+      "carousel",
       "navigation",
       "footerContainer"
     ]

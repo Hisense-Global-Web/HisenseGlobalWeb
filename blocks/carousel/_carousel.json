@@ -40,7 +40,7 @@
           "component": "select",
           "name": "classes",
           "value": "",
-          "label": "Hero classes options",
+          "label": "Hero Variant",
           "valueType": "string",
           "options": [
             {

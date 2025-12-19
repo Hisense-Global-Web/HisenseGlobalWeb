@@ -3,6 +3,7 @@
     "id": "main",
     "components": [
       "section",
+      "carousel",
       "navigation",
       "footerContainer"
     ]
@@ -21,7 +22,6 @@
       "collectionsection",
       "recards",
       "video",
-      "carousel",
       "banner",
       "description",
       "slide",
