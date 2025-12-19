@@ -27,7 +27,14 @@
       "slide",
       "featurebanner",
       "iconComponent",
-      "parallax"
+      "parallax",
+      "accordion"
+    ]
+  },
+  {
+    "id": "accordion",
+    "components": [
+      "accordionItem"
     ]
   },
   {

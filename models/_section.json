@@ -192,7 +192,8 @@
         "slide",
         "featurebanner",
         "iconComponent",
-        "parallax"
+        "parallax",
+        "accordion"
       ]
     }
   ]
