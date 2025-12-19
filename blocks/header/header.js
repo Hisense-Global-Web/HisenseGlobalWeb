@@ -270,7 +270,13 @@ export default async function decorate(block) {
   navItems.forEach((item, idx) => {
     const link = document.createElement('div');
     link.className = 'nav-link';
-    link.textContent = item.title;
+    const span1 = document.createElement('span');
+    const span2 = document.createElement('span');
+    span1.textContent = item.title;
+    span2.textContent = item.title;
+    span1.className = 'absolute';
+    span2.className = 'transparent-bold';
+    link.append(span1, span2);
     if (item.href && item.href !== '#') {
       link.dataset.href = item.href;
       link.addEventListener('click', () => {
