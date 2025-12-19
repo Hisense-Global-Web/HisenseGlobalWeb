@@ -662,6 +662,63 @@
     ]
   },
   {
+    "id": "iconComponent",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Icon Options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "text-left",
+            "value": "text-left"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "iconItem",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "required": true,
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "icon_cta",
+        "label": "CTA",
+        "valueType": "string",
+        "value": "/"
+      },
+      {
+        "component": "text",
+        "name": "icon_ctaLabel",
+        "label": "CTA Label",
+        "valueType": "string",
+        "value": "required"
+      }
+    ]
+  },
+  {
     "id": "imageLink",
     "fields": [
       {

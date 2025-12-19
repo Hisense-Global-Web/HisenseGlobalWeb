@@ -112,7 +112,8 @@
         "banner",
         "description",
         "slide",
-        "featurebanner"
+        "featurebanner",
+        "iconComponent"
       ]
     }
   ]

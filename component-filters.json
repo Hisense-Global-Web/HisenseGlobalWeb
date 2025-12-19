@@ -27,7 +27,8 @@
       "banner",
       "description",
       "slide",
-      "featurebanner"
+      "featurebanner",
+      "iconComponent"
     ]
   },
   {
@@ -82,6 +83,12 @@
     "id": "footerNavColumn",
     "components": [
       "footerNavColumnList"
+    ]
+  },
+  {
+    "id": "iconComponent",
+    "components": [
+      "iconItem"
     ]
   },
   {
