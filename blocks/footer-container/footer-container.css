@@ -316,6 +316,7 @@ footer footer {
   font-size: 12px;
   font-weight: 400;
   color: rgb(51 51 51 / 100%);
+  white-space: nowrap;
 }
 
 #footer .footer-copyright {
