@@ -53,7 +53,8 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "imageLink"
     ]
   },
   {

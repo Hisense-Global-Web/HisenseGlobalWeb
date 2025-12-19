@@ -10,20 +10,24 @@ main .section.navigation-logo-container.navigation-item-container.navigation-act
   flex-direction: column;
 }
 
-.columns-wrapper .columns > div {
+.nav-dropdown .dropdown-links div a {
+  color: rgb(102 102 102 / 100%)
+}
+
+.section[data-aue-model="navigationSecondaryContainer"] .columns-wrapper .columns > div {
   flex-direction: column;
 }
 
-.columns-wrapper .columns > div > div {
+.section[data-aue-model="navigationSecondaryContainer"] .columns-wrapper .columns > div > div {
   width: 100%;
   display: grid;
   gap: 30px 10px;
 }
 
-.columns-wrapper .columns > div > div:first-child {
+.section[data-aue-model="navigationSecondaryContainer"] .columns-wrapper .columns > div > div:first-child {
   grid-template-columns: repeat(4, 1fr);
 }
 
-.columns-wrapper .columns > div > div:nth-child(2) {
+.section[data-aue-model="navigationSecondaryContainer"] .columns-wrapper .columns > div > div:nth-child(2) {
   grid-template-columns: repeat(2, 1fr);
 }

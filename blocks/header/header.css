@@ -27,12 +27,17 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: var(--header-backgroundcolor);
-  border-bottom: 1px solid var(--header-backgroundcolor);
+  background: rgb(0 0 0 / 0%);
+  border-bottom: 1px solid rgb(0 0 0 / 0%);
   z-index: 999;
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
+}
+
+#navigation:has(.nav-container:hover) {
+  background: #fff;
+  border-color: #fff;
 }
 
 #navigation .nav-container {
@@ -85,10 +90,6 @@
   height: 15px;
 }
 
-.dropdown-links div:nth-child(2n) {
-  display: none;
-}
-
 /* 隐藏编辑模式下的 alt 和 link 字段显示 */
 .navigation-logo-wrapper .navigation-logo > div:nth-child(2),
 .navigation-logo-wrapper .navigation-logo > div:nth-child(3) {
@@ -120,6 +121,19 @@
   display: flex;
   align-items: center;
   color: var(--header-active-color);
+}
+
+.transparent-bold {
+  opacity: 0;
+  font-weight: bold;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.nav-link:hover {
+  font-weight: bold;
 }
 
 .navigation-item-wrapper .navigation-item {
@@ -229,6 +243,7 @@
 
 .dropdown-main {
   display: flex;
+  justify-content: space-between;
 }
 
 .dropdown-products {
@@ -277,18 +292,24 @@
   gap: 20px;
 }
 
-.dropdown-btn {
+.dropdown-btns .dropdown-btn {
   width: 200px;
   height: 44px;
-  border: 1px solid #DCF2F2;
+  border: 1px solid rgb(230 250 250 / 100%);
   border-radius: 10px;
   cursor: pointer;
-  background: #DCF2F2;
+  background: rgb(230 250 250 / 100%);
   color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dropdown-btn:hover {
-  background: #DCF2F2;
+  background: rgb(200 239 239 / 100%);
+  border-color: rgb(200 239 239 / 100%);
+  color: #333;
+  text-decoration: none;
 }
 
 .nav-mask {
