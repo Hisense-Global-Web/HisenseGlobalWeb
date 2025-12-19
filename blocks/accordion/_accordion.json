@@ -57,27 +57,12 @@
       "id": "accordionItem",
       "fields": [
         {
-          "component": "container",
-          "name": "properties",
-          "label": "Properties",
-          "multi": true,
-          "condition": { "===": [{"var" : "classes_variant"}, "product-info-sheet"] },
-          "fields": [
-            {
-              "component": "text",
-              "name": "title",
-              "value": "",
-              "label": "Title",
-              "valueType": "string"
-            },
-            {
-              "component": "text",
-              "name": "content",
-              "value": "",
-              "label": "Content",
-              "valueType": "string"
-            }
-          ]
+          "component": "text",
+          "name": "title",
+          "value": "",
+          "label": "Property",
+          "valueType": "string",
+          "multi": true
         }
       ]
     }
