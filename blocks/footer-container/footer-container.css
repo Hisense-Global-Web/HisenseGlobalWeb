@@ -291,8 +291,8 @@ footer footer {
 
 .footer-bottom {
   width: 100vw;
-  margin-left: calc(-50vw + 540px);
-  padding: 0 calc(50vw - 540px);
+  margin-left: calc(-50vw + 532px);
+  padding: 0 calc(50vw - 532px);
   height: 77px;
   display: flex;
   justify-content: space-between;
