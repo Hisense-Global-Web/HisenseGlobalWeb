@@ -121,8 +121,7 @@ function parseDropdownBtns(col) {
       const titleDiv = imageLink.querySelector(':nth-last-child(2) > div');
       const text = titleDiv ? titleDiv.textContent.trim() : '';
 
-      const buttonContainer = imageLink.querySelector('.button-container');
-      const linkElement = buttonContainer ? buttonContainer.querySelector('a') : null;
+      const linkElement = imageLink.querySelector('a');
       const href = linkElement ? linkElement.getAttribute('href') : '';
 
       if (text) {
