@@ -86,7 +86,7 @@ function createSlide(block, row, slideIndex) {
         break;
       case 1:
         column.classList.add('carousel-item-theme');
-        theme = column.querySelector('p').innerHTML;
+        theme = column.querySelector('p')?.innerHTML || 'false';
         slide.classList.add(theme === 'true' ? 'dark' : 'light');
         column.innerHTML = '';
         break;

@@ -303,6 +303,28 @@
     ]
   },
   {
+    "id": "carousel",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Hero classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "only-picture",
+            "value": "only-picture"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "carousel-item",
     "fields": [
       {
@@ -328,7 +350,7 @@
           {
             "component": "text",
             "name": "text_special",
-            "value": "<h5>ULED X Mini-LED Series UX</h5>",
+            "value": "ULED X Mini-LED Series UX",
             "label": "Colorful Text(teal)",
             "valueType": "string"
           },

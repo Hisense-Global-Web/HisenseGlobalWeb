@@ -223,3 +223,10 @@ main > .section:first-of-type {
   }
 }
 
+.carousel.only-picture {
+  .carousel-item {
+    .carousel-item-cta {
+      display: none;
+    }
+  }
+}
