@@ -101,6 +101,7 @@
         "title",
         "hero",
         "cards",
+        "carousel",
         "columns",
         "fragment",
         "collectionsection",
