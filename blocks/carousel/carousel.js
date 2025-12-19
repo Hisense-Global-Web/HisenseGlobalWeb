@@ -19,13 +19,13 @@ function showSlide(block, slideIndex) {
   let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
   if (slideIndex >= slides.length) realSlideIndex = 0;
   const activeSlide = slides[realSlideIndex];
-
+  const nav = document.querySelector('#navigation');
   if ([...activeSlide.classList].includes('dark')) {
     block.classList.add('dark');
-    document.querySelector('#navigation').classList.add('header-dark-mode');
+    if (nav) nav.classList.add('header-dark-mode');
   } else {
     block.classList.remove('dark');
-    document.querySelector('#navigation').classList.remove('header-dark-mode');
+    if (nav) nav.classList.remove('header-dark-mode');
   }
   block.querySelector('.carousel-items-container').scrollTo({
     top: 0,
@@ -51,6 +51,7 @@ function observeMouse(block, index) {
   block.addEventListener('mouseleave', () => {
     autoPlay();
   });
+  if (document.querySelector('#exc')) return;
   autoPlay();
 }
 function bindEvents(block) {
