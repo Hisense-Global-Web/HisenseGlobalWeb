@@ -210,6 +210,10 @@
   padding: 0 3px;
 }
 
+.nav-section {
+  cursor: pointer;
+}
+
 .nav-action-btn {
   width: 20px;
   height: 20px;

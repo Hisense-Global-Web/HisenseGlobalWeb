@@ -18,11 +18,18 @@ function parseNavItems(root) {
     return { title, href };
   });
 }
+function parseNavLinks(root) {
+  return Array.from(root.querySelectorAll('.navigation-link-wrapper')).map((wrapper) => {
+    const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
+    const href = wrapper.querySelector('a')?.href || '#';
+    return { title, href };
+  });
+}
 
 function parseActions(root) {
   return Array.from(root.querySelectorAll('.navigation-action-wrapper')).map((wrapper) => {
     const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
-    const href = wrapper.querySelector('.button-container a')?.href || '#';
+    const href = wrapper.querySelector('a')?.href || '#';
     const img = wrapper.querySelector('img')?.src;
     return { title, href, img };
   });
@@ -243,6 +250,7 @@ export default async function decorate(block) {
   // 解析原始DOM
   const logo = parseLogo(fragment);
   const navItems = parseNavItems(fragment);
+  const navLinks = parseNavLinks(fragment);
   const actions = parseActions(fragment);
   const dropdowns = parseDropdowns(fragment);
 
@@ -297,6 +305,18 @@ export default async function decorate(block) {
 
   const actionsEl = document.createElement('div');
   actionsEl.className = 'nav-actions';
+  navLinks.forEach((action) => {
+    const link = document.createElement('div');
+    link.className = 'nav-section';
+    link.textContent = action.title;
+    if (action.href && action.href !== '#') {
+      link.dataset.href = action.href;
+      link.addEventListener('click', () => {
+        window.location.href = action.href;
+      });
+    }
+    actionsEl.append(link);
+  });
   actions.forEach((action) => {
     if (action.img) {
       const btn = document.createElement('div');
@@ -305,6 +325,12 @@ export default async function decorate(block) {
       img.src = action.img;
       img.alt = action.title || 'action';
       btn.append(img);
+      if (action.href && action.href !== '#') {
+        btn.dataset.href = action.href;
+        btn.addEventListener('click', () => {
+          window.location.href = action.href;
+        });
+      }
       actionsEl.append(btn);
       return;
     }
