@@ -10,12 +10,12 @@
  
 }
 
-[data-aue-prop="title"] {
+.collectionsection-container [data-aue-prop="title"] {
   color: #00AAA6;
    font-size: 16px;
 }
 
-.collectionsection div:last-child div p{
+.collectionsection-container [data-aue-prop="subtitle"]{
     font-size: 34px;
     color: #333;
     margin-top: 10px;
