@@ -1,0 +1,17 @@
+.section.info-card-container {
+    display: flex;
+    flex-direction: row;
+    width: 1120px;
+    margin: 0 auto;
+    background-color: #f7f7f7;
+    
+    .info-card-wrapper {
+        width: 31%;
+        height: 240px;
+        gap: 16px;
+        background-color: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+        padding: 26px 26px 0;
+    }
+}

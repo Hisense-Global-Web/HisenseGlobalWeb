@@ -40,5 +40,12 @@
       ]
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id": "infoCard",
+      "components": [
+        "infoCardBox"
+      ]
+    }
+  ]
 }

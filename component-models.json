@@ -702,24 +702,8 @@
     ]
   },
   {
-    "id": "infoCardItem",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "required": true,
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "info_content",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
+    "id": "infoCardBox",
+    "fields": []
   },
   {
     "id": "infoCardSection",
