@@ -314,19 +314,10 @@
         "multi": false
       },
       {
-        "component": "select",
-        "name": "style",
-        "label": "Section Theme",
-        "options": [
-          {
-            "name": "Light",
-            "value": "light"
-          },
-          {
-            "name": "Dark",
-            "value": "dark"
-          }
-        ]
+        "component": "boolean",
+        "name": "dark_theme",
+        "label": "Image Dark Theme",
+        "valueType": "boolean"
       },
       {
         "component": "container",
