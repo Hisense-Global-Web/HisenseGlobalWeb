@@ -1,3 +1,25 @@
+function isInternalLink(href) {
+  if (!href || href === '#' || href === '/') {
+    return true;
+  }
+
+  if (href.startsWith('/')) {
+    return true;
+  }
+
+  if (!href.includes('://')) {
+    return true;
+  }
+
+  try {
+    const linkUrl = new URL(href);
+    const currentUrl = new URL(window.location.href);
+    return linkUrl.hostname === currentUrl.hostname;
+  } catch (e) {
+    return true;
+  }
+}
+
 /**
  * 从 footer-logo block 中提取 logo 数据
 */
@@ -5,6 +27,7 @@ function extractLogoData(container) {
   const logoData = {
     image: null,
     alt: '',
+    link: '/',
     social: [],
   };
 
@@ -17,43 +40,81 @@ function extractLogoData(container) {
 
   if (logoDivs.length > 0) {
     const firstDiv = logoDivs[0];
-    const logoPicture = firstDiv.querySelector('picture');
-    if (logoPicture) {
-      const logoImg = logoPicture.querySelector('img');
-      if (logoImg) {
-        logoData.image = logoImg.cloneNode(true);
-      }
-    } else {
-      const logoImg = firstDiv.querySelector('img');
-      if (logoImg) {
-        logoData.image = logoImg.cloneNode(true);
+    const innerDiv = firstDiv.querySelector('div');
+    if (innerDiv) {
+      const logoPicture = innerDiv.querySelector('picture');
+      if (logoPicture) {
+        const logoImg = logoPicture.querySelector('img');
+        if (logoImg) {
+          logoData.image = logoImg.cloneNode(true);
+        }
+      } else {
+        const logoImg = innerDiv.querySelector('img');
+        if (logoImg) {
+          logoData.image = logoImg.cloneNode(true);
+        }
       }
     }
   }
 
   if (logoDivs.length > 1) {
     const altDiv = logoDivs[1];
-    const altP = altDiv.querySelector('p');
-    if (altP) {
-      logoData.alt = altP.textContent.trim();
+    const innerDiv = altDiv.querySelector('div');
+    if (innerDiv) {
+      const altP = innerDiv.querySelector('p');
+      if (altP) {
+        logoData.alt = altP.textContent.trim();
+      }
     }
   }
 
+  if (logoDivs.length > 2) {
+    const linkDiv = logoDivs[2];
+    const innerDiv = linkDiv.querySelector('div');
+    if (innerDiv) {
+      const buttonContainer = innerDiv.querySelector('p.button-container');
+      if (buttonContainer) {
+        const link = buttonContainer.querySelector('a');
+        if (link) {
+          logoData.link = link.href || link.getAttribute('href');
+        }
+      }
+    }
+  }
+
+  // 从第四个 div 开始提取 social 图标
   logoDivs.forEach((div, index) => {
-    if (index < 2) {
+    if (index < 3) {
       return;
     }
 
-    const socialPicture = div.querySelector('picture');
+    const innerDiv = div.querySelector('div');
+    if (!innerDiv) {
+      return;
+    }
+
+    const socialPicture = innerDiv.querySelector('picture');
+    const imgBox = document.createElement('div');
+    imgBox.className = 'footer-social-imgbox';
     if (socialPicture) {
       const socialImg = socialPicture.querySelector('img');
+      const socialLink = innerDiv.querySelector('a');
       if (socialImg) {
-        logoData.social.push(socialImg.cloneNode(true));
+        imgBox.appendChild(socialImg);
+        if (socialLink) {
+          imgBox.appendChild(socialLink);
+        }
+        logoData.social.push(imgBox.cloneNode(true));
       }
     } else {
-      const socialImg = div.querySelector('img');
+      const socialImg = innerDiv.querySelector('img');
+      const socialLink = innerDiv.querySelector('a');
       if (socialImg) {
-        logoData.social.push(socialImg.cloneNode(true));
+        imgBox.appendChild(socialImg);
+        if (socialLink) {
+          imgBox.appendChild(socialLink);
+        }
+        logoData.social.push(imgBox.cloneNode(true));
       }
     }
   });
@@ -234,7 +295,23 @@ export default function decorate(block) {
     logoDiv.className = 'footer-logo';
 
     if (data.logo.image) {
-      logoDiv.appendChild(data.logo.image);
+      // 如果有链接，将图片包装在链接中
+      if (data.logo.link && data.logo.link !== '#') {
+        const logoLink = document.createElement('a');
+        logoLink.href = data.logo.link;
+        logoLink.className = 'footer-logo-link';
+        if (data.logo.alt) {
+          logoLink.setAttribute('aria-label', data.logo.alt);
+        }
+        logoLink.appendChild(data.logo.image);
+        logoDiv.appendChild(logoLink);
+      } else {
+        logoDiv.appendChild(data.logo.image);
+      }
+      // 设置 alt 属性
+      if (data.logo.alt && data.logo.image.tagName === 'IMG') {
+        data.logo.image.alt = data.logo.alt;
+      }
     }
 
     if (data.logo.social.length > 0) {
@@ -277,6 +354,13 @@ export default function decorate(block) {
           a.href = itemData.link;
           a.textContent = itemData.text;
           li.appendChild(a);
+
+          // 只有非内链才显示图标
+          if (!isInternalLink(itemData.link)) {
+            const img = document.createElement('img');
+            img.src = '/content/dam/hisense/image/icon/share.svg';
+            li.appendChild(img);
+          }
 
           ul.appendChild(li);
         });
