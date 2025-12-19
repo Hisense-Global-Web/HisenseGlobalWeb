@@ -27,12 +27,17 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: var(--header-backgroundcolor);
-  border-bottom: 1px solid var(--header-backgroundcolor);
+  background: rgb(0 0 0 / 0%);
+  border-bottom: 1px solid rgb(0 0 0 / 0%);
   z-index: 999;
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
+}
+
+#navigation:has(.nav-container:hover) {
+  background: #fff;
+  border-color: #fff;
 }
 
 #navigation .nav-container {
