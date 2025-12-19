@@ -93,6 +93,12 @@
     ]
   },
   {
+    "id": "infoCardSection",
+    "components": [
+      "infoCard"
+    ]
+  },
+  {
     "id": "infoCard",
     "components": [
       "infoCardItem"

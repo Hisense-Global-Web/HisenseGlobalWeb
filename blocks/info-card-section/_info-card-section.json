@@ -1,0 +1,36 @@
+{
+  "definitions": [
+    {
+      "title": "Info Card Section",
+      "id": "infoCardSection",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "name": "Info Card Section",
+              "model": "infoCardSection",
+              "filter": "infoCardSection",
+              "classes": "info-card-section"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "infoCardSection",
+      "fields": []
+    }
+  ],
+  "filters": [
+    {
+      "id": "infoCardSection",
+      "components": [
+        "infoCard"
+      ]
+    }
+  ]
+}
+
