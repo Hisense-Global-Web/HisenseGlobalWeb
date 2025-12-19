@@ -315,7 +315,7 @@
       },
       {
         "component": "boolean",
-        "name": "dark_theme",
+        "name": "boolean",
         "label": "Image Dark Theme",
         "valueType": "boolean"
       },
