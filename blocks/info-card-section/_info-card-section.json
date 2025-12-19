@@ -21,7 +21,26 @@
   "models": [
     {
       "id": "infoCardSection",
-      "fields": []
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "value": "",
+          "label": "Icon Options",
+          "description": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "text-center",
+              "value": "text-center"
+            }
+          ]
+        }
+      ]
     }
   ],
   "filters": [

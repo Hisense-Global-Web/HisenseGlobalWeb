@@ -23,32 +23,22 @@
       "id": "infoCard",
       "fields": [
         {
-          "component": "select",
-          "name": "classes",
-          "value": "",
-          "label": "Icon Options",
-          "description": "",
+          "component": "reference",
           "valueType": "string",
-          "options": [
-            {
-              "name": "Default",
-              "value": ""
-            },
-            {
-              "name": "text-center",
-              "value": "text-center"
-            }
-          ]
+          "name": "image",
+          "label": "Image",
+          "required": true,
+          "multi": false
+        },
+        {
+          "component": "richtext",
+          "name": "info_content",
+          "value": "",
+          "label": "Text",
+          "valueType": "string"
         }
       ]
     }
   ],
-  "filters": [
-    {
-      "id": "infoCard",
-      "components": [
-        "infoCardItem"
-      ]
-    }
-  ]
+  "filters": []
 }
