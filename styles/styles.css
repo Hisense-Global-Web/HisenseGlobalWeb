@@ -420,6 +420,12 @@ main {
 	.section.pb-xl {
 		padding-bottom: var(--spacing-vertical-xl);
 	}
+
+	/* section image style */
+
+	.section.img-rounded img {
+		border-radius: var(--border-radius-l);
+	}
 }
 
 /* ========== header footer ========== */

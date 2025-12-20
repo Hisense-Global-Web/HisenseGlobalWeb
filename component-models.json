@@ -181,6 +181,7 @@
         "component": "container",
         "label": "Section Spacing",
         "name": "container_padding",
+        "collapsible": true,
         "fields": [
           {
             "component": "select",
@@ -242,6 +243,7 @@
         "component": "container",
         "label": "Section Image Style",
         "name": "container_image",
+        "collapsible": true,
         "fields": [
           {
             "component": "select",
@@ -254,7 +256,7 @@
               },
               {
                 "name": "Rounded",
-                "value": "br-l"
+                "value": "img-rounded"
               }
             ]
           },
