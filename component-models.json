@@ -130,7 +130,7 @@
       },
       {
         "component": "select",
-        "name": "style",
+        "name": "style_theme",
         "label": "Section Theme",
         "options": [
           {
@@ -149,28 +149,70 @@
       },
       {
         "component": "select",
-        "name": "style_spacing",
-        "label": "Section Spacing",
+        "name": "style_container",
+        "label": "Section Container Type",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Fluid Container",
+            "value": "fluid"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_paddingTop",
+        "label": "Section Padding Top",
         "options": [
           {
             "name": "None",
             "value": ""
           },
           {
-            "name": "Small",
-            "value": "vertical-padding-s"
+            "name": "Small (40px)",
+            "value": "pt-s"
           },
           {
-            "name": "Medium",
-            "value": "vertical-padding-m"
+            "name": "Medium (60px)",
+            "value": "pt-m"
           },
           {
-            "name": "Large",
-            "value": "vertical-padding-l"
+            "name": "Large (80px)",
+            "value": "pt-l"
           },
           {
-            "name": "Extra Large",
-            "value": "vertical-padding-xl"
+            "name": "Extra Large (120px)",
+            "value": "pt-xl"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_paddingBottom",
+        "label": "Section Padding Bottom",
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Small (40px)",
+            "value": "pb-s"
+          },
+          {
+            "name": "Medium (60px)",
+            "value": "pb-m"
+          },
+          {
+            "name": "Large (80px)",
+            "value": "pb-l"
+          },
+          {
+            "name": "Extra Large (120px)",
+            "value": "pb-xl"
           }
         ]
       },
