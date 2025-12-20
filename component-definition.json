@@ -71,8 +71,11 @@
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
                   "model": "section",
-                  "style": "light",
-                  "classes_image": ""
+                  "style_theme": "light",
+                  "style_paddingTop": "",
+                  "style_paddingBottom": "",
+                  "style_image": "",
+                  "style_imageRatio": ""
                 }
               }
             }
