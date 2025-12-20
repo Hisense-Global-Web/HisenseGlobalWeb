@@ -116,21 +116,6 @@
               "value": "pb-xl"
             }
           ]
-        },
-        {
-          "component": "select",
-          "name": "style_image",
-          "label": "Image Style",
-          "options": [
-            {
-              "name": "Default",
-              "value": ""
-            },
-            {
-              "name": "Rounded",
-              "value": "image-rounded"
-            }
-          ]
         }
       ]
     }
