@@ -74,7 +74,8 @@
                   "style_theme": "light",
                   "style_paddingTop": "",
                   "style_paddingBottom": "",
-                  "style_image": ""
+                  "style_image": "",
+                  "style_imageRatio": ""
                 }
               }
             }

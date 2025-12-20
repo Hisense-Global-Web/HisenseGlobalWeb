@@ -282,6 +282,16 @@ main img {
 	height: auto;
 }
 
+.ratio-4-3 img {
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+}
+
+.ratio-3-2 img {
+	aspect-ratio: 3 / 2;
+	object-fit: cover;
+}
+
 .icon {
 	display: inline-block;
 	height: 24px;
@@ -313,6 +323,19 @@ main img {
 
 .text-left {
 	text-align: left;
+}
+
+/* ========== border radius ========== */
+.br-l {
+	border-radius: var(--border-radius-l);
+}
+
+.br-m {
+	border-radius: var(--border-radius-m);
+}
+
+.br-s {
+	border-radius: var(--border-radius-s);
 }
 
 /* ========== sections ========== */
@@ -358,6 +381,7 @@ main {
 	}
 
 	/* section container type */
+
 	.section.fluid > div {
 		max-width: unset;
 		padding: 0;
@@ -395,12 +419,6 @@ main {
 
 	.section.pb-xl {
 		padding-bottom: var(--spacing-vertical-xl);
-	}
-
-	/* section image */
-
-	.section.image-rounded img {
-		border-radius: var(--border-radius-l);
 	}
 }
 

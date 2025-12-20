@@ -27,40 +27,6 @@
           "component": "text",
           "name": "imageAlt",
           "label": "Alt Text"
-        },
-        {
-          "component": "select",
-          "name": "style_ratio",
-          "label": "Image Ratio",
-          "options": [
-            {
-              "name": "Original",
-              "value": ""
-            },
-            {
-              "name": "4:3",
-              "value": "ratio-4-3"
-            },
-            {
-              "name": "3:2",
-              "value": "ratio-3-2"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "style_borderRadius",
-          "label": "Border Radius",
-          "options": [
-            {
-              "name": "Default",
-              "value": ""
-            },
-            {
-              "name": "Rounded",
-              "value": "br-l"
-            }
-          ]
         }
       ]
     }

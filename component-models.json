@@ -36,40 +36,6 @@
         "component": "text",
         "name": "imageAlt",
         "label": "Alt Text"
-      },
-      {
-        "component": "select",
-        "name": "style_ratio",
-        "label": "Image Ratio",
-        "options": [
-          {
-            "name": "Original",
-            "value": ""
-          },
-          {
-            "name": "4:3",
-            "value": "ratio-4-3"
-          },
-          {
-            "name": "3:2",
-            "value": "ratio-3-2"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "style_borderRadius",
-        "label": "Border Radius",
-        "options": [
-          {
-            "name": "Default",
-            "value": ""
-          },
-          {
-            "name": "Rounded",
-            "value": "br-l"
-          }
-        ]
       }
     ]
   },
@@ -109,6 +75,21 @@
           {
             "name": "h6",
             "value": "h6"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_textAlign",
+        "label": "Text Alignment",
+        "options": [
+          {
+            "name": "Left",
+            "value": ""
+          },
+          {
+            "name": "Center",
+            "value": "text-center"
           }
         ]
       }
@@ -197,56 +178,104 @@
         ]
       },
       {
-        "component": "select",
-        "name": "style_paddingTop",
-        "label": "Section Padding Top",
-        "options": [
+        "component": "container",
+        "label": "Section Spacing",
+        "name": "container_padding",
+        "fields": [
           {
-            "name": "None",
-            "value": ""
+            "component": "select",
+            "name": "style_paddingTop",
+            "label": "Padding Top",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Small (40px)",
+                "value": "pt-s"
+              },
+              {
+                "name": "Medium (60px)",
+                "value": "pt-m"
+              },
+              {
+                "name": "Large (80px)",
+                "value": "pt-l"
+              },
+              {
+                "name": "Extra Large (120px)",
+                "value": "pt-xl"
+              }
+            ]
           },
           {
-            "name": "Small (40px)",
-            "value": "pt-s"
-          },
-          {
-            "name": "Medium (60px)",
-            "value": "pt-m"
-          },
-          {
-            "name": "Large (80px)",
-            "value": "pt-l"
-          },
-          {
-            "name": "Extra Large (120px)",
-            "value": "pt-xl"
+            "component": "select",
+            "name": "style_paddingBottom",
+            "label": "Padding Bottom",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Small (40px)",
+                "value": "pb-s"
+              },
+              {
+                "name": "Medium (60px)",
+                "value": "pb-m"
+              },
+              {
+                "name": "Large (80px)",
+                "value": "pb-l"
+              },
+              {
+                "name": "Extra Large (120px)",
+                "value": "pb-xl"
+              }
+            ]
           }
         ]
       },
       {
-        "component": "select",
-        "name": "style_paddingBottom",
-        "label": "Section Padding Bottom",
-        "options": [
+        "component": "container",
+        "label": "Section Image Style",
+        "name": "container_image",
+        "fields": [
           {
-            "name": "None",
-            "value": ""
+            "component": "select",
+            "name": "style_imageBorderRadius",
+            "label": "Image Border Radius",
+            "options": [
+              {
+                "name": "Default",
+                "value": ""
+              },
+              {
+                "name": "Rounded",
+                "value": "br-l"
+              }
+            ]
           },
           {
-            "name": "Small (40px)",
-            "value": "pb-s"
-          },
-          {
-            "name": "Medium (60px)",
-            "value": "pb-m"
-          },
-          {
-            "name": "Large (80px)",
-            "value": "pb-l"
-          },
-          {
-            "name": "Extra Large (120px)",
-            "value": "pb-xl"
+            "component": "select",
+            "name": "style_imageRatio",
+            "label": "Image Ratio",
+            "options": [
+              {
+                "name": "Original",
+                "value": ""
+              },
+              {
+                "name": "4:3",
+                "value": "ratio-4-3"
+              },
+              {
+                "name": "3:2",
+                "value": "ratio-3-2"
+              }
+            ]
           }
         ]
       }

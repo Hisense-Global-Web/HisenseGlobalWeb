@@ -54,6 +54,21 @@
               "value": "h6"
             }
           ]
+        },
+        {
+          "component": "select",
+          "name": "style_textAlign",
+          "label": "Text Alignment",
+          "options": [
+            {
+              "name": "Left",
+              "value": ""
+            },
+            {
+              "name": "Center",
+              "value": "text-center"
+            }
+          ]
         }
       ]
     }
