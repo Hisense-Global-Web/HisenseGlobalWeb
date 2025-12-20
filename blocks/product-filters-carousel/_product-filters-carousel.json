@@ -52,7 +52,7 @@
           "required": true
         },
         {
-          "component": "richtext",
+          "component": "text",
           "valueType": "string",
           "name": "title",
           "label": "Text",

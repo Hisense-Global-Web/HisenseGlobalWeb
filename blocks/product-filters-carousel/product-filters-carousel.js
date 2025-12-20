@@ -54,9 +54,9 @@ function buildTab(itemElement) {
   const textSpan = document.createElement('span');
   textSpan.className = 'product-filter-text';
   if (textCell) {
-    const text = textCell.innerHTML.trim();
+    const text = textCell.textContent.trim();
     if (text) {
-      textSpan.innerHTML = text;
+      textSpan.textContent = text;
     }
     moveInstrumentation(textCell, textSpan);
   }
