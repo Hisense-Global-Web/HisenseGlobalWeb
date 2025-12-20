@@ -99,16 +99,23 @@ export default function decorate(block) {
   // 编辑模式,如果有 data-aue-resource 属性，说明现在浏览的是编辑模式
   const isEditMode = block.hasAttribute('data-aue-resource');
 
-  if (isEditMode) {
-    return;
-  }
-
   const tabs = document.createElement('ul');
   tabs.className = 'product-filters';
 
-  // 遍历所有子元素（每个 item）
-  [...block.children].forEach((item) => {
-    tabs.append(buildTab(item));
+  let itemElements = [...block.children];
+  if (isEditMode) {
+    const nodeList = block.querySelectorAll('[data-aue-model="product-filters-carousel-item"], [data-aue-type="component"][data-aue-model]');
+    itemElements = [...nodeList];
+  }
+
+  itemElements.forEach((item) => {
+    const li = buildTab(item);
+    const resource = item.getAttribute && item.getAttribute('data-aue-resource');
+    if (resource) {
+      // 保留 data-aue-resource，用于编辑
+      li.setAttribute('data-aue-resource', resource);
+    }
+    tabs.append(li);
   });
 
   const tabsContainer = document.createElement('div');
