@@ -56,7 +56,7 @@ function buildTab(itemElement) {
   if (textCell) {
     const text = textCell.innerHTML.trim();
     if (text) {
-      textSpan.textContent = text;
+      textSpan.innerHTML = text;
     }
     moveInstrumentation(textCell, textSpan);
   }
