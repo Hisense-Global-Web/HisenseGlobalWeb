@@ -42,7 +42,7 @@
           "valueType": "string",
           "name": "results",
           "label": "Results Text",
-          "value": "{count} RESULT",
+          "value": "{searchResultsCount} RESULT",
           "required": true
         },
         {
@@ -92,7 +92,7 @@
           "valueType": "string",
           "name": "cq:tags",
           "label": "Tags",
-          "rootPath": "/content/cq:tags/hisense/product",
+          "rootPath": "/content/cq:tags/hisense/product"
         }
       ]
     }
