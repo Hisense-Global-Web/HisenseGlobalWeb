@@ -1,5 +1,4 @@
 let index = 0;
-const visibleCards = 4; // 视口内显示的卡片数量
 
 function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
@@ -8,16 +7,17 @@ function getSlideWidth(block) {
   return cardWidth + gap;
 }
 
-function updatePosition(block) {
+function updatePosition(block, visibleCards) {
   const track = block.querySelector('.icon-track');
   const items = block.querySelectorAll('li');
   const moveDistance = index * getSlideWidth(block);
+
   track.style.transform = `translateX(-${moveDistance}px)`;
   block.querySelector('.slide-prev').disabled = (index === 0);
   block.querySelector('.slide-next').disabled = (index >= items.length - visibleCards);
 }
 
-function bindEvent(block) {
+function bindEvent(block, visibleCards) {
   const cards = block.querySelectorAll('.item');
   cards.forEach((card) => {
     const link = card.querySelector('a');
@@ -30,13 +30,13 @@ function bindEvent(block) {
   block.querySelector('.slide-prev').addEventListener('click', () => {
     if (index > 0) {
       index -= 1;
-      updatePosition(block);
+      updatePosition(block, visibleCards);
     }
   });
   block.querySelector('.slide-next').addEventListener('click', () => {
     if (index < cards.length - visibleCards) {
       index += 1;
-      updatePosition(block);
+      updatePosition(block, visibleCards);
     }
   });
 }
@@ -46,7 +46,6 @@ export default async function decorate(block) {
   iconContainer.classList.add('icon-viewport');
   const iconBlocks = document.createElement('ul');
   iconBlocks.classList.add('icon-track');
-  iconContainer.appendChild(iconBlocks);
 
   [...block.children].forEach((child) => {
     const iconBlock = document.createElement('li');
@@ -57,14 +56,19 @@ export default async function decorate(block) {
       }
       if (item.querySelector('.button-container')) {
         item.querySelector('.button-container').closest('div').classList.add('item-cta');
+        if (block.classList.contains('text-left')) {
+          item.querySelector('.button-container').closest('div').classList.add('show');
+        }
       }
       if (!item.innerHTML) item.remove();
     });
     iconBlock.appendChild(child);
     iconBlocks.appendChild(iconBlock);
-    // child.remove();
   });
+  iconContainer.appendChild(iconBlocks);
+  block.appendChild(iconContainer);
 
+  // load controls
   if (iconBlocks.scrollWidth >= iconContainer.offsetWidth) {
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('pagination');
@@ -74,7 +78,8 @@ export default async function decorate(block) {
     `;
     block.appendChild(buttonContainer);
   }
-  block.appendChild(iconContainer);
-  bindEvent(block);
-  window.addEventListener('resize', updatePosition);
+
+  const visibleCards = iconBlocks.offsetWidth / iconBlocks.querySelector('li').offsetWidth;
+  bindEvent(block, visibleCards);
+  // window.addEventListener('resize', updatePosition);
 }

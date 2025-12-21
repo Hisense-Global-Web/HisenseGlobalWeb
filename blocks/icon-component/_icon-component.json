@@ -95,14 +95,16 @@
           "name": "icon_cta",
           "label": "CTA",
           "valueType": "string",
-          "value": "/"
+          "required": true,
+          "value": ""
         },
         {
           "component": "text",
           "name": "icon_ctaLabel",
           "label": "CTA Label",
           "valueType": "string",
-          "value": "required"
+          "required": true,
+          "value": ""
         }
       ]
     }

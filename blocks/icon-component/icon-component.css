@@ -5,6 +5,7 @@
 
 .icon-viewport {
   overflow: hidden;
+  width: 100%;
 }
 
 .icon-viewport ul{
@@ -54,6 +55,10 @@
   display: none;
 }
 
+.item .item-cta.show{
+  display: none;
+}
+
 .text-left {
   text-align: left;
 
@@ -77,9 +82,6 @@
       text-align: left;
     }
 
-    .item .item-cta{
-      display: block;
-    }
   }
 }
 
