@@ -1028,21 +1028,6 @@
             "value": "mediaGallery_image"
           }
         ]
-      },
-      {
-        "component": "container",
-        "label": "Button Content",
-        "name": "container_button",
-        "collapsible": true,
-        "fields": [
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "learnMoreText",
-            "label": "Learn more Text",
-            "value": "Learn more"
-          }
-        ]
       }
     ]
   },
