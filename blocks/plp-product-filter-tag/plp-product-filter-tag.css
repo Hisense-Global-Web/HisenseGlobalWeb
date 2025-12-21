@@ -1,2 +1,65 @@
 /* plp-product-filter-tag styles */
 
+.plp-sidebar {
+    width: 256px;
+    flex-shrink: 0;
+    padding: 14px 25px;
+    border-radius: 20px;
+    background: #fff;
+}
+
+.plp-filter-group {
+  padding: 14px 0;
+}
+
+.plp-filter-group:not(:last-child) {
+  border-bottom: 1px solid rgb(165 225 225 / 100%);
+}
+
+/* title row */
+
+.plp-filter-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 400;
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+
+.plp-filter-title span {
+  font-weight: 400;
+}
+
+.plp-filter-title img {
+  width: 16px;
+  height: 16px;
+}
+
+/* tags list */
+
+.plp-filter-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.plp-filter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.plp-filter-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.plp-filter-item span {
+  font-size: 12px;
+  line-height: 1;
+  display: inline-block;
+}
