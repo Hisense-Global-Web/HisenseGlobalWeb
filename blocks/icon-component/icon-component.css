@@ -1,6 +1,5 @@
 .icon-component {
   position: relative;
-  text-align: center;
 }
 
 .icon-component > div:nth-child(1) {
@@ -54,6 +53,7 @@
   height: 100%;
   padding: 30px 0;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .item .item-picture {
