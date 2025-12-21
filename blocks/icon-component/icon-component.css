@@ -1,11 +1,24 @@
 .icon-component {
   position: relative;
-  margin: 32px 0 ;
+  text-align: center;
+}
+
+.icon-component > div:nth-child(1) {
+  color: var(--color-hisense-teal);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.icon-component > div:nth-child(2) {
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 1;
 }
 
 .icon-viewport {
   overflow: hidden;
   width: 100%;
+  margin: 32px 0 ;
 }
 
 .icon-viewport ul{
@@ -87,9 +100,9 @@
 
 .pagination {
   position: absolute;
-  top: -45px;
+  top: 50px;
   right: 0;
-  display: flex;
+  display: none;
   justify-content: flex-end;
   gap: 10px;
   margin-bottom: 15px;
@@ -132,12 +145,12 @@
   }
 }
 
+.pagination.show {
+  display: flex;
+}
+
 .dark .pagination button {
   &:disabled {
     border-color: var(--color-hisense-grey-03);
   }
-}
-
-.item>div {
-  text-align: center;
 }

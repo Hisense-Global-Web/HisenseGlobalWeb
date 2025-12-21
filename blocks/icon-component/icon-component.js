@@ -14,10 +14,10 @@ function updatePosition(block, visibleCards) {
 
   track.style.transform = `translateX(-${moveDistance}px)`;
   block.querySelector('.slide-prev').disabled = (index === 0);
-  block.querySelector('.slide-next').disabled = (index >= items.length - visibleCards);
+  block.querySelector('.slide-next').disabled = (index > items.length - visibleCards);
 }
 
-function bindEvent(block, visibleCards) {
+function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
   cards.forEach((card) => {
     const link = card.querySelector('a');
@@ -26,19 +26,29 @@ function bindEvent(block, visibleCards) {
       if (url) window.location.href = url;
     });
   });
-  // prev and next button
-  block.querySelector('.slide-prev').addEventListener('click', () => {
-    if (index > 0) {
-      index -= 1;
-      updatePosition(block, visibleCards);
+  window.onload = () => {
+    const box = block.querySelector('.icon-viewport');
+    const ul = block.querySelector('.icon-track');
+    const li = ul.querySelector('li');
+
+    const visibleCards = parseInt(ul.offsetWidth / li.offsetWidth, 10);
+
+    if (ul.scrollWidth > box.offsetWidth) {
+      block.querySelector('.pagination').classList.add('show');
     }
-  });
-  block.querySelector('.slide-next').addEventListener('click', () => {
-    if (index < cards.length - visibleCards) {
-      index += 1;
-      updatePosition(block, visibleCards);
-    }
-  });
+    block.querySelector('.slide-prev').addEventListener('click', () => {
+      if (index > 0) {
+        index -= 1;
+        updatePosition(block, visibleCards);
+      }
+    });
+    block.querySelector('.slide-next').addEventListener('click', () => {
+      if (index <= cards.length - visibleCards) {
+        index += 1;
+        updatePosition(block, visibleCards);
+      }
+    });
+  };
 }
 
 export default async function decorate(block) {
@@ -69,8 +79,7 @@ export default async function decorate(block) {
   iconContainer.appendChild(iconBlocks);
   block.appendChild(iconContainer);
 
-  // load controls
-  if (iconBlocks.children && (iconBlocks.scrollWidth >= iconContainer.offsetWidth)) {
+  if (iconBlocks.children) {
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('pagination');
     buttonContainer.innerHTML = `
@@ -79,8 +88,5 @@ export default async function decorate(block) {
     `;
     block.appendChild(buttonContainer);
   }
-
-  const visibleCards = iconBlocks.offsetWidth / iconBlocks.querySelector('li').offsetWidth;
-  bindEvent(block, visibleCards);
-  // window.addEventListener('resize', updatePosition);
+  bindEvent(block);
 }
