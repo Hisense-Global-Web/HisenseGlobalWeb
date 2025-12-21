@@ -105,9 +105,15 @@
     ]
   },
   {
+    "id": "plp-product-tag",
+    "components": [
+      "plp-product-tag-item"
+    ]
+  },
+  {
     "id": "plp-product-filters",
     "components": [
-      "plp-product-tag"
+      "plp-product-sort"
     ]
   },
   {

@@ -991,6 +991,29 @@
     ]
   },
   {
+    "id": "plp-product-tag",
+    "fields": []
+  },
+  {
+    "id": "plp-product-tag-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Filter Tag Title",
+        "required": true
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "tags",
+        "label": "Tags",
+        "rootPath": "/content/cq:tags/hisense/product"
+      }
+    ]
+  },
+  {
     "id": "plp-product-filters",
     "fields": [
       {
@@ -1010,45 +1033,32 @@
         "required": true
       },
       {
-        "component": "select",
+        "component": "text",
         "valueType": "string",
         "name": "sortBy",
-        "label": "Sort By",
-        "value": "Price: Highest To Lowest",
-        "required": true,
-        "options": [
-          {
-            "name": "Size: Largest To Smallest",
-            "value": "Size: Largest To Smallest"
-          },
-          {
-            "name": "Price: Highest To Lowest",
-            "value": "Price: Highest To Lowest"
-          },
-          {
-            "name": "Newest",
-            "value": "Newest"
-          }
-        ]
+        "label": "Sort By Text",
+        "value": "Sort By",
+        "required": true
       }
     ]
   },
   {
-    "id": "plp-product-tag",
+    "id": "plp-product-sort",
     "fields": [
       {
         "component": "text",
         "valueType": "string",
         "name": "title",
-        "label": "Filter Tag Title",
+        "label": "Sort Title",
         "required": true
       },
       {
-        "component": "aem-tag",
+        "component": "text",
         "valueType": "string",
-        "name": "tags",
-        "label": "Tags",
-        "rootPath": "/content/cq:tags/hisense/product"
+        "name": "property",
+        "label": "Sort Property",
+        "description": "Property comes from product model attributes",
+        "required": true
       }
     ]
   },
