@@ -543,7 +543,8 @@
                 "template": {
                   "name": "PLP Product Filter Tag",
                   "model": "plp-product-tag",
-                  "modelFields": []
+                  "modelFields": [],
+                  "filter": "plp-product-tag"
                 }
               }
             }
