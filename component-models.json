@@ -809,6 +809,20 @@
             "value": "text-left"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "title",
+        "valueType": "string"
       }
     ]
   },
@@ -835,6 +849,7 @@
         "name": "icon_cta",
         "label": "CTA",
         "valueType": "string",
+        "required": true,
         "value": "/"
       },
       {
@@ -842,6 +857,7 @@
         "name": "icon_ctaLabel",
         "label": "CTA Label",
         "valueType": "string",
+        "required": true,
         "value": "required"
       }
     ]

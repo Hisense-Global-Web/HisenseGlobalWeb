@@ -410,9 +410,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Icon Item",
-                  "model": "iconItem",
-                  "icon_cta": "/",
-                  "icon_ctaLabel": "Learn more"
+                  "model": "iconItem"
                 }
               }
             }
