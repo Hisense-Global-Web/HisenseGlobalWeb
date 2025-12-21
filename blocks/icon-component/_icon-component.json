@@ -25,9 +25,7 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Icon Item",
-              "model": "iconItem",
-              "icon_cta": "/",
-              "icon_ctaLabel": "Learn more"
+              "model": "iconItem"
             }
           }
         }
@@ -96,7 +94,7 @@
           "label": "CTA",
           "valueType": "string",
           "required": true,
-          "value": ""
+          "value": "/"
         },
         {
           "component": "text",
@@ -104,7 +102,7 @@
           "label": "CTA Label",
           "valueType": "string",
           "required": true,
-          "value": ""
+          "value": "required"
         }
       ]
     }
