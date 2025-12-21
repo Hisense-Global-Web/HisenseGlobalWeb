@@ -809,6 +809,20 @@
             "value": "text-left"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "title",
+        "valueType": "string"
       }
     ]
   },

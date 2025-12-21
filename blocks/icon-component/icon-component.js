@@ -65,7 +65,7 @@ export default async function decorate(block) {
     // child.remove();
   });
 
-  if ([...iconBlocks.children].length >= 5) {
+  if (iconBlocks.scrollWidth >= iconContainer.offsetWidth) {
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('pagination');
     buttonContainer.innerHTML = `
