@@ -1001,8 +1001,8 @@
         "description": "GraphQL endpoint URL"
       },
       {
-        "component": "select",
-        "valueType": "string",
+        "component": "checkbox-group",
+        "valueType": "string[]",
         "name": "fields",
         "label": "Product Fields",
         "multi": true,
