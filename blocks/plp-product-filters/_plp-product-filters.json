@@ -27,6 +27,7 @@
             "template": {
               "name": "PLP Product Sort Item",
               "model": "plp-product-sort",
+              "key-value": true,
               "modelFields": [
                 "title",
                 "property"
