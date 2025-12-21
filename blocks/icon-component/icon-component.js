@@ -46,8 +46,8 @@ export default async function decorate(block) {
   iconContainer.classList.add('icon-viewport');
   const iconBlocks = document.createElement('ul');
   iconBlocks.classList.add('icon-track');
-
-  [...block.children].forEach((child) => {
+  console.log(block, 'block');
+  [...block.firstElementChild.children].forEach((child) => {
     const iconBlock = document.createElement('li');
     child.classList.add('item');
     [...child.children].forEach((item) => {
