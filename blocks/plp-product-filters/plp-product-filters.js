@@ -1,6 +1,6 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-function buildFilterTag(row) {
+function buildFilterTag(row, resource, isEditMode) {
   const tag = document.createElement('div');
   tag.className = 'plp-filter-tag';
   moveInstrumentation(row, tag);
@@ -23,15 +23,14 @@ function buildFilterTag(row) {
   closeBtn.setAttribute('aria-label', 'Remove filter');
 
   tag.append(span, closeBtn);
+  if (isEditMode && resource) {
+    tag.setAttribute('data-aue-resource', resource);
+  }
   return tag;
 }
 
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
-
-  if (isEditMode) {
-    return;
-  }
 
   const filtersBar = document.createElement('div');
   filtersBar.className = 'plp-filters-bar';
@@ -40,25 +39,43 @@ export default function decorate(block) {
   filtersLeft.className = 'plp-filters-left';
 
   const rows = [...block.children];
-  let resultsText = '{count} RESULT';
+  let resultsText = '{searchResultsCount} RESULT';
   let resetText = 'Reset filters';
-  let sortBy = 'Price: Highest To Lowest';
+  let sortBy = 'Sort By';
   const filterTags = [];
+  const sortOptionsList = [];
+  let currentContext = null;
+
+  let resourceResults = null;
+  let resourceReset = null;
+  let resourceSortBy = null;
+  let resourceTitle = null;
 
   rows.forEach((row) => {
+    const resource = row.getAttribute('data-aue-resource') || null;
     const cells = [...row.children];
     if (cells.length >= 2) {
-      const key = cells[0].textContent.trim();
-      const value = cells[1].textContent.trim();
+      const left = cells[0].textContent.trim();
+      const right = cells[1].textContent.trim();
 
-      if (key === 'results') {
-        resultsText = value || resultsText;
-      } else if (key === 'reset') {
-        resetText = value || resetText;
-      } else if (key === 'sortBy') {
-        sortBy = value || sortBy;
-      } else if (key === 'title') {
-        filterTags.push(buildFilterTag(row));
+      if (left === 'results') {
+        resultsText = right || resultsText;
+        currentContext = 'results';
+        resourceResults = resource;
+      } else if (left === 'reset') {
+        resetText = right || resetText;
+        currentContext = 'reset';
+        resourceReset = resource;
+      } else if (left === 'sortBy') {
+        sortBy = right || sortBy;
+        currentContext = 'sortBy';
+        resourceSortBy = resource;
+      } else if (left === 'title') {
+        filterTags.push(buildFilterTag(row, resource, isEditMode));
+        currentContext = 'title';
+        resourceTitle = resource;
+      } else if (currentContext === 'sortBy') {
+        sortOptionsList.push({ label: left, value: right, resource });
       }
     }
   });
@@ -66,6 +83,9 @@ export default function decorate(block) {
   // 结果数量显示
   const resultsBox = document.createElement('div');
   resultsBox.className = 'plp-results-box';
+  if (isEditMode && resourceResults) {
+    resultsBox.setAttribute('data-aue-resource', resourceResults);
+  }
   const results = document.createElement('div');
   results.className = 'plp-results';
   results.textContent = resultsText;
@@ -74,6 +94,9 @@ export default function decorate(block) {
   // 筛选标签容器
   const activeFilters = document.createElement('div');
   activeFilters.className = 'plp-active-filters';
+  if (isEditMode && resourceTitle) {
+    activeFilters.setAttribute('data-aue-resource', resourceTitle);
+  }
   filterTags.forEach((tag) => {
     activeFilters.append(tag);
   });
@@ -84,12 +107,18 @@ export default function decorate(block) {
   resetFilters.textContent = resetText;
   resetFilters.setAttribute('role', 'button');
   resetFilters.setAttribute('tabindex', '0');
+  if (isEditMode && resourceReset) {
+    resetFilters.setAttribute('data-aue-resource', resourceReset);
+  }
 
   filtersLeft.append(resultsBox, activeFilters, resetFilters);
 
   // 排序下拉框
   const sortBox = document.createElement('div');
   sortBox.className = 'plp-sort-box';
+  if (isEditMode && resourceSortBy) {
+    sortBox.setAttribute('data-aue-resource', resourceSortBy);
+  }
   const sort = document.createElement('div');
   sort.className = 'plp-sort';
   const sortSpan = document.createElement('span');
@@ -101,18 +130,23 @@ export default function decorate(block) {
 
   const sortOptions = document.createElement('div');
   sortOptions.className = 'plp-sort-options';
-  const options = [
-    'Size: Largest To Smallest',
-    'Price: Highest To Lowest',
-    'Newest',
+  const options = sortOptionsList.length ? sortOptionsList : [
+    { label: 'Size: Largest To Smallest', value: 'size' },
+    { label: 'Price: Highest To Lowest', value: 'priceInfo_regularPrice' },
+    { label: 'Newest', value: 'productLaunchDate' },
   ];
   options.forEach((option) => {
     const optionDiv = document.createElement('div');
     optionDiv.className = 'plp-sort-option';
-    if (option === sortBy) {
+    const label = option.label || option;
+    if (label === sortBy) {
       optionDiv.classList.add('selected');
     }
-    optionDiv.textContent = option;
+    optionDiv.textContent = label;
+    if (option.value) optionDiv.dataset.value = option.value;
+    if (isEditMode && option.resource) {
+      optionDiv.setAttribute('data-aue-resource', option.resource);
+    }
     optionDiv.setAttribute('role', 'button');
     optionDiv.setAttribute('tabindex', '0');
     sortOptions.append(optionDiv);
