@@ -562,7 +562,7 @@
                   "model": "plp-product-tag",
                   "modelFields": [
                     "title",
-                    "cq:tags"
+                    "tags"
                   ]
                 }
               }

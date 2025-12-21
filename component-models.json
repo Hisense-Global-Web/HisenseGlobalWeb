@@ -1046,7 +1046,7 @@
       {
         "component": "aem-tag",
         "valueType": "string",
-        "name": "cq:tags",
+        "name": "tags",
         "label": "Tags",
         "rootPath": "/content/cq:tags/hisense/product"
       }
