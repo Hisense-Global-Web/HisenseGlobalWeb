@@ -73,8 +73,6 @@
 }
 
 .text-left {
-  text-align: left;
-
   .icon-viewport ul>li {
     border: none;
     background-color: var(--color-hisense-grey-04);
@@ -84,6 +82,7 @@
       align-items: center;
       justify-content: flex-start;
       gap: 4px;
+      text-align: left;
     }
 
     .item-picture {
