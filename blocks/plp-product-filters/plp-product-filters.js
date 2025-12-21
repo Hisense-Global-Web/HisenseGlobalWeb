@@ -39,9 +39,9 @@ export default function decorate(block) {
   filtersLeft.className = 'plp-filters-left';
 
   const rows = [...block.children];
-  let resultsText = '{searchResultsCount} RESULT';
-  let resetText = 'Reset filters';
-  let sortBy = 'Sort By';
+  let resultsText = '';
+  let resetText = '';
+  let sortBy = '';
   const filterTags = [];
   const sortOptionsList = [];
   let currentContext = null;
@@ -59,15 +59,15 @@ export default function decorate(block) {
       const right = cells[1].textContent.trim();
 
       if (left === 'results') {
-        resultsText = right || resultsText;
+        resultsText = right;
         currentContext = 'results';
         resourceResults = resource;
       } else if (left === 'reset') {
-        resetText = right || resetText;
+        resetText = right;
         currentContext = 'reset';
         resourceReset = resource;
       } else if (left === 'sortBy') {
-        sortBy = right || sortBy;
+        sortBy = right;
         currentContext = 'sortBy';
         resourceSortBy = resource;
       } else if (left === 'title') {
@@ -122,7 +122,8 @@ export default function decorate(block) {
   const sort = document.createElement('div');
   sort.className = 'plp-sort';
   const sortSpan = document.createElement('span');
-  sortSpan.textContent = 'SORT BY';
+  // label comes from configuration (sortBy)
+  sortSpan.textContent = sortBy;
   const sortImg = document.createElement('img');
   sortImg.src = 'arrow.svg';
   sortImg.alt = 'Sort options';
@@ -130,27 +131,25 @@ export default function decorate(block) {
 
   const sortOptions = document.createElement('div');
   sortOptions.className = 'plp-sort-options';
-  const options = sortOptionsList.length ? sortOptionsList : [
-    { label: 'Size: Largest To Smallest', value: 'size' },
-    { label: 'Price: Highest To Lowest', value: 'priceInfo_regularPrice' },
-    { label: 'Newest', value: 'productLaunchDate' },
-  ];
-  options.forEach((option) => {
-    const optionDiv = document.createElement('div');
-    optionDiv.className = 'plp-sort-option';
-    const label = option.label || option;
-    if (label === sortBy) {
-      optionDiv.classList.add('selected');
-    }
-    optionDiv.textContent = label;
-    if (option.value) optionDiv.dataset.value = option.value;
-    if (isEditMode && option.resource) {
-      optionDiv.setAttribute('data-aue-resource', option.resource);
-    }
-    optionDiv.setAttribute('role', 'button');
-    optionDiv.setAttribute('tabindex', '0');
-    sortOptions.append(optionDiv);
-  });
+  const options = sortOptionsList;
+  if (options && options.length) {
+    options.forEach((option) => {
+      const optionDiv = document.createElement('div');
+      optionDiv.className = 'plp-sort-option';
+      const label = option.label || option;
+      if (label === sortBy) {
+        optionDiv.classList.add('selected');
+      }
+      optionDiv.textContent = label;
+      if (option.value) optionDiv.dataset.value = option.value;
+      if (isEditMode && option.resource) {
+        optionDiv.setAttribute('data-aue-resource', option.resource);
+      }
+      optionDiv.setAttribute('role', 'button');
+      optionDiv.setAttribute('tabindex', '0');
+      sortOptions.append(optionDiv);
+    });
+  }
 
   sortBox.append(sort, sortOptions);
 
@@ -166,7 +165,9 @@ export default function decorate(block) {
         opt.classList.remove('selected');
       });
       option.classList.add('selected');
-      sortSpan.textContent = option.textContent;
+      // "sort by <option>"
+      const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy.toLowerCase() : 'sort by';
+      sortSpan.textContent = `${prefix} ${option.textContent}`;
       sortBox.classList.remove('show');
     });
   });
