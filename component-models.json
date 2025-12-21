@@ -991,6 +991,54 @@
     ]
   },
   {
+    "id": "plp-product-card",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "graphql",
+        "label": "GraphQL Endpoint",
+        "description": "GraphQL endpoint URL"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "fields",
+        "label": "Product Fields",
+        "multi": true,
+        "options": [
+          {
+            "name": "Title",
+            "value": "title"
+          },
+          {
+            "name": "Series",
+            "value": "series"
+          },
+          {
+            "name": "PriceInfo RegularPrice",
+            "value": "priceInfo_regularPrice"
+          },
+          {
+            "name": "PriceInfo Specialprice",
+            "value": "priceInfo_specialprice"
+          },
+          {
+            "name": "image",
+            "value": "mediaGallery_image"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "learnMoreText",
+        "label": "Learn more Text",
+        "value": "Learn more"
+      }
+    ]
+  },
+  {
     "id": "plp-product-tag",
     "fields": []
   },
