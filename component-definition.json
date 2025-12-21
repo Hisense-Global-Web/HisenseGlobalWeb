@@ -579,8 +579,7 @@
                 "template": {
                   "name": "PLP Product Filters",
                   "filter": "plp-product-filters",
-                  "model": "plp-product-filters",
-                  "key-value": true
+                  "model": "plp-product-filters"
                 }
               }
             }
