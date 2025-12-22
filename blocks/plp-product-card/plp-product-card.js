@@ -70,7 +70,7 @@ export default function decorate(block) {
     productsGrid.innerHTML = '';
     items.forEach((item) => {
       const card = document.createElement('div');
-      card.className = 'plp-product-card';
+      card.className = 'product-card';
 
       const titleDiv = document.createElement('div');
       titleDiv.className = 'plp-product-card-title';
