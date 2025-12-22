@@ -1,4 +1,5 @@
 let index = 0;
+const visibleCards = 5;
 
 function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
@@ -7,7 +8,7 @@ function getSlideWidth(block) {
   return cardWidth + gap;
 }
 
-function updatePosition(block, visibleCards) {
+function updatePosition(block) {
   const track = block.querySelector('.icon-track');
   const items = block.querySelectorAll('li');
   const moveDistance = index * getSlideWidth(block);
@@ -26,29 +27,21 @@ function bindEvent(block) {
       if (url) window.location.href = url;
     });
   });
-  window.onload = () => {
-    const box = block.querySelector('.icon-viewport');
-    const ul = block.querySelector('.icon-track');
-    const li = ul.querySelector('li');
-
-    const visibleCards = parseInt(ul.offsetWidth / li.offsetWidth, 10);
-
-    if (ul.scrollWidth > box.clientWidth) {
-      block.querySelector('.pagination').classList.add('show');
+  if (cards.length >= visibleCards) {
+    block.querySelector('.pagination').classList.add('show');
+  }
+  block.querySelector('.slide-prev').addEventListener('click', () => {
+    if (index > 0) {
+      index -= 1;
+      updatePosition(block);
     }
-    block.querySelector('.slide-prev').addEventListener('click', () => {
-      if (index > 0) {
-        index -= 1;
-        updatePosition(block, visibleCards);
-      }
-    });
-    block.querySelector('.slide-next').addEventListener('click', () => {
-      if (index <= cards.length - visibleCards) {
-        index += 1;
-        updatePosition(block, visibleCards);
-      }
-    });
-  };
+  });
+  block.querySelector('.slide-next').addEventListener('click', () => {
+    if (index <= cards.length - visibleCards) {
+      index += 1;
+      updatePosition(block);
+    }
+  });
 }
 
 export default async function decorate(block) {
