@@ -64,7 +64,7 @@ main > .section:first-of-type {
   }
 
   .carousel-content {
-    width: 100%;
+    width: 322px;
     position: absolute;
     top: 50%;
     left: 0;

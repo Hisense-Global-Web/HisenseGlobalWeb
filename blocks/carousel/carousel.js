@@ -38,7 +38,6 @@ function observeMouse(block, index) {
   let currentIndex = index;
   const images = block.querySelectorAll('.carousel-item');
   let timer;
-  if (block.hasAttribute('data-aue-resource')) return;
   const autoPlay = () => {
     timer = setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
@@ -148,9 +147,10 @@ export default async function decorate(block) {
     row.remove();
   });
   block.prepend(wholeContainer);
+  console.log(block);
   if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);
+    observeMouse(block, 0);
   }
-  observeMouse(block, 0);
 }
