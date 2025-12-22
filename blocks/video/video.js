@@ -1,7 +1,6 @@
 export default function decorate(block) {
   /* change to ul, li */
 
-  console.log(...block.children);
   let videourl;
   let imgUrl;
   [...block.children].forEach((row) => {
