@@ -10,11 +10,11 @@ function createScrollButton(direction) {
   button.disabled = direction === 'left';
   // 创建图片元素
   const img = document.createElement('img');
-  img.src = direction === 'left' ? 'left.svg' : 'left.svg';
+  img.src = direction === 'left' ? '/content/dam/hisense/image/icon/left.svg' : '/content/dam/hisense/image/icon/right.svg';
   img.alt = direction === 'left' ? 'Scroll left' : 'Scroll right';
-  if (direction === 'right') {
-    img.style.transform = 'scaleX(-1)';
-  }
+  // if (direction === 'right') {
+  //   img.style.transform = 'scaleX(-1)';
+  // }
   button.appendChild(img);
   return button;
 }

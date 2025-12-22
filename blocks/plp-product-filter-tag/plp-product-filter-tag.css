@@ -63,4 +63,6 @@
   font-size: 12px;
   line-height: 1;
   display: inline-block;
+  color: rgb(51 51 51 / 100%);
+  font-weight: 400;
 }
