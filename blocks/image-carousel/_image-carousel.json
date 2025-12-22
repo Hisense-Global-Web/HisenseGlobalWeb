@@ -63,6 +63,20 @@
           ]
         },
         {
+          "component": "text",
+          "name": "subtitle",
+          "value": "",
+          "label": "Colorful Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "value": "",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
           "component": "select",
           "name": "mainContent",
           "label": "Section Content Type",
@@ -76,20 +90,6 @@
               "value": "video"
             }
           ]
-        },
-        {
-          "component": "text",
-          "name": "subtitle",
-          "value": "",
-          "label": "Colorful Text",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "title",
-          "value": "",
-          "label": "Title",
-          "valueType": "string"
         }
       ]
     },
