@@ -19,6 +19,7 @@
 .collectionsection-wrapper > div > div:first-child div h6{
   color: #00AAA6;
   font-size: 16px;
+  margin: 0;
 }
 
 .collectionsection-wrapper > div > div:last-child div p,
@@ -30,5 +31,5 @@
 .collectionsection-wrapper > div > div:last-child div h6{
   font-size: 34px;
   color: #333;
-  margin-top: 10px;
+  margin: 10px 0 0;
 }

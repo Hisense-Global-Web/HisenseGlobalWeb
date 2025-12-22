@@ -17,6 +17,7 @@
 .cover-style > ul > li {
   width: 100%;
   height: 250px;
+  min-height: 250px;
   border-radius: 20px;
   overflow: hidden;
   background-color: var(--background-color);
@@ -125,10 +126,14 @@
 }
 
 
-
 .center-style  a.button:any-link,
 .center-style button{
   background-color: #00AAA6!important;
   color: white;
   height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family:'Hisense Sans Alfabet', sans-serif;
+  font-size: 12px;
 }
