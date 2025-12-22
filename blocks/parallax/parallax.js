@@ -34,10 +34,13 @@ export default async function decorate(block) {
   const textContainer = block.querySelector('div:nth-child(2)');
   textContainer.classList.add('scroll-text-container');
 
+  console.log('is in universal editor', isUniversalEditor());
   const validForAnimation = !isUniversalEditor() && window.innerHeight >= 700;
   if (!validForAnimation) {
     return;
   }
+
+  console.log('Parallax block animation initialized');
 
   imageContainer.classList.add('animate');
   textContainer.classList.add('animate');
