@@ -8,13 +8,25 @@
  
 }
 
-.collectionsection div:first-child div p{
+.collectionsection div:first-child div p,
+.collectionsection div:first-child div h1,
+.collectionsection div:first-child div h2,
+.collectionsection div:first-child div h3,
+.collectionsection div:first-child div h4,
+.collectionsection div:first-child div h5,
+.collectionsection div:first-child div h6{
    color: #00AAA6;
    font-size: 16px;
-  }
+}
   
-.collectionsection div:last-child div p{
+.collectionsection div:last-child div p,
+.collectionsection div:last-child div h1,
+.collectionsection div:last-child div h2,
+.collectionsection div:last-child div h3,
+.collectionsection div:last-child div h4,
+.collectionsection div:last-child div h5,
+.collectionsection div:last-child div h6{
     font-size: 34px;
     color: #333;
     margin-top: 10px;
-  }
+}
