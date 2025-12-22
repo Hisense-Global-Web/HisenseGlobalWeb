@@ -106,13 +106,13 @@
   object-fit: contain;
 }
 
-.center-style > ul > li .cards-card-cta{
+/* .center-style > ul > li .cards-card-cta{
   display: none;
 }
 
 .center-style > ul > li:hover .cards-card-cta{
   display: block;
-}
+} */
 
 .cover-style > ul > li:hover img {
   width: 120%;
