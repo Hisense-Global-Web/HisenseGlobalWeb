@@ -366,9 +366,8 @@ export default async function decorate(block) {
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const carousel = document.querySelector('.carousel');
-    console.log(carousel);
-    if (!carousel || !carousel.height) return;
-    if (scrollTop >= 500) {
+    if (!carousel || !carousel.clientHeight) return;
+    if (scrollTop >= (carousel.clientHeight - navigation.clientHeight)) {
       navigation.classList.add('scroll-active');
     } else {
       navigation.classList.remove('scroll-active');
