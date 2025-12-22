@@ -71,6 +71,10 @@
       background-color: transparent;
     }
   }
+
+  .item-video-config {
+    display: none;
+  }
 }
 
 .image-carousel.left-bottom-style {
@@ -96,8 +100,11 @@
 
 .image-carousel.bottom-style {
   .item {
-    display: block;
     padding: 0;
+
+    video {
+      flex: 0 0 100%;
+    }
   }
 
   .item-picture {

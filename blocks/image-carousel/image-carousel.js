@@ -44,6 +44,39 @@ function bindEvent(block) {
   };
 }
 
+function createVideo(child, idx) {
+  let videourl;
+  let imgUrl;
+  const link = child.querySelector('a');
+  if (link) {
+    videourl = link.href;
+  }
+  const img = child.querySelector('img');
+  if (img) {
+    imgUrl = img.src;
+  }
+  const video = document.createElement('video');
+  video.id = `videoCarousel-${idx}`;
+  video.controls = true;
+  video.width = 458;
+  video.height = 340;
+  video.preload = 'auto';
+  video.autoplay = true;
+  video.style.border = '1px solid #ccc';
+  video.poster = imgUrl;
+  const source = document.createElement('source');
+  source.src = videourl; // 替换为你的视频路径
+  source.type = 'video/mp4';
+  // 添加备用文本
+  video.innerHTML = '';
+  // video.addEventListener('play', () => {
+  //   console.log('video clicked');
+  //   video.muted = true;
+  //   video.play();
+  // });
+  return video;
+}
+
 export default async function decorate(block) {
   const iconContainer = document.createElement('div');
   iconContainer.classList.add('image-viewport');
@@ -51,21 +84,25 @@ export default async function decorate(block) {
   iconBlocks.classList.add('image-track');
   [...block.children].forEach((child, idx) => {
     // except subtitle and title
-    if (idx <= 1) return;
+    if (idx <= 2) return;
     const iconBlock = document.createElement('li');
     child.classList.add('item');
-    [...child.children].forEach((item) => {
-      if (item.querySelector('picture')) {
-        item.querySelector('picture').closest('div').classList.add('item-picture');
-      }
-      if (item.querySelector('.button-container')) {
-        item.querySelector('.button-container').closest('div').classList.add('item-cta');
-        if (block.classList.contains('text-left')) {
-          item.querySelector('.button-container').closest('div').classList.add('show');
+    if (block.children[2].innerHTML.includes('video')) {
+      const singleVideo = createVideo(child, idx);
+      child.replaceChild(singleVideo, child.firstElementChild);
+    } else {
+      [...child.children].forEach((item) => {
+        if (item.querySelector('picture')) {
+          item.querySelector('picture').closest('div').classList.add('item-picture');
         }
-      }
-      if (!item.innerHTML) item.remove();
-    });
+        if (item.querySelector('.button-container')) {
+          item.querySelector('.button-container').closest('div').classList.add('item-cta');
+        }
+        if (!item.innerHTML) item.remove();
+      });
+    }
+    block.children[2].innerHTML = '';
+    if (!block.children[2].innerHTML) block.children[2].remove();
     iconBlock.appendChild(child);
     iconBlocks.appendChild(iconBlock);
   });
