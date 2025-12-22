@@ -918,6 +918,12 @@
         "multi": false
       },
       {
+        "component": "boolean",
+        "name": "boolean",
+        "label": " Is Video",
+        "valueType": "boolean"
+      },
+      {
         "component": "richtext",
         "name": "title",
         "value": "",
