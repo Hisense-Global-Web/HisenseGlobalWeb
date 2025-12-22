@@ -47,6 +47,7 @@
   max-width: 1200px;
   height: 100px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .section.navigation-logo-container.navigation-item-container.navigation-action-container,
