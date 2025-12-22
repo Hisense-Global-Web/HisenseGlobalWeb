@@ -53,13 +53,6 @@
     margin: 0;
   }
 
-  p:first-child + p, [data-aue-prop="featurebanner_text"] {
-    width: 402px;
-    color: #00AAA6;
-    margin: 0;
-    font-size: 20px;
-  }
-
   h1,
   h2,
   h3,
@@ -70,6 +63,21 @@
     font-size: 42px;
     margin: 0 0 10px;
     line-height: 110%;
+  }
+
+  [data-aue-prop="featurebanner_text"] h6, p:first-child + h6 {
+    width: 402px;
+    color: var(--color-hisense-teal);
+    margin: 0;
+    font-size: 20px;
+  }
+
+  p:last-child {
+    position: absolute;
+    bottom: 42px;
+    left: 160px;
+    font-size: 10px;
+    color: var(--color-hisense-grey-02);
   }
 
 }
