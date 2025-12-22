@@ -158,5 +158,4 @@ export default function decorate(block) {
   }
 
   block.replaceChildren(scrollTabs);
-  attachScrollHandlers(tabs, leftBtn, rightBtn);
 }
