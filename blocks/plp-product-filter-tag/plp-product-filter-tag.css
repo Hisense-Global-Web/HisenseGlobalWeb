@@ -12,6 +12,10 @@
   padding: 14px 0;
 }
 
+.plp-filter-group.hide .plp-filter-list {
+  display: none;
+}
+
 .plp-filter-group:not(:last-child) {
   border-bottom: 1px solid rgb(165 225 225 / 100%);
 }

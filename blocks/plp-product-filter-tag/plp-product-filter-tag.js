@@ -28,8 +28,8 @@ export default function decorate(block) {
     titleSpan.textContent = titleText;
     const arrow = document.createElement('img');
     arrow.src = '/content/dam/hisense/image/icon/arrow.svg';
-    arrow.addEventListener('click', () => {
-      const grandParent = this.parentNode?.parentNode;
+    arrow.addEventListener('click', (e) => {
+      const grandParent = e.target.parentNode?.parentNode;
       if (!grandParent) { return; }
       grandParent.classList.toggle('hide');
     });
