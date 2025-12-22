@@ -894,13 +894,13 @@
     ]
   },
   {
-    "id": "infoCardSection",
+    "id": "infoCard",
     "fields": [
       {
         "component": "select",
         "name": "classes",
         "value": "",
-        "label": "Icon Options",
+        "label": "Info Card Options",
         "description": "",
         "valueType": "string",
         "options": [
@@ -917,7 +917,7 @@
     ]
   },
   {
-    "id": "infoCard",
+    "id": "infoCardItem",
     "fields": [
       {
         "component": "reference",

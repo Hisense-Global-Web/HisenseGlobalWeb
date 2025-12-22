@@ -16,11 +16,49 @@
           }
         }
       }
+    },
+    {
+      "title": "Info Card Item",
+      "id": "infoCardItem",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Info Card Item",
+              "model": "infoCardItem"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
     {
       "id": "infoCard",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "value": "",
+          "label": "Info Card Options",
+          "description": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "text-center",
+              "value": "text-center"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "infoCardItem",
       "fields": [
         {
           "component": "reference",
@@ -40,5 +78,12 @@
       ]
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id": "infoCard",
+      "components": [
+        "infoCardItem"
+      ]
+    }
+  ]
 }

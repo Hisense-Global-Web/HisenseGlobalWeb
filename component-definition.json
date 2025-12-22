@@ -433,23 +433,6 @@
           }
         },
         {
-          "title": "Info Card Section",
-          "id": "infoCardSection",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/section/v1/section",
-                "template": {
-                  "name": "Info Card Section",
-                  "model": "infoCardSection",
-                  "filter": "infoCardSection",
-                  "classes": "info-card-section"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Info card",
           "id": "infoCard",
           "plugins": {
@@ -461,6 +444,21 @@
                   "model": "infoCard",
                   "filter": "infoCard",
                   "classes": "info-card-container"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Info Card Item",
+          "id": "infoCardItem",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Info Card Item",
+                  "model": "infoCardItem"
                 }
               }
             }

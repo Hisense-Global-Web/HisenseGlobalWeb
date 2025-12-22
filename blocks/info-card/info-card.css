@@ -1,4 +1,4 @@
-.section.info-card-container {
+/* .section.info-card-container {
     display: flex;
     flex-direction: row;
     width: 1120px;
@@ -14,4 +14,13 @@
         overflow: hidden;
         padding: 26px 26px 0;
     }
+} */
+.info-card-item {
+  width: 31%;
+  height: 240px;
+  gap: 16px;
+  background-color: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 26px 26px 0;
 }
