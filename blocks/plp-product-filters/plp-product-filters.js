@@ -88,7 +88,30 @@ export default function decorate(block) {
   }
   const results = document.createElement('div');
   results.className = 'plp-results';
-  results.textContent = resultsText;
+  // 保留一个隐藏的占位符 span，用于后续更新数量
+  const placeholderMatch = resultsText.match(/\{[^}]*\}/);
+  if (placeholderMatch) {
+    const parts = resultsText.split(placeholderMatch[0]);
+    if (parts[0]) results.append(document.createTextNode(parts[0]));
+    const visibleCount = document.createElement('span');
+    visibleCount.className = 'plp-results-count-visible';
+    visibleCount.textContent = ''; // 会在产品加载时填充
+    results.append(visibleCount);
+    if (parts[1]) results.append(document.createTextNode(parts[1]));
+    const hiddenSpan = document.createElement('span');
+    hiddenSpan.className = 'plp-results-count';
+    hiddenSpan.style.display = 'none';
+    const [match] = placeholderMatch;
+    hiddenSpan.textContent = match;
+    results.append(hiddenSpan);
+  } else {
+    results.textContent = resultsText;
+    const hiddenSpan = document.createElement('span');
+    hiddenSpan.className = 'plp-results-count';
+    hiddenSpan.style.display = 'none';
+    hiddenSpan.textContent = '';
+    results.append(hiddenSpan);
+  }
   resultsBox.append(results);
 
   // 筛选标签容器
@@ -110,6 +133,18 @@ export default function decorate(block) {
   if (isEditMode && resourceReset) {
     resetFilters.setAttribute('data-aue-resource', resourceReset);
   }
+  resetFilters.addEventListener('click', () => {
+    const activeContainer = document.querySelector('.plp-active-filters');
+    if (activeContainer) {
+      activeContainer.querySelectorAll('.plp-filter-tag').forEach((tag) => tag.remove());
+    }
+    document.querySelectorAll('input[type="checkbox"][data-option-value]').forEach((cb) => {
+      if (cb.checked) {
+        cb.checked = false;
+        cb.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+  });
 
   filtersLeft.append(resultsBox, activeFilters, resetFilters);
 
@@ -169,6 +204,15 @@ export default function decorate(block) {
       const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy.toLowerCase() : 'sort by';
       sortSpan.textContent = `${prefix} ${option.textContent}`;
       sortBox.classList.remove('show');
+      try {
+        const sortKey = option.dataset && option.dataset.value ? option.dataset.value : (option.getAttribute && option.getAttribute('data-value'));
+        if (sortKey && window && typeof window.applyPlpSort === 'function') {
+          window.applyPlpSort(sortKey);
+        }
+      } catch (e) {
+        /* eslint-disable-next-line no-console */
+        console.warn(e);
+      }
     });
   });
 

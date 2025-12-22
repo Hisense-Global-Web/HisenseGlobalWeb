@@ -128,27 +128,7 @@ export default function decorate(block) {
 
   const leftBtn = createScrollButton('left');
   const rightBtn = createScrollButton('right');
-  function checkScrollState() {
-    if (!tabs) return;
-    leftBtn.disabled = tabs.scrollLeft <= 0;
-    rightBtn.disabled = tabs.scrollLeft + tabs.clientWidth >= tabs.scrollWidth;
-  }
-  rightBtn.addEventListener('click', () => {
-    tabs.scrollBy({
-      left: 256,
-      behavior: 'smooth',
-    });
-    setTimeout(checkScrollState, 300); // 等待平滑滚动完成后检查状态
-  });
-
-  // 左箭头点击：滚动一个标签宽度
-  leftBtn.addEventListener('click', () => {
-    tabs.scrollBy({
-      left: -256,
-      behavior: 'smooth',
-    });
-    setTimeout(checkScrollState, 300);
-  });
+  attachScrollHandlers(tabs, leftBtn, rightBtn);
 
   const scrollTabs = document.createElement('div');
   scrollTabs.className = 'scroll-tabs';

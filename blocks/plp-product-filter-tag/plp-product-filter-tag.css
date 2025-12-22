@@ -12,6 +12,12 @@
   padding: 14px 0;
 }
 
+.plp-filter-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+
 .plp-filter-group.hide .plp-filter-list {
   display: none;
 }
@@ -40,12 +46,6 @@
 }
 
 /* tags list */
-
-.plp-filter-list {
-  list-style: none;
-  margin: 14px 0 0;
-  padding: 0;
-}
 
 .plp-filter-title.hide .plp-filter-list{
   display: none;
