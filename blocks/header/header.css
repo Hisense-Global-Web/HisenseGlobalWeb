@@ -133,6 +133,12 @@
   position: absolute;
 }
 
+.nav-link .absolute,
+.nav-link .transparent-bold {
+  height: 20px;
+  line-height: 20px;
+}
+
 .nav-link:hover {
   font-weight: bold;
 }
