@@ -35,51 +35,91 @@
   background: linear-gradient(45deg, #fff, var(--color-hisense-teal));
 }
 
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 20px;
+  width: 458px;
+  height: 340px;
+  padding: 30px 0;
+  box-sizing: border-box;
+  text-align: center;
+  overflow: hidden;
+
+  .item-picture {
+    flex: 0 0 100%;
+
+    img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+  }
+
+  .button-container {
+    font-size: 12px;
+
+    a {
+      border: 2px solid #fff;
+      border-top: transparent;
+      border-left: transparent;
+      border-right: transparent;
+      border-radius: 0;
+      background-color: transparent;
+    }
+  }
+}
+
 .image-carousel.left-bottom-style {
+  .item-cta {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: left;
+    padding-left: 16px;
+  }
+}
+
+.image-carousel.left-style {
+  .item-cta {
+    position: absolute;
+    left: 0;
+    text-align: left;
+    width: 240px;
+    padding-left: 16px;
+  }
+}
+
+.image-carousel.bottom-style {
   .item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    gap: 20px;
+    display: block;
+    padding: 0;
+  }
+
+  .item-picture {
     width: 458px;
-    height: 340px;
-    padding: 30px 0;
-    box-sizing: border-box;
+    height: 300px;
+  }
+
+  .item-cta {
+    width: 240px;
+    text-align: left;
+  }
+}
+
+.image-carousel.center-style {
+  .item-picture {
+    width: 458px;
+    height: 300px;
+  }
+
+  .item-cta {
+    width: 240px;
     text-align: center;
-    overflow: hidden;
-
-    .item-picture {
-      flex: 0 0 100%;
-
-      img {
-        width: 100%;
-        aspect-ratio: 1;
-        object-fit: cover;
-      }
-    }
-
-    .item-cta {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      text-align: left;
-      padding-left: 16px;
-
-      .button-container {
-        font-size: 12px;
-
-        a {
-          border: 2px solid #fff;
-          border-top: transparent;
-          border-left: transparent;
-          border-right: transparent;
-          border-radius: 0;
-          background-color: transparent;
-        }
-      }
-    }
   }
 }
 

@@ -19,13 +19,6 @@ function updatePosition(block, visibleCards) {
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
-  cards.forEach((card) => {
-    const link = card.querySelector('a');
-    const url = link?.href;
-    card.addEventListener('click', () => {
-      if (url) window.location.href = url;
-    });
-  });
   window.onload = () => {
     const box = block.querySelector('.image-viewport');
     const ul = block.querySelector('.image-track');
