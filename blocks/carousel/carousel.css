@@ -15,7 +15,6 @@ main > .section:first-of-type {
 
 .carousel {
   position: relative;
-  color: black;
 
   .carousel-items-container {
     display: flex;
@@ -32,22 +31,25 @@ main > .section:first-of-type {
 }
 
 .carousel .carousel-item {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    position: relative;
-    width: 100%;
-    height: 100%;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &.light {
+    color: black;
+  }
+
+  &.dark {
+    color: white;
+  }
 
   .carousel-item-image {
-    /* position: absolute; */
-
-    /* top: 0; */
-
-    /* left: 0; */
     width: 100%;
     height: 860px;
 
