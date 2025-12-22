@@ -42,7 +42,7 @@ function observeMouse(block, index) {
     timer = setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
       showSlide(block, currentIndex);
-    }, 3000);
+    }, 5000);
   };
   block.addEventListener('mouseenter', () => {
     clearInterval(timer);
@@ -60,7 +60,9 @@ function observeMouse(block, index) {
       });
     });
   }
-  autoPlay();
+  window.onload = () => {
+    autoPlay();
+  };
 }
 function bindEvents(block) {
   const slideIndicators = block.querySelector('.carousel-item-indicators');
@@ -147,7 +149,6 @@ export default async function decorate(block) {
     row.remove();
   });
   block.prepend(wholeContainer);
-  console.log(block);
   if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);
