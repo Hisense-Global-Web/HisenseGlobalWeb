@@ -1,4 +1,5 @@
 import { loadScript } from '../../scripts/aem.js';
+import { isUniversalEditor } from '../../utils/ue-helper.js';
 
 const ANIMATION_DURATION = {
   IMAGE_BRIGHTNESS: 0.3,
@@ -32,6 +33,10 @@ export default async function decorate(block) {
 
   const textContainer = block.querySelector('div:nth-child(2)');
   textContainer.classList.add('scroll-text-container');
+
+  if (isUniversalEditor) {
+    return;
+  }
 
   const resizeHandler = () => {
     if (window.innerWidth >= 600 || window.innerHeight >= 700) {
