@@ -131,7 +131,6 @@ export default function decorate(block) {
   function checkScrollState() {
     if (!tabs) return;
     leftBtn.disabled = tabs.scrollLeft <= 0;
-    // 滚动到最右侧
     rightBtn.disabled = tabs.scrollLeft + tabs.clientWidth >= tabs.scrollWidth;
   }
   rightBtn.addEventListener('click', () => {
@@ -154,7 +153,9 @@ export default function decorate(block) {
   const scrollTabs = document.createElement('div');
   scrollTabs.className = 'scroll-tabs';
   scrollTabs.append(leftBtn, tabsContainer, rightBtn);
-  checkScrollState();
+  if (tabs?.childElementCount > 4) {
+    rightBtn.disabled = false;
+  }
 
   block.replaceChildren(scrollTabs);
   attachScrollHandlers(tabs, leftBtn, rightBtn);
