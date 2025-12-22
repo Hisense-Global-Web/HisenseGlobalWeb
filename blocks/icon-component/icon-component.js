@@ -33,7 +33,7 @@ function bindEvent(block) {
 
     const visibleCards = parseInt(ul.offsetWidth / li.offsetWidth, 10);
 
-    if (ul.scrollWidth > box.offsetWidth) {
+    if (ul.scrollWidth > box.clientWidth) {
       block.querySelector('.pagination').classList.add('show');
     }
     block.querySelector('.slide-prev').addEventListener('click', () => {

@@ -20,6 +20,7 @@ function showSlide(block, slideIndex) {
   if (slideIndex >= slides.length) realSlideIndex = 0;
   const activeSlide = slides[realSlideIndex];
   const nav = document.querySelector('#navigation');
+
   if ([...activeSlide.classList].includes('dark')) {
     block.classList.add('dark');
     if (nav) document.querySelector('#navigation').classList.add('header-dark-mode');
@@ -35,23 +36,16 @@ function showSlide(block, slideIndex) {
 }
 
 function observeMouse(block, index) {
+  if (document.getElementById('editor-app')) return;
   let currentIndex = index;
   const images = block.querySelectorAll('.carousel-item');
   let timer;
-  if (block.hasAttribute('data-aue-resource')) return;
   const autoPlay = () => {
     timer = setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
       showSlide(block, currentIndex);
-    }, 3000);
+    }, 5000);
   };
-  block.addEventListener('mouseenter', () => {
-    clearInterval(timer);
-    timer = null;
-  });
-  block.addEventListener('mouseleave', () => {
-    autoPlay();
-  });
   if (block.classList.contains('only-picture')) {
     images.forEach((image) => {
       const link = image.querySelector('a');
@@ -62,6 +56,13 @@ function observeMouse(block, index) {
     });
   }
   autoPlay();
+  block.addEventListener('mouseenter', () => {
+    clearInterval(timer);
+    timer = null;
+  });
+  block.addEventListener('mouseleave', () => {
+    autoPlay();
+  });
 }
 function bindEvents(block) {
   const slideIndicators = block.querySelector('.carousel-item-indicators');
@@ -151,6 +152,8 @@ export default async function decorate(block) {
   if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);
+    window.onload = () => {
+      observeMouse(block, 0);
+    };
   }
-  observeMouse(block, 0);
 }
