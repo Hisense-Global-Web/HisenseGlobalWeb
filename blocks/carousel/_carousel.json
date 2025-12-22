@@ -81,14 +81,14 @@
             {
               "component": "text",
               "name": "text_special",
-              "value": "ULED X Mini-LED Series UX",
+              "value": "",
               "label": "Colorful Text(teal)",
               "valueType": "string"
             },
             {
               "component": "richtext",
               "name": "text_normal",
-              "value": "Perfection, any content, anytime",
+              "value": "",
               "label": "Content",
               "valueType": "string"
             }
