@@ -14,10 +14,15 @@
     padding: 20px;
 }
 
+[data-aue-model="plp-product-card"].plp-product-card >div:not(.plp-products-box) {
+  display: none;
+}
+
 .plp-product-card-title {
     width: 65px;
     height: 20px;
     margin-bottom: 8px;
+  display: none;
 }
 
 .plp-product-img {
@@ -40,6 +45,9 @@
     font-weight: 500;
     height: 26px;
     line-height: 26px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .plp-product-sizes {
@@ -68,7 +76,7 @@
     color: rgb(51 51 51 / 100%);
 }
 
-.plp-product-btn {
+.plp-product-card .plp-product-btn {
     padding: 0 14px;
     border: 1px solid rgb(0 0 0 / 100%);
     border-radius: 15px;
