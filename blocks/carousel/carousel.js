@@ -32,7 +32,7 @@ function showSlide(block, slideIndex, init = false) {
   block.querySelector('.carousel-items-container').scrollTo({
     top: 0,
     left: activeSlide.offsetLeft,
-    behavior: 'instant',
+    behavior: 'smooth',
   });
 }
 
