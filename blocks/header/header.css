@@ -41,6 +41,14 @@
   color: rgb(51 51 51 / 100%);
 }
 
+#navigation:has(.nav-container:hover) .nav-action-btn .light-img{
+  display: block;
+}
+
+#navigation:has(.nav-container:hover) .nav-action-btn .dark-img{
+  display: none;
+}
+
 #navigation .nav-container {
   display: flex;
   align-items: center;
