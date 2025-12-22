@@ -1,102 +1,161 @@
-/**
- * Loads a script element dynamically and resolves a promise when loaded.
- * @param {string} src The script URL
- * @returns {Promise<void>}
- */
-function loadScript(src) {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = src;
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
-    document.head.appendChild(script);
-  });
-}
+import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { loadScript } from '../../scripts/aem.js';
+
+const ANIMATION_DURATION = {
+  IMAGE_BRIGHTNESS: 0.3,
+  IMAGE_SCALE: 2,
+  TEXT_SCROLL: 3,
+  TEXT_FADE_IN: 0.1,
+  TEXT_FADE_IN_DELAY: 0.1,
+};
+
+const debounce = ({ apply }, wait) => {
+  let timeoutId = null; // This will hold the timeout ID across calls
+
+  return (...args) => {
+    // Clear the previous timeout if the function is called again before the wait time
+    window.clearTimeout(timeoutId);
+
+    // Set a new timeout
+    timeoutId = window.setTimeout(() => {
+      // Execute the original function (callback) after the wait time
+      apply(null, args);
+    }, wait);
+  };
+};
 
 export default async function decorate(block) {
-  const image = block.querySelector('img');
-  if (!image) return;
+  // ==========
+  const img = block.querySelector('img');
+  if (!img) return;
 
-  const picture = block.querySelector('div:first-child');
-  picture.classList.add('parallax-image-container');
-  const text = block.querySelector('div:nth-child(2)');
-  text.classList.add('text-overlay');
+  const imageContainer = block.querySelector('div:first-child');
+  imageContainer.classList.add('scroll-image-container');
 
-  const overlay = document.createElement('div');
-  overlay.classList.add('gradient-overlay');
-  document.body.appendChild(overlay);
+  const textContainer = block.querySelector('div:nth-child(2)');
+  textContainer.classList.add('scroll-text-container');
 
-  try {
-    await loadScript('https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js');
-    await loadScript('https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js');
-  } catch (error) {
-    console.error(error);
-    return; // Stop execution if scripts fail to load
+  const validForAnimation = !isUniversalEditor() && window.innerHeight >= 700;
+  if (!validForAnimation) {
+    return;
   }
 
-  const { gsap } = window;
-  const { ScrollTrigger } = window;
+  const resizeHandler = () => {
+    if (window.innerWidth >= 600 || window.innerHeight >= 700) {
+      imageContainer.classList.add('animate');
+      textContainer.classList.add('animate');
+    } else {
+      imageContainer.classList.remove('animate');
+      textContainer.classList.remove('animate');
+    }
+  };
+  const debounceResize = debounce(resizeHandler, 500);
+
+  window.addEventListener('resize', debounceResize);
+
+  const textElements = block.querySelector('.scroll-text-container > div');
+  if (textElements.children.length > 0) {
+    Array.from(textElements.children)
+      .forEach((element) => {
+        element.classList.add('animated-text');
+      });
+  }
+
+  if (!window.gsap) {
+    try {
+      await loadScript('https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js');
+    } catch (error) {
+      return;
+    }
+  }
+
+  if (!window.ScrollTrigger) {
+    try {
+      await loadScript('https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js');
+    } catch (error) {
+      return;
+    }
+  }
+
+  const {
+    gsap,
+    ScrollTrigger,
+  } = window;
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const scrollDurationHeight = window.innerHeight * 3;
-  block.style.height = `${scrollDurationHeight}px`; // Set the actual scroll height
+  const matchMedia = gsap.matchMedia();
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: block,
-      start: 'top top',
-      end: `+=${scrollDurationHeight}`, // End after the defined scroll distance
-      scrub: 1,
-      pin: true, // Pins the entire 'block' while the animation runs
-      // markers: true
-    },
+  matchMedia.add('(min-width: 600px)', () => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: block,
+        start: 'top top',
+        end: '+=300%',
+        scrub: 1,
+        pin: true,
+        // markers: true,
+      },
+    });
+
+    tl.fromTo(
+      'img',
+      { filter: 'brightness(1)' },
+      {
+        filter: 'brightness(0.3)',
+        duration: ANIMATION_DURATION.IMAGE_BRIGHTNESS,
+      },
+      0,
+    );
+
+    tl.fromTo(
+      '.scroll-text-container > div',
+      {
+        yPercent: 100,
+      },
+      {
+        yPercent: -100,
+        ease: 'none',
+        duration: ANIMATION_DURATION.TEXT_SCROLL,
+      },
+      '>',
+    );
+
+    const lines = gsap.utils.toArray('.animated-text');
+    lines.forEach((line) => {
+      tl.fromTo(
+        line,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          ease: 'none',
+          duration: 0.1,
+          delay: 0.1,
+        },
+        '<',
+      );
+    });
+
+    tl.to(
+      'img',
+      {
+        filter: 'brightness(1)',
+        duration: ANIMATION_DURATION.IMAGE_BRIGHTNESS,
+      },
+      '-=1',
+    );
+
+    tl.fromTo(
+      'img',
+      { scale: 2 },
+      {
+        scale: 1,
+        ease: 'power1.inOut',
+        duration: ANIMATION_DURATION.IMAGE_SCALE,
+      },
+      '<',
+    );
   });
-
-  tl.fromTo(
-    image,
-    { scale: 2 },
-    {
-      scale: 1,
-      ease: 'power1.inOut',
-    },
-    1,
-  );
-
-  // tl.fromTo(
-  //   overlay,
-  //   { opacity: 0 },
-  //   { opacity: 1, ease: 'none' },
-  //   0,
-  // );
-  //
-  // tl.to(
-  //   overlay,
-  //   { opacity: 0, ease: 'none' },
-  //   0.5,
-  // );
-
-  tl.fromTo(
-    text,
-    {
-      opacity: 0,
-      yPercent: 200,
-    },
-    {
-      opacity: 1,
-      yPercent: -200,
-      ease: 'none',
-    },
-    0,
-  );
-
-  tl.to(
-    text,
-    {
-      opacity: 0,
-      yPercent: -400,
-      ease: 'none',
-    },
-    0.5,
-  );
 }

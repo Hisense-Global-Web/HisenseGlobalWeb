@@ -1,21 +1,29 @@
-.parallax-container {
+.parallax {
 	position: relative;
-	height: 400vh;
 	overflow: hidden;
 }
 
-.parallax {
-	position: relative;
+.scroll-image-container {
+	max-width: var(--container-max-width);
+	padding: 0 32px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	img {
+		max-height: 100vh;
+		width: auto;
+		object-fit: cover;
+	}
 }
 
-.parallax-image-container {
-	padding: 40px;
+.scroll-image-container.animate {
+	height: 100vh;
 }
 
-.text-overlay {
-	position: absolute;
-	top: 100vh;
-	left: 0;
+.scroll-text-container {
 	margin: 0 auto;
 	width: 100%;
 	text-align: center;
@@ -23,14 +31,12 @@
 	pointer-events: none;
 }
 
-.gradient-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background: rgb(0 0 0 / 50%);
-	opacity: 0;
-	z-index: 5;
-	pointer-events: none;
+@media (width >= 600px) {
+	.scroll-text-container.animate {
+		position: absolute;
+		top: 0;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+	}
 }
