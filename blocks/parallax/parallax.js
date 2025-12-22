@@ -34,7 +34,7 @@ export default async function decorate(block) {
   const textContainer = block.querySelector('div:nth-child(2)');
   textContainer.classList.add('scroll-text-container');
 
-  if (isUniversalEditor) {
+  if (isUniversalEditor()) {
     return;
   }
 
@@ -97,7 +97,7 @@ export default async function decorate(block) {
         scrollTrigger: {
           trigger: block,
           start: 'top top',
-          end: `+=${window.innerHeight * 3}`,
+          end: '+=300%',
           scrub: 1,
           pin: true,
           // markers: true,
