@@ -1,17 +1,15 @@
 {
   "definitions": [
     {
-      "title": "Feature Banner",
-      "id": "featurebanner",
+      "title": "Parallax",
+      "id": "parallax",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Featurebanner",
-              "model": "featurebanner",
-              "classes": "featurebanner-box",
-              "featurebanner_text": "<p>Cinema</p><h1>Cinematic Perfection</h1>"
+              "name": "Parallax",
+              "model": "parallax"
             }
           }
         }
@@ -20,26 +18,20 @@
   ],
   "models": [
     {
-      "id": "featurebanner",
+      "id": "parallax",
       "fields": [
         {
           "component": "reference",
           "valueType": "string",
-          "name": "featurebanner_image",
+          "name": "image",
           "label": "Image",
           "multi": false
         },
         {
           "component": "richtext",
-          "name": "featurebanner_text",
+          "name": "text",
           "label": "Text",
           "valueType": "string"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "featurebanner_tips",
-          "label": "Feature banner tips"
         }
       ]
     }

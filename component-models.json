@@ -284,6 +284,40 @@
     ]
   },
   {
+    "id": "accordion",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "select",
+        "name": "classes_variant",
+        "label": "Variant",
+        "options": [
+          {
+            "name": "Product Info Sheet",
+            "value": "product-info-sheet"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "accordionItem",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Property",
+        "valueType": "string",
+        "multi": true
+      }
+    ]
+  },
+  {
     "id": "banner",
     "fields": [
       {
@@ -311,18 +345,10 @@
         "multi": false
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "collection_imageAlt",
-        "label": "Image Alt Text",
-        "required": true
-      },
-      {
         "component": "richtext",
         "name": "collection_text",
         "label": "Text",
-        "valueType": "string",
-        "required": true
+        "valueType": "string"
       },
       {
         "component": "aem-content",
@@ -602,8 +628,7 @@
         "component": "richtext",
         "name": "featurebanner_text",
         "label": "Text",
-        "valueType": "string",
-        "required": true
+        "valueType": "string"
       },
       {
         "component": "text",
@@ -1002,6 +1027,24 @@
         "name": "logoAlt",
         "label": "Logo Alt",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "parallax",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
