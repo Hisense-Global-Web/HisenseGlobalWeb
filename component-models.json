@@ -417,7 +417,7 @@
     ]
   },
   {
-    "id": "carousel-item",
+    "id": "carouselItem",
     "fields": [
       {
         "component": "reference",
