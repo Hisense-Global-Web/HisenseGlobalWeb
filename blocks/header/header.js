@@ -43,6 +43,7 @@ function parseDropdownProducts(col) {
   if (imageLinkItems.length) {
     return imageLinkItems.map((item) => {
       const img = item.querySelector('img')?.src || '';
+      const href = item.querySelector('a')?.href || '#';
       const directChildren = Array.from(item.children);
       let text = '';
       if (directChildren[1]) {
@@ -51,7 +52,7 @@ function parseDropdownProducts(col) {
         text = item.textContent.trim();
       }
 
-      return { img, text };
+      return { img, text, href };
     });
   }
 
@@ -196,6 +197,12 @@ function buildDropdown(data) {
       img.src = item.img;
       img.alt = item.text || '';
       imgWrap.append(img);
+    }
+    if (item.href && item.href !== '#') {
+      product.dataset.href = item.href;
+      product.addEventListener('click', () => {
+        window.location.href = item.href;
+      });
     }
     const text = document.createElement('div');
     text.className = 'dropdown-product-text';
