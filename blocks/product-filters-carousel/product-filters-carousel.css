@@ -87,7 +87,7 @@ main > .plp-product-card-container.plp-product-filters-container * {
   display: none;
 }
 
-.product-filters-carousel .scroll-btn:not(:disabled) img.disabeld-icon {
+.product-filters-carousel .scroll-btn:not(:disabled) img.disabled-icon {
   display: none;
 }
 
