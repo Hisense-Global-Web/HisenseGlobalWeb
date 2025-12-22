@@ -27,7 +27,7 @@ export default function decorate(block) {
     const titleSpan = document.createElement('span');
     titleSpan.textContent = titleText;
     const arrow = document.createElement('img');
-    arrow.src = 'arrow.svg';
+    arrow.src = '/content/dam/hisense/image/icon/arrow.svg';
     title.append(titleSpan, arrow);
 
     const list = document.createElement('ul');

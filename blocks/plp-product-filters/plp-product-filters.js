@@ -125,7 +125,7 @@ export default function decorate(block) {
   // label comes from configuration (sortBy)
   sortSpan.textContent = sortBy;
   const sortImg = document.createElement('img');
-  sortImg.src = 'arrow.svg';
+  sortImg.src = '/content/dam/hisense/image/icon/arrow.svg';
   sortImg.alt = 'Sort options';
   sort.append(sortSpan, sortImg);
 
