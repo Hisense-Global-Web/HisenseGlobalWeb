@@ -128,6 +128,29 @@ export default function decorate(block) {
 
   const leftBtn = createScrollButton('left');
   const rightBtn = createScrollButton('right');
+  const tabsList = document.querySelector('.product-filters');
+  function checkScrollState() {
+    // 滚动到最左侧
+    leftBtn.disabled = tabsList.scrollLeft <= 0;
+    // 滚动到最右侧
+    rightBtn.disabled = tabsList.scrollLeft + tabsList.clientWidth >= tabsList.scrollWidth;
+  }
+  rightBtn.addEventListener('click', () => {
+    tabsList.scrollBy({
+      left: 256,
+      behavior: 'smooth',
+    });
+    setTimeout(checkScrollState, 300); // 等待平滑滚动完成后检查状态
+  });
+
+  // 左箭头点击：滚动一个标签宽度
+  leftBtn.addEventListener('click', () => {
+    tabsList.scrollBy({
+      left: -256,
+      behavior: 'smooth',
+    });
+    setTimeout(checkScrollState, 300);
+  });
 
   const scrollTabs = document.createElement('div');
   scrollTabs.className = 'scroll-tabs';
