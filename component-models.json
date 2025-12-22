@@ -969,14 +969,7 @@
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "img",
-        "label": "img",
+        "label": "Cover Image",
         "multi": false
       }
     ]
