@@ -94,11 +94,11 @@ export default async function decorate(block) {
         if (!item.innerHTML) item.remove();
       });
     }
-    block.children[2].innerHTML = '';
-    if (!block.children[2].innerHTML) block.children[2].remove();
     iconBlock.appendChild(child);
     iconBlocks.appendChild(iconBlock);
   });
+  // block.children[2].innerHTML = '';
+  // if (!block.children[2].innerHTML) block.children[2].remove();
   iconContainer.appendChild(iconBlocks);
   block.appendChild(iconContainer);
 
