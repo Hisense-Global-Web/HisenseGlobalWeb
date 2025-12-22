@@ -154,7 +154,7 @@ export default function decorate(block) {
   scrollTabs.className = 'scroll-tabs';
   scrollTabs.append(leftBtn, tabsContainer, rightBtn);
   if (tabs?.childElementCount > 4) {
-    rightBtn.disabled = false;
+    rightBtn.removeAttribute('disabled');
   }
 
   block.replaceChildren(scrollTabs);
