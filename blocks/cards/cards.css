@@ -1,5 +1,5 @@
 
-.cards-wrapper{
+.cards-wrapper {
   width: 1120px;
   margin: 20px auto;
 }
@@ -119,3 +119,13 @@
   max-width: 120%;
 }
 
+.center-style .cards-card-cta{
+  position: absolute;
+  bottom: 28px;
+}
+
+.center-style  a.button:any-link, button{
+  background-color: #00AAA6!important;
+  color: white;
+  height: 48px;
+}
