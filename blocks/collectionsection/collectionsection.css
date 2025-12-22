@@ -1,4 +1,6 @@
 .collectionsection-container .collectionsection-wrapper {
+  width: 1120px;
+  margin: 20px auto;
   max-width: unset;
   padding: 0;
 }

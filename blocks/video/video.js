@@ -1,6 +1,5 @@
 export default function decorate(block) {
   /* change to ul, li */
-
   let videourl;
   let imgUrl;
   [...block.children].forEach((row) => {
@@ -31,13 +30,10 @@ export default function decorate(block) {
   // 将source添加到video中
   video.appendChild(source);
   newDiv.appendChild(video);
-  newDiv.appendChild(coverImg);
-  coverImg.addEventListener('click', () => {
-    video.play();
-    coverImg.style.display = 'none';
+
+  video.addEventListener('loadeddata', () => {
   });
   video.addEventListener('play', () => {
-    console.log('视频开始播放');
   });
   block.replaceChildren(newDiv);
 }

@@ -19,7 +19,7 @@
 	--link-color: #3b63fb;
 	--link-hover-color: #1d3ecf;
 
-	/* colors */
+	/* color system */
 	--color-white: white;
 	--color-hisense-teal: #00aaa6;
 	--color-hisense-green-01: #50c3c3;
@@ -82,16 +82,16 @@
 	--spacing-vertical-l: 80px;
 	--spacing-vertical-xl: 120px;
 
-  /* header */
-	--nav-height: 100px;
-  --header-light-color: #333;
-  --header-dark-color: #fff;
-  --header-active-color: var(--header-light-color);
-  --header-backgroundcolor: rgb(244 248 247 / 100%);
+	/* header */
+	--nav-height: 0px;
+	--header-light-color: #333;
+	--header-dark-color: #fff;
+	--header-active-color: var(--header-light-color);
+	--header-backgroundcolor: rgb(244 248 247 / 100%);
 }
 
 .header-dark-mode {
-  --header-active-color: var(--header-dark-color);
+	--header-active-color: var(--header-dark-color);
 }
 
 @media (width >= 900px) {
@@ -152,7 +152,6 @@ h6 {
 	margin-bottom: 16px;
 	font-family: var(--font-family);
 	font-weight: 500;
-	line-height: 1.25;
 	scroll-margin: 40px;
 }
 
@@ -283,6 +282,16 @@ main img {
 	height: auto;
 }
 
+.ratio-4-3 img {
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+}
+
+.ratio-3-2 img {
+	aspect-ratio: 3 / 2;
+	object-fit: cover;
+}
+
 .icon {
 	display: inline-block;
 	height: 24px;
@@ -294,18 +303,42 @@ main img {
 	width: 100%;
 }
 
-/* sections */
-main > .section {
-	margin: 40px 0;
-	gap: 40px;
+/* ========== display ========== */
+.d-none {
+	display: none;
 }
 
-main > .section > div {
-	max-width: var(--container-max-width);
-	margin: auto;
-	padding: 0 24px;
+.d-flex {
+	display: flex;
 }
 
+.d-grid {
+	display: grid;
+}
+
+/* ========== text align ========== */
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+/* ========== border radius ========== */
+.br-l {
+	border-radius: var(--border-radius-l);
+}
+
+.br-m {
+	border-radius: var(--border-radius-m);
+}
+
+.br-s {
+	border-radius: var(--border-radius-s);
+}
+
+/* ========== sections ========== */
 main .section {
 	margin: 0;
 	padding: 0;
@@ -315,12 +348,11 @@ main > .section:first-of-type {
 	margin-top: 0;
 }
 
-main .section.navigation-item-container {
-  display: none;
-}
-
-main > .footer-container.section {
-  margin: 0;
+/* section container */
+main > .section > div {
+	max-width: var(--container-max-width);
+	margin: auto;
+	padding: 0 24px;
 }
 
 @media (width >= 900px) {
@@ -329,42 +361,78 @@ main > .footer-container.section {
 	}
 }
 
-/* section metadata */
-main .section.light {
-	background-color: var(--background-light);
-	color: var(--text-light);
+/* ========== section metadata ========== */
+main {
+	/* section theme */
+
+	.section.light {
+		background-color: var(--background-light);
+		color: var(--text-light);
+	}
+
+	.section.grey {
+		background-color: var(--background-grey);
+		color: var(--text-light);
+	}
+
+	.section.dark {
+		background-color: var(--background-dark);
+		color: var(--text-dark);
+	}
+
+	/* section container type */
+
+	.section.fluid > div {
+		max-width: unset;
+		padding: 0;
+	}
+
+	/* section padding */
+
+	.section.pt-s {
+		padding-top: var(--spacing-vertical-s);
+	}
+
+	.section.pt-m {
+		padding-top: var(--spacing-vertical-m);
+	}
+
+	.section.pt-l {
+		padding-top: var(--spacing-vertical-l);
+	}
+
+	.section.pt-xl {
+		padding-top: var(--spacing-vertical-xl);
+	}
+
+	.section.pb-s {
+		padding-bottom: var(--spacing-vertical-s);
+	}
+
+	.section.pb-m {
+		padding-bottom: var(--spacing-vertical-m);
+	}
+
+	.section.pb-l {
+		padding-bottom: var(--spacing-vertical-l);
+	}
+
+	.section.pb-xl {
+		padding-bottom: var(--spacing-vertical-xl);
+	}
+
+	/* section image style */
+
+	.section.img-rounded img {
+		border-radius: var(--border-radius-l);
+	}
 }
 
-main .section.grey {
-	background-color: var(--background-grey);
-	color: var(--text-light);
+/* ========== header footer ========== */
+main .section.navigation-item-container {
+	display: none;
 }
 
-main .section.dark {
-	background-color: var(--background-dark);
-	color: var(--text-dark);
-}
-
-main .section.image-rounded img {
-	border-radius: var(--border-radius-l);
-}
-
-main .section.vertical-padding-s {
-	padding: var(--spacing-vertical-s) 0;
-}
-
-main .section.vertical-padding-m {
-	padding: var(--spacing-vertical-m) 0;
-}
-
-main .section.vertical-padding-l {
-	padding: var(--spacing-vertical-l) 0;
-}
-
-main .section.vertical-padding-xl {
-	padding: var(--spacing-vertical-xl) 0;
-}
-
-.display-none {
-  display: none;
+main > .footer-container.section {
+	margin: 0;
 }
