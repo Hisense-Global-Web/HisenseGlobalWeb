@@ -363,6 +363,21 @@ export default async function decorate(block) {
 
   navContainer.append(logoEl, linksEl, actionsEl);
   navigation.append(navContainer);
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const carousel = document.querySelector('.carousel');
+    if (!carousel || !carousel.clientHeight) return;
+    if (scrollTop >= (carousel.clientHeight - navigation.clientHeight)) {
+      navigation.classList.add('scroll-active');
+    } else {
+      navigation.classList.remove('scroll-active');
+    }
+  });
+  const carousel = document.querySelector('.carousel');
+  const hasDarkClass = carousel?.classList.contains('dark');
+  if (hasDarkClass) {
+    navigation.classList.add('header-dark-mode');
+  }
 
   block.textContent = '';
   block.append(navigation);
