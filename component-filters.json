@@ -90,6 +90,12 @@
     ]
   },
   {
+    "id": "imageCarousel",
+    "components": [
+      "imageCarouselItem"
+    ]
+  },
+  {
     "id": "navigationSecondaryContainer",
     "components": [
       "columns"
