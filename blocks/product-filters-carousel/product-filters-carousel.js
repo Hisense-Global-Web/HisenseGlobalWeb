@@ -12,10 +12,14 @@ function createScrollButton(direction) {
   const img = document.createElement('img');
   img.src = direction === 'left' ? '/content/dam/hisense/image/icon/left.svg' : '/content/dam/hisense/image/icon/right.svg';
   img.alt = direction === 'left' ? 'Scroll left' : 'Scroll right';
-  // if (direction === 'right') {
-  //   img.style.transform = 'scaleX(-1)';
-  // }
+  img.className = 'disabled-icon';
   button.appendChild(img);
+  // 创建图片元素
+  const imgClick = document.createElement('img');
+  imgClick.src = direction === 'left' ? '/content/dam/hisense/image/icon/left-click.svg' : '/content/dam/hisense/image/icon/right-click.svg';
+  imgClick.alt = direction === 'left' ? 'Scroll left' : 'Scroll right';
+  imgClick.className = 'click-icon';
+  button.appendChild(imgClick);
   return button;
 }
 

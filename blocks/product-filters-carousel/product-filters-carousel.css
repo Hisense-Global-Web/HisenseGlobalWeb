@@ -83,6 +83,14 @@ main > .plp-product-card-container.plp-product-filters-container * {
   object-fit: contain;
 }
 
+.product-filters-carousel .scroll-btn:disabled img.click-icon {
+  display: none;
+}
+
+.product-filters-carousel .scroll-btn:not(:disabled) img.disabeld-icon {
+  display: none;
+}
+
 .product-filters-carousel .tabs-container {
   overflow: hidden;
   height: auto;
