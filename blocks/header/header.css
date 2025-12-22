@@ -35,6 +35,12 @@
   font-size: 14px;
 }
 
+#navigation.scroll-active {
+  background: #fff;
+  border-color: #fff;
+  color: rgb(51 51 51 / 100%);
+}
+
 #navigation:has(.nav-container:hover) {
   background: #fff;
   border-color: #fff;

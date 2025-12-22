@@ -363,6 +363,17 @@ export default async function decorate(block) {
 
   navContainer.append(logoEl, linksEl, actionsEl);
   navigation.append(navContainer);
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const carousel = document.querySelector('.carousel');
+    console.log(carousel);
+    if (!carousel || !carousel.height) return;
+    if (scrollTop >= 500) {
+      navigation.classList.add('scroll-active');
+    } else {
+      navigation.classList.remove('scroll-active');
+    }
+  });
 
   block.textContent = '';
   block.append(navigation);
