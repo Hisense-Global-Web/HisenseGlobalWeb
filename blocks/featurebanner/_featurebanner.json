@@ -33,8 +33,7 @@
           "component": "richtext",
           "name": "featurebanner_text",
           "label": "Text",
-          "valueType": "string",
-          "required": true
+          "valueType": "string"
         },
         {
           "component": "text",

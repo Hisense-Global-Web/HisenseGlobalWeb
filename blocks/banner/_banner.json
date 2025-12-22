@@ -49,18 +49,10 @@
           "multi": false
         },
         {
-          "component": "text",
-          "valueType": "string",
-          "name": "collection_imageAlt",
-          "label": "Image Alt Text",
-          "required": true
-        },
-        {
           "component": "richtext",
           "name": "collection_text",
           "label": "Text",
-          "valueType": "string",
-          "required": true
+          "valueType": "string"
         },
         {
           "component": "aem-content",
