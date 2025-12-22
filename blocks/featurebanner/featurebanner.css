@@ -67,17 +67,17 @@
 
   [data-aue-prop="featurebanner_text"] h6, p:first-child + h6 {
     width: 402px;
-    color: var(--color-hisense-teal);
+    color: #00aaa6;
     margin: 0;
     font-size: 20px;
   }
 
-  p:last-child {
+  [data-aue-prop="featurebanner_tips"] {
     position: absolute;
     bottom: 42px;
     left: 160px;
     font-size: 10px;
-    color: var(--color-hisense-grey-02);
+    color: #666;
   }
 
 }
