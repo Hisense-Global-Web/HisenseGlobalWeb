@@ -48,6 +48,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 8px;
 }
 
 .plp-product-sizes {
