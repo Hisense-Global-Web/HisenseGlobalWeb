@@ -55,7 +55,6 @@ function observeMouse(block, index) {
       });
     });
   }
-  if (block.hasAttribute('data-aue-resource')) return;
   autoPlay();
   block.addEventListener('mouseenter', () => {
     clearInterval(timer);
@@ -153,6 +152,8 @@ export default async function decorate(block) {
   if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);
-    observeMouse(block, 0);
+    window.onload = () => {
+      observeMouse(block, 0);
+    };
   }
 }
