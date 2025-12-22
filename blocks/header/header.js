@@ -374,8 +374,10 @@ export default async function decorate(block) {
     }
   });
   const carousel = document.querySelector('.carousel');
-  const hasDarkClass = carousel.classList.contains('dark');
-  console.log('是否包含dark类：', hasDarkClass); // true 或 false
+  const hasDarkClass = carousel?.classList.contains('dark');
+  if (hasDarkClass) {
+    navigation.classList.add('header-dark-mode');
+  }
 
   block.textContent = '';
   block.append(navigation);
