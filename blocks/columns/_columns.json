@@ -34,24 +34,8 @@
               "value": "carousel-1-slide"
             },
             {
-              "name": "Carousel -2 Slides",
+              "name": "Carousel - 2 Slides",
               "value": "carousel-2-slides"
-            }
-           
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_ratio",
-          "label": "Media Ratio",
-          "options": [
-            {
-              "name": "4:3",
-              "value": "four-by-three"
-            },
-            {
-              "name": "3:2",
-              "value": "three-by-two"
             }
           ]
         },
@@ -85,8 +69,8 @@
         "text",
         "image",
         "button",
-        "title"
-
+        "title",
+        "imageLink"
       ]
     }
   ]

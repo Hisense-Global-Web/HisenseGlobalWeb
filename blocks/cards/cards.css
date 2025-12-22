@@ -1,11 +1,16 @@
 
+.cards-wrapper{
+  width: 1120px;
+  margin: 20px auto;
+}
 
 .cover-style > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  grid-auto-columns: minmax(200px, 1fr);
+  grid-auto-flow: column;
   gap: 24px;
 }
 
@@ -51,7 +56,8 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-columns: minmax(200px, 1fr);
+  grid-auto-flow: column;
   gap: 24px;
 }
 
