@@ -24,7 +24,7 @@ main > .plp-product-card-container.plp-product-filters-container {
   margin-top: 40px;
   display: grid;
   grid-template-columns: 256px auto;
-  gap: 48px;
+  gap: 24px 48px;
   justify-content: center;
 }
 
@@ -95,7 +95,6 @@ main > .plp-product-card-container.plp-product-filters-container * {
   overflow-x: scroll;
   list-style: none;
   padding: 0;
-  margin: 0 0 24px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
