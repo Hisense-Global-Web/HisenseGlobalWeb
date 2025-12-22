@@ -128,15 +128,14 @@ export default function decorate(block) {
 
   const leftBtn = createScrollButton('left');
   const rightBtn = createScrollButton('right');
-  const tabsList = document.querySelector('.product-filters');
   function checkScrollState() {
-    // 滚动到最左侧
-    leftBtn.disabled = tabsList.scrollLeft <= 0;
+    if (!tabs) return;
+    leftBtn.disabled = tabs.scrollLeft <= 0;
     // 滚动到最右侧
-    rightBtn.disabled = tabsList.scrollLeft + tabsList.clientWidth >= tabsList.scrollWidth;
+    rightBtn.disabled = tabs.scrollLeft + tabs.clientWidth >= tabs.scrollWidth;
   }
   rightBtn.addEventListener('click', () => {
-    tabsList.scrollBy({
+    tabs.scrollBy({
       left: 256,
       behavior: 'smooth',
     });
@@ -145,7 +144,7 @@ export default function decorate(block) {
 
   // 左箭头点击：滚动一个标签宽度
   leftBtn.addEventListener('click', () => {
-    tabsList.scrollBy({
+    tabs.scrollBy({
       left: -256,
       behavior: 'smooth',
     });
