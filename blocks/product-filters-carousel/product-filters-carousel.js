@@ -155,6 +155,7 @@ export default function decorate(block) {
   const scrollTabs = document.createElement('div');
   scrollTabs.className = 'scroll-tabs';
   scrollTabs.append(leftBtn, tabsContainer, rightBtn);
+  checkScrollState();
 
   block.replaceChildren(scrollTabs);
   attachScrollHandlers(tabs, leftBtn, rightBtn);
