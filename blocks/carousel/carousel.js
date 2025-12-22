@@ -14,7 +14,7 @@ function updateActiveSlide(slide) {
   });
 }
 
-function showSlide(block, slideIndex) {
+function showSlide(block, slideIndex, init = false) {
   const slides = block.querySelectorAll('.carousel-item');
   let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
   if (slideIndex >= slides.length) realSlideIndex = 0;
@@ -28,10 +28,11 @@ function showSlide(block, slideIndex) {
     block.classList.remove('dark');
     if (nav) document.querySelector('#navigation').classList.remove('header-dark-mode');
   }
+  if (init) return;
   block.querySelector('.carousel-items-container').scrollTo({
     top: 0,
     left: activeSlide.offsetLeft,
-    behavior: 'instant',
+    behavior: 'smooth',
   });
 }
 
@@ -44,7 +45,7 @@ function observeMouse(block, index) {
     timer = setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
       showSlide(block, currentIndex);
-    }, 5000);
+    }, 3000);
   };
   if (block.classList.contains('only-picture')) {
     images.forEach((image) => {
@@ -152,6 +153,7 @@ export default async function decorate(block) {
   if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);
+    showSlide(block, 0, true);
     window.onload = () => {
       observeMouse(block, 0);
     };

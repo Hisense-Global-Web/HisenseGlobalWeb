@@ -1,5 +1,5 @@
 
-.cards-wrapper{
+.cards-wrapper {
   width: 1120px;
   margin: 20px auto;
 }
@@ -92,6 +92,11 @@
   margin: 35.5px 0 21px;
 }
 
+.center-style .cards-card-cta{
+  position: absolute;
+  bottom: 10px;
+}
+
 .center-style > ul > li:hover .cards-card-image {
   margin: 18px 0 21px;
 }
@@ -119,3 +124,11 @@
   max-width: 120%;
 }
 
+
+
+.center-style  a.button:any-link,
+.center-style button{
+  background-color: #00AAA6!important;
+  color: white;
+  height: 48px;
+}
