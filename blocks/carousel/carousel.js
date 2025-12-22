@@ -36,6 +36,7 @@ function showSlide(block, slideIndex) {
 }
 
 function observeMouse(block, index) {
+  if (document.getElementById('editor-app')) return;
   let currentIndex = index;
   const images = block.querySelectorAll('.carousel-item');
   let timer;
