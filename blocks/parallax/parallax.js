@@ -34,8 +34,13 @@ export default async function decorate(block) {
   const textContainer = block.querySelector('div:nth-child(2)');
   textContainer.classList.add('scroll-text-container');
 
-  console.log('is in universal editor', isUniversalEditor());
-  const validForAnimation = !isUniversalEditor() && window.innerHeight >= 700;
+  let isInUniversalEditor = false;
+  setTimeout(() => {
+    isInUniversalEditor = isUniversalEditor();
+    console.log('is in universal editor', isInUniversalEditor);
+  });
+
+  const validForAnimation = !isInUniversalEditor && window.innerHeight >= 700;
   if (!validForAnimation) {
     return;
   }
