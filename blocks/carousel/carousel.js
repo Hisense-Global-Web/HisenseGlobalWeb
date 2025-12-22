@@ -32,7 +32,7 @@ function showSlide(block, slideIndex, init = false) {
   block.querySelector('.carousel-items-container').scrollTo({
     top: 0,
     left: activeSlide.offsetLeft,
-    behavior: 'instant',
+    behavior: 'smooth',
   });
 }
 
@@ -45,7 +45,7 @@ function observeMouse(block, index) {
     timer = setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
       showSlide(block, currentIndex);
-    }, 3000);
+    }, 5000);
   };
   if (block.classList.contains('only-picture')) {
     images.forEach((image) => {
