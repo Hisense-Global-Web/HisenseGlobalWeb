@@ -373,6 +373,9 @@ export default async function decorate(block) {
       navigation.classList.remove('scroll-active');
     }
   });
+  const carousel = document.querySelector('.carousel');
+  const hasDarkClass = carousel.classList.contains('dark');
+  console.log('是否包含dark类：', hasDarkClass); // true 或 false
 
   block.textContent = '';
   block.append(navigation);
