@@ -1,3 +1,5 @@
 export default async function decorate(block) {
-  console.log(block, 'bbbbb');
+  [...block.children].forEach((row) => {
+    row.className = 'info-card-item';
+  });
 }
