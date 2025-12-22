@@ -10,7 +10,6 @@ export default function decorate(block) {
   const mockTags = {
     'jcr:description': '',
     'jcr:created': 'Wed Dec 17 2025 19:04:27 GMT+0000',
-    'jcr:createdBy': 'yuan.c.liang@accenture.cn',
     'sling:resourceType': 'cq/tagging/components/tag',
     'jcr:primaryType': 'cq:Tag',
     'jcr:title': 'Product',
@@ -19,10 +18,8 @@ export default function decorate(block) {
       'jcr:created': 'Thu Dec 11 2025 07:17:50 GMT+0000',
       'jcr:title': 'TV',
       'sling:resourceType': 'cq/tagging/components/tag',
-      'jcr:lastModifiedBy': 'yuan.c.liang@accenture.cn',
       'jcr:primaryType': 'cq:Tag',
       'jcr:description': '',
-      'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
       resolution: {
         'jcr:title.en': 'Resolution',
         'jcr:title.fr': 'Résolution',
@@ -30,13 +27,10 @@ export default function decorate(block) {
         'jcr:created': 'Thu Dec 11 2025 07:18:58 GMT+0000',
         'jcr:title': 'Resolution',
         'sling:resourceType': 'cq/tagging/components/tag',
-        'jcr:lastModifiedBy': 'shuangrui.a.sun@accenture.cn',
         'jcr:primaryType': 'cq:Tag',
-        'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
         hd: {
           'jcr:description': '',
           'jcr:created': 'Thu Dec 11 2025 07:19:25 GMT+0000',
-          'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
           'sling:resourceType': 'cq/tagging/components/tag',
           'jcr:primaryType': 'cq:Tag',
           'jcr:title': 'HD',
@@ -44,7 +38,6 @@ export default function decorate(block) {
         fhd: {
           'jcr:description': '',
           'jcr:created': 'Thu Dec 11 2025 07:19:41 GMT+0000',
-          'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
           'sling:resourceType': 'cq/tagging/components/tag',
           'jcr:primaryType': 'cq:Tag',
           'jcr:title': 'FHD',
@@ -52,7 +45,6 @@ export default function decorate(block) {
         uhd: {
           'jcr:description': '',
           'jcr:created': 'Thu Dec 11 2025 07:19:53 GMT+0000',
-          'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
           'sling:resourceType': 'cq/tagging/components/tag',
           'jcr:primaryType': 'cq:Tag',
           'jcr:title': 'UHD',
@@ -61,14 +53,12 @@ export default function decorate(block) {
       'refresh-rate': {
         'jcr:description': '',
         'jcr:created': 'Thu Dec 11 2025 07:20:40 GMT+0000',
-        'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
         'sling:resourceType': 'cq/tagging/components/tag',
         'jcr:primaryType': 'cq:Tag',
         'jcr:title': 'Refresh Rate',
         '60hz': {
           'jcr:description': '',
           'jcr:created': 'Thu Dec 11 2025 07:21:04 GMT+0000',
-          'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
           'sling:resourceType': 'cq/tagging/components/tag',
           'jcr:primaryType': 'cq:Tag',
           'jcr:title': '60Hz',
@@ -76,7 +66,6 @@ export default function decorate(block) {
         '144hz': {
           'jcr:description': '',
           'jcr:created': 'Thu Dec 11 2025 07:21:21 GMT+0000',
-          'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
           'sling:resourceType': 'cq/tagging/components/tag',
           'jcr:primaryType': 'cq:Tag',
           'jcr:title': '144Hz',
@@ -84,7 +73,6 @@ export default function decorate(block) {
         '165hz': {
           'jcr:description': '',
           'jcr:created': 'Thu Dec 11 2025 07:21:39 GMT+0000',
-          'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
           'sling:resourceType': 'cq/tagging/components/tag',
           'jcr:primaryType': 'cq:Tag',
           'jcr:title': '165Hz',
@@ -92,7 +80,6 @@ export default function decorate(block) {
         '170hz': {
           'jcr:description': '',
           'jcr:created': 'Thu Dec 11 2025 07:21:57 GMT+0000',
-          'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
           'sling:resourceType': 'cq/tagging/components/tag',
           'jcr:primaryType': 'cq:Tag',
           'jcr:title': '170Hz',
@@ -100,7 +87,6 @@ export default function decorate(block) {
         '180hz': {
           'jcr:description': '',
           'jcr:created': 'Thu Dec 11 2025 07:22:11 GMT+0000',
-          'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
           'sling:resourceType': 'cq/tagging/components/tag',
           'jcr:primaryType': 'cq:Tag',
           'jcr:title': '180Hz',
@@ -108,16 +94,13 @@ export default function decorate(block) {
       },
       'screen-size': {
         'jcr:lastModified': 'Thu Dec 11 2025 07:34:03 GMT+0000',
-        'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
         'jcr:primaryType': 'cq:Tag',
         'jcr:title': 'Screen Size (Range)',
         'sling:resourceType': 'cq/tagging/components/tag',
-        'jcr:lastModifiedBy': 'shuangrui.a.sun@accenture.cn',
         'jcr:created': 'Thu Dec 11 2025 07:22:30 GMT+0000',
         '32-43': {
           'jcr:description': '',
           'jcr:created': 'Thu Dec 11 2025 07:23:03 GMT+0000',
-          'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
           'sling:resourceType': 'cq/tagging/components/tag',
           'jcr:primaryType': 'cq:Tag',
           'jcr:title': '32” - 43” ',
@@ -125,7 +108,6 @@ export default function decorate(block) {
         '50-65': {
           'jcr:description': '',
           'jcr:created': 'Thu Dec 11 2025 07:23:38 GMT+0000',
-          'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
           'sling:resourceType': 'cq/tagging/components/tag',
           'jcr:primaryType': 'cq:Tag',
           'jcr:title': '50” - 65” ',
@@ -133,7 +115,6 @@ export default function decorate(block) {
         '70-85': {
           'jcr:description': '',
           'jcr:created': 'Thu Dec 11 2025 07:23:56 GMT+0000',
-          'jcr:createdBy': 'shuangrui.a.sun@accenture.cn',
           'sling:resourceType': 'cq/tagging/components/tag',
           'jcr:primaryType': 'cq:Tag',
           'jcr:title': '70” - 85” ',
