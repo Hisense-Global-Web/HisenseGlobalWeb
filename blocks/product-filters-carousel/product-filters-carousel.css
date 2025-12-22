@@ -22,6 +22,7 @@ main > .plp-section:first-of-type {
 
 main > .plp-product-card-container.plp-product-filters-container {
   padding-top: 40px;
+  padding-bottom: 40px;
   display: grid;
   grid-template-columns: 256px auto;
   gap: 24px 48px;
@@ -33,6 +34,10 @@ main > .plp-product-card-container.plp-product-filters-container {
 .plp-product-filters-wrapper {
   width: 100%;
   grid-column: 1 / -1;
+}
+
+.plp-product-filter-tag-wrapper {
+  height: 100%;
 }
 
 .plp-product-card-wrapper {
