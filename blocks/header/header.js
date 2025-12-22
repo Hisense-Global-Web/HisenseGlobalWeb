@@ -235,6 +235,17 @@ function buildDropdown(data) {
   dropdown.append(content);
   return dropdown;
 }
+function convertToDarkSvgUrl(url) {
+  if (!url.endsWith('.svg')) {
+    return url;
+  }
+  const [mainPart, ...restParts] = url.split(/[?#]/);
+  const suffix = restParts.length > 0 ? `/${restParts.join('/')}` : '';
+
+  const darkMainPart = mainPart.replace(/\.svg$/, '-dark.svg');
+
+  return darkMainPart + suffix;
+}
 
 /**
  * loads and decorates the header, mainly the nav
@@ -321,8 +332,14 @@ export default async function decorate(block) {
       btn.className = 'nav-action-btn';
       const img = document.createElement('img');
       img.src = action.img;
+      img.className = 'light-img';
       img.alt = action.title || 'action';
       btn.append(img);
+      const imgDark = document.createElement('img');
+      imgDark.src = convertToDarkSvgUrl(action.img);
+      imgDark.alt = action.title || 'action';
+      imgDark.className = 'dark-img';
+      btn.append(imgDark);
       if (action.href && action.href !== '#') {
         btn.dataset.href = action.href;
         btn.addEventListener('click', () => {
