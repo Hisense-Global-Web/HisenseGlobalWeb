@@ -923,20 +923,6 @@
         "value": "",
         "label": "Title",
         "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "image_cta",
-        "label": "Image CTA",
-        "valueType": "string",
-        "value": "/"
-      },
-      {
-        "component": "text",
-        "name": "image_ctaText",
-        "label": "Image CTA Label",
-        "valueType": "string",
-        "value": "Required"
       }
     ]
   },
