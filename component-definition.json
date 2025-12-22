@@ -71,8 +71,11 @@
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
                   "model": "section",
-                  "style": "light",
-                  "classes_image": ""
+                  "style_theme": "light",
+                  "style_paddingTop": "",
+                  "style_paddingBottom": "",
+                  "style_image": "",
+                  "style_imageRatio": ""
                 }
               }
             }
@@ -112,7 +115,8 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Cards",
-                  "model": "cards"
+                  "model": "cards",
+                  "filter": "cards"
                 }
               }
             }
@@ -127,8 +131,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Card",
-                  "model": "card",
-                  "classes": "defaultcard"
+                  "model": "card"
                 }
               }
             }
@@ -143,6 +146,7 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Carousel",
+                  "model": "carousel",
                   "filter": "carousel"
                 }
               }
@@ -406,9 +410,23 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Icon Item",
-                  "model": "iconItem",
-                  "icon_cta": "/",
-                  "icon_ctaLabel": "Learn more"
+                  "model": "iconItem"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Image Link",
+          "id": "imageLink",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Image Link",
+                  "model": "imageLink",
+                  "classes": "image-link"
                 }
               }
             }
@@ -523,7 +541,8 @@
                   "name": "Navigation Secondary Container",
                   "model": "navigationSecondaryContainer",
                   "filter": "navigationSecondaryContainer",
-                  "classes": "navigation-secondary-container"
+                  "classes": "navigation-secondary-container",
+                  "key-value": true
                 }
               }
             }

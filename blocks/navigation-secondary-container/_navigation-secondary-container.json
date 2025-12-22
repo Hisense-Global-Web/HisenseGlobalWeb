@@ -11,7 +11,8 @@
               "name": "Navigation Secondary Container",
               "model": "navigationSecondaryContainer",
               "filter": "navigationSecondaryContainer",
-              "classes": "navigation-secondary-container"
+              "classes": "navigation-secondary-container",
+              "key-value": true
             }
           }
         }
@@ -21,7 +22,15 @@
   "models": [
     {
       "id": "navigationSecondaryContainer",
-      "fields": []
+      "fields": [
+        {
+          "component": "text",
+          "name": "section-name",
+          "label": "Section Name",
+          "value": "navigation-secondary-container",
+          "valueType": "string"
+        }
+      ]
     }
   ],
   "filters": [

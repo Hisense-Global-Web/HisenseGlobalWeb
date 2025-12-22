@@ -25,9 +25,7 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Icon Item",
-              "model": "iconItem",
-              "icon_cta": "/",
-              "icon_ctaLabel": "Learn more"
+              "model": "iconItem"
             }
           }
         }
@@ -55,6 +53,20 @@
               "value": "text-left"
             }
           ]
+        },
+        {
+          "component": "text",
+          "name": "subtitle",
+          "value": "",
+          "label": "Subtitle",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "value": "",
+          "label": "title",
+          "valueType": "string"
         }
       ]
     },
@@ -81,6 +93,7 @@
           "name": "icon_cta",
           "label": "CTA",
           "valueType": "string",
+          "required": true,
           "value": "/"
         },
         {
@@ -88,6 +101,7 @@
           "name": "icon_ctaLabel",
           "label": "CTA Label",
           "valueType": "string",
+          "required": true,
           "value": "required"
         }
       ]

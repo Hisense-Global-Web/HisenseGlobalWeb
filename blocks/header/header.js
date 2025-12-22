@@ -18,19 +18,44 @@ function parseNavItems(root) {
     return { title, href };
   });
 }
+function parseNavLinks(root) {
+  return Array.from(root.querySelectorAll('.navigation-link-wrapper')).map((wrapper) => {
+    const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
+    const href = wrapper.querySelector('a')?.href || '#';
+    return { title, href };
+  });
+}
 
 function parseActions(root) {
   return Array.from(root.querySelectorAll('.navigation-action-wrapper')).map((wrapper) => {
     const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
-    const href = wrapper.querySelector('.button-container a')?.href || '#';
+    const href = wrapper.querySelector('a')?.href || '#';
     const img = wrapper.querySelector('img')?.src;
     return { title, href, img };
   });
 }
 
 function parseDropdownProducts(col) {
+  if (!col) return [];
+
+  const imageLinkItems = Array.from(col.querySelectorAll('.image-link'));
+
+  if (imageLinkItems.length) {
+    return imageLinkItems.map((item) => {
+      const img = item.querySelector('img')?.src || '';
+      const directChildren = Array.from(item.children);
+      let text = '';
+      if (directChildren[1]) {
+        text = directChildren[1].textContent.trim();
+      } else {
+        text = item.textContent.trim();
+      }
+
+      return { img, text };
+    });
+  }
+
   const products = [];
-  if (!col) return products;
   const children = Array.from(col.children);
   for (let i = 0; i < children.length; i += 1) {
     const node = children[i];
@@ -54,16 +79,87 @@ function parseDropdownProducts(col) {
 
 function parseDropdownLinks(col) {
   if (!col) return [];
-  return Array.from(col.querySelectorAll('p')).flatMap((p) => {
-    const text = p.textContent.trim();
-    const href = p.querySelector('a')?.href || '#';
-    return text ? [{ text, href }] : [];
-  });
+  const imageLinkItems = Array.from(col.querySelectorAll('.image-link'));
+
+  if (imageLinkItems.length) {
+    return imageLinkItems.map((item) => {
+      const textElement = item.querySelector('div:nth-child(3) > div');
+      const text = textElement ? textElement.textContent.trim() : '';
+
+      const linkElement = item.querySelector('.button-container a.button');
+      const href = linkElement ? linkElement.getAttribute('href') : '';
+
+      return {
+        text,
+        href,
+      };
+    }).filter((item) => item.text);
+  }
+
+  const items = Array.from(col.querySelectorAll('p:not(.button-container) + p.button-container'));
+  if (items.length) {
+    return items.map((buttonContainer) => {
+      const textElement = buttonContainer.previousElementSibling;
+      const text = textElement ? textElement.textContent.trim() : '';
+
+      const linkElement = buttonContainer.querySelector('a.button');
+      const href = linkElement ? linkElement.getAttribute('href') : '';
+
+      return { text, href };
+    }).filter((item) => item.text);
+  } return [];
 }
 
 function parseDropdownBtns(col) {
   if (!col) return [];
-  return Array.from(col.querySelectorAll('p')).map((p) => p.textContent.trim()).filter(Boolean);
+
+  const results = [];
+
+  const imageLinks = col.querySelectorAll('.image-link');
+  if (imageLinks.length > 0) {
+    imageLinks.forEach((imageLink) => {
+      const altText = imageLink.children[1]?.textContent.trim() ?? '';
+      const text = imageLink.children[2]?.textContent.trim() ?? '';
+      const linkElement = imageLink.querySelector('a');
+      const href = linkElement ? linkElement.getAttribute('href') : '';
+
+      if (text) {
+        results.push({ text, href: href || '#', altText });
+      }
+    });
+    return results;
+  }
+
+  const paragraphs = Array.from(col.querySelectorAll('p'));
+  for (let i = 0; i < paragraphs.length; i += 1) {
+    const p = paragraphs[i];
+
+    if (p.classList.contains('button-container')) {
+      const linkElement = p.querySelector('a');
+      const href = linkElement ? linkElement.getAttribute('href') : '';
+
+      let text = '';
+      if (i > 0 && !paragraphs[i - 1].classList.contains('button-container')) {
+        text = paragraphs[i - 1].textContent.trim();
+      } else {
+        text = linkElement ? (linkElement.getAttribute('title') || linkElement.textContent.trim()) : '';
+      }
+
+      if (text) {
+        results.push({ text, href: href || '#' });
+      }
+    } else {
+      const nextP = paragraphs[i + 1];
+      if (!nextP || !nextP.classList.contains('button-container')) {
+        const text = p.textContent.trim();
+        if (text) {
+          results.push({ text, href: '#' });
+        }
+      }
+    }
+  }
+
+  return results;
 }
 
 function parseDropdowns(root) {
@@ -113,17 +209,10 @@ function buildDropdown(data) {
   data.links.forEach((link) => {
     const div = document.createElement('div');
     if (link.href && link.href !== '#') {
-      // const a = document.createElement('a');
-      // a.href = link.href;
-      // a.textContent = link.text;
-      // div.append(a);
-      const textParts = link.text.split('/').map((part) => part.trim()).filter((part) => part);
-      textParts.forEach((part) => {
-        const a = document.createElement('a');
-        a.href = link.href;
-        a.textContent = part;
-        div.append(a);
-      });
+      const a = document.createElement('a');
+      a.href = link.href;
+      a.textContent = link.text;
+      div.append(a);
     } else {
       div.textContent = link.text;
     }
@@ -134,11 +223,12 @@ function buildDropdown(data) {
 
   const btnWrap = document.createElement('div');
   btnWrap.className = 'dropdown-btns';
-  data.btns.forEach((text) => {
-    const btn = document.createElement('button');
-    btn.className = 'dropdown-btn';
-    btn.textContent = text;
-    btnWrap.append(btn);
+  data.btns.forEach((btnData) => {
+    const link = document.createElement('a');
+    link.className = 'dropdown-btn';
+    link.textContent = btnData.text || '';
+    link.href = btnData.href || '#';
+    btnWrap.append(link);
   });
 
   content.append(main, btnWrap);
@@ -158,6 +248,7 @@ export default async function decorate(block) {
   // 解析原始DOM
   const logo = parseLogo(fragment);
   const navItems = parseNavItems(fragment);
+  const navLinks = parseNavLinks(fragment);
   const actions = parseActions(fragment);
   const dropdowns = parseDropdowns(fragment);
 
@@ -185,7 +276,13 @@ export default async function decorate(block) {
   navItems.forEach((item, idx) => {
     const link = document.createElement('div');
     link.className = 'nav-link';
-    link.textContent = item.title;
+    const span1 = document.createElement('span');
+    const span2 = document.createElement('span');
+    span1.textContent = item.title;
+    span2.textContent = item.title;
+    span1.className = 'absolute';
+    span2.className = 'transparent-bold';
+    link.append(span1, span2);
     if (item.href && item.href !== '#') {
       link.dataset.href = item.href;
       link.addEventListener('click', () => {
@@ -206,6 +303,18 @@ export default async function decorate(block) {
 
   const actionsEl = document.createElement('div');
   actionsEl.className = 'nav-actions';
+  navLinks.forEach((action) => {
+    const link = document.createElement('div');
+    link.className = 'nav-section';
+    link.textContent = action.title;
+    if (action.href && action.href !== '#') {
+      link.dataset.href = action.href;
+      link.addEventListener('click', () => {
+        window.location.href = action.href;
+      });
+    }
+    actionsEl.append(link);
+  });
   actions.forEach((action) => {
     if (action.img) {
       const btn = document.createElement('div');
@@ -214,6 +323,12 @@ export default async function decorate(block) {
       img.src = action.img;
       img.alt = action.title || 'action';
       btn.append(img);
+      if (action.href && action.href !== '#') {
+        btn.dataset.href = action.href;
+        btn.addEventListener('click', () => {
+          window.location.href = action.href;
+        });
+      }
       actionsEl.append(btn);
       return;
     }

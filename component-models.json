@@ -77,6 +77,21 @@
             "value": "h6"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "style_textAlign",
+        "label": "Text Alignment",
+        "options": [
+          {
+            "name": "Left",
+            "value": ""
+          },
+          {
+            "name": "Center",
+            "value": "text-center"
+          }
+        ]
       }
     ]
   },
@@ -130,7 +145,7 @@
       },
       {
         "component": "select",
-        "name": "style",
+        "name": "style_theme",
         "label": "Section Theme",
         "options": [
           {
@@ -149,43 +164,120 @@
       },
       {
         "component": "select",
-        "name": "style_spacing",
-        "label": "Section Spacing",
-        "options": [
-          {
-            "name": "None",
-            "value": ""
-          },
-          {
-            "name": "Small",
-            "value": "vertical-padding-s"
-          },
-          {
-            "name": "Medium",
-            "value": "vertical-padding-m"
-          },
-          {
-            "name": "Large",
-            "value": "vertical-padding-l"
-          },
-          {
-            "name": "Extra Large",
-            "value": "vertical-padding-xl"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "style_image",
-        "label": "Image Style",
+        "name": "style_container",
+        "label": "Section Container Type",
         "options": [
           {
             "name": "Default",
             "value": ""
           },
           {
-            "name": "Rounded",
-            "value": "image-rounded"
+            "name": "Fluid Container",
+            "value": "fluid"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "label": "Section Spacing",
+        "name": "container_padding",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "select",
+            "name": "style_paddingTop",
+            "label": "Padding Top",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Small (40px)",
+                "value": "pt-s"
+              },
+              {
+                "name": "Medium (60px)",
+                "value": "pt-m"
+              },
+              {
+                "name": "Large (80px)",
+                "value": "pt-l"
+              },
+              {
+                "name": "Extra Large (120px)",
+                "value": "pt-xl"
+              }
+            ]
+          },
+          {
+            "component": "select",
+            "name": "style_paddingBottom",
+            "label": "Padding Bottom",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Small (40px)",
+                "value": "pb-s"
+              },
+              {
+                "name": "Medium (60px)",
+                "value": "pb-m"
+              },
+              {
+                "name": "Large (80px)",
+                "value": "pb-l"
+              },
+              {
+                "name": "Extra Large (120px)",
+                "value": "pb-xl"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "label": "Section Image Style",
+        "name": "container_image",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "select",
+            "name": "style_imageBorderRadius",
+            "label": "Image Border Radius",
+            "options": [
+              {
+                "name": "Default",
+                "value": ""
+              },
+              {
+                "name": "Rounded",
+                "value": "img-rounded"
+              }
+            ]
+          },
+          {
+            "component": "select",
+            "name": "style_imageRatio",
+            "label": "Image Ratio",
+            "options": [
+              {
+                "name": "Original",
+                "value": ""
+              },
+              {
+                "name": "4:3",
+                "value": "ratio-4-3"
+              },
+              {
+                "name": "3:2",
+                "value": "ratio-3-2"
+              }
+            ]
           }
         ]
       }
@@ -303,6 +395,28 @@
     ]
   },
   {
+    "id": "carousel",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Hero Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "only-picture",
+            "value": "only-picture"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "carousel-item",
     "fields": [
       {
@@ -314,39 +428,68 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "text",
-        "value": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
-        "label": "Text",
-        "valueType": "string"
+        "component": "boolean",
+        "name": "boolean",
+        "label": "Image Dark Theme",
+        "valueType": "boolean"
       },
       {
-        "component": "aem-content",
-        "name": "carousel_ctaPrimary",
-        "label": "Primary CTA",
+        "component": "container",
+        "label": "Text Content",
+        "name": "container_text",
         "valueType": "string",
-        "value": "/"
+        "fields": [
+          {
+            "component": "text",
+            "name": "text_special",
+            "value": "ULED X Mini-LED Series UX",
+            "label": "Colorful Text(teal)",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "text_normal",
+            "value": "Perfection, any content, anytime",
+            "label": "Content",
+            "valueType": "string"
+          }
+        ]
       },
       {
-        "component": "text",
-        "name": "carousel_ctaPrimaryText",
-        "label": "Primary CTA Label",
+        "component": "container",
+        "label": "Button Content",
+        "name": "container_button",
         "valueType": "string",
-        "value": "Required if you has Primary CTA content"
-      },
-      {
-        "component": "aem-content",
-        "name": "carousel_ctaSecondary",
-        "label": "Secondary CTA",
-        "valueType": "string",
-        "value": "/"
-      },
-      {
-        "component": "text",
-        "name": "carousel_ctaSecondaryText",
-        "label": "Secondary CTA Label",
-        "valueType": "string",
-        "value": "Required if you has Secondary CTA content"
+        "fields": [
+          {
+            "component": "aem-content",
+            "name": "carousel_ctaPrimary",
+            "label": "Primary CTA",
+            "valueType": "string",
+            "value": "/"
+          },
+          {
+            "component": "text",
+            "name": "carousel_ctaPrimaryText",
+            "label": "Primary CTA Label",
+            "valueType": "string",
+            "value": "Required if you has Primary CTA content"
+          },
+          {
+            "component": "aem-content",
+            "name": "carousel_ctaSecondary",
+            "label": "Secondary CTA",
+            "valueType": "string",
+            "value": "/"
+          },
+          {
+            "component": "text",
+            "name": "carousel_ctaSecondaryText",
+            "label": "Secondary CTA Label",
+            "valueType": "string",
+            "value": "Required if you has Secondary CTA content"
+          }
+        ]
       }
     ]
   },
@@ -386,23 +529,8 @@
             "value": "carousel-1-slide"
           },
           {
-            "name": "Carousel -2 Slides",
+            "name": "Carousel - 2 Slides",
             "value": "carousel-2-slides"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "classes_ratio",
-        "label": "Media Ratio",
-        "options": [
-          {
-            "name": "4:3",
-            "value": "four-by-three"
-          },
-          {
-            "name": "3:2",
-            "value": "three-by-two"
           }
         ]
       },
@@ -515,7 +643,8 @@
       {
         "component": "aem-content",
         "name": "link",
-        "label": "Link"
+        "label": "Link",
+        "required": true
       }
     ]
   },
@@ -535,6 +664,12 @@
         "name": "alt",
         "label": "Alt Text",
         "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "required": true
       }
     ]
   },
@@ -551,7 +686,15 @@
       {
         "component": "aem-content",
         "name": "link",
-        "label": "Link"
+        "label": "Link",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Link Icon",
+        "multi": false
       }
     ]
   },
@@ -575,12 +718,14 @@
         "valueType": "string",
         "name": "icon",
         "label": "Social Icon",
+        "required": true,
         "multi": false
       },
       {
         "component": "aem-content",
         "name": "link",
-        "label": "Link"
+        "label": "Link",
+        "required": true
       }
     ]
   },
@@ -664,6 +809,20 @@
             "value": "text-left"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "title",
+        "valueType": "string"
       }
     ]
   },
@@ -690,6 +849,7 @@
         "name": "icon_cta",
         "label": "CTA",
         "valueType": "string",
+        "required": true,
         "value": "/"
       },
       {
@@ -697,7 +857,39 @@
         "name": "icon_ctaLabel",
         "label": "CTA Label",
         "valueType": "string",
+        "required": true,
         "value": "required"
+      }
+    ]
+  },
+  {
+    "id": "imageLink",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "alt",
+        "label": "Alt Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
       }
     ]
   },
@@ -828,7 +1020,15 @@
   },
   {
     "id": "navigationSecondaryContainer",
-    "fields": []
+    "fields": [
+      {
+        "component": "text",
+        "name": "section-name",
+        "label": "Section Name",
+        "value": "navigation-secondary-container",
+        "valueType": "string"
+      }
+    ]
   },
   {
     "id": "navigation",

@@ -16,14 +16,12 @@
       "title",
       "hero",
       "cards",
+      "carousel",
       "columns",
       "fragment",
       "collectionsection",
       "recards",
       "video",
-      "carousel",
-      "collectionsection",
-      "recards",
       "banner",
       "description",
       "slide",
@@ -57,7 +55,8 @@
       "image",
       "button",
       "title",
-      "infoCard"
+      "infoCard",
+      "imageLink"
     ]
   },
   {
