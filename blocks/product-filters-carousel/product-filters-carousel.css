@@ -21,11 +21,12 @@ main > .plp-section:first-of-type {
 }
 
 main > .plp-product-card-container.plp-product-filters-container {
-  margin-top: 40px;
+  padding-top: 40px;
   display: grid;
   grid-template-columns: 256px auto;
   gap: 24px 48px;
   justify-content: center;
+  background-color: rgb(244 244 244 / 100%);
 }
 
 .product-filters-carousel-wrapper,
