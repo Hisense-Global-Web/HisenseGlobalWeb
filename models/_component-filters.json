@@ -4,8 +4,7 @@
     "components": [
       "section",
       "navigation",
-      "footerContainer",
-      "infoCardSection"
+      "footerContainer"
     ]
   },
   {
