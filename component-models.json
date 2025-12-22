@@ -943,16 +943,8 @@
         "component": "reference",
         "valueType": "string",
         "name": "img",
-        "label": "Img Snapshot",
-        "multi": false,
-        "condition": {
-          "==": [
-            {
-              "var": "mainContent"
-            },
-            "video"
-          ]
-        }
+        "label": "Img Snapshot For Video",
+        "multi": false
       }
     ]
   },

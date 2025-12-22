@@ -1,5 +1,5 @@
 let index = 0;
-
+const visibleImage = 2;
 function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
   const cardWidth = singleItem.offsetWidth;
@@ -7,41 +7,33 @@ function getSlideWidth(block) {
   return cardWidth + gap;
 }
 
-function updatePosition(block, visibleCards) {
+function updatePosition(block) {
   const track = block.querySelector('.image-track');
   const items = block.querySelectorAll('li');
   const moveDistance = index * getSlideWidth(block);
 
   track.style.transform = `translateX(-${moveDistance}px)`;
   block.querySelector('.slide-prev').disabled = (index === 0);
-  block.querySelector('.slide-next').disabled = (index > items.length - visibleCards);
+  block.querySelector('.slide-next').disabled = (index >= items.length - visibleImage);
 }
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
-  window.onload = () => {
-    const box = block.querySelector('.image-viewport');
-    const ul = block.querySelector('.image-track');
-    const li = ul.querySelector('li');
-
-    const visibleCards = parseInt(ul.offsetWidth / li.offsetWidth, 10);
-
-    if (ul.scrollWidth > box.offsetWidth) {
-      block.querySelector('.pagination').classList.add('show');
+  if (cards.length > visibleImage) {
+    block.querySelector('.image-pagination').classList.add('show');
+  }
+  block.querySelector('.slide-prev').addEventListener('click', () => {
+    if (index > 0) {
+      index -= 1;
+      updatePosition(block);
     }
-    block.querySelector('.slide-prev').addEventListener('click', () => {
-      if (index > 0) {
-        index -= 1;
-        updatePosition(block, visibleCards);
-      }
-    });
-    block.querySelector('.slide-next').addEventListener('click', () => {
-      if (index <= cards.length - visibleCards) {
-        index += 1;
-        updatePosition(block, visibleCards);
-      }
-    });
-  };
+  });
+  block.querySelector('.slide-next').addEventListener('click', () => {
+    if (index < cards.length - visibleImage) {
+      index += 1;
+      updatePosition(block);
+    }
+  });
 }
 
 function createVideo(child, idx) {
@@ -94,9 +86,10 @@ export default async function decorate(block) {
       [...child.children].forEach((item) => {
         if (item.querySelector('picture')) {
           item.querySelector('picture').closest('div').classList.add('item-picture');
-        }
-        if (item.querySelector('.button-container')) {
+        } else if (item.querySelector('.button-container')) {
           item.querySelector('.button-container').closest('div').classList.add('item-cta');
+        } else {
+          item.classList.add('item-content');
         }
         if (!item.innerHTML) item.remove();
       });

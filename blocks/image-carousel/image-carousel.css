@@ -25,6 +25,7 @@
   padding: 0;
   transition: transform 0.5s ease-in-out;
   color: #fff;
+  overflow: hidden;
 }
 
 .image-carousel ul>li {
@@ -44,16 +45,17 @@
   gap: 20px;
   width: 458px;
   height: 340px;
-  padding: 30px 0;
   box-sizing: border-box;
   text-align: center;
-  overflow: hidden;
 
   .item-picture {
     flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
 
     img {
       width: 100%;
+      height: 100%;
       aspect-ratio: 1;
       object-fit: cover;
     }
@@ -78,23 +80,23 @@
 }
 
 .image-carousel.left-bottom-style {
+  .item-content,
   .item-cta {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
     text-align: left;
-    padding-left: 16px;
+    padding: 16px;
   }
 }
 
 .image-carousel.left-style {
+  .item-content,
   .item-cta {
     position: absolute;
     left: 0;
     text-align: left;
     width: 240px;
-    padding-left: 16px;
   }
 }
 
@@ -119,6 +121,7 @@
 }
 
 .image-carousel.center-style {
+  .item-content,
   .item-picture {
     width: 458px;
     height: 300px;
