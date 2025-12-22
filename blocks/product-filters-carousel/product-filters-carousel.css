@@ -20,11 +20,24 @@ main > .plp-section:first-of-type {
   margin-top: 0;
 }
 
+main > .plp-product-card-container.plp-product-filters-container {
+  margin-top: 40px;
+}
+
+main > .section.plp-product-card-container.plp-product-filters-container > div {
+  padding: 0;
+}
+
+main > .plp-product-card-container.plp-product-filters-container * {
+  box-sizing: border-box;
+}
+
 .product-filters-carousel .scroll-tabs {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  gap: 20px;
 }
 
 .product-filters-carousel .scroll-btn {
