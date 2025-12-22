@@ -1,6 +1,5 @@
 .image-carousel {
   position: relative;
-  color: #fff;
 }
 
 .image-carousel > div:nth-child(1) {
@@ -25,6 +24,7 @@
   margin: 0;
   padding: 0;
   transition: transform 0.5s ease-in-out;
+  color: #fff;
 }
 
 .image-carousel ul>li {
@@ -41,12 +41,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
     gap: 20px;
     width: 458px;
     height: 340px;
     padding: 30px 0;
     box-sizing: border-box;
     text-align: center;
+    overflow: hidden;
 
     .item-picture {
       flex: 0 0 100%;
@@ -63,6 +65,7 @@
       bottom: 0;
       left: 0;
       text-align: left;
+      padding-left: 16px;
 
       .button-container {
         font-size: 12px;
@@ -78,4 +81,55 @@
       }
     }
   }
+}
+
+.image-pagination {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  display: none;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 15px;
+
+  button {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--color-hisense-teal);
+    color: var(--color-hisense-teal);
+    background-color: white;
+    margin: 0;
+    border-radius: 50%;
+    padding: 0;
+    transition: background-color 0.2s;
+
+    &::after {
+      display: block;
+      content: '';
+      border: 2px solid;
+      border-bottom: 0;
+      border-left: 0;
+      height: 8px;
+      width: 8px;
+      position: absolute;
+      top: 50%;
+      left: calc(50% + 2px);
+      transform: translate(-50%, -50%) rotate(-135deg);
+    }
+
+    &.slide-next::after {
+      transform: translate(-50%, -50%) rotate(45deg);
+      left: calc(50% - 2px);
+    }
+
+    &:disabled {
+      border-color: var(--color-hisense-grey-02);
+      color: var(--color-hisense-grey-02);
+    }
+  }
+}
+
+.image-pagination.show {
+  display: flex;
 }
