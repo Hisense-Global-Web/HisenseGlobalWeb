@@ -4,5 +4,5 @@
  */
 // eslint-disable-next-line import/prefer-default-export
 export function isUniversalEditor() {
-  return typeof window.adobeUniversalEditor !== 'undefined' && window.adobeUniversalEditor !== null;
+  return document.querySelector('#editor-app') !== null;
 }

@@ -25,7 +25,6 @@ const debounce = ({ apply }, wait) => {
 };
 
 export default async function decorate(block) {
-  // ==========
   const img = block.querySelector('img');
   if (!img) return;
 
@@ -39,6 +38,9 @@ export default async function decorate(block) {
   if (!validForAnimation) {
     return;
   }
+
+  imageContainer.classList.add('animate');
+  textContainer.classList.add('animate');
 
   const resizeHandler = () => {
     if (window.innerWidth >= 600 || window.innerHeight >= 700) {
@@ -99,7 +101,7 @@ export default async function decorate(block) {
     });
 
     tl.fromTo(
-      'img',
+      img,
       { filter: 'brightness(1)' },
       {
         filter: 'brightness(0.3)',
@@ -121,7 +123,7 @@ export default async function decorate(block) {
       '>',
     );
 
-    const lines = gsap.utils.toArray('.animated-text');
+    const lines = gsap.utils.toArray('.scroll-text-container .animated-text');
     lines.forEach((line) => {
       tl.fromTo(
         line,
@@ -139,7 +141,7 @@ export default async function decorate(block) {
     });
 
     tl.to(
-      'img',
+      img,
       {
         filter: 'brightness(1)',
         duration: ANIMATION_DURATION.IMAGE_BRIGHTNESS,
@@ -148,7 +150,7 @@ export default async function decorate(block) {
     );
 
     tl.fromTo(
-      'img',
+      img,
       { scale: 2 },
       {
         scale: 1,
