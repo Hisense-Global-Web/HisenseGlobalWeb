@@ -18,11 +18,18 @@ function parseNavItems(root) {
     return { title, href };
   });
 }
+function parseNavLinks(root) {
+  return Array.from(root.querySelectorAll('.navigation-link-wrapper')).map((wrapper) => {
+    const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
+    const href = wrapper.querySelector('a')?.href || '#';
+    return { title, href };
+  });
+}
 
 function parseActions(root) {
   return Array.from(root.querySelectorAll('.navigation-action-wrapper')).map((wrapper) => {
     const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
-    const href = wrapper.querySelector('.button-container a')?.href || '#';
+    const href = wrapper.querySelector('a')?.href || '#';
     const img = wrapper.querySelector('img')?.src;
     return { title, href, img };
   });
@@ -111,15 +118,13 @@ function parseDropdownBtns(col) {
   const imageLinks = col.querySelectorAll('.image-link');
   if (imageLinks.length > 0) {
     imageLinks.forEach((imageLink) => {
-      const titleDiv = imageLink.querySelector(':nth-last-child(2) > div');
-      const text = titleDiv ? titleDiv.textContent.trim() : '';
-
-      const buttonContainer = imageLink.querySelector('.button-container');
-      const linkElement = buttonContainer ? buttonContainer.querySelector('a') : null;
+      const altText = imageLink.children[1]?.textContent.trim() ?? '';
+      const text = imageLink.children[2]?.textContent.trim() ?? '';
+      const linkElement = imageLink.querySelector('a');
       const href = linkElement ? linkElement.getAttribute('href') : '';
 
       if (text) {
-        results.push({ text, href: href || '#' });
+        results.push({ text, href: href || '#', altText });
       }
     });
     return results;
@@ -230,6 +235,17 @@ function buildDropdown(data) {
   dropdown.append(content);
   return dropdown;
 }
+function convertToDarkSvgUrl(url) {
+  if (!url.endsWith('.svg')) {
+    return url;
+  }
+  const [mainPart, ...restParts] = url.split(/[?#]/);
+  const suffix = restParts.length > 0 ? `/${restParts.join('/')}` : '';
+
+  const darkMainPart = mainPart.replace(/\.svg$/, '-dark.svg');
+
+  return darkMainPart + suffix;
+}
 
 /**
  * loads and decorates the header, mainly the nav
@@ -243,6 +259,7 @@ export default async function decorate(block) {
   // 解析原始DOM
   const logo = parseLogo(fragment);
   const navItems = parseNavItems(fragment);
+  const navLinks = parseNavLinks(fragment);
   const actions = parseActions(fragment);
   const dropdowns = parseDropdowns(fragment);
 
@@ -297,14 +314,38 @@ export default async function decorate(block) {
 
   const actionsEl = document.createElement('div');
   actionsEl.className = 'nav-actions';
+  navLinks.forEach((action) => {
+    const link = document.createElement('div');
+    link.className = 'nav-section';
+    link.textContent = action.title;
+    if (action.href && action.href !== '#') {
+      link.dataset.href = action.href;
+      link.addEventListener('click', () => {
+        window.location.href = action.href;
+      });
+    }
+    actionsEl.append(link);
+  });
   actions.forEach((action) => {
     if (action.img) {
       const btn = document.createElement('div');
       btn.className = 'nav-action-btn';
       const img = document.createElement('img');
       img.src = action.img;
+      img.className = 'light-img';
       img.alt = action.title || 'action';
       btn.append(img);
+      const imgDark = document.createElement('img');
+      imgDark.src = convertToDarkSvgUrl(action.img);
+      imgDark.alt = action.title || 'action';
+      imgDark.className = 'dark-img';
+      btn.append(imgDark);
+      if (action.href && action.href !== '#') {
+        btn.dataset.href = action.href;
+        btn.addEventListener('click', () => {
+          window.location.href = action.href;
+        });
+      }
       actionsEl.append(btn);
       return;
     }
