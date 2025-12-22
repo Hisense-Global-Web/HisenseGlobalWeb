@@ -12,6 +12,10 @@
   font-size: 34px;
   font-weight: bold;
   line-height: 1;
+
+  p {
+    margin: 10px 0 0;
+  }
 }
 
 .icon-viewport {
@@ -99,7 +103,7 @@
 
 .pagination {
   position: absolute;
-  top: 50px;
+  top: 34px;
   right: 0;
   display: none;
   justify-content: flex-end;
