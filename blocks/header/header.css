@@ -38,6 +38,7 @@
 #navigation:has(.nav-container:hover) {
   background: #fff;
   border-color: #fff;
+  color: rgb(51 51 51 / 100%);
 }
 
 #navigation .nav-container {
@@ -223,14 +224,23 @@
 
 .nav-section {
   cursor: pointer;
+  color: var(--header-active-color);
 }
 
+
 .nav-action-btn {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
 }
 
+#navigation.header-dark-mode .nav-action-btn .light-img {
+  display: none;
+}
+
+#navigation:not(.header-dark-mode) .nav-action-btn .dark-img {
+  display: none;
+}
 
 .nav-dropdown {
   display: none;
