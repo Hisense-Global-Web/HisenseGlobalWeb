@@ -302,6 +302,10 @@
   font-weight: 500;
 }
 
+.dropdown-links a {
+  color: #666;
+}
+
 .dropdown-btns {
   margin-top: 60px;
   display: flex;
