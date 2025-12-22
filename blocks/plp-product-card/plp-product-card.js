@@ -20,6 +20,10 @@ export default function decorate(block) {
       fieldsResource = resource;
     }
   });
+  
+  rows.forEach((row) => {
+    if (row && row.parentNode) row.parentNode.removeChild(row);
+  });
 
   const productsBox = document.createElement('div');
   productsBox.className = 'plp-products-box';
