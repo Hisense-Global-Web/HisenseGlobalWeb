@@ -45,10 +45,6 @@ main > .section:first-of-type {
     color: black;
   }
 
-  &.dark {
-    color: white;
-  }
-
   .carousel-item-image {
     width: 100%;
     height: 860px;
@@ -133,6 +129,37 @@ main > .section:first-of-type {
     }
   }
 
+  &.dark {
+    color: white;
+
+    .carousel-item-content,
+    .carousel-item-cta {
+      color: var(--background-light);
+
+      .button-container {
+        .button {
+          color: var(--background-light);
+          border-color: var(--background-light);
+
+          &:hover {
+            background-color: white;
+            border-color: white;
+            color: black;
+          }
+
+          &.active {
+            color: white;
+            border-color: #00AAA6;
+
+            &:hover {
+              background-color: #00B5B1;
+              border-color: #00B5B1;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .carousel .carousel-item-indicators {
@@ -176,42 +203,6 @@ main > .section:first-of-type {
       opacity: 1;
     }
   }
-}
-
-.carousel.dark .carousel-item {
-    color: white;
-
-  &.dark {
-    color: white;
-  }
-
-    .carousel-item-content,
-    .carousel-item-cta {
-      color: var(--background-light);
-
-      .button-container {
-        .button {
-          color: var(--background-light);
-          border-color: var(--background-light);
-
-          &:hover {
-            background-color: white;
-            border-color: white;
-            color: black;
-          }
-
-          &.active {
-            color: white;
-            border-color: #00AAA6;
-
-            &:hover {
-              background-color: #00B5B1;
-              border-color: #00B5B1;
-            }
-          }
-        }
-      }
-    }
 }
 
 .carousel.dark .carousel-item-indicators {

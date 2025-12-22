@@ -1,6 +1,6 @@
 .collectionsection-container .collectionsection-wrapper {
   width: 1120px;
-  margin: 20px auto;
+  margin:0 auto;
   max-width: unset;
   padding: 0;
 }
@@ -10,12 +10,24 @@
  
 }
 
-.collectionsection-wrapper [data-aue-prop="title"] {
+.collectionsection-wrapper > div > div:first-child div p,
+.collectionsection-wrapper > div > div:first-child div h1,
+.collectionsection-wrapper > div > div:first-child div h2,
+.collectionsection-wrapper > div > div:first-child div h3,
+.collectionsection-wrapper > div > div:first-child div h4,
+.collectionsection-wrapper > div > div:first-child div h5,
+.collectionsection-wrapper > div > div:first-child div h6{
   color: #00AAA6;
   font-size: 16px;
 }
 
-.collectionsection-wrapper [data-aue-prop="subtitle"]{
+.collectionsection-wrapper > div > div:last-child div p,
+.collectionsection-wrapper > div > div:last-child div h1,
+.collectionsection-wrapper > div > div:last-child div h2,
+.collectionsection-wrapper > div > div:last-child div h3,
+.collectionsection-wrapper > div > div:last-child div h4,
+.collectionsection-wrapper > div > div:last-child div h5,
+.collectionsection-wrapper > div > div:last-child div h6{
   font-size: 34px;
   color: #333;
   margin-top: 10px;
