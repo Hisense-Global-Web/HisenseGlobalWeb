@@ -41,6 +41,11 @@
   color: rgb(51 51 51 / 100%);
 }
 
+#navigation:has(.nav-container:hover) .nav-link,
+#navigation:has(.nav-container:hover) .nav-section{
+  color: rgb(51 51 51 / 100%);
+}
+
 #navigation:has(.nav-container:hover) .nav-action-btn .light-img{
   display: block;
 }
