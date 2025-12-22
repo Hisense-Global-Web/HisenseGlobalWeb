@@ -1,0 +1,38 @@
+{
+  "definitions": [
+    {
+      "title": "Footer Container",
+      "id": "footerContainer",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "name": "Footer Container",
+              "model": "footerContainer",
+              "filter": "footerContainer",
+              "classes": "footer-container-block"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "footerContainer",
+      "fields": []
+    }
+  ],
+  "filters": [
+    {
+      "id": "footerContainer",
+      "components": [
+        "footerLogo",
+        "footerNavColumn",
+        "footerLegalLinks"
+      ]
+    }
+  ]
+}
+

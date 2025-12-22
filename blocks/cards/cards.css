@@ -1,27 +1,121 @@
-.cards > ul {
+
+.cards-wrapper{
+  width: 1120px;
+  margin: 20px auto;
+}
+
+.cover-style > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  grid-auto-columns: minmax(200px, 1fr);
+  grid-auto-flow: column;
   gap: 24px;
 }
 
-.cards > ul > li {
-  border: 1px solid #dadada;
+.cover-style > ul > li {
+  width: 100%;
+  height: 250px;
+  border-radius: 20px;
+  overflow: hidden;
   background-color: var(--background-color);
+  position: relative;
+
 }
 
-.cards .cards-card-body {
-  margin: 16px;
+.cover-style .cards-card-body {
+  position: absolute;
+  top: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: white;
+  font-size: 20px;
 }
 
-.cards .cards-card-image {
+.cover-style .cards-card-image {
   line-height: 0;
 }
 
-.cards > ul > li img {
+.cover-style > ul > li img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1;
   object-fit: cover;
 }
+
+.cover-style .cards-card-cta{
+  display: none;
+
+}
+
+
+.center-style > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-auto-columns: minmax(200px, 1fr);
+  grid-auto-flow: column;
+  gap: 24px;
+}
+
+.center-style > ul > li {
+  background-color: var(--color-hisense-green-04);
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  padding: 40.5px 0 24px;
+  height: 300px;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.center-style .cards-card-body {
+  width: 100%;
+  text-align: center;
+  top: 40px;
+  font-size: 24px;
+  color: #000;
+  
+}
+
+.center-style p{
+  margin: 0;
+}
+
+.center-style .cards-card-image {
+  margin: 35.5px 0 21px;
+}
+
+.center-style > ul > li:hover .cards-card-image {
+  margin: 18px 0 21px;
+}
+
+.center-style > ul > li img {
+  width: 174px;
+  object-fit: contain;
+}
+
+.center-style > ul > li:hover img {
+  width: 196px;
+  object-fit: contain;
+}
+
+.center-style > ul > li .cards-card-cta{
+  display: none;
+}
+
+.center-style > ul > li:hover .cards-card-cta{
+  display: block;
+}
+
+.cover-style > ul > li:hover img {
+  width: 120%;
+  max-width: 120%;
+}
+

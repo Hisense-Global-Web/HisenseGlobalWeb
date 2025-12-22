@@ -1,0 +1,233 @@
+main > .section:first-of-type {
+  margin: 0;
+}
+
+.carousel-container .carousel-wrapper,
+.carousel-items-container {
+  max-height: 860px;
+  height: auto;
+  width: 100%;
+  max-width: unset;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel {
+  position: relative;
+  color: black;
+
+  .carousel-items-container {
+    display: flex;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  .carousel-items::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.carousel .carousel-item {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+  .carousel-item-image {
+    /* position: absolute; */
+
+    /* top: 0; */
+
+    /* left: 0; */
+    width: 100%;
+    height: 860px;
+
+    picture {
+      inset: 0;
+      height: 100%;
+    }
+
+    picture > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .carousel-content {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-left: 120px;
+    transform: translateY(-50%);
+  }
+
+  .carousel-item-content,
+  .carousel-item-cta {
+    width: auto;
+  }
+
+  .carousel-item-content {
+    top: -50%;
+  }
+
+  .carousel-item-content .teal-text {
+    color: var(--color-hisense-teal);
+    font-weight: bold;
+  }
+
+  .carousel .carousel-item-theme {
+    display: none;
+  }
+
+  .carousel-item-cta {
+    width: 320px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    .button-container {
+      font-size: 14px;
+      text-align: center;
+
+      .button {
+        width: 144px;
+        line-height: 52px;
+        text-align: center;
+        background-color: transparent;
+        border: 1px solid var(--color-hisense-black);
+        color: var(--color-hisense-black);
+
+        &.active {
+          background-color: #00AAA6;
+          border-color: #00AAA6;
+          color: #fff;
+
+          &:hover {
+            background-color: #00B5B1;
+            border-color: #00B5B1;
+          }
+        }
+
+        &:hover {
+          background-color: var(--color-hisense-grey-01);
+          border-color: var(--color-hisense-grey-02);
+          color: white;
+        }
+
+      }
+    }
+  }
+
+}
+
+.carousel .carousel-item-indicators {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    height: 60px;
+    width: 100%;
+    list-style: none;
+
+  &.active {
+    width: 68px;
+    height: 8px;
+    border-radius: 100%;
+  }
+
+  button {
+    width: 8px;
+    height: 8px;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-hisense-grey-02);
+    opacity: 0.42;
+    transition: background-color 0.2s;
+
+    &:disabled {
+      opacity: 1;
+      background-color: var(--color-hisense-grey-02);
+      width: 68px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.carousel.dark .carousel-item {
+    color: white;
+
+    .carousel-item-content,
+    .carousel-item-cta {
+      color: var(--background-light);
+
+      .button-container {
+        .button {
+          color: var(--background-light);
+          border-color: var(--background-light);
+
+          &:hover {
+            background-color: white;
+            border-color: white;
+            color: black;
+          }
+
+          &.active {
+            color: white;
+            border-color: #00AAA6;
+
+            &:hover {
+              background-color: #00B5B1;
+              border-color: #00B5B1;
+            }
+          }
+        }
+      }
+    }
+}
+
+.carousel.dark .carousel-item-indicators {
+  button {
+    background-color: var(--background-light);
+    opacity: 0.42;
+
+    &:disabled {
+      opacity: 1;
+      background-color: var(--background-light);
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.carousel.only-picture {
+  .carousel-item {
+    .carousel-item-cta {
+      display: none;
+    }
+  }
+}

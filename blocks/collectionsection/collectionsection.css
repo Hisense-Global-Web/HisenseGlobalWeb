@@ -1,0 +1,22 @@
+.collectionsection-container .collectionsection-wrapper {
+  width: 1120px;
+  margin: 20px auto;
+  max-width: unset;
+  padding: 0;
+}
+
+.collectionsection {
+  position: relative;
+ 
+}
+
+.collectionsection-wrapper [data-aue-prop="title"] {
+  color: #00AAA6;
+  font-size: 16px;
+}
+
+.collectionsection-wrapper [data-aue-prop="subtitle"]{
+  font-size: 34px;
+  color: #333;
+  margin-top: 10px;
+}

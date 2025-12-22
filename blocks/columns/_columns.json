@@ -21,6 +21,25 @@
       "id": "columns",
       "fields": [
         {
+          "component": "select",
+          "name": "classes",
+          "label": "Variant",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Carousel - 1 Slide",
+              "value": "carousel-1-slide"
+            },
+            {
+              "name": "Carousel - 2 Slides",
+              "value": "carousel-2-slides"
+            }
+          ]
+        },
+        {
           "component": "text",
           "valueType": "number",
           "name": "columns",
@@ -50,7 +69,8 @@
         "text",
         "image",
         "button",
-        "title"
+        "title",
+        "imageLink"
       ]
     }
   ]

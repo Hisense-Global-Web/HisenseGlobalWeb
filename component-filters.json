@@ -2,7 +2,9 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "navigation",
+      "footerContainer"
     ]
   },
   {
@@ -14,14 +16,29 @@
       "title",
       "hero",
       "cards",
+      "carousel",
       "columns",
-      "fragment"
+      "fragment",
+      "collectionsection",
+      "recards",
+      "video",
+      "banner",
+      "description",
+      "slide",
+      "featurebanner",
+      "iconComponent"
     ]
   },
   {
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "carousel-item"
     ]
   },
   {
@@ -36,7 +53,61 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "imageLink"
+    ]
+  },
+  {
+    "id": "footerContainer",
+    "components": [
+      "footerLogo",
+      "footerNavColumn",
+      "footerLegalLinks"
+    ]
+  },
+  {
+    "id": "footerLegalLinks",
+    "components": [
+      "footerLegalLinkItem"
+    ]
+  },
+  {
+    "id": "footerLogo",
+    "components": [
+      "footerSocial"
+    ]
+  },
+  {
+    "id": "footerNavColumn",
+    "components": [
+      "footerNavColumnList"
+    ]
+  },
+  {
+    "id": "iconComponent",
+    "components": [
+      "iconItem"
+    ]
+  },
+  {
+    "id": "navigationSecondaryContainer",
+    "components": [
+      "columns"
+    ]
+  },
+  {
+    "id": "navigation",
+    "components": [
+      "navigationLogo",
+      "navigationItem",
+      "navigationLink",
+      "navigationAction"
+    ]
+  },
+  {
+    "id": "recards",
+    "components": [
+      "recard"
     ]
   }
 ]
