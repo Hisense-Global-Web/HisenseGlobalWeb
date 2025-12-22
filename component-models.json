@@ -892,6 +892,21 @@
         ]
       },
       {
+        "component": "select",
+        "name": "mainContent",
+        "label": "Section Content Type",
+        "options": [
+          {
+            "name": "Image",
+            "value": "Image"
+          },
+          {
+            "name": "video",
+            "value": "video"
+          }
+        ]
+      },
+      {
         "component": "text",
         "name": "subtitle",
         "value": "",
@@ -918,17 +933,26 @@
         "multi": false
       },
       {
-        "component": "boolean",
-        "name": "boolean",
-        "label": " Is Video",
-        "valueType": "boolean"
-      },
-      {
         "component": "richtext",
         "name": "title",
         "value": "",
         "label": "Title",
         "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "img",
+        "label": "Img Snapshot",
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "mainContent"
+            },
+            "video"
+          ]
+        }
       }
     ]
   },
