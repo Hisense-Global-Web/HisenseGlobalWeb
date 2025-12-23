@@ -11,7 +11,7 @@
               "name": "Properties",
               "model": "properties",
               "filter": "properties",
-              "expanded": true
+              "expanded": false
             }
           }
         }
@@ -47,7 +47,7 @@
           "label": "Expand by Default",
           "name": "expanded",
           "valueType": "boolean",
-          "value": true
+          "value": false
         }
       ]
     },
