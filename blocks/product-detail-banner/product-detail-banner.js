@@ -65,7 +65,7 @@ function buildTab(itemElement) {
     moveInstrumentation(textCell, textSpan);
   }
   li.addEventListener('click', (e) => {
-    const imgUrl = e.target.querySelector('img')?.src;
+    const imgUrl = e.target?.src;
     const mainImg = document.querySelector('.pdp-main-img img');
     if (mainImg) {
       mainImg.src = imgUrl;
@@ -149,7 +149,7 @@ export default function decorate(block) {
   mediaImg.className = 'pdp-main-img';
   if (tabs?.childElementCount) {
     const firstImg = tabs.querySelector('.product-filters .product-filter-img-box .product-filter-img img');
-    mediaImg.append(firstImg);
+    mediaImg.append(firstImg.cloneNode(true));
   }
   media.append(mediaImg);
   media.append(scrollTabs);
