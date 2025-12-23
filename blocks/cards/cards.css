@@ -3,6 +3,7 @@
   width: 100%;
   margin: 20px auto;
   max-width: var(--container-max-width);
+  font-family:'Hisense Sans Alfabet', sans-serif;
 }
 
 .cover-style > ul {
