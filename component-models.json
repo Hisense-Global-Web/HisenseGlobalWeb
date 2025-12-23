@@ -1028,7 +1028,7 @@
       {
         "component": "text",
         "name": "title",
-        "label": "Title"
+        "label": "Properties Group Title"
       }
     ]
   },
@@ -1037,14 +1037,14 @@
     "fields": [
       {
         "component": "text",
-        "name": "name",
+        "name": "propName",
         "value": "",
         "label": "Property Name",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "value",
+        "name": "propValue",
         "value": "",
         "label": "Property Value",
         "valueType": "string"
