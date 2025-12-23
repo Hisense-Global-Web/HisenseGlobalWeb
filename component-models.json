@@ -280,6 +280,37 @@
             ]
           }
         ]
+      },
+      {
+        "component": "container",
+        "label": "Section Gap",
+        "name": "container_gap",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "select",
+            "name": "style_gap",
+            "label": "Row gap",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Small (40px)",
+                "value": "flex-gap-40"
+              },
+              {
+                "name": "Medium (60px)",
+                "value": "flex-gap-60"
+              },
+              {
+                "name": "Large (80px)",
+                "value": "flex-gap-80"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -611,37 +642,6 @@
         "name": "description_text",
         "label": "Text",
         "valueType": "string"
-      },
-      {
-        "component": "container",
-        "label": "Section Spacing",
-        "name": "container_padding",
-        "collapsible": true,
-        "fields": [
-          {
-            "component": "select",
-            "name": "description_paddingBottom",
-            "label": "Padding Bottom",
-            "options": [
-              {
-                "name": "None",
-                "value": ""
-              },
-              {
-                "name": "Small (40px)",
-                "value": "pb-40"
-              },
-              {
-                "name": "Medium (60px)",
-                "value": "pb-60"
-              },
-              {
-                "name": "Large (80px)",
-                "value": "pb-80"
-              }
-            ]
-          }
-        ]
       }
     ]
   },
