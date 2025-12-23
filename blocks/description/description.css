@@ -4,11 +4,14 @@
 
 .description {
   text-align: center;
-  width: 51.39%;
   margin: 0 auto;
 
   h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
     margin: 12px 0 0;
+  }
+
+  p {
+    margin: 0;
   }
 
   p:first-child {
@@ -31,4 +34,12 @@
 
 .block.description.text-align-right {
   text-align: right;
+}
+
+.block.description.pb-40 {
+  padding-bottom: 40px;
+}
+
+.block.description.pb-80 {
+  padding-bottom: 80px;
 }
