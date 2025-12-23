@@ -1,13 +1,12 @@
 .collectionsection-container .collectionsection-wrapper {
-  width: 100%;
+  max-width: var(--container-max-width);
   margin:0 auto;
-  max-width: unset;
   padding: 0;
+  width: 100%;
 }
 
 .collectionsection {
   position: relative;
- 
 }
 
 .collectionsection-wrapper > div > div:first-child div p,

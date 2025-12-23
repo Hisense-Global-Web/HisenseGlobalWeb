@@ -2,6 +2,7 @@
 .cards-wrapper {
   width: 100%;
   margin: 20px auto;
+  max-width: var(--container-max-width);
 }
 
 .cover-style > ul {
