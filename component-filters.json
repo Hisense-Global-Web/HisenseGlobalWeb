@@ -27,6 +27,8 @@
       "slide",
       "featurebanner",
       "iconComponent",
+      "parallax",
+      "properties",
       "imageCarousel"
     ]
   },
@@ -109,6 +111,12 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
+    ]
+  },
+  {
+    "id": "properties",
+    "components": [
+      "property"
     ]
   },
   {

@@ -33,6 +33,47 @@
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
+  padding: 0 160px;
+  box-sizing: border-box;
+}
+
+#navigation.scroll-active {
+  background: #fff;
+  border-color: #fff;
+  color: rgb(51 51 51 / 100%);
+}
+
+.nav-links {
+  display: flex;
+  height: 100%;
+  padding-left: 38px;
+}
+
+.nav-section {
+  cursor: pointer;
+  color: var(--header-active-color);
+}
+
+.nav-link {
+  cursor: pointer;
+  height: 100%;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  color: var(--header-active-color);
+}
+
+.nav-link:hover {
+  font-weight: bold;
+}
+
+.nav-actions .nav-link {
+  padding: 0 3px;
+}
+
+#navigation.scroll-active .nav-link,
+#navigation.scroll-active .nav-section{
+  color: var(--header-light-color);
 }
 
 #navigation:has(.nav-container:hover) {
@@ -49,6 +90,14 @@
   display: none;
 }
 
+#navigation.scroll-active .nav-actions .nav-action-btn .dark-img {
+  display: none;
+}
+
+#navigation.scroll-active .nav-actions .nav-action-btn .light-img {
+  display: block;
+}
+
 #navigation:has(.nav-container:hover) .nav-action-btn .light-img{
   display: block;
 }
@@ -60,8 +109,6 @@
 #navigation .nav-container {
   display: flex;
   align-items: center;
-  padding: 0 25px;
-  max-width: 1200px;
   height: 100px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -126,21 +173,6 @@
   padding-left: 38px;
 }
 
-.nav-links {
-  display: flex;
-  height: 100%;
-  padding-left: 38px;
-}
-
-.nav-link {
-  cursor: pointer;
-  height: 100%;
-  padding: 0 18px;
-  display: flex;
-  align-items: center;
-  color: var(--header-active-color);
-}
-
 .transparent-bold {
   opacity: 0;
   font-weight: bold;
@@ -154,10 +186,6 @@
 .nav-link .transparent-bold {
   height: 20px;
   line-height: 20px;
-}
-
-.nav-link:hover {
-  font-weight: bold;
 }
 
 .navigation-item-wrapper .navigation-item {
@@ -234,16 +262,6 @@
   margin-left: auto;
 }
 
-.nav-actions .nav-link {
-  padding: 0 3px;
-}
-
-.nav-section {
-  cursor: pointer;
-  color: var(--header-active-color);
-}
-
-
 .nav-action-btn {
   width: 24px;
   height: 24px;
@@ -263,8 +281,7 @@
   left: 0;
   width: 100%;
   background: #fff;
-  padding: 10px 0 70px;
-  border-top: 1px solid #eee;
+  padding: 10px 0 50px;
   z-index: 998;
 }
 

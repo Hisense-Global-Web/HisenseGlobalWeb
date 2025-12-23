@@ -192,6 +192,8 @@
         "slide",
         "featurebanner",
         "iconComponent",
+        "parallax",
+        "properties",
         "imageCarousel"
       ]
     }
