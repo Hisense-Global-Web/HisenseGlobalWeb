@@ -4,7 +4,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   gap: 16px;
   width: 100%;
 }
@@ -21,6 +20,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .plp-product-filters .plp-results {
@@ -30,6 +30,7 @@
 
 .plp-product-filters .plp-active-filters {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
 }
 
@@ -42,6 +43,7 @@
   border-radius: 20px;
   font-size: 12px;
   height: 24px;
+  line-height: 24px;
 }
 
 .plp-product-filters .plp-filter-tag-close {
@@ -57,12 +59,14 @@
   line-height: 17px;
   font-size: 12px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .plp-product-filters .plp-sort-box {
   position: relative;
   width: 236px;
   height: 40px;
+  flex-shrink: 0;
 }
 
 .plp-product-filters .plp-sort {
