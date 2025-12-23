@@ -98,9 +98,9 @@
   bottom: 10px;
 }
 
-.center-style > ul > li:hover .cards-card-image {
+/* .center-style > ul > li:hover .cards-card-image {
   margin: 18px 0 21px;
-}
+} */
 
 .center-style > ul > li img {
   width: 174px;
@@ -110,6 +110,7 @@
 .center-style > ul > li:hover img {
   width: 196px;
   object-fit: contain;
+  transform: translateY(-3px);
 }
 
 .center-style > ul > li .cards-card-cta{
@@ -118,7 +119,7 @@
 
 .center-style > ul > li:hover .cards-card-cta{
   display: block;
-}
+  transform: translateX(-50%) translateY(-20px);}
 
 .cover-style > ul > li:hover img {
   width: 120%;
