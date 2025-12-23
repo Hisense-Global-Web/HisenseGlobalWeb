@@ -557,7 +557,7 @@
                   "name": "Properties",
                   "model": "properties",
                   "filter": "properties",
-                  "expanded": false
+                  "expanded": true
                 }
               }
             }

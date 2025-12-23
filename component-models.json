@@ -1035,7 +1035,7 @@
         "label": "Expand by Default",
         "name": "expanded",
         "valueType": "boolean",
-        "value": false
+        "value": true
       }
     ]
   },

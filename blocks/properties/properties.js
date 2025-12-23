@@ -36,7 +36,10 @@ export default async function decorate(block) {
   // Process property items
   propertyItems.forEach((item) => {
     if (item.children.length === 1) {
-      expandedByDefault = isUniversalEditor() || item.querySelector('div')?.textContent.trim().toLowerCase() === 'true';
+      expandedByDefault = isUniversalEditor() || item.querySelector('div')
+        ?.textContent
+        .trim()
+        .toLowerCase() === 'true';
       return;
     }
     item.classList.add('property');
