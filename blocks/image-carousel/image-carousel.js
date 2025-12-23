@@ -51,19 +51,19 @@ function createVideo(child, idx, large = false) {
   video.id = `videoCarousel-${idx}`;
   video.controls = true;
   video.width = large ? 800 : 652;
-  video.height = large ? 590 : 368;
+  video.height = large ? 452 : 368;
   video.preload = 'auto';
-  video.autoplay = true;
-  video.style.border = '1px solid #ccc';
+  video.autoplay = false;
+  // video.style.border = '1px solid #ccc';
   video.poster = imgUrl;
   const source = document.createElement('source');
   source.src = videourl; // 替换为你的视频路径
   source.type = 'video/mp4';
   // 添加备用文本
   video.innerHTML = '';
-  video.addEventListener('click', () => {
+  img.closest('div').addEventListener('click', () => {
     video.play();
-    img.style.display = 'none';
+    img.closest('div').style.display = 'none';
   });
   return video;
 }
