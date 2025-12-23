@@ -113,6 +113,12 @@
     ]
   },
   {
+    "id": "product-detail-banner",
+    "components": [
+      "product-detail-banner-item"
+    ]
+  },
+  {
     "id": "recards",
     "components": [
       "recard"
