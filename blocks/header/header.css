@@ -33,6 +33,8 @@
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
+  padding: 0 160px;
+  box-sizing: border-box;
 }
 
 #navigation.scroll-active {
@@ -90,8 +92,6 @@
 #navigation .nav-container {
   display: flex;
   align-items: center;
-  padding: 0 25px;
-  max-width: 1200px;
   height: 100px;
   margin: 0 auto;
   box-sizing: border-box;
