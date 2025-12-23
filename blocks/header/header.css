@@ -52,7 +52,7 @@
   color: var(--header-active-color);
 }
 
-#navigation.scroll-active .nav-links,
+#navigation.scroll-active .nav-link,
 #navigation.scroll-active .nav-section{
   color: var(--header-light-color);
 }
