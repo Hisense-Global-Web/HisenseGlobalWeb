@@ -141,9 +141,8 @@ export default function decorate(block) {
   const mediaImg = document.createElement('div');
   mediaImg.className = 'pdp-main-img';
   if (tabs?.childElementCount) {
-    const img = document.createElement('img');
-    mediaImg.append(img);
-    console.log(tabs);
+    const firstImg = document.querySelector('.product-filters .product-filter-img-box .product-filter-img img');
+    mediaImg.append(firstImg);
   }
   media.append(mediaImg);
   media.append(scrollTabs);

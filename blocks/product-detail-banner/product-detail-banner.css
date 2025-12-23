@@ -14,21 +14,21 @@
 }
 
 /* 主图容器 */
-.pdp-main-img {
+.pdp-media .pdp-main-img {
   width: 640px;
   height: 360px;
   margin-bottom: 34px;
   position: relative;
 }
 
-.pdp-main-img img {
+.pdp-media .pdp-main-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 /* 缩略图导航 */
-.scroll-tabs {
+.pdp-media .scroll-tabs {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,7 +36,7 @@
 }
 
 /* 左右箭头按钮 */
-.scroll-btn {
+.pdp-media .scroll-btn {
   width: 28px;
   height: 28px;
   border: none;
@@ -47,18 +47,18 @@
   transition: color 0.3s;
 }
 
-.scroll-btn:disabled {
+.pdp-media .scroll-btn:disabled {
   color: #ddd; /* 滚动到头时的颜色 */
   cursor: not-allowed;
 }
 
 /* 滚动容器：溢出隐藏 */
-.tabs-container {
+.pdp-media .tabs-container {
   overflow: hidden;
   height: 74px;
 }
 
-.pdp-tabs {
+.pdp-media .product-filters {
   display: flex;
   gap: 16px;
   margin-bottom: 24px;
@@ -67,7 +67,7 @@
   overflow: scroll hidden;
 }
 
-.pdp-tab {
+.pdp-media .product-filter {
   width: 118px;
   height: 74px;
   border: 1px solid rgb(102 102 102 / 100%);
@@ -76,7 +76,7 @@
   list-style: none;
 }
 
-.pdp-tab img {
+.pdp-media .product-filter img {
   width: 100%;
   height: 100%;
 }
