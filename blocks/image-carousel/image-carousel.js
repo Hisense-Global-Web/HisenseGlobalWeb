@@ -3,7 +3,7 @@ const visibleImage = 2;
 function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
   const cardWidth = singleItem.offsetWidth;
-  const gap = 24;
+  const gap = 30;
   return cardWidth + gap;
 }
 
@@ -70,16 +70,18 @@ function createVideo(child, idx) {
 }
 
 export default async function decorate(block) {
+  const contentType = block.children[2].innerHTML.includes('video') ? 'video' : 'Image';
   const iconContainer = document.createElement('div');
   iconContainer.classList.add('image-viewport');
   const iconBlocks = document.createElement('ul');
   iconBlocks.classList.add('image-track');
   [...block.children].forEach((child, idx) => {
     // except subtitle and title
+    if (idx === 2) { child.remove(); }
     if (idx <= 2) return;
     const iconBlock = document.createElement('li');
     child.classList.add('item');
-    if (block.children[2].innerHTML.includes('video')) {
+    if (contentType === 'video') {
       const singleVideo = createVideo(child, idx);
       child.replaceChild(singleVideo, child.firstElementChild);
     } else {
@@ -97,8 +99,6 @@ export default async function decorate(block) {
     iconBlock.appendChild(child);
     iconBlocks.appendChild(iconBlock);
   });
-  // block.children[2].innerHTML = '';
-  // if (!block.children[2].innerHTML) block.children[2].remove();
   iconContainer.appendChild(iconBlocks);
   block.appendChild(iconContainer);
 

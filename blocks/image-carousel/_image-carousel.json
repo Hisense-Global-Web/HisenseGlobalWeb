@@ -53,12 +53,16 @@
               "value": "left-bottom-style"
             },
             {
-              "name": "Bottom Style",
-              "value": "bottom-style"
+              "name": "Bottom Left Style",
+              "value": "bottom-left-style"
             },
             {
               "name": "Center Style",
               "value": "center-style"
+            },
+            {
+              "name": "Bottom Center Style",
+              "value": "bottom-center-style"
             }
           ]
         },
