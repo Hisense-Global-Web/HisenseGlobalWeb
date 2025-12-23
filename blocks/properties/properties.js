@@ -1,3 +1,5 @@
+import { isUniversalEditor } from '../../utils/ue-helper.js';
+
 export default async function decorate(block) {
   const children = Array.from(block.children);
   const contentContainer = document.createElement('div');
@@ -11,12 +13,12 @@ export default async function decorate(block) {
     const titleElement = firstItem.querySelector('div p');
     if (titleElement) {
       const title = document.createElement('h3');
-      title.className = 'accordion-title';
+      title.className = 'properties-header-title';
       title.textContent = titleElement.textContent;
 
       // Create icon
       const icon = document.createElement('span');
-      icon.className = 'accordion-icon';
+      icon.className = 'properties-header-icon';
       const iconImg = document.createElement('img');
       iconImg.src = '/icons/chevron-up.svg';
       iconImg.setAttribute('aria-hidden', 'true');
@@ -24,20 +26,20 @@ export default async function decorate(block) {
       icon.appendChild(iconImg);
 
       // Build header button
-      headerButton.className = 'accordion-header';
+      headerButton.className = 'properties-header';
       headerButton.append(title, icon);
     }
   }
 
   // Check if expanded by default
-  const expandedByDefault = secondItem?.textContent.trim().toLowerCase() === 'true';
+  const expandedByDefault = isUniversalEditor() || secondItem?.textContent.trim().toLowerCase() === 'true';
 
   // Process property items
   propertyItems.forEach((item) => {
-    item.classList.add('property-item');
+    item.classList.add('property');
     const firstDiv = item.querySelector('div:first-child');
     if (firstDiv) {
-      firstDiv.classList.add('property-item-name');
+      firstDiv.classList.add('property-name');
     }
     contentContainer.appendChild(item);
   });
@@ -45,7 +47,7 @@ export default async function decorate(block) {
   // Clear and rebuild block
   // block.innerHTML = '';
   block.replaceChildren(headerButton, contentContainer);
-  contentContainer.className = 'accordion-content';
+  contentContainer.className = 'properties-content';
 
   // Set initial state
   if (expandedByDefault) {
