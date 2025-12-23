@@ -80,13 +80,14 @@
 .pdp-media .product-filters {
   display: flex;
   gap: 16px;
-  margin-bottom: 24px;
   width: 520px;
   scroll-behavior: smooth;
   overflow: scroll hidden;
   list-style: none;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  margin: 0 0 24px;
+  padding: 0;
 }
 
 .pdp-media .product-filters::-webkit-scrollbar {
@@ -94,6 +95,15 @@
 }
 
 .pdp-media .product-filter {
+  width: 118px;
+  height: 74px;
+  border: 1px solid rgb(102 102 102 / 100%);
+  border-radius: 20px;
+  flex-shrink: 0;
+  list-style: none;
+}
+
+.product-filter-item {
   width: 118px;
   height: 74px;
   border: 1px solid rgb(102 102 102 / 100%);
