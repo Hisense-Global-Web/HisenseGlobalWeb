@@ -93,10 +93,7 @@
   margin: 35.5px 0 21px;
 }
 
-.center-style .cards-card-cta{
-  position: absolute;
-  bottom: 0;
-}
+
 
 
 .center-style > ul > li img {
@@ -112,24 +109,34 @@
 
 .center-style > ul > li .cards-card-cta a.button:any-link,
 .center-style button{
-    background-color: #666!important;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family:'Hisense Sans Alfabet', sans-serif;
+  font-size: 12px;
+  width: 128px;
+  color: #fff !important;
+    background-color: #00AAA6 !important;
     opacity: 0;
-    color: white;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family:'Hisense Sans Alfabet', sans-serif;
-    font-size: 12px;
-    width: 128px;
- 
+    visibility: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s;
+    transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s;
+
 }
 
 .center-style > ul > li:hover .cards-card-cta .button-container{
-  background-color: #00AAA6!important;
   opacity: 1;
-  transform: translateY(-24px);
-  transition: all 0.5s ease;
+  visibility: visible;
+  bottom: 16px;
+    
+ 
+  
 }
 
 
