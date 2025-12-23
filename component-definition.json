@@ -556,7 +556,8 @@
                 "template": {
                   "name": "Properties",
                   "model": "properties",
-                  "filter": "properties"
+                  "filter": "properties",
+                  "expanded": false
                 }
               }
             }

@@ -1033,7 +1033,7 @@
       {
         "component": "boolean",
         "label": "Expand by Default",
-        "name": "isExpandByDefault",
+        "name": "expanded",
         "valueType": "boolean"
       }
     ]

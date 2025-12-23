@@ -1,66 +1,68 @@
 export default async function decorate(block) {
-  const items = block.children;
+  const children = Array.from(block.children);
   const contentContainer = document.createElement('div');
-  const headerEle = document.createElement('button');
-  let expandedByDefault = false;
+  const headerButton = document.createElement('button');
 
-  Array.from(items)
-    .forEach((item, index) => {
-      if (index === 0) {
-        const title = item.querySelector('div p').textContent;
+  // Use destructuring for better readability
+  const [firstItem, secondItem, ...propertyItems] = children;
 
-        headerEle.classList.add('accordion-header');
-        const titleEle = document.createElement('h3');
-        titleEle.textContent = title;
-        titleEle.classList.add('accordion-title');
-        headerEle.appendChild(titleEle);
+  // Process header from first item
+  if (firstItem) {
+    const titleElement = firstItem.querySelector('div p');
+    if (titleElement) {
+      const title = document.createElement('h3');
+      title.className = 'accordion-title';
+      title.textContent = titleElement.textContent;
 
-        const iconEle = document.createElement('span');
-        const iconImageEle = document.createElement('img');
-        iconImageEle.src = '/icons/chevron-up.svg';
-        iconImageEle.setAttribute('aria-hidden', 'true');
-        iconEle.classList.add('accordion-icon');
-        iconEle.appendChild(iconImageEle);
-        headerEle.appendChild(iconEle);
-      } else if (index === 1) {
-        expandedByDefault = item.textContent.trim()
-          .toLowerCase() === 'true';
-      } else {
-        item.classList.add('property-item');
-        item.querySelector('div:first-of-type')
-          .classList
-          .add('property-item-name');
-        contentContainer.appendChild(item);
-      }
-    });
+      // Create icon
+      const icon = document.createElement('span');
+      icon.className = 'accordion-icon';
+      const iconImg = document.createElement('img');
+      iconImg.src = '/icons/chevron-up.svg';
+      iconImg.setAttribute('aria-hidden', 'true');
+      iconImg.loading = 'lazy';
+      icon.appendChild(iconImg);
 
-  block.innerHTML = '';
-  block.appendChild(headerEle);
+      // Build header button
+      headerButton.className = 'accordion-header';
+      headerButton.append(title, icon);
+    }
+  }
 
-  contentContainer.classList.add('accordion-content');
-  block.appendChild(contentContainer);
+  // Check if expanded by default
+  const expandedByDefault = secondItem?.textContent.trim().toLowerCase() === 'true';
 
+  // Process property items
+  propertyItems.forEach((item) => {
+    item.classList.add('property-item');
+    const firstDiv = item.querySelector('div:first-child');
+    if (firstDiv) {
+      firstDiv.classList.add('property-item-name');
+    }
+    contentContainer.appendChild(item);
+  });
+
+  // Clear and rebuild block
+  // block.innerHTML = '';
+  block.replaceChildren(headerButton, contentContainer);
+  contentContainer.className = 'accordion-content';
+
+  // Set initial state
   if (expandedByDefault) {
     block.classList.add('expanded');
   }
 
-  const header = block.querySelector('.accordion-header');
-  header.addEventListener('click', () => {
-    if (block.classList.contains('expanded')) {
-      block.classList.remove('expanded');
-    } else {
-      block.classList.add('expanded');
-    }
-  });
-
-  const allPropertiesBlocks = document.querySelectorAll('.block.properties');
-  allPropertiesBlocks
-    .forEach((target, index) => {
-      if (index === 0) {
-        target.classList.add('first');
-      }
-      if (index === allPropertiesBlocks.length - 1) {
-        target.classList.add('last');
-      }
+  // Toggle click handler
+  if (headerButton) {
+    headerButton.addEventListener('click', () => {
+      block.classList.toggle('expanded');
     });
+  }
+
+  // Add first/last classes to all properties blocks
+  const propertiesBlocks = document.querySelectorAll('.block.properties');
+  if (propertiesBlocks.length > 0) {
+    propertiesBlocks[0].classList.add('first');
+    propertiesBlocks[propertiesBlocks.length - 1].classList.add('last');
+  }
 }

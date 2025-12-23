@@ -25,6 +25,10 @@
 		align-items: center;
 	}
 
+	.accordion-header:hover {
+		color: var(--color-hisense-teal);
+	}
+
 	.accordion-title {
 		font-size: var(--heading-font-size-xs);
 		font-weight: 500;
