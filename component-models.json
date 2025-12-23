@@ -284,40 +284,6 @@
     ]
   },
   {
-    "id": "accordion",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title"
-      },
-      {
-        "component": "select",
-        "name": "classes_variant",
-        "label": "Variant",
-        "options": [
-          {
-            "name": "Product Info Sheet",
-            "value": "product-info-sheet"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "accordionItem",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Property",
-        "valueType": "string",
-        "multi": true
-      }
-    ]
-  },
-  {
     "id": "banner",
     "fields": [
       {
@@ -1053,6 +1019,44 @@
         "name": "text",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "properties",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Properties Group Title"
+      },
+      {
+        "component": "boolean",
+        "label": "Expand by Default",
+        "name": "expanded",
+        "valueType": "boolean",
+        "value": false
+      }
+    ]
+  },
+  {
+    "id": "property",
+    "fields": [
+      {
+        "component": "text",
+        "name": "propName",
+        "value": "",
+        "label": "Property Name",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "propValue",
+        "value": "",
+        "label": "Property Value",
+        "valueType": "string",
+        "required": true
       }
     ]
   },

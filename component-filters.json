@@ -28,13 +28,7 @@
       "featurebanner",
       "iconComponent",
       "parallax",
-      "accordion"
-    ]
-  },
-  {
-    "id": "accordion",
-    "components": [
-      "accordionItem"
+      "properties"
     ]
   },
   {
@@ -110,6 +104,12 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
+    ]
+  },
+  {
+    "id": "properties",
+    "components": [
+      "property"
     ]
   },
   {
