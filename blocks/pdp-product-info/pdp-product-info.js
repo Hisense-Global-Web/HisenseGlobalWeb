@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 
 export default async function decorate(block) {
-
   const link = block.querySelector('a');
   const endpoint = link ? link.getAttribute('href').trim() : '';
 
@@ -30,42 +29,30 @@ export default async function decorate(block) {
             {
               path: '/content/dam/hisense/ux00001116',
               sku: '75U65QF40',
-              spu: '75U65QF',
-              overseasModel: 'U8',
-              factoryModel: 'U85QEVS, U85QAVS(85,100)',
-              badge: 'New',
+              title: 'Hisense 75" Class U6 Series MiniLED ULED 4K Fire TV',
+              size: '50"',
+              series: '4K ULED',
               awards: [
                 { path: '/content/dam/hisense/image/product/awards/CES_Picks_Awards_2025.png' },
                 { path: '/content/dam/hisense/image/product/awards/IFA_2025Honoree.png' },
                 { path: '/content/dam/hisense/image/product/awards/2025_Badge_CES.png' },
-                { path: '/content/dam/hisense/image/product/awards/PC_MAG.png' }
+                { path: '/content/dam/hisense/image/product/awards/PC_MAG.png' },
               ],
-              title: 'Hisense 75\" Class U6 Series MiniLED ULED 4K Fire TV ',
-              subtitle: 'Hisense 75\" Class U6 Series MiniLED ULED 4K Fire TV ',
-              size: '50\"',
-              series: '4K ULED',
-              description_description: { html: '<p>Hisense 75\" Class U6 Series MiniLED ULED 4K Fire TV</p>' },
-              description_shortDescription: { html: '<p>Hisense 75\" Class U6 Series MiniLED ULED 4K Fire TV</p>' },
-              enabled: true,
-              productLaunchDate: '2025-12-17T16:00:00.000Z',
-              productEndOfLifeDate: '2025-12-30T16:00:00.000Z',
-              mediaGallery_image: { path: '/content/dam/hisense/image/product/75u65qf/991681_42f35812c3e443119382c95cd7c55fb9~mv2.jpg' },
+              mediaGallery_image: { path: '/content/dam/hisense/image/product/75u65qf/991681.jpg' },
               mediaGallery_gallery: [
                 { path: '/content/dam/hisense/image/product/75u65qf/1d7134_f14ac53a8722435883863f097da3f517~mv2.webp' },
                 { path: '/content/dam/hisense/image/product/75u65qf/1d7134_a313ffc3cf5144448aaecdf2d695cff3~mv2.webp' },
-                { path: '/content/dam/hisense/image/product/75u65qf/1d7134_deed81a4eda740b492c6d9d77e1a287e~mv2.webp' }
+                { path: '/content/dam/hisense/image/product/75u65qf/1d7134_deed81a4eda740b492c6d9d77e1a287e~mv2.webp' },
               ],
               priceInfo_currency: '$',
               priceInfo_regularPrice: 20000,
-              priceInfo_specialprice: 18000,
-              priceInfo_bottomPrice: 10000,
               whereToBuyLink: 'http://amazon.com/dp/B0DN6THH67?tag=psuni-01-US-6998-20&ascsubtag=wtbs_6945105b9a324f64010cda03&me=ATVPDKIKX0DER',
               tags: ['hisense:product/tv/screen-size/50'],
-              variation: 'master'
-            }
-          ]
-        }
-      }
+              variation: 'master',
+            },
+          ],
+        },
+      },
     };
   }
 
@@ -111,7 +98,7 @@ export default async function decorate(block) {
       b.className = 'pdp-badge';
       const img = document.createElement('img');
       img.alt = 'award';
-      const awardPath = award.path || award['_path'] || '';
+      const awardPath = award.path || award._path || '';
       img.src = awardPath;
       img.loading = 'lazy';
       b.appendChild(img);
