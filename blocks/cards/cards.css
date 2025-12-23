@@ -109,14 +109,14 @@
 
 .center-style > ul > li .cards-card-cta a.button:any-link,
 .center-style button{
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family:'Hisense Sans Alfabet', sans-serif;
-  font-size: 12px;
-  width: 128px;
-  color: #fff !important;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family:'Hisense Sans Alfabet', sans-serif;
+    font-size: 12px;
+    width: 128px;
+    color: #fff !important;
     background-color: #00AAA6 !important;
     opacity: 0;
     visibility: hidden;
@@ -130,13 +130,11 @@
 
 }
 
-.center-style > ul > li:hover .cards-card-cta .button-container{
+.center-style > ul > li:hover .cards-card-cta a.button:any-link,
+.center-style button{
   opacity: 1;
   visibility: visible;
   bottom: 16px;
-    
- 
-  
 }
 
 
