@@ -61,6 +61,7 @@ function createVideo(child, idx, large = false) {
   source.type = 'video/mp4';
   // 添加备用文本
   video.innerHTML = '';
+  video.appendChild(source);
   img.closest('div').addEventListener('click', () => {
     video.play();
     img.closest('div').style.display = 'none';
