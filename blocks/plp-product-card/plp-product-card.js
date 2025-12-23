@@ -299,11 +299,11 @@ window.applyPlpSort = function applyPlpSort(sortKey) {
       return String(value).toLowerCase();
     };
 
-    // 排序，默认acs，如果属性前缀加上"-"则默认desc
-    let direction = -1;
+    // 排序，默认desc，如果属性前缀加上"-"则默认asc
+    let direction = 1;
     let effectiveSortProperty = sortProperty;
     if (effectiveSortProperty.startsWith('-')) {
-      direction = 1;
+      direction = -1;
       effectiveSortProperty = effectiveSortProperty.slice(1);
     }
 
