@@ -95,39 +95,31 @@
 
 .center-style .cards-card-cta{
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
 }
 
-/* .center-style > ul > li:hover .cards-card-image {
-  margin: 18px 0 21px;
-} */
 
 .center-style > ul > li img {
   width: 174px;
   object-fit: contain;
+  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
 }
 
 .center-style > ul > li:hover img {
-  width: 196px;
-  object-fit: contain;
-  transform: translateY(-3px);
+ transform: scale(1.1);
 }
 
 .center-style > ul > li .cards-card-cta .button-container{
   opacity: 0;
-  transition: all 0.3s ease;
+ 
 }
 
 .center-style > ul > li:hover .cards-card-cta .button-container{
   opacity: 1;
-  transform: translateY(-28px);
-  transition: all 0.3s ease;
+  transform: translateY(-24px);
+  transition: all 0.5s ease;
 }
 
-.cover-style > ul > li:hover img {
-  width: 120%;
-  max-width: 120%;
-}
 
 
 .center-style  a.button:any-link,
