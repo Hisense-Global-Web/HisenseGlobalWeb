@@ -25,6 +25,11 @@
   position: relative;
 }
 
+.pdp-specs-btn img {
+  width: 18px;
+  height: 18px;
+}
+
 .pdp-media .pdp-main-img img {
   width: 100%;
   height: 100%;
@@ -230,12 +235,8 @@
   cursor: pointer;
 }
 
-.pdp-specs-btn img {
-  width: 18px;
-  height: 18px;
-}
-
 .pdp-specs-btn span {
   height: 18px;
   line-height: 18px;
 }
+ 
