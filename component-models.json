@@ -1029,6 +1029,27 @@
         "component": "text",
         "name": "title",
         "label": "Properties Group Title"
+      },
+      {
+        "component": "boolean",
+        "label": "Expand by Default",
+        "name": "isExpandByDefault",
+        "valueType": "boolean"
+      },
+      {
+        "component": "select",
+        "name": "classes_state",
+        "label": "Default State",
+        "options": [
+          {
+            "name": "Collapsed",
+            "value": ""
+          },
+          {
+            "name": "Expanded",
+            "value": "expanded"
+          }
+        ]
       }
     ]
   },
