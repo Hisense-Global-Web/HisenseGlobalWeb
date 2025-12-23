@@ -14,10 +14,6 @@
     margin: 12px 0 0;
   }
 
-  p {
-    margin: 0;
-  }
-
   p:first-child {
     color: var(--color-hisense-teal);
     font-weight: 400;
