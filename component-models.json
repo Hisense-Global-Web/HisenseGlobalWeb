@@ -1049,6 +1049,47 @@
     ]
   },
   {
+    "id": "pdp-product-info",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "graphql",
+        "label": "GraphQL Endpoint",
+        "description": "GraphQL endpoint URL"
+      },
+      {
+        "component": "checkbox-group",
+        "valueType": "string[]",
+        "name": "fields",
+        "label": "Product Introduction",
+        "multi": true,
+        "options": [
+          {
+            "name": "Title",
+            "value": "title"
+          },
+          {
+            "name": "Series",
+            "value": "series"
+          },
+          {
+            "name": "PriceInfo RegularPrice",
+            "value": "priceInfo_regularPrice"
+          },
+          {
+            "name": "Awards",
+            "value": "awards"
+          },
+          {
+            "name": "Position",
+            "value": "position"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "product-detail-banner-item",
     "fields": [
       {
