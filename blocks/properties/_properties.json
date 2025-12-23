@@ -48,13 +48,6 @@
       "fields": [
         {
           "component": "text",
-          "name": "name",
-          "value": "",
-          "label": "Item Name (Optional)",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
           "name": "propName",
           "value": "",
           "label": "Property Name",

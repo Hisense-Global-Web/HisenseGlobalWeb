@@ -1,0 +1,66 @@
+.properties {
+	background: var(--background-light);
+	color: var(--text-light);
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+
+	/* remove later */
+	max-width: var(--container-max-width);
+	margin: 0 auto;
+
+	button {
+		all: unset;
+		cursor: pointer;
+	}
+
+	.accordion-header {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.accordion-title {
+		font-size: var(--heading-font-size-xs);
+		font-weight: 500;
+		margin: 0;
+	}
+
+	.accordion-content {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 24px;
+		width: 100%;
+		padding: 24px 0;
+		border-bottom: 1px solid var(--color-hisense-teal);
+	}
+
+	.property-item {
+		width: calc(25% - (24px * 3 / 4));
+		display: flex;
+		flex-direction: column;
+		font-size: var(--body-font-size-s);
+	}
+
+	.property-item-name {
+		font-weight: 500;
+		color: var(--color-hisense-grey-01);
+	}
+}
+
+.properties.first {
+	border-radius: var(--border-radius-l) var(--border-radius-l) 0 0;
+}
+
+.properties:not(.first) {
+	padding-top: 0;
+}
+
+.properties.last {
+	border-radius: 0 0 var(--border-radius-l) var(--border-radius-l);
+}
+
+.properties .accordion-content.d-none {
+	display: none;
+}
