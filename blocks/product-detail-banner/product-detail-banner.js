@@ -141,7 +141,7 @@ export default function decorate(block) {
   const mediaImg = document.createElement('div');
   mediaImg.className = 'pdp-main-img';
   if (tabs?.childElementCount) {
-    const firstImg = document.querySelector('.product-filters .product-filter-img-box .product-filter-img img');
+    const firstImg = tabs.querySelector('.product-filters .product-filter-img-box .product-filter-img img');
     mediaImg.append(firstImg);
   }
   media.append(mediaImg);
