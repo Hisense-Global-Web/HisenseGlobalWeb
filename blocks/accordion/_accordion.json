@@ -1,7 +1,7 @@
 {
   "definitions": [
     {
-      "title": "Accordion",
+      "title": "Info Sheet Accordion",
       "id": "accordion",
       "plugins": {
         "xwalk": {
@@ -39,17 +39,6 @@
           "component": "text",
           "name": "title",
           "label": "Title"
-        },
-        {
-          "component": "select",
-          "name": "classes_variant",
-          "label": "Variant",
-          "options": [
-            {
-              "name": "Product Info Sheet",
-              "value": "product-info-sheet"
-            }
-          ]
         }
       ]
     },
@@ -58,11 +47,17 @@
       "fields": [
         {
           "component": "text",
-          "name": "title",
+          "name": "name",
           "value": "",
-          "label": "Property",
-          "valueType": "string",
-          "multi": true
+          "label": "Property Name",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "value",
+          "value": "",
+          "label": "Property Value",
+          "valueType": "string"
         }
       ]
     }
