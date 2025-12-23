@@ -6,6 +6,10 @@
   text-align: center;
   margin: 0 auto;
 
+  p {
+    margin: 0;
+  }
+
   h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
     margin: 12px 0 0;
   }
