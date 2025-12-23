@@ -13,6 +13,10 @@
   width: 640px;
 }
 
+.pdp-media * {
+  box-sizing: border-box;
+}
+
 /* 主图容器 */
 .pdp-media .pdp-main-img {
   width: 640px;
@@ -103,16 +107,23 @@
   list-style: none;
 }
 
-.product-filter-item {
+.pdp-media .product-filter-item {
   width: 118px;
   height: 74px;
   border: 1px solid rgb(102 102 102 / 100%);
   border-radius: 20px;
   flex-shrink: 0;
   list-style: none;
+  box-sizing: border-box;
 }
 
-.pdp-media .product-filter img {
+.pdp-media .product-filter-item picture {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.pdp-media .product-filter-item img {
   width: 100%;
   height: 100%;
 }
