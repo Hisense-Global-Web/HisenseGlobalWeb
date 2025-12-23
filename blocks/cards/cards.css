@@ -113,13 +113,16 @@
   transform: translateY(-3px);
 }
 
-.center-style > ul > li .cards-card-cta{
-  display: none;
+.center-style > ul > li .cards-card-cta .button-container{
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 
-.center-style > ul > li:hover .cards-card-cta{
-  display: block;
-  transform: translateX(-50%) translateY(-20px);}
+.center-style > ul > li:hover .cards-card-cta .button-container{
+  opacity: 1;
+  transform: translateY(-28px);
+  transition: all 0.3s ease;
+}
 
 .cover-style > ul > li:hover img {
   width: 120%;
