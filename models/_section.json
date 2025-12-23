@@ -167,37 +167,6 @@
               ]
             }
           ]
-        },
-        {
-          "component": "container",
-          "label": "Section Gap",
-          "name": "container_gap",
-          "collapsible": true,
-          "fields": [
-            {
-              "component": "select",
-              "name": "style_gap",
-              "label": "Row gap",
-              "options": [
-                {
-                  "name": "None",
-                  "value": ""
-                },
-                {
-                  "name": "Small (40px)",
-                  "value": "flex-gap-40"
-                },
-                {
-                  "name": "Medium (60px)",
-                  "value": "flex-gap-60"
-                },
-                {
-                  "name": "Large (80px)",
-                  "value": "flex-gap-80"
-                }
-              ]
-            }
-          ]
         }
       ]
     }
