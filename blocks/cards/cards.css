@@ -106,31 +106,30 @@
 }
 
 .center-style > ul > li:hover img {
- transform: scale(1.1);
+ transform: scale(1.1) translateY(-3px);
+ 
 }
 
-.center-style > ul > li .cards-card-cta .button-container{
-  opacity: 0;
+.center-style > ul > li .cards-card-cta a.button:any-link,
+.center-style button{
+    background-color: #666!important;
+    opacity: 0;
+    color: white;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family:'Hisense Sans Alfabet', sans-serif;
+    font-size: 12px;
+    width: 128px;
  
 }
 
 .center-style > ul > li:hover .cards-card-cta .button-container{
+  background-color: #00AAA6!important;
   opacity: 1;
   transform: translateY(-24px);
   transition: all 0.5s ease;
 }
 
 
-
-.center-style  a.button:any-link,
-.center-style button{
-  background-color: #00AAA6!important;
-  color: white;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family:'Hisense Sans Alfabet', sans-serif;
-  font-size: 12px;
-  width: 128px;
-}
