@@ -46,7 +46,8 @@
           "component": "boolean",
           "label": "Expand by Default",
           "name": "expanded",
-          "valueType": "boolean"
+          "valueType": "boolean",
+          "value": false
         }
       ]
     },

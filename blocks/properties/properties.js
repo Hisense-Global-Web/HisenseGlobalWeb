@@ -5,7 +5,6 @@ export default async function decorate(block) {
   const contentContainer = document.createElement('div');
   const headerButton = document.createElement('button');
 
-  // Use destructuring for better readability
   const [firstItem, secondItem, ...propertyItems] = children;
 
   // Process header from first item
@@ -45,7 +44,6 @@ export default async function decorate(block) {
   });
 
   // Clear and rebuild block
-  // block.innerHTML = '';
   block.replaceChildren(headerButton, contentContainer);
   contentContainer.className = 'properties-content';
 
