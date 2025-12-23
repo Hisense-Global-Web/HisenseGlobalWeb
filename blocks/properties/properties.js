@@ -2,6 +2,7 @@ export default async function decorate(block) {
   const items = block.children;
   const contentContainer = document.createElement('div');
   const headerEle = document.createElement('button');
+  let expandedByDefault = false;
 
   Array.from(items)
     .forEach((item, index) => {
@@ -21,6 +22,9 @@ export default async function decorate(block) {
         iconEle.classList.add('accordion-icon');
         iconEle.appendChild(iconImageEle);
         headerEle.appendChild(iconEle);
+      } else if (index === 1) {
+        expandedByDefault = item.textContent.trim()
+          .toLowerCase() === 'true';
       } else {
         item.classList.add('property-item');
         item.querySelector('div:first-of-type')
@@ -36,13 +40,16 @@ export default async function decorate(block) {
   contentContainer.classList.add('accordion-content');
   block.appendChild(contentContainer);
 
+  if (expandedByDefault) {
+    block.classList.add('expanded');
+  }
+
   const header = block.querySelector('.accordion-header');
-  const content = block.querySelector('.accordion-content');
   header.addEventListener('click', () => {
-    if (content.classList.contains('d-none')) {
-      content.classList.remove('d-none');
+    if (block.classList.contains('expanded')) {
+      block.classList.remove('expanded');
     } else {
-      content.classList.add('d-none');
+      block.classList.add('expanded');
     }
   });
 

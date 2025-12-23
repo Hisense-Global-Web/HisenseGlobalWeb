@@ -5,13 +5,17 @@
 	display: flex;
 	flex-direction: column;
 
-	/* remove later */
-	max-width: var(--container-max-width);
-	margin: 0 auto;
-
 	button {
 		all: unset;
 		cursor: pointer;
+	}
+
+	img {
+		transition: transform 0.3s ease;
+	}
+
+	p {
+		margin: 0;
 	}
 
 	.accordion-header {
@@ -37,10 +41,15 @@
 	}
 
 	.property-item {
-		width: calc(25% - (24px * 3 / 4));
+		width: calc(50% - (24px * 3 / 4));
 		display: flex;
 		flex-direction: column;
+		row-gap: 4px;
 		font-size: var(--body-font-size-s);
+
+		@media (width >= 600px) {
+			width: calc(25% - (24px * 3 / 4));
+		}
 	}
 
 	.property-item-name {
@@ -49,12 +58,29 @@
 	}
 }
 
+.properties.expanded {
+	img {
+		transform: rotate(0deg);
+	}
+}
+
+.properties:not(.expanded) {
+	.accordion-content {
+		display: none;
+	}
+
+	img {
+		transform: rotate(-180deg);
+		transition: transform 0.3s ease;
+	}
+}
+
 .properties.first {
 	border-radius: var(--border-radius-l) var(--border-radius-l) 0 0;
 }
 
-.properties:not(.first) {
-	padding-top: 0;
+.properties:not(.last) {
+	padding-bottom: 0;
 }
 
 .properties.last {
