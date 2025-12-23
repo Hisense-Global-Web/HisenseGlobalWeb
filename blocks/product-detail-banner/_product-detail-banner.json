@@ -50,20 +50,6 @@
           "name": "alt",
           "label": "Alt Text",
           "required": true
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "title",
-          "label": "Text",
-          "required": true
-        },
-        {
-          "component": "aem-content",
-          "valueType": "string",
-          "name": "link",
-          "label": "Link",
-          "required": true
         }
       ]
     }
