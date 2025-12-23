@@ -1,6 +1,6 @@
 
 .cards-wrapper {
-  width: 1120px;
+  width: 100%;
   margin: 20px auto;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .center-style > ul > li:hover img {
- transform: scale(1.1) translateY(-3px);
+ transform: scale(1.1) translateY(-5px);
  
 }
 
@@ -123,9 +123,11 @@
     position: absolute;
     bottom: 0;
     left: 50%;
-    -webkit-transform: translateX(-50%);
+
+    /* -webkit-transform: translateX(-50%); */
     transform: translateX(-50%);
-    -webkit-transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s;
+
+    /* -webkit-transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s; */
     transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s;
 
 }

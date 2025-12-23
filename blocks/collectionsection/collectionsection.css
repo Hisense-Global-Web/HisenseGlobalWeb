@@ -1,5 +1,5 @@
 .collectionsection-container .collectionsection-wrapper {
-  width: 1120px;
+  width: 100%;
   margin:0 auto;
   max-width: unset;
   padding: 0;
@@ -18,8 +18,16 @@
 .collectionsection-wrapper > div > div:first-child div h5,
 .collectionsection-wrapper > div > div:first-child div h6{
   color: #00AAA6;
-  font-size: 16px;
+  font-family: 'Hisense Sans Alfabet', sans-serif;
   margin: 0;
+}
+
+.collectionsection-wrapper > div > div:first-child div p{
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
 }
 
 .collectionsection-wrapper > div > div:last-child div p,
@@ -29,7 +37,15 @@
 .collectionsection-wrapper > div > div:last-child div h4,
 .collectionsection-wrapper > div > div:last-child div h5,
 .collectionsection-wrapper > div > div:last-child div h6{
-  font-size: 34px;
   color: #333;
   margin: 10px 0 0;
+  font-family: 'Hisense Sans Alfabet', sans-serif;
+}
+
+.collectionsection-wrapper > div > div:last-child div p{
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
 }
