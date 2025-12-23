@@ -33,7 +33,6 @@
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
-  padding: 0 160px;
   box-sizing: border-box;
 }
 
@@ -110,7 +109,9 @@
   display: flex;
   align-items: center;
   height: 100px;
-  margin: 0 auto;
+  max-width: var(--container-max-width);
+  margin: auto;
+  padding: 0 24px;
   box-sizing: border-box;
 }
 
