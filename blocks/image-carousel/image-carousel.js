@@ -36,7 +36,7 @@ function bindEvent(block) {
   });
 }
 
-function createVideo(child, idx) {
+function createVideo(child, idx, large = false) {
   let videourl;
   let imgUrl;
   const link = child.querySelector('a');
@@ -50,8 +50,8 @@ function createVideo(child, idx) {
   const video = document.createElement('video');
   video.id = `videoCarousel-${idx}`;
   video.controls = true;
-  video.width = 458;
-  video.height = 340;
+  video.width = large ? 800 : 652;
+  video.height = large ? 590 : 368;
   video.preload = 'auto';
   video.autoplay = true;
   video.style.border = '1px solid #ccc';
@@ -61,11 +61,10 @@ function createVideo(child, idx) {
   source.type = 'video/mp4';
   // 添加备用文本
   video.innerHTML = '';
-  // video.addEventListener('play', () => {
-  //   console.log('video clicked');
-  //   video.muted = true;
-  //   video.play();
-  // });
+  video.addEventListener('click', () => {
+    video.play();
+    img.style.display = 'none';
+  });
   return video;
 }
 
@@ -82,7 +81,16 @@ export default async function decorate(block) {
     const iconBlock = document.createElement('li');
     child.classList.add('item');
     if (contentType === 'video') {
-      const singleVideo = createVideo(child, idx);
+      let singleVideo;
+      if (block.classList.contains('bottom-center-style')) {
+        child.classList.add('video-type');
+        singleVideo = createVideo(child, idx, true);
+      } else {
+        singleVideo = createVideo(child, idx);
+      }
+      if (child.querySelector('picture')) {
+        child.querySelector('picture').closest('div').classList.add('video-play');
+      }
       child.replaceChild(singleVideo, child.firstElementChild);
     } else {
       [...child.children].forEach((item) => {
