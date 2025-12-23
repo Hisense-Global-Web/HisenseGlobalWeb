@@ -116,7 +116,9 @@
   list-style: none;
   box-sizing: border-box;
   overflow: hidden;
+  cursor: pointer;
 }
+
 .pdp-media .product-filter-item .product-filter-img-box,
 .pdp-media .product-filter-item .product-filter-img {
   width: 100%;

@@ -64,6 +64,13 @@ function buildTab(itemElement) {
     }
     moveInstrumentation(textCell, textSpan);
   }
+  li.addEventListener('click', (e) => {
+    const imgUrl = e.target.querySelector('img')?.src;
+    const mainImg = document.querySelector('.pdp-main-img img');
+    if (mainImg) {
+      mainImg.src = imgUrl;
+    }
+  });
 
   li.append(imgBox, textSpan);
   return li;
