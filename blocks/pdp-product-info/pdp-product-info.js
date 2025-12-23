@@ -98,6 +98,7 @@ export default async function decorate(block) {
       b.className = 'pdp-badge';
       const img = document.createElement('img');
       img.alt = 'award';
+      // eslint-disable-next-line dot-notation
       const awardPath = award.path || award['_path'] || '';
       img.src = awardPath;
       img.loading = 'lazy';
