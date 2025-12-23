@@ -5,7 +5,7 @@ export default async function decorate(block) {
   const contentContainer = document.createElement('div');
   const headerButton = document.createElement('button');
 
-  const [firstItem, secondItem, ...propertyItems] = children;
+  const [firstItem, ...propertyItems] = children;
 
   // Process header from first item
   if (firstItem) {
@@ -31,16 +31,20 @@ export default async function decorate(block) {
   }
 
   // Check if expanded by default
-  const expandedByDefault = isUniversalEditor() || secondItem?.textContent.trim().toLowerCase() === 'true';
+  let expandedByDefault = isUniversalEditor();
 
   // Process property items
   propertyItems.forEach((item) => {
+    if (item.children.length === 1) {
+      expandedByDefault = isUniversalEditor() || item.querySelector('div')?.textContent.trim().toLowerCase() === 'true';
+      return;
+    }
     item.classList.add('property');
     const firstDiv = item.querySelector('div:first-child');
     if (firstDiv) {
       firstDiv.classList.add('property-name');
+      contentContainer.appendChild(item);
     }
-    contentContainer.appendChild(item);
   });
 
   // Clear and rebuild block
