@@ -22,9 +22,17 @@
       "id": "pdp-product-info",
       "fields": [
         {
-          "component": "aem-content",
-          "name": "reference",
-          "label": "Product Data Content Fragment Reference"
+          "component": "text",
+          "valueType": "string",
+          "name": "graphql",
+          "label": "GraphQL Endpoint"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sku",
+          "label": "SKU",
+          "required": true
         },
         {
           "component": "checkbox-group",
