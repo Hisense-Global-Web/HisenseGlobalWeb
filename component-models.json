@@ -580,7 +580,7 @@
     "id": "description",
     "fields": [
       {
-        "component": "select",
+        "component": "multiselect",
         "name": "classes",
         "value": "",
         "label": "Description Alignment Class Name Options",
@@ -597,6 +597,14 @@
           {
             "name": "text-align-right",
             "value": "text-align-right"
+          },
+          {
+            "name": "pb-40",
+            "value": "pb-40"
+          },
+          {
+            "name": "pb-80",
+            "value": "pb-80"
           }
         ]
       },
