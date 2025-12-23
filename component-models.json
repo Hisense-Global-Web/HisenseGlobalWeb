@@ -284,35 +284,6 @@
     ]
   },
   {
-    "id": "accordion",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title"
-      }
-    ]
-  },
-  {
-    "id": "accordionItem",
-    "fields": [
-      {
-        "component": "text",
-        "name": "name",
-        "value": "",
-        "label": "Property Name",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "value",
-        "value": "",
-        "label": "Property Value",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "banner",
     "fields": [
       {
@@ -1047,6 +1018,35 @@
         "component": "richtext",
         "name": "text",
         "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "properties",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "property",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "value": "",
+        "label": "Property Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "value",
+        "value": "",
+        "label": "Property Value",
         "valueType": "string"
       }
     ]
