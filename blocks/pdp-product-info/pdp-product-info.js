@@ -15,5 +15,3 @@ export default async function decorate(block) {
     console.error('pdp-product-info: error loading fragment', path, err);
   }
 }
-
-
