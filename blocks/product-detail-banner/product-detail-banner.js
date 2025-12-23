@@ -136,6 +136,17 @@ export default function decorate(block) {
   if (tabs?.childElementCount > 4) {
     rightBtn.removeAttribute('disabled');
   }
+  const media = document.createElement('div');
+  media.className = 'pdp-media';
+  const mediaImg = document.createElement('div');
+  mediaImg.className = 'pdp-main-img';
+  if (tabs?.childElementCount) {
+    const img = document.createElement('img');
+    mediaImg.append(img);
+    console.log(tabs);
+  }
+  media.append(mediaImg);
+  media.append(scrollTabs);
 
-  block.replaceChildren(scrollTabs);
+  block.replaceChildren(media);
 }

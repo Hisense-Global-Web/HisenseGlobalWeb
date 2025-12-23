@@ -1,2 +1,186 @@
 /* Product Detail Banner */
 
+/* PDP主容器：Flex布局 */
+.pdp-container {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 1120px;
+}
+
+/* 左侧产品图区域 */
+.pdp-media {
+  width: 640px;
+}
+
+/* 主图容器 */
+.pdp-main-img {
+  width: 640px;
+  height: 360px;
+  margin-bottom: 34px;
+  position: relative;
+}
+
+.pdp-main-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 缩略图导航 */
+.scroll-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* 左右箭头按钮 */
+.scroll-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #666; /* 默认颜色 */
+  transition: color 0.3s;
+}
+
+.scroll-btn:disabled {
+  color: #ddd; /* 滚动到头时的颜色 */
+  cursor: not-allowed;
+}
+
+/* 滚动容器：溢出隐藏 */
+.tabs-container {
+  overflow: hidden;
+  height: 74px;
+}
+
+.pdp-tabs {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  width: 520px;
+  scroll-behavior: smooth;
+  overflow: scroll hidden;
+}
+
+.pdp-tab {
+  width: 118px;
+  height: 74px;
+  border: 1px solid rgb(102 102 102 / 100%);
+  border-radius: 20px;
+  flex-shrink: 0;
+  list-style: none;
+}
+
+.pdp-tab img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 右侧产品信息区域 */
+.pdp-info {
+  flex: 1;
+  min-width: 300px;
+  align-self: center;
+}
+
+/* 收藏按钮 */
+.pdp-favorite {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+/* 产品系列与名称 */
+.pdp-series {
+  height: 28px;
+  line-height: 28px;
+  color: rgb(0 159 156 / 100%);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.pdp-title {
+  height: 44px;
+  line-height: 44px;
+  font-size: 34px;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+/* 尺寸选项 */
+.pdp-sizes {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+
+.pdp-size {
+  padding: 0 8px;
+  height: 25px;
+  border: 1px solid rgb(204 204 204 / 100%);
+  color: rgb(102 102 102 / 100%);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.pdp-size.selected {
+  border-color: rgb(51 51 51 / 100%);
+  color: rgb(51 51 51 / 100%);
+}
+
+/* 认证标签 */
+.pdp-badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.pdp-badge {
+  width: auto;
+  min-width: 5px;
+  height: 25px;
+  background: red; /* 标签占位 */
+}
+
+.pdp-buy-btn {
+  height: 42px;
+  padding: 0 24px;
+  border: 1px solid #000;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: 21px;
+  margin-bottom: 16px;
+}
+
+.pdp-specs-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: #000;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.pdp-specs-btn img {
+  width: 18px;
+  height: 18px;
+}
+
+.pdp-specs-btn span {
+  height: 18px;
+  line-height: 18px;
+}
