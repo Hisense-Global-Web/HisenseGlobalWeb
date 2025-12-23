@@ -54,7 +54,6 @@ function createVideo(child, idx, large = false) {
   video.height = large ? 452 : 368;
   video.preload = 'auto';
   video.autoplay = false;
-  // video.style.border = '1px solid #ccc';
   video.poster = imgUrl;
   const source = document.createElement('source');
   source.src = videourl; // 替换为你的视频路径
