@@ -1052,11 +1052,9 @@
     "id": "pdp-product-info",
     "fields": [
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "graphql",
-        "label": "GraphQL Endpoint",
-        "description": "GraphQL endpoint URL"
+        "component": "aem-content",
+        "name": "reference",
+        "label": "Product Data Content Fragment Reference"
       },
       {
         "component": "checkbox-group",
