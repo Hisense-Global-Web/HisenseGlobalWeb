@@ -69,11 +69,6 @@ main > .section:first-of-type {
     transform: translate(-50%, -50%);
   }
 
-  .carousel-item-content,
-  .carousel-item-cta {
-    width: 322px;
-  }
-
   .carousel-item-content {
     top: -50%;
 
@@ -228,6 +223,24 @@ main > .section:first-of-type {
 
 .carousel.only-picture {
   .carousel-item {
+    .carousel-item-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+
+      p:nth-child(1) {
+        font-size: 46px;
+        font-weight: 500;
+        line-height: 1.1;
+      }
+
+      p:nth-child(2) {
+        font-size: 30px;
+        line-height: 1.4;
+      }
+    }
+
     .carousel-item-cta {
       display: none;
     }
