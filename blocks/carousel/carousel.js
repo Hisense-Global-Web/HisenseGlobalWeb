@@ -105,7 +105,7 @@ function createSlide(block, row, slideIndex) {
       case 2:
         column.classList.add('carousel-item-content');
         if ([...column.children].length > 1) {
-          if (column.firstElementChild.innerHTML.startsWith('<p>')) column.firstElementChild.classList.add('teal-text');
+          if ([...column.children][0].nodeName === 'P') column.firstElementChild.classList.add('teal-text');
           column.lastElementChild.classList.add('change-text');
         }
         [...column.children].forEach((children) => {
