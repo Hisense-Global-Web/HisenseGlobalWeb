@@ -180,7 +180,7 @@ function buildDropdown(data) {
   const dropdown = document.createElement('div');
   dropdown.className = 'nav-dropdown';
   const content = document.createElement('div');
-  content.className = 'dropdown-content';
+  content.className = 'dropdown-content h-grid-container';
 
   const main = document.createElement('div');
   main.className = 'dropdown-main';
@@ -243,9 +243,6 @@ function buildDropdown(data) {
   return dropdown;
 }
 function convertToDarkSvgUrl(url) {
-  if (!url.endsWith('.svg')) {
-    return url;
-  }
   const [mainPart, ...restParts] = url.split(/[?#]/);
   const suffix = restParts.length > 0 ? `/${restParts.join('/')}` : '';
 
@@ -275,7 +272,7 @@ export default async function decorate(block) {
   navigation.id = 'navigation';
 
   const navContainer = document.createElement('div');
-  navContainer.className = 'nav-container';
+  navContainer.className = 'nav-container h-grid-container';
 
   const logoEl = document.createElement('div');
   logoEl.className = 'nav-logo';

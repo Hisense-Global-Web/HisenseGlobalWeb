@@ -78,6 +78,7 @@
 }
 
 .plp-product-card .plp-product-btn {
+    display: inline-block;
     padding: 0 14px;
     border: 1px solid rgb(0 0 0 / 100%);
     border-radius: 15px;
@@ -87,4 +88,20 @@
     font-size: 12px;
     font-weight: 400;
     height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+.plp-product-card .plp-product-btn:hover {
+  background-color: #333;
+  border-color: #666;
+  color: #fff;
+  text-decoration: none;
+}
+
+.plp-product-card .plp-product-btn:active {
+  background-color: #000;
+  border-color: #000;
+  color: #fff;
+  text-decoration: none;
 }

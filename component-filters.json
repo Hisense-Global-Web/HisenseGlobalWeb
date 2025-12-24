@@ -29,7 +29,8 @@
       "iconComponent",
       "parallax",
       "properties",
-      "imageCarousel"
+      "imageCarousel",
+      "image-comparison-slider"
     ]
   },
   {
@@ -123,6 +124,12 @@
     "id": "plp-product-filters",
     "components": [
       "plp-product-sort"
+    ]
+  },
+  {
+    "id": "product-detail-banner",
+    "components": [
+      "product-detail-banner-item"
     ]
   },
   {
