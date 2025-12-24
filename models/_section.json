@@ -1,58 +1,6 @@
 {
   "definitions": [
     {
-      "title": "Text",
-      "id": "text",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/text/v1/text",
-            "template": {}
-          }
-        }
-      }
-    },
-    {
-      "title": "Title",
-      "id": "title",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/title/v1/title",
-            "template": {
-              "model": "title"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Image",
-      "id": "image",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/image/v1/image",
-            "template": {}
-          }
-        }
-      }
-    },
-    {
-      "title": "Button",
-      "id": "button",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/button/v1/button",
-            "template": {
-              "model": "button"
-            }
-          }
-        }
-      }
-    },
-    {
       "title": "Section",
       "id": "section",
       "plugins": {
@@ -67,527 +15,6 @@
               "style_paddingBottom": "pb-l",
               "style_imageBorderRadius": "",
               "style_imageRatio": ""
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Banner",
-      "id": "banner",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Banner",
-              "model": "banner",
-              "classes": "banner-text",
-              "collection_text": "<h5>Perfection, Any Content, Anytime</h5><h1>From the first setup to everyday use.designed to feel effortless —— so you can focus on what really matters.</h1>",
-              "collection_ctaPrimary": "/",
-              "collection_ctaPrimaryText": "Learn more"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Cards",
-      "id": "cards",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Cards",
-              "model": "cards",
-              "filter": "cards"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Card",
-      "id": "card",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Card",
-              "model": "card"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Carousel",
-      "id": "carousel",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Carousel",
-              "model": "carousel",
-              "filter": "carousel"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Carousel Item",
-      "id": "carouselItem",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Carousel Item",
-              "model": "carouselItem"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Collectionsection",
-      "id": "collectionsection",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Collectionsection",
-              "model": "collectionsection",
-              "classes": "collectionsection"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Columns",
-      "id": "columns",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/columns/v1/columns",
-            "template": {
-              "columns": "2",
-              "rows": "1"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Description",
-      "id": "description",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Description",
-              "model": "description",
-              "classes": "description-box",
-              "description_smallTit": "This is subheading",
-              "description_text": "<h1>This is headline</h1><p>This is description.</p>"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Feature Banner",
-      "id": "featurebanner",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Featurebanner",
-              "model": "featurebanner",
-              "classes": "featurebanner-box",
-              "featurebanner_text": "<p>Cinema</p><h1>Cinematic Perfection</h1>"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Footer Container",
-      "id": "footerContainer",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
-            "template": {
-              "name": "Footer Container",
-              "model": "footerContainer",
-              "filter": "footerContainer",
-              "classes": "footer-container-block"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Footer Legal Links",
-      "id": "footerLegalLinks",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Footer Legal Links",
-              "model": "footerLegalLinks",
-              "filter": "footerLegalLinks",
-              "classes": "footer-legal-links"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Footer Legal Link Item",
-      "id": "footerLegalLinkItem",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Footer Legal Link Item",
-              "model": "footerLegalLinkItem",
-              "classes": "footer-legal-link-item"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Footer Logo",
-      "id": "footerLogo",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Footer Logo",
-              "model": "footerLogo",
-              "filter": "footerLogo",
-              "classes": "footer-logo"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Footer Nav Column List",
-      "id": "footerNavColumnList",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Footer Nav Column List",
-              "model": "footerNavColumnList",
-              "classes": "footer-nav-column-list"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Footer Nav Column",
-      "id": "footerNavColumn",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Footer Nav Column",
-              "model": "footerNavColumn",
-              "filter": "footerNavColumn",
-              "classes": "footer-nav-column"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Footer Social",
-      "id": "footerSocial",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Footer Social",
-              "model": "footerSocial",
-              "classes": "footer-social"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Fragment",
-      "id": "fragment",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Fragment",
-              "model": "fragment"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Hero",
-      "id": "hero",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Hero",
-              "model": "hero",
-              "hero_text": "<h5>ULED X Mini-LED Series UX</h5><h1>Perfection, any content, anytime</h1>",
-              "hero_ctaPrimary": "/",
-              "hero_ctaPrimaryText": "Buy now",
-              "hero_ctaSecondary": "/",
-              "hero_ctaSecondaryText": "Learn more"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Icon Component",
-      "id": "iconComponent",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Icon Component",
-              "model": "iconComponent",
-              "filter": "iconComponent"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Icon Item",
-      "id": "iconItem",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Icon Item",
-              "model": "iconItem"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Image Carousel",
-      "id": "imageCarousel",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Image Carousel",
-              "model": "imageCarousel",
-              "filter": "imageCarousel"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Image Carousel Item",
-      "id": "imageCarouselItem",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Image Carousel Item",
-              "model": "imageCarouselItem"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Image Comparison Slider",
-      "id": "image-comparison-slider",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Image Comparison Slider",
-              "model": "image-comparison-slider"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Image Link",
-      "id": "imageLink",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Image Link",
-              "model": "imageLink",
-              "classes": "image-link"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Navigation Action",
-      "id": "navigationAction",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Navigation Action",
-              "model": "navigationAction",
-              "classes": "navigation-action"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Navigation Item",
-      "id": "navigationItem",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Navigation Item",
-              "model": "navigationItem",
-              "classes": "navigation-item"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Navigation Link",
-      "id": "navigationLink",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Navigation Link",
-              "model": "navigationLink",
-              "classes": "navigation-link"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Navigation Logo",
-      "id": "navigationLogo",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Navigation Logo",
-              "model": "navigationLogo",
-              "classes": "navigation-logo"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Navigation Secondary Container",
-      "id": "navigationSecondaryContainer",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
-            "template": {
-              "name": "Navigation Secondary Container",
-              "model": "navigationSecondaryContainer",
-              "filter": "navigationSecondaryContainer",
-              "classes": "navigation-secondary-container",
-              "key-value": true
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Navigation",
-      "id": "navigation",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
-            "template": {
-              "name": "Navigation",
-              "model": "navigation",
-              "filter": "navigation",
-              "classes": "navigation-block"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Parallax",
-      "id": "parallax",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Parallax",
-              "model": "parallax"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "PdP Product Info",
-      "id": "pdp-product-info",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "PdP Product Info",
-              "model": "pdp-product-info",
-              "classes": "pdp-product-info"
             }
           }
         }
@@ -683,6 +110,22 @@
       }
     },
     {
+      "title": "PdP Product Info",
+      "id": "pdp-product-info",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "PdP Product Info",
+              "model": "pdp-product-info",
+              "classes": "pdp-product-info"
+            }
+          }
+        }
+      }
+    },
+    {
       "title": "Product Detail Banner",
       "id": "product-detail-banner",
       "plugins": {
@@ -708,146 +151,6 @@
             "template": {
               "name": "Product Detail Banner Item",
               "model": "product-detail-banner-item"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Product Filters Carousel",
-      "id": "product-filters-carousel",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Product Filters Carousel",
-              "filter": "product-filters-carousel",
-              "key-value": true
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Product Filters Carousel Item",
-      "id": "product-filters-carousel-item",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Product Filters Carousel Item",
-              "model": "product-filters-carousel-item"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Properties",
-      "id": "properties",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Properties",
-              "model": "properties",
-              "filter": "properties",
-              "expanded": false
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Property",
-      "id": "property",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Property",
-              "model": "property"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Recards",
-      "id": "recards",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Recards",
-              "filter": "recards"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Recard",
-      "id": "recard",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Recard",
-              "model": "recard",
-              "classes": "recard"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Slide",
-      "id": "slide",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "slide",
-              "model": "slide"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Video",
-      "id": "video",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Video",
-              "model": "video"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Videoinfo",
-      "id": "videoinfo",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Videoinfo",
-              "model": "videoinfo",
-              "classes": "videoinfo"
             }
           }
         }
@@ -1009,6 +312,156 @@
           ]
         }
       ]
+    },
+    {
+      "id": "plp-product-card",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "graphql",
+          "label": "GraphQL Endpoint",
+          "description": "GraphQL endpoint URL"
+        },
+        {
+          "component": "checkbox-group",
+          "valueType": "string[]",
+          "name": "fields",
+          "label": "Product Fields",
+          "multi": true,
+          "options": [
+            { "name": "Title", "value": "title" },
+            { "name": "Series", "value": "series" },
+            { "name": "PriceInfo RegularPrice", "value": "priceInfo_regularPrice" },
+            { "name": "PriceInfo Specialprice", "value": "priceInfo_specialprice" },
+            { "name": "image", "value": "mediaGallery_image" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plp-product-tag",
+      "fields": []
+    },
+    {
+      "id": "plp-product-tag-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Filter Tag Title",
+          "required": true
+        },
+        {
+          "component": "aem-tag",
+          "valueType": "string",
+          "name": "tags",
+          "label": "Tags",
+          "rootPath": "/content/cq:tags/hisense/product"
+        }
+      ]
+    },
+    {
+      "id": "plp-product-filters",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "results",
+          "label": "Results Text",
+          "value": "{searchResultsCount} RESULT",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "reset",
+          "label": "Reset Filters Text",
+          "value": "Reset filters",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sortBy",
+          "label": "Sort By Text",
+          "value": "Sort By",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "plp-product-sort",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Sort Title",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "property",
+          "label": "Sort Property",
+          "description": "Property comes from product model attributes",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "pdp-product-info",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "graphql",
+          "label": "GraphQL Endpoint"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sku",
+          "label": "SKU",
+          "required": true
+        },
+        {
+          "component": "checkbox-group",
+          "valueType": "string[]",
+          "name": "fields",
+          "label": "Product Introduction",
+          "multi": true,
+          "options": [
+            { "name": "Title", "value": "title" },
+            { "name": "Series", "value": "series" },
+            { "name": "PriceInfo RegularPrice", "value": "priceInfo_regularPrice" },
+            { "name": "Awards", "value": "awards" },
+            { "name": "Position", "value": "position" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "product-detail-banner-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false,
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "alt",
+          "label": "Alt Text",
+          "required": true
+        }
+      ]
     }
   ],
   "filters": [
@@ -1022,45 +475,43 @@
         "hero",
         "cards",
         "carousel",
-        "collectionsection",
         "columns",
+        "fragment",
+        "collectionsection",
+        "recards",
+        "video",
+        "banner",
         "description",
         "featurebanner",
-        "banner",
-        "fragment",
-        "footer",
-        "footer-container",
-        "footer-legal-links",
-        "footer-logo",
-        "footer-nav-column",
-        "footer-nav-column-list",
-        "footer-social",
-        "header",
-        "hero",
-        "icon-component",
+        "videoinfo",
         "iconComponent",
-        "image-carousel",
+        "parallax",
+        "properties",
         "imageCarousel",
         "image-comparison-slider",
-        "image-link",
-        "navigation",
-        "navigation-action",
-        "navigation-item",
-        "navigation-link",
-        "navigation-logo",
-        "navigation-secondary-container",
-        "parallax",
-        "pdp-product-info",
         "plp-product-card",
-        "plp-product-filter-tag",
+        "plp-product-tag",
         "plp-product-filters",
-        "product-detail-banner",
-        "product-filters-carousel",
-        "properties",
-        "recards",
-        "slide",
-        "video",
-        "videoinfo"
+        "pdp-product-info",
+        "product-detail-banner"
+      ]
+    },
+    {
+      "id": "plp-product-tag",
+      "components": [
+        "plp-product-tag-item"
+      ]
+    },
+    {
+      "id": "plp-product-filters",
+      "components": [
+        "plp-product-sort"
+      ]
+    },
+    {
+      "id": "product-detail-banner",
+      "components": [
+        "product-detail-banner-item"
       ]
     }
   ]
