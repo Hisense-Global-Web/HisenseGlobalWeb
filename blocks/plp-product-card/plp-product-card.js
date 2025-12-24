@@ -31,7 +31,7 @@ export default function decorate(block) {
   productsGrid.className = 'plp-products';
   const productsLoadMore = document.createElement('div');
   productsLoadMore.className = 'plp-load-more';
-  const mockUrl = 'https://www.hisense-usa.com/category/televisions'
+  const mockUrl = 'https://www.hisense-usa.com/category/televisions';
   productsLoadMore.addEventListener('click', () => {
     if (mockUrl) window.location.href = mockUrl;
   });
