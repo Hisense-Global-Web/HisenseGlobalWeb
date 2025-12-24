@@ -170,6 +170,21 @@
           }
         },
         {
+          "title": "Carousel Item",
+          "id": "carouselItem",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Carousel Item",
+                  "model": "carouselItem"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Collectionsection",
           "id": "collectionsection",
           "plugins": {
@@ -286,6 +301,22 @@
           }
         },
         {
+          "title": "Footer Legal Link Item",
+          "id": "footerLegalLinkItem",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Footer Legal Link Item",
+                  "model": "footerLegalLinkItem",
+                  "classes": "footer-legal-link-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Footer Logo",
           "id": "footerLogo",
           "plugins": {
@@ -297,6 +328,22 @@
                   "model": "footerLogo",
                   "filter": "footerLogo",
                   "classes": "footer-logo"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Footer Social",
+          "id": "footerSocial",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Footer Social",
+                  "model": "footerSocial",
+                  "classes": "footer-social"
                 }
               }
             }
@@ -330,6 +377,22 @@
                   "model": "footerNavColumn",
                   "filter": "footerNavColumn",
                   "classes": "footer-nav-column"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Footer Nav Column List",
+          "id": "footerNavColumnList",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Footer Nav Column List",
+                  "model": "footerNavColumnList",
+                  "classes": "footer-nav-column-list"
                 }
               }
             }
@@ -418,6 +481,21 @@
           }
         },
         {
+          "title": "Icon Item",
+          "id": "iconItem",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Icon Item",
+                  "model": "iconItem"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Image Carousel",
           "id": "imageCarousel",
           "plugins": {
@@ -428,6 +506,21 @@
                   "name": "Image Carousel",
                   "model": "imageCarousel",
                   "filter": "imageCarousel"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Image Carousel Item",
+          "id": "imageCarouselItem",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Image Carousel Item",
+                  "model": "imageCarouselItem"
                 }
               }
             }
@@ -562,6 +655,24 @@
           }
         },
         {
+          "title": "Navigation Secondary Container",
+          "id": "navigationSecondaryContainer",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Navigation Secondary Container",
+                  "model": "navigationSecondaryContainer",
+                  "filter": "navigationSecondaryContainer",
+                  "classes": "navigation-secondary-container",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Navigation",
           "id": "navigation",
           "plugins": {
@@ -573,6 +684,70 @@
                   "model": "navigation",
                   "filter": "navigation",
                   "classes": "navigation-block"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Navigation Action",
+          "id": "navigationAction",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Navigation Action",
+                  "model": "navigationAction",
+                  "classes": "navigation-action"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Navigation Item",
+          "id": "navigationItem",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Navigation Item",
+                  "model": "navigationItem",
+                  "classes": "navigation-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Navigation Link",
+          "id": "navigationLink",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Navigation Link",
+                  "model": "navigationLink",
+                  "classes": "navigation-link"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Navigation Logo",
+          "id": "navigationLogo",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Navigation Logo",
+                  "model": "navigationLogo",
+                  "classes": "navigation-logo"
                 }
               }
             }
@@ -610,6 +785,105 @@
           }
         },
         {
+          "title": "Product Detail Banner",
+          "id": "product-detail-banner",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Product Detail Banner",
+                  "filter": "product-detail-banner",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Product Detail Banner Item",
+          "id": "product-detail-banner-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Product Detail Banner Item",
+                  "model": "product-detail-banner-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Product Filters Carousel",
+          "id": "product-filters-carousel",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Product Filters Carousel",
+                  "filter": "product-filters-carousel",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Product Filters Carousel Item",
+          "id": "product-filters-carousel-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Product Filters Carousel Item",
+                  "model": "product-filters-carousel-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "PLP Product Filters",
+          "id": "plp-product-filters",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "PLP Product Filters",
+                  "filter": "plp-product-filters",
+                  "model": "plp-product-filters",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "PLP Product Filter Sort Item",
+          "id": "plp-product-sort",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "PLP Product Sort Item",
+                  "model": "plp-product-sort",
+                  "key-value": true,
+                  "modelFields": [
+                    "title",
+                    "property"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "PLP Product Card",
           "id": "plp-product-card",
           "plugins": {
@@ -620,6 +894,42 @@
                   "name": "PLP Product Card",
                   "model": "plp-product-card",
                   "classes": "plp-product-card"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "PLP Product Filter Tag",
+          "id": "plp-product-tag",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "PLP Product Filter Tag",
+                  "model": "plp-product-tag",
+                  "modelFields": [],
+                  "filter": "plp-product-tag"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "PLP Product Tag Item",
+          "id": "plp-product-tag-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "PLP Product Tag Item",
+                  "model": "plp-product-tag-item",
+                  "modelFields": [
+                    "title",
+                    "tags"
+                  ]
                 }
               }
             }
@@ -793,6 +1103,21 @@
           }
         },
         {
+          "title": "Property",
+          "id": "property",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Property",
+                  "model": "property"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Recards",
           "id": "recards",
           "plugins": {
@@ -802,6 +1127,22 @@
                 "template": {
                   "name": "Recards",
                   "filter": "recards"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Recard",
+          "id": "recard",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Recard",
+                  "model": "recard",
+                  "classes": "recard"
                 }
               }
             }

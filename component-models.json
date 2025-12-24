@@ -623,6 +623,25 @@
     "fields": []
   },
   {
+    "id": "navigation",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logo",
+        "label": "Logo",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "logoAlt",
+        "label": "Logo Alt",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "footerLegalLinks",
     "fields": [
       {
@@ -1292,6 +1311,10 @@
     ]
   },
   {
+    "id": "product-detail-banner",
+    "fields": []
+  },
+  {
     "id": "product-detail-banner-item",
     "fields": [
       {
@@ -1310,6 +1333,10 @@
         "required": true
       }
     ]
+  },
+  {
+    "id": "product-filters-carousel",
+    "fields": []
   },
   {
     "id": "product-filters-carousel-item",
