@@ -1313,15 +1313,34 @@
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Image",
+        "label": "Cover Image",
         "multi": false
+      }
+    ]
+  },
+  {
+    "id": "videoinfo",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "info",
+        "value": "info",
+        "label": "Info",
+        "valueType": "string"
       },
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "img",
-        "label": "img",
-        "multi": false
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "value": "Description",
+        "label": "description",
+        "valueType": "string"
       }
     ]
   }
