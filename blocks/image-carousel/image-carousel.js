@@ -85,6 +85,7 @@ export default async function decorate(block) {
     const iconBlock = document.createElement('li');
     child.classList.add('item');
     if (contentType === 'video') {
+      block.classList.add('video-carousel-block');
       let singleVideo;
       if (block.classList.contains('bottom-center-style')) {
         child.classList.add('video-type');

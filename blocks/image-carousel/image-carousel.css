@@ -6,91 +6,111 @@
     padding: 0;
     line-height: 1.4;
   }
-}
 
-.image-carousel > div:nth-child(1) {
-  color: var(--color-hisense-teal);
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1;
-}
-
-.image-carousel > div:nth-child(2) {
-  font-size: 34px;
-  font-weight: 400;
-  line-height: 1;
-
-  p {
-    margin-top: 10px;
+  > div:nth-child(1) {
+    color: var(--color-hisense-teal);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
   }
-}
 
-.image-carousel ul{
-  display: flex;
-  gap: 30px;
-  margin: 0;
-  padding: 0;
-  transition: transform 0.5s ease-in-out;
-}
+  > div:nth-child(2) {
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1;
 
-.image-carousel ul>li {
-  box-sizing: border-box;
-  list-style: none;
-  border-radius: 20px;
-  flex-shrink: 0;
-}
-
-.item {
-  position: relative;
-  width: 458px;
-  height: 340px;
-  box-sizing: border-box;
-  text-align: center;
-  border-radius: 20px;
-
-  .item-content,
-  .item-cta {
-    h1, h2, h3, h4, h5, h6 {
-      margin: 0;
+    p {
+      margin-top: 10px;
     }
   }
 
-  .item-picture {
-    width: 100%;
-    height: 100%;
+  ul{
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    transition: transform 0.5s ease-in-out;
+  }
 
-    picture {
+  ul>li {
+    box-sizing: border-box;
+    list-style: none;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  .item {
+    position: relative;
+    width: 458px;
+    height: 340px;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 20px;
+
+    .item-content,
+    .item-cta {
+      h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+      }
+    }
+
+    .item-picture {
       width: 100%;
       height: 100%;
-      inset: 0;
+
+      picture {
+        width: 100%;
+        height: 100%;
+        inset: 0;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 1;
+        border-radius: 20px;
+        object-fit: cover;
+      }
     }
 
-    img {
+    .button-container {
+      font-size: 12px;
+
+      a {
+        border: 1px solid #fff;
+        border-top: transparent;
+        border-left: transparent;
+        border-right: transparent;
+        border-radius: 0;
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .item-video-config {
+      display: none;
+    }
+  }
+
+  &.video-carousel-block {
+    .item {
+      overflow: hidden;
+    }
+
+    .video-play {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      aspect-ratio: 1;
-      border-radius: 20px;
-      object-fit: cover;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
-  }
-
-  .button-container {
-    font-size: 12px;
-
-    a {
-      border: 1px solid #fff;
-      border-top: transparent;
-      border-left: transparent;
-      border-right: transparent;
-      border-radius: 0;
-      background-color: transparent;
-      margin: 0;
-      padding: 0;
-    }
-  }
-
-  .item-video-config {
-    display: none;
   }
 }
 
@@ -107,6 +127,7 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 10px;
+    color: #fff;
 
      p:nth-child(2) {
        font-size: 20px;
@@ -202,6 +223,7 @@
   .item {
     width: 535px;
     height: 368px;
+    position: relative;
   }
 
   .item-picture {
@@ -239,6 +261,7 @@
     height: 484px;
     width: 652px;
     background: transparent;
+    position: relative;
 
     video {
       border-radius: 20px;
@@ -265,6 +288,10 @@
     &.video-type {
       height: 590px;
       width: 800px;
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      cursor: pointer;
 
       div:nth-child(2) {
         p:first-child {
@@ -273,10 +300,6 @@
           line-height: 1;
           margin-bottom: 10px;
         }
-      }
-
-      .video-play {
-        display: none;
       }
     }
   }
@@ -333,4 +356,10 @@
 
 .image-pagination.show {
   display: flex;
+}
+
+.video-carousel-block {
+  .image-pagination {
+    top: 8px;
+  }
 }
