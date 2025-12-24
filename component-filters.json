@@ -24,11 +24,12 @@
       "video",
       "banner",
       "description",
-      "slide",
       "featurebanner",
+      "videoinfo",
       "iconComponent",
       "parallax",
-      "properties"
+      "properties",
+      "imageCarousel"
     ]
   },
   {
@@ -89,6 +90,12 @@
     "id": "iconComponent",
     "components": [
       "iconItem"
+    ]
+  },
+  {
+    "id": "imageCarousel",
+    "components": [
+      "imageCarouselItem"
     ]
   },
   {

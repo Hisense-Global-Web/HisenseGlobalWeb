@@ -69,7 +69,7 @@
 }
 
 .center-style > ul > li {
-  background-color: var(--color-hisense-green-04);
+  background: linear-gradient(135deg, #EEF9F9, #F5FCFC);
   position: relative;
   border-radius: 20px;
   overflow: hidden;
