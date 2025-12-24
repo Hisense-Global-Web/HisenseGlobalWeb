@@ -47,7 +47,6 @@
   box-sizing: border-box;
   text-align: center;
   border-radius: 20px;
-  background: linear-gradient(45deg, #fff, var(--color-hisense-teal));
 
   .item-content,
   .item-cta {
