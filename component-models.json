@@ -963,6 +963,25 @@
     ]
   },
   {
+    "id": "image-comparison-slider",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image_before",
+        "label": "Before Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image_after",
+        "label": "After Image",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "imageLink",
     "fields": [
       {
