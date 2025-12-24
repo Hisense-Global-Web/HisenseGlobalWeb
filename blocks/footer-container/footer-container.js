@@ -379,6 +379,8 @@ export default function decorate(block) {
   if (data.legalLinks.links.length > 0 || data.legalLinks.copyright) {
     const footerBottom = document.createElement('div');
     footerBottom.className = 'footer-bottom';
+    const footerLegals = document.createElement('div');
+    footerLegals.className = 'footer-legals';
 
     if (data.legalLinks.links.length > 0) {
       const legalLinksDiv = document.createElement('div');
@@ -392,16 +394,17 @@ export default function decorate(block) {
         legalLinksDiv.appendChild(a);
       });
 
-      footerBottom.appendChild(legalLinksDiv);
+      footerLegals.appendChild(legalLinksDiv);
     }
 
     if (data.legalLinks.copyright) {
       const copyrightDiv = document.createElement('div');
       copyrightDiv.className = 'footer-copyright';
       copyrightDiv.textContent = data.legalLinks.copyright;
-      footerBottom.appendChild(copyrightDiv);
+      footerLegals.appendChild(copyrightDiv);
     }
 
+    footerBottom.appendChild(footerLegals);
     container.appendChild(footerBottom);
   }
 
