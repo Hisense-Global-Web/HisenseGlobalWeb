@@ -1,34 +1,50 @@
 .collectionsection-container .collectionsection-wrapper {
-  width: 1120px;
-  margin: 20px auto;
-  max-width: unset;
+  max-width: var(--container-max-width);
+  margin:0 auto;
   padding: 0;
+  width: 100%;
 }
 
 .collectionsection {
   position: relative;
- 
 }
 
-.collectionsection div:first-child div p,
-.collectionsection div:first-child div h1,
-.collectionsection div:first-child div h2,
-.collectionsection div:first-child div h3,
-.collectionsection div:first-child div h4,
-.collectionsection div:first-child div h5,
-.collectionsection div:first-child div h6{
-   color: #00AAA6;
-   font-size: 16px;
+.collectionsection-wrapper > div > div:first-child div p,
+.collectionsection-wrapper > div > div:first-child div h1,
+.collectionsection-wrapper > div > div:first-child div h2,
+.collectionsection-wrapper > div > div:first-child div h3,
+.collectionsection-wrapper > div > div:first-child div h4,
+.collectionsection-wrapper > div > div:first-child div h5,
+.collectionsection-wrapper > div > div:first-child div h6{
+  color: #00AAA6;
+  font-family: 'Hisense Sans Alfabet', sans-serif;
+  margin: 0;
 }
-  
-.collectionsection div:last-child div p,
-.collectionsection div:last-child div h1,
-.collectionsection div:last-child div h2,
-.collectionsection div:last-child div h3,
-.collectionsection div:last-child div h4,
-.collectionsection div:last-child div h5,
-.collectionsection div:last-child div h6{
-    font-size: 34px;
-    color: #333;
-    margin-top: 10px;
+
+.collectionsection-wrapper > div > div:first-child div p{
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.collectionsection-wrapper > div > div:last-child div p,
+.collectionsection-wrapper > div > div:last-child div h1,
+.collectionsection-wrapper > div > div:last-child div h2,
+.collectionsection-wrapper > div > div:last-child div h3,
+.collectionsection-wrapper > div > div:last-child div h4,
+.collectionsection-wrapper > div > div:last-child div h5,
+.collectionsection-wrapper > div > div:last-child div h6{
+  color: #333;
+  margin: 10px 0 0;
+  font-family: 'Hisense Sans Alfabet', sans-serif;
+}
+
+.collectionsection-wrapper > div > div:last-child div p{
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
 }

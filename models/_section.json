@@ -191,8 +191,9 @@
         "description",
         "featurebanner",
         "videoinfo",
-        "slide",
-        "iconComponent"
+        "iconComponent",
+        "parallax",
+        "properties"
       ]
     }
   ]

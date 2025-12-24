@@ -26,8 +26,9 @@
       "description",
       "featurebanner",
       "videoinfo",
-      "slide",
-      "iconComponent"
+      "iconComponent",
+      "parallax",
+      "properties"
     ]
   },
   {
@@ -103,6 +104,30 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
+    ]
+  },
+  {
+    "id": "plp-product-tag",
+    "components": [
+      "plp-product-tag-item"
+    ]
+  },
+  {
+    "id": "plp-product-filters",
+    "components": [
+      "plp-product-sort"
+    ]
+  },
+  {
+    "id": "product-filters-carousel",
+    "components": [
+      "product-filters-carousel-item"
+    ]
+  },
+  {
+    "id": "properties",
+    "components": [
+      "property"
     ]
   },
   {
