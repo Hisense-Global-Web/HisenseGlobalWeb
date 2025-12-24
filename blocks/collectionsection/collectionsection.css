@@ -1,7 +1,6 @@
 .collectionsection-container .collectionsection-wrapper {
   max-width: var(--container-max-width);
   margin:0 auto;
-  padding: 0;
   width: 100%;
 }
 
