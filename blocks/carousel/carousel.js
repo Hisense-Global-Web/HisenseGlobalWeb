@@ -86,7 +86,7 @@ function bindEvents(block) {
 function createSlide(block, row, slideIndex) {
   const slide = document.createElement('li');
   const div = document.createElement('div');
-  div.setAttribute('class', 'carousel-content');
+  div.setAttribute('class', 'carousel-content h-grid-container');
   moveInstrumentation(row, slide);
   slide.classList.add('carousel-item');
   slide.dataset.slideIndex = slideIndex;

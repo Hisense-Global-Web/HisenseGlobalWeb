@@ -10,6 +10,7 @@
 
 .icon-component > div:nth-child(2) {
   font-size: 34px;
+  font-weight: 400;
   line-height: 1;
 
   p {
@@ -42,9 +43,9 @@
   cursor: pointer;
   background-color: white;
 
-  &:hover {
+  /* &:hover {
     width: 279px;
-  }
+  } */
 
   .item {
     display: flex;
@@ -59,6 +60,10 @@
 
     > p {
       margin: 0;
+    }
+
+    div:nth-child(2) {
+      font-weight: 400;
     }
 
     .item-picture {
