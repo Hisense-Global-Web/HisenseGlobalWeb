@@ -29,18 +29,10 @@ export default function decorate(block) {
   productsBox.className = 'plp-products-box';
   const productsGrid = document.createElement('div');
   productsGrid.className = 'plp-products';
-  const productsMore = document.createElement('div');
-  productsMore.className = 'plp-load-more';
-  const mockUrl = '/';
-  productsMore.addEventListener('click', () => {
-    if (mockUrl) window.location.href = mockUrl;
-  });
-  const span = document.createElement('span');
-  span.textContent = 'Load more';
-  productsMore.appendChild(span);
+ 
 
   productsBox.append(productsGrid);
-  productsBox.append(productsMore);
+
 
   if (isEditMode) {
     const topWrapper = document.createElement('div');
@@ -78,8 +70,61 @@ export default function decorate(block) {
   if (!graphqlUrl) return;
 
   function renderItems(items) {
+    // 包含多个相同 factoryModel 的不同尺寸
     productsGrid.innerHTML = '';
-    items.forEach((item) => {
+
+    const extractSize = (item) => {
+      if (!item) return null;
+      if (item.size) return String(item.size).replace(/["\s]/g, '');
+      if (item.sku) {
+        const m = String(item.sku).match(/(\d{2,3})/);
+        if (m) return m[1];
+      }
+      const metaTitle = item && item._metadata && item._metadata.stringMetadata
+        && item._metadata.stringMetadata.find((m2) => m2.name === 'title')?.value;
+      const candidates = [metaTitle, item.title, item.subtitle].filter(Boolean);
+      for (let c of candidates) {
+        const mm = String(c).match(/(\d{2,3})/);
+        if (mm) return mm[1];
+      }
+      return null;
+    };
+
+    // 按 factoryModel 聚合
+    const groups = {};
+    items.forEach((it) => {
+      const key = it.factoryModel || it.spu || it.overseasModel || it.sku || (it._path || '');
+      if (!groups[key]) {
+        groups[key] = {
+          factoryModel: it.factoryModel || null,
+          representative: it,
+          variants: [],
+          sizes: new Set(),
+        };
+      }
+      groups[key].variants.push(it);
+      if (!groups[key].representative.mediaGallery_image && it.mediaGallery_image) {
+        groups[key].representative = it;
+      }
+      const sz = extractSize(it);
+      if (sz) groups[key].sizes.add(sz);
+    });
+
+    const groupedArray = Object.keys(groups).map((k) => {
+      const g = groups[k];
+      const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(a) - Number(b));
+      return {
+        key: k,
+        factoryModel: g.factoryModel,
+        representative: g.representative,
+        variants: g.variants,
+        sizes,
+      };
+    });
+
+    // 渲染每个聚合后的产品卡片
+    groupedArray.forEach((group) => {
+      const item = group.representative;
       const card = document.createElement('div');
       card.className = 'product-card';
 
@@ -88,7 +133,6 @@ export default function decorate(block) {
 
       const imgDiv = document.createElement('div');
       imgDiv.className = 'plp-product-img';
-
       // eslint-disable-next-line no-underscore-dangle
       const imgPath = (item && item.mediaGallery_image && item.mediaGallery_image._path) || null;
       if (imgPath) {
@@ -106,7 +150,7 @@ export default function decorate(block) {
       if (fields.includes('title')) {
         // eslint-disable-next-line no-underscore-dangle
         const metaTitle = item && item._metadata && item._metadata.stringMetadata && item._metadata.stringMetadata.find((m) => m.name === 'title')?.value;
-        nameDiv.textContent = item.title || metaTitle || '';
+        nameDiv.textContent = item.title || metaTitle || group.factoryModel || '';
       }
 
       const extraFields = document.createElement('div');
@@ -127,32 +171,47 @@ export default function decorate(block) {
         }
       });
 
+      // sizes 区块
+      const sizesDiv = document.createElement('div');
+      sizesDiv.className = 'plp-product-sizes';
+      if (Array.isArray(group.sizes) && group.sizes.length) {
+        group.sizes.forEach((s) => {
+          const sp = document.createElement('span');
+          sp.className = 'plp-product-size';
+          sp.textContent = s;
+          sizesDiv.appendChild(sp);
+        });
+      }
+
       if (item && item.whereToBuyLink) {
         const link = document.createElement('a');
         link.className = 'plp-product-btn';
         link.href = item.whereToBuyLink;
         link.target = '_blank';
         link.textContent = 'Learn more';
-        card.append(titleDiv, imgDiv, seriesDiv, nameDiv, extraFields, link);
+        card.append(titleDiv, imgDiv, seriesDiv, nameDiv, sizesDiv, extraFields, link);
       } else {
-        card.append(titleDiv, imgDiv, seriesDiv, nameDiv, extraFields);
+        card.append(titleDiv, imgDiv, seriesDiv, nameDiv, sizesDiv, extraFields);
       }
       productsGrid.append(card);
     });
+
+    // 更新结果计数，显示聚合后的产品卡数量
     try {
       const resultsEl = document.querySelector('.plp-results');
       if (resultsEl) {
         const visible = resultsEl.querySelector('.plp-results-count-visible');
         const hidden = resultsEl.querySelector('.plp-results-count');
+        const count = groupedArray.length;
         if (visible) {
-          visible.textContent = String(items.length);
+          visible.textContent = String(count);
         }
         if (hidden) {
-          hidden.textContent = String(items.length);
+          hidden.textContent = String(count);
         }
         if (!visible && !hidden) {
           const currentText = resultsEl.textContent || '';
-          const updatedText = currentText.replace(/\{[^}]*\}/, String(items.length));
+          const updatedText = currentText.replace(/\{[^}]*\}/, String(count));
           resultsEl.textContent = updatedText;
         }
       }
