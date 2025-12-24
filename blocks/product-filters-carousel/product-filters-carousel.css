@@ -162,6 +162,7 @@ main > .plp-product-card-container.plp-product-filters-container * {
 
 .product-filters-carousel .product-filter-text {
   font-size: 16px;
+  font-weight: 400;
   color: #333;
 }
 
