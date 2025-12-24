@@ -43,6 +43,7 @@ function parseDropdownProducts(col) {
   if (imageLinkItems.length) {
     return imageLinkItems.map((item) => {
       const img = item.querySelector('img')?.src || '';
+      const href = item.querySelector('a')?.href || '#';
       const directChildren = Array.from(item.children);
       let text = '';
       if (directChildren[1]) {
@@ -51,7 +52,7 @@ function parseDropdownProducts(col) {
         text = item.textContent.trim();
       }
 
-      return { img, text };
+      return { img, text, href };
     });
   }
 
@@ -197,6 +198,12 @@ function buildDropdown(data) {
       img.alt = item.text || '';
       imgWrap.append(img);
     }
+    if (item.href && item.href !== '#') {
+      product.dataset.href = item.href;
+      product.addEventListener('click', () => {
+        window.location.href = item.href;
+      });
+    }
     const text = document.createElement('div');
     text.className = 'dropdown-product-text';
     text.textContent = item.text || '';
@@ -234,6 +241,17 @@ function buildDropdown(data) {
   content.append(main, btnWrap);
   dropdown.append(content);
   return dropdown;
+}
+function convertToDarkSvgUrl(url) {
+  if (!url.endsWith('.svg')) {
+    return url;
+  }
+  const [mainPart, ...restParts] = url.split(/[?#]/);
+  const suffix = restParts.length > 0 ? `/${restParts.join('/')}` : '';
+
+  const darkMainPart = mainPart.replace(/\.svg$/, '-dark.svg');
+
+  return darkMainPart + suffix;
 }
 
 /**
@@ -321,8 +339,14 @@ export default async function decorate(block) {
       btn.className = 'nav-action-btn';
       const img = document.createElement('img');
       img.src = action.img;
+      img.className = 'light-img';
       img.alt = action.title || 'action';
       btn.append(img);
+      const imgDark = document.createElement('img');
+      imgDark.src = convertToDarkSvgUrl(action.img);
+      imgDark.alt = action.title || 'action';
+      imgDark.className = 'dark-img';
+      btn.append(imgDark);
       if (action.href && action.href !== '#') {
         btn.dataset.href = action.href;
         btn.addEventListener('click', () => {
@@ -346,6 +370,21 @@ export default async function decorate(block) {
 
   navContainer.append(logoEl, linksEl, actionsEl);
   navigation.append(navContainer);
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const carousel = document.querySelector('.carousel');
+    if (!carousel || !carousel.clientHeight) return;
+    if (scrollTop >= (carousel.clientHeight - navigation.clientHeight)) {
+      navigation.classList.add('scroll-active');
+    } else {
+      navigation.classList.remove('scroll-active');
+    }
+  });
+  const carousel = document.querySelector('.carousel');
+  const hasDarkClass = carousel?.classList.contains('dark');
+  if (hasDarkClass) {
+    navigation.classList.add('header-dark-mode');
+  }
 
   block.textContent = '';
   block.append(navigation);

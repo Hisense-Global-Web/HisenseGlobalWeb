@@ -7,6 +7,7 @@ main > .section:first-of-type {
   max-height: 860px;
   height: auto;
   width: 100%;
+  max-width: unset;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -14,7 +15,6 @@ main > .section:first-of-type {
 
 .carousel {
   position: relative;
-  color: black;
 
   .carousel-items-container {
     display: flex;
@@ -31,22 +31,21 @@ main > .section:first-of-type {
 }
 
 .carousel .carousel-item {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    position: relative;
-    width: 100%;
-    height: 100%;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &.light {
+    color: black;
+  }
 
   .carousel-item-image {
-    /* position: absolute; */
-
-    /* top: 0; */
-
-    /* left: 0; */
     width: 100%;
     height: 860px;
 
@@ -73,7 +72,7 @@ main > .section:first-of-type {
 
   .carousel-item-content,
   .carousel-item-cta {
-    width: auto;
+    width: 322px;
   }
 
   .carousel-item-content {
@@ -130,6 +129,37 @@ main > .section:first-of-type {
     }
   }
 
+  &.dark {
+    color: white;
+
+    .carousel-item-content,
+    .carousel-item-cta {
+      color: var(--background-light);
+
+      .button-container {
+        .button {
+          color: var(--background-light);
+          border-color: var(--background-light);
+
+          &:hover {
+            background-color: white;
+            border-color: white;
+            color: black;
+          }
+
+          &.active {
+            color: white;
+            border-color: #00AAA6;
+
+            &:hover {
+              background-color: #00B5B1;
+              border-color: #00B5B1;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .carousel .carousel-item-indicators {
@@ -173,38 +203,6 @@ main > .section:first-of-type {
       opacity: 1;
     }
   }
-}
-
-.carousel.dark .carousel-item {
-    color: white;
-
-    .carousel-item-content,
-    .carousel-item-cta {
-      color: var(--background-light);
-
-      .button-container {
-        .button {
-          color: var(--background-light);
-          border-color: var(--background-light);
-
-          &:hover {
-            background-color: white;
-            border-color: white;
-            color: black;
-          }
-
-          &.active {
-            color: white;
-            border-color: #00AAA6;
-
-            &:hover {
-              background-color: #00B5B1;
-              border-color: #00B5B1;
-            }
-          }
-        }
-      }
-    }
 }
 
 .carousel.dark .carousel-item-indicators {

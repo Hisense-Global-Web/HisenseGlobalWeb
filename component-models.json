@@ -311,18 +311,10 @@
         "multi": false
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "collection_imageAlt",
-        "label": "Image Alt Text",
-        "required": true
-      },
-      {
         "component": "richtext",
         "name": "collection_text",
         "label": "Text",
-        "valueType": "string",
-        "required": true
+        "valueType": "string"
       },
       {
         "component": "aem-content",
@@ -417,7 +409,7 @@
     ]
   },
   {
-    "id": "carousel-item",
+    "id": "carouselItem",
     "fields": [
       {
         "component": "reference",
@@ -442,14 +434,14 @@
           {
             "component": "text",
             "name": "text_special",
-            "value": "ULED X Mini-LED Series UX",
+            "value": "",
             "label": "Colorful Text(teal)",
             "valueType": "string"
           },
           {
             "component": "richtext",
             "name": "text_normal",
-            "value": "Perfection, any content, anytime",
+            "value": "",
             "label": "Content",
             "valueType": "string"
           }
@@ -554,7 +546,7 @@
     "id": "description",
     "fields": [
       {
-        "component": "select",
+        "component": "multiselect",
         "name": "classes",
         "value": "",
         "label": "Description Alignment Class Name Options",
@@ -571,6 +563,14 @@
           {
             "name": "text-align-right",
             "value": "text-align-right"
+          },
+          {
+            "name": "pb-40",
+            "value": "pb-40"
+          },
+          {
+            "name": "pb-80",
+            "value": "pb-80"
           }
         ]
       },
@@ -599,18 +599,16 @@
         "multi": false
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "featurebanner_imageAlt",
-        "label": "Image Alt Text",
-        "required": true
-      },
-      {
         "component": "richtext",
         "name": "featurebanner_text",
         "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "valueType": "string",
-        "required": true
+        "name": "featurebanner_tips",
+        "label": "Feature banner tips"
       }
     ]
   },
@@ -809,6 +807,20 @@
             "value": "text-left"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "title",
+        "valueType": "string"
       }
     ]
   },
@@ -835,6 +847,7 @@
         "name": "icon_cta",
         "label": "CTA",
         "valueType": "string",
+        "required": true,
         "value": "/"
       },
       {
@@ -842,6 +855,7 @@
         "name": "icon_ctaLabel",
         "label": "CTA Label",
         "valueType": "string",
+        "required": true,
         "value": "required"
       }
     ]
@@ -991,6 +1005,18 @@
     ]
   },
   {
+    "id": "parallax",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "plp-product-card",
     "fields": [
       {
@@ -1133,6 +1159,44 @@
         "valueType": "string",
         "name": "link",
         "label": "Link",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "properties",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Properties Group Title"
+      },
+      {
+        "component": "boolean",
+        "label": "Expand by Default",
+        "name": "expanded",
+        "valueType": "boolean",
+        "value": false
+      }
+    ]
+  },
+  {
+    "id": "property",
+    "fields": [
+      {
+        "component": "text",
+        "name": "propName",
+        "value": "",
+        "label": "Property Name",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "propValue",
+        "value": "",
+        "label": "Property Value",
+        "valueType": "string",
         "required": true
       }
     ]

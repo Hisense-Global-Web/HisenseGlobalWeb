@@ -30,18 +30,16 @@
           "multi": false
         },
         {
-          "component": "text",
-          "valueType": "string",
-          "name": "featurebanner_imageAlt",
-          "label": "Image Alt Text",
-          "required": true
-        },
-        {
           "component": "richtext",
           "name": "featurebanner_text",
           "label": "Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
           "valueType": "string",
-          "required": true
+          "name": "featurebanner_tips",
+          "label": "Feature banner tips"
         }
       ]
     }
