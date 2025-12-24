@@ -3,7 +3,7 @@
   width: 100%;
   margin: 20px auto;
   max-width: var(--container-max-width);
-  font-family:'Hisense Sans Alfabet', sans-serif;
+  
 }
 
 .cover-style > ul {
@@ -29,13 +29,18 @@
 
 .cover-style .cards-card-body {
   position: absolute;
-  top: 0;
+  top: 24px;
   text-align: center;
   display: flex;
   justify-content: center;
   width: 100%;
   color: white;
-  font-size: 20px;
+  font-family:'Hisense Sans Alfabet', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
 }
 
 .cover-style .cards-card-image {
@@ -65,7 +70,7 @@
 }
 
 .center-style > ul > li {
-  background-color: var(--color-hisense-green-04);
+  background: linear-gradient(135deg, #EEF9F9, #F5FCFC);
   position: relative;
   border-radius: 20px;
   overflow: hidden;
@@ -81,9 +86,14 @@
 .center-style .cards-card-body {
   width: 100%;
   text-align: center;
-  top: 40px;
-  font-size: 24px;
+  top: 36px;
   color: #000;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+  font-family:'Hisense Sans Alfabet', sans-serif;
   
 }
 

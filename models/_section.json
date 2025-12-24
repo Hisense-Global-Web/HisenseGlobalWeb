@@ -31,6 +31,12 @@
           "description": "The label shown for this section in the Content Tree"
         },
         {
+          "component": "text",
+          "name": "id",
+          "label": "Section ID",
+          "description": "Enter a unique ID (e.g., \"specifications\", \"faq-section\") if you want to create links that jump directly to this section."
+        },
+        {
           "component": "select",
           "name": "style_theme",
           "label": "Section Theme",
@@ -189,11 +195,12 @@
         "video",
         "banner",
         "description",
-        "slide",
         "featurebanner",
+        "videoinfo",
         "iconComponent",
         "parallax",
-        "properties"
+        "properties",
+        "imageCarousel"
       ]
     }
   ]

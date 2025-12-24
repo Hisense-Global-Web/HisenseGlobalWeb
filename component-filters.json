@@ -24,11 +24,12 @@
       "video",
       "banner",
       "description",
-      "slide",
       "featurebanner",
+      "videoinfo",
       "iconComponent",
       "parallax",
-      "properties"
+      "properties",
+      "imageCarousel"
     ]
   },
   {
@@ -92,6 +93,12 @@
     ]
   },
   {
+    "id": "imageCarousel",
+    "components": [
+      "imageCarouselItem"
+    ]
+  },
+  {
     "id": "navigationSecondaryContainer",
     "components": [
       "columns"
@@ -104,6 +111,24 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
+    ]
+  },
+  {
+    "id": "plp-product-tag",
+    "components": [
+      "plp-product-tag-item"
+    ]
+  },
+  {
+    "id": "plp-product-filters",
+    "components": [
+      "plp-product-sort"
+    ]
+  },
+  {
+    "id": "product-filters-carousel",
+    "components": [
+      "product-filters-carousel-item"
     ]
   },
   {
