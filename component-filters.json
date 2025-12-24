@@ -17,45 +17,43 @@
       "hero",
       "cards",
       "carousel",
-      "collectionsection",
       "columns",
+      "fragment",
+      "collectionsection",
+      "recards",
+      "video",
+      "banner",
       "description",
       "featurebanner",
-      "banner",
-      "fragment",
-      "footer",
-      "footer-container",
-      "footer-legal-links",
-      "footer-logo",
-      "footer-nav-column",
-      "footer-nav-column-list",
-      "footer-social",
-      "header",
-      "hero",
-      "icon-component",
+      "videoinfo",
       "iconComponent",
-      "image-carousel",
+      "parallax",
+      "properties",
       "imageCarousel",
       "image-comparison-slider",
-      "image-link",
-      "navigation",
-      "navigation-action",
-      "navigation-item",
-      "navigation-link",
-      "navigation-logo",
-      "navigation-secondary-container",
-      "parallax",
-      "pdp-product-info",
       "plp-product-card",
-      "plp-product-filter-tag",
+      "plp-product-tag",
       "plp-product-filters",
-      "product-detail-banner",
-      "product-filters-carousel",
-      "properties",
-      "recards",
-      "slide",
-      "video",
-      "videoinfo"
+      "pdp-product-info",
+      "product-detail-banner"
+    ]
+  },
+  {
+    "id": "plp-product-tag",
+    "components": [
+      "plp-product-tag-item"
+    ]
+  },
+  {
+    "id": "plp-product-filters",
+    "components": [
+      "plp-product-sort"
+    ]
+  },
+  {
+    "id": "product-detail-banner",
+    "components": [
+      "product-detail-banner-item"
     ]
   },
   {
