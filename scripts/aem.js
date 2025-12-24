@@ -530,6 +530,10 @@ function decorateSections(main) {
       });
       sectionMeta.parentNode.remove();
     }
+
+    if (section.dataset.id) {
+      section.id = section.dataset.id;
+    }
   });
 }
 

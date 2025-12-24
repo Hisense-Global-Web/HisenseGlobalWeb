@@ -150,8 +150,7 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h6 {
+h5{
 	margin: 0;
 	font-family: var(--font-family);
 	font-weight: 500;
@@ -186,6 +185,7 @@ h5 {
 h6 {
 	font-size: var(--heading-font-size-xs);
 	line-height: var(--line-height-m);
+	font-weight: 400;
 }
 
 p,
