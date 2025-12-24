@@ -1,7 +1,9 @@
 
 .cards-wrapper {
-  width: 1120px;
+  width: 100%;
   margin: 20px auto;
+  max-width: var(--container-max-width);
+  font-family:'Hisense Sans Alfabet', sans-serif;
 }
 
 .cover-style > ul {
@@ -93,48 +95,50 @@
   margin: 35.5px 0 21px;
 }
 
-.center-style .cards-card-cta{
-  position: absolute;
-  bottom: 10px;
-}
 
-.center-style > ul > li:hover .cards-card-image {
-  margin: 18px 0 21px;
-}
+
 
 .center-style > ul > li img {
   width: 174px;
   object-fit: contain;
+  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
 }
 
 .center-style > ul > li:hover img {
-  width: 196px;
-  object-fit: contain;
+ transform: scale(1.1) translateY(-5px);
+ 
 }
 
-.center-style > ul > li .cards-card-cta{
-  display: none;
-}
-
-.center-style > ul > li:hover .cards-card-cta{
-  display: block;
-}
-
-.cover-style > ul > li:hover img {
-  width: 120%;
-  max-width: 120%;
-}
-
-
-.center-style  a.button:any-link,
+.center-style > ul > li .cards-card-cta a.button:any-link,
 .center-style button{
-  background-color: #00AAA6!important;
-  color: white;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family:'Hisense Sans Alfabet', sans-serif;
-  font-size: 12px;
-  width: 128px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family:'Hisense Sans Alfabet', sans-serif;
+    font-size: 12px;
+    width: 128px;
+    color: #fff !important;
+    background-color: #00AAA6 !important;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+
+    /* -webkit-transform: translateX(-50%); */
+    transform: translateX(-50%);
+
+    /* -webkit-transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s; */
+    transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s;
+
 }
+
+.center-style > ul > li:hover .cards-card-cta a.button:any-link,
+.center-style button{
+  opacity: 1;
+  visibility: visible;
+  bottom: 16px;
+}
+
+
