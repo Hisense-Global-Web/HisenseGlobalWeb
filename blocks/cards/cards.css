@@ -2,7 +2,6 @@
 .cards-wrapper {
   width: 100%;
   margin: 20px auto;
-  max-width: var(--container-max-width);
   
 }
 
@@ -75,7 +74,7 @@
   border-radius: 20px;
   overflow: hidden;
   display: flex;
-  padding: 40.5px 0 24px;
+  padding: 36px 0 20px;
   height: 300px;
   flex-direction: column;
   align-items: center;
@@ -86,7 +85,6 @@
 .center-style .cards-card-body {
   width: 100%;
   text-align: center;
-  top: 36px;
   color: #000;
   font-size: 24px;
   font-style: normal;
@@ -102,7 +100,7 @@
 }
 
 .center-style .cards-card-image {
-  margin: 35.5px 0 21px;
+  margin: 20px 0 0;
 }
 
 
