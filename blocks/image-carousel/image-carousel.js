@@ -21,7 +21,7 @@ function updatePosition(block) {
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
-  if (cards.length > visibleImage) {
+  if (cards.length >= visibleImage) {
     block.querySelector('.image-pagination').classList.add('show');
   }
   block.querySelector('.slide-prev').addEventListener('click', () => {
@@ -85,6 +85,7 @@ export default async function decorate(block) {
     const iconBlock = document.createElement('li');
     child.classList.add('item');
     if (contentType === 'video') {
+      block.classList.add('video-carousel-block');
       let singleVideo;
       if (block.classList.contains('bottom-center-style')) {
         child.classList.add('video-type');
