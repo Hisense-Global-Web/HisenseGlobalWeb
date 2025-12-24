@@ -131,6 +131,7 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   color: #000;
   font-size: 15px;
   cursor: pointer;
+  padding: 0;
 }
 
 .pdp-specs-btn:hover {
