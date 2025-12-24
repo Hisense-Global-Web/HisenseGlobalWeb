@@ -18,10 +18,7 @@ const createResizeObserver = (callback, delay = 100) => {
 };
 
 function initializeDraggableSlider(wrapper, dragger, imageWrapperAfter) {
-  const {
-    gsap,
-    Draggable
-  } = window;
+  const { gsap, Draggable } = window;
 
   // Register plugin only once
   if (!gsap.plugins.Draggable) {
@@ -68,7 +65,6 @@ export default async function decorate(block) {
   // Early return if block doesn't have exactly 2 pictures
   const pictures = block.querySelectorAll('picture');
   if (pictures.length !== 2) {
-    console.warn('Before/After block requires exactly 2 images');
     return;
   }
 
@@ -127,7 +123,6 @@ export default async function decorate(block) {
       }
     }
   } catch (error) {
-    console.error('Failed to load required scripts for before/after slider:', error);
     return;
   }
 
