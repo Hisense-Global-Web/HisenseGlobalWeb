@@ -109,6 +109,10 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   color: #000;
 }
 
+.pdp-buy-btn:hover {
+  background: transparent;
+}
+
 .pdp-specs-btn {
   display: flex;
   align-items: center;
@@ -118,6 +122,10 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   color: #000;
   font-size: 15px;
   cursor: pointer;
+}
+
+.pdp-specs-btn:hover {
+  background: transparent;
 }
 
 .pdp-specs-btn img {

@@ -130,7 +130,7 @@ export default async function decorate(block) {
   const specsBtn = document.createElement('button');
   specsBtn.className = 'pdp-specs-btn';
   const specsImg = document.createElement('img');
-  specsImg.src = 'left.svg';
+  specsImg.src = '/content/dam/hisense/image/icon/specs.svg';
   specsImg.alt = 'specs';
   specsBtn.appendChild(specsImg);
   const specsSpan = document.createElement('span');
