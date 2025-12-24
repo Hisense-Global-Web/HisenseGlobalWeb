@@ -152,8 +152,7 @@ h3,
 h4,
 h5,
 h6 {
-	margin-top: 24px;
-	margin-bottom: 16px;
+	margin: 0;
 	font-family: var(--font-family);
 	font-weight: 500;
 	scroll-margin: 40px;
@@ -195,8 +194,7 @@ ol,
 ul,
 pre,
 blockquote {
-	margin-top: 0.8em;
-	margin-bottom: 0.25em;
+	margin: 0;
 }
 
 code,
@@ -353,14 +351,16 @@ main > .section:first-of-type {
 }
 
 /* section container */
-main > .section > div {
+main > .section > div,
+.h-grid-container {
 	max-width: var(--container-max-width);
 	margin: auto;
 	padding: 0 24px;
 }
 
 @media (width >= 900px) {
-	main > .section > div {
+	main > .section > div,
+	.h-grid-container {
 		padding: 0 32px;
 	}
 }
