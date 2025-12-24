@@ -866,6 +866,96 @@
     ]
   },
   {
+    "id": "imageCarousel",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Image Text Position",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Left Style",
+            "value": "left-style"
+          },
+          {
+            "name": "Left Bottom Style",
+            "value": "left-bottom-style"
+          },
+          {
+            "name": "Bottom Left Style",
+            "value": "bottom-left-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          },
+          {
+            "name": "Bottom Center Style",
+            "value": "bottom-center-style"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Colorful Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "mainContent",
+        "label": "Section Content Type",
+        "options": [
+          {
+            "name": "Image",
+            "value": "Image"
+          },
+          {
+            "name": "video",
+            "value": "video"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "imageCarouselItem",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "img",
+        "label": "Img Snapshot For Video",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "imageLink",
     "fields": [
       {

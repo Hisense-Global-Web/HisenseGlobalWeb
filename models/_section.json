@@ -198,7 +198,8 @@
         "videoinfo",
         "iconComponent",
         "parallax",
-        "properties"
+        "properties",
+        "imageCarousel"
       ]
     }
   ]
