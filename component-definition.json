@@ -72,9 +72,10 @@
                 "template": {
                   "model": "section",
                   "style_theme": "light",
-                  "style_paddingTop": "",
-                  "style_paddingBottom": "",
-                  "style_image": "",
+                  "style_container": "",
+                  "style_paddingTop": "pt-l",
+                  "style_paddingBottom": "pd-l",
+                  "style_imageBorderRadius": "",
                   "style_imageRatio": ""
                 }
               }
