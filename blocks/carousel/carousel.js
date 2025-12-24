@@ -105,7 +105,7 @@ function createSlide(block, row, slideIndex) {
       case 2:
         column.classList.add('carousel-item-content');
         if ([...column.children].length > 1) {
-          column.firstElementChild.classList.add('teal-text');
+          if (column.firstElementChild.innerHTML.startsWith('<p>')) column.firstElementChild.classList.add('teal-text');
           column.lastElementChild.classList.add('change-text');
         }
         [...column.children].forEach((children) => {
@@ -156,9 +156,12 @@ export default async function decorate(block) {
   if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);
-    showSlide(block, 0, true);
     window.onload = () => {
       observeMouse(block, 0);
     };
   }
+  // 初始化加载主题色
+  window.onload = () => {
+    showSlide(block, 0, true);
+  };
 }
