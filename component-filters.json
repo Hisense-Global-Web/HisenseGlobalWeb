@@ -32,7 +32,11 @@
       "imageCarousel",
       "image-comparison-slider",
       "product-detail-banner",
-      "pdp-product-info"
+      "pdp-product-info",
+      "plp-product-card",
+      "plp-product-tag",
+      "plp-product-filters",
+      "product-filters-carousel"
     ]
   },
   {
