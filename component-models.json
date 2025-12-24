@@ -144,6 +144,11 @@
         "description": "The label shown for this section in the Content Tree"
       },
       {
+        "component": "text",
+        "name": "id",
+        "label": "Section ID"
+      },
+      {
         "component": "select",
         "name": "style_theme",
         "label": "Section Theme",
