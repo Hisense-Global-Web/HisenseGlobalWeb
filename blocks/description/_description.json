@@ -24,33 +24,33 @@
       "id": "description",
       "fields": [
         {
-            "component": "multiselect",
-            "name": "classes",
-            "value": "",
-            "label": "Description Alignment Class Name Options",
-            "valueType": "string",
-            "options": [
-                {
-                  "name": "Default",
-                  "value": ""
-                },
-                {
-                  "name": "text-align-left",
-                  "value": "text-align-left"
-                },
-                {
-                  "name": "text-align-right",
-                  "value": "text-align-right"
-                },
-                {
-                  "name": "pb-40",
-                  "value": "pb-40"
-                },
-                {
-                  "name": "pb-80",
-                  "value": "pb-80"
-                }
-            ]
+          "component": "multiselect",
+          "name": "classes",
+          "value": "",
+          "label": "Description Alignment Class Name Options",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "text-align-left",
+              "value": "text-align-left"
+            },
+            {
+              "name": "text-align-right",
+              "value": "text-align-right"
+            },
+            {
+              "name": "pb-40",
+              "value": "pb-40"
+            },
+            {
+              "name": "pb-80",
+              "value": "pb-80"
+            }
+          ]
         },
         {
           "component": "text",
@@ -62,6 +62,12 @@
           "component": "richtext",
           "name": "description_text",
           "label": "Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "description_anchorId",
+          "label": "Description anchor id",
           "valueType": "string"
         }
       ]
