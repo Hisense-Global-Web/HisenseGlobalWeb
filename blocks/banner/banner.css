@@ -40,7 +40,7 @@
       text-align: center;
       border: 1px solid #fff;
       padding: 0;
-      margin-top: 30px;
+      margin-top: 20px;
       position: relative;
       z-index: 6;
       transition-property: color, background-color, border-color, border-bottom-color;
@@ -83,6 +83,7 @@
     text-overflow: clip;
     position: relative;
     z-index: 6;
+    margin: 0;
   }
 
   h1+p,
@@ -93,9 +94,17 @@
   h6+p {
     color: #fff;
     margin-top: 20px;
-    width: 282px;
+    width: 319px;
+    height: 89px;
     position: relative;
     z-index: 6;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4; /* 限制显示4行 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
   }
 }
 

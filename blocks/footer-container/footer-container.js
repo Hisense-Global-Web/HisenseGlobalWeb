@@ -283,6 +283,7 @@ export default function decorate(block) {
 
   const footer = document.createElement('footer');
   footer.id = 'footer';
+  footer.className = 'h-grid-container';
 
   const container = document.createElement('div');
   container.className = 'footer-container';
