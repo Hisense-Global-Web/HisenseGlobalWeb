@@ -144,9 +144,16 @@
         "description": "The label shown for this section in the Content Tree"
       },
       {
+        "component": "text",
+        "name": "id",
+        "label": "Section ID",
+        "description": "Enter a unique ID (e.g., \"specifications\", \"faq-section\") if you want to create links that jump directly to this section."
+      },
+      {
         "component": "select",
         "name": "style_theme",
         "label": "Section Theme",
+        "value": "light",
         "options": [
           {
             "name": "Light",
@@ -166,6 +173,7 @@
         "component": "select",
         "name": "style_container",
         "label": "Section Container Type",
+        "value": "",
         "options": [
           {
             "name": "Default",
@@ -187,6 +195,7 @@
             "component": "select",
             "name": "style_paddingTop",
             "label": "Padding Top",
+            "value": "pt-l",
             "options": [
               {
                 "name": "None",
@@ -214,6 +223,7 @@
             "component": "select",
             "name": "style_paddingBottom",
             "label": "Padding Bottom",
+            "value": "pb-l",
             "options": [
               {
                 "name": "None",
@@ -249,6 +259,7 @@
             "component": "select",
             "name": "style_imageBorderRadius",
             "label": "Image Border Radius",
+            "value": "",
             "options": [
               {
                 "name": "Default",
@@ -264,6 +275,7 @@
             "component": "select",
             "name": "style_imageRatio",
             "label": "Image Ratio",
+            "value": "",
             "options": [
               {
                 "name": "Original",
@@ -280,40 +292,6 @@
             ]
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "accordion",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title"
-      },
-      {
-        "component": "select",
-        "name": "classes_variant",
-        "label": "Variant",
-        "options": [
-          {
-            "name": "Product Info Sheet",
-            "value": "product-info-sheet"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "accordionItem",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Property",
-        "valueType": "string",
-        "multi": true
       }
     ]
   },
@@ -580,7 +558,7 @@
     "id": "description",
     "fields": [
       {
-        "component": "select",
+        "component": "multiselect",
         "name": "classes",
         "value": "",
         "label": "Description Alignment Class Name Options",
@@ -597,6 +575,14 @@
           {
             "name": "text-align-right",
             "value": "text-align-right"
+          },
+          {
+            "name": "pb-40",
+            "value": "pb-40"
+          },
+          {
+            "name": "pb-80",
+            "value": "pb-80"
           }
         ]
       },
@@ -887,6 +873,96 @@
     ]
   },
   {
+    "id": "imageCarousel",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Image Text Position",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Left Style",
+            "value": "left-style"
+          },
+          {
+            "name": "Left Bottom Style",
+            "value": "left-bottom-style"
+          },
+          {
+            "name": "Bottom Left Style",
+            "value": "bottom-left-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          },
+          {
+            "name": "Bottom Center Style",
+            "value": "bottom-center-style"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Colorful Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "mainContent",
+        "label": "Section Content Type",
+        "options": [
+          {
+            "name": "Image",
+            "value": "Image"
+          },
+          {
+            "name": "video",
+            "value": "video"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "imageCarouselItem",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "img",
+        "label": "Img Snapshot For Video",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "imageLink",
     "fields": [
       {
@@ -1039,12 +1115,6 @@
         "name": "image",
         "label": "Image",
         "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "label": "Text",
-        "valueType": "string"
       }
     ]
   },
@@ -1096,6 +1166,119 @@
     ]
   },
   {
+    "id": "plp-product-card",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "graphql",
+        "label": "GraphQL Endpoint",
+        "description": "GraphQL endpoint URL"
+      },
+      {
+        "component": "checkbox-group",
+        "valueType": "string[]",
+        "name": "fields",
+        "label": "Product Fields",
+        "multi": true,
+        "options": [
+          {
+            "name": "Title",
+            "value": "title"
+          },
+          {
+            "name": "Series",
+            "value": "series"
+          },
+          {
+            "name": "PriceInfo RegularPrice",
+            "value": "priceInfo_regularPrice"
+          },
+          {
+            "name": "PriceInfo Specialprice",
+            "value": "priceInfo_specialprice"
+          },
+          {
+            "name": "image",
+            "value": "mediaGallery_image"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "plp-product-tag",
+    "fields": []
+  },
+  {
+    "id": "plp-product-tag-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Filter Tag Title",
+        "required": true
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "tags",
+        "label": "Tags",
+        "rootPath": "/content/cq:tags/hisense/product"
+      }
+    ]
+  },
+  {
+    "id": "plp-product-filters",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "results",
+        "label": "Results Text",
+        "value": "{searchResultsCount} RESULT",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "reset",
+        "label": "Reset Filters Text",
+        "value": "Reset filters",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sortBy",
+        "label": "Sort By Text",
+        "value": "Sort By",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "plp-product-sort",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Sort Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "property",
+        "label": "Sort Property",
+        "description": "Property comes from product model attributes",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "product-detail-banner-item",
     "fields": [
       {
@@ -1111,6 +1294,78 @@
         "valueType": "string",
         "name": "alt",
         "label": "Alt Text",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "product-filters-carousel-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "alt",
+        "label": "Alt Text",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Text",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "properties",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Properties Group Title"
+      },
+      {
+        "component": "boolean",
+        "label": "Expand by Default",
+        "name": "expanded",
+        "valueType": "boolean",
+        "value": false
+      }
+    ]
+  },
+  {
+    "id": "property",
+    "fields": [
+      {
+        "component": "text",
+        "name": "propName",
+        "value": "",
+        "label": "Property Name",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "propValue",
+        "value": "",
+        "label": "Property Value",
+        "valueType": "string",
         "required": true
       }
     ]
@@ -1222,15 +1477,34 @@
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Image",
+        "label": "Cover Image",
         "multi": false
+      }
+    ]
+  },
+  {
+    "id": "videoinfo",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "info",
+        "value": "info",
+        "label": "Info",
+        "valueType": "string"
       },
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "img",
-        "label": "img",
-        "multi": false
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "value": "Description",
+        "label": "description",
+        "valueType": "string"
       }
     ]
   }
