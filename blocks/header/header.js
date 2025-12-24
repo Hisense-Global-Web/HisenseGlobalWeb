@@ -243,9 +243,6 @@ function buildDropdown(data) {
   return dropdown;
 }
 function convertToDarkSvgUrl(url) {
-  if (!url.endsWith('.svg')) {
-    return url;
-  }
   const [mainPart, ...restParts] = url.split(/[?#]/);
   const suffix = restParts.length > 0 ? `/${restParts.join('/')}` : '';
 
