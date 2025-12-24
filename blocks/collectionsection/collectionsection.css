@@ -27,6 +27,7 @@
   font-weight: 400;
   line-height: normal;
   text-transform: uppercase;
+  padding: 0;
 }
 
 .collectionsection-wrapper > div > div:last-child div p,
@@ -36,6 +37,7 @@
 .collectionsection-wrapper > div > div:last-child div h4,
 .collectionsection-wrapper > div > div:last-child div h5,
 .collectionsection-wrapper > div > div:last-child div h6{
+  padding: 0;
   color: #333;
   margin: 10px 0 0;
   font-family: 'Hisense Sans Alfabet', sans-serif;
