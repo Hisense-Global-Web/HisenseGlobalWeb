@@ -29,8 +29,18 @@ export default function decorate(block) {
   productsBox.className = 'plp-products-box';
   const productsGrid = document.createElement('div');
   productsGrid.className = 'plp-products';
+  const productsLoadMore = document.createElement('div');
+  productsLoadMore.className = 'plp-load-more';
+  const mockUrl = 'https://www.hisense-usa.com/category/televisions';
+  productsLoadMore.addEventListener('click', () => {
+    if (mockUrl) window.location.href = mockUrl;
+  });
+  const span = document.createElement('span');
+  span.textContent = 'Load more';
 
+  productsLoadMore.append(span);
   productsBox.append(productsGrid);
+  productsBox.append(productsLoadMore);
 
   if (isEditMode) {
     const topWrapper = document.createElement('div');
