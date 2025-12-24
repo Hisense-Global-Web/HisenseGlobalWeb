@@ -210,6 +210,10 @@ pre {
 	white-space: pre;
 }
 
+main * {
+  box-sizing: border-box;
+}
+
 main > div {
 	margin: 40px 16px;
 }
