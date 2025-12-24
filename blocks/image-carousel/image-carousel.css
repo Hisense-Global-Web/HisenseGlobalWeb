@@ -24,6 +24,10 @@
     }
   }
 
+  .image-viewport {
+    overflow: hidden;
+  }
+
   ul{
     display: flex;
     gap: 30px;

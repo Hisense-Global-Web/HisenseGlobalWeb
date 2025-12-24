@@ -937,7 +937,7 @@
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Image",
+        "label": "Image or Video",
         "multi": false
       },
       {
