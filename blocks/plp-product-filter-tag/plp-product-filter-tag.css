@@ -58,6 +58,7 @@
   margin-bottom: 6px;
   font-size: 12px;
   height: 20px;
+  font-weight: 400;
 }
 
 .plp-filter-item input[type="checkbox"] {
