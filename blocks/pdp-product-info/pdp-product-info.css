@@ -29,6 +29,7 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
 .pdp-favorite {
   margin-bottom: 20px;
   cursor: pointer;
+  display: none;
 }
 
 .pdp-favorite img {
@@ -45,7 +46,6 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
 }
 
 .pdp-title {
-  height: 44px;
   line-height: 44px;
   font-size: 34px;
   font-weight: 400;
@@ -106,6 +106,7 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   cursor: pointer;
   border-radius: 21px;
   margin-bottom: 16px;
+  color: #000;
 }
 
 .pdp-specs-btn {
