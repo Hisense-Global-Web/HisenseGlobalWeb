@@ -284,6 +284,7 @@ footer footer {
   font-weight: 400;
   color: rgb(0 0 0 / 100%);
   text-decoration: none;
+  margin-left: 6px;
 }
 
 #footer .footer-nav-column-link:hover {
