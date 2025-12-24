@@ -32,7 +32,7 @@
 .videoinfo div:nth-child(2) div h5,
 .videoinfo div:nth-child(2) div h6 {
   color: white;
-  margin: 0;
+  margin:12px 0;
   padding: 0
 }
 
