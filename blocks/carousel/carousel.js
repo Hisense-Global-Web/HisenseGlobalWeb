@@ -108,6 +108,9 @@ function createSlide(block, row, slideIndex) {
           column.firstElementChild.classList.add('teal-text');
           column.lastElementChild.classList.add('change-text');
         }
+        [...column.children].forEach((children) => {
+          if (children.innerHTML.includes('/n')) children.classList.add('focus-wrap');
+        });
         break;
       default:
         column.classList.add('carousel-item-cta');
