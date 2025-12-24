@@ -351,14 +351,16 @@ main > .section:first-of-type {
 }
 
 /* section container */
-main > .section > div {
+main > .section > div,
+.h-grid-container {
 	max-width: var(--container-max-width);
 	margin: auto;
 	padding: 0 24px;
 }
 
 @media (width >= 900px) {
-	main > .section > div {
+	main > .section > div,
+	.h-grid-container {
 		padding: 0 32px;
 	}
 }
