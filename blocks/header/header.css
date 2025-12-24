@@ -51,6 +51,8 @@
 .nav-section {
   cursor: pointer;
   color: var(--header-active-color);
+  height: 24px;
+  line-height: 24px;
 }
 
 .nav-link {

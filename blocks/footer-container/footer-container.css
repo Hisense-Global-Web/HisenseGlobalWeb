@@ -52,6 +52,12 @@
   font-weight: 500;
 }
 
+.footer-nav-column {
+  width: calc((100% - 4 * 92px) / 5);
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
 .section.footer-container-block[data-aue-resource] .footer-logo-wrapper > .footer-logo,
 .section.footer-container-block[data-aue-resource] .footer-nav-column-wrapper > .footer-nav-column,
 .section.footer-container-block[data-aue-resource] .footer-legal-links-wrapper > .footer-legal-links,
@@ -248,12 +254,7 @@ footer footer {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
-.footer-nav-column {
-  min-width: 120px;
-  width: 20%;
+  gap: 92px;
 }
 
 .footer-nav-column-title {
@@ -276,7 +277,6 @@ footer footer {
   line-height: 17px;
   margin-bottom: 6px;
   display: flex;
-  gap: 2px;
 }
 
 #footer .footer-nav-column-link {
