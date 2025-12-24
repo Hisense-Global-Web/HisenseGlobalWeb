@@ -14,6 +14,58 @@ function updateActiveSlide(slide) {
   });
 }
 
+function whenElementReady(selector, callback, options = {}) {
+  const {
+    timeout = 5000,
+    parent = document,
+    stopAfterFound = true,
+  } = options;
+
+  const element = parent.querySelector(selector);
+  if (element) {
+    setTimeout(() => callback(element), 0);
+    return { stop: () => {} };
+  }
+
+  let observer;
+  let timeoutId;
+
+  const cleanup = () => {
+    if (observer) observer.disconnect();
+    if (timeoutId) clearTimeout(timeoutId);
+  };
+
+  // Setup timeout
+  if (timeout > 0) {
+    timeoutId = setTimeout(() => {
+      cleanup();
+    }, timeout);
+  }
+
+  // Setup MutationObserver
+  observer = new MutationObserver((mutations) => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const mutation of mutations) {
+      if (mutation.type === 'childList' || mutation.type === 'subtree') {
+        const foundElement = parent.querySelector(selector);
+        if (foundElement) {
+          cleanup();
+          callback(foundElement);
+          if (stopAfterFound) break;
+        }
+      }
+    }
+  });
+
+  // Start observing
+  observer.observe(parent, {
+    childList: true,
+    subtree: true,
+  });
+
+  return { stop: cleanup };
+}
+
 function showSlide(block, slideIndex, init = false) {
   const slides = block.querySelectorAll('.carousel-item');
   let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
@@ -161,7 +213,7 @@ export default async function decorate(block) {
     };
   }
   // 初始化加载主题色
-  window.onload = () => {
+  whenElementReady('.carousel', () => {
     showSlide(block, 0, true);
-  };
+  });
 }
