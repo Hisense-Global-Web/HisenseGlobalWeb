@@ -242,12 +242,6 @@ main > .section:first-of-type {
       gap: 8px;
 
       p:nth-child(1) {
-        font-size: 46px;
-        font-weight: 500;
-        line-height: 1.1;
-      }
-
-      p:nth-child(2) {
         font-size: 30px;
         line-height: 1.4;
       }
