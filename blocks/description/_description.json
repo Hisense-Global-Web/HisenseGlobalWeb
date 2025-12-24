@@ -63,12 +63,6 @@
           "name": "description_text",
           "label": "Text",
           "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "description_anchorId",
-          "label": "Description anchor id",
-          "valueType": "string"
         }
       ]
     }
