@@ -9,9 +9,6 @@
 .section.footer-container-block > *,
 .section[class*="footer-container"] > *,
 #footer {
-  max-width: var(--container-max-width);
-  margin: auto;
-  padding: 0 24px;
   box-sizing: border-box;
 }
 
@@ -305,6 +302,14 @@ footer footer {
   font-weight: 400;
   color: rgb(51 51 51 / 100%);
   box-sizing: border-box;
+}
+
+@media (width >= 900px) {
+  .footer-bottom {
+    margin-left: calc(-50vw + var(--container-max-width) / 2  - 32px);
+    padding-left: calc(50vw - var(--container-max-width) / 2  + 32px);
+    padding-right: calc(50vw - var(--container-max-width) / 2  + 24px);
+  }
 }
 
 .footer-bottom .footer-legals {
