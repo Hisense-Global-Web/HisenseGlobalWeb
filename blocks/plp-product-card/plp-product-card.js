@@ -29,7 +29,18 @@ export default function decorate(block) {
   productsBox.className = 'plp-products-box';
   const productsGrid = document.createElement('div');
   productsGrid.className = 'plp-products';
+  const productsMore = document.createElement('div');
+  productsMore.className = 'plp-load-more';
+  const mockUrl = '/';
+  productsMore.addEventListener('click', () => {
+    if (mockUrl) window.location.href = mockUrl;
+  });
+  const span = document.createElement('span');
+  span.textContent = 'Load more';
+  productsMore.appendChild(span);
+
   productsBox.append(productsGrid);
+  productsBox.append(productsMore);
 
   if (isEditMode) {
     const topWrapper = document.createElement('div');

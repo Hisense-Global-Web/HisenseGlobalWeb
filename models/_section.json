@@ -41,7 +41,6 @@
           "component": "select",
           "name": "style_theme",
           "label": "Section Theme",
-          "value": "light",
           "options": [
             {
               "name": "Light",
@@ -61,7 +60,6 @@
           "component": "select",
           "name": "style_container",
           "label": "Section Container Type",
-          "value": "",
           "options": [
             {
               "name": "Default",
@@ -83,7 +81,6 @@
               "component": "select",
               "name": "style_paddingTop",
               "label": "Padding Top",
-              "value": "pt-l",
               "options": [
                 {
                   "name": "None",
@@ -111,7 +108,6 @@
               "component": "select",
               "name": "style_paddingBottom",
               "label": "Padding Bottom",
-              "value": "pb-l",
               "options": [
                 {
                   "name": "None",
@@ -147,7 +143,6 @@
               "component": "select",
               "name": "style_imageBorderRadius",
               "label": "Image Border Radius",
-              "value": "",
               "options": [
                 {
                   "name": "Default",
@@ -163,7 +158,6 @@
               "component": "select",
               "name": "style_imageRatio",
               "label": "Image Ratio",
-              "value": "",
               "options": [
                 {
                   "name": "Original",
@@ -207,7 +201,8 @@
         "iconComponent",
         "parallax",
         "properties",
-        "imageCarousel"
+        "imageCarousel",
+        "image-comparison-slider"
       ]
     }
   ]
