@@ -28,8 +28,6 @@
 
 .cover-style > ul > li {
   width: 100%;
-  height: 250px;
-  min-height: 250px;
   border-radius: 20px;
   overflow: hidden;
   background-color: var(--background-color);
