@@ -23,10 +23,10 @@ function showSlide(block, slideIndex, init = false) {
 
   if ([...activeSlide.classList].includes('dark')) {
     block.classList.add('dark');
-    if (nav) document.querySelector('#navigation').classList.add('header-dark-mode');
+    if (nav && (block.getBoundingClientRect().top > -860)) document.querySelector('#navigation').classList.add('header-dark-mode');
   } else {
     block.classList.remove('dark');
-    if (nav) document.querySelector('#navigation').classList.remove('header-dark-mode');
+    if (nav && (block.getBoundingClientRect().top > -860)) document.querySelector('#navigation').classList.remove('header-dark-mode');
   }
   if (init) return;
   block.querySelector('.carousel-items-container').scrollTo({
@@ -108,6 +108,9 @@ function createSlide(block, row, slideIndex) {
           column.firstElementChild.classList.add('teal-text');
           column.lastElementChild.classList.add('change-text');
         }
+        [...column.children].forEach((children) => {
+          if (children.innerHTML.includes('/n')) children.classList.add('focus-wrap');
+        });
         break;
       default:
         column.classList.add('carousel-item-cta');

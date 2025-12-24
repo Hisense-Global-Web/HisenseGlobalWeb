@@ -187,6 +187,7 @@ h5 {
 h6 {
 	font-size: var(--heading-font-size-xs);
 	line-height: var(--line-height-m);
+	font-weight: 400;
 }
 
 p,
@@ -210,6 +211,10 @@ pre {
 	background-color: var(--light-color);
 	overflow-x: auto;
 	white-space: pre;
+}
+
+main * {
+  box-sizing: border-box;
 }
 
 main > div {
