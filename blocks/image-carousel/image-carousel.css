@@ -106,6 +106,7 @@
 
      p:nth-child(2) {
        font-size: 20px;
+       font-weight: 500;
      }
   }
 }
@@ -115,20 +116,20 @@
   .item-cta {
     position: absolute;
     left: 0;
+    top: 0;
     text-align: left;
     width: 240px;
     height: 256px;
-    padding-left: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;
     gap: 20px;
+    padding: 56px 0 56px 40px;
 
      p {
        &:first-child {
          font-family: 'Hisense Sans Alfabet', sans-serif;
-         font-weight: 400;
+         font-weight: 500;
          font-size: 30px;
        }
 
@@ -138,6 +139,7 @@
 
        &.button-container {
          line-height: 40px;
+         font-weight: 500;
        }
      }
   }
@@ -175,6 +177,7 @@
 
     p:first-child {
       font-size: 26px;
+      font-weight: 500;
     }
   }
 }
@@ -205,6 +208,7 @@
       transform: translate(-50%, -50%);
       margin: 0;
       font-size: 26px;
+      font-weight: 500;
     }
   }
 }
@@ -238,6 +242,7 @@
 
       p:first-child {
         font-size: 26px;
+        font-weight: 500;
       }
     }
 
