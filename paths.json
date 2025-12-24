@@ -6,10 +6,12 @@
     "/content/hisense/configuration:/.helix/config.json",
     "/content/hisense/metadata:/metadata.json",
     "/content/hisense/nav:/nav",
-    "/content/hisense/footer:/footer"
+    "/content/hisense/footer:/footer",
+    "/graphql/:/graphql/"
   ],
   "includes": [
     "/content/hisense/",
-    "/content/dam"
+    "/content/dam/",
+    "/graphql/"
   ]
 }
