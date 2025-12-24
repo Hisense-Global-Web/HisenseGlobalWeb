@@ -33,7 +33,8 @@
         {
           "component": "text",
           "name": "id",
-          "label": "Section ID"
+          "label": "Section ID",
+          "description": "Enter a unique ID (e.g., \"specifications\", \"faq-section\") if you want to create links that jump directly to this section."
         },
         {
           "component": "select",
