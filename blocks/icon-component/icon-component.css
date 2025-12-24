@@ -1,5 +1,9 @@
 .icon-component {
   position: relative;
+
+  p {
+    margin: 0;
+  }
 }
 
 .icon-component > div:nth-child(1) {
@@ -15,7 +19,7 @@
   line-height: 1;
 
   p {
-    margin: 10px 0 0;
+    margin-top: 10px;
   }
 }
 
@@ -59,9 +63,9 @@
     box-sizing: border-box;
     text-align: center;
 
-    > p {
+    /* > p {
       margin: 0;
-    }
+    } */
 
     div:nth-child(2) {
       font-weight: 400;
