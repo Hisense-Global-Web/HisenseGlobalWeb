@@ -45,7 +45,7 @@ function observeMouse(block, index) {
     timer = setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
       showSlide(block, currentIndex);
-    }, 5000);
+    }, 3000);
   };
   if (block.classList.contains('only-picture')) {
     images.forEach((image) => {
