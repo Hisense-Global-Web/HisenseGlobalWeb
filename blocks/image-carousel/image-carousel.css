@@ -13,13 +13,13 @@
 .image-carousel > div:nth-child(1) {
   color: var(--color-hisense-teal);
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 400;
   line-height: 1;
 }
 
 .image-carousel > div:nth-child(2) {
   font-size: 34px;
-  font-weight: bold;
+  font-weight: 400;
   line-height: 1;
 
   p {
@@ -127,7 +127,8 @@
 
      p {
        &:first-child {
-         font-weight: bold;
+         font-family: 'Hisense Sans Alfabet', sans-serif;
+         font-weight: 400;
          font-size: 30px;
        }
 
@@ -247,7 +248,7 @@
       div:nth-child(2) {
         p:first-child {
           font-size: 26px;
-          font-weight: bold;
+          font-weight: 400;
           line-height: 1;
           margin-bottom: 10px;
         }
@@ -264,33 +265,6 @@
           height: 100%;
           border-radius: 20px;
           object-fit: cover;
-        }
-
-        &::after {
-          content: '';
-          position: absolute;
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background: #fff;
-          opacity: 0.5;
-        }
-
-        &::before {
-          position: absolute;
-          content: '';
-          left: 51%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          border-color: transparent transparent transparent #fff;
-          border-width: 30px 0 30px 50px;
-          border-style: solid;
-          border-radius: 3px;
-          width: 0;
-          height: 0;
         }
       }
     }

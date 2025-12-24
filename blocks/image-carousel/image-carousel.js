@@ -1,5 +1,6 @@
 let index = 0;
 const visibleImage = 2;
+let carouselId = 0;
 function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
   const cardWidth = singleItem.offsetWidth;
@@ -13,6 +14,7 @@ function updatePosition(block) {
   const moveDistance = index * getSlideWidth(block);
 
   track.style.transform = `translateX(-${moveDistance}px)`;
+  track.style.transition = 'all 0.5';
   block.querySelector('.slide-prev').disabled = (index === 0);
   block.querySelector('.slide-next').disabled = (index >= items.length - visibleImage);
 }
@@ -48,7 +50,7 @@ function createVideo(child, idx, large = false) {
     imgUrl = img.src;
   }
   const video = document.createElement('video');
-  video.id = `videoCarousel-${idx}`;
+  video.id = `video-${carouselId}-carousel-${idx}`;
   video.controls = true;
   video.width = large ? 800 : 652;
   video.height = large ? 452 : 368;
@@ -69,6 +71,8 @@ function createVideo(child, idx, large = false) {
 }
 
 export default async function decorate(block) {
+  carouselId += 1;
+  block.setAttribute('id', `image-carousel-${carouselId}`);
   const contentType = block.children[2].innerHTML.includes('video') ? 'video' : 'Image';
   const iconContainer = document.createElement('div');
   iconContainer.classList.add('image-viewport');

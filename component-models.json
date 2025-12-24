@@ -946,15 +946,7 @@
         "valueType": "string",
         "name": "img",
         "label": "Img Snapshot For Video",
-        "multi": false,
-        "condition": {
-          "===": [
-            {
-              "var": "mainContent"
-            },
-            "video"
-          ]
-        }
+        "multi": false
       }
     ]
   },
