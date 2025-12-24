@@ -1,10 +1,15 @@
 {
   "mappings": [
-    "/content/hisense/:/",
+    "/content/hisense/us:/us",
+    "/content/dam:/content/dam",
+    "/content/hisense/ui-testing:/ui-testing",
     "/content/hisense/configuration:/.helix/config.json",
-    "/content/hisense/metadata:/metadata.json"
+    "/content/hisense/metadata:/metadata.json",
+    "/content/hisense/nav:/nav",
+    "/content/hisense/footer:/footer"
   ],
   "includes": [
-    "/content/hisense/"
+    "/content/hisense/",
+    "/content/dam"
   ]
 }

@@ -29,18 +29,18 @@ export default function decorate(block) {
   productsBox.className = 'plp-products-box';
   const productsGrid = document.createElement('div');
   productsGrid.className = 'plp-products';
-  const productsMore = document.createElement('div');
-  productsMore.className = 'plp-load-more';
-  const mockUrl = '/';
-  productsMore.addEventListener('click', () => {
+  const productsLoadMore = document.createElement('div');
+  productsLoadMore.className = 'plp-load-more';
+  const mockUrl = 'https://www.hisense-usa.com/category/televisions';
+  productsLoadMore.addEventListener('click', () => {
     if (mockUrl) window.location.href = mockUrl;
   });
   const span = document.createElement('span');
   span.textContent = 'Load more';
-  productsMore.appendChild(span);
 
+  productsLoadMore.append(span);
   productsBox.append(productsGrid);
-  productsBox.append(productsMore);
+  productsBox.append(productsLoadMore);
 
   if (isEditMode) {
     const topWrapper = document.createElement('div');
@@ -78,8 +78,76 @@ export default function decorate(block) {
   if (!graphqlUrl) return;
 
   function renderItems(items) {
+    // 包含多个相同 factoryModel 的不同尺寸
     productsGrid.innerHTML = '';
-    items.forEach((item) => {
+
+    const extractSize = (item) => {
+      if (!item) return null;
+      if (item.size) return String(item.size).replace(/["\s]/g, '');
+      if (item.sku) {
+        const m = String(item.sku).match(/(\d{2,3})/);
+        if (m) return m[1];
+      }
+      const metaTitle = (() => {
+        if (!item) return null;
+        const metaKey = Object.keys(item).find((k) => k.toLowerCase().includes('metadata'));
+        const meta = metaKey ? item[metaKey] : null;
+        if (meta && Array.isArray(meta.stringMetadata)) {
+          const found = meta.stringMetadata.find((x) => x.name === 'title');
+          return found ? found.value : null;
+        }
+        return null;
+      })();
+      const candidates = [metaTitle, item.title, item.subtitle].filter(Boolean);
+      let foundSize = null;
+      candidates.some((c) => {
+        const mm = String(c).match(/(\d{2,3})/);
+        if (mm) {
+          const [, size] = mm;
+          foundSize = size;
+          return true;
+        }
+        return false;
+      });
+      if (foundSize) return foundSize;
+      return null;
+    };
+
+    // 按 factoryModel 聚合
+    const groups = {};
+    items.forEach((it) => {
+      const key = it.factoryModel || it.spu || it.overseasModel;
+      if (!groups[key]) {
+        groups[key] = {
+          factoryModel: it.factoryModel || null,
+          representative: it,
+          variants: [],
+          sizes: new Set(),
+        };
+      }
+      groups[key].variants.push(it);
+      if (!groups[key].representative.mediaGallery_image && it.mediaGallery_image) {
+        groups[key].representative = it;
+      }
+      const sz = extractSize(it);
+      if (sz) groups[key].sizes.add(sz);
+    });
+
+    const groupedArray = Object.keys(groups).map((k) => {
+      const g = groups[k];
+      const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(a) - Number(b));
+      return {
+        key: k,
+        factoryModel: g.factoryModel,
+        representative: g.representative,
+        variants: g.variants,
+        sizes,
+      };
+    });
+
+    // 渲染每个聚合后的产品卡片
+    groupedArray.forEach((group) => {
+      const item = group.representative;
       const card = document.createElement('div');
       card.className = 'product-card';
 
@@ -88,9 +156,11 @@ export default function decorate(block) {
 
       const imgDiv = document.createElement('div');
       imgDiv.className = 'plp-product-img';
-
-      // eslint-disable-next-line no-underscore-dangle
-      const imgPath = (item && item.mediaGallery_image && item.mediaGallery_image._path) || null;
+      const imgPath = (() => {
+        if (!item || !item.mediaGallery_image) return null;
+        const pKey = Object.keys(item.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
+        return pKey ? item.mediaGallery_image[pKey] : null;
+      })();
       if (imgPath) {
         imgDiv.style.backgroundImage = `url(${imgPath})`;
         imgDiv.style.backgroundSize = 'cover';
@@ -104,9 +174,17 @@ export default function decorate(block) {
       const nameDiv = document.createElement('div');
       nameDiv.className = 'plp-product-name';
       if (fields.includes('title')) {
-        // eslint-disable-next-line no-underscore-dangle
-        const metaTitle = item && item._metadata && item._metadata.stringMetadata && item._metadata.stringMetadata.find((m) => m.name === 'title')?.value;
-        nameDiv.textContent = item.title || metaTitle || '';
+        const metaTitle = (() => {
+          if (!item) return null;
+          const metaKey = Object.keys(item).find((k) => k.toLowerCase().includes('metadata'));
+          const meta = metaKey ? item[metaKey] : null;
+          if (meta && Array.isArray(meta.stringMetadata)) {
+            const found = meta.stringMetadata.find((x) => x.name === 'title');
+            return found ? found.value : null;
+          }
+          return null;
+        })();
+        nameDiv.textContent = item.title || metaTitle || group.factoryModel || '';
       }
 
       const extraFields = document.createElement('div');
@@ -127,32 +205,128 @@ export default function decorate(block) {
         }
       });
 
-      if (item && item.whereToBuyLink) {
-        const link = document.createElement('a');
-        link.className = 'plp-product-btn';
-        link.href = item.whereToBuyLink;
-        link.target = '_blank';
-        link.textContent = 'Learn more';
-        card.append(titleDiv, imgDiv, seriesDiv, nameDiv, extraFields, link);
-      } else {
-        card.append(titleDiv, imgDiv, seriesDiv, nameDiv, extraFields);
-      }
+      // sizes 区块（可点击，默认选中第一个尺寸，切换显示对应 variant）
+      const sizesDiv = document.createElement('div');
+      sizesDiv.className = 'plp-product-sizes';
+
+      // 构建 size -> variant 的映射
+      const sizeToVariant = new Map();
+      group.variants.forEach((v) => {
+        let s = extractSize(v);
+        if (!s && v.sku) {
+          const skuMatch = String(v.sku).match(/(\d{2,3})/);
+          s = skuMatch ? skuMatch[1] : null;
+        }
+        if (!s) s = 'default';
+        if (!sizeToVariant.has(s)) sizeToVariant.set(s, v);
+      });
+
+      const sizesArray = (Array.isArray(group.sizes) && group.sizes.length)
+        ? group.sizes
+        : Array.from(sizeToVariant.keys());
+      let selectedSize = sizesArray.length ? sizesArray[0] : null;
+      let selectedVariant = selectedSize ? (sizeToVariant.get(selectedSize) || item) : item;
+
+      // 用来更新卡片显示为指定变体
+      const updateCardWithVariant = (variant) => {
+        // image
+        const imgPKey = variant && variant.mediaGallery_image && Object.keys(variant.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
+        const variantImg = imgPKey ? variant.mediaGallery_image[imgPKey] : null;
+        if (variantImg) {
+          imgDiv.style.backgroundImage = `url(${variantImg})`;
+        } else {
+          imgDiv.style.backgroundImage = '';
+        }
+        // series
+        if (fields.includes('series') && variant.series) seriesDiv.textContent = variant.series;
+        // title/name
+        const metaKey = variant && Object.keys(variant).find((k) => k.toLowerCase().includes('metadata'));
+        let variantMetaTitle = null;
+        if (metaKey) {
+          const meta = variant[metaKey];
+          if (meta && Array.isArray(meta.stringMetadata)) {
+            const found = meta.stringMetadata.find((x) => x.name === 'title');
+            variantMetaTitle = found ? found.value : null;
+          }
+        }
+        if (fields.includes('title')) {
+          nameDiv.textContent = variant.title || variantMetaTitle || group.factoryModel || '';
+        }
+        // extra fields
+        extraFields.innerHTML = '';
+        fields.forEach((f) => {
+          if (['title', 'series', 'mediaGallery_image'].includes(f)) return;
+          const keyParts = f.includes('.') ? f.split('.') : f.split('_');
+          const value = keyParts.reduce(
+            (acc, k) => (acc && acc[k] !== undefined ? acc[k] : null),
+            variant,
+          );
+          if (value !== null && value !== undefined) {
+            const fld = document.createElement('div');
+            const safeClass = `plp-product-field-${f.replace(/[^a-z0-9_-]/gi, '')}`;
+            fld.className = `plp-product-field ${safeClass}`;
+            fld.textContent = value;
+            extraFields.appendChild(fld);
+          }
+        });
+        // whereToBuyLink
+        if (variant && variant.whereToBuyLink) {
+          let link = card.querySelector && card.querySelector('.plp-product-btn');
+          if (!link) {
+            link = document.createElement('a');
+            link.className = 'plp-product-btn';
+            link.target = '_blank';
+            card.append(link);
+          }
+          link.href = variant.whereToBuyLink;
+          link.textContent = 'Learn more';
+        } else {
+          const existingLink = card.querySelector && card.querySelector('.plp-product-btn');
+          if (existingLink) existingLink.remove();
+        }
+      };
+
+      // 创建尺寸节点并绑定事件
+      sizesArray.forEach((s) => {
+        const sp = document.createElement('span');
+        sp.className = 'plp-product-size';
+        sp.textContent = s;
+        if (s === selectedSize) sp.classList.add('selected');
+        sp.addEventListener('click', () => {
+          if (selectedSize === s) return;
+          // 更新选中样式
+          const prev = sizesDiv.querySelector('.plp-product-size.selected');
+          if (prev) prev.classList.remove('selected');
+          sp.classList.add('selected');
+          selectedSize = s;
+          selectedVariant = sizeToVariant.get(s) || item;
+          updateCardWithVariant(selectedVariant);
+        });
+        sizesDiv.appendChild(sp);
+      });
+
+      card.append(titleDiv, imgDiv, seriesDiv, nameDiv, sizesDiv, extraFields);
       productsGrid.append(card);
+
+      updateCardWithVariant(selectedVariant);
     });
+
+    // 更新结果计数，显示聚合后的产品卡数量
     try {
       const resultsEl = document.querySelector('.plp-results');
       if (resultsEl) {
         const visible = resultsEl.querySelector('.plp-results-count-visible');
         const hidden = resultsEl.querySelector('.plp-results-count');
+        const count = groupedArray.length;
         if (visible) {
-          visible.textContent = String(items.length);
+          visible.textContent = String(count);
         }
         if (hidden) {
-          hidden.textContent = String(items.length);
+          hidden.textContent = String(count);
         }
         if (!visible && !hidden) {
           const currentText = resultsEl.textContent || '';
-          const updatedText = currentText.replace(/\{[^}]*\}/, String(items.length));
+          const updatedText = currentText.replace(/\{[^}]*\}/, String(count));
           resultsEl.textContent = updatedText;
         }
       }
@@ -169,7 +343,7 @@ export default function decorate(block) {
           {
             _path: '/content/dam/hisense/content-fragments/product-model/us/-TELEVISIONS/4k-uled/75-u-65-qf-43',
             _metadata: { stringMetadata: [{ name: 'title', value: '75U65QF-43' }] },
-            title: 'Hisense 75" Class U6',
+            title: 'Hisense 43" Class U6',
             series: '4K ULED',
             size: '43"',
             priceInfo_regularPrice: 30000,
@@ -192,7 +366,7 @@ export default function decorate(block) {
           {
             _path: '/content/dam/hisense/content-fragments/product-model/us/-TELEVISIONS/4k-uled/75-u-65-qf-50',
             _metadata: { stringMetadata: [{ name: 'title', value: '75U65QF-50' }] },
-            title: 'Hisense 75" Class U6 Series MiniLED ULED 4K Fire TV',
+            title: 'Hisense 50" Class U6 Series MiniLED ULED 4K Fire TV',
             series: '4K ULED',
             size: '50"',
             priceInfo_regularPrice: 20000,
