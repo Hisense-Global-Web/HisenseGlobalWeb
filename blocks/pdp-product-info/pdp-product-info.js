@@ -64,7 +64,12 @@ export default async function decorate(block) {
 
   const fav = document.createElement('div');
   fav.className = 'pdp-favorite';
-  fav.textContent = '♡';
+  const likeEmpty = document.createElement('img');
+  likeEmpty.src = '/content/dam/hisense/image/icon/like-empty.svg';
+  fav.appendChild(likeEmpty);
+  const like = document.createElement('img');
+  like.src = '/content/dam/hisense/image/icon/like.svg';
+  fav.appendChild(like);
   info.appendChild(fav);
 
   const series = document.createElement('div');

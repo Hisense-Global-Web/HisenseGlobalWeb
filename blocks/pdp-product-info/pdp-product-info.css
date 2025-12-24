@@ -1,4 +1,24 @@
 /* pdp-product-info */
+main .section.product-detail-banner-container.pdp-product-info-container {
+  display: flex;
+  max-width: var(--container-max-width);
+  padding: 0 24px;
+  margin: 100px auto;
+}
+
+main .section.product-detail-banner-container.pdp-product-info-container .product-detail-banner-wrapper {
+  padding: 0;
+}
+
+main .section.product-detail-banner-container.pdp-product-info-container .pdp-product-info-wrapper {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+  max-width: initial;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .pdp-info {
   flex: 1;
@@ -9,6 +29,11 @@
 .pdp-favorite {
   margin-bottom: 20px;
   cursor: pointer;
+}
+
+.pdp-favorite img {
+  height: 20px;
+  width: auto;
 }
 
 .pdp-series {
