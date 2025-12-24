@@ -187,6 +187,7 @@ h5 {
 h6 {
 	font-size: var(--heading-font-size-xs);
 	line-height: var(--line-height-m);
+	font-weight: 400;
 }
 
 p,
@@ -210,6 +211,10 @@ pre {
 	background-color: var(--light-color);
 	overflow-x: auto;
 	white-space: pre;
+}
+
+main * {
+  box-sizing: border-box;
 }
 
 main > div {
@@ -353,14 +358,16 @@ main > .section:first-of-type {
 }
 
 /* section container */
-main > .section > div {
+main > .section > div,
+.h-grid-container {
 	max-width: var(--container-max-width);
 	margin: auto;
 	padding: 0 24px;
 }
 
 @media (width >= 900px) {
-	main > .section > div {
+	main > .section > div,
+	.h-grid-container {
 		padding: 0 32px;
 	}
 }

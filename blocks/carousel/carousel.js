@@ -23,10 +23,10 @@ function showSlide(block, slideIndex, init = false) {
 
   if ([...activeSlide.classList].includes('dark')) {
     block.classList.add('dark');
-    if (nav) document.querySelector('#navigation').classList.add('header-dark-mode');
+    if (nav && (block.getBoundingClientRect().top > -860)) document.querySelector('#navigation').classList.add('header-dark-mode');
   } else {
     block.classList.remove('dark');
-    if (nav) document.querySelector('#navigation').classList.remove('header-dark-mode');
+    if (nav && (block.getBoundingClientRect().top > -860)) document.querySelector('#navigation').classList.remove('header-dark-mode');
   }
   if (init) return;
   block.querySelector('.carousel-items-container').scrollTo({
@@ -86,7 +86,7 @@ function bindEvents(block) {
 function createSlide(block, row, slideIndex) {
   const slide = document.createElement('li');
   const div = document.createElement('div');
-  div.setAttribute('class', 'carousel-content');
+  div.setAttribute('class', 'carousel-content h-grid-container');
   moveInstrumentation(row, slide);
   slide.classList.add('carousel-item');
   slide.dataset.slideIndex = slideIndex;
@@ -105,9 +105,12 @@ function createSlide(block, row, slideIndex) {
       case 2:
         column.classList.add('carousel-item-content');
         if ([...column.children].length > 1) {
-          column.firstElementChild.classList.add('teal-text');
+          if ([...column.children][0].nodeName === 'P') column.firstElementChild.classList.add('teal-text');
           column.lastElementChild.classList.add('change-text');
         }
+        [...column.children].forEach((children) => {
+          if (children.innerHTML.includes('/n')) children.classList.add('focus-wrap');
+        });
         break;
       default:
         column.classList.add('carousel-item-cta');
@@ -153,9 +156,12 @@ export default async function decorate(block) {
   if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);
-    showSlide(block, 0, true);
     window.onload = () => {
       observeMouse(block, 0);
     };
   }
+  // 初始化加载主题色
+  window.onload = () => {
+    showSlide(block, 0, true);
+  };
 }
