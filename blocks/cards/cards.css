@@ -5,20 +5,28 @@
   
 }
 
+.cards-wrapperp,
+.cards-wrapper h1,
+.cards-wrapper h2,
+.cards-wrapper h3,
+.cards-wrapper h4,
+.cards-wrapper h5,
+.cards-wrapper h6{
+  margin: 0;
+  padding: 0;
+}
+
 .cover-style > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-auto-columns: minmax(200px, 1fr);
   grid-auto-flow: column;
   gap: 24px;
 }
 
 .cover-style > ul > li {
   width: 100%;
-  height: 250px;
-  min-height: 250px;
   border-radius: 20px;
   overflow: hidden;
   background-color: var(--background-color);
@@ -63,7 +71,6 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-auto-columns: minmax(200px, 1fr);
   grid-auto-flow: column;
   gap: 24px;
 }
