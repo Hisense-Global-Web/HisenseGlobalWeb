@@ -5,6 +5,17 @@
   
 }
 
+.cards-wrapperp,
+.cards-wrapper h1,
+.cards-wrapper h2,
+.cards-wrapper h3,
+.cards-wrapper h4,
+.cards-wrapper h5,
+.cards-wrapper h6{
+  margin: 0;
+  padding: 0;
+}
+
 .cover-style > ul {
   list-style: none;
   margin: 0;
