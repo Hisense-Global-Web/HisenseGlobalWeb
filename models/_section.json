@@ -11,8 +11,8 @@
               "model": "section",
               "style_theme": "light",
               "style_container": "",
-              "style_paddingTop": "",
-              "style_paddingBottom": "",
+              "style_paddingTop": "pt-l",
+              "style_paddingBottom": "pb-l",
               "style_imageBorderRadius": "",
               "style_imageRatio": ""
             }
