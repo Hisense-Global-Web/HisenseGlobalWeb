@@ -57,6 +57,7 @@
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
+		line-height: 32px;
 	}
 
 	.image-wrapper {
