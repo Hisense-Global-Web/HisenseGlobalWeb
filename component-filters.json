@@ -30,7 +30,9 @@
       "parallax",
       "properties",
       "imageCarousel",
-      "image-comparison-slider"
+      "image-comparison-slider",
+      "product-detail-banner",
+      "pdp-product-info"
     ]
   },
   {

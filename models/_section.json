@@ -19,6 +19,38 @@
           }
         }
       }
+    },
+    {
+      "title": "Product Detail Banner",
+      "id": "product-detail-banner",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Product Detail Banner",
+              "filter": "product-detail-banner",
+              "key-value": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "PdP Product Info",
+      "id": "pdp-product-info",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "PdP Product Info",
+              "model": "pdp-product-info",
+              "classes": "pdp-product-info"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
@@ -176,6 +208,58 @@
           ]
         }
       ]
+    },
+    {
+      "id": "product-detail-banner-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false,
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "alt",
+          "label": "Alt Text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "pdp-product-info",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "graphql",
+          "label": "GraphQL Endpoint"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sku",
+          "label": "SKU",
+          "required": true
+        },
+        {
+          "component": "checkbox-group",
+          "valueType": "string[]",
+          "name": "fields",
+          "label": "Product Introduction",
+          "multi": true,
+          "options": [
+            { "name": "Title", "value": "title" },
+            { "name": "Series", "value": "series" },
+            { "name": "PriceInfo RegularPrice", "value": "priceInfo_regularPrice" },
+            { "name": "Awards", "value": "awards" },
+            { "name": "Position", "value": "position" }
+          ]
+        }
+      ]
     }
   ],
   "filters": [
@@ -202,7 +286,9 @@
         "parallax",
         "properties",
         "imageCarousel",
-        "image-comparison-slider"
+        "image-comparison-slider",
+        "product-detail-banner",
+        "pdp-product-info"
       ]
     }
   ]
