@@ -241,9 +241,13 @@ main > .section:first-of-type {
       align-items: flex-start;
       gap: 8px;
 
-      p:nth-child(1) {
-        font-size: 30px;
-        line-height: 1.4;
+      p {
+        margin: 0;
+
+        &:nth-child(1) {
+          font-size: 30px;
+          line-height: 1.4;
+        }
       }
     }
 
