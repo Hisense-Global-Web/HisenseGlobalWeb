@@ -279,6 +279,14 @@ export default async function decorate(block) {
 
   const linksEl = document.createElement('div');
   linksEl.className = 'nav-links';
+
+  const mobileMenu = document.createElement('div');
+  mobileMenu.className = 'mobile-menu';
+  const mobileLinks = document.createElement('div');
+  mobileLinks.className = 'mobile-links';
+  const mobileActions = document.createElement('div');
+  mobileActions.className = 'mobile-actions';
+
   navItems.forEach((item, idx) => {
     const link = document.createElement('div');
     link.className = 'nav-link';
@@ -305,6 +313,17 @@ export default async function decorate(block) {
       link.append(mask, dropdown);
     }
     linksEl.append(link);
+
+    const mobileLink = document.createElement('div');
+    mobileLink.className = 'mobile-link';
+    mobileLink.textContent = item.title;
+    if (item.href && item.href !== '#') {
+      mobileLink.dataset.href = item.href;
+      mobileLink.addEventListener('click', () => {
+        window.location.href = item.href;
+      });
+    }
+    mobileLinks.append(mobileLink);
   });
 
   const actionsEl = document.createElement('div');
@@ -319,7 +338,8 @@ export default async function decorate(block) {
         window.location.href = action.href;
       });
     }
-    actionsEl.append(link);
+    actionsEl.append(link.cloneNode(true));
+    mobileActions.append(link.cloneNode(true));
   });
   actions.forEach((action) => {
     if (action.img) {
@@ -356,8 +376,46 @@ export default async function decorate(block) {
     actionsEl.append(link);
   });
 
+  // 物理添加手机端菜单按钮
+  const btn = document.createElement('div');
+  btn.className = 'nav-action-btn mobile-menu-icon';
+  const img = document.createElement('img');
+  img.src = './media_1992b23eb0b506b19304df8bf994f0473ba058146.svg?width=750&format=svg&optimize=medium';
+  img.className = 'light-img';
+  img.alt = 'menu';
+  btn.append(img);
+  const imgDark = document.createElement('img');
+  imgDark.src = './media_1476a6ebba9ef2439aab575d7d5a7946f8c1782ab.svg?width=750&format=svg&optimize=medium';
+  imgDark.alt = 'menu';
+  imgDark.className = 'dark-img';
+  btn.append(imgDark);
+  btn.addEventListener('click', () => {
+    navigation.classList.add('show-menu');
+  });
+  actionsEl.append(btn);
+
+  const closeBtn = document.createElement('div');
+  closeBtn.className = 'nav-action-btn mobile-close-icon';
+  const closeImg = document.createElement('img');
+  closeImg.src = './media_13b817dae786f9278b5ba58ce39c250a3c305d1d7.svg?width=750&format=svg&optimize=medium';
+  closeImg.alt = 'menu';
+  closeBtn.addEventListener('click', () => {
+    navigation.classList.remove('show-menu');
+  });
+  closeBtn.append(closeImg);
+  actionsEl.append(closeBtn);
+
   navContainer.append(logoEl, linksEl, actionsEl);
+
+  const dividingLine = document.createElement('div');
+  dividingLine.className = 'dividing-line';
+
+  mobileMenu.append(mobileLinks);
+  mobileMenu.append(dividingLine);
+  mobileMenu.append(mobileActions);
+
   navigation.append(navContainer);
+  navigation.append(mobileMenu);
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const carousel = document.querySelector('.carousel');
