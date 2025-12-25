@@ -270,6 +270,10 @@
   cursor: pointer;
 }
 
+.nav-action-btn.mobile-menu {
+  display: none;
+}
+
 .nav-action-btn:not(:last-child) {
   margin-right: 4px;
 }
@@ -414,4 +418,34 @@
 .nav-link:hover .nav-mask:hover,
 .nav-link .nav-dropdown:hover .nav-mask:hover {
   display: none;
+}
+
+@media (width <= 600px) {
+  #navigation .nav-container {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    box-sizing: border-box;
+  }
+
+  #navigation .nav-container .nav-links {
+    display: none;
+  }
+
+  #navigation .nav-container .nav-actions {
+    gap: 8px;    
+  }
+
+  #navigation .nav-container .nav-actions .nav-section {
+    display: none;
+  }
+
+  #navigation .nav-container .nav-actions .nav-action-btn {
+    margin: 0;
+  }
+  
+  #navigation .nav-container .nav-actions .nav-action-btn.mobile-menu {
+    display: block;
+    margin-left: 8px;
+  }
 }

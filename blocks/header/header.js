@@ -381,6 +381,16 @@ export default async function decorate(block) {
     actionsEl.append(link);
   });
 
+  // 物理添加手机端菜单按钮
+  const btn = document.createElement('div');
+  btn.className = 'nav-action-btn mobile-menu';
+  const img = document.createElement('img');
+  img.src = './media_1992b23eb0b506b19304df8bf994f0473ba058146.svg?width=750&format=svg&optimize=medium';
+  img.className = 'light-img';
+  img.alt = 'menu';
+  btn.append(img);
+  actionsEl.append(btn);
+
   navContainer.append(logoEl, linksEl, actionsEl);
   navigation.append(navContainer);
   window.addEventListener('scroll', () => {
