@@ -420,6 +420,17 @@ export default async function decorate(block) {
   });
   actionsEl.append(btn);
 
+  const closeBtn = document.createElement('div');
+  closeBtn.className = 'nav-action-btn mobile-close-icon';
+  const closeImg = document.createElement('img');
+  closeImg.src = './media_13b817dae786f9278b5ba58ce39c250a3c305d1d7.svg?width=750&format=svg&optimize=medium';
+  closeImg.alt = 'menu';
+  closeBtn.addEventListener('click', () => {
+    navigation.classList.remove('show-menu');
+  })
+  closeBtn.append(closeImg);
+  actionsEl.append(closeBtn);
+
   navContainer.append(logoEl, linksEl, actionsEl);
 
   const dividingLine = document.createElement('div');
