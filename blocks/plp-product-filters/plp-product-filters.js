@@ -160,7 +160,7 @@ export default function decorate(block) {
   // label comes from configuration (sortBy)
   sortSpan.textContent = sortBy;
   const sortImg = document.createElement('img');
-  sortImg.src = '/content/dam/hisense/image/icon/arrow.svg';
+  sortImg.src = './media_18b1fbb6305019af784f87587d3bfbc78f2ca3575.svg?width=750&format=svg&optimize=medium';
   sortImg.alt = 'Sort options';
   sort.append(sortSpan, sortImg);
 
@@ -224,5 +224,16 @@ export default function decorate(block) {
   });
 
   filtersBar.append(filtersLeft, sortBox);
+
+  if (isEditMode) {
+    const existingElements = [...block.children];
+    const aueElements = existingElements.filter((el) => el.hasAttribute('data-aue-resource'));
+
+    aueElements.forEach((el) => {
+      el.style.display = 'none';
+      filtersBar.append(el);
+    });
+  }
+
   block.replaceChildren(filtersBar);
 }

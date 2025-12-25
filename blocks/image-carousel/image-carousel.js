@@ -1,5 +1,3 @@
-let index = 0;
-const visibleImage = 2;
 let carouselId = 0;
 function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
@@ -8,47 +6,51 @@ function getSlideWidth(block) {
   return cardWidth + gap;
 }
 
-function updatePosition(block) {
+function updatePosition(block, index) {
   const track = block.querySelector('.image-track');
   const items = block.querySelectorAll('li');
-  const moveDistance = index * getSlideWidth(block);
-
-  track.style.transform = `translateX(-${moveDistance}px)`;
+  const totalDistance = items.length * getSlideWidth(block);
+  const maxlength = parseInt(totalDistance / track.offsetWidth, 10);
+  if (index === maxlength) {
+    let lastDistance = index * track.offsetWidth - (totalDistance - index * track.offsetWidth);
+    if (index === 1) lastDistance = totalDistance - index * track.offsetWidth;
+    track.style.transform = `translateX(-${lastDistance}px)`;
+  } else {
+    track.style.transform = `translateX(-${index}00%)`;
+  }
   track.style.transition = 'all 0.5';
   block.querySelector('.slide-prev').disabled = (index === 0);
-  block.querySelector('.slide-next').disabled = (index >= items.length - visibleImage);
+  block.querySelector('.slide-next').disabled = (index >= maxlength);
 }
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
-  if (cards.length > visibleImage) {
+  const track = block.querySelector('.image-track');
+  let index = 0;
+  if (cards.length * getSlideWidth(block) >= track.offsetWidth) {
     block.querySelector('.image-pagination').classList.add('show');
   }
   block.querySelector('.slide-prev').addEventListener('click', () => {
     if (index > 0) {
       index -= 1;
-      updatePosition(block);
+      updatePosition(block, index);
     }
   });
   block.querySelector('.slide-next').addEventListener('click', () => {
-    if (index < cards.length - visibleImage) {
+    if (index < cards.length) {
       index += 1;
-      updatePosition(block);
+      updatePosition(block, index);
     }
   });
 }
 
 function createVideo(child, idx, large = false) {
   let videourl;
-  let imgUrl;
   const link = child.querySelector('a');
   if (link) {
     videourl = link.href;
   }
   const img = child.querySelector('img');
-  if (img) {
-    imgUrl = img.src;
-  }
   const video = document.createElement('video');
   video.id = `video-${carouselId}-carousel-${idx}`;
   video.controls = true;
@@ -56,7 +58,6 @@ function createVideo(child, idx, large = false) {
   video.height = large ? 452 : 368;
   video.preload = 'auto';
   video.autoplay = false;
-  video.poster = imgUrl;
   const source = document.createElement('source');
   source.src = videourl; // 替换为你的视频路径
   source.type = 'video/mp4';
@@ -85,6 +86,7 @@ export default async function decorate(block) {
     const iconBlock = document.createElement('li');
     child.classList.add('item');
     if (contentType === 'video') {
+      block.classList.add('video-carousel-block');
       let singleVideo;
       if (block.classList.contains('bottom-center-style')) {
         child.classList.add('video-type');

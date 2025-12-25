@@ -46,13 +46,19 @@ function parseDropdownProducts(col) {
       const href = item.querySelector('a')?.href || '#';
       const directChildren = Array.from(item.children);
       let text = '';
+      let altText = '';
       if (directChildren[1]) {
-        text = directChildren[1].textContent.trim();
+        altText = directChildren[1].textContent.trim();
+      }
+      if (directChildren[2]) {
+        text = directChildren[2].textContent.trim();
       } else {
         text = item.textContent.trim();
       }
 
-      return { img, text, href };
+      return {
+        img, text, href, altText,
+      };
     });
   }
 
@@ -195,7 +201,7 @@ function buildDropdown(data) {
     if (item.img) {
       const img = document.createElement('img');
       img.src = item.img;
-      img.alt = item.text || '';
+      img.alt = item.altText || '';
       imgWrap.append(img);
     }
     if (item.href && item.href !== '#') {
@@ -243,9 +249,16 @@ function buildDropdown(data) {
   return dropdown;
 }
 function convertToDarkSvgUrl(url) {
-  if (!url.endsWith('.svg')) {
-    return url;
+  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_103e6c351d7632f9d1aa6d5846df24dd13b5df660.svg?width=750&format=svg&optimize=medium') {
+    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b.svg?width=750&format=svg&optimize=medium';
   }
+  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_124969b71abd4f3be2869305b3210ba27a9621bb7.svg?width=750&format=svg&optimize=medium') {
+    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_152ebd74eb043f4b073908ae990437f464ba966a2.svg?width=750&format=svg&optimize=medium';
+  }
+  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c.svg?width=750&format=svg&optimize=medium') {
+    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_1d67117bba695f4cd4248983772bdd968834d3be6.svg?width=750&format=svg&optimize=medium';
+  }
+
   const [mainPart, ...restParts] = url.split(/[?#]/);
   const suffix = restParts.length > 0 ? `/${restParts.join('/')}` : '';
 

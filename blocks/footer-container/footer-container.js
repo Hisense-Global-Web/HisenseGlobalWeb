@@ -359,7 +359,7 @@ export default function decorate(block) {
           // 只有非内链才显示图标
           if (!isInternalLink(itemData.link)) {
             const img = document.createElement('img');
-            img.src = '/content/dam/hisense/image/icon/share.svg';
+            img.src = './media_16a15f7db2090294e57d78394d2086dfabdcb0618.svg?width=750&format=svg&optimize=medium';
             li.appendChild(img);
           }
 
