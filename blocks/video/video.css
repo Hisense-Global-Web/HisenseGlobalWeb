@@ -7,7 +7,7 @@
 .video-content{
   display: flex;
   position: relative;
-  width: 1120px;
+  width: 100%;
   height: 630px;
   margin: auto;
 }
@@ -28,7 +28,6 @@
 }
 
 .video h1 {
-  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   color: var(--background-color);
@@ -47,9 +46,9 @@
   width: 100%;
   height: 100%;
 }
-
+/* 
 @media (width >= 900px) {
   .video {
     padding: 40px 32px;
   }
-}
+} */
