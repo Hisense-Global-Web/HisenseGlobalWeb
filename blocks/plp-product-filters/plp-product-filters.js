@@ -172,6 +172,7 @@ export default function decorate(block) {
   const sortBox = document.createElement('div');
   sortBox.className = 'plp-sort-box';
   if (isEditMode && resourceSortBy) {
+    sortBox.className = 'plp-sort-box show';
     sortBox.setAttribute('data-aue-resource', resourceSortBy);
   }
   const sort = document.createElement('div');
