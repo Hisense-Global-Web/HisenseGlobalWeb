@@ -43,6 +43,7 @@ main > .plp-product-card-container.plp-product-filters-container {
 .plp-product-card-wrapper {
   width: calc(var(--container-max-width) - 48px - 256px);
   min-height: 100%;
+  height: 100%;
 }
 
 .section.plp-product-card-container .default-content-wrapper {

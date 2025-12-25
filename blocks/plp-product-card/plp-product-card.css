@@ -1,5 +1,6 @@
 .plp-products-box {
     flex: 1;
+    height: 100%;
 }
 
 .plp-products {
@@ -16,6 +17,10 @@
 
 [data-aue-model="plp-product-card"].plp-product-card >div:not(.plp-products-box) {
   display: none;
+}
+
+.plp-product-card {
+  height: 100%;
 }
 
 .plp-product-card-title {
@@ -136,5 +141,5 @@
   font-size: 36px;
   color: #666;
   text-transform: uppercase;
-  padding-top: 30%;
+  height: 100%;
 }
