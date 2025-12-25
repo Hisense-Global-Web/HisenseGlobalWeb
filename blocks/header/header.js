@@ -56,7 +56,9 @@ function parseDropdownProducts(col) {
         text = item.textContent.trim();
       }
 
-      return { img, text, href, altText };
+      return {
+        img, text, href, altText,
+      };
     });
   }
 
