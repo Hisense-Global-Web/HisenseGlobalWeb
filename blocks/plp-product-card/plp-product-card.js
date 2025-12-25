@@ -1,3 +1,94 @@
+function applyAggregatedSort(sortProperty, direction = -1) {
+  try {
+    const lastRendered = Array.isArray(window.lastRenderedProducts);
+    const hasLast = lastRendered && window.lastRenderedProducts.length;
+    let listToSort;
+    if (hasLast) {
+      listToSort = window.lastRenderedProducts.slice();
+    } else if (Array.isArray(window.productData)) {
+      listToSort = window.productData.slice();
+    } else {
+      listToSort = [];
+    }
+    if (!listToSort || !listToSort.length) {
+      return;
+    }
+
+    // 通过 key 获取 product model 的属性
+    const getPropertyByKey = (item, propKey) => {
+      if (!item || !propKey) return undefined;
+      if (Object.prototype.hasOwnProperty.call(item, propKey)) return item[propKey];
+      const parts = propKey.includes('.') ? propKey.split('.') : propKey.split('_');
+      return parts.reduce((acc, p) => (acc && acc[p] !== undefined ? acc[p] : undefined), item);
+    };
+
+    // 序列化属性，排序属性的值类型中包含尺寸，时间，价格，文本
+    const normalizeValueForSort = (value) => {
+      if (value === null || value === undefined) return null;
+      if (typeof value === 'number') return value;
+      if (typeof value === 'string' && /\d{4}-\d{2}-\d{2}T/.test(value)) {
+        const parsed = Date.parse(value);
+        return Number.isNaN(parsed) ? String(value).toLowerCase() : parsed;
+      }
+      if (typeof value === 'string' && sortProperty.toLowerCase().includes('size')) {
+        const m = value.match(/(\d+(\.\d+)?)/);
+        if (m) return parseFloat(m[1]);
+      }
+      return String(value).toLowerCase();
+    };
+
+    // 按 factoryModel 分组，计算每个组在指定属性上的最大值
+    const groupedByFactoryModel = {};
+    const factoryModelMaxValues = {};
+
+    listToSort.forEach((item) => {
+      const { factoryModel } = item;
+      if (!groupedByFactoryModel[factoryModel]) {
+        groupedByFactoryModel[factoryModel] = [];
+      }
+      groupedByFactoryModel[factoryModel].push(item);
+
+      // 计算该 factoryModel 在指定属性上的最大值
+      const value = normalizeValueForSort(getPropertyByKey(item, sortProperty));
+      if (value !== null && value !== undefined) {
+        if (!factoryModelMaxValues[factoryModel]
+            || (typeof value === 'number' && typeof factoryModelMaxValues[factoryModel] === 'number' && value > factoryModelMaxValues[factoryModel])
+            || (typeof value === 'string' && typeof factoryModelMaxValues[factoryModel] === 'string' && String(value).localeCompare(String(factoryModelMaxValues[factoryModel])) > 0)) {
+          factoryModelMaxValues[factoryModel] = value;
+        }
+      }
+    });
+
+    // 按最大值进行排序
+    const sortedProducts = listToSort.slice().sort((a, b) => {
+      const maxValueA = factoryModelMaxValues[a.factoryModel];
+      const maxValueB = factoryModelMaxValues[b.factoryModel];
+
+      // 处理空值情况
+      if (maxValueA === null || maxValueA === undefined) return 1 * direction;
+      if (maxValueB === null || maxValueB === undefined) return -1 * direction;
+      if (maxValueA === maxValueB) return 0;
+
+      if (typeof maxValueA === 'number' && typeof maxValueB === 'number') {
+        return (maxValueA - maxValueB) * direction;
+      }
+      return String(maxValueA).localeCompare(String(maxValueB)) * direction;
+    });
+
+    // 如果是按尺寸排序，设置标志表示产品卡片应默认选中最大尺寸
+    if (!sortProperty || sortProperty === 'size') {
+      window.isDefaultSortApplied = true;
+    } else {
+      window.isDefaultSortApplied = false;
+    }
+
+    window.renderPlpProducts(sortedProducts);
+  } catch (e) {
+    /* eslint-disable-next-line no-console */
+    console.warn('Aggregated sort error:', e);
+  }
+}
+
 export default function decorate(block) {
   const isEditMode = block && block.hasAttribute && block.hasAttribute('data-aue-resource');
 
@@ -77,6 +168,22 @@ export default function decorate(block) {
 
   if (!graphqlUrl) return;
 
+  function extractImageFromShortDescription(item) {
+    if (!item || !item.description_shortDescription || !item.description_shortDescription.html) {
+      return null;
+    }
+
+    const { html } = item.description_shortDescription;
+    // 从 <p> 标签中提取文本内容
+    const match = html.match(/<p>([^<]+)<\/p>/);
+    return match ? match[1].trim() : null;
+  }
+
+  function applyDefaultSort() {
+    // 使用聚合排序认按尺寸排序（降序）
+    applyAggregatedSort('size', -1);
+  }
+
   function renderItems(items) {
     // 包含多个相同 factoryModel 的不同尺寸
     productsGrid.innerHTML = '';
@@ -128,14 +235,13 @@ export default function decorate(block) {
       groups[key].variants.push(it);
       // 如果开关打开了，优先使用 description_shortDescription 属性作为图片链接
       if (window.useShortDescriptionAsImage) {
-        if (!groups[key].representative.description_shortDescription && it.description_shortDescription) {
+        if (!groups[key].representative.description_shortDescription
+            && it.description_shortDescription) {
           groups[key].representative = it;
         }
-      } else {
+      } else if (!groups[key].representative.mediaGallery_image && it.mediaGallery_image) {
         // 否则走默认逻辑
-        if (!groups[key].representative.mediaGallery_image && it.mediaGallery_image) {
-          groups[key].representative = it;
-        }
+        groups[key].representative = it;
       }
       const sz = extractSize(it);
       if (sz) groups[key].sizes.add(sz);
@@ -238,9 +344,14 @@ export default function decorate(block) {
         ? group.sizes
         : Array.from(sizeToVariant.keys());
       // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
-      let selectedSize = sizesArray.length
-        ? (window.isDefaultSortApplied ? sizesArray[sizesArray.length - 1] : sizesArray[0])
-        : null;
+      let selectedSize;
+      if (sizesArray.length) {
+        selectedSize = window.isDefaultSortApplied
+          ? sizesArray[sizesArray.length - 1]
+          : sizesArray[0];
+      } else {
+        selectedSize = null;
+      }
       let selectedVariant = selectedSize ? (sizeToVariant.get(selectedSize) || item) : item;
 
       // 用来更新卡片显示为指定变体
@@ -3157,6 +3268,9 @@ export default function decorate(block) {
   window.renderItems = renderItems;
 }
 
+// 是否使用 description_shortDescription 作为图片链接，默认使用
+window.useShortDescriptionAsImage = true;
+
 // 暴露渲染和筛选接口到window全局，供 filter 和 tags 使用（在 renderItems 定义后）
 window.renderProductsInternal = function renderProductsInternalProxy(items) {
   if (typeof window.renderItems === 'function') {
@@ -3166,115 +3280,6 @@ window.renderProductsInternal = function renderProductsInternalProxy(items) {
 window.lastRenderedProducts = null;
 // 当前排序状态，用于筛选时判断是否需要默认选中最大尺寸
 window.currentSortKey = '';
-// 是否使用 description_shortDescription 作为图片链接，默认使用
-window.useShortDescriptionAsImage = true;
-
-function extractImageFromShortDescription(item) {
-  if (!item || !item.description_shortDescription || !item.description_shortDescription.html) {
-    return null;
-  }
-
-  const { html } = item.description_shortDescription;
-  // 从 <p> 标签中提取文本内容
-  const match = html.match(/<p>([^<]+)<\/p>/);
-  return match ? match[1].trim() : null;
-}
-
-function applyAggregatedSort(sortProperty, direction = -1) {
-  try {
-    const lastRendered = Array.isArray(window.lastRenderedProducts);
-    const hasLast = lastRendered && window.lastRenderedProducts.length;
-    let listToSort;
-    if (hasLast) {
-      listToSort = window.lastRenderedProducts.slice();
-    } else if (Array.isArray(window.productData)) {
-      listToSort = window.productData.slice();
-    } else {
-      listToSort = [];
-    }
-    if (!listToSort || !listToSort.length) {
-      return;
-    }
-
-    // 通过 key 获取 product model 的属性
-    const getPropertyByKey = (item, propKey) => {
-      if (!item || !propKey) return undefined;
-      if (Object.prototype.hasOwnProperty.call(item, propKey)) return item[propKey];
-      const parts = propKey.includes('.') ? propKey.split('.') : propKey.split('_');
-      return parts.reduce((acc, p) => (acc && acc[p] !== undefined ? acc[p] : undefined), item);
-    };
-
-    // 序列化属性，排序属性的值类型中包含尺寸，时间，价格，文本
-    const normalizeValueForSort = (value) => {
-      if (value === null || value === undefined) return null;
-      if (typeof value === 'number') return value;
-      if (typeof value === 'string' && /\d{4}-\d{2}-\d{2}T/.test(value)) {
-        const parsed = Date.parse(value);
-        return Number.isNaN(parsed) ? String(value).toLowerCase() : parsed;
-      }
-      if (typeof value === 'string' && sortProperty.toLowerCase().includes('size')) {
-        const m = value.match(/(\d+(\.\d+)?)/);
-        if (m) return parseFloat(m[1]);
-      }
-      return String(value).toLowerCase();
-    };
-
-    // 按 factoryModel 分组，计算每个组在指定属性上的最大值
-    const groupedByFactoryModel = {};
-    const factoryModelMaxValues = {};
-
-    listToSort.forEach((item) => {
-      const { factoryModel } = item;
-      if (!groupedByFactoryModel[factoryModel]) {
-        groupedByFactoryModel[factoryModel] = [];
-      }
-      groupedByFactoryModel[factoryModel].push(item);
-
-      // 计算该 factoryModel 在指定属性上的最大值
-      const value = normalizeValueForSort(getPropertyByKey(item, sortProperty));
-      if (value !== null && value !== undefined) {
-        if (!factoryModelMaxValues[factoryModel]
-            || (typeof value === 'number' && typeof factoryModelMaxValues[factoryModel] === 'number' && value > factoryModelMaxValues[factoryModel])
-            || (typeof value === 'string' && typeof factoryModelMaxValues[factoryModel] === 'string' && String(value).localeCompare(String(factoryModelMaxValues[factoryModel])) > 0)) {
-          factoryModelMaxValues[factoryModel] = value;
-        }
-      }
-    });
-
-    // 按最大值进行排序
-    const sortedProducts = listToSort.slice().sort((a, b) => {
-      const maxValueA = factoryModelMaxValues[a.factoryModel];
-      const maxValueB = factoryModelMaxValues[b.factoryModel];
-
-      // 处理空值情况
-      if (maxValueA === null || maxValueA === undefined) return 1 * direction;
-      if (maxValueB === null || maxValueB === undefined) return -1 * direction;
-      if (maxValueA === maxValueB) return 0;
-
-      if (typeof maxValueA === 'number' && typeof maxValueB === 'number') {
-        return (maxValueA - maxValueB) * direction;
-      }
-      return String(maxValueA).localeCompare(String(maxValueB)) * direction;
-    });
-
-    // 如果是按尺寸排序，设置标志表示产品卡片应默认选中最大尺寸
-    if (!sortProperty || sortProperty === 'size') {
-      window.isDefaultSortApplied = true;
-    } else {
-      window.isDefaultSortApplied = false;
-    }
-
-    window.renderPlpProducts(sortedProducts);
-  } catch (e) {
-    /* eslint-disable-next-line no-console */
-    console.warn('Aggregated sort error:', e);
-  }
-}
-
-function applyDefaultSort() {
-  // 使用聚合排序认按尺寸排序（降序）
-  applyAggregatedSort('size', -1);
-}
 
 window.renderPlpProducts = function renderPlpProductsWrapper(items) {
   window.lastRenderedProducts = Array.isArray(items) ? items.slice() : [];
@@ -3282,6 +3287,7 @@ window.renderPlpProducts = function renderPlpProductsWrapper(items) {
 };
 
 // 排序
+// eslint-disable-next-line consistent-return
 window.applyPlpSort = function applyPlpSort(sortKey) {
   try {
     const sortProperty = String(sortKey || '').trim();
