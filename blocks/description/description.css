@@ -14,11 +14,15 @@
     margin: 12px 0 0;
   }
 
+  h1 ~ p, h2 ~ p, h3 ~ p, h4 ~ p, h5 ~ p, h6 ~ p {
+    font-weight: 300;
+  }
+
   p:first-child {
     color: var(--color-hisense-teal);
-    font-weight: 400;
+    font-weight: 500;
     font-size: var(--body-font-size-xl);
-    margin: 0 0 8px;
+    margin: 0 0 12px;
     line-height: 22px;
   }
 
