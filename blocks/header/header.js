@@ -427,7 +427,7 @@ export default async function decorate(block) {
   closeImg.alt = 'menu';
   closeBtn.addEventListener('click', () => {
     navigation.classList.remove('show-menu');
-  })
+  });
   closeBtn.append(closeImg);
   actionsEl.append(closeBtn);
 
