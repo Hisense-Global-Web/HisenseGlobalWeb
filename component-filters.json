@@ -31,29 +31,12 @@
       "properties",
       "imageCarousel",
       "image-comparison-slider",
+      "product-detail-banner",
+      "pdp-product-info",
       "plp-product-card",
       "plp-product-tag",
       "plp-product-filters",
-      "pdp-product-info",
-      "product-detail-banner"
-    ]
-  },
-  {
-    "id": "plp-product-tag",
-    "components": [
-      "plp-product-tag-item"
-    ]
-  },
-  {
-    "id": "plp-product-filters",
-    "components": [
-      "plp-product-sort"
-    ]
-  },
-  {
-    "id": "product-detail-banner",
-    "components": [
-      "product-detail-banner-item"
+      "product-filters-carousel"
     ]
   },
   {
@@ -135,6 +118,12 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
+    ]
+  },
+  {
+    "id": "plp-product-tag",
+    "components": [
+      "plp-product-tag-item"
     ]
   },
   {

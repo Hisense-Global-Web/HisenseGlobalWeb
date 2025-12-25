@@ -224,5 +224,16 @@ export default function decorate(block) {
   });
 
   filtersBar.append(filtersLeft, sortBox);
+
+  if (isEditMode) {
+    const existingElements = [...block.children];
+    const aueElements = existingElements.filter((el) => el.hasAttribute('data-aue-resource'));
+
+    aueElements.forEach((el) => {
+      el.style.display = 'none';
+      filtersBar.append(el);
+    });
+  }
+
   block.replaceChildren(filtersBar);
 }
