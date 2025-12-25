@@ -129,9 +129,15 @@ export default function decorate(block) {
   const span = document.createElement('span');
   span.textContent = 'Load more';
 
+  const productsNoResult = document.createElement('div');
+  productsNoResult.className = 'plp-products-no-result';
+  productsNoResult.textContent = 'no result';
+  productsNoResult.style.display = 'none';
+
   productsLoadMore.append(span);
   productsBox.append(productsGrid);
   productsBox.append(productsLoadMore);
+  productsBox.append(productsNoResult);
 
   if (isEditMode) {
     const topWrapper = document.createElement('div');
@@ -303,7 +309,10 @@ export default function decorate(block) {
           }
           return null;
         })();
-        nameDiv.textContent = item.title || metaTitle || group.factoryModel || '';
+        const fullTitle = item.title || metaTitle || group.factoryModel || '';
+        nameDiv.textContent = fullTitle;
+        // 添加完整的title作为tooltip
+        nameDiv.title = fullTitle;
       }
 
       const extraFields = document.createElement('div');
@@ -464,6 +473,38 @@ export default function decorate(block) {
           const currentText = resultsEl.textContent || '';
           const updatedText = currentText.replace(/\{[^}]*\}/, String(count));
           resultsEl.textContent = updatedText;
+        }
+      }
+    } catch (e) {
+      /* eslint-disable-next-line no-console */
+      console.warn(e);
+    }
+
+    // 当结果超过9个时才显示load more
+    try {
+      const loadMoreEl = document.querySelector('.plp-load-more');
+      if (loadMoreEl) {
+        if (groupedArray.length > 9) {
+          loadMoreEl.style.display = 'block';
+        } else {
+          loadMoreEl.style.display = 'none';
+        }
+      }
+    } catch (e) {
+      /* eslint-disable-next-line no-console */
+      console.warn(e);
+    }
+
+    // 当结果为0时显示no result
+    try {
+      const noResultEl = document.querySelector('.plp-products-no-result');
+      if (noResultEl) {
+        if (groupedArray.length === 0) {
+          noResultEl.style.display = 'flex';
+          productsGrid.style.display = 'none';
+        } else {
+          noResultEl.style.display = 'none';
+          productsGrid.style.display = 'grid';
         }
       }
     } catch (e) {
@@ -1649,7 +1690,7 @@ export default function decorate(block) {
               html: '<p>/media_11cf4947decc4e0af4e2ca34f224af966609df800.png?width=750&amp;format=png&amp;optimize=medium</p>',
             },
             description_shortDescription: {
-              html: '<p>Hisense 65&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+              html: '<p>/media_11cf4947decc4e0af4e2ca34f224af966609df800.png?width=750&amp;format=png&amp;optimize=medium</p>',
             },
             enabled: true,
             launchingCountries: [
