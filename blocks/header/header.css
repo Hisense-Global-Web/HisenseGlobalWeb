@@ -483,6 +483,8 @@
     align-items: center;
     height: 64px;
     box-sizing: border-box;
+    max-width: none;
+    width: 100%;
   }
 
   #navigation .nav-container .nav-links {
