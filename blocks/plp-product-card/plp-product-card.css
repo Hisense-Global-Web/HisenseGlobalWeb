@@ -27,9 +27,14 @@
 
 .plp-product-img {
     width: 100%;
-    height: 120px;
-    background: #f0f0f0; /* 图片占位 */
+    height: 124px;
     margin-bottom: 20px;
+  padding: 12px 28px;
+}
+
+.plp-product-img img {
+  width: auto;
+  height: 100%
 }
 
 .plp-product-series {
