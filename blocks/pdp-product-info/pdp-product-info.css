@@ -1,7 +1,6 @@
 /* pdp-product-info */
 main .section.product-detail-banner-container.pdp-product-info-container {
   display: flex;
-  max-width: var(--container-max-width);
   padding: 0 24px;
   margin: 100px auto;
   box-sizing: border-box;
