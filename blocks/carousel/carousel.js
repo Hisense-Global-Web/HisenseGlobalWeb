@@ -1,9 +1,11 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+let carouselTimer;
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
   const indicators = block.querySelectorAll('.carousel-item-indicator');
+  block.dataset.slideIndex = slideIndex;
   indicators.forEach((indicator, idx) => {
     const button = indicator.querySelector('button');
     if (idx !== slideIndex) {
@@ -72,13 +74,14 @@ function showSlide(block, slideIndex, init = false) {
   if (slideIndex >= slides.length) realSlideIndex = 0;
   const activeSlide = slides[realSlideIndex];
   const nav = document.querySelector('#navigation');
+  const carouselHeight = block.offsetHeight;
 
   if ([...activeSlide.classList].includes('dark')) {
     block.classList.add('dark');
-    if (nav && (block.getBoundingClientRect().top > -860)) document.querySelector('#navigation').classList.add('header-dark-mode');
+    if (nav && (block.getBoundingClientRect().top > -carouselHeight)) document.querySelector('#navigation').classList.add('header-dark-mode');
   } else {
     block.classList.remove('dark');
-    if (nav && (block.getBoundingClientRect().top > -860)) document.querySelector('#navigation').classList.remove('header-dark-mode');
+    if (nav && (block.getBoundingClientRect().top > -carouselHeight)) document.querySelector('#navigation').classList.remove('header-dark-mode');
   }
   if (init) return;
   block.querySelector('.carousel-items-container').scrollTo({
@@ -87,34 +90,51 @@ function showSlide(block, slideIndex, init = false) {
     behavior: 'smooth',
   });
 }
+function stopAutoPlay() {
+  clearInterval(carouselTimer);
+  carouselTimer = null;
+}
+
+function autoPlay(block, index) {
+  let currentIndex = index;
+  const images = block.querySelectorAll('.carousel-item');
+  carouselTimer = setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    showSlide(block, currentIndex);
+  }, 3000);
+}
 
 function observeMouse(block, index) {
   if (document.getElementById('editor-app')) return;
-  let currentIndex = index;
-  const images = block.querySelectorAll('.carousel-item');
-  let timer;
-  const autoPlay = () => {
-    timer = setInterval(() => {
-      currentIndex = (currentIndex + 1) % images.length;
-      showSlide(block, currentIndex);
-    }, 3000);
-  };
-  if (block.classList.contains('only-picture')) {
-    images.forEach((image) => {
-      const link = image.querySelector('a');
-      const url = link?.href;
-      image.addEventListener('click', () => {
-        if (url) window.location.href = url;
-      });
-    });
-  }
-  autoPlay();
-  block.addEventListener('mouseenter', () => {
-    clearInterval(timer);
-    timer = null;
-  });
+  autoPlay(block, index);
+  block.addEventListener('mouseenter', stopAutoPlay);
   block.addEventListener('mouseleave', () => {
     autoPlay();
+  });
+}
+function touchEvent(block) {
+  let startX;
+  block.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    stopAutoPlay();
+    startX = e.changedTouches[0].pageX;
+  });
+  block.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    stopAutoPlay();
+    const moveEndX = e.changedTouches[0].pageX;
+    const X = moveEndX - startX;
+    if (X > 0) {
+      // 左滑
+      showSlide(block, parseInt(Number(block.dataset.slideIndex) - 1, 10));
+    } else if (X < 0) {
+      // 右滑
+      showSlide(block, parseInt(Number(block.dataset.slideIndex) + 1, 10));
+    }
+  });
+  block.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    autoPlay(block, block.dataset.slideIndex);
   });
 }
 function bindEvents(block) {
@@ -134,6 +154,8 @@ function bindEvents(block) {
       showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
     });
   });
+  observeMouse(block, 0);
+  touchEvent(block);
 }
 function createSlide(block, row, slideIndex) {
   const slide = document.createElement('li');
@@ -208,9 +230,6 @@ export default async function decorate(block) {
   if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);
-    window.onload = () => {
-      observeMouse(block, 0);
-    };
   }
   // 初始化加载主题色
   whenElementReady('.carousel', () => {
