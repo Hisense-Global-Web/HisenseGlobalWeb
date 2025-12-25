@@ -10,10 +10,11 @@ function updatePosition(block) {
   const trackBox = block.querySelector('.icon-track');
   const items = block.querySelectorAll('li');
   const moveDistance = index * getSlideWidth(block);
+  const maxlength = Math.floor(items.length * getSlideWidth(block)) / trackBox.offsetWidth;
   trackBox.style.transform = `translateX(-${moveDistance}px)`;
   trackBox.style.transition = 'all 0.5';
   block.querySelector('.slide-prev').disabled = (index === 0);
-  block.querySelector('.slide-next').disabled = (index >= items.length - 1);
+  block.querySelector('.slide-next').disabled = (index >= maxlength);
 }
 
 function bindEvent(block) {
