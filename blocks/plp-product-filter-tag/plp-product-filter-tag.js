@@ -416,8 +416,7 @@ export default function decorate(block) {
 
         if (childIndex < fragmentChildren.length) {
           aside.append(fragmentChildren[childIndex]);
-          // eslint-disable-next-line no-plusplus
-          childIndex++;
+          childIndex += 1;
         }
 
         asideElements.push(aside);
