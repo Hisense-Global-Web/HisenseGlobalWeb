@@ -109,7 +109,7 @@ function observeMouse(block, index) {
   autoPlay(block, index);
   block.addEventListener('mouseenter', stopAutoPlay);
   block.addEventListener('mouseleave', () => {
-    autoPlay();
+    autoPlay(block, index);
   });
 }
 function touchEvent(block) {
