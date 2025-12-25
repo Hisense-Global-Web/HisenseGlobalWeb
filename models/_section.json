@@ -41,7 +41,6 @@
           "component": "select",
           "name": "style_theme",
           "label": "Section Theme",
-          "value": "light",
           "options": [
             {
               "name": "Light",
@@ -61,7 +60,6 @@
           "component": "select",
           "name": "style_container",
           "label": "Section Container Type",
-          "value": "",
           "options": [
             {
               "name": "Default",
@@ -83,7 +81,6 @@
               "component": "select",
               "name": "style_paddingTop",
               "label": "Padding Top",
-              "value": "pt-l",
               "options": [
                 {
                   "name": "None",
@@ -111,7 +108,6 @@
               "component": "select",
               "name": "style_paddingBottom",
               "label": "Padding Bottom",
-              "value": "pb-l",
               "options": [
                 {
                   "name": "None",
@@ -147,7 +143,6 @@
               "component": "select",
               "name": "style_imageBorderRadius",
               "label": "Image Border Radius",
-              "value": "",
               "options": [
                 {
                   "name": "Default",
@@ -163,7 +158,6 @@
               "component": "select",
               "name": "style_imageRatio",
               "label": "Image Ratio",
-              "value": "",
               "options": [
                 {
                   "name": "Original",
@@ -180,6 +174,156 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "product-detail-banner-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false,
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "alt",
+          "label": "Alt Text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "pdp-product-info",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "graphql",
+          "label": "GraphQL Endpoint"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sku",
+          "label": "SKU",
+          "required": true
+        },
+        {
+          "component": "checkbox-group",
+          "valueType": "string[]",
+          "name": "fields",
+          "label": "Product Introduction",
+          "multi": true,
+          "options": [
+            { "name": "Title", "value": "title" },
+            { "name": "Series", "value": "series" },
+            { "name": "PriceInfo RegularPrice", "value": "priceInfo_regularPrice" },
+            { "name": "Awards", "value": "awards" },
+            { "name": "Position", "value": "position" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plp-product-card",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "graphql",
+          "label": "GraphQL Endpoint",
+          "description": "GraphQL endpoint URL"
+        },
+        {
+          "component": "checkbox-group",
+          "valueType": "string[]",
+          "name": "fields",
+          "label": "Product Fields",
+          "multi": true,
+          "options": [
+            { "name": "Title", "value": "title" },
+            { "name": "Series", "value": "series" },
+            { "name": "PriceInfo RegularPrice", "value": "priceInfo_regularPrice" },
+            { "name": "PriceInfo Specialprice", "value": "priceInfo_specialprice" },
+            { "name": "image", "value": "mediaGallery_image" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plp-product-tag",
+      "fields": []
+    },
+    {
+      "id": "plp-product-tag-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Filter Tag Title",
+          "required": true
+        },
+        {
+          "component": "aem-tag",
+          "valueType": "string",
+          "name": "tags",
+          "label": "Tags",
+          "rootPath": "/content/cq:tags/hisense/product"
+        }
+      ]
+    },
+    {
+      "id": "plp-product-filters",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "results",
+          "label": "Results Text",
+          "value": "{searchResultsCount} RESULT",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "reset",
+          "label": "Reset Filters Text",
+          "value": "Reset filters",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sortBy",
+          "label": "Sort By Text",
+          "value": "Sort By",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "plp-product-sort",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Sort Title",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "property",
+          "label": "Sort Property",
+          "description": "Property comes from product model attributes",
+          "required": true
         }
       ]
     }
@@ -207,7 +351,14 @@
         "iconComponent",
         "parallax",
         "properties",
-        "imageCarousel"
+        "imageCarousel",
+        "image-comparison-slider",
+        "product-detail-banner",
+        "pdp-product-info",
+        "plp-product-card",
+        "plp-product-tag",
+        "plp-product-filters",
+        "product-filters-carousel"
       ]
     }
   ]

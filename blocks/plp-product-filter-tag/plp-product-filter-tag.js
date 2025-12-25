@@ -349,7 +349,7 @@ export default function decorate(block) {
       const titleSpan = document.createElement('span');
       titleSpan.textContent = titleText;
       const arrow = document.createElement('img');
-      arrow.src = '/content/dam/hisense/image/icon/arrow.svg';
+      arrow.src = './media_18b1fbb6305019af784f87587d3bfbc78f2ca3575.svg?width=750&format=svg&optimize=medium';
       arrow.addEventListener('click', (e) => {
         const grandParent = e.target.parentNode?.parentNode;
         if (!grandParent) { return; }
@@ -399,10 +399,36 @@ export default function decorate(block) {
       fragment.append(group);
     });
 
-    const sidebar = document.createElement('aside');
-    sidebar.className = 'plp-sidebar';
-    sidebar.append(fragment);
-    block.replaceChildren(sidebar);
+    if (isEditMode) {
+      const asideElements = [];
+      const fragmentChildren = [...fragment.children];
+      let childIndex = 0;
+
+      rows.forEach((row) => {
+        const aside = document.createElement('aside');
+        aside.className = 'plp-sidebar';
+
+        [...row.attributes].forEach((attr) => {
+          if (attr.name.startsWith('data-aue-')) {
+            aside.setAttribute(attr.name, attr.value);
+          }
+        });
+
+        if (childIndex < fragmentChildren.length) {
+          aside.append(fragmentChildren[childIndex]);
+          childIndex += 1;
+        }
+
+        asideElements.push(aside);
+      });
+
+      block.replaceChildren(...asideElements);
+    } else {
+      const sidebar = document.createElement('aside');
+      sidebar.className = 'plp-sidebar';
+      sidebar.append(fragment);
+      block.replaceChildren(sidebar);
+    }
   }
 
   fetch(tagsEndpoint)

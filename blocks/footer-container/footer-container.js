@@ -283,13 +283,12 @@ export default function decorate(block) {
 
   const footer = document.createElement('footer');
   footer.id = 'footer';
-  footer.className = 'h-grid-container';
 
   const container = document.createElement('div');
   container.className = 'footer-container';
 
   const footerTop = document.createElement('div');
-  footerTop.className = 'footer-top';
+  footerTop.className = 'footer-top h-grid-container';
 
   if (data.logo.image || data.logo.social.length > 0) {
     const logoDiv = document.createElement('div');
@@ -359,7 +358,7 @@ export default function decorate(block) {
           // 只有非内链才显示图标
           if (!isInternalLink(itemData.link)) {
             const img = document.createElement('img');
-            img.src = '/content/dam/hisense/image/icon/share.svg';
+            img.src = './media_16a15f7db2090294e57d78394d2086dfabdcb0618.svg?width=750&format=svg&optimize=medium';
             li.appendChild(img);
           }
 
@@ -381,7 +380,7 @@ export default function decorate(block) {
     const footerBottom = document.createElement('div');
     footerBottom.className = 'footer-bottom';
     const footerLegals = document.createElement('div');
-    footerLegals.className = 'footer-legals';
+    footerLegals.className = 'footer-legals  h-grid-container';
 
     if (data.legalLinks.links.length > 0) {
       const legalLinksDiv = document.createElement('div');

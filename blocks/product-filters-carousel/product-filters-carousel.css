@@ -45,6 +45,10 @@ main > .plp-product-card-container.plp-product-filters-container {
   min-height: 100%;
 }
 
+.section.plp-product-card-container .default-content-wrapper {
+  display: none;
+}
+
 main > .section.plp-product-card-container.plp-product-filters-container > div {
   padding: 0;
 }
@@ -162,6 +166,7 @@ main > .plp-product-card-container.plp-product-filters-container * {
 
 .product-filters-carousel .product-filter-text {
   font-size: 16px;
+  font-weight: 400;
   color: #333;
 }
 

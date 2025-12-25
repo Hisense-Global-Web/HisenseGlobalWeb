@@ -1,6 +1,6 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-const SCROLL_STEP = 256; // 单个标签宽度 + 间隙
+const SCROLL_STEP = 130; // 单个标签宽度 + 间隙
 
 function createScrollButton(direction) {
   const button = document.createElement('button');
@@ -64,6 +64,13 @@ function buildTab(itemElement) {
     }
     moveInstrumentation(textCell, textSpan);
   }
+  li.addEventListener('click', (e) => {
+    const imgUrl = e.target?.src;
+    const mainImg = document.querySelector('.pdp-main-img img');
+    if (mainImg) {
+      mainImg.src = imgUrl;
+    }
+  });
 
   li.append(imgBox, textSpan);
   return li;
@@ -136,6 +143,18 @@ export default function decorate(block) {
   if (tabs?.childElementCount > 4) {
     rightBtn.removeAttribute('disabled');
   }
+  const media = document.createElement('div');
+  media.className = 'pdp-media';
+  const mediaImg = document.createElement('div');
+  mediaImg.className = 'pdp-main-img';
+  if (tabs?.childElementCount) {
+    const firstImg = tabs.querySelector('.product-filter-img-box .product-filter-img img');
+    if (firstImg) {
+      mediaImg.append(firstImg.cloneNode(true));
+    }
+  }
+  media.append(mediaImg);
+  media.append(scrollTabs);
 
-  block.replaceChildren(scrollTabs);
+  block.replaceChildren(media);
 }
