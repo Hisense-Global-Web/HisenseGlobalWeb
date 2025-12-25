@@ -190,7 +190,9 @@ export default function decorate(block) {
   const sortOptions = document.createElement('div');
   sortOptions.className = 'plp-sort-options';
   // 添加默认排序选项
-  const defaultOption = { label: 'Default', value: '', resource: null, dataAueAttributes: {} };
+  const defaultOption = {
+    label: 'Default', value: '', resource: null, dataAueAttributes: {},
+  };
   const options = [defaultOption, ...sortOptionsList];
   if (options && options.length) {
     let hasSelectedOption = false;
@@ -260,7 +262,7 @@ export default function decorate(block) {
       });
       option.classList.add('selected');
       // "sort by <option>"
-      const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy: 'Sort By';
+      const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy : 'Sort By';
       sortSpan.textContent = `${prefix} ${option.textContent}`;
       sortBox.classList.remove('show');
       try {
