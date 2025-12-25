@@ -104,18 +104,6 @@ function parseDropdownLinks(col) {
     }).filter((item) => item.text);
   }
 
-  // const items = Array.from(col.querySelectorAll('p:not(.button-container) + p.button-container'));
-  // if (items.length) {
-  //   return items.map((buttonContainer) => {
-  //     const textElement = buttonContainer.previousElementSibling;
-  //     const text = textElement ? textElement.textContent.trim() : '';
-  //
-  //     const linkElement = buttonContainer.querySelector('a.button');
-  //     const href = linkElement ? linkElement.getAttribute('href') : '';
-  //
-  //     return { text, href };
-  //   }).filter((item) => item.text);
-  // } return [];
   const results = [];
   const items = Array.from(col.querySelectorAll('p'));
   for (let i = 0; i < items.length; i += 2) {
