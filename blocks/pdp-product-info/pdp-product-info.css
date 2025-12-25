@@ -1,9 +1,9 @@
 /* pdp-product-info */
 main .section.product-detail-banner-container.pdp-product-info-container {
   display: flex;
-  
+
   /* max-width: var(--container-max-width); */
-  padding: 100px calc((100% - var(--container-max-width)) / 2);
+  padding: 100px calc((100% - var(--container-max-width)) / 2 + 24px);
   margin: auto;
   box-sizing: border-box;
   gap: 82px;
