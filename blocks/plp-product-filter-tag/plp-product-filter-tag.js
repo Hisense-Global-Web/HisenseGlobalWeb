@@ -399,10 +399,36 @@ export default function decorate(block) {
       fragment.append(group);
     });
 
-    const sidebar = document.createElement('aside');
-    sidebar.className = 'plp-sidebar';
-    sidebar.append(fragment);
-    block.replaceChildren(sidebar);
+    if (isEditMode) {
+      const asideElements = [];
+      const fragmentChildren = [...fragment.children];
+      let childIndex = 0;
+
+      rows.forEach((row) => {
+        const resource = row.getAttribute('data-aue-resource') || null;
+        const aside = document.createElement('aside');
+        aside.className = 'plp-sidebar';
+
+        if (resource) {
+          aside.setAttribute('data-aue-resource', resource);
+        }
+
+        if (childIndex < fragmentChildren.length) {
+          aside.append(fragmentChildren[childIndex]);
+          // eslint-disable-next-line no-plusplus
+          childIndex++;
+        }
+
+        asideElements.push(aside);
+      });
+
+      block.replaceChildren(...asideElements);
+    } else {
+      const sidebar = document.createElement('aside');
+      sidebar.className = 'plp-sidebar';
+      sidebar.append(fragment);
+      block.replaceChildren(sidebar);
+    }
   }
 
   fetch(tagsEndpoint)
