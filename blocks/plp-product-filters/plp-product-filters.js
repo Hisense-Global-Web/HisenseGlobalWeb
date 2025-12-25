@@ -189,14 +189,23 @@ export default function decorate(block) {
 
   const sortOptions = document.createElement('div');
   sortOptions.className = 'plp-sort-options';
-  const options = sortOptionsList;
+  // 添加默认排序选项
+  const defaultOption = { label: 'Default', value: '', resource: null, dataAueAttributes: {} };
+  const options = [defaultOption, ...sortOptionsList];
   if (options && options.length) {
-    options.forEach((option) => {
+    let hasSelectedOption = false;
+
+    options.forEach((option, index) => {
       const optionDiv = document.createElement('div');
       optionDiv.className = 'plp-sort-option';
       const label = option.label || option;
+
       if (label === sortBy) {
         optionDiv.classList.add('selected');
+        hasSelectedOption = true;
+      } else if (index === 0 && !hasSelectedOption) {
+        optionDiv.classList.add('selected');
+        hasSelectedOption = true;
       }
       optionDiv.textContent = label;
       if (option.value) optionDiv.dataset.value = option.value;
@@ -214,6 +223,26 @@ export default function decorate(block) {
       optionDiv.setAttribute('tabindex', '0');
       sortOptions.append(optionDiv);
     });
+
+    // 更新默认选中选项的文本显示
+    const selectedOption = sortOptions.querySelector('.plp-sort-option.selected');
+    if (selectedOption) {
+      const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy : 'Sort By';
+      sortSpan.textContent = `${prefix} ${selectedOption.textContent}`;
+      // 如果默认排序
+      try {
+        if (window && typeof window.applyPlpSort === 'function') {
+          const initKey = (selectedOption.dataset && Object.prototype.hasOwnProperty.call(selectedOption.dataset, 'value'))
+            ? selectedOption.dataset.value
+            : (selectedOption.getAttribute && selectedOption.getAttribute('data-value'));
+          // 触发默认排序逻辑
+          window.applyPlpSort(initKey == null ? '' : initKey);
+        }
+      } catch (e) {
+        /* eslint-disable-next-line no-console */
+        console.warn(e);
+      }
+    }
   }
 
   sortBox.append(sort, sortOptions);
@@ -231,13 +260,21 @@ export default function decorate(block) {
       });
       option.classList.add('selected');
       // "sort by <option>"
-      const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy.toLowerCase() : 'sort by';
+      const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy: 'Sort By';
       sortSpan.textContent = `${prefix} ${option.textContent}`;
       sortBox.classList.remove('show');
       try {
-        const sortKey = option.dataset && option.dataset.value ? option.dataset.value : (option.getAttribute && option.getAttribute('data-value'));
-        if (sortKey && window && typeof window.applyPlpSort === 'function') {
-          window.applyPlpSort(sortKey);
+        const sortKey = (option.dataset && Object.prototype.hasOwnProperty.call(option.dataset, 'value'))
+          ? option.dataset.value
+          : (option.getAttribute && option.getAttribute('data-value'));
+        try {
+          if (window && typeof window.applyPlpSort === 'function') {
+            // 如果 sortKey 为 undefined/null，则传空字符串以触发默认排序
+            window.applyPlpSort(sortKey == null ? '' : sortKey);
+          }
+        } catch (e) {
+          /* eslint-disable-next-line no-console */
+          console.warn(e);
         }
       } catch (e) {
         /* eslint-disable-next-line no-console */
