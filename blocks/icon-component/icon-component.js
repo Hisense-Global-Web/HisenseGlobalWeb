@@ -64,6 +64,9 @@ export default async function decorate(block) {
           item.querySelector('.button-container').closest('div').classList.add('show');
         }
       }
+      if (item.querySelector('a')) {
+        item.querySelector('a').closest('div').classList.add('item-cta');
+      }
       if (!item.innerHTML) item.remove();
     });
     iconBlock.appendChild(child);
