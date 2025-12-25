@@ -36,8 +36,9 @@ export default function decorate(block) {
     video.play();
     coverImg.style.display = 'none';
   });
-  video.addEventListener('play', () => {
-    // Video started playing
-  });
+
+  // video.addEventListener('play', () => {
+  //   console.log('视频开始播放');
+  // });
   block.replaceChildren(newDiv);
 }
