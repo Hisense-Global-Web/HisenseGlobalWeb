@@ -1537,8 +1537,7 @@
         "component": "boolean",
         "label": "Expand by Default",
         "name": "expanded",
-        "valueType": "boolean",
-        "value": false
+        "valueType": "boolean"
       }
     ]
   },

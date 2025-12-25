@@ -13,8 +13,9 @@ function parseLogo(root) {
 
 function parseNavItems(root) {
   return Array.from(root.querySelectorAll('.navigation-item-wrapper')).map((wrapper) => {
-    const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
-    const href = wrapper.querySelector('.button-container a')?.href || '#';
+    const pList = wrapper.querySelectorAll('p');
+    const title = pList[1]?.textContent?.trim() || '';
+    const href = pList[0]?.textContent?.trim() || '#';
     return { title, href };
   });
 }

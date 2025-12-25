@@ -109,6 +109,7 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   border-radius: 21px;
   margin-bottom: 16px;
   color: #000;
+  display: none;
 }
 
 .pdp-buy-btn:hover {

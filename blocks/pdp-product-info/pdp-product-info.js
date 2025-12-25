@@ -127,7 +127,7 @@ export default async function decorate(block) {
   }
   info.appendChild(buy);
 
-  const specsBtn = document.createElement('button');
+  const specsBtn = document.createElement('div');
   specsBtn.className = 'pdp-specs-btn';
   const specsImg = document.createElement('img');
   specsImg.src = '/content/dam/hisense/image/icon/specs.svg';
@@ -136,6 +136,18 @@ export default async function decorate(block) {
   const specsSpan = document.createElement('span');
   specsSpan.textContent = 'SPECS';
   specsBtn.appendChild(specsSpan);
+  specsBtn.addEventListener('click', () => {
+    const targetElement = document.getElementById('specifications');
+    if (!targetElement) {
+      return;
+    }
+    const targetPosition = targetElement.getBoundingClientRect().top + 60;
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'auto',
+    });
+  });
+
   info.appendChild(specsBtn);
 
   block.replaceChildren(info);
