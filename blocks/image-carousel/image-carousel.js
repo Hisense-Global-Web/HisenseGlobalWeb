@@ -1,26 +1,17 @@
 let carouselId = 0;
 function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
-  const cardWidth = singleItem.offsetWidth;
-  const gap = 30;
-  return cardWidth + gap;
+  return singleItem.offsetWidth;
 }
 
 function updatePosition(block, index) {
   const track = block.querySelector('.image-track');
   const items = block.querySelectorAll('li');
-  const totalDistance = items.length * getSlideWidth(block);
-  const maxlength = Math.ceil(totalDistance / track.offsetWidth);
-  if (index === maxlength) {
-    let lastDistance = 2 * (index * track.offsetWidth) - totalDistance;
-    if (index === 1) lastDistance = totalDistance - index * track.offsetWidth;
-    track.style.transform = `translateX(-${lastDistance}px)`;
-  } else {
-    track.style.transform = `translateX(-${index}00%)`;
-  }
+  const moveDistance = index * getSlideWidth(block);
+  track.style.transform = `translateX(-${moveDistance}px)`;
   track.style.transition = 'all 0.5';
   block.querySelector('.slide-prev').disabled = (index === 0);
-  block.querySelector('.slide-next').disabled = (index >= maxlength - 1);
+  block.querySelector('.slide-next').disabled = (index >= items.length - 1);
 }
 
 function bindEvent(block) {
