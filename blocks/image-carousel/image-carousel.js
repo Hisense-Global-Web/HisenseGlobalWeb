@@ -7,7 +7,8 @@ function getSlideWidth(block) {
 function updatePosition(block, index) {
   const track = block.querySelector('.image-track');
   const items = block.querySelectorAll('li');
-  const moveDistance = index * getSlideWidth(block);
+  const liGapSpace = index * 30;
+  const moveDistance = index * getSlideWidth(block) + liGapSpace;
   track.style.transform = `translateX(-${moveDistance}px)`;
   track.style.transition = 'all 0.5';
   block.querySelector('.slide-prev').disabled = (index === 0);
@@ -41,6 +42,8 @@ function createVideo(child, idx, large = false) {
   if (link) {
     videourl = link.href;
   }
+  const videoDivDom = document.createElement('div');
+  videoDivDom.className = 'video-div-box';
   const img = child.querySelector('img');
   const video = document.createElement('video');
   video.id = `video-${carouselId}-carousel-${idx}`;
@@ -59,7 +62,8 @@ function createVideo(child, idx, large = false) {
     video.play();
     img.closest('div').style.display = 'none';
   });
-  return video;
+  videoDivDom.appendChild(video);
+  return videoDivDom;
 }
 
 export default async function decorate(block) {

@@ -47,7 +47,7 @@ main > .section:first-of-type {
 
   .carousel-item-image {
     width: 100%;
-    height: 860px;
+    max-height: 860px;
 
     picture {
       inset: 0;
@@ -84,7 +84,7 @@ main > .section:first-of-type {
 
   .carousel-item-content .teal-text {
     color: var(--color-hisense-teal);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 28px;
     margin-bottom: 8px;
     font-size: 20px;
@@ -108,6 +108,7 @@ main > .section:first-of-type {
 
     .button-container {
       font-size: 14px;
+      font-weight: 500;
       text-align: center;
 
       .button {
@@ -241,14 +242,53 @@ main > .section:first-of-type {
       align-items: flex-start;
       gap: 8px;
 
-      p:nth-child(1) {
-        font-size: 30px;
-        line-height: 1.4;
+      p {
+        margin: 0;
+
+        &:nth-child(1) {
+          font-size: 30px;
+          line-height: 1.4;
+        }
       }
     }
 
     .carousel-item-cta {
       display: none;
+    }
+  }
+}
+
+@media (width <= 800px) {
+  .carousel  .carousel-items-container {
+    height: 640px;
+
+    .carousel-item {
+      .carousel-content {
+        width: 100%;
+        top: 70%;
+
+        .button {
+          width: 113px;
+          line-height: 40px;
+          font-size: 14px;
+          text-align: center;
+        }
+      }
+
+      .carousel-item-image {
+        height: 640px;
+        aspect-ratio: 1;
+      }
+    }
+  }
+
+  .carousel .carousel-item-indicators {
+    height: 36px;
+
+    button {
+      &:disabled {
+        width: 51px;
+      }
     }
   }
 }
