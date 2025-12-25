@@ -235,7 +235,7 @@ export default function decorate(block) {
         const updateImg = imgDiv.querySelector('img');
         if (variantImg && updateImg) {
           updateImg.src = variantImg;
-        } else {
+        } else if (updateImg) {
           updateImg.src = '';
         }
         // series
@@ -342,55 +342,8479 @@ export default function decorate(block) {
       productModelList: {
         items: [
           {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/-TELEVISIONS/4k-uled/75-u-65-qf-43',
-            _metadata: { stringMetadata: [{ name: 'title', value: '75U65QF-43' }] },
-            title: 'Hisense 43" Class U6',
-            series: '4K ULED',
-            size: '43"',
-            priceInfo_regularPrice: 30000,
-            priceInfo_specialprice: 18000,
-            productLaunchDate: '2025-12-17T16:00:00.000Z',
-            mediaGallery_image: { _path: '/content/dam/hisense/image/product/75u65qf/991681.jpg' },
-            whereToBuyLink: 'http://amazon.com/dp/B0DN6THH67',
-            tags: [
-              'hisense:product/tv/audio/dolby',
-              'hisense:product/tv/refresh-rate/180hz',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/fhd',
-              'hisense:product/tv/screen-size/50',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/rgb-miniled',
-              'hisense:product/tv/type/oled',
+            _path: '/content/dam/43A7N',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '43A7N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '43A7N',
+            spu: '43A7N',
+            erpcode: null,
+            overseasModel: 'A7',
+            factoryModel: 'A7N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 43" Class A7 Series LCD 4K Google TV',
+            subtitle: 'Hisense 43" Class A7 Series LCD 4K Google TV',
+            series: 'A7 Series',
+            platform: '9603',
+            size: '43',
+            description_description: {
+              html: '<p>Hisense 43&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 43&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              'us',
             ],
-            spu: '75U65QF',
+            productLaunchDate: '2025-04-30T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/A7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
           },
           {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/-TELEVISIONS/4k-uled/75-u-65-qf-50',
-            _metadata: { stringMetadata: [{ name: 'title', value: '75U65QF-50' }] },
-            title: 'Hisense 50" Class U6 Series MiniLED ULED 4K Fire TV',
-            series: '4K ULED',
-            size: '50"',
-            priceInfo_regularPrice: 20000,
-            priceInfo_specialprice: 18000,
-            productLaunchDate: '2025-12-17T16:00:00.000Z',
-            mediaGallery_image: { _path: '/content/dam/hisense/image/product/75u65qf/991681.jpg' },
-            tags: [
-              'hisense:product/tv/screen-size/50',
-              'hisense:product/tv/resolution/fhd',
-              'hisense:product/tv/resolution/hd',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/operating-system',
-              'hisense:product/tv/operating-system/fire-tv',
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/operating-system/vidda-tv ',
-              'hisense:product/tv/audio',
-              'hisense:product/tv/audio/dolby',
-              'hisense:product/tv/refresh-rate',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/refresh-rate/180hz',
+            _path: '/content/dam/50A7N',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '50A7N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '50A7N',
+            spu: '50A7N',
+            erpcode: null,
+            overseasModel: 'A7',
+            factoryModel: 'A7N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 50" Class A7 Series LCD 4K Google TV',
+            subtitle: 'Hisense 50" Class A7 Series LCD 4K Google TV',
+            series: 'A7 Series',
+            platform: '9603',
+            size: '50',
+            description_description: {
+              html: '<p>Hisense 50&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 50&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              'us',
             ],
-            spu: '75U65QF',
+            productLaunchDate: '2025-04-30T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/A7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/65A7N',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '65A7N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '65A7N',
+            spu: '65A7N',
+            erpcode: null,
+            overseasModel: 'A7',
+            factoryModel: 'A7N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 65" Class A7 Series LCD 4K Google TV',
+            subtitle: 'Hisense 65" Class A7 Series LCD 4K Google TV',
+            series: 'A7 Series',
+            platform: '9603',
+            size: '65',
+            description_description: {
+              html: '<p>Hisense 65&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 65&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              'us',
+            ],
+            productLaunchDate: '2025-04-30T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/A7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/75A7N',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '75A7N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '75A7N',
+            spu: '75A7N',
+            erpcode: null,
+            overseasModel: 'A7',
+            factoryModel: 'A7N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 75" Class A7 Series LCD 4K Google TV',
+            subtitle: 'Hisense 75" Class A7 Series LCD 4K Google TV',
+            series: 'A7 Series',
+            platform: '9603',
+            size: '75',
+            description_description: {
+              html: '<p>Hisense 75&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 75&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              'us',
+            ],
+            productLaunchDate: '2025-04-30T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/A7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/85A7N',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '85A7N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '85A7N',
+            spu: '85A7N',
+            erpcode: null,
+            overseasModel: 'A7',
+            factoryModel: 'A7N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 85" Class A7 Series LCD 4K Google TV',
+            subtitle: 'Hisense 85" Class A7 Series LCD 4K Google TV',
+            series: 'A7 Series',
+            platform: '9603',
+            size: '85',
+            description_description: {
+              html: '<p>Hisense 85&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 85&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              'us',
+            ],
+            productLaunchDate: '2025-04-30T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/A7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/100QD6QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '100QD6QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '100QD6QF',
+            spu: '100QD6QF',
+            erpcode: null,
+            overseasModel: 'QD6',
+            factoryModel: 'QD6QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 100" Class QD6 Series Hi-QLED 4K Fire TV',
+            subtitle: 'Hisense 100" Class QD6 Series Hi-QLED 4K Fire TV',
+            series: 'QD6 Series',
+            platform: null,
+            size: '100',
+            description_description: {
+              html: '<p>Hisense 100&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 100&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: null,
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/100QD7QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '100QD7QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '100QD7QF',
+            spu: '100QD7QF',
+            erpcode: null,
+            overseasModel: 'QD7',
+            factoryModel: 'QD7QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 100" Class QD7 Series MiniLED ULED 4K Fire TV',
+            subtitle: 'Hisense 100" Class QD7 Series MiniLED ULED 4K Fire TV',
+            series: 'QD7 Series',
+            platform: null,
+            size: '100',
+            description_description: {
+              html: '<p>Hisense 100&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 100&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/QD7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/116U75QG-100',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '100U75QG',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '100U75QG',
+            spu: '100U75QG',
+            erpcode: null,
+            overseasModel: 'U7',
+            factoryModel: 'U75QG',
+            badge: null,
+            awards: [],
+            title: 'Hisense 100" Class U7 Series MiniLED ULED 4K Google TV',
+            subtitle: 'Hisense 100" Class U7 Series MiniLED ULED 4K Google TV',
+            series: 'U7 Series',
+            platform: null,
+            size: '100',
+            description_description: {
+              html: '<p>Hisense 100&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 100&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: null,
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: 'https://development--hisenseglobalweb--hisense-global-web.aem.live/ui-testing/100U75QG',
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/116U75QG-116',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '116U75QG',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '116U75QG',
+            spu: '116U75QG',
+            erpcode: null,
+            overseasModel: 'U7',
+            factoryModel: 'U75QG',
+            badge: null,
+            awards: [],
+            title: 'Hisense 116" Class U7 Series MiniLED ULED 4K Google TV',
+            subtitle: 'Hisense 116" Class U7 Series MiniLED ULED 4K Google TV',
+            series: 'U7 Series',
+            platform: null,
+            size: '116',
+            description_description: {
+              html: '<p>Hisense 116&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 116&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/116U75QG-55',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '55U75QG',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '55U75QG',
+            spu: '55U75QG',
+            erpcode: null,
+            overseasModel: 'U7',
+            factoryModel: 'U75QG',
+            badge: null,
+            awards: [],
+            title: 'Hisense 55" Class U7 Series MiniLED ULED 4K Google TV',
+            subtitle: 'Hisense 55" Class U7 Series MiniLED ULED 4K Google TV',
+            series: 'U7 Series',
+            platform: null,
+            size: '55',
+            description_description: {
+              html: '<p>Hisense 55&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 55&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/116U75QG-65',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '65U75QG',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '65U75QG',
+            spu: '65U75QG',
+            erpcode: null,
+            overseasModel: 'U7',
+            factoryModel: 'U75QG',
+            badge: null,
+            awards: [],
+            title: 'Hisense 65" Class U7 Series MiniLED ULED 4K Google TV',
+            subtitle: 'Hisense 65 Class U7 Series MiniLED ULED 4K Google TV',
+            series: 'U7 Series',
+            platform: null,
+            size: '65',
+            description_description: {
+              html: '<p>Hisense 65&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 65&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: [
+              'hisense:product/tv/screen-size/65',
+            ],
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/116U75QG-75',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '75U75QG',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '75U75QG',
+            spu: '75U75QG',
+            erpcode: null,
+            overseasModel: 'U7',
+            factoryModel: 'U75QG',
+            badge: null,
+            awards: [],
+            title: 'Hisense 75" Class U7 Series MiniLED ULED 4K Google TV',
+            subtitle: 'Hisense 75" Class U7 Series MiniLED ULED 4K Google TV',
+            series: 'U7 Series',
+            platform: null,
+            size: '75',
+            description_description: {
+              html: '<p>Hisense 75&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 75&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/116U75QG-85',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '85U75QG',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '85U75QG',
+            spu: '85U75QG',
+            erpcode: null,
+            overseasModel: 'U7',
+            factoryModel: 'U75QG',
+            badge: null,
+            awards: [],
+            title: 'Hisense 85" Class U7 Series MiniLED ULED 4K Google TV',
+            subtitle: 'Hisense 85" Class U7 Series MiniLED ULED 4K Google TV',
+            series: 'U7 Series',
+            platform: null,
+            size: '85',
+            description_description: {
+              html: '<p>Hisense 85&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 85&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/43A65H',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '43A65H',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '43A65H',
+            spu: '43A65H',
+            erpcode: null,
+            overseasModel: 'A6',
+            factoryModel: 'A65H',
+            badge: null,
+            awards: [],
+            title: 'Hisense 43" Class A6 Series LED 4K UHD Smart Google TV',
+            subtitle: 'Hisense 43" Class A6 Series LED 4K UHD Smart Google TV',
+            series: 'A6 Series',
+            platform: null,
+            size: '43',
+            description_description: {
+              html: '<p>Hisense 43&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 43&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/A6.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/43QD6QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '43QD6QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '43QD6QF',
+            spu: '43QD6QF',
+            erpcode: null,
+            overseasModel: 'QD6',
+            factoryModel: 'QD6QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 43" Class QD6 Series Hi-QLED 4K Fire TV',
+            subtitle: 'Hisense 43" Class QD6 Series Hi-QLED 4K Fire TV',
+            series: 'QD6 Series',
+            platform: null,
+            size: '43',
+            description_description: {
+              html: '<p>Hisense 43&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 43&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: null,
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/50QD6QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '50QD6QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '50QD6QF',
+            spu: '50QD6QF',
+            erpcode: null,
+            overseasModel: 'QD6',
+            factoryModel: 'QD6QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 50" Class QD6 Series Hi-QLED 4K Fire TV',
+            subtitle: 'Hisense 50" Class QD6 Series Hi-QLED 4K Fire TV',
+            series: 'QD6 Series',
+            platform: null,
+            size: '50',
+            description_description: {
+              html: '<p>Hisense 50&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 50&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: null,
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/50QD7QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '50QD7QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '50QD7QF',
+            spu: '50QD7QF',
+            erpcode: null,
+            overseasModel: 'QD7',
+            factoryModel: 'QD7QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 50" Class QD7 Series MiniLED ULED 4K Fire TV',
+            subtitle: 'Hisense 50" Class QD7 Series MiniLED ULED 4K Fire TV',
+            series: 'QD7 Series',
+            platform: null,
+            size: '50',
+            description_description: {
+              html: '<p>Hisense 50&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 50&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/QD7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/55A65H',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '55A65H',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '55A65H',
+            spu: '55A65H',
+            erpcode: null,
+            overseasModel: 'A6',
+            factoryModel: 'A65H',
+            badge: null,
+            awards: [],
+            title: 'Hisense 55" Class A6 Series LED 4K UHD Smart Google TV',
+            subtitle: 'Hisense 55" Class A6 Series LED 4K UHD Smart Google TV',
+            series: 'A6 Series',
+            platform: null,
+            size: '55',
+            description_description: {
+              html: '<p>Hisense 55&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 55&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/A6.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/55A7N',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '43A7N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '55A7N',
+            spu: '55A7N',
+            erpcode: null,
+            overseasModel: 'A7',
+            factoryModel: 'A7N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 55" Class A7 Series LCD 4K Google TV',
+            subtitle: 'Hisense 55" Class A7 Series LCD 4K Google TV',
+            series: 'A7 Series',
+            platform: '9603',
+            size: '55',
+            description_description: {
+              html: '<p>Hisense 55&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 55&#34; Class A7 Series LCD 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              'us',
+            ],
+            productLaunchDate: '2025-04-30T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/A7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/55QD6QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '55QD6QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '55QD6QF',
+            spu: '55QD6QF',
+            erpcode: null,
+            overseasModel: 'QD6',
+            factoryModel: 'QD6QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 55" Class QD6 Series Hi-QLED 4K Fire TV',
+            subtitle: 'Hisense 55" Class QD6 Series Hi-QLED 4K Fire TV',
+            series: 'QD6 Series',
+            platform: null,
+            size: '55',
+            description_description: {
+              html: '<p>Hisense 55&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 55&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: null,
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/55QD7QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '55QD7QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '55QD7QF',
+            spu: '55QD7QF',
+            erpcode: null,
+            overseasModel: 'QD7',
+            factoryModel: 'QD7QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 55" Class QD7 Series MiniLED ULED 4K Fire TV',
+            subtitle: 'Hisense 55" Class QD7 Series MiniLED ULED 4K Fire TV',
+            series: 'QD7 Series',
+            platform: null,
+            size: '55',
+            description_description: {
+              html: '<p>Hisense 55&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 55&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/QD7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65A65H',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '65A65H',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '65A65H',
+            spu: '65A65H',
+            erpcode: null,
+            overseasModel: 'A6',
+            factoryModel: 'A65H',
+            badge: null,
+            awards: [],
+            title: 'Hisense 65" Class A6 Series LED 4K UHD Smart Google TV',
+            subtitle: 'Hisense 65" Class A6 Series LED 4K UHD Smart Google TV',
+            series: 'A6 Series',
+            platform: null,
+            size: '65',
+            description_description: {
+              html: '<p>Hisense 65&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 65&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/A6.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65QD6QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '65QD6QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '65QD6QF',
+            spu: '65QD6QF',
+            erpcode: null,
+            overseasModel: 'QD6',
+            factoryModel: 'QD6QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 65" Class QD6 Series Hi-QLED 4K Fire TV',
+            subtitle: 'Hisense 65" Class QD6 Series Hi-QLED 4K Fire TV',
+            series: 'QD6 Series',
+            platform: null,
+            size: '65',
+            description_description: {
+              html: '<p>Hisense 65&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 65&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: null,
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65QD7QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '65QD7QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '65QD7QF',
+            spu: '65QD7QF',
+            erpcode: null,
+            overseasModel: 'QD7',
+            factoryModel: 'QD7QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 65" Class QD7 Series MiniLED ULED 4K Fire TV',
+            subtitle: 'Hisense 65" Class QD7 Series MiniLED ULED 4K Fire TV',
+            series: 'QD7 Series',
+            platform: null,
+            size: '65',
+            description_description: {
+              html: '<p>Hisense 65&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 65&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/QD7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65U6N-55',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '55U6N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '55U6N',
+            spu: '55U6N',
+            erpcode: null,
+            overseasModel: 'U6',
+            factoryModel: 'U6N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 55" Class U6 Series Mini-LED ULED 4K Google TV',
+            subtitle: 'Hisense 55" Class U6 Series Mini-LED ULED 4K Google TV',
+            series: 'U6 Series',
+            platform: null,
+            size: '55',
+            description_description: {
+              html: '<p>Hisense 55&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 55&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-02-28T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U6.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65U6N-65',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '65U6N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '65U6N',
+            spu: '65U6N',
+            erpcode: null,
+            overseasModel: 'U6',
+            factoryModel: 'U6N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 65" Class U6 Series Mini-LED ULED 4K Google TV',
+            subtitle: 'Hisense 65" Class U6 Series Mini-LED ULED 4K Google TV',
+            series: 'U6 Series',
+            platform: null,
+            size: '65',
+            description_description: {
+              html: '<p>Hisense 65&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 65&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-02-28T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U6.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65U6N-75',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '75U6N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '75U6N',
+            spu: '75U6N',
+            erpcode: null,
+            overseasModel: 'U6',
+            factoryModel: 'U6N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 75" Class U6 Series Mini-LED ULED 4K Google TV',
+            subtitle: 'Hisense 75" Class U6 Series Mini-LED ULED 4K Google TV',
+            series: 'U6 Series',
+            platform: null,
+            size: '75',
+            description_description: {
+              html: '<p>Hisense 75&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 75&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-02-28T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U6.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65U6N-85',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '85U6N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '85U6N',
+            spu: '85U6N',
+            erpcode: null,
+            overseasModel: 'U6',
+            factoryModel: 'U6N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 85" Class U6 Series Mini-LED ULED 4K Google TV',
+            subtitle: 'Hisense 85" Class U6 Series Mini-LED ULED 4K Google TV',
+            series: 'U6 Series',
+            platform: null,
+            size: '85',
+            description_description: {
+              html: '<p>Hisense 85&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 85&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-02-28T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U6.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/75QD6QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '75QD6QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '75QD6QF',
+            spu: '75QD6QF',
+            erpcode: null,
+            overseasModel: 'QD6',
+            factoryModel: 'QD6QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 75" Class QD6 Series Hi-QLED 4K Fire TV',
+            subtitle: 'Hisense 75" Class QD6 Series Hi-QLED 4K Fire TV',
+            series: 'QD6 Series',
+            platform: null,
+            size: '75',
+            description_description: {
+              html: '<p>Hisense 75&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 75&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: null,
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/75QD7QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '75QD7QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '75QD7QF',
+            spu: '75QD7QF',
+            erpcode: null,
+            overseasModel: 'QD7',
+            factoryModel: 'QD7QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 75" Class QD7 Series MiniLED ULED 4K Fire TV',
+            subtitle: 'Hisense 75" Class QD7 Series MiniLED ULED 4K Fire TV',
+            series: 'QD7 Series',
+            platform: null,
+            size: '75',
+            description_description: {
+              html: '<p>Hisense 75&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 75&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/QD7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/75U9N',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '75U9N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '75U9N',
+            spu: '75U9N',
+            erpcode: null,
+            overseasModel: 'U9',
+            factoryModel: 'U9N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 75" Class U9 Series Mini-LED QLED 4K Google TV',
+            subtitle: 'Hisense 75" Class U9 Series Mini-LED QLED 4K Google TV',
+            series: 'U9 Series',
+            platform: null,
+            size: '75',
+            description_description: {
+              html: '<p>Hisense 75&#34; Class U9 Series Mini-LED QLED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 75&#34; Class U9 Series Mini-LED QLED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-05-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U9.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85QD6QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '85QD6QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '85QD6QF',
+            spu: '85QD6QF',
+            erpcode: null,
+            overseasModel: 'QD6',
+            factoryModel: 'QD6QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 85" Class QD6 Series Hi-QLED 4K Fire TV',
+            subtitle: 'Hisense 85" Class QD6 Series Hi-QLED 4K Fire TV',
+            series: 'QD6 Series',
+            platform: null,
+            size: '85',
+            description_description: {
+              html: '<p>Hisense 85&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 85&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: null,
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85QD7QF',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '85QD7QF',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '85QD7QF',
+            spu: '85QD7QF',
+            erpcode: null,
+            overseasModel: 'QD7',
+            factoryModel: 'QD7QF',
+            badge: null,
+            awards: [],
+            title: 'Hisense 85" Class QD7 Series MiniLED ULED 4K Fire TV',
+            subtitle: 'Hisense 85" Class QD7 Series MiniLED ULED 4K Fire TV',
+            series: 'QD7 Series',
+            platform: null,
+            size: '85',
+            description_description: {
+              html: '<p>Hisense 85&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 85&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/QD7.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U8QG-100',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '100U8QG',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '100U8QG',
+            spu: '100U8QG',
+            erpcode: null,
+            overseasModel: 'U8',
+            factoryModel: 'U8QG',
+            badge: null,
+            awards: [],
+            title: 'Hisense 100" Class U8 Series MiniLED ULED 4K Google TV',
+            subtitle: 'Hisense 100" Class U8 Series MiniLED ULED 4K Google TV',
+            series: 'U8 Series',
+            platform: null,
+            size: '100',
+            description_description: {
+              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U8.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U8QG-65',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '65U8QG',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '65U8QG',
+            spu: '65U8QG',
+            erpcode: null,
+            overseasModel: 'U8',
+            factoryModel: 'U8QG',
+            badge: null,
+            awards: [],
+            title: 'Hisense 85" Class U8 Series MiniLED ULED 4K Google TV',
+            subtitle: 'Hisense 85" Class U8 Series MiniLED ULED 4K Google TV',
+            series: 'U8 Series',
+            platform: null,
+            size: '65',
+            description_description: {
+              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U8.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U8QG-75',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '75U8QG',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '75U8QG',
+            spu: '75U8QG',
+            erpcode: null,
+            overseasModel: 'U8',
+            factoryModel: 'U8QG',
+            badge: null,
+            awards: [],
+            title: 'Hisense 75" Class U8 Series MiniLED ULED 4K Google TV',
+            subtitle: 'Hisense 75" Class U8 Series MiniLED ULED 4K Google TV',
+            series: 'U8 Series',
+            platform: null,
+            size: '75',
+            description_description: {
+              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U8.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U8QG-85',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '85U8QG',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '85U8QG',
+            spu: '85U8QG',
+            erpcode: null,
+            overseasModel: 'U8',
+            factoryModel: 'U8QG',
+            badge: null,
+            awards: [],
+            title: 'Hisense 85" Class U8 Series MiniLED ULED 4K Google TV',
+            subtitle: 'Hisense 85" Class U8 Series MiniLED ULED 4K Google TV',
+            series: 'U8 Series',
+            platform: null,
+            size: null,
+            description_description: {
+              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U8.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: 'https://development--hisenseglobalweb--hisense-global-web.aem.live/ui-testing/85U8QG',
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U8QG116-55',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '55U8QG',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '55U8QG',
+            spu: '55U8QG',
+            erpcode: null,
+            overseasModel: 'U8',
+            factoryModel: 'U8QG',
+            badge: null,
+            awards: [],
+            title: 'Hisense 55" Class U8 Series MiniLED ULED 4K Google TV',
+            subtitle: 'Hisense 55" Class U8 Series MiniLED ULED 4K Google TV',
+            series: 'U8 Series',
+            platform: null,
+            size: '55',
+            description_description: {
+              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U8.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U9N',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '85U9N',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '85U9N',
+            spu: '85U9N',
+            erpcode: null,
+            overseasModel: 'U9',
+            factoryModel: 'U9N',
+            badge: null,
+            awards: [],
+            title: 'Hisense 85" Class U9 Series Mini-LED QLED 4K Google TV',
+            subtitle: 'Hisense 85" Class U9 Series Mini-LED QLED 4K Google TV',
+            series: 'U9 Series',
+            platform: null,
+            size: '85',
+            description_description: {
+              html: '<p>Hisense 85&#34; Class U9 Series Mini-LED QLED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 85&#34; Class U9 Series Mini-LED QLED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-05-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/U9.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/copy-of-43-a-65-h',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '50A65H',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '50A65H',
+            spu: '50A65H',
+            erpcode: null,
+            overseasModel: 'A6',
+            factoryModel: 'A65H',
+            badge: null,
+            awards: [],
+            title: 'Hisense 50" Class A6 Series LED 4K UHD Smart Google TV',
+            subtitle: 'Hisense 50" Class A6 Series LED 4K UHD Smart Google TV',
+            series: 'A6 Series',
+            platform: null,
+            size: '50',
+            description_description: {
+              html: '<p>Hisense 50&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 50&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-03-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/A6.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: null,
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: null,
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
+          },
+          {
+            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/ux-rgb-116-ux',
+            _metadata: {
+              stringMetadata: [
+                {
+                  name: 'title',
+                  value: '116UXQUA',
+                },
+                {
+                  name: 'description',
+                  value: '',
+                },
+                {
+                  name: 'cq:lastReplicationAction',
+                  value: 'Activate',
+                },
+              ],
+            },
+            sku: '116UXQUA',
+            spu: '116UXQUA',
+            erpcode: null,
+            overseasModel: '116UXQUA',
+            factoryModel: '116UXQUA',
+            badge: null,
+            awards: [],
+            title: 'Hisense 116” Class UX Series RGB MiniLEDULED 4K Google TV',
+            subtitle: 'Hisense 116” Class UX Series RGB MiniLEDULED 4K Google TV',
+            series: 'UX Series',
+            platform: null,
+            size: '116',
+            description_description: {
+              html: '<p>Hisense 116” Class UX Series RGB MiniLEDULED 4K Google TV</p>',
+            },
+            description_shortDescription: {
+              html: '<p>Hisense 116” Class UX Series RGB MiniLEDULED 4K Google TV</p>',
+            },
+            enabled: true,
+            launchingCountries: [
+              '',
+            ],
+            productLaunchDate: '2025-05-31T16:00:00.000Z',
+            productEndOfLifeDate: null,
+            mediaGallery_image: {
+              _path: '/content/dam/hisense/02-plp/UX.png',
+            },
+            mediaGallery_gallery: [],
+            mediaGallery_mobileImage: null,
+            mediaGallery_mobileGallery: [],
+            priceInfo_currency: '$',
+            priceInfo_regularPrice: null,
+            priceInfo_specialprice: null,
+            productDetailPageLink: null,
+            whereToBuyLink: 'https://development--hisenseglobalweb--hisense-global-web.aem.live/ui-testing/116ux',
+            faqLink: null,
+            reviewScript: {
+              html: null,
+            },
+            tags: [
+              'hisense:product/tv/screen-size/98-max',
+            ],
+            productVideos: null,
+            sellingPoint1Title: null,
+            sellingPoint1Subtitle: null,
+            sellingPoint1Description: {
+              html: null,
+            },
+            sellingPoint1VideoImage: null,
+            sellingPoint2Title: null,
+            sellingPoint2Subtitle: null,
+            sellingPoint2Description: {
+              html: null,
+            },
+            sellingPoint2VideoImage: null,
+            sellingPoint3Title: null,
+            sellingPoint3Subtitle: null,
+            sellingPoint3Description: {
+              html: null,
+            },
+            sellingPoint3VideoImage: null,
+            sellingPoint4Title: null,
+            sellingPoint4Subtitle: null,
+            sellingPoint4Description: {
+              html: null,
+            },
+            sellingPoint4VideoImage: null,
+            sellingPoint5Title: null,
+            sellingPoint5Subtitle: null,
+            sellingPoint5Description: {
+              html: null,
+            },
+            sellingPoint5VideoImage: null,
+            sellingPoint6Title: null,
+            sellingPoint6Subtitle: null,
+            sellingPoint6Description: {
+              html: null,
+            },
+            sellingPoint6VideoImage: null,
+            sellingPoint7Title: null,
+            sellingPoint7Subtitle: null,
+            sellingPoint7Description: {
+              html: null,
+            },
+            sellingPoint7VideoImage: null,
+            sellingPoint8Title: null,
+            sellingPoint8Subtitle: null,
+            sellingPoint8Description: {
+              html: null,
+            },
+            sellingPoint8VideoImage: null,
+            sellingPoint9Title: null,
+            sellingPoint9Subtitle: null,
+            sellingPoint9Description: {
+              html: null,
+            },
+            sellingPoint9VideoImage: null,
+            specificationsPictureResolutionLabel: 'Specifications-Picture-Resolution',
+            specificationsPictureEngineLabel: 'Specifications-Picture-Engine',
+            specificationsPictureBrightnessLabel: 'Specifications-Picture-Brightness',
+            specificationsPictureBacklightLabel: 'Specifications-Picture-Backlight ',
+            specificationsPictureColourLabel: 'Specifications-Picture-Colour',
+            specificationsPictureDisplayLabel: 'Specifications -Picture-Display',
+            specificationsPictureHdrLabel: 'Specifications-Picture-HDR',
+            specificationsPictureAiFeaturesLabel: 'Specifications-Picture-AI Features',
+            specificationsPictureMotionLabel: 'Specifications-Picture-Motion',
+            specificationsPictureGamingLabel: 'Specifications-Picture-Gaming',
+            specificationsAudioLabel: 'Specifications-Audio',
+            specificationsSmartLabel: 'Specifications-Smart',
+            specificationsConnectivityLabel: 'Specifications-Connectivity',
+            specificationsDesignLabel1: null,
+            specificationsEsgLabel: 'Specifications-ESG',
+            specificationsProductDimensionsLabel: 'Specifications-Product Dimensions',
+            specificationsPowerLabel: 'Specifications-Power',
+            specificationsPortsLabel: 'Specifications-Ports',
+            specificationsOtherFeaturesLabel: 'Specifications-Other Features',
+            specificationsAccessoriesLabel: 'Specifications-Accessories',
+            specificationsWallMountLabel: 'Specifications-Wall Mount',
+            specificationsGamingLabel: 'Specifications-Gaming',
+            specificationsWarrantyUpcLabel: 'Specifications-WARRANTY / UPC',
+            specificationsDownloadLabel: 'Specifications-Download',
+            specificationsPictureResolution: [
+              '',
+            ],
+            specificationsPictureEngine: [
+              '',
+            ],
+            specificationsPictureBrightness: [
+              '',
+            ],
+            specificationsPictureBacklight: [
+              '',
+            ],
+            specificationsPictureColour: [
+              '',
+            ],
+            specificationsPictureDisplay: [
+              '',
+            ],
+            specificationsPictureHdr: [
+              '',
+            ],
+            specificationsPictureAiFeatures: [
+              '',
+            ],
+            specificationsPictureMotion: [
+              '',
+            ],
+            specificationsPictureGaming: [
+              '',
+            ],
+            specificationsAudio: [
+              '',
+            ],
+            specificationsSmart: null,
+            specificationsConnectivity: [
+              '',
+            ],
+            specificationsDesign: [
+              '',
+            ],
+            specificationsEsg: [
+              '',
+            ],
+            specificationsProductDimensions: [
+              '',
+            ],
+            specificationsPower: [
+              '',
+            ],
+            specificationsPorts: null,
+            specificationsOtherFeatures: [
+              '',
+            ],
+            specificationsAccessories: [
+              '',
+            ],
+            specificationsWallMount: [
+              '',
+            ],
+            specificationsGaming: [
+              '',
+            ],
+            specificationsWarrantyUpc: [
+              '',
+            ],
+            specificationsDownload: [
+              '',
+            ],
+            _variation: 'master',
           },
         ],
       },

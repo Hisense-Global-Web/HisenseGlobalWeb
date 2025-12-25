@@ -13,8 +13,9 @@ function parseLogo(root) {
 
 function parseNavItems(root) {
   return Array.from(root.querySelectorAll('.navigation-item-wrapper')).map((wrapper) => {
-    const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
-    const href = wrapper.querySelector('.button-container a')?.href || '#';
+    const pList = wrapper.querySelectorAll('p');
+    const title = pList[1]?.textContent?.trim() || '';
+    const href = pList[0]?.textContent?.trim() || '#';
     return { title, href };
   });
 }
@@ -103,18 +104,14 @@ function parseDropdownLinks(col) {
     }).filter((item) => item.text);
   }
 
-  const items = Array.from(col.querySelectorAll('p:not(.button-container) + p.button-container'));
-  if (items.length) {
-    return items.map((buttonContainer) => {
-      const textElement = buttonContainer.previousElementSibling;
-      const text = textElement ? textElement.textContent.trim() : '';
-
-      const linkElement = buttonContainer.querySelector('a.button');
-      const href = linkElement ? linkElement.getAttribute('href') : '';
-
-      return { text, href };
-    }).filter((item) => item.text);
-  } return [];
+  const results = [];
+  const items = Array.from(col.querySelectorAll('p'));
+  for (let i = 0; i < items.length; i += 2) {
+    const text = items[i]?.textContent.trim();
+    const href = items[i + 1]?.textContent.trim() || '#';
+    results.push({ text, href });
+  }
+  return results;
 }
 
 function parseDropdownBtns(col) {
@@ -138,32 +135,10 @@ function parseDropdownBtns(col) {
   }
 
   const paragraphs = Array.from(col.querySelectorAll('p'));
-  for (let i = 0; i < paragraphs.length; i += 1) {
-    const p = paragraphs[i];
-
-    if (p.classList.contains('button-container')) {
-      const linkElement = p.querySelector('a');
-      const href = linkElement ? linkElement.getAttribute('href') : '';
-
-      let text = '';
-      if (i > 0 && !paragraphs[i - 1].classList.contains('button-container')) {
-        text = paragraphs[i - 1].textContent.trim();
-      } else {
-        text = linkElement ? (linkElement.getAttribute('title') || linkElement.textContent.trim()) : '';
-      }
-
-      if (text) {
-        results.push({ text, href: href || '#' });
-      }
-    } else {
-      const nextP = paragraphs[i + 1];
-      if (!nextP || !nextP.classList.contains('button-container')) {
-        const text = p.textContent.trim();
-        if (text) {
-          results.push({ text, href: '#' });
-        }
-      }
-    }
+  for (let i = 0; i < paragraphs.length; i += 2) {
+    const text = paragraphs[i]?.textContent.trim();
+    const href = paragraphs[i + 1]?.textContent.trim() || '#';
+    results.push({ text, href });
   }
 
   return results;
