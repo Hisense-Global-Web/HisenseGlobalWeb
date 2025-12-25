@@ -235,7 +235,7 @@ export default function decorate(block) {
         const updateImg = imgDiv.querySelector('img');
         if (variantImg && updateImg) {
           updateImg.src = variantImg;
-        } else {
+        } else if (updateImg) {
           updateImg.src = '';
         }
         // series
