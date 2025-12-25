@@ -309,7 +309,7 @@ footer footer {
 .footer-legal-links {
   display: flex;
 	justify-content: space-between;
-	gap: 24px 30px;
+	gap: 24px 64px;
 	flex-wrap: wrap;
 }
 
