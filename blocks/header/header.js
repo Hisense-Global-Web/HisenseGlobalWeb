@@ -46,13 +46,17 @@ function parseDropdownProducts(col) {
       const href = item.querySelector('a')?.href || '#';
       const directChildren = Array.from(item.children);
       let text = '';
+      let altText = '';
       if (directChildren[1]) {
-        text = directChildren[1].textContent.trim();
+        altText = directChildren[1].textContent.trim();
+      }
+      if (directChildren[2]) {
+        text = directChildren[2].textContent.trim();
       } else {
         text = item.textContent.trim();
       }
 
-      return { img, text, href };
+      return { img, text, href, altText };
     });
   }
 
@@ -195,7 +199,7 @@ function buildDropdown(data) {
     if (item.img) {
       const img = document.createElement('img');
       img.src = item.img;
-      img.alt = item.text || '';
+      img.alt = item.altText || '';
       imgWrap.append(img);
     }
     if (item.href && item.href !== '#') {
