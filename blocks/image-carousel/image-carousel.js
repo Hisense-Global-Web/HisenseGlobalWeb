@@ -10,9 +10,9 @@ function updatePosition(block, index) {
   const track = block.querySelector('.image-track');
   const items = block.querySelectorAll('li');
   const totalDistance = items.length * getSlideWidth(block);
-  const maxlength = parseInt(totalDistance / track.offsetWidth, 10);
+  const maxlength = Math.ceil(totalDistance / track.offsetWidth);
   if (index === maxlength) {
-    let lastDistance = index * track.offsetWidth - (totalDistance - index * track.offsetWidth);
+    let lastDistance = 2 * (index * track.offsetWidth) - totalDistance;
     if (index === 1) lastDistance = totalDistance - index * track.offsetWidth;
     track.style.transform = `translateX(-${lastDistance}px)`;
   } else {
@@ -20,7 +20,7 @@ function updatePosition(block, index) {
   }
   track.style.transition = 'all 0.5';
   block.querySelector('.slide-prev').disabled = (index === 0);
-  block.querySelector('.slide-next').disabled = (index >= maxlength);
+  block.querySelector('.slide-next').disabled = (index >= maxlength - 1);
 }
 
 function bindEvent(block) {
