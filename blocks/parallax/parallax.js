@@ -92,7 +92,7 @@ export default async function decorate(block) {
             end: '+=200%',
             scrub: 1,
             pin: true,
-            markers: true,
+            // markers: true,
           },
         });
 
