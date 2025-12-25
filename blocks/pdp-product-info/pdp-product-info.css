@@ -1,8 +1,10 @@
 /* pdp-product-info */
 main .section.product-detail-banner-container.pdp-product-info-container {
   display: flex;
-  padding: 0 24px;
-  margin: 100px auto;
+  
+  /* max-width: var(--container-max-width); */
+  padding: 100px calc((100% - var(--container-max-width)) / 2);
+  margin: auto;
   box-sizing: border-box;
   gap: 82px;
 }
