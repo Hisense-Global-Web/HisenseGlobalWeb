@@ -142,7 +142,6 @@
 }
 
 @media (width <=600px) {
- 
   .pdp-media .scroll-tabs {
     width: 100vw;
   }
@@ -156,4 +155,7 @@
     height: auto;
   }
 
+  .pdp-media .scroll-btn {
+    display: none;
+  }
 }

@@ -154,5 +154,7 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   main .section.product-detail-banner-container.pdp-product-info-container{
     flex-direction: column-reverse;
     align-items: center;
+    gap: 0;
+    padding:100px 0;
   }
 }
