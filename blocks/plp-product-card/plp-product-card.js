@@ -162,9 +162,9 @@ export default function decorate(block) {
         return pKey ? item.mediaGallery_image[pKey] : null;
       })();
       if (imgPath) {
-        imgDiv.style.backgroundImage = `url(${imgPath})`;
-        imgDiv.style.backgroundSize = 'cover';
-        imgDiv.style.backgroundPosition = 'center';
+        const img = document.createElement('img');
+        img.src = imgPath;
+        imgDiv.appendChild(img);
       }
 
       const seriesDiv = document.createElement('div');
@@ -232,10 +232,11 @@ export default function decorate(block) {
         // image
         const imgPKey = variant && variant.mediaGallery_image && Object.keys(variant.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
         const variantImg = imgPKey ? variant.mediaGallery_image[imgPKey] : null;
-        if (variantImg) {
-          imgDiv.style.backgroundImage = `url(${variantImg})`;
+        const updateImg = imgDiv.querySelector('img');
+        if (variantImg && updateImg) {
+          updateImg.src = variantImg;
         } else {
-          imgDiv.style.backgroundImage = '';
+          updateImg.src = '';
         }
         // series
         if (fields.includes('series') && variant.series) seriesDiv.textContent = variant.series;

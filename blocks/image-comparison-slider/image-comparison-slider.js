@@ -1,13 +1,6 @@
 import { loadScript } from '../../scripts/aem.js';
+import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
-
-const createElement = (tag = 'div', classNames = '') => {
-  const element = document.createElement(tag);
-  if (classNames) {
-    element.className = classNames.trim();
-  }
-  return element;
-};
 
 const createResizeObserver = (callback, delay = 100) => {
   let timeout;
