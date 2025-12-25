@@ -75,7 +75,18 @@ export default function decorate(block) {
         currentContext = 'title';
         resourceTitle = resource;
       } else if (currentContext === 'sortBy') {
-        sortOptionsList.push({ label: left, value: right, resource });
+        const option = { label: left, value: right, resource };
+
+        // 获取所有 data-aue 开头的属性
+        const dataAueAttributes = {};
+        Array.from(row.attributes).forEach(attr => {
+          if (attr.name.startsWith('data-aue-')) {
+            dataAueAttributes[attr.name] = attr.value;
+          }
+        });
+        option.dataAueAttributes = dataAueAttributes;
+
+        sortOptionsList.push(option);
       }
     }
   });
@@ -180,6 +191,13 @@ export default function decorate(block) {
       if (isEditMode && option.resource) {
         optionDiv.setAttribute('data-aue-resource', option.resource);
       }
+
+      // 设置所有 data-aue 开头的属性
+      if (isEditMode && option.dataAueAttributes) {
+        Object.keys(option.dataAueAttributes).forEach(attrName => {
+          optionDiv.setAttribute(attrName, option.dataAueAttributes[attrName]);
+        });
+      }
       optionDiv.setAttribute('role', 'button');
       optionDiv.setAttribute('tabindex', '0');
       sortOptions.append(optionDiv);
@@ -224,16 +242,5 @@ export default function decorate(block) {
   });
 
   filtersBar.append(filtersLeft, sortBox);
-
-  if (isEditMode) {
-    const existingElements = [...block.children];
-    const aueElements = existingElements.filter((el) => el.hasAttribute('data-aue-resource'));
-
-    aueElements.forEach((el) => {
-      el.style.display = 'none';
-      filtersBar.append(el);
-    });
-  }
-
   block.replaceChildren(filtersBar);
 }
