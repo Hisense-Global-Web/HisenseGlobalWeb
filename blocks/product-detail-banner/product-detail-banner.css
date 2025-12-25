@@ -88,8 +88,8 @@
 
 .pdp-media .product-filters {
   display: flex;
-  gap: 16px;
-  width: 520px;
+  gap: 12px;
+  width: 508px;
   scroll-behavior: smooth;
   overflow: scroll hidden;
   list-style: none;
