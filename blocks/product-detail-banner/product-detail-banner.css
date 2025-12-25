@@ -140,3 +140,13 @@
   width: 100%;
   height: 100%;
 }
+
+@media (width <= 600px) {
+  .pdp-media .tabs-container {
+    width: calc(100% - 78px);
+  }
+
+  .pdp-media .product-filters {
+    width: 100%;
+  }
+}
