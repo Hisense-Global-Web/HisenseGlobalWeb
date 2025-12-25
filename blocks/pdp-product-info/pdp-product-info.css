@@ -150,4 +150,9 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   line-height: 18px;
 }
 
- 
+@media (width <=600px) {
+  main .section.product-detail-banner-container.pdp-product-info-container{
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+}
