@@ -157,4 +157,8 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
     gap: 0;
     padding:100px 0;
   }
+
+  .pdp-badges {
+    margin-bottom: 0;
+  }
 }
