@@ -79,7 +79,7 @@ export default function decorate(block) {
 
         // 获取所有 data-aue 开头的属性
         const dataAueAttributes = {};
-        Array.from(row.attributes).forEach(attr => {
+        Array.from(row.attributes).forEach((attr) => {
           if (attr.name.startsWith('data-aue-')) {
             dataAueAttributes[attr.name] = attr.value;
           }
@@ -194,7 +194,7 @@ export default function decorate(block) {
 
       // 设置所有 data-aue 开头的属性
       if (isEditMode && option.dataAueAttributes) {
-        Object.keys(option.dataAueAttributes).forEach(attrName => {
+        Object.keys(option.dataAueAttributes).forEach((attrName) => {
           optionDiv.setAttribute(attrName, option.dataAueAttributes[attrName]);
         });
       }
