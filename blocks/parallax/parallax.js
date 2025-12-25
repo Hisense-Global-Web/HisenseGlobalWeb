@@ -1,5 +1,6 @@
 import { loadScript } from '../../scripts/aem.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { debounce } from '../../utils/dom-helper.js';
 
 const ANIMATION_DURATION = {
   IMAGE_BRIGHTNESS: 0.3,
@@ -7,21 +8,6 @@ const ANIMATION_DURATION = {
   TEXT_SCROLL: 3,
   TEXT_FADE_IN: 0.1,
   TEXT_FADE_IN_DELAY: 0.1,
-};
-
-const debounce = ({ apply }, wait) => {
-  let timeoutId = null; // This will hold the timeout ID across calls
-
-  return (...args) => {
-    // Clear the previous timeout if the function is called again before the wait time
-    window.clearTimeout(timeoutId);
-
-    // Set a new timeout
-    timeoutId = window.setTimeout(() => {
-      // Execute the original function (callback) after the wait time
-      apply(null, args);
-    }, wait);
-  };
 };
 
 export default async function decorate(block) {
@@ -39,7 +25,10 @@ export default async function decorate(block) {
   }
 
   const resizeHandler = () => {
-    if (window.innerWidth >= 600 || window.innerHeight >= 700) {
+    if (!img.complete) {
+      return;
+    }
+    if (window.innerWidth >= 900 && window.innerHeight >= 700) {
       imageContainer.classList.add('animate');
       // textContainer.classList.add('animate');
     } else {
@@ -84,85 +73,89 @@ export default async function decorate(block) {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const matchMedia = gsap.matchMedia();
+  img.addEventListener('load', () => {
+    resizeHandler();
 
-  matchMedia.add({
-    validForAnimation: '(min-width: 600px) and (min-height: 700px)',
-  }, (context) => {
-    const { validForAnimation } = context.conditions;
-    imageContainer.classList.add('animate');
-    // textContainer.classList.add('animate');
-    if (validForAnimation) {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: block,
-          start: 'top top',
-          end: '+=200%',
-          scrub: 1,
-          pin: true,
-          // markers: true,
-        },
-      });
+    const matchMedia = gsap.matchMedia();
 
-      // tl.fromTo(
-      //   img,
-      //   { filter: 'brightness(1)' },
-      //   {
-      //     filter: 'brightness(0.3)',
-      //     duration: ANIMATION_DURATION.IMAGE_BRIGHTNESS,
-      //   },
-      //   0,
-      // );
+    matchMedia.add({
+      validForAnimation: '(min-width: 900px) and (min-height: 700px)',
+    }, (context) => {
+      const { validForAnimation } = context.conditions;
+      imageContainer.classList.add('animate');
+      // textContainer.classList.add('animate');
+      if (validForAnimation) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: block,
+            start: 'top top',
+            end: '+=200%',
+            scrub: 1,
+            pin: true,
+            // markers: true,
+          },
+        });
 
-      // tl.fromTo(
-      //   '.scroll-text-container > div',
-      //   {
-      //     yPercent: 100,
-      //   },
-      //   {
-      //     yPercent: -100,
-      //     ease: 'none',
-      //     duration: ANIMATION_DURATION.TEXT_SCROLL,
-      //   },
-      //   '>',
-      // );
+        // tl.fromTo(
+        //   img,
+        //   { filter: 'brightness(1)' },
+        //   {
+        //     filter: 'brightness(0.3)',
+        //     duration: ANIMATION_DURATION.IMAGE_BRIGHTNESS,
+        //   },
+        //   0,
+        // );
 
-      // const lines = gsap.utils.toArray('.scroll-text-container .animated-text');
-      // lines.forEach((line) => {
-      //   tl.fromTo(
-      //     line,
-      //     {
-      //       opacity: 0,
-      //     },
-      //     {
-      //       opacity: 1,
-      //       ease: 'none',
-      //       duration: 0.1,
-      //       delay: 0.1,
-      //     },
-      //     '<',
-      //   );
-      // });
+        // tl.fromTo(
+        //   '.scroll-text-container > div',
+        //   {
+        //     yPercent: 100,
+        //   },
+        //   {
+        //     yPercent: -100,
+        //     ease: 'none',
+        //     duration: ANIMATION_DURATION.TEXT_SCROLL,
+        //   },
+        //   '>',
+        // );
 
-      // tl.to(
-      //   img,
-      //   {
-      //     filter: 'brightness(1)',
-      //     duration: ANIMATION_DURATION.IMAGE_BRIGHTNESS,
-      //   },
-      //   '-=1',
-      // );
+        // const lines = gsap.utils.toArray('.scroll-text-container .animated-text');
+        // lines.forEach((line) => {
+        //   tl.fromTo(
+        //     line,
+        //     {
+        //       opacity: 0,
+        //     },
+        //     {
+        //       opacity: 1,
+        //       ease: 'none',
+        //       duration: 0.1,
+        //       delay: 0.1,
+        //     },
+        //     '<',
+        //   );
+        // });
 
-      tl.fromTo(
-        img,
-        { scale: 2 },
-        {
-          scale: 1,
-          ease: 'power1.inOut',
-          duration: ANIMATION_DURATION.IMAGE_SCALE,
-        },
-        '<',
-      );
-    }
+        // tl.to(
+        //   img,
+        //   {
+        //     filter: 'brightness(1)',
+        //     duration: ANIMATION_DURATION.IMAGE_BRIGHTNESS,
+        //   },
+        //   '-=1',
+        // );
+
+        tl.fromTo(
+          img,
+          { scale: 2 },
+          {
+            scale: 1,
+            ease: 'power1.inOut',
+            duration: ANIMATION_DURATION.IMAGE_SCALE,
+          },
+          0,
+        );
+      }
+    });
   });
 }
