@@ -85,7 +85,16 @@ export default function decorate(block) {
           }
         });
         option.dataAueAttributes = dataAueAttributes;
-
+        sortOptionsList.push(option);
+      } else {
+        const option = { label: 'No data', value: 'No data', resource };
+        const dataAueAttributes = {};
+        Array.from(row.attributes).forEach((attr) => {
+          if (attr.name.startsWith('data-aue-')) {
+            dataAueAttributes[attr.name] = attr.value;
+          }
+        });
+        option.dataAueAttributes = dataAueAttributes;
         sortOptionsList.push(option);
       }
     }
