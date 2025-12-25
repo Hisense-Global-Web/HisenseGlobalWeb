@@ -405,13 +405,14 @@ export default function decorate(block) {
       let childIndex = 0;
 
       rows.forEach((row) => {
-        const resource = row.getAttribute('data-aue-resource') || null;
         const aside = document.createElement('aside');
         aside.className = 'plp-sidebar';
 
-        if (resource) {
-          aside.setAttribute('data-aue-resource', resource);
-        }
+        [...row.attributes].forEach((attr) => {
+          if (attr.name.startsWith('data-aue-')) {
+            aside.setAttribute(attr.name, attr.value);
+          }
+        });
 
         if (childIndex < fragmentChildren.length) {
           aside.append(fragmentChildren[childIndex]);
