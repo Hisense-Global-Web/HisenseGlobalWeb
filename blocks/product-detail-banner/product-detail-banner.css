@@ -141,8 +141,15 @@
   height: 100%;
 }
 
-@media (width <=600px) {
- 
+@media (width <= 600px) {
+  .pdp-media .tabs-container {
+    width: calc(100% - 78px);
+  }
+
+  .pdp-media .product-filters {
+    width: 100%;
+  }
+
   .pdp-media .scroll-tabs {
     width: 100vw;
   }
@@ -155,5 +162,4 @@
     width: 100%;
     height: auto;
   }
-
 }
