@@ -140,3 +140,20 @@
   width: 100%;
   height: 100%;
 }
+
+@media (width <=600px) {
+ 
+  .pdp-media .scroll-tabs {
+    width: 100vw;
+  }
+
+  .pdp-media {
+    width: 100%;
+  }
+
+  .pdp-media .pdp-main-img {
+    width: 100%;
+    height: auto;
+  }
+
+}
