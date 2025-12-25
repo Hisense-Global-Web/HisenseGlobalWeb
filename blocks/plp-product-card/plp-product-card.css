@@ -53,6 +53,7 @@
 
 .plp-product-sizes {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     gap: 8px;
     margin-top: 8px;
