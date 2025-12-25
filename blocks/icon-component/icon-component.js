@@ -1,25 +1,24 @@
 let index = 0;
-const visibleCards = 5;
 
 function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
-  const cardWidth = singleItem.offsetWidth;
   const gap = 24;
-  return cardWidth + gap;
+  return singleItem.offsetWidth + gap;
 }
 
 function updatePosition(block) {
-  const track = block.querySelector('.icon-track');
+  const trackBox = block.querySelector('.icon-track');
   const items = block.querySelectorAll('li');
   const moveDistance = index * getSlideWidth(block);
-
-  track.style.transform = `translateX(-${moveDistance}px)`;
+  trackBox.style.transform = `translateX(-${moveDistance}px)`;
+  trackBox.style.transition = 'all 0.5';
   block.querySelector('.slide-prev').disabled = (index === 0);
-  block.querySelector('.slide-next').disabled = (index > items.length - visibleCards);
+  block.querySelector('.slide-next').disabled = (index >= items.length - 1);
 }
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
+  const wholeCards = block.querySelector('.icon-track');
   cards.forEach((card) => {
     const link = card.querySelector('a');
     const url = link?.href;
@@ -27,7 +26,7 @@ function bindEvent(block) {
       if (url) window.location.href = url;
     });
   });
-  if (cards.length >= visibleCards) {
+  if (cards.length * getSlideWidth(block) >= wholeCards.offsetWidth) {
     block.querySelector('.pagination').classList.add('show');
   }
   block.querySelector('.slide-prev').addEventListener('click', () => {
@@ -37,7 +36,7 @@ function bindEvent(block) {
     }
   });
   block.querySelector('.slide-next').addEventListener('click', () => {
-    if (index <= cards.length - visibleCards) {
+    if (index < cards.length) {
       index += 1;
       updatePosition(block);
     }
