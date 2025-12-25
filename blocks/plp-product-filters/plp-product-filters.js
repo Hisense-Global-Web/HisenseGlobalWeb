@@ -171,6 +171,9 @@ export default function decorate(block) {
   // 排序下拉框
   const sortBox = document.createElement('div');
   sortBox.className = 'plp-sort-box';
+  if (isEditMode && resourceSortBy) {
+    sortBox.setAttribute('data-aue-resource', resourceSortBy);
+  }
   if (isEditMode) {
     sortBox.className = 'plp-sort-box show';
   }
