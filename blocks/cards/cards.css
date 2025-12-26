@@ -61,6 +61,11 @@
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
+   transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
+}
+
+.cover-style > ul > li:hover img {
+  transform: scale(1.5);
 }
 
 .cover-style .cards-card-cta{
@@ -124,7 +129,7 @@
 }
 
 .center-style > ul > li:hover img {
- transform: scale(1.1) translateY(-5px);
+  transform: scale(1.1) translateY(-5px);
 }
 
 .center-style > ul > li .cards-card-cta a.button:any-link,
