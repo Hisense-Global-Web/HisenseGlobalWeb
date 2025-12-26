@@ -2,16 +2,22 @@ let index = 0;
 
 function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
-  const gap = 24;
-  return singleItem.offsetWidth + gap;
+  // const gap = 24;
+  return singleItem.offsetWidth;
 }
 
 function updatePosition(block) {
   const trackBox = block.querySelector('.icon-track');
   const items = block.querySelectorAll('li');
-  const moveDistance = index * getSlideWidth(block);
-  const maxlength = Math.floor(items.length * getSlideWidth(block)) / trackBox.offsetWidth;
-  trackBox.style.transform = `translateX(-${moveDistance}px)`;
+  const bodyWidth = document.body.getBoundingClientRect().width;
+  const prev = (index - 1) * getSlideWidth(block);
+  const maxlength = Math.ceil((items.length * getSlideWidth(block)) / bodyWidth);
+  if (index === maxlength) {
+    const lastDistance = -(items[items.length - 1].getBoundingClientRect().right - bodyWidth);
+    trackBox.style.transform = `translateX(-${prev + Math.abs(lastDistance)}px)`;
+  } else {
+    trackBox.style.transform = `translateX(-${prev + getSlideWidth(block)}px)`;
+  }
   trackBox.style.transition = 'all 0.5';
   block.querySelector('.slide-prev').disabled = (index === 0);
   block.querySelector('.slide-next').disabled = (index >= maxlength);
