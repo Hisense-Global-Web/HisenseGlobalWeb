@@ -25,9 +25,13 @@
 }
 
 .icon-viewport {
-  overflow: hidden;
+  overflow: scroll;
   width: 100%;
   margin: 32px 0 ;
+
+  &::-webkit-scrollbar{
+    display:none
+  }
 }
 
 .icon-viewport ul{
@@ -168,7 +172,7 @@
   }
 }
 
-@media (width <= 800px) {
+@media (width <= 600px) {
   .pagination.show {
     display: none;
   }
