@@ -437,6 +437,10 @@ main {
 	.section.img-rounded img {
 		border-radius: var(--border-radius-l);
 	}
+
+	.section.img-rounded video {
+		border-radius: var(--border-radius-l);
+	}
 }
 
 /* ========== header footer ========== */
