@@ -3365,7 +3365,7 @@ export default function decorate(block) {
 }
 
 // 是否使用 description_shortDescription 作为图片链接，默认使用
-window.useShortDescriptionAsImage = true;
+window.useShortDescriptionAsImage = false;
 
 // 暴露渲染和筛选接口到window全局，供 filter 和 tags 使用（在 renderItems 定义后）
 window.renderProductsInternal = function renderProductsInternalProxy(items) {
