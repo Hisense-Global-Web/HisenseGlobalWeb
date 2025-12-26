@@ -34,7 +34,7 @@
   font-weight: 400;
   font-size: 14px;
   box-sizing: border-box;
-  transition: top .5s cubic-bezier(0.35, 0, 0.36, 1), background-color .25s cubic-bezier(0.35, 0, 0.36, 1);
+  transition: top .5s cubic-bezier(0.35, 0, 0.36, 1), background-color .5s cubic-bezier(0.1, 0, 0.95, 1);
 }
 
 #navigation.scroll-active {
