@@ -14,42 +14,7 @@ function updatePosition(block, index) {
   block.querySelector('.slide-prev').disabled = (index === 0);
   block.querySelector('.slide-next').disabled = (index >= items.length - 1);
 }
-function touchEvent(block) {
-  let startX;
-  let prevX;
-  let X;
-  block.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    startX = e.changedTouches[0].pageX;
-  });
-  block.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    const moveEndX = e.changedTouches[0].pageX;
-    X = moveEndX - startX;
-  });
-  block.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    const node = e.target.closest('div');
-    if (prevX === X) {
-      if (e.target.className === 'button') {
-        e.target.click();
-        return;
-      }
-      if (node.classList.contains('video-play')) {
-        node.click();
-        return;
-      }
-    }
-    prevX = X;
-    if (X > 0) {
-      // 左滑
-      block.querySelector('.slide-prev').click();
-    } else if (X < 0) {
-      // 右滑
-      block.querySelector('.slide-next').click();
-    }
-  });
-}
+
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
   const track = block.querySelector('.image-track');
@@ -156,5 +121,4 @@ export default async function decorate(block) {
     block.appendChild(buttonContainer);
   }
   bindEvent(block);
-  touchEvent(block);
 }

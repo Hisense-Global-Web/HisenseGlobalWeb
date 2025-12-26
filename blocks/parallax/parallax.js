@@ -24,24 +24,6 @@ export default async function decorate(block) {
     return;
   }
 
-  const resizeHandler = () => {
-    if (!img.complete) {
-      return;
-    }
-    if (window.innerWidth >= 900 && window.innerHeight >= 700) {
-      imageContainer.classList.add('animate');
-      // textContainer.classList.add('animate');
-    } else {
-      imageContainer.classList.remove('animate');
-      // textContainer.classList.remove('animate');
-    }
-  };
-
-  resizeHandler();
-  const debounceResize = debounce(resizeHandler, 500);
-
-  window.addEventListener('resize', debounceResize);
-
   // const textElements = block.querySelector('.scroll-text-container > div');
   // if (textElements.children.length > 0) {
   //   Array.from(textElements.children)
@@ -73,18 +55,42 @@ export default async function decorate(block) {
 
   gsap.registerPlugin(ScrollTrigger);
 
+  const resizeHandler = () => {
+    if (!img.complete) {
+      return;
+    }
+    if (window.innerWidth >= 900 && window.innerHeight >= 700) {
+      imageContainer.classList.add('animate');
+      // textContainer.classList.add('animate');
+    } else {
+      imageContainer.classList.remove('animate');
+      // textContainer.classList.remove('animate');
+    }
+    ScrollTrigger.refresh();
+  };
+
+  resizeHandler();
+  const debounceResize = debounce(resizeHandler, 500);
+
+  window.addEventListener('resize', debounceResize);
+
   img.addEventListener('load', () => {
     resizeHandler();
 
     const matchMedia = gsap.matchMedia();
 
     matchMedia.add({
-      validForAnimation: '(min-width: 900px) and (min-height: 700px)',
+      aboveMinWidth: '(min-width: 900px)',
+      aboveMinHeight: '(min-height: 700px)',
     }, (context) => {
-      const { validForAnimation } = context.conditions;
-      imageContainer.classList.add('animate');
+      const {
+        aboveMinWidth,
+        aboveMinHeight,
+      } = context.conditions;
       // textContainer.classList.add('animate');
-      if (validForAnimation) {
+      if (aboveMinWidth && aboveMinHeight) {
+        imageContainer.classList.add('animate');
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: block,

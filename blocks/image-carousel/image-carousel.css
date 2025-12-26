@@ -427,8 +427,31 @@
   display: flex;
 }
 
-@media (width <= 800px) {
+@media (width <= 600px) {
   .image-pagination.show {
     display: none;
+  }
+
+  .image-carousel.left-style {
+    .item {
+      height: 224px;
+      width: 300px;
+
+      .item-content, .item-cta {
+        width: 144px;
+        height: 100%;
+      }
+    }
+  }
+
+  .image-carousel.left-bottom-style {
+    .item {
+      height: 224px;
+      width: 280px;
+
+      .item-content, .item-cta {
+        width: 248px;
+      }
+    }
   }
 }

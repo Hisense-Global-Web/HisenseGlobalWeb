@@ -9,14 +9,14 @@
 
 .icon-component > div:nth-child(1) {
   color: var(--color-hisense-teal);
-  font-size: 20px;
+  font-size: var(--body-font-size-l);
   line-height: 1;
   font-weight: 400;
 }
 
 .icon-component > div:nth-child(2) {
-  font-size: 34px;
-  font-weight: 400;
+  font-size: var(--heading-font-size-l);
+  font-weight: 500;
   line-height: 1;
 
   p {
@@ -25,9 +25,13 @@
 }
 
 .icon-viewport {
-  overflow: hidden;
+  overflow: scroll;
   width: 100%;
   margin: 32px 0 ;
+
+  &::-webkit-scrollbar{
+    display:none
+  }
 }
 
 .icon-viewport ul{
@@ -168,7 +172,7 @@
   }
 }
 
-@media (width <= 800px) {
+@media (width <= 600px) {
   .pagination.show {
     display: none;
   }
