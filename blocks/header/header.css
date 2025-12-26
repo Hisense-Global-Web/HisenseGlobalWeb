@@ -23,7 +23,7 @@
 
 /* 容器布局 */
 #navigation {
-  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -34,7 +34,11 @@
   font-weight: 400;
   font-size: 14px;
   box-sizing: border-box;
-  transition: top .5s cubic-bezier(0.35, 0, 0.36, 1), background-color .25s cubic-bezier(0.35, 0, 0.36, 1);
+  transition: top .5s cubic-bezier(0.35, 0, 0.36, 1), background-color .5s cubic-bezier(0.1, 0, 0.95, 1);
+}
+
+#navigation.hidden {
+  top: -100%;
 }
 
 #navigation.scroll-active {
