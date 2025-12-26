@@ -43,6 +43,7 @@ main > .plp-product-card-container.plp-product-filters-container {
 .plp-product-card-wrapper {
   width: calc(var(--container-max-width) - 48px - 256px);
   min-height: 100%;
+  height: 100%;
 }
 
 .section.plp-product-card-container .default-content-wrapper {
@@ -108,11 +109,12 @@ main > .plp-product-card-container.plp-product-filters-container * {
 
 .product-filters-carousel .product-filters {
   display: flex;
-  gap: 16px;
-  width: 1008px;
+  gap: 20px;
+  width: 1020px;
   scroll-behavior: smooth;
   overflow-x: scroll;
   list-style: none;
+  margin: 0;
   padding: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -129,7 +131,7 @@ main > .plp-product-card-container.plp-product-filters-container * {
   height: 80px;
   border: 1px solid rgb(204 204 204 / 100%);
   border-radius: 20px;
-  padding: 0 20px;
+  padding: 0 14px 0 20px;
   gap: 16px;
   flex-shrink: 0;
   cursor: pointer;
@@ -166,7 +168,7 @@ main > .plp-product-card-container.plp-product-filters-container * {
 
 .product-filters-carousel .product-filter-text {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   color: #333;
 }
 

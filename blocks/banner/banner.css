@@ -1,6 +1,6 @@
 .banner-container .banner-wrapper {
   width: 100%;
-  margin: 30px auto;
+  margin-block: var(--row-gap);
 }
 
 .block.banner {
@@ -104,7 +104,6 @@
     -webkit-line-clamp: 4; /* 限制显示4行 */
     overflow: hidden;
     text-overflow: ellipsis;
-    
   }
 }
 

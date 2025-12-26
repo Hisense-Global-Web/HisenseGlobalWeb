@@ -16,7 +16,7 @@ main > .section:first-of-type {
   position: relative;
 
   .carousel-items-container {
-    height: 860px;
+    height: 100vh;
     display: flex;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
@@ -264,6 +264,11 @@ main > .section:first-of-type {
 @media (width <= 800px) {
   .carousel  .carousel-items-container {
     height: 640px;
+    overflow: scroll;
+
+    &::-webkit-scrollbar{
+      display:none
+    }
 
     .carousel-item {
       .carousel-content {

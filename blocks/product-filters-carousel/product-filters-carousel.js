@@ -1,6 +1,6 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-const SCROLL_STEP = 256; // 单个标签宽度 + 间隙
+const SCROLL_STEP = 260; // 单个标签宽度 + 间隙
 
 function createScrollButton(direction) {
   const button = document.createElement('button');
