@@ -26,6 +26,11 @@
   transition: transform .5s cubic-bezier(0, 0.18, 0.07, 1), -webkit-transform .5s cubic-bezier(0, 0.18, 0.07, 1);
 }
 
+.plp-filter-title img {
+  width: 20px;
+  height: 20px;
+}
+
 .plp-filter-group.hide img {
   transform: rotate(180deg);
 }
@@ -48,11 +53,6 @@
 .plp-filter-title span {
   font-weight: 500;
   font-size: 14px;
-}
-
-.plp-filter-title img {
-  width: 20px;
-  height: 20px;
 }
 
 /* tags list */
