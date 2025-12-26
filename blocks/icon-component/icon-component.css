@@ -167,3 +167,9 @@
     border-color: var(--color-hisense-grey-03);
   }
 }
+
+@media (width <= 800px) {
+  .pagination.show {
+    display: none;
+  }
+}
