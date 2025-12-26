@@ -168,6 +168,26 @@ export default function decorate(block) {
 
   filtersLeft.append(resultsBox, activeFilters, resetFilters);
 
+  // 移动端filters 标题
+  const mobileFilters = document.createElement('div');
+  mobileFilters.className = 'plp-mobile-filters';
+  const mobileFilterTit = document.createElement('div');
+  mobileFilterTit.className = 'mobile-filter-title';
+  const mobileFiltersSpan = document.createElement('span');
+  mobileFiltersSpan.textContent = 'Filters';
+  const mobileFiltersImg = document.createElement('img');
+  mobileFiltersImg.src = '/content/dam/hisense/image/icon/mobile-filters-title.svg';
+  mobileFiltersImg.alt = 'Filters title';
+  mobileFilterTit.append(mobileFiltersImg, mobileFiltersSpan);
+  mobileFilters.append(mobileFilterTit);
+  const filterDetailEl = document.querySelector('.plp-product-filter-tag-wrapper');
+
+  // mobile 端，Filters 点击事件，显示filter数据
+  mobileFilters.addEventListener('click', () => {
+    document.body.style.overflow = 'hidden';
+    filterDetailEl.classList.toggle('mobile-filter-show');
+  });
+
   // 排序下拉框
   const sortBox = document.createElement('div');
   sortBox.className = 'plp-sort-box';
@@ -292,6 +312,6 @@ export default function decorate(block) {
     }
   });
 
-  filtersBar.append(filtersLeft, sortBox);
+  filtersBar.append(filtersLeft, mobileFilters, sortBox);
   block.replaceChildren(filtersBar);
 }

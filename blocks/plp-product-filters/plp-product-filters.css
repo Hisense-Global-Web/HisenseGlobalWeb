@@ -155,3 +155,44 @@
   flex-shrink: 0;
 }
 
+.plp-mobile-filters {
+  display: none;
+}
+
+@media (width <= 600px) {
+  .plp-product-filters {
+    .plp-filters-left {
+      display: none;
+    }
+
+    .plp-sort-box {
+      width: 131px;
+    }
+  }
+
+  .plp-mobile-filters {
+    display: block;
+  }
+
+  .mobile-filter-title {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+    height: 40px;
+    margin-left: 12px;
+
+    img {
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    span {
+      position: relative;
+      top: 2px;
+    }
+  }
+}
+
