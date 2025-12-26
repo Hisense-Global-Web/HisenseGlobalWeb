@@ -95,6 +95,14 @@
   transition: none;
 }
 
+#navigation .mobile-actions .nav-section {
+  font-size: 16px;
+  font-weight: 400;
+  height: 22px;
+  line-height: 22px;
+  color: #000;
+}
+
 #navigation:has(.nav-container:hover) .nav-section {
   transition: none;
 }
@@ -169,14 +177,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-#navigation .mobile-actions .nav-section {
-  font-size: 16px;
-  font-weight: 400;
-  height: 22px;
-  line-height: 22px;
-  color: #000;
 }
 
 .section.navigation-logo-container.navigation-item-container.navigation-action-container,
