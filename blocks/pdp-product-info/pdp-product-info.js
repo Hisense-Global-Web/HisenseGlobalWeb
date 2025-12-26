@@ -1,6 +1,14 @@
 /* eslint-disable no-console */
 
 export default async function decorate(block) {
+  const rows = [...(block.children || [])];
+  let fields = [];
+  rows.forEach((row) => {
+    const text = row.textContent && row.textContent.trim();
+    if (text && text.indexOf(',') >= 0) {
+      fields = text.split(',').map((s) => s.trim()).filter(Boolean);
+    }
+  });
   const link = block.querySelector('a');
   const endpoint = link ? link.getAttribute('href').trim() : '';
 
@@ -2900,7 +2908,10 @@ export default async function decorate(block) {
     if (!targetElement) {
       return;
     }
-    const targetPosition = targetElement.getBoundingClientRect().top + 60;
+    if (!fields.includes('position')) {
+      specsBtn.classList.add('d-none');
+    }
+    const targetPosition = targetElement.getBoundingClientRect().top;
     window.scrollTo({
       top: targetPosition,
       behavior: 'auto',
