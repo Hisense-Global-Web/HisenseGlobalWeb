@@ -306,12 +306,17 @@ export default function decorate(block) {
     const groupedArray = Object.keys(groups).map((k) => {
       const g = groups[k];
       const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(a) - Number(b));
+
+      // 检查聚合产品是否有任意size有whereToBuyLink，有就共享这个链接
+      const sharedWhereToBuyLink = g.variants.find((variant) => variant && variant.whereToBuyLink)?.whereToBuyLink;
+
       return {
         key: k,
         factoryModel: g.factoryModel,
         representative: g.representative,
         variants: g.variants,
         sizes,
+        sharedWhereToBuyLink,
       };
     });
 
@@ -464,8 +469,8 @@ export default function decorate(block) {
             extraFields.appendChild(fld);
           }
         });
-        // whereToBuyLink
-        if (variant && variant.whereToBuyLink) {
+        // whereToBuyLink - 使用group共享的链接，如果group中有任何尺寸有链接则共享
+        if (group.sharedWhereToBuyLink) {
           let link = card.querySelector && card.querySelector('.plp-product-btn');
           if (!link) {
             link = document.createElement('a');
@@ -473,7 +478,7 @@ export default function decorate(block) {
             link.target = '_blank';
             card.append(link);
           }
-          link.href = variant.whereToBuyLink;
+          link.href = group.sharedWhereToBuyLink;
           link.textContent = 'Learn more';
         } else {
           const existingLink = card.querySelector && card.querySelector('.plp-product-btn');
