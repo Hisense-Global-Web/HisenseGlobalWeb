@@ -227,7 +227,7 @@
         bottom: -38px;
         font-size: 12px;
       }
-     
+
   }
 }
 
@@ -424,4 +424,10 @@
 
 .image-pagination.show {
   display: flex;
+}
+
+@media (width <= 800px) {
+  .image-pagination.show {
+    display: none;
+  }
 }

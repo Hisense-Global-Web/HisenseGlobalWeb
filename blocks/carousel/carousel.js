@@ -114,6 +114,8 @@ function observeMouse(block, index) {
 }
 function touchEvent(block) {
   let startX;
+  let prevX;
+  let X;
   block.addEventListener('touchstart', (e) => {
     e.preventDefault();
     stopAutoPlay();
@@ -123,7 +125,16 @@ function touchEvent(block) {
     e.preventDefault();
     stopAutoPlay();
     const moveEndX = e.changedTouches[0].pageX;
-    const X = moveEndX - startX;
+    X = moveEndX - startX;
+  });
+  block.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    if (prevX === X) {
+      if (e.target.className.includes('button')) {
+        e.target.click();
+        return;
+      }
+    }
     if (X > 0) {
       // 左滑
       showSlide(block, parseInt(Number(block.dataset.slideIndex) - 1, 10));
@@ -131,9 +142,7 @@ function touchEvent(block) {
       // 右滑
       showSlide(block, parseInt(Number(block.dataset.slideIndex) + 1, 10));
     }
-  });
-  block.addEventListener('touchend', (e) => {
-    e.preventDefault();
+    prevX = X;
     autoPlay(block, block.dataset.slideIndex);
   });
 }
