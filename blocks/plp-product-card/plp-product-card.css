@@ -69,7 +69,8 @@
 }
 
 .plp-product-size {
-    padding: 0 8px;
+    padding: 4px 8px;
+    width: 31px;
     height: 25px;
     border: 1px solid rgb(204 204 204 / 100%);
     color: rgb(102 102 102 / 100%);
