@@ -34,6 +34,7 @@
   align-items: center;
   font-weight: 400;
   cursor: pointer;
+  padding: 0 14px;
 }
 
 .plp-filter-title span {
