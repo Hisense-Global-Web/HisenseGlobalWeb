@@ -112,40 +112,6 @@ function observeMouse(block, index) {
     autoPlay(block, index);
   });
 }
-function touchEvent(block) {
-  let startX;
-  let prevX;
-  let X;
-  block.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    stopAutoPlay();
-    startX = e.changedTouches[0].pageX;
-  });
-  block.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    stopAutoPlay();
-    const moveEndX = e.changedTouches[0].pageX;
-    X = moveEndX - startX;
-  });
-  block.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    if (prevX === X) {
-      if (e.target.className.includes('button')) {
-        e.target.click();
-        return;
-      }
-    }
-    if (X > 0) {
-      // 左滑
-      showSlide(block, parseInt(Number(block.dataset.slideIndex) - 1, 10));
-    } else if (X < 0) {
-      // 右滑
-      showSlide(block, parseInt(Number(block.dataset.slideIndex) + 1, 10));
-    }
-    prevX = X;
-    autoPlay(block, block.dataset.slideIndex);
-  });
-}
 function bindEvents(block) {
   const slideIndicators = block.querySelector('.carousel-item-indicators');
   if (!slideIndicators) return;
@@ -164,7 +130,6 @@ function bindEvents(block) {
     });
   });
   observeMouse(block, 0);
-  touchEvent(block);
 }
 function createSlide(block, row, slideIndex) {
   const slide = document.createElement('li');

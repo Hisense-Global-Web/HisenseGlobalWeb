@@ -427,7 +427,7 @@
   display: flex;
 }
 
-@media (width <= 800px) {
+@media (width <= 600px) {
   .image-pagination.show {
     display: none;
   }
