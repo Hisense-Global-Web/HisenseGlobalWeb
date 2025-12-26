@@ -1,5 +1,6 @@
 .plp-products-box {
     flex: 1;
+    height: 100%;
 }
 
 .plp-products {
@@ -9,6 +10,8 @@
 }
 
 .product-card {
+    display: flex;
+    flex-direction: column;
     background: #fff;
     border-radius: 20px;
     padding: 20px;
@@ -16,6 +19,10 @@
 
 [data-aue-model="plp-product-card"].plp-product-card >div:not(.plp-products-box) {
   display: none;
+}
+
+.plp-product-card {
+  height: 100%;
 }
 
 .plp-product-card-title {
@@ -48,11 +55,7 @@
 .plp-product-name {
     font-size: 20px;
     font-weight: 500;
-    height: 26px;
     line-height: 26px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     margin-bottom: 8px;
 }
 
@@ -96,6 +99,8 @@
     height: 30px;
     line-height: 30px;
     text-decoration: none;
+    margin-top: auto;
+    align-self: flex-start;
 }
 
 .plp-product-card .plp-product-btn:hover {
@@ -136,5 +141,5 @@
   font-size: 36px;
   color: #666;
   text-transform: uppercase;
-  padding-top: 30%;
+  height: 100%;
 }
