@@ -1,11 +1,8 @@
 function applyAggregatedSort(sortProperty, direction = -1) {
   try {
-    const lastRendered = Array.isArray(window.lastRenderedProducts);
-    const hasLast = lastRendered && window.lastRenderedProducts.length;
+    // 每次排序都使用原始数据而不是上一次排序的结果
     let listToSort;
-    if (hasLast) {
-      listToSort = window.lastRenderedProducts.slice();
-    } else if (Array.isArray(window.productData)) {
+    if (Array.isArray(window.productData)) {
       listToSort = window.productData.slice();
     } else {
       listToSort = [];
@@ -224,8 +221,23 @@ export default function decorate(block) {
   }
 
   function applyDefaultSort() {
-    // 使用聚合排序认按尺寸排序（降序）
-    applyAggregatedSort('size', -1);
+    const selectedSortOption = document.querySelector('.plp-sort-option.selected');
+    if (selectedSortOption) {
+      const sortValue = selectedSortOption.dataset.value
+                       || selectedSortOption.getAttribute('data-value')
+                       || '';
+      if (sortValue && sortValue.trim()) {
+        if (window.applyPlpSort) {
+          window.applyPlpSort(sortValue);
+        } else {
+          applyAggregatedSort('size', -1);
+        }
+      } else {
+        applyAggregatedSort('size', -1);
+      }
+    } else {
+      applyAggregatedSort('size', -1);
+    }
   }
 
   function renderItems(items) {
