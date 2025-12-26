@@ -61,7 +61,7 @@
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-   transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
+  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
 }
 
 .cover-style > ul > li:hover img {
