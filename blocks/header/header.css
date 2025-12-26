@@ -108,27 +108,27 @@
 }
 
 #navigation.header-dark-mode .nav-action-btn .light-img {
-  display: none;
+  opacity: 0;
 }
 
 #navigation:not(.header-dark-mode) .nav-action-btn .dark-img {
-  display: none;
+  opacity: 0;
 }
 
 #navigation.scroll-active .nav-actions .nav-action-btn .dark-img {
-  display: none;
+  opacity: 0;
 }
 
 #navigation.scroll-active .nav-actions .nav-action-btn .light-img {
-  display: block;
+  opacity: 1;
 }
 
 #navigation:has(.nav-container:hover) .nav-action-btn .light-img{
-  display: block;
+  opacity: 1;
 }
 
 #navigation:has(.nav-container:hover) .nav-action-btn .dark-img{
-  display: none;
+  opacity: 0;
 }
 
 #navigation .nav-container {
@@ -333,6 +333,12 @@
   width: 24px;
   height: 24px;
   cursor: pointer;
+  position: relative;
+}
+
+.nav-action-btn img {
+  position: absolute;
+  transition: opacity .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
 }
 
 .nav-action-btn.mobile-menu-icon {
@@ -427,6 +433,10 @@
   height: auto;
 }
 
+#navigation:has(.nav-container:hover) .nav-action-btn img {
+  transition: none;
+}
+
 .dropdown-product-text {
   width: 100%;
   height: 15px;
@@ -513,11 +523,11 @@
   }
   
   #navigation.show-menu .nav-action-btn .light-img {
-    display: block;
+    opacity: 1;
   }
 
   #navigation.show-menu .nav-action-btn .dark-img {
-    display: none;
+    opacity: 0;
   }
   
   #navigation .nav-container {
