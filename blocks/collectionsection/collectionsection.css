@@ -20,7 +20,7 @@
 }
 
 .collectionsection-wrapper > div > div:first-child div p{
-  font-size: 20px;
+  font-size: var(--body-font-size-l);
   font-style: normal;
   font-weight: 500;
   line-height: normal;
