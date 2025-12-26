@@ -484,7 +484,7 @@ export default function decorate(block) {
     try {
       const loadMoreEl = document.querySelector('.plp-load-more');
       if (loadMoreEl) {
-        if (groupedArray.length > 9) {
+        if (groupedArray.length >= 9) {
           loadMoreEl.style.display = 'block';
         } else {
           loadMoreEl.style.display = 'none';

@@ -1396,6 +1396,20 @@
             "value": "mediaGallery_image"
           }
         ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreTextContent",
+        "label": "Load More Text Content",
+        "description": "Text content for load more button"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreLink",
+        "label": "Load More Link",
+        "description": "Link for load more button"
       }
     ]
   },
