@@ -43,6 +43,37 @@ function bindEvent(block) {
     }
   });
 }
+// mobile touchEvent
+function touchEvent(block) {
+  let startX;
+  let prevX;
+  let X;
+  block.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    startX = e.changedTouches[0].pageX;
+  });
+  block.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    const moveEndX = e.changedTouches[0].pageX;
+    X = moveEndX - startX;
+  });
+  block.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    const node = e.target.closest('div');
+    if (prevX === X) {
+      node.click();
+      return;
+    }
+    prevX = X;
+    if (X > 0) {
+      // 左滑
+      block.querySelector('.slide-prev').click();
+    } else if (X < 0) {
+      // 右滑
+      block.querySelector('.slide-next').click();
+    }
+  });
+}
 
 export default async function decorate(block) {
   const iconContainer = document.createElement('div');
@@ -85,4 +116,5 @@ export default async function decorate(block) {
     block.appendChild(buttonContainer);
   }
   bindEvent(block);
+  touchEvent(block);
 }

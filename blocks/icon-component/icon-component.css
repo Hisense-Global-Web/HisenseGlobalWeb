@@ -25,9 +25,13 @@
 }
 
 .icon-viewport {
-  overflow: hidden;
+  overflow: scroll;
   width: 100%;
   margin: 32px 0 ;
+
+  &::-webkit-scrollbar{
+    display:none
+  }
 }
 
 .icon-viewport ul{
@@ -165,5 +169,11 @@
 .dark .pagination button {
   &:disabled {
     border-color: var(--color-hisense-grey-03);
+  }
+}
+
+@media (width <= 600px) {
+  .pagination.show {
+    display: none;
   }
 }
