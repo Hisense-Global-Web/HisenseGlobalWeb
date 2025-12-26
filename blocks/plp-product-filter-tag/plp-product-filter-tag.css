@@ -163,6 +163,8 @@
     margin-bottom: 16px;
 
     .mobile-filter-close {
+      cursor: pointer;
+
       img {
         position: relative;
         top: 8px;
