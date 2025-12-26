@@ -253,6 +253,20 @@ export default async function decorate(block) {
   // 构建新的导航DOM
   const navigation = document.createElement('div');
   navigation.id = 'navigation';
+  let lastScrollTop = 0;
+  const scrollThreshold = 10;
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (Math.abs(scrollTop - lastScrollTop) <= scrollThreshold) {
+      return;
+    }
+    if (scrollTop > lastScrollTop) {
+      navigation.classList.add('hidden');
+    } else {
+      navigation.classList.remove('hidden');
+    }
+    lastScrollTop = scrollTop;
+  });
 
   const navContainer = document.createElement('div');
   navContainer.className = 'nav-container h-grid-container';
