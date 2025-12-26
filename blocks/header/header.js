@@ -65,22 +65,14 @@ function parseDropdownProducts(col) {
 
   const products = [];
   const children = Array.from(col.children);
-  for (let i = 0; i < children.length; i += 1) {
-    const node = children[i];
-    const pictureImg = node.tagName === 'P' ? node.querySelector('img') : null;
-    if (pictureImg) {
-      let text = '';
-      for (let j = i + 1; j < children.length; j += 1) {
-        const next = children[j];
-        const isTextP = next.tagName === 'P' && !next.querySelector('img') && !next.querySelector('a');
-        if (isTextP && next.textContent.trim()) {
-          text = next.textContent.trim();
-          i = j;
-          break;
-        }
-      }
-      products.push({ img: pictureImg.src, text });
-    }
+  for (let i = 0; i < children.length; i += 4) {
+    const img = children[i].querySelector('img')?.src || '';
+    const altText = children[i + 1].textContent.trim() || '';
+    const text = children[i + 2].textContent.trim() || '';
+    const href = children[i + 3].textContent.trim() || '#';
+    products.push({
+      img, text, href, altText,
+    });
   }
   return products;
 }
