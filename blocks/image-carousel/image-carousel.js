@@ -1,25 +1,6 @@
-let carouselId = 0;
-function getSlideWidth(block) {
-  const singleItem = block.querySelector('li');
-  return singleItem.offsetWidth;
-}
+import { whenElementReady, getSlideWidth, updatePosition } from '../../utils/carousel.js';
 
-function updatePosition(block, index) {
-  const track = block.querySelector('.image-track');
-  const items = block.querySelectorAll('li');
-  const bodyWidth = document.body.getBoundingClientRect().width;
-  const prev = (index - 1) * getSlideWidth(block);
-  const maxlength = Math.ceil((items.length * getSlideWidth(block)) / bodyWidth);
-  if (index === maxlength) {
-    const lastDistance = -(items[items.length - 1].getBoundingClientRect().right - bodyWidth);
-    track.style.transform = `translateX(-${prev + Math.abs(lastDistance)}px)`;
-  } else {
-    track.style.transform = `translateX(-${prev + getSlideWidth(block)}px)`;
-  }
-  track.style.transition = 'all 0.5';
-  block.querySelector('.slide-prev').disabled = (index === 0);
-  block.querySelector('.slide-next').disabled = (index >= maxlength);
-}
+let carouselId = 0;
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
@@ -31,13 +12,13 @@ function bindEvent(block) {
   block.querySelector('.slide-prev').addEventListener('click', () => {
     if (index > 0) {
       index -= 1;
-      updatePosition(block, index);
+      updatePosition(block, index, true);
     }
   });
   block.querySelector('.slide-next').addEventListener('click', () => {
     if (index < cards.length) {
       index += 1;
-      updatePosition(block, index);
+      updatePosition(block, index, true);
     }
   });
 }
@@ -126,5 +107,7 @@ export default async function decorate(block) {
     `;
     block.appendChild(buttonContainer);
   }
-  bindEvent(block);
+  whenElementReady('.image-carousel', () => {
+    bindEvent(block);
+  });
 }
