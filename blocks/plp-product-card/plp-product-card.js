@@ -118,7 +118,7 @@ export default function decorate(block) {
     }
     else {
       if (isEditMode) {
-        if (row.getAttribute('data-aue-prop') === 'loadMoreTextContent') {
+        if (row.querySelector("p").getAttribute('data-aue-prop') === 'loadMoreTextContent') {
           loadMoreTextContent = text || row.textContent;
         } else if (anchor && anchorCount === 1) {
           loadMoreLink = anchor.getAttribute('href') || anchor.textContent.trim();
