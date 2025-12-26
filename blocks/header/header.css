@@ -58,6 +58,7 @@
   color: var(--header-active-color);
   height: 24px;
   line-height: 24px;
+  transition: color .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
 }
 
 .nav-link {
@@ -91,6 +92,10 @@
 }
 
 #navigation:has(.nav-container:hover) .nav-link {
+  transition: none;
+}
+
+#navigation:has(.nav-container:hover) .nav-section {
   transition: none;
 }
 
