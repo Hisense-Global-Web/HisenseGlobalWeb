@@ -176,4 +176,23 @@
   .pagination.show {
     display: none;
   }
+
+  .icon-component > div:nth-child(2) {
+    p {
+      margin-top: 8px;
+      font-size: 24px;
+    }
+  }
+
+  .icon-viewport {
+    margin: 18px 0;
+
+    ul>li {
+      width: 240px;
+    }
+
+    .icon-track {
+      gap: 16px;
+    }
+  }
 }

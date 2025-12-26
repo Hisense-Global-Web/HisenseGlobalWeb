@@ -2,16 +2,24 @@ let index = 0;
 
 function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
-  const gap = 24;
-  return singleItem.offsetWidth + gap;
+  // const gap = 24;
+  return singleItem.offsetWidth;
 }
 
 function updatePosition(block) {
   const trackBox = block.querySelector('.icon-track');
   const items = block.querySelectorAll('li');
-  const moveDistance = index * getSlideWidth(block);
-  const maxlength = Math.floor(items.length * getSlideWidth(block)) / trackBox.offsetWidth;
-  trackBox.style.transform = `translateX(-${moveDistance}px)`;
+  const prev = (index - 1) * getSlideWidth(block);
+  let maxlength = Math.ceil((items.length * getSlideWidth(block)) / trackBox.offsetWidth);
+  const { gap } = window.getComputedStyle(trackBox);
+  if (trackBox.offsetWidth <= 600) maxlength = items.length - 1;
+  if (index === maxlength && trackBox.offsetWidth > 800) {
+    const lastDistance = trackBox.offsetWidth
+      - items[items.length - 1].getBoundingClientRect().left;
+    trackBox.style.transform = `translateX(-${prev + Math.abs(lastDistance) + parseFloat(gap)}px)`;
+  } else {
+    trackBox.style.transform = `translateX(-${prev + getSlideWidth(block)}px)`;
+  }
   trackBox.style.transition = 'all 0.5';
   block.querySelector('.slide-prev').disabled = (index === 0);
   block.querySelector('.slide-next').disabled = (index >= maxlength);
