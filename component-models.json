@@ -1482,6 +1482,14 @@
         "label": "Sort Property",
         "description": "Property comes from product model attributes",
         "required": true
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "isDefaultSearch",
+        "label": "Is Default Search Option",
+        "description": "Whether this is the default search option",
+        "required": false
       }
     ]
   },
