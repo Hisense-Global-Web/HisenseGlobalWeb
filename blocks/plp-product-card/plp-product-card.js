@@ -97,18 +97,43 @@ export default function decorate(block) {
   let graphqlResource = null;
   let fields = [];
   let fieldsResource = null;
+  let loadMoreTextContent = null;
+  let loadMoreLink = null;
+
+  let anchorCount = 0;
 
   rows.forEach((row) => {
     const resource = row.getAttribute && row.getAttribute('data-aue-resource');
     const anchor = row.querySelector && row.querySelector('a');
-    if (anchor) {
+    const text = row.textContent && row.textContent.trim();
+
+    if (anchor && anchorCount === 0) {
       graphqlUrl = anchor.getAttribute('href') || anchor.textContent.trim();
       graphqlResource = resource || anchor.getAttribute('data-aue-resource') || null;
+      anchorCount = anchorCount + 1;
     }
-    const text = row.textContent && row.textContent.trim();
-    if (text && text.indexOf(',') >= 0) {
+    else if (text && text.indexOf(',') >= 0) {
       fields = text.split(',').map((s) => s.trim()).filter(Boolean);
       fieldsResource = resource;
+    }
+    else {
+      if (isEditMode) {
+        if (row.getAttribute('data-aue-prop') === 'loadMoreTextContent') {
+          loadMoreTextContent = text || row.textContent;
+        } else if (anchor && anchorCount === 1) {
+          loadMoreLink = anchor.getAttribute('href') || anchor.textContent.trim();
+          anchorCount = anchorCount + 1;
+        }
+      }
+
+      if (!isEditMode) {
+        if (anchor && anchorCount === 1) {
+          loadMoreLink = anchor.getAttribute('href') || anchor.textContent.trim();
+          anchorCount = anchorCount + 1;
+        } else if (text && !text.includes(',') && text !== graphqlUrl && !anchor) {
+          loadMoreTextContent = text;
+        }
+      }
     }
   });
 
@@ -122,12 +147,12 @@ export default function decorate(block) {
   productsGrid.className = 'plp-products';
   const productsLoadMore = document.createElement('div');
   productsLoadMore.className = 'plp-load-more';
-  const mockUrl = 'https://www.hisense-usa.com/category/televisions';
+  const loadMoreUrl = loadMoreLink || '#';
   productsLoadMore.addEventListener('click', () => {
-    if (mockUrl) window.location.href = mockUrl;
+    if (loadMoreUrl && loadMoreUrl !== '#') window.location.href = loadMoreUrl;
   });
   const span = document.createElement('span');
-  span.textContent = 'Load more';
+  span.textContent = loadMoreTextContent || 'Load more';
 
   const productsNoResult = document.createElement('div');
   productsNoResult.className = 'plp-products-no-result';
@@ -166,6 +191,19 @@ export default function decorate(block) {
     if (fieldsResource) fieldsInner.setAttribute('data-aue-resource', fieldsResource);
     fieldsRow.appendChild(fieldsInner);
     topWrapper.appendChild(fieldsRow);
+
+    const loadMoreLinkRow = document.createElement('div');
+    const loadMoreLinkInner = document.createElement('div');
+    const loadMoreLinkP = document.createElement('p');
+    const loadMoreLinkA = document.createElement('a');
+    loadMoreLinkA.href = loadMoreLink || '#';
+    loadMoreLinkA.title = loadMoreLink || '';
+    loadMoreLinkA.textContent = loadMoreLink || '';
+    loadMoreLinkA.className = 'button';
+    loadMoreLinkP.appendChild(loadMoreLinkA);
+    loadMoreLinkInner.appendChild(loadMoreLinkP);
+    loadMoreLinkRow.appendChild(loadMoreLinkInner);
+    topWrapper.appendChild(loadMoreLinkRow);
 
     block.replaceChildren(topWrapper, productsBox);
   } else {
