@@ -51,6 +51,7 @@
   font-weight: 400;
   line-height: normal;
   text-transform: capitalize;
+  z-index: 1;
 }
 
 .cover-style .cards-card-image {
