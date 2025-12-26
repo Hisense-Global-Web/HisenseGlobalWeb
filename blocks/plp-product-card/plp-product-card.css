@@ -10,6 +10,8 @@
 }
 
 .product-card {
+    display: flex;
+    flex-direction: column;
     background: #fff;
     border-radius: 20px;
     padding: 20px;
@@ -53,11 +55,7 @@
 .plp-product-name {
     font-size: 20px;
     font-weight: 500;
-    height: 26px;
     line-height: 26px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     margin-bottom: 8px;
 }
 
@@ -101,6 +99,8 @@
     height: 30px;
     line-height: 30px;
     text-decoration: none;
+    margin-top: auto;
+    align-self: flex-start;
 }
 
 .plp-product-card .plp-product-btn:hover {
