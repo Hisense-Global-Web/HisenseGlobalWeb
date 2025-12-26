@@ -14,8 +14,8 @@
 
 .plp-filter-list {
   list-style: none;
-  margin: 14px 0 0;
-  padding: 0;
+  margin: 10px 0 0;
+  padding: 0 0 0 14px;
 }
 
 .plp-filter-group.hide .plp-filter-list {
@@ -37,7 +37,8 @@
 }
 
 .plp-filter-title span {
-  font-weight: 400;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .plp-filter-title img {
