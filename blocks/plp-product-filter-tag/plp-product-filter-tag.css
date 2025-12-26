@@ -62,16 +62,62 @@
   font-weight: 400;
 }
 
-.plp-filter-item input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  margin: 0;
-}
-
 .plp-filter-item span {
   font-size: 12px;
   line-height: 1;
   display: inline-block;
   color: rgb(51 51 51 / 100%);
   font-weight: 400;
+}
+
+.plp-filter-item input[type="checkbox"] {
+  appearance: none;
+  outline: none;
+  border: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.plp-filter-item label {
+  position: relative;
+  padding-left: 24px;
+  cursor: pointer;
+  color: #333;
+  line-height: 20px;
+}
+
+.plp-filter-item label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.plp-filter-item input[type="checkbox"]:checked + label::before {
+  border-color: #009F9C;
+  background-color: #009F9C;
+}
+
+.plp-filter-item input[type="checkbox"]:checked + label::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 3px;
+  width: 5px;
+  height: 9px;
+  border-radius: 1px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
 }
