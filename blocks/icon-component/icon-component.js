@@ -9,12 +9,14 @@ function getSlideWidth(block) {
 function updatePosition(block) {
   const trackBox = block.querySelector('.icon-track');
   const items = block.querySelectorAll('li');
-  const bodyWidth = document.body.getBoundingClientRect().width;
   const prev = (index - 1) * getSlideWidth(block);
-  const maxlength = Math.ceil((items.length * getSlideWidth(block)) / bodyWidth);
-  if (index === maxlength) {
-    const lastDistance = -(items[items.length - 1].getBoundingClientRect().right - bodyWidth);
-    trackBox.style.transform = `translateX(-${prev + Math.abs(lastDistance)}px)`;
+  let maxlength = Math.ceil((items.length * getSlideWidth(block)) / trackBox.offsetWidth);
+  const { gap } = window.getComputedStyle(trackBox);
+  if (trackBox.offsetWidth <= 600) maxlength = items.length - 1;
+  if (index === maxlength && trackBox.offsetWidth > 800) {
+    const lastDistance = trackBox.offsetWidth
+      - items[items.length - 1].getBoundingClientRect().left;
+    trackBox.style.transform = `translateX(-${prev + Math.abs(lastDistance) + parseFloat(gap)}px)`;
   } else {
     trackBox.style.transform = `translateX(-${prev + getSlideWidth(block)}px)`;
   }
