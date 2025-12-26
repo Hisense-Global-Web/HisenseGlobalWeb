@@ -1,8 +1,10 @@
 /* pdp-product-info */
 main .section.product-detail-banner-container.pdp-product-info-container {
   display: flex;
-  padding: 0 24px;
-  margin: 100px auto;
+
+  /* max-width: var(--container-max-width); */
+  padding: 100px calc((100% - var(--container-max-width)) / 2 + 24px);
+  margin: auto;
   box-sizing: border-box;
   gap: 82px;
 }
@@ -107,6 +109,7 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   border-radius: 21px;
   margin-bottom: 16px;
   color: #000;
+  display: none;
 }
 
 .pdp-buy-btn:hover {
@@ -147,4 +150,15 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   line-height: 18px;
 }
 
- 
+@media (width <=600px) {
+  main .section.product-detail-banner-container.pdp-product-info-container{
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 0;
+    padding:100px 0;
+  }
+
+  .pdp-badges {
+    margin-bottom: 0;
+  }
+}
