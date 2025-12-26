@@ -429,6 +429,34 @@ export default function decorate(block) {
       sidebar.append(fragment);
       block.replaceChildren(sidebar);
     }
+    // mobile 端， 为 filter 添加标题
+    const filterTagWrapperEl = document.querySelector('.plp-product-filter-tag-wrapper');
+    const filterTagEl = document.querySelector('.plp-product-filter-tag');
+    if (filterTagEl) {
+      const titleBoxEl = document.createElement('div');
+      titleBoxEl.className = 'plp-mobile-filters-tit-box';
+      const mobileProdctTagTit = document.createElement('div');
+      mobileProdctTagTit.className = 'mobile-filter-title';
+      const mobileFiltersSpan = document.createElement('span');
+      mobileFiltersSpan.textContent = 'Filters';
+      const mobileFiltersImg = document.createElement('img');
+      mobileFiltersImg.src = '/content/dam/hisense/image/icon/mobile-filters-title.svg';
+      mobileFiltersImg.alt = 'Filters title';
+      mobileProdctTagTit.append(mobileFiltersImg, mobileFiltersSpan);
+
+      const closeBtn = document.createElement('div');
+      closeBtn.className = 'mobile-filter-close';
+      const closeImg = document.createElement('img');
+      closeImg.src = './media_13b817dae786f9278b5ba58ce39c250a3c305d1d7.svg?width=750&format=svg&optimize=medium';
+      closeImg.alt = 'mobile-filter';
+      closeBtn.addEventListener('click', () => {
+        filterTagWrapperEl.classList.remove('mobile-filter-show');
+        document.body.style.overflow = 'auto';
+      });
+      closeBtn.append(closeImg);
+      titleBoxEl.append(mobileProdctTagTit, closeBtn);
+      filterTagEl.prepend(titleBoxEl);
+    }
   }
 
   fetch(tagsEndpoint)
