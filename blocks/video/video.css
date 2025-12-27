@@ -44,9 +44,10 @@
 
 @media (width <= 600px) {
   .video-content{
-    height: auto;
+    height: unset;
+    aspect-ratio: 16 / 9;
   }
-  
+
   .video {
      min-height: unset;
   }
