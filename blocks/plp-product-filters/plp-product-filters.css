@@ -218,6 +218,7 @@
       .plp-sort {
         box-shadow: none;
         margin-bottom: 16px;
+        height: 40px;
 
         img:first-of-type {
           display: none;

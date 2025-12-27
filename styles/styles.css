@@ -399,6 +399,11 @@ main {
 		color: var(--text-dark);
 	}
 
+	.section.gradient-gray {
+		background: linear-gradient(to bottom, rgb(0 0 0 / 100%) 30%, rgb(29 29 31 / 100%) 30%, rgb(29 29 31 / 100%) 30%) ;
+		color: var(--text-dark);
+	}
+
 	/* section container type */
 
 	.section.fluid > div {

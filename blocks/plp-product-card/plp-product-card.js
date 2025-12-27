@@ -566,10 +566,12 @@ export default function decorate(block) {
     // 当结果为0时显示no result
     try {
       const noResultEl = document.querySelector('.plp-products-no-result');
+      const cardWrapperEl = document.querySelector('.plp-product-card-wrapper');
       if (noResultEl) {
         if (groupedArray.length === 0) {
           noResultEl.style.display = 'flex';
           productsGrid.style.display = 'none';
+          cardWrapperEl.style.cssText = 'margin: auto !important;';
         } else {
           noResultEl.style.display = 'none';
           productsGrid.style.display = 'grid';
