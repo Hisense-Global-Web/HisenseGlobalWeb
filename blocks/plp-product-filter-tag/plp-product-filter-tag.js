@@ -6,261 +6,140 @@ export default function decorate(block) {
   const rows = [...block.children];
   const fragment = document.createDocumentFragment();
   let tagCounter = 0;
-  const tagsEndpoint = '/content/cq:tags/hisense/product.-1.json';
+  const tagsEndpoint = '/content/dam/hisense/us/tag-data/en/tag-data.json';
   const mockTags = {
-    'jcr:description': '',
-    'jcr:created': 'Wed Dec 17 2025 19:04:27 GMT+0000',
-    'sling:resourceType': 'cq/tagging/components/tag',
-    'jcr:primaryType': 'cq:Tag',
-    'jcr:title': 'Product',
-    tv: {
-      'jcr:lastModified': 'Wed Dec 17 2025 19:04:39 GMT+0000',
-      'jcr:created': 'Thu Dec 11 2025 07:17:50 GMT+0000',
-      'jcr:title': 'TV',
-      'sling:resourceType': 'cq/tagging/components/tag',
-      'jcr:primaryType': 'cq:Tag',
-      'jcr:description': '',
-      resolution: {
-        'jcr:title.en': 'Resolution',
-        'jcr:title.fr': 'Résolution',
-        'jcr:lastModified': 'Thu Dec 11 2025 07:37:44 GMT+0000',
-        'jcr:created': 'Thu Dec 11 2025 07:18:58 GMT+0000',
-        'jcr:title': 'Resolution',
-        'sling:resourceType': 'cq/tagging/components/tag',
-        'jcr:primaryType': 'cq:Tag',
-        hd: {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:19:25 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'HD',
-        },
-        fhd: {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:19:41 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'FHD',
-        },
-        uhd: {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:19:53 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'UHD',
-        },
-      },
-      'refresh-rate': {
+    total: 1,
+    offset: 0,
+    limit: 1,
+    columns: [
+      'jcr:description',
+      'jcr:title',
+      'tv',
+    ],
+    data: [
+      {
         'jcr:description': '',
-        'jcr:created': 'Thu Dec 11 2025 07:20:40 GMT+0000',
-        'sling:resourceType': 'cq/tagging/components/tag',
-        'jcr:primaryType': 'cq:Tag',
-        'jcr:title': 'Refresh Rate',
-        '60hz': {
+        'jcr:title': 'Product',
+        tv: {
+          'jcr:title': 'TV',
           'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:21:04 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '60Hz',
-        },
-        '144hz': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:21:21 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '144Hz',
-        },
-        '165hz': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:21:39 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '165Hz',
-        },
-        '170hz': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:21:57 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '170Hz',
-        },
-        '180hz': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:22:11 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '180Hz',
+          resolution: {
+            'jcr:title': 'Resolution',
+            hd: {
+              'jcr:description': '',
+              'jcr:title': 'HD',
+            },
+            fhd: {
+              'jcr:description': '',
+              'jcr:title': 'FHD',
+            },
+            uhd: {
+              'jcr:description': '',
+              'jcr:title': 'UHD',
+            },
+          },
+          'refresh-rate': {
+            'jcr:description': '',
+            'jcr:title': 'Refresh Rate',
+            '60hz': {
+              'jcr:description': '',
+              'jcr:title': '60Hz',
+            },
+            '144hz': {
+              'jcr:description': '',
+              'jcr:title': '144Hz',
+            },
+            '165hz': {
+              'jcr:description': '',
+              'jcr:title': '165Hz',
+            },
+            '170hz': {
+              'jcr:description': '',
+              'jcr:title': '170Hz',
+            },
+            '180hz': {
+              'jcr:description': '',
+              'jcr:title': '180Hz',
+            },
+          },
+          'screen-size': {
+            'jcr:title': 'Screen Size (Range)',
+            '32-43': {
+              'jcr:description': '',
+              'jcr:title': '32” - 43” ',
+            },
+            '50-65': {
+              'jcr:description': '',
+              'jcr:title': '50” - 65” ',
+            },
+            '70-85': {
+              'jcr:description': '',
+              'jcr:title': '70” - 85” ',
+            },
+            '98-max': {
+              'jcr:description': '',
+              'jcr:title': '98” and above ',
+            },
+          },
+          type: {
+            'jcr:description': '',
+            'jcr:title': 'Type',
+            'rgb-miniled': {
+              'jcr:description': '',
+              'jcr:title': 'RGB MiniLED',
+            },
+            miniled: {
+              'jcr:description': '',
+              'jcr:title': 'MiniLED',
+            },
+            'hi-qled': {
+              'jcr:description': '',
+              'jcr:title': 'Hi-QLED',
+            },
+            oled: {
+              'jcr:description': '',
+              'jcr:title': 'OLED',
+            },
+            'lcd-led': {
+              'jcr:description': 'LCD LED\r\nFull Array',
+              'jcr:title': 'LCD LED',
+            },
+            'uhd-4k': {
+              'jcr:title': 'UHD 4K',
+              'jcr:description': 'UHD 4K',
+            },
+          },
+          'operating-system': {
+            'jcr:title': 'Operating System',
+            'fire-tv': {
+              'jcr:description': '',
+              'jcr:title': 'Fire TV',
+            },
+            'google-tv': {
+              'jcr:description': '',
+              'jcr:title': 'Google TV',
+            },
+            'roku-tv': {
+              'jcr:description': '',
+              'jcr:title': 'Roku TV',
+            },
+            'vidda-tv ': {
+              'jcr:description': '',
+              'jcr:title': 'VIDDA TV ',
+            },
+          },
+          audio: {
+            'jcr:description': '',
+            'jcr:title': 'Audio',
+            dolby: {
+              'jcr:description': '',
+              'jcr:title': 'Dolby',
+            },
+          },
         },
       },
-      'screen-size': {
-        'jcr:lastModified': 'Thu Dec 11 2025 07:34:03 GMT+0000',
-        'jcr:primaryType': 'cq:Tag',
-        'jcr:title': 'Screen Size (Range)',
-        'sling:resourceType': 'cq/tagging/components/tag',
-        'jcr:created': 'Thu Dec 11 2025 07:22:30 GMT+0000',
-        '32-43': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:23:03 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '32” - 43” ',
-        },
-        '50-65': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:23:38 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '50” - 65” ',
-        },
-        '70-85': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:23:56 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '70” - 85” ',
-        },
-        '98-max': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:24:43 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '98” and above ',
-        },
-        43: {
-          'jcr:lastModified': 'Fri Dec 19 2025 08:31:54 GMT+0000',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '43"',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:created': 'Fri Dec 19 2025 08:31:39 GMT+0000',
-        },
-        50: {
-          'jcr:lastModified': 'Fri Dec 19 2025 08:33:24 GMT+0000',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '50"',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:created': 'Fri Dec 19 2025 08:32:16 GMT+0000',
-        },
-        55: {
-          'jcr:lastModified': 'Fri Dec 19 2025 08:33:40 GMT+0000',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '55"',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:created': 'Fri Dec 19 2025 08:32:31 GMT+0000',
-        },
-        65: {
-          'jcr:lastModified': 'Fri Dec 19 2025 08:33:58 GMT+0000',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '65"',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:created': 'Fri Dec 19 2025 08:32:46 GMT+0000',
-        },
-        75: {
-          'jcr:lastModified': 'Fri Dec 19 2025 08:34:10 GMT+0000',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': '75"',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:created': 'Fri Dec 19 2025 08:32:56 GMT+0000',
-        },
-      },
-      type: {
-        'jcr:description': '',
-        'jcr:created': 'Thu Dec 11 2025 07:26:19 GMT+0000',
-        'sling:resourceType': 'cq/tagging/components/tag',
-        'jcr:primaryType': 'cq:Tag',
-        'jcr:title': 'Type',
-        'rgb-miniled': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:26:38 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'RGB MiniLED',
-        },
-        miniled: {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:27:00 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'MiniLED',
-        },
-        'hi-qled': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:27:16 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'Hi-QLED',
-        },
-        oled: {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:27:53 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'OLED',
-        },
-        'uhd-4k': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:28:06 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'UHD 4K',
-        },
-        'lcd-led': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:28:20 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'LCD LED',
-        },
-      },
-      'operating-system': {
-        'jcr:lastModified': 'Thu Dec 11 2025 07:30:10 GMT+0000',
-        'jcr:primaryType': 'cq:Tag',
-        'jcr:title': 'Operating System',
-        'sling:resourceType': 'cq/tagging/components/tag',
-        'jcr:created': 'Thu Dec 11 2025 07:28:36 GMT+0000',
-        'fire-tv': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:28:52 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'Fire TV',
-        },
-        'google-tv': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:29:19 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'Google TV',
-        },
-        'roku-tv': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:29:44 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'Roku TV',
-        },
-        'vidda-tv ': {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 07:29:55 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'VIDDA TV ',
-        },
-      },
-      audio: {
-        'jcr:description': '',
-        'jcr:created': 'Thu Dec 11 2025 08:04:38 GMT+0000',
-        'sling:resourceType': 'cq/tagging/components/tag',
-        'jcr:primaryType': 'cq:Tag',
-        'jcr:title': 'Audio',
-        dolby: {
-          'jcr:description': '',
-          'jcr:created': 'Thu Dec 11 2025 08:05:16 GMT+0000',
-          'sling:resourceType': 'cq/tagging/components/tag',
-          'jcr:primaryType': 'cq:Tag',
-          'jcr:title': 'Dolby',
-        },
-      },
-    },
+    ],
+    ':type': 'sheet',
   };
 
   function collectTitles(obj, map) {
@@ -269,7 +148,8 @@ export default function decorate(block) {
       if (k.startsWith('jcr:') || k === 'sling:resourceType' || k === 'jcr:primaryType') return;
       const v = obj[k];
       if (v && typeof v === 'object') {
-        if (v['jcr:title']) map[k] = v['jcr:title'];
+        const trimmedKey = k.trim();
+        if (v['jcr:title']) map[trimmedKey] = v['jcr:title'];
         collectTitles(v, map);
       }
     });
@@ -375,7 +255,7 @@ export default function decorate(block) {
         const label = document.createElement('label');
         label.htmlFor = input.id;
         const parts = tagPath.split('/');
-        const lastPart = parts[parts.length - 1] || tagPath;
+        const lastPart = (parts[parts.length - 1] || tagPath).trim();
         const matchedTitle = titlesMap[lastPart];
         label.textContent = (matchedTitle && String(matchedTitle).trim()) ? matchedTitle : lastPart;
 
@@ -429,6 +309,34 @@ export default function decorate(block) {
       sidebar.append(fragment);
       block.replaceChildren(sidebar);
     }
+    // mobile 端， 为 filter 添加标题
+    const filterTagWrapperEl = document.querySelector('.plp-product-filter-tag-wrapper');
+    const filterTagEl = document.querySelector('.plp-product-filter-tag');
+    if (filterTagEl) {
+      const titleBoxEl = document.createElement('div');
+      titleBoxEl.className = 'plp-mobile-filters-tit-box';
+      const mobileProdctTagTit = document.createElement('div');
+      mobileProdctTagTit.className = 'mobile-filter-title';
+      const mobileFiltersSpan = document.createElement('span');
+      mobileFiltersSpan.textContent = 'Filters';
+      const mobileFiltersImg = document.createElement('img');
+      mobileFiltersImg.src = '/content/dam/hisense/image/icon/mobile-filters-title.svg';
+      mobileFiltersImg.alt = 'Filters title';
+      mobileProdctTagTit.append(mobileFiltersImg, mobileFiltersSpan);
+
+      const closeBtn = document.createElement('div');
+      closeBtn.className = 'mobile-filter-close';
+      const closeImg = document.createElement('img');
+      closeImg.src = './media_13b817dae786f9278b5ba58ce39c250a3c305d1d7.svg?width=750&format=svg&optimize=medium';
+      closeImg.alt = 'mobile-filter';
+      closeBtn.addEventListener('click', () => {
+        filterTagWrapperEl.classList.remove('mobile-filter-show');
+        document.body.style.overflow = 'auto';
+      });
+      closeBtn.append(closeImg);
+      titleBoxEl.append(mobileProdctTagTit, closeBtn);
+      filterTagEl.prepend(titleBoxEl);
+    }
   }
 
   fetch(tagsEndpoint)
@@ -437,7 +345,13 @@ export default function decorate(block) {
       return resp.json();
     })
     .then((data) => {
-      renderWithTitles(data || mockTags);
+      let tagsData = data;
+      if (data && data.tags) {
+        tagsData = data.tags;
+      } else if (data && data.data && Array.isArray(data.data)) {
+        tagsData = data.data[0] || data;
+      }
+      renderWithTitles(tagsData || mockTags);
     })
     .catch(() => {
       renderWithTitles(mockTags);

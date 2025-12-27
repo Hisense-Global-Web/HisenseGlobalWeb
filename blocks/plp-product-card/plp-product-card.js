@@ -1,11 +1,8 @@
 function applyAggregatedSort(sortProperty, direction = -1) {
   try {
-    const lastRendered = Array.isArray(window.lastRenderedProducts);
-    const hasLast = lastRendered && window.lastRenderedProducts.length;
+    // 每次排序都使用原始数据而不是上一次排序的结果
     let listToSort;
-    if (hasLast) {
-      listToSort = window.lastRenderedProducts.slice();
-    } else if (Array.isArray(window.productData)) {
+    if (Array.isArray(window.productData)) {
       listToSort = window.productData.slice();
     } else {
       listToSort = [];
@@ -97,18 +94,43 @@ export default function decorate(block) {
   let graphqlResource = null;
   let fields = [];
   let fieldsResource = null;
+  let loadMoreTextContent = null;
+  let loadMoreLink = null;
+
+  let anchorCount = 0;
 
   rows.forEach((row) => {
     const resource = row.getAttribute && row.getAttribute('data-aue-resource');
     const anchor = row.querySelector && row.querySelector('a');
-    if (anchor) {
+    const text = row.textContent && row.textContent.trim();
+
+    if (anchor && anchorCount === 0) {
       graphqlUrl = anchor.getAttribute('href') || anchor.textContent.trim();
       graphqlResource = resource || anchor.getAttribute('data-aue-resource') || null;
+      anchorCount = anchorCount + 1;
     }
-    const text = row.textContent && row.textContent.trim();
-    if (text && text.indexOf(',') >= 0) {
+    else if (text && text.indexOf(',') >= 0) {
       fields = text.split(',').map((s) => s.trim()).filter(Boolean);
       fieldsResource = resource;
+    }
+    else {
+      if (isEditMode) {
+        if (row.querySelector('p').getAttribute('data-aue-prop') === 'loadMoreTextContent') {
+          loadMoreTextContent = text || row.textContent;
+        } else if (anchor && anchorCount === 1) {
+          loadMoreLink = anchor.getAttribute('href') || anchor.textContent.trim();
+          anchorCount = anchorCount + 1;
+        }
+      }
+
+      if (!isEditMode) {
+        if (anchor && anchorCount === 1) {
+          loadMoreLink = anchor.getAttribute('href') || anchor.textContent.trim();
+          anchorCount = anchorCount + 1;
+        } else if (text && !text.includes(',') && text !== graphqlUrl && !anchor) {
+          loadMoreTextContent = text;
+        }
+      }
     }
   });
 
@@ -122,12 +144,12 @@ export default function decorate(block) {
   productsGrid.className = 'plp-products';
   const productsLoadMore = document.createElement('div');
   productsLoadMore.className = 'plp-load-more';
-  const mockUrl = 'https://www.hisense-usa.com/category/televisions';
+  const loadMoreUrl = loadMoreLink || '#';
   productsLoadMore.addEventListener('click', () => {
-    if (mockUrl) window.location.href = mockUrl;
+    if (loadMoreUrl && loadMoreUrl !== '#') window.location.href = loadMoreUrl;
   });
   const span = document.createElement('span');
-  span.textContent = 'Load more';
+  span.textContent = loadMoreTextContent || 'Load more';
 
   const productsNoResult = document.createElement('div');
   productsNoResult.className = 'plp-products-no-result';
@@ -167,6 +189,19 @@ export default function decorate(block) {
     fieldsRow.appendChild(fieldsInner);
     topWrapper.appendChild(fieldsRow);
 
+    const loadMoreLinkRow = document.createElement('div');
+    const loadMoreLinkInner = document.createElement('div');
+    const loadMoreLinkP = document.createElement('p');
+    const loadMoreLinkA = document.createElement('a');
+    loadMoreLinkA.href = loadMoreLink || '#';
+    loadMoreLinkA.title = loadMoreLink || '';
+    loadMoreLinkA.textContent = loadMoreLink || '';
+    loadMoreLinkA.className = 'button';
+    loadMoreLinkP.appendChild(loadMoreLinkA);
+    loadMoreLinkInner.appendChild(loadMoreLinkP);
+    loadMoreLinkRow.appendChild(loadMoreLinkInner);
+    topWrapper.appendChild(loadMoreLinkRow);
+
     block.replaceChildren(topWrapper, productsBox);
   } else {
     block.replaceChildren(productsBox);
@@ -186,8 +221,23 @@ export default function decorate(block) {
   }
 
   function applyDefaultSort() {
-    // 使用聚合排序认按尺寸排序（降序）
-    applyAggregatedSort('size', -1);
+    const selectedSortOption = document.querySelector('.plp-sort-option.selected');
+    if (selectedSortOption) {
+      const sortValue = selectedSortOption.dataset.value
+                       || selectedSortOption.getAttribute('data-value')
+                       || '';
+      if (sortValue && sortValue.trim()) {
+        if (window.applyPlpSort) {
+          window.applyPlpSort(sortValue);
+        } else {
+          applyAggregatedSort('size', -1);
+        }
+      } else {
+        applyAggregatedSort('size', -1);
+      }
+    } else {
+      applyAggregatedSort('size', -1);
+    }
   }
 
   function renderItems(items) {
@@ -256,12 +306,30 @@ export default function decorate(block) {
     const groupedArray = Object.keys(groups).map((k) => {
       const g = groups[k];
       const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(a) - Number(b));
+
+      // 检查聚合产品是否有任意size有whereToBuyLink，有就共享这个链接
+      let sharedWhereToBuyLink = g.variants.find((variant) => variant && variant.whereToBuyLink)?.whereToBuyLink;
+
+      if (sharedWhereToBuyLink && sharedWhereToBuyLink.startsWith('/')) {
+        const currentUri = window.location.href;
+        const hasContentHisense = currentUri.includes('/content/hisense');
+        const wtbHasContentHisense = sharedWhereToBuyLink.includes('/content/hisense');
+
+        if (hasContentHisense && !wtbHasContentHisense) {
+          sharedWhereToBuyLink = `/content/hisense${sharedWhereToBuyLink}`;
+        } else if (!hasContentHisense && wtbHasContentHisense) {
+          sharedWhereToBuyLink = sharedWhereToBuyLink.replace('/content/hisense', '');
+        }
+        sharedWhereToBuyLink = sharedWhereToBuyLink.replace('.html', '');
+      }
+
       return {
         key: k,
         factoryModel: g.factoryModel,
         representative: g.representative,
         variants: g.variants,
         sizes,
+        sharedWhereToBuyLink,
       };
     });
 
@@ -414,8 +482,8 @@ export default function decorate(block) {
             extraFields.appendChild(fld);
           }
         });
-        // whereToBuyLink
-        if (variant && variant.whereToBuyLink) {
+        // whereToBuyLink - 使用group共享的链接，如果group中有任何尺寸有链接则共享
+        if (group.sharedWhereToBuyLink) {
           let link = card.querySelector && card.querySelector('.plp-product-btn');
           if (!link) {
             link = document.createElement('a');
@@ -423,7 +491,7 @@ export default function decorate(block) {
             link.target = '_blank';
             card.append(link);
           }
-          link.href = variant.whereToBuyLink;
+          link.href = group.sharedWhereToBuyLink;
           link.textContent = 'Learn more';
         } else {
           const existingLink = card.querySelector && card.querySelector('.plp-product-btn');
@@ -484,7 +552,7 @@ export default function decorate(block) {
     try {
       const loadMoreEl = document.querySelector('.plp-load-more');
       if (loadMoreEl) {
-        if (groupedArray.length > 9) {
+        if (groupedArray.length >= 9) {
           loadMoreEl.style.display = 'block';
         } else {
           loadMoreEl.style.display = 'none';
@@ -498,10 +566,12 @@ export default function decorate(block) {
     // 当结果为0时显示no result
     try {
       const noResultEl = document.querySelector('.plp-products-no-result');
+      const cardWrapperEl = document.querySelector('.plp-product-card-wrapper');
       if (noResultEl) {
         if (groupedArray.length === 0) {
           noResultEl.style.display = 'flex';
           productsGrid.style.display = 'none';
+          cardWrapperEl.style.cssText = 'margin: auto !important;';
         } else {
           noResultEl.style.display = 'none';
           productsGrid.style.display = 'grid';
@@ -514,2761 +584,1136 @@ export default function decorate(block) {
   }
 
   const mockData = {
-    data: {
-      productModelList: {
-        items: [
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/100QD6QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '100QD6QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '100QD6QF',
-            spu: '100QD6QF',
-            erpcode: null,
-            overseasModel: 'QD6',
-            factoryModel: 'QD6QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 100" Class QD6 Series Hi-QLED 4K Fire TV',
-            subtitle: 'Hisense 100" Class QD6 Series Hi-QLED 4K Fire TV',
-            series: 'QD6 Series',
-            platform: null,
-            size: '100',
-            description_description: {
-              html: '<p>Hisense 100&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1ba8c69e4a99494db44ac1f5f34d14e6be612bc7b.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/Q6D.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-100-class-qd6-series-hi-qled-4k-fire-tv-100qd6qf',
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/98-max',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/100QD7QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '100QD7QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '100QD7QF',
-            spu: '100QD7QF',
-            erpcode: null,
-            overseasModel: 'QD7',
-            factoryModel: 'QD7QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 100" Class QD7 Series MiniLED ULED 4K Fire TV',
-            subtitle: 'Hisense 100" Class QD7 Series MiniLED ULED 4K Fire TV',
-            series: 'QD7 Series',
-            platform: null,
-            size: '100',
-            description_description: {
-              html: '<p>Hisense 100&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15d30053666c82aca8e732d92feef300aa4533def.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/QD7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-75-class-qd7-series-miniled-uled-4k-fire-tv-75qd7qf',
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/fire-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/98-max',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/116U75QG-100',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '100U75QG',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '100U75QG',
-            spu: '100U75QG',
-            erpcode: null,
-            overseasModel: 'U7',
-            factoryModel: 'U75QG',
-            badge: null,
-            awards: [],
-            title: 'Hisense 100" Class U7 Series MiniLED ULED 4K Google TV',
-            subtitle: 'Hisense 100" Class U7 Series MiniLED ULED 4K Google TV',
-            series: 'U7 Series',
-            platform: null,
-            size: '100',
-            description_description: {
-              html: '<p>Hisense 100&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_13903e11ba6f8c37503b3876bab276ca5de5f2cf8.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: 'https://development--hisenseglobalweb--hisense-global-web.aem.live/ui-testing/100U75QG',
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/98-max',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/116U75QG-116',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '116U75QG',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '116U75QG',
-            spu: '116U75QG',
-            erpcode: null,
-            overseasModel: 'U7',
-            factoryModel: 'U75QG',
-            badge: null,
-            awards: [],
-            title: 'Hisense 116" Class U7 Series MiniLED ULED 4K Google TV',
-            subtitle: 'Hisense 116" Class U7 Series MiniLED ULED 4K Google TV',
-            series: 'U7 Series',
-            platform: null,
-            size: '116',
-            description_description: {
-              html: '<p>Hisense 116&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_13903e11ba6f8c37503b3876bab276ca5de5f2cf8.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/98-max',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/116U75QG-55',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '55U75QG',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '55U75QG',
-            spu: '55U75QG',
-            erpcode: null,
-            overseasModel: 'U7',
-            factoryModel: 'U75QG',
-            badge: null,
-            awards: [],
-            title: 'Hisense 55" Class U7 Series MiniLED ULED 4K Google TV',
-            subtitle: 'Hisense 55" Class U7 Series MiniLED ULED 4K Google TV',
-            series: 'U7 Series',
-            platform: null,
-            size: '55',
-            description_description: {
-              html: '<p>Hisense 55&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_13903e11ba6f8c37503b3876bab276ca5de5f2cf8.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/116U75QG-75',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '75U75QG',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '75U75QG',
-            spu: '75U75QG',
-            erpcode: null,
-            overseasModel: 'U7',
-            factoryModel: 'U75QG',
-            badge: null,
-            awards: [],
-            title: 'Hisense 75" Class U7 Series MiniLED ULED 4K Google TV',
-            subtitle: 'Hisense 75" Class U7 Series MiniLED ULED 4K Google TV',
-            series: 'U7 Series',
-            platform: null,
-            size: '75',
-            description_description: {
-              html: '<p>Hisense 75&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_13903e11ba6f8c37503b3876bab276ca5de5f2cf8.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/116U75QG-85',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '85U75QG',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '85U75QG',
-            spu: '85U75QG',
-            erpcode: null,
-            overseasModel: 'U7',
-            factoryModel: 'U75QG',
-            badge: null,
-            awards: [],
-            title: 'Hisense 85" Class U7 Series MiniLED ULED 4K Google TV',
-            subtitle: 'Hisense 85" Class U7 Series MiniLED ULED 4K Google TV',
-            series: 'U7 Series',
-            platform: null,
-            size: '85',
-            description_description: {
-              html: '<p>Hisense 85&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_13903e11ba6f8c37503b3876bab276ca5de5f2cf8.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/43A65H',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '43A65H',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '43A65H',
-            spu: '43A65H',
-            erpcode: null,
-            overseasModel: 'A6',
-            factoryModel: 'A65H',
-            badge: null,
-            awards: [],
-            title: 'Hisense 43" Class A6 Series LED 4K UHD Smart Google TV',
-            subtitle: 'Hisense 43" Class A6 Series LED 4K UHD Smart Google TV',
-            series: 'A6 Series',
-            platform: null,
-            size: '43',
-            description_description: {
-              html: '<p>Hisense 43&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_11cf4947decc4e0af4e2ca34f224af966609df800.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/A6.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/fire-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/32-43',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/43A7N',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '43A7N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '43A7N',
-            spu: '43A7N',
-            erpcode: null,
-            overseasModel: 'A7',
-            factoryModel: 'A7N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 43" Class A7 Series LCD 4K Google TV',
-            subtitle: 'Hisense 43" Class A7 Series LCD 4K Google TV',
-            series: 'A7 Series',
-            platform: '9603',
-            size: '43',
-            description_description: {
-              html: '<p>Hisense 43&#34; Class A7 Series LCD 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15172509ddaadbbc04cb51e386363adb19ec2d9ca.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              'us',
-            ],
-            productLaunchDate: '2025-04-30T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/A7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/32-43',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/43QD6QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '43QD6QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '43QD6QF',
-            spu: '43QD6QF',
-            erpcode: null,
-            overseasModel: 'QD6',
-            factoryModel: 'QD6QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 43" Class QD6 Series Hi-QLED 4K Fire TV',
-            subtitle: 'Hisense 43" Class QD6 Series Hi-QLED 4K Fire TV',
-            series: 'QD6 Series',
-            platform: null,
-            size: '43',
-            description_description: {
-              html: '<p>Hisense 43&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1ba8c69e4a99494db44ac1f5f34d14e6be612bc7b.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/Q6D.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/32-43',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/50A7N',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '50A7N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '50A7N',
-            spu: '50A7N',
-            erpcode: null,
-            overseasModel: 'A7',
-            factoryModel: 'A7N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 50" Class A7 Series LCD 4K Google TV',
-            subtitle: 'Hisense 50" Class A7 Series LCD 4K Google TV',
-            series: 'A7 Series',
-            platform: '9603',
-            size: '50',
-            description_description: {
-              html: '<p>Hisense 50&#34; Class A7 Series LCD 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15172509ddaadbbc04cb51e386363adb19ec2d9ca.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              'us',
-            ],
-            productLaunchDate: '2025-04-30T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/A7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/50QD6QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '50QD6QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '50QD6QF',
-            spu: '50QD6QF',
-            erpcode: null,
-            overseasModel: 'QD6',
-            factoryModel: 'QD6QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 50" Class QD6 Series Hi-QLED 4K Fire TV',
-            subtitle: 'Hisense 50" Class QD6 Series Hi-QLED 4K Fire TV',
-            series: 'QD6 Series',
-            platform: null,
-            size: '50',
-            description_description: {
-              html: '<p>Hisense 50&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1ba8c69e4a99494db44ac1f5f34d14e6be612bc7b.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/Q6D.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/50QD7QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '50QD7QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '50QD7QF',
-            spu: '50QD7QF',
-            erpcode: null,
-            overseasModel: 'QD7',
-            factoryModel: 'QD7QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 50" Class QD7 Series MiniLED ULED 4K Fire TV',
-            subtitle: 'Hisense 50" Class QD7 Series MiniLED ULED 4K Fire TV',
-            series: 'QD7 Series',
-            platform: null,
-            size: '50',
-            description_description: {
-              html: '<p>Hisense 50&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15d30053666c82aca8e732d92feef300aa4533def.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/QD7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/fire-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/55A65H',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '55A65H',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '55A65H',
-            spu: '55A65H',
-            erpcode: null,
-            overseasModel: 'A6',
-            factoryModel: 'A65H',
-            badge: null,
-            awards: [],
-            title: 'Hisense 55" Class A6 Series LED 4K UHD Smart Google TV',
-            subtitle: 'Hisense 55" Class A6 Series LED 4K UHD Smart Google TV',
-            series: 'A6 Series',
-            platform: null,
-            size: '55',
-            description_description: {
-              html: '<p>Hisense 55&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_11cf4947decc4e0af4e2ca34f224af966609df800.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/A6.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/fire-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/55A7N',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '55A7N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '55A7N',
-            spu: '55A7N',
-            erpcode: null,
-            overseasModel: 'A7',
-            factoryModel: 'A7N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 55" Class A7 Series LCD 4K Google TV',
-            subtitle: 'Hisense 55" Class A7 Series LCD 4K Google TV',
-            series: 'A7 Series',
-            platform: '9603',
-            size: '55',
-            description_description: {
-              html: '<p>Hisense 55&#34; Class A7 Series LCD 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15172509ddaadbbc04cb51e386363adb19ec2d9ca.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              'us',
-            ],
-            productLaunchDate: '2025-04-30T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/A7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/55QD6QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '55QD6QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '55QD6QF',
-            spu: '55QD6QF',
-            erpcode: null,
-            overseasModel: 'QD6',
-            factoryModel: 'QD6QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 55" Class QD6 Series Hi-QLED 4K Fire TV',
-            subtitle: 'Hisense 55" Class QD6 Series Hi-QLED 4K Fire TV',
-            series: 'QD6 Series',
-            platform: null,
-            size: '55',
-            description_description: {
-              html: '<p>Hisense 55&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1ba8c69e4a99494db44ac1f5f34d14e6be612bc7b.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/Q6D.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/55QD7QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '55QD7QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '55QD7QF',
-            spu: '55QD7QF',
-            erpcode: null,
-            overseasModel: 'QD7',
-            factoryModel: 'QD7QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 55" Class QD7 Series MiniLED ULED 4K Fire TV',
-            subtitle: 'Hisense 55" Class QD7 Series MiniLED ULED 4K Fire TV',
-            series: 'QD7 Series',
-            platform: null,
-            size: '55',
-            description_description: {
-              html: '<p>Hisense 55&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15d30053666c82aca8e732d92feef300aa4533def.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/QD7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-75-class-qd7-series-miniled-uled-4k-fire-tv-75qd7qf',
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/fire-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65A65H',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '65A65H',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '65A65H',
-            spu: '65A65H',
-            erpcode: null,
-            overseasModel: 'A6',
-            factoryModel: 'A65H',
-            badge: null,
-            awards: [],
-            title: 'Hisense 65" Class A6 Series LED 4K UHD Smart Google TV',
-            subtitle: 'Hisense 65" Class A6 Series LED 4K UHD Smart Google TV',
-            series: 'A6 Series',
-            platform: null,
-            size: '65',
-            description_description: {
-              html: '<p>/media_11cf4947decc4e0af4e2ca34f224af966609df800.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_11cf4947decc4e0af4e2ca34f224af966609df800.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/A6.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-65-inch-a6-series-led-4k-uhd-smart-google-tv-2021-65a65h',
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/fire-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65A7N',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '65A7N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '65A7N',
-            spu: '65A7N',
-            erpcode: null,
-            overseasModel: 'A7',
-            factoryModel: 'A7N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 65" Class A7 Series LCD 4K Google TV',
-            subtitle: 'Hisense 65" Class A7 Series LCD 4K Google TV',
-            series: 'A7 Series',
-            platform: '9603',
-            size: '65',
-            description_description: {
-              html: '<p>Hisense 65&#34; Class A7 Series LCD 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15172509ddaadbbc04cb51e386363adb19ec2d9ca.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              'us',
-            ],
-            productLaunchDate: '2025-04-30T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/A7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65QD6QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '65QD6QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '65QD6QF',
-            spu: '65QD6QF',
-            erpcode: null,
-            overseasModel: 'QD6',
-            factoryModel: 'QD6QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 65" Class QD6 Series Hi-QLED 4K Fire TV',
-            subtitle: 'Hisense 65" Class QD6 Series Hi-QLED 4K Fire TV',
-            series: 'QD6 Series',
-            platform: null,
-            size: '65',
-            description_description: {
-              html: '<p>Hisense 65&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1ba8c69e4a99494db44ac1f5f34d14e6be612bc7b.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/Q6D.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65QD7QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '65QD7QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '65QD7QF',
-            spu: '65QD7QF',
-            erpcode: null,
-            overseasModel: 'QD7',
-            factoryModel: 'QD7QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 65" Class QD7 Series MiniLED ULED 4K Fire TV',
-            subtitle: 'Hisense 65" Class QD7 Series MiniLED ULED 4K Fire TV',
-            series: 'QD7 Series',
-            platform: null,
-            size: '65',
-            description_description: {
-              html: '<p>Hisense 65&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15d30053666c82aca8e732d92feef300aa4533def.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/QD7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/fire-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65U6N-55',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '55U6N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '55U6N',
-            spu: '55U6N',
-            erpcode: null,
-            overseasModel: 'U6',
-            factoryModel: 'U6N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 55" Class U6 Series Mini-LED ULED 4K Google TV',
-            subtitle: 'Hisense 55" Class U6 Series Mini-LED ULED 4K Google TV',
-            series: 'U6 Series',
-            platform: null,
-            size: '55',
-            description_description: {
-              html: '<p>Hisense 55&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1daff38faa46990099b5c1af202149471c14f7872.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-02-28T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U6.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65U6N-65',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '65U6N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '65U6N',
-            spu: '65U6N',
-            erpcode: null,
-            overseasModel: 'U6',
-            factoryModel: 'U6N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 65" Class U6 Series Mini-LED ULED 4K Google TV',
-            subtitle: 'Hisense 65" Class U6 Series Mini-LED ULED 4K Google TV',
-            series: 'U6 Series',
-            platform: null,
-            size: '65',
-            description_description: {
-              html: '<p>Hisense 65&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1daff38faa46990099b5c1af202149471c14f7872.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-02-28T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U6.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65U6N-75',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '75U6N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '75U6N',
-            spu: '75U6N',
-            erpcode: null,
-            overseasModel: 'U6',
-            factoryModel: 'U6N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 75" Class U6 Series Mini-LED ULED 4K Google TV',
-            subtitle: 'Hisense 75" Class U6 Series Mini-LED ULED 4K Google TV',
-            series: 'U6 Series',
-            platform: null,
-            size: '75',
-            description_description: {
-              html: '<p>Hisense 75&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1daff38faa46990099b5c1af202149471c14f7872.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-02-28T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U6.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65U6N-85',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '85U6N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '85U6N',
-            spu: '85U6N',
-            erpcode: null,
-            overseasModel: 'U6',
-            factoryModel: 'U6N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 85" Class U6 Series Mini-LED ULED 4K Google TV',
-            subtitle: 'Hisense 85" Class U6 Series Mini-LED ULED 4K Google TV',
-            series: 'U6 Series',
-            platform: null,
-            size: '85',
-            description_description: {
-              html: '<p>Hisense 85&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1daff38faa46990099b5c1af202149471c14f7872.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-02-28T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U6.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-65-class-u6-series-mini-led-uled-4k-google-tv-65u6n',
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/65U75QG',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '65U75QG',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '65U75QG',
-            spu: '65U75QG',
-            erpcode: null,
-            overseasModel: 'U7',
-            factoryModel: 'U75QG',
-            badge: null,
-            awards: [],
-            title: 'Hisense 65" Class U7 Series MiniLED ULED 4K Google TV',
-            subtitle: 'Hisense 65" Class U7 Series MiniLED ULED 4K Google TV',
-            series: 'U7 Series',
-            platform: null,
-            size: '65',
-            description_description: {
-              html: '<p>Hisense 65&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_13903e11ba6f8c37503b3876bab276ca5de5f2cf8.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/type/miniled',
-              'hisense:product/tv/screen-size/50-65',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/75A7N',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '75A7N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '75A7N',
-            spu: '75A7N',
-            erpcode: null,
-            overseasModel: 'A7',
-            factoryModel: 'A7N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 75" Class A7 Series LCD 4K Google TV',
-            subtitle: 'Hisense 75" Class A7 Series LCD 4K Google TV',
-            series: 'A7 Series',
-            platform: '9603',
-            size: '75',
-            description_description: {
-              html: '<p>Hisense 75&#34; Class A7 Series LCD 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15172509ddaadbbc04cb51e386363adb19ec2d9ca.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              'us',
-            ],
-            productLaunchDate: '2025-04-30T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/A7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/75QD6QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '75QD6QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '75QD6QF',
-            spu: '75QD6QF',
-            erpcode: null,
-            overseasModel: 'QD6',
-            factoryModel: 'QD6QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 75" Class QD6 Series Hi-QLED 4K Fire TV',
-            subtitle: 'Hisense 75" Class QD6 Series Hi-QLED 4K Fire TV',
-            series: 'QD6 Series',
-            platform: null,
-            size: '75',
-            description_description: {
-              html: '<p>Hisense 75&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1ba8c69e4a99494db44ac1f5f34d14e6be612bc7b.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/Q6D.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/75QD7QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '75QD7QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '75QD7QF',
-            spu: '75QD7QF',
-            erpcode: null,
-            overseasModel: 'QD7',
-            factoryModel: 'QD7QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 75" Class QD7 Series MiniLED ULED 4K Fire TV',
-            subtitle: 'Hisense 75" Class QD7 Series MiniLED ULED 4K Fire TV',
-            series: 'QD7 Series',
-            platform: null,
-            size: '75',
-            description_description: {
-              html: '<p>Hisense 75&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15d30053666c82aca8e732d92feef300aa4533def.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/QD7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/fire-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/75U9N',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '75U9N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '75U9N',
-            spu: '75U9N',
-            erpcode: null,
-            overseasModel: 'U9',
-            factoryModel: 'U9N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 75" Class U9 Series Mini-LED QLED 4K Google TV',
-            subtitle: 'Hisense 75" Class U9 Series Mini-LED QLED 4K Google TV',
-            series: 'U9 Series',
-            platform: null,
-            size: '75',
-            description_description: {
-              html: '<p>Hisense 75&#34; Class U9 Series Mini-LED QLED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1ab3500b3226371493618815e7e8d3f9ae3783a44.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-05-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U9.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/miniled',
-              'hisense:product/tv/type/hi-qled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85A7N',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '85A7N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '85A7N',
-            spu: '85A7N',
-            erpcode: null,
-            overseasModel: 'A7',
-            factoryModel: 'A7N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 85" Class A7 Series LCD 4K Google TV',
-            subtitle: 'Hisense 85" Class A7 Series LCD 4K Google TV',
-            series: 'A7 Series',
-            platform: '9603',
-            size: '85',
-            description_description: {
-              html: '<p>Hisense 85&#34; Class A7 Series LCD 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15172509ddaadbbc04cb51e386363adb19ec2d9ca.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              'us',
-            ],
-            productLaunchDate: '2025-04-30T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/A7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-55-class-a7-series-4k-wide-color-gamut-google-tv-55a7n',
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85QD6QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '85QD6QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '85QD6QF',
-            spu: '85QD6QF',
-            erpcode: null,
-            overseasModel: 'QD6',
-            factoryModel: 'QD6QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 85" Class QD6 Series Hi-QLED 4K Fire TV',
-            subtitle: 'Hisense 85" Class QD6 Series Hi-QLED 4K Fire TV',
-            series: 'QD6 Series',
-            platform: null,
-            size: '85',
-            description_description: {
-              html: '<p>Hisense 85&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1ba8c69e4a99494db44ac1f5f34d14e6be612bc7b.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/Q6D.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85QD7QF',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '85QD7QF',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '85QD7QF',
-            spu: '85QD7QF',
-            erpcode: null,
-            overseasModel: 'QD7',
-            factoryModel: 'QD7QF',
-            badge: null,
-            awards: [],
-            title: 'Hisense 85" Class QD7 Series MiniLED ULED 4K Fire TV',
-            subtitle: 'Hisense 85" Class QD7 Series MiniLED ULED 4K Fire TV',
-            series: 'QD7 Series',
-            platform: null,
-            size: '85',
-            description_description: {
-              html: '<p>Hisense 85&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_15d30053666c82aca8e732d92feef300aa4533def.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/QD7.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/fire-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U8QG-100',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '100U8QG',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '100U8QG',
-            spu: '100U8QG',
-            erpcode: null,
-            overseasModel: 'U8',
-            factoryModel: 'U8QG',
-            badge: null,
-            awards: [],
-            title: 'Hisense 100" Class U8 Series MiniLED ULED 4K Google TV',
-            subtitle: 'Hisense 100" Class U8 Series MiniLED ULED 4K Google TV',
-            series: 'U8 Series',
-            platform: null,
-            size: '100',
-            description_description: {
-              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_19a98f18d19b80532b872895a085840e915f28ba3.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U8.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/98-max',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U8QG-65',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '65U8QG',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '65U8QG',
-            spu: '65U8QG',
-            erpcode: null,
-            overseasModel: 'U8',
-            factoryModel: 'U8QG',
-            badge: null,
-            awards: [],
-            title: 'Hisense 65" Class U8 Series MiniLED ULED 4K Google TV',
-            subtitle: 'Hisense 65" Class U8 Series MiniLED ULED 4K Google TV',
-            series: 'U8 Series',
-            platform: null,
-            size: '65',
-            description_description: {
-              html: '<p>Hisense 65&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_19a98f18d19b80532b872895a085840e915f28ba3.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U8.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U8QG-75',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '75U8QG',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '75U8QG',
-            spu: '75U8QG',
-            erpcode: null,
-            overseasModel: 'U8',
-            factoryModel: 'U8QG',
-            badge: null,
-            awards: [],
-            title: 'Hisense 75" Class U8 Series MiniLED ULED 4K Google TV',
-            subtitle: 'Hisense 75" Class U8 Series MiniLED ULED 4K Google TV',
-            series: 'U8 Series',
-            platform: null,
-            size: '75',
-            description_description: {
-              html: '<p>Hisense 75&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_19a98f18d19b80532b872895a085840e915f28ba3.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U8.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U8QG-85',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '85U8QG',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '85U8QG',
-            spu: '85U8QG',
-            erpcode: null,
-            overseasModel: 'U8',
-            factoryModel: 'U8QG',
-            badge: null,
-            awards: [],
-            title: 'Hisense 85" Class U8 Series MiniLED ULED 4K Google TV',
-            subtitle: 'Hisense 85" Class U8 Series MiniLED ULED 4K Google TV',
-            series: 'U8 Series',
-            platform: null,
-            size: '85',
-            description_description: {
-              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_19a98f18d19b80532b872895a085840e915f28ba3.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U8.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: 'https://development--hisenseglobalweb--hisense-global-web.aem.live/ui-testing/85U8QG',
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U8QG116-55',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '55U8QG',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '55U8QG',
-            spu: '55U8QG',
-            erpcode: null,
-            overseasModel: 'U8',
-            factoryModel: 'U8QG',
-            badge: null,
-            awards: [],
-            title: 'Hisense 55" Class U8 Series MiniLED ULED 4K Google TV',
-            subtitle: 'Hisense 55" Class U8 Series MiniLED ULED 4K Google TV',
-            series: 'U8 Series',
-            platform: null,
-            size: '55',
-            description_description: {
-              html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_19a98f18d19b80532b872895a085840e915f28ba3.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U8.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/85U9N',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '85U9N',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '85U9N',
-            spu: '85U9N',
-            erpcode: null,
-            overseasModel: 'U9',
-            factoryModel: 'U9N',
-            badge: null,
-            awards: [],
-            title: 'Hisense 85" Class U9 Series Mini-LED QLED 4K Google TV',
-            subtitle: 'Hisense 85" Class U9 Series Mini-LED QLED 4K Google TV',
-            series: 'U9 Series',
-            platform: null,
-            size: '85',
-            description_description: {
-              html: '<p>Hisense 85&#34; Class U9 Series Mini-LED QLED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1ab3500b3226371493618815e7e8d3f9ae3783a44.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-05-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/U9.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-75-class-u9-series-mini-led-qled-4k-google-tv-75u9n',
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/144hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/70-85',
-              'hisense:product/tv/type/miniled',
-              'hisense:product/tv/type/hi-qled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/copy-of-43-a-65-h',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '50A65H',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '50A65H',
-            spu: '50A65H',
-            erpcode: null,
-            overseasModel: 'A6',
-            factoryModel: 'A65H',
-            badge: null,
-            awards: [],
-            title: 'Hisense 50" Class A6 Series LED 4K UHD Smart Google TV',
-            subtitle: 'Hisense 50" Class A6 Series LED 4K UHD Smart Google TV',
-            series: 'A6 Series',
-            platform: null,
-            size: '50',
-            description_description: {
-              html: '<p>Hisense 50&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_11cf4947decc4e0af4e2ca34f224af966609df800.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-03-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/A6.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: null,
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/operating-system/fire-tv',
-              'hisense:product/tv/refresh-rate/60hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/screen-size/50-65',
-              'hisense:product/tv/type/lcd-led',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
-          {
-            _path: '/content/dam/hisense/content-fragments/product-model/us/televisions/ux-rgb-116-ux',
-            _metadata: {
-              stringMetadata: [
-                {
-                  name: 'title',
-                  value: '116UXQUA',
-                },
-                {
-                  name: 'description',
-                  value: '',
-                },
-                {
-                  name: 'cq:lastReplicationAction',
-                  value: 'Activate',
-                },
-              ],
-            },
-            sku: '116UXQUA',
-            spu: '116UXQUA',
-            erpcode: null,
-            overseasModel: '116UXQUA',
-            factoryModel: '116UXQUA',
-            badge: null,
-            awards: [],
-            title: 'Hisense 116” Class UX Series RGB MiniLEDULED 4K Google TV',
-            subtitle: 'Hisense 116” Class UX Series RGB MiniLEDULED 4K Google TV',
-            series: 'UX Series',
-            platform: null,
-            size: '116',
-            description_description: {
-              html: '<p>Hisense 116” Class UX Series RGB MiniLEDULED 4K Google TV</p>',
-            },
-            description_shortDescription: {
-              html: '<p>/media_1083106d6f7240773743c226c6638293c5385b98e.png?width=750&amp;format=png&amp;optimize=medium</p>',
-            },
-            enabled: true,
-            launchingCountries: [
-              '',
-            ],
-            productLaunchDate: '2025-05-31T16:00:00.000Z',
-            productEndOfLifeDate: null,
-            mediaGallery_image: {
-              _path: '/content/dam/hisense/02-plp/UX.png',
-            },
-            mediaGallery_gallery: [],
-            mediaGallery_mobileImage: null,
-            mediaGallery_mobileGallery: [],
-            priceInfo_currency: '$',
-            priceInfo_regularPrice: null,
-            priceInfo_specialprice: null,
-            productDetailPageLink: null,
-            whereToBuyLink: 'https://development--hisenseglobalweb--hisense-global-web.aem.live/us/en/tv/miniled/tv-116-class-ux-rgb-miniled-4k-google-tv',
-            faqLink: null,
-            reviewScript: {
-              html: null,
-            },
-            tags: [
-              'hisense:product/tv/screen-size/98-max',
-              'hisense:product/tv/operating-system/google-tv',
-              'hisense:product/tv/refresh-rate/165hz',
-              'hisense:product/tv/resolution/uhd',
-              'hisense:product/tv/type/rgb-miniled',
-            ],
-            productVideos: null,
-            _variation: 'master',
-          },
+    total: 41,
+    offset: 0,
+    limit: 41,
+    columns: [
+      'sku',
+      'spu',
+      'erpcode',
+      'title',
+      'subtitle',
+      'series',
+      'description_description',
+      'productLaunchDate',
+      'tags',
+      'mediaGallery_image',
+      'overseasModel',
+      'factoryModel',
+      'whereToBuyLink',
+      'faqLink',
+      'size',
+    ],
+    data: [
+      {
+        sku: '43A65H',
+        spu: '43A65H',
+        erpcode: null,
+        title: 'Hisense 43" Class A6 Series LED 4K UHD Smart Google TV',
+        subtitle: 'Hisense 43" Class A6 Series LED 4K UHD Smart Google TV',
+        series: 'A6 Series',
+        description_description: {
+          html: '<p>Hisense 43&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/fire-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/32-43',
+          'hisense:product/tv/type/lcd-led',
         ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
+        },
+        overseasModel: 'A6',
+        factoryModel: 'A65H',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '43',
       },
-    },
+      {
+        sku: '55A65H',
+        spu: '55A65H',
+        erpcode: null,
+        title: 'Hisense 55" Class A6 Series LED 4K UHD Smart Google TV',
+        subtitle: 'Hisense 55" Class A6 Series LED 4K UHD Smart Google TV',
+        series: 'A6 Series',
+        description_description: {
+          html: '<p>Hisense 55&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/fire-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
+        },
+        overseasModel: 'A6',
+        factoryModel: 'A65H',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '55',
+      },
+      {
+        sku: '65A65H',
+        spu: '65A65H',
+        erpcode: null,
+        title: 'Hisense 65" Class A6 Series LED 4K UHD Smart Google TV',
+        subtitle: 'Hisense 65" Class A6 Series LED 4K UHD Smart Google TV',
+        series: 'A6 Series',
+        description_description: {
+          html: '<p>Hisense 65&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/fire-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
+        },
+        overseasModel: 'A6',
+        factoryModel: 'A65H',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-65-inch-a6-series-led-4k-uhd-smart-google-tv-2021-65a65h',
+        faqLink: null,
+        size: '65',
+      },
+      {
+        sku: '50A65H',
+        spu: '50A65H',
+        erpcode: null,
+        title: 'Hisense 50" Class A6 Series LED 4K UHD Smart Google TV',
+        subtitle: 'Hisense 50" Class A6 Series LED 4K UHD Smart Google TV',
+        series: 'A6 Series',
+        description_description: {
+          html: '<p>Hisense 50&#34; Class A6 Series LED 4K UHD Smart Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/fire-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
+        },
+        overseasModel: 'A6',
+        factoryModel: 'A65H',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '50',
+      },
+      {
+        sku: '43A7N',
+        spu: '43A7N',
+        erpcode: null,
+        title: 'Hisense 43" Class A7 Series LCD 4K Google TV',
+        subtitle: 'Hisense 43" Class A7 Series LCD 4K Google TV',
+        series: 'A7 Series',
+        description_description: {
+          html: '<p>Hisense 43&#34; Class A7 Series LCD 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-04-30T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/32-43',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
+        },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '43',
+      },
+      {
+        sku: '50A7N',
+        spu: '50A7N',
+        erpcode: null,
+        title: 'Hisense 50" Class A7 Series LCD 4K Google TV',
+        subtitle: 'Hisense 50" Class A7 Series LCD 4K Google TV',
+        series: 'A7 Series',
+        description_description: {
+          html: '<p>Hisense 50&#34; Class A7 Series LCD 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-04-30T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
+        },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '50',
+      },
+      {
+        sku: '55A7N',
+        spu: '55A7N',
+        erpcode: null,
+        title: 'Hisense 55" Class A7 Series LCD 4K Google TV',
+        subtitle: 'Hisense 55" Class A7 Series LCD 4K Google TV',
+        series: 'A7 Series',
+        description_description: {
+          html: '<p>Hisense 55&#34; Class A7 Series LCD 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-04-30T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
+        },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '55',
+      },
+      {
+        sku: '65A7N',
+        spu: '65A7N',
+        erpcode: null,
+        title: 'Hisense 65" Class A7 Series LCD 4K Google TV',
+        subtitle: 'Hisense 65" Class A7 Series LCD 4K Google TV',
+        series: 'A7 Series',
+        description_description: {
+          html: '<p>Hisense 65&#34; Class A7 Series LCD 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-04-30T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
+        },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
+      },
+      {
+        sku: '75A7N',
+        spu: '75A7N',
+        erpcode: null,
+        title: 'Hisense 75" Class A7 Series LCD 4K Google TV',
+        subtitle: 'Hisense 75" Class A7 Series LCD 4K Google TV',
+        series: 'A7 Series',
+        description_description: {
+          html: '<p>Hisense 75&#34; Class A7 Series LCD 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-04-30T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
+        },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
+      },
+      {
+        sku: '85A7N',
+        spu: '85A7N',
+        erpcode: null,
+        title: 'Hisense 85" Class A7 Series LCD 4K Google TV',
+        subtitle: 'Hisense 85" Class A7 Series LCD 4K Google TV',
+        series: 'A7 Series',
+        description_description: {
+          html: '<p>Hisense 85&#34; Class A7 Series LCD 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-04-30T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
+        },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-55-class-a7-series-4k-wide-color-gamut-google-tv-55a7n',
+        faqLink: null,
+        size: '85',
+      },
+      {
+        sku: '100QD7QF',
+        spu: '100QD7QF',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Fire TV',
+        subtitle: 'MiniLED ULED 4K Fire TV',
+        series: 'QD7 Series',
+        description_description: {
+          html: '<p>Hisense 100&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/fire-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/98-max',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
+        },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-75-class-qd7-series-miniled-uled-4k-fire-tv-75qd7qf',
+        faqLink: null,
+        size: '100',
+      },
+      {
+        sku: '50QD7QF',
+        spu: '50QD7QF',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Fire TV',
+        subtitle: 'MiniLED ULED 4K Fire TV',
+        series: 'QD7 Series',
+        description_description: {
+          html: '<p>Hisense 50&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/fire-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
+        },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '50',
+      },
+      {
+        sku: '55QD7QF',
+        spu: '55QD7QF',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Fire TV',
+        subtitle: 'MiniLED ULED 4K Fire TV',
+        series: 'QD7 Series',
+        description_description: {
+          html: '<p>Hisense 55&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/fire-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
+        },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-75-class-qd7-series-miniled-uled-4k-fire-tv-75qd7qf',
+        faqLink: null,
+        size: '55',
+      },
+      {
+        sku: '65QD7QF',
+        spu: '65QD7QF',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Fire TV',
+        subtitle: 'MiniLED ULED 4K Fire TV',
+        series: 'QD7 Series',
+        description_description: {
+          html: '<p>Hisense 65&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/fire-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
+        },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
+      },
+      {
+        sku: '75QD7QF',
+        spu: '75QD7QF',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Fire TV',
+        subtitle: 'MiniLED ULED 4K Fire TV',
+        series: 'QD7 Series',
+        description_description: {
+          html: '<p>Hisense 75&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/fire-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
+        },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
+      },
+      {
+        sku: '85QD7QF',
+        spu: '85QD7QF',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Fire TV',
+        subtitle: 'MiniLED ULED 4K Fire TV',
+        series: 'QD7 Series',
+        description_description: {
+          html: '<p>Hisense 85&#34; Class QD7 Series MiniLED ULED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/fire-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
+        },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '85',
+      },
+      {
+        sku: '100QD6QF',
+        spu: '100QD6QF',
+        erpcode: null,
+        title: 'Hisense 100" Class QD6 Series Hi-QLED 4K Fire TV',
+        subtitle: 'Hisense 100" Class QD6 Series Hi-QLED 4K Fire TV',
+        series: 'QD6 Series',
+        description_description: {
+          html: '<p>Hisense 100&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/98-max',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
+        },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-100-class-qd6-series-hi-qled-4k-fire-tv-100qd6qf',
+        faqLink: null,
+        size: '100',
+      },
+      {
+        sku: '43QD6QF',
+        spu: '43QD6QF',
+        erpcode: null,
+        title: 'Hisense 43" Class QD6 Series Hi-QLED 4K Fire TV',
+        subtitle: 'Hisense 43" Class QD6 Series Hi-QLED 4K Fire TV',
+        series: 'QD6 Series',
+        description_description: {
+          html: '<p>Hisense 43&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/32-43',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
+        },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '43',
+      },
+      {
+        sku: '50QD6QF',
+        spu: '50QD6QF',
+        erpcode: null,
+        title: 'Hisense 50" Class QD6 Series Hi-QLED 4K Fire TV',
+        subtitle: 'Hisense 50" Class QD6 Series Hi-QLED 4K Fire TV',
+        series: 'QD6 Series',
+        description_description: {
+          html: '<p>Hisense 50&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
+        },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '50',
+      },
+      {
+        sku: '55QD6QF',
+        spu: '55QD6QF',
+        erpcode: null,
+        title: 'Hisense 55" Class QD6 Series Hi-QLED 4K Fire TV',
+        subtitle: 'Hisense 55" Class QD6 Series Hi-QLED 4K Fire TV',
+        series: 'QD6 Series',
+        description_description: {
+          html: '<p>Hisense 55&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
+        },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '55',
+      },
+      {
+        sku: '65QD6QF',
+        spu: '65QD6QF',
+        erpcode: null,
+        title: 'Hisense 65" Class QD6 Series Hi-QLED 4K Fire TV',
+        subtitle: 'Hisense 65" Class QD6 Series Hi-QLED 4K Fire TV',
+        series: 'QD6 Series',
+        description_description: {
+          html: '<p>Hisense 65&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: null,
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
+      },
+      {
+        sku: '75QD6QF',
+        spu: '75QD6QF',
+        erpcode: null,
+        title: 'Hisense 75" Class QD6 Series Hi-QLED 4K Fire TV',
+        subtitle: 'Hisense 75" Class QD6 Series Hi-QLED 4K Fire TV',
+        series: 'QD6 Series',
+        description_description: {
+          html: '<p>Hisense 75&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
+        },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
+      },
+      {
+        sku: '85QD6QF',
+        spu: '85QD6QF',
+        erpcode: null,
+        title: 'Hisense 85" Class QD6 Series Hi-QLED 4K Fire TV',
+        subtitle: 'Hisense 85" Class QD6 Series Hi-QLED 4K Fire TV',
+        series: 'QD6 Series',
+        description_description: {
+          html: '<p>Hisense 85&#34; Class QD6 Series Hi-QLED 4K Fire TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/lcd-led',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
+        },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '85',
+      },
+      {
+        sku: '55U6N',
+        spu: '55U6N',
+        erpcode: null,
+        title: 'Hisense 55" Class U6 Series Mini-LED ULED 4K Google TV',
+        subtitle: 'Hisense 55" Class U6 Series Mini-LED ULED 4K Google TV',
+        series: 'U6 Series',
+        description_description: {
+          html: '<p>Hisense 55&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-02-28T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u6-series/key-visual/u6.png',
+        },
+        overseasModel: 'U6',
+        factoryModel: 'U6N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '55',
+      },
+      {
+        sku: '65U6N',
+        spu: '65U6N',
+        erpcode: null,
+        title: 'Hisense 65" Class U6 Series Mini-LED ULED 4K Google TV',
+        subtitle: 'Hisense 65" Class U6 Series Mini-LED ULED 4K Google TV',
+        series: 'U6 Series',
+        description_description: {
+          html: '<p>Hisense 65&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-02-28T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u6-series/key-visual/u6.png',
+        },
+        overseasModel: 'U6',
+        factoryModel: 'U6N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
+      },
+      {
+        sku: '75U6N',
+        spu: '75U6N',
+        erpcode: null,
+        title: 'Hisense 75" Class U6 Series Mini-LED ULED 4K Google TV',
+        subtitle: 'Hisense 75" Class U6 Series Mini-LED ULED 4K Google TV',
+        series: 'U6 Series',
+        description_description: {
+          html: '<p>Hisense 75&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-02-28T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u6-series/key-visual/u6.png',
+        },
+        overseasModel: 'U6',
+        factoryModel: 'U6N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
+      },
+      {
+        sku: '85U6N',
+        spu: '85U6N',
+        erpcode: null,
+        title: 'Hisense 85" Class U6 Series Mini-LED ULED 4K Google TV',
+        subtitle: 'Hisense 85" Class U6 Series Mini-LED ULED 4K Google TV',
+        series: 'U6 Series',
+        description_description: {
+          html: '<p>Hisense 85&#34; Class U6 Series Mini-LED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-02-28T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/60hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u6-series/key-visual/u6.png',
+        },
+        overseasModel: 'U6',
+        factoryModel: 'U6N',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-65-class-u6-series-mini-led-uled-4k-google-tv-65u6n',
+        faqLink: null,
+        size: '85',
+      },
+      {
+        sku: '100U75QG',
+        spu: '100U75QG',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Google TV',
+        subtitle: 'MiniLED ULED 4K Google TV',
+        series: 'U7 Series',
+        description_description: {
+          html: '<p>Hisense 100&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/98-max',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
+        },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '100',
+      },
+      {
+        sku: '116U75QG',
+        spu: '116U75QG',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Google TV',
+        subtitle: 'MiniLED ULED 4K Google TV',
+        series: 'U7 Series',
+        description_description: {
+          html: '<p>Hisense 116&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/98-max',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
+        },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '116',
+      },
+      {
+        sku: '55U75QG',
+        spu: '55U75QG',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Google TV',
+        subtitle: 'MiniLED ULED 4K Google TV',
+        series: 'U7 Series',
+        description_description: {
+          html: '<p>Hisense 55&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
+        },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '55',
+      },
+      {
+        sku: '75U75QG',
+        spu: '75U75QG',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Google TV',
+        subtitle: 'MiniLED ULED 4K Google TV',
+        series: 'U7 Series',
+        description_description: {
+          html: '<p>Hisense 75&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
+        },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: '/us/en/tv/miniled/u7/75.html',
+        faqLink: null,
+        size: '75',
+      },
+      {
+        sku: '85U75QG',
+        spu: '85U75QG',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Google TV',
+        subtitle: 'MiniLED ULED 4K Google TV',
+        series: 'U7 Series',
+        description_description: {
+          html: '<p>Hisense 85&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
+        },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '85',
+      },
+      {
+        sku: '65U75QG',
+        spu: '65U75QG',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Google TV',
+        subtitle: 'MiniLED ULED 4K Google TV',
+        series: 'U7 Series',
+        description_description: {
+          html: '<p>Hisense 65&#34; Class U7 Series MiniLED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/type/miniled',
+          'hisense:product/tv/screen-size/50-65',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
+        },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
+      },
+      {
+        sku: '100U8QG',
+        spu: '100U8QG',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Google TV',
+        subtitle: 'MiniLED ULED 4K Google TV',
+        series: 'U8 Series',
+        description_description: {
+          html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/98-max',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png',
+        },
+        overseasModel: 'U8',
+        factoryModel: 'U8QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '100',
+      },
+      {
+        sku: '65U8QG',
+        spu: '65U8QG',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Google TV',
+        subtitle: 'MiniLED ULED 4K Google TV',
+        series: 'U8 Series',
+        description_description: {
+          html: '<p>Hisense 65&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png',
+        },
+        overseasModel: 'U8',
+        factoryModel: 'U8QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
+      },
+      {
+        sku: '75U8QG',
+        spu: '75U8QG',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Google TV',
+        subtitle: 'MiniLED ULED 4K Google TV',
+        series: 'U8 Series',
+        description_description: {
+          html: '<p>Hisense 75&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png',
+        },
+        overseasModel: 'U8',
+        factoryModel: 'U8QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
+      },
+      {
+        sku: '85U8QG',
+        spu: '85U8QG',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Google TV',
+        subtitle: 'MiniLED ULED 4K Google TV',
+        series: 'U8 Series',
+        description_description: {
+          html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png',
+        },
+        overseasModel: 'U8',
+        factoryModel: 'U8QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '85',
+      },
+      {
+        sku: '55U8QG',
+        spu: '55U8QG',
+        erpcode: null,
+        title: 'MiniLED ULED 4K Google TV',
+        subtitle: 'MiniLED ULED 4K Google TV',
+        series: 'U8 Series',
+        description_description: {
+          html: '<p>Hisense 85&#34; Class U8 Series MiniLED ULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-03-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/50-65',
+          'hisense:product/tv/type/miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png',
+        },
+        overseasModel: 'U8',
+        factoryModel: 'U8QG',
+        whereToBuyLink: '/us/en/tv/miniled/u8/75.html',
+        faqLink: null,
+        size: '55',
+      },
+      {
+        sku: '75U9N',
+        spu: '75U9N',
+        erpcode: null,
+        title: 'Hisense 75" Class U9 Series Mini-LED QLED 4K Google TV',
+        subtitle: 'Hisense 75" Class U9 Series Mini-LED QLED 4K Google TV',
+        series: 'U9 Series',
+        description_description: {
+          html: '<p>Hisense 75&#34; Class U9 Series Mini-LED QLED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-05-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/miniled',
+          'hisense:product/tv/type/hi-qled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u9-series/key-visual/u9.png',
+        },
+        overseasModel: 'U9',
+        factoryModel: 'U9N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
+      },
+      {
+        sku: '85U9N',
+        spu: '85U9N',
+        erpcode: null,
+        title: 'Hisense 85" Class U9 Series Mini-LED QLED 4K Google TV',
+        subtitle: 'Hisense 85" Class U9 Series Mini-LED QLED 4K Google TV',
+        series: 'U9 Series',
+        description_description: {
+          html: '<p>Hisense 85&#34; Class U9 Series Mini-LED QLED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-05-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/144hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/screen-size/70-85',
+          'hisense:product/tv/type/miniled',
+          'hisense:product/tv/type/hi-qled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/u9-series/key-visual/u9.png',
+        },
+        overseasModel: 'U9',
+        factoryModel: 'U9N',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-75-class-u9-series-mini-led-qled-4k-google-tv-75u9n',
+        faqLink: null,
+        size: '85',
+      },
+      {
+        sku: '116UXQUA',
+        spu: '116UXQUA',
+        erpcode: null,
+        title: 'RGB MiniLED ULED 4K Google TV',
+        subtitle: 'RGB MiniLED ULED 4K Google TV',
+        series: 'UX Series',
+        description_description: {
+          html: '<p>Hisense 116” Class UX Series RGB MiniLEDULED 4K Google TV</p>',
+        },
+        productLaunchDate: '2025-05-31T16:00:00.000Z',
+        tags: [
+          'hisense:product/tv/screen-size/98-max',
+          'hisense:product/tv/operating-system/google-tv',
+          'hisense:product/tv/refresh-rate/165hz',
+          'hisense:product/tv/resolution/uhd',
+          'hisense:product/tv/type/rgb-miniled',
+        ],
+        mediaGallery_image: {
+          _path: '/content/dam/hisense/us/products/televisions/ux-serises/key-visual/ux.png',
+        },
+        overseasModel: '116UXQUA',
+        factoryModel: '116UXQUA',
+        whereToBuyLink: '/us/en/tv/miniled/ux/116.html',
+        faqLink: null,
+        size: '116',
+      },
+    ],
+    ':type': 'sheet',
   };
 
   fetch(graphqlUrl)
@@ -3277,10 +1722,7 @@ export default function decorate(block) {
       return resp.json();
     })
     .then((data) => {
-      const items = (data
-        && data.data
-        && data.data.productModelList
-        && data.data.productModelList.items) || [];
+      const items = (data && data.data) || [];
       // 缓存到全局，供过滤器使用
       window.productData = items;
       if (window.renderPlpProducts) {
@@ -3292,10 +1734,7 @@ export default function decorate(block) {
       applyDefaultSort();
     })
     .catch(() => {
-      const items = (mockData
-        && mockData.data
-        && mockData.data.productModelList
-        && mockData.data.productModelList.items) || [];
+      const items = (mockData && mockData.data) || [];
       window.productData = items;
       if (window.renderPlpProducts) {
         window.renderPlpProducts(items);
@@ -3310,7 +1749,7 @@ export default function decorate(block) {
 }
 
 // 是否使用 description_shortDescription 作为图片链接，默认使用
-window.useShortDescriptionAsImage = true;
+window.useShortDescriptionAsImage = false;
 
 // 暴露渲染和筛选接口到window全局，供 filter 和 tags 使用（在 renderItems 定义后）
 window.renderProductsInternal = function renderProductsInternalProxy(items) {

@@ -1,25 +1,10 @@
+import { whenElementReady, updatePosition, getSlideWidth } from '../../utils/carousel.js';
+
 let index = 0;
-
-function getSlideWidth(block) {
-  const singleItem = block.querySelector('li');
-  const gap = 24;
-  return singleItem.offsetWidth + gap;
-}
-
-function updatePosition(block) {
-  const trackBox = block.querySelector('.icon-track');
-  const items = block.querySelectorAll('li');
-  const moveDistance = index * getSlideWidth(block);
-  const maxlength = Math.floor(items.length * getSlideWidth(block)) / trackBox.offsetWidth;
-  trackBox.style.transform = `translateX(-${moveDistance}px)`;
-  trackBox.style.transition = 'all 0.5';
-  block.querySelector('.slide-prev').disabled = (index === 0);
-  block.querySelector('.slide-next').disabled = (index >= maxlength);
-}
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
-  const wholeCards = block.querySelector('.icon-track');
+  const bodyWidth = document.body.getBoundingClientRect().width;
   cards.forEach((card) => {
     const link = card.querySelector('a');
     const url = link?.href;
@@ -27,50 +12,20 @@ function bindEvent(block) {
       if (url) window.location.href = url;
     });
   });
-  if (cards.length * getSlideWidth(block) >= wholeCards.offsetWidth) {
+  const firstCardLeft = cards[0].getBoundingClientRect().left;
+  if (cards.length * getSlideWidth(block) + firstCardLeft >= bodyWidth) {
     block.querySelector('.pagination').classList.add('show');
   }
   block.querySelector('.slide-prev').addEventListener('click', () => {
     if (index > 0) {
       index -= 1;
-      updatePosition(block);
+      updatePosition(block, index, true);
     }
   });
   block.querySelector('.slide-next').addEventListener('click', () => {
     if (index < cards.length) {
       index += 1;
-      updatePosition(block);
-    }
-  });
-}
-// mobile touchEvent
-function touchEvent(block) {
-  let startX;
-  let prevX;
-  let X;
-  block.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    startX = e.changedTouches[0].pageX;
-  });
-  block.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    const moveEndX = e.changedTouches[0].pageX;
-    X = moveEndX - startX;
-  });
-  block.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    const node = e.target.closest('div');
-    if (prevX === X) {
-      node.click();
-      return;
-    }
-    prevX = X;
-    if (X > 0) {
-      // 左滑
-      block.querySelector('.slide-prev').click();
-    } else if (X < 0) {
-      // 右滑
-      block.querySelector('.slide-next').click();
+      updatePosition(block, index, true);
     }
   });
 }
@@ -115,6 +70,7 @@ export default async function decorate(block) {
     `;
     block.appendChild(buttonContainer);
   }
-  bindEvent(block);
-  touchEvent(block);
+  whenElementReady('.icon-component', () => {
+    bindEvent(block);
+  });
 }

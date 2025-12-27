@@ -100,6 +100,9 @@ function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
 }
 
 export default function decorate(block) {
+  // 给main 元素添加类名，为了给整个窗口添加灰色背景
+  const main = document.querySelector('main');
+  main.classList.add('main-plp-gray');
   // 编辑模式,如果有 data-aue-resource 属性，说明现在浏览的是编辑模式
   const isEditMode = block.hasAttribute('data-aue-resource');
 

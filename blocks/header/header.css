@@ -34,7 +34,7 @@
   font-weight: 400;
   font-size: 14px;
   box-sizing: border-box;
-  transition: top .5s cubic-bezier(0.35, 0, 0.36, 1), background-color .5s cubic-bezier(0.1, 0, 0.95, 1);
+  transition: top .5s cubic-bezier(0.35, 0, 0.36, 1), background-color .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
 }
 
 #navigation.hidden {
@@ -58,6 +58,7 @@
   color: var(--header-active-color);
   height: 24px;
   line-height: 24px;
+  transition: color .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
 }
 
 .nav-link {
@@ -67,6 +68,7 @@
   display: flex;
   align-items: center;
   color: var(--header-active-color);
+  transition: color .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
 }
 
 .nav-link:hover {
@@ -86,30 +88,47 @@
   background: #fff;
   border-color: #fff;
   color: rgb(51 51 51 / 100%);
+  transition: none;
+}
+
+#navigation:has(.nav-container:hover) .nav-link {
+  transition: none;
+}
+
+#navigation .mobile-actions .nav-section {
+  font-size: 16px;
+  font-weight: 400;
+  height: 22px;
+  line-height: 22px;
+  color: #000;
+}
+
+#navigation:has(.nav-container:hover) .nav-section {
+  transition: none;
 }
 
 #navigation.header-dark-mode .nav-action-btn .light-img {
-  display: none;
+  opacity: 0;
 }
 
 #navigation:not(.header-dark-mode) .nav-action-btn .dark-img {
-  display: none;
+  opacity: 0;
 }
 
 #navigation.scroll-active .nav-actions .nav-action-btn .dark-img {
-  display: none;
+  opacity: 0;
 }
 
 #navigation.scroll-active .nav-actions .nav-action-btn .light-img {
-  display: block;
+  opacity: 1;
 }
 
 #navigation:has(.nav-container:hover) .nav-action-btn .light-img{
-  display: block;
+  opacity: 1;
 }
 
 #navigation:has(.nav-container:hover) .nav-action-btn .dark-img{
-  display: none;
+  opacity: 0;
 }
 
 #navigation .nav-container {
@@ -158,14 +177,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-#navigation .mobile-actions .nav-section {
-  font-size: 16px;
-  font-weight: 400;
-  height: 22px;
-  line-height: 22px;
-  color: #000;
 }
 
 .section.navigation-logo-container.navigation-item-container.navigation-action-container,
@@ -322,6 +333,12 @@
   width: 24px;
   height: 24px;
   cursor: pointer;
+  position: relative;
+}
+
+.nav-action-btn img {
+  position: absolute;
+  transition: opacity .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
 }
 
 .nav-action-btn.mobile-menu-icon {
@@ -416,6 +433,10 @@
   height: auto;
 }
 
+#navigation:has(.nav-container:hover) .nav-action-btn img {
+  transition: none;
+}
+
 .dropdown-product-text {
   width: 100%;
   height: 15px;
@@ -502,11 +523,11 @@
   }
   
   #navigation.show-menu .nav-action-btn .light-img {
-    display: block;
+    opacity: 1;
   }
 
   #navigation.show-menu .nav-action-btn .dark-img {
-    display: none;
+    opacity: 0;
   }
   
   #navigation .nav-container {

@@ -53,6 +53,10 @@
             {
               "name": "Grey",
               "value": "grey"
+            },
+            {
+              "name": "Gradient Gray",
+              "value": "gradient-gray"
             }
           ]
         },
@@ -346,6 +350,7 @@
         "video",
         "banner",
         "description",
+        "disclaimer",
         "featurebanner",
         "videoinfo",
         "iconComponent",
