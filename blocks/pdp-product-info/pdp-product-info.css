@@ -41,7 +41,7 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
 }
 
 .pdp-series {
-  color: var(--color-hisense-teal);
+  color: rgb(0 132 130 / 100%);
   font-size: var(--body-font-size-xl);
   font-weight: 500;
 }
@@ -129,10 +129,14 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   background: transparent;
   border: none;
   color: #000;
-  font-size: 15px;
+  font-size: 12px;
   cursor: pointer;
   padding: 0;
   font-weight: 400;
+}
+
+.pdp-specs-btn.hide {
+  display: none;
 }
 
 .pdp-specs-btn:hover {
