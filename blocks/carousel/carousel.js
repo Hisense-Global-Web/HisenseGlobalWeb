@@ -1,7 +1,8 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { whenElementReady } from '../../utils/carousel.js';
 
-let carouselTimer;
+// let carouselTimer;
+let carouselInterval;
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
@@ -33,32 +34,51 @@ function showSlide(block, slideIndex, init = false) {
     if (nav && (block.getBoundingClientRect().top > -carouselHeight)) document.querySelector('#navigation').classList.remove('header-dark-mode');
   }
   if (init) return;
-  block.querySelector('.carousel-items-container').scrollTo({
-    top: 0,
-    left: activeSlide.offsetLeft,
-    behavior: 'smooth',
-  });
+  if (realSlideIndex === 0) {
+    // 1. 先平滑滚动到“克隆的第一张”
+    block.querySelector('.carousel-items-container').scrollTo({
+      left: slides[slides.length - 1].offsetLeft,
+      behavior: 'smooth',
+    });
+
+    // 2. 监听滚动结束（或者估算动画时间）
+    setTimeout(() => {
+      // 3. 瞬间切换回真正的第一张，关闭动画！
+      block.querySelector('.carousel-items-container').scrollTo({
+        left: activeSlide.offsetLeft,
+        behavior: 'instant', // 关键：无感知跳转
+      });
+    }, 1000);
+  } else {
+    block.querySelector('.carousel-items-container').scrollTo({
+      top: 0,
+      left: activeSlide.offsetLeft,
+      behavior: 'smooth',
+    });
+  }
 }
 function stopAutoPlay() {
-  clearInterval(carouselTimer);
-  carouselTimer = null;
+  clearInterval(carouselInterval);
+  carouselInterval = null;
+  // carouselTimer = null;
 }
 
-function autoPlay(block, index) {
-  let currentIndex = index;
+function autoPlay(block) {
+  let currentIndex = block.dataset.slideIndex || 0;
   const images = block.querySelectorAll('.carousel-item');
-  carouselTimer = setInterval(() => {
-    currentIndex = (currentIndex + 1) % images.length;
+  carouselInterval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % (images.length - 1);
     showSlide(block, currentIndex);
   }, 3000);
 }
 
-function observeMouse(block, index) {
+function observeMouse(block) {
   if (document.getElementById('editor-app')) return;
-  autoPlay(block, index);
+  // if (carouselTimer) { stopAutoPlay(); return; }
+  autoPlay(block);
   block.addEventListener('mouseenter', stopAutoPlay);
   block.addEventListener('mouseleave', () => {
-    autoPlay(block, index);
+    autoPlay(block);
   });
 }
 function bindEvents(block) {
@@ -78,7 +98,7 @@ function bindEvents(block) {
       showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
     });
   });
-  observeMouse(block, 0);
+  observeMouse(block);
 }
 function createSlide(block, row, slideIndex) {
   const slide = document.createElement('li');
@@ -149,6 +169,8 @@ export default async function decorate(block) {
     }
     row.remove();
   });
+  const cloneFirstNode = wholeContainer.firstElementChild.cloneNode(true);
+  wholeContainer.appendChild(cloneFirstNode);
   block.prepend(wholeContainer);
   if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {

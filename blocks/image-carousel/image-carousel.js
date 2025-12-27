@@ -4,9 +4,10 @@ let carouselId = 0;
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
-  const track = block.querySelector('.image-track');
+  const bodyWidth = document.body.getBoundingClientRect().width;
   let index = 0;
-  if (cards.length * getSlideWidth(block) >= track.offsetWidth) {
+  const firstCardLeft = cards[0].getBoundingClientRect().left;
+  if (cards.length * getSlideWidth(block) + firstCardLeft >= bodyWidth) {
     block.querySelector('.image-pagination').classList.add('show');
   }
   block.querySelector('.slide-prev').addEventListener('click', () => {

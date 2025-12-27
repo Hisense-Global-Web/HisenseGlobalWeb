@@ -101,7 +101,14 @@ export default function decorate(block) {
         currentContext = 'title';
         resourceTitle = resource;
       } else if (currentContext === 'sortBy') {
-        const option = { label: left, value: right, resource };
+        const option = {
+          label: left, value: right, resource, isDefaultSearch: false,
+        };
+
+        if (cells.length >= 3) {
+          const isDefaultText = cells[2].textContent.trim();
+          option.isDefaultSearch = isDefaultText === 'true';
+        }
 
         // 获取所有 data-aue 开头的属性
         const dataAueAttributes = {};
@@ -235,28 +242,50 @@ export default function decorate(block) {
 
   const sortOptions = document.createElement('div');
   sortOptions.className = 'plp-sort-options';
-  // 添加默认排序选项
-  const defaultOption = {
-    label: 'Default', value: '', resource: null, dataAueAttributes: {},
-  };
-  const options = [defaultOption, ...sortOptionsList];
+
+  // 检查是否有默认排序选项
+  const hasDefaultSearchOption = sortOptionsList.some((option) => option.isDefaultSearch);
+
+  // 如果没有默认排序选项，添加默认的Default选项
+  let options;
+  if (hasDefaultSearchOption) {
+    options = [...sortOptionsList];
+  } else {
+    const defaultOption = {
+      label: 'Default', value: '', resource: null, dataAueAttributes: {},
+    };
+    options = [defaultOption, ...sortOptionsList];
+  }
   if (options && options.length) {
     let hasSelectedOption = false;
 
-    options.forEach((option, index) => {
+    // 首先检查是否有默认排序选项，有就先选中
+    const defaultSearchOption = options.find((option) => option.isDefaultSearch);
+    let optionToSelect = null;
+
+    if (defaultSearchOption) {
+      optionToSelect = defaultSearchOption;
+    } else {
+      // 如果没有默认排序选项，就按原有Default逻辑选择
+      optionToSelect = options.find((option) => {
+        const label = option.label || option;
+        return label === sortBy;
+      }) || options[0];
+    }
+
+    options.forEach((option) => {
       const optionDiv = document.createElement('div');
       optionDiv.className = 'plp-sort-option';
       const label = option.label || option;
 
-      if (label === sortBy) {
-        optionDiv.classList.add('selected');
-        hasSelectedOption = true;
-      } else if (index === 0 && !hasSelectedOption) {
+      if (option === optionToSelect && !hasSelectedOption) {
         optionDiv.classList.add('selected');
         hasSelectedOption = true;
       }
       optionDiv.textContent = label;
-      if (option.value) optionDiv.dataset.value = option.value;
+      if (option.value !== undefined && option.value !== null) {
+        optionDiv.dataset.value = option.value;
+      }
       if (isEditMode && option.resource) {
         optionDiv.setAttribute('data-aue-resource', option.resource);
       }
@@ -267,6 +296,10 @@ export default function decorate(block) {
           optionDiv.setAttribute(attrName, option.dataAueAttributes[attrName]);
         });
       }
+      if (option.isDefaultSearch) {
+        optionDiv.setAttribute('data-is-default-search', 'true');
+      }
+
       optionDiv.setAttribute('role', 'button');
       optionDiv.setAttribute('tabindex', '0');
       sortOptions.append(optionDiv);
@@ -277,7 +310,7 @@ export default function decorate(block) {
     if (selectedOption) {
       const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy : 'Sort By';
       sortSpan.textContent = `${prefix} ${selectedOption.textContent}`;
-      // 如果默认排序
+      // 触发默认排序逻辑
       try {
         if (window && typeof window.applyPlpSort === 'function') {
           const initKey = (selectedOption.dataset && Object.prototype.hasOwnProperty.call(selectedOption.dataset, 'value'))
