@@ -16,7 +16,8 @@ main > .section:first-of-type {
   position: relative;
 
   .carousel-items-container {
-    height: 100vh;
+    /* height: 100vh; */
+    height: 860px;
     display: flex;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
