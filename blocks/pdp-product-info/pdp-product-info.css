@@ -159,6 +159,10 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
     margin-bottom: 10px;
   }
 
+  .pdp-sizes{
+     margin-bottom: 10px;
+  }
+  
   .pdp-info {
     padding: 0 15px;
   }
