@@ -400,7 +400,7 @@ main {
 	}
 
 	.section.gradient-gray {
-		background: linear-gradient(to bottom, #000, rgb(29 29 31 / 90%), rgb(29 29 31 / 90%));
+		background: linear-gradient(to bottom, #000, rgb(29 29 31), rgb(29 29 31));
 		color: var(--text-dark);
 	}
 

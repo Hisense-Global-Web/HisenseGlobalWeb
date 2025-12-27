@@ -21,7 +21,7 @@ export default async function decorate(block) {
 
   if (!endpoint || !sku) return;
 
-  const url = `${endpoint};sku=${encodeURIComponent(sku)}`;
+  const url = `${endpoint}`;
 
   let json = null;
   try {
