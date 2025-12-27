@@ -315,7 +315,8 @@ export default function decorate(block) {
       option.classList.add('selected');
       // "sort by <option>"
       const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy : 'Sort By';
-      sortSpan.textContent = `${prefix} ${option.textContent}`;
+      const splitText = option.textContent.split(':')[0].trim();
+      sortSpan.textContent = `${prefix} ${splitText}`;
       sortBox.classList.remove('show');
       // 如果是移动端，点击sort by 选项要关闭全屏筛选内容，返回列表页面
       if (isMobile || isMobileWindow) {
