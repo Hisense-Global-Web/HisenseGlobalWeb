@@ -33,7 +33,7 @@ main > .plp-product-card-container.plp-product-filters-container {
   gap: 24px 48px; */
   display: flex;
   flex-wrap: wrap;
-  max-width: 1120px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
   gap: 24px 48px;
   justify-content: center;
