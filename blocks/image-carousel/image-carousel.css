@@ -192,6 +192,10 @@
 }
 
 .image-carousel.left-bottom-style {
+  .image-viewport ul {
+    gap: 24px;
+  }
+
   .item-content,
   .item-cta {
     height: 80px;
