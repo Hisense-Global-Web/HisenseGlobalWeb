@@ -239,8 +239,7 @@ function convertToDarkSvgUrl(url) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  const navMeta = getMetadata('nav');
-  let navPath = `${basePath}/content/hisense/us/en/nav`;
+  const navPath = `${window.hlx.codeBasePath}/content/hisense/us/en/nav`;
   const fragment = await loadFragment(navPath);
 
   // 解析原始DOM
