@@ -464,10 +464,20 @@
       height: 224px;
       width: 300px;
       border-radius: 16px;
+      padding-left: 16px;
 
       .item-content, .item-cta {
         width: 144px;
         height: 100%;
+      }
+
+      p:nth-child(2) {
+        display: none;
+      }
+
+      .button-container {
+        position: absolute;
+        bottom: 0;
       }
     }
   }
