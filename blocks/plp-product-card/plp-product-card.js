@@ -320,7 +320,7 @@ export default function decorate(block) {
         } else if (!hasContentHisense && wtbHasContentHisense) {
           sharedWhereToBuyLink = sharedWhereToBuyLink.replace('/content/hisense', '');
         }
-        sharedWhereToBuyLink = sharedWhereToBuyLink.replace('.html','');
+        sharedWhereToBuyLink = sharedWhereToBuyLink.replace('.html', '');
       }
 
       return {
