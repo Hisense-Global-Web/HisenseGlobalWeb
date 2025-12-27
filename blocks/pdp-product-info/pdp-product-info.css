@@ -135,6 +135,10 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   font-weight: 400;
 }
 
+.pdp-specs-btn.hide {
+  display: none;
+}
+
 .pdp-specs-btn:hover {
   background: transparent;
 }
