@@ -148,7 +148,8 @@ export default function decorate(block) {
       if (k.startsWith('jcr:') || k === 'sling:resourceType' || k === 'jcr:primaryType') return;
       const v = obj[k];
       if (v && typeof v === 'object') {
-        if (v['jcr:title']) map[k] = v['jcr:title'];
+        const trimmedKey = k.trim();
+        if (v['jcr:title']) map[trimmedKey] = v['jcr:title'];
         collectTitles(v, map);
       }
     });
@@ -254,7 +255,7 @@ export default function decorate(block) {
         const label = document.createElement('label');
         label.htmlFor = input.id;
         const parts = tagPath.split('/');
-        const lastPart = parts[parts.length - 1] || tagPath;
+        const lastPart = (parts[parts.length - 1] || tagPath).trim();
         const matchedTitle = titlesMap[lastPart];
         label.textContent = (matchedTitle && String(matchedTitle).trim()) ? matchedTitle : lastPart;
 
