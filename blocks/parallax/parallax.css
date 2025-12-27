@@ -19,6 +19,10 @@
 	}
 }
 
+.parallax-container p {
+  margin: 0;
+}
+
 .scroll-image-container.animate {
 	height: 100vh;
 }
