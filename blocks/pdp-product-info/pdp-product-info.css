@@ -155,20 +155,22 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
 
 @media (width <=600px) {
   main .section.product-detail-banner-container.pdp-product-info-container{
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: center;
     gap: 0;
     padding:100px 0;
   }
-
+  .pdp-product-info-wrapper{
+    margin: 24px auto 40px;
+  }
   .pdp-badges {
-    margin-bottom: 10px;
+    margin: 12px 0 28px;
   }
 
   .pdp-sizes{
-     margin-bottom: 10px;
+     margin-bottom: 40px;
   }
-  
+
   .pdp-info {
     padding: 0 15px;
   }
