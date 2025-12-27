@@ -240,7 +240,22 @@ function convertToDarkSvgUrl(url) {
  */
 export default async function decorate(block) {
   const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
+  let navPath;
+  if (navMeta) {
+    navPath = new URL(navMeta, window.location).pathname;
+  } else {
+    const currentPath = window.location.pathname;
+    const pathParts = currentPath.split('/').filter(Boolean);
+    if (currentPath.startsWith('/content/hisense')) {
+      // 使用前四级路径 + /nav
+      const basePath = `/${pathParts.slice(0, 4).join('/')}`;
+      navPath = `${basePath}/nav`;
+    } else {
+      // 使用前二级路径 + /nav
+      const basePath = `/${pathParts.slice(0, 2).join('/')}`;
+      navPath = `${basePath}/nav`;
+    }
+  }
   const fragment = await loadFragment(navPath);
 
   // 解析原始DOM
