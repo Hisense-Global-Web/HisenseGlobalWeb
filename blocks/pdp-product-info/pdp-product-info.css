@@ -156,7 +156,7 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   }
 
   .pdp-badges {
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
 
   .pdp-info {
