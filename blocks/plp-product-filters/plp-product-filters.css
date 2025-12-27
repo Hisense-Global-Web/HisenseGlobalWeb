@@ -1,0 +1,256 @@
+/* PLP Product Filters */
+
+.plp-product-filters .plp-filters-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.plp-product-filters .plp-filters-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.plp-product-filters .plp-results-box {
+  width: 110px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.plp-product-filters .plp-results {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(0 0 0 / 100%);
+}
+
+.plp-product-filters .plp-active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.plp-product-filters .plp-filter-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 10px;
+  background: #fff;
+  border-radius: 20px;
+  font-size: 12px;
+  height: 24px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.plp-product-filters .plp-filter-tag-close {
+  cursor: pointer;
+  font-size: 16px;
+  color: rgb(204 204 204 / 100%);
+}
+
+.plp-product-filters .plp-reset-filters {
+  color: rgb(0 0 0 / 100%);
+  border-bottom: 1px solid rgb(0 0 0 / 100%);
+  height: 17px;
+  line-height: 17px;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.plp-product-filters .plp-sort-box {
+  position: relative;
+  min-width: 236px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.plp-product-filters .plp-sort {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 100px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 4;
+  font-weight: 400;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 5%);
+}
+
+.plp-product-filters .plp-sort span {
+  white-space: nowrap;
+  margin-right: 8px;
+}
+
+.plp-product-filters .plp-sort img {
+  transform: scaleY(-1);
+}
+
+.plp-product-filters .plp-sort-box.show img {
+  transform: initial;
+}
+
+.plp-product-filters .plp-sort-options {
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: none;
+  background: #fff;
+  width: 100%;
+  flex-direction: column;
+  padding: 52px 16px 12px;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 5%);
+  font-size: 12px;
+  font-weight: 400;
+  gap: 8px;
+  z-index: 2;
+  border-radius: 20px;
+}
+
+.plp-product-filters .plp-sort-box.show .plp-sort-options {
+  display: flex;
+}
+
+.plp-product-filters .plp-sort-option {
+  height: 30px;
+  line-height: 30px;
+  border-radius: 30px;
+  color: rgb(102 102 102 / 100%);
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.plp-product-filters .plp-sort-options .plp-sort-option:hover {
+  color: #000;
+  font-weight: 500;
+}
+
+/* 编辑模式样式，尽量保持与浏览模式一致的UI */
+.plp-product-filters[data-aue-resource] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+}
+
+.plp-product-filters[data-aue-resource] > div[data-aue-resource] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 10px;
+  background: #fff;
+  border-radius: 20px;
+  font-size: 12px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.plp-mobile-filters {
+  display: none;
+}
+
+.mobile-sort-by-close {
+  display: none;
+}
+
+@media (width <= 600px) {
+  .plp-mobile-filters {
+    display: block;
+  }
+
+  .mobile-filter-title {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+    height: 40px;
+    margin-left: 12px;
+    cursor: pointer;
+
+    img {
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    span {
+      position: relative;
+      top: 2px;
+    }
+  }
+
+  .plp-product-filters {
+    .plp-filters-left {
+      display: none;
+    }
+
+    .plp-sort-box {
+      width: 190px;
+    }
+
+    .mobile-sort-by-box {
+      position: fixed;
+      inset: 0;
+      z-index: 100000;
+      background: #fff;
+      border-radius: 0;
+      padding: 14px;
+      width: calc( 100vw - 28px);
+
+      .plp-sort {
+        box-shadow: none;
+        margin-bottom: 16px;
+        height: 40px;
+
+        img:first-of-type {
+          display: none;
+        }
+      }
+
+      .mobile-sort-by-close {
+        display: block;
+        position: fixed;
+        top: 22px;
+        right: 26px;
+        z-index: 30;
+        cursor: pointer;
+      }
+
+      .plp-sort-options {
+        width: 100vw;
+        height: 100vh;
+        box-shadow: none;
+        padding-left: 40px;
+        border-radius: 0;
+        padding-top: 70px;
+        display: block;
+
+        .plp-sort-option {
+          line-height: 34px;
+          height: 34px;
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+
+}
+

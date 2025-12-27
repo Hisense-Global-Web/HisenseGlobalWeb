@@ -1,0 +1,57 @@
+.videoinfo-container .videoinfo-wrapper {
+  width: 1120px;
+  max-width: unset;
+  padding: 0;
+  margin: 120px auto 0;
+  text-align: center;
+  font-family: 'Hisense Sans Alfabet', sans-serif;
+}
+
+.videoinfo div:first-child div p,
+.videoinfo div:first-child div h1,
+.videoinfo div:first-child div h2,
+.videoinfo div:first-child div h3,
+.videoinfo div:first-child div h4,
+.videoinfo div:first-child div h5,
+.videoinfo div:first-child div h6{
+  margin: 0;
+  padding: 0;
+  color: #00AAA6;
+  
+}
+
+.videoinfo div:first-child div p{
+  font-size: 20px;
+}
+
+.videoinfo div:nth-child(2) div p,
+.videoinfo div:nth-child(2) div h1,
+.videoinfo div:nth-child(2) div h2,
+.videoinfo div:nth-child(2) div h3,
+.videoinfo div:nth-child(2) div h4,
+.videoinfo div:nth-child(2) div h5,
+.videoinfo div:nth-child(2) div h6 {
+  color: white;
+  margin:12px 0;
+  padding: 0
+}
+
+.videoinfo div:nth-child(2) div p{
+  font-size: 42px;
+}
+
+.videoinfo div:nth-child(3) div p,
+.videoinfo div:nth-child(3) div h1,
+.videoinfo div:nth-child(3) div h2,
+.videoinfo div:nth-child(3) div h3,
+.videoinfo div:nth-child(3) div h4,
+.videoinfo div:nth-child(3) div h5,
+.videoinfo div:nth-child(3) div h6{
+  color: white;
+  margin: 0;
+  padding: 0
+}
+
+.videoinfo div:nth-child(3) div p{
+  font-size: 16px;
+}
