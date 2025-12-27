@@ -1,11 +1,8 @@
 function applyAggregatedSort(sortProperty, direction = -1) {
   try {
-    const lastRendered = Array.isArray(window.lastRenderedProducts);
-    const hasLast = lastRendered && window.lastRenderedProducts.length;
+    // 每次排序都使用原始数据而不是上一次排序的结果
     let listToSort;
-    if (hasLast) {
-      listToSort = window.lastRenderedProducts.slice();
-    } else if (Array.isArray(window.productData)) {
+    if (Array.isArray(window.productData)) {
       listToSort = window.productData.slice();
     } else {
       listToSort = [];
@@ -97,18 +94,43 @@ export default function decorate(block) {
   let graphqlResource = null;
   let fields = [];
   let fieldsResource = null;
+  let loadMoreTextContent = null;
+  let loadMoreLink = null;
+
+  let anchorCount = 0;
 
   rows.forEach((row) => {
     const resource = row.getAttribute && row.getAttribute('data-aue-resource');
     const anchor = row.querySelector && row.querySelector('a');
-    if (anchor) {
+    const text = row.textContent && row.textContent.trim();
+
+    if (anchor && anchorCount === 0) {
       graphqlUrl = anchor.getAttribute('href') || anchor.textContent.trim();
       graphqlResource = resource || anchor.getAttribute('data-aue-resource') || null;
+      anchorCount = anchorCount + 1;
     }
-    const text = row.textContent && row.textContent.trim();
-    if (text && text.indexOf(',') >= 0) {
+    else if (text && text.indexOf(',') >= 0) {
       fields = text.split(',').map((s) => s.trim()).filter(Boolean);
       fieldsResource = resource;
+    }
+    else {
+      if (isEditMode) {
+        if (row.querySelector('p').getAttribute('data-aue-prop') === 'loadMoreTextContent') {
+          loadMoreTextContent = text || row.textContent;
+        } else if (anchor && anchorCount === 1) {
+          loadMoreLink = anchor.getAttribute('href') || anchor.textContent.trim();
+          anchorCount = anchorCount + 1;
+        }
+      }
+
+      if (!isEditMode) {
+        if (anchor && anchorCount === 1) {
+          loadMoreLink = anchor.getAttribute('href') || anchor.textContent.trim();
+          anchorCount = anchorCount + 1;
+        } else if (text && !text.includes(',') && text !== graphqlUrl && !anchor) {
+          loadMoreTextContent = text;
+        }
+      }
     }
   });
 
@@ -122,12 +144,12 @@ export default function decorate(block) {
   productsGrid.className = 'plp-products';
   const productsLoadMore = document.createElement('div');
   productsLoadMore.className = 'plp-load-more';
-  const mockUrl = 'https://www.hisense-usa.com/category/televisions';
+  const loadMoreUrl = loadMoreLink || '#';
   productsLoadMore.addEventListener('click', () => {
-    if (mockUrl) window.location.href = mockUrl;
+    if (loadMoreUrl && loadMoreUrl !== '#') window.location.href = loadMoreUrl;
   });
   const span = document.createElement('span');
-  span.textContent = 'Load more';
+  span.textContent = loadMoreTextContent || 'Load more';
 
   const productsNoResult = document.createElement('div');
   productsNoResult.className = 'plp-products-no-result';
@@ -167,6 +189,19 @@ export default function decorate(block) {
     fieldsRow.appendChild(fieldsInner);
     topWrapper.appendChild(fieldsRow);
 
+    const loadMoreLinkRow = document.createElement('div');
+    const loadMoreLinkInner = document.createElement('div');
+    const loadMoreLinkP = document.createElement('p');
+    const loadMoreLinkA = document.createElement('a');
+    loadMoreLinkA.href = loadMoreLink || '#';
+    loadMoreLinkA.title = loadMoreLink || '';
+    loadMoreLinkA.textContent = loadMoreLink || '';
+    loadMoreLinkA.className = 'button';
+    loadMoreLinkP.appendChild(loadMoreLinkA);
+    loadMoreLinkInner.appendChild(loadMoreLinkP);
+    loadMoreLinkRow.appendChild(loadMoreLinkInner);
+    topWrapper.appendChild(loadMoreLinkRow);
+
     block.replaceChildren(topWrapper, productsBox);
   } else {
     block.replaceChildren(productsBox);
@@ -186,8 +221,23 @@ export default function decorate(block) {
   }
 
   function applyDefaultSort() {
-    // 使用聚合排序认按尺寸排序（降序）
-    applyAggregatedSort('size', -1);
+    const selectedSortOption = document.querySelector('.plp-sort-option.selected');
+    if (selectedSortOption) {
+      const sortValue = selectedSortOption.dataset.value
+                       || selectedSortOption.getAttribute('data-value')
+                       || '';
+      if (sortValue && sortValue.trim()) {
+        if (window.applyPlpSort) {
+          window.applyPlpSort(sortValue);
+        } else {
+          applyAggregatedSort('size', -1);
+        }
+      } else {
+        applyAggregatedSort('size', -1);
+      }
+    } else {
+      applyAggregatedSort('size', -1);
+    }
   }
 
   function renderItems(items) {
@@ -256,12 +306,17 @@ export default function decorate(block) {
     const groupedArray = Object.keys(groups).map((k) => {
       const g = groups[k];
       const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(a) - Number(b));
+
+      // 检查聚合产品是否有任意size有whereToBuyLink，有就共享这个链接
+      const sharedWhereToBuyLink = g.variants.find((variant) => variant && variant.whereToBuyLink)?.whereToBuyLink;
+
       return {
         key: k,
         factoryModel: g.factoryModel,
         representative: g.representative,
         variants: g.variants,
         sizes,
+        sharedWhereToBuyLink,
       };
     });
 
@@ -414,8 +469,8 @@ export default function decorate(block) {
             extraFields.appendChild(fld);
           }
         });
-        // whereToBuyLink
-        if (variant && variant.whereToBuyLink) {
+        // whereToBuyLink - 使用group共享的链接，如果group中有任何尺寸有链接则共享
+        if (group.sharedWhereToBuyLink) {
           let link = card.querySelector && card.querySelector('.plp-product-btn');
           if (!link) {
             link = document.createElement('a');
@@ -423,7 +478,7 @@ export default function decorate(block) {
             link.target = '_blank';
             card.append(link);
           }
-          link.href = variant.whereToBuyLink;
+          link.href = group.sharedWhereToBuyLink;
           link.textContent = 'Learn more';
         } else {
           const existingLink = card.querySelector && card.querySelector('.plp-product-btn');
@@ -484,7 +539,7 @@ export default function decorate(block) {
     try {
       const loadMoreEl = document.querySelector('.plp-load-more');
       if (loadMoreEl) {
-        if (groupedArray.length > 9) {
+        if (groupedArray.length >= 9) {
           loadMoreEl.style.display = 'block';
         } else {
           loadMoreEl.style.display = 'none';
@@ -3310,7 +3365,7 @@ export default function decorate(block) {
 }
 
 // 是否使用 description_shortDescription 作为图片链接，默认使用
-window.useShortDescriptionAsImage = true;
+window.useShortDescriptionAsImage = false;
 
 // 暴露渲染和筛选接口到window全局，供 filter 和 tags 使用（在 renderItems 定义后）
 window.renderProductsInternal = function renderProductsInternalProxy(items) {
