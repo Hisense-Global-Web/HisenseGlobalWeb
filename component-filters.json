@@ -12,6 +12,7 @@
     "components": [
       "text",
       "image",
+      "disclaimer",
       "button",
       "title",
       "hero",
