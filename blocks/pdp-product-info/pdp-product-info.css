@@ -155,7 +155,7 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
 
 @media (width <=600px) {
   main .section.product-detail-banner-container.pdp-product-info-container{
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: center;
     gap: 0;
     padding:100px 0;
@@ -170,6 +170,6 @@ main .section.product-detail-banner-container.pdp-product-info-container .pdp-pr
   }
   
   .pdp-info {
-    padding: 0 15px;
+    padding: 24px 18px 0;
   }
 }
