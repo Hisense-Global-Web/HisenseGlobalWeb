@@ -58,8 +58,6 @@ export default async function decorate(block) {
     iconBlock.appendChild(child);
     iconBlocks.appendChild(iconBlock);
   });
-  const lastchild = iconBlocks.lastElementChild.cloneNode(true);
-  iconBlocks.appendChild(lastchild);
   iconContainer.appendChild(iconBlocks);
   block.appendChild(iconContainer);
 
