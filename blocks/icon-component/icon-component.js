@@ -4,7 +4,7 @@ let index = 0;
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
-  const wholeCards = block.querySelector('.icon-track');
+  const bodyWidth = document.body.getBoundingClientRect().width;
   cards.forEach((card) => {
     const link = card.querySelector('a');
     const url = link?.href;
@@ -12,19 +12,20 @@ function bindEvent(block) {
       if (url) window.location.href = url;
     });
   });
-  if (cards.length * getSlideWidth(block) >= wholeCards.offsetWidth) {
+  const firstCardLeft = cards[0].getBoundingClientRect().left;
+  if (cards.length * getSlideWidth(block) + firstCardLeft >= bodyWidth) {
     block.querySelector('.pagination').classList.add('show');
   }
   block.querySelector('.slide-prev').addEventListener('click', () => {
     if (index > 0) {
       index -= 1;
-      updatePosition(block, index, false);
+      updatePosition(block, index, true);
     }
   });
   block.querySelector('.slide-next').addEventListener('click', () => {
     if (index < cards.length) {
       index += 1;
-      updatePosition(block, index, false);
+      updatePosition(block, index, true);
     }
   });
 }

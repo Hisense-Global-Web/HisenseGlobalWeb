@@ -1,3 +1,7 @@
+.icon-component-container {
+  overflow: hidden;
+}
+
 .icon-component {
   position: relative;
 
@@ -25,7 +29,6 @@
 }
 
 .icon-viewport {
-  overflow: scroll;
   width: 100%;
   margin: 32px 0 ;
 
@@ -186,6 +189,7 @@
 
   .icon-viewport {
     margin: 18px 0;
+    overflow: scroll;
 
     ul>li {
       width: 240px;
