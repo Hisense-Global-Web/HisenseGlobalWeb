@@ -308,7 +308,20 @@ export default function decorate(block) {
       const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(a) - Number(b));
 
       // 检查聚合产品是否有任意size有whereToBuyLink，有就共享这个链接
-      const sharedWhereToBuyLink = g.variants.find((variant) => variant && variant.whereToBuyLink)?.whereToBuyLink;
+      let sharedWhereToBuyLink = g.variants.find((variant) => variant && variant.whereToBuyLink)?.whereToBuyLink;
+
+      if (sharedWhereToBuyLink && sharedWhereToBuyLink.startsWith('/')) {
+        const currentUri = window.location.href;
+        const hasContentHisense = currentUri.includes('/content/hisense');
+        const wtbHasContentHisense = sharedWhereToBuyLink.includes('/content/hisense');
+
+        if (hasContentHisense && !wtbHasContentHisense) {
+          sharedWhereToBuyLink = `/content/hisense${sharedWhereToBuyLink}`;
+        } else if (!hasContentHisense && wtbHasContentHisense) {
+          sharedWhereToBuyLink = sharedWhereToBuyLink.replace('/content/hisense', '');
+        }
+        sharedWhereToBuyLink = sharedWhereToBuyLink.replace('.html','');
+      }
 
       return {
         key: k,
