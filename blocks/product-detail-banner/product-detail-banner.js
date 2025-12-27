@@ -156,5 +156,16 @@ export default function decorate(block) {
   media.append(mediaImg);
   media.append(scrollTabs);
 
+  window.addEventListener('scroll', () => {
+    const mediaRect = media.getBoundingClientRect();
+    const navigation = document.querySelector('#navigation');
+    if (!navigation) return;
+    if (mediaRect.top < 0) {
+      navigation.classList.add('scroll-active');
+    } else {
+      navigation.classList.remove('scroll-active');
+    }
+  });
+
   block.replaceChildren(media);
 }

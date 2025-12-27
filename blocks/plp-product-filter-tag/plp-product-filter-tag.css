@@ -130,3 +130,45 @@
   border-bottom: 2px solid #fff;
   transform: rotate(45deg);
 }
+
+.plp-mobile-filters-tit-box {
+  display: none;
+}
+
+@media (width <= 600px) {
+  .plp-product-filter-tag-wrapper {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    padding: 14px !important;
+    z-index: 1000000 ;
+    height: 100vh;
+
+    .plp-sidebar {
+      padding: 0;
+      width: 100%;
+    }
+  }
+
+  .mobile-filter-show {
+    display: block;    
+  }
+
+  .plp-mobile-filters-tit-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    .mobile-filter-close {
+      cursor: pointer;
+
+      img {
+        position: relative;
+        top: 8px;
+      }
+    }
+  }
+}

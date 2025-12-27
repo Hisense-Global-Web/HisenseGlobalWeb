@@ -2903,13 +2903,13 @@ export default async function decorate(block) {
   const specsSpan = document.createElement('span');
   specsSpan.textContent = 'SPECS';
   specsBtn.appendChild(specsSpan);
+  if (!fields.includes('position')) {
+    specsBtn.classList.add('hide');
+  }
   specsBtn.addEventListener('click', () => {
     const targetElement = document.getElementById('specifications');
     if (!targetElement) {
       return;
-    }
-    if (!fields.includes('position')) {
-      specsBtn.classList.add('d-none');
     }
     const targetPosition = targetElement.getBoundingClientRect().top;
     window.scrollTo({

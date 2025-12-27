@@ -775,6 +775,17 @@
     ]
   },
   {
+    "id": "disclaimer",
+    "fields": [
+      {
+        "component": "text",
+        "name": "disclaimer_text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "featurebanner",
     "fields": [
       {
