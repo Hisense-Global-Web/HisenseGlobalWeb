@@ -45,5 +45,6 @@
 @media (width <= 600px) {
   .video {
      min-height: unset;
+     padding: 20px 0;
   }
 }
