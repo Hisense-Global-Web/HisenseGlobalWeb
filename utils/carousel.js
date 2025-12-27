@@ -64,10 +64,13 @@ export function updatePosition(block, currentIdx, baseBody) {
     ? document.body.getBoundingClientRect().width : trackBox.offsetWidth;
   const maxlength = Math.round((items.length * getSlideWidth(block)) / baseContainerWidth);
   const { gap } = window.getComputedStyle(trackBox);
+  const rightDistance = baseBody
+    ? items[items.length - 1].getBoundingClientRect().right + parseFloat(gap)
+    : items[items.length - 1].offsetLeft + (items.length + 1) * parseFloat(gap);
   if (currentIdx === maxlength) {
     const lastDistance = baseContainerWidth
-      - items[items.length - 1].getBoundingClientRect().right;
-    trackBox.style.transform = `translateX(-${prev + Math.abs(lastDistance) + parseFloat(gap)}px)`;
+      - rightDistance;
+    trackBox.style.transform = `translateX(-${prev + Math.abs(lastDistance)}px)`;
   } else {
     trackBox.style.transform = `translateX(-${prev + getSlideWidth(block)}px)`;
   }
