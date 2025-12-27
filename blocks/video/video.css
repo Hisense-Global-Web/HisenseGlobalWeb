@@ -41,9 +41,13 @@
   height: 100%;
 }
 
-/* 
-@media (width >= 900px) {
-  .video {
-    padding: 40px 32px;
+
+@media (width <= 600px) {
+  .video-content{
+    height: auto;
   }
-} */
+  
+  .video {
+     min-height: unset;
+  }
+}

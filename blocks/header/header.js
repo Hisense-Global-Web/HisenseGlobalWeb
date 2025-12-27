@@ -1,4 +1,3 @@
-import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 function parseLogo(root) {
@@ -239,23 +238,7 @@ function convertToDarkSvgUrl(url) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  const navMeta = getMetadata('nav');
-  let navPath;
-  if (navMeta) {
-    navPath = new URL(navMeta, window.location).pathname;
-  } else {
-    const currentPath = window.location.pathname;
-    const pathParts = currentPath.split('/').filter(Boolean);
-    if (currentPath.startsWith('/content/hisense')) {
-      // 使用前四级路径 + /nav
-      const basePath = `/${pathParts.slice(0, 4).join('/')}`;
-      navPath = `${basePath}/nav`;
-    } else {
-      // 使用前二级路径 + /nav
-      const basePath = `/${pathParts.slice(0, 2).join('/')}`;
-      navPath = `${basePath}/nav`;
-    }
-  }
+  const navPath = `${window.hlx.codeBasePath}/content/hisense/us/en/nav`;
   const fragment = await loadFragment(navPath);
 
   // 解析原始DOM
