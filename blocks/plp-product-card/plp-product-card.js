@@ -596,6 +596,11 @@ export default function decorate(block) {
       'productLaunchDate',
       'tags',
       'mediaGallery_image',
+      'overseasModel',
+      'factoryModel',
+      'whereToBuyLink',
+      'faqLink',
+      'size',
     ],
     data: [
       {
@@ -619,6 +624,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
         },
+        overseasModel: 'A6',
+        factoryModel: 'A65H',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '43',
       },
       {
         sku: '55A65H',
@@ -641,6 +651,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
         },
+        overseasModel: 'A6',
+        factoryModel: 'A65H',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '55',
       },
       {
         sku: '65A65H',
@@ -663,6 +678,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
         },
+        overseasModel: 'A6',
+        factoryModel: 'A65H',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-65-inch-a6-series-led-4k-uhd-smart-google-tv-2021-65a65h',
+        faqLink: null,
+        size: '65',
       },
       {
         sku: '50A65H',
@@ -685,6 +705,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
         },
+        overseasModel: 'A6',
+        factoryModel: 'A65H',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '50',
       },
       {
         sku: '43A7N',
@@ -707,6 +732,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
         },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '43',
       },
       {
         sku: '50A7N',
@@ -729,6 +759,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
         },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '50',
       },
       {
         sku: '55A7N',
@@ -751,6 +786,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
         },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '55',
       },
       {
         sku: '65A7N',
@@ -773,6 +813,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
         },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
       },
       {
         sku: '75A7N',
@@ -795,6 +840,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
         },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
       },
       {
         sku: '85A7N',
@@ -817,6 +867,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/a7-series/key-visual/a7.png',
         },
+        overseasModel: 'A7',
+        factoryModel: 'A7N',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-55-class-a7-series-4k-wide-color-gamut-google-tv-55a7n',
+        faqLink: null,
+        size: '85',
       },
       {
         sku: '100QD7QF',
@@ -839,6 +894,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
         },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-75-class-qd7-series-miniled-uled-4k-fire-tv-75qd7qf',
+        faqLink: null,
+        size: '100',
       },
       {
         sku: '50QD7QF',
@@ -861,6 +921,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
         },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '50',
       },
       {
         sku: '55QD7QF',
@@ -883,6 +948,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
         },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-75-class-qd7-series-miniled-uled-4k-fire-tv-75qd7qf',
+        faqLink: null,
+        size: '55',
       },
       {
         sku: '65QD7QF',
@@ -905,6 +975,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
         },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
       },
       {
         sku: '75QD7QF',
@@ -927,6 +1002,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
         },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
       },
       {
         sku: '85QD7QF',
@@ -949,6 +1029,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd7-series/key-visual/qd7.png',
         },
+        overseasModel: 'QD7',
+        factoryModel: 'QD7QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '85',
       },
       {
         sku: '100QD6QF',
@@ -971,6 +1056,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
         },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-100-class-qd6-series-hi-qled-4k-fire-tv-100qd6qf',
+        faqLink: null,
+        size: '100',
       },
       {
         sku: '43QD6QF',
@@ -993,6 +1083,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
         },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '43',
       },
       {
         sku: '50QD6QF',
@@ -1015,6 +1110,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
         },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '50',
       },
       {
         sku: '55QD6QF',
@@ -1037,6 +1137,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
         },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '55',
       },
       {
         sku: '65QD6QF',
@@ -1057,6 +1162,11 @@ export default function decorate(block) {
           'hisense:product/tv/type/lcd-led',
         ],
         mediaGallery_image: null,
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
       },
       {
         sku: '75QD6QF',
@@ -1079,6 +1189,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
         },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
       },
       {
         sku: '85QD6QF',
@@ -1101,6 +1216,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/qd6-series/key-visual/qd6.png',
         },
+        overseasModel: 'QD6',
+        factoryModel: 'QD6QF',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '85',
       },
       {
         sku: '55U6N',
@@ -1123,6 +1243,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u6-series/key-visual/u6.png',
         },
+        overseasModel: 'U6',
+        factoryModel: 'U6N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '55',
       },
       {
         sku: '65U6N',
@@ -1145,6 +1270,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u6-series/key-visual/u6.png',
         },
+        overseasModel: 'U6',
+        factoryModel: 'U6N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
       },
       {
         sku: '75U6N',
@@ -1167,6 +1297,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u6-series/key-visual/u6.png',
         },
+        overseasModel: 'U6',
+        factoryModel: 'U6N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
       },
       {
         sku: '85U6N',
@@ -1189,6 +1324,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u6-series/key-visual/u6.png',
         },
+        overseasModel: 'U6',
+        factoryModel: 'U6N',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-65-class-u6-series-mini-led-uled-4k-google-tv-65u6n',
+        faqLink: null,
+        size: '85',
       },
       {
         sku: '100U75QG',
@@ -1211,6 +1351,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
         },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '100',
       },
       {
         sku: '116U75QG',
@@ -1233,6 +1378,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
         },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '116',
       },
       {
         sku: '55U75QG',
@@ -1255,6 +1405,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
         },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '55',
       },
       {
         sku: '75U75QG',
@@ -1277,6 +1432,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
         },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: '/us/en/tv/miniled/u7/75.html',
+        faqLink: null,
+        size: '75',
       },
       {
         sku: '85U75QG',
@@ -1299,6 +1459,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
         },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '85',
       },
       {
         sku: '65U75QG',
@@ -1321,6 +1486,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u7-serises/key-visual/u7.png',
         },
+        overseasModel: 'U7',
+        factoryModel: 'U75QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
       },
       {
         sku: '100U8QG',
@@ -1343,6 +1513,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png',
         },
+        overseasModel: 'U8',
+        factoryModel: 'U8QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '100',
       },
       {
         sku: '65U8QG',
@@ -1365,6 +1540,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png',
         },
+        overseasModel: 'U8',
+        factoryModel: 'U8QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '65',
       },
       {
         sku: '75U8QG',
@@ -1387,6 +1567,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png',
         },
+        overseasModel: 'U8',
+        factoryModel: 'U8QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
       },
       {
         sku: '85U8QG',
@@ -1409,6 +1594,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png',
         },
+        overseasModel: 'U8',
+        factoryModel: 'U8QG',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '85',
       },
       {
         sku: '55U8QG',
@@ -1431,6 +1621,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png',
         },
+        overseasModel: 'U8',
+        factoryModel: 'U8QG',
+        whereToBuyLink: '/us/en/tv/miniled/u8/75.html',
+        faqLink: null,
+        size: '55',
       },
       {
         sku: '75U9N',
@@ -1454,6 +1649,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u9-series/key-visual/u9.png',
         },
+        overseasModel: 'U9',
+        factoryModel: 'U9N',
+        whereToBuyLink: null,
+        faqLink: null,
+        size: '75',
       },
       {
         sku: '85U9N',
@@ -1477,6 +1677,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/u9-series/key-visual/u9.png',
         },
+        overseasModel: 'U9',
+        factoryModel: 'U9N',
+        whereToBuyLink: 'https://www.hisense-usa.com/product-page/televisions-75-class-u9-series-mini-led-qled-4k-google-tv-75u9n',
+        faqLink: null,
+        size: '85',
       },
       {
         sku: '116UXQUA',
@@ -1499,6 +1704,11 @@ export default function decorate(block) {
         mediaGallery_image: {
           _path: '/content/dam/hisense/us/products/televisions/ux-serises/key-visual/ux.png',
         },
+        overseasModel: '116UXQUA',
+        factoryModel: '116UXQUA',
+        whereToBuyLink: '/us/en/tv/miniled/ux/116.html',
+        faqLink: null,
+        size: '116',
       },
     ],
     ':type': 'sheet',
