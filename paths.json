@@ -1,12 +1,11 @@
 {
   "mappings": [
     "/content/hisense:/",
+    "/content/dam:/content/dam",
     "/content/hisense/configuration:/.helix/config.json",
-    "/content/hisense/metadata:/metadata.json",
-    "/content/dam/hisense:/content/dam/hisense"
+    "/content/hisense/metadata:/metadata.json"
   ],
   "includes": [
-    "/content/hisense/",
-    "/content/dam/hisense"
+    "/content/"
   ]
 }
