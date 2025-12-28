@@ -188,8 +188,8 @@
   }
 
   .icon-viewport {
-    margin: 18px 0;
-    overflow: scroll;
+    margin-top: 18px;
+    overflow: visible;
 
     ul>li {
       width: 240px;
@@ -197,6 +197,13 @@
 
     .icon-track {
       gap: 16px;
+      margin: 0 -24px;
+      padding: 0 24px;
+      overflow-x: scroll;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-snap-type: x mandatory; /* 强制水平吸附 */
+      scroll-behavior: smooth;
     }
   }
 }

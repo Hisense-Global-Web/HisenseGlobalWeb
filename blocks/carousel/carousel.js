@@ -1,5 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { whenElementReady } from '../../utils/carousel.js';
+import { whenElementReady } from '../../utils/carousel-common.js';
 
 // let carouselTimer;
 let carouselInterval;
@@ -169,10 +169,12 @@ export default async function decorate(block) {
     }
     row.remove();
   });
-  const cloneFirstNode = wholeContainer.firstElementChild.cloneNode(true);
-  wholeContainer.appendChild(cloneFirstNode);
   block.prepend(wholeContainer);
-  if (slideIndicators) block.append(slideIndicators);
+  if (slideIndicators) {
+    const cloneFirstNode = wholeContainer.firstElementChild.cloneNode(true);
+    wholeContainer.appendChild(cloneFirstNode);
+    block.append(slideIndicators);
+  }
   if (!isSingleSlide) {
     bindEvents(block);
   }
