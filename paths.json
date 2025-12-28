@@ -2,7 +2,6 @@
   "mappings": [
     "/content/hisense/us:/us",
     "/content/dam:/content/dam",
-    "/content/hisense:/",
     "/content/hisense/configuration:/.helix/config.json",
     "/content/hisense/metadata:/metadata.json"
   ],
