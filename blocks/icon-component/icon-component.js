@@ -1,9 +1,15 @@
-import { whenElementReady, updatePosition, getSlideWidth } from '../../utils/carousel.js';
+import {
+  whenElementReady,
+  updatePosition,
+  getSlideWidth,
+  resizeObserver,
+} from '../../utils/carousel-common.js';
 
 let index = 0;
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
+  const ul = block.querySelector('ul');
   const bodyWidth = document.body.getBoundingClientRect().width;
   cards.forEach((card) => {
     const link = card.querySelector('a');
@@ -16,6 +22,8 @@ function bindEvent(block) {
   if (cards.length * getSlideWidth(block) + firstCardLeft >= bodyWidth) {
     block.querySelector('.pagination').classList.add('show');
   }
+  const distance = (cards.length * getSlideWidth(block) + (2 * firstCardLeft)) / (ul.offsetWidth);
+  const maxlength = Math.round(distance);
   block.querySelector('.slide-prev').addEventListener('click', () => {
     if (index > 0) {
       index -= 1;
@@ -23,10 +31,14 @@ function bindEvent(block) {
     }
   });
   block.querySelector('.slide-next').addEventListener('click', () => {
-    if (index < cards.length) {
+    if (index < maxlength) {
       index += 1;
       updatePosition(block, index, true);
     }
+  });
+  ul.addEventListener('scroll', () => {
+    const box = block.querySelector('.icon-component-wrapper');
+    box.style.padding = '0 !important';
   });
 }
 
@@ -71,6 +83,9 @@ export default async function decorate(block) {
     block.appendChild(buttonContainer);
   }
   whenElementReady('.icon-component', () => {
+    bindEvent(block);
+  });
+  resizeObserver('.icon-component', () => {
     bindEvent(block);
   });
 }

@@ -1,5 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { whenElementReady } from '../../utils/carousel.js';
+import { whenElementReady } from '../../utils/carousel-common.js';
 
 // let carouselTimer;
 let carouselInterval;
@@ -25,7 +25,10 @@ function showSlide(block, slideIndex, init = false) {
   const activeSlide = slides[realSlideIndex];
   const nav = document.querySelector('#navigation');
   const carouselHeight = block.offsetHeight;
-
+  if (block.attributes['data-aue-resource'] === undefined) {
+    const specialDiv = block.querySelector('.carousel-items-container');
+    specialDiv.style.setProperty('height', '100vh', 'important');
+  }
   if ([...activeSlide.classList].includes('dark')) {
     block.classList.add('dark');
     if (nav && (block.getBoundingClientRect().top > -carouselHeight)) document.querySelector('#navigation').classList.add('header-dark-mode');
@@ -73,7 +76,7 @@ function autoPlay(block) {
 }
 
 function observeMouse(block) {
-  if (document.getElementById('editor-app')) return;
+  if (block.attributes['data-aue-resource']) return;
   // if (carouselTimer) { stopAutoPlay(); return; }
   autoPlay(block);
   block.addEventListener('mouseenter', stopAutoPlay);
@@ -169,10 +172,12 @@ export default async function decorate(block) {
     }
     row.remove();
   });
-  const cloneFirstNode = wholeContainer.firstElementChild.cloneNode(true);
-  wholeContainer.appendChild(cloneFirstNode);
   block.prepend(wholeContainer);
-  if (slideIndicators) block.append(slideIndicators);
+  if (slideIndicators) {
+    const cloneFirstNode = wholeContainer.firstElementChild.cloneNode(true);
+    wholeContainer.appendChild(cloneFirstNode);
+    block.append(slideIndicators);
+  }
   if (!isSingleSlide) {
     bindEvents(block);
   }
