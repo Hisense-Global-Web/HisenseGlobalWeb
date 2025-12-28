@@ -84,7 +84,6 @@ export default async function decorate(block) {
   }
   whenElementReady('.icon-component', () => {
     bindEvent(block);
-    console.log(block.hasAttributes('data-aue-resource'), document.getElementById('editor-app'));
   });
   resizeObserver('.icon-component', () => {
     bindEvent(block);

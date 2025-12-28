@@ -25,7 +25,10 @@ function showSlide(block, slideIndex, init = false) {
   const activeSlide = slides[realSlideIndex];
   const nav = document.querySelector('#navigation');
   const carouselHeight = block.offsetHeight;
-
+  if (block.attributes['data-aue-resource'] === undefined) {
+    const specialDiv = block.querySelector('.carousel-items-container');
+    specialDiv.style.setProperty('height', '100vh', 'important');
+  }
   if ([...activeSlide.classList].includes('dark')) {
     block.classList.add('dark');
     if (nav && (block.getBoundingClientRect().top > -carouselHeight)) document.querySelector('#navigation').classList.add('header-dark-mode');
@@ -73,7 +76,7 @@ function autoPlay(block) {
 }
 
 function observeMouse(block) {
-  if (document.getElementById('editor-app')) return;
+  if (block.attributes['data-aue-resource']) return;
   // if (carouselTimer) { stopAutoPlay(); return; }
   autoPlay(block);
   block.addEventListener('mouseenter', stopAutoPlay);
