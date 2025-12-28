@@ -432,9 +432,7 @@ export default async function decorate(block) {
   navigation.append(mobileMenu);
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const carousel = document.querySelector('.carousel');
-    if (!carousel || !carousel.clientHeight) return;
-    if (scrollTop >= (carousel.clientHeight - navigation.clientHeight)) {
+    if (scrollTop >= 10) {
       navigation.classList.add('scroll-active');
     } else {
       navigation.classList.remove('scroll-active');
