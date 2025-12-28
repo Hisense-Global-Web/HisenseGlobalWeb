@@ -172,7 +172,8 @@ function buildDropdown(data) {
     }
     if (item.href && item.href !== '#') {
       product.dataset.href = item.href;
-      product.addEventListener('click', () => {
+      product.addEventListener('click', (e) => {
+        e.stopPropagation();
         window.location.href = item.href;
       });
     }
@@ -313,7 +314,8 @@ export default async function decorate(block) {
     link.append(span1, span2);
     if (item.href && item.href !== '#') {
       link.dataset.href = item.href;
-      link.addEventListener('click', () => {
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
         window.location.href = item.href;
       });
     }
@@ -383,7 +385,8 @@ export default async function decorate(block) {
     link.textContent = action.title;
     if (action.href && action.href !== '#') {
       link.dataset.href = action.href;
-      link.addEventListener('click', () => {
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
         window.location.href = action.href;
       });
     }
