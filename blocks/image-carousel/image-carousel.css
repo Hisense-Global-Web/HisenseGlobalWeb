@@ -383,7 +383,7 @@
     gap: 30px;
     padding: 0;
     height: 590px;
-    width: 652px;
+    width: 800px;
     background: transparent;
     position: relative;
 
@@ -394,6 +394,7 @@
 
     .video-play {
       height: 452px;
+      width: 800px;
       border-radius: 20px;
       overflow: hidden;
     }

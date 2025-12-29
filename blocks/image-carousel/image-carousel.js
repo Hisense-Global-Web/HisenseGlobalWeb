@@ -15,6 +15,7 @@ function bindEvent(block) {
   if (cards.length * getSlideWidth(block) + firstCardLeft >= bodyWidth) {
     block.querySelector('.image-pagination').classList.add('show');
   }
+  // 按钮处理
   block.querySelector('.slide-prev').addEventListener('click', throttle(() => {
     if (index > 0) {
       index -= 1;
@@ -27,6 +28,18 @@ function bindEvent(block) {
       updatePosition(block, index, true);
     }
   }, 500));
+  // 视频处理
+  block.querySelector('.image-track').addEventListener('click', (e) => {
+    const dataIndex = e.target.closest('li').dataset.slideIndex;
+    block.querySelectorAll('li').forEach((el, i) => {
+      if (i === dataIndex) {
+        el.querySelector('video').play();
+      } else {
+        el.querySelector('video').pause();
+      }
+    });
+    e.target.closest('div').style.display = 'none';
+  });
 }
 
 function createVideo(child, idx, large = false) {
@@ -37,7 +50,7 @@ function createVideo(child, idx, large = false) {
   }
   const videoDivDom = document.createElement('div');
   videoDivDom.className = 'video-div-box';
-  const img = child.querySelector('img');
+  // const img = child.querySelector('img');
   const video = document.createElement('video');
   video.id = `video-${carouselId}-carousel-${idx}`;
   video.controls = true;
@@ -50,11 +63,12 @@ function createVideo(child, idx, large = false) {
   source.type = 'video/mp4';
   // 添加备用文本
   video.innerHTML = '';
+  // video.muted = true;
   video.appendChild(source);
-  img.closest('div').addEventListener('click', () => {
-    video.play();
-    img.closest('div').style.display = 'none';
-  });
+  // img.closest('div').addEventListener('click', () => {
+  //   video.play();
+  //   img.closest('div').style.display = 'none';
+  // });
   videoDivDom.appendChild(video);
   return videoDivDom;
 }
@@ -73,6 +87,7 @@ export default async function decorate(block) {
     if (idx <= 2) return;
     const iconBlock = document.createElement('li');
     child.classList.add('item');
+    iconBlock.dataset.slideIndex = idx - 3;
     if (contentType === 'video') {
       block.classList.add('video-carousel-block');
       let singleVideo;
