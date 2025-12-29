@@ -333,7 +333,6 @@ export default function decorate(block) {
         sharedWhereToBuyLink = sharedWhereToBuyLink.replace('.html', '');
       }
 
-
       return {
         key: k,
         factoryModel: g.factoryModel,
