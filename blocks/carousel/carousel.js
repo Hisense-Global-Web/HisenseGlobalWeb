@@ -37,7 +37,7 @@ function showSlide(block, slideIndex, init = false) {
     if (nav && (block.getBoundingClientRect().top > -carouselHeight)) document.querySelector('#navigation').classList.remove('header-dark-mode');
   }
   if (init) return;
-  if (realSlideIndex === 0) {
+  if (realSlideIndex === 0 && block.attributes['data-aue-resource'] === undefined) {
     // 1. 先平滑滚动到“克隆的第一张”
     block.querySelector('.carousel-items-container').scrollTo({
       left: slides[slides.length - 1].offsetLeft,
@@ -173,7 +173,7 @@ export default async function decorate(block) {
     row.remove();
   });
   block.prepend(wholeContainer);
-  if (slideIndicators) {
+  if (slideIndicators && block.attributes['data-aue-resource'] === undefined) {
     const cloneFirstNode = wholeContainer.firstElementChild.cloneNode(true);
     wholeContainer.appendChild(cloneFirstNode);
     block.append(slideIndicators);
