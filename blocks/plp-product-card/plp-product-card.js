@@ -325,7 +325,7 @@ export default function decorate(block) {
 
       if (sharedWhereToBuyLink && typeof sharedWhereToBuyLink === 'string') {
         const { hostname, pathname } = window.location;
-        if (hostname === 'hisense.com' && pathname.startsWith('/us')) {
+        if (hostname.includes('hisense.com') && pathname.startsWith('/us')) {
           sharedWhereToBuyLink = sharedWhereToBuyLink.replace('/us/en', '/us');
         }
       }

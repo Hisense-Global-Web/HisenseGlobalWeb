@@ -78,7 +78,7 @@ function buildAutoBlocks() {
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
-  if (window.location.hostname === 'hisense.com' && window.location.pathname.startsWith('/us')) {
+  if (window.location.hostname.includes('hisense.com') && window.location.pathname.includes('/us')) {
     const links = main.querySelectorAll('a');
     links.forEach((link) => {
       const href = link.getAttribute('href');
