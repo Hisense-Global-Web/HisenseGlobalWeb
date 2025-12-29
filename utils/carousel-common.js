@@ -64,8 +64,7 @@ export function updatePosition(block, currentIdx, baseBody) {
   const rightPadding = block.getBoundingClientRect().x;
   const baseContainerWidth = baseBody
     ? document.body.getBoundingClientRect().width : trackBox.offsetWidth;
-  const distance = (items.length * getSlideWidth(block) + (2 * rightPadding)) / (trackBox.offsetWidth);
-  const maxlength = Math.round(distance);
+  const maxlength = Math.ceil(items.length - trackBox.offsetWidth / getSlideWidth(block));
   const rightDistance = baseBody
     ? items[items.length - 1].getBoundingClientRect().right + rightPadding
     : items[items.length - 1].offsetLeft + (items.length + 1) * rightPadding;
