@@ -1075,7 +1075,7 @@ export default async function decorate(block) {
   const specsBtn = document.createElement('div');
   specsBtn.className = 'pdp-specs-btn';
   const specsImg = document.createElement('img');
-  specsImg.src = 'https://publish-p174152-e1855821.adobeaemcloud.com/content/dam/hisense/image/icon/specs.svg';
+  specsImg.src = '/content/dam/hisense/us/common-icons/specs.svg';
   specsImg.alt = 'specs';
   specsBtn.appendChild(specsImg);
   const specsSpan = document.createElement('span');
