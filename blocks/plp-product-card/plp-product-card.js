@@ -323,6 +323,13 @@ export default function decorate(block) {
         sharedWhereToBuyLink = sharedWhereToBuyLink.replace('.html', '');
       }
 
+      if (sharedWhereToBuyLink && typeof sharedWhereToBuyLink === 'string') {
+        const { hostname, pathname } = window.location;
+        if (hostname.includes('hisense.com') && pathname.startsWith('/us')) {
+          sharedWhereToBuyLink = sharedWhereToBuyLink.replace('/us/en', '/us');
+        }
+      }
+
       return {
         key: k,
         factoryModel: g.factoryModel,
@@ -482,8 +489,9 @@ export default function decorate(block) {
             extraFields.appendChild(fld);
           }
         });
-        // whereToBuyLink - 使用group共享的链接，如果group中有任何尺寸有链接则共享
-        if (group.sharedWhereToBuyLink) {
+        // whereToBuyLink - 先检查当前产品尺寸是否有whereToBuyLink链接，如果没有，才使用共享链接
+        const whereToBuyLink = variant.whereToBuyLink || group.sharedWhereToBuyLink;
+        if (whereToBuyLink) {
           let link = card.querySelector && card.querySelector('.plp-product-btn');
           if (!link) {
             link = document.createElement('a');
@@ -491,7 +499,7 @@ export default function decorate(block) {
             link.target = '_blank';
             card.append(link);
           }
-          link.href = group.sharedWhereToBuyLink;
+          link.href = whereToBuyLink;
           link.textContent = 'Learn more';
         } else {
           const existingLink = card.querySelector && card.querySelector('.plp-product-btn');

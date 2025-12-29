@@ -1019,14 +1019,20 @@ export default async function decorate(block) {
 
       // 添加点击事件
       el.addEventListener('click', () => {
-        // 移除其他尺寸的选中状态
-        sizesWrapper.querySelectorAll('.pdp-size').forEach((sizeEl) => {
-          sizeEl.classList.remove('selected');
-        });
-        // 添加当前尺寸的选中状态
-        el.classList.add('selected');
-        // 更新标题
-        title.textContent = p.title;
+        // 如果当前已经是选中状态，不执行跳转
+        if (el.classList.contains('selected')) {
+          return;
+        }
+
+        // 跳转到对应产品的whereToBuyLink链接
+        let productLink = (p.whereToBuyLink || p.productDetailPageLink) || '';
+        if (productLink) {
+          // 如果当前URL是hisense.com/us，把链接中的/us/en改成/us
+          if (window.location.hostname.includes('hisense.com') && window.location.pathname.startsWith('/us')) {
+            productLink = productLink.replace('/us/en', '/us');
+          }
+          window.location.href = productLink;
+        }
       });
 
       sizesWrapper.appendChild(el);

@@ -1,5 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { whenElementReady } from '../../utils/carousel.js';
+import { whenElementReady, throttle } from '../../utils/carousel-common.js';
 
 // let carouselTimer;
 let carouselInterval;
@@ -25,7 +25,10 @@ function showSlide(block, slideIndex, init = false) {
   const activeSlide = slides[realSlideIndex];
   const nav = document.querySelector('#navigation');
   const carouselHeight = block.offsetHeight;
-
+  if (block.attributes['data-aue-resource'] === undefined) {
+    const specialDiv = block.querySelector('.carousel-items-container');
+    specialDiv.style.setProperty('height', '100dvh', 'important');
+  }
   if ([...activeSlide.classList].includes('dark')) {
     block.classList.add('dark');
     if (nav && (block.getBoundingClientRect().top > -carouselHeight)) document.querySelector('#navigation').classList.add('header-dark-mode');
@@ -34,7 +37,7 @@ function showSlide(block, slideIndex, init = false) {
     if (nav && (block.getBoundingClientRect().top > -carouselHeight)) document.querySelector('#navigation').classList.remove('header-dark-mode');
   }
   if (init) return;
-  if (realSlideIndex === 0) {
+  if (realSlideIndex === 0 && block.attributes['data-aue-resource'] === undefined) {
     // 1. 先平滑滚动到“克隆的第一张”
     block.querySelector('.carousel-items-container').scrollTo({
       left: slides[slides.length - 1].offsetLeft,
@@ -73,7 +76,7 @@ function autoPlay(block) {
 }
 
 function observeMouse(block) {
-  if (document.getElementById('editor-app')) return;
+  if (block.attributes['data-aue-resource']) return;
   // if (carouselTimer) { stopAutoPlay(); return; }
   autoPlay(block);
   block.addEventListener('mouseenter', stopAutoPlay);
@@ -93,10 +96,10 @@ function bindEvents(block) {
     slideObserver.observe(slide);
   });
   slideIndicators.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', throttle((e) => {
       const slideIndicator = e.currentTarget.parentElement;
       showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
-    });
+    }, 500));
   });
   observeMouse(block);
 }
@@ -169,9 +172,11 @@ export default async function decorate(block) {
     }
     row.remove();
   });
-  const cloneFirstNode = wholeContainer.firstElementChild.cloneNode(true);
-  wholeContainer.appendChild(cloneFirstNode);
   block.prepend(wholeContainer);
+  if (slideIndicators && block.attributes['data-aue-resource'] === undefined) {
+    const cloneFirstNode = wholeContainer.firstElementChild.cloneNode(true);
+    wholeContainer.appendChild(cloneFirstNode);
+  }
   if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);

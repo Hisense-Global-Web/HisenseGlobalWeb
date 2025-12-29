@@ -1,4 +1,9 @@
-import { whenElementReady, getSlideWidth, updatePosition } from '../../utils/carousel.js';
+import {
+  getSlideWidth,
+  updatePosition,
+  resizeObserver,
+  throttle,
+} from '../../utils/carousel-common.js';
 
 let carouselId = 0;
 
@@ -10,18 +15,18 @@ function bindEvent(block) {
   if (cards.length * getSlideWidth(block) + firstCardLeft >= bodyWidth) {
     block.querySelector('.image-pagination').classList.add('show');
   }
-  block.querySelector('.slide-prev').addEventListener('click', () => {
+  block.querySelector('.slide-prev').addEventListener('click', throttle(() => {
     if (index > 0) {
       index -= 1;
       updatePosition(block, index, true);
     }
-  });
-  block.querySelector('.slide-next').addEventListener('click', () => {
+  }, 500));
+  block.querySelector('.slide-next').addEventListener('click', throttle(() => {
     if (index < cards.length) {
       index += 1;
       updatePosition(block, index, true);
     }
-  });
+  }, 500));
 }
 
 function createVideo(child, idx, large = false) {
@@ -108,7 +113,10 @@ export default async function decorate(block) {
     `;
     block.appendChild(buttonContainer);
   }
-  whenElementReady('.image-carousel', () => {
+  // whenElementReady('.image-carousel', () => {
+  //   bindEvent(block);
+  // });
+  resizeObserver('.image-carousel', () => {
     bindEvent(block);
   });
 }

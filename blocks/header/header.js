@@ -30,7 +30,17 @@ function parseActions(root) {
   return Array.from(root.querySelectorAll('.navigation-action-wrapper')).map((wrapper) => {
     const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
     const href = wrapper.querySelector('a')?.href || '#';
-    const img = wrapper.querySelector('img')?.src;
+    const originalSrc = wrapper.querySelector('img')?.src || '';
+    let img = '';
+    if (originalSrc) {
+      try {
+        const urlObj = new URL(originalSrc);
+        const { pathname } = urlObj;
+        img = `.${pathname}`;
+      } catch (e) {
+        img = originalSrc.startsWith('./') ? originalSrc : `./${originalSrc}`;
+      }
+    }
     return { title, href, img };
   });
 }
@@ -172,7 +182,8 @@ function buildDropdown(data) {
     }
     if (item.href && item.href !== '#') {
       product.dataset.href = item.href;
-      product.addEventListener('click', () => {
+      product.addEventListener('click', (e) => {
+        e.stopPropagation();
         window.location.href = item.href;
       });
     }
@@ -215,24 +226,14 @@ function buildDropdown(data) {
   return dropdown;
 }
 function convertToDarkSvgUrl(url) {
-  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_103e6c351d7632f9d1aa6d5846df24dd13b5df660.svg?width=750&format=svg&optimize=medium') {
-    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b.svg?width=750&format=svg&optimize=medium';
+  if (url.indexOf('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660') !== -1) {
+    return url.replace('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660', 'media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b');
   }
-  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_124969b71abd4f3be2869305b3210ba27a9621bb7.svg?width=750&format=svg&optimize=medium') {
-    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_152ebd74eb043f4b073908ae990437f464ba966a2.svg?width=750&format=svg&optimize=medium';
+  if (url.indexOf('media_124969b71abd4f3be2869305b3210ba27a9621bb7') !== -1) {
+    return url.replace('media_124969b71abd4f3be2869305b3210ba27a9621bb7', 'media_152ebd74eb043f4b073908ae990437f464ba966a2');
   }
-  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c.svg?width=750&format=svg&optimize=medium') {
-    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_1d67117bba695f4cd4248983772bdd968834d3be6.svg?width=750&format=svg&optimize=medium';
-  }
-
-  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/content/hisense/us/en/media_103e6c351d7632f9d1aa6d5846df24dd13b5df660.svg?width=750&format=svg&optimize=medium') {
-    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/content/hisense/us/en/media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b.svg?width=750&format=svg&optimize=medium';
-  }
-  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/content/hisense/us/en/media_124969b71abd4f3be2869305b3210ba27a9621bb7.svg?width=750&format=svg&optimize=medium') {
-    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/content/hisense/us/en/media_152ebd74eb043f4b073908ae990437f464ba966a2.svg?width=750&format=svg&optimize=medium';
-  }
-  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/content/hisense/us/en/media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c.svg?width=750&format=svg&optimize=medium') {
-    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/content/hisense/us/en/media_1d67117bba695f4cd4248983772bdd968834d3be6.svg?width=750&format=svg&optimize=medium';
+  if (url.indexOf('media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c') !== -1) {
+    return url.replace('media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c', 'media_1d67117bba695f4cd4248983772bdd968834d3be6');
   }
 
   const [mainPart, ...restParts] = url.split(/[?#]/);
@@ -248,7 +249,7 @@ function convertToDarkSvgUrl(url) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  const navPath = `${window.hlx.codeBasePath}/content/hisense/us/en/nav`;
+  const navPath = `${window.hlx.codeBasePath}${window.location.href.includes('hisense.com') ? '/us/nav' : '/us/en/nav'}`;
   const fragment = await loadFragment(navPath);
 
   // 解析原始DOM
@@ -313,7 +314,8 @@ export default async function decorate(block) {
     link.append(span1, span2);
     if (item.href && item.href !== '#') {
       link.dataset.href = item.href;
-      link.addEventListener('click', () => {
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
         window.location.href = item.href;
       });
     }
@@ -333,7 +335,8 @@ export default async function decorate(block) {
     mobileLink.textContent = item.title;
     if (item.href && item.href !== '#') {
       mobileLink.dataset.href = item.href;
-      mobileLink.addEventListener('click', () => {
+      mobileLink.addEventListener('click', (e) => {
+        e.stopPropagation();
         window.location.href = item.href;
       });
     }
@@ -346,14 +349,22 @@ export default async function decorate(block) {
     const link = document.createElement('div');
     link.className = 'nav-section';
     link.textContent = action.title;
+    const cloneLink = link.cloneNode(true);
+    const mobileCloneLink = link.cloneNode(true);
     if (action.href && action.href !== '#') {
-      link.dataset.href = action.href;
-      link.addEventListener('click', () => {
+      cloneLink.dataset.href = action.href;
+      cloneLink.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.location.href = action.href;
+      });
+      mobileCloneLink.dataset.href = action.href;
+      mobileCloneLink.addEventListener('click', (e) => {
+        e.stopPropagation();
         window.location.href = action.href;
       });
     }
-    actionsEl.append(link.cloneNode(true));
-    mobileActions.append(link.cloneNode(true));
+    actionsEl.append(cloneLink);
+    mobileActions.append(mobileCloneLink);
   });
   actions.forEach((action) => {
     if (action.img) {
@@ -371,7 +382,8 @@ export default async function decorate(block) {
       btn.append(imgDark);
       if (action.href && action.href !== '#') {
         btn.dataset.href = action.href;
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
           window.location.href = action.href;
         });
       }
@@ -383,7 +395,8 @@ export default async function decorate(block) {
     link.textContent = action.title;
     if (action.href && action.href !== '#') {
       link.dataset.href = action.href;
-      link.addEventListener('click', () => {
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
         window.location.href = action.href;
       });
     }
@@ -432,9 +445,7 @@ export default async function decorate(block) {
   navigation.append(mobileMenu);
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const carousel = document.querySelector('.carousel');
-    if (!carousel || !carousel.clientHeight) return;
-    if (scrollTop >= (carousel.clientHeight - navigation.clientHeight)) {
+    if (scrollTop >= 10) {
       navigation.classList.add('scroll-active');
     } else {
       navigation.classList.remove('scroll-active');
