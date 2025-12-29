@@ -176,8 +176,8 @@ export default async function decorate(block) {
   if (slideIndicators && block.attributes['data-aue-resource'] === undefined) {
     const cloneFirstNode = wholeContainer.firstElementChild.cloneNode(true);
     wholeContainer.appendChild(cloneFirstNode);
-    block.append(slideIndicators);
   }
+  block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);
   }
