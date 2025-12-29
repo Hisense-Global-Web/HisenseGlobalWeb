@@ -33,16 +33,18 @@ function bindEvent(block) {
     const dataIndex = e.target.closest('li').dataset.slideIndex;
     block.querySelectorAll('li').forEach((el, i) => {
       if (i === dataIndex) {
-        el.querySelector('video').play();
+        el.querySelector('video')?.play();
       } else {
-        el.querySelector('video').pause();
+        el.querySelector('video')?.pause();
       }
     });
-    e.target.closest('div').style.display = 'none';
+    if (e.target.tagName === 'IMG') {
+      e.target.closest('div').style.display = 'none';
+    }
   });
 }
 
-function createVideo(child, idx, large = false) {
+function createVideo(child, idx) {
   let videourl;
   const link = child.querySelector('a');
   if (link) {
@@ -54,8 +56,8 @@ function createVideo(child, idx, large = false) {
   const video = document.createElement('video');
   video.id = `video-${carouselId}-carousel-${idx}`;
   video.controls = true;
-  video.width = large ? 800 : 652;
-  video.height = large ? 452 : 368;
+  // video.width = large ? 800 : 652;
+  // video.height = large ? 452 : 368;
   video.preload = 'auto';
   video.autoplay = false;
   const source = document.createElement('source');
@@ -100,7 +102,7 @@ export default async function decorate(block) {
       if (child.querySelector('picture')) {
         child.querySelector('picture').closest('div').classList.add('video-play');
       }
-      child.replaceChild(singleVideo, child.firstElementChild);
+      if (singleVideo) child.replaceChild(singleVideo, child.firstElementChild);
     } else {
       [...child.children].forEach((item) => {
         if (item.querySelector('picture')) {
