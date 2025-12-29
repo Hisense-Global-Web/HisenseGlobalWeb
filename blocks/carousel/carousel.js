@@ -177,7 +177,7 @@ export default async function decorate(block) {
     const cloneFirstNode = wholeContainer.firstElementChild.cloneNode(true);
     wholeContainer.appendChild(cloneFirstNode);
   }
-  block.append(slideIndicators);
+  if (slideIndicators) block.append(slideIndicators);
   if (!isSingleSlide) {
     bindEvents(block);
   }
