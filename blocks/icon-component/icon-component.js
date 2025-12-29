@@ -2,6 +2,7 @@ import {
   updatePosition,
   getSlideWidth,
   resizeObserver,
+  throttle,
 } from '../../utils/carousel-common.js';
 
 let index = 0;
@@ -21,18 +22,18 @@ function bindEvent(block) {
   if (cards.length * getSlideWidth(block) + firstCardLeft >= bodyWidth) {
     block.querySelector('.pagination').classList.add('show');
   }
-  block.querySelector('.slide-prev').addEventListener('click', () => {
+  block.querySelector('.slide-prev').addEventListener('click', throttle(() => {
     if (index > 0) {
       index -= 1;
       updatePosition(block, index, true);
     }
-  });
-  block.querySelector('.slide-next').addEventListener('click', () => {
+  }, 300));
+  block.querySelector('.slide-next').addEventListener('click', throttle(() => {
     if (index < cards.length) {
       index += 1;
       updatePosition(block, index, true);
     }
-  });
+  }, 300));
   ul.addEventListener('scroll', () => {
     const box = block.querySelector('.icon-component-wrapper');
     box.style.padding = '0 !important';

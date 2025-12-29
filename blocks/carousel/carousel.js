@@ -1,5 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { whenElementReady } from '../../utils/carousel-common.js';
+import { whenElementReady, throttle } from '../../utils/carousel-common.js';
 
 // let carouselTimer;
 let carouselInterval;
@@ -96,10 +96,10 @@ function bindEvents(block) {
     slideObserver.observe(slide);
   });
   slideIndicators.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', throttle((e) => {
       const slideIndicator = e.currentTarget.parentElement;
       showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
-    });
+    }, 300));
   });
   observeMouse(block);
 }
