@@ -78,18 +78,20 @@ function buildAutoBlocks() {
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
-  const links = main.querySelectorAll('a');
-  links.forEach((link) => {
-    const href = link.getAttribute('href');
-    if (href && href.startsWith('/us/en')) {
-      link.setAttribute('href', href.replace('/us/en', '/us'));
-    }
+  if (window.location.hostname === 'hisense.com' && window.location.pathname.startsWith('/us')) {
+    const links = main.querySelectorAll('a');
+    links.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('/us/en')) {
+        link.setAttribute('href', href.replace('/us/en', '/us'));
+      }
 
-    const { textContent } = link;
-    if (textContent && textContent.startsWith('/us/en')) {
-      link.textContent = textContent.replace('/us/en', '/us');
-    }
-  });
+      const { textContent } = link;
+      if (textContent && textContent.startsWith('/us/en')) {
+        link.textContent = textContent.replace('/us/en', '/us');
+      }
+    });
+  }
 
   decorateButtons(main);
   decorateIcons(main);
