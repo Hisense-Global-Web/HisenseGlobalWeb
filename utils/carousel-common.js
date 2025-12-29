@@ -104,7 +104,7 @@ export function resizeObserver(selector, callback, options = {}) {
   ro.observe(element);
 }
 
-export function throttle(fn, delay = 300) {
+export function throttle(fn, delay = 500) {
   let canRun = true;
   return (...args) => {
     if (!canRun) return;
