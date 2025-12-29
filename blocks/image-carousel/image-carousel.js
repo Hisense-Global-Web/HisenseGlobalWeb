@@ -1,5 +1,4 @@
 import {
-  whenElementReady,
   getSlideWidth,
   updatePosition,
   resizeObserver,
@@ -16,8 +15,7 @@ function bindEvent(block) {
   if (cards.length * getSlideWidth(block) + firstCardLeft >= bodyWidth) {
     block.querySelector('.image-pagination').classList.add('show');
   }
-  const distance = (cards.length * getSlideWidth(block) + (2 * firstCardLeft)) / (ul.offsetWidth);
-  const maxlength = Math.round(distance);
+  const maxlength = Math.ceil(cards.length - ul.offsetWidth / getSlideWidth(block));
   block.querySelector('.slide-prev').addEventListener('click', () => {
     if (index > 0) {
       index -= 1;
@@ -116,9 +114,9 @@ export default async function decorate(block) {
     `;
     block.appendChild(buttonContainer);
   }
-  whenElementReady('.image-carousel', () => {
-    bindEvent(block);
-  });
+  // whenElementReady('.image-carousel', () => {
+  //   bindEvent(block);
+  // });
   resizeObserver('.image-carousel', () => {
     bindEvent(block);
   });
