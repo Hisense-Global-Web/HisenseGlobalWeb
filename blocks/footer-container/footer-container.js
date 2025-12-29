@@ -76,7 +76,7 @@ function extractLogoData(container) {
     imgBox.className = 'footer-social-imgbox';
     if (socialPicture) {
       const socialImg = socialPicture.querySelector('img');
-      const socialLink = innerDiv.querySelector('a');
+      const socialLink = div.querySelector('a');
       if (socialImg) {
         imgBox.appendChild(socialImg);
         if (socialLink) {

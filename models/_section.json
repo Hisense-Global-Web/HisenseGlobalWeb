@@ -55,6 +55,10 @@
               "value": "grey"
             },
             {
+              "name": "Gray 00",
+              "value": "gray-00"
+            },
+            {
               "name": "Gradient Gray",
               "value": "gradient-gray"
             }
