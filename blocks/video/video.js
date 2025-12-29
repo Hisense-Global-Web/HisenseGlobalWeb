@@ -1,6 +1,6 @@
 export default function decorate(block) {
   /* change to ul, li */
-
+  console.log('Decorating video block');
   let videourl;
   let imgUrl;
   [...block.children].forEach((row) => {
@@ -42,37 +42,66 @@ export default function decorate(block) {
   // video.addEventListener('play', () => {
   //   console.log('视频开始播放');
   // });
-  block.replaceChildren(newDiv);
-  document.addEventListener('DOMContentLoaded', () => {
-    // 获取所有需要自动播放的视频
-    const videos = document.querySelectorAll('.autoplay-video');
 
-    // 设置视频为静音（大多数浏览器要求静音才能自动播放）
-    videos.forEach((videoItem) => {
-      videoItem.muted = true;
-      videoItem.playsInline = true; // 移动端防止全屏播放
-    });
-    // 创建 Intersection Observer
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const videoItem = entry.target;
-
-        if (entry.isIntersecting) {
-          // 视频进入视口，尝试播放
-          videoItem.play().catch((e) => {
-            console.log('视频自动播放失败:', e);
-          });
-        } else {
-          // 视频离开视口，暂停
-          videoItem.pause();
-        }
+   block.replaceChildren(newDiv);
+   
+  const videoAutoplay = {
+    init() {
+      this.videos = document.querySelectorAll('[data-video-autoplay]');
+      this.setupVideos();
+      this.setupObserver();
+      this.addVolumeControls();
+    },
+    
+    setupVideos() {
+      this.videos.forEach(v => {
+        v.muted = true;
+        v.playsInline = true;
+        v.preload = 'metadata';
+        v.setAttribute('data-was-playing', 'false');
       });
-    }, {
-      threshold: 0.5, // 当视频50%可见时触发
-      rootMargin: '0px 0px -10% 0px', // 可以调整触发区域
-    });
+    },
+    
+    setupObserver() {
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const v = entry.target;
+          if (entry.isIntersecting) {
+            this.playVideo(v);
+          } else {
+            this.pauseVideo(v);
+          }
+        });
+      }, { threshold: 0.3 });
+      
+      this.videos.forEach((v) => this.observer.observe(v));
+    },
+    
+    async playVideo(v) {
+      if (!v.paused) return;
+      
+      try {
+        await video.play();
+        video.setAttribute('data-was-playing', 'true');
+      } catch (error) {
+        console.log('播放失败:', error);
+      }
+    },
+    
+    pauseVideo(v) {
+      if (!v.paused) {
+        v.setAttribute('data-was-playing', 'true');
+        v.pause();
+      } else {
+        v.setAttribute('data-was-playing', 'false');
+      }
+    },
+    
+    addVolumeControls() {
+      // 添加音量控制按钮等...
+    }
+  };
 
-    // 观察所有视频
-    videos.forEach((item) => observer.observe(item));
-  })
+// 初始化
+  document.addEventListener('DOMContentLoaded', () => videoAutoplay.init());
 }

@@ -1,7 +1,7 @@
 function autoPlay() {
   document.addEventListener('DOMContentLoaded', () => {
     // 获取所有需要自动播放的视频
-    const videos = document.querySelectorAll('.autoplay-video');
+    const videos = document.querySelectorAll('.video-content');
 
     // 设置视频为静音（大多数浏览器要求静音才能自动播放）
     videos.forEach((video) => {
