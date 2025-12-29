@@ -72,9 +72,9 @@ export function updatePosition(block, currentIdx, baseBody) {
   if (currentIdx === maxlength) {
     const lastDistance = baseContainerWidth
       - rightDistance;
-    trackBox.style.transform = `translateX(-${prev + Math.abs(lastDistance)}px)`;
+    ulElement.style.transform = `translateX(-${prev + Math.abs(lastDistance)}px)`;
   } else {
-    trackBox.style.transform = `translateX(-${prev + getSlideWidth(block)}px)`;
+    ulElement.style.transform = `translateX(-${prev + getSlideWidth(block)}px)`;
   }
   trackBox.style.transition = 'all 0.5';
   block.querySelector('.slide-prev').disabled = (currentIdx === 0);
