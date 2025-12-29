@@ -241,6 +241,16 @@ export default function decorate(block) {
   }
 
   function renderItems(items) {
+    // 处理所有产品数据的 whereToBuyLink
+    items.forEach((item) => {
+      if (item.whereToBuyLink && typeof item.whereToBuyLink === 'string') {
+        const { hostname, pathname } = window.location;
+        if (hostname.includes('hisense.com') && pathname.startsWith('/us')) {
+          item.whereToBuyLink = item.whereToBuyLink.replace('/us/en', '/us');
+        }
+      }
+    });
+
     // 包含多个相同 factoryModel 的不同尺寸
     productsGrid.innerHTML = '';
 
@@ -321,13 +331,6 @@ export default function decorate(block) {
           sharedWhereToBuyLink = sharedWhereToBuyLink.replace('/content/hisense', '');
         }
         sharedWhereToBuyLink = sharedWhereToBuyLink.replace('.html', '');
-      }
-
-      if (sharedWhereToBuyLink && typeof sharedWhereToBuyLink === 'string') {
-        const { hostname, pathname } = window.location;
-        if (hostname.includes('hisense.com') && pathname.startsWith('/us')) {
-          sharedWhereToBuyLink = sharedWhereToBuyLink.replace('/us/en', '/us');
-        }
       }
 
       return {
