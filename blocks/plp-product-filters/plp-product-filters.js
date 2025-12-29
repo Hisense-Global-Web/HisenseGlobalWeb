@@ -342,10 +342,23 @@ export default function decorate(block) {
   // 选择排序
   sortOptions.querySelectorAll('.plp-sort-option').forEach((option) => {
     option.addEventListener('click', () => {
+      // 如果点击的排序option已经是选中的option，不做任何操作
+      if (option.classList.contains('selected')) {
+        sortBox.classList.remove('show');
+        return;
+      }
+
       sortOptions.querySelectorAll('.plp-sort-option').forEach((opt) => {
         opt.classList.remove('selected');
       });
       option.classList.add('selected');
+
+      // 重置所有筛选
+      document.querySelectorAll('.plp-filter-item input[type="checkbox"]').forEach((checkbox) => {
+        if (checkbox.checked !== false) {
+          checkbox.checked = false;
+        }
+      });
       // "sort by <option>"
       const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy : 'Sort By';
       const splitText = option.textContent.split(':')[0].trim();
