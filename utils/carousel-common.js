@@ -103,3 +103,15 @@ export function resizeObserver(selector, callback, options = {}) {
   const element = parent.querySelector(selector);
   ro.observe(element);
 }
+
+export function throttle(fn, delay = 300) {
+  let canRun = true;
+  return (...args) => {
+    if (!canRun) return;
+    canRun = false;
+    fn.apply(this, args);
+    setTimeout(() => {
+      canRun = true;
+    }, delay);
+  };
+}
