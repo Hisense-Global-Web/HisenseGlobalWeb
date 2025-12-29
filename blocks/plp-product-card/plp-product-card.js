@@ -586,6 +586,7 @@ export default function decorate(block) {
         } else {
           noResultEl.style.display = 'none';
           productsGrid.style.display = 'grid';
+          cardWrapperEl.style.cssText = '';
         }
       }
     } catch (e) {
