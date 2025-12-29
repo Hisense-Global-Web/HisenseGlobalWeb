@@ -1,5 +1,4 @@
 import {
-  whenElementReady,
   getSlideWidth,
   updatePosition,
   resizeObserver,
@@ -9,15 +8,12 @@ let carouselId = 0;
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
-  const ul = block.querySelector('ul');
   const bodyWidth = document.body.getBoundingClientRect().width;
   let index = 0;
   const firstCardLeft = cards[0].getBoundingClientRect().left;
   if (cards.length * getSlideWidth(block) + firstCardLeft >= bodyWidth) {
     block.querySelector('.image-pagination').classList.add('show');
   }
-  const distance = (cards.length * getSlideWidth(block) + (2 * firstCardLeft)) / (ul.offsetWidth);
-  const maxlength = Math.round(distance);
   block.querySelector('.slide-prev').addEventListener('click', () => {
     if (index > 0) {
       index -= 1;
@@ -25,7 +21,7 @@ function bindEvent(block) {
     }
   });
   block.querySelector('.slide-next').addEventListener('click', () => {
-    if (index < maxlength) {
+    if (index < cards.length) {
       index += 1;
       updatePosition(block, index, true);
     }
@@ -116,9 +112,9 @@ export default async function decorate(block) {
     `;
     block.appendChild(buttonContainer);
   }
-  whenElementReady('.image-carousel', () => {
-    bindEvent(block);
-  });
+  // whenElementReady('.image-carousel', () => {
+  //   bindEvent(block);
+  // });
   resizeObserver('.image-carousel', () => {
     bindEvent(block);
   });
