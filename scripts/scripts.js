@@ -85,7 +85,7 @@ export function decorateMain(main) {
       link.setAttribute('href', href.replace('/us/en', '/us'));
     }
 
-    const textContent = link.textContent;
+    const { textContent } = link;
     if (textContent && textContent.startsWith('/us/en')) {
       link.textContent = textContent.replace('/us/en', '/us');
     }
