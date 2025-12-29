@@ -30,7 +30,17 @@ function parseActions(root) {
   return Array.from(root.querySelectorAll('.navigation-action-wrapper')).map((wrapper) => {
     const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
     const href = wrapper.querySelector('a')?.href || '#';
-    const img = wrapper.querySelector('img')?.src;
+    const originalSrc = wrapper.querySelector('img')?.src || '';
+    let img = '';
+    if (originalSrc) {
+      try {
+        const urlObj = new URL(originalSrc);
+        const { pathname } = urlObj;
+        img = `.${pathname}`;
+      } catch (e) {
+        img = originalSrc.startsWith('./') ? originalSrc : `./${originalSrc}`;
+      }
+    }
     return { title, href, img };
   });
 }
