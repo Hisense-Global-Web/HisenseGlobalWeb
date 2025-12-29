@@ -65,6 +65,14 @@ function buildTab(itemElement) {
     moveInstrumentation(textCell, textSpan);
   }
 
+  const linkCells = cells.map((cell) => cell.querySelector('a')).filter((c) => !!c);
+  if (linkCells && linkCells.length) {
+    li.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.location.href = linkCells[0].href;
+    });
+  }
+
   li.append(imgBox, textSpan);
   return li;
 }
