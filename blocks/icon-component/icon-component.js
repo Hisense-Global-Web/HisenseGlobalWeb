@@ -1,5 +1,4 @@
 import {
-  whenElementReady,
   updatePosition,
   getSlideWidth,
   resizeObserver,
@@ -22,8 +21,6 @@ function bindEvent(block) {
   if (cards.length * getSlideWidth(block) + firstCardLeft >= bodyWidth) {
     block.querySelector('.pagination').classList.add('show');
   }
-  const distance = (cards.length * getSlideWidth(block) + (2 * firstCardLeft)) / (ul.offsetWidth);
-  const maxlength = Math.round(distance);
   block.querySelector('.slide-prev').addEventListener('click', () => {
     if (index > 0) {
       index -= 1;
@@ -31,7 +28,7 @@ function bindEvent(block) {
     }
   });
   block.querySelector('.slide-next').addEventListener('click', () => {
-    if (index < maxlength) {
+    if (index < cards.length) {
       index += 1;
       updatePosition(block, index, true);
     }
@@ -82,9 +79,9 @@ export default async function decorate(block) {
     `;
     block.appendChild(buttonContainer);
   }
-  whenElementReady('.icon-component', () => {
-    bindEvent(block);
-  });
+  // whenElementReady('.icon-component', () => {
+  //   bindEvent(block);
+  // });
   resizeObserver('.icon-component', () => {
     bindEvent(block);
   });
