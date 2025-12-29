@@ -99,7 +99,7 @@ function bindEvents(block) {
     button.addEventListener('click', throttle((e) => {
       const slideIndicator = e.currentTarget.parentElement;
       showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
-    }, 300));
+    }, 500));
   });
   observeMouse(block);
 }

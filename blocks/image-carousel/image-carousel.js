@@ -20,13 +20,13 @@ function bindEvent(block) {
       index -= 1;
       updatePosition(block, index, true);
     }
-  }, 300));
+  }, 500));
   block.querySelector('.slide-next').addEventListener('click', throttle(() => {
     if (index < cards.length) {
       index += 1;
       updatePosition(block, index, true);
     }
-  }, 300));
+  }, 500));
 }
 
 function createVideo(child, idx, large = false) {
