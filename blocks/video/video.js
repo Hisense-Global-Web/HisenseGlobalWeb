@@ -17,6 +17,7 @@ export default function decorate(block) {
   newDiv.classList.add('video-content');
   const video = document.createElement('video');
   video.classList.add('autoplay-video');
+  video.setAttribute('data-video-autoplay', 'true');
   // const coverImg = document.createElement('img');
   // coverImg.src = imgUrl;
   // coverImg.classList.add('video-cover-image');
@@ -79,10 +80,10 @@ export default function decorate(block) {
     
     async playVideo(v) {
       if (!v.paused) return;
-      
+
       try {
-        await video.play();
-        video.setAttribute('data-was-playing', 'true');
+        await v.play();
+        v.setAttribute('data-was-playing', 'true');
       } catch (error) {
         console.log('播放失败:', error);
       }
@@ -103,5 +104,5 @@ export default function decorate(block) {
   };
 
 // 初始化
-  document.addEventListener('DOMContentLoaded', () => videoAutoplay.init());
+  video.addEventListener('loadeddata', () => videoAutoplay.init());
 }
