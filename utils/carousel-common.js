@@ -57,7 +57,8 @@ export function getSlideWidth(block) {
 }
 
 export function updatePosition(block, currentIdx, baseBody) {
-  const trackBox = block.querySelector('ul');
+  const ulElement = block.querySelector('ul');
+  const trackBox = ulElement?.parentElement;
   const items = block.querySelectorAll('li');
   const prev = (currentIdx - 1) * getSlideWidth(block);
   const rightPadding = block.getBoundingClientRect().x;
