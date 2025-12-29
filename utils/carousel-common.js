@@ -56,6 +56,10 @@ export function getSlideWidth(block) {
   return singleItem.offsetWidth + parseFloat(gap);
 }
 
+export function getChildSlideWidth(block) {
+  return block.querySelector('li')?.offsetWidth;
+}
+
 export function updatePosition(block, currentIdx, baseBody) {
   const ulElement = block.querySelector('ul');
   const trackBox = ulElement?.parentElement;
@@ -64,7 +68,7 @@ export function updatePosition(block, currentIdx, baseBody) {
   const rightPadding = block.getBoundingClientRect().x;
   const baseContainerWidth = baseBody
     ? document.body.getBoundingClientRect().width : trackBox.offsetWidth;
-  const maxlength = Math.ceil(items.length - trackBox.offsetWidth / getSlideWidth(block));
+  const maxlength = Math.ceil(items.length - 1 - (trackBox.offsetWidth - getChildSlideWidth(block)) / getSlideWidth(block));
   const rightDistance = baseBody
     ? items[items.length - 1].getBoundingClientRect().right + rightPadding
     : items[items.length - 1].offsetLeft + (items.length + 1) * rightPadding;

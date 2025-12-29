@@ -1,7 +1,7 @@
 import {
   getSlideWidth,
   updatePosition,
-  resizeObserver,
+  resizeObserver, getChildSlideWidth,
 } from '../../utils/carousel-common.js';
 
 let carouselId = 0;
@@ -15,7 +15,7 @@ function bindEvent(block) {
   if (cards.length * getSlideWidth(block) + firstCardLeft >= bodyWidth) {
     block.querySelector('.image-pagination').classList.add('show');
   }
-  const maxlength = Math.ceil(cards.length - ul.offsetWidth / getSlideWidth(block));
+  const maxlength = Math.ceil(cards.length - 1 - (ul.offsetWidth - getChildSlideWidth(block)) / getSlideWidth(block));
   block.querySelector('.slide-prev').addEventListener('click', () => {
     if (index > 0) {
       index -= 1;
