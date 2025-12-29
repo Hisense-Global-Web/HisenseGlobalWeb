@@ -354,6 +354,10 @@ export default function decorate(block) {
       option.classList.add('selected');
 
       // 重置所有筛选
+      const activeContainer = document.querySelector('.plp-active-filters');
+      if (activeContainer) {
+        activeContainer.querySelectorAll('.plp-filter-tag').forEach((tag) => tag.remove());
+      }
       document.querySelectorAll('.plp-filter-item input[type="checkbox"]').forEach((checkbox) => {
         if (checkbox.checked !== false) {
           checkbox.checked = false;
