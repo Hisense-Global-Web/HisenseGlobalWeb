@@ -13,8 +13,9 @@ function parseLogo(root) {
 
 function parseNavItems(root) {
   return Array.from(root.querySelectorAll('.navigation-item-wrapper')).map((wrapper) => {
-    const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
-    const href = wrapper.querySelector('.button-container a')?.href || '#';
+    const pList = wrapper.querySelectorAll('p');
+    const title = pList[1]?.textContent?.trim() || '';
+    const href = pList[0]?.textContent?.trim() || '#';
     return { title, href };
   });
 }
@@ -46,34 +47,32 @@ function parseDropdownProducts(col) {
       const href = item.querySelector('a')?.href || '#';
       const directChildren = Array.from(item.children);
       let text = '';
+      let altText = '';
       if (directChildren[1]) {
-        text = directChildren[1].textContent.trim();
+        altText = directChildren[1].textContent.trim();
+      }
+      if (directChildren[2]) {
+        text = directChildren[2].textContent.trim();
       } else {
         text = item.textContent.trim();
       }
 
-      return { img, text, href };
+      return {
+        img, text, href, altText,
+      };
     });
   }
 
   const products = [];
   const children = Array.from(col.children);
-  for (let i = 0; i < children.length; i += 1) {
-    const node = children[i];
-    const pictureImg = node.tagName === 'P' ? node.querySelector('img') : null;
-    if (pictureImg) {
-      let text = '';
-      for (let j = i + 1; j < children.length; j += 1) {
-        const next = children[j];
-        const isTextP = next.tagName === 'P' && !next.querySelector('img') && !next.querySelector('a');
-        if (isTextP && next.textContent.trim()) {
-          text = next.textContent.trim();
-          i = j;
-          break;
-        }
-      }
-      products.push({ img: pictureImg.src, text });
-    }
+  for (let i = 0; i < children.length; i += 4) {
+    const img = children[i].querySelector('img')?.src || '';
+    const altText = children[i + 1].textContent.trim() || '';
+    const text = children[i + 2].textContent.trim() || '';
+    const href = children[i + 3].textContent.trim() || '#';
+    products.push({
+      img, text, href, altText,
+    });
   }
   return products;
 }
@@ -97,18 +96,14 @@ function parseDropdownLinks(col) {
     }).filter((item) => item.text);
   }
 
-  const items = Array.from(col.querySelectorAll('p:not(.button-container) + p.button-container'));
-  if (items.length) {
-    return items.map((buttonContainer) => {
-      const textElement = buttonContainer.previousElementSibling;
-      const text = textElement ? textElement.textContent.trim() : '';
-
-      const linkElement = buttonContainer.querySelector('a.button');
-      const href = linkElement ? linkElement.getAttribute('href') : '';
-
-      return { text, href };
-    }).filter((item) => item.text);
-  } return [];
+  const results = [];
+  const items = Array.from(col.querySelectorAll('p'));
+  for (let i = 0; i < items.length; i += 2) {
+    const text = items[i]?.textContent.trim();
+    const href = items[i + 1]?.textContent.trim() || '#';
+    results.push({ text, href });
+  }
+  return results;
 }
 
 function parseDropdownBtns(col) {
@@ -132,32 +127,10 @@ function parseDropdownBtns(col) {
   }
 
   const paragraphs = Array.from(col.querySelectorAll('p'));
-  for (let i = 0; i < paragraphs.length; i += 1) {
-    const p = paragraphs[i];
-
-    if (p.classList.contains('button-container')) {
-      const linkElement = p.querySelector('a');
-      const href = linkElement ? linkElement.getAttribute('href') : '';
-
-      let text = '';
-      if (i > 0 && !paragraphs[i - 1].classList.contains('button-container')) {
-        text = paragraphs[i - 1].textContent.trim();
-      } else {
-        text = linkElement ? (linkElement.getAttribute('title') || linkElement.textContent.trim()) : '';
-      }
-
-      if (text) {
-        results.push({ text, href: href || '#' });
-      }
-    } else {
-      const nextP = paragraphs[i + 1];
-      if (!nextP || !nextP.classList.contains('button-container')) {
-        const text = p.textContent.trim();
-        if (text) {
-          results.push({ text, href: '#' });
-        }
-      }
-    }
+  for (let i = 0; i < paragraphs.length; i += 2) {
+    const text = paragraphs[i]?.textContent.trim();
+    const href = paragraphs[i + 1]?.textContent.trim() || '#';
+    results.push({ text, href });
   }
 
   return results;
@@ -180,7 +153,7 @@ function buildDropdown(data) {
   const dropdown = document.createElement('div');
   dropdown.className = 'nav-dropdown';
   const content = document.createElement('div');
-  content.className = 'dropdown-content';
+  content.className = 'dropdown-content h-grid-container';
 
   const main = document.createElement('div');
   main.className = 'dropdown-main';
@@ -195,7 +168,7 @@ function buildDropdown(data) {
     if (item.img) {
       const img = document.createElement('img');
       img.src = item.img;
-      img.alt = item.text || '';
+      img.alt = item.altText || '';
       imgWrap.append(img);
     }
     if (item.href && item.href !== '#') {
@@ -243,9 +216,16 @@ function buildDropdown(data) {
   return dropdown;
 }
 function convertToDarkSvgUrl(url) {
-  if (!url.endsWith('.svg')) {
-    return url;
+  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_103e6c351d7632f9d1aa6d5846df24dd13b5df660.svg?width=750&format=svg&optimize=medium') {
+    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b.svg?width=750&format=svg&optimize=medium';
   }
+  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_124969b71abd4f3be2869305b3210ba27a9621bb7.svg?width=750&format=svg&optimize=medium') {
+    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_152ebd74eb043f4b073908ae990437f464ba966a2.svg?width=750&format=svg&optimize=medium';
+  }
+  if (url === 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c.svg?width=750&format=svg&optimize=medium') {
+    return 'https://development--hisenseglobalweb--hisense-global-web.aem.live/media_1d67117bba695f4cd4248983772bdd968834d3be6.svg?width=750&format=svg&optimize=medium';
+  }
+
   const [mainPart, ...restParts] = url.split(/[?#]/);
   const suffix = restParts.length > 0 ? `/${restParts.join('/')}` : '';
 
@@ -273,9 +253,23 @@ export default async function decorate(block) {
   // 构建新的导航DOM
   const navigation = document.createElement('div');
   navigation.id = 'navigation';
+  let lastScrollTop = 0;
+  const scrollThreshold = 10;
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (Math.abs(scrollTop - lastScrollTop) <= scrollThreshold) {
+      return;
+    }
+    if (scrollTop > lastScrollTop) {
+      navigation.classList.add('hidden');
+    } else {
+      navigation.classList.remove('hidden');
+    }
+    lastScrollTop = scrollTop;
+  });
 
   const navContainer = document.createElement('div');
-  navContainer.className = 'nav-container';
+  navContainer.className = 'nav-container h-grid-container';
 
   const logoEl = document.createElement('div');
   logoEl.className = 'nav-logo';
@@ -291,6 +285,14 @@ export default async function decorate(block) {
 
   const linksEl = document.createElement('div');
   linksEl.className = 'nav-links';
+
+  const mobileMenu = document.createElement('div');
+  mobileMenu.className = 'mobile-menu';
+  const mobileLinks = document.createElement('div');
+  mobileLinks.className = 'mobile-links';
+  const mobileActions = document.createElement('div');
+  mobileActions.className = 'mobile-actions';
+
   navItems.forEach((item, idx) => {
     const link = document.createElement('div');
     link.className = 'nav-link';
@@ -317,6 +319,17 @@ export default async function decorate(block) {
       link.append(mask, dropdown);
     }
     linksEl.append(link);
+
+    const mobileLink = document.createElement('div');
+    mobileLink.className = 'mobile-link';
+    mobileLink.textContent = item.title;
+    if (item.href && item.href !== '#') {
+      mobileLink.dataset.href = item.href;
+      mobileLink.addEventListener('click', () => {
+        window.location.href = item.href;
+      });
+    }
+    mobileLinks.append(mobileLink);
   });
 
   const actionsEl = document.createElement('div');
@@ -331,7 +344,8 @@ export default async function decorate(block) {
         window.location.href = action.href;
       });
     }
-    actionsEl.append(link);
+    actionsEl.append(link.cloneNode(true));
+    mobileActions.append(link.cloneNode(true));
   });
   actions.forEach((action) => {
     if (action.img) {
@@ -368,8 +382,46 @@ export default async function decorate(block) {
     actionsEl.append(link);
   });
 
+  // 物理添加手机端菜单按钮
+  const btn = document.createElement('div');
+  btn.className = 'nav-action-btn mobile-menu-icon';
+  const img = document.createElement('img');
+  img.src = './media_1992b23eb0b506b19304df8bf994f0473ba058146.svg?width=750&format=svg&optimize=medium';
+  img.className = 'light-img';
+  img.alt = 'menu';
+  btn.append(img);
+  const imgDark = document.createElement('img');
+  imgDark.src = './media_1476a6ebba9ef2439aab575d7d5a7946f8c1782ab.svg?width=750&format=svg&optimize=medium';
+  imgDark.alt = 'menu';
+  imgDark.className = 'dark-img';
+  btn.append(imgDark);
+  btn.addEventListener('click', () => {
+    navigation.classList.add('show-menu');
+  });
+  actionsEl.append(btn);
+
+  const closeBtn = document.createElement('div');
+  closeBtn.className = 'nav-action-btn mobile-close-icon';
+  const closeImg = document.createElement('img');
+  closeImg.src = './media_13b817dae786f9278b5ba58ce39c250a3c305d1d7.svg?width=750&format=svg&optimize=medium';
+  closeImg.alt = 'menu';
+  closeBtn.addEventListener('click', () => {
+    navigation.classList.remove('show-menu');
+  });
+  closeBtn.append(closeImg);
+  actionsEl.append(closeBtn);
+
   navContainer.append(logoEl, linksEl, actionsEl);
+
+  const dividingLine = document.createElement('div');
+  dividingLine.className = 'dividing-line';
+
+  mobileMenu.append(mobileLinks);
+  mobileMenu.append(dividingLine);
+  mobileMenu.append(mobileActions);
+
   navigation.append(navContainer);
+  navigation.append(mobileMenu);
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const carousel = document.querySelector('.carousel');

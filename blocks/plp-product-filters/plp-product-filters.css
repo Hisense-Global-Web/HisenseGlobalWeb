@@ -25,6 +25,7 @@
 
 .plp-product-filters .plp-results {
   font-size: 14px;
+  font-weight: 400;
   color: rgb(0 0 0 / 100%);
 }
 
@@ -44,6 +45,7 @@
   font-size: 12px;
   height: 24px;
   line-height: 24px;
+  font-weight: 400;
 }
 
 .plp-product-filters .plp-filter-tag-close {
@@ -58,6 +60,7 @@
   height: 17px;
   line-height: 17px;
   font-size: 12px;
+  font-weight: 400;
   cursor: pointer;
   flex-shrink: 0;
 }
@@ -82,6 +85,7 @@
   justify-content: space-between;
   cursor: pointer;
   z-index: 4;
+  font-weight: 400;
 }
 
 .plp-product-filters .plp-sort img {
@@ -121,6 +125,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  font-weight: 400;
 }
 
 .plp-product-filters .plp-sort-option.selected {

@@ -1,27 +1,37 @@
 .icon-component {
   position: relative;
+
+  p {
+    margin: 0;
+    font-weight: 500;
+  }
 }
 
 .icon-component > div:nth-child(1) {
   color: var(--color-hisense-teal);
-  font-size: 20px;
+  font-size: var(--body-font-size-l);
   line-height: 1;
+  font-weight: 400;
 }
 
 .icon-component > div:nth-child(2) {
-  font-size: 34px;
-  font-weight: bold;
+  font-size: var(--heading-font-size-l);
+  font-weight: 500;
   line-height: 1;
 
   p {
-    margin: 10px 0 0;
+    margin-top: 10px;
   }
 }
 
 .icon-viewport {
-  overflow: hidden;
+  overflow: scroll;
   width: 100%;
   margin: 32px 0 ;
+
+  &::-webkit-scrollbar{
+    display:none
+  }
 }
 
 .icon-viewport ul{
@@ -43,9 +53,9 @@
   cursor: pointer;
   background-color: white;
 
-  &:hover {
+  /* &:hover {
     width: 279px;
-  }
+  } */
 
   .item {
     display: flex;
@@ -58,8 +68,12 @@
     box-sizing: border-box;
     text-align: center;
 
-    > p {
+    /* > p {
       margin: 0;
+    } */
+
+    div:nth-child(2) {
+      font-weight: 400;
     }
 
     .item-picture {
@@ -155,5 +169,11 @@
 .dark .pagination button {
   &:disabled {
     border-color: var(--color-hisense-grey-03);
+  }
+}
+
+@media (width <= 600px) {
+  .pagination.show {
+    display: none;
   }
 }

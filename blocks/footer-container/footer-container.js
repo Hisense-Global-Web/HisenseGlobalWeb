@@ -1,25 +1,3 @@
-function isInternalLink(href) {
-  if (!href || href === '#' || href === '/') {
-    return true;
-  }
-
-  if (href.startsWith('/')) {
-    return true;
-  }
-
-  if (!href.includes('://')) {
-    return true;
-  }
-
-  try {
-    const linkUrl = new URL(href);
-    const currentUrl = new URL(window.location.href);
-    return linkUrl.hostname === currentUrl.hostname;
-  } catch (e) {
-    return true;
-  }
-}
-
 /**
  * 从 footer-logo block 中提取 logo 数据
 */
@@ -288,7 +266,7 @@ export default function decorate(block) {
   container.className = 'footer-container';
 
   const footerTop = document.createElement('div');
-  footerTop.className = 'footer-top';
+  footerTop.className = 'footer-top h-grid-container';
 
   if (data.logo.image || data.logo.social.length > 0) {
     const logoDiv = document.createElement('div');
@@ -355,13 +333,14 @@ export default function decorate(block) {
           a.textContent = itemData.text;
           li.appendChild(a);
 
-          // 只有非内链才显示图标
+          /**
           if (!isInternalLink(itemData.link)) {
             const img = document.createElement('img');
-            img.src = '/content/dam/hisense/image/icon/share.svg';
+            img.src = './media_16a15f7db2090294e57d78394d2086dfabdcb0618.svg' +
+              '?width=750&format=svg&optimize=medium';
             li.appendChild(img);
           }
-
+           */
           ul.appendChild(li);
         });
 
@@ -380,7 +359,7 @@ export default function decorate(block) {
     const footerBottom = document.createElement('div');
     footerBottom.className = 'footer-bottom';
     const footerLegals = document.createElement('div');
-    footerLegals.className = 'footer-legals';
+    footerLegals.className = 'footer-legals  h-grid-container';
 
     if (data.legalLinks.links.length > 0) {
       const legalLinksDiv = document.createElement('div');

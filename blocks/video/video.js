@@ -16,6 +16,7 @@ export default function decorate(block) {
   const newDiv = document.createElement('div');
   newDiv.classList.add('video-content');
   const video = document.createElement('video');
+  video.classList.add('autoplay-video');
   const coverImg = document.createElement('img');
   coverImg.src = imgUrl;
   coverImg.classList.add('video-cover-image');
@@ -36,8 +37,9 @@ export default function decorate(block) {
     video.play();
     coverImg.style.display = 'none';
   });
-  video.addEventListener('play', () => {
-    console.log('视频开始播放');
-  });
+
+  // video.addEventListener('play', () => {
+  //   console.log('视频开始播放');
+  // });
   block.replaceChildren(newDiv);
 }

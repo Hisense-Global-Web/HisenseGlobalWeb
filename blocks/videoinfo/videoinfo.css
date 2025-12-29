@@ -14,6 +14,8 @@
 .videoinfo div:first-child div h4,
 .videoinfo div:first-child div h5,
 .videoinfo div:first-child div h6{
+  margin: 0;
+  padding: 0;
   color: #00AAA6;
   
 }
@@ -30,6 +32,8 @@
 .videoinfo div:nth-child(2) div h5,
 .videoinfo div:nth-child(2) div h6 {
   color: white;
+  margin:12px 0;
+  padding: 0
 }
 
 .videoinfo div:nth-child(2) div p{
@@ -44,6 +48,8 @@
 .videoinfo div:nth-child(3) div h5,
 .videoinfo div:nth-child(3) div h6{
   color: white;
+  margin: 0;
+  padding: 0
 }
 
 .videoinfo div:nth-child(3) div p{
