@@ -402,7 +402,10 @@
 
     video {
       border-radius: 20px;
+      min-height: 170px;
       object-fit: cover;
+      height: 100%;
+      width: 100%;
     }
 
     .video-play {
@@ -531,20 +534,32 @@
   }
 
   .image-carousel.video-carousel-block {
+    max-height: 400px;
+
     .item {
       width: 300px !important;
-      height: 170px !important;
-      aspect-ratio: 16/9;
+      min-height:170px !important;
+      position: relative;
+
+      div:nth-child(2) {
+        margin-top: 190px!important;
+      }
+
+     [data-aue-prop="title"]{
+       margin-top: 190px!important;
+     }
     }
 
     .video-play {
-      height: 100% !important;
+      height: 170px !important;
       width: 100% !important;
     }
 
     .video-div-box {
       width: 100% !important;
-      aspect-ratio: 16/9 !important;
+      height: 170px !important;
+      min-height:170px !important;
+      position: absolute;
     }
   }
 }
