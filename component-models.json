@@ -167,6 +167,10 @@
             "value": "grey"
           },
           {
+            "name": "Gray 00",
+            "value": "gray-00"
+          },
+          {
             "name": "Gradient Gray",
             "value": "gradient-gray"
           }
@@ -782,8 +786,9 @@
     "id": "disclaimer",
     "fields": [
       {
-        "component": "text",
+        "component": "richtext",
         "name": "disclaimer_text",
+        "value": "",
         "label": "Text",
         "valueType": "string"
       }
