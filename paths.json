@@ -5,6 +5,7 @@
     "/content/hisense/metadata:/metadata.json"
   ],
   "includes": [
-    "/content/hisense/"
+    "/content/hisense/",
+    "/content/dam/"
   ]
 }
