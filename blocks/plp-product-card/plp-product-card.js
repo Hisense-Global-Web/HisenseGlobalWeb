@@ -323,6 +323,13 @@ export default function decorate(block) {
         sharedWhereToBuyLink = sharedWhereToBuyLink.replace('.html', '');
       }
 
+      if (sharedWhereToBuyLink && typeof sharedWhereToBuyLink === 'string') {
+        const { hostname, pathname } = window.location;
+        if (hostname === 'hisense.com' && pathname.startsWith('/us')) {
+          sharedWhereToBuyLink = sharedWhereToBuyLink.replace('/us/en', '/us');
+        }
+      }
+
       return {
         key: k,
         factoryModel: g.factoryModel,
