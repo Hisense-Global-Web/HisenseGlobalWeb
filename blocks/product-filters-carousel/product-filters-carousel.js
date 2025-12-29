@@ -69,7 +69,10 @@ function buildTab(itemElement) {
   if (linkCells && linkCells.length) {
     li.addEventListener('click', (e) => {
       e.stopPropagation();
-      window.location.href = linkCells[0].href;
+      const { href } = linkCells[0];
+      if (!href) return;
+      li.dataset.href = href;
+      window.location.href = href;
     });
   }
 
