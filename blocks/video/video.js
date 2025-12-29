@@ -21,7 +21,6 @@ export default function decorate(block) {
   coverImg.classList.add('video-cover-image');
   video.id = 'myVideo';
   video.controls = true;
-  video.width = 1120;
   video.preload = 'auto';
   const source = document.createElement('source');
   source.src = videourl;
