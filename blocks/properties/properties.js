@@ -19,7 +19,7 @@ export default async function decorate(block) {
       const icon = document.createElement('span');
       icon.className = 'properties-header-icon';
       const iconImg = document.createElement('img');
-      iconImg.src = '/icons/chevron-up.svg';
+      iconImg.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
       iconImg.setAttribute('aria-hidden', 'true');
       iconImg.loading = 'lazy';
       icon.appendChild(iconImg);
