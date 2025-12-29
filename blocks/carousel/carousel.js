@@ -27,7 +27,7 @@ function showSlide(block, slideIndex, init = false) {
   const carouselHeight = block.offsetHeight;
   if (block.attributes['data-aue-resource'] === undefined) {
     const specialDiv = block.querySelector('.carousel-items-container');
-    specialDiv.style.setProperty('height', '100vh', 'important');
+    specialDiv.style.setProperty('height', '100dvh', 'important');
   }
   if ([...activeSlide.classList].includes('dark')) {
     block.classList.add('dark');
