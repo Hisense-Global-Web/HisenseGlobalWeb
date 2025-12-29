@@ -22,8 +22,9 @@
       "id": "disclaimer",
       "fields": [
         {
-          "component": "text",
+          "component": "richtext",
           "name": "disclaimer_text",
+          "value": "",
           "label": "Text",
           "valueType": "string"
         }
