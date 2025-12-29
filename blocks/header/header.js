@@ -349,15 +349,22 @@ export default async function decorate(block) {
     const link = document.createElement('div');
     link.className = 'nav-section';
     link.textContent = action.title;
+    const cloneLink = link.cloneNode(true);
+    const mobileCloneLink = link.cloneNode(true);
     if (action.href && action.href !== '#') {
-      link.dataset.href = action.href;
-      link.addEventListener('click', (e) => {
+      cloneLink.dataset.href = action.href;
+      cloneLink.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.location.href = action.href;
+      });
+      mobileCloneLink.dataset.href = action.href;
+      mobileCloneLink.addEventListener('click', (e) => {
         e.stopPropagation();
         window.location.href = action.href;
       });
     }
-    actionsEl.append(link.cloneNode(true));
-    mobileActions.append(link.cloneNode(true));
+    actionsEl.append(cloneLink);
+    mobileActions.append(mobileCloneLink);
   });
   actions.forEach((action) => {
     if (action.img) {
