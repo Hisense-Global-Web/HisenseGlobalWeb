@@ -6,7 +6,7 @@ import { loadFragment } from '../fragment/fragment.js';
  */
 export default async function decorate(block) {
   // load footer as fragment
-  const footerPath = `${window.hlx.codeBasePath}/content/hisense/us/en/footer`;
+  const footerPath = `${window.hlx.codeBasePath}${window.location.href.includes('hisense.com') ? '/us/footer' : '/us/en/footer'}`;
   const fragment = await loadFragment(footerPath);
 
   // decorate footer DOM
