@@ -32,6 +32,7 @@ export default function decorate(block) {
   newDiv.appendChild(video);
   newDiv.appendChild(coverImg);
   coverImg.addEventListener('click', () => {
+    video.muted = true;
     video.play();
     coverImg.style.display = 'none';
   });
