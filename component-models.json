@@ -681,6 +681,35 @@
             "value": "Required if you has Secondary CTA content"
           }
         ]
+      },
+      {
+        "component": "container",
+        "label": "Suspended Image",
+        "name": "suspended_image",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "image",
+            "label": "Image",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "name": "position_top",
+            "value": "",
+            "label": "Position Top",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "position_left",
+            "value": "",
+            "label": "Position Left",
+            "valueType": "string"
+          }
+        ]
       }
     ]
   },
