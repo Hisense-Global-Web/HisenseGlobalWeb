@@ -32,7 +32,7 @@ function bindEvent(block) {
   block.querySelector('.image-track').addEventListener('click', (e) => {
     const dataIndex = e.target.closest('li').dataset.slideIndex;
     block.querySelectorAll('li').forEach((el, i) => {
-      if (i === dataIndex) {
+      if (String(i) === dataIndex) {
         el.querySelector('video').muted = true;
         el.querySelector('video')?.play();
       } else {
