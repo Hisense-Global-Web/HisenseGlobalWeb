@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://author-p174152-e1855674.adobeaemcloud.com/bin/franklin.delivery/Hisense-Global-Web/HisenseGlobalWeb/main"
+    url: "https://author-p174152-e1855674.adobeaemcloud.com/bin/franklin.delivery/Hisense-Global-Web/HisenseGlobalWeb/stage"
     type: "markup"
     suffix: ".html"
