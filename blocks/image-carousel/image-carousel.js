@@ -54,7 +54,7 @@ function createVideo(child, idx) {
   }
   const videoDivDom = document.createElement('div');
   videoDivDom.className = 'video-div-box';
-  // const img = child.querySelector('img');
+  const img = child.querySelector('img');
   const video = document.createElement('video');
   video.id = `video-${carouselId}-carousel-${idx}`;
   video.controls = true;
@@ -74,6 +74,7 @@ function createVideo(child, idx) {
   //   img.closest('div').style.display = 'none';
   // });
   videoDivDom.appendChild(video);
+  videoDivDom.appendChild(img);
   return videoDivDom;
 }
 
@@ -97,9 +98,10 @@ export default async function decorate(block) {
       let singleVideo;
       if (block.classList.contains('bottom-center-style')) {
         child.classList.add('video-type');
-        singleVideo = createVideo(child, idx, true);
+        singleVideo = createVideo(child, idx);
       } else {
         singleVideo = createVideo(child, idx);
+        child.classList.add('video-only');
       }
       if (child.querySelector('picture')) {
         child.querySelector('picture').closest('div').classList.add('video-play');
