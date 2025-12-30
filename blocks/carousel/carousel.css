@@ -69,11 +69,13 @@ main > .section:first-of-type {
   }
 
   .carousel-content {
-    width: var(--container-max-width);
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: calc(50% - var(--container-max-width) / 2);
+    transform: translate(0, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   /* .carousel-item-content,
@@ -83,6 +85,9 @@ main > .section:first-of-type {
 
   .carousel-item-content {
     top: -50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
     .focus-wrap {
       opacity: 0;
@@ -100,6 +105,7 @@ main > .section:first-of-type {
 
   .carousel-item-content h1, h2, h3, h4, h5, h6 {
     margin: 0;
+    display: inline-block;
   }
 
   .carousel .carousel-item-theme {

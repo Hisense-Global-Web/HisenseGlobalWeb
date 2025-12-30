@@ -620,6 +620,11 @@
         "valueType": "boolean"
       },
       {
+        "component": "aem-content",
+        "name": "image_link",
+        "label": "Image Link"
+      },
+      {
         "component": "container",
         "label": "Text Content",
         "name": "container_text",

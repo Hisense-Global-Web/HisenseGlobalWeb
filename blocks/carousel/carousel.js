@@ -112,9 +112,16 @@ function createSlide(block, row, slideIndex) {
   slide.dataset.slideIndex = slideIndex;
   [...row.children].forEach((column, colIdx) => {
     let theme;
+    let imageLinkHref;
     switch (colIdx) {
       case 0:
         column.classList.add('carousel-item-image');
+        imageLinkHref = column.querySelector('a')?.href;
+        if (imageLinkHref) {
+          column.addEventListener('click', () => {
+            window.location.href = imageLinkHref;
+          });
+        }
         break;
       case 1:
         column.classList.add('carousel-item-theme');
