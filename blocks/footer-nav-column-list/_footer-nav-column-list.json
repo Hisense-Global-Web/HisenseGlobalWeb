@@ -1,0 +1,49 @@
+{
+  "definitions": [
+    {
+      "title": "Footer Nav Column List",
+      "id": "footerNavColumnList",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Footer Nav Column List",
+              "model": "footerNavColumnList",
+              "classes": "footer-nav-column-list"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "footerNavColumnList",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "text",
+          "label": "Link Text",
+          "value": ""
+        },
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link",
+          "required": true
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "icon",
+          "label": "Link Icon",
+          "multi": false
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
+

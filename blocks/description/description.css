@@ -1,0 +1,49 @@
+.description-container {
+  width: 100%;
+}
+
+.description {
+  text-align: center;
+  margin: 0 auto;
+
+  p {
+    margin: 0;
+  }
+
+  h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+    margin: 12px 0 0;
+  }
+
+  h1 ~ p, h2 ~ p, h3 ~ p, h4 ~ p, h5 ~ p, h6 ~ p {
+    font-weight: 300;
+  }
+
+  p:first-child {
+    color: var(--color-hisense-teal);
+    font-weight: 500;
+    font-size: var(--body-font-size-xl);
+    margin: 0 0 12px;
+    line-height: 22px;
+  }
+
+  h1, h2, h3, h4,h5,h6 {
+    margin: 0;
+  }
+
+}
+
+.block.description.text-align-left {
+  text-align: left;
+}
+
+.block.description.text-align-right {
+  text-align: right;
+}
+
+.block.description.pb-40 {
+  padding-bottom: 40px;
+}
+
+.block.description.pb-80 {
+  padding-bottom: 80px;
+}

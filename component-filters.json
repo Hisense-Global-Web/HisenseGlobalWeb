@@ -2,7 +2,9 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "navigation",
+      "footerContainer"
     ]
   },
   {
@@ -14,14 +16,40 @@
       "title",
       "hero",
       "cards",
+      "carousel",
       "columns",
-      "fragment"
+      "fragment",
+      "collectionsection",
+      "recards",
+      "video",
+      "banner",
+      "description",
+      "disclaimer",
+      "featurebanner",
+      "videoinfo",
+      "iconComponent",
+      "parallax",
+      "properties",
+      "imageCarousel",
+      "image-comparison-slider",
+      "product-detail-banner",
+      "pdp-product-info",
+      "plp-product-card",
+      "plp-product-tag",
+      "plp-product-filters",
+      "product-filters-carousel"
     ]
   },
   {
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "carouselItem"
     ]
   },
   {
@@ -36,7 +64,97 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "imageLink"
+    ]
+  },
+  {
+    "id": "footerContainer",
+    "components": [
+      "footerLogo",
+      "footerNavColumn",
+      "footerLegalLinks"
+    ]
+  },
+  {
+    "id": "footerLegalLinks",
+    "components": [
+      "footerLegalLinkItem"
+    ]
+  },
+  {
+    "id": "footerLogo",
+    "components": [
+      "footerSocial"
+    ]
+  },
+  {
+    "id": "footerNavColumn",
+    "components": [
+      "footerNavColumnList"
+    ]
+  },
+  {
+    "id": "iconComponent",
+    "components": [
+      "iconItem"
+    ]
+  },
+  {
+    "id": "imageCarousel",
+    "components": [
+      "imageCarouselItem"
+    ]
+  },
+  {
+    "id": "navigationSecondaryContainer",
+    "components": [
+      "columns"
+    ]
+  },
+  {
+    "id": "navigation",
+    "components": [
+      "navigationLogo",
+      "navigationItem",
+      "navigationLink",
+      "navigationAction"
+    ]
+  },
+  {
+    "id": "plp-product-tag",
+    "components": [
+      "plp-product-tag-item"
+    ]
+  },
+  {
+    "id": "plp-product-filters",
+    "components": [
+      "plp-product-sort"
+    ]
+  },
+  {
+    "id": "product-detail-banner",
+    "components": [
+      "product-detail-banner-item"
+    ]
+  },
+  {
+    "id": "product-filters-carousel",
+    "components": [
+      "product-filters-carousel-item"
+    ]
+  },
+  {
+    "id": "properties",
+    "components": [
+      "property"
+    ]
+  },
+  {
+    "id": "recards",
+    "components": [
+      "recard"
     ]
   }
 ]

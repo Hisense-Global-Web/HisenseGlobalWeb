@@ -1,0 +1,145 @@
+.banner-container .banner-wrapper {
+  width: 100%;
+  margin-block: var(--row-gap);
+}
+
+.block.banner {
+  padding-left: 58px;
+  height: 100%;
+  min-height: 432px;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+
+  &::after {
+    content: '';
+    box-sizing: border-box;
+    width: 75%;
+    height: 100%;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, rgb(0 0 0 / 60%), rgb(0 0 0 / 0%));
+ }
+
+  .button-container {
+    margin: 0;
+    padding: 0;
+
+    .button {
+      width: 128px;
+      height: 48px;
+      border-radius: 24px;
+      background-color: transparent;
+      color: #fff;
+      font-size: 12px;
+      line-height: 48px;
+      text-align: center;
+      border: 1px solid #fff;
+      padding: 0;
+      margin-top: 20px;
+      position: relative;
+      z-index: 6;
+      transition-property: color, background-color, border-color, border-bottom-color;
+      transition-duration: 0.2s;
+      transition-timing-function: cubic-bezier(0.33, 0, 0.3, 1);
+
+      &:hover {
+        background-color: #fff;
+        color: #000;
+      }
+    }
+  }
+
+  picture {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    object-fit: cover;
+    box-sizing: border-box;
+  }
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #fff;
+    max-width: 420px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    text-overflow: clip;
+    position: relative;
+    z-index: 6;
+    margin: 0;
+  }
+
+  h1+p,
+  h2+p,
+  h3+p,
+  h4+p,
+  h5+p,
+  h6+p {
+    color: #fff;
+    margin-top: 20px;
+    width: 319px;
+    height: 89px;
+    position: relative;
+    z-index: 6;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4; /* 限制显示4行 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.block.banner.text-color-black {
+  box-sizing: border-box;
+  height: 100%;
+
+  &::after {
+    display: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  .button-container .button {
+    color: #000;
+  }
+
+  .button-container {
+    .button {
+      border: 1px solid #000;
+
+      &:hover {
+        background-color: #000;
+        color: #fff;
+      }
+    }
+  }
+}
+
+@media (width <=768px) {
+  .block.banner {
+    padding-left: 36px;
+  }
+}

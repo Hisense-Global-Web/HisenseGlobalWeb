@@ -1,0 +1,69 @@
+{
+  "definitions": [
+    {
+      "title": "Slide",
+      "id": "slide",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "slide",
+              "model": "slide"
+             
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "slide",
+      "fields": [
+        {
+          "component": "select",
+          "name": "style",
+          "value": "",
+          "label": "Card options",
+          "description": "",
+          "valueType": "string",
+          "options": [
+              {
+                  "name": "Default",
+                  "value": ""
+              },
+              {
+                  "name": "Cover Style",
+                  "value": "cover-style"
+              }
+          ]
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "slide_image",
+          "label": "Image",
+          "multi": false
+        },
+        
+        {
+          "component": "richtext",
+          "name": "slide_title",
+          "label": "Title",
+          "valueType": "string",
+          "required": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "slide_link",
+          "label": "Link",
+          "required": false
+        }
+
+      ]
+    }
+  ],
+  "filters": []
+}

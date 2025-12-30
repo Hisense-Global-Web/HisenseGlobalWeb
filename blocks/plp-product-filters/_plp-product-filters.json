@@ -1,0 +1,109 @@
+{
+  "definitions": [
+    {
+      "title": "PLP Product Filters",
+      "id": "plp-product-filters",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "PLP Product Filters",
+              "filter": "plp-product-filters",
+              "model": "plp-product-filters",
+              "key-value": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "PLP Product Filter Sort Item",
+      "id": "plp-product-sort",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "PLP Product Sort Item",
+              "model": "plp-product-sort",
+              "key-value": true,
+              "modelFields": [
+                "title",
+                "property"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "plp-product-filters",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "results",
+          "label": "Results Text",
+          "value": "{searchResultsCount} RESULT",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "reset",
+          "label": "Reset Filters Text",
+          "value": "Reset filters",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sortBy",
+          "label": "Sort By Text",
+          "value": "Sort By",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "plp-product-sort",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Sort Title",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "property",
+          "label": "Sort Property",
+          "description": "Property comes from product model attributes",
+          "required": true
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "isDefaultSearch",
+          "label": "Is Default Search Option",
+          "description": "Whether this is the default search option",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "plp-product-filters",
+      "components": [
+        "plp-product-sort"
+      ]
+    }
+  ]
+}
+

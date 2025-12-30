@@ -1,0 +1,15 @@
+/* disclaimer.css */
+.disclaimer-box {
+  height: 183px;
+  display: flex;
+  align-items: center;
+}
+
+.disclaimer-box p {
+  font-weight: 300;
+  font-size: 16px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+  height: 22px;
+}

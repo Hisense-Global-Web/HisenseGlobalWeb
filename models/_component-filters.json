@@ -2,7 +2,9 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "navigation",
+      "footerContainer"
     ]
   },
   {
