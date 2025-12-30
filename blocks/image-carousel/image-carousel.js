@@ -33,8 +33,10 @@ function bindEvent(block) {
     const dataIndex = e.target.closest('li').dataset.slideIndex;
     block.querySelectorAll('li').forEach((el, i) => {
       if (i === dataIndex) {
+        el.querySelector('video').muted = true;
         el.querySelector('video')?.play();
       } else {
+        el.querySelector('video').muted = true;
         el.querySelector('video')?.pause();
       }
     });
