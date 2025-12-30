@@ -118,7 +118,7 @@ function createSlide(block, row, slideIndex) {
         column.classList.add('carousel-item-image');
         imageLinkHref = column.querySelector('a')?.href;
         if (imageLinkHref) {
-          column.addEventListener('click', (e) => {
+          column.addEventListener('click', () => {
             window.location.href = imageLinkHref;
           });
         }
