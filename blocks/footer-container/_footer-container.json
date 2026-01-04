@@ -29,6 +29,7 @@
       "id": "footerContainer",
       "components": [
         "footerLogo",
+        "image",
         "footerNavColumn",
         "footerLegalLinks"
       ]
