@@ -112,22 +112,24 @@
           "label": "Button Content",
           "name": "container_button",
           "valueType": "string",
+          "multi": true,
           "fields": [
             {
-              "component": "aem-content",
-              "name": "carousel_ctaColorful",
-              "label": "button link(colorful)",
-              "classes": "colorful",
+              "component": "select",
+              "name": "classes",
+              "value": "",
+              "label": "button type",
               "valueType": "string",
-              "value": "/"
-            },
-            {
-              "component": "text",
-              "name": "carousel_ctaColorfulLabel",
-              "label": "button Label(colorful)",
-              "classes": "colorful",
-              "valueType": "string",
-              "value": "Required when button link content is provided"
+              "options": [
+                {
+                  "name": "Default",
+                  "value": ""
+                },
+                {
+                  "name": "colorful",
+                  "value": "colorful"
+                }
+              ]
             },
             {
               "component": "aem-content",
