@@ -659,7 +659,6 @@
         "label": "Button Content",
         "name": "container_button",
         "valueType": "string",
-        "multi": true,
         "fields": [
           {
             "component": "select",
