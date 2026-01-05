@@ -683,17 +683,17 @@
           },
           {
             "component": "aem-content",
-            "name": "carousel_cta",
-            "label": "button link",
+            "name": "carousel_ctaPrimary",
+            "label": "Primary CTA",
             "valueType": "string",
             "value": "/"
           },
           {
             "component": "text",
-            "name": "carousel_ctaLabel",
-            "label": "button Label",
+            "name": "carousel_ctaPrimaryText",
+            "label": "Primary CTA Label",
             "valueType": "string",
-            "value": "Required when button link content is provided"
+            "value": "Required when Primary CTA content is provided"
           }
         ]
       }
