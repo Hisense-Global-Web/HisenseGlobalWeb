@@ -113,13 +113,12 @@
           "name": "container_button",
           "valueType": "string",
           "multi": true,
-          "required": true,
           "fields": [
             {
               "component": "select",
               "name": "button_classes",
               "value": "",
-              "label": "button type",
+              "label": "Button Classes",
               "valueType": "string",
               "options": [
                 {
@@ -127,8 +126,12 @@
                   "value": ""
                 },
                 {
-                  "name": "Colorful",
-                  "value": "Colorful"
+                  "name": "hisense-color",
+                  "value": "hisense-color"
+                },
+                {
+                  "name": "black-color",
+                  "value": "black-color"
                 }
               ]
             },
