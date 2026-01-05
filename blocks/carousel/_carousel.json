@@ -112,24 +112,22 @@
           "label": "Button Content",
           "name": "container_button",
           "valueType": "string",
-          "multi": true,
           "fields": [
             {
-              "component": "select",
-              "name": "classes",
-              "value": "",
-              "label": "Hero Variant",
+              "component": "aem-content",
+              "name": "carousel_ctaColorful",
+              "label": "button link(colorful)",
+              "classes": "colorful",
               "valueType": "string",
-              "options": [
-                {
-                  "name": "Default",
-                  "value": ""
-                },
-                {
-                  "name": "colorful-button",
-                  "value": "colorful-button"
-                }
-              ]
+              "value": "/"
+            },
+            {
+              "component": "text",
+              "name": "carousel_ctaColorfulLabel",
+              "label": "button Label(colorful)",
+              "classes": "colorful",
+              "valueType": "string",
+              "value": "Required when button link content is provided"
             },
             {
               "component": "aem-content",
