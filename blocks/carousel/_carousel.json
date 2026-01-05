@@ -116,7 +116,7 @@
           "fields": [
             {
               "component": "select",
-              "name": "classes",
+              "name": "classes_button",
               "value": "",
               "label": "button type",
               "valueType": "string",
@@ -126,8 +126,8 @@
                   "value": ""
                 },
                 {
-                  "name": "colorful",
-                  "value": "colorful"
+                  "name": "Colorful",
+                  "value": "Colorful"
                 }
               ]
             },
