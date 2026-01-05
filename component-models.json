@@ -660,10 +660,11 @@
         "name": "container_button",
         "valueType": "string",
         "multi": true,
+        "required": true,
         "fields": [
           {
             "component": "select",
-            "name": "classes_button",
+            "name": "button_classes",
             "value": "",
             "label": "button type",
             "valueType": "string",
