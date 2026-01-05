@@ -78,6 +78,14 @@
           "label": "Image Link"
         },
         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image_mobile",
+          "label": "Image For Mobile",
+          "required": true,
+          "multi": false
+        },
+        {
           "component": "container",
           "label": "Text Content",
           "name": "container_text",
@@ -104,34 +112,38 @@
           "label": "Button Content",
           "name": "container_button",
           "valueType": "string",
+          "multi": true,
           "fields": [
             {
+              "component": "select",
+              "name": "classes",
+              "value": "",
+              "label": "Hero Variant",
+              "valueType": "string",
+              "options": [
+                {
+                  "name": "Default",
+                  "value": ""
+                },
+                {
+                  "name": "colorful-button",
+                  "value": "colorful-button"
+                }
+              ]
+            },
+            {
               "component": "aem-content",
-              "name": "carousel_ctaPrimary",
-              "label": "Primary CTA",
+              "name": "carousel_cta",
+              "label": "button link",
               "valueType": "string",
               "value": "/"
             },
             {
               "component": "text",
-              "name": "carousel_ctaPrimaryText",
-              "label": "Primary CTA Label",
+              "name": "carousel_ctaLabel",
+              "label": "button Label",
               "valueType": "string",
-              "value": "Required if you has Primary CTA content"
-            },
-            {
-              "component": "aem-content",
-              "name": "carousel_ctaSecondary",
-              "label": "Secondary CTA",
-              "valueType": "string",
-              "value": "/"
-            },
-            {
-              "component": "text",
-              "name": "carousel_ctaSecondaryText",
-              "label": "Secondary CTA Label",
-              "valueType": "string",
-              "value": "Required if you has Secondary CTA content"
+              "value": "Required when button link content is provided"
             }
           ]
         }
