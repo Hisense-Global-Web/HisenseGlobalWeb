@@ -96,7 +96,7 @@
           "label": "Text Content",
           "name": "container_text",
           "valueType": "string",
-          "condition": "boolean_text === true",
+          "condition": { "===": [{"var" : "boolean_text"}, true] },
           "fields": [
             {
               "component": "text",
@@ -119,7 +119,7 @@
           "label": "Icon SVG Content",
           "name": "container_icon",
           "valueType": "string",
-          "condition": "boolean_text === false",
+          "condition": { "===": [{"var" : "boolean_text"}, false] },
           "fields": [
             {
               "component": "reference",
