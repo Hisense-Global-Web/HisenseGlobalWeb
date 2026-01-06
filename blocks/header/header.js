@@ -225,24 +225,25 @@ function buildDropdown(data) {
   dropdown.append(content);
   return dropdown;
 }
-function convertToDarkSvgUrl(url) {
-  if (url.indexOf('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660') !== -1) {
-    return url.replace('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660', 'media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b');
-  }
-  if (url.indexOf('media_124969b71abd4f3be2869305b3210ba27a9621bb7') !== -1) {
-    return url.replace('media_124969b71abd4f3be2869305b3210ba27a9621bb7', 'media_152ebd74eb043f4b073908ae990437f464ba966a2');
-  }
-  if (url.indexOf('media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c') !== -1) {
-    return url.replace('media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c', 'media_1d67117bba695f4cd4248983772bdd968834d3be6');
-  }
 
-  const [mainPart, ...restParts] = url.split(/[?#]/);
-  const suffix = restParts.length > 0 ? `/${restParts.join('/')}` : '';
-
-  const darkMainPart = mainPart.replace(/\.svg$/, '-dark.svg');
-
-  return darkMainPart + suffix;
-}
+// function convertToDarkSvgUrl(url) {
+//   if (url.indexOf('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660') !== -1) {
+//     return url.replace('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660', 'media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b');
+//   }
+//   if (url.indexOf('media_124969b71abd4f3be2869305b3210ba27a9621bb7') !== -1) {
+//     return url.replace('media_124969b71abd4f3be2869305b3210ba27a9621bb7', 'media_152ebd74eb043f4b073908ae990437f464ba966a2');
+//   }
+//   if (url.indexOf('media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c') !== -1) {
+//     return url.replace('media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c', 'media_1d67117bba695f4cd4248983772bdd968834d3be6');
+//   }
+//
+//   const [mainPart, ...restParts] = url.split(/[?#]/);
+//   const suffix = restParts.length > 0 ? `/${restParts.join('/')}` : '';
+//
+//   const darkMainPart = mainPart.replace(/\.svg$/, '-dark.svg');
+//
+//   return darkMainPart + suffix;
+// }
 
 /**
  * loads and decorates the header, mainly the nav
@@ -376,7 +377,8 @@ export default async function decorate(block) {
       img.alt = action.title || 'action';
       btn.append(img);
       const imgDark = document.createElement('img');
-      imgDark.src = convertToDarkSvgUrl(action.img);
+      // imgDark.src = convertToDarkSvgUrl(action.img);
+      imgDark.src = '/content/dam/hisense/us/header/person-dark.svg';
       imgDark.alt = action.title || 'action';
       imgDark.className = 'dark-img';
       btn.append(imgDark);
@@ -407,12 +409,12 @@ export default async function decorate(block) {
   const btn = document.createElement('div');
   btn.className = 'nav-action-btn mobile-menu-icon';
   const img = document.createElement('img');
-  img.src = './media_1992b23eb0b506b19304df8bf994f0473ba058146.svg?width=750&format=svg&optimize=medium';
+  img.src = '/content/dam/hisense/us/header/menu.svg';
   img.className = 'light-img';
   img.alt = 'menu';
   btn.append(img);
   const imgDark = document.createElement('img');
-  imgDark.src = './media_1476a6ebba9ef2439aab575d7d5a7946f8c1782ab.svg?width=750&format=svg&optimize=medium';
+  imgDark.src = '/content/dam/hisense/us/header/menu-dark.svg';
   imgDark.alt = 'menu';
   imgDark.className = 'dark-img';
   btn.append(imgDark);
@@ -424,7 +426,7 @@ export default async function decorate(block) {
   const closeBtn = document.createElement('div');
   closeBtn.className = 'nav-action-btn mobile-close-icon';
   const closeImg = document.createElement('img');
-  closeImg.src = './media_13b817dae786f9278b5ba58ce39c250a3c305d1d7.svg?width=750&format=svg&optimize=medium';
+  closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
   closeImg.alt = 'menu';
   closeBtn.addEventListener('click', () => {
     navigation.classList.remove('show-menu');
