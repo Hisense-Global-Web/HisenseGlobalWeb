@@ -86,10 +86,17 @@
           "multi": false
         },
         {
+          "component": "boolean",
+          "name": "boolean_text",
+          "label": "Switch Text Container or Icon SVG",
+          "valueType": "boolean"
+        },
+        {
           "component": "container",
           "label": "Text Content",
           "name": "container_text",
           "valueType": "string",
+          "condition": "boolean_text === true",
           "fields": [
             {
               "component": "text",
@@ -104,6 +111,22 @@
               "value": "",
               "label": "Content",
               "valueType": "string"
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "label": "Icon SVG Content",
+          "name": "container_icon",
+          "valueType": "string",
+          "condition": "boolean_text === false",
+          "fields": [
+            {
+              "component": "reference",
+              "valueType": "string",
+              "name": "image_icon",
+              "label": "Icon SVG",
+              "multi": false
             }
           ]
         },
@@ -125,12 +148,12 @@
                   "value": ""
                 },
                 {
-                  "name": "hisense-color",
-                  "value": "hisense-color"
+                  "name": "hisense-green",
+                  "value": "hisense-green"
                 },
                 {
-                  "name": "black-color",
-                  "value": "black-color"
+                  "name": "hisense-black",
+                  "value": "hisense-black"
                 }
               ]
             },
