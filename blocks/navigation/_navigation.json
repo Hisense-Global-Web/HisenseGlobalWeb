@@ -1,0 +1,53 @@
+{
+  "definitions": [
+    {
+      "title": "Navigation",
+      "id": "navigation",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "name": "Navigation",
+              "model": "navigation",
+              "filter": "navigation",
+              "classes": "navigation-block"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "navigation",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "logo",
+          "label": "Logo",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "logoAlt",
+          "label": "Logo Alt",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "navigation",
+      "components": [
+        "navigationLogo",
+        "navigationItem",
+        "navigationLink",
+        "navigationAction"
+      ]
+    }
+  ]
+}

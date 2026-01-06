@@ -1,0 +1,71 @@
+{
+  "definitions": [
+    {
+      "title": "Description",
+      "id": "description",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Description",
+              "model": "description",
+              "classes": "description-box",
+              "description_smallTit": "This is subheading",
+              "description_text": "<h1>This is headline</h1><p>This is description.</p>"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "description",
+      "fields": [
+        {
+          "component": "multiselect",
+          "name": "classes",
+          "value": "",
+          "label": "Description Alignment Class Name Options",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "text-align-left",
+              "value": "text-align-left"
+            },
+            {
+              "name": "text-align-right",
+              "value": "text-align-right"
+            },
+            {
+              "name": "pb-40",
+              "value": "pb-40"
+            },
+            {
+              "name": "pb-80",
+              "value": "pb-80"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "description_smallTit",
+          "label": "Small title"
+        },
+        {
+          "component": "richtext",
+          "name": "description_text",
+          "label": "Text",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

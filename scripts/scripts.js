@@ -78,6 +78,21 @@ function buildAutoBlocks() {
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
+  if (window.location.hostname.includes('hisense.com') && window.location.pathname.includes('/us')) {
+    const links = main.querySelectorAll('a');
+    links.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('/us/en')) {
+        link.setAttribute('href', href.replace('/us/en', '/us'));
+      }
+
+      const { textContent } = link;
+      if (textContent && textContent.startsWith('/us/en')) {
+        link.textContent = textContent.replace('/us/en', '/us');
+      }
+    });
+  }
+
   decorateButtons(main);
   decorateIcons(main);
   buildAutoBlocks(main);
@@ -138,10 +153,33 @@ function loadDelayed() {
   // load anything that can be postponed to the latest here
 }
 
+function updateUSLinks() {
+  const currentUrl = window.location.href;
+  const isUSSite = currentUrl.includes('hisense.com/us');
+
+  if (isUSSite) {
+    const links = document.querySelectorAll('a[href]');
+    links.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('/us/en')) {
+        const newHref = href.replace(/^\/us\/en/, '/us');
+        link.setAttribute('href', newHref);
+      }
+    });
+  }
+}
+
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
+
+  // Update US site links after page load is complete
+  if (document.readyState === 'complete') {
+    updateUSLinks();
+  } else {
+    window.addEventListener('load', updateUSLinks);
+  }
 }
 
 loadPage();

@@ -1,0 +1,50 @@
+.collectionsection-container .collectionsection-wrapper {
+  margin:0 auto;
+  width: 100%;
+}
+
+.collectionsection {
+  position: relative;
+}
+
+.collectionsection-wrapper > div > div:first-child div p,
+.collectionsection-wrapper > div > div:first-child div h1,
+.collectionsection-wrapper > div > div:first-child div h2,
+.collectionsection-wrapper > div > div:first-child div h3,
+.collectionsection-wrapper > div > div:first-child div h4,
+.collectionsection-wrapper > div > div:first-child div h5,
+.collectionsection-wrapper > div > div:first-child div h6{
+  color: #00AAA6;
+  font-family: 'Hisense Sans Alfabet', sans-serif;
+  margin: 0;
+}
+
+.collectionsection-wrapper > div > div:first-child div p{
+  font-size: var(--body-font-size-l);
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
+  padding: 0;
+}
+
+.collectionsection-wrapper > div > div:last-child div p,
+.collectionsection-wrapper > div > div:last-child div h1,
+.collectionsection-wrapper > div > div:last-child div h2,
+.collectionsection-wrapper > div > div:last-child div h3,
+.collectionsection-wrapper > div > div:last-child div h4,
+.collectionsection-wrapper > div > div:last-child div h5,
+.collectionsection-wrapper > div > div:last-child div h6{
+  padding: 0;
+  color: #333;
+  margin: 10px 0 0;
+  font-family: 'Hisense Sans Alfabet', sans-serif;
+}
+
+.collectionsection-wrapper > div > div:last-child div p{
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+}

@@ -8,7 +8,13 @@
           "page": {
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
-              "model": "section"
+              "model": "section",
+              "style_theme": "light",
+              "style_container": "",
+              "style_paddingTop": "pt-l",
+              "style_paddingBottom": "pb-l",
+              "style_imageBorderRadius": "",
+              "style_imageRatio": ""
             }
           }
         }
@@ -26,15 +32,306 @@
           "description": "The label shown for this section in the Content Tree"
         },
         {
-          "component": "multiselect",
-          "name": "style",
-          "label": "Style",
+          "component": "text",
+          "name": "id",
+          "label": "Section ID",
+          "description": "Enter a unique ID (e.g., \"specifications\", \"faq-section\") if you want to create links that jump directly to this section."
+        },
+        {
+          "component": "select",
+          "name": "style_theme",
+          "label": "Section Theme",
           "options": [
             {
-              "name": "Highlight",
-              "value": "highlight"
+              "name": "Light",
+              "value": "light"
+            },
+            {
+              "name": "Dark",
+              "value": "dark"
+            },
+            {
+              "name": "Grey",
+              "value": "grey"
+            },
+            {
+              "name": "Gray 00",
+              "value": "gray-00"
+            },
+            {
+              "name": "Gradient Gray",
+              "value": "gradient-gray"
             }
           ]
+        },
+        {
+          "component": "select",
+          "name": "style_container",
+          "label": "Section Container Type",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Fluid Container",
+              "value": "fluid"
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "label": "Section Spacing",
+          "name": "container_padding",
+          "collapsible": true,
+          "fields": [
+            {
+              "component": "select",
+              "name": "style_paddingTop",
+              "label": "Padding Top",
+              "options": [
+                {
+                  "name": "None",
+                  "value": ""
+                },
+                {
+                  "name": "Small (40px)",
+                  "value": "pt-s"
+                },
+                {
+                  "name": "Medium (60px)",
+                  "value": "pt-m"
+                },
+                {
+                  "name": "Large (80px)",
+                  "value": "pt-l"
+                },
+                {
+                  "name": "Extra Large (120px)",
+                  "value": "pt-xl"
+                }
+              ]
+            },
+            {
+              "component": "select",
+              "name": "style_paddingBottom",
+              "label": "Padding Bottom",
+              "options": [
+                {
+                  "name": "None",
+                  "value": ""
+                },
+                {
+                  "name": "Small (40px)",
+                  "value": "pb-s"
+                },
+                {
+                  "name": "Medium (60px)",
+                  "value": "pb-m"
+                },
+                {
+                  "name": "Large (80px)",
+                  "value": "pb-l"
+                },
+                {
+                  "name": "Extra Large (120px)",
+                  "value": "pb-xl"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "label": "Section Image Style",
+          "name": "container_image",
+          "collapsible": true,
+          "fields": [
+            {
+              "component": "select",
+              "name": "style_imageBorderRadius",
+              "label": "Image Border Radius",
+              "options": [
+                {
+                  "name": "Default",
+                  "value": ""
+                },
+                {
+                  "name": "Rounded",
+                  "value": "img-rounded"
+                }
+              ]
+            },
+            {
+              "component": "select",
+              "name": "style_imageRatio",
+              "label": "Image Ratio",
+              "options": [
+                {
+                  "name": "Original",
+                  "value": ""
+                },
+                {
+                  "name": "4:3",
+                  "value": "ratio-4-3"
+                },
+                {
+                  "name": "3:2",
+                  "value": "ratio-3-2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "product-detail-banner-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false,
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "alt",
+          "label": "Alt Text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "pdp-product-info",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "graphql",
+          "label": "GraphQL Endpoint"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sku",
+          "label": "SKU",
+          "required": true
+        },
+        {
+          "component": "checkbox-group",
+          "valueType": "string[]",
+          "name": "fields",
+          "label": "Product Introduction",
+          "multi": true,
+          "options": [
+            { "name": "Title", "value": "title" },
+            { "name": "Series", "value": "series" },
+            { "name": "PriceInfo RegularPrice", "value": "priceInfo_regularPrice" },
+            { "name": "Awards", "value": "awards" },
+            { "name": "Position", "value": "position" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plp-product-card",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "graphql",
+          "label": "GraphQL Endpoint",
+          "description": "GraphQL endpoint URL"
+        },
+        {
+          "component": "checkbox-group",
+          "valueType": "string[]",
+          "name": "fields",
+          "label": "Product Fields",
+          "multi": true,
+          "options": [
+            { "name": "Title", "value": "title" },
+            { "name": "Series", "value": "series" },
+            { "name": "PriceInfo RegularPrice", "value": "priceInfo_regularPrice" },
+            { "name": "PriceInfo Specialprice", "value": "priceInfo_specialprice" },
+            { "name": "image", "value": "mediaGallery_image" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plp-product-tag",
+      "fields": []
+    },
+    {
+      "id": "plp-product-tag-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Filter Tag Title",
+          "required": true
+        },
+        {
+          "component": "aem-tag",
+          "valueType": "string",
+          "name": "tags",
+          "label": "Tags",
+          "rootPath": "/content/cq:tags/hisense/product"
+        }
+      ]
+    },
+    {
+      "id": "plp-product-filters",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "results",
+          "label": "Results Text",
+          "value": "{searchResultsCount} RESULT",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "reset",
+          "label": "Reset Filters Text",
+          "value": "Reset filters",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sortBy",
+          "label": "Sort By Text",
+          "value": "Sort By",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "plp-product-sort",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Sort Title",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "property",
+          "label": "Sort Property",
+          "description": "Property comes from product model attributes",
+          "required": true
         }
       ]
     }
@@ -49,8 +346,28 @@
         "title",
         "hero",
         "cards",
+        "carousel",
         "columns",
-        "fragment"
+        "fragment",
+        "collectionsection",
+        "recards",
+        "video",
+        "banner",
+        "description",
+        "disclaimer",
+        "featurebanner",
+        "videoinfo",
+        "iconComponent",
+        "parallax",
+        "properties",
+        "imageCarousel",
+        "image-comparison-slider",
+        "product-detail-banner",
+        "pdp-product-info",
+        "plp-product-card",
+        "plp-product-tag",
+        "plp-product-filters",
+        "product-filters-carousel"
       ]
     }
   ]

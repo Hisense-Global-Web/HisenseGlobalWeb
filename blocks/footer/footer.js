@@ -1,4 +1,3 @@
-import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 /**
@@ -7,8 +6,7 @@ import { loadFragment } from '../fragment/fragment.js';
  */
 export default async function decorate(block) {
   // load footer as fragment
-  const footerMeta = getMetadata('footer');
-  const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
+  const footerPath = `${window.hlx.codeBasePath}${window.location.href.includes('hisense.com') ? '/us/footer' : '/us/en/footer'}`;
   const fragment = await loadFragment(footerPath);
 
   // decorate footer DOM
