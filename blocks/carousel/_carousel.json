@@ -93,7 +93,7 @@
         },
         {
           "component": "container",
-          "label": "Text Content",
+          "label": "Text Container",
           "name": "container_text",
           "valueType": "string",
           "condition": { "===": [{"var" : "boolean_text"}, true] },
@@ -116,7 +116,7 @@
         },
         {
           "component": "container",
-          "label": "Icon SVG Content",
+          "label": "Icon SVG Container",
           "name": "container_icon",
           "valueType": "string",
           "condition": { "===": [{"var" : "boolean_text"}, false] },

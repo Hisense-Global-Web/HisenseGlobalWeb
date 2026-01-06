@@ -640,7 +640,7 @@
       },
       {
         "component": "container",
-        "label": "Text Content",
+        "label": "Text Container",
         "name": "container_text",
         "valueType": "string",
         "condition": {
@@ -670,7 +670,7 @@
       },
       {
         "component": "container",
-        "label": "Icon SVG Content",
+        "label": "Icon SVG Container",
         "name": "container_icon",
         "valueType": "string",
         "condition": {

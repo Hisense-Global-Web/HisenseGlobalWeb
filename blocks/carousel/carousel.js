@@ -27,7 +27,10 @@ function showSlide(block, slideIndex, init = false) {
   const carouselHeight = block.offsetHeight;
   if (block.attributes['data-aue-resource'] === undefined) {
     const specialDiv = block.querySelector('.carousel-items-container');
-    specialDiv.style.setProperty('height', '100dvh', 'important');
+    specialDiv.style.setProperty('height', '100dvh');
+  }
+  if (document.body.getBoundingClientRect().width <= 600) {
+    block.querySelector('img').style.setProperty('height', 'auto');
   }
   if ([...activeSlide.classList].includes('dark')) {
     block.classList.add('dark');
@@ -113,6 +116,8 @@ function createSlide(block, row, slideIndex) {
   [...row.children].forEach((column, colIdx) => {
     let theme;
     let imageLinkHref;
+    let mobileImg;
+    let buttonTheme;
     switch (colIdx) {
       case 0:
         column.classList.add('carousel-item-image');
@@ -121,6 +126,12 @@ function createSlide(block, row, slideIndex) {
           column.addEventListener('click', () => {
             window.location.href = imageLinkHref;
           });
+        }
+        // eslint-disable-next-line prefer-destructuring
+        mobileImg = column.querySelectorAll('img')[1];
+        if (mobileImg) {
+          mobileImg.style.display = 'none';
+          column.firstElementChild.querySelectorAll('source')[1].setAttribute('srcset', mobileImg.src);
         }
         break;
       case 1:
@@ -135,15 +146,18 @@ function createSlide(block, row, slideIndex) {
           if ([...column.children][0].nodeName === 'P') column.firstElementChild.classList.add('teal-text');
           column.lastElementChild.classList.add('change-text');
         }
-        [...column.children].forEach((children) => {
-          if (children.innerHTML.includes('/n')) children.classList.add('focus-wrap');
-        });
+        break;
+      case 3:
+        column.classList.add('carousel-item-button-theme');
+        buttonTheme = column.querySelector('p')?.innerHTML || '';
+        if (buttonTheme) column.parentElement.lastElementChild.classList.add(buttonTheme);
+        column.innerHTML = '';
         break;
       default:
         column.classList.add('carousel-item-cta');
     }
     if (column.innerHTML === '') return;
-    if ([2, 3].includes(colIdx)) {
+    if ([2, 3, 4].includes(colIdx)) {
       div.appendChild(column);
     } else {
       slide.append(column);
@@ -164,10 +178,6 @@ export default async function decorate(block) {
   }
   [...block.children].forEach((row, idx) => {
     const slide = createSlide(block, row, idx);
-    const ctaContent = slide.querySelector('.button');
-    if (ctaContent) {
-      ctaContent.classList.add('active');
-    }
     wholeContainer.append(slide);
     if (slideIndicators) {
       const indicator = document.createElement('li');
