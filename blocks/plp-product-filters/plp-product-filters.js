@@ -42,7 +42,7 @@ function closeSortByCLickFn() {
 function appendCloseBtnDom() {
   const plpSortBoxEl = document.querySelector('.plp-sort-box');
   const closeImg = document.createElement('img');
-  closeImg.src = './media_13b817dae786f9278b5ba58ce39c250a3c305d1d7.svg?width=750&format=svg&optimize=medium';
+  closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
   closeImg.alt = 'mobile-close-sort-by';
   closeImg.className = 'mobile-sort-by-close';
   plpSortBoxEl.append(closeImg);
@@ -209,7 +209,7 @@ export default function decorate(block) {
   const mobileFiltersSpan = document.createElement('span');
   mobileFiltersSpan.textContent = 'Filters';
   const mobileFiltersImg = document.createElement('img');
-  mobileFiltersImg.src = '/content/dam/hisense/image/icon/mobile-filters-title.svg';
+  mobileFiltersImg.src = '/content/dam/hisense/us/common-icons/mobile-filters-title.svg';
   mobileFiltersImg.alt = 'Filters title';
   mobileFilterTit.append(mobileFiltersImg, mobileFiltersSpan);
   mobileFilters.append(mobileFilterTit);
@@ -236,7 +236,7 @@ export default function decorate(block) {
   // label comes from configuration (sortBy)
   sortSpan.textContent = sortBy;
   const sortImg = document.createElement('img');
-  sortImg.src = './media_18b1fbb6305019af784f87587d3bfbc78f2ca3575.svg?width=750&format=svg&optimize=medium';
+  sortImg.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
   sortImg.alt = 'Sort options';
   sort.append(sortSpan, sortImg);
 
