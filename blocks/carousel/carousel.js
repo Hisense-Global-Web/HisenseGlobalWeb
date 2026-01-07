@@ -131,7 +131,7 @@ function createSlide(block, row, slideIndex) {
         mobileImg = column.querySelectorAll('img')[1];
         if (mobileImg) {
           mobileImg.style.display = 'none';
-          column.firstElementChild.querySelectorAll('source')[1].setAttribute('srcset', mobileImg.src);
+          column.firstElementChild.querySelectorAll('source')[1]?.setAttribute('srcset', mobileImg.src);
         }
         break;
       case 1:

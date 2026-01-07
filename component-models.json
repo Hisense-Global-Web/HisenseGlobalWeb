@@ -604,7 +604,6 @@
   },
   {
     "id": "carouselItem",
-    "limit": 3,
     "fields": [
       {
         "component": "container",
@@ -642,26 +641,12 @@
         ]
       },
       {
-        "component": "boolean",
-        "name": "boolean_text",
-        "label": "Switch Icon SVG",
-        "valueType": "boolean"
-      },
-      {
         "component": "container",
         "label": "Text Container",
         "name": "container_text",
-        "id": "container_text",
+        "id": "text_container",
         "valueType": "string",
         "collapsible": true,
-        "condition": {
-          "===": [
-            {
-              "var": "boolean_text"
-            },
-            false
-          ]
-        },
         "fields": [
           {
             "component": "text",
@@ -683,7 +668,7 @@
         "component": "container",
         "label": "Icon SVG Container",
         "name": "container_icon",
-        "id": "container_icon",
+        "id": "icon_container",
         "valueType": "string",
         "collapsible": true,
         "visible": "boolean_text",
@@ -703,7 +688,7 @@
         "name": "container_button",
         "collapsible": true,
         "valueType": "string",
-        "id": "button_classes",
+        "id": "button_container",
         "fields": [
           {
             "component": "select",
