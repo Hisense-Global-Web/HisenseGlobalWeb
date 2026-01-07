@@ -1,6 +1,6 @@
 # FASTAB FROM MAIN
 mountpoints:
   /:
-    url: "https://author-p174152-e1855821.adobeaemcloud.com/bin/franklin.delivery/Hisense-Global-Web/HisenseGlobalWeb/development"
+    url: "https://author-p174152-e1855954.adobeaemcloud.com/bin/franklin.delivery/Hisense-Global-Web/HisenseGlobalWeb/development"
     type: "markup"
     suffix: ".html"
