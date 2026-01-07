@@ -604,38 +604,47 @@
   },
   {
     "id": "carouselItem",
+    "limit": 3,
     "fields": [
       {
-        "component": "reference",
+        "component": "container",
+        "label": "",
+        "name": "container_reference",
         "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "required": true,
-        "multi": false
-      },
-      {
-        "component": "boolean",
-        "name": "boolean",
-        "label": "Image Dark Theme",
-        "valueType": "boolean"
-      },
-      {
-        "component": "aem-content",
-        "name": "image_link",
-        "label": "Image Link"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image_mobile",
-        "label": "Image For Mobile",
-        "required": true,
-        "multi": false
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "image",
+            "label": "Image",
+            "required": true,
+            "multi": false
+          },
+          {
+            "component": "boolean",
+            "name": "boolean",
+            "label": "Image Dark Theme",
+            "valueType": "boolean"
+          },
+          {
+            "component": "aem-content",
+            "name": "image_link",
+            "label": "Image Link"
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "image_mobile",
+            "label": "Image For Mobile",
+            "required": true,
+            "multi": false
+          }
+        ]
       },
       {
         "component": "boolean",
         "name": "boolean_text",
-        "label": "Switch Text Container or Icon SVG",
+        "label": "Switch Icon SVG",
         "valueType": "boolean"
       },
       {
@@ -643,12 +652,13 @@
         "label": "Text Container",
         "name": "container_text",
         "valueType": "string",
+        "collapsible": true,
         "condition": {
           "===": [
             {
               "var": "boolean_text"
             },
-            true
+            false
           ]
         },
         "fields": [
@@ -673,14 +683,8 @@
         "label": "Icon SVG Container",
         "name": "container_icon",
         "valueType": "string",
-        "condition": {
-          "===": [
-            {
-              "var": "boolean_text"
-            },
-            false
-          ]
-        },
+        "collapsible": true,
+        "visible": "boolean_text",
         "fields": [
           {
             "component": "reference",
@@ -693,9 +697,11 @@
       },
       {
         "component": "container",
-        "label": "Button Content",
+        "label": "Button Container",
         "name": "container_button",
-        "valueType": "string",
+        "collapsible": true,
+        "valueType": "string[]",
+        "multi": true,
         "fields": [
           {
             "component": "select",

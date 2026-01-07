@@ -165,37 +165,33 @@ main > .section:first-of-type {
       }
     }
   }
+}
 
-  .carousel-item-cta.hisense-green {
-    .button-container {
-      .button {
-        background-color: var(--color-hisense-teal);
-        border-color: var(--color-hisense-teal);
-        color: #fff;
+/* noinspection Stylelint */
+.carousel-item-cta.hisense-black .button-container .button {
+  background-color: var(--color-hisense-black);
+  border-color: var(--color-hisense-black);
+  color: #fff;
 
-        &:hover {
-          background-color: var(--color-hisense-green-01);
-          border-color: var(--color-hisense-green-01);
-          color: #fff;
-        }
-      }
-    }
+  /* noinspection Stylelint */
+  &:hover {
+    background-color: var(--color-hisense-grey-01);
+    border-color: var(--color-hisense-grey-01);
+    color: #fff;
   }
+}
 
-  .carousel-item-cta.hisense-black {
-    .button-container {
-      .button {
-        background-color: var(--color-hisense-black);
-        border-color: var(--color-hisense-black);
-        color: #fff;
+/* noinspection Stylelint */
+.carousel-item-cta.hisense-green .button-container .button{
+  background-color: var(--color-hisense-teal);
+  border-color: var(--color-hisense-teal);
+  color: #fff;
 
-        &:hover {
-          background-color: var(--color-hisense-grey-01);
-          border-color: var(--color-hisense-grey-01);
-          color: #fff;
-        }
-      }
-    }
+  /* noinspection Stylelint */
+  &:hover {
+    background-color: var(--color-hisense-green-01);
+    border-color: var(--color-hisense-green-01);
+    color: #fff;
   }
 }
 
@@ -284,7 +280,7 @@ main > .section:first-of-type {
   }
 }
 
-@media (width <= 600px) {
+@media (width <= 900px) {
   .carousel  .carousel-items-container {
     /* height: 640px; */
     overflow: scroll;
@@ -297,6 +293,7 @@ main > .section:first-of-type {
       .carousel-content {
         width: 100%;
         top: 70%;
+        left: calc(50% - min(var(--container-max-width), calc(100vw - 16*2)) / 2);
 
         .button {
           width: 113px;
@@ -323,7 +320,7 @@ main > .section:first-of-type {
         }
 
         .carousel-content {
-          position: static;
+          /* position: static; */
         }
       }
     }
