@@ -120,7 +120,7 @@ main > .section:first-of-type {
     gap: 10px;
 
     .button-container {
-      font-size: 14px;
+      font-size: var(--body-font-size-l);
       font-weight: 500;
       text-align: center;
 
@@ -183,15 +183,15 @@ main > .section:first-of-type {
 
 /* noinspection Stylelint */
 .carousel-item-cta.hisense-green .button-container .button{
-  background-color: var(--color-hisense-teal);
-  border-color: var(--color-hisense-teal);
-  color: #fff;
+  background-color: var(--color-hisense-teal) !important;
+  border-color: var(--color-hisense-teal) !important;
+  color: #fff !important;
 
   /* noinspection Stylelint */
   &:hover {
-    background-color: var(--color-hisense-green-01);
-    border-color: var(--color-hisense-green-01);
-    color: #fff;
+    background-color: var(--color-hisense-green-01) !important;
+    border-color: var(--color-hisense-green-01) !important;
+    color: #fff !important;
   }
 }
 
@@ -280,7 +280,7 @@ main > .section:first-of-type {
   }
 }
 
-@media (width <= 900px) {
+@media (width <= 860px) {
   .carousel  .carousel-items-container {
     /* height: 640px; */
     overflow: scroll;
