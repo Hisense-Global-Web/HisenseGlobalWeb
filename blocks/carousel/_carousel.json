@@ -104,6 +104,7 @@
           "component": "container",
           "label": "Text Container",
           "name": "container_text",
+          "id": "container_text",
           "valueType": "string",
           "collapsible": true,
           "condition": { "===": [{"var" : "boolean_text"}, false] },
@@ -128,6 +129,7 @@
           "component": "container",
           "label": "Icon SVG Container",
           "name": "container_icon",
+          "id": "container_icon",
           "valueType": "string",
           "collapsible": true,
           "visible": "boolean_text",
@@ -146,8 +148,8 @@
           "label": "Button Container",
           "name": "container_button",
           "collapsible": true,
-          "valueType": "string[]",
-          "multi": true,
+          "valueType": "string",
+          "id": "button_classes",
           "fields": [
             {
               "component": "select",
