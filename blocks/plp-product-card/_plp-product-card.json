@@ -10,7 +10,14 @@
             "template": {
               "name": "PLP Product Card",
               "model": "plp-product-card",
-              "classes": "plp-product-card"
+              "classes": "plp-product-card",
+              "modelFields": [
+                "graphql",
+                "fields",
+                "loadMoreTextContent",
+                "loadMoreLink",
+                "noResultMessage"
+              ]
             }
           }
         }
@@ -55,6 +62,13 @@
           "name": "loadMoreLink",
           "label": "Load More Link",
           "description": "Link for load more button"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "noResultMessage",
+          "label": "No Result Message",
+          "description": "Text to display when no result search"
         }
       ]
     }

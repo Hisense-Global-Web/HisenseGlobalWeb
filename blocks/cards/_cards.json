@@ -48,6 +48,10 @@
                   "name": "Cover Style",
                   "value": "cover-style"
               },
+               {
+                  "name": "Cover Style Width Dark Font",
+                  "value": "cover-dark"
+              },
               {
                   "name": "Center Style",
                   "value": "center-style"

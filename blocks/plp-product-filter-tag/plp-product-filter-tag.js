@@ -208,7 +208,7 @@ export default function decorate(block) {
       if (existing) existing.remove();
     }
 
-    rows.forEach((row) => {
+    rows.forEach((row, index) => {
       const resource = row.getAttribute('data-aue-resource') || null;
       const cells = [...row.children];
       if (cells.length < 2) return;
@@ -218,7 +218,7 @@ export default function decorate(block) {
       if (!titleText || !tagsCsv) return;
 
       const group = document.createElement('div');
-      group.className = 'plp-filter-group';
+      group.className = index === 0 ? 'plp-filter-group' : 'plp-filter-group hide';
       if (isEditMode && resource) {
         group.setAttribute('data-aue-resource', resource);
       }
@@ -230,11 +230,16 @@ export default function decorate(block) {
       titleSpan.textContent = titleText;
       const arrow = document.createElement('img');
       arrow.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
-      arrow.addEventListener('click', (e) => {
-        const grandParent = e.target.parentNode?.parentNode;
+
+      const toggleExpand = (e) => {
+        e.stopPropagation();
+        const grandParent = e.target.closest('.plp-filter-group');
         if (!grandParent) { return; }
         grandParent.classList.toggle('hide');
-      });
+      };
+
+      arrow.addEventListener('click', toggleExpand);
+      title.addEventListener('click', toggleExpand);
       title.append(titleSpan, arrow);
 
       const list = document.createElement('ul');
@@ -321,12 +326,14 @@ export default function decorate(block) {
       mobileFiltersSpan.textContent = 'Filters';
       const mobileFiltersImg = document.createElement('img');
       mobileFiltersImg.src = '/content/dam/hisense/us/common-icons/mobile-filters-title.svg';
+      mobileFiltersImg.src = '/content/dam/hisense/us/common-icons/mobile-filters-title.svg';
       mobileFiltersImg.alt = 'Filters title';
       mobileProdctTagTit.append(mobileFiltersImg, mobileFiltersSpan);
 
       const closeBtn = document.createElement('div');
       closeBtn.className = 'mobile-filter-close';
       const closeImg = document.createElement('img');
+      closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
       closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
       closeImg.alt = 'mobile-filter';
       closeBtn.addEventListener('click', () => {

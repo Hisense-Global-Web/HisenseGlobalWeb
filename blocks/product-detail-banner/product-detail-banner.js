@@ -144,7 +144,7 @@ export default function decorate(block) {
     rightBtn.removeAttribute('disabled');
   }
   const media = document.createElement('div');
-  media.className = 'pdp-media';
+  media.className = 'pdp-media pdp-width';
   const mediaImg = document.createElement('div');
   mediaImg.className = 'pdp-main-img';
   if (tabs?.childElementCount) {

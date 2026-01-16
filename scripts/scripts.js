@@ -143,6 +143,64 @@ async function loadLazy(doc) {
   loadFonts();
 }
 
+function loadDelayedImages() {
+  const currentHostname = window.location.hostname;
+
+  if (currentHostname.includes('hisensesitestage') || currentHostname.includes('hisensesitedev') || currentHostname.includes('localhost')) {
+    const domainPrefix = 'https://publish-p174152-e1855821.adobeaemcloud.com';
+
+    const processImage = (img) => {
+      const src = img.getAttribute('src');
+      if (src && src.startsWith('/content/dam')) {
+        if (!src.startsWith(domainPrefix)) {
+          img.setAttribute('src', domainPrefix + src);
+        }
+      }
+    };
+
+    const addImageLoadListener = (img) => {
+      if (img.hasAttribute('data-processed')) return;
+
+      img.addEventListener('error', () => {
+        const src = img.getAttribute('src');
+        if (src && src.startsWith('/content/dam') && !src.startsWith(domainPrefix)) {
+          img.setAttribute('src', domainPrefix + src);
+        }
+      });
+
+      img.addEventListener('load', () => {
+        processImage(img);
+        img.setAttribute('data-processed', 'true');
+      });
+
+      if (img.complete) {
+        processImage(img);
+        img.setAttribute('data-processed', 'true');
+      }
+    };
+
+    document.querySelectorAll('img').forEach(addImageLoadListener);
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.tagName === 'img') {
+            addImageLoadListener(node);
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const images = node.querySelectorAll('img');
+            images.forEach(addImageLoadListener);
+          }
+        });
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+  }
+}
+
 /**
  * Loads everything that happens a lot later,
  * without impacting the user experience.
@@ -150,7 +208,7 @@ async function loadLazy(doc) {
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
   window.setTimeout(() => import('./delayed.js'), 3000);
-  // load anything that can be postponed to the latest here
+  loadDelayedImages();
 }
 
 function updateUSLinks() {

@@ -5,7 +5,7 @@
 .icon-component {
   position: relative;
 
-  p {
+  p:nth-child(1) {
     margin: 0;
     font-weight: 500;
   }
@@ -13,13 +13,13 @@
 
 .icon-component > div:nth-child(1) {
   color: var(--color-hisense-teal);
-  font-size: var(--body-font-size-l);
+  font-size: var(--body-font-size-xl);
   line-height: 1;
   font-weight: 400;
 }
 
 .icon-component > div:nth-child(2) {
-  font-size: var(--heading-font-size-l);
+  font-size: var(--heading-font-size-m);
   font-weight: 500;
   line-height: 1;
 
@@ -30,7 +30,7 @@
 
 .icon-viewport {
   width: 100%;
-  margin: 32px 0 ;
+  margin: 32px 0 0;
 
   &::-webkit-scrollbar{
     display:none
@@ -39,7 +39,7 @@
 
 .icon-viewport ul{
   display: flex;
-  gap: 24px;
+  gap: var(--gap);
   margin: 0;
   padding: 0;
   transition: transform 0.5s ease-in-out;
@@ -52,63 +52,100 @@
   width: 210px;
   height: 200px;
   border-radius: 20px;
-  flex-shrink: 0;
   cursor: pointer;
   background-color: white;
-
-  /* &:hover {
-    width: 279px;
-  } */
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 20px;
 
   .item {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     gap: 20px;
     height: 100%;
     padding: 30px 0;
     box-sizing: border-box;
     text-align: center;
 
-    /* > p {
-      margin: 0;
-    } */
-
-    div:nth-child(2) {
-      font-weight: 400;
-    }
-
     .item-picture {
       height: auto;
     }
+  }
 
-    .item-cta{
-      display: none;
-    }
-
-    .item-cta.show{
-      display: none;
-    }
+  .item-cta{
+    display: none;
   }
 }
 
 .text-left {
   .icon-viewport ul>li {
     border: none;
+    height: 220px;
+    width: 214px;
     background-color: var(--color-hisense-grey-04);
-    padding: 20px;
+    padding: 16px 24px 24px;
+    box-sizing: content-box;
+    cursor: auto;
 
     .item {
-      align-items: center;
+      display: flex;
+      padding: 0;
+      align-items: flex-start;
       justify-content: flex-start;
-      gap: 4px;
+      gap: 8px;
+      height: 164px;
       text-align: left;
+
+      .item-picture {
+        width: 70px;
+        height: 70px;
+      }
+
+      picture, img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .item-text {
+        flex: 1;
+        text-align: start;
+
+        p:nth-child(2) {
+          font-size: 14px;
+          line-height: 1.4;
+          margin: 0;
+          padding: 0;
+        }
+      }
     }
 
-    .item-picture {
-      height: auto;
-      width: 100%;
+    .item-cta.show {
+      display: block;
+      width: fit-content;
+
+      a {
+        display: block;
+        padding: 0 16px;
+        line-height: 30px;
+        margin: 0;
+        border: none;
+        color: #fff;
+        background-color: var(--color-hisense-teal);
+        font-size: var(--body-font-size-s);
+        text-decoration: none;
+        box-sizing: border-box;
+        border-radius: 100px;
+      }
+
+      a:hover {
+        background-color: var(--color-hisense-green-01);
+        color: white;
+      }
     }
 
     p {
@@ -175,16 +212,9 @@
   }
 }
 
-@media (width <= 600px) {
+@media (width < 860px) {
   .pagination.show {
     display: none;
-  }
-
-  .icon-component > div:nth-child(2) {
-    p {
-      margin-top: 8px;
-      font-size: 24px;
-    }
   }
 
   .icon-viewport {
@@ -192,7 +222,19 @@
     overflow: visible;
 
     ul>li {
-      width: 240px;
+      width: 252px;
+      height: 180px;
+      box-sizing: content-box;
+      padding: 30px 0;
+
+      .item {
+        padding: 0;
+        gap: 24px;
+
+        .item-text {
+          font-size: 20px;
+        }
+      }
     }
 
     .icon-track {
@@ -204,6 +246,35 @@
       -ms-overflow-style: none;
       scroll-snap-type: x mandatory; /* 强制水平吸附 */
       scroll-behavior: smooth;
+    }
+  }
+
+  .text-left {
+    .icon-viewport ul > li {
+      width: 240px;
+      height: 240px;
+      padding: 16px 20px 24px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+      box-sizing: border-box;
+      
+      .item {
+        height: 141px;
+
+        .item-text {
+          font-size: 14px;
+
+          p:nth-child(2) {
+            font-size: 12px;
+          }
+        }
+
+        .item-picture {
+          width: 64px;
+          height: 64px;
+        }
+      }
     }
   }
 }

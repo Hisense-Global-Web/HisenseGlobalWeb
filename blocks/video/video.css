@@ -47,9 +47,10 @@ video{
 }
 
 
-@media (width <= 600px) {
+@media (width <= 860px) {
   .video {
      min-height: unset;
-     padding: 20px 0;
+     padding:0;
+     margin:0 calc(-1 * var(--common-padding));
   }
 }

@@ -30,6 +30,19 @@
     margin: 0;
   }
 
+  .description-gray-tips, div[data-aue-model="featureDisclaimer"] {
+    p {
+      font-size: 12px;
+      color: var(--color-primary-grey-50);
+      margin-bottom: 0;
+      line-height: 16.8px;
+      font-weight: 400;
+    }
+  }
+}
+
+.block.description.text-align-center {
+  text-align: center;
 }
 
 .block.description.text-align-left {
@@ -47,3 +60,4 @@
 .block.description.pb-80 {
   padding-bottom: 80px;
 }
+

@@ -6,7 +6,7 @@ export function whenElementReady(selector, callback, options = {}) {
   } = options;
 
   const element = parent.querySelector(selector);
-  if (element) {
+  if (element.offsetWidth) {
     setTimeout(() => callback(element), 0);
     return { stop: () => {} };
   }
@@ -32,7 +32,7 @@ export function whenElementReady(selector, callback, options = {}) {
     for (const mutation of mutations) {
       if (mutation.type === 'childList' || mutation.type === 'subtree') {
         const foundElement = parent.querySelector(selector);
-        if (foundElement) {
+        if (foundElement.offsetWidth) {
           cleanup();
           callback(foundElement);
           if (stopAfterFound) break;
@@ -45,6 +45,8 @@ export function whenElementReady(selector, callback, options = {}) {
   observer.observe(parent, {
     childList: true,
     subtree: true,
+    attributes: true,
+    offsetWidth: true,
   });
 
   return { stop: cleanup };
