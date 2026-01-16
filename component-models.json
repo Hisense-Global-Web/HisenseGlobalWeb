@@ -402,6 +402,27 @@
             "value": "mediaGallery_image"
           }
         ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreTextContent",
+        "label": "Load More Text Content",
+        "description": "Text content for load more button"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreLink",
+        "label": "Load More Link",
+        "description": "Link for load more button"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "noResultMessage",
+        "label": "No Result Message",
+        "description": "Text to display when no result search"
       }
     ]
   },
@@ -505,6 +526,13 @@
         "multi": false
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "collectionMobile_image",
+        "label": "Mobile Image",
+        "multi": false
+      },
+      {
         "component": "richtext",
         "name": "collection_text",
         "label": "Text",
@@ -538,6 +566,10 @@
           {
             "name": "Cover Style",
             "value": "cover-style"
+          },
+          {
+            "name": "Cover Style Width Dark Font",
+            "value": "cover-dark"
           },
           {
             "name": "Center Style",
@@ -606,40 +638,66 @@
     "id": "carouselItem",
     "fields": [
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "required": true,
-        "multi": false
-      },
-      {
-        "component": "boolean",
-        "name": "boolean",
-        "label": "Image Dark Theme",
-        "valueType": "boolean"
-      },
-      {
-        "component": "aem-content",
-        "name": "image_link",
-        "label": "Image Link"
-      },
-      {
         "component": "container",
-        "label": "Text Content",
-        "name": "container_text",
+        "label": "",
+        "name": "container_reference",
         "valueType": "string",
         "fields": [
           {
+            "component": "reference",
+            "valueType": "string",
+            "name": "image_pc",
+            "label": "Image",
+            "required": true,
+            "multi": false
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "image_mobile",
+            "label": "Image For Mobile",
+            "required": true,
+            "multi": false
+          },
+          {
+            "component": "boolean",
+            "name": "image_theme",
+            "label": "Image Dark Theme",
+            "valueType": "boolean"
+          }
+        ]
+      },
+      {
+        "component": "boolean",
+        "name": "mode_type",
+        "label": "Content Type is SVG Mode?",
+        "valueType": "boolean",
+        "description": "Switch OFF: Text Mode | Switch ON: SVG Mode"
+      },
+      {
+        "component": "container",
+        "label": "",
+        "name": "mode_text",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "mode_type"
+            },
+            false
+          ]
+        },
+        "fields": [
+          {
             "component": "text",
-            "name": "text_special",
+            "name": "special_text",
             "value": "",
             "label": "Colorful Text(teal)",
             "valueType": "string"
           },
           {
             "component": "richtext",
-            "name": "text_normal",
+            "name": "normal_text",
             "value": "",
             "label": "Content",
             "valueType": "string"
@@ -647,38 +705,105 @@
         ]
       },
       {
-        "component": "container",
-        "label": "Button Content",
-        "name": "container_button",
+        "component": "reference",
         "valueType": "string",
+        "name": "icon_text",
+        "label": "Icon SVG",
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "mode_type"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "container",
+        "label": "Primary Button Container",
+        "name": "container_button1",
+        "valueType": "string",
+        "collapsible": true,
         "fields": [
           {
+            "component": "select",
+            "name": "cta1_classes",
+            "value": "",
+            "label": "Button Background Color",
+            "valueType": "string",
+            "options": [
+              {
+                "name": "transparent",
+                "value": "transparent"
+              },
+              {
+                "name": "hisense-green",
+                "value": "hisense-green"
+              },
+              {
+                "name": "hisense-black",
+                "value": "hisense-black"
+              }
+            ]
+          },
+          {
             "component": "aem-content",
-            "name": "carousel_ctaPrimary",
+            "name": "cta1_primary",
             "label": "Primary CTA",
             "valueType": "string",
             "value": "/"
           },
           {
             "component": "text",
-            "name": "carousel_ctaPrimaryText",
+            "name": "cta1_primaryText",
             "label": "Primary CTA Label",
             "valueType": "string",
-            "value": "Required if you has Primary CTA content"
+            "value": "Required when Primary CTA content is provided"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "label": "Secondary Button Container",
+        "name": "container_button2",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "select",
+            "name": "cta2_classes",
+            "value": "",
+            "label": "Button Background Color",
+            "valueType": "string",
+            "options": [
+              {
+                "name": "transparent",
+                "value": "transparent"
+              },
+              {
+                "name": "hisense-green",
+                "value": "hisense-green"
+              },
+              {
+                "name": "hisense-black",
+                "value": "hisense-black"
+              }
+            ]
           },
           {
             "component": "aem-content",
-            "name": "carousel_ctaSecondary",
+            "name": "cta2_secondary",
             "label": "Secondary CTA",
             "valueType": "string",
             "value": "/"
           },
           {
             "component": "text",
-            "name": "carousel_ctaSecondaryText",
+            "name": "cta2_secondaryText",
             "label": "Secondary CTA Label",
             "valueType": "string",
-            "value": "Required if you has Secondary CTA content"
+            "value": "Required when Secondary CTA content is provided"
           }
         ]
       }
@@ -747,14 +872,10 @@
       {
         "component": "multiselect",
         "name": "classes",
-        "value": "",
+        "value": [],
         "label": "Description Alignment Class Name Options",
-        "valueType": "string",
+        "valueType": "array",
         "options": [
-          {
-            "name": "Default",
-            "value": ""
-          },
           {
             "name": "text-align-left",
             "value": "text-align-left"
@@ -784,6 +905,18 @@
         "name": "description_text",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "featureDisclaimer",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Feature disclaimer",
+        "value": ""
       }
     ]
   },
@@ -1054,20 +1187,26 @@
         "valueType": "string"
       },
       {
-        "component": "aem-content",
-        "name": "icon_cta",
-        "label": "CTA",
+        "component": "container",
+        "label": "",
+        "name": "container_cta",
         "valueType": "string",
-        "required": true,
-        "value": "/"
-      },
-      {
-        "component": "text",
-        "name": "icon_ctaLabel",
-        "label": "CTA Label",
-        "valueType": "string",
-        "required": true,
-        "value": "required"
+        "fields": [
+          {
+            "component": "aem-content",
+            "name": "cta_icon",
+            "label": "CTA",
+            "valueType": "string",
+            "value": "/"
+          },
+          {
+            "component": "text",
+            "name": "cta_iconLabel",
+            "label": "CTA Label",
+            "valueType": "string",
+            "value": "label text"
+          }
+        ]
       }
     ]
   },
@@ -1169,14 +1308,31 @@
         "valueType": "string",
         "name": "image_before",
         "label": "Before Image",
-        "multi": false
+        "multi": false,
+        "required": true
       },
       {
         "component": "reference",
         "valueType": "string",
         "name": "image_after",
         "label": "After Image",
-        "multi": false
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "slider_icon",
+        "label": "Icon",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "slider_text",
+        "label": "Text",
+        "required": false
       }
     ]
   },
@@ -1208,6 +1364,13 @@
         "component": "aem-content",
         "name": "link",
         "label": "Link"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "searchTags",
+        "label": "Search Tags",
+        "rootPath": "/content/cq:tags/hisense/product"
       }
     ]
   },
@@ -1219,6 +1382,13 @@
         "valueType": "string",
         "name": "icon",
         "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "darkIcon",
+        "label": "Dark Icon",
         "multi": false
       },
       {
@@ -1330,9 +1500,28 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
+        "name": "scroll_image",
+        "label": "Scroll Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "scroll_text",
+        "label": "Scroll Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "sub_image",
         "label": "Image",
         "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "sub_text",
+        "label": "Description",
+        "valueType": "string"
       }
     ]
   },
@@ -1435,6 +1624,13 @@
         "name": "loadMoreLink",
         "label": "Load More Link",
         "description": "Link for load more button"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "noResultMessage",
+        "label": "No Result Message",
+        "description": "Text to display when no result search"
       }
     ]
   },
@@ -1567,10 +1763,21 @@
         "component": "aem-content",
         "valueType": "string",
         "name": "link",
-        "label": "Link",
-        "required": true
+        "label": "Link"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "tag",
+        "label": "Tag",
+        "multi": false,
+        "rootPath": "/content/cq:tags/hisense/product"
       }
     ]
+  },
+  {
+    "id": "product-spec",
+    "fields": []
   },
   {
     "id": "properties",

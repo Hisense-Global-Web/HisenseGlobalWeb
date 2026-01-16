@@ -16,10 +16,16 @@
   list-style: none;
   margin: 10px 0 0;
   padding: 0 0 0 14px;
+  transition: all .5s ease;
+  max-height: 200px;
+  visibility: visible;
 }
 
 .plp-filter-group.hide .plp-filter-list {
-  display: none;
+  visibility: hidden;
+  max-height: 10px;
+  overflow: hidden;
+  margin: 0;
 }
 
 .plp-filter-group img {
@@ -135,17 +141,18 @@
   display: none;
 }
 
-@media (width <= 600px) {
+@media (width < 860px) {
   .plp-product-filter-tag-wrapper {
-    display: none;
     position: fixed;
     inset: 0;
     background: #fff;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
+    overflow: hidden;
     padding: 14px !important;
     z-index: 1000000 ;
+    top: -100vh;
     height: 100vh;
+    transition: top .5s cubic-bezier(0, 0.18, 0.07, 1), padding .5s cubic-bezier(0, 0.18, 0.07, 1);
+    
 
     .plp-sidebar {
       padding: 0;
@@ -154,7 +161,14 @@
   }
 
   .mobile-filter-show {
-    display: block;    
+    /* padding-top: 14px !important; */
+    top:0;
+
+    .plp-sidebar {
+      height: calc(100vh - 70px);
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
   }
 
   .plp-mobile-filters-tit-box {

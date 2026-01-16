@@ -49,6 +49,13 @@
           "multi": false
         },
         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "collectionMobile_image",
+          "label": "Mobile Image",
+          "multi": false
+        },
+        {
           "component": "richtext",
           "name": "collection_text",
           "label": "Text",

@@ -59,40 +59,59 @@
       "id": "carouselItem",
       "fields": [
         {
-          "component": "reference",
-          "valueType": "string",
-          "name": "image",
-          "label": "Image",
-          "required": true,
-          "multi": false
-        },
-        {
-          "component": "boolean",
-          "name": "boolean",
-          "label": "Image Dark Theme",
-          "valueType": "boolean"
-        },
-        {
-          "component": "aem-content",
-          "name": "image_link",
-          "label": "Image Link"
-        },
-        {
           "component": "container",
-          "label": "Text Content",
-          "name": "container_text",
+          "label": "",
+          "name": "container_reference",
           "valueType": "string",
           "fields": [
             {
+              "component": "reference",
+              "valueType": "string",
+              "name": "image_pc",
+              "label": "Image",
+              "required": true,
+              "multi": false
+            },
+            {
+              "component": "reference",
+              "valueType": "string",
+              "name": "image_mobile",
+              "label": "Image For Mobile",
+              "required": true,
+              "multi": false
+            },
+            {
+              "component": "boolean",
+              "name": "image_theme",
+              "label": "Image Dark Theme",
+              "valueType": "boolean"
+            }
+          ]
+        },
+        {
+          "component": "boolean",
+          "name": "mode_type",
+          "label": "Content Type is SVG Mode?",
+          "valueType": "boolean",
+          "description": "Switch OFF: Text Mode | Switch ON: SVG Mode"
+        },
+        {
+          "component": "container",
+          "label": "",
+          "name": "mode_text",
+          "valueType": "string",
+          "condition": { "===": [{"var" : "mode_type"}, false] },
+          "fields": [
+            {
               "component": "text",
-              "name": "text_special",
+              "name": "special_text",
               "value": "",
               "label": "Colorful Text(teal)",
               "valueType": "string"
             },
             {
               "component": "richtext",
-              "name": "text_normal",
+              "name": "normal_text",
               "value": "",
               "label": "Content",
               "valueType": "string"
@@ -100,38 +119,98 @@
           ]
         },
         {
-          "component": "container",
-          "label": "Button Content",
-          "name": "container_button",
+          "component": "reference",
           "valueType": "string",
+          "name": "icon_text",
+          "label": "Icon SVG",
+          "multi": false,
+          "condition": { "===": [{"var" : "mode_type"}, true] }
+        },
+        {
+          "component": "container",
+          "label": "Primary Button Container",
+          "name": "container_button1",
+          "valueType": "string",
+          "collapsible": true,
           "fields": [
             {
+              "component": "select",
+              "name": "cta1_classes",
+              "value": "",
+              "label": "Button Background Color",
+              "valueType": "string",
+              "options": [
+                {
+                  "name": "transparent",
+                  "value": "transparent"
+                },
+                {
+                  "name": "hisense-green",
+                  "value": "hisense-green"
+                },
+                {
+                  "name": "hisense-black",
+                  "value": "hisense-black"
+                }
+              ]
+            },
+            {
               "component": "aem-content",
-              "name": "carousel_ctaPrimary",
+              "name": "cta1_primary",
               "label": "Primary CTA",
               "valueType": "string",
               "value": "/"
             },
             {
               "component": "text",
-              "name": "carousel_ctaPrimaryText",
+              "name": "cta1_primaryText",
               "label": "Primary CTA Label",
               "valueType": "string",
-              "value": "Required if you has Primary CTA content"
+              "value": "Required when Primary CTA content is provided"
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "label": "Secondary Button Container",
+          "name": "container_button2",
+          "valueType": "string",
+          "collapsible": true,
+          "fields": [
+            {
+              "component": "select",
+              "name": "cta2_classes",
+              "value": "",
+              "label": "Button Background Color",
+              "valueType": "string",
+              "options": [
+                {
+                  "name": "transparent",
+                  "value": "transparent"
+                },
+                {
+                  "name": "hisense-green",
+                  "value": "hisense-green"
+                },
+                {
+                  "name": "hisense-black",
+                  "value": "hisense-black"
+                }
+              ]
             },
             {
               "component": "aem-content",
-              "name": "carousel_ctaSecondary",
+              "name": "cta2_secondary",
               "label": "Secondary CTA",
               "valueType": "string",
               "value": "/"
             },
             {
               "component": "text",
-              "name": "carousel_ctaSecondaryText",
+              "name": "cta2_secondaryText",
               "label": "Secondary CTA Label",
               "valueType": "string",
-              "value": "Required if you has Secondary CTA content"
+              "value": "Required when Secondary CTA content is provided"
             }
           ]
         }

@@ -260,6 +260,27 @@
             { "name": "PriceInfo Specialprice", "value": "priceInfo_specialprice" },
             { "name": "image", "value": "mediaGallery_image" }
           ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "loadMoreTextContent",
+          "label": "Load More Text Content",
+          "description": "Text content for load more button"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "loadMoreLink",
+          "label": "Load More Link",
+          "description": "Link for load more button"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "noResultMessage",
+          "label": "No Result Message",
+          "description": "Text to display when no result search"
         }
       ]
     },
@@ -356,7 +377,6 @@
         "description",
         "disclaimer",
         "featurebanner",
-        "videoinfo",
         "iconComponent",
         "parallax",
         "properties",
@@ -367,7 +387,8 @@
         "plp-product-card",
         "plp-product-tag",
         "plp-product-filters",
-        "product-filters-carousel"
+        "product-filters-carousel",
+        "product-spec"
       ]
     }
   ]

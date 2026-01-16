@@ -30,25 +30,6 @@ function buildFilterTag(row, resource, isEditMode) {
   return tag;
 }
 
-function closeSortByCLickFn() {
-  const originalSortByBoxEl = document.querySelector('.plp-sort-box');
-  const sortByCloseEl = document.querySelector('.mobile-sort-by-close');
-  sortByCloseEl.addEventListener('click', () => {
-    originalSortByBoxEl.classList.remove('mobile-sort-by-box');
-    document.body.style.overflow = 'auto';
-  });
-}
-
-function appendCloseBtnDom() {
-  const plpSortBoxEl = document.querySelector('.plp-sort-box');
-  const closeImg = document.createElement('img');
-  closeImg.src = './media_13b817dae786f9278b5ba58ce39c250a3c305d1d7.svg?width=750&format=svg&optimize=medium';
-  closeImg.alt = 'mobile-close-sort-by';
-  closeImg.className = 'mobile-sort-by-close';
-  plpSortBoxEl.append(closeImg);
-  closeSortByCLickFn();
-}
-
 function mobileSortByDom() {
   document.body.style.overflow = 'hidden';
   const originalSortByBoxEl = document.querySelector('.plp-sort-box');
@@ -60,6 +41,9 @@ export default function decorate(block) {
 
   const filtersBar = document.createElement('div');
   filtersBar.className = 'plp-filters-bar';
+
+  const mobileFilterBar = document.createElement('div');
+  mobileFilterBar.className = 'mobile-plp-filters-bar';
 
   const filtersLeft = document.createElement('div');
   filtersLeft.className = 'plp-filters-left';
@@ -209,7 +193,7 @@ export default function decorate(block) {
   const mobileFiltersSpan = document.createElement('span');
   mobileFiltersSpan.textContent = 'Filters';
   const mobileFiltersImg = document.createElement('img');
-  mobileFiltersImg.src = '/content/dam/hisense/image/icon/mobile-filters-title.svg';
+  mobileFiltersImg.src = '/content/dam/hisense/us/common-icons/mobile-filters-title.svg';
   mobileFiltersImg.alt = 'Filters title';
   mobileFilterTit.append(mobileFiltersImg, mobileFiltersSpan);
   mobileFilters.append(mobileFilterTit);
@@ -236,9 +220,42 @@ export default function decorate(block) {
   // label comes from configuration (sortBy)
   sortSpan.textContent = sortBy;
   const sortImg = document.createElement('img');
-  sortImg.src = './media_18b1fbb6305019af784f87587d3bfbc78f2ca3575.svg?width=750&format=svg&optimize=medium';
+  sortImg.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
   sortImg.alt = 'Sort options';
-  sort.append(sortSpan, sortImg);
+  sortImg.className = 'sort-arrow';
+  // 移动端 sort by close btn
+  const closeImg = document.createElement('img');
+  closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
+  closeImg.alt = 'mobile-close-sort-by';
+  closeImg.className = 'mobile-sort-by-close';
+  // 移动端, sort by close 点击事件
+  closeImg.addEventListener('click', (e) => {
+    e.stopPropagation(); // 阻止事件冒泡
+    const sortBoxEl = document.querySelector('.plp-sort-box');
+    sortBoxEl.classList.remove('mobile-sort-by-box');
+    document.body.style.overflow = 'auto';
+  });
+  sort.append(sortSpan, sortImg, closeImg);
+
+  // 移动端 sort by
+  const mobileSort = document.createElement('div');
+  mobileSort.className = 'mobile-plp-sort';
+  const mobileSortSpan = document.createElement('span');
+  // label comes from configuration (sortBy)
+  mobileSortSpan.textContent = sortBy;
+  const mobileSortImg = document.createElement('img');
+  mobileSortImg.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+  mobileSortImg.alt = 'Sort options';
+  mobileSort.append(mobileSortSpan, mobileSortImg);
+
+  // mobile 端，Sort by 点击事件，显示sort options数据
+  mobileSort.addEventListener('click', () => {
+    document.body.style.overflow = 'hidden';
+    const originalSortByBoxEl = document.querySelector('.plp-sort-box');
+    originalSortByBoxEl.classList.add('mobile-sort-by-box');
+  });
+  // 为mobileFilters, mobileSort 创建独立类名为mobile-plp-filters-bar 的 div 元素
+  mobileFilterBar.append(mobileFilters, mobileSort);
 
   const sortOptions = document.createElement('div');
   sortOptions.className = 'plp-sort-options';
@@ -310,6 +327,7 @@ export default function decorate(block) {
     if (selectedOption) {
       const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy : 'Sort By';
       sortSpan.textContent = `${prefix} ${selectedOption.textContent}`;
+      mobileSortSpan.textContent = `${prefix} ${selectedOption.textContent}`;
       // 触发默认排序逻辑
       try {
         if (window && typeof window.applyPlpSort === 'function') {
@@ -353,20 +371,11 @@ export default function decorate(block) {
       });
       option.classList.add('selected');
 
-      // 重置所有筛选
-      const activeContainer = document.querySelector('.plp-active-filters');
-      if (activeContainer) {
-        activeContainer.querySelectorAll('.plp-filter-tag').forEach((tag) => tag.remove());
-      }
-      document.querySelectorAll('.plp-filter-item input[type="checkbox"]').forEach((checkbox) => {
-        if (checkbox.checked !== false) {
-          checkbox.checked = false;
-        }
-      });
       // "sort by <option>"
       const prefix = (typeof sortBy === 'string' && sortBy.trim()) ? sortBy : 'Sort By';
       const splitText = option.textContent.split(':')[0].trim();
       sortSpan.textContent = `${prefix} ${splitText}`;
+      mobileSortSpan.textContent = `${prefix} ${splitText}`;
       sortBox.classList.remove('show');
       // 如果是移动端，点击sort by 选项要关闭全屏筛选内容，返回列表页面
       if (isMobile || isMobileWindow) {
@@ -401,7 +410,6 @@ export default function decorate(block) {
     }
   });
 
-  filtersBar.append(filtersLeft, mobileFilters, sortBox);
+  filtersBar.append(filtersLeft, sortBox, mobileFilterBar);
   block.replaceChildren(filtersBar);
-  appendCloseBtnDom();
 }

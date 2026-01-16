@@ -43,4 +43,10 @@ export default async function decorate(block) {
     yPercent: 50,
     duration: 1,
   });
+
+  [...block.children].forEach((row, idx) => {
+    if (idx !== 0) {
+      row.className = 'description-gray-tips';
+    }
+  });
 }

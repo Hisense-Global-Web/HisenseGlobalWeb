@@ -10,13 +10,13 @@ function createScrollButton(direction) {
   button.disabled = direction === 'left';
   // 创建图片元素
   const img = document.createElement('img');
-  img.src = direction === 'left' ? './media_186a94c4e309b70cdd70cce062ce795f4e2d7425d.svg?width=750&format=svg&optimize=medium' : './media_101e99e0a661c0b2d9ada23b38ef79ad85c4c15d4.svg?width=750&format=svg&optimize=medium';
+  img.src = direction === 'left' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left-g.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right-g.svg';
   img.alt = direction === 'left' ? 'Scroll left' : 'Scroll right';
   img.className = 'disabled-icon';
   button.appendChild(img);
   // 创建图片元素
   const imgClick = document.createElement('img');
-  imgClick.src = direction === 'left' ? './media_1b081253c4932514c8a12491e6a05a113411d5c8c.svg?width=750&format=svg&optimize=medium' : './media_1ea9d6670377efca8b3db29d554d8ae432355beb5.svg?width=750&format=svg&optimize=medium';
+  imgClick.src = direction === 'left' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right.svg';
   imgClick.alt = direction === 'left' ? 'Scroll left' : 'Scroll right';
   imgClick.className = 'click-icon';
   button.appendChild(imgClick);
@@ -65,11 +65,54 @@ function buildTab(itemElement) {
     moveInstrumentation(textCell, textSpan);
   }
 
-  const linkCells = cells.map((cell) => cell.querySelector('a')).filter((c) => !!c);
-  if (linkCells && linkCells.length) {
+  // 获取link和tag数据
+  const linkCell = cells[3];
+  const tagCell = cells[4];
+
+  const hasLink = linkCell && linkCell.querySelector('a');
+  const tagValue = tagCell && tagCell.textContent ? tagCell.textContent.trim() : '';
+
+  if (tagValue) {
+    li.setAttribute('data-tag', tagValue);
     li.addEventListener('click', (e) => {
       e.stopPropagation();
-      window.location.href = linkCells[0].href;
+
+      // 检查当前是否已选中
+      const isCurrentlySelected = li.classList.contains('selected');
+
+      if (isCurrentlySelected) {
+        // 如果已选中，则取消选中并重置过滤器
+        li.classList.remove('selected');
+
+        const resetFiltersBtn = document.querySelector('.plp-reset-filters');
+        if (resetFiltersBtn) {
+          resetFiltersBtn.click();
+        }
+      } else {
+        // 移除其他 product-filter-item 的选中状态
+        const allFilterItems = document.querySelectorAll('.product-filter-item');
+        allFilterItems.forEach((item) => item.classList.remove('selected'));
+
+        // 添加当前元素的选中状态
+        li.classList.add('selected');
+
+        const resetFiltersBtn = document.querySelector('.plp-reset-filters');
+        if (resetFiltersBtn) {
+          resetFiltersBtn.click();
+        }
+
+        const filterItem = document.querySelector(`[data-option-value="${tagValue}"]`);
+        if (filterItem) {
+          filterItem.click();
+        }
+      }
+    });
+  }
+  // 如果只有链接没有标签，设置点击跳转
+  else if (hasLink) {
+    li.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.location.href = hasLink.href;
     });
   }
 

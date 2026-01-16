@@ -17,6 +17,7 @@ module.exports = {
   rules: {
     'brace-style': 'off',
     'operator-assignment': 'off',
+    'xwalk/max-cells': 'off',
     'max-len': ['error', { code: 300 }],
     'import/extensions': ['error', { js: 'always' }], // require js file extensions in imports
     'linebreak-style': ['error', 'unix'], // enforce unix linebreaks

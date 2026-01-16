@@ -208,7 +208,7 @@ export default function decorate(block) {
       if (existing) existing.remove();
     }
 
-    rows.forEach((row) => {
+    rows.forEach((row, index) => {
       const resource = row.getAttribute('data-aue-resource') || null;
       const cells = [...row.children];
       if (cells.length < 2) return;
@@ -218,7 +218,7 @@ export default function decorate(block) {
       if (!titleText || !tagsCsv) return;
 
       const group = document.createElement('div');
-      group.className = 'plp-filter-group';
+      group.className = index === 0 ? 'plp-filter-group' : 'plp-filter-group hide';
       if (isEditMode && resource) {
         group.setAttribute('data-aue-resource', resource);
       }
@@ -229,12 +229,17 @@ export default function decorate(block) {
       const titleSpan = document.createElement('span');
       titleSpan.textContent = titleText;
       const arrow = document.createElement('img');
-      arrow.src = './media_18b1fbb6305019af784f87587d3bfbc78f2ca3575.svg?width=750&format=svg&optimize=medium';
-      arrow.addEventListener('click', (e) => {
-        const grandParent = e.target.parentNode?.parentNode;
+      arrow.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+
+      const toggleExpand = (e) => {
+        e.stopPropagation();
+        const grandParent = e.target.closest('.plp-filter-group');
         if (!grandParent) { return; }
         grandParent.classList.toggle('hide');
-      });
+      };
+
+      arrow.addEventListener('click', toggleExpand);
+      title.addEventListener('click', toggleExpand);
       title.append(titleSpan, arrow);
 
       const list = document.createElement('ul');
@@ -320,14 +325,14 @@ export default function decorate(block) {
       const mobileFiltersSpan = document.createElement('span');
       mobileFiltersSpan.textContent = 'Filters';
       const mobileFiltersImg = document.createElement('img');
-      mobileFiltersImg.src = '/content/dam/hisense/image/icon/mobile-filters-title.svg';
+      mobileFiltersImg.src = '/content/dam/hisense/us/common-icons/mobile-filters-title.svg';
       mobileFiltersImg.alt = 'Filters title';
       mobileProdctTagTit.append(mobileFiltersImg, mobileFiltersSpan);
 
       const closeBtn = document.createElement('div');
       closeBtn.className = 'mobile-filter-close';
       const closeImg = document.createElement('img');
-      closeImg.src = './media_13b817dae786f9278b5ba58ce39c250a3c305d1d7.svg?width=750&format=svg&optimize=medium';
+      closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
       closeImg.alt = 'mobile-filter';
       closeBtn.addEventListener('click', () => {
         filterTagWrapperEl.classList.remove('mobile-filter-show');
