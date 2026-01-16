@@ -10,9 +10,25 @@
             "template": {
               "name": "Description",
               "model": "description",
-              "classes": "description-box",
               "description_smallTit": "This is subheading",
-              "description_text": "<h1>This is headline</h1><p>This is description.</p>"
+              "description_text": "<h1>This is headline</h1><p>This is description.</p>",
+              "filter": "description"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Feature Disclaimer",
+      "id": "featureDisclaimer",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Feature Disclaimer",
+              "model": "featureDisclaimer",
+              "classes": "feautre-disclaimer-box"
             }
           }
         }
@@ -26,14 +42,10 @@
         {
           "component": "multiselect",
           "name": "classes",
-          "value": "",
+          "value": [],
           "label": "Description Alignment Class Name Options",
-          "valueType": "string",
+          "valueType": "array",
           "options": [
-            {
-              "name": "Default",
-              "value": ""
-            },
             {
               "name": "text-align-left",
               "value": "text-align-left"
@@ -65,7 +77,26 @@
           "valueType": "string"
         }
       ]
+    },
+    {
+      "id": "featureDisclaimer",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "text",
+          "label": "Feature disclaimer",
+          "value": ""
+        }
+      ]
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id": "description",
+      "components": [
+        "featureDisclaimer"
+      ]
+    }
+  ]
 }

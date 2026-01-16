@@ -89,20 +89,26 @@
           "valueType": "string"
         },
         {
-          "component": "aem-content",
-          "name": "icon_cta",
-          "label": "CTA",
+          "component": "container",
+          "label": "",
+          "name": "container_cta",
           "valueType": "string",
-          "required": true,
-          "value": "/"
-        },
-        {
-          "component": "text",
-          "name": "icon_ctaLabel",
-          "label": "CTA Label",
-          "valueType": "string",
-          "required": true,
-          "value": "required"
+          "fields": [
+            {
+              "component": "aem-content",
+              "name": "cta_icon",
+              "label": "CTA",
+              "valueType": "string",
+              "value": "/"
+            },
+            {
+              "component": "text",
+              "name": "cta_iconLabel",
+              "label": "CTA Label",
+              "valueType": "string",
+              "value": "label text"
+            }
+          ]
         }
       ]
     }

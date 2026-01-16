@@ -26,22 +26,34 @@ function parseNavLinks(root) {
   });
 }
 
+function fixImageUrl(originalSrc) {
+  let img = '';
+  if (!originalSrc) return img;
+  try {
+    const urlObj = new URL(originalSrc);
+    const { pathname } = urlObj;
+    img = `.${pathname}`;
+  } catch (e) {
+    img = originalSrc.startsWith('./') ? originalSrc : `./${originalSrc}`;
+  }
+  return img;
+}
+
 function parseActions(root) {
   return Array.from(root.querySelectorAll('.navigation-action-wrapper')).map((wrapper) => {
     const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
     const href = wrapper.querySelector('a')?.href || '#';
-    const originalSrc = wrapper.querySelector('img')?.src || '';
-    let img = '';
-    if (originalSrc) {
-      try {
-        const urlObj = new URL(originalSrc);
-        const { pathname } = urlObj;
-        img = `.${pathname}`;
-      } catch (e) {
-        img = originalSrc.startsWith('./') ? originalSrc : `./${originalSrc}`;
-      }
+    const picList = wrapper.querySelectorAll('img');
+    const lightSrc = picList[0]?.src || '';
+    let darkSrc = '';
+    if (picList.length > 1) {
+      darkSrc = picList[1]?.src || '';
     }
-    return { title, href, img };
+    const img = fixImageUrl(lightSrc);
+    const darkImg = fixImageUrl(darkSrc);
+    return {
+      title, href, img, darkImg,
+    };
   });
 }
 
@@ -53,7 +65,7 @@ function parseDropdownProducts(col) {
   if (imageLinkItems.length) {
     return imageLinkItems.map((item) => {
       const img = item.querySelector('img')?.src || '';
-      const href = item.querySelector('a')?.href || '#';
+      let href = item.querySelector('a')?.href || '#';
       const directChildren = Array.from(item.children);
       let text = '';
       let altText = '';
@@ -66,6 +78,29 @@ function parseDropdownProducts(col) {
         text = item.textContent.trim();
       }
 
+      // 检查是否有第4个元素作为标签配置
+      if (directChildren[3] && directChildren[3].textContent.trim()) {
+        const tagsText = directChildren[3].textContent.trim();
+        const tagParams = tagsText.split(',')
+          .map((tag) => {
+            // 取最后两节并替换 / 为 =, type/xxxx = type=xxxx 链接参数
+            const parts = tag.trim().split('/');
+            if (parts.length >= 2) {
+              const key = parts[parts.length - 2];
+              const value = parts[parts.length - 1];
+              return `${key}=${value}`;
+            }
+            return '';
+          })
+          .filter((param) => param)
+          .join('&');
+
+        if (href !== '#' && tagParams) {
+          const separator = href.includes('?') ? '&' : '?';
+          href = `${href}${separator}${tagParams}`;
+        }
+      }
+
       return {
         img, text, href, altText,
       };
@@ -74,11 +109,50 @@ function parseDropdownProducts(col) {
 
   const products = [];
   const children = Array.from(col.children);
-  for (let i = 0; i < children.length; i += 4) {
-    const img = children[i].querySelector('img')?.src || '';
-    const altText = children[i + 1].textContent.trim() || '';
-    const text = children[i + 2].textContent.trim() || '';
-    const href = children[i + 3].textContent.trim() || '#';
+
+  // 找到所有的picture元素作为分组标识
+  const pictures = children.filter((child) => child.tagName === 'P' && child.querySelector('picture'));
+  const pictureIndices = pictures.map((pic) => children.indexOf(pic));
+
+  // 为每个分组创建数据
+  for (let i = 0; i < pictureIndices.length; i += 1) {
+    const startIdx = pictureIndices[i];
+    const endIdx = i < pictureIndices.length - 1 ? pictureIndices[i + 1] : children.length;
+
+    // 获取当前分组的所有元素
+    const groupElements = children.slice(startIdx, endIdx);
+
+    // 解析分组数据
+    const img = groupElements[0].querySelector('img')?.src || '';
+    const altText = groupElements[1]?.textContent.trim() || '';
+    const text = groupElements[2]?.textContent.trim() || '';
+    const linkElement = groupElements[3]?.querySelector('a');
+    let href = linkElement?.href || linkElement?.textContent.trim() || '#';
+
+    // 检查是否有第5个元素作为标签配置
+    if (groupElements[4] && groupElements[4].textContent.trim()) {
+      const tagsText = groupElements[4].textContent.trim();
+      const tagParams = tagsText.split(',')
+        .map((tag) => {
+          // 取最后两节并替换 / 为 = type/xxxx = type=xxxx 链接参数
+          const parts = tag.trim().split('/');
+          if (parts.length >= 2) {
+            const key = parts[parts.length - 2];
+            const value = parts[parts.length - 1];
+            return `${key}=${value}`;
+          }
+          return '';
+        })
+        .filter((param) => param)
+        .join('&');
+
+      // 如果有基础链接且有标签参数，则添加查询参数
+      if (href !== '#' && tagParams) {
+        const separator = href.includes('?') ? '&' : '?';
+        href = `${href}${separator}${tagParams}`;
+      }
+    }
+
     products.push({
       img, text, href, altText,
     });
@@ -225,24 +299,25 @@ function buildDropdown(data) {
   dropdown.append(content);
   return dropdown;
 }
-function convertToDarkSvgUrl(url) {
-  if (url.indexOf('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660') !== -1) {
-    return url.replace('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660', 'media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b');
-  }
-  if (url.indexOf('media_124969b71abd4f3be2869305b3210ba27a9621bb7') !== -1) {
-    return url.replace('media_124969b71abd4f3be2869305b3210ba27a9621bb7', 'media_152ebd74eb043f4b073908ae990437f464ba966a2');
-  }
-  if (url.indexOf('media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c') !== -1) {
-    return url.replace('media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c', 'media_1d67117bba695f4cd4248983772bdd968834d3be6');
-  }
 
-  const [mainPart, ...restParts] = url.split(/[?#]/);
-  const suffix = restParts.length > 0 ? `/${restParts.join('/')}` : '';
-
-  const darkMainPart = mainPart.replace(/\.svg$/, '-dark.svg');
-
-  return darkMainPart + suffix;
-}
+// function convertToDarkSvgUrl(url) {
+//   if (url.indexOf('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660') !== -1) {
+//     return url.replace('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660', 'media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b');
+//   }
+//   if (url.indexOf('media_124969b71abd4f3be2869305b3210ba27a9621bb7') !== -1) {
+//     return url.replace('media_124969b71abd4f3be2869305b3210ba27a9621bb7', 'media_152ebd74eb043f4b073908ae990437f464ba966a2');
+//   }
+//   if (url.indexOf('media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c') !== -1) {
+//     return url.replace('media_1bc02a8ed257ee0b6e75db327f697525ca4681e9c', 'media_1d67117bba695f4cd4248983772bdd968834d3be6');
+//   }
+//
+//   const [mainPart, ...restParts] = url.split(/[?#]/);
+//   const suffix = restParts.length > 0 ? `/${restParts.join('/')}` : '';
+//
+//   const darkMainPart = mainPart.replace(/\.svg$/, '-dark.svg');
+//
+//   return darkMainPart + suffix;
+// }
 
 /**
  * loads and decorates the header, mainly the nav
@@ -331,8 +406,39 @@ export default async function decorate(block) {
     linksEl.append(link);
 
     const mobileLink = document.createElement('div');
-    mobileLink.className = 'mobile-link';
-    mobileLink.textContent = item.title;
+    mobileLink.className = 'mobile-link hide';
+    const mobileLinkTitle = document.createElement('span');
+    mobileLinkTitle.textContent = item.title;
+    const arrow = document.createElement('img');
+    arrow.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+    arrow.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const grandParent = e.target.parentNode?.parentNode;
+      if (!grandParent) { return; }
+      grandParent.classList.toggle('hide');
+    });
+    // 这个是手机端二级菜单的title，相当于pc的nav的item
+    const mobileLinkTitleLine = document.createElement('div');
+    mobileLinkTitleLine.className = 'mobile-link-title-line';
+    mobileLinkTitleLine.append(mobileLinkTitle, arrow);
+
+    // 这个是手机端二级菜单的title展开的内容，相当于pc的nav的二级菜单的图片区的titlegroup
+    const mobileSecondLinkList = document.createElement('div');
+    mobileSecondLinkList.className = 'mobile-link-second-list';
+    if (dropdownData?.products?.length) {
+      dropdownData.products.forEach((p) => {
+        const mobileProduct = document.createElement('div');
+        mobileProduct.className = 'mobile-product-item';
+        mobileProduct.textContent = p.text;
+        mobileProduct.addEventListener('click', (e) => {
+          e.stopPropagation();
+          window.location.href = p.href;
+        });
+        mobileSecondLinkList.append(mobileProduct);
+      });
+    }
+
+    mobileLink.append(mobileLinkTitleLine, mobileSecondLinkList);
     if (item.href && item.href !== '#') {
       mobileLink.dataset.href = item.href;
       mobileLink.addEventListener('click', (e) => {
@@ -376,7 +482,8 @@ export default async function decorate(block) {
       img.alt = action.title || 'action';
       btn.append(img);
       const imgDark = document.createElement('img');
-      imgDark.src = convertToDarkSvgUrl(action.img);
+      // imgDark.src = convertToDarkSvgUrl(action.img);
+      imgDark.src = action.darkImg || action.img;
       imgDark.alt = action.title || 'action';
       imgDark.className = 'dark-img';
       btn.append(imgDark);
@@ -407,16 +514,17 @@ export default async function decorate(block) {
   const btn = document.createElement('div');
   btn.className = 'nav-action-btn mobile-menu-icon';
   const img = document.createElement('img');
-  img.src = './media_1992b23eb0b506b19304df8bf994f0473ba058146.svg?width=750&format=svg&optimize=medium';
+  img.src = '/content/dam/hisense/us/header/menu.svg';
   img.className = 'light-img';
   img.alt = 'menu';
   btn.append(img);
   const imgDark = document.createElement('img');
-  imgDark.src = './media_1476a6ebba9ef2439aab575d7d5a7946f8c1782ab.svg?width=750&format=svg&optimize=medium';
+  imgDark.src = '/content/dam/hisense/us/header/menu-dark.svg';
   imgDark.alt = 'menu';
   imgDark.className = 'dark-img';
   btn.append(imgDark);
   btn.addEventListener('click', () => {
+    document.body.style.overflow = 'hidden';
     navigation.classList.add('show-menu');
   });
   actionsEl.append(btn);
@@ -424,9 +532,10 @@ export default async function decorate(block) {
   const closeBtn = document.createElement('div');
   closeBtn.className = 'nav-action-btn mobile-close-icon';
   const closeImg = document.createElement('img');
-  closeImg.src = './media_13b817dae786f9278b5ba58ce39c250a3c305d1d7.svg?width=750&format=svg&optimize=medium';
+  closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
   closeImg.alt = 'menu';
   closeBtn.addEventListener('click', () => {
+    document.body.style.overflow = 'auto';
     navigation.classList.remove('show-menu');
   });
   closeBtn.append(closeImg);

@@ -94,33 +94,40 @@
   margin-right: 8px;
 }
 
-.plp-product-filters .plp-sort img {
-  transform: scaleY(-1);
+.plp-product-filters .plp-sort .sort-arrow {
+  transform: rotate(180deg);
+  transition: transform .5s cubic-bezier(0, 0.18, 0.07, 1), -webkit-transform .5s cubic-bezier(0, 0.18, 0.07, 1);
 }
 
-.plp-product-filters .plp-sort-box.show img {
-  transform: initial;
+.plp-product-filters .plp-sort-box.show .sort-arrow {
+  transform: rotate(0);
 }
 
 .plp-product-filters .plp-sort-options {
   top: 0;
   left: 0;
   position: absolute;
-  display: none;
   background: #fff;
   width: 100%;
   flex-direction: column;
-  padding: 52px 16px 12px;
+  padding: 0 16px 12px;
   box-shadow: 0 4px 20px rgb(0 0 0 / 5%);
   font-size: 12px;
   font-weight: 400;
   gap: 8px;
   z-index: 2;
   border-radius: 20px;
+  transition: all .5s cubic-bezier(0, 0.18, 0.07, 1);
+  visibility: hidden;
+  overflow: hidden;
+  max-height: 40px;
 }
 
 .plp-product-filters .plp-sort-box.show .plp-sort-options {
   display: flex;
+  max-height: 160px;
+  visibility: visible;
+  padding-top: 52px;
 }
 
 .plp-product-filters .plp-sort-option {
@@ -133,6 +140,10 @@
   align-items: center;
   cursor: pointer;
   font-weight: 400;
+}
+
+.plp-product-filters .plp-sort-option.selected {
+  font-weight: 500;
 }
 
 .plp-product-filters .plp-sort-options .plp-sort-option:hover {
@@ -162,19 +173,12 @@
   flex-shrink: 0;
 }
 
-.plp-mobile-filters {
+
+.mobile-plp-filters-bar, .mobile-sort-by-close {
   display: none;
 }
 
-.mobile-sort-by-close {
-  display: none;
-}
-
-@media (width <= 600px) {
-  .plp-mobile-filters {
-    display: block;
-  }
-
+@media (width <= 860px) {
   .mobile-filter-title {
     display: flex;
     align-items: center;
@@ -202,46 +206,48 @@
       display: none;
     }
 
-    .plp-sort-box {
-      width: 190px;
+    .mobile-plp-filters-bar {
+      display: block;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
     }
 
-    .mobile-sort-by-box {
+    /* PC端的 sort by 带arrow 箭头dom, 在移动端展示为全屏中的标题 */
+    .plp-sort-box {
       position: fixed;
-      inset: 0;
-      z-index: 100000;
+      width: 100vw;
+      height: 100vh;
+      left: 0;
+      top: -100vh;
+      transition: top .5s cubic-bezier(0, 0.18, 0.07, 1);
+      z-index: 1000;
       background: #fff;
-      border-radius: 0;
-      padding: 14px;
-      width: calc( 100vw - 28px);
 
       .plp-sort {
         box-shadow: none;
         margin-bottom: 16px;
         height: 40px;
 
-        img:first-of-type {
+        .sort-arrow {
           display: none;
         }
       }
 
       .mobile-sort-by-close {
         display: block;
-        position: fixed;
-        top: 22px;
-        right: 26px;
-        z-index: 30;
-        cursor: pointer;
       }
 
       .plp-sort-options {
-        width: 100vw;
-        height: 100vh;
         box-shadow: none;
         padding-left: 40px;
-        border-radius: 0;
         padding-top: 70px;
+        border-radius: 0;
         display: block;
+        visibility: visible;
+        max-height: 100vh;
+        transition: none;
 
         .plp-sort-option {
           line-height: 34px;
@@ -249,6 +255,35 @@
           margin-bottom: 8px;
         }
       }
+    }
+
+    .mobile-plp-sort {
+      /* width: 131px; */
+      height: 40px;
+      border-radius: 20px;
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 28px;
+      padding-right: 20px;
+      font-size: 14px;
+      cursor: pointer;
+
+      span {
+        white-space: nowrap;
+        margin-right: 8px;
+      }
+
+      img {
+        transform: rotate(180deg);
+      }
+    }
+
+    .mobile-sort-by-box {
+      border-radius: 0;
+      padding: 14px;
+      top: 0;
     }
   }
 

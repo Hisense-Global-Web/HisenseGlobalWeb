@@ -1,0 +1,131 @@
+
+/* 这个是为了大家方便理解和复制用的，需要把class里的变量和clamp,cv到自己的css中，然后修改这俩变量即可 */
+.test-demo {
+  --font-size-small: 24px; /* 390时的 */
+  --font-size-normal: 48px; /* 860时的 */
+  --font-size-large: 96px; /* 1180时的 */
+
+  font-size: clamp(
+          var(--font-size-small),
+          max(min(calc(var(--font-size-small) + (100vw - var(--breakpoint-small)) * (var(--font-size-normal) - var(--font-size-small)) / (var(--breakpoint-normal) - var(--breakpoint-small))), var(--font-size-normal)), min(calc(var(--font-size-normal) + (100vw - var(--breakpoint-normal)) * (var(--font-size-large) - var(--font-size-normal)) / (var(--breakpoint-large) - var(--breakpoint-normal))), var(--font-size-large))),
+          var(--font-size-large)
+  );
+}
+
+/* 我觉得可以在这里根据配置列表定制多个class，开发直接用对应class引用即可 */
+.test-demo2 {
+  --font-size-small: 24px; /* 390时的 */
+  --font-size-normal-mobile: 36px; /* 860时的手机 */
+  --font-size-normal: 48px; /* 860时的 */
+  --font-size-large: 96px; /* 1180时的 */
+
+  font-size: clamp(
+          var(--font-size-normal),
+          calc(
+                  var(--font-size-normal) +
+                  (100vw - var(--breakpoint-normal))
+                  * (var(--font-size-large) - var(--font-size-normal))
+                  / (var(--breakpoint-large) - var(--breakpoint-normal))
+          ),
+          var(--font-size-large)
+  );
+
+  @media (width < 860px) {
+    font-size: clamp(
+            var(--font-size-small),
+            calc(
+                    var(--font-size-small) +
+                    (100vw - var(--breakpoint-small))
+                    * (var(--font-size-normal-mobile) - var(--font-size-small))
+                    / (var(--breakpoint-normal) - var(--breakpoint-small))
+            ),
+            var(--font-size-normal-mobile)
+    );
+  }
+}
+
+.pdp-width {
+  --var-normal: 490px; /* 860时的 */
+  --var-large: 640px; /* 1180时的 */
+  --result: clamp(
+          var(--var-normal),
+          calc(
+                  var(--var-normal) +
+                  (100vw - var(--breakpoint-normal))
+                  * (var(--var-large) - var(--var-normal))
+                  / (var(--breakpoint-large) - var(--breakpoint-normal))
+          ),
+          var(--var-large)
+  );
+
+  width: var(--result);
+
+  .pdp-main-img {
+    width: var(--result);
+    height: calc(var(--result) * 0.5625);
+  }
+}
+
+.footer-logo-width {
+  --var-small: 123px; /* 390时的 */
+  --var-normal-mobile: 271px; /* 860时的手机 */
+  --var-normal: 97px; /* 860时的 */
+  --var-large: 164px; /* 1180时的 */
+
+  width: clamp(
+          var(--var-normal),
+          calc(
+                  var(--var-normal) +
+                  (100vw - var(--breakpoint-normal))
+                  * (var(--var-large) - var(--var-normal))
+                  / (var(--breakpoint-large) - var(--breakpoint-normal))
+          ),
+          var(--var-large)
+  );
+  height: auto;
+
+  @media (width < 860px) {
+    width: clamp(
+            var(--var-small),
+            calc(
+                    var(--var-small) +
+                    (100vw - var(--breakpoint-small))
+                    * (var(--var-normal-mobile) - var(--var-small))
+                    / (var(--breakpoint-normal) - var(--breakpoint-small))
+            ),
+            var(--var-normal-mobile)
+    );
+  }
+}
+
+.footer-social-width {
+  --var-small: 24px; /* 390时的 */
+  --var-normal-mobile: 52.92px; /* 860时的手机 */
+  --var-normal: 20.31px; /* 860时的 */
+  --var-large: 34px; /* 1180时的 */
+
+  width: clamp(
+          var(--var-normal),
+          calc(
+                  var(--var-normal) +
+                  (100vw - var(--breakpoint-normal))
+                  * (var(--var-large) - var(--var-normal))
+                  / (var(--breakpoint-large) - var(--breakpoint-normal))
+          ),
+          var(--var-large)
+  );
+  height: auto;
+
+  @media (width < 860px) {
+    width: clamp(
+            var(--var-small),
+            calc(
+                    var(--var-small) +
+                    (100vw - var(--breakpoint-small))
+                    * (var(--var-normal-mobile) - var(--var-small))
+                    / (var(--breakpoint-normal) - var(--breakpoint-small))
+            ),
+            var(--var-normal-mobile)
+    );
+  }
+}

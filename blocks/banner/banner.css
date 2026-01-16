@@ -47,7 +47,7 @@
       transition-duration: 0.2s;
       transition-timing-function: cubic-bezier(0.33, 0, 0.3, 1);
 
-      &:hover {
+      &:hover, &:active {
         background-color: #fff;
         color: #000;
       }
@@ -95,7 +95,8 @@
     color: #fff;
     margin-top: 20px;
     width: 319px;
-    height: 89px;
+
+    /* height: 89px; */
     position: relative;
     z-index: 6;
     margin-bottom: 0;
@@ -104,6 +105,13 @@
     -webkit-line-clamp: 4; /* 限制显示4行 */
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .mobile-box-img {
+    img {
+      display: none;
+      aspect-ratio: 354 / 500;
+    }
   }
 }
 
@@ -130,7 +138,7 @@
     .button {
       border: 1px solid #000;
 
-      &:hover {
+      &:hover, &:active {
         background-color: #000;
         color: #fff;
       }
@@ -138,8 +146,153 @@
   }
 }
 
-@media (width <=768px) {
+@media (width < 860px) {
   .block.banner {
-    padding-left: 36px;
+    height: auto;
+    min-height: unset;
+    padding: 0;
+    align-items: self-start;
+
+    --border-radius-small: 16px; /* 390时的宽度 */
+    --border-radius-normal: 38.147px; /* 860时的宽度 */
+
+    border-radius: clamp(
+      var(--border-radius-small, 16px),
+      calc((var(--border-radius-normal, 24px) - var(--border-radius-small, 16px)) / (var(--breakpoint-normal) - var(--breakpoint-small)) * var(--content-area)),
+      var(--border-radius-normal, 24px)
+    );
+
+    &::after {
+      width: 100%;
+      height: 56%;
+      background: linear-gradient(to bottom, rgb(0 0 0 / 60%), rgb(0 0 0 / 0%));
+    }
+
+    h1+p,
+    h2+p,
+    h3+p,
+    h4+p,
+    h5+p,
+    h6+p {
+      --margin-top-small: 16px; /* 390时的宽度 */
+      --margin-top-normal: 38.15px; /* 860时的宽度 */
+
+      margin-top: clamp(
+        var(--margin-top-small, 16px),
+        calc((var(--margin-top-normal, 38.15px) - var(--margin-top-small, 16px)) / (var(--breakpoint-normal) - var(--breakpoint-small)) * var(--content-area)),
+        var(--margin-top-normal, 38.15px)
+      );
+      width: 100%;
+      height: auto;
+
+      --font-size-small: 14px; /* 390时的宽度 */
+      --font-size-normal: 33.379px; /* 860时的宽度 */
+
+      font-size: clamp(
+        var(--font-size-small, 14px),
+        calc((var(--font-size-normal, 33.378px) - var(--font-size-small, 14px)) / (var(--breakpoint-normal) - var(--breakpoint-small)) * var(--content-area)),
+        var(--font-size-normal, 33.379px)
+      );
+    }
+
+    p:first-child {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      max-width: none;
+
+      --font-size-small: 30px; /* 390时的宽度 */
+      --font-size-normal: 71.525px; /* 860时的宽度 */
+
+      font-size: clamp(
+        var(--font-size-small, 30px),
+        calc((var(--font-size-normal, 71.525px) - var(--font-size-small, 30px)) / (var(--breakpoint-normal) - var(--breakpoint-small)) * var(--content-area)),
+        var(--font-size-normal, 71.525px)
+      );
+    }
+
+    .button-container {
+      .button {
+        --btn-w-small: 113px; /* 390时的宽度 */
+        --btn-w-normal: 269.29px; /* 860时的宽度 */
+
+        width: clamp(
+          var(--btn-w-small, 113px),
+          calc((var(--btn-w-normal, 269.29px) - var(--btn-w-small, 113px)) / (var(--breakpoint-normal) - var(--breakpoint-small)) * var(--content-area)),
+          var(--btn-w-normal, 269.29px)
+        );
+
+        --btn-h-small: 40px; /* 390时的宽度 */
+        --btn-h-normal: 94.68px; /* 860时的宽度 */
+
+        height: clamp(
+          var(--btn-h-small, 40px),
+          calc((var(--btn-h-normal, 94.68px) - var(--btn-h-small, 40px)) / (var(--breakpoint-normal) - var(--breakpoint-small)) * var(--content-area)),
+          var(--btn-h-normal, 94.68px)
+        );
+        line-height: clamp(
+          var(--btn-h-small, 40px),
+          calc((var(--btn-h-normal, 94.68px) - var(--btn-h-small, 40px)) / (var(--breakpoint-normal) - var(--breakpoint-small)) * var(--content-area)),
+          var(--btn-h-normal, 94.68px)
+        );
+        border-radius: calc(clamp(
+          var(--btn-h-small, 40px),
+          calc((var(--btn-h-normal, 94.68px) - var(--btn-h-small, 40px)) / (var(--breakpoint-normal) - var(--breakpoint-small)) * var(--content-area)),
+          var(--btn-h-normal, 94.68px)
+        ) / 2);
+
+        --margin-top-small: 24px;
+        --margin-top-normal: 57.22px;
+
+        margin-top: clamp(
+          var(--margin-top-small, 24px),
+          calc((var(--margin-top-normal, 57.22px) - var(--margin-top-small, 24px)) / (var(--breakpoint-normal) - var(--breakpoint-small)) * var(--content-area)),
+          var(--margin-top-normal, 57.22x)
+        );
+
+        --font-size-small: 14px; /* 390时的宽度 */
+        --font-size-normal: 33.379px; /* 860时的宽度 */
+
+        font-size: clamp(
+          var(--font-size-small, 14px),
+          calc((var(--font-size-normal, 33.379px) - var(--font-size-small, 14px)) / (var(--breakpoint-normal) - var(--breakpoint-small)) * var(--content-area)),
+          var(--font-size-normal, 33.379px)
+        );
+
+        /* width: 28.2vw;
+        height: 10.3vw;
+        line-height: 10.3vw;
+        margin-top: 6.2vw;
+        border-radius: calc(10.3vw / 2);
+        font-size: 3.1vw; */
+      }
+    }
+
+    .pc-box-img {
+      position: absolute;
+      width: 100%;
+      padding: 8.2vw 6.2vw 0;
+
+      img {
+        display: none;
+      }
+    }
+
+    .mobile-box-img {
+      picture {
+        position: relative;
+      }
+
+      img {
+        display: block;
+        height: auto;
+      }
+    }
   }
 }
