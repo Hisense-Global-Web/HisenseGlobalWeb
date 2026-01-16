@@ -194,6 +194,7 @@ export default function decorate(block) {
   mobileFiltersSpan.textContent = 'Filters';
   const mobileFiltersImg = document.createElement('img');
   mobileFiltersImg.src = '/content/dam/hisense/us/common-icons/mobile-filters-title.svg';
+  mobileFiltersImg.src = '/content/dam/hisense/us/common-icons/mobile-filters-title.svg';
   mobileFiltersImg.alt = 'Filters title';
   mobileFilterTit.append(mobileFiltersImg, mobileFiltersSpan);
   mobileFilters.append(mobileFilterTit);
@@ -220,6 +221,7 @@ export default function decorate(block) {
   // label comes from configuration (sortBy)
   sortSpan.textContent = sortBy;
   const sortImg = document.createElement('img');
+  sortImg.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
   sortImg.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
   sortImg.alt = 'Sort options';
   sortImg.className = 'sort-arrow';

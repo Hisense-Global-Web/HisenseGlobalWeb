@@ -326,12 +326,14 @@ export default function decorate(block) {
       mobileFiltersSpan.textContent = 'Filters';
       const mobileFiltersImg = document.createElement('img');
       mobileFiltersImg.src = '/content/dam/hisense/us/common-icons/mobile-filters-title.svg';
+      mobileFiltersImg.src = '/content/dam/hisense/us/common-icons/mobile-filters-title.svg';
       mobileFiltersImg.alt = 'Filters title';
       mobileProdctTagTit.append(mobileFiltersImg, mobileFiltersSpan);
 
       const closeBtn = document.createElement('div');
       closeBtn.className = 'mobile-filter-close';
       const closeImg = document.createElement('img');
+      closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
       closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
       closeImg.alt = 'mobile-filter';
       closeBtn.addEventListener('click', () => {
