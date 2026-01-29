@@ -11,13 +11,22 @@
   }
 
   .sticky-container {
+    @supports (height: 100dvh) {
+      --container-height: 100dvh;
+    }
+
+    @supports not (height: 100dvh) {
+      --container-height: 100vh;
+    }
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: var(--container-height);
     width: 100%;
     position: sticky;
+    overflow: hidden;
   }
 
   .scroll-image-container img {
@@ -28,6 +37,14 @@
   }
 
   .scroll-text-container {
+    @supports (height: 100dvh) {
+      --text-container-height: 80dvh;
+    }
+
+    @supports not (height: 100dvh) {
+      --text-container-height: 80vh;
+    }
+
     height: 100%;
     width: 100%;
     text-align: center;
@@ -43,7 +60,7 @@
       position: absolute;
       top: 0;
       justify-content: center;
-      height: 80vh;
+      height: var(--text-container-height);
     }
   }
 }

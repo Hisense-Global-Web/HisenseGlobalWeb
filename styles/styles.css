@@ -14,12 +14,16 @@
 
 html {
 	scroll-behavior: auto !important;
+
+  /* overflow-x: hidden; */
 }
 
 :root {
-  --breakpoint-large: 1180px;
+  --breakpoint-large: 1440px;
   --breakpoint-normal: 860px;
   --breakpoint-small: 390px;
+  --breakpoint-pc: 1440;
+  --breakpoint-mobile: 390;
 
 	/* colors - to be removed */
 	--background-color: white;
@@ -31,26 +35,54 @@ html {
 
   /* color system - v2 */
   --color-primary-green-80: #003033;
-  --color-primary-green-70: #005a5c;
-  --color-primary-green-60: #007e7c;
-  --color-primary-green-50: #009e9b;
-  --color-primary-green-40: #47c2c0;
-  --color-primary-green-30: #86d5d3;
-  --color-primary-green-20: #c3eae9;
-  --color-primary-green-10: #e9f7f7;
+  --color-primary-green-70: #005A5C;
+  --color-primary-green-60: #008482;
+  --color-primary-green-50: #009F9C;
+  --color-primary-green-40: #50C3C3;
+  --color-primary-green-30: #85D6D4;
+  --color-primary-green-20: #C8EFEF;
+  --color-primary-green-10: #EDFCFB;
   --color-primary-grey-100: #000;
   --color-primary-grey-90: #141414;
   --color-primary-grey-80: #242424;
   --color-primary-grey-70: #333;
+  --color-primary-grey-60: #555;
   --color-primary-grey-50: #747474;
   --color-primary-grey-40: #bbb;
   --color-primary-grey-30: #e0e0e0;
   --color-primary-grey-20: #f4f4f4;
   --color-primary-grey-10: #fff;
   --color-accent-red: #fe4b4b;
+  --color-accent-red-40: #B82D28;
+  --color-accent-red-30: #e03f2d;
+  --color-accent-red-20: #f06151;
+  --color-accent-red-10: #fff4f2;
   --color-accent-orange: #f5933d;
+  --color-accent-orange-30: #b97215;
+  --color-accent-orange-20: #fab041;
+  --color-accent-orange-10: #fff8e5;
+  --color-accent-blue-20: #256eb8;
+  --color-accent-blue-10: #eaf7fe;
+  --color-accent-golden-20: #e19e47;
+  --color-accent-golden-10: #e7b974;
   --color-hisense-teal: #00aaa6;
   --color-hisense-black: var(--color-primary-grey-100);
+
+  /* color opacity */
+  --grey-alpha-80: rgb(20 20 20 / 80%);
+  --grey-alpha-60: rgb(20 20 20 / 60%);
+  --grey-alpha-40: rgb(20 20 20 / 40%);
+  --grey-alpha-20: rgb(20 20 20 / 20%);
+  --grey-alpha-10: rgb(20 20 20 / 10%);
+  --grey-alpha-5:  rgb(20 20 20 / 5%);
+  --white-alpha-80: rgb(255 255 255 / 80%);
+  --white-alpha-60: rgb(255 255 255 / 60%);
+  --white-alpha-40: rgb(255 255 255 / 40%);
+  --white-alpha-30: rgb(255 255 255 / 30%);
+  --white-alpha-20: rgb(255 255 255 / 20%);
+  --white-alpha-10: rgb(255 255 255 / 10%);
+  --green10-alpha-50: rgb(233 247 247 / 50%);
+  --green60-alpha-50: rgb(0 158 155 / 50%);
 
   /* color system */
   --color-white: var(--color-primary-grey-10);
@@ -63,6 +95,12 @@ html {
 	--color-hisense-grey-03: #ccc;
 	--color-hisense-grey-04: #f7f7f7;
 	--color-hisense-grey-05: var(--color-primary-grey-20);
+
+  /* font-weight */
+  --fontweight-bold: 700;
+  --fontweight-medium: 500;
+  --fontweight-light: 300;
+  --fontweight-book: 400;
 
 	/* background colors */
 	--background-light: var(--color-white);
@@ -131,28 +169,218 @@ html {
   --font-size-normal-mobile: 18px;
   --font-size-normal: 24px;
   --font-size-large: 32px;
+  
+  
+  /* font-size */
+  --fontsize-h1: var(--size-40);
+  --fontsize-h2: var(--size-34);
+  --fontsize-h3: var(--size-30);
+  --fontsize-title1: var(--size-24);
+  --fontsize-title2: var(--size-20);
+  --fontsize-title3: var(--size-18);
+  --fontsize-body1: var(--size-16);
+  --fontsize-body2: var(--size-14);
+  --fontsize-body3: var(--size-12);
+  --fontsize-caption1: var(--size-10);
+  --fontsize-caption2: var(--size-8);
+  --fontsize-caption3: var(--size-6);
+  --fontsize-pc-h1: var(--size-46);
+  --fontsize-pc-h2: var(--size-40);
+  --fontsize-pc-h3: var(--size-34);
+  --fontsize-pc-h4: var(--size-30);
+  --fontsize-pc-caption1: var(--size-12);
+  --fontsize-pc-caption2: var(--size-10);
+
+  /* 间距变量（映射基础尺寸） */
+  --spacing-0: 0;
+  --spacing-4xs: var(--size-4);
+  --spacing-3xs: var(--size-8);
+  --spacing-2xs: var(--size-12);
+  --spacing-xs: var(--size-16);
+  --spacing-s: var(--size-18);
+  --spacing-s2: var(--size-20);
+  --spacing-sm: var(--size-24);
+  --spacing-md: var(--size-30);
+  --spacing-lg: var(--size-40);
+  --spacing-xl: var(--size-48);
+  --spacing-2xl: var(--size-80);
+  --spacing-3xl: var(--size-100);
+  --spacing-4xl: var(--size-160);
+  --spacing-pc-s: var(--size-20);
+  --spacing-pc-m: var(--size-30);
+  --spacing-pc-md: var(--size-32);
+  --spacing-pc-xl-2: var(--size-56);
+  --spacing-pc-3xl: var(--size-120);
+
+  /* 圆角变量（映射基础尺寸） */
+  --radius-s: var(--size-2);
+  --radius-sm: var(--size-4);
+  --radius-md: var(--size-8);
+  --radius-lg: var(--size-12);
+  --radius-xl: var(--size-16);
+  --radius-pc-xl: var(--size-20);
+  --radius-xxl: var(--size-100);
 
   /* basic size in mobile  */
+  --size-2: 0.51282051vw;
+  --size-3: 0.76923077vw;
   --size-4: 1.02564103vw;
+  --size-5: 1.28205128vw;
   --size-6: 1.53846154vw;
+  --size-7: 1.79487179vw;
   --size-8: 2.05128205vw;
+  --size-9: 2.30769231vw;
   --size-10: 2.56410256vw;
+  --size-11: 2.82051282vw;
   --size-12: 3.07692308vw;
+  --size-13: 3.33333333vw;
   --size-14: 3.58974359vw;
+  --size-15: 3.84615385vw;
   --size-16: 4.10256410vw;
+  --size-17: 4.35897436vw;
   --size-18: 4.61538462vw;
+  --size-19: 4.87179487vw;
   --size-20: 5.12820513vw;
+  --size-21: 5.38461538vw;
+  --size-22: 5.64102564vw;
+  --size-23: 5.89743590vw;
   --size-24: 6.15384615vw;
+  --size-25: 6.41025641vw;
+  --size-26: 6.66666667vw;
+  --size-27: 6.92307692vw;
   --size-28: 7.17948718vw;
+  --size-29: 7.43589744vw;
   --size-30: 7.69230769vw;
+  --size-31: 7.94871795vw;
   --size-32: 8.20512821vw;
+  --size-33: 8.46153846vw;
   --size-34: 8.71794872vw;
+  --size-35: 8.97435897vw;
   --size-36: 9.23076923vw;
+  --size-37: 9.48717949vw;
   --size-38: 9.74358974vw;
   --size-39: 10.00000000vw;
   --size-40: 10.25641026vw;
+  --size-41: 10.51282051vw;
   --size-42: 10.76923077vw;
+  --size-43: 11.02564103vw;
+  --size-44: 11.28205128vw;
+  --size-45: 11.53846154vw;
   --size-46: 11.79487179vw;
+  --size-47: 12.05128205vw;
+  --size-48: 12.30769231vw;
+  --size-49: 12.56410256vw;
+  --size-50: 12.82051282vw;
+  --size-51: 13.07692308vw;
+  --size-52: 13.33333333vw;
+  --size-53: 13.58974359vw;
+  --size-54: 13.84615385vw;
+  --size-55: 14.10256410vw;
+  --size-56: 14.35897436vw;
+  --size-57: 14.61538462vw;
+  --size-58: 14.87179487vw;
+  --size-59: 15.12820513vw;
+  --size-60: 15.38461538vw;
+  --size-61: 15.64102564vw;
+  --size-62: 15.89743590vw;
+  --size-63: 16.15384615vw;
+  --size-64: 16.41025641vw;
+  --size-65: 16.66666667vw;
+  --size-66: 16.92307692vw;
+  --size-67: 17.17948718vw;
+  --size-68: 17.43589744vw;
+  --size-69: 17.69230769vw;
+  --size-70: 17.94871795vw;
+  --size-71: 18.20512821vw;
+  --size-72: 18.46153846vw;
+  --size-73: 18.71794872vw;
+  --size-74: 18.97435897vw;
+  --size-75: 19.23076923vw;
+  --size-76: 19.48717949vw;
+  --size-77: 19.74358974vw;
+  --size-78: 20.00000000vw;
+  --size-79: 20.25641026vw;
+  --size-80: 20.51282051vw;
+  --size-81: 20.76923077vw;
+  --size-82: 21.02564103vw;
+  --size-83: 21.28205128vw;
+  --size-84: 21.53846154vw;
+  --size-85: 21.79487179vw;
+  --size-86: 22.05128205vw;
+  --size-87: 22.30769231vw;
+  --size-88: 22.56410256vw;
+  --size-89: 22.82051282vw;
+  --size-90: 23.07692308vw;
+  --size-91: 23.33333333vw;
+  --size-92: 23.58974359vw;
+  --size-93: 23.84615385vw;
+  --size-94: 24.10256410vw;
+  --size-95: 24.35897436vw;
+  --size-96: 24.61538462vw;
+  --size-97: 24.87179487vw;
+  --size-98: 25.12820513vw;
+  --size-99: 25.38461538vw;
+  --size-100: 25.64102564vw;
+  --size-101: 25.89743590vw;
+  --size-102: 26.15384615vw;
+  --size-103: 26.41025641vw;
+  --size-104: 26.66666667vw;
+  --size-105: 26.92307692vw;
+  --size-106: 27.17948718vw;
+  --size-107: 27.43589744vw;
+  --size-108: 27.69230769vw;
+  --size-109: 27.94871795vw;
+  --size-110: 28.20512821vw;
+  --size-111: 28.46153846vw;
+  --size-112: 28.71794872vw;
+  --size-113: 28.97435897vw;
+  --size-114: 29.23076923vw;
+  --size-115: 29.48717949vw;
+  --size-116: 29.74358974vw;
+  --size-117: 30.00000000vw;
+  --size-118: 30.25641026vw;
+  --size-119: 30.51282051vw;
+  --size-120: 30.76923077vw;
+  --size-121: 31.02564103vw;
+  --size-122: 31.28205128vw;
+  --size-123: 31.53846154vw;
+  --size-124: 31.79487179vw;
+  --size-125: 32.05128205vw;
+  --size-126: 32.30769231vw;
+  --size-127: 32.56410256vw;
+  --size-128: 32.82051282vw;
+  --size-129: 33.07692308vw;
+  --size-130: 33.33333333vw;
+  --size-131: 33.58974359vw;
+  --size-132: 33.84615385vw;
+  --size-133: 34.10256410vw;
+  --size-134: 34.35897436vw;
+  --size-135: 34.61538462vw;
+  --size-136: 34.87179487vw;
+  --size-137: 35.12820513vw;
+  --size-138: 35.38461538vw;
+  --size-139: 35.64102564vw;
+  --size-140: 35.89743590vw;
+  --size-141: 36.15384615vw;
+  --size-142: 36.41025641vw;
+  --size-143: 36.66666667vw;
+  --size-144: 36.92307692vw;
+  --size-145: 37.17948718vw;
+  --size-146: 37.43589744vw;
+  --size-147: 37.69230769vw;
+  --size-148: 37.94871795vw;
+  --size-149: 38.20512821vw;
+  --size-150: 38.46153846vw;
+  --size-151: 38.71794872vw;
+  --size-152: 38.97435897vw;
+  --size-153: 39.23076923vw;
+  --size-154: 39.48717949vw;
+  --size-155: 39.74358974vw;
+  --size-156: 40.00000000vw;
+  --size-157: 40.25641026vw;
+  --size-158: 40.51282051vw;
+  --size-159: 40.76923077vw;
+  --size-160: 41.02564103vw;
 }
 
 
@@ -193,26 +421,165 @@ html {
     --common-padding: 30px;
 
 	/* basic size in desktop */
-	--size-4: 0.33898305vw;
-	--size-6: 0.50847458vw;
-	--size-8: 0.67796610vw;
-	--size-10: 0.84745763vw;
-	--size-12: 1.01694915vw;
-	--size-14: 1.18644068vw;
-	--size-16: 1.35593220vw;
-	--size-18: 1.52542373vw;
-	--size-20: 1.69491525vw;
-	--size-24: 2.03389831vw;
-	--size-28: 2.37288136vw;
-	--size-30: 2.54237288vw;
-	--size-32: 2.71186441vw;
-	--size-34: 2.88135593vw;
-	--size-36: 3.05084746vw;
-	--size-38: 3.22033898vw;
-	--size-39: 3.27118644vw;
-	--size-40: 3.38983051vw;
-	--size-42: 3.55932203vw;
-	--size-46: 3.89830508vw;
+    --size-2: min(0.13888889vw, 2px);
+    --size-3: min(0.20833333vw, 3px);
+    --size-4: min(0.27777778vw, 4px);
+    --size-5: min(0.34722222vw, 5px);
+    --size-6: min(0.41666667vw, 6px);
+    --size-7: min(0.48611111vw, 7px);
+    --size-8: min(0.55555556vw, 8px);
+    --size-9: min(0.62500000vw, 9px);
+    --size-10: min(0.69444444vw, 10px);
+    --size-11: min(0.76388889vw, 11px);
+    --size-12: min(0.83333333vw, 12px);
+    --size-13: min(0.90277778vw, 13px);
+    --size-14: min(0.97222222vw, 14px);
+    --size-15: min(1.04166667vw, 15px);
+    --size-16: min(1.11111111vw, 16px);
+    --size-17: min(1.18055556vw, 17px);
+    --size-18: min(1.25000000vw, 18px);
+    --size-19: min(1.31944444vw, 19px);
+    --size-20: min(1.38888889vw, 20px);
+    --size-21: min(1.45833333vw, 21px);
+    --size-22: min(1.52777778vw, 22px);
+    --size-23: min(1.59722222vw, 23px);
+    --size-24: min(1.66666667vw, 24px);
+    --size-25: min(1.73611111vw, 25px);
+    --size-26: min(1.80555556vw, 26px);
+    --size-27: min(1.87500000vw, 27px);
+    --size-28: min(1.94444444vw, 28px);
+    --size-29: min(2.01388889vw, 29px);
+    --size-30: min(2.08333333vw, 30px);
+    --size-31: min(2.15277778vw, 31px);
+    --size-32: min(2.22222222vw, 32px);
+    --size-33: min(2.29166667vw, 33px);
+    --size-34: min(2.36111111vw, 34px);
+    --size-35: min(2.43055556vw, 35px);
+    --size-36: min(2.50000000vw, 36px);
+    --size-37: min(2.56944444vw, 37px);
+    --size-38: min(2.63888889vw, 38px);
+    --size-39: min(2.70833333vw, 39px);
+    --size-40: min(2.77777778vw, 40px);
+    --size-41: min(2.84722222vw, 41px);
+    --size-42: min(2.91666667vw, 42px);
+    --size-43: min(2.98611111vw, 43px);
+    --size-44: min(3.05555556vw, 44px);
+    --size-45: min(3.12500000vw, 45px);
+    --size-46: min(3.19444444vw, 46px);
+    --size-47: min(3.26388889vw, 47px);
+    --size-48: min(3.33333333vw, 48px);
+    --size-49: min(3.40277778vw, 49px);
+    --size-50: min(3.47222222vw, 50px);
+    --size-51: min(3.54166667vw, 51px);
+    --size-52: min(3.61111111vw, 52px);
+    --size-53: min(3.68055556vw, 53px);
+    --size-54: min(3.75000000vw, 54px);
+    --size-55: min(3.81944444vw, 55px);
+    --size-56: min(3.88888889vw, 56px);
+    --size-57: min(3.95833333vw, 57px);
+    --size-58: min(4.02777778vw, 58px);
+    --size-59: min(4.09722222vw, 59px);
+    --size-60: min(4.16666667vw, 60px);
+    --size-61: min(4.23611111vw, 61px);
+    --size-62: min(4.30555556vw, 62px);
+    --size-63: min(4.37500000vw, 63px);
+    --size-64: min(4.44444444vw, 64px);
+    --size-65: min(4.51388889vw, 65px);
+    --size-66: min(4.58333333vw, 66px);
+    --size-67: min(4.65277778vw, 67px);
+    --size-68: min(4.72222222vw, 68px);
+    --size-69: min(4.79166667vw, 69px);
+    --size-70: min(4.86111111vw, 70px);
+    --size-71: min(4.93055556vw, 71px);
+    --size-72: min(5.00000000vw, 72px);
+    --size-73: min(5.06944444vw, 73px);
+    --size-74: min(5.13888889vw, 74px);
+    --size-75: min(5.20833333vw, 75px);
+    --size-76: min(5.27777778vw, 76px);
+    --size-77: min(5.34722222vw, 77px);
+    --size-78: min(5.41666667vw, 78px);
+    --size-79: min(5.48611111vw, 79px);
+    --size-80: min(5.55555556vw, 80px);
+    --size-81: min(5.62500000vw, 81px);
+    --size-82: min(5.69444444vw, 82px);
+    --size-83: min(5.76388889vw, 83px);
+    --size-84: min(5.83333333vw, 84px);
+    --size-85: min(5.90277778vw, 85px);
+    --size-86: min(5.97222222vw, 86px);
+    --size-87: min(6.04166667vw, 87px);
+    --size-88: min(6.11111111vw, 88px);
+    --size-89: min(6.18055556vw, 89px);
+    --size-90: min(6.25000000vw, 90px);
+    --size-91: min(6.31944444vw, 91px);
+    --size-92: min(6.38888889vw, 92px);
+    --size-93: min(6.45833333vw, 93px);
+    --size-94: min(6.52777778vw, 94px);
+    --size-95: min(6.59722222vw, 95px);
+    --size-96: min(6.66666667vw, 96px);
+    --size-97: min(6.73611111vw, 97px);
+    --size-98: min(6.80555556vw, 98px);
+    --size-99: min(6.87500000vw, 99px);
+    --size-100: min(6.94444444vw, 100px);
+    --size-101: min(7.01388889vw, 101px);
+    --size-102: min(7.08333333vw, 102px);
+    --size-103: min(7.15277778vw, 103px);
+    --size-104: min(7.22222222vw, 104px);
+    --size-105: min(7.29166667vw, 105px);
+    --size-106: min(7.36111111vw, 106px);
+    --size-107: min(7.43055556vw, 107px);
+    --size-108: min(7.50000000vw, 108px);
+    --size-109: min(7.56944444vw, 109px);
+    --size-110: min(7.63888889vw, 110px);
+    --size-111: min(7.70833333vw, 111px);
+    --size-112: min(7.77777778vw, 112px);
+    --size-113: min(7.84722222vw, 113px);
+    --size-114: min(7.91666667vw, 114px);
+    --size-115: min(7.98611111vw, 115px);
+    --size-116: min(8.05555556vw, 116px);
+    --size-117: min(8.12500000vw, 117px);
+    --size-118: min(8.19444444vw, 118px);
+    --size-119: min(8.26388889vw, 119px);
+    --size-120: min(8.33333333vw, 120px);
+    --size-121: min(8.40277778vw, 121px);
+    --size-122: min(8.47222222vw, 122px);
+    --size-123: min(8.54166667vw, 123px);
+    --size-124: min(8.61111111vw, 124px);
+    --size-125: min(8.68055556vw, 125px);
+    --size-126: min(8.75000000vw, 126px);
+    --size-127: min(8.81944444vw, 127px);
+    --size-128: min(8.88888889vw, 128px);
+    --size-129: min(8.95833333vw, 129px);
+    --size-130: min(9.02777778vw, 130px);
+    --size-131: min(9.09722222vw, 131px);
+    --size-132: min(9.16666667vw, 132px);
+    --size-133: min(9.23611111vw, 133px);
+    --size-134: min(9.30555556vw, 134px);
+    --size-135: min(9.37500000vw, 135px);
+    --size-136: min(9.44444444vw, 136px);
+    --size-137: min(9.51388889vw, 137px);
+    --size-138: min(9.58333333vw, 138px);
+    --size-139: min(9.65277778vw, 139px);
+    --size-140: min(9.72222222vw, 140px);
+    --size-141: min(9.79166667vw, 141px);
+    --size-142: min(9.86111111vw, 142px);
+    --size-143: min(9.93055556vw, 143px);
+    --size-144: min(10.00000000vw, 144px);
+    --size-145: min(10.06944444vw, 145px);
+    --size-146: min(10.13888889vw, 146px);
+    --size-147: min(10.20833333vw, 147px);
+    --size-148: min(10.27777778vw, 148px);
+    --size-149: min(10.34722222vw, 149px);
+    --size-150: min(10.41666667vw, 150px);
+    --size-151: min(10.48611111vw, 151px);
+    --size-152: min(10.55555556vw, 152px);
+    --size-153: min(10.62500000vw, 153px);
+    --size-154: min(10.69444444vw, 154px);
+    --size-155: min(10.76388889vw, 155px);
+    --size-156: min(10.83333333vw, 156px);
+    --size-157: min(10.90277778vw, 157px);
+    --size-158: min(10.97222222vw, 158px);
+    --size-159: min(11.04166667vw, 159px);
+    --size-160: min(11.11111111vw, 160px);
   }
 }
 
@@ -225,6 +592,10 @@ body {
 	font-weight: lighter;
 	font-size: var(--body-font-size-l);
 	line-height: var(--line-height-l);
+  
+  @media (width < 860px) {
+    overflow-x: hidden;
+  }
 }
 
 body.appear {
@@ -259,33 +630,45 @@ h6 {
 }
 
 h1 {
-	font-size: var(--heading-font-size-xxl);
+	font-size: var(--fontsize-pc-h1);
 	line-height: var(--line-height-s);
 }
 
 h2 {
-	font-size: var(--heading-font-size-xl);
+	font-size: var(--fontsize-pc-h2);
 	line-height: var(--line-height-s);
 }
 
 h3 {
-	font-size: var(--heading-font-size-l);
+	font-size: var(--fontsize-pc-h3);
 	line-height: var(--line-height-m);
 }
 
 h4 {
-	font-size: var(--heading-font-size-m);
+	font-size: var(--fontsize-pc-h4);
 	line-height: var(--line-height-m);
 }
 
 h5 {
-	font-size: var(--heading-font-size-s);
-	line-height: var(--line-height-m);
+  font-size: var(--fontsize-title1);
 }
 
-h6 {
-	font-size: var(--heading-font-size-xs);
-	line-height: var(--line-height-m);
+@media (width < 860px) {
+  h1 {
+    font-size: min(var(--fontsize-h1), 6.25vh);
+  }
+
+  h2 {
+    font-size: var(--fontsize-h2);
+  }
+
+  h3 {
+    font-size: var(--fontsize-h3);
+  }
+
+  h5 {
+    font-size: var(--fontsize-title3);
+  }
 }
 
 p,
@@ -502,7 +885,7 @@ main {
 	/* section padding */
 
 	.section.pt-s {
-		padding-top: var(--spacing-vertical-s);
+		padding-top: var(--size-40);
 	}
 
 	.section.pt-m {
@@ -510,15 +893,15 @@ main {
 	}
 
 	.section.pt-l {
-		padding-top: var(--spacing-vertical-l);
+		padding-top: var(--size-80);
 	}
 
 	.section.pt-xl {
-		padding-top: var(--spacing-vertical-xl);
+		padding-top: var(--size-120);
 	}
 
 	.section.pb-s {
-		padding-bottom: var(--spacing-vertical-s);
+		padding-bottom: var(--size-40);
 	}
 
 	.section.pb-m {
@@ -526,11 +909,11 @@ main {
 	}
 
 	.section.pb-l {
-		padding-bottom: var(--spacing-vertical-l);
+		padding-bottom: var(--size-80);
 	}
 
 	.section.pb-xl {
-		padding-bottom: var(--spacing-vertical-xl);
+		padding-bottom: var(--size-120);
 	}
 
 	/* section image style */
@@ -542,6 +925,34 @@ main {
 	.section.img-rounded video {
 		border-radius: var(--border-radius-l);
 	}
+}
+
+@media (width < 860px) {
+  main {
+    .section.pt-s {
+      padding-top: var(--spacing-sm);
+    }
+
+    .section.pt-l {
+      padding-top: var(--spacing-xl);
+    }
+  
+    .section.pt-xl {
+      padding-top: var(--spacing-xl);
+    }
+
+    .section.pb-s {
+      padding-bottom: var(--spacing-sm);
+    }
+
+    .section.pb-l {
+      padding-bottom: var(--spacing-xl);
+    }
+  
+    .section.pb-xl {
+      padding-bottom: var(--spacing-xl);
+    }
+  }
 }
 
 /* ========== header footer ========== */

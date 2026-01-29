@@ -10,46 +10,56 @@
   {
     "id": "section",
     "components": [
-      "text",
-      "image",
       "button",
-      "title",
-      "hero",
-      "cards",
-      "carousel",
+      "card-carousel",
+      "category-carousel",
+      "collection-banner",
+      "collection-cards",
+      "collection-title",
       "columns",
-      "fragment",
-      "collectionsection",
-      "recards",
-      "video",
-      "banner",
-      "description",
       "disclaimer",
-      "featurebanner",
-      "iconComponent",
-      "parallax",
-      "properties",
-      "imageCarousel",
+      "feature-banner",
+      "fragment",
+      "header",
+      "hero",
+      "hero-banner",
+      "icon-container",
+      "image",
       "image-comparison-slider",
-      "product-detail-banner",
-      "pdp-product-info",
-      "plp-product-card",
-      "plp-product-tag",
-      "plp-product-filters",
+      "media-carousel",
+      "parallax",
+      "product-card",
+      "product-filter",
       "product-filters-carousel",
-      "product-spec"
+      "product-gallery",
+      "product-section",
+      "product-sorting",
+      "product-spec",
+      "properties",
+      "slide",
+      "sub-menu-link",
+      "text",
+      "title",
+      "video",
+      "videoinfo"
     ]
   },
   {
-    "id": "cards",
+    "id": "card-carousel",
     "components": [
-      "card"
+      "card-carouselItem"
     ]
   },
   {
-    "id": "carousel",
+    "id": "category-carousel",
     "components": [
-      "carouselItem"
+      "category-carousel-item"
+    ]
+  },
+  {
+    "id": "collection-cards",
+    "components": [
+      "collection-card"
     ]
   },
   {
@@ -65,13 +75,7 @@
       "image",
       "button",
       "title",
-      "imageLink"
-    ]
-  },
-  {
-    "id": "description",
-    "components": [
-      "featureDisclaimer"
+      "sub-menu-link"
     ]
   },
   {
@@ -101,15 +105,21 @@
     ]
   },
   {
-    "id": "iconComponent",
+    "id": "hero-banner",
     "components": [
-      "iconItem"
+      "hero-bannerItem"
     ]
   },
   {
-    "id": "imageCarousel",
+    "id": "icon-container",
     "components": [
-      "imageCarouselItem"
+      "icon-item"
+    ]
+  },
+  {
+    "id": "media-carousel",
+    "components": [
+      "media-carouselItem"
     ]
   },
   {
@@ -128,39 +138,27 @@
     ]
   },
   {
-    "id": "plp-product-tag",
+    "id": "product-filter",
     "components": [
-      "plp-product-tag-item"
+      "product-filter-item"
     ]
   },
   {
-    "id": "plp-product-filters",
+    "id": "product-gallery",
+    "components": [
+      "product-gallery-item"
+    ]
+  },
+  {
+    "id": "product-sorting",
     "components": [
       "plp-product-sort"
     ]
   },
   {
-    "id": "product-detail-banner",
+    "id": "text",
     "components": [
-      "product-detail-banner-item"
-    ]
-  },
-  {
-    "id": "product-filters-carousel",
-    "components": [
-      "product-filters-carousel-item"
-    ]
-  },
-  {
-    "id": "properties",
-    "components": [
-      "property"
-    ]
-  },
-  {
-    "id": "recards",
-    "components": [
-      "recard"
+      "featureDisclaimer"
     ]
   }
 ]

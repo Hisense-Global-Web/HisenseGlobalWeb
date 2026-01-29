@@ -32,7 +32,8 @@
   font-weight: 400;
   font-size: 14px;
   box-sizing: border-box;
-  transition: top .5s cubic-bezier(0.35, 0, 0.36, 1), background-color .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
+  transition: top .5s cubic-bezier(0.35, 0, 0.36, 1), background-color 0s .36s;
+  animation-fill-mode: forwards;
 }
 
 #navigation.hidden {
@@ -82,15 +83,17 @@
   color: var(--header-light-color);
 }
 
-#navigation:has(.nav-container:hover) {
-  background: #fff;
-  border-color: #fff;
-  color: rgb(51 51 51 / 100%);
-  transition: none;
-}
+@media (hover: hover) {
+  #navigation:has(.nav-container:hover) {
+    background: #fff;
+    border-color: #fff;
+    color: rgb(51 51 51 / 100%);
+    transition: none;
+  }
 
-#navigation:has(.nav-container:hover) .nav-link {
-  transition: none;
+  #navigation:has(.nav-container:hover) .nav-link {
+    transition: none;
+  }
 }
 
 #navigation .mobile-actions .nav-section {
@@ -101,8 +104,10 @@
   color: #000;
 }
 
-#navigation:has(.nav-container:hover) .nav-section {
-  transition: none;
+@media (hover: hover) {
+  #navigation:has(.nav-container:hover) .nav-section {
+    transition: none;
+  }
 }
 
 #navigation.header-dark-mode .nav-action-btn .light-img {
@@ -121,12 +126,14 @@
   opacity: 1;
 }
 
-#navigation:has(.nav-container:hover) .nav-action-btn .light-img{
-  opacity: 1;
-}
+@media (hover: hover) {
+  #navigation:has(.nav-container:hover) .nav-action-btn .light-img {
+    opacity: 1;
+  }
 
-#navigation:has(.nav-container:hover) .nav-action-btn .dark-img{
-  opacity: 0;
+  #navigation:has(.nav-container:hover) .nav-action-btn .dark-img {
+    opacity: 0;
+  }
 }
 
 #navigation .nav-container {
@@ -146,7 +153,7 @@
   overflow: hidden;
   flex-direction: column;
   gap: 32px;
-  transition: all 416ms cubic-bezier(.4,0,.6,1) 80ms;
+  transition: all .36s ease-in-out;
 }
 
 #navigation.show-menu .mobile-menu {
@@ -164,6 +171,10 @@
   font-weight: 400;
   font-size: 20px;
   color: #000;
+  
+  &:first-child {
+    padding-top: 32px;
+  }
 }
 
 #navigation .mobile-menu .mobile-links .mobile-link .mobile-link-title-line {
@@ -344,7 +355,8 @@
 
 .nav-action-btn img {
   position: absolute;
-  transition: opacity .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
+  transition: opacity 0s .36s;
+  animation-fill-mode: forwards;
 }
 
 .nav-action-btn.mobile-menu-icon {
@@ -385,7 +397,7 @@
   z-index: 998;
   max-height: 0;
   overflow: hidden;
-  transition: max-height .4s cubic-bezier(0.35,0,0.36,1), padding  .4s cubic-bezier(0.35,0,0.36,1);
+  transition: max-height .36s cubic-bezier(0.35,0,0.36,1), padding  .36s cubic-bezier(0.35,0,0.36,1);
 }
 
 .nav-link:hover .nav-dropdown {
@@ -446,7 +458,7 @@
 #navigation .mobile-menu .mobile-links .mobile-link img {
   width: 20px;
   height: 20px;
-  transition: transform .5s cubic-bezier(0, 0.18, 0.07, 1), -webkit-transform .5s cubic-bezier(0, 0.18, 0.07, 1);
+  transition: transform .36s cubic-bezier(0, 0.18, 0.07, 1), -webkit-transform .36s cubic-bezier(0, 0.18, 0.07, 1);
 }
 
 #navigation .mobile-menu .mobile-links .mobile-link.hide img {
@@ -454,14 +466,13 @@
 }
 
 #navigation .mobile-menu .mobile-links .mobile-link .mobile-link-second-list {
-  padding-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 24px;
   color: #747474;
   overflow: hidden;
   max-height: 500px;
-  transition: max-height .4s cubic-bezier(0.35,0,0.36,1), padding .4s cubic-bezier(0.35,0,0.36,1);
+  transition: max-height .36s ease-in-out, padding .36s ease-in-out;
 }
 
 #navigation .mobile-menu .mobile-links .mobile-link .mobile-link-second-list:empty {
@@ -478,9 +489,13 @@
 }
 
 #navigation .mobile-menu .mobile-links .mobile-link .mobile-link-second-list .mobile-product-item {
-  height: 18px;
-  line-height: 20px;
+  height: 24px;
+  line-height: 1.2;
   font-size: 20px;
+  
+  &:first-child {
+    padding-top: 16px;
+  }
 }
 
 #navigation .mobile-menu .mobile-links .mobile-link .mobile-link-second-list .mobile-product-item:active {
@@ -567,9 +582,10 @@
   display: none;
 }
 
-@media (width <= 1180px) {
+@media (width < 1180px) {
   #navigation.show-menu {
     background: #fff;
+    transition: none;
   }
   
   #navigation.show-menu .nav-action-btn .light-img {
@@ -611,7 +627,7 @@
 
   #navigation.show-menu .mobile-menu {
     height: calc(100vh - 64px);
-    padding: 32px 24px;
+    padding: 0 24px 32px;
     overflow: auto;
     overscroll-behavior: contain;
   }

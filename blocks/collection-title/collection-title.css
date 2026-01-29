@@ -1,0 +1,57 @@
+.collection-title-container .collection-title-wrapper {
+  margin:0 auto;
+  width: 100%;
+}
+
+.collection-title {
+  position: relative;
+}
+
+.collection-title-wrapper > div > div:first-child div p,
+.collection-title-wrapper > div > div:first-child div h1,
+.collection-title-wrapper > div > div:first-child div h2,
+.collection-title-wrapper > div > div:first-child div h3,
+.collection-title-wrapper > div > div:first-child div h4,
+.collection-title-wrapper > div > div:first-child div h5,
+.collection-title-wrapper > div > div:first-child div h6{
+  color: var(--color-primary-green-50);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+  margin: 0;
+}
+
+.collection-title-wrapper > div > div:first-child div p{
+  font-size: var(--size-16);
+  line-height: 120%;
+  text-transform: uppercase;
+  padding: 0;
+
+   @media (width >= 860px) {
+    font-size: var(--size-20);
+  }
+}
+
+.collection-title-wrapper > div > div:last-child div p,
+.collection-title-wrapper > div > div:last-child div h1,
+.collection-title-wrapper > div > div:last-child div h2,
+.collection-title-wrapper > div > div:last-child div h3,
+.collection-title-wrapper > div > div:last-child div h4,
+.collection-title-wrapper > div > div:last-child div h5,
+.collection-title-wrapper > div > div:last-child div h6{
+  padding: 0;
+  color: #333;
+  margin: var(--size-10) 0 0;
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+}
+
+.collection-title-wrapper > div > div:last-child div p{
+  font-size: var(--size-24);
+  font-weight: var(--fontweight-medium);
+  line-height: 120%;
+
+   @media (width >= 860px) {
+    font-size: var(--size-34);
+    
+  }
+}
