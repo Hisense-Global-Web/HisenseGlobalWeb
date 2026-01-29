@@ -117,3 +117,81 @@ export function throttle(fn, delay = 500) {
     }, delay);
   };
 }
+
+export function initCarouselVideo(carouselRoot, selector, resolveCallBack) {
+  const vOptions = {
+    root: carouselRoot,
+    rootMargin: '0px',
+    threshold: 1.0,
+  };
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const video = entry.target;
+      if (entry.intersectionRatio === 1) {
+        resolveCallBack(video);
+      }
+    });
+  }, vOptions);
+  selector.forEach((v) => videoObserver.observe(v));
+}
+
+export function setupObserver(carouselRoot, selector, resolveCallBack, leaveCallBack) {
+  const options = {
+    threshold: 0.5,
+  };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        initCarouselVideo(carouselRoot, selector, resolveCallBack);
+      } else leaveCallBack(v);
+    });
+  }, options);
+  if (carouselRoot) observer.observe(carouselRoot);
+}
+
+export function mobilePressEffect(viewport, card, callback) {
+  if (viewport >= 860) {
+    if (callback) callback();
+    return;
+  }
+  let touchStartTime;
+  let isScrolling = false;
+  let startX;
+
+  // 触摸开始
+  card.addEventListener('touchstart', (e) => {
+    touchStartTime = Date.now();
+    startX = e.touches[0].clientX;
+    isScrolling = false;
+    card.classList.remove('touch-end');
+    card.classList.add('touch-start');
+  });
+
+  // 触摸移动
+  card.addEventListener('touchmove', (e) => {
+    const currentX = e.touches[0].clientX;
+    // 如果水平移动超过10px，认为是滑动
+    if (Math.abs(currentX - startX) > 10) {
+      isScrolling = true;
+    }
+  });
+
+  // 触摸结束
+  card.addEventListener('touchend', () => {
+    card.classList.remove('touch-start');
+    card.classList.add('touch-end');
+    const touchDuration = Date.now() - touchStartTime;
+    // 如果不是滑动，且按压时间小于500ms，执行跳转
+    if (!isScrolling && touchDuration < 500) {
+      callback();
+    }
+  });
+}
+
+export function cancelListener(block, selector) {
+  block.querySelector(selector).removeEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+}

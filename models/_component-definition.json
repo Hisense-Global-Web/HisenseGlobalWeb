@@ -5,9 +5,6 @@
       "id": "default",
       "components": [
         {
-          "...": "./_text.json#/definitions"
-        },
-        {
           "...": "./_title.json#/definitions"
         },
         {

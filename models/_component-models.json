@@ -9,9 +9,6 @@
     "...": "./_title.json#/models"
   },
   {
-    "...": "./_text.json#/models"
-  },
-  {
     "...": "./_button.json#/models"
   },
   {

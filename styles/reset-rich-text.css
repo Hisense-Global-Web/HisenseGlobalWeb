@@ -1,0 +1,29 @@
+strong {
+  font-weight: normal;
+}
+
+em {
+  font-style: normal;
+}
+
+u, del {
+  text-decoration: none;
+  font-weight: normal;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+sub, sup {
+  font-size: inherit;
+  vertical-align: baseline;
+}
