@@ -1206,14 +1206,15 @@
         "valueType": "string"
       },
       {
-        "component": "container",
+        "component": "multifield",
         "valueType": "array",
         "name": "items",
         "label": "Items",
-        "multi": true,
-        "allowedComponents": [
-          "industry-categories-item"
-        ]
+        "field": {
+          "component": "reference",
+          "valueType": "object",
+          "reference": "industry-categories-item"
+        }
       }
     ]
   },
@@ -1234,14 +1235,15 @@
         "valueType": "string"
       },
       {
-        "component": "container",
+        "component": "multifield",
         "valueType": "array",
         "name": "subitems",
         "label": "Sub Items",
-        "multi": true,
-        "allowedComponents": [
-          "industry-categories-subitem"
-        ]
+        "field": {
+          "component": "reference",
+          "valueType": "object",
+          "reference": "industry-categories-subitem"
+        }
       }
     ]
   },

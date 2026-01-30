@@ -9,7 +9,8 @@
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Industry Categories",
-              "model": "industry-categories"
+              "model": "industry-categories",
+              "filter": "industry-categories"
             }
           }
         }
@@ -21,10 +22,12 @@
       "plugins": {
         "xwalk": {
           "page": {
-            "resourceType": "core/wcm/components/container/v1/container", 
+            "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Industry Categories Item",
-              "model": "industry-categories-item"
+              "model": "industry-categories-item",
+              "isContainer": true,  
+              "allowedComponents": ["industry-categories-subitem"] 
             }
           }
         }
@@ -36,7 +39,7 @@
       "plugins": {
         "xwalk": {
           "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",  
+            "resourceType": "core/franklin/components/block/v1/block/item/subitem",  
             "template": {
               "name": "Industry Sub Item",
               "model": "industry-categories-subitem"
@@ -71,12 +74,15 @@
           "valueType": "string"
         },
         {
-          "component": "container",
+          "component": "multifield",
           "valueType": "array",
           "name": "items",
           "label": "Items",
-          "multi": true,
-          "allowedComponents": ["industry-categories-item"]  
+          "field": {
+            "component": "reference",
+            "valueType": "object",
+            "reference": "industry-categories-item"
+          }
         }
       ]
     },
@@ -96,14 +102,16 @@
           "label": "Text",
           "valueType": "string"
         },
-      
         {
-          "component": "container",
+          "component": "multifield",
           "valueType": "array",
           "name": "subitems",
           "label": "Sub Items",
-          "multi": true,
-          "allowedComponents": ["industry-categories-subitem"]  
+          "field": {
+            "component": "reference",
+            "valueType": "object",
+            "reference": "industry-categories-subitem"
+          }
         }
       ]
     },
@@ -127,5 +135,12 @@
     }
   ],
   
-  "filters": []
+  "filters": [
+    {
+      "id": "industry-categories",
+      "components": [
+        "industry-categories-item"
+      ]
+    }
+  ]
 }
