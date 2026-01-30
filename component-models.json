@@ -1204,17 +1204,6 @@
         "name": "desc",
         "label": "Description",
         "valueType": "string"
-      },
-      {
-        "component": "multifield",
-        "valueType": "array",
-        "name": "items",
-        "label": "Items",
-        "field": {
-          "component": "reference",
-          "valueType": "object",
-          "reference": "industry-categories-item"
-        }
       }
     ]
   },
@@ -1240,28 +1229,22 @@
         "name": "subitems",
         "label": "Sub Items",
         "field": {
-          "component": "reference",
+          "component": "text",
           "valueType": "object",
-          "reference": "industry-categories-subitem"
+          "name": "subitem",
+          "fields": [
+            {
+              "component": "text",
+              "name": "subtitle",
+              "label": "Sub Item Title"
+            },
+            {
+              "component": "richtext",
+              "name": "subdescription",
+              "label": "Sub Item Description"
+            }
+          ]
         }
-      }
-    ]
-  },
-  {
-    "id": "industry-categories-subitem",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Sub Item Title",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "label": "Sub Item Description",
-        "valueType": "string"
       }
     ]
   },

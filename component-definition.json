@@ -567,26 +567,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Industry Categories Item",
-                  "model": "industry-categories-item",
-                  "isContainer": true,
-                  "allowedComponents": [
-                    "industry-categories-subitem"
-                  ]
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Industry Sub Item",
-          "id": "industry-categories-subitem",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item/subitem",
-                "template": {
-                  "name": "Industry Sub Item",
-                  "model": "industry-categories-subitem"
+                  "model": "industry-categories-item"
                 }
               }
             }

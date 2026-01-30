@@ -25,29 +25,13 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Industry Categories Item",
-              "model": "industry-categories-item",
-              "isContainer": true,  
-              "allowedComponents": ["industry-categories-subitem"] 
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Industry Sub Item",
-      "id": "industry-categories-subitem",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item/subitem",  
-            "template": {
-              "name": "Industry Sub Item",
-              "model": "industry-categories-subitem"
+              "model": "industry-categories-item"
             }
           }
         }
       }
     }
+   
   ],
   
   "models": [
@@ -72,17 +56,6 @@
           "name": "desc",
           "label": "Description",
           "valueType": "string"
-        },
-        {
-          "component": "multifield",
-          "valueType": "array",
-          "name": "items",
-          "label": "Items",
-          "field": {
-            "component": "reference",
-            "valueType": "object",
-            "reference": "industry-categories-item"
-          }
         }
       ]
     },
@@ -102,34 +75,29 @@
           "label": "Text",
           "valueType": "string"
         },
+       
         {
           "component": "multifield",
           "valueType": "array",
           "name": "subitems",
           "label": "Sub Items",
           "field": {
-            "component": "reference",
+            "component": "text",  
             "valueType": "object",
-            "reference": "industry-categories-subitem"
+            "name": "subitem",
+            "fields": [
+              {
+                "component": "text",
+                "name": "subtitle",
+                "label": "Sub Item Title"
+              },
+              {
+                "component": "richtext",
+                "name": "subdescription",
+                "label": "Sub Item Description"
+              }
+            ]
           }
-        }
-      ]
-    },
-    {
-      "id": "industry-categories-subitem",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "title",
-          "label": "Sub Item Title",
-          "multi": false
-        },
-        {
-          "component": "richtext",
-          "name": "description",
-          "label": "Sub Item Description",
-          "valueType": "string"
         }
       ]
     }
