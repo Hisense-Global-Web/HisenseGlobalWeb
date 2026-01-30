@@ -1208,18 +1208,6 @@
     ]
   },
   {
-    "id": "industry-categories-item",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      }
-    ]
-  },
-  {
     "id": "media-carousel",
     "fields": [
       {
