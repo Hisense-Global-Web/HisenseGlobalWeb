@@ -25,26 +25,43 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Industry Categories Item",
-              "model": "industry-categories-item"
+              "model": "industry-categories-item",
+              "filter": "industry-categories-subitem" 
+            }
+          }
+        }
+      }
+    },
+  
+    {
+      "title": "Industry Categories Sub Item",
+      "id": "industry-categories-subitem",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item/subitem",  
+            "template": {
+              "name": "Industry Categories Sub Item",
+              "model": "industry-categories-subitem"
             }
           }
         }
       }
     }
-    
   ],
+  
   "models": [
-     {
+    {
       "id": "industry-categories",
       "fields": [
-       {
+        {
           "component": "text",
           "valueType": "string",
           "name": "title",
           "label": "Title",
           "multi": false
         },
-         {
+        {
           "component": "richtext",
           "name": "subtitle",
           "label": "Sub Title",
@@ -61,31 +78,68 @@
     {
       "id": "industry-categories-item",
       "fields": [
-        
-         {
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",
           "label": "Image",
           "multi": false
         },
-         {
+        {
           "component": "richtext",
           "name": "text",
           "label": "Text",
           "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "valueType": "array",
+          "name": "subitems",
+          "label": "Sub Items",
+          "multi": true,
+          "reference": "industry-categories-subitem"  
         }
-         
+      ]
+    },
+    {
+      "id": "industry-categories-subitem",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Sub Item Title",
+          "multi": false
+        },
+        {
+          "component": "richtext",
+          "name": "description",
+          "label": "Sub Item Description",
+          "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "icon",
+          "label": "Icon",
+          "multi": false
+        }
       ]
     }
   ],
+  
   "filters": [
     {
       "id": "industry-categories",
       "components": [
         "industry-categories-item"
       ]
+    },
+    {
+      "id": "industry-categories-subitem",
+      "components": [
+        "industry-categories-subitem"
+      ]
     }
-    
   ]
 }

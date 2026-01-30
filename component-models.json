@@ -1222,6 +1222,39 @@
         "name": "text",
         "label": "Text",
         "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "array",
+        "name": "subitems",
+        "label": "Sub Items",
+        "multi": true,
+        "reference": "industry-categories-subitem"
+      }
+    ]
+  },
+  {
+    "id": "industry-categories-subitem",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Sub Item Title",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Sub Item Description",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Icon",
+        "multi": false
       }
     ]
   },
