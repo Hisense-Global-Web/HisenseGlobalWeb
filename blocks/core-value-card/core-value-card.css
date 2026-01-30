@@ -14,12 +14,29 @@
   padding: 0;
 }
 
-.core-value-card .title:first-child{
-  
+.core-value-card .title >div:first-child{
+  color: var(--color-primary-green-50);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+  font-size: var(--size-20);
+
+   @media (width < 860px) {
+   font-size: var(--size-18);
+  }
 }
 
-.core-value-card .title:nth-child(2){
-  
+.core-value-card .title >div:nth-child(2){
+  color: var(--color-primary-grey-90);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+  font-size: var(--size-46);
+  margin: var(--spacing-sm) 0 var(--spacing-xl);
+
+   @media (width < 860px) {
+    font-size: var(--size-24);
+    margin: var(--spacing-3xs) 0 var(--size-32);
+  }
+
 }
 
 .core-value-card > ul {
@@ -32,7 +49,6 @@
 
   @media (width < 860px) {
     grid-template-columns: 1fr;
-  
   }
 }
 
@@ -80,30 +96,35 @@
   position: relative;
 }
 
-.core-value-card .card-body:first-child {
-  font-weight: var(--fontweight-medium);
-  font-size: var(--fontsize-title1);
-
-  @media (width < 860px) {
-    font-size: var(--size-14);
-  }
-}
-
-.core-value-card .card-body:nth-child(2) {
-
-
-  @media (width < 860px) {
-    
-  }
-}
-
 .core-value-card .card-body div:first-child {
-    @media (width < 860px) {
-      position: absolute;
-      top: var(--spacing-2xs);
-    }
-    
+  color: black;
+  font-weight: var(--fontweight-medium);
+  font-family: var(--font-family);
+  font-size: var(--size-30);
+
+  @media (width < 860px) {
+    color: var(--color-primary-grey-10);
+    font-size: var(--size-24);
+    position: absolute;
+    top: calc(-1* (var(--size-24) + var(--spacing-2xs)));
+    left:var(--spacing-sm)
+  }
 }
+
+.core-value-card .card-body div:nth-child(2) {
+  color: var(--color-primary-grey-70);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-book);
+   font-size: var(--size-16);
+
+  @media (width < 860px) {
+    text-align: left;
+    font-size: var(--size-14);
+    padding:var(--spacing-sm) 0 0 var(--spacing-sm);
+  }
+}
+
+
 
 .card-item:has(.arrow.hide) .card-body div:nth-child(2) {
   @media (width < 860px) {

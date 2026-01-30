@@ -1,21 +1,21 @@
 
-.honors-awards-cards-wrapper {
+.industry-categories-wrapper {
   width: 100%;
   margin: 20px auto;
 }
 
-.honors-awards-cards-wrapper p,
-.honors-awards-cards-wrapper h1,
-.honors-awards-cards-wrapper h2,
-.honors-awards-cards-wrapper h3,
-.honors-awards-cards-wrapper h4,
-.honors-awards-cards-wrapper h5,
-.honors-awards-cards-wrapper h6{
+.industry-categories-wrapper p,
+.industry-categories-wrapper h1,
+.industry-categories-wrapper h2,
+.industry-categories-wrapper h3,
+.industry-categories-wrapper h4,
+.industry-categories-wrapper h5,
+.industry-categories-wrapper h6{
   margin: 0;
   padding: 0;
 }
 
-.honors-awards-cards > ul {
+.industry-categories > ul {
   gap: var(--spacing-sm);
 
   @media (width < 860px) {
@@ -32,7 +32,7 @@
 	}
 }
 
-.honors-awards-cards > ul > li {
+.industry-categories > ul > li {
    aspect-ratio: 1;
    font-family: var(--font-family);
 
@@ -51,8 +51,8 @@
   }
 }
 
-.honors-awards-cards-card-body > p,
-.honors-awards-cards-card-body > h6{
+.industry-categories-card-body > p,
+.industry-categories-card-body > h6{
   font-size: var(--size-20);
 
   @media (width >= 860px) {
@@ -68,7 +68,7 @@
    transform: scale(1);
 }
 
-.honors-awards-cards  > ul {
+.industry-categories  > ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -76,7 +76,7 @@
 	grid-template-columns: repeat(3, 1fr);
 }
 
-.honors-awards-cards  > ul > li {
+.industry-categories  > ul > li {
   background: linear-gradient(135deg, #EEF9F9, #F5FCFC); 
 
   /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
@@ -99,13 +99,13 @@
   }
 }
 
-.honors-awards-cards  .honors-awards-cards-card-body{
+.industry-categories  .industry-categories-card-body{
   width: 100%;
   text-align: center;
   color: #000;
 }
 
-.honors-awards-cards  > ul > li .honors-awards-cards-card-image {
+.industry-categories  > ul > li .industry-categories-card-image {
   width: 46.154vw;
   height: 46.154vw;;
   object-fit: contain;
@@ -117,7 +117,7 @@
   }
 }
 
-.honors-awards-cards  > ul > li img {
+.industry-categories  > ul > li img {
   width: 100%;
   height: 100%;
 }

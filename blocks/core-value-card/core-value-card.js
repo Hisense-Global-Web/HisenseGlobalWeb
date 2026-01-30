@@ -8,8 +8,6 @@ export default function decorate(block) {
   [...block.children].forEach((row, i) => {
     if (i <= 1) {
       title.className = 'title';
-      const div = document.createElement('div');
-      moveInstrumentation(row, div);
       title.append(row);
     } else {
       const li = document.createElement('li');

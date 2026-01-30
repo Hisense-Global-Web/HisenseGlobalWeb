@@ -17,14 +17,14 @@
       }
     },
     {
-      "title": "honors-awards Card",
+      "title": "Industry Categories Item",
       "id": "industry-categories-item",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "honors-awards Card",
+              "name": "Industry Categories Item",
               "model": "industry-categories-item"
             }
           }
@@ -37,57 +37,39 @@
      {
       "id": "industry-categories",
       "fields": [
-        {
-          "component": "select",
-          "name": "classes",
-          "label": "Card options",
-          "description": "",
+       {
+          "component": "text",
           "valueType": "string",
-          "options": [
-              {
-                  "name": "Cover Style",
-                  "value": "cover-style"
-              },
-               {
-                  "name": "Cover Style Width Dark Font",
-                  "value": "cover-dark"
-              },
-              {
-                  "name": "Center Style",
-                  "value": "center-style"
-              }
-          ]
+          "name": "title",
+          "label": "Title",
+          "multi": false
+        },
+         {
+          "component": "richtext",
+          "name": "subtitle",
+          "label": "Sub Title",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "desc",
+          "label": "Description",
+          "valueType": "string"
         }
       ]
     },
     {
       "id": "industry-categories-item",
       "fields": [
-         {
-          "component": "richtext",
-          "name": "title",
-          "label": "Title",
-          "valueType": "string"
-        },
+        
          {
           "component": "reference",
           "valueType": "string",
           "name": "image",
           "label": "Image",
           "multi": false
-        },
-         {
-          "component": "aem-content",
-          "name": "industry-categories-item_ctaPrimary",
-          "label": "Primary CTA",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "industry-categories-item_ctaPrimaryText",
-          "label": "Primary CTA Label",
-          "valueType": "string"
         }
+         
       ]
     }
   ],
@@ -97,6 +79,12 @@
       "components": [
         "industry-categories-item"
       ]
-    }
+    },
+     {
+          "id": "industry-categories-item",
+          "components": [
+            "text"
+          ]
+        }
   ]
 }

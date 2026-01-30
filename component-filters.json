@@ -129,12 +129,6 @@
     ]
   },
   {
-    "id": "industry-categories",
-    "components": [
-      "industry-categories-item"
-    ]
-  },
-  {
     "id": "honors-awards-cards",
     "components": [
       "honors-awards-card"
@@ -144,6 +138,18 @@
     "id": "icon-container",
     "components": [
       "icon-item"
+    ]
+  },
+  {
+    "id": "industry-categories",
+    "components": [
+      "industry-categories-item"
+    ]
+  },
+  {
+    "id": "industry-categories-item",
+    "components": [
+      "text"
     ]
   },
   {
