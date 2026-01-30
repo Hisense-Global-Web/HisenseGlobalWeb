@@ -298,6 +298,136 @@
     ]
   },
   {
+    "id": "text-body-image",
+    "classes": "text-body-image",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "image",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "alt",
+        "label": "Alt Text",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "text-body-headline",
+    "classes": "text-body-headline",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "headline",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "headline",
+        "label": "Headline",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "text-body-content",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "content",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "text-body-quote",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "quote",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "richtext",
+        "name": "quote",
+        "label": "Quote",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "notes",
+        "label": "Notes",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "text-body-side-by-side",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "flexend-side-by-side",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "card-carousel",
     "fields": [
       {
