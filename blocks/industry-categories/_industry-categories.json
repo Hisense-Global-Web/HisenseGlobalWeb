@@ -31,21 +31,20 @@
         }
       }
     }
-   
+    
   ],
-  
   "models": [
-    {
+     {
       "id": "industry-categories",
       "fields": [
-        {
+       {
           "component": "text",
           "valueType": "string",
           "name": "title",
           "label": "Title",
           "multi": false
         },
-        {
+         {
           "component": "richtext",
           "name": "subtitle",
           "label": "Sub Title",
@@ -62,47 +61,24 @@
     {
       "id": "industry-categories-item",
       "fields": [
-        {
+        
+         {
           "component": "reference",
           "valueType": "string",
           "name": "image",
           "label": "Image",
           "multi": false
         },
-        {
+         {
           "component": "richtext",
           "name": "text",
           "label": "Text",
           "valueType": "string"
-        },
-       
-        {
-          "component": "multifield",
-          "valueType": "array",
-          "name": "subitems",
-          "label": "Sub Items",
-          "field": {
-            "component": "text",  
-            "valueType": "object",
-            "name": "subitem",
-            "fields": [
-              {
-                "component": "text",
-                "name": "subtitle",
-                "label": "Sub Item Title"
-              },
-              {
-                "component": "richtext",
-                "name": "subdescription",
-                "label": "Sub Item Description"
-              }
-            ]
-          }
         }
+         
       ]
     }
   ],
-  
   "filters": [
     {
       "id": "industry-categories",
@@ -110,5 +86,7 @@
         "industry-categories-item"
       ]
     }
+    
   ]
 }
+

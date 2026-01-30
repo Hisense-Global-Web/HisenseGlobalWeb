@@ -1222,29 +1222,6 @@
         "name": "text",
         "label": "Text",
         "valueType": "string"
-      },
-      {
-        "component": "multifield",
-        "valueType": "array",
-        "name": "subitems",
-        "label": "Sub Items",
-        "field": {
-          "component": "text",
-          "valueType": "object",
-          "name": "subitem",
-          "fields": [
-            {
-              "component": "text",
-              "name": "subtitle",
-              "label": "Sub Item Title"
-            },
-            {
-              "component": "richtext",
-              "name": "subdescription",
-              "label": "Sub Item Description"
-            }
-          ]
-        }
       }
     ]
   },
