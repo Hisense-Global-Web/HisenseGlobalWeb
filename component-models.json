@@ -1204,6 +1204,16 @@
         "name": "desc",
         "label": "Description",
         "valueType": "string"
+      },
+      {
+        "component": "container",
+        "valueType": "array",
+        "name": "items",
+        "label": "Items",
+        "multi": true,
+        "allowedComponents": [
+          "industry-categories-item"
+        ]
       }
     ]
   },
@@ -1224,12 +1234,14 @@
         "valueType": "string"
       },
       {
-        "component": "reference",
+        "component": "container",
         "valueType": "array",
         "name": "subitems",
         "label": "Sub Items",
         "multi": true,
-        "reference": "industry-categories-subitem"
+        "allowedComponents": [
+          "industry-categories-subitem"
+        ]
       }
     ]
   },
@@ -1248,13 +1260,6 @@
         "name": "description",
         "label": "Sub Item Description",
         "valueType": "string"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "icon",
-        "label": "Icon",
-        "multi": false
       }
     ]
   },
