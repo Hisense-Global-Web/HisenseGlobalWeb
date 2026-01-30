@@ -1,16 +1,13 @@
 export default function decorate(block) {
-  console.log(block);
-  const cloneBlock = block.cloneNode(true);
-  block.textContent = '';
-  [...cloneBlock.children].forEach((row) => {
-    console.log(row);
+  const ArticleBodyDiv = document.createElement('div');
+  [...block.children].forEach((row) => {
     const type = row.firstElementChild?.textContent?.trim() || '';
     if (type === 'headline') {
       const headlineContent = row.children[1]?.textContent?.trim() || '';
       const headlineDiv = document.createElement('div');
       headlineDiv.className = 'text-body-headerline';
       headlineDiv.innerHTML = headlineContent;
-      block.append(headlineDiv);
+      ArticleBodyDiv.append(headlineDiv);
     } else if (type === 'image') {
       const imgEl = row.querySelector('img');
       const imgSrc = imgEl?.src || '';
@@ -18,11 +15,11 @@ export default function decorate(block) {
       const imageDiv = document.createElement('div');
       imageDiv.className = 'text-body-image';
       imageDiv.innerHTML = `<img src="${imgSrc}" alt="${imgAlt}">`;
-      block.append(imageDiv);
+      ArticleBodyDiv.append(imageDiv);
     } else if (type === 'content') {
       const contentDiv = row.children[1];
       contentDiv.className = 'text-body-content';
-      block.append(contentDiv);
+      ArticleBodyDiv.append(contentDiv);
     } else if (type === 'quote') {
       const quoteDiv = row.children[1];
       quoteDiv.className = 'text-body-quote';
@@ -31,7 +28,7 @@ export default function decorate(block) {
       imgEl.src = '/content/dam/hisense/us/common-icons/quotation.svg';
       imgEl.alt = 'quotation';
       quoteDiv.append(imgEl);
-      block.append(quoteDiv);
+      ArticleBodyDiv.append(quoteDiv);
     } else if (type === 'flexend-side-by-side') {
       const GroupDiv = document.createElement('div');
       GroupDiv.className = 'text-body-group-flexend';
@@ -49,10 +46,11 @@ export default function decorate(block) {
       textGroupDiv.className = 'text-body-text-group';
       textGroupDiv.append(title, desc);
       GroupDiv.append(imgGroupDiv, textGroupDiv);
-      block.append(GroupDiv);
+      ArticleBodyDiv.append(GroupDiv);
     } else {
       console.log('未定义的模块类型：', type, '模块：', row);
-      block.append(row);
+      ArticleBodyDiv.append(row);
     }
   });
+  block.replaceChildren(ArticleBodyDiv);
 }
