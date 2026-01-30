@@ -481,6 +481,25 @@
           }
         },
         {
+          "title": "Minimalist Hero Banner",
+          "id": "minimalist-hero-banner",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Minimalist Hero Banner",
+                  "model": "minimalist-hero-banner",
+                  "classes": "minimalist-hero-banner",
+                  "classes_fontColor": "black-font",
+                  "title_hero": "this is title",
+                  "text_hero": "this is text"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Navigation Action",
           "id": "navigationAction",
           "plugins": {

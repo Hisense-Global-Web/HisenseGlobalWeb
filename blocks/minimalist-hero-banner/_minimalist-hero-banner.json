@@ -1,0 +1,71 @@
+{
+  "definitions": [
+    {
+      "title": "Minimalist Hero Banner",
+      "id": "minimalist-hero-banner",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Minimalist Hero Banner",
+              "model": "minimalist-hero-banner",
+              "classes":"minimalist-hero-banner",
+              "classes_fontColor": "black-font",
+              "title_hero": "this is title",
+              "text_hero": "this is text"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "minimalist-hero-banner",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "background_image",
+          "label": "Background Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "name": "text_title",
+          "label": "Title",
+          "valueType": "string",
+          "value": "",
+          "placeholder": "this is title"
+        },
+        {
+          "component": "text",
+          "name": "text_body",
+          "label": "Text",
+          "valueType": "string",
+          "value": "",
+          "placeholder": "this is text content"
+        },
+        {
+          "component": "select",
+          "name": "classes_fontColor",
+          "value": "",
+          "label": "Font Color",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "black-font(default)",
+              "value": "black-font"
+            },
+            {
+              "name": "white-font",
+              "value": "white-font"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+    "filters": []
+}

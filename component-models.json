@@ -1140,6 +1140,51 @@
     ]
   },
   {
+    "id": "minimalist-hero-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "background_image",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string",
+        "value": "",
+        "placeholder": "this is title"
+      },
+      {
+        "component": "text",
+        "name": "text_body",
+        "label": "Text",
+        "valueType": "string",
+        "value": "",
+        "placeholder": "this is text content"
+      },
+      {
+        "component": "select",
+        "name": "classes_fontColor",
+        "value": "",
+        "label": "Font Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "black-font(default)",
+            "value": "black-font"
+          },
+          {
+            "name": "white-font",
+            "value": "white-font"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "navigationAction",
     "fields": [
       {
