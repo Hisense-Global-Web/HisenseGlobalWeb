@@ -190,6 +190,7 @@
     {
       "id": "section",
       "components": [
+        "article-body",
         "button",
         "card-carousel",
         "category-carousel",
