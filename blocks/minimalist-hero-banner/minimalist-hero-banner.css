@@ -6,6 +6,7 @@ main > .section:first-of-type {
 p {
 	margin: 0;
 	padding: 0;
+	line-height: 1.2;
 }
 
 .minimalist-hero-banner-wrapper {
@@ -18,9 +19,12 @@ p {
 	width: 100%;
 	text-align: center;
 	color: var(--color-hisense-black);
-	line-height: 120%;
 	text-transform: capitalize;
 	position: relative;
+
+	@media (width < 860px) {
+		height: calc(260/390 * 100vw);
+	}
 
 	&.black-font {
 		color: black;
@@ -35,6 +39,10 @@ p {
 		height: 100%;
 		aspect-ratio: 1440/400;
 		object-fit: cover;
+
+		@media (width < 860px) {
+			aspect-ratio: 300/200;
+		}
 	}
 
 	.banner-image {
@@ -55,7 +63,11 @@ p {
 		font-weight: var(--fontweight-medium);
 
 		p:first-child {
-			font-size: var(--fontsize-h1);
+			font-size: var(--fontsize-pc-h1);
+
+			@media (width < 860px) {
+				font-size: var(--size-40);
+			}
 		}
 
 		p:last-child {
