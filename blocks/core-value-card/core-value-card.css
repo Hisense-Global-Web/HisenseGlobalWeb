@@ -1,0 +1,120 @@
+
+.core-value-card-wrapper {
+  width: 100%;
+}
+
+.core-value-card-wrapper p,
+.core-value-card-wrapper h1,
+.core-value-card-wrapper h2,
+.core-value-card-wrapper h3,
+.core-value-card-wrapper h4,
+.core-value-card-wrapper h5,
+.core-value-card-wrapper h6{
+  margin: 0;
+  padding: 0;
+}
+
+.core-value-card .title:first-child{
+  
+}
+
+.core-value-card .title:nth-child(2){
+  
+}
+
+.core-value-card > ul {
+  gap: var(--size-26);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+	grid-template-columns: repeat(2, 1fr);
+
+  @media (width < 860px) {
+    grid-template-columns: 1fr;
+  
+  }
+}
+
+.core-value-card > ul > li{
+  font-family: var(--font-family);
+  overflow: hidden;
+  position: relative;
+  gap: var(--size-24);
+}
+
+.core-value-card > ul > li .card-image{
+  border-radius: var(--spacing-xs);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 544 / 220;
+
+   @media (width < 860px) {
+    aspect-ratio: 354 / 120;
+  }
+}
+
+ ul >li .card-image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.core-value-card .arrow {
+  transition: transform .36s cubic-bezier(0, 0.18, 0.07, 1), -webkit-transform .36s cubic-bezier(0, 0.18, 0.07, 1);
+  position: absolute;
+  bottom: var(--spacing-2xs);
+  right: var(--spacing-sm);
+  width: var(--size-24);
+  height: var(--size-24);
+}
+
+.core-value-card .arrow.hide  {
+  transform: rotate(-180deg);
+		transition: transform 0.3s ease;
+}
+
+.core-value-card .card-body{
+  gap: var(--size-16);
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+.core-value-card .card-body:first-child {
+  font-weight: var(--fontweight-medium);
+  font-size: var(--fontsize-title1);
+
+  @media (width < 860px) {
+    font-size: var(--size-14);
+  }
+}
+
+.core-value-card .card-body:nth-child(2) {
+
+
+  @media (width < 860px) {
+    
+  }
+}
+
+.core-value-card .card-body div:first-child {
+    @media (width < 860px) {
+      position: absolute;
+      top: var(--spacing-2xs);
+    }
+    
+}
+
+.card-item:has(.arrow.hide) .card-body div:nth-child(2) {
+  @media (width < 860px) {
+   display: none;
+  }
+}
+
+
+
+
+
+
+
+

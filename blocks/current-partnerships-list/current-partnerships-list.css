@@ -1,0 +1,62 @@
+
+.current-partnerships-list-wrapper {
+  width: 100%;
+}
+
+.current-partnerships-list-wrapper p,
+.current-partnerships-list-wrapper h1,
+.current-partnerships-list-wrapper h2,
+.current-partnerships-list-wrapper h3,
+.current-partnerships-list-wrapper h4,
+.current-partnerships-list-wrapper h5,
+.current-partnerships-list-wrapper h6{
+  margin: 0;
+  padding: 0;
+}
+
+.current-partnerships-list > ul {
+  gap: var(--spacing-sm);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+	grid-template-columns: repeat(2, 1fr);
+
+  @media (width < 860px) {
+    grid-template-columns: 1fr;
+   
+  }
+}
+
+.current-partnerships-list > ul > li {
+  font-family: var(--font-family);
+  border-radius: var(--size-20);
+  overflow: hidden;
+  position: relative;
+
+}
+
+.current-partnerships-list .card-body:first> p,
+.current-partnerships-list .card-body:first > h6{
+  font-size: var(--size-20);
+
+  @media (width < 860px) {
+  }
+}
+
+.current-partnerships-list .card-image{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.current-partnerships-list ul >li img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
+}
+
+
+
+

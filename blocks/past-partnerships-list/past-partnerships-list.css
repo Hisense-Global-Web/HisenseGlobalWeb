@@ -1,0 +1,128 @@
+
+.past-partnerships-list-wrapper {
+  width: 100%;
+  margin: 20px auto;
+}
+
+.past-partnerships-list-wrapper p,
+.past-partnerships-list-wrapper h1,
+.past-partnerships-list-wrapper h2,
+.past-partnerships-list-wrapper h3,
+.past-partnerships-list-wrapper h4,
+.past-partnerships-list-wrapper h5,
+.past-partnerships-list-wrapper h6{
+  margin: 0;
+  padding: 0;
+}
+
+.past-partnerships-list > ul {
+  gap: var(--spacing-sm);
+
+  @media (width < 860px) {
+		overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
+    scroll-behavior: smooth; /* 平滑滚动 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
+    overscroll-behavior-x: contain; /* 防止滚动链 */
+    grid-auto-flow: column;
+    gap: var(--spacing-xs);
+	}
+}
+
+.past-partnerships-list > ul > li {
+   aspect-ratio: 1;
+   font-family: var(--font-family);
+
+   @media (width < 860px) {
+    /* flex: 0 0 auto;  */
+    position: relative;
+		width: 70.7vw !important;
+    height: 70.7vw;
+    aspect-ratio: 1;
+    transition: transform 0.3s;
+    pointer-events: auto; /* 允许事件穿透到容器 */
+    
+
+    /* -webkit-user-select: none; */
+    user-select: none;
+  }
+}
+
+.past-partnerships-list .card-body > p,
+.past-partnerships-list .card-body > h6{
+  font-size: var(--size-20);
+
+  @media (width >= 860px) {
+    font-size: var(--size-24);
+  }
+}
+
+.touch-start img {
+   transform: scale(1.1);
+}
+
+.touch-end img {
+   transform: scale(1);
+}
+
+.past-partnerships-list  > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.past-partnerships-list  > ul > li {
+  background: linear-gradient(135deg, #EEF9F9, #F5FCFC); 
+
+  /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
+  position: relative;
+  border-radius: var(--border-radius-l);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-sm);
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  aspect-ratio: 1;
+
+  @media (width >= 860px) {
+    gap: var(--size-30);
+    width:min(24.26111vw, 358px) ;
+    height:min(24.26111vw, 358px) ;
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+}
+
+.past-partnerships-list  .past-partnerships-list .card-body{
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+
+.past-partnerships-list  > ul > li .past-partnerships-list .card-image {
+  width: 46.154vw;
+  height: 46.154vw;;
+  object-fit: contain;
+  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
+
+  @media (width >= 860px) {
+    width: min(14.7222222vw, 212px);
+    height: min(14.7222222vw, 212px);
+  }
+}
+
+.past-partnerships-list  > ul > li img {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+

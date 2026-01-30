@@ -597,6 +597,84 @@
     ]
   },
   {
+    "id": "core-value-card",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "subtitle",
+        "label": "Sub Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "core-value-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "item_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "item_text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "current-partnerships-list",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Section Title",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "current-partnerships-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "image_text",
+        "label": "Image Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "image_text",
+        "label": "Image Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "disclaimer",
     "fields": [
       {
@@ -944,6 +1022,118 @@
     ]
   },
   {
+    "id": "industry-categories",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Cover Style",
+            "value": "cover-style"
+          },
+          {
+            "name": "Cover Style Width Dark Font",
+            "value": "cover-dark"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "industry-categories-item",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "industry-categories-item_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "industry-categories-item_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "honors-awards-cards",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Cover Style",
+            "value": "cover-style"
+          },
+          {
+            "name": "Cover Style Width Dark Font",
+            "value": "cover-dark"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "honors-awards-card",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "honors-awards-card_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "honors-awards-card_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "icon-container",
     "fields": [
       {
@@ -1286,6 +1476,55 @@
         "component": "richtext",
         "name": "sub_text",
         "label": "Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "partnerships-section-title",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "subtitle",
+        "value": "",
+        "label": "Sub Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "past-partnerships-list",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "section_title",
+        "label": "Section Title",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "past-partnerships-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Image Text",
         "valueType": "string"
       }
     ]

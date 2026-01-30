@@ -1,0 +1,128 @@
+
+.honors-awards-cards-wrapper {
+  width: 100%;
+  margin: 20px auto;
+}
+
+.honors-awards-cards-wrapper p,
+.honors-awards-cards-wrapper h1,
+.honors-awards-cards-wrapper h2,
+.honors-awards-cards-wrapper h3,
+.honors-awards-cards-wrapper h4,
+.honors-awards-cards-wrapper h5,
+.honors-awards-cards-wrapper h6{
+  margin: 0;
+  padding: 0;
+}
+
+.honors-awards-cards > ul {
+  gap: var(--spacing-sm);
+
+  @media (width < 860px) {
+		overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
+    scroll-behavior: smooth; /* 平滑滚动 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
+    overscroll-behavior-x: contain; /* 防止滚动链 */
+    grid-auto-flow: column;
+    gap: var(--spacing-xs);
+	}
+}
+
+.honors-awards-cards > ul > li {
+   aspect-ratio: 1;
+   font-family: var(--font-family);
+
+   @media (width < 860px) {
+    /* flex: 0 0 auto;  */
+    position: relative;
+		width: 70.7vw !important;
+    height: 70.7vw;
+    aspect-ratio: 1;
+    transition: transform 0.3s;
+    pointer-events: auto; /* 允许事件穿透到容器 */
+    
+
+    /* -webkit-user-select: none; */
+    user-select: none;
+  }
+}
+
+.honors-awards-cards-card-body > p,
+.honors-awards-cards-card-body > h6{
+  font-size: var(--size-20);
+
+  @media (width >= 860px) {
+    font-size: var(--size-24);
+  }
+}
+
+.touch-start img {
+   transform: scale(1.1);
+}
+
+.touch-end img {
+   transform: scale(1);
+}
+
+.honors-awards-cards  > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.honors-awards-cards  > ul > li {
+  background: linear-gradient(135deg, #EEF9F9, #F5FCFC); 
+
+  /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
+  position: relative;
+  border-radius: var(--border-radius-l);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-sm);
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  aspect-ratio: 1;
+
+  @media (width >= 860px) {
+    gap: var(--size-30);
+    width:min(24.26111vw, 358px) ;
+    height:min(24.26111vw, 358px) ;
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+}
+
+.honors-awards-cards  .honors-awards-cards-card-body{
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+
+.honors-awards-cards  > ul > li .honors-awards-cards-card-image {
+  width: 46.154vw;
+  height: 46.154vw;;
+  object-fit: contain;
+  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
+
+  @media (width >= 860px) {
+    width: min(14.7222222vw, 212px);
+    height: min(14.7222222vw, 212px);
+  }
+}
+
+.honors-awards-cards  > ul > li img {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+

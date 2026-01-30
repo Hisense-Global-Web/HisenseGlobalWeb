@@ -1,0 +1,102 @@
+{
+  "definitions": [
+    {
+      "title": "Honors-awards Cards",
+      "id": "honors-awards-cards",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "honors-awards Cards",
+              "model": "honors-awards-cards",
+              "filter": "honors-awards-cards"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "honors-awards Card",
+      "id": "honors-awards-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "honors-awards Card",
+              "model": "honors-awards-card"
+            }
+          }
+        }
+      }
+    }
+    
+  ],
+  "models": [
+     {
+      "id": "honors-awards-cards",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "label": "Card options",
+          "description": "",
+          "valueType": "string",
+          "options": [
+              {
+                  "name": "Cover Style",
+                  "value": "cover-style"
+              },
+               {
+                  "name": "Cover Style Width Dark Font",
+                  "value": "cover-dark"
+              },
+              {
+                  "name": "Center Style",
+                  "value": "center-style"
+              }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "honors-awards-card",
+      "fields": [
+         {
+          "component": "richtext",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+         {
+          "component": "aem-content",
+          "name": "honors-awards-card_ctaPrimary",
+          "label": "Primary CTA",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "honors-awards-card_ctaPrimaryText",
+          "label": "Primary CTA Label",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "honors-awards-cards",
+      "components": [
+        "honors-awards-card"
+      ]
+    }
+  ]
+}

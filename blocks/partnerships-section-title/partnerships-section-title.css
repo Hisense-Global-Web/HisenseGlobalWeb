@@ -1,0 +1,55 @@
+.partnerships-section-title-container .partnerships-section-title-wrapper {
+  margin:0 auto;
+  width: 100%;
+}
+
+.partnerships-section-title {
+  position: relative;
+}
+
+.partnerships-section-title-wrapper > div > div:first-child div p,
+.partnerships-section-title-wrapper > div > div:first-child div h1,
+.partnerships-section-title-wrapper > div > div:first-child div h2,
+.partnerships-section-title-wrapper > div > div:first-child div h3,
+.partnerships-section-title-wrapper > div > div:first-child div h4,
+.partnerships-section-title-wrapper > div > div:first-child div h5,
+.partnerships-section-title-wrapper > div > div:first-child div h6{
+  color: var(--color-primary-green-50);
+  font-family: var(--font-family);
+  margin: 0;
+}
+
+.partnerships-section-title-wrapper > div > div:first-child div p{
+  font-size: var(--size-16);
+  line-height: 120%;
+  text-transform: uppercase;
+  padding: 0;
+
+   @media (width >= 860px) {
+    font-size: var(--size-20);
+  }
+}
+
+.partnerships-section-title-wrapper > div > div:last-child div p,
+.partnerships-section-title-wrapper > div > div:last-child div h1,
+.partnerships-section-title-wrapper > div > div:last-child div h2,
+.partnerships-section-title-wrapper > div > div:last-child div h3,
+.partnerships-section-title-wrapper > div > div:last-child div h4,
+.partnerships-section-title-wrapper > div > div:last-child div h5,
+.partnerships-section-title-wrapper > div > div:last-child div h6{
+  padding: 0;
+  color: #333;
+  margin: var(--size-10) 0 0;
+  font-family: var(--font-family);
+}
+
+.partnerships-section-title-wrapper > div > div:last-child div p{
+  font-size: var(--size-24);
+  font-weight: var(--fontweight-medium);
+  line-height: 120%;
+
+   @media (width >= 860px) {
+    font-size: var(--size-34);
+    font-weight: var(--fontweight-book);
+  }
+}
