@@ -147,12 +147,6 @@
     ]
   },
   {
-    "id": "industry-categories-item",
-    "components": [
-      "text"
-    ]
-  },
-  {
     "id": "media-carousel",
     "components": [
       "media-carouselItem"
