@@ -20,9 +20,12 @@
       "disclaimer",
       "feature-banner",
       "fragment",
+      "global-presence",
+      "globalization-timeline",
       "header",
       "hero",
       "hero-banner",
+      "hero-presence",
       "icon-container",
       "image",
       "image-comparison-slider",
@@ -102,6 +105,18 @@
     "id": "footerNavColumn",
     "components": [
       "footerNavColumnList"
+    ]
+  },
+  {
+    "id": "global-presence",
+    "components": [
+      "stats-strip"
+    ]
+  },
+  {
+    "id": "globalization-timeline",
+    "components": [
+      "phase-bar"
     ]
   },
   {

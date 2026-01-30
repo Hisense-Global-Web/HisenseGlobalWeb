@@ -1,0 +1,9 @@
+.globalization-timeline {
+	.timeline-phase-text-container {
+		display: flex;
+	}
+
+	.timeline-phase-image-container {
+		display: flex;
+	}
+}

@@ -1,0 +1,100 @@
+{
+  "definitions": [
+    {
+      "title": "Global Presence",
+      "id": "global-presence",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Global Presence",
+              "model": "global-presence",
+              "filter": "global-presence"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Stats Strip",
+      "id": "stats-strip",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Stats Strip",
+              "model": "stats-strip"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "global-presence",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "container_background",
+          "label": "Background Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "container_title",
+          "label": "Title",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "container_desc",
+          "label": "Description",
+          "value": ""
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        }
+      ]
+    },
+    {
+      "id": "stats-strip",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "stats_number",
+          "label": "Number",
+          "value": "",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "stats_text",
+          "label": "Label Text",
+          "value": "",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "global-presence",
+      "components": [
+        "stats-strip"
+      ]
+    }
+  ]
+}
+

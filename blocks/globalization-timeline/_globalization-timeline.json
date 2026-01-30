@@ -1,0 +1,94 @@
+{
+  "definitions": [
+    {
+      "title": "Globalization Timeline",
+      "id": "globalization-timeline",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Globalization Timeline",
+              "model": "globalization-timeline",
+              "filter": "globalization-timeline"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Phase Bar",
+      "id": "phase-bar",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Phase Bar",
+              "model": "phase-bar"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "globalization-timeline",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "container_overline",
+          "label": "Overline",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "container_title",
+          "label": "Title",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "phase-bar",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "phase_time",
+          "label": "Phase Time",
+          "value": "",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "phase_label",
+          "label": "Phase Label",
+          "value": "",
+          "required": true
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "phase_image",
+          "label": "Phase Image",
+          "multi": false,
+          "required": true
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "globalization-timeline",
+      "components": [
+        "phase-bar"
+      ]
+    }
+  ]
+}
+
