@@ -184,211 +184,44 @@
           ]
         }
       ]
-    },
-    {
-      "id": "product-detail-banner-item",
-      "fields": [
-        {
-          "component": "reference",
-          "valueType": "string",
-          "name": "image",
-          "label": "Image",
-          "multi": false,
-          "required": true
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "alt",
-          "label": "Alt Text",
-          "required": true
-        }
-      ]
-    },
-    {
-      "id": "pdp-product-info",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "graphql",
-          "label": "GraphQL Endpoint"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "sku",
-          "label": "SKU",
-          "required": true
-        },
-        {
-          "component": "checkbox-group",
-          "valueType": "string[]",
-          "name": "fields",
-          "label": "Product Introduction",
-          "multi": true,
-          "options": [
-            { "name": "Title", "value": "title" },
-            { "name": "Series", "value": "series" },
-            { "name": "PriceInfo RegularPrice", "value": "priceInfo_regularPrice" },
-            { "name": "Awards", "value": "awards" },
-            { "name": "Position", "value": "position" }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "plp-product-card",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "graphql",
-          "label": "GraphQL Endpoint",
-          "description": "GraphQL endpoint URL"
-        },
-        {
-          "component": "checkbox-group",
-          "valueType": "string[]",
-          "name": "fields",
-          "label": "Product Fields",
-          "multi": true,
-          "options": [
-            { "name": "Title", "value": "title" },
-            { "name": "Series", "value": "series" },
-            { "name": "PriceInfo RegularPrice", "value": "priceInfo_regularPrice" },
-            { "name": "PriceInfo Specialprice", "value": "priceInfo_specialprice" },
-            { "name": "image", "value": "mediaGallery_image" }
-          ]
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "loadMoreTextContent",
-          "label": "Load More Text Content",
-          "description": "Text content for load more button"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "loadMoreLink",
-          "label": "Load More Link",
-          "description": "Link for load more button"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "noResultMessage",
-          "label": "No Result Message",
-          "description": "Text to display when no result search"
-        }
-      ]
-    },
-    {
-      "id": "plp-product-tag",
-      "fields": []
-    },
-    {
-      "id": "plp-product-tag-item",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "title",
-          "label": "Filter Tag Title",
-          "required": true
-        },
-        {
-          "component": "aem-tag",
-          "valueType": "string",
-          "name": "tags",
-          "label": "Tags",
-          "rootPath": "/content/cq:tags/hisense/product"
-        }
-      ]
-    },
-    {
-      "id": "plp-product-filters",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "results",
-          "label": "Results Text",
-          "value": "{searchResultsCount} RESULT",
-          "required": true
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "reset",
-          "label": "Reset Filters Text",
-          "value": "Reset filters",
-          "required": true
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "sortBy",
-          "label": "Sort By Text",
-          "value": "Sort By",
-          "required": true
-        }
-      ]
-    },
-    {
-      "id": "plp-product-sort",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "title",
-          "label": "Sort Title",
-          "required": true
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "property",
-          "label": "Sort Property",
-          "description": "Property comes from product model attributes",
-          "required": true
-        }
-      ]
     }
   ],
   "filters": [
     {
       "id": "section",
       "components": [
-        "text",
-        "image",
         "button",
-        "title",
-        "hero",
-        "cards",
-        "carousel",
+        "card-carousel",
+        "category-carousel",
+        "collection-banner",
+        "collection-cards",
+        "collection-title",
         "columns",
-        "fragment",
-        "collectionsection",
-        "recards",
-        "video",
-        "banner",
-        "description",
         "disclaimer",
-        "featurebanner",
-        "iconComponent",
-        "parallax",
-        "properties",
-        "imageCarousel",
+        "feature-banner",
+        "fragment",
+        "header",
+        "hero",
+        "hero-banner",
+        "icon-container",
+        "image",
         "image-comparison-slider",
-        "product-detail-banner",
-        "pdp-product-info",
-        "plp-product-card",
-        "plp-product-tag",
-        "plp-product-filters",
+        "media-carousel",
+        "parallax",
+        "product-card",
+        "product-filter",
         "product-filters-carousel",
-        "product-spec"
+        "product-gallery",
+        "product-section",
+        "product-sorting",
+        "product-spec",
+        "properties",
+        "slide",
+        "sub-menu-link",
+        "text",
+        "title",
+        "video",
+        "videoinfo"
       ]
     }
   ]

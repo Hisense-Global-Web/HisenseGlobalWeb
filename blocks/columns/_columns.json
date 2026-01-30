@@ -63,15 +63,15 @@
         "column"
       ]
     },
-    {
-      "id": "column",
-      "components": [
-        "text",
-        "image",
-        "button",
-        "title",
-        "imageLink"
-      ]
-    }
+        {
+          "id": "column",
+          "components": [
+            "text",
+            "image",
+            "button",
+            "title",
+            "sub-menu-link"
+          ]
+        }
   ]
 }

@@ -19,9 +19,7 @@ function isInternalLink(href) {
     return true;
   }
 }
-/**
- * 从 footer-logo block 中提取 logo 数据
-*/
+
 function extractLogoData(container) {
   const logoData = {
     image: null,
@@ -81,7 +79,6 @@ function extractLogoData(container) {
     }
   }
 
-  // 从第四个 div 开始提取 social 图标
   logoDivs.forEach((div, index) => {
     if (index < 3) {
       return;
@@ -123,9 +120,6 @@ function extractLogoData(container) {
   return logoData;
 }
 
-/**
- * 从 footer-nav-column blocks 中提取导航列数据
-*/
 function extractNavColumnsData(container) {
   const navColumns = [];
 
@@ -185,9 +179,6 @@ function extractNavColumnsData(container) {
   return navColumns;
 }
 
-/**
- * 从 footer-legal-links block 中提取
- */
 function extractLegalLinksData(container) {
   const legalLinksData = {
     links: [],
@@ -201,7 +192,6 @@ function extractLegalLinksData(container) {
 
   const legalItemRows = Array.from(legalLinksBlock.children).filter((child) => child.tagName === 'DIV');
 
-  // 第一个 div 作为版权信息来源
   let legalLinksStartIndex = 0;
   if (legalItemRows.length > 0) {
     const copyrightRow = legalItemRows[0];
@@ -213,7 +203,6 @@ function extractLegalLinksData(container) {
   }
 
   legalItemRows.forEach((row, index) => {
-    // 跳过已作为版权信息使用的第一个 div
     if (index < legalLinksStartIndex) {
       return;
     }
@@ -296,7 +285,7 @@ export default function decorate(block) {
     logoDiv.className = 'footer-logo';
 
     if (data.logo.image) {
-      // 如果有链接，将图片包装在链接中
+      // 如果有链接，将图片包装在链接?
       if (data.logo.link && data.logo.link !== '#') {
         const logoLink = document.createElement('a');
         logoLink.href = data.logo.link;
@@ -311,7 +300,7 @@ export default function decorate(block) {
       } else {
         logoDiv.appendChild(data.logo.image);
       }
-      // 设置 alt 属性
+      // 设置 alt ?
       if (data.logo.alt && data.logo.image.tagName === 'IMG') {
         data.logo.image.alt = data.logo.alt;
       }
@@ -415,6 +404,18 @@ export default function decorate(block) {
       copyrightDiv.textContent = data.legalLinks.copyright;
       footerLegals.appendChild(copyrightDiv);
     }
+
+    const lanGroup = document.createElement('div');
+    lanGroup.className = 'footer-lan-group';
+    lanGroup.innerHTML = `
+  <img src="/content/dam/hisense/us/common-icons/global.svg" alt="" />
+  <div class="footer-lan-com">United States</div>
+  <div class="footer-lan-list">
+    <div class="footer-lan-item active">English</div>
+<!--    <div class="footer-lan-line"></div>-->
+<!--    <div class="footer-lan-item">Français</div>-->
+  </div>`;
+    footerLegals.appendChild(lanGroup);
 
     footerBottom.appendChild(footerLegals);
     container.appendChild(footerBottom);

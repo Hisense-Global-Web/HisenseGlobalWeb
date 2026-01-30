@@ -1,0 +1,234 @@
+/* Product Detail Banner */
+
+/* PDP主容器：Flex布局 */
+.pdp-container {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 1120px;
+}
+
+/* 左侧产品图区域 */
+
+.pdp-media {
+  width: min(calc(640 / var(--breakpoint-pc) * 100vw), 640px);
+} 
+
+.pdp-media * {
+  box-sizing: border-box;
+}
+
+/* 主图容器 */
+.pdp-media .pdp-main-img {
+  /* width: 640px; */
+
+  /* height: 360px; */
+  margin-bottom: var(--size-34);
+  position: relative;
+
+  @media (width < 860px) {
+    display: none;
+  }
+}
+
+.pdp-specs-btn img {
+  width: var(--size-18);
+  height: var(--size-18);
+}
+
+.pdp-media .pdp-main-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 缩略图导航 */
+.pdp-media .scroll-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* 左右箭头按钮 */
+.pdp-media .scroll-btn {
+  width: var(--size-28);
+  height: var(--size-28);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #666;
+  transition: color 0.3s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.pdp-media .scroll-btn:disabled {
+  color: #ddd;
+  cursor: not-allowed;
+}
+
+.pdp-media .scroll-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pdp-media .scroll-btn:disabled img.click-icon {
+  display: none;
+}
+
+.pdp-media .scroll-btn:not(:disabled) img.disabled-icon {
+  display: none;
+}
+
+/* 滚动容器：溢出隐藏 */
+.pdp-media .tabs-container {
+  overflow: hidden;
+  height: var(--size-74);
+}
+
+.pdp-media .product-filters {
+  display: flex;
+  gap: var(--size-12);
+  width: min(calc(508 / var(--breakpoint-pc) * 100vw), 508px);
+  scroll-behavior: smooth;
+  overflow: scroll hidden;
+  list-style: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  margin: 0 0 var(--size-24);
+  padding: 0;
+}
+
+.pdp-media .product-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.pdp-media .product-filter {
+  width: var(--size-118);
+  height: var(--size-74);
+  border: 1px solid rgb(102 102 102 / 100%);
+  border-radius: var(--size-20);
+  flex-shrink: 0;
+  list-style: none;
+}
+
+.pdp-media .product-filter-item {
+  width: var(--size-118);
+  height: var(--size-74);
+  border: 1px solid rgb(102 102 102 / 100%);
+  border-radius: var(--size-8);
+  flex-shrink: 0;
+  list-style: none;
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.pdp-media .product-filter-item .product-filter-img-box,
+.pdp-media .product-filter-item .product-filter-img {
+  width: 100%;
+  height: 100%;
+}
+
+.pdp-media .product-filter-item picture {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.pdp-media .product-filter-item img {
+  width: 100%;
+  height: 100%;
+}
+
+.pdp-media .product-carousel {
+  display: flex;
+  gap: var(--size-5);
+  width: 100%;
+  scroll-behavior: smooth;
+  overflow: scroll hidden;
+  list-style: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  height: var(--size-70);
+}
+
+.pdp-media .product-carousel .product-indicator {
+  width: var(--size-6);
+  height: var(--size-6);
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--color-primary-grey-40);
+  transition: background-color 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+  
+  &.active {
+    background-color: var(--color-primary-grey-90);
+  }
+}
+
+@media (width < 860px) {
+  .pdp-media {
+    width: 100%;
+    
+    .scroll-tabs {
+      /* width: calc(100vw - 18px); */
+      
+      .tabs-container {
+        height: auto;
+        overflow: inherit;
+
+        .product-filters {
+          /* width: calc(100vw - 18px); */
+          width: 100vw;
+          gap: 10px;
+          margin: 0;
+          
+          .product-filter-item {
+            width: 100%;
+            height: auto;
+            border: initial;
+            border-radius: 0;
+            
+            .product-filter-img-box {
+              height: initial;
+            }
+            
+            .product-filter-text {
+              display: none;
+            }
+          }
+  
+          .product-filter-item:last-child {
+            /* margin-right: 18px; */
+          }
+        }
+      }
+    }
+  }
+
+  .pdp-media .pdp-main-img {
+    width: 100vw;
+    height: auto;
+
+    /* padding: 0 18px; */
+  }
+
+  .pdp-media .scroll-btn {
+    display: none;
+  }
+}

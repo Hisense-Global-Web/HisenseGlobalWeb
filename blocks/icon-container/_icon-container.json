@@ -1,0 +1,118 @@
+{
+  "definitions": [
+    {
+      "title": "Icon Container",
+      "id": "icon-container",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Icon Container",
+              "model": "icon-container",
+              "filter": "icon-container",
+              "style_position": "left",
+              "style_container": "horizontal"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Icon Item",
+      "id": "icon-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Icon Item",
+              "model": "icon-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+     {
+      "id": "icon-container",
+      "fields": [
+        {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Content Position",
+          "options": [
+              {
+                  "name": "Only Text",
+                  "value": "text-center"
+              },
+              {
+                  "name": "Only Icon",
+                  "value": "large-icon"
+              },
+              {
+                  "name": "Top Space",
+                  "value": "top-space"
+              },
+              {
+                  "name": "Bottom Space",
+                  "value": "bottom-space"
+              },
+               {
+                  "name": "Icon and Text",
+                  "value": "fixed-width"
+              },
+               {
+                  "name": "Icon and Label",
+                  "value": "small-icon"
+              },
+              {
+                  "name": "Icon Overlay_Left",
+                  "value": "customize-feature-banner"
+              },
+              {
+                  "name": "Icon Overlay_Bottom",
+                  "value": "customize-bottom"
+              }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icon-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "richtext",
+          "name": "title",
+          "value": "",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "sub-title",
+          "value": "",
+          "label": "Sub Title",
+          "valueType": "string"
+        }
+       
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "icon-container",
+      "components": [
+        "icon-item"
+      ]
+    }
+  ]
+}
