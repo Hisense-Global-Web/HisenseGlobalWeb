@@ -5,6 +5,7 @@ import {
   setupObserver,
   whenElementReady,
   cancelListener,
+  resizeObserver,
 } from '../../utils/carousel-common.js';
 import { createElement, debounce } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
@@ -14,7 +15,6 @@ let carouselId = 0;
 function bindEvent(block) {
   const cards = block.querySelectorAll('.item');
   const maxWidth = block.querySelector('.media-carousel-viewport').offsetWidth;
-  let index = 0;
   const gap = parseInt(window.getComputedStyle(block.querySelector('.media-carousel-track')).gap, 10) || 0;
   if (cards.length * getSlideWidth(block) - gap >= maxWidth) {
     block.querySelector('.media-carousel-pagination').classList.add('show');
@@ -22,16 +22,20 @@ function bindEvent(block) {
   // 按钮处理
   cancelListener(block, '.slide-prev');
   block.querySelector('.slide-prev').addEventListener('click', throttle(() => {
+    let index = parseInt(block.dataset.slideIndex);
     if (index > 0) {
       index -= 1;
-      updatePosition(block, index, true);
+      console.log(index, 'prev-click');
+      
+      updatePosition(block, index, true, 'click');
     }
   }, 500));
   cancelListener(block, '.slide-next');
   block.querySelector('.slide-next').addEventListener('click', throttle(() => {
+    let index = parseInt(block.dataset.slideIndex);
     if (index < cards.length) {
       index += 1;
-      updatePosition(block, index, true);
+      updatePosition(block, index, true, 'click');
     }
   }, 500));
   if (!block.classList.contains('video-media-carousel-block')) return;
@@ -93,9 +97,9 @@ function createVideo(child, idx) {
 }
 
 export default async function decorate(block) {
-  const index = 0;
   carouselId += 1;
   block.setAttribute('id', `media-carousel-${carouselId}`);
+  block.dataset.slideIndex = 0;
   const contentType = block.children[2].innerHTML.includes('video') ? 'video' : 'Image';
   const mediaCarouselContainer = createElement('div', 'media-carousel-viewport');
   const mediaCarouselBlocks = createElement('ul', 'media-carousel-track');
@@ -153,8 +157,18 @@ export default async function decorate(block) {
     `;
     block.appendChild(buttonContainer);
   }
-  bindEvent(block, index);
-  window.onresize = debounce(() => {
-    updatePosition(block, index, true);
-  }, 500);
+  bindEvent(block);
+  const mutation = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        resizeObserver(entry.target.id,debounce((target)=>{
+          console.log(111, 'resize', block.id, target.id, block.dataset.slideIndex);
+          if (target.id === block.id) {
+            updatePosition(block, parseInt(block.dataset.slideIndex), true, 'resize');
+          }
+        },500))
+      }
+    });
+  }, {threshold: 1});
+  mutation.observe(block);
 }
