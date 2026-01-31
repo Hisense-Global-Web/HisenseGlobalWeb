@@ -22,20 +22,18 @@ function bindEvent(block) {
   // 按钮处理
   cancelListener(block, '.slide-prev');
   block.querySelector('.slide-prev').addEventListener('click', throttle(() => {
-    let index = parseInt(block.dataset.slideIndex);
+    let index = parseInt(block.dataset.slideIndex, 10);
     if (index > 0) {
       index -= 1;
-      console.log(index, 'prev-click');
-      
-      updatePosition(block, index, true, 'click');
+      updatePosition(block, index, 'click');
     }
   }, 500));
   cancelListener(block, '.slide-next');
   block.querySelector('.slide-next').addEventListener('click', throttle(() => {
-    let index = parseInt(block.dataset.slideIndex);
+    let index = parseInt(block.dataset.slideIndex, 10);
     if (index < cards.length) {
       index += 1;
-      updatePosition(block, index, true, 'click');
+      updatePosition(block, index, 'click');
     }
   }, 500));
   if (!block.classList.contains('video-media-carousel-block')) return;
@@ -158,17 +156,17 @@ export default async function decorate(block) {
     block.appendChild(buttonContainer);
   }
   bindEvent(block);
+  // check which block inner viewport
   const mutation = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        resizeObserver(entry.target.id,debounce((target)=>{
-          console.log(111, 'resize', block.id, target.id, block.dataset.slideIndex);
+        resizeObserver(entry.target.id, debounce((target) => {
           if (target.id === block.id) {
-            updatePosition(block, parseInt(block.dataset.slideIndex), true, 'resize');
+            updatePosition(block, parseInt(block.dataset.slideIndex, 10), 'resize');
           }
-        },500))
+        }, 500));
       }
     });
-  }, {threshold: 1});
+  }, { threshold: 1 });
   mutation.observe(block);
 }

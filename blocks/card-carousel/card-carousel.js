@@ -3,11 +3,11 @@ import {
   getSlideWidth,
   throttle,
   mobilePressEffect,
-  cancelListener,
+  resizeObserver,
 } from '../../utils/carousel-common.js';
 import { createElement, debounce } from '../../utils/dom-helper.js';
 
-let index = 0;
+const cardCarouselId = 0;
 
 function bindEvent(block) {
   const cards = block.querySelectorAll('li');
@@ -33,23 +33,25 @@ function bindEvent(block) {
   if (cards.length * getSlideWidth(block) - parseFloat(gap) > containerWidth) {
     block.querySelector('.card-carousel-pagination').classList.add('show');
   }
-  cancelListener(block, '.slide-prev');
   block.querySelector('.slide-prev').addEventListener('click', throttle(() => {
+    let index = parseInt(block.dataset.slideIndex, 10);
     if (index > 0) {
       index -= 1;
-      updatePosition(block, index, true);
+      updatePosition(block, index, 'click');
     }
   }, 500));
-  cancelListener(block, '.slide-next');
   block.querySelector('.slide-next').addEventListener('click', throttle(() => {
+    let index = parseInt(block.dataset.slideIndex, 10);
     if (index < cards.length) {
       index += 1;
-      updatePosition(block, index, true);
+      updatePosition(block, index, 'click');
     }
   }, 500));
 }
 
 export default async function decorate(block) {
+  block.dataset.slideIndex = 0;
+  block.setAttribute('id', `card-carousel-${cardCarouselId}`);
   const cardCarouselContainer = createElement('div', 'card-carousel-viewport');
   const cardCarouselBlocks = createElement('ul', 'card-carousel-track');
   const titleBox = createElement('div', 'card-carousel-title-box');
@@ -99,7 +101,17 @@ export default async function decorate(block) {
     block.appendChild(buttonContainer);
   }
   bindEvent(block);
-  window.onresize = debounce(() => {
-    updatePosition(block, index, true);
-  }, 500);
+  // check which block inner viewport
+  const mutation = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        resizeObserver(entry.target.id, debounce((target) => {
+          if (target.id === block.id) {
+            updatePosition(block, parseInt(block.dataset.slideIndex, 10), 'resize');
+          }
+        }, 500));
+      }
+    });
+  }, { threshold: 1 });
+  mutation.observe(block);
 }
