@@ -65,7 +65,8 @@ p {
 		p:first-child {
 			font-size: var(--fontsize-pc-h1);
 			text-transform: capitalize;
-			/* padding: 0 var(--size-32); if handle special case need aem-config*/
+
+			/* padding: 0 var(--size-32); if handle special case need aem-config */
 
 			@media (width < 860px) {
 				font-size: var(--fontsize-h2);
