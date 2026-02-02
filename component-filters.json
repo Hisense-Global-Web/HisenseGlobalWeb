@@ -10,6 +10,7 @@
   {
     "id": "section",
     "components": [
+      "article-body",
       "button",
       "card-carousel",
       "category-carousel",
@@ -42,6 +43,16 @@
       "title",
       "video",
       "videoinfo"
+    ]
+  },
+  {
+    "id": "article-body",
+    "components": [
+      "text-body-image",
+      "text-body-headline",
+      "text-body-content",
+      "text-body-quote",
+      "text-body-side-by-side"
     ]
   },
   {
