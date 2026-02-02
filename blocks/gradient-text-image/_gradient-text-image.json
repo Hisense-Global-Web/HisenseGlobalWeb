@@ -30,8 +30,8 @@
         },
         {
           "component": "multiselect",
-          "name": "classes",
-          "value": "",
+          "name": "classes_color",
+          "value": "green-20 black-font",
           "label": "Color Variant",
           "valueType": "string",
           "maxSize": 2,
