@@ -86,7 +86,6 @@
                 "template": {
                   "name": "Article Body",
                   "filter": "article-body",
-                  "model": "article-body",
                   "classes": "article-body"
                 }
               }
