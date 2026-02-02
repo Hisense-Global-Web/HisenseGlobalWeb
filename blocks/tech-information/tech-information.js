@@ -8,37 +8,30 @@ export default async function decorate(block) {
   const infoTextDiv = document.createElement('div');
   infoTextDiv.className = 'tech-info-container';
   [...block.children].forEach((row, index) => {
-    // const infoImageDiv = document.createElement('div');
-    // infoImageDiv.className = 'tech-image';
-    // const cols = [...row.children];
-    // console.log(cols, 'cols')
-    // // hide the first p element in each column, which is only for content management use
-    // cols.forEach((col) => {
-    //   console.log(col, 'col')
-    //   console.log(col.querySelector('div:first-child'), 'col div:first-child')
-    //   const colPFirst = col.querySelector('div:first-child p:first-child');
-    //   console.log(colPFirst, 'colPFirst')
-    //   if (colPFirst) {
-    //     colPFirst.style.display = 'none';
-    //     console.log(colPFirst.textContent, 'className')
-    //     col.parentElement.classList.add(colPFirst.textContent);
-    //   }
-    // })
     switch (index) {
-      case 0:
+      case 0: {
         row.className = 'tech-img-wrapper';
+        row.firstElementChild.className = 'tech-img-box';
         break;
-      case 1:
+      }
+      case 1: {
         row.className = 'tech-text-wrapper';
         infoTextDiv.appendChild(row);
         break;
-      case 2:
+      }
+      case 2: {
         techCtaDom.appendChild(row);
+        const ctaLabel = row.querySelector('p:nth-child(2)').textContent;
+        const rowButtonEl = row.querySelector('a');
+        rowButtonEl.textContent = ctaLabel;
+        row.querySelector('p:nth-child(2)').remove();
         break;
-      default:
+      }
+      default: {
         row.className = 'tech-item-box';
         techItemWrapperDom.appendChild(row);
         break;
+      }
     }
   });
   // Append tech items and CTA to info text div
@@ -57,17 +50,22 @@ export default async function decorate(block) {
     }
   });
 
-  // console.log(infoTextDiv, 'out')
-  // const techInfoWrapper = block.querySelector('.component-tech-info');
-  // const techImageWrapper = block.querySelector('.component-tech-img');
-  // const techBtnWrapper = block.querySelector('.component-tech-btn');
-  // const techItemWrapper = block.querySelector('.component-tech-items');
-  // console.log(infoTextDiv, 'in')
-  // infoTextDiv.append(techInfoWrapper, techItemWrapper, techBtnWrapper);
-  // block.append(infoTextDiv);
-
-  // if (techImageWrapper) {
-  //   techImageWrapper.classList.add('tech-img-wrapper');
-  //   block.prepend(techImageWrapper);
-  // }
+  // Assign class names to children in tech-item-box and get style
+  const techItemBoxAll = block.querySelectorAll('.tech-item-wrapper .tech-item-box');
+  const techItemWrapperEl = document.querySelector('.tech-item-wrapper');
+  let techItemStyle = '';
+  techItemBoxAll.forEach((box) => {
+    const itemBoxChildren = [...box.children];
+    itemBoxChildren.forEach((item, idx) => {
+      if (idx === 0) {
+        techItemStyle = item.textContent;
+        item.remove();
+      } else if (idx === 1) {
+        item.className = 'tech-item-icon';
+      } else {
+        item.className = 'tech-item-text-content';
+      }
+    });
+  });
+  techItemWrapperEl.classList.add(techItemStyle);
 }
