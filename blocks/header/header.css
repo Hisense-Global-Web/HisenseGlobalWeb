@@ -673,7 +673,7 @@
   #navigation .nav-container {
     display: flex;
     align-items: center;
-    height: 64px;
+    height: 56px;
     box-sizing: border-box;
     max-width: none;
     width: 100%;
@@ -696,7 +696,7 @@
   }
 
   #navigation.show-menu .mobile-menu {
-    height: calc(100vh - 64px);
+    height: calc(100vh - 56px);
     padding: 0 24px 32px;
     overflow: auto;
     overscroll-behavior: contain;
