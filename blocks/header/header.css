@@ -212,7 +212,7 @@
   }
 }
 
-#navigation .nav-second.hidden + .mobile-menu {
+#navigation:not(.show-menu) .nav-second.hidden + .mobile-menu {
   margin-top: -66px;
 
   @media (width < 1180px) {
