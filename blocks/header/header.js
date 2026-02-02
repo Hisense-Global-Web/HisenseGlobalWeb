@@ -705,6 +705,9 @@ export default async function decorate(block) {
   navigation.append(navSecond);
   navigation.append(mobileMenu);
   navigation.append(mobileSecondMenu);
+  const shadow = document.createElement('div');
+  shadow.className = 'shadow';
+  navigation.append(shadow);
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     if (scrollTop >= 10) {

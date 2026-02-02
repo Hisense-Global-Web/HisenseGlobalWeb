@@ -782,6 +782,13 @@
     .company-arrow {
       transform: rotate(-180deg);
     }
+
+    .shadow {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: rgb(0 0 0 / 70%);
+    }
   }
 
   @media (width < 860px) {
@@ -789,4 +796,12 @@
       padding: 0 18px;
     }
   }
+}
+
+#navigation .shadow {
+  position: fixed;
+  width: 100vw;
+  height: 0;
+  background: rgb(0 0 0 / 0%);
+  transition: background .36s ease-in-out;
 }
