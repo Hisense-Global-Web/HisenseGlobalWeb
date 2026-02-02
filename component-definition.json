@@ -894,7 +894,7 @@
                   "info_title": "This is the title",
                   "info_subtitle": "This is the subtitle",
                   "info_text": "This is the text.",
-                  "btn-ctaLabel": "Learn More"
+                  "btn_ctaLabel": "Learn More"
                 }
               }
             }

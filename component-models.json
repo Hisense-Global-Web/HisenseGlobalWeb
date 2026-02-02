@@ -1806,13 +1806,6 @@
     "id": "tech-items",
     "fields": [
       {
-        "component": "text",
-        "name": "component_type",
-        "value": "component-tech-items",
-        "hidden": true,
-        "readonly": true
-      },
-      {
         "component": "select",
         "name": "component-style",
         "label": "Style",
