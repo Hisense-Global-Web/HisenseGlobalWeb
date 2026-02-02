@@ -426,8 +426,7 @@ export default async function decorate(block) {
   const pdpEl = document.querySelector('.product-section-container');
   // eslint-disable-next-line no-unused-vars
   const plpEl = document.querySelector('.product-sorting');
-  const isCompanyPage = window.location.pathname.includes('company');
-  console.log(isCompanyPage);
+  const isCompanyPage = window.location.pathname.includes('company-page');
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
   });
