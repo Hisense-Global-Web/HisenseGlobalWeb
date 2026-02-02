@@ -14,19 +14,47 @@
 .partnerships-section-title-wrapper > div > div:first-child div h4,
 .partnerships-section-title-wrapper > div > div:first-child div h5,
 .partnerships-section-title-wrapper > div > div:first-child div h6{
-  color: var(--color-primary-green-50);
+  color: var(--color-hisense-teal);
   font-family: var(--font-family);
+  line-height: 120%;
   margin: 0;
+
+  @media (width < 860px) {
+    color:var(--color-primary-green-50);
+  }
 }
 
 .partnerships-section-title-wrapper > div > div:first-child div p{
-  font-size: var(--size-16);
-  line-height: 120%;
+  font-size:var(--fontsize-pc-h2);
   text-transform: uppercase;
   padding: 0;
 
+   @media (width < 860px) {
+    font-size: var(--size-30);
+  }
+}
+
+.partnerships-section-title-wrapper > div > div:nth-child(2) div p,
+.partnerships-section-title-wrapper > div > div:nth-child(2) div h1,
+.partnerships-section-title-wrapper > div > div:nth-child(2) div h2,
+.partnerships-section-title-wrapper > div > div:nth-child(2) div h3,
+.partnerships-section-title-wrapper > div > div:nth-child(2) div h4,
+.partnerships-section-title-wrapper > div > div:nth-child(2) div h5,
+.partnerships-section-title-wrapper > div > div:nth-child(2) div h6{
+  padding: 0;
+  color:var(--color-primary-grey-90);
+  font-weight: var(--fontweight-medium);
+  font-family: var(--font-family);
+}
+
+.partnerships-section-title-wrapper > div > div:nth-child(2) div p{
+  font-size: var(--fontsize-title1);
+  line-height: 120%;
+  margin-top: var(--spacing-2xs);
+
    @media (width >= 860px) {
-    font-size: var(--size-20);
+    font-size: var(--size-18);
+    margin-top: var(--spacing-xs);
   }
 }
 
@@ -38,18 +66,17 @@
 .partnerships-section-title-wrapper > div > div:last-child div h5,
 .partnerships-section-title-wrapper > div > div:last-child div h6{
   padding: 0;
-  color: #333;
-  margin: var(--size-10) 0 0;
+  color:var(--color-primary-grey-70);
+  font-weight: var(--fontweight-book);
   font-family: var(--font-family);
 }
 
 .partnerships-section-title-wrapper > div > div:last-child div p{
-  font-size: var(--size-24);
-  font-weight: var(--fontweight-medium);
+  font-size: var(--size-14);
   line-height: 120%;
-
+  
    @media (width >= 860px) {
-    font-size: var(--size-34);
-    font-weight: var(--fontweight-book);
+    margin-top: var(--spacing-xs);
+    font-size: var(--size-14);
   }
 }

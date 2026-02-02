@@ -61,7 +61,6 @@
     {
       "id": "industry-categories-item",
       "fields": [
-        
          {
           "component": "reference",
           "valueType": "string",

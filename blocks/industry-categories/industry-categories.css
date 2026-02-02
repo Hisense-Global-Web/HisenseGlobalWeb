@@ -1,7 +1,6 @@
 
 .industry-categories-wrapper {
   width: 100%;
-  margin: 20px auto;
 }
 
 .industry-categories-wrapper p,
@@ -13,6 +12,45 @@
 .industry-categories-wrapper h6{
   margin: 0;
   padding: 0;
+}
+
+.core-value-card .title >div:first-child{
+  color: var(--color-primary-green-50);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+  font-size: var(--size-20);
+
+   @media (width < 860px) {
+   font-size: var(--size-18);
+  }
+}
+
+.core-value-card .title >div:nth-child(2){
+  color: var(--color-primary-grey-90);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+  font-size: var(--size-46);
+  margin: var(--spacing-sm) 0 var(--spacing-xl);
+
+   @media (width < 860px) {
+    font-size: var(--size-24);
+    margin: var(--spacing-3xs) 0 var(--size-32);
+  }
+
+}
+
+.core-value-card .title >div:nth-child(2){
+  color: var(--color-primary-grey-90);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+  font-size: var(--size-46);
+  margin: var(--spacing-sm) 0 var(--spacing-xl);
+
+   @media (width < 860px) {
+    font-size: var(--size-24);
+    margin: var(--spacing-3xs) 0 var(--size-32);
+  }
+
 }
 
 .industry-categories > ul {
@@ -73,7 +111,6 @@
   margin: 0;
   padding: 0;
   display: grid;
-	grid-template-columns: repeat(3, 1fr);
 }
 
 .industry-categories  > ul > li {
