@@ -5,6 +5,10 @@
   height: 600px;
   flex-direction: row-reverse;
 
+   &.img-left {
+    flex-direction: row;
+  }
+
   p {
     margin: 0;
   }
