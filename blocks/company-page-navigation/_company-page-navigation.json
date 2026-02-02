@@ -1,0 +1,66 @@
+{
+  "definitions": [
+    {
+      "title": "Company Page Navigation",
+      "id": "company-page-navigation",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "name": "Company Page Navigation",
+              "model": "company-page-navigation",
+              "filter": "company-page-navigation",
+              "classes": "company-page-navigation-block"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Navigation Item",
+      "id": "company-page-navigation-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Navigation Item",
+              "model": "company-page-navigation-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "company-page-navigation",
+      "fields": []
+    },
+    {
+      "id": "company-page-navigation-item",
+      "fields": [
+        {
+          "component": "richtext",
+          "name": "company-page-navigation-item-title",
+          "label": "Rich Text",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "company-page-navigation-item-link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "company-page-navigation",
+      "components": [
+        "company-page-navigation-item"
+      ]
+    }
+  ]
+}

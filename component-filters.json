@@ -4,6 +4,7 @@
     "components": [
       "section",
       "navigation",
+      "company-page-navigation",
       "footerContainer"
     ]
   },
@@ -76,6 +77,12 @@
       "button",
       "title",
       "sub-menu-link"
+    ]
+  },
+  {
+    "id": "company-page-navigation",
+    "components": [
+      "company-page-navigation-item"
     ]
   },
   {

@@ -551,6 +551,11 @@
   color: #242424;
 }
 
+#navigation .mobile-second-menu {
+  max-height: 0;
+  overflow: hidden;
+}
+
 .dropdown-product-text {
   width: 100%;
   height: 15px;
