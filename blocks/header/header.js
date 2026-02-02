@@ -57,6 +57,15 @@ function parseActions(root) {
   });
 }
 
+function parseCompany(root) {
+  return Array.from(root.querySelectorAll('.company-navigation-item-wrapper')).map((wrapper) => {
+    const ItemEl = wrapper.querySelector('.company-navigation-item');
+    const title = ItemEl.children[0]?.children[0].innerHTML || '';
+    const href = ItemEl.children[1]?.textContent?.trim() || '#';
+    return { title, href };
+  });
+}
+
 function parseDropdownProducts(col) {
   if (!col) return [];
 
@@ -418,6 +427,7 @@ export default async function decorate(block) {
   const navLinks = parseNavLinks(fragment);
   const actions = parseActions(fragment);
   const dropdowns = parseDropdowns(fragment);
+  const company = parseCompany(fragment);
 
   // 构建新的导航DOM
   const navigation = document.createElement('div');
@@ -473,26 +483,7 @@ export default async function decorate(block) {
   CompanyEl.textContent = 'Company';
   const CompanyGroupEl = document.createElement('div');
   CompanyGroupEl.className = 'company-group';
-  const array = [{
-    title: 'About<br/>Hisense',
-    link: '/company/about/hisense',
-  }, {
-    title: 'About<br/>Hisense',
-    link: '/company/about/hisense',
-  }, {
-    title: 'About<br/>Hisense',
-    link: '/company/about/hisense',
-  }, {
-    title: 'About<br/>Hisense',
-    link: '/company/about/hisense',
-  }, {
-    title: 'About<br/>Hisense',
-    link: '/company/about/hisense',
-  }, {
-    title: 'About<br/>Hisense',
-    link: '/company/about/hisense',
-  }];
-  array.forEach((item) => {
+  company.forEach((item) => {
     const CompanyItemEl = document.createElement('div');
     CompanyItemEl.className = 'company-item';
     CompanyItemEl.innerHTML = item.title;
@@ -698,7 +689,7 @@ export default async function decorate(block) {
   const mobileSecondMenu = document.createElement('div');
   mobileSecondMenu.className = 'mobile-second-menu';
 
-  array.forEach((item) => {
+  company.forEach((item) => {
     const mobileSecondMenuItem = document.createElement('div');
     mobileSecondMenuItem.className = 'mobile-second-menu-item';
     mobileSecondMenuItem.textContent = item.title;

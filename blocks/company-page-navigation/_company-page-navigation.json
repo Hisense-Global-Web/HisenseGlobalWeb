@@ -45,12 +45,14 @@
           "component": "richtext",
           "name": "company-page-navigation-item-title",
           "label": "Rich Text",
-          "valueType": "string"
+          "valueType": "string",
+          "required": true
         },
         {
           "component": "aem-content",
           "name": "company-page-navigation-item-link",
-          "label": "Link"
+          "label": "Link",
+          "required": true
         }
       ]
     }

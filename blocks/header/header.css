@@ -175,6 +175,11 @@
       font-weight: var(--fontweight-book);
       border-bottom: 2px solid var(--color-hisense-black);
       text-transform: capitalize;
+      
+      p {
+        margin: 0;
+        padding: 0;
+      }
     }
   }
   
