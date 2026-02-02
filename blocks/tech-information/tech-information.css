@@ -1,0 +1,55 @@
+.tech-information {
+  display: flex;
+  border-radius: var(--size-20);
+  overflow: hidden;
+  min-height: 558px;
+  flex-direction: row-reverse;
+
+
+  .tech-img-wrapper {
+    width: 48%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .tech-info-container {
+    background: var(--color-primary-grey-20);
+    padding: var(--size-48) var(--size-32) var(--size-48) var(--size-48);
+    flex: 1;
+
+    .tech-text-wrapper {
+      max-width: 100%;
+      margin-bottom: var(--size-32);
+
+      .tech-info-title {
+        font-size: var(--size-14);
+        font-weight: var(--fontweight-medium);
+        line-height: var(--size-28);
+
+        /* margin: 0 0 var(--size-16) 0; */
+      }
+
+      .tech-info-subtitle {
+        font-size: var(--fontsize-heading5);
+        font-weight: var(--fontweight-medium);
+      }
+
+      .tech-info-text {
+        font-size: var(--fontsize-body2);
+        font-weight: var(--fontweight-normal);
+      }
+    }
+
+    .tech-item-box {
+      display: flex;
+    }
+  }
+}
+
+.tech-information.img-left {
+  flex-direction: row;
+}
