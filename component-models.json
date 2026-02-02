@@ -662,13 +662,13 @@
       },
       {
         "component": "richtext",
-        "name": "text",
+        "name": "text_title",
         "label": "Image Title",
         "valueType": "string"
       },
       {
         "component": "richtext",
-        "name": "image_text",
+        "name": "text_text",
         "label": "Image Text",
         "valueType": "string"
       }
