@@ -1,6 +1,8 @@
 export default function decorate(block) {
   const ArticleBodyDiv = document.createElement('div');
+  let graphqlResource = null;
   [...block.children].forEach((row) => {
+    graphqlResource = row.getAttribute && row.getAttribute('data-aue-resource');
     const type = row.firstElementChild?.textContent?.trim() || '';
     if (type === 'headline') {
       const headlineContent = row.children[1]?.textContent?.trim() || '';
@@ -50,6 +52,9 @@ export default function decorate(block) {
     } else {
       console.log('未定义的模块类型：', type, '模块：', row);
       ArticleBodyDiv.append(row);
+    }
+    if (graphqlResource) {
+      ArticleBodyDiv.setAttribute('data-aue-resource', graphqlResource);
     }
   });
   block.replaceChildren(ArticleBodyDiv);
