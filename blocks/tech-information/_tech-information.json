@@ -87,13 +87,13 @@
         },
         {
           "component": "aem-content",
-          "name": "btn-cta",
+          "name": "btn_cta",
           "label": "Button Link",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "btn-ctaLabel",
+          "name": "btn_ctaLabel",
           "label": "Button",
           "valueType": "string"
         }
