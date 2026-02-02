@@ -52,7 +52,6 @@ export default function decorate(block) {
       GroupDiv.append(imgGroupDiv, textGroupDiv);
       ArticleBodyDiv.append(GroupDiv);
     } else {
-      console.log('未定义的模块类型：', type, '模块：', row);
       ArticleBodyDiv.append(row);
     }
   });
