@@ -1,0 +1,83 @@
+{
+  "definitions": [
+    {
+      "title": "Gradient Text-Image",
+      "id": "gradient-text-image",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Gradient Text Image",
+              "model": "gradient-text-image",
+              "classes":"gradient-text-image"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "gradient-text-image",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "multiselect",
+          "name": "classes",
+          "value": "",
+          "label": "Color Variant",
+          "valueType": "string",
+          "maxSize": 2,
+          "options": [
+            {
+              "name": "Gradient Background Color",
+              "children": [
+                { "name": "Green 20(default)", "value": "green-20" },
+                { "name": "Green 60",  "value": "green-60" }
+              ]
+            },
+            {
+              "name": "Font Color",
+              "children": [
+                { "name": "White Font", "value": "white-font" },
+                { "name": "Black Font", "value": "black-font" }
+              ]
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "subtitle",
+          "label": "Subtitle",
+          "valueType": "string",
+          "value": "",
+          "placeholder": "this is subtitle"
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string",
+          "value": "",
+          "placeholder": "this is title"
+        },
+        {
+          "component": "text",
+          "name": "text",
+          "label": "Text",
+          "valueType": "string",
+          "value": "",
+          "placeholder": "this is text"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
