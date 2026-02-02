@@ -498,7 +498,7 @@
           }
         },
         {
-          "title": "Gradient Text-Image",
+          "title": "Gradient Text Image",
           "id": "gradient-text-image",
           "plugins": {
             "xwalk": {

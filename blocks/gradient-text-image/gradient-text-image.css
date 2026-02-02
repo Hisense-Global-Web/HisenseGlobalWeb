@@ -1,4 +1,10 @@
 .gradient-text-image {
     height: 360px;
-    width: 1120px;
+    width: 100%;
+    border-radius: 20px;
+		overflow: hidden;
+}
+
+img {
+	float: right;
 }
