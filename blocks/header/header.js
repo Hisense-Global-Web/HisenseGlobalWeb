@@ -487,17 +487,17 @@ export default async function decorate(block) {
     const CompanyItemEl = document.createElement('div');
     CompanyItemEl.className = 'company-item';
     CompanyItemEl.innerHTML = item.title;
-    CompanyItemEl.dataset.href = item.link;
+    CompanyItemEl.dataset.href = item.href;
     CompanyItemEl.addEventListener('click', (e) => {
       e.stopPropagation();
-      window.location.href = item.link;
+      window.location.href = item.href;
     });
     CompanyGroupEl.append(CompanyItemEl);
   });
 
   const companyArrow = document.createElement('img');
   companyArrow.className = 'company-arrow';
-  companyArrow.src = '/content/dam/hisense/us/common-icons/chevron-up-black.svg';
+  companyArrow.src = '/content/dam/hisense/us/common-icons/chevron-down-black.svg';
   companyArrow.addEventListener('click', () => {
     document.body.style.overflow = 'hidden';
     navigation.classList.toggle('show-second-menu');
@@ -692,11 +692,11 @@ export default async function decorate(block) {
   company.forEach((item) => {
     const mobileSecondMenuItem = document.createElement('div');
     mobileSecondMenuItem.className = 'mobile-second-menu-item';
-    mobileSecondMenuItem.textContent = item.title;
-    mobileSecondMenuItem.dataset.href = item.link;
+    mobileSecondMenuItem.innerHTML = item.title;
+    mobileSecondMenuItem.dataset.href = item.href;
     mobileSecondMenuItem.addEventListener('click', (e) => {
       e.stopPropagation();
-      window.location.href = item.link;
+      window.location.href = item.href;
     });
     mobileSecondMenu.append(mobileSecondMenuItem);
   });
@@ -705,6 +705,9 @@ export default async function decorate(block) {
   navigation.append(navSecond);
   navigation.append(mobileMenu);
   navigation.append(mobileSecondMenu);
+  const shadow = document.createElement('div');
+  shadow.className = 'shadow';
+  navigation.append(shadow);
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     if (scrollTop >= 10) {
