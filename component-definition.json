@@ -492,8 +492,8 @@
                   "model": "minimalist-hero-banner",
                   "classes": "minimalist-hero-banner",
                   "classes_fontColor": "black-font",
-                  "title_hero": "this is title",
-                  "text_hero": "this is text"
+                  "text_title": "this is title",
+                  "text_body": "this is text"
                 }
               }
             }

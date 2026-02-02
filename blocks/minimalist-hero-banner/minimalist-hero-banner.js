@@ -4,7 +4,7 @@ export default async function decorate(block) {
     if (child.querySelector('picture')) child.setAttribute('class','banner-image');
     else {
       textContainer.append(...child.firstElementChild.children);
-      textContainer.setAttribute('class','text-container');
+      textContainer.setAttribute('class','text-container h-grid-container');
       block.replaceChild(textContainer, child);
     }
   })
