@@ -25,15 +25,22 @@
         {
           "component": "richtext",
           "name": "title",
-          "value": "",
+          "value": "title",
           "label": "Title",
           "valueType": "string"
         },
         {
           "component": "richtext",
           "name": "subtitle",
-          "value": "",
+          "value": "sub title",
           "label": "Sub Title",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "text",
+          "label": "Text",
           "valueType": "string"
         }
       ]

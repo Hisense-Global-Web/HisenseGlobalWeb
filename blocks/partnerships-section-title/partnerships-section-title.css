@@ -58,20 +58,20 @@
   }
 }
 
-.partnerships-section-title-wrapper > div > div:last-child div p,
-.partnerships-section-title-wrapper > div > div:last-child div h1,
-.partnerships-section-title-wrapper > div > div:last-child div h2,
-.partnerships-section-title-wrapper > div > div:last-child div h3,
-.partnerships-section-title-wrapper > div > div:last-child div h4,
-.partnerships-section-title-wrapper > div > div:last-child div h5,
-.partnerships-section-title-wrapper > div > div:last-child div h6{
+.partnerships-section-title-wrapper > div > div:nth-child(3) div p,
+.partnerships-section-title-wrapper > div > div:nth-child(3) div h1,
+.partnerships-section-title-wrapper > div > div:nth-child(3) div h2,
+.partnerships-section-title-wrapper > div > div:nth-child(3) div h3,
+.partnerships-section-title-wrapper > div > div:nth-child(3) div h4,
+.partnerships-section-title-wrapper > div > div:nth-child(3) div h5,
+.partnerships-section-title-wrapper > div > div:nth-child(3) div h6{
   padding: 0;
   color:var(--color-primary-grey-70);
   font-weight: var(--fontweight-book);
   font-family: var(--font-family);
 }
 
-.partnerships-section-title-wrapper > div > div:last-child div p{
+.partnerships-section-title-wrapper > div > div:nth-child(3) div p{
   font-size: var(--size-14);
   line-height: 120%;
   
