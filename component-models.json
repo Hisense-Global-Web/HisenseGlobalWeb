@@ -814,13 +814,13 @@
       },
       {
         "component": "richtext",
-        "name": "title",
+        "name": "desc_title",
         "label": "Image Title",
         "valueType": "string"
       },
       {
         "component": "richtext",
-        "name": "text",
+        "name": "desc_text",
         "label": "Image Text",
         "valueType": "string"
       }

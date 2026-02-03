@@ -19,29 +19,42 @@ export default function decorate(block) {
           div.className = 'card-image';
         } else {
           div.className = 'card-body';
+          const tit = document.createElement('div');
+          const desc = document.createElement('div');
+          tit.append(div.firstElementChild);
+          desc.append(div.lastElementChild);
+          div.replaceChildren(tit, desc);
         }
       });
       if (ul.children.length === 0) {
-        li.classList.add('active');
-      }
-      li.onclick = () => {
-        const container = this.parentElement; // ul
-        const allCards = container.querySelectorAll('.card-item');
-        allCards.forEach((card) => {
-          card.classList.remove('active');
-        });
+  li.classList.add('active');
+}
 
-        this.classList.add('active');
-        // 计算并设置grid列宽
-        const activeIndex = Array.from(allCards).indexOf(this);
-        let columns = '';
-        // eslint-disable-next-line no-plusplus, no-shadow
-        for (let i = 0; i < allCards.length; i++) {
-          columns += (i === activeIndex ? '200px ' : '100px ');
-        }
-        container.style.gridTemplateColumns = columns;
-      };
-
+li.onclick = function() {
+  const container = this.parentElement; // ul
+  const allCards = container.querySelectorAll('.card-item');
+  
+  // 移除所有激活状态
+  allCards.forEach(card => {
+    card.classList.remove('active');
+  });
+  
+  // 设置当前激活卡片
+  this.classList.add('active');
+    function calculateWidth(vwValue, maxPx) {
+   
+    return Math.min(vwValue, maxPx);
+  }
+  // 计算并设置grid列宽
+  const activeIndex = Array.from(allCards).indexOf(this);
+  let columns = '';
+  for (let i = 0; i < allCards.length; i++) {
+    columns += (i === activeIndex ? calculateWidth('13.888vw', '200px') : calculateWidth('6.9444vw', '100px'));
+  }
+  
+  // 应用新的列宽
+  container.style.gridTemplateColumns = columns;
+};
       ul.append(li);
     }
   });

@@ -103,7 +103,7 @@
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100px;
+  width: min(6.9vw, 100px)
 }
 
 .industry-categories .card-item:hover {
@@ -116,7 +116,7 @@
   color: white;
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgb(0 0 0 / 10%);
-  width: 200px ;
+  width: min(13.6vw, 200px) ;
 }
 
 .industry-categories-card-body > p,
