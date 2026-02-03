@@ -47,28 +47,36 @@
           ]
         },
         {
-          "component": "text",
-          "name": "gradient_subtitle",
-          "label": "Subtitle",
+          "component": "container",
+          "label": "",
+          "name": "gradient",
           "valueType": "string",
-          "value": "",
-          "placeholder": "this is subtitle"
-        },
-        {
-          "component": "text",
-          "name": "gradient_title",
-          "label": "Title",
-          "valueType": "string",
-          "value": "",
-          "placeholder": "this is title"
-        },
-        {
-          "component": "text",
-          "name": "gradient_text",
-          "label": "Text",
-          "valueType": "string",
-          "value": "",
-          "placeholder": "this is text"
+          "fields": [
+            {
+              "component": "text",
+              "name": "gradient_subtitle",
+              "label": "Subtitle",
+              "valueType": "string",
+              "value": "",
+              "placeholder": "this is subtitle"
+            },
+            {
+              "component": "text",
+              "name": "gradient_title",
+              "label": "Title",
+              "valueType": "string",
+              "value": "",
+              "placeholder": "this is title"
+            },
+            {
+              "component": "text",
+              "name": "gradient_text",
+              "label": "Text",
+              "valueType": "string",
+              "value": "",
+              "placeholder": "this is text"
+            }
+          ]
         }
       ]
     }
