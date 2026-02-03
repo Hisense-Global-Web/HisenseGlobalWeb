@@ -22,19 +22,22 @@
       "fields": [
         {
           "component": "text",
-          "name": "title",
+          "name": "section_title",
           "value": "",
           "label": "Title",
-          "valueType": "string"
+          "valueType": "string",
+          "required": true
         },
         {
           "component": "text",
-          "name": "subtitle",
+          "name": "section_subtitle",
           "value": "",
           "label": "Subtitle",
-          "valueType": "string"
+          "valueType": "string",
+          "required": false
         }
       ]
     }
-  ]
+  ],
+  "filters": []
 }
