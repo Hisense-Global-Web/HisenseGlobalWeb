@@ -22,12 +22,6 @@ export default async function decorate(block) {
       case 2: {
         techCtaDom.appendChild(row);
         techCtaDom.querySelector('p').className = 'cta-button';
-        // const ctaLabel = row.querySelector('p:nth-child(2)').textContent;
-        // const rowButtonEl = row.querySelector('a');
-        // if (rowButtonEl) {
-        //   rowButtonEl.textContent = ctaLabel;
-        //   row.querySelector('p:nth-child(2)').remove();
-        // }
         break;
       }
       default: {
@@ -75,27 +69,8 @@ export default async function decorate(block) {
     });
     techItemWrapperEl.classList.add(techItemStyle);
   });
-  const techItemStyleDom = document.querySelectorAll('.tech-item-style');
-  techItemStyleDom.forEach((item) => {
-    item.remove();
-  });
-  // const techItemBoxAll = block.querySelectorAll('.tech-item-wrapper .tech-item-box');
-  // const techItemWrapperEl = document.querySelector('.tech-item-wrapper');
-  // let techItemStyle = '';
-  // techItemBoxAll.forEach((box) => {
-  //   const itemBoxChildren = [...box.children];
-  //   itemBoxChildren.forEach((item, idx) => {
-  //     // console.log(item, 'item');
-  //     if (idx === 0) {
-  //       techItemStyle = item.textContent;
-  //       // item.remove();
-  //     } else if (idx === 1) {
-  //       item.className = 'tech-item-icon';
-  //     } else {
-  //       item.className = 'tech-item-text-content';
-  //     }
-  //   });
+  // const techItemStyleDom = document.querySelectorAll('.tech-item-style');
+  // techItemStyleDom.forEach((item) => {
+  //   item.remove();
   // });
-  // console.log(techItemStyle, 'techItemStyle');
-  // techItemWrapperEl.classList.add(techItemStyle);
 }

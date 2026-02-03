@@ -67,6 +67,10 @@
     .tech-item-wrapper {
       margin-top: var(--size-32);
 
+      .tech-item-style {
+        display: none;
+      }
+
       &.icon-style {
         .tech-item-box {
           display: flex;
