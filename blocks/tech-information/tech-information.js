@@ -53,21 +53,48 @@ export default async function decorate(block) {
   });
 
   // Assign class names to children in tech-item-box and get style
-  const techItemBoxAll = block.querySelectorAll('.tech-item-wrapper .tech-item-box');
-  const techItemWrapperEl = document.querySelector('.tech-item-wrapper');
-  let techItemStyle = '';
-  techItemBoxAll.forEach((box) => {
-    const itemBoxChildren = [...box.children];
-    itemBoxChildren.forEach((item, idx) => {
-      if (idx === 0) {
-        techItemStyle = item.textContent;
-        item.remove();
-      } else if (idx === 1) {
-        item.className = 'tech-item-icon';
-      } else {
-        item.className = 'tech-item-text-content';
-      }
+  const techInformationBlockAll = document.querySelectorAll('.tech-information');
+  techInformationBlockAll.forEach((blockEl) => {
+    // console.log(blockEl, 'blockEl');
+    const techItemBoxAll = blockEl.querySelectorAll('.tech-item-wrapper .tech-item-box');
+    const techItemWrapperEl = blockEl.querySelector('.tech-item-wrapper');
+    let techItemStyle = '';
+    techItemBoxAll.forEach((box) => {
+      const itemBoxChildren = [...box.children];
+      itemBoxChildren.forEach((item, idx) => {
+        if (idx === 0) {
+          techItemStyle = item.textContent;
+          item.className = 'tech-item-style';
+        } else if (idx === 1) {
+          item.className = 'tech-item-icon';
+        } else {
+          item.className = 'tech-item-text-content';
+        }
+      });
     });
+    techItemWrapperEl.classList.add(techItemStyle);
   });
-  techItemWrapperEl.classList.add(techItemStyle);
+  const techItemStyleDom = document.querySelectorAll('.tech-item-style');
+  techItemStyleDom.forEach((item) => {
+    item.remove();
+  });
+  // const techItemBoxAll = block.querySelectorAll('.tech-item-wrapper .tech-item-box');
+  // const techItemWrapperEl = document.querySelector('.tech-item-wrapper');
+  // let techItemStyle = '';
+  // techItemBoxAll.forEach((box) => {
+  //   const itemBoxChildren = [...box.children];
+  //   itemBoxChildren.forEach((item, idx) => {
+  //     // console.log(item, 'item');
+  //     if (idx === 0) {
+  //       techItemStyle = item.textContent;
+  //       // item.remove();
+  //     } else if (idx === 1) {
+  //       item.className = 'tech-item-icon';
+  //     } else {
+  //       item.className = 'tech-item-text-content';
+  //     }
+  //   });
+  // });
+  // console.log(techItemStyle, 'techItemStyle');
+  // techItemWrapperEl.classList.add(techItemStyle);
 }

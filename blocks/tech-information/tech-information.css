@@ -87,6 +87,33 @@
           }
         }
       }
+
+      &.stats-style {
+        display: flex;
+        gap: var(--size-24);
+
+        .tech-img-box {
+          width: var(--size-240);
+          height: var(--size-96);
+          background-color: var(--color-primary-grey-10);
+          border-radius: var(--size-20);
+          padding: var(--size-20);
+          text-align: center;
+
+          p:first-child {
+            font-size: var(--size-23);
+            font-weight: var(--fontweight-medium);
+            color: var(--color-primary-green-50);
+            margin-bottom: var(--size-8);
+          }
+
+          p:nth-child(2) {
+            font-size: var(--size-16);
+            font-weight: var(--fontweight-book);
+            color: var(--color-primary-grey-50);
+          }
+        }
+      }
     }
   }
 }
