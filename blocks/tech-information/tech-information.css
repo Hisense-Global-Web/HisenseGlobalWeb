@@ -81,6 +81,7 @@
             width: var(--size-40);
             height: var(--size-40);
             margin-right: var(--size-16);
+            flex-shrink: 0;
 
             img {
               width: 100%;
@@ -106,16 +107,15 @@
       }
 
       &.stats-style {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: var(--size-24);
   
         .tech-item-box {
-          /* width: min(calc(240 / var(--breakpoint-pc) * 100vw), 240px); */
-          width: 50%;
           height: var(--size-96);
           background-color: var(--color-primary-grey-10);
           border-radius: var(--size-20);
-          padding: var(--size-20);
+          padding: var(--size-20) 0;
           text-align: center;
   
           p:first-child {
@@ -215,8 +215,7 @@
           gap: var(--size-16);
 
           .tech-item-box {
-            width: 47.3%;
-            padding: var(--size-24) var(--size-18);
+            padding: var(--size-24) 0;
             border-radius: var(--size-8);
 
             .tech-item-text-content {
