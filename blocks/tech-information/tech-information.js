@@ -21,12 +21,12 @@ export default async function decorate(block) {
       }
       case 2: {
         techCtaDom.appendChild(row);
-        const ctaLabel = row.querySelector('p:nth-child(2)').textContent;
-        const rowButtonEl = row.querySelector('a');
-        if (rowButtonEl) {
-          rowButtonEl.textContent = ctaLabel;
-          row.querySelector('p:nth-child(2)').remove();
-        }
+        // const ctaLabel = row.querySelector('p:nth-child(2)').textContent;
+        // const rowButtonEl = row.querySelector('a');
+        // if (rowButtonEl) {
+        //   rowButtonEl.textContent = ctaLabel;
+        //   row.querySelector('p:nth-child(2)').remove();
+        // }
         break;
       }
       default: {
