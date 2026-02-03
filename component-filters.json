@@ -45,6 +45,7 @@
       "title",
       "video",
       "videoinfo",
+      "tech-information",
       "core-value-card",
       "past-partnerships-list",
       "partnerships-section-title",
@@ -207,6 +208,12 @@
     "id": "product-sorting",
     "components": [
       "plp-product-sort"
+    ]
+  },
+  {
+    "id": "tech-information",
+    "components": [
+      "tech-items"
     ]
   },
   {
