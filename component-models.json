@@ -1514,6 +1514,29 @@
     ]
   },
   {
+    "id": "module-title",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "module_title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "name": "module_subTitle",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "module_text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "navigationAction",
     "fields": [
       {
