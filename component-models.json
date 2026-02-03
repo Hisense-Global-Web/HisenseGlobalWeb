@@ -759,7 +759,7 @@
         "multi": false
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "subtitle",
         "label": "Sub Title",
         "valueType": "string"
@@ -783,7 +783,7 @@
         "valueType": "string"
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "item_text",
         "label": "Text",
         "valueType": "string"
@@ -813,13 +813,13 @@
         "multi": false
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "desc_title",
         "label": "Image Title",
         "valueType": "string"
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "desc_text",
         "label": "Image Text",
         "valueType": "string"
@@ -1346,13 +1346,13 @@
         "multi": false
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "subtitle",
         "label": "Sub Title",
         "valueType": "string"
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "desc",
         "label": "Description",
         "valueType": "string"
@@ -1370,11 +1370,11 @@
         "multi": false
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "text",
         "label": "Text",
         "valueType": "string",
-        "value": "split with ,"
+        "value": ""
       }
     ]
   },
@@ -1668,21 +1668,21 @@
     "id": "partnerships-section-title",
     "fields": [
       {
-        "component": "richtext",
+        "component": "text",
         "name": "title",
         "value": "title",
         "label": "Title",
         "valueType": "string"
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "subtitle",
         "value": "sub title",
         "label": "Sub Title",
         "valueType": "string"
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "text",
         "value": "text",
         "label": "Text",
@@ -1713,7 +1713,7 @@
         "multi": false
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "text",
         "label": "Image Text",
         "valueType": "string"

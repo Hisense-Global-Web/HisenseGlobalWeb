@@ -45,13 +45,13 @@
           "multi": false
         },
          {
-          "component": "richtext",
+          "component": "text",
           "name": "subtitle",
           "label": "Sub Title",
           "valueType": "string"
         },
         {
-          "component": "richtext",
+          "component": "text",
           "name": "desc",
           "label": "Description",
           "valueType": "string"
@@ -69,11 +69,11 @@
           "multi": false
         },
          {
-          "component": "richtext",
+          "component": "text",
           "name": "text",
           "label": "Text",
           "valueType": "string",
-          "value":"split with ,"
+          "value":""
         }
          
       ]

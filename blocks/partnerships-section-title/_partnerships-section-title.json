@@ -23,21 +23,21 @@
       "id": "partnerships-section-title",
       "fields": [
         {
-          "component": "richtext",
+          "component": "text",
           "name": "title",
           "value": "title",
           "label": "Title",
           "valueType": "string"
         },
         {
-          "component": "richtext",
+          "component": "text",
           "name": "subtitle",
           "value": "sub title",
           "label": "Sub Title",
           "valueType": "string"
         },
         {
-          "component": "richtext",
+          "component": "text",
           "name": "text",
           "value": "text",
           "label": "Text",

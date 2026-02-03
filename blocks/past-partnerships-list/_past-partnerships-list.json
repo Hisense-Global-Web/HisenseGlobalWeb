@@ -57,7 +57,7 @@
           "multi": false
         },
          {
-          "component": "richtext",
+          "component": "text",
           "name": "text",
           "label": "Image Text",
           "valueType": "string"

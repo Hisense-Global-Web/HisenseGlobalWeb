@@ -44,7 +44,7 @@
           "multi": false
         },
          {
-          "component": "richtext",
+          "component": "text",
           "name": "subtitle",
           "label": "Sub Title",
           "valueType": "string"
@@ -68,7 +68,7 @@
           "valueType": "string"
         },
          {
-          "component": "richtext",
+          "component": "text",
           "name": "item_text",
           "label": "Text",
           "valueType": "string"
