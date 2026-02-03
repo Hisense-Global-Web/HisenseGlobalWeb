@@ -1,0 +1,16 @@
+.section-title-wrapper {
+  .section-title {
+    font-size: var(--fontsize-title1);
+    font-weight: var(--fontweight-book);
+    line-height: 1.5;
+    font-family: var(--font-family);
+  }
+
+  .section-subtitle {
+    margin-top: var(--spacing-4xs);
+    font-size: var(--fontsize-body2);
+    color: var(--color-primary-grey-60, #555);
+    font-weight: var(--fontweight-book);
+    line-height: 1.5;
+  }
+}
