@@ -1736,20 +1736,14 @@
         "name": "section_title",
         "value": "",
         "label": "Title",
-        "valueType": "string",
-        "classes": "section-title__title"
+        "valueType": "string"
       },
       {
         "component": "text",
         "name": "section_subtitle",
         "value": "",
         "label": "Subtitle",
-        "valueType": "string",
-        "classes": "section-title__subtitle",
-        "attributes": {
-          "data-field-class": "section-title__subtitle",
-          "data-field-type": "subtitle"
-        }
+        "valueType": "string"
       }
     ]
   },

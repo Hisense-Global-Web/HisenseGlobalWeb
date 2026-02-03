@@ -1,9 +1,13 @@
 export default function decorate(block) {
-  [...block.children].forEach((row, idx) => {
-    if (idx === 0) {
-      row.className = 'feature-pc-img';
+  try {
+    const [title, subtitle] = block.querySelectorAll('p');
+    title.classList.add('section-title-title');
+    if (subtitle.innerHTML.trim() === '') {
+      subtitle.remove();
     } else {
-      row.className = 'feature-mobile-img';
+      subtitle.classList.add('section-title-subtitle');
     }
-  });
+  } catch (error) {
+    console.error('Section Title block decoration error:', error);
+  }
 }
