@@ -1519,18 +1519,18 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "module_title",
+        "name": "module-title",
         "label": "Title"
       },
       {
         "component": "text",
-        "name": "module_subTitle",
+        "name": "module-subTitle",
         "label": "Subtitle",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "module_text",
+        "name": "module-text",
         "label": "Text",
         "valueType": "string"
       }

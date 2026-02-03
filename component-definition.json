@@ -763,9 +763,9 @@
                   "name": "Module Title",
                   "model": "module-title",
                   "key-value": true,
-                  "module_title": "This is the title",
-                  "module_subTitle": "This is the subtitle",
-                  "module_text": "This is the text"
+                  "module-title": "This is the title",
+                  "module-subTitle": "This is the subtitle",
+                  "module-text": "This is the text"
                 }
               }
             }
