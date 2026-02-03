@@ -938,24 +938,21 @@
         "name": "subtitle",
         "label": "Subtitle",
         "valueType": "string",
-        "value": "",
-        "placeholder": "this is subtitle"
+        "value": ""
       },
       {
         "component": "text",
         "name": "title",
         "label": "Title",
         "valueType": "string",
-        "value": "",
-        "placeholder": "this is title"
+        "value": ""
       },
       {
         "component": "text",
         "name": "text",
         "label": "Text",
         "valueType": "string",
-        "value": "",
-        "placeholder": "this is text"
+        "value": ""
       }
     ]
   },
