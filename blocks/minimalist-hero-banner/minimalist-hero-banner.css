@@ -1,0 +1,84 @@
+main > .section:first-of-type {
+	margin: 0;
+	background: transparent !important;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+	line-height: 1.2;
+}
+
+.minimalist-hero-banner-wrapper {
+	max-width: 2560px !important;
+	padding: 0 !important;
+}
+
+.minimalist-hero-banner {
+	height: min(27.77777778vw,400px);
+	width: 100%;
+	text-align: center;
+	color: var(--color-hisense-black);
+	position: relative;
+
+	@media (width < 860px) {
+		height: calc(480/390 * 100vw);
+	}
+
+	&.black-font {
+		color: black;
+	}
+
+	&.white-font {
+		color: white;
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+		aspect-ratio: 1440/400;
+		object-fit: cover;
+
+		@media (width < 860px) {
+			aspect-ratio: 390/480;
+		}
+	}
+
+	.banner-image {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+
+	.text-container {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: flex;
+		flex-direction: column;
+		flex-shrink: 0;
+		gap: var(--spacing-sm);
+		font-weight: var(--fontweight-medium);
+		width: 100%;
+
+		p:first-child {
+			font-size: var(--fontsize-pc-h1);
+			text-transform: capitalize;
+
+			/* padding: 0 var(--size-32); if handle special case need aem-config */
+
+			@media (width < 860px) {
+				font-size: var(--fontsize-h2);
+			}
+		}
+
+		p:last-child {
+			font-size: var(--fontsize-title1);
+
+			@media (width < 860px) {
+				font-size: var(--fontsize-title3);
+			}
+		}
+	}
+}

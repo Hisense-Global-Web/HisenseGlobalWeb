@@ -4,6 +4,7 @@
     "components": [
       "section",
       "navigation",
+      "company-page-navigation",
       "footerContainer"
     ]
   },
@@ -28,6 +29,7 @@
       "image",
       "image-comparison-slider",
       "media-carousel",
+      "minimalist-hero-banner",
       "parallax",
       "product-card",
       "product-filter",
@@ -88,6 +90,12 @@
       "button",
       "title",
       "sub-menu-link"
+    ]
+  },
+  {
+    "id": "company-page-navigation",
+    "components": [
+      "company-page-navigation-item"
     ]
   },
   {
