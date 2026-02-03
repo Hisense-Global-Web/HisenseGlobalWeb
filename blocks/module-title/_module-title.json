@@ -27,18 +27,18 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "module-title",
-          "label": "Title"
+          "name": "title-content",
+          "label": "Eyebrow Headline"
         },
         {
           "component": "text",
-          "name": "module-subTitle",
+          "name": "subTitle-content",
           "label": "Subtitle",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "module-text",
+          "name": "text-content",
           "label": "Text",
           "valueType": "string"
         }
