@@ -507,6 +507,7 @@
                 "template": {
                   "name": "Gradient Text Image",
                   "model": "gradient-text-image",
+                  "key-value": true,
                   "classes": "gradient-text-image"
                 }
               }

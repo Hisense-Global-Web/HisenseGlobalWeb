@@ -10,6 +10,7 @@
             "template": {
               "name": "Gradient Text Image",
               "model": "gradient-text-image",
+              "key-value": true,
               "classes":"gradient-text-image"
             }
           }
@@ -29,26 +30,19 @@
           "multi": false
         },
         {
-          "component": "multiselect",
+          "component": "select",
           "name": "classes_color",
-          "value": "green-20 black-font",
-          "label": "Color Variant",
+          "value": "green-20",
+          "label": "Gradient Background Color Variant",
           "valueType": "string",
-          "maxSize": 2,
           "options": [
             {
-              "name": "Gradient Background Color",
-              "children": [
-                { "name": "Green 20(default)", "value": "green-20" },
-                { "name": "Green 60",  "value": "green-60" }
-              ]
+              "name": "Green 20(default)",
+              "value": "green-20"
             },
             {
-              "name": "Font Color",
-              "children": [
-                { "name": "White Font", "value": "white-font" },
-                { "name": "Black Font", "value": "black-font" }
-              ]
+              "name": "Green 60",
+              "value": "green-60"
             }
           ]
         },
