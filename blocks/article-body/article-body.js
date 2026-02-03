@@ -32,6 +32,11 @@ export default function decorate(block) {
       imgEl.src = '/content/dam/hisense/us/common-icons/quotation.svg';
       imgEl.alt = 'quotation';
       quoteDiv.append(imgEl);
+      const notesDiv = row.children[2];
+      if (notesDiv) {
+        notesDiv.className = 'text-body-quote-notes';
+        quoteDiv.append(notesDiv);
+      }
       ArticleBodyDiv.append(quoteDiv);
     } else if (type === 'flexend-side-by-side') {
       const GroupDiv = document.createElement('div');
@@ -49,11 +54,14 @@ export default function decorate(block) {
       desc.className = 'text-body-desc';
       textGroupDiv.className = 'text-body-text-group';
       textGroupDiv.append(title, desc);
-      GroupDiv.append(imgGroupDiv, textGroupDiv);
+      if (imgEl) {
+        GroupDiv.append(imgGroupDiv);
+      }
+      GroupDiv.append(textGroupDiv);
       ArticleBodyDiv.append(GroupDiv);
     } else {
       ArticleBodyDiv.append(row);
     }
   });
-  block.replaceChildren(ArticleBodyDiv);
+  block.replaceChildren(...ArticleBodyDiv.children);
 }
