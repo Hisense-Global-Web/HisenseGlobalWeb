@@ -1729,6 +1729,25 @@
     "fields": []
   },
   {
+    "id": "section-title",
+    "fields": [
+      {
+        "component": "text",
+        "name": "section_title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "section_subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "slide",
     "fields": [
       {
