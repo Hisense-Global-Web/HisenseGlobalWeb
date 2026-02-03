@@ -26,14 +26,16 @@
           "name": "section_title",
           "value": "",
           "label": "Title",
-          "valueType": "string"
+          "valueType": "string",
+          "classes": "section-title_title"
         },
         {
           "component": "text",
           "name": "section_subtitle",
           "value": "",
           "label": "Subtitle",
-          "valueType": "string"
+          "valueType": "string",
+          "classes": "section-title_subtitle"
         }
       ]
     }
