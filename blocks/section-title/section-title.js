@@ -8,6 +8,7 @@ export default function decorate(block) {
       subtitle.classList.add('section-title-subtitle');
     }
   } catch (error) {
+    /* eslint-disable-next-line no-console */
     console.error('Section Title block decoration error:', error);
   }
 }
