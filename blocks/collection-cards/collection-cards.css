@@ -85,7 +85,7 @@
   position: relative;
 
     @media (width >= 860px) {
-     width: min(18.194444vw, 262px);
+   
      height: min(17.361111vw,250px);
   }
 }
@@ -169,7 +169,8 @@
 
   @media (width >= 860px) {
     gap: var(--size-16);
-    width:min(24.26111vw, 358px) ;
+    
+    /* width:min(24.26111vw, 358px) ; */
     height:min(24.26111vw, 358px) ;
     padding: var(--spacing-lg) var(--spacing-md)  var(--spacing-md);
   }
