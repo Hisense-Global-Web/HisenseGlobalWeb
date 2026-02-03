@@ -27,7 +27,7 @@
           "value": "",
           "label": "Title",
           "valueType": "string",
-          "classes": "section-title_title"
+          "classes": "section-title__title"
         },
         {
           "component": "text",
@@ -35,7 +35,7 @@
           "value": "",
           "label": "Subtitle",
           "valueType": "string",
-          "classes": "section-title_subtitle"
+          "classes": "section-title__subtitle"
         }
       ]
     }
