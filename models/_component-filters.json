@@ -4,6 +4,7 @@
     "components": [
       "section",
       "navigation",
+      "company-page-navigation",
       "footerContainer"
     ]
   },

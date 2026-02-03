@@ -298,6 +298,136 @@
     ]
   },
   {
+    "id": "text-body-image",
+    "classes": "text-body-image",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "image",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "alt",
+        "label": "Alt Text",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "text-body-headline",
+    "classes": "text-body-headline",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "headline",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "headline",
+        "label": "Headline",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "text-body-content",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "content",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "text-body-quote",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "quote",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "richtext",
+        "name": "quote",
+        "label": "Quote",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "notes",
+        "label": "Notes",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "text-body-side-by-side",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "flexend-side-by-side",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "card-carousel",
     "fields": [
       {
@@ -593,6 +723,28 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
+      }
+    ]
+  },
+  {
+    "id": "company-page-navigation",
+    "fields": []
+  },
+  {
+    "id": "company-page-navigation-item",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "company-page-navigation-item-title",
+        "label": "Rich Text",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "company-page-navigation-item-link",
+        "label": "Link",
+        "required": true
       }
     ]
   },
@@ -1313,6 +1465,51 @@
         "name": "img",
         "label": "Img Snapshot For Video",
         "multi": false
+      }
+    ]
+  },
+  {
+    "id": "minimalist-hero-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "background_image",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string",
+        "value": "",
+        "placeholder": "this is title"
+      },
+      {
+        "component": "text",
+        "name": "text_body",
+        "label": "Text",
+        "valueType": "string",
+        "value": "",
+        "placeholder": "this is text content"
+      },
+      {
+        "component": "select",
+        "name": "classes_fontColor",
+        "value": "",
+        "label": "Font Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "black-font(default)",
+            "value": "black-font"
+          },
+          {
+            "name": "white-font",
+            "value": "white-font"
+          }
+        ]
       }
     ]
   },

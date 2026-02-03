@@ -57,6 +57,15 @@ function parseActions(root) {
   });
 }
 
+function parseCompany(root) {
+  return Array.from(root.querySelectorAll('.company-navigation-item-wrapper')).map((wrapper) => {
+    const ItemEl = wrapper.querySelector('.company-navigation-item');
+    const title = ItemEl.children[0]?.children[0].innerHTML || '';
+    const href = ItemEl.children[1]?.textContent?.trim() || '#';
+    return { title, href };
+  });
+}
+
 function parseDropdownProducts(col) {
   if (!col) return [];
 
@@ -418,6 +427,7 @@ export default async function decorate(block) {
   const navLinks = parseNavLinks(fragment);
   const actions = parseActions(fragment);
   const dropdowns = parseDropdowns(fragment);
+  const company = parseCompany(fragment);
 
   // 构建新的导航DOM
   const navigation = document.createElement('div');
@@ -426,6 +436,7 @@ export default async function decorate(block) {
   const pdpEl = document.querySelector('.product-section-container');
   // eslint-disable-next-line no-unused-vars
   const plpEl = document.querySelector('.product-sorting');
+  const isCompanyPage = window.location.pathname.includes('company-page');
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
   });
@@ -464,6 +475,36 @@ export default async function decorate(block) {
   const linksEl = document.createElement('div');
   linksEl.className = 'nav-links';
 
+  // Company 等第二nav
+  const navSecond = document.createElement('div');
+  navSecond.className = `nav-second h-grid-container ${isCompanyPage ? '' : 'hidden'}`;
+  const CompanyEl = document.createElement('div');
+  CompanyEl.className = 'route-company';
+  CompanyEl.textContent = 'Company';
+  const CompanyGroupEl = document.createElement('div');
+  CompanyGroupEl.className = 'company-group';
+  company.forEach((item) => {
+    const CompanyItemEl = document.createElement('div');
+    CompanyItemEl.className = 'company-item';
+    CompanyItemEl.innerHTML = item.title;
+    CompanyItemEl.dataset.href = item.href;
+    CompanyItemEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.location.href = item.href;
+    });
+    CompanyGroupEl.append(CompanyItemEl);
+  });
+
+  const companyArrow = document.createElement('img');
+  companyArrow.className = 'company-arrow';
+  companyArrow.src = '/content/dam/hisense/us/common-icons/chevron-down-black.svg';
+  companyArrow.addEventListener('click', () => {
+    document.body.style.overflow = 'hidden';
+    navigation.classList.toggle('show-second-menu');
+  });
+  navSecond.append(CompanyEl, CompanyGroupEl, companyArrow);
+
+  // 悬浮展开
   const mobileMenu = document.createElement('div');
   mobileMenu.className = 'mobile-menu';
   const mobileLinks = document.createElement('div');
@@ -644,8 +685,29 @@ export default async function decorate(block) {
   mobileMenu.append(dividingLine);
   mobileMenu.append(mobileActions);
 
+  // 悬浮展开二级菜单
+  const mobileSecondMenu = document.createElement('div');
+  mobileSecondMenu.className = 'mobile-second-menu';
+
+  company.forEach((item) => {
+    const mobileSecondMenuItem = document.createElement('div');
+    mobileSecondMenuItem.className = 'mobile-second-menu-item';
+    mobileSecondMenuItem.innerHTML = item.title;
+    mobileSecondMenuItem.dataset.href = item.href;
+    mobileSecondMenuItem.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.location.href = item.href;
+    });
+    mobileSecondMenu.append(mobileSecondMenuItem);
+  });
+
   navigation.append(navContainer);
+  navigation.append(navSecond);
   navigation.append(mobileMenu);
+  navigation.append(mobileSecondMenu);
+  const shadow = document.createElement('div');
+  shadow.className = 'shadow';
+  navigation.append(shadow);
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     if (scrollTop >= 10) {

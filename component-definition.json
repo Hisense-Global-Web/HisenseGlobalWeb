@@ -77,6 +77,103 @@
       "id": "blocks",
       "components": [
         {
+          "title": "Article Body",
+          "id": "article-body",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Article Body",
+                  "filter": "article-body",
+                  "classes": "article-body"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Text Body Image",
+          "id": "text-body-image",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Text Body Image",
+                  "model": "text-body-image",
+                  "itemType": "image"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Text Body Headline",
+          "id": "text-body-headline",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Text Body Headline",
+                  "model": "text-body-headline",
+                  "itemType": "headline"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Text Body Content",
+          "id": "text-body-content",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Text Body Content",
+                  "model": "text-body-content",
+                  "itemType": "content",
+                  "data-item-type": "content"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Quote",
+          "id": "text-body-quote",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Text Body Quote",
+                  "model": "text-body-quote",
+                  "itemType": "quote"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Text and Image Side-by-Side",
+          "id": "text-body-side-by-side",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Text and Image Side-by-Side",
+                  "model": "text-body-side-by-side",
+                  "itemType": "side-by-side"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Card Carousel",
           "id": "card-carousel",
           "plugins": {
@@ -214,6 +311,38 @@
                 "template": {
                   "columns": "2",
                   "rows": "1"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Company Page Navigation",
+          "id": "company-page-navigation",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Company Page Navigation",
+                  "model": "company-page-navigation",
+                  "filter": "company-page-navigation",
+                  "classes": "company-page-navigation-block"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Company Navigation Item",
+          "id": "company-page-navigation-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Company Navigation Item",
+                  "model": "company-page-navigation-item"
                 }
               }
             }
@@ -599,6 +728,25 @@
                 "template": {
                   "name": "Media Carousel Item",
                   "model": "media-carouselItem"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Minimalist Hero Banner",
+          "id": "minimalist-hero-banner",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Minimalist Hero Banner",
+                  "model": "minimalist-hero-banner",
+                  "classes": "minimalist-hero-banner",
+                  "classes_fontColor": "black-font",
+                  "text_title": "this is title",
+                  "text_body": "this is text"
                 }
               }
             }

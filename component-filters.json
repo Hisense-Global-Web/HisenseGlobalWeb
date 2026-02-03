@@ -4,12 +4,14 @@
     "components": [
       "section",
       "navigation",
+      "company-page-navigation",
       "footerContainer"
     ]
   },
   {
     "id": "section",
     "components": [
+      "article-body",
       "button",
       "card-carousel",
       "category-carousel",
@@ -27,6 +29,7 @@
       "image",
       "image-comparison-slider",
       "media-carousel",
+      "minimalist-hero-banner",
       "parallax",
       "product-card",
       "product-filter",
@@ -43,6 +46,16 @@
       "video",
       "videoinfo",
       "core-value-card"
+    ]
+  },
+  {
+    "id": "article-body",
+    "components": [
+      "text-body-image",
+      "text-body-headline",
+      "text-body-content",
+      "text-body-quote",
+      "text-body-side-by-side"
     ]
   },
   {
@@ -77,6 +90,12 @@
       "button",
       "title",
       "sub-menu-link"
+    ]
+  },
+  {
+    "id": "company-page-navigation",
+    "components": [
+      "company-page-navigation-item"
     ]
   },
   {
