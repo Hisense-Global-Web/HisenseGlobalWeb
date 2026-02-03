@@ -201,6 +201,7 @@ html {
   --spacing-s2: var(--size-20);
   --spacing-sm: var(--size-24);
   --spacing-md: var(--size-30);
+  --spacing-m: var(--size-32);
   --spacing-lg: var(--size-40);
   --spacing-xl: var(--size-48);
   --spacing-2xl: var(--size-80);

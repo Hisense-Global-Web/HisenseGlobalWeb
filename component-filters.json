@@ -45,7 +45,12 @@
       "title",
       "video",
       "videoinfo",
-      "tech-information"
+      "tech-information",
+      "core-value-card",
+      "past-partnerships-list",
+      "partnerships-section-title",
+      "current-partnerships-list",
+      "industry-categories"
     ]
   },
   {
@@ -99,6 +104,18 @@
     ]
   },
   {
+    "id": "core-value-card",
+    "components": [
+      "core-value-card-item"
+    ]
+  },
+  {
+    "id": "current-partnerships-list",
+    "components": [
+      "current-partnerships-list-item"
+    ]
+  },
+  {
     "id": "footerContainer",
     "components": [
       "footerLogo",
@@ -131,9 +148,21 @@
     ]
   },
   {
+    "id": "honors-awards-cards",
+    "components": [
+      "honors-awards-card"
+    ]
+  },
+  {
     "id": "icon-container",
     "components": [
       "icon-item"
+    ]
+  },
+  {
+    "id": "industry-categories",
+    "components": [
+      "industry-categories-item"
     ]
   },
   {
@@ -155,6 +184,12 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
+    ]
+  },
+  {
+    "id": "past-partnerships-list",
+    "components": [
+      "past-partnerships-list-item"
     ]
   },
   {

@@ -1,0 +1,114 @@
+
+.current-partnerships-list-wrapper {
+  width: 100%;
+  margin:var(--size-60) auto !important;
+
+  @media (width < 860px) {
+    margin:var(--spacing-m) auto !important;
+  }
+}
+
+.current-partnerships-list-wrapper p,
+.current-partnerships-list-wrapper h1,
+.current-partnerships-list-wrapper h2,
+.current-partnerships-list-wrapper h3,
+.current-partnerships-list-wrapper h4,
+.current-partnerships-list-wrapper h5,
+.current-partnerships-list-wrapper h6{
+  margin: 0;
+  padding: 0;
+}
+
+.current-partnerships-list .title >div:first-child{
+  color: var(--color-primary-green-50);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+  font-size: var(--size-20);
+  margin-bottom: var(--size-24);
+
+   @media (width < 860px) {
+   font-size: var(--size-18);
+  }
+}
+
+
+.current-partnerships-list > ul {
+  gap: var(--spacing-sm);
+  list-style: none;
+  padding: 0;
+  display: grid;
+	grid-template-columns: repeat(2, 1fr);
+
+  @media (width < 860px) {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+   
+  }
+}
+
+.current-partnerships-list > ul > li {
+  font-family: var(--font-family);
+  border-radius: var(--size-20);
+  overflow: hidden;
+  position: relative;
+
+  @media (width < 860px) {
+   margin-top: var(--spacing-m);
+  }
+}
+
+.current-partnerships-list .card-image{
+  width: 100%;
+  height: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary-green-10);
+
+  @media (width < 860px) {
+    height: 150px;
+  }
+}
+
+.current-partnerships-list ul >li img {
+  width: 300px;
+  aspect-ratio: 300 / 140;
+  object-fit: cover;
+  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
+
+   @media (width < 860px) {
+    width: 188px;
+    aspect-ratio: 188 / 87;
+   }
+}
+
+.current-partnerships-list .card-body div:first-child {
+  color: var(--color-primary-green-60);
+  font-weight: var(--fontweight-medium);
+  font-family: var(--font-family);
+  font-size: var(--size-14);
+  line-height: 150%;
+  margin-top: var(--spacing-sm);
+
+  @media (width < 860px) {
+    margin-top: var(--spacing-xs);
+    line-height: 140%;
+    font-size: var(--size-12);
+  }
+}
+
+.current-partnerships-list .card-body div:nth-child(2) {
+  color: var(--color-primary-grey-90);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+  font-size: var(--fontsize-title2);
+  line-height: 120%;
+
+  @media (width < 860px) {
+    color: var(--color-primary-grey-70);
+    font-size: var(--size-14);
+    line-height: 140%;
+  }
+}
+
+

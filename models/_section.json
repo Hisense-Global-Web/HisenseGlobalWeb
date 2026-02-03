@@ -224,7 +224,12 @@
         "title",
         "video",
         "videoinfo",
-        "tech-information"
+        "tech-information",
+        "core-value-card",
+        "past-partnerships-list",
+  	    "partnerships-section-title",
+        "current-partnerships-list",
+        "industry-categories"
       ]
     }
   ]
