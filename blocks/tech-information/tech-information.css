@@ -2,7 +2,7 @@
   display: flex;
   border-radius: var(--size-20);
   overflow: hidden;
-  height: 600px;
+  height: min(calc(600 / var(--breakpoint-pc) * 100vw), 600px);
   flex-direction: row-reverse;
 
    &.img-left {
@@ -14,7 +14,8 @@
   }
 
   .tech-img-wrapper {
-    width: 520px;
+    /* width: min(calc(520 / var(--breakpoint-pc) * 100vw), 520px); */
+    width: 46.428%;
     height: 100%;
 
     .tech-img-box {
@@ -30,6 +31,8 @@
   }
 
   .tech-info-container {
+    /* width: min(calc(600 / var(--breakpoint-pc) * 100vw), 600px); */
+    width: 53.571%;
     background: var(--color-primary-grey-20);
     padding: var(--size-48);
     flex: 1;
@@ -60,64 +63,84 @@
       }
     }
 
-    .tech-item-wrapper {
-      &.icon-style {
-        .tech-item-box {
-          display: flex;
-          align-items: center;
-          margin-bottom: var(--size-32);
-
-          .tech-item-icon {
-            width: var(--size-40);
-            height: var(--size-40);
-          }
-
-          .tech-item-text-content {
-            p:first-child {
-              font-size: var(--size-16);
-              font-weight: var(--fontweight-medium);
-              color: var(--color-primary-grey-90);
-              margin-bottom: var(--size-4);
-            }
-
-            p:nth-child(2) {
-              font-size: var(--size-14);
-              font-weight: var(--fontweight-book);
-              color: var(--color-primary-grey-60);
-          }
-        }
-      }
-
-      &.stats-style {
+    .icon-style {
+      .tech-item-box {
         display: flex;
-        gap: var(--size-24);
+        align-items: center;
+        margin-bottom: var(--size-32);
 
-        .tech-img-box {
-          width: var(--size-240);
-          height: var(--size-96);
-          background-color: var(--color-primary-grey-10);
-          border-radius: var(--size-20);
-          padding: var(--size-20);
-          text-align: center;
+        .tech-item-icon {
+          width: var(--size-40);
+          height: var(--size-40);
+        }
 
+        .tech-item-text-content {
           p:first-child {
-            font-size: var(--size-23);
+            font-size: var(--size-16);
             font-weight: var(--fontweight-medium);
-            color: var(--color-primary-green-50);
-            margin-bottom: var(--size-8);
+            color: var(--color-primary-grey-90);
+            margin-bottom: var(--size-4);
           }
 
           p:nth-child(2) {
-            font-size: var(--size-16);
+            font-size: var(--size-14);
             font-weight: var(--fontweight-book);
-            color: var(--color-primary-grey-50);
-          }
+            color: var(--color-primary-grey-60);
+        }
+      }
+    }
+    }
+
+    .stats-style {
+      display: flex;
+      gap: var(--size-24);
+
+      .tech-item-box {
+        /* width: min(calc(240 / var(--breakpoint-pc) * 100vw), 240px); */
+        width: 50%;
+        height: var(--size-96);
+        background-color: var(--color-primary-grey-10);
+        border-radius: var(--size-20);
+        padding: var(--size-20);
+        text-align: center;
+
+        p:first-child {
+          font-size: var(--size-23);
+          font-weight: var(--fontweight-medium);
+          color: var(--color-primary-green-50);
+          margin-bottom: var(--size-8);
+        }
+
+        p:nth-child(2) {
+          font-size: var(--size-16);
+          font-weight: var(--fontweight-book);
+          color: var(--color-primary-grey-50);
+        }
+      }
+    }
+
+    .tech-cta-wrapper {
+      .cta-button {
+        display: inline-block;
+        padding: 0 var(--size-32);
+        height: var(--size-50);
+        line-height: var(--size-50);
+        background-color: var(--color-primary-green-60);
+        color: #fff;
+        font-size: var(--size-14);
+        font-weight: var(--fontweight-medium);
+        border-radius: var(--size-25);
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--color-primary-green-40);
         }
       }
     }
   }
-}
 
-.tech-information.img-left {
-  flex-direction: row;
-}}
+  .tech-information.img-left {
+    flex-direction: row;
+  }
+}

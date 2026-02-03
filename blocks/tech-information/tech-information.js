@@ -21,6 +21,7 @@ export default async function decorate(block) {
       }
       case 2: {
         techCtaDom.appendChild(row);
+        techCtaDom.querySelector('p').className = 'cta-button';
         // const ctaLabel = row.querySelector('p:nth-child(2)').textContent;
         // const rowButtonEl = row.querySelector('a');
         // if (rowButtonEl) {
