@@ -1745,7 +1745,11 @@
         "value": "",
         "label": "Subtitle",
         "valueType": "string",
-        "classes": "section-title__subtitle"
+        "classes": "section-title__subtitle",
+        "attributes": {
+          "data-field-class": "section-title__subtitle",
+          "data-field-type": "subtitle"
+        }
       }
     ]
   },
