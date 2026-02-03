@@ -935,7 +935,7 @@
       },
       {
         "component": "text",
-        "name": "subtitle",
+        "name": "gradient_subtitle",
         "label": "Subtitle",
         "valueType": "string",
         "value": "",
@@ -943,7 +943,7 @@
       },
       {
         "component": "text",
-        "name": "title",
+        "name": "gradient_title",
         "label": "Title",
         "valueType": "string",
         "value": "",
@@ -951,7 +951,7 @@
       },
       {
         "component": "text",
-        "name": "text",
+        "name": "gradient_text",
         "label": "Text",
         "valueType": "string",
         "value": "",

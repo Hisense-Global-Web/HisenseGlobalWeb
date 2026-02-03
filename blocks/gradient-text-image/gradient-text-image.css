@@ -6,20 +6,14 @@
 	display: flex;
 	flex-direction: row-reverse;
 
-	&.white-font {
-		color: var(--color-white);
-	}
-
-	&.black-font {
-		color: var(--color-hisense-black);
-	}
-
 	&.green-60 {
 		background-color: var(--color-primary-green-60);
+		color: var(--color-white);
 	}
 
 	&.green-20 {
 		background-color: var(--color-primary-green-20);
+		color: var(--color-hisense-black);
 	}
 
 	p {
