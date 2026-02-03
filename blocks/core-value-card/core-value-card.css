@@ -30,17 +30,17 @@
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
   font-size: var(--size-46);
-  margin: var(--spacing-sm) 0 var(--spacing-xl);
+  margin: var(--spacing-2xs) 0 var(--spacing-xl);
 
    @media (width < 860px) {
     font-size: var(--size-24);
-    margin: var(--spacing-3xs) 0 var(--size-32);
+    margin: var(--spacing-3xs) 0 var(--spacing-m);
   }
 
 }
 
 .core-value-card > ul {
-  gap: var(--size-26);
+  gap: var(--size-48) var(--size-26);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -49,6 +49,7 @@
 
   @media (width < 860px) {
     grid-template-columns: 1fr;
+    gap: var(--spacing-m);
   }
 }
 
@@ -82,6 +83,10 @@
   right: var(--spacing-sm);
   width: var(--size-24);
   height: var(--size-24);
+
+  @media (width >= 860px) {
+    display: none;
+  }
 }
 
 .core-value-card .arrow.hide  {
@@ -101,13 +106,15 @@
   font-weight: var(--fontweight-medium);
   font-family: var(--font-family);
   font-size: var(--size-30);
+  margin: var(--spacing-sm) 0 var(--spacing-xs); 
 
   @media (width < 860px) {
     color: var(--color-primary-grey-10);
     font-size: var(--size-24);
     position: absolute;
-    top: calc(-1* (var(--size-24) + var(--spacing-2xs)));
-    left:var(--spacing-sm)
+    top: calc(-1* (var(--size-28) + var(--spacing-2xs)));
+    left:var(--spacing-sm);
+    margin: 0
   }
 }
 

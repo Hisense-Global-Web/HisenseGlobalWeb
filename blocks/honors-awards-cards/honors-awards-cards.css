@@ -68,37 +68,6 @@
    transform: scale(1);
 }
 
-.honors-awards-cards  > ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-	grid-template-columns: repeat(3, 1fr);
-}
-
-.honors-awards-cards  > ul > li {
-  background: linear-gradient(135deg, #EEF9F9, #F5FCFC); 
-
-  /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
-  position: relative;
-  border-radius: var(--border-radius-l);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  padding: var(--spacing-sm);
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  aspect-ratio: 1;
-
-  @media (width >= 860px) {
-    gap: var(--size-30);
-    width:min(24.26111vw, 358px) ;
-    height:min(24.26111vw, 358px) ;
-    padding: var(--spacing-lg) var(--spacing-md);
-  }
-}
-
 .honors-awards-cards  .honors-awards-cards-card-body{
   width: 100%;
   text-align: center;

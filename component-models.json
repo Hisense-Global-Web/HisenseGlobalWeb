@@ -662,13 +662,13 @@
       },
       {
         "component": "richtext",
-        "name": "text_title",
+        "name": "title",
         "label": "Image Title",
         "valueType": "string"
       },
       {
         "component": "richtext",
-        "name": "text_text",
+        "name": "text",
         "label": "Image Text",
         "valueType": "string"
       }
@@ -1221,7 +1221,8 @@
         "component": "richtext",
         "name": "text",
         "label": "Text",
-        "valueType": "string"
+        "valueType": "string",
+        "value": "split with ,"
       }
     ]
   },

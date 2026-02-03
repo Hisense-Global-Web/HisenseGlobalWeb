@@ -72,7 +72,8 @@
           "component": "richtext",
           "name": "text",
           "label": "Text",
-          "valueType": "string"
+          "valueType": "string",
+          "value":"split with ,"
         }
          
       ]

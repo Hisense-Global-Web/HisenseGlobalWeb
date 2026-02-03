@@ -1,10 +1,10 @@
 
 .current-partnerships-list-wrapper {
   width: 100%;
-  margin:var(--size-60) 0 !important;
+  margin:var(--size-60) auto !important;
 
   @media (width < 860px) {
-    margin:var(---spacing-m) 0 !important;
+    margin:var(--spacing-m) auto !important;
   }
 }
 
@@ -54,14 +54,6 @@
 
   @media (width < 860px) {
    margin-top: var(--spacing-m);
-  }
-}
-
-.current-partnerships-list .card-body:first> p,
-.current-partnerships-list .card-body:first > h6{
-  font-size: var(--size-20);
-
-  @media (width < 860px) {
   }
 }
 

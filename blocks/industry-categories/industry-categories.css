@@ -39,7 +39,7 @@
 
 }
 
-.core-value-card .title >div:nth-child(2){
+.core-value-card .title > div:nth-child(3){
   color: var(--color-primary-grey-90);
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
@@ -55,6 +55,13 @@
 
 .industry-categories > ul {
   gap: var(--spacing-sm);
+  display: grid;
+  grid-auto-flow: column;
+  padding: 20px;
+  margin: 0;
+  list-style: none;
+  width: fit-content; /* 自适应宽度 */
+  transition: grid-template-columns 0.3s ease;
 
   @media (width < 860px) {
 		overflow-x: auto;
@@ -73,20 +80,43 @@
 .industry-categories > ul > li {
    aspect-ratio: 1;
    font-family: var(--font-family);
+   width: 100%;
 
    @media (width < 860px) {
     /* flex: 0 0 auto;  */
     position: relative;
-		width: 70.7vw !important;
-    height: 70.7vw;
+		width: 100px !important;
+    height: 100px;
     aspect-ratio: 1;
     transition: transform 0.3s;
     pointer-events: auto; /* 允许事件穿透到容器 */
-    
 
     /* -webkit-user-select: none; */
     user-select: none;
   }
+}
+
+.industry-categories  .card-item {
+   min-height: 150px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100px;
+}
+
+.industry-categories .card-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgb(0 0 0 / 10%);
+}
+
+.industry-categories .active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 10%);
+  width: 200px ;
 }
 
 .industry-categories-card-body > p,
@@ -104,36 +134,6 @@
 
 .touch-end img {
    transform: scale(1);
-}
-
-.industry-categories  > ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-}
-
-.industry-categories  > ul > li {
-  background: linear-gradient(135deg, #EEF9F9, #F5FCFC); 
-
-  /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
-  position: relative;
-  border-radius: var(--border-radius-l);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  padding: var(--spacing-sm);
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  aspect-ratio: 1;
-
-  @media (width >= 860px) {
-    gap: var(--size-30);
-    width:min(24.26111vw, 358px) ;
-    height:min(24.26111vw, 358px) ;
-    padding: var(--spacing-lg) var(--spacing-md);
-  }
 }
 
 .industry-categories  .industry-categories-card-body{

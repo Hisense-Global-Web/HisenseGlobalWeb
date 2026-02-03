@@ -19,13 +19,29 @@ export default function decorate(block) {
           div.className = 'card-image';
         } else {
           div.className = 'card-body';
-          const tit = document.createElement('div');
-          const desc = document.createElement('div');
-          tit.append(div.firstElementChild);
-          desc.append(div.lastElementChild);
-          div.replaceChildren(tit, desc);
         }
       });
+      if (ul.children.length === 0) {
+        li.classList.add('active');
+      }
+      li.onclick = () => {
+        const container = this.parentElement; // ul
+        const allCards = container.querySelectorAll('.card-item');
+        allCards.forEach((card) => {
+          card.classList.remove('active');
+        });
+
+        this.classList.add('active');
+        // 计算并设置grid列宽
+        const activeIndex = Array.from(allCards).indexOf(this);
+        let columns = '';
+        // eslint-disable-next-line no-plusplus, no-shadow
+        for (let i = 0; i < allCards.length; i++) {
+          columns += (i === activeIndex ? '200px ' : '100px ');
+        }
+        container.style.gridTemplateColumns = columns;
+      };
+
       ul.append(li);
     }
   });
@@ -34,5 +50,6 @@ export default function decorate(block) {
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
   });
+
   block.replaceChildren(title, ul);
 }
