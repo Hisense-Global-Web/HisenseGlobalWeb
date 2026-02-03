@@ -223,7 +223,8 @@
         "text",
         "title",
         "video",
-        "videoinfo"
+        "videoinfo",
+        "section-title"
       ]
     }
   ]
