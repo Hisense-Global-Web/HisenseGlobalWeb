@@ -155,6 +155,7 @@
         &:hover {
           background-color: var(--color-primary-green-40);
         }
+
         &:active {
           background-color: var(--color-primary-green-70);
           color: var(--white-alpha-80);
