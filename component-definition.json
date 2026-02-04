@@ -1111,6 +1111,10 @@
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
+                  "name": "strategic-card-items",
+                  "model": "strategic-card-items",
+                  "filter": "strategic-card-item",
+                  "key-value": true,
                   "columns": 1,
                   "rows": 1
                 }
@@ -1127,8 +1131,7 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "strategic-card-item",
-                  "model": "strategic-card-item",
-                  "key-value": true
+                  "model": "strategic-card-item"
                 }
               }
             }
