@@ -12,8 +12,7 @@
               "model": "strategic-card-items",
               "filter": "strategic-card-item",
               "key-value": true,
-              "columns": 1,
-              "rows": 1
+              "columns": 1
             }
           }
         }
@@ -47,20 +46,7 @@
             "required": true,
             "validation": {
                 "numberMin": 1,
-                "numberMax": 5,
-                "customErrorMsg": "Only allowed 1-5 number in this block."
-            }
-        },
-        {
-            "component": "number",
-            "valueType": "number",
-            "name": "rows",
-            "label": "Rows",
-            "required": true,
-            "validation": {
-                "numberMin": 1,
-                "numberMax": 3,
-                "customErrorMsg": "Only allowed 1-3 number in this block."
+                "numberMax": 5
             }
         }
       ]

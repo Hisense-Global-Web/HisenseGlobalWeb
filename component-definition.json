@@ -1115,8 +1115,7 @@
                   "model": "strategic-card-items",
                   "filter": "strategic-card-item",
                   "key-value": true,
-                  "columns": 1,
-                  "rows": 1
+                  "columns": 1
                 }
               }
             }
