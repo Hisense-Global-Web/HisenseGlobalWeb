@@ -389,7 +389,6 @@
                 "template": {
                   "name": "Cross Page Redirect",
                   "model": "cross-page-redirect",
-                  "key-value": true,
                   "classes": "cross-page-redirect"
                 }
               }

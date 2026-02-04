@@ -1,0 +1,14 @@
+.cross-page-redirect {
+    width: 100%;
+    height: calc(400/var(--breakpoint-pc) *100vw);
+    display: flex;
+    padding: 0 var(--spacing-4xl, 160px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-pc-md, 32px);
+}
+
+.green-60 {
+    background: var(--Primary-Green-60, #008482);
+}
