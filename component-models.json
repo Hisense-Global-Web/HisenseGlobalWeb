@@ -2067,7 +2067,7 @@
         "validation": {
           "numberMin": 1,
           "numberMax": 5,
-          "customErrorMsg": "Only allowed 1-6 number in this block."
+          "customErrorMsg": "Only allowed 1-5 number in this block."
         }
       },
       {
@@ -2090,8 +2090,8 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
-        "label": "Image",
+        "name": "icon",
+        "label": "Icon",
         "required": true,
         "multi": false
       },
@@ -2104,15 +2104,15 @@
       },
       {
         "component": "aem-content",
-        "name": "cq:cta",
-        "label": "Buttom",
+        "name": "button",
+        "label": "Button",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "text",
-        "name": "cq:cta_label",
-        "label": "Button Text",
+        "name": "button_label",
+        "label": "Button Label",
         "valueType": "string",
         "value": ""
       }
