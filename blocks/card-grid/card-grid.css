@@ -1,3 +1,110 @@
+.card-grid-container {
+  width: 100%;
+  position: relative;
+  min-height: min(calc(679 / var(--breakpoint-pc) * 100vw), 679px);
+
+  /* .card-grid-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  } */
+
+  /* .module-title-wrapper {
+    max-width: var(--container-max-width) !important;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+  } */
+}
+
 .card-grid {
   background: red;
+  width: 100%;
+  height: 100%;
+
+  p {
+    margin: 0;
+  }
+
+  .card-background {
+    /* position: absolute; */
+    top: 0;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .feature-items-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: min(calc(354 / var(--breakpoint-pc) * 100vw), 354px);
+    gap: var(--size-30);
+    max-width: var(--container-max-width);
+    margin: auto;
+
+    .feature-item-box {
+      width: min(calc(354 / var(--breakpoint-pc) * 100vw), 354px);
+      height: 100%;
+      position: relative;
+      border-radius: var(--size-16);
+      overflow: hidden;
+      
+      .item-img-box {
+        position: absolute;
+        left: 0;
+
+        img {
+          display: block;
+        }
+      }
+
+      .item-text-box {
+        position: relative;
+        z-index: 3;
+        color: var(--color-primary-grey-10);
+        padding: var(--size-32) var(--size-24);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 100%;
+        width: 100%;
+
+        .item-title {
+          font-size: var(--size-24);
+          line-height:  min(calc(28.8 / var(--breakpoint-pc) * 100vw), 28.8px);
+          font-weight: var(--fontweight-medium);
+          width: min(calc(260 / var(--breakpoint-pc) * 100vw), 260px)
+        }
+
+        .item-text {
+          margin-top: var(--size-16);
+          font-size: var(--size-14);
+          font-weight: var(--fontweight-book);
+        }
+      }
+    }
+  }
+}
+
+@media (width < 860px ) {
+  .card-grid {
+    .feature-items-wrapper {
+      grid-template-columns: 1fr;
+      width: 100%;
+      height: auto;
+
+      .feature-item-box {
+        width: 100%;
+        height: 326px;
+
+        .item-text-box {
+          .item-title {
+            line-height: calc(28.8 / var(--breakpoint-mobile) * 100vw);
+          }
+        }
+      }
+    }
+  }
 }
