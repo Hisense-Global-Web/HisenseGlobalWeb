@@ -636,7 +636,7 @@
 .nav-link .nav-dropdown:hover {
     display: block;
     max-height: 600px;
-    padding: 20px 0 50px;
+    padding: 20px 0 56px;
 }
 
 .nav-link:hover .nav-mask,
