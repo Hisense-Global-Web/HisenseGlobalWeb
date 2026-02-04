@@ -192,6 +192,13 @@
         ]
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "section-background",
+        "label": "Section Background Image",
+        "multi": false
+      },
+      {
         "component": "container",
         "label": "Section Spacing",
         "name": "container_padding",
