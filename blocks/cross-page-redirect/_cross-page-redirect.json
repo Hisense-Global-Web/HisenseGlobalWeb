@@ -54,14 +54,14 @@
         },
         {
             "component": "aem-content",
-            "name": "link",
+            "name": "link_url",
             "label": "Link",
             "valueType": "string",
             "value": ""
         },
         {
             "component": "text",
-            "name": "link_label",
+            "name": "link_text",
             "label": "Link Label",
             "valueType": "string",
             "value": ""
