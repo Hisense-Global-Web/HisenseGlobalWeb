@@ -48,7 +48,6 @@
 
 .current-partnerships-list > ul > li {
   font-family: var(--font-family);
-  border-radius: var(--size-20);
   overflow: hidden;
   position: relative;
 

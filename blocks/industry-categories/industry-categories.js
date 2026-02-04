@@ -27,34 +27,31 @@ export default function decorate(block) {
         }
       });
       if (ul.children.length === 0) {
-  li.classList.add('active');
-}
+        li.classList.add('active');
+      }
 
-li.onclick = function() {
-  const container = this.parentElement; // ul
-  const allCards = container.querySelectorAll('.card-item');
-  
-  // 移除所有激活状态
-  allCards.forEach(card => {
-    card.classList.remove('active');
-  });
-  
-  // 设置当前激活卡片
-  this.classList.add('active');
-    function calculateWidth(vwValue, maxPx) {
-   
-    return Math.min(vwValue, maxPx);
-  }
-  // 计算并设置grid列宽
-  const activeIndex = Array.from(allCards).indexOf(this);
-  let columns = '';
-  for (let i = 0; i < allCards.length; i++) {
-    columns += (i === activeIndex ? calculateWidth('13.888vw', '200px') : calculateWidth('6.9444vw', '100px'));
-  }
-  
-  // 应用新的列宽
-  container.style.gridTemplateColumns = columns;
-};
+      li.onclick = () => {
+        const container = this.parentElement; // ul
+        const allCards = container.querySelectorAll('.card-item');
+        // 移除所有激活状态
+        allCards.forEach((card) => {
+          card.classList.remove('active');
+        });
+        // 设置当前激活卡片
+        this.classList.add('active');
+        function calculateWidth(vwValue, maxPx) {
+          return Math.min(vwValue, maxPx);
+        }
+        // 计算并设置grid列宽
+        const activeIndex = Array.from(allCards).indexOf(this);
+        let columns = '';
+        // eslint-disable-next-line no-shadow, no-plusplus
+        for (let i = 0; i < allCards.length; i++) {
+          columns += (i === activeIndex ? calculateWidth('13.888vw', '200px') : calculateWidth('6.9444vw', '100px'));
+        }
+        // 应用新的列宽
+        container.style.gridTemplateColumns = columns;
+      };
       ul.append(li);
     }
   });

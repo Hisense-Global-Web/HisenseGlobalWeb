@@ -54,7 +54,7 @@
 
 .past-partnerships-list > ul > li {
   font-family: var(--font-family);
-  background: var(--color-hisense-green-10);
+  background: var(--color-primary-green-10);
 
   /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
   position: relative;
@@ -89,25 +89,9 @@
   }
 }
 
-.past-partnerships-list .card-body > p,
-.past-partnerships-list .card-body > h6{
-  font-size: var(--size-20);
-
-  @media (width >= 860px) {
-    font-size: var(--size-24);
-  }
-}
-
-
-.past-partnerships-list  .past-partnerships-list .card-body{
-  width: 100%;
-  text-align: center;
-  color: #000;
-}
-
-.past-partnerships-list  > ul > li .past-partnerships-list .card-image {
+.past-partnerships-list .card-image {
   background-color: var(--color-primary-grey-10);
-   width: min(11.11111vw, 160px);
+  width: min(11.11111vw, 160px);
   height: min(12.4305vw, 179px);
   object-fit: contain;
   transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
@@ -123,7 +107,7 @@
   height: 100%;
 }
 
-.past-partnerships-list .card-body:first-child {
+.past-partnerships-list .card-body{
   color: var(--color-hisense-grey-01);
   font-weight: var(--fontweight-medium);
   font-family: var(--font-family);
