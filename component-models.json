@@ -1204,6 +1204,124 @@
     ]
   },
   {
+    "id": "global-presence",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "container_background",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "container_title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "container_desc",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "stats-strip",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "stats_number",
+        "label": "Number",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "stats_text",
+        "label": "Label Text",
+        "value": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "globalization-timeline",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "container_overline",
+        "label": "Overline",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "container_title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "container_image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "phase-bar",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_time",
+        "label": "Phase Time",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_label",
+        "label": "Phase Label",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_desc",
+        "label": "Phase Description",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "phase_image",
+        "label": "Phase Image",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "gradient-text-image",
     "fields": [
       {
@@ -1439,6 +1557,32 @@
             "value": "Required when Secondary CTA content is provided"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "hero-presence",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "",
+        "name": "hero_video",
+        "label": "Video",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "hero_image",
+        "label": "Cover Image for Video",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Overlay Image",
+        "multi": false
       }
     ]
   },
