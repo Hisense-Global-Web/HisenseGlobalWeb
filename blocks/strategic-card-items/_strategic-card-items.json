@@ -10,7 +10,7 @@
             "template": {
               "name": "strategic-card-items",
               "model": "strategic-card-items",
-              "filter": "strategic-card-item",
+              "filter": "strategic-card-items",
               "key-value": true,
               "columns": 1
             }
