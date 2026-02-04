@@ -67,7 +67,9 @@ export default async function decorate(block) {
         }
       });
     });
-    techItemWrapperEl.classList.add(techItemStyle);
+    if (techItemWrapperEl) {
+      techItemWrapperEl.classList.add(techItemStyle);
+    }
   });
   // const techItemStyleDom = document.querySelectorAll('.tech-item-style');
   // techItemStyleDom.forEach((item) => {
