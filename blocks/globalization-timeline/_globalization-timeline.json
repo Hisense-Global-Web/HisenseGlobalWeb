@@ -44,7 +44,7 @@
           "value": ""
         },
         {
-          "component": "text",
+          "component": "richtext",
           "valueType": "string",
           "name": "container_title",
           "label": "Title",
