@@ -39,15 +39,7 @@
   "models": [
     {
       "id": "card-grid",
-      "fields": [
-        {
-          "component": "reference",
-          "valueType": "string",
-          "name": "card-background",
-          "label": "Background Image",
-          "multi": false
-        }
-      ]
+      "fields": []
     },
     {
       "id": "feature-items",
