@@ -2,10 +2,25 @@ import { createElement } from '../../utils/dom-helper.js';
 
 export default async function decorate(block) {
   // ========== CONSTRUCT DOM [START] ========== //
-  const staticContent = block.querySelector('div:first-of-type');
-
+  const titleContainer = createElement('div', 'timeline-title-container h-grid-container');
   const phaseTextContainer = createElement('div', 'timeline-phase-text-container h-grid-container');
   const phaseImageContainer = createElement('div', 'timeline-phase-image-container h-grid-container');
+
+  const staticContent = block.querySelector('div:first-of-type');
+  const staticPicture = staticContent.querySelector('picture');
+  if (staticPicture) {
+    staticPicture.classList.add('timeline-phase-picture');
+    const staticImage = createElement('p', 'timeline-phase-image timeline-phase-image-static');
+    staticImage.appendChild(staticPicture);
+    phaseImageContainer.appendChild(staticImage);
+  }
+  const staticTitle = staticContent.querySelector('div');
+  [...staticTitle.childNodes].forEach((child) => {
+    if (child.textContent.trim() !== '') {
+      titleContainer.appendChild(child);
+    }
+  });
+
   [...block.children].forEach((child) => {
     if (child !== staticContent) {
       const elements = child.querySelectorAll('p');
@@ -24,6 +39,7 @@ export default async function decorate(block) {
     }
   });
 
+  block.appendChild(titleContainer);
   block.appendChild(phaseTextContainer);
   block.appendChild(phaseImageContainer);
   // ========== CONSTRUCT DOM [END] ========== //
@@ -32,19 +48,20 @@ export default async function decorate(block) {
   const imageContainers = block.querySelectorAll('.timeline-phase-image');
   textContainers.forEach((container, index) => {
     container.addEventListener('mouseenter', () => {
-      imageContainers[index].classList.toggle('hovering');
+      imageContainers[index + 1].classList.toggle('hovering');
     });
     container.addEventListener('mouseleave', () => {
-      imageContainers[index].classList.toggle('hovering');
+      imageContainers[index + 1].classList.toggle('hovering');
     });
   });
 
   imageContainers.forEach((container, index) => {
+    if (index === 0) return;
     container.addEventListener('mouseenter', () => {
-      textContainers[index].classList.toggle('hovering');
+      textContainers[index - 1].classList.toggle('hovering');
     });
     container.addEventListener('mouseleave', () => {
-      textContainers[index].classList.toggle('hovering');
+      textContainers[index - 1].classList.toggle('hovering');
     });
   });
 }
