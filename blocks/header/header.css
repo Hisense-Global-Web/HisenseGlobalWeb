@@ -770,6 +770,10 @@
     }
   }
 
+  #navigation:has(.nav-second.hidden) .mobile-second-menu {
+    margin: 0;
+  }
+
   #navigation.show-second-menu {
     .mobile-second-menu {
       max-height: calc(100vh - 120px);
