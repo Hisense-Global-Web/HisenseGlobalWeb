@@ -1736,30 +1736,26 @@
         "name": "card-item-image",
         "value": "",
         "label": "SVG icon",
-        "valueType": "string",
-        "key-value": true
+        "valueType": "string"
       },
       {
         "component": "text",
         "name": "description",
         "value": "",
         "label": "Text",
-        "valueType": "string",
-        "key-value": true
+        "valueType": "string"
       },
       {
         "component": "aem-content",
         "valueType": "string",
-        "name": "link",
-        "label": "Link",
-        "key-value": true
+        "name": "button-link",
+        "label": "Link"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "button-text",
-        "label": "Button Text",
-        "key-value": true
+        "label": "Button Text"
       }
     ]
   },

@@ -911,8 +911,7 @@
                   "name": "Quick Action Card",
                   "model": "quick-action-card",
                   "classes": "quick-action-card",
-                  "filter": "quick-action-card",
-                  "key-value": true
+                  "filter": "quick-action-card"
                 }
               }
             }
@@ -927,7 +926,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Quick Action Card Item",
-                  "model": "quick-action-card-item"
+                  "model": "quick-action-card-item",
+                  "key-value": true
                 }
               }
             }
