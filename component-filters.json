@@ -42,6 +42,7 @@
       "properties",
       "slide",
       "sub-menu-link",
+      "strategic-card-items",
       "text",
       "title",
       "video",
@@ -209,6 +210,19 @@
     "id": "product-sorting",
     "components": [
       "plp-product-sort"
+    ]
+  },
+  {
+    "id": "strategic-card-items",
+    "components": [
+      "column",
+      "strategic-card-item"
+    ]
+  },
+  {
+    "id": "column",
+    "components": [
+      "strategic-card-item"
     ]
   },
   {

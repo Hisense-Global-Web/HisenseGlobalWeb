@@ -2056,6 +2056,69 @@
     ]
   },
   {
+    "id": "strategic-card-items",
+    "fields": [
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "columns",
+        "label": "Columns",
+        "required": true,
+        "validation": {
+          "numberMin": 1,
+          "numberMax": 6,
+          "customErrorMsg": "Only allowed 1-6 number in this block."
+        }
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "rows",
+        "label": "Rows",
+        "required": true,
+        "validation": {
+          "numberMin": 1,
+          "numberMax": 3,
+          "customErrorMsg": "Only allowed 1-3 number in this block."
+        }
+      }
+    ]
+  },
+  {
+    "id": "strategic-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "required": true,
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "cq:cta",
+        "label": "Buttom",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "cq:cta_label",
+        "label": "Button Text",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "sub-menu-link",
     "fields": [
       {
