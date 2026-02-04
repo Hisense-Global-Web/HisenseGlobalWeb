@@ -192,6 +192,13 @@
         ]
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "section-background",
+        "label": "Section Background Image",
+        "multi": false
+      },
+      {
         "component": "container",
         "label": "Section Spacing",
         "name": "container_padding",
@@ -503,6 +510,34 @@
             "value": "label text"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "card-grid",
+    "fields": []
+  },
+  {
+    "id": "feature-items",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "feature-img",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "item_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "item_text",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
@@ -1560,6 +1595,46 @@
             "value": "white-font"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "module-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "color-black",
+        "label": "Module title classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "font-color-white",
+            "value": "color-white"
+          },
+          {
+            "name": "font-color-black",
+            "value": "color-black"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title-content",
+        "label": "Eyebrow Headline"
+      },
+      {
+        "component": "text",
+        "name": "subtitle-content",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text-content",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },

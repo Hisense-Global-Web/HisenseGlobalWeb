@@ -80,6 +80,13 @@
           ]
         },
         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "section-background",
+          "label": "Section Background Image",
+          "multi": false
+        },
+        {
           "component": "container",
           "label": "Section Spacing",
           "name": "container_padding",
@@ -230,7 +237,9 @@
         "past-partnerships-list",
   	    "partnerships-section-title",
         "current-partnerships-list",
-        "industry-categories"
+        "industry-categories",
+        "module-title",
+        "card-grid"
       ]
     }
   ]

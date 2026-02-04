@@ -876,6 +876,12 @@ main {
 		color: var(--text-dark);
 	}
 
+  .section.section-background-style {
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: var(--size-160);
+  }
+
 	/* section container type */
 
 	.section.fluid > div {

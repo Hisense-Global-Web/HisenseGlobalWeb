@@ -51,7 +51,9 @@
       "past-partnerships-list",
       "partnerships-section-title",
       "current-partnerships-list",
-      "industry-categories"
+      "industry-categories",
+      "module-title",
+      "card-grid"
     ]
   },
   {
@@ -68,6 +70,12 @@
     "id": "card-carousel",
     "components": [
       "card-carouselItem"
+    ]
+  },
+  {
+    "id": "card-grid",
+    "components": [
+      "feature-items"
     ]
   },
   {
