@@ -1729,6 +1729,41 @@
     "fields": []
   },
   {
+    "id": "quick-action-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "card-item-image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string",
+        "key-value": true
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "value": "",
+        "label": "Text",
+        "valueType": "string",
+        "key-value": true
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link",
+        "key-value": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "button-text",
+        "label": "Button Text",
+        "key-value": true
+      }
+    ]
+  },
+  {
     "id": "section-title",
     "fields": [
       {

@@ -224,7 +224,8 @@
         "title",
         "video",
         "videoinfo",
-        "section-title"
+        "section-title",
+        "quick-action-card"
       ]
     }
   ]

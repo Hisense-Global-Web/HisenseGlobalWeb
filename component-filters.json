@@ -45,7 +45,8 @@
       "title",
       "video",
       "videoinfo",
-      "section-title"
+      "section-title",
+      "quick-action-card"
     ]
   },
   {
@@ -173,6 +174,12 @@
     "id": "product-sorting",
     "components": [
       "plp-product-sort"
+    ]
+  },
+  {
+    "id": "quick-action-card",
+    "components": [
+      "quick-action-card-item"
     ]
   },
   {
