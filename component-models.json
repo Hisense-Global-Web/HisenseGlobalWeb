@@ -1517,6 +1517,23 @@
     "id": "module-title",
     "fields": [
       {
+        "component": "select",
+        "name": "classes",
+        "value": "color-black",
+        "label": "Module title classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "font-color-white",
+            "value": "color-white"
+          },
+          {
+            "name": "font-color-black",
+            "value": "color-black"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "title-content",
@@ -1524,7 +1541,7 @@
       },
       {
         "component": "text",
-        "name": "subTitle-content",
+        "name": "subtitle-content",
         "label": "Subtitle",
         "valueType": "string"
       },
