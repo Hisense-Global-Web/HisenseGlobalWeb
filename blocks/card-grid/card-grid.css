@@ -13,9 +13,6 @@
   }
 
   .card-background {
-    /* position: absolute; */
-    top: 0;
-
     img {
       width: 100%;
     }
@@ -24,24 +21,26 @@
   .feature-items-wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    height: min(calc(354 / var(--breakpoint-pc) * 100vw), 354px);
     gap: var(--size-30);
     max-width: var(--container-max-width);
     margin: auto;
 
     .feature-item-box {
-      width: min(calc(354 / var(--breakpoint-pc) * 100vw), 354px);
-      height: 100%;
       position: relative;
       border-radius: var(--size-16);
       overflow: hidden;
+      aspect-ratio: 1 / 1;
       
       .item-img-box {
         position: absolute;
         left: 0;
+        width: 100%;
+        height: 100%;
 
         img {
           display: block;
+          width: 100%;
+          height: 100%;
         }
       }
 
@@ -60,7 +59,7 @@
           font-size: var(--size-24);
           line-height:  min(calc(28.8 / var(--breakpoint-pc) * 100vw), 28.8px);
           font-weight: var(--fontweight-medium);
-          width: min(calc(260 / var(--breakpoint-pc) * 100vw), 260px)
+          width: min(calc(180 / var(--breakpoint-pc) * 100vw), 180px)
         }
 
         .item-text {
@@ -77,16 +76,17 @@
   .card-grid {
     .feature-items-wrapper {
       grid-template-columns: 1fr;
+      gap: var(--size-32);
       width: 100%;
       height: auto;
 
       .feature-item-box {
         width: 100%;
-        height: 326px;
 
         .item-text-box {
           .item-title {
             line-height: calc(28.8 / var(--breakpoint-mobile) * 100vw);
+            width: calc(200 / var(--breakpoint-mobile) * 100vw);
           }
         }
       }

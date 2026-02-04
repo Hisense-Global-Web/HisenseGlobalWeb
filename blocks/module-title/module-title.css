@@ -38,3 +38,24 @@
     }
   }
 }
+
+@media (width < 860px) {
+  .module-title {
+    .title-content {
+      font-size: var(--size-16);
+      line-height: calc(20.8 / var(--breakpoint-mobile) * 100vw);
+    }
+
+    .subtitle-content {
+      font-size: var(--size-30);
+      line-height: var(--size-36);
+      margin-top: var(--size-12);
+    }
+
+    .text-content {
+      font-size: var(--size-14);
+      line-height: calc(19.6 / var(--breakpoint-mobile) * 100vw);
+      margin-top: var(--size-12);
+    }
+  }
+}
