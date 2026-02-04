@@ -791,6 +791,56 @@
     ]
   },
   {
+    "id": "cross-page-redirect",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes_bgcolor",
+        "value": "gray-20",
+        "label": "Background Color Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Gray 20(default)",
+            "value": "gray-20"
+          },
+          {
+            "name": "Green 60",
+            "value": "green-60"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "headline",
+        "label": "Headline",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "bodycopy",
+        "label": "Bodycopy",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "link_label",
+        "label": "Link Label",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "current-partnerships-list",
     "fields": [
       {
