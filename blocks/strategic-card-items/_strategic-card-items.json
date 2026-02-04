@@ -44,7 +44,7 @@
             "required": true,
             "validation": {
                 "numberMin": 1,
-                "numberMax": 6,
+                "numberMax": 5,
                 "customErrorMsg": "Only allowed 1-6 number in this block."
             }
         },
@@ -105,10 +105,8 @@
       ]
     },
     {
-        "id": "column",
-        "components": [
-            "strategic-card-item"
-        ]
+        "id": "strategic-card-item",
+        "components": []
     }
   ]
 }

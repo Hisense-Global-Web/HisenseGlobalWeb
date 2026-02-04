@@ -219,10 +219,8 @@
     ]
   },
   {
-    "id": "column",
-    "components": [
-      "strategic-card-item"
-    ]
+    "id": "strategic-card-item",
+    "components": []
   },
   {
     "id": "tech-information",
