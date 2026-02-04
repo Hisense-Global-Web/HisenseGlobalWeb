@@ -97,6 +97,8 @@
 
   @media (width < 860px) {
     display: block;
+    width: var(--size-16);
+    height: var(--size-16);
   }
 }
 
@@ -220,6 +222,10 @@ footer footer {
   justify-content: space-between;
   flex-direction: column;
 	row-gap: var(--size-24);
+  
+  @media (width < 860px) {
+    row-gap: var(--size-30);
+  }
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
@@ -230,25 +236,49 @@ footer footer {
   align-items: center;
 	padding-block: var(--size-48);
 	gap: var(--size-30);
+
+  @media (width < 860px) {
+    padding-block: var(--size-30);
+  }
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 
- .footer-logo .footer-logo-link { 
-  height: 27px; 
-  width: auto;
- } 
+.footer-logo .footer-logo-link {
+  height: var(--size-27);
+  width: min(calc(164 / var(--breakpoint-pc) * 100vw), 164px);
+  
+  @media (width < 860px) {
+    height: var(--size-20);
+    width: var(--size-123);
+  }
+
+  .footer-logo-width {
+    width: 100%;
+    height: 100%;
+  }
+} 
 
 .footer-social {
   display: flex;
   gap: var(--size-16);
   height: var(--size-36);
+
+  @media (width < 860px) {
+    height: var(--size-24);
+    gap: var(--size-8);
+  }
 }
 
 .footer-social-imgbox {
   position: relative;
   width: var(--size-36);
   height: var(--size-36);
+
+  @media (width < 860px) {
+    width: var(--size-24);
+    height: var(--size-24);
+  }
 }
 
 .footer-social-imgbox a{
@@ -259,10 +289,14 @@ footer footer {
 }
 /* stylelint-disable-next-line no-descending-specificity */
 .footer-logo .footer-social img {
-  /* height: 34px; */
-
-  /* width: auto; */
+  width: var(--size-34);
+  height: var(--size-34);
   cursor: pointer;
+  
+  @media (width < 860px) {
+    width: var(--size-24);
+    height: var(--size-24);
+  }
 }
 
 .footer-nav {
@@ -319,10 +353,11 @@ footer footer {
   margin-bottom: var(--size-8);
   margin-top: 0;
   font-size: var(--fontsize-body2);
-  color: var(--color-primary-grey-90);
+  color: var(--color-hisense-black);
   
   @media (width < 860px) {
     margin: 0;
+    font-size: var(--size-16);
   }
 }
 
