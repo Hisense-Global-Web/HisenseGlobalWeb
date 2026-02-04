@@ -1111,8 +1111,8 @@
               "page": {
                 "resourceType": "core/franklin/components/columns/v1/columns",
                 "template": {
-                  "columns": "1",
-                  "rows": "1"
+                  "columns": 1,
+                  "rows": 1
                 }
               }
             }
@@ -1128,8 +1128,7 @@
                 "template": {
                   "name": "strategic-card-item",
                   "model": "strategic-card-item",
-                  "key-value": true,
-                  "multi": true
+                  "key-value": true
                 }
               }
             }
