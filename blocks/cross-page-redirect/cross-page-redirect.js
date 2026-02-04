@@ -1,3 +1,7 @@
+import { readBlockConfig } from '../../scripts/aem.js';
+
 export default function decorate(block) {
-    block.id = 'cross-page-redirect';
+    const config = readBlockConfig(block);
+    console.log(config);
+    
 }
