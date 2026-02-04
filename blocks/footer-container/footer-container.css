@@ -51,8 +51,12 @@
 
 .footer-nav-column {
   @media (width < 860px) {
-    padding-bottom: 24px;
+    padding-bottom: var(--size-24);
     border-bottom: 1px solid #009E9B;
+    
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }
 
@@ -308,7 +312,8 @@ footer footer {
 
 	@media (width < 860px) {
 		grid-template-columns: repeat(1, 1fr);
-		gap: var(--size-30);
+		gap: var(--size-24);
+    margin-bottom: var(--size-6);
 	}
 }
 
@@ -339,6 +344,7 @@ footer footer {
 .footer-nav-column .footer-nav-column-list .footer-nav-column-item:first-child {
   @media (width < 860px) {
     padding-top: var(--size-24);
+    height: calc(var(--size-24) + var(--size-21));
   }
 }
 
@@ -367,7 +373,8 @@ footer footer {
   display: flex;
 
   @media (width < 860px) {
-    margin-bottom: var(--size-16);
+    margin-bottom: var(--size-13);
+    height: var(--size-21);
 
     &:last-child {
       margin-bottom: 0;
@@ -383,7 +390,8 @@ footer footer {
   line-height: 1.5;
 
   @media (width < 860px) {
-    color: #747474;
+    font-size: var(--size-16);
+    color: var(--color-primary-grey-60);
     margin: 0;
   }
 }
@@ -457,7 +465,7 @@ footer footer {
       @media (width < 860px) {
         height: var(--size-20);
         line-height: var(--size-20);
-        margin-left: var(--size-16);
+        margin-left: var(--size-8);
       }
       
       .footer-lan-item {
@@ -496,6 +504,7 @@ footer footer {
 	flex-wrap: wrap;
 
   @media (width < 860px) {
+    gap: var(--size-24) var(--size-56);
     order: 2;
   }
 }
