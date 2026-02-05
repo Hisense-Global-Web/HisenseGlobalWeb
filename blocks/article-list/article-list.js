@@ -1,7 +1,22 @@
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   if (isEditMode) {
+    const TitleEl = document.createElement('div');
+    TitleEl.className = 'article-title-list-title';
+    TitleEl.textContent = 'Key Facts';
+    block.prepend(TitleEl);
     return;
   }
+  const TitleEl = document.createElement('div');
+  TitleEl.className = 'article-title-list-title';
+  TitleEl.textContent = 'Key Facts';
+
+  const AtBodyEl = document.createElement('div');
+  AtBodyEl.className = 'article-body-list';
+  [...block.children].forEach((row) => {
+    row.classList.add('article-body-list-item');
+    AtBodyEl.append(row);
+  });
+  block.replaceChildren(TitleEl, AtBodyEl);
   console.log('article list', block);
 }

@@ -1,0 +1,19 @@
+.article-list-wrapper {
+  display: flex;
+  justify-content: center;
+  
+  .article-list {
+    width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--size-32);
+    padding: var(--size-32);
+    background-color: var(--color-primary-green-10);
+    border-radius: var(--radius-lg);
+
+    @media (width < 860px) {
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
