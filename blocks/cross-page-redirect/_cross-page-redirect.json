@@ -41,14 +41,14 @@
         {
           "component": "text",
           "name": "headline",
-          "label": "Headline",
+          "label": "Title",
           "valueType": "string",
           "value": ""
         },
         {
           "component": "text",
           "name": "bodycopy",
-          "label": "Bodycopy",
+          "label": "Text",
           "valueType": "string",
           "value": ""
         },
@@ -58,6 +58,7 @@
           "value": "transparent",
           "label": "Button Background Color",
           "valueType": "string",
+          "hidden": true,
           "options": [
             {
               "name": "transparent",
@@ -66,6 +67,10 @@
             {
               "name": "white",
               "value": "white"
+            },
+            {
+              "name": "black",
+              "value": "black"
             }
           ]
         },
