@@ -27,7 +27,25 @@
               "name": "sustainability-dashboard-list-item",
               "model": "sustainability-dashboard-list-item",
               "key-value": true,
+              "filter": "sustainability-dashboard-list-item",
               "classes": "dashboard-list-item"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Dashboard List Item",
+      "id": "dashboard-list-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "dashboard-list-item",
+              "model": "dashboard-list-item",
+              "key-value": true,
+              "classes": "dashboard-list-item-item"
             }
           }
         }
@@ -75,9 +93,14 @@
     },
         {
           "id": "column",
-          "classes": "sustainability-dashboard-list-item",
           "components": [
             "sustainability-dashboard-list-item"
+          ]
+        },
+        {
+          "id": "sustainability-dashboard-list-item",
+          "components": [
+            "dashboard-list-item"
           ]
         }
   ]
