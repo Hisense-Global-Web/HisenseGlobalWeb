@@ -478,6 +478,7 @@
         "component": "text",
         "name": "article-location",
         "label": "Location",
+        "displayFormat": "MM-DD-YYYY",
         "valueType": "string"
       }
     ]
