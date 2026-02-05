@@ -1,10 +1,12 @@
 .section-title.block {
   font-family: var(--font-family);
+  margin-bottom: var(--spacing-xl,48px);
 
   .section-title-title {
+    margin:0;
     font-size: var(--fontsize-h2, 34px);
     font-weight: var(--fontweight-medium);
-    line-height: 1.5;
+    line-height: var(--line-height-m, 1.2);
 
     @media (width < 860px) {
       font-size: var(--fontsize-title1, 24px);
@@ -13,15 +15,16 @@
   }
 
   .section-title-subtitle {
-    margin-top: var(--spacing-4xs);
+    margin-top: var(--spacing-3xs);
+    margin-bottom: 0;
     font-size: var(--fontsize-body1, 16px);
     color: var(--color-primary-grey-70, #333);
     font-weight: var(--fontweight-book);
-    line-height: 1.5;
+    line-height: var(--line-height-m, 1.2);
     font-family: var(--font-family);
 
     @media (width < 860px) {
-      margin-top: var(--spacing-3xs);
+      margin-top: var(--spacing-3xs, 8px);
       font-size: var(--fontsize-body2, 14px);
       line-height: var(--line-height-m, 1.2);
     }
