@@ -1,0 +1,18 @@
+/* 标题部分的样式随页面调整 */
+main .section.module-title-container.article-body-container {
+  margin-top: calc(166px - 40px);
+
+  @media (width < 860px) {
+    margin-top: 112px;
+  }
+
+  .module-title-wrapper {
+    width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+    padding: 0;
+
+    @media (width < 860px) {
+      width: 100%;
+      padding: 0 var(--common-padding);
+    }
+  }
+}

@@ -454,6 +454,23 @@
     ]
   },
   {
+    "id": "article-title",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title-content",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "name": "subtitle-content",
+        "label": "Subtitle",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "card-carousel",
     "fields": [
       {
