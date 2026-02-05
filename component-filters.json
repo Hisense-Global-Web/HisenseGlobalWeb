@@ -231,13 +231,14 @@
   {
     "id": "sustainability-dashboard-list",
     "components": [
-      "sustainability-dashboard-list-item"
+      "column"
     ]
   },
   {
-    "id": "sustainability-dashboard-list-item",
+    "id": "column",
+    "classes": "sustainability-dashboard-list-item",
     "components": [
-      "text"
+      "sustainability-dashboard-list-item"
     ]
   },
   {

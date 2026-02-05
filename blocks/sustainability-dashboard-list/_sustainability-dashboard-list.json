@@ -8,7 +8,7 @@
           "page": {
             "resourceType": "core/franklin/components/columns/v1/columns",
             "template": {
-              "class": "sustainability-dashboard-list",
+              "classes": "sustainability-dashboard-list",
               "columns": "3",
               "rows": "1"
             }
@@ -22,10 +22,12 @@
       "plugins": {
         "xwalk": {
           "page": {
-            "resourceType": "core/franklin/components/columns/v1/column",
+            "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "sustainability-dashboard-list-item",
-              "class": "sustainability-dashboard-list-item"
+              "model": "sustainability-dashboard-list-item",
+              "key-value": true,
+              "classes": "dashboard-list-item"
             }
           }
         }
@@ -35,22 +37,7 @@
   "models": [
     {
       "id": "sustainability-dashboard-list",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "number",
-          "name": "columns",
-          "value": "",
-          "label": "Columns"
-        },
-        {
-          "component": "text",
-          "valueType": "number",
-          "name": "rows",
-          "value": "",
-          "label": "Rows"
-        }
-      ]
+      "fields": []
     },
     {
       "id": "sustainability-dashboard-list-item",
@@ -83,13 +70,14 @@
     {
       "id": "sustainability-dashboard-list",
       "components": [
-        "sustainability-dashboard-list-item"
+        "column"
       ]
     },
         {
-          "id": "sustainability-dashboard-list-item",
+          "id": "column",
+          "classes": "sustainability-dashboard-list-item",
           "components": [
-            "text"
+            "sustainability-dashboard-list-item"
           ]
         }
   ]
