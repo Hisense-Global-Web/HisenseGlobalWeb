@@ -9,6 +9,39 @@
     gap: var(--spacing-pc-md, 32px);
 }
 
+p {
+    margin: 0;
+}
+
 .green-60 {
     background: var(--Primary-Green-60, #008482);
+    color: var(--color-primary-grey-10);
+
+    .button-container a {
+        background-color: transparent;
+        border: 1px solid var(--color-primary-grey-10, #FFF);
+        font-size: var(--fontsize-body2, 14px);
+        font-weight: var(--fontweight-medium);
+        line-height: 150%; /* 21px */
+    }
+}
+
+.textContainer {
+    width: 100%;
+    display: flex;
+    padding: 0 var(--spacing-xl, 48px);
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm, 24px);
+}
+
+.headline {
+    font-size: var(--fontsize-pc-h1, 46px);
+    font-weight: var(--fontweight-medium);
+    line-height: 120%; /* 55.2px */
+    text-transform: capitalize;
+}
+
+.button-container a {
+    margin: 0;
 }

@@ -825,6 +825,23 @@
         "value": ""
       },
       {
+        "component": "select",
+        "name": "link_classes",
+        "value": "transparent",
+        "label": "Button Background Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "transparent",
+            "value": "transparent"
+          },
+          {
+            "name": "white",
+            "value": "white"
+          }
+        ]
+      },
+      {
         "component": "aem-content",
         "name": "link_url",
         "label": "Link",
