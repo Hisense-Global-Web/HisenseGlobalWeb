@@ -548,13 +548,43 @@
       },
       {
         "component": "text",
-        "name": "item_title",
+        "name": "subtitle_type",
+        "valueType": "string",
+        "value": "item-subtitle",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "subtitle_name",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title_type",
+        "valueType": "string",
+        "value": "item-title",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "title_name",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "item_text",
+        "name": "text_type",
+        "valueType": "string",
+        "value": "item-text",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "text_name",
         "label": "Text",
         "valueType": "string"
       }

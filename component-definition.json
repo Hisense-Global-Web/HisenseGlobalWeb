@@ -262,8 +262,10 @@
                   "name": "Feature Items",
                   "model": "feature-items",
                   "classes": "tech-items-box",
-                  "item_title": "Item Title",
-                  "item_text": "Item text goes here."
+                  "key-value": true,
+                  "subtitle_name": "This is the subtitle",
+                  "title_name": "Item Title",
+                  "text_name": "Item text goes here."
                 }
               }
             }
