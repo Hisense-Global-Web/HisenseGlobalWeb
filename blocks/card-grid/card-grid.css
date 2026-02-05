@@ -22,7 +22,6 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--size-30);
-    max-width: var(--container-max-width);
     margin: auto;
 
     .feature-item-box {
