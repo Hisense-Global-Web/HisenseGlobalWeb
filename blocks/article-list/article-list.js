@@ -15,8 +15,9 @@ export default function decorate(block) {
   AtBodyEl.className = 'article-body-list';
   [...block.children].forEach((row) => {
     row.classList.add('article-body-list-item');
+    row.children[0]?.classList.add('article-body-list-item-title');
+    row.children[1]?.classList.add('article-body-list-item-headline');
     AtBodyEl.append(row);
   });
   block.replaceChildren(TitleEl, AtBodyEl);
-  console.log('article list', block);
 }
