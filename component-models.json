@@ -529,7 +529,7 @@
       },
       {
         "component": "text",
-        "name": "component_type",
+        "name": "subtitle_type",
         "valueType": "string",
         "value": "item-subtitle",
         "hidden": true,
@@ -537,13 +537,13 @@
       },
       {
         "component": "text",
-        "name": "item_subtitle",
+        "name": "subtitle_name",
         "label": "Subtitle",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "component_type",
+        "name": "title_type",
         "valueType": "string",
         "value": "item-title",
         "hidden": true,
@@ -551,13 +551,13 @@
       },
       {
         "component": "text",
-        "name": "item_title",
+        "name": "title_name",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "component_type",
+        "name": "text_type",
         "valueType": "string",
         "value": "item-text",
         "hidden": true,
@@ -565,7 +565,7 @@
       },
       {
         "component": "text",
-        "name": "item_text",
+        "name": "text_name",
         "label": "Text",
         "valueType": "string"
       }
