@@ -438,7 +438,7 @@
     "id": "article-body-list-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "text",
         "valueType": "string",
         "name": "list_title",
         "label": "List Title",
