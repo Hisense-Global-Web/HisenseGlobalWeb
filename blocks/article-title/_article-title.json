@@ -36,6 +36,15 @@
           "valueType": "string"
         },
         {
+          "component": "date-time",
+          "name": "article-date",
+          "label": "Date(Mm Dd.Yyyy)",
+          "placeholder": "MM/DD/YYYY",
+          "displayFormat": "MM/DD/YYYY",
+          "valueFormat": "YYYY-MM-DD",
+          "valueType": "date"
+        },
+        {
           "component": "text",
           "name": "article-location",
           "label": "Location",
