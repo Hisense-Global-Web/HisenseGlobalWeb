@@ -52,24 +52,20 @@
     {
       "id": "tech-evolution-timeline",
       "fields": [
-        {
-          "component": "select",
-          "name": "classes",
-          "value": "back-gradient",
-          "label": "Background Style",
-          "valueType": "string",
-          "options": [
-              {
-                "name": "Gradient",
-                "value": "back-gradient"
-              }
-          ]
-        }
       ]
     },
     {
       "id": "timeline-nodes-item",
       "fields": [
+        {
+          "component" : "text",
+          "name" : "component_type",
+          "label": "",
+          "valueType" : "string",
+          "value": "component-timeline",
+          "hidden": true,
+          "readonly": true
+        },
         {
           "component": "text",
           "name": "year_type",
@@ -117,6 +113,15 @@
     {
       "id": "tech-card-item",
       "fields": [
+        {
+          "component" : "text",
+          "name" : "component_type",
+          "label": "",
+          "valueType" : "string",
+          "value": "component-tech-card",
+          "hidden": true,
+          "readonly": true
+        },
         {
           "component": "reference",
           "valueType": "string",
