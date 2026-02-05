@@ -486,6 +486,38 @@
     ]
   },
   {
+    "id": "article-title",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title-content",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "name": "subtitle-content",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "date-time",
+        "name": "article-date",
+        "label": "Date(Mm Dd.Yyyy)",
+        "placeholder": "MM/DD/YYYY",
+        "displayFormat": "MM/DD/YYYY",
+        "valueFormat": "YYYY-MM-DD",
+        "valueType": "date"
+      },
+      {
+        "component": "text",
+        "name": "article-location",
+        "label": "Location",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "card-carousel",
     "fields": [
       {
