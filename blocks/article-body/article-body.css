@@ -1,7 +1,8 @@
 /* 页面部分样式 */
-.article-body-wrapper {
+main .section.article-body-container .article-body-wrapper {
   display: flex;
   justify-content: center;
+  margin-top: var(--size-48);
   
   .article-body {
     width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
