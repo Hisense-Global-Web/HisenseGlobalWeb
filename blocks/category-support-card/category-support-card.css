@@ -1,0 +1,98 @@
+.quick-action-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+
+  @media (width < 860px) {
+    flex-direction: column;
+    gap: var(--spacing-s, 18px);
+  }
+
+  .quick-action-card-item {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-xl) var(--spacing-md);
+    background-color: var(--color-primary-green-50);
+    width: min(calc(357 / var(--breakpoint-pc) * 100vw), 357px);
+    height: min(calc(232 / var(--breakpoint-pc) * 100vw), 232px);
+    border-radius: var(--border-radius-l, 20px);
+
+    @media (width < 860px) {
+      cursor: default;
+      padding: var(--spacing-lg, 40px) var(--spacing-sm, 24px);
+      width: calc(354 / var(--breakpoint-mobile) * 100vw);
+      height: calc(264 / var(--breakpoint-mobile) * 100vw);
+      border-radius: var(--radius-xl, 16px);
+    }
+  }
+
+  .quick-action-card-image {
+    margin-bottom: var(--spacing-md, 32px);
+    line-height: 1.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (width<860px) {
+      margin-bottom: var(--spacing-sm, 24px);
+    }
+  }
+
+  .quick-action-card-image img {
+    width: var(--size-80, 80px);
+    height: var(--size-80, 80px);
+
+    @media (width < 860px) {
+      width: calc(80 / var(--breakpoint-mobile) * 100vw);
+      height: calc(80 / var(--breakpoint-mobile) * 100vw);
+    }
+  }
+
+  .quick-action-card-description {
+    margin-top: 0;
+    font-size: var(--fontsize-title2, 20px);
+    color: var(--color-white);
+    font-weight: var(--fontweight-medium, 500);
+    line-height: 1.3;
+  }
+
+  .quick-action-card-description > p {
+    margin: 0;
+  }
+
+  .quick-action-card-view-more {
+    @media (width>=860px) {
+      display: none;
+    }
+
+    @media (width<860px) {
+      display: block;
+      margin-top: var(--spacing-sm, 24px);
+    }
+  }
+
+  .quick-action-card-view-more p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quick-action-card-view-more a {
+    border: 1px solid var(--color-white);
+    width: calc(102 / var(--breakpoint-mobile) * 100vw);
+    height: var(--size-30);
+    border-radius: var(--size-100);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--size-4) var(--size-18);
+    color: var(--color-white);
+    font-size: var(--fontsize-body3, 12px);
+    font-weight: var(--fontweight-medium, 500);
+    text-decoration: none;
+  }
+}

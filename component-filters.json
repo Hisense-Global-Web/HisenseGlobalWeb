@@ -49,6 +49,7 @@
       "videoinfo",
       "section-title",
       "quick-action-card",
+      "category-support-card",
       "tech-information",
       "core-value-card",
       "past-partnerships-list",
@@ -91,6 +92,12 @@
     "id": "category-carousel",
     "components": [
       "category-carousel-item"
+    ]
+  },
+  {
+    "id": "category-support-card",
+    "components": [
+      "category-support-card-item"
     ]
   },
   {

@@ -602,6 +602,32 @@
     ]
   },
   {
+    "id": "category-support-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "collection-banner",
     "fields": [
       {
