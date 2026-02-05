@@ -1,12 +1,12 @@
 /* 标题部分的样式随页面调整 */
-main .section.module-title-container.article-body-container {
-  margin-top: calc(166px - 40px);
+.article-wrapper {
+  margin-top: calc(166px + 80px);
 
   @media (width < 860px) {
-    margin-top: 112px;
+    margin-top: calc(112px + 48px);
   }
 
-  .module-title-wrapper {
+  .article {
     width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
     padding: 0;
 
