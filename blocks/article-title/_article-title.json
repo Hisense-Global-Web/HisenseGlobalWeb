@@ -39,7 +39,9 @@
           "component": "date-time",
           "name": "article-date",
           "label": "Date(Mm Dd.Yyyy)",
-          "displayFormat": "MM-DD-YYYY",
+          "placeholder": "MM/DD/YYYY",
+          "displayFormat": "MM/DD/YYYY",
+          "valueFormat": "YYYY-MM-DD",
           "valueType": "date"
         },
         {
