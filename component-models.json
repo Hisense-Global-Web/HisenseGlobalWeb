@@ -529,15 +529,39 @@
       },
       {
         "component": "text",
+        "name": "component_type",
+        "valueType": "string",
+        "value": "item-subtitle",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
         "name": "item_subtitle",
         "label": "Subtitle",
         "valueType": "string"
       },
       {
         "component": "text",
+        "name": "component_type",
+        "valueType": "string",
+        "value": "item-title",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
         "name": "item_title",
         "label": "Title",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "component_type",
+        "valueType": "string",
+        "value": "item-text",
+        "hidden": true,
+        "readonly": true
       },
       {
         "component": "text",
