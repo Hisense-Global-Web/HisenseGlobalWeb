@@ -954,13 +954,14 @@ main {
     }
 	}
 
-  .section.gap-l {
+  .section.gap-xl {
     gap: var(--size-120);
     
     @media (width < 860px) {
       gap: var(--size-80);
     }
 	}
+
 	/* section image style */
 
 	.section.img-rounded img {

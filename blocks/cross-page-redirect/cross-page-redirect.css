@@ -25,7 +25,7 @@ p {
 }
 
 .green-60 {
-    background: var(--Primary-Green-60, #008482);
+    background: var(--color-primary-green-60, #008482);
     color: var(--color-primary-grey-10);
 }
 
@@ -71,7 +71,7 @@ p {
     }
 }
 
-.textContainer {
+.text-container {
     width: 100%;
     display: flex;
     padding: 0 var(--spacing-xl, 48px);
@@ -107,7 +107,7 @@ p {
         gap: var(--spacing-m, 32px);
     }
 
-    .textContainer {
+    .text-container {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
