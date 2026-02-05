@@ -68,3 +68,7 @@
 .parallax-container p {
   margin: 0;
 }
+
+[data-aue-model="section"] .sticky-container{
+  max-height: 500px;
+}
