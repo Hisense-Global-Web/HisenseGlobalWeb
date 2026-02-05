@@ -80,6 +80,13 @@
           ]
         },
         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "section-background",
+          "label": "Section Background Image",
+          "multi": false
+        },
+        {
           "component": "container",
           "label": "Section Spacing",
           "name": "container_padding",
@@ -201,6 +208,7 @@
         "disclaimer",
         "feature-banner",
         "fragment",
+        "gradient-text-image",
         "header",
         "hero",
         "hero-banner",
@@ -224,7 +232,14 @@
         "title",
         "video",
         "videoinfo",
-        "core-value-card"
+        "tech-information",
+        "core-value-card",
+        "past-partnerships-list",
+  	    "partnerships-section-title",
+        "current-partnerships-list",
+        "industry-categories",
+        "module-title",
+        "card-grid"
       ]
     }
   ]

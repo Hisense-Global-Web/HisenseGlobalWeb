@@ -192,6 +192,13 @@
         ]
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "section-background",
+        "label": "Section Background Image",
+        "multi": false
+      },
+      {
         "component": "container",
         "label": "Section Spacing",
         "name": "container_padding",
@@ -503,6 +510,34 @@
             "value": "label text"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "card-grid",
+    "fields": []
+  },
+  {
+    "id": "feature-items",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "feature-img",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "item_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "item_text",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
@@ -981,6 +1016,56 @@
         "name": "link",
         "label": "Link",
         "required": true
+      }
+    ]
+  },
+  {
+    "id": "gradient-text-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "select",
+        "name": "classes_color",
+        "value": "green-20",
+        "label": "Gradient Background Color Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Green 20(default)",
+            "value": "green-20"
+          },
+          {
+            "name": "Green 60",
+            "value": "green-60"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string",
+        "value": ""
       }
     ]
   },
@@ -1514,6 +1599,46 @@
     ]
   },
   {
+    "id": "module-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "color-black",
+        "label": "Module title classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "font-color-white",
+            "value": "color-white"
+          },
+          {
+            "name": "font-color-black",
+            "value": "color-black"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title-content",
+        "label": "Eyebrow Headline"
+      },
+      {
+        "component": "text",
+        "name": "subtitle-content",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text-content",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "navigationAction",
     "fields": [
       {
@@ -2040,6 +2165,108 @@
         "name": "searchTags",
         "label": "Search Tags",
         "rootPath": "/content/cq:tags/hisense/product"
+      }
+    ]
+  },
+  {
+    "id": "tech-information",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Image Position",
+        "valueType": "string",
+        "value": "img-right",
+        "options": [
+          {
+            "name": "Image Position Left",
+            "value": "img-left"
+          },
+          {
+            "name": "Image Position Right",
+            "value": "img-right"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tech_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "info_title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "info_subtitle",
+        "label": "SubTitle"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "info_text",
+        "label": "Text"
+      },
+      {
+        "component": "text",
+        "name": "btn_ctaLabel",
+        "label": "Button",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "tech-items",
+    "fields": [
+      {
+        "component": "select",
+        "name": "component-style",
+        "label": "Style",
+        "valueType": "string",
+        "value": "icon-style",
+        "options": [
+          {
+            "name": "Icon",
+            "value": "icon-style"
+          },
+          {
+            "name": "Stats",
+            "value": "stats-style"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "component-style"
+            },
+            "icon-style"
+          ]
+        },
+        "name": "icon",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "item_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "item_text",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },

@@ -14,14 +14,10 @@
 .partnerships-section-title-wrapper > div > div:first-child div h4,
 .partnerships-section-title-wrapper > div > div:first-child div h5,
 .partnerships-section-title-wrapper > div > div:first-child div h6{
-  color: var(--color-hisense-teal);
+  color:var(--color-primary-green-50);
   font-family: var(--font-family);
   line-height: 120%;
   margin: 0;
-
-  @media (width < 860px) {
-    color:var(--color-primary-green-50);
-  }
 }
 
 .partnerships-section-title-wrapper > div > div:first-child div p{

@@ -22,6 +22,7 @@
       "disclaimer",
       "feature-banner",
       "fragment",
+      "gradient-text-image",
       "header",
       "hero",
       "hero-banner",
@@ -45,7 +46,14 @@
       "title",
       "video",
       "videoinfo",
-      "core-value-card"
+      "tech-information",
+      "core-value-card",
+      "past-partnerships-list",
+      "partnerships-section-title",
+      "current-partnerships-list",
+      "industry-categories",
+      "module-title",
+      "card-grid"
     ]
   },
   {
@@ -62,6 +70,12 @@
     "id": "card-carousel",
     "components": [
       "card-carouselItem"
+    ]
+  },
+  {
+    "id": "card-grid",
+    "components": [
+      "feature-items"
     ]
   },
   {
@@ -203,6 +217,12 @@
     "id": "product-sorting",
     "components": [
       "plp-product-sort"
+    ]
+  },
+  {
+    "id": "tech-information",
+    "components": [
+      "tech-items"
     ]
   },
   {

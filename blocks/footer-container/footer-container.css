@@ -51,8 +51,12 @@
 
 .footer-nav-column {
   @media (width < 860px) {
-    padding-bottom: 24px;
+    padding-bottom: var(--size-24);
     border-bottom: 1px solid #009E9B;
+    
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }
 
@@ -97,6 +101,8 @@
 
   @media (width < 860px) {
     display: block;
+    width: var(--size-16);
+    height: var(--size-16);
   }
 }
 
@@ -211,16 +217,19 @@ footer footer {
   background: initial;
 }
 
-.footer-container {
-  /* max-width: 1080px;
-  margin: 0 auto; */
+.footer-container * {
+  box-sizing: border-box;
 }
 
 .footer-top {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-	row-gap: var(--size-32);
+	row-gap: var(--size-24);
+  
+  @media (width < 860px) {
+    row-gap: var(--size-30);
+  }
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
@@ -229,27 +238,51 @@ footer footer {
 	flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-	padding-block: var(--size-50);
+	padding-block: var(--size-48);
 	gap: var(--size-30);
+
+  @media (width < 860px) {
+    padding-block: var(--size-30);
+  }
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 
-/* .footer-logo img { */
+.footer-logo .footer-logo-link {
+  height: var(--size-27);
+  width: min(calc(164 / var(--breakpoint-pc) * 100vw), 164px);
+  
+  @media (width < 860px) {
+    height: var(--size-20);
+    width: var(--size-123);
+  }
 
-/*  height: 26.6px; */
-
-/*  width: auto; */
-
-/* } */
+  .footer-logo-width {
+    width: 100%;
+    height: 100%;
+  }
+} 
 
 .footer-social {
   display: flex;
-  gap: var(--size-13);
+  gap: var(--size-16);
+  height: var(--size-36);
+
+  @media (width < 860px) {
+    height: var(--size-24);
+    gap: var(--size-8);
+  }
 }
 
 .footer-social-imgbox {
   position: relative;
+  width: var(--size-36);
+  height: var(--size-36);
+
+  @media (width < 860px) {
+    width: var(--size-24);
+    height: var(--size-24);
+  }
 }
 
 .footer-social-imgbox a{
@@ -260,22 +293,27 @@ footer footer {
 }
 /* stylelint-disable-next-line no-descending-specificity */
 .footer-logo .footer-social img {
-  /* height: 34px; */
-
-  /* width: auto; */
+  width: var(--size-34);
+  height: var(--size-34);
   cursor: pointer;
+  
+  @media (width < 860px) {
+    width: var(--size-24);
+    height: var(--size-24);
+  }
 }
 
 .footer-nav {
   display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	gap: var(--size-30);
-	margin-bottom: var(--size-32);
+	margin-bottom: var(--size-28);
   z-index: 11;
 
 	@media (width < 860px) {
 		grid-template-columns: repeat(1, 1fr);
-		gap: var(--size-30);
+		gap: var(--size-24);
+    margin-bottom: var(--size-6);
 	}
 }
 
@@ -306,6 +344,7 @@ footer footer {
 .footer-nav-column .footer-nav-column-list .footer-nav-column-item:first-child {
   @media (width < 860px) {
     padding-top: var(--size-24);
+    height: calc(var(--size-24) + var(--size-21));
   }
 }
 
@@ -320,10 +359,11 @@ footer footer {
   margin-bottom: var(--size-8);
   margin-top: 0;
   font-size: var(--fontsize-body2);
-  color: var(--color-primary-grey-90);
+  color: var(--color-hisense-black);
   
   @media (width < 860px) {
     margin: 0;
+    font-size: var(--size-16);
   }
 }
 
@@ -333,7 +373,8 @@ footer footer {
   display: flex;
 
   @media (width < 860px) {
-    margin-bottom: var(--size-16);
+    margin-bottom: var(--size-13);
+    height: var(--size-21);
 
     &:last-child {
       margin-bottom: 0;
@@ -349,7 +390,8 @@ footer footer {
   line-height: 1.5;
 
   @media (width < 860px) {
-    color: #747474;
+    font-size: var(--size-16);
+    color: var(--color-primary-grey-60);
     margin: 0;
   }
 }
@@ -423,7 +465,7 @@ footer footer {
       @media (width < 860px) {
         height: var(--size-20);
         line-height: var(--size-20);
-        margin-left: var(--size-16);
+        margin-left: var(--size-8);
       }
       
       .footer-lan-item {
@@ -462,13 +504,14 @@ footer footer {
 	flex-wrap: wrap;
 
   @media (width < 860px) {
+    gap: var(--size-24) var(--size-56);
     order: 2;
   }
 }
 
 #footer .footer-legal-link {
 	color: var(--color-primary-grey-90);
-	font-size: var(--size-14);
+	font-size: var(--size-12);
 	text-decoration: none;
   font-weight: var(--fontweight-book);
   white-space: nowrap;
@@ -480,7 +523,7 @@ footer footer {
 
 #footer .footer-copyright {
 	color: var(--color-primary-grey-90);
-	font-size: var(--size-14);
+	font-size: var(--size-12);
   font-weight: var(--fontweight-book);
   flex-shrink: 0;
   order: 3;
