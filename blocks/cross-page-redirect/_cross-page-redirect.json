@@ -58,7 +58,6 @@
           "value": "transparent",
           "label": "Button Background Color",
           "valueType": "string",
-          "hidden": true,
           "options": [
             {
               "name": "transparent",
