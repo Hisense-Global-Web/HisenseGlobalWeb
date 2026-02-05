@@ -6,8 +6,9 @@ export default async function decorate(block) {
     child.firstElementChild.className = 'item-img-box';
     const secondChild = child.children[1];
     secondChild.className = 'item-text-box';
-    secondChild.firstElementChild.className = 'item-title';
-    secondChild.querySelector('p:nth-child(2)').className = 'item-text';
+    secondChild.firstElementChild.className = 'item-subtitle';
+    secondChild.querySelector('p:nth-child(2)').className = 'item-title';
+    secondChild.querySelector('p:nth-child(3)').className = 'item-text';
     featureItemsWrapperEl.append(child);
   });
   block.append(featureItemsWrapperEl);

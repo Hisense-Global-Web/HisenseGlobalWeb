@@ -53,6 +53,11 @@
         justify-content: flex-end;
         height: 100%;
         width: 100%;
+        
+        .item-subtitle {
+          font-size: var(--size-16);
+          font-weight: var(--fontweight-medium);
+        }
 
         .item-title {
           font-size: var(--size-24);
@@ -83,6 +88,10 @@
         width: 100%;
 
         .item-text-box {
+          .item-subtitle {
+            font-size: var(--size-14);
+          }
+
           .item-title {
             line-height: calc(28.8 / var(--breakpoint-mobile) * 100vw);
             width: calc(200 / var(--breakpoint-mobile) * 100vw);
