@@ -34,6 +34,18 @@
           "name": "subtitle-content",
           "label": "Subtitle",
           "valueType": "string"
+        },
+        {
+          "component": "date-time",
+          "name": "article-date",
+          "label": "Date(Mm Dd.Yyyy)",
+          "valueType": "date"
+        },
+        {
+          "component": "text",
+          "name": "article-location",
+          "label": "Location",
+          "valueType": "string"
         }
       ]
     }
