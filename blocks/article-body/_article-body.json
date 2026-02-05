@@ -238,8 +238,7 @@
         "text-body-headline",
         "text-body-content",
         "text-body-quote",
-        "text-body-side-by-side",
-        "article-body-list"
+        "text-body-side-by-side"
       ]
     }
   ]
