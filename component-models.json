@@ -2223,7 +2223,7 @@
       {
         "component": "select",
         "name": "classes",
-        "value": "Gradient",
+        "value": "back-gradient",
         "label": "Background Style",
         "valueType": "string",
         "options": [
