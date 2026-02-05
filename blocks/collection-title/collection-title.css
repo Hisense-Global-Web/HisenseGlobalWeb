@@ -21,7 +21,7 @@
 }
 
 .collection-title-wrapper > div > div:first-child div p{
-  font-size: var(--size-16);
+  font-size: var(--size-18);
   line-height: 120%;
   text-transform: uppercase;
   padding: 0;
@@ -39,8 +39,8 @@
 .collection-title-wrapper > div > div:last-child div h5,
 .collection-title-wrapper > div > div:last-child div h6{
   padding: 0;
-  color: #333;
-  margin: var(--size-10) 0 0;
+  color: var(--Hisense-Black, #000);
+  margin: var(--spacing_3xs) 0 0;
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
 }
