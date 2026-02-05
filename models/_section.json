@@ -133,7 +133,7 @@
                 },
                 {
                   "name": "Medium (pc-48px mobile-32px)",
-                  "value": "gap-m"
+                  "value": "gap-md"
                 },
                 {
                   "name": "Large (pc-80px mobile-48px)",
