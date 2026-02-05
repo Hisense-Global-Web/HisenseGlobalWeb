@@ -29,9 +29,9 @@
               "model": "feature-items",
               "classes": "tech-items-box",
               "key-value": true,
-              "item_subtitle": "This is the subtitle",
-              "item_title": "Item Title",
-              "item_text": "Item text goes here."
+              "subtitle_name": "This is the subtitle",
+              "title_name": "Item Title",
+              "text_name": "Item text goes here."
             }
           }
         }
