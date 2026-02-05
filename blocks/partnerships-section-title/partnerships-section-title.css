@@ -7,48 +7,31 @@
   position: relative;
 }
 
-.partnerships-section-title-wrapper > div > div:first-child div p,
-.partnerships-section-title-wrapper > div > div:first-child div h1,
-.partnerships-section-title-wrapper > div > div:first-child div h2,
-.partnerships-section-title-wrapper > div > div:first-child div h3,
-.partnerships-section-title-wrapper > div > div:first-child div h4,
-.partnerships-section-title-wrapper > div > div:first-child div h5,
-.partnerships-section-title-wrapper > div > div:first-child div h6{
+.partnerships-section-title-wrapper > div > div:first-child div p{
+  font-size:var(--fontsize-pc-h2);
+  text-transform: uppercase;
   color:var(--color-primary-green-50);
   font-family: var(--font-family);
   line-height: 120%;
   margin: 0;
-}
-
-.partnerships-section-title-wrapper > div > div:first-child div p{
-  font-size:var(--fontsize-pc-h2);
-  text-transform: uppercase;
   padding: 0;
+  font-weight: var(--fontweight-medium);
 
    @media (width < 860px) {
     font-size: var(--size-30);
   }
 }
 
-.partnerships-section-title-wrapper > div > div:nth-child(2) div p,
-.partnerships-section-title-wrapper > div > div:nth-child(2) div h1,
-.partnerships-section-title-wrapper > div > div:nth-child(2) div h2,
-.partnerships-section-title-wrapper > div > div:nth-child(2) div h3,
-.partnerships-section-title-wrapper > div > div:nth-child(2) div h4,
-.partnerships-section-title-wrapper > div > div:nth-child(2) div h5,
-.partnerships-section-title-wrapper > div > div:nth-child(2) div h6{
-  padding: 0;
-  color:var(--color-primary-grey-90);
-  font-weight: var(--fontweight-medium);
-  font-family: var(--font-family);
-}
-
 .partnerships-section-title-wrapper > div > div:nth-child(2) div p{
   font-size: var(--fontsize-title1);
   line-height: 120%;
   margin-top: var(--spacing-2xs);
+  padding: 0;
+  color:var(--color-primary-grey-90);
+  font-weight: var(--fontweight-medium);
+  font-family: var(--font-family);
 
-   @media (width >= 860px) {
+   @media (width < 860px) {
     font-size: var(--size-18);
     margin-top: var(--spacing-xs);
   }

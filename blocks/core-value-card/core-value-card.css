@@ -101,7 +101,7 @@
   position: relative;
 }
 
-.core-value-card .card-body div:first-child {
+.core-value-card .card-body > div:first-child {
   color: black;
   font-weight: var(--fontweight-medium);
   font-family: var(--font-family);
@@ -118,7 +118,7 @@
   }
 }
 
-.core-value-card .card-body div:nth-child(2) {
+.core-value-card .card-body > div:nth-child(2) {
   color: var(--color-primary-grey-70);
   font-family: var(--font-family);
   font-weight: var(--fontweight-book);

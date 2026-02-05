@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
@@ -30,7 +31,7 @@ export default function decorate(block) {
         li.classList.add('active');
       }
 
-      li.onclick = () => {
+      li.onclick = function () {
         const container = this.parentElement; // ul
         const allCards = container.querySelectorAll('.card-item');
         // 移除所有激活状态
@@ -47,7 +48,7 @@ export default function decorate(block) {
         let columns = '';
         // eslint-disable-next-line no-shadow, no-plusplus
         for (let i = 0; i < allCards.length; i++) {
-          columns += (i === activeIndex ? calculateWidth('13.888vw', '200px') : calculateWidth('6.9444vw', '100px'));
+          columns += (i === activeIndex ? calculateWidth('25vw', '360px') : calculateWidth('12.0833333vw', '174px'));
         }
         // 应用新的列宽
         container.style.gridTemplateColumns = columns;

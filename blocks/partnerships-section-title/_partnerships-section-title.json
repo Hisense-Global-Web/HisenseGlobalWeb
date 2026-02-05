@@ -31,16 +31,16 @@
         },
         {
           "component": "text",
-          "name": "subtitle",
-          "value": "sub title",
-          "label": "Sub Title",
+          "name": "headline",
+          "value": "Headline",
+          "label": "Headline",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "text",
-          "value": "text",
-          "label": "Text",
+          "name": "bodycopy",
+          "value": "Bodycopy",
+          "label": "Bodycopy",
           "valueType": "string"
         }
       ]

@@ -3,13 +3,7 @@
   width: 100%;
 }
 
-.past-partnerships-list-wrapper p,
-.past-partnerships-list-wrapper h1,
-.past-partnerships-list-wrapper h2,
-.past-partnerships-list-wrapper h3,
-.past-partnerships-list-wrapper h4,
-.past-partnerships-list-wrapper h5,
-.past-partnerships-list-wrapper h6{
+.past-partnerships-list-wrapper p{
   margin: 0;
   padding: 0;
 }
@@ -19,7 +13,7 @@
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
   font-size: var(--size-20);
-  margin-bottom: var(--size-24);
+  margin-bottom: var(--spacing-sm);
 
    @media (width < 860px) {
     font-size: var(--size-18);
@@ -66,13 +60,6 @@
   align-items: center;
   box-sizing: border-box;
   aspect-ratio: 1;
-
-  @media (width >= 860px) {
-    gap: var(--size-30);
-    width:min(24.26111vw, 358px) ;
-    height:min(24.26111vw, 358px) ;
-    padding: var(--spacing-lg) var(--spacing-md);
-  }
   
    @media (width < 860px) {
     /* flex: 0 0 auto;  */
@@ -113,6 +100,7 @@
   font-family: var(--font-family);
   font-size: var(--size-20);
   line-height: 120%;
+  margin-top: var(--spacing-md);
   text-align: center;
 
   @media (width < 860px) {
