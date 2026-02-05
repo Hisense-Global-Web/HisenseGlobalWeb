@@ -228,6 +228,18 @@
     ]
   },
   {
+    "id": "sustainability-dashboard-list",
+    "components": [
+      "sustainability-dashboard-list-item"
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-list-item",
+    "components": [
+      "text"
+    ]
+  },
+  {
     "id": "tech-information",
     "components": [
       "tech-items"

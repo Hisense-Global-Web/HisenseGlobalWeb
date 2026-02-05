@@ -1223,6 +1223,37 @@
           }
         },
         {
+          "title": "Sustainability Dashboard List",
+          "id": "sustainability-dashboard-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/columns/v1/columns",
+                "template": {
+                  "class": "sustainability-dashboard-list",
+                  "columns": "3",
+                  "rows": "1"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Sustainability Dashboard List Item",
+          "id": "sustainability-dashboard-list-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/columns/v1/column",
+                "template": {
+                  "name": "sustainability-dashboard-list-item",
+                  "class": "sustainability-dashboard-list-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Tech Information",
           "id": "tech-information",
           "plugins": {

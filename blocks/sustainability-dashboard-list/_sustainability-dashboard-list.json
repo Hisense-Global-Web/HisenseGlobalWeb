@@ -1,0 +1,96 @@
+{
+  "definitions": [
+    {
+      "title": "Sustainability Dashboard List",
+      "id": "sustainability-dashboard-list",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/columns/v1/columns",
+            "template": {
+              "class": "sustainability-dashboard-list",
+              "columns": "3",
+              "rows": "1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Sustainability Dashboard List Item",
+      "id": "sustainability-dashboard-list-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/columns/v1/column",
+            "template": {
+              "name": "sustainability-dashboard-list-item",
+              "class": "sustainability-dashboard-list-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "sustainability-dashboard-list",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "number",
+          "name": "columns",
+          "value": "",
+          "label": "Columns"
+        },
+        {
+          "component": "text",
+          "valueType": "number",
+          "name": "rows",
+          "value": "",
+          "label": "Rows"
+        }
+      ]
+    },
+    {
+      "id": "sustainability-dashboard-list-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "value": "",
+          "label": "Title"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "value",
+          "value": "",
+          "label": "Value"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "text",
+          "value": "",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "sustainability-dashboard-list",
+      "components": [
+        "sustainability-dashboard-list-item"
+      ]
+    },
+        {
+          "id": "sustainability-dashboard-list-item",
+          "components": [
+            "text"
+          ]
+        }
+  ]
+}
