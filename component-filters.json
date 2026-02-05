@@ -11,6 +11,7 @@
   {
     "id": "section",
     "components": [
+      "article-title",
       "article-body",
       "article-body-list",
       "button",
