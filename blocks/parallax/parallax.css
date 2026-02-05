@@ -27,10 +27,6 @@
     width: 100%;
     position: sticky;
     overflow: hidden;
-
-    &[data-aue-model="section"] {
-      max-height: 1000px;
-    }
   }
 
   .scroll-image-container img {
@@ -71,4 +67,8 @@
 
 .parallax-container p {
   margin: 0;
+}
+
+[data-aue-model="section"] .sticky-container{
+  max-height: 500px;
 }
