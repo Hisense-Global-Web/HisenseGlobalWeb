@@ -889,6 +889,14 @@ main {
 		padding: 0;
 	}
 
+  .section.fluid p:has(img) {
+    margin: 0;
+
+    img {
+      width: 100%;
+    }
+  }
+
 	/* section padding */
 
 	.section.pt-s {
