@@ -37,5 +37,39 @@
       margin-top: var(--size-12);
       text-transform: capitalize;
     }
+    
+    .article-meta-group {
+      display: flex;
+      align-items: center;
+      gap: var(--size-12);
+      height: var(--size-22);
+      margin-top: var(--size-24);
+      
+      .article-date, .article-location {
+        display: flex;
+        align-items: center;
+        gap: var(--size-4);
+        font-size: var(--fontsize-body2);
+        line-height: var(--size-22);
+        font-weight: var(--fontweight-light);
+        color: var(--color-primary-grey-70);
+
+        @media (width < 860px) {
+          font-size: var(--size-14);
+          line-height: 1.4;
+        }
+        
+        img {
+          width: var(--size-16);
+          height: var(--size-16);
+        }
+      }
+      
+      .mate-line {
+        width: 1px;
+        height: var(--size-12);
+        background: var(--color-primary-grey-40);
+      }
+    }
   }
 }
