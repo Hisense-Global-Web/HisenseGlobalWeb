@@ -435,6 +435,25 @@
     ]
   },
   {
+    "id": "article-body-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "list_title",
+        "label": "List Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "item_headline",
+        "label": "Item Headline",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "card-carousel",
     "fields": [
       {

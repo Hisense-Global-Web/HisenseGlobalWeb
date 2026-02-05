@@ -63,7 +63,14 @@
       "text-body-headline",
       "text-body-content",
       "text-body-quote",
-      "text-body-side-by-side"
+      "text-body-side-by-side",
+      "article-body-list"
+    ]
+  },
+  {
+    "id": "article-body-list",
+    "components": [
+      "article-body-list-item"
     ]
   },
   {
