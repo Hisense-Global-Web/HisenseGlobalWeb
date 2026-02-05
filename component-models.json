@@ -529,6 +529,12 @@
       },
       {
         "component": "text",
+        "name": "item_subtitle",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "name": "item_title",
         "label": "Title",
         "valueType": "string"
