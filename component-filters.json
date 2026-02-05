@@ -227,6 +227,13 @@
     ]
   },
   {
+    "id": "tech-evolution-timeline",
+    "components": [
+      "timeline-nodes-item",
+      "tech-card-item"
+    ]
+  },
+  {
     "id": "tech-information",
     "components": [
       "tech-items"

@@ -2218,6 +2218,126 @@
     ]
   },
   {
+    "id": "tech-evolution-timeline",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "Gradient",
+        "label": "Background Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Gradient",
+            "value": "back-gradient"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "timeline-nodes-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "year_type",
+        "valueType": "string",
+        "value": "timeline-year",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "year_name",
+        "label": "Year",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title_type",
+        "valueType": "string",
+        "value": "timeline-title",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "title_name",
+        "label": "Milestone Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description_type",
+        "valueType": "string",
+        "value": "timeline-description",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "description_name",
+        "label": "Milestone Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "tech-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tech-background",
+        "label": "Card Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "image_type",
+        "valueType": "string",
+        "value": "image_card",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image_url",
+        "label": "Card Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "category_style",
+        "valueType": "string",
+        "value": "category-title",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "category_title",
+        "label": "Tech Category Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description_type",
+        "valueType": "string",
+        "value": "description-style",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "description_name",
+        "label": "Tech Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "tech-information",
     "fields": [
       {
