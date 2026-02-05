@@ -21,7 +21,7 @@
   .feature-items-wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--size-30);
+    gap: var(--size-29);
     margin: auto;
 
     .feature-item-box {
@@ -57,13 +57,14 @@
         .item-subtitle {
           font-size: var(--size-16);
           font-weight: var(--fontweight-medium);
+          margin-bottom: var(--size-4);
+          line-height: var(--size-24);
         }
 
         .item-title {
           font-size: var(--size-24);
           line-height:  min(calc(28.8 / var(--breakpoint-pc) * 100vw), 28.8px);
           font-weight: var(--fontweight-medium);
-          width: min(calc(180 / var(--breakpoint-pc) * 100vw), 180px)
         }
 
         .item-text {
