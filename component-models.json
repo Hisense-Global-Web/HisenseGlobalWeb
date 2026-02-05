@@ -233,6 +233,38 @@
           },
           {
             "component": "select",
+            "name": "style_columnGap",
+            "label": "Column Gap",
+            "description": "Select a column gap option when you need to add spacing between multiple blocks within this section.",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Small (pc-24px mobile-16px)",
+                "value": "gap-s"
+              },
+              {
+                "name": "Mid (pc-32px mobile-24px)",
+                "value": "gap-m"
+              },
+              {
+                "name": "Medium (pc-48px mobile-32px)",
+                "value": "gap-md"
+              },
+              {
+                "name": "Large (pc-80px mobile-48px)",
+                "value": "gap-l"
+              },
+              {
+                "name": "Extra Large (pc-120px mobile-80px)",
+                "value": "gap-xl"
+              }
+            ]
+          },
+          {
+            "component": "select",
             "name": "style_paddingBottom",
             "label": "Padding Bottom",
             "options": [
@@ -871,6 +903,77 @@
         "name": "item_text",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cross-page-redirect",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes_bgcolor",
+        "value": "gray-20",
+        "label": "Background Color Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Gray 20(default)",
+            "value": "gray-20"
+          },
+          {
+            "name": "Green 60",
+            "value": "green-60"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "headline",
+        "label": "Title",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "bodycopy",
+        "label": "Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "link_classes",
+        "value": "transparent",
+        "label": "Button Background Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "transparent",
+            "value": "transparent"
+          },
+          {
+            "name": "white",
+            "value": "white"
+          },
+          {
+            "name": "black",
+            "value": "black"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "name": "link_url",
+        "label": "Link",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "link_text",
+        "label": "Link Label",
+        "valueType": "string",
+        "value": ""
       }
     ]
   },

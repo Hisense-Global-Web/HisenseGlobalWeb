@@ -75,6 +75,7 @@ html {
   --grey-alpha-20: rgb(20 20 20 / 20%);
   --grey-alpha-10: rgb(20 20 20 / 10%);
   --grey-alpha-5:  rgb(20 20 20 / 5%);
+  --white-alpha-90: rgb(255 255 255 / 90%);
   --white-alpha-80: rgb(255 255 255 / 80%);
   --white-alpha-60: rgb(255 255 255 / 60%);
   --white-alpha-40: rgb(255 255 255 / 40%);
@@ -833,6 +834,8 @@ main img {
 main .section {
 	margin: 0;
 	padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 main > .section:first-of-type {
@@ -922,6 +925,48 @@ main {
 
 	.section.pb-xl {
 		padding-bottom: var(--size-120);
+	}
+	
+  /* section collomn gap */
+
+	.section.gap-s {
+    gap: var(--size-24);
+    
+    @media (width < 860px) {
+      gap: var(--size-16);
+    }
+	}
+
+	.section.gap-m {
+    gap: var(--size-32);
+    
+    @media (width < 860px) {
+      gap: var(--size-24);
+    }
+	}
+
+	.section.gap-md {
+    gap: var(--size-48);
+    
+    @media (width < 860px) {
+      gap: var(--size-32);
+    }
+	}
+
+	.section.gap-l {
+    gap: var(--size-80);
+    
+    @media (width < 860px) {
+      gap: var(--size-48);
+    }
+	}
+
+  .section.gap-xl {
+    gap: var(--size-120);
+    
+    @media (width < 860px) {
+      gap: var(--size-80);
+    }
 	}
 
 	/* section image style */
