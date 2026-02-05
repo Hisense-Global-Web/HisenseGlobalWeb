@@ -174,6 +174,36 @@
           }
         },
         {
+          "title": "Article List",
+          "id": "article-body-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Article List",
+                  "filter": "article-body-list"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Article List Item",
+          "id": "article-body-list-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Article List Item",
+                  "model": "article-body-list-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Card Carousel",
           "id": "card-carousel",
           "plugins": {
@@ -199,6 +229,41 @@
                 "template": {
                   "name": "Card Item",
                   "model": "card-carouselItem"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Card Grid",
+          "id": "card-grid",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Card Grid",
+                  "model": "card-grid",
+                  "filter": "card-grid",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Feature Items",
+          "id": "feature-items",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Feature Items",
+                  "model": "feature-items",
+                  "classes": "tech-items-box",
+                  "item_title": "Item Title",
+                  "item_text": "Item text goes here."
                 }
               }
             }
@@ -343,6 +408,68 @@
                 "template": {
                   "name": "Company Navigation Item",
                   "model": "company-page-navigation-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Core Value Card",
+          "id": "core-value-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Core Value Card",
+                  "model": "core-value-card",
+                  "filter": "core-value-card"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Core Value Card Item",
+          "id": "core-value-card-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Core Value Card Item",
+                  "model": "core-value-card-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Current Partnerships List",
+          "id": "current-partnerships-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Current Partnerships List",
+                  "model": "current-partnerships-list",
+                  "filter": "current-partnerships-list"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Current Partnerships List Item",
+          "id": "current-partnerships-list-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Current Partnerships List Item",
+                  "model": "current-partnerships-list-item"
                 }
               }
             }
@@ -498,6 +625,23 @@
           }
         },
         {
+          "title": "Gradient Text Image",
+          "id": "gradient-text-image",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Gradient Text Image",
+                  "model": "gradient-text-image",
+                  "key-value": true,
+                  "classes": "gradient-text-image"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Hero Banner",
           "id": "hero-banner",
           "plugins": {
@@ -524,6 +668,37 @@
                 "template": {
                   "name": "Hero Banner Item",
                   "model": "hero-bannerItem"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Honors-awards Cards",
+          "id": "honors-awards-cards",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "honors-awards Cards",
+                  "model": "honors-awards-cards",
+                  "filter": "honors-awards-cards"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "honors-awards Card",
+          "id": "honors-awards-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "honors-awards Card",
+                  "model": "honors-awards-card"
                 }
               }
             }
@@ -579,6 +754,37 @@
           }
         },
         {
+          "title": "Industry Categories",
+          "id": "industry-categories",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Industry Categories",
+                  "model": "industry-categories",
+                  "filter": "industry-categories"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Industry Categories Item",
+          "id": "industry-categories-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Industry Categories Item",
+                  "model": "industry-categories-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Media Carousel",
           "id": "media-carousel",
           "plugins": {
@@ -623,6 +829,25 @@
                   "classes_fontColor": "black-font",
                   "text_title": "this is title",
                   "text_body": "this is text"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Module Title",
+          "id": "module-title",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Module Title",
+                  "model": "module-title",
+                  "key-value": true,
+                  "title-content": "This is the title",
+                  "subtitle-content": "This is the subtitle",
+                  "text-content": "This is the text"
                 }
               }
             }
@@ -737,6 +962,53 @@
                 "template": {
                   "name": "Parallax",
                   "model": "parallax"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Partnerships Section Title",
+          "id": "partnerships-section-title",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Partnerships Section Title",
+                  "model": "partnerships-section-title",
+                  "classes": "partnerships-section-title"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Past Partnerships List",
+          "id": "past-partnerships-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Past Partnerships List",
+                  "model": "past-partnerships-list",
+                  "filter": "past-partnerships-list"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Past Partnerships List Item",
+          "id": "past-partnerships-list-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Past Partnerships List Item",
+                  "model": "past-partnerships-list-item"
                 }
               }
             }
@@ -975,6 +1247,44 @@
                   "name": "Sub Menu Link",
                   "model": "sub-menu-link",
                   "classes": "sub-menu-link"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Tech Information",
+          "id": "tech-information",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Tech Information",
+                  "model": "tech-information",
+                  "filter": "tech-information",
+                  "info_title": "This is the title",
+                  "info_subtitle": "This is the subtitle",
+                  "info_text": "This is the text.",
+                  "btn_ctaLabel": "Learn More"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Tech Items",
+          "id": "tech-items",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Tech Items",
+                  "model": "tech-items",
+                  "classes": "tech-items-box",
+                  "item_title": "Item Title",
+                  "item_text": "Item text goes here."
                 }
               }
             }

@@ -192,6 +192,13 @@
         ]
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "section-background",
+        "label": "Section Background Image",
+        "multi": false
+      },
+      {
         "component": "container",
         "label": "Section Spacing",
         "name": "container_padding",
@@ -428,6 +435,25 @@
     ]
   },
   {
+    "id": "article-body-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "list_title",
+        "label": "List Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "item_headline",
+        "label": "Item Headline",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "card-carousel",
     "fields": [
       {
@@ -503,6 +529,34 @@
             "value": "label text"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "card-grid",
+    "fields": []
+  },
+  {
+    "id": "feature-items",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "feature-img",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "item_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "item_text",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
@@ -749,6 +803,84 @@
     ]
   },
   {
+    "id": "core-value-card",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "subtitle",
+        "label": "Sub Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "core-value-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "item_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "item_text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "current-partnerships-list",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Section Title",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "current-partnerships-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Image Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Image Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "disclaimer",
     "fields": [
       {
@@ -903,6 +1035,56 @@
         "name": "link",
         "label": "Link",
         "required": true
+      }
+    ]
+  },
+  {
+    "id": "gradient-text-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "select",
+        "name": "classes_color",
+        "value": "green-20",
+        "label": "Gradient Background Color Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Green 20(default)",
+            "value": "green-20"
+          },
+          {
+            "name": "Green 60",
+            "value": "green-60"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string",
+        "value": ""
       }
     ]
   },
@@ -1096,6 +1278,62 @@
     ]
   },
   {
+    "id": "honors-awards-cards",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Cover Style",
+            "value": "cover-style"
+          },
+          {
+            "name": "Cover Style Width Dark Font",
+            "value": "cover-dark"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "honors-awards-card",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "honors-awards-card_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "honors-awards-card_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "icon-container",
     "fields": [
       {
@@ -1198,6 +1436,49 @@
         "name": "slider_text",
         "label": "Text",
         "required": false
+      }
+    ]
+  },
+  {
+    "id": "industry-categories",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "subtitle",
+        "label": "Sub Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "desc",
+        "label": "Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "industry-categories-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string",
+        "value": "split with ,"
       }
     ]
   },
@@ -1333,6 +1614,46 @@
             "value": "white-font"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "module-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "color-black",
+        "label": "Module title classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "font-color-white",
+            "value": "color-white"
+          },
+          {
+            "name": "font-color-black",
+            "value": "color-black"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title-content",
+        "label": "Eyebrow Headline"
+      },
+      {
+        "component": "text",
+        "name": "subtitle-content",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text-content",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
@@ -1483,6 +1804,62 @@
         "component": "richtext",
         "name": "sub_text",
         "label": "Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "partnerships-section-title",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "value": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "subtitle",
+        "value": "sub title",
+        "label": "Sub Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "past-partnerships-list",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "section_title",
+        "label": "Section Title",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "past-partnerships-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Image Text",
         "valueType": "string"
       }
     ]
@@ -1857,6 +2234,108 @@
         "name": "searchTags",
         "label": "Search Tags",
         "rootPath": "/content/cq:tags/hisense/product"
+      }
+    ]
+  },
+  {
+    "id": "tech-information",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Image Position",
+        "valueType": "string",
+        "value": "img-right",
+        "options": [
+          {
+            "name": "Image Position Left",
+            "value": "img-left"
+          },
+          {
+            "name": "Image Position Right",
+            "value": "img-right"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tech_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "info_title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "info_subtitle",
+        "label": "SubTitle"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "info_text",
+        "label": "Text"
+      },
+      {
+        "component": "text",
+        "name": "btn_ctaLabel",
+        "label": "Button",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "tech-items",
+    "fields": [
+      {
+        "component": "select",
+        "name": "component-style",
+        "label": "Style",
+        "valueType": "string",
+        "value": "icon-style",
+        "options": [
+          {
+            "name": "Icon",
+            "value": "icon-style"
+          },
+          {
+            "name": "Stats",
+            "value": "stats-style"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "component-style"
+            },
+            "icon-style"
+          ]
+        },
+        "name": "icon",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "item_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "item_text",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },

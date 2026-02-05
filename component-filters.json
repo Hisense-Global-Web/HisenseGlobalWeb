@@ -12,6 +12,7 @@
     "id": "section",
     "components": [
       "article-body",
+      "article-body-list",
       "button",
       "card-carousel",
       "category-carousel",
@@ -22,6 +23,7 @@
       "disclaimer",
       "feature-banner",
       "fragment",
+      "gradient-text-image",
       "header",
       "hero",
       "hero-banner",
@@ -46,7 +48,15 @@
       "video",
       "videoinfo",
       "section-title",
-      "quick-action-card"
+      "quick-action-card",
+      "tech-information",
+      "core-value-card",
+      "past-partnerships-list",
+      "partnerships-section-title",
+      "current-partnerships-list",
+      "industry-categories",
+      "module-title",
+      "card-grid"
     ]
   },
   {
@@ -60,9 +70,21 @@
     ]
   },
   {
+    "id": "article-body-list",
+    "components": [
+      "article-body-list-item"
+    ]
+  },
+  {
     "id": "card-carousel",
     "components": [
       "card-carouselItem"
+    ]
+  },
+  {
+    "id": "card-grid",
+    "components": [
+      "feature-items"
     ]
   },
   {
@@ -100,6 +122,18 @@
     ]
   },
   {
+    "id": "core-value-card",
+    "components": [
+      "core-value-card-item"
+    ]
+  },
+  {
+    "id": "current-partnerships-list",
+    "components": [
+      "current-partnerships-list-item"
+    ]
+  },
+  {
     "id": "footerContainer",
     "components": [
       "footerLogo",
@@ -132,9 +166,21 @@
     ]
   },
   {
+    "id": "honors-awards-cards",
+    "components": [
+      "honors-awards-card"
+    ]
+  },
+  {
     "id": "icon-container",
     "components": [
       "icon-item"
+    ]
+  },
+  {
+    "id": "industry-categories",
+    "components": [
+      "industry-categories-item"
     ]
   },
   {
@@ -159,6 +205,12 @@
     ]
   },
   {
+    "id": "past-partnerships-list",
+    "components": [
+      "past-partnerships-list-item"
+    ]
+  },
+  {
     "id": "product-filter",
     "components": [
       "product-filter-item"
@@ -180,6 +232,12 @@
     "id": "quick-action-card",
     "components": [
       "quick-action-card-item"
+    ]
+  },
+  {
+    "id": "tech-information",
+    "components": [
+      "tech-items"
     ]
   },
   {

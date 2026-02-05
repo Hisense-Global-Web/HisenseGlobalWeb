@@ -80,6 +80,13 @@
           ]
         },
         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "section-background",
+          "label": "Section Background Image",
+          "multi": false
+        },
+        {
           "component": "container",
           "label": "Section Spacing",
           "name": "container_padding",
@@ -191,6 +198,7 @@
       "id": "section",
       "components": [
         "article-body",
+        "article-body-list",
         "button",
         "card-carousel",
         "category-carousel",
@@ -201,6 +209,7 @@
         "disclaimer",
         "feature-banner",
         "fragment",
+        "gradient-text-image",
         "header",
         "hero",
         "hero-banner",
@@ -225,7 +234,15 @@
         "video",
         "videoinfo",
         "section-title",
-        "quick-action-card"
+        "quick-action-card",
+        "tech-information",
+        "core-value-card",
+        "past-partnerships-list",
+        "partnerships-section-title",
+        "current-partnerships-list",
+        "industry-categories",
+        "module-title",
+        "card-grid"
       ]
     }
   ]
