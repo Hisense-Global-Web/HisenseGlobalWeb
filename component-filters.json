@@ -12,6 +12,7 @@
     "id": "section",
     "components": [
       "article-body",
+      "article-body-list",
       "button",
       "card-carousel",
       "category-carousel",
@@ -64,6 +65,12 @@
       "text-body-content",
       "text-body-quote",
       "text-body-side-by-side"
+    ]
+  },
+  {
+    "id": "article-body-list",
+    "components": [
+      "article-body-list-item"
     ]
   },
   {

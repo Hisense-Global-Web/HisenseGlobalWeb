@@ -198,6 +198,7 @@
       "id": "section",
       "components": [
         "article-body",
+        "article-body-list",
         "button",
         "card-carousel",
         "category-carousel",
