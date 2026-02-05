@@ -39,13 +39,13 @@
           "component": "date-time",
           "name": "article-date",
           "label": "Date(Mm Dd.Yyyy)",
+          "displayFormat": "MM-DD-YYYY",
           "valueType": "date"
         },
         {
           "component": "text",
           "name": "article-location",
           "label": "Location",
-          "displayFormat": "MM-DD-YYYY",
           "valueType": "string"
         }
       ]
