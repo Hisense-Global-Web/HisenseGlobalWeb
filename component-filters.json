@@ -11,11 +11,13 @@
   {
     "id": "section",
     "components": [
+      "article-title",
       "article-body",
       "article-body-list",
       "button",
       "card-carousel",
       "category-carousel",
+      "cross-page-redirect",
       "collection-banner",
       "collection-cards",
       "collection-title",
