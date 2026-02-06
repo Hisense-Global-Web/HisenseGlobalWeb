@@ -18,6 +18,11 @@
 
 .text {
   text-align: center;
+
+  &.text-align-center {
+    text-align: center;
+  }
+
   margin: 0 auto;
 
   p {
@@ -25,18 +30,19 @@
   }
 
   h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
-    margin: min(calc(12 / var(--breakpoint-pc) * 100vw), 12px) 0 0;
+    margin: var(--size-16) 0 0;
   }
 
   h1 ~ p, h2 ~ p, h3 ~ p, h4 ~ p, h5 ~ p, h6 ~ p {
     font-weight: var(--fontweight-light);
-    font-size: min(calc(14 / var(--breakpoint-pc) * 100vw), 14px);
+    font-size: var(--size-16);
+    color: var(--color-primary-grey-20);
   }
 
   p:first-child {
     font-weight: var(--fontweight-medium);
     font-size: min(calc(20 / var(--breakpoint-pc) * 100vw), 20px);
-    margin: 0 0 min(calc(12 / var(--breakpoint-pc) * 100vw), 12px);
+    margin: 0 0 var(--size-8);
     line-height: min(calc(22 / var(--breakpoint-pc) * 100vw), 22px);
   }
 
@@ -89,7 +95,7 @@
 @media (width < 860px) {
   .text {
     p:first-child {
-      font-size: calc(16 / var(--breakpoint-mobile) * 100vw);
+      font-size: var(--size-18);
       margin-bottom: calc(12 / var(--breakpoint-mobile) * 100vw);
       line-height: calc(19.2 / var(--breakpoint-mobile) * 100vw);
     }
