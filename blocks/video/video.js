@@ -98,9 +98,7 @@ export default function decorate(block) {
         const cover = parent.querySelector('.video-cover-image');
         if (cover) cover.style.display = 'none';
         v.setAttribute('data-was-playing', 'true');
-      } catch (error) {
-        console.log('自动播放失败:', error);
-      }
+      } catch (error) { /* empty */ }
     },
 
     pauseVideo(v) {
