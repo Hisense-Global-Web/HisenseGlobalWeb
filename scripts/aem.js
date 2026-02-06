@@ -617,9 +617,6 @@ async function loadBlock(block) {
  * @param {Element} block The block element
  */
 function decorateBlock(block) {
-  if (block.classList[0] === 'columns' && block.classList[1]) {
-    block.classList.remove('columns');
-  }
   console.log(block.classList,'classlist');
   
   const shortBlockName = block.classList[0];
@@ -634,6 +631,11 @@ function decorateBlock(block) {
     if (section) section.classList.add(`${shortBlockName}-container`);
     // eslint-disable-next-line no-use-before-define
     decorateButtons(block);
+    if (block.classList[0] === 'columns' && block.classList[1] !== 'block') {
+      const newBlock = block;
+      newBlock.classList.remove('columns');
+      decorateBlock(newBlock);
+    }
   }
 }
 
