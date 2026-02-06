@@ -8,6 +8,7 @@ export default function decorate(block) {
     textContent.append(title, text);
     title?.classList.add('title');
     text?.classList.add('text');
+    cardItem.insertBefore(textContent, linkDiv);
     linkDiv?.querySelectorAll('a').forEach(button => {
       button.closest('div').classList.add('link-div');
       button.textContent = button.nextElementSibling?.textContent || button.parentElement.nextElementSibling.textContent;
