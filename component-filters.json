@@ -190,6 +190,12 @@
     ]
   },
   {
+    "id": "resource-list",
+    "components": [
+      "resource-list-item"
+    ]
+  },
+  {
     "id": "navigationSecondaryContainer",
     "components": [
       "columns"

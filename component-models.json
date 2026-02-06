@@ -1738,6 +1738,25 @@
     ]
   },
   {
+    "id": "resource-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "minimalist-hero-banner",
     "fields": [
       {
