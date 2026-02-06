@@ -52,6 +52,7 @@
       "section-title",
       "quick-action-card",
       "category-support-card",
+      "addional-support-card",
       "tech-information",
       "core-value-card",
       "past-partnerships-list",
@@ -60,6 +61,12 @@
       "industry-categories",
       "module-title",
       "card-grid"
+    ]
+  },
+  {
+    "id": "addional-support-card",
+    "components": [
+      "addional-support-card-item"
     ]
   },
   {

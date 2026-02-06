@@ -337,6 +337,54 @@
     ]
   },
   {
+    "id": "addional-support-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "container",
+        "label": "",
+        "name": "container_cta",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "aem-content",
+            "name": "button-link",
+            "label": "Button Link",
+            "valueType": "string",
+            "value": ""
+          },
+          {
+            "component": "text",
+            "name": "button-text",
+            "label": "Button Text",
+            "valueType": "string",
+            "value": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "text-body-image",
     "classes": "text-body-image",
     "fields": [
