@@ -1371,10 +1371,38 @@
       },
       {
         "component": "text",
-        "name": "text",
-        "label": "Text",
+        "name": "firsttext",
+        "label": "First Text",
         "valueType": "string",
-        "value": ""
+        "value": "first"
+      },
+      {
+        "component": "text",
+        "name": "second text",
+        "label": "Second Text",
+        "valueType": "string",
+        "value": "sencond"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Third Text",
+        "valueType": "string",
+        "value": "third"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Fourth Text",
+        "valueType": "string",
+        "value": "forth"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Fifth Text",
+        "valueType": "string",
+        "value": "fifth"
       }
     ]
   },
