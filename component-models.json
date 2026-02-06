@@ -939,7 +939,7 @@
     ]
   },
   {
-    "id": "corprate-governance-card-container",
+    "id": "corprate-governance-card",
     "fields": []
   },
   {
@@ -950,7 +950,6 @@
         "valueType": "string",
         "name": "svg",
         "label": "Icon",
-        "required": true,
         "multi": false
       },
       {

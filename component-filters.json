@@ -22,7 +22,7 @@
       "collection-cards",
       "collection-title",
       "columns",
-      "corprate-governance-card-container",
+      "corprate-governance-card",
       "disclaimer",
       "feature-banner",
       "fragment",
@@ -129,7 +129,7 @@
     ]
   },
   {
-    "id": "corprate-governance-card-container",
+    "id": "corprate-governance-card",
     "components": [
       "card-container-item"
     ]
