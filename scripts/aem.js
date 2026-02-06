@@ -546,8 +546,8 @@ function decorateSections(main) {
  * @param {*} content two dimensional array or string or object of content
  */
 function buildBlock(blockName, content) {
-  console.log(blockName,'buldBlock');
-  
+  console.log(blockName, 'buldBlock');
+
   const table = Array.isArray(content) ? content : [[content]];
   const blockEl = document.createElement('div');
   // build image block nested div structure
@@ -581,8 +581,8 @@ async function loadBlock(block) {
   const status = block.dataset.blockStatus;
   if (status !== 'loading' && status !== 'loaded') {
     block.dataset.blockStatus = 'loading';
-    console.log(block,'block---find blockName');
-    
+    console.log(block, 'block---find blockName');
+
     const { blockName } = block.dataset;
     try {
       const cssLoaded = loadCSS(`${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.css`);
@@ -607,11 +607,6 @@ async function loadBlock(block) {
       // eslint-disable-next-line no-console
       console.error(`failed to load block ${blockName}`, error);
     }
-    if (block.classList[0] === 'columns' && block.classList[1] !== 'block') {
-      const newBlock = block;
-      newBlock.classList.remove('columns');
-      await decorateBlock(newBlock);
-    }
     block.dataset.blockStatus = 'loaded';
   }
   return block;
@@ -622,8 +617,8 @@ async function loadBlock(block) {
  * @param {Element} block The block element
  */
 function decorateBlock(block) {
-  console.log(block.classList,'classlist');
-  
+  console.log(block.classList, 'classlist');
+
   const shortBlockName = block.classList[0];
   if (shortBlockName && !block.dataset.blockStatus) {
     block.classList.add('block');
@@ -636,6 +631,11 @@ function decorateBlock(block) {
     if (section) section.classList.add(`${shortBlockName}-container`);
     // eslint-disable-next-line no-use-before-define
     decorateButtons(block);
+    if (block.classList[0] === 'columns' && block.classList[1] !== 'block') {
+      const newBlock = block.deepNode(true);
+      newBlock.classList.remove('columns');
+      decorateBlock(newBlock);
+    }
   }
 }
 
@@ -699,8 +699,8 @@ async function loadSection(section, loadCallback) {
     section.dataset.sectionStatus = 'loading';
 
     const blocks = [...section.querySelectorAll('div.block')];
-    console.log(blocks,'loadSection');
-    
+    console.log(blocks, 'loadSection');
+
     for (let i = 0; i < blocks.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       await loadBlock(blocks[i]);
