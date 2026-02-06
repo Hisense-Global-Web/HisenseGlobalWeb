@@ -34,18 +34,15 @@
   height: var(--size-24);
   
   .product-card-tag {
-    display: flex;
-    align-items: center;
     font-size: var(--fontsize-caption1);
     font-weight: var(--fontweight-medium);
     background: var(--color-primary-green-60);
     padding: 0 var(--size-12);
-
-    /* height: var(--size-24); */
+    height: 100%;
     color: var(--color-primary-grey-10);
     border-radius: var(--radius-xl);
-    line-height: var(--size-24);
     text-transform: uppercase;
+    padding-top: var(--size-6);
   }
 
   .product-card-tag:empty {
@@ -54,8 +51,8 @@
 }
 
 .plp-product-img {
-  width: min(calc(212 / var(--breakpoint-pc) * 100vw), 212px);
-  height: min(calc(212 / var(--breakpoint-pc) * 100vw), 212px);
+  width: min(calc(214 / var(--breakpoint-pc) * 100vw), 214px);
+  height: min(calc(214 / var(--breakpoint-pc) * 100vw), 214px);
   margin:0 auto var(--size-8);
   text-align: center;
   display: flex;
@@ -134,8 +131,8 @@
 }
 
 .product-card .plp-product-btn:hover {
-  background-color: #333;
-  border-color: #666;
+  background-color: var(--color-primary-grey-70);
+  border-color: var(--color-primary-grey-70);
   color: #fff;
   text-decoration: none;
 }
@@ -170,7 +167,9 @@
   font-weight: var(--fontweight-book);
   font-size: var(--fontsize-body1);
   color: var(--color-primary-grey-50);
-  height: 100%;
+
+  /* height: 100%; */
+  height: calc(428 / var(--breakpoint-mobile) * 100vw);
   line-height: 1.5;
   
   p {
@@ -199,17 +198,23 @@
         line-height: var(--size-32);
         text-align: center;
         border-radius: var(--size-16);
-        background-color: var(--color-primary-grey-10);
+        background-color: transparent;
         color: var(--color-primary-grey-100);
+
+        &:active {
+          background-color: #000;
+          border-color: #000;
+          color: var(--white-alpha-80);
+          text-decoration: none;
+        }
       }
     }
 
     .product-card-title {
       .product-card-tag {
-        padding: 0 var(--size-8);
-        height: var(--size-18);
+        padding: var(--size-4) var(--size-12) 0;
+        height: var(--size-20);
         font-size: var(--size-10);
-        line-height: var(--size-18);
       }
     }
 
