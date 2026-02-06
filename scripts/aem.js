@@ -607,6 +607,11 @@ async function loadBlock(block) {
       // eslint-disable-next-line no-console
       console.error(`failed to load block ${blockName}`, error);
     }
+    if (block.classList[0] === 'columns' && block.classList[1] !== 'block') {
+      const newBlock = block;
+      newBlock.classList.remove('columns');
+      await decorateBlock(newBlock);
+    }
     block.dataset.blockStatus = 'loaded';
   }
   return block;
@@ -631,11 +636,6 @@ function decorateBlock(block) {
     if (section) section.classList.add(`${shortBlockName}-container`);
     // eslint-disable-next-line no-use-before-define
     decorateButtons(block);
-    if (block.classList[0] === 'columns' && block.classList[1] !== 'block') {
-      const newBlock = block;
-      newBlock.classList.remove('columns');
-      decorateBlock(newBlock);
-    }
   }
 }
 
