@@ -25,17 +25,41 @@ export default async function decorate(block) {
     if (child !== staticContent) {
       const elements = child.querySelectorAll('p');
       const textGroup = createElement('div', 'timeline-phase-text');
-      elements.forEach((element) => {
+      const textGroupHeader = createElement('div', 'timeline-phase-text-header');
+      const description = createElement('div', 'timeline-phase-description');
+      elements.forEach((element, index) => {
         const picture = element.querySelector('picture');
         if (picture) {
           picture.classList.add('timeline-phase-picture');
           element.classList.add('timeline-phase-image');
           phaseImageContainer.appendChild(element);
         } else {
-          textGroup.appendChild(element);
-          phaseTextContainer.appendChild(textGroup);
+          // eslint-disable-next-line default-case
+          switch (index) {
+            case 0:
+              element.classList.add('timeline-phase-text-year');
+              textGroupHeader.appendChild(element);
+              break;
+            case 1: {
+              const group = createElement('div', 'timeline-phase-text-group');
+              const text = createElement('div', 'timeline-phase-text-group-text');
+              text.appendChild(element);
+              const icon = createElement('img', 'timeline-phase-text-group-icon');
+              icon.src = '/content/dam/hisense/us/common-icons/chevron-down-black.svg';
+              group.appendChild(text);
+              group.appendChild(icon);
+              textGroupHeader.appendChild(group);
+            }
+              break;
+            case 2:
+              description.appendChild(element);
+              break;
+          }
         }
       });
+      textGroup.appendChild(textGroupHeader);
+      textGroup.appendChild(description);
+      phaseTextContainer.appendChild(textGroup);
     }
   });
 
@@ -44,24 +68,32 @@ export default async function decorate(block) {
   block.appendChild(phaseImageContainer);
   // ========== CONSTRUCT DOM [END] ========== //
 
-  const textContainers = block.querySelectorAll('.timeline-phase-text');
-  const imageContainers = block.querySelectorAll('.timeline-phase-image');
-  textContainers.forEach((container, index) => {
-    container.addEventListener('mouseenter', () => {
-      imageContainers[index + 1].classList.toggle('hovering');
-    });
-    container.addEventListener('mouseleave', () => {
-      imageContainers[index + 1].classList.toggle('hovering');
-    });
-  });
+  const bindEvents = () => {
+    const textContainers = block.querySelectorAll('.timeline-phase-text');
+    const imageContainers = block.querySelectorAll('.timeline-phase-image');
 
-  imageContainers.forEach((container, index) => {
-    if (index === 0) return;
-    container.addEventListener('mouseenter', () => {
-      textContainers[index - 1].classList.toggle('hovering');
+    textContainers.forEach((container, index) => {
+      container.addEventListener('click', () => {
+        container.classList.toggle('expanded');
+      });
+      container.addEventListener('mouseenter', () => {
+        imageContainers[index + 1].classList.toggle('hovering');
+      });
+      container.addEventListener('mouseleave', () => {
+        imageContainers[index + 1].classList.toggle('hovering');
+      });
     });
-    container.addEventListener('mouseleave', () => {
-      textContainers[index - 1].classList.toggle('hovering');
+
+    imageContainers.forEach((container, index) => {
+      if (index === 0) return;
+      container.addEventListener('mouseenter', () => {
+        textContainers[index - 1].classList.toggle('hovering');
+      });
+      container.addEventListener('mouseleave', () => {
+        textContainers[index - 1].classList.toggle('hovering');
+      });
     });
-  });
+  };
+
+  bindEvents();
 }
