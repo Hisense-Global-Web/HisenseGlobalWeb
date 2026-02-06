@@ -75,6 +75,7 @@ html {
   --grey-alpha-20: rgb(20 20 20 / 20%);
   --grey-alpha-10: rgb(20 20 20 / 10%);
   --grey-alpha-5:  rgb(20 20 20 / 5%);
+  --white-alpha-90: rgb(255 255 255 / 90%);
   --white-alpha-80: rgb(255 255 255 / 80%);
   --white-alpha-60: rgb(255 255 255 / 60%);
   --white-alpha-40: rgb(255 255 255 / 40%);
@@ -879,6 +880,7 @@ main {
   .section.section-background-style {
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center center;
     min-height: var(--size-160);
   }
 
@@ -888,6 +890,14 @@ main {
 		max-width: unset;
 		padding: 0;
 	}
+
+  .section.fluid p:has(img) {
+    margin: 0;
+
+    img {
+      width: 100%;
+    }
+  }
 
 	/* section padding */
 
@@ -921,6 +931,63 @@ main {
 
 	.section.pb-xl {
 		padding-bottom: var(--size-120);
+	}
+	
+  /* section gap */
+
+	.section.gap-s {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: var(--size-24);
+    
+    @media (width < 860px) {
+      gap: var(--size-16);
+    }
+	}
+
+	.section.gap-m {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: var(--size-32);
+    
+    @media (width < 860px) {
+      gap: var(--size-24);
+    }
+	}
+
+	.section.gap-md {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: var(--size-48);
+    
+    @media (width < 860px) {
+      gap: var(--size-32);
+    }
+	}
+
+	.section.gap-l {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: var(--size-80);
+    
+    @media (width < 860px) {
+      gap: var(--size-48);
+    }
+	}
+
+  .section.gap-xl {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: var(--size-120);
+    
+    @media (width < 860px) {
+      gap: var(--size-80);
+    }
 	}
 
 	/* section image style */

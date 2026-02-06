@@ -11,10 +11,13 @@
   {
     "id": "section",
     "components": [
+      "article-title",
       "article-body",
+      "article-body-list",
       "button",
       "card-carousel",
       "category-carousel",
+      "cross-page-redirect",
       "collection-banner",
       "collection-cards",
       "collection-title",
@@ -64,6 +67,12 @@
       "text-body-content",
       "text-body-quote",
       "text-body-side-by-side"
+    ]
+  },
+  {
+    "id": "article-body-list",
+    "components": [
+      "article-body-list-item"
     ]
   },
   {
