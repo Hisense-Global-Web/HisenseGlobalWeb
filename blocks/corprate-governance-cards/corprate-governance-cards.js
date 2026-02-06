@@ -1,7 +1,8 @@
 export default function decorate(block) {
   block.id = 'coprate-governance-cards';
-  [...block.children].forEach(cardItem => {
+  [...block.children].forEach((cardItem) => {
     const [iconDiv, title, text, linkDiv] = cardItem.children;
+    cardItem.classList.add('card-item');
     iconDiv?.classList.add('icon-div');
     const textContent = document.createElement('div');
     textContent.classList.add('text-content');
@@ -9,11 +10,11 @@ export default function decorate(block) {
     title?.classList.add('title');
     text?.classList.add('text');
     cardItem.insertBefore(textContent, linkDiv);
-    linkDiv?.querySelectorAll('a').forEach(button => {
+    linkDiv?.querySelectorAll('a').forEach((button) => {
       button.closest('div').classList.add('link-div');
       button.textContent = button.nextElementSibling?.textContent || button.parentElement.nextElementSibling.textContent;
       button.nextElementSibling?.remove();
       button.parentElement?.nextElementSibling?.remove();
     });
-  })
+  });
 }
