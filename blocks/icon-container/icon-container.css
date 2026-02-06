@@ -50,7 +50,7 @@
 .icon-container-item {
     display: flex;
     align-items: center;
-    gap: var(--size-8);
+    gap: var(--size-16);
 }
 
 
