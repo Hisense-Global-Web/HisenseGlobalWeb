@@ -938,7 +938,6 @@ main {
 	.section.gap-s {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     gap: var(--size-24);
     
     @media (width < 860px) {
@@ -949,7 +948,6 @@ main {
 	.section.gap-m {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     gap: var(--size-32);
     
     @media (width < 860px) {
@@ -960,7 +958,6 @@ main {
 	.section.gap-md {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     gap: var(--size-48);
     
     @media (width < 860px) {
@@ -971,7 +968,6 @@ main {
 	.section.gap-l {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     gap: var(--size-80);
     
     @media (width < 860px) {
@@ -982,7 +978,6 @@ main {
   .section.gap-xl {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     gap: var(--size-120);
     
     @media (width < 860px) {
