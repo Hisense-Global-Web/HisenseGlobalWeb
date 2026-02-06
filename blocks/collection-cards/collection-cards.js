@@ -31,7 +31,7 @@ export default function decorate(block) {
       li.addEventListener('touchmove', (e) => {
         const currentX = e.touches[0].clientX;
         // 如果水平移动超过10px，认为是滑动
-        if (Math.abs(currentX - startX) > 10) {
+        if (Math.abs(currentX - startX) > 80) {
           isScrolling = true;
         }
       });
