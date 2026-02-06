@@ -123,7 +123,6 @@ export default async function decorate(block) {
   ScrollTrigger.config({ autoRefreshEvents: 'DOMContentLoaded,load' });
 
   gsap.registerPlugin(ScrollTrigger);
-  gsap.set(block, { height: '100vh' });
 
   let scrollTriggerInstance = null;
 

@@ -2,6 +2,7 @@
   position: relative;
   overflow: hidden;
   text-align: center;
+  height: 100vh;
 
   &.animated {
     .hero-presence-video {
@@ -68,4 +69,8 @@
     will-change: transform, opacity;
     backface-visibility: hidden;
   }
+}
+
+[data-aue-model="section"] .hero-presence {
+  height: 100%;
 }
