@@ -616,10 +616,10 @@ async function loadBlock(block) {
  */
 function decorateBlock(block) {
   const shortBlockName = block.classList[0];
+   if (shortBlockName === 'columns' && block.classList[1]) shortBlockName = block.classList[1];
   if (shortBlockName && !block.dataset.blockStatus) {
     block.classList.add('block');
     block.dataset.blockName = shortBlockName;
-    if (shortBlockName === 'Columns' && block.classList[1]) block.dataset.blockName = block.classList[1];
     block.dataset.blockStatus = 'initialized';
     wrapTextNodes(block);
     const blockWrapper = block.parentElement;
