@@ -69,6 +69,6 @@
   margin: 0;
 }
 
-[data-aue-model="section"] .sticky-container{
-  max-height: 500px;
+[data-aue-model="section"] .sticky-container {
+	height: 100%;
 }
