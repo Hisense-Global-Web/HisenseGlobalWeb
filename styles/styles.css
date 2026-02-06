@@ -834,8 +834,6 @@ main img {
 main .section {
 	margin: 0;
 	padding: 0;
-  display: flex;
-  flex-direction: column;
 }
 
 main > .section:first-of-type {
@@ -935,9 +933,11 @@ main {
 		padding-bottom: var(--size-120);
 	}
 	
-  /* section collomn gap */
+  /* section gap */
 
 	.section.gap-s {
+    display: flex;
+    flex-direction: column;
     gap: var(--size-24);
     
     @media (width < 860px) {
@@ -946,6 +946,8 @@ main {
 	}
 
 	.section.gap-m {
+    display: flex;
+    flex-direction: column;
     gap: var(--size-32);
     
     @media (width < 860px) {
@@ -954,6 +956,8 @@ main {
 	}
 
 	.section.gap-md {
+    display: flex;
+    flex-direction: column;
     gap: var(--size-48);
     
     @media (width < 860px) {
@@ -962,6 +966,8 @@ main {
 	}
 
 	.section.gap-l {
+    display: flex;
+    flex-direction: column;
     gap: var(--size-80);
     
     @media (width < 860px) {
@@ -970,6 +976,8 @@ main {
 	}
 
   .section.gap-xl {
+    display: flex;
+    flex-direction: column;
     gap: var(--size-120);
     
     @media (width < 860px) {
