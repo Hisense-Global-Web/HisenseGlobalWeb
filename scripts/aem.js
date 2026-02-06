@@ -546,6 +546,8 @@ function decorateSections(main) {
  * @param {*} content two dimensional array or string or object of content
  */
 function buildBlock(blockName, content) {
+  console.log(blockName,'buldBlock');
+  
   const table = Array.isArray(content) ? content : [[content]];
   const blockEl = document.createElement('div');
   // build image block nested div structure
@@ -615,8 +617,13 @@ async function loadBlock(block) {
  * @param {Element} block The block element
  */
 function decorateBlock(block) {
+  if (block.classList[0] === 'columns' && block.classList[1]) {
+    const [columns, blocks,...arg] = block.classList;
+    [columns, blocks] = [blocks, columns];
+  }
+  console.log(block.classList,'classlist');
+  
   const shortBlockName = block.classList[0];
-   if (shortBlockName === 'columns' && block.classList[1]) shortBlockName = block.classList[1];
   if (shortBlockName && !block.dataset.blockStatus) {
     block.classList.add('block');
     block.dataset.blockName = shortBlockName;
@@ -691,6 +698,8 @@ async function loadSection(section, loadCallback) {
     section.dataset.sectionStatus = 'loading';
 
     const blocks = [...section.querySelectorAll('div.block')];
+    console.log(blocks,'loadSection');
+    
     for (let i = 0; i < blocks.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       await loadBlock(blocks[i]);
