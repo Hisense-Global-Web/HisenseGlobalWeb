@@ -127,9 +127,7 @@
     padding: 0 var(--size-30);
     margin: 0 auto;
   }
-}
 
-.feature-banner-container.fluid {
   .feature-banner-wrapper + .icon-container-wrapper, .feature-banner-wrapper + .icon-container-wrapper + .icon-container-wrapper {
     max-width: var(--container-max-width);
     padding: 0 var(--size-30);
