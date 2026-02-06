@@ -31,23 +31,21 @@ export default function decorate(block) {
   const source = document.createElement('source');
   source.src = videourl;
   source.type = 'video/mp4';
-  // 添加备用文本
   video.innerHTML = '';
-  // 将source添加到video
   video.appendChild(source);
   newDiv.appendChild(video);
 
   newDiv.appendChild(coverImg);
-  // 修改点击事件处理
+
+  // 修改1：简化封面点击事件 - 保持静音状态不变
   coverImg.addEventListener('click', () => {
-  // 移除静音以允许用户听到声音
+  // 关键修改：不改变静音状态，直接播放
     video.play();
     video.muted = false;
     coverImg.style.display = 'none';
   });
 
   video.addEventListener('play', () => {
-  // console.log('视频开始播放');
     coverImg.style.display = 'none';
   });
 
@@ -58,19 +56,19 @@ export default function decorate(block) {
       this.videos = document.querySelectorAll('[data-video-autoplay]');
       this.setupVideos();
       this.setupObserver();
-      this.addVolumeControls();
+    // 移除 addVolumeControls 调用，使用原生控制栏
     },
 
     setupVideos() {
       this.videos.forEach((v) => {
       // 确保所有视频都是静音和可内联播放的
-        v.muted = true;
+        v.muted = true; // 默认静音
         v.playsInline = true;
         v.preload = 'metadata';
         v.setAttribute('data-was-playing', 'false');
-        v.setAttribute('playsinline', 'true'); // 添加属性
-        v.setAttribute('muted', 'true'); // 添加属性
-        v.setAttribute('autoplay', 'true'); // 添加 autoplay 属性
+        v.setAttribute('playsinline', 'true');
+        v.setAttribute('muted', 'true');
+        v.setAttribute('autoplay', 'true');
       });
     },
 
@@ -92,14 +90,16 @@ export default function decorate(block) {
     async playVideo(v) {
       if (!v.paused) return;
       try {
-      // 确保视频是静音状态（iPhone 要求）
-        v.muted = true;
+      // 关键修改：保持静音状态不变
+      // 不在这里修改 v.muted，让用户通过原生控制栏控制
         await v.play();
-        coverImg.style.display = 'none';
+        // 查找对应的封面图
+        const parent = v.parentElement;
+        const cover = parent.querySelector('.video-cover-image');
+        if (cover) cover.style.display = 'none';
         v.setAttribute('data-was-playing', 'true');
       } catch (error) {
-        // 如果自动播放失败，显示封面图
-        coverImg.style.display = 'block';
+        console.log('自动播放失败:', error);
       }
     },
 
@@ -111,28 +111,16 @@ export default function decorate(block) {
         v.setAttribute('data-was-playing', 'false');
       }
     },
-
-    addVolumeControls() {
-    // 添加音量控制按钮
-    },
   };
 
   // 修改初始化方式
-  // 使用 setTimeout 确保 DOM 完全加载
   setTimeout(() => {
     videoAutoplay.init();
   }, 100);
 
-  // 添加点击事件到整个 video 区域，允许用户解除静音
-  video.addEventListener('click', () => {
-    if (video.muted) {
-      video.muted = false;
-    }
-  });
-
   video.addEventListener('ended', () => {
     video.currentTime = 0;
-    video.muted = true; // 重置为静音以便再次自动播放
+    // 保持静音状态不变
     video.play();
   });
 }
