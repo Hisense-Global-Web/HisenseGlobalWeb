@@ -30,7 +30,8 @@ async function applyChanges(event) {
   const sanitizedContent = window.DOMPurify.sanitize(content, { USE_PROFILES: { html: true } });
   const parsedUpdate = new DOMParser().parseFromString(sanitizedContent, 'text/html');
   const element = document.querySelector(`[data-aue-resource="${resource}"]`);
-
+  console.log(element,'ele,');
+  
   if (element) {
     if (element.matches('main')) {
       const newMain = parsedUpdate.querySelector(`[data-aue-resource="${resource}"]`);
@@ -47,6 +48,8 @@ async function applyChanges(event) {
     }
 
     const block = element.parentElement?.closest('.block[data-aue-resource]') || element?.closest('.block[data-aue-resource]');
+    console.log(block,'block--');
+    
     if (block) {
       const blockResource = block.getAttribute('data-aue-resource');
       const newBlock = parsedUpdate.querySelector(`[data-aue-resource="${blockResource}"]`);

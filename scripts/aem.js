@@ -579,6 +579,8 @@ async function loadBlock(block) {
   const status = block.dataset.blockStatus;
   if (status !== 'loading' && status !== 'loaded') {
     block.dataset.blockStatus = 'loading';
+    console.log(block,'block---find blockName');
+    
     const { blockName } = block.dataset;
     try {
       const cssLoaded = loadCSS(`${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.css`);
@@ -617,6 +619,7 @@ function decorateBlock(block) {
   if (shortBlockName && !block.dataset.blockStatus) {
     block.classList.add('block');
     block.dataset.blockName = shortBlockName;
+    if (shortBlockName === 'Columns' && block.classList[1]) block.dataset.blockName = block.classList[1];
     block.dataset.blockStatus = 'initialized';
     wrapTextNodes(block);
     const blockWrapper = block.parentElement;
