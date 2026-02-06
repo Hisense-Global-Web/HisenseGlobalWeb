@@ -632,7 +632,7 @@ function decorateBlock(block) {
     // eslint-disable-next-line no-use-before-define
     decorateButtons(block);
     if (block.classList[0] === 'columns' && block.classList[1] !== 'block') {
-      const newBlock = block.deepNode(true);
+      const newBlock = block.cloneNode(true);
       newBlock.classList.remove('columns');
       decorateBlock(newBlock);
     }
