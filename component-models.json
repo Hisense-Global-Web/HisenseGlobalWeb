@@ -167,8 +167,8 @@
             "value": "grey"
           },
           {
-            "name": "Gray 00",
-            "value": "gray-00"
+            "name": "Gray 90",
+            "value": "gray-90"
           },
           {
             "name": "Gradient Gray",
@@ -2461,14 +2461,14 @@
         "component": "multiselect",
         "name": "classes",
         "value": [
-          ""
+          "text-align-center"
         ],
         "label": "Description Alignment Class Name Options",
         "valueType": "array",
         "options": [
           {
             "name": "Default",
-            "value": ""
+            "value": "text-align-center"
           },
           {
             "name": "text-align-left",

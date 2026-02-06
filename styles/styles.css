@@ -867,13 +867,13 @@ main {
 		color: var(--text-dark);
 	}
 
-	.section.gray-00 {
-		background: #1D1D1F;
+	.section.gray-90 {
+		background: var(--color-primary-grey-90);
 		color: var(--text-dark);
 	}
 
 	.section.gradient-gray {
-		background: linear-gradient(to bottom, #000, rgb(29 29 31), rgb(29 29 31));
+		background: linear-gradient(to bottom, #000, var(--color-primary-grey-90), var(--color-primary-grey-90));
 		color: var(--text-dark);
 	}
 
