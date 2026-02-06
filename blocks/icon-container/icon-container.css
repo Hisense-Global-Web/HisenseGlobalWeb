@@ -16,7 +16,7 @@
   
 
   @media (width >= 860px) {
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
   }
 }
 
