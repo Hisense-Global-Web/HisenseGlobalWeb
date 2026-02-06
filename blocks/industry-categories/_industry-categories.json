@@ -84,21 +84,21 @@
         },
          {
           "component": "text",
-          "name": "text",
+          "name": "thirdtext",
           "label": "Third Text",
           "valueType": "string",
           "value":"third"
         },
          {
           "component": "text",
-          "name": "text",
+          "name": "fourthtext",
           "label": "Fourth Text",
           "valueType": "string",
           "value":"forth"
         },
          {
           "component": "text",
-          "name": "text",
+          "name": "fifthtext",
           "label": "Fifth Text",
           "valueType": "string",
           "value":"fifth"
