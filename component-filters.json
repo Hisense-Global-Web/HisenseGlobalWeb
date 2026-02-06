@@ -129,9 +129,9 @@
     ]
   },
   {
-    "id": "corprate-governance-card",
+    "id": "corprate-governance-cards",
     "components": [
-      "card-container-item"
+      "cards-container-item"
     ]
   },
   {

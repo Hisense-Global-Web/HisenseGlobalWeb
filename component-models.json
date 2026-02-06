@@ -939,11 +939,11 @@
     ]
   },
   {
-    "id": "corprate-governance-card",
+    "id": "corprate-governance-cards",
     "fields": []
   },
   {
-    "id": "card-container-item",
+    "id": "cards-container-item",
     "fields": [
       {
         "component": "reference",
