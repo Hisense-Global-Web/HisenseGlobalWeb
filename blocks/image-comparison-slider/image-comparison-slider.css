@@ -7,13 +7,13 @@
   --dragger-inner-border-width: 1px;
   --dragger-inner-icon-size: 3px;
   --dragger-inner-icon-offset: 2px;
-  --indicator-icon-size: 24px;
-  --indicator-text-size: 0.75rem;
+  --indicator-icon-size: 16px;
+  --indicator-text-size: 0.5rem;
 
   @media (width >= 860px) {
     --container-row-gap: 20px;
     --dragger-line-width: 2px;
-    --dragger-inner-size: 24px;
+    --dragger-inner-size: 20px;
     --dragger-inner-border-width: 1.5px;
     --dragger-inner-icon-size: 4px;
     --dragger-inner-icon-offset: 4px;
