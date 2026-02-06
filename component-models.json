@@ -2383,6 +2383,32 @@
     ]
   },
   {
+    "id": "dashboard-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "aa",
+        "value": "",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "bb",
+        "value": "",
+        "label": "Value"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cc",
+        "value": "",
+        "label": "Text"
+      }
+    ]
+  },
+  {
     "id": "tech-information",
     "fields": [
       {
