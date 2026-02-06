@@ -2,7 +2,7 @@
 
 .collection-banner-container .collection-banner-wrapper {
   width: 100%;
-  margin-block: var(--row-gap);
+  margin-block: var(--size-32);
 }
 
 .block.collection-banner {
@@ -53,6 +53,7 @@
     color: #fff;
     width: min(calc(340 / var(--breakpoint-pc) * 100vw), 340px);
     font-size: min(calc(40 / var(--breakpoint-pc) * 100vw), 40px);
+    line-height: var(--size-48);
     font-weight: var(--fontweight-medium);
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -74,6 +75,7 @@
     margin-top: min(calc(20 / var(--breakpoint-pc) * 100vw), 20px);
     width: min(calc(340 / var(--breakpoint-pc) * 100vw), 340px);
     font-size: min(calc(16 / var(--breakpoint-pc) * 100vw), 16px);
+    line-height: var(--size-24);
     font-weight: var(--fontweight-light);
     position: relative;
     z-index: 6;
@@ -181,6 +183,10 @@
 }
 
 @media (width < 860px) {
+  .collection-banner-container .collection-banner-wrapper {
+    margin-block: var(--size-24);
+  }
+
   .block.collection-banner {
     height: auto;
     min-height: unset;
@@ -204,6 +210,7 @@
       width: 100%;
       height: auto;
       font-size: calc(14 / var(--breakpoint-mobile) * 100vw);
+      line-height: calc(19.6 / var(--breakpoint-mobile) * 100vw);
       max-width: 100%;
     }
 
@@ -220,6 +227,7 @@
       max-width: none;
       font-size: calc(30 / var(--breakpoint-mobile) * 100vw);
       width: 100%;
+      line-height: var(--size-36);
     }
 
     .cta-container {
