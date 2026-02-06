@@ -233,9 +233,9 @@
           },
           {
             "component": "select",
-            "name": "style_columnGap",
-            "label": "Column Gap",
-            "description": "Select a column gap option when you need to add spacing between multiple blocks within this section.",
+            "name": "style_gap",
+            "label": "Gap",
+            "description": "Select a gap option when you need to add spacing between multiple blocks within this section.",
             "options": [
               {
                 "name": "None",
