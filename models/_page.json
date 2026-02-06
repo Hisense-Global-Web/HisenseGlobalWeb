@@ -29,7 +29,7 @@
           "label": "Keywords"
         },
         {
-          "component": "datetime",
+          "component": "date-time",
           "valueType": "date",
           "name": "date",
           "label": "Date"
