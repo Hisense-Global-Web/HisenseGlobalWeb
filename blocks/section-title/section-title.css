@@ -1,9 +1,13 @@
 .section-title.block {
   font-family: var(--font-family);
-  margin-bottom: var(--spacing-xl,48px);
+  margin-bottom: var(--spacing-xl, 48px);
+
+  @media (width < 860px) {
+    margin-bottom: var(--spacing-m, 32px);
+  }
 
   .section-title-title {
-    margin:0;
+    margin: 0;
     font-size: var(--fontsize-h2, 34px);
     font-weight: var(--fontweight-medium);
     line-height: var(--line-height-m, 1.2);
