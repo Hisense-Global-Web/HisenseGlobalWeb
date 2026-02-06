@@ -8,6 +8,10 @@
   p:first-child {
     color: var(--color-primary-green-50);
   }
+
+  h1 ~ p, h2 ~ p, h3 ~ p, h4 ~ p, h5 ~ p, h6 ~ p {
+    color: var(--color-primary-grey-80);
+  }
 }
 
 .text-container.dark,.text-container.gray-00 {
