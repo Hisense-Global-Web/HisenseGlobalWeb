@@ -618,8 +618,7 @@ async function loadBlock(block) {
  */
 function decorateBlock(block) {
   if (block.classList[0] === 'columns' && block.classList[1]) {
-    let [columns, blocks,...arg] = block.classList;
-    [columns, blocks] = [blocks, columns];
+    block.classList.remove('columns');
   }
   console.log(block.classList,'classlist');
   
