@@ -48,6 +48,13 @@
         },
         {
           "component": "text",
+          "name": "title",
+          "value": "",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
           "name": "text",
           "value": "",
           "label": "Text",

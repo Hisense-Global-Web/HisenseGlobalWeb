@@ -2,3 +2,32 @@ p {
     margin: 0;
     padding: 0;
 }
+
+#coprate-governance-cards {
+    width: 100%;
+    height: auto;
+    display: flex;
+    gap: var(--spacing-xl);
+
+    div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-xl);
+
+        .title {
+            width: 100%;
+            font-size: var(--fontsize-title2, 20px);
+            font-weight: var(--fontweight-medium);
+            line-height: 120%; /* 24px */
+        }
+
+        .text {
+            font-size: var(--size-body1, 16px);
+            font-weight: var(--fontweight-book);
+            line-height: 150%; /* 24px */
+        }
+    }
+}
+
