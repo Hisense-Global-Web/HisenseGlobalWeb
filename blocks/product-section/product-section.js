@@ -3400,8 +3400,12 @@ export default async function decorate(block) {
     });
   });
 
-  pdpNav.querySelector('.pdp-nav-menu').append(overviewMobileBtn, specsMobileBtn);
-  pdpNav.querySelector('.pdp-nav-menu').style.height = '106px';
+  pdpNav.querySelector('.pdp-nav-menu').append(overviewMobileBtn);
+  pdpNav.querySelector('.pdp-nav-menu').style.height = '61px';
+  if (fields.includes('position')) {
+    pdpNav.querySelector('.pdp-nav-menu').append(specsMobileBtn);
+    pdpNav.querySelector('.pdp-nav-menu').style.height = '106px';
+  }
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const blockHeight = block.getBoundingClientRect()?.height || 0;
