@@ -41,6 +41,7 @@ export default function decorate(block) {
   coverImg.addEventListener('click', () => {
   // 关键修改：不改变静音状态，直接播放
     video.play();
+    video.muted = false;
     coverImg.style.display = 'none';
   });
 
