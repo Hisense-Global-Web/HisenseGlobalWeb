@@ -233,9 +233,9 @@
           },
           {
             "component": "select",
-            "name": "style_columnGap",
-            "label": "Column Gap",
-            "description": "Select a column gap option when you need to add spacing between multiple blocks within this section.",
+            "name": "style_gap",
+            "label": "Gap",
+            "description": "Select a gap option when you need to add spacing between multiple blocks within this section.",
             "options": [
               {
                 "name": "None",
@@ -482,6 +482,38 @@
         "name": "item_headline",
         "label": "Item Headline",
         "required": true
+      }
+    ]
+  },
+  {
+    "id": "article-title",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title-content",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "name": "subtitle-content",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "date-time",
+        "name": "article-date",
+        "label": "Date(Mm Dd.Yyyy)",
+        "placeholder": "MM/DD/YYYY",
+        "displayFormat": "MM/DD/YYYY",
+        "valueFormat": "YYYY-MM-DD",
+        "valueType": "date"
+      },
+      {
+        "component": "text",
+        "name": "article-location",
+        "label": "Location",
+        "valueType": "string"
       }
     ]
   },

@@ -12,7 +12,7 @@
               "style_theme": "light",
               "style_container": "",
               "style_paddingTop": "pt-l",
-              "style_columnGap": "",
+              "style_gap": "",
               "style_paddingBottom": "pb-l",
               "style_imageBorderRadius": "",
               "style_imageRatio": ""
@@ -122,9 +122,9 @@
             },
             {
               "component": "select",
-              "name": "style_columnGap",
-              "label": "Column Gap",
-              "description": "Select a column gap option when you need to add spacing between multiple blocks within this section.",
+              "name": "style_gap",
+              "label": "Gap",
+              "description": "Select a gap option when you need to add spacing between multiple blocks within this section.",
               "options": [
                 {
                   "name": "None",
@@ -230,6 +230,7 @@
     {
       "id": "section",
       "components": [
+        "article-title",
         "article-body",
         "article-body-list",
         "button",
