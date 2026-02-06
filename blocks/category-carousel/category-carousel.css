@@ -17,7 +17,7 @@ section.plp-section {
 }
 
 main.main-plp-gray {
-  background-color: rgb(244 244 244 / 100%);
+  background-color: var(--color-primary-grey-20);
 }
 
 main > .plp-section:first-of-type {
@@ -37,7 +37,7 @@ main > .product-card-container.product-sorting-container {
   margin: 0 auto;
   gap: var(--size-24) var(--size-48);
   justify-content: center;
-  background-color: rgb(244 244 244 / 100%);
+  background-color: var(--color-primary-grey-20);
 }
 
 .category-carousel-wrapper,

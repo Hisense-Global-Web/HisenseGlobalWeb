@@ -2,7 +2,6 @@
 
 .collection-banner-container .collection-banner-wrapper {
   width: 100%;
-  margin-block: var(--size-32);
 }
 
 .block.collection-banner {
@@ -183,10 +182,6 @@
 }
 
 @media (width < 860px) {
-  .collection-banner-container .collection-banner-wrapper {
-    margin-block: var(--size-24);
-  }
-
   .block.collection-banner {
     height: auto;
     min-height: unset;
