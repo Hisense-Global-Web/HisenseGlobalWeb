@@ -39,8 +39,8 @@
 .collection-title-wrapper > div > div:last-child div h5,
 .collection-title-wrapper > div > div:last-child div h6{
   padding: 0;
-  color: var(--Hisense-Black, #000);
-  margin: var(--spacing_3xs) 0 0;
+  color: var(--color-hisense-black);
+  margin: var(--spacing-3xs) 0 0;
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
 }
