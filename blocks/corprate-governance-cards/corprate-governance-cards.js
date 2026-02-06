@@ -1,3 +1,3 @@
 export default function decorate(block) {
-    block.id = 'coprate-governance-cards';
+  block.id = 'coprate-governance-cards';
 }
