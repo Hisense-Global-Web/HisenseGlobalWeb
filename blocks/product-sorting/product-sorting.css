@@ -69,7 +69,7 @@
 
 .product-sorting .plp-sort-box {
   position: relative;
-  min-width: min(calc(166 / var(--breakpoint-pc) * 100vw), 166px);;
+  width: min(calc(184 / var(--breakpoint-pc) * 100vw), 184px);;
   height: var(--size-40);
   flex-shrink: 0;
 }
@@ -80,7 +80,7 @@
   position: relative;
   font-size: var(--size-14);
   background: #fff;
-  border-radius: 100px;
+  border-radius: var(--size-20);
   padding: 0 var(--size-20);
   display: flex;
   align-items: center;
@@ -99,8 +99,8 @@
 .product-sorting .plp-sort .sort-arrow {
   transform: rotate(180deg);
   transition: transform .36s cubic-bezier(0, 0.18, 0.07, 1), -webkit-transform .36s cubic-bezier(0, 0.18, 0.07, 1);
-  width: var(--size-20);
-  height: var(--size-20);
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 .product-sorting .plp-sort-box.show .sort-arrow {
@@ -288,13 +288,13 @@
 
     .mobile-plp-sort {
       height: var(--size-40);
-      width: calc(166 / var(--breakpoint-mobile) * 100vw);
+      width: calc(152 / var(--breakpoint-mobile) * 100vw);
       border-radius: var(--size-20);
       background-color: #fff;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 var(--size-20);
+      padding: 0 var(--size-12);
       font-size: var(--size-14);
       cursor: pointer;
 
