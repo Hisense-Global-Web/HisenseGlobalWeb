@@ -1,0 +1,116 @@
+{
+  "definitions": [
+    {
+      "title": "Headline",
+      "id": "headline",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Headline",
+              "model": "headline",
+              "key-value": true,
+              "section-title": "Featured",
+              "eyebrow": "PARTNERSHIPS & SPONSORSHIPS",
+              "subtitle": "Hisense Accelerates ESG Strategy With AI-Driven Sustainability Milestones",
+              "text": "QINGDAO, China, November 7, 2025 – Hisense, a leading brand in global consumer electronics and home appliances",
+              "date": "Nov 7, 2025",
+              "location": "Qingdao",
+              "author": "Sarah Johnson",
+              "author-avatar": "/",
+              "image": "/",
+              "cta-text": "Read now",
+              "cta-link": "",
+              "has-download": "true"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "headline",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "section-title",
+          "label": "Section Title",
+          "placeholder": "Featured"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "eyebrow",
+          "label": "Eyebrow"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "text",
+          "label": "Text"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "date",
+          "label": "Date"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "location",
+          "label": "Location"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "author",
+          "label": "Author"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "author-avatar",
+          "label": "Author Avatar",
+          "multi": false
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cta-text",
+          "label": "CTA Text"
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "cta-link",
+          "label": "CTA Link"
+        },
+        {
+          "component": "checkbox",
+          "valueType": "boolean",
+          "name": "has-download",
+          "label": "Has Download",
+          "value": false
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
