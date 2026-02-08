@@ -54,15 +54,8 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "ctaText",
+        "name": "cta-text",
         "label": "CTA Text"
-      },
-      {
-        "component": "aem-tag",
-        "valueType": "string",
-        "name": "tags",
-        "label": "Tags",
-        "rootPath": "/content/cq:tags/hisense"
       }
     ]
   },
@@ -617,7 +610,7 @@
       },
       {
         "component": "container",
-        "label": "CTA Container",
+        "label": "",
         "name": "container_cta",
         "valueType": "string",
         "fields": [
@@ -1433,7 +1426,7 @@
       },
       {
         "component": "container",
-        "label": "Text Mode Container",
+        "label": "",
         "name": "mode_text",
         "valueType": "string",
         "condition": {
