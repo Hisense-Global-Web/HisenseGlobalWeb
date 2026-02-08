@@ -6,10 +6,9 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
  * @param {HTMLElement} block - The block element
  */
 export default async function decorate(block) {
-  
   const config = readBlockConfig(block);
 
-  // 提取数据，字段名对应配置文件中的 name 字段（经过 toClassName 处理）
+  // 提取数据
   const data = {
     'section-title': config['section-title'] || 'Featured',
     eyebrow: config.eyebrow || '',
