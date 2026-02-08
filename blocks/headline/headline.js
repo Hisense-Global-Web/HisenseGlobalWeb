@@ -25,6 +25,13 @@ export default async function decorate(block) {
   // 创建容器
   const container = document.createElement('div');
   container.className = 'featured-container';
+  const blockResource = block.getAttribute('data-aue-resource');
+  // 确保需要在 block 上保留的属性被设置回 block
+  if (blockResource) {
+    block.setAttribute('data-aue-resource', blockResource);
+  }
+
+  // 创建 section title
   const sectionTitle = document.createElement('div');
   sectionTitle.className = 'section-title';
   sectionTitle.textContent = data['section-title'] || 'Featured';
@@ -83,6 +90,7 @@ export default async function decorate(block) {
     featuredContent.appendChild(excerptEl);
   }
 
+  // Meta group (date and location)
   const metaGroupEl = document.createElement('div');
   metaGroupEl.classList.add('featured-meta-group');
 
@@ -104,6 +112,7 @@ export default async function decorate(block) {
     featuredContent.appendChild(metaGroupEl);
   }
 
+  // Actions (CTA button)
   if (data.ctaText) {
     const actionsEl = document.createElement('div');
     actionsEl.classList.add('featured-actions');
@@ -129,7 +138,7 @@ export default async function decorate(block) {
   featuredCard.appendChild(featuredContent);
   container.appendChild(featuredCard);
 
-  block.classList.add('featured-container');
-  block.replaceChildren(...container.children);
+  // 使用 replaceChildren 而不是 innerHTML，以保留 block 上的属性
+  block.replaceChildren(container);
   block.classList.add('loaded');
 }
