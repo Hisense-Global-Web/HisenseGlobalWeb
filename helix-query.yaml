@@ -14,9 +14,9 @@ indices:
       robots:
         select: head > meta[name="robots"]
         value: attribute(el, "content")
-  article-pages:
+  article-pages-us-en:
     include:
-      - '/**'
+      - '/us/en/**'
     exclude:
       - '/**.json'
     target: /article-index.json
@@ -28,5 +28,5 @@ indices:
         select: head > meta[name="robots"]
         value: attribute(el, "content")
       hasArticleBody:
-        selectFirst: .article-body
+        selectFirst: .article-title
         value: textContent(el)

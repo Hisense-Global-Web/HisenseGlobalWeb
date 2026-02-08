@@ -52,6 +52,12 @@
         "label": "Image"
       },
       {
+        "component": "image",
+        "valueType": "string",
+        "name": "thumbnail",
+        "label": "Thumbnail"
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "cta-text",
