@@ -97,14 +97,26 @@ export default async function decorate(block) {
   if (data.date) {
     const dateEl = document.createElement('span');
     dateEl.classList.add('meta-item');
-    dateEl.textContent = data.date;
+    // 添加左侧图标
+    const iconImg = document.createElement('img');
+    iconImg.src = '/resources/clock-icon.svg';
+    iconImg.alt = '';
+    iconImg.classList.add('meta-icon');
+    dateEl.appendChild(iconImg);
+    dateEl.appendChild(document.createTextNode(data.date));
     metaGroupEl.appendChild(dateEl);
   }
 
   if (data.location) {
     const locationEl = document.createElement('span');
     locationEl.classList.add('meta-item');
-    locationEl.textContent = data.location;
+    // 添加左侧图标
+    const iconImg = document.createElement('img');
+    iconImg.src = '/resources/location-icon.svg';
+    iconImg.alt = '';
+    iconImg.classList.add('meta-icon');
+    locationEl.appendChild(iconImg);
+    locationEl.appendChild(document.createTextNode(data.location));
     metaGroupEl.appendChild(locationEl);
   }
 
