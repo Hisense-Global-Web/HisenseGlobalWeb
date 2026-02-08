@@ -1,5 +1,4 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
-import { moveInstrumentation } from '../../scripts/scripts.js';
 
 /**
  * Headline Block
@@ -27,9 +26,22 @@ export default async function decorate(block) {
   const container = document.createElement('div');
   container.className = 'featured-container';
   const blockResource = block.getAttribute('data-aue-resource');
-  moveInstrumentation(block, container);
-  if (blockResource && !block.hasAttribute('data-aue-resource')) {
+  const attributesToMove = [...block.attributes]
+    .map(({ nodeName }) => nodeName)
+    .filter((attr) => (attr.startsWith('data-aue-') || attr.startsWith('data-richtext-'))
+      && attr !== 'data-aue-resource');
+  attributesToMove.forEach((attr) => {
+    const value = block.getAttribute(attr);
+    if (value) {
+      container.setAttribute(attr, value);
+      block.removeAttribute(attr);
+    }
+  });
+  if (blockResource) {
     block.setAttribute('data-aue-resource', blockResource);
+  }
+  if (container.hasAttribute('data-aue-resource')) {
+    container.removeAttribute('data-aue-resource');
   }
 
   // 创建 section title
