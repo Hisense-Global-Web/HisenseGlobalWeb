@@ -1,4 +1,5 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
 /**
  * Headline Block
@@ -26,17 +27,7 @@ export default async function decorate(block) {
   const container = document.createElement('div');
   container.className = 'featured-container';
   const blockResource = block.getAttribute('data-aue-resource');
-  const attributesToMove = [...block.attributes]
-    .map(({ nodeName }) => nodeName)
-    .filter((attr) => (attr.startsWith('data-aue-') || attr.startsWith('data-richtext-'))
-      && attr !== 'data-aue-resource');
-  attributesToMove.forEach((attr) => {
-    const value = block.getAttribute(attr);
-    if (value) {
-      container.setAttribute(attr, value);
-      block.removeAttribute(attr);
-    }
-  });
+  moveInstrumentation(block, container);
   if (blockResource) {
     block.setAttribute('data-aue-resource', blockResource);
   }
