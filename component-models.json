@@ -1338,13 +1338,6 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "author-avatar",
-        "label": "Author Avatar",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
         "name": "image",
         "label": "Image",
         "multi": false
