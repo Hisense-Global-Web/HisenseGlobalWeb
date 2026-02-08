@@ -47,16 +47,11 @@
           "label": "Author"
         },
         {
-          "component": "image",
-          "valueType": "string",
-          "name": "image",
-          "label": "Image"
-        },
-        {
           "component": "reference",
           "valueType": "string",
-          "name": "thumbnail",
-          "label": "Thumbnail"
+          "name": "image",
+          "label": "Image",
+          "multi": false
         },
         {
           "component": "text",
