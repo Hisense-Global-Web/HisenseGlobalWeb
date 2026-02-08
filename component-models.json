@@ -617,7 +617,7 @@
       },
       {
         "component": "container",
-        "label": "",
+        "label": "CTA Container",
         "name": "container_cta",
         "valueType": "string",
         "fields": [
@@ -1433,7 +1433,7 @@
       },
       {
         "component": "container",
-        "label": "",
+        "label": "Text Mode Container",
         "name": "mode_text",
         "valueType": "string",
         "condition": {

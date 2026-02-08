@@ -10,7 +10,7 @@ export default function decorate(block) {
   // readBlockConfig 使用 toClassName 将字段名转换为小写连字符格式
   // 例如: "Section Title" -> "section-title", "CTA Text" -> "cta-text"
   const config = readBlockConfig(block);
-  
+
   // 提取数据，字段名对应配置文件中的 name 字段（经过 toClassName 处理）
   const data = {
     'section-title': config['section-title'] || 'Featured',
@@ -46,14 +46,14 @@ export default function decorate(block) {
   if (data.image) {
     const featuredImage = document.createElement('div');
     featuredImage.classList.add('featured-image');
-    
+
     const picture = createOptimizedPicture(
       data.image,
       data.subtitle || '',
       false, // eager - 根据需求调整，LCP图片应该用true
-      [{ media: '(min-width: 860px)', width: '2000' }, { width: '860' }]
+      [{ media: '(min-width: 860px)', width: '2000' }, { width: '860' }],
     );
-    
+
     featuredImage.appendChild(picture);
     featuredCard.appendChild(featuredImage);
   }
@@ -94,7 +94,7 @@ export default function decorate(block) {
   // Meta group (date and location)
   const metaGroupEl = document.createElement('div');
   metaGroupEl.classList.add('featured-meta-group');
-  
+
   if (data.date) {
     const dateEl = document.createElement('span');
     dateEl.classList.add('meta-item');
@@ -117,11 +117,11 @@ export default function decorate(block) {
   if (data.ctaText) {
     const actionsEl = document.createElement('div');
     actionsEl.classList.add('featured-actions');
-    
+
     const button = document.createElement('button');
     button.classList.add('btn', 'btn-primary');
     button.textContent = data.ctaText;
-    
+
     // 如果有链接，包装在链接中
     if (data.ctaLink) {
       const link = document.createElement('a');
@@ -131,7 +131,7 @@ export default function decorate(block) {
     } else {
       actionsEl.appendChild(button);
     }
-    
+
     featuredContent.appendChild(actionsEl);
   }
 
