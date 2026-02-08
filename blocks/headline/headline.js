@@ -26,15 +26,19 @@ export default async function decorate(block) {
   // 创建容器
   const container = document.createElement('div');
   container.className = 'featured-container';
-  const blockResource = block.getAttribute('data-aue-resource');
+  const blockAttributes = {};
+  [...block.attributes].forEach((attr) => {
+    if (attr.name.startsWith('data-aue-') || attr.name.startsWith('data-richtext-')) {
+      blockAttributes[attr.name] = attr.value;
+    }
+  });
   moveInstrumentation(block, container);
-  if (blockResource) {
-    block.setAttribute('data-aue-resource', blockResource);
+  if (blockAttributes['data-aue-resource']) {
+    block.setAttribute('data-aue-resource', blockAttributes['data-aue-resource']);
   }
   if (container.hasAttribute('data-aue-resource')) {
     container.removeAttribute('data-aue-resource');
   }
-
   // 创建 section title
   const sectionTitle = document.createElement('div');
   sectionTitle.className = 'section-title';
