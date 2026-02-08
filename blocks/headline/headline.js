@@ -5,10 +5,8 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
  * Headline Block
  * @param {HTMLElement} block - The block element
  */
-export default function decorate(block) {
-  // 使用 readBlockConfig 解析表格数据
-  // readBlockConfig 使用 toClassName 将字段名转换为小写连字符格式
-  // 例如: "Section Title" -> "section-title", "CTA Text" -> "cta-text"
+export default async function decorate(block) {
+  
   const config = readBlockConfig(block);
 
   // 提取数据，字段名对应配置文件中的 name 字段（经过 toClassName 处理）
