@@ -53,7 +53,7 @@
           "label": "Image"
         },
         {
-          "component": "image",
+          "component": "reference",
           "valueType": "string",
           "name": "thumbnail",
           "label": "Thumbnail"
