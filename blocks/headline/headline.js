@@ -1,5 +1,4 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
-import { moveInstrumentation } from '../../scripts/scripts.js';
 
 /**
  * Headline Block
@@ -26,20 +25,6 @@ export default async function decorate(block) {
   // 创建容器
   const container = document.createElement('div');
   container.className = 'featured-container';
-  const blockAttributes = {};
-  [...block.attributes].forEach((attr) => {
-    if (attr.name.startsWith('data-aue-') || attr.name.startsWith('data-richtext-')) {
-      blockAttributes[attr.name] = attr.value;
-    }
-  });
-  moveInstrumentation(block, container);
-  if (blockAttributes['data-aue-resource']) {
-    block.setAttribute('data-aue-resource', blockAttributes['data-aue-resource']);
-  }
-  if (container.hasAttribute('data-aue-resource')) {
-    container.removeAttribute('data-aue-resource');
-  }
-  // 创建 section title
   const sectionTitle = document.createElement('div');
   sectionTitle.className = 'section-title';
   sectionTitle.textContent = data['section-title'] || 'Featured';
@@ -98,7 +83,6 @@ export default async function decorate(block) {
     featuredContent.appendChild(excerptEl);
   }
 
-  // Meta group (date and location)
   const metaGroupEl = document.createElement('div');
   metaGroupEl.classList.add('featured-meta-group');
 
@@ -120,7 +104,6 @@ export default async function decorate(block) {
     featuredContent.appendChild(metaGroupEl);
   }
 
-  // Actions (CTA button)
   if (data.ctaText) {
     const actionsEl = document.createElement('div');
     actionsEl.classList.add('featured-actions');
@@ -146,7 +129,7 @@ export default async function decorate(block) {
   featuredCard.appendChild(featuredContent);
   container.appendChild(featuredCard);
 
-  // 使用 replaceChildren 而不是 innerHTML，以保留 block 上的属性
-  block.replaceChildren(container);
+  block.classList.add('featured-container');
+  block.replaceChildren(...container.children);
   block.classList.add('loaded');
 }
