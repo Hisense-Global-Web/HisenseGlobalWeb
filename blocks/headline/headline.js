@@ -26,7 +26,11 @@ export default async function decorate(block) {
   // 创建容器
   const container = document.createElement('div');
   container.className = 'featured-container';
+  const blockResource = block.getAttribute('data-aue-resource');
   moveInstrumentation(block, container);
+  if (blockResource && !block.hasAttribute('data-aue-resource')) {
+    block.setAttribute('data-aue-resource', blockResource);
+  }
 
   // 创建 section title
   const sectionTitle = document.createElement('div');
@@ -135,8 +139,7 @@ export default async function decorate(block) {
   featuredCard.appendChild(featuredContent);
   container.appendChild(featuredCard);
 
-  // 清空原内容并添加新结构
-  block.innerHTML = '';
-  block.appendChild(container);
+  // 使用 replaceChildren 而不是 innerHTML，以保留 block 上的属性
+  block.replaceChildren(container);
   block.classList.add('loaded');
 }
