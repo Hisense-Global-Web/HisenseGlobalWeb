@@ -65,6 +65,7 @@
           "label": "",
           "name": "container_time",
           "valueType": "string",
+          "multi": true,
           "fields": [
             {
               "component": "text",
