@@ -95,4 +95,9 @@
     font-weight: var(--fontweight-medium, 500);
     text-decoration: none;
   }
+
+  .quick-action-card-view-more a:active {
+    background-color: var(--color-primary-green-70, #005a5c);
+    color: var(--color-primary-grey-10, rgba(255, 255, 255, 0.8));
+  }
 }
