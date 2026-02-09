@@ -12,7 +12,8 @@
               "model": "news-card-list",
               "key-value": true,
               "title": "Recent Press Releases",
-              "page-size": "9"
+              "page-size": "9",
+              "empty-text": "No news items match your filters."
             }
           }
         }
@@ -35,6 +36,13 @@
           "label": "Items per page",
           "description": "How many news cards to show per page.",
           "valueType": "number"
+        },
+        {
+          "component": "richtext",
+          "name": "empty-text",
+          "label": "Empty Result Text",
+          "description": "Text to show when no news items match the current filters.",
+          "valueType": "string"
         }
       ]
     }

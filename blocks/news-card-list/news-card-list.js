@@ -43,6 +43,36 @@ const MOCK_NEWSROOM_ITEMS = [
   },
 ];
 
+function getSearchFiltersFromUrl() {
+  const params = new URLSearchParams(window.location.search || '');
+  const filters = [];
+
+  params.forEach((value, key) => {
+    if (!value) return;
+    // 跳过分页相关参数和 ref 等非搜索参数
+    if (key === 'offset' || key === 'limit' || key === 'ref') return;
+    filters.push({ key, value });
+  });
+
+  return filters;
+}
+
+function filterItemsByUrlParams(items) {
+  const filters = getSearchFiltersFromUrl();
+  if (!filters.length) return items;
+
+  const lowerIncludes = (source, query) => {
+    if (source == null) return false;
+    const s = String(source).toLowerCase();
+    const q = String(query).toLowerCase();
+    return s.includes(q);
+  };
+
+  return items.filter((item) => (
+    filters.every(({ key, value }) => lowerIncludes(item[key], value))
+  ));
+}
+
 function getItemDateValue(item) {
   const value = item.date || item['published-date'];
   const time = Date.parse(value);
@@ -248,10 +278,6 @@ function buildPaginationControls(container, state, onPageChange) {
 }
 
 async function fetchNewsroom(offset, limit) {
-  const params = new URLSearchParams();
-  if (typeof offset === 'number') params.set('offset', offset);
-  if (typeof limit === 'number') params.set('limit', limit);
-
   const { pathname } = window.location;
 
   // /content 开头，使用本地 mock 数据，避免跨域请求失败
@@ -280,7 +306,7 @@ async function fetchNewsroom(offset, limit) {
   }
 
   const basePath = `/${country}/${language}/newsroom.json`;
-  const url = params.toString() ? `${basePath}?${params.toString()}` : basePath;
+  const url = basePath;
 
   const response = await fetch(url, { credentials: 'same-origin' });
   if (!response.ok) {
@@ -291,6 +317,13 @@ async function fetchNewsroom(offset, limit) {
   return response.json();
 }
 
+async function loadAllNewsroom(pageSize) {
+  const size = Number.isFinite(pageSize) ? pageSize : MOCK_NEWSROOM_ITEMS.length;
+  const json = await fetchNewsroom(0, size);
+  if (!json) return [];
+  return normalizeNewsroomData(json);
+}
+
 /**
  * News Card List Block
  */
@@ -299,6 +332,7 @@ export default async function decorate(block) {
 
   const titleText = config.title || 'Recent Press Releases';
   const pageSize = Number.parseInt(config['page-size'], 10) || 9;
+  const emptyText = config['empty-text'] || 'No news items match your filters.';
 
   const blockResource = block.getAttribute('data-aue-resource');
 
@@ -327,32 +361,43 @@ export default async function decorate(block) {
 
   block.replaceChildren(container);
 
-  let currentOffset = 0;
+  const allItems = await loadAllNewsroom(pageSize);
 
   const loadPage = async (page) => {
-    const nextOffset = (page - 1) * pageSize;
-    const json = await fetchNewsroom(nextOffset, pageSize);
-    if (!json) return;
-
-    const items = normalizeNewsroomData(json);
+    const filteredItems = filterItemsByUrlParams(allItems);
+    const totalItems = filteredItems.length;
 
     cardGroupEl.textContent = '';
-    items.forEach((item) => {
+    paginationEl.textContent = '';
+
+    if (!totalItems) {
+      const emptyEl = document.createElement('div');
+      emptyEl.className = 'releases-empty';
+      emptyEl.innerHTML = emptyText;
+      cardGroupEl.appendChild(emptyEl);
+      return;
+    }
+
+    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+    const safePage = Math.min(Math.max(page, 1), totalPages);
+    const startIndex = (safePage - 1) * pageSize;
+    const pageItems = filteredItems.slice(startIndex, startIndex + pageSize);
+
+    pageItems.forEach((item) => {
       const card = buildCard(item);
       cardGroupEl.appendChild(card);
     });
 
-    currentOffset = json.offset ?? nextOffset;
     const state = {
-      total: json.total ?? items.length,
-      limit: json.limit ?? pageSize,
-      offset: currentOffset,
+      total: totalItems,
+      limit: pageSize,
+      offset: startIndex,
     };
 
     buildPaginationControls(container, state, (targetPage) => {
       if (targetPage < 1) return;
-      const totalPages = Math.ceil(state.total / state.limit);
-      if (targetPage > totalPages) return;
+      const maxPage = Math.ceil(state.total / state.limit);
+      if (targetPage > maxPage) return;
       loadPage(targetPage);
     });
   };

@@ -2210,6 +2210,13 @@
         "label": "Items per page",
         "description": "How many news cards to show per page.",
         "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "empty-text",
+        "label": "Empty Result Text",
+        "description": "Text to show when no news items match the current filters.",
+        "valueType": "string"
       }
     ]
   },

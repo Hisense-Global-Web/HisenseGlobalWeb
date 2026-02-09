@@ -25,6 +25,14 @@
   overflow: hidden;
 }
 
+.news-card-list .releases-empty {
+  grid-column: 1 / -1;
+  padding: 40px 0;
+  text-align: center;
+  font-size: 16px;
+  color: var(--color-primary-grey-70);
+}
+
 .news-card-list .releases-image {
   display: block;
 }
