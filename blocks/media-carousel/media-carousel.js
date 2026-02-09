@@ -36,18 +36,25 @@ function bindEvent(block) {
   }, 500));
   if (!block.classList.contains('video-media-carousel-block')) return;
   // 视频处理
-  block.querySelector('.video-media-carousel-block .media-carousel-track').addEventListener('click', (e) => {
+  block.querySelector('.video-media-carousel-block .media-carousel-track').addEventListener('click', async (e) => {
     const dataIndex = e.target.closest('li').dataset.slideIndex;
-    block.querySelectorAll('li').forEach((el, i) => {
+    block.querySelectorAll('li').forEach(async (el, i) => {
       const video = el.querySelector('video');
       if (String(i) === dataIndex) {
         if (video?.getAttribute('data-is-playing') === 'false') {
-          video?.play();
-          video?.setAttribute('playsInline', 'true');
-          video?.setAttribute('muted', 'true');
-          video?.setAttribute('autoplay', 'true');
-          video?.setAttribute('loop', 'true');
-          video?.setAttribute('data-is-playing', 'true');
+          try {
+            video?.load();
+            // 等待元数据加载
+            await new Promise(resolve => {
+              video?.addEventListener('loadedmetadata', resolve, { once: true });
+            });
+            // 尝试自动播放
+            await video?.play();
+            video?.setAttribute('data-is-playing', 'true');
+          } catch (err) {
+            // 自动播放失败，可能是由于浏览器的自动播放策略
+            console.warn('Video playback failed:', err);
+          }
         } else {
           video?.pause();
           video?.setAttribute('data-is-playing', 'false');
@@ -98,6 +105,9 @@ function createVideo(child, idx) {
   video.muted = true;
   video.playsInline = true;
   video.setAttribute('data-is-playing', 'false');
+  video.setAttribute('webkit-playsinline', '');
+  video.setAttribute('x5-playsinline', '');
+  video.setAttribute('playsinline', 'true');
   video.appendChild(source);
   videoDivDom.appendChild(video);
   videoDivDom.appendChild(img);
