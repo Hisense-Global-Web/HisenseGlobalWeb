@@ -43,25 +43,34 @@ const MOCK_NEWSROOM_ITEMS = [
   },
 ];
 
+function getItemDateValue(item) {
+  const value = item.date || item['published-date'];
+  const time = Date.parse(value);
+  return Number.isNaN(time) ? 0 : time;
+}
+
 function normalizeNewsroomData(json) {
   if (!json || !Array.isArray(json.data)) return [];
 
-  // Newer format: array of objects
   if (json.data.length > 0 && !Array.isArray(json.data[0])) {
-    return json.data;
+    const items = [...json.data];
+    items.sort((a, b) => getItemDateValue(b) - getItemDateValue(a));
+    return items;
   }
 
   // Classic format: columns + rows
   const { columns } = json;
   if (!Array.isArray(columns)) return [];
 
-  return json.data.map((row) => {
+  const items = json.data.map((row) => {
     const item = {};
     row.forEach((value, index) => {
       item[columns[index]] = value;
     });
     return item;
   });
+  items.sort((a, b) => getItemDateValue(b) - getItemDateValue(a));
+  return items;
 }
 
 function formatDate(iso) {
@@ -137,14 +146,24 @@ function buildCard(item) {
   if (formattedDate) {
     const dateEl = document.createElement('span');
     dateEl.classList.add('meta-item');
-    dateEl.textContent = formattedDate;
+    const iconImg = document.createElement('img');
+    iconImg.src = '/resources/clock-icon.svg';
+    iconImg.alt = '';
+    iconImg.classList.add('meta-icon');
+    dateEl.appendChild(iconImg);
+    dateEl.appendChild(document.createTextNode(formattedDate));
     metaGroupEl.appendChild(dateEl);
   }
 
   if (location) {
     const locationEl = document.createElement('span');
     locationEl.classList.add('meta-item');
-    locationEl.textContent = location;
+    const iconImg = document.createElement('img');
+    iconImg.src = '/resources/location-icon.svg';
+    iconImg.alt = '';
+    iconImg.classList.add('meta-icon');
+    locationEl.appendChild(iconImg);
+    locationEl.appendChild(document.createTextNode(location));
     metaGroupEl.appendChild(locationEl);
   }
 
