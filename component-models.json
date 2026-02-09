@@ -1119,12 +1119,6 @@
         "name": "feature-banner_text",
         "label": "Text",
         "valueType": "string"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "feature-banner_tips",
-        "label": "Feature banner tips"
       }
     ]
   },
