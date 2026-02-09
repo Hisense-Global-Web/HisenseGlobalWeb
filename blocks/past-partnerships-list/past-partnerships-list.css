@@ -81,7 +81,10 @@
   height: min(12.4305vw, 179px);
   object-fit: contain;
   transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
   @media (width < 860px) {
     width: 29.74358vw;   /* 116px in mobile */
     height: 33.33333vw;;  /* 130px in mobile */

@@ -62,6 +62,12 @@
       "id": "industry-categories-item",
       "fields": [
          {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+         {
           "component": "reference",
           "valueType": "string",
           "name": "image",
@@ -70,35 +76,35 @@
         },
          {
           "component": "text",
-          "name": "firsttext",
+          "name": "text_first",
           "label": "First Text",
           "valueType": "string",
           "value":"first"
         },
          {
           "component": "text",
-          "name": "second text",
+          "name": "text_second",
           "label": "Second Text",
           "valueType": "string"
           
         },
          {
           "component": "text",
-          "name": "thirdtext",
+          "name": "text_third",
           "label": "Third Text",
           "valueType": "string"
         
         },
          {
           "component": "text",
-          "name": "fourthtext",
+          "name": "text_fourth",
           "label": "Fourth Text",
           "valueType": "string"
           
         },
          {
           "component": "text",
-          "name": "fifthtext",
+          "name": "text_fifth",
           "label": "Fifth Text",
           "valueType": "string"
          
