@@ -62,14 +62,14 @@
         },
         {
           "component": "text",
-          "name": "working-hours",
+          "name": "time-working_hours",
           "value": "",
           "label": "Working Hours",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "response-time",
+          "name": "time-response_time",
           "value": "",
           "label": "Response Time",
           "valueType": "string"
