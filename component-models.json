@@ -2293,7 +2293,7 @@
         "component": "text",
         "name": "background_type",
         "valueType": "string",
-        "value": "background_box",
+        "value": "background-box",
         "hidden": true,
         "readonly": true
       },
@@ -2308,7 +2308,7 @@
         "component": "text",
         "name": "image_type",
         "valueType": "string",
-        "value": "image_box",
+        "value": "image-box",
         "hidden": true,
         "readonly": true
       },
