@@ -5,6 +5,7 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   const config = readBlockConfig(block);
+   console.log('config');
   console.log(config);
   /* change to ul, li */
   const ul = document.createElement('ul');

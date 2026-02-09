@@ -43,19 +43,22 @@
           "valueType": "string",
           "name": "title",
           "label": "Title",
+          "value": "Title",
           "multi": false
         },
          {
           "component": "text",
           "name": "subtitle",
           "label": "Sub Title",
+          "value": "Subtitle",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "desc",
-          "label": "Description",
-          "valueType": "string"
+          "name": "content",
+          "label": "Content",
+          "valueType": "string",
+          "value": "Content"
         }
       ]
     },
