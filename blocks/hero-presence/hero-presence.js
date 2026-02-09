@@ -54,8 +54,13 @@ export default async function decorate(block) {
   block.appendChild(video);
   videoContent.remove();
 
-  const playBtn = createElement('button', 'hero-presence-video-play-btn d-none');
-  playBtn.textContent = 'Play';
+  const playBtn = createElement('button', 'hero-presence-video-play-btn playing');
+  const playIcon = createElement('img', 'hero-presence-video-play-icon');
+  playIcon.src = '/content/dam/hisense/us/common-icons/play.svg';
+  playBtn.appendChild(playIcon);
+  const pauseIcon = createElement('img', 'hero-presence-video-pause-icon');
+  pauseIcon.src = '/content/dam/hisense/us/common-icons/pause.svg';
+  playBtn.appendChild(pauseIcon);
   block.appendChild(playBtn);
 
   // Extract animated images from the second div
@@ -78,19 +83,27 @@ export default async function decorate(block) {
 
   // ========== VIDEO [START] ========== //
   const playVideo = () => {
-    video.play().catch(() => {
-      // autoplay might be blocked
-      playBtn.classList.remove('d-none');
-    });
+    video.play()
+      .catch(() => {
+        // autoplay might be blocked
+        playBtn.classList.toggle('playing', false);
+      });
   };
 
   const setupVideoPlayPause = () => {
     playBtn.addEventListener('click', () => {
+      playBtn.classList.toggle('playing');
       if (video.paused) {
         playVideo();
       } else {
         video.pause();
       }
+    });
+    video.addEventListener('play', () => {
+      playBtn.classList.toggle('playing', true);
+    });
+    video.addEventListener('pause', () => {
+      playBtn.classList.toggle('playing', false);
     });
   };
 
@@ -164,7 +177,6 @@ export default async function decorate(block) {
   animateImg.addEventListener('load', animate, { once: true });
 
   const handleResize = debounce(() => {
-    // animate();
     // Refresh ScrollTrigger after a brief delay to ensure DOM has updated
     setTimeout(() => {
       ScrollTrigger.refresh();
