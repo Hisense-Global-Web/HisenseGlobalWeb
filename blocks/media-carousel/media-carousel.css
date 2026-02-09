@@ -17,19 +17,33 @@
   .carousel-title-box {
     display: flex;
     flex-direction: column;
+    height: var(--size-80);
     gap: var(--spacing-3xs);
 
+    &.only-title {
+      height: auto;
+
+      > div:first-child {
+        display: none;
+      }
+    }
+
     > div:nth-child(1) {
-      color: var(--color-hisense-teal);
+      color: var(--color-primary-green-50);
       font-size: var(--fontsize-title2);
       font-weight: var(--fontweight-medium);
-      line-height: 1.2;
+      line-height: 120%;
+      text-transform: uppercase;
     }
 
     > div:nth-child(2) {
+      display: flex;
+      flex-direction: row;
+      flex: 1 0 0;
       font-size: var(--fontsize-pc-h3);
       font-weight:var(--fontweight-medium);
-      line-height: 1.2;
+      text-transform: capitalize;
+      justify-content: space-between;
     }
   }
 
@@ -82,9 +96,8 @@
 
     .button-container {
       font-size: var(--fontsize-body3);
-      border-bottom: 1.5px solid #fff;
       box-sizing: border-box;
-      line-height: var(--size-20);
+      height: var(--size-20);
 
       a {
         display: block;
@@ -92,7 +105,10 @@
         background-color: transparent;
         margin: auto;
         padding: 0;
-        font-weight: 400;
+        border: none;
+        border-bottom: 1px solid #fff;
+        font-weight: var(--fontweight-medium);
+        line-height: 150%;
         border-radius: 0;
       }
     }
@@ -107,10 +123,6 @@
   }
 
   .media-carousel-pagination {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: min(5.06944444vw, 73px);
     display: none;
     align-items: flex-end;
     justify-content: flex-end;
@@ -120,8 +132,8 @@
       position: relative;
       width: var(--size-28);
       height: var(--size-28);
-      border: 1px solid var(--color-hisense-teal);
-      color: var(--color-hisense-teal);
+      border: 1px solid var(--color-primary-green-50);
+      color: var(--color-primary-green-50);
       background-color: transparent;
       margin: 0;
       border-radius: 50%;
@@ -178,10 +190,6 @@
         object-fit: cover;
       }
     }
-
-    .media-carousel-pagination {
-      height: min(2.84722222vw, 48px);
-    }
   }
 }
 
@@ -194,8 +202,10 @@
     width: min(31.80555556vw, 458px);
     height: min(23.61111111vw, 340px);
     overflow: hidden;
+    border-radius: var(--radius-xl, 20px);
+    background: linear-gradient(180deg, rgb(0 0 0 / 0%) 30.44%, rgb(0 0 0 / 20%) 100%);
   }
-
+  
   .item-content,
   .item-cta {
     height: 53.23529412%;
@@ -219,6 +229,7 @@
     h1, h2, h3, h4, h5, h6, p:first-child {
       margin-bottom: var(--spacing-3xs);
       font-size: var(--fontsize-body1);
+      font-weight: var(--fontweight-book);
       line-height: 1.5;
     }
 
@@ -228,10 +239,6 @@
       font-size: var(--fontsize-body3);
       line-height: 1.5;
     }
-  }
-
-  .media-carousel-pagination {
-    height: min(5.06944444vw, 73px);
   }
 }
 
@@ -267,6 +274,8 @@
         flex: 1;
         line-height: 1.5;
         font-size: var(--fontsize-body3);
+        font-weight: var(--fontweight-book);
+        color: var(--color-primary-grey-30);
       }
 
       &.button-container {
@@ -338,9 +347,6 @@
     }
   }
 
-  .media-carousel-pagination {
-    height: min(2.84722222vw, 48px);
-  }
 }
 
 .media-carousel.center-style {
@@ -374,13 +380,11 @@
       font-weight: var(--fontweight-medium);
     }
   }
-
-  .media-carousel-pagination {
-    height: min(2.84722222vw, 48px);
-  }
 }
 
 .media-carousel.bottom-center-style {
+  gap: var(--size-40);
+  
   .media-carousel-viewport {
     max-width: min(55.55555556vw, 800px);
     margin: 0 auto;
@@ -422,16 +426,23 @@
     .item-cta {
       width: min(41.66666667vw, 600px);
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-3xs);
     }
 
     h1, h2, h3, h4, h5, h6, p:first-child {
       font-size: var(--fontsize-pc-h4);
       font-weight: var(--fontweight-medium);
     }
-  }
 
-  .media-carousel-pagination {
-    height: min(2.84722222vw, 0px);
+    p:nth-child(2) {
+      color: var(--color-primary-grey-70);
+      font-size: var(--fontsize-body1);
+      line-height: 1.5;
+      font-weight: var(--fontweight-book);
+    }
   }
 }
 
@@ -451,14 +462,21 @@
   }
 
   .media-carousel {
+    gap: var(--size-24);
+
     .carousel-title-box {
-      > div:nth-child(1) {       
-        font-size: var(--fontsize-body1);
+      > div:nth-child(1) {
+        font-size: var(--fontsize-title3);
+        text-transform: uppercase;
       }
 
       > div:nth-child(2) {
         font-size: var(--fontsize-title1);
         line-height: 1.2;
+
+        &.no-subtitle {
+          font-size: var(--fontsize-title2);
+        }
       }
     }
 
@@ -480,7 +498,7 @@
       li {
         scroll-snap-align: start;
         scroll-snap-stop: always;
-        border-radius: min(var(--radius-xl), 16px) !important;
+        border-radius: var(--size-16) !important;
       }
     }
 
@@ -493,14 +511,14 @@
     gap: var(--spacing-xs);
 
     .item {
-      width: 76.92307692vw;
-      height: 57.43589744vw;
-      border-radius: min(var(--radius-xl), 16px);
+      width: calc(300/var(--breakpoint-mobile) * 100vw);
+      height: calc(224/var(--breakpoint-mobile) * 100vw);
+      border-radius: var(--size-16);
 
       .item-content, .item-cta {
         width: 100%;
         height: 100%;
-        padding: 10.25641026vw 35.8974359vw 6.15384615vw  4.1025641vw;
+        padding: calc(40/var(--breakpoint-mobile) * 100vw) calc(100/var(--breakpoint-mobile)*100vw) calc(24/var(--breakpoint-mobile)*100vw)  calc(16/var(--breakpoint-mobile)*100vw);
         gap: var(--spacing-xs);
         font-size: var(--fontsize-title3);
       }
@@ -522,23 +540,26 @@
   }
 
   .media-carousel.left-bottom-style {
+    gap: var(--size-24);
+
     .media-carousel-viewport ul {
       gap: var(--spacing-xs);
     }
 
     .item {
-      width: 76.92307692vw;
-      height: 57.43589744vw;
-      border-radius: min(var(--radius-xl), 16px);
+      width: calc(300/var(--breakpoint-mobile) *100vw);
+      height: calc(224/var(--breakpoint-mobile)*100vw);
+      border-radius: var(--size-16);
       overflow: hidden;
+      background: linear-gradient(180deg, rgb(0 0 0 / 0%) 60.77%, rgb(0 0 0 / 50%) 100%);
 
       .item-content, .item-cta {
         width: 100%;
         bottom: 0;
         padding: var(--fontsize-title1) var(--fontsize-body1);
-        height: 41.02564103vw;
+        height: calc(165/var(--breakpoint-mobile)*100vw);
 
-        p {
+        h1, h2, h3, h4, h5, h6, p {
           font-size: var(--size-20);
 
           &.button-container {
@@ -548,29 +569,43 @@
 
         h1, h2, h3, h4, h5, h6, p:first-child {
           font-size: var(--size-16);
+          font-weight: var(--fontweight-book);
+          line-height: 130%;
         }
 
         .button-container {
           bottom: var(--fontsize-title1);
+          font-weight: var(--fontweight-medium);
         }
       }
     }
   }
 
   .media-carousel.bottom-left-style .item {
-    width: 85.38461538vw;
+    width: calc(300/var(--breakpoint-mobile) *100vw);
+    gap: var(--spacing-xs);
 
     .item-picture {
       width: 100%;
-      height: 47.43589744vw;
+      height: calc(259/var(--breakpoint-mobile)*100vw);
+      border-radius: var(--size-16);
+    }
+
+    .item-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-4);
     }
 
     p {
-      font-size: var(--fontsize-body2) !important;
+      font-size: var(--fontsize-body3) !important;
+      color: var(--color-primary-grey-20) !important;
+      line-height: 140%;
+      font-weight: var(--fontweight-light);
     }
 
     h1, h2, h3, h4, h5, h6, p:first-child {
-      font-size: var(--fontsize-title3) !important;
+      font-size: var(--fontsize-body1) !important;
       font-weight: var(--fontweight-medium);
     }
   }
@@ -599,18 +634,30 @@
 
     .item-content {
       width: 100%;
+      gap: var(--size-10);
+
+      p {
+        color: var(--color-primary-grey-80);
+        font-weight: var(--fontweight-light);
+      }
 
       h1, h2, h3, h4, h5, h6, p:first-child {
         font-size: var(--fontsize-title3);
+        font-weight: var(--fontweight-medium);
       }
     }
   }
 
   .media-carousel.center-style {
+    gap: var(--size-24);
+
     .item {
-      width: 76.92307692vw;
-      aspect-ratio: 10/7;
-      height: fit-content;
+      width: calc(300/var(--breakpoint-mobile)*100vw);
+      height: calc(184/var(--breakpoint-mobile)*100vw);
+      
+      img {
+        border-radius: var(--size-16);
+      }
     }
   }
 
