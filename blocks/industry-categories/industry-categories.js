@@ -2,7 +2,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-
 export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
@@ -22,15 +21,15 @@ export default function decorate(block) {
         if (div.children.length === 1 && div.querySelector('picture')) {
           div.className = 'card-image';
         } else {
-          Array.from(div.children).forEach((child) => {
-            const wrapper = document.createElement('div');
-            wrapper.appendChild(child);
-            cardbody.appendChild(wrapper);
-          });
-          div.remove();
+          // Array.from(div.children).forEach((child) => {
+          //   const wrapper = document.createElement('div');
+          //   wrapper.appendChild(child);
+          //   cardbody.appendChild(wrapper);
+          // });
+          // div.remove();
         }
       });
-      li.append(cardbody);
+      // li.append(cardbody);
       if (ul.children.length === 0) {
         li.classList.add('active');
       }

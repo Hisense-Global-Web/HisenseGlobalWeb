@@ -79,29 +79,29 @@
           "component": "text",
           "name": "second text",
           "label": "Second Text",
-          "valueType": "string",
-          "value":"sencond"
+          "valueType": "string"
+          
         },
          {
           "component": "text",
           "name": "thirdtext",
           "label": "Third Text",
-          "valueType": "string",
-          "value":"third"
+          "valueType": "string"
+        
         },
          {
           "component": "text",
           "name": "fourthtext",
           "label": "Fourth Text",
-          "valueType": "string",
-          "value":"forth"
+          "valueType": "string"
+          
         },
          {
           "component": "text",
           "name": "fifthtext",
           "label": "Fifth Text",
-          "valueType": "string",
-          "value":"fifth"
+          "valueType": "string"
+         
         }
       ]
     }
