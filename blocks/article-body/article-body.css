@@ -1,7 +1,8 @@
-
-.article-body-wrapper {
+/* 页面部分样式 */
+main .section.article-body-container .article-body-wrapper {
   display: flex;
   justify-content: center;
+  margin-top: var(--size-48);
   
   .article-body {
     width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
@@ -12,6 +13,7 @@
     
     @media (width < 860px) {
       width: 100%;
+      gap: var(--size-24);
     }
     
     * {
@@ -49,6 +51,11 @@
       flex-direction: row-reverse;
       gap: var(--size-48);
       
+      @media (width < 860px) {
+        flex-direction: column;
+        gap: var(--size-24);
+      }
+      
       .text-body-img-group {
         width: 100%;
 
@@ -64,6 +71,10 @@
         display: flex;
         flex-direction: column;
         gap: var(--size-8);
+
+        @media (width < 860px) {
+          gap: var(--size-12);
+        }
         
         .text-body-title {
           color: var(--color-hisense-black);
@@ -94,11 +105,20 @@
       flex-direction: column;
       gap: var(--size-16);
       
+      @media (width < 860px) {
+        padding: var(--size-60) var(--size-24) var(--size-24);
+      }
+      
       .quotation {
         position: absolute;
         top: var(--size-30);
         left: var(--size-32);
         width: var(--size-24);
+
+        @media (width < 860px) {
+          top: var(--size-24);
+          left: var(--size-24);
+        }
       }
       
       .text-body-quote-notes {

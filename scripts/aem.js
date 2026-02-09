@@ -530,9 +530,12 @@ function decorateSections(main) {
       });
       sectionMeta.parentNode.remove();
     }
-
     if (section.dataset.id) {
       section.id = section.dataset.id;
+    }
+    if (section.dataset.sectionBackground) {
+      section.style.backgroundImage = `url(${section.dataset.sectionBackground})`;
+      section.classList.add('section-background-style');
     }
   });
 }

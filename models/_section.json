@@ -12,6 +12,7 @@
               "style_theme": "light",
               "style_container": "",
               "style_paddingTop": "pt-l",
+              "style_gap": "",
               "style_paddingBottom": "pb-l",
               "style_imageBorderRadius": "",
               "style_imageRatio": ""
@@ -80,6 +81,13 @@
           ]
         },
         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "section-background",
+          "label": "Section Background Image",
+          "multi": false
+        },
+        {
           "component": "container",
           "label": "Section Spacing",
           "name": "container_padding",
@@ -109,6 +117,38 @@
                 {
                   "name": "Extra Large (120px)",
                   "value": "pt-xl"
+                }
+              ]
+            },
+            {
+              "component": "select",
+              "name": "style_gap",
+              "label": "Gap",
+              "description": "Select a gap option when you need to add spacing between multiple blocks within this section.",
+              "options": [
+                {
+                  "name": "None",
+                  "value": ""
+                },
+                {
+                  "name": "Small (pc-24px mobile-16px)",
+                  "value": "gap-s"
+                },
+                {
+                  "name": "Mid (pc-32px mobile-24px)",
+                  "value": "gap-m"
+                },
+                {
+                  "name": "Medium (pc-48px mobile-32px)",
+                  "value": "gap-md"
+                },
+                {
+                  "name": "Large (pc-80px mobile-48px)",
+                  "value": "gap-l"
+                },
+                {
+                  "name": "Extra Large (pc-120px mobile-80px)",
+                  "value": "gap-xl"
                 }
               ]
             },
@@ -190,10 +230,13 @@
     {
       "id": "section",
       "components": [
+        "article-title",
         "article-body",
+        "article-body-list",
         "button",
         "card-carousel",
         "category-carousel",
+        "cross-page-redirect",
         "collection-banner",
         "collection-cards",
         "collection-title",
@@ -201,6 +244,7 @@
         "disclaimer",
         "feature-banner",
         "fragment",
+        "gradient-text-image",
         "header",
         "hero",
         "hero-banner",
@@ -224,11 +268,14 @@
         "title",
         "video",
         "videoinfo",
+        "tech-information",
         "core-value-card",
         "past-partnerships-list",
   	    "partnerships-section-title",
         "current-partnerships-list",
-        "industry-categories"
+        "industry-categories",
+        "module-title",
+        "card-grid"
       ]
     }
   ]

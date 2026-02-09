@@ -195,3 +195,20 @@ export function cancelListener(block, selector) {
     e.stopPropagation();
   });
 }
+
+/**
+ * UTC时区转换ISO时间为 Mmm D, YYYY 格式（如Nov 7, 2025）
+ * @param {string} isoStr - 带Z的ISO时间字符串（如2026-02-14T00:00:00.000Z）
+ * @returns {string} 格式化后的时间
+ */
+export function formatIsoToUtcStr(isoStr) {
+  const date = new Date(isoStr);
+  // 配置格式化规则：UTC时区、英文、月份缩写、数字日期、4位年份
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'UTC', // 关键：指定UTC时区，匹配原时间的Z
+    month: 'short', // 月份缩写（Jan/Feb/.../Nov/Dec）
+    day: 'numeric', // 数字日期（1-31）
+    year: 'numeric', // 4位年份（2025/2026）
+  });
+  return formatter.format(date);
+}

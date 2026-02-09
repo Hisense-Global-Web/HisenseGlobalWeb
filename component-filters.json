@@ -11,10 +11,13 @@
   {
     "id": "section",
     "components": [
+      "article-title",
       "article-body",
+      "article-body-list",
       "button",
       "card-carousel",
       "category-carousel",
+      "cross-page-redirect",
       "collection-banner",
       "collection-cards",
       "collection-title",
@@ -22,6 +25,7 @@
       "disclaimer",
       "feature-banner",
       "fragment",
+      "gradient-text-image",
       "header",
       "hero",
       "hero-banner",
@@ -45,11 +49,14 @@
       "title",
       "video",
       "videoinfo",
+      "tech-information",
       "core-value-card",
       "past-partnerships-list",
       "partnerships-section-title",
       "current-partnerships-list",
-      "industry-categories"
+      "industry-categories",
+      "module-title",
+      "card-grid"
     ]
   },
   {
@@ -63,9 +70,21 @@
     ]
   },
   {
+    "id": "article-body-list",
+    "components": [
+      "article-body-list-item"
+    ]
+  },
+  {
     "id": "card-carousel",
     "components": [
       "card-carouselItem"
+    ]
+  },
+  {
+    "id": "card-grid",
+    "components": [
+      "feature-items"
     ]
   },
   {
@@ -207,6 +226,12 @@
     "id": "product-sorting",
     "components": [
       "plp-product-sort"
+    ]
+  },
+  {
+    "id": "tech-information",
+    "components": [
+      "tech-items"
     ]
   },
   {
