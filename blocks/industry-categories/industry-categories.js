@@ -7,7 +7,7 @@ export default function decorate(block) {
   const ul = document.createElement('ul');
   const title = document.createElement('div');
   [...block.children].forEach((row, i) => {
-    if (i <= 2) {
+    if (i === 0) {
       title.className = 'title';
       title.append(row);
     } else {
@@ -21,15 +21,15 @@ export default function decorate(block) {
         if (div.children.length === 1 && div.querySelector('picture')) {
           div.className = 'card-image';
         } else {
-          // Array.from(div.children).forEach((child) => {
-          //   const wrapper = document.createElement('div');
-          //   wrapper.appendChild(child);
-          //   cardbody.appendChild(wrapper);
-          // });
-          // div.remove();
+          Array.from(div.children).forEach((child) => {
+            const wrapper = document.createElement('div');
+            wrapper.appendChild(child);
+            cardbody.appendChild(wrapper);
+          });
+          div.remove();
         }
       });
-      // li.append(cardbody);
+       li.append(cardbody);
       if (ul.children.length === 0) {
         li.classList.add('active');
       }
