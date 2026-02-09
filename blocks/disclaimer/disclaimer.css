@@ -1,8 +1,12 @@
 /* disclaimer.css */
 .disclaimer-box {
-  height: var(--size-144);
+  height: min(calc(184 / var(--breakpoint-pc) * 100vw), 184px);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  
+  @media (width < 860px) {
+    height: min(calc(168 / var(--breakpoint-mobile) * 100vw), 168px);
+  }
 }
 
 .disclaimer-box div, .disclaimer-box p, .disclaimer-box li {
@@ -12,4 +16,9 @@
   margin: 0;
   padding: 0;
   line-height: 1.5;
+  
+  @media (width < 860px) {
+    font-size: var(--fontsize-caption3);
+    line-height: 1.4;
+  }
 }

@@ -23,7 +23,7 @@
   /* width: 640px; */
 
   /* height: 360px; */
-  margin-bottom: var(--size-34);
+  margin-bottom: var(--size-30);
   position: relative;
 
   @media (width < 860px) {
