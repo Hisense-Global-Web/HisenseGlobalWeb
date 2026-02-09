@@ -94,8 +94,8 @@
 
 .pdp-media .product-filters {
   display: flex;
-  gap: var(--size-12);
-  width: min(calc(508 / var(--breakpoint-pc) * 100vw), 508px);
+  gap: var(--size-16);
+  width: min(calc(520 / var(--breakpoint-pc) * 100vw), 520px);
   scroll-behavior: smooth;
   overflow: scroll hidden;
   list-style: none;
