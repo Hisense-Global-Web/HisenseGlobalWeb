@@ -12,6 +12,12 @@
         {
           "component": "text",
           "valueType": "string",
+          "name": "subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
           "name": "jcr:description",
           "label": "Description"
         },
@@ -21,8 +27,38 @@
           "name": "keywords",
           "multi": true,
           "label": "Keywords"
+        },
+        {
+          "component": "date-time",
+          "valueType": "date",
+          "name": "date",
+          "label": "Date"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "location",
+          "label": "Location"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "author",
+          "label": "Author"
+        },
+        {
+          "component": "image",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cta-text",
+          "label": "CTA Text"
         }
       ]
     }
   ]
-}
+} 
