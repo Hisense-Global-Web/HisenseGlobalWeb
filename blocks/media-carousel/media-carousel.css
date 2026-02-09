@@ -195,7 +195,7 @@
     height: min(23.61111111vw, 340px);
     overflow: hidden;
     border-radius: var(--radius-xl, 20px);
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 30.44%, rgba(0, 0, 0, 0.20) 100%);
+    background: linear-gradient(180deg, rgb(0 0 0 / 0%) 30.44%, rgb(0 0 0 / 20%) 100%);
   }
   
   .item-content,
@@ -547,7 +547,7 @@
       height: calc(224/var(--breakpoint-mobile)*100vw);
       border-radius: var(--size-16);
       overflow: hidden;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 60.77%, rgba(0, 0, 0, 0.50) 100%);
+      background: linear-gradient(180deg, rgb(0 0 0 / 0%) 60.77%, rgb(0 0 0 / 50%) 100%);
 
       .item-content, .item-cta {
         width: 100%;
@@ -603,7 +603,6 @@
     h1, h2, h3, h4, h5, h6, p:first-child {
       font-size: var(--fontsize-body1) !important;
       font-weight: var(--fontweight-medium);
-      font-weight: var(--fontweight-medium);
     }
   }
 
@@ -647,6 +646,7 @@
 
   .media-carousel.center-style {
     gap: var(--size-24);
+
     .item {
       width: calc(300/var(--breakpoint-mobile)*100vw);
       height: calc(184/var(--breakpoint-mobile)*100vw);

@@ -103,6 +103,7 @@
 
   p {
     width: calc(162/var(--breakpoint-pc)*100vw);
+
     /* 兼容Laser home Cinema在一行 */
     white-space: nowrap;
   }
