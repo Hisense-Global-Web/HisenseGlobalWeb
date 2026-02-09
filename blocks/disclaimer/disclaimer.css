@@ -1,11 +1,11 @@
 /* disclaimer.css */
 .disclaimer-box {
-  height: min(calc(184 / var(--breakpoint-pc) * 100vw), 184px);
+  padding: var(--size-120) 0;
   display: flex;
   align-items: center;
   
   @media (width < 860px) {
-    height: min(calc(168 / var(--breakpoint-mobile) * 100vw), 168px);
+    padding: var(--size-80) 0;
   }
 }
 
