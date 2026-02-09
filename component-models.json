@@ -1868,24 +1868,21 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "title",
+        "name": "title_title",
         "label": "Title",
-        "value": "Title",
         "multi": false
       },
       {
         "component": "text",
-        "name": "subtitle",
+        "name": "title_subtitle",
         "label": "Sub Title",
-        "value": "Subtitle",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "content",
+        "name": "title_content",
         "label": "Content",
-        "valueType": "string",
-        "value": "Content"
+        "valueType": "string"
       }
     ]
   },
