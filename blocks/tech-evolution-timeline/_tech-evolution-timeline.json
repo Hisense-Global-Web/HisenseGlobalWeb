@@ -26,7 +26,10 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Timeline Nodes Item",
-              "model": "timeline-nodes-item"
+              "model": "timeline-nodes-item",
+              "year_name": "This is the year",
+              "title_name": "This is the Milestone Title",
+              "description_name": "This is the Milestone Description"
             }
           }
         }
