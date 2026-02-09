@@ -585,9 +585,13 @@
     width: calc(300/var(--breakpoint-mobile) *100vw);
     gap: var(--spacing-xs);
 
+    .item {
+      height: calc(259/var(--breakpoint-mobile)*100vw);
+    }
+
     .item-picture {
       width: 100%;
-      height: calc(259/var(--breakpoint-mobile)*100vw);
+      height: calc(184/var(--breakpoint-mobile)*100vw);
       border-radius: var(--size-16);
     }
 
