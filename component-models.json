@@ -362,14 +362,14 @@
       },
       {
         "component": "text",
-        "name": "time-working_hours",
+        "name": "time_working__hours",
         "value": "",
         "label": "Working Hours",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "time-response_time",
+        "name": "time_response__time",
         "value": "",
         "label": "Response Time",
         "valueType": "string"
@@ -382,14 +382,14 @@
         "fields": [
           {
             "component": "aem-content",
-            "name": "button-link",
+            "name": "button_link",
             "label": "Button Link",
             "valueType": "string",
             "value": ""
           },
           {
             "component": "text",
-            "name": "button-text",
+            "name": "button_text",
             "label": "Button Text",
             "valueType": "string",
             "value": ""
