@@ -20,6 +20,14 @@
     height: var(--size-80);
     gap: var(--spacing-3xs);
 
+    &.only-title {
+      height: auto;
+
+      > div:first-child {
+        display: none;
+      }
+    }
+
     > div:nth-child(1) {
       color: var(--color-primary-green-50);
       font-size: var(--fontsize-title2);
@@ -375,12 +383,8 @@
 }
 
 .media-carousel.bottom-center-style {
-  padding-top: var(--size-40);
-
-  .carousel-title-box {
-    display: none;
-  }
-
+  gap: var(--size-40);
+  
   .media-carousel-viewport {
     max-width: min(55.55555556vw, 800px);
     margin: 0 auto;

@@ -159,6 +159,7 @@ export default async function decorate(block) {
   if (titleBox.firstElementChild.textContent.trim() === '') {
     // If the first child is empty, the title font-size should be smaller
     titleBox.lastElementChild.classList.add('no-subtitle');
+    titleBox.classList.add('only-title');
   }
   block.appendChild(titleBox);
   block.appendChild(mediaCarouselContainer);
