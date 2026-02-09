@@ -104,52 +104,67 @@ export default async function decorate(block) {
     }
   }
 
-  const {
-    gsap,
-    ScrollTrigger,
-    SplitText,
-  } = window;
-
-  ScrollTrigger.config({ autoRefreshEvents: 'DOMContentLoaded,load' });
-
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.registerPlugin(SplitText);
-
-  let scrollTriggerInstance = null;
-
-  const cleanup = () => {
-    if (scrollTriggerInstance) {
-      scrollTriggerInstance.kill();
-      scrollTriggerInstance = null;
-    }
-  };
+  const { gsap } = window;
 
   const animate = () => {
-    cleanup();
+    const statsItems = document.querySelectorAll('.animated-stats-item');
+    const timeline = gsap.timeline();
 
-    const items = gsap.utils.toArray('.animated-stats-item');
-    items.forEach((item) => {
-      const targets = item.querySelector('.number-wrapper');
-      targets.forEach((target) => {
-        gsap.to(target, {
-          yPercent: -100,
-          duration: 0.2,
+    statsItems.forEach((item, itemIndex) => {
+      const numberWrappers = item.querySelectorAll('.number-wrapper');
+
+      numberWrappers.forEach((wrapper) => {
+        const chars = wrapper.querySelectorAll('.number-char');
+        const finalCharIndex = Array.from(chars)
+          .findIndex((char) => char.classList.contains('final-number-char'));
+
+        if (finalCharIndex === -1) return;
+
+        // Set initial position
+        gsap.set(wrapper, { y: 0 });
+
+        // Calculate the distance to move
+        const charHeight = chars[0].getBoundingClientRect().height;
+        const finalPosition = -finalCharIndex * charHeight;
+        const bounceOvershoot = finalCharIndex < chars.length - 1 ? -(charHeight / 4) : 0;
+
+        // Add animation to timeline
+        timeline.to(wrapper, {
+          y: finalPosition + bounceOvershoot,
+          duration: 1,
           yoyo: true,
-        }, '+=0.1');
+          ease: 'power2.inOut',
+        }, itemIndex * 0.2) // Stagger each item by 0.2s
+          .to(wrapper, {
+            y: finalPosition,
+            duration: 0.2,
+            yoyo: true,
+            ease: 'bounce.out',
+          }, '>-0.1'); // Start slightly before the previous animation ends
       });
     });
+
+    return timeline;
   };
 
-  animate();
-  // block.addEventListener('load', animate, { once: true });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animate();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 1 });
+
+  if (statsList) {
+    observer.observe(statsList);
+  }
 
   const handleResize = debounce(() => {
-    animate();
-    // Refresh ScrollTrigger after a brief delay to ensure DOM has updated
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-  }, 500);
+    if (statsList) {
+      animate();
+    }
+  }, 300);
   window.addEventListener('resize', handleResize);
   // ========== ANIMATION [END] ========== //
 }

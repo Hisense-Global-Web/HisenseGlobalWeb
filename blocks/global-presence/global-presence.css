@@ -48,10 +48,14 @@
 		border-radius: var(--border-radius-l);
 		background-color: var(--color-white);
 		display: flex;
-		justify-content: space-around;
-		padding-block: 28px;
+		justify-content: space-between;
+		padding: var(--spacing-s) var(--spacing-xs);
 		width: 100%;
 		color: var(--color-hisense-grey-01);
+
+		@media (width >= 860px) {
+			padding: var(--spacing-xl) var(--spacing-2xl);
+		}
 	}
 
 	.global-presence-stats-list-item {
@@ -61,36 +65,49 @@
 		gap: var(--spacing-3xs);
 
 		.animated-stats-item {
+			--number-height: calc(var(--size-24, 24px) * 1.2);
+
 			font-size: var(--size-24);
 			font-weight: var(--fontweight-medium);
 			color: var(--color-hisense-teal);
 
 			@media (width >= 860px) {
-				font-size: var(--size-48);
-				line-height: var(--size-64);
-				display: flex;
+				--number-height: calc(var(--size-46, 46px) * 1.2);
+
+				font-size: var(--size-46);
+			}
+
+			line-height: var(--number-height);
+			display: flex;
+			position: relative;
+			align-items: flex-start;
+			height: var(--number-height);
+			overflow: hidden;
+
+			.number-wrapper {
 				position: relative;
-				align-items: flex-start;
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+			}
 
-				.number-wrapper {
-					/*position: absolute;*/
-					top: 0;
-				}
-
-				.number-char {
-
-				}
+			.number-char {
+				height: var(--number-height);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-shrink: 0;
 			}
 		}
 
 		p:last-child {
 			font-size: var(--size-12);
+			font-weight: var(--fontweight-book);
 			color: var(--color-primary-grey-90);
 
 			@media (width >= 860px) {
-				font-size: var(--size-18);
+				font-size: var(--size-20);
 			}
-
 		}
 	}
 
