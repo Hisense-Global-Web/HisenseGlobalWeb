@@ -361,18 +361,26 @@
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "time_workingHours",
-        "value": "",
-        "label": "Working Hours",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "time_responseTime",
-        "value": "",
-        "label": "Response Time",
-        "valueType": "string"
+        "component": "container",
+        "label": "",
+        "name": "container_time",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "text",
+            "name": "time_workingHours",
+            "value": "",
+            "label": "Working Hours",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "time_responseTime",
+            "value": "",
+            "label": "Response Time",
+            "valueType": "string"
+          }
+        ]
       },
       {
         "component": "container",
