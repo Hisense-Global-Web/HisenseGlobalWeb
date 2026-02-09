@@ -1093,6 +1093,24 @@
           }
         },
         {
+          "title": "News Card List",
+          "id": "news-card-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "News Card List",
+                  "model": "news-card-list",
+                  "key-value": true,
+                  "title": "Recent Press Releases",
+                  "page-size": "9"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Parallax",
           "id": "parallax",
           "plugins": {

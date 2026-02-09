@@ -2196,6 +2196,24 @@
     ]
   },
   {
+    "id": "news-card-list",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Section Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many news cards to show per page.",
+        "valueType": "number"
+      }
+    ]
+  },
+  {
     "id": "parallax",
     "fields": [
       {
