@@ -13,13 +13,17 @@ export default function decorate(block) {
     } else {
       const li = document.createElement('li');
       li.classList.add('card-item');
+      const cardbody = document.createElement('div');
+      cardbody.classList.add('card-body');
       moveInstrumentation(row, li);
       while (row.firstElementChild) li.append(row.firstElementChild);
       [...li.children].forEach((div) => {
         if (div.children.length === 1 && div.querySelector('picture')) {
           div.className = 'card-image';
         } else {
-          div.className = 'card-body';
+          cardbody.append(...div.children);
+          div.remove();
+          li.append(cardbody);
         }
       });
       if (ul.children.length === 0) {
