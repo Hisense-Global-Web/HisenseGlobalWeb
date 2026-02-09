@@ -877,6 +877,11 @@ main {
 		color: var(--text-dark);
 	}
 
+	.section.green {
+		background-color: var(--color-hisense-green-04);
+		color: var(--text-light);
+	}
+
   .section.section-background-style {
     background-repeat: no-repeat;
     background-size: cover;
