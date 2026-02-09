@@ -1773,11 +1773,11 @@
             "value": "large-icon"
           },
           {
-            "name": "Top Space",
+            "name": "Margin-top",
             "value": "top-space"
           },
           {
-            "name": "Bottom Space",
+            "name": "Margin-bottom",
             "value": "bottom-space"
           },
           {
@@ -1789,11 +1789,11 @@
             "value": "small-icon"
           },
           {
-            "name": "Icon Overlay_Left",
+            "name": "Icon-Overlay_left",
             "value": "customize-feature-banner"
           },
           {
-            "name": "Icon Overlay_Bottom",
+            "name": "Icon-Overlay_bottom",
             "value": "customize-bottom"
           }
         ]
