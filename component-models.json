@@ -1701,7 +1701,7 @@
     ]
   },
   {
-    "id": "honors-awards-cards",
+    "id": "honors-awards-list",
     "fields": [
       {
         "component": "select",
@@ -1727,7 +1727,7 @@
     ]
   },
   {
-    "id": "honors-awards-card",
+    "id": "honors-awards-list-item",
     "fields": [
       {
         "component": "richtext",
@@ -1744,13 +1744,13 @@
       },
       {
         "component": "aem-content",
-        "name": "honors-awards-card_ctaPrimary",
+        "name": "honors-awards-list-item_ctaPrimary",
         "label": "Primary CTA",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "honors-awards-card_ctaPrimaryText",
+        "name": "honors-awards-list-item_ctaPrimaryText",
         "label": "Primary CTA Label",
         "valueType": "string"
       }

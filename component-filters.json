@@ -60,7 +60,8 @@
       "current-partnerships-list",
       "industry-categories",
       "module-title",
-      "card-grid"
+      "card-grid",
+      "honors-awards-list"
     ]
   },
   {
@@ -182,9 +183,9 @@
     ]
   },
   {
-    "id": "honors-awards-cards",
+    "id": "honors-awards-list",
     "components": [
-      "honors-awards-card"
+      "honors-awards-list-item"
     ]
   },
   {

@@ -3,6 +3,11 @@
   width: 100%;
 }
 
+.industry-categories-wrapper  p{
+  margin: 0;
+  padding: 0;
+}
+
 .industry-categories-wrapper .title p:first-child,
 [data-aue-prop="title_title"]{
   color: var(--color-primary-green-50);
@@ -46,11 +51,11 @@
   gap: var(--size-16);
   display: grid;
   grid-auto-flow: column;
-  padding: 20px;
+  padding: 0;
   margin: 0;
   list-style: none;
   width: fit-content; /* 自适应宽度 */
-  transition: grid-template-columns 0.3s ease;
+  transition: grid-template-columns 0.5s ease;
   grid-auto-rows: 1fr;
 
   @media (width < 860px) {
@@ -76,7 +81,7 @@
 
    @media (width < 860px) {
     position: relative;
-    transition: transform 0.3s;
+    transition: transform 0.5s;
     pointer-events: auto; 
 
     /* -webkit-user-select: none; */
@@ -88,13 +93,14 @@
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   padding: var(--size-40) var(--size-16) var(--size-24);
-
+  color: var(--color-primary-grey-10);
   width: min(12.0833333vw, 174px);
-    @media (width < 860px) {
-        width:20vw;
-      }
+
+  @media (width < 860px) {
+    width:20vw;
+  }
 }
 
 /* .industry-categories .card-item:hover {
@@ -103,8 +109,7 @@
 } */
 
 .industry-categories .active {
-  color: white;
-  transform: translateY(-5px);
+ 
   box-shadow: 0 8px 20px rgb(0 0 0 / 10%);
   width: min(25vw, 369px) ;
    @media (width < 860px) {
@@ -121,20 +126,40 @@
   }
 }
 
+.industry-categories .card-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center; 
+  gap: var(--size-8);
+  margin:var(--size-48) 0 var(--size-44);
+}
+
+.industry-categories .card-body > div{
+ 
+    background: rgb(20 20 20 / 60%);
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    border-radius: var(--size-12);
+    padding: var(--size-8);
+    font-size: var(--size-14);
+    font-weight: var(--fontweight-book);
+}
+
 .industry-categories .active .card-body > div{
     z-index: 99;
     position: relative;
-    background: rgb(20 20 20 / 60%);
-    text-align: center;
-    width: 80%;
-    margin: auto;
-    border-radius: 5px;
+   
 }
 
 .industry-categories .active .card-title{
   z-index: 99;
   position: relative;
-  color:white;
+  color: var(--color-primary-grey-10);
+  font-size: var(--size-20);
+  line-height: 120%;
+  font-weight: var(--fontweight-medium);
 }
 
 .industry-categories  > ul > li .card-image {
@@ -144,7 +169,7 @@
   top: 0;
   left: 0;
   object-fit: cover;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   filter: blur(0px);
   transform: scale(1);
 }
