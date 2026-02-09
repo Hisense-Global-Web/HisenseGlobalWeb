@@ -56,12 +56,16 @@
               "value": "grey"
             },
             {
-              "name": "Gray 00",
-              "value": "gray-00"
+              "name": "Gray 90",
+              "value": "gray-90"
             },
             {
               "name": "Gradient Gray",
               "value": "gradient-gray"
+            },
+            {
+              "name": "Green",
+              "value": "green"
             }
           ]
         },
@@ -244,10 +248,14 @@
         "disclaimer",
         "feature-banner",
         "fragment",
+        "global-presence",
+        "globalization-timeline",
         "gradient-text-image",
         "header",
+        "headline",
         "hero",
         "hero-banner",
+        "hero-presence",
         "icon-container",
         "image",
         "image-comparison-slider",
