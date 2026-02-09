@@ -61,6 +61,20 @@
           "valueType": "string"
         },
         {
+          "component": "text",
+          "name": "working-hours",
+          "value": "",
+          "label": "Working Hours",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "response-time",
+          "value": "",
+          "label": "Response Time",
+          "valueType": "string"
+        },
+        {
           "component": "container",
           "label": "",
           "name": "container_cta",
