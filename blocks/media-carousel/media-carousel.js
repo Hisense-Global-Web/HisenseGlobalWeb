@@ -45,7 +45,7 @@ function bindEvent(block) {
           try {
             video?.load();
             // 等待元数据加载
-            await new Promise(resolve => {
+            await new Promise((resolve) => {
               video?.addEventListener('loadedmetadata', resolve, { once: true });
             });
             // 尝试自动播放
