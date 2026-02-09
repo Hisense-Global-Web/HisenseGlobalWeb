@@ -1,12 +1,9 @@
 /* eslint-disable func-names */
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 
 export default function decorate(block) {
-  const config = readBlockConfig(block);
-   console.log('config');
-  console.log(config);
   /* change to ul, li */
   const ul = document.createElement('ul');
   const title = document.createElement('div');
@@ -31,9 +28,9 @@ export default function decorate(block) {
             cardbody.appendChild(wrapper);
           });
           div.remove();
-          li.append(cardbody);
         }
       });
+      li.append(cardbody);
       if (ul.children.length === 0) {
         li.classList.add('active');
       }
