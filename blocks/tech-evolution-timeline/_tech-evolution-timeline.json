@@ -123,9 +123,17 @@
           "readonly": true
         },
         {
+          "component": "text",
+          "name": "background_type",
+          "valueType": "string",
+          "value": "background_box",
+          "hidden": true,
+          "readonly": true
+        },
+        {
           "component": "reference",
           "valueType": "string",
-          "name": "tech-background",
+          "name": "background_img",
           "label": "Card Background Image",
           "multi": false
         },
@@ -133,7 +141,7 @@
           "component": "text",
           "name": "image_type",
           "valueType": "string",
-          "value": "image_card",
+          "value": "image_box",
           "hidden": true,
           "readonly": true
         },
