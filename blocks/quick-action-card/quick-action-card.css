@@ -98,6 +98,6 @@
 
   .quick-action-card-view-more a:active {
     background-color: var(--color-primary-green-70, #005a5c);
-    color: var(--color-primary-grey-10, rgba(255, 255, 255, 0.8));
+    color: var(--color-primary-grey-10, rgb(255 255 255 / 80%));
   }
 }

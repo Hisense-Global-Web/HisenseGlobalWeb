@@ -133,6 +133,7 @@
     color: var(--color-primary-grey-100, #000);
     font-weight: var(--fontweight-medium, 500);
     line-height: 1.5;
+
     @media (width<860px) {
       width: 100%;
       height: calc(42 / var(--breakpoint-mobile) * 100vw);
@@ -150,7 +151,7 @@
     border: none;
 
     @media (width<860px) {
-      color: var(--color-primary-grey-10, rgba(255, 255, 255, 0.8));
+      color: var(--color-primary-grey-10, rgb(255 255 255 / 80%));
       background: var(--color-primary-grey-100, #000);
     }
   }
