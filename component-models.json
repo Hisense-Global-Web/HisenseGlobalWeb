@@ -46,10 +46,11 @@
         "label": "Author"
       },
       {
-        "component": "image",
+        "component": "reference",
         "valueType": "string",
-        "name": "image",
-        "label": "Image"
+        "name": "thumbnail",
+        "label": "Thumbnail",
+        "multi": false
       },
       {
         "component": "text",
@@ -2191,6 +2192,31 @@
         "name": "logoAlt",
         "label": "Logo Alt",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "news-card-list",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Section Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many news cards to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "empty-text",
+        "label": "Empty Result Text",
+        "description": "Text to show when no news items match the current filters.",
+        "valueType": "string"
       }
     ]
   },
