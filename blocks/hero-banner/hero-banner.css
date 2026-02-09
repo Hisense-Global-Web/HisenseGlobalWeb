@@ -115,6 +115,7 @@ p {
   .hero-banner-item-content h1, h2, h3, h4, h5, h6 {
     margin: 0;
     font-size: var(--fontsize-pc-h1);
+    line-height: 120%;
   }
 
   .hero-banner-item-content.icon-svg {
@@ -275,6 +276,7 @@ p {
   button {
     width: var(--size-8);
     height: var(--size-8);
+    border: none;
     margin: 0;
     padding: 0;
     background-color: var(--color-hisense-grey-02);
@@ -319,6 +321,7 @@ p {
   position: relative;
   width: var(--size-40);
   height: var(--size-40);
+  border: none;
   margin: 0;
   border-radius: 50%;
   padding: 0;
@@ -462,16 +465,26 @@ p {
 
   .hero-banner.only-picture .hero-banner-items-container{
     max-height: 100dvh !important;
-    aspect-ratio: 390/640;
+    aspect-ratio: 390/480;
 
     .hero-banner-content {
+      height: calc(203/var(--breakpoint-mobile)*100vw) !important;
       line-height: 1.2;
       bottom: 0;
-      padding: min(var(--size-42), 6.5625vh) min(var(--size-24), 3.75vh);
-      font-size: min(var(--size-34), 5.3125vh);
+      padding: var(--size-40) var(--size-24);
+      font-size: var(--size-34);
 
       .hero-banner-item-content {
         gap: 0;
+
+        h1, h2, h3, h4, h5, h6 {
+          font-size: var(--size-34);
+          line-height: 1.2;
+        }
+      }
+
+      .teal-text {
+        display: none;
       }
     }
 
@@ -490,6 +503,7 @@ p {
       width: var(--size-6);
 
       &:disabled {
+        border-radius: calc(75/var(--breakpoint-mobile)*100vw);
         width: var(--size-30);
       }
     }

@@ -39,8 +39,19 @@ function bindEvent(block) {
   block.querySelector('.video-media-carousel-block .media-carousel-track').addEventListener('click', (e) => {
     const dataIndex = e.target.closest('li').dataset.slideIndex;
     block.querySelectorAll('li').forEach((el, i) => {
+      const video = el.querySelector('video');
       if (String(i) === dataIndex) {
-        el.querySelector('video')?.play();
+        if (video?.getAttribute('data-is-playing') === 'false') {
+          video?.play();
+          video?.setAttribute('playsInline', 'true');
+          video?.setAttribute('muted', 'true');
+          video?.setAttribute('autoplay', 'true');
+          video?.setAttribute('loop', 'true');
+          video?.setAttribute('data-is-playing', 'true');
+        } else {
+          video?.pause();
+          video?.setAttribute('data-is-playing', 'false');
+        }
       } else {
         el.querySelector('video')?.pause();
       }
@@ -86,6 +97,7 @@ function createVideo(child, idx) {
   video.innerHTML = '';
   video.muted = true;
   video.playsInline = true;
+  video.setAttribute('data-is-playing', 'false');
   video.appendChild(source);
   videoDivDom.appendChild(video);
   videoDivDom.appendChild(img);
@@ -103,7 +115,9 @@ export default async function decorate(block) {
   [...block.children].forEach((child, idx) => {
     // except subtitle and title
     if (idx <= 2) {
-      if (idx !== 2) titleBox.appendChild(child);
+      if (idx !== 2) {
+        titleBox.appendChild(child);
+      }
       else child.remove();
       return;
     }
@@ -142,6 +156,10 @@ export default async function decorate(block) {
     mediaCarouselBlocks.appendChild(mediaBlock);
   });
   mediaCarouselContainer.appendChild(mediaCarouselBlocks);
+  if (titleBox.firstElementChild.textContent.trim() === '') {
+    // If the first child is empty, the title font-size should be smaller
+    titleBox.lastElementChild.classList.add('no-subtitle');
+  }
   block.appendChild(titleBox);
   block.appendChild(mediaCarouselContainer);
 
@@ -151,7 +169,7 @@ export default async function decorate(block) {
       <button type="button" class="slide-prev" disabled></button>
       <button type="button" class="slide-next"></button>
     `;
-    block.appendChild(buttonContainer);
+    titleBox.lastElementChild.appendChild(buttonContainer);
   }
   bindEvent(block, index);
   window.onresize = debounce(() => {
