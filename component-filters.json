@@ -4,15 +4,20 @@
     "components": [
       "section",
       "navigation",
+      "company-page-navigation",
       "footerContainer"
     ]
   },
   {
     "id": "section",
     "components": [
+      "article-title",
+      "article-body",
+      "article-body-list",
       "button",
       "card-carousel",
       "category-carousel",
+      "cross-page-redirect",
       "collection-banner",
       "collection-cards",
       "collection-title",
@@ -20,13 +25,19 @@
       "disclaimer",
       "feature-banner",
       "fragment",
+      "global-presence",
+      "globalization-timeline",
+      "gradient-text-image",
       "header",
+      "headline",
       "hero",
       "hero-banner",
+      "hero-presence",
       "icon-container",
       "image",
       "image-comparison-slider",
       "media-carousel",
+      "minimalist-hero-banner",
       "parallax",
       "product-card",
       "product-filter",
@@ -41,13 +52,44 @@
       "text",
       "title",
       "video",
-      "videoinfo"
+      "videoinfo",
+      "tech-information",
+      "core-value-card",
+      "past-partnerships-list",
+      "partnerships-section-title",
+      "current-partnerships-list",
+      "industry-categories",
+      "module-title",
+      "card-grid",
+      "news-card-list"
+    ]
+  },
+  {
+    "id": "article-body",
+    "components": [
+      "text-body-image",
+      "text-body-headline",
+      "text-body-content",
+      "text-body-quote",
+      "text-body-side-by-side"
+    ]
+  },
+  {
+    "id": "article-body-list",
+    "components": [
+      "article-body-list-item"
     ]
   },
   {
     "id": "card-carousel",
     "components": [
       "card-carouselItem"
+    ]
+  },
+  {
+    "id": "card-grid",
+    "components": [
+      "feature-items"
     ]
   },
   {
@@ -79,6 +121,24 @@
     ]
   },
   {
+    "id": "company-page-navigation",
+    "components": [
+      "company-page-navigation-item"
+    ]
+  },
+  {
+    "id": "core-value-card",
+    "components": [
+      "core-value-card-item"
+    ]
+  },
+  {
+    "id": "current-partnerships-list",
+    "components": [
+      "current-partnerships-list-item"
+    ]
+  },
+  {
     "id": "footerContainer",
     "components": [
       "footerLogo",
@@ -105,15 +165,39 @@
     ]
   },
   {
+    "id": "global-presence",
+    "components": [
+      "stats-strip"
+    ]
+  },
+  {
+    "id": "globalization-timeline",
+    "components": [
+      "phase-bar"
+    ]
+  },
+  {
     "id": "hero-banner",
     "components": [
       "hero-bannerItem"
     ]
   },
   {
+    "id": "honors-awards-cards",
+    "components": [
+      "honors-awards-card"
+    ]
+  },
+  {
     "id": "icon-container",
     "components": [
       "icon-item"
+    ]
+  },
+  {
+    "id": "industry-categories",
+    "components": [
+      "industry-categories-item"
     ]
   },
   {
@@ -138,6 +222,12 @@
     ]
   },
   {
+    "id": "past-partnerships-list",
+    "components": [
+      "past-partnerships-list-item"
+    ]
+  },
+  {
     "id": "product-filter",
     "components": [
       "product-filter-item"
@@ -153,6 +243,12 @@
     "id": "product-sorting",
     "components": [
       "plp-product-sort"
+    ]
+  },
+  {
+    "id": "tech-information",
+    "components": [
+      "tech-items"
     ]
   },
   {
