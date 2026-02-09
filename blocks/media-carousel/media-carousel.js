@@ -1,88 +1,117 @@
 import {
   getSlideWidth,
-  updatePosition,
-  throttle,
-  setupObserver,
+  getChildSlideWidth,
   whenElementReady,
-  cancelListener,
-  resizeObserver,
 } from '../../utils/carousel-common.js';
-import { createElement, debounce } from '../../utils/dom-helper.js';
+import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 
 let carouselId = 0;
 
 function bindEvent(block) {
+  const track = block.querySelector('.media-carousel-track');
+  const videos = block.querySelectorAll('.video-autoPlay');
+  const prevBtn = block.querySelector('.slide-prev');
+  const nextBtn = block.querySelector('.slide-next');
   const cards = block.querySelectorAll('.item');
-  const maxWidth = block.querySelector('.media-carousel-viewport').offsetWidth;
+  let maxWidth = block.querySelector('.media-carousel-viewport').offsetWidth;
+  if (block.classList.contains('bottom-center-style')) {
+    maxWidth = block.offsetWidth;    
+  }
   const gap = parseInt(window.getComputedStyle(block.querySelector('.media-carousel-track')).gap, 10) || 0;
+  const CONFIG = {
+    itemWidth: getChildSlideWidth(block),
+    gap,
+    containerWidth: maxWidth,
+    totalItems: cards.length,
+  };
   if (cards.length * getSlideWidth(block) - gap >= maxWidth) {
     block.querySelector('.media-carousel-pagination').classList.add('show');
   }
-  // 按钮处理
-  cancelListener(block, '.slide-prev');
-  block.querySelector('.slide-prev').addEventListener('click', throttle(() => {
-    let index = parseInt(block.dataset.slideIndex, 10);
-    if (index > 0) {
-      index -= 1;
-      updatePosition(block, index, 'click');
-    }
-  }, 500));
-  cancelListener(block, '.slide-next');
-  block.querySelector('.slide-next').addEventListener('click', throttle(() => {
-    let index = parseInt(block.dataset.slideIndex, 10);
-    if (index < cards.length) {
-      index += 1;
-      updatePosition(block, index, 'click');
-    }
-  }, 500));
-  if (!block.classList.contains('video-media-carousel-block')) return;
-  // 视频处理
-  block.querySelector('.video-media-carousel-block .media-carousel-track').addEventListener('click', async (e) => {
-    const dataIndex = e.target.closest('li').dataset.slideIndex;
-    block.querySelectorAll('li').forEach(async (el, i) => {
-      const video = el.querySelector('video');
-      if (String(i) === dataIndex) {
-        if (video?.getAttribute('data-is-playing') === 'false') {
-          try {
-            video?.load();
-            // 等待元数据加载
-            await new Promise((resolve) => {
-              video?.addEventListener('loadedmetadata', resolve, { once: true });
-            });
-            // 尝试自动播放
-            await video?.play();
-            video?.setAttribute('data-is-playing', 'true');
-          } catch (err) {
-            // 自动播放失败，可能是由于浏览器的自动播放策略
-            console.warn('Video playback failed:', err);
-          }
-        } else {
-          video?.pause();
-          video?.setAttribute('data-is-playing', 'false');
-        }
+
+  const step = CONFIG.itemWidth + CONFIG.gap;
+  const totalTrackWidth = (CONFIG.totalItems * CONFIG.itemWidth) + ((CONFIG.totalItems - 1) * CONFIG.gap);
+  const maxTranslate = totalTrackWidth - CONFIG.containerWidth; // 最大的负向偏移量
+
+  let currentX = 0;
+
+  const playSoloVideo = (index) => {
+    videos.forEach((v, i) => {
+      if (i === index) {
+        v.parentElement.classList.add('is-playing');
+        v.play();
+        v.nextElementSibling.style.display = 'none'; // 隐藏封面图
+        v.play().catch(() => {}); // 捕获浏览器静音播放策略错误
       } else {
-        el.querySelector('video')?.pause();
+        v.pause();
+        v.currentTime = 0; // 重置进度
+        v.parentElement.classList.remove('is-playing');
       }
     });
-    if (e.target.tagName === 'IMG' && e.target.closest('li').querySelector('video')) {
-      e.target.style.display = 'none';
+  };
+
+  // 更新状态与播放
+  const updateState = () => {
+    track.style.transform = `translateX(${currentX}px)`;
+
+    // 按钮禁用状态
+    prevBtn.disabled = currentX >= 0;
+    nextBtn.disabled = Math.abs(currentX) >= maxTranslate;
+
+    // 自动播放逻辑：计算当前最靠左的索引
+    // 最后一次点击时，Math.abs(currentX) 会等于 maxTranslate
+    let activeIndex = Math.round(Math.abs(currentX) / step);
+
+    // 如果已经滑动到底部（对齐了最后一个），强制播放最后一个
+    if (Math.abs(currentX) >= maxTranslate - 10) {
+      activeIndex = CONFIG.totalItems - 1;
     }
+    if (block.classList.contains('video-media-carousel-block')) {
+      playSoloVideo(activeIndex);
+    }
+  };
+
+  // 按钮点击事件
+  nextBtn.addEventListener('click', () => {
+    const remaining = maxTranslate - Math.abs(currentX);
+    if (remaining <= 0) return;
+    // 如果剩余距离不足一个 step，则直接滑动到底对齐
+    if (remaining < step) {
+      currentX = -maxTranslate;
+      if(block.classList.contains('bottom-center-style')) {
+        const marginRight = window.getComputedStyle(block.querySelector('.media-carousel-viewport')).marginRight;
+        currentX += parseInt(marginRight, 10) || 0; // 考虑 margin-right 的影响
+      }
+    } else {      
+      currentX -= step;
+    }
+    updateState();
   });
-  if (isUniversalEditor()) return;
-  whenElementReady('.video-media-carousel-block', () => {
-    const videos = block.querySelectorAll('.video-autoPlay');
-    setupObserver(block, videos, (e) => {
-      // resolveCallback
-      e.closest('li').querySelector('img').style.display = 'none';
-      e.click();
-    }, () => {
-      // leaveCallback - leave block viewport
-      videos.forEach((video) => {
-        video.pause();
-      });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentX >= 0) return;
+
+    // 往回走时，如果距离起点不足一个 step，直接归零
+    if (Math.abs(currentX) < step) {
+      currentX = 0;
+    } else {
+      currentX += step;
+    }
+    updateState();
+  });
+
+  // 手动点击封面播放
+  const videoItems = block.querySelectorAll('.video-div-box img');
+  videoItems.forEach((item, idx) => {
+    item.addEventListener('click', () => {
+      item.style.display = 'none'; // 隐藏封面图
+      playSoloVideo(idx);
     });
   });
+
+  if (isUniversalEditor()) return;
+  // 初始化
+  updateState();
 }
 
 function createVideo(child, idx) {
@@ -109,7 +138,7 @@ function createVideo(child, idx) {
   video.setAttribute('data-is-playing', 'false');
   video.setAttribute('webkit-playsinline', '');
   video.setAttribute('x5-playsinline', '');
-  video.setAttribute('playsinline', 'true');
+  video.setAttribute('playsinline', '');
   video.appendChild(source);
   videoDivDom.appendChild(video);
   videoDivDom.appendChild(img);
@@ -184,18 +213,7 @@ export default async function decorate(block) {
     `;
     titleBox.lastElementChild.appendChild(buttonContainer);
   }
-  bindEvent(block);
-  // check which block inner viewport
-  const mutation = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        resizeObserver(entry.target.id, debounce((target) => {
-          if (target.id === block.id) {
-            updatePosition(block, parseInt(block.dataset.slideIndex, 10), 'resize');
-          }
-        }, 500));
-      }
-    });
-  }, { threshold: 1 });
-  mutation.observe(block);
+  whenElementReady('.media-carousel', () => {
+    bindEvent(block);
+  });
 }

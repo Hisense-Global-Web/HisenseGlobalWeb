@@ -55,12 +55,14 @@
     margin: 0;
     padding: 0;
     transition: transform 0.5s ease-in-out;
+    scroll-snap-type: x mandatory;
   }
 
   ul>li {
     box-sizing: border-box;
     list-style: none;
     border-radius: var(--radius-pc-xl);
+    scroll-snap-align: start;
   }
 
   .item {
