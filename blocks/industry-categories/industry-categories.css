@@ -120,6 +120,7 @@
     font-size: var(--size-24);
   }
 }
+
 .industry-categories .active .card-body > div{
     z-index: 99;
     position: relative;
@@ -128,6 +129,12 @@
     width: 80%;
     margin: auto;
     border-radius: 5px;
+}
+
+.industry-categories .active .card-title{
+  z-index: 99;
+  position: relative;
+  color:white;
 }
 
 .industry-categories  > ul > li .card-image {

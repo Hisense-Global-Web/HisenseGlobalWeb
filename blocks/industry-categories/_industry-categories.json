@@ -100,14 +100,12 @@
           "name": "text_fourth",
           "label": "Fourth Text",
           "valueType": "string"
-          
         },
          {
           "component": "text",
           "name": "text_fifth",
           "label": "Fifth Text",
           "valueType": "string"
-         
         }
       ]
     }

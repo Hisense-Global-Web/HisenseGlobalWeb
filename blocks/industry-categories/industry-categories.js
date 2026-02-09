@@ -9,7 +9,7 @@ export default function decorate(block) {
   [...block.children].forEach((row, i) => {
     if (i === 0) {
       title.className = 'title';
-      title.append(...[...row.children]);
+      title.append(...row.children);
     } else {
       const li = document.createElement('li');
       li.classList.add('card-item');
@@ -17,9 +17,11 @@ export default function decorate(block) {
       cardbody.classList.add('card-body');
       moveInstrumentation(row, li);
       while (row.firstElementChild) li.append(row.firstElementChild);
-      [...li.children].forEach((div) => {
+      [...li.children].forEach((div, index) => {
         if (div.children.length === 1 && div.querySelector('picture')) {
           div.className = 'card-image';
+        } else if (div.children.length === 1 && index === 0) {
+          div.className = 'card-title';
         } else {
           Array.from(div.children).forEach((child) => {
             const wrapper = document.createElement('div');
