@@ -326,12 +326,12 @@
         .item-text {
           font-size: var(--fontsize-body1);
           line-height: 130%;
-          color: var(--color-primary-grey-90);
           font-weight: var(--fontweight-medium);
 
           p:nth-child(2) {
             font-size: var(--fontsize-body3);
             line-height: 140%;
+            color: var(--color-primary-grey-70);
             font-weight: var(--fontweight-light);
           }
         }
