@@ -1,8 +1,11 @@
 /* eslint-disable func-names */
-import { createOptimizedPicture } from '../../scripts/aem.js';
+import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+
 export default function decorate(block) {
+  const config = readBlockConfig(block);
+  console.log(config);
   /* change to ul, li */
   const ul = document.createElement('ul');
   const title = document.createElement('div');
@@ -21,7 +24,11 @@ export default function decorate(block) {
         if (div.children.length === 1 && div.querySelector('picture')) {
           div.className = 'card-image';
         } else {
-          cardbody.append(...div.children);
+          Array.from(div.children).forEach((child) => {
+            const wrapper = document.createElement('div');
+            wrapper.appendChild(child);
+            cardbody.appendChild(wrapper);
+          });
           div.remove();
           li.append(cardbody);
         }

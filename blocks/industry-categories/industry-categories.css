@@ -91,6 +91,8 @@
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
+  padding: var(--size-40) var(--size-16) var(--size-24);
+
   width: min(12.0833333vw, 174px);
     @media (width < 860px) {
         width:20vw;
@@ -115,15 +117,16 @@
 
 .industry-categories .card-body {
   font-size: var(--size-20);
-
+  margin-top: var(--size-48);
+  
   @media (width >= 860px) {
     font-size: var(--size-24);
   }
 }
-.industry-categories .card-body > div{
+.industry-categories .active .card-body > div{
     z-index: 99;
     position: relative;
-    background: rgb(0 0 0 / 50%);
+    background: rgb(20 20 20 / 60%);
     text-align: center;
     width: 80%;
     margin: auto;

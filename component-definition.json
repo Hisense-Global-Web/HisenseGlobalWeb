@@ -903,7 +903,8 @@
                 "template": {
                   "name": "Industry Categories",
                   "model": "industry-categories",
-                  "filter": "industry-categories"
+                  "filter": "industry-categories",
+                  "key-value": true
                 }
               }
             }
