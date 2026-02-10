@@ -136,7 +136,6 @@
 }
 
 .industry-categories .card-body > div{
- 
     background: rgb(20 20 20 / 60%);
     text-align: center;
     width: 100%;
@@ -160,6 +159,11 @@
   font-size: var(--size-20);
   line-height: 120%;
   font-weight: var(--fontweight-medium);
+  width: min(12.0833333vw, 174px);
+
+  @media (width < 860px) {
+    width:20vw;
+  }
 }
 
 .industry-categories  > ul > li .card-image {

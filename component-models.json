@@ -1129,6 +1129,41 @@
     ]
   },
   {
+    "id": "feature-navigation",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "feature-navigation-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_content",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "footerContainer",
     "fields": []
   },
@@ -1704,37 +1739,16 @@
     "id": "honors-awards-list",
     "fields": [
       {
-        "component": "select",
-        "name": "classes",
-        "label": "Card options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Cover Style",
-            "value": "cover-style"
-          },
-          {
-            "name": "Cover Style Width Dark Font",
-            "value": "cover-dark"
-          },
-          {
-            "name": "Center Style",
-            "value": "center-style"
-          }
-        ]
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
       }
     ]
   },
   {
     "id": "honors-awards-list-item",
     "fields": [
-      {
-        "component": "richtext",
-        "name": "title",
-        "label": "Title",
-        "valueType": "string"
-      },
       {
         "component": "reference",
         "valueType": "string",
@@ -1743,15 +1757,15 @@
         "multi": false
       },
       {
-        "component": "aem-content",
-        "name": "honors-awards-list-item_ctaPrimary",
-        "label": "Primary CTA",
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "honors-awards-list-item_ctaPrimaryText",
-        "label": "Primary CTA Label",
+        "name": "text_content",
+        "label": "Content",
         "valueType": "string"
       }
     ]

@@ -1,14 +1,14 @@
 
-.honors-awards-list-wrapper {
+.feature-navigation-wrapper {
   width: 100%;
 }
 
-.honors-awards-list-wrapper p{
+.feature-navigation-wrapper p{
   margin: 0;
   padding: 0;
 }
 
-.honors-awards-list > ul {
+.feature-navigation > ul {
   gap: var(--spacing-sm);
 
   @media (width < 860px) {
@@ -25,7 +25,7 @@
 	}
 }
 
-.honors-awards-list > ul > li {
+.feature-navigation > ul > li {
    aspect-ratio: 1;
    font-family: var(--font-family);
 
@@ -45,7 +45,7 @@
 }
 
 
-.honors-awards-list  > ul > li .honors-awards-list-card-image {
+.feature-navigation  > ul > li .feature-navigation-card-image {
   width: 40px;
   aspect-ratio: 1 / 1 ;
   object-fit: contain;
@@ -56,7 +56,7 @@
   }
 }
 
-.honors-awards-list  > ul > li img {
+.feature-navigation  > ul > li img {
   width: 100%;
   height: 100%;
 }
