@@ -1180,17 +1180,6 @@
     ]
   },
   {
-    "id": "feature-navigation",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "feature-navigation-item",
     "fields": [
       {
@@ -1210,6 +1199,18 @@
         "component": "text",
         "name": "text_content",
         "label": "Content",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "cta_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cta_ctaPrimaryText",
+        "label": "Primary CTA Label",
         "valueType": "string"
       }
     ]
