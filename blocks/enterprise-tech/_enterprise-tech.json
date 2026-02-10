@@ -55,7 +55,7 @@
         },
         {
           "component": "text",
-          "name": "image_pcType",
+          "name": "pc_image_Type",
           "valueType": "string",
           "value": "pc-image-box",
           "hidden": true,
@@ -64,13 +64,13 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "image_pc_url",
+          "name": "pc_image_url",
           "label": "Card Image",
           "multi": false
         },
         {
           "component": "text",
-          "name": "image_mobileType",
+          "name": "mobile_image_type",
           "valueType": "string",
           "value": "mobile-image-box",
           "hidden": true,
@@ -79,7 +79,7 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "image_mobile_url",
+          "name": "mobile_image_url",
           "label": "Card Mobile Image",
           "multi": false
         },
