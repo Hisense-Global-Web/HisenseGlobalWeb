@@ -1,5 +1,9 @@
 export default async function decorate(block) {
   // console.log(block, 'bbb');
+  const isEditMode = block.hasAttribute('data-aue-resource');
+  if (isEditMode) {
+    return;
+  }
   [...block.children].forEach((row) => {
     // component type name
     const type = row.firstElementChild?.textContent?.trim() || '';
