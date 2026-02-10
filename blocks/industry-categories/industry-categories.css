@@ -109,9 +109,9 @@
 } */
 
 .industry-categories .active {
- 
   box-shadow: 0 8px 20px rgb(0 0 0 / 10%);
   width: min(25vw, 369px) ;
+
    @media (width < 860px) {
     width:76.923vw;
   }
@@ -119,21 +119,19 @@
 
 .industry-categories .card-body {
   font-size: var(--size-20);
-  margin-top: var(--size-48);
-  
-  @media (width >= 860px) {
-    font-size: var(--size-24);
-  }
-}
-
-.industry-categories .card-body{
-  display: flex;
+   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center; 
   gap: var(--size-8);
   margin:var(--size-48) 0 var(--size-44);
+
+  @media (width >= 860px) {
+    font-size: var(--size-24);
+     margin:var(--size-48) 0 var(--size-44);
+  }
 }
+
 
 .industry-categories .card-body > div{
     background: rgb(20 20 20 / 60%);
@@ -175,8 +173,10 @@
   left: 0;
   object-fit: cover;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: blur(0px);
-  transform: scale(1);
+
+  /* filter: blur(0px); */
+  
+  /* transform: scale(1); */
 }
 
 .industry-categories .active .card-image {

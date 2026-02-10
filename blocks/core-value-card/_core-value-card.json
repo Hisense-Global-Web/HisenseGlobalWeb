@@ -39,14 +39,14 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "eyebrow headline",
-          "label": "Eyebrow Headline",
+          "name": "title",
+          "label": "Title",
           "multi": false
         },
          {
           "component": "text",
-          "name": "headline",
-          "label": "Headline",
+          "name": "subtitle",
+          "label": "Sub Title",
           "valueType": "string"
         }
       ]
