@@ -25,10 +25,7 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Enterprise Card Item",
-              "model": "enterprise-card-item",
-              "title_name": "This is the title",
-              "subtitle_name": "This is the subtitle",
-              "description_name": "This is the description"
+              "model": "enterprise-card-item"
             }
           }
         }
