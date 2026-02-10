@@ -8,15 +8,18 @@ import { isUniversalEditor } from '../../utils/ue-helper.js';
 
 let carouselId = 0;
 
-function bindEvent(block) {
+function bindEvent(block, type = 'normal') {
   const track = block.querySelector('.media-carousel-track');
+  if (window.innerWidth < 860) {
+    track.style.transform = 'none';
+  }
   const videos = block.querySelectorAll('.video-autoPlay');
   const prevBtn = block.querySelector('.slide-prev');
   const nextBtn = block.querySelector('.slide-next');
   const cards = block.querySelectorAll('.item');
   let maxWidth = block.querySelector('.media-carousel-viewport').offsetWidth;
   if (block.classList.contains('bottom-center-style')) {
-    maxWidth = block.offsetWidth;    
+    maxWidth = block.offsetWidth;
   }
   const gap = parseInt(window.getComputedStyle(block.querySelector('.media-carousel-track')).gap, 10) || 0;
   const CONFIG = {
@@ -34,12 +37,19 @@ function bindEvent(block) {
   const maxTranslate = totalTrackWidth - CONFIG.containerWidth; // 最大的负向偏移量
 
   let currentX = 0;
+  let currentIndex = 0;
+
+  if (type === 'resize') {
+    currentX = -parseInt(block.dataset.currentIndex, 10) * step;
+    currentIndex = parseInt(block.dataset.currentIndex, 10) || 0;
+  }
 
   const playSoloVideo = (index) => {
     videos.forEach((v, i) => {
       if (i === index) {
         v.parentElement.classList.add('is-playing');
-        v.play();
+        v.click();
+        v.muted = true;
         v.nextElementSibling.style.display = 'none'; // 隐藏封面图
         v.play().catch(() => {}); // 捕获浏览器静音播放策略错误
       } else {
@@ -52,8 +62,14 @@ function bindEvent(block) {
 
   // 更新状态与播放
   const updateState = () => {
+    if (Math.abs(currentX) > maxTranslate && type === 'resize') {
+      currentX = -maxTranslate;
+    }
     track.style.transform = `translateX(${currentX}px)`;
-
+    block.dataset.currentIndex = currentIndex;
+    if (currentX === 0) {
+      block.dataset.currentIndex = 0;
+    }
     // 按钮禁用状态
     prevBtn.disabled = currentX >= 0;
     nextBtn.disabled = Math.abs(currentX) >= maxTranslate;
@@ -76,13 +92,14 @@ function bindEvent(block) {
     const remaining = maxTranslate - Math.abs(currentX);
     if (remaining <= 0) return;
     // 如果剩余距离不足一个 step，则直接滑动到底对齐
+    currentIndex += 1;
     if (remaining < step) {
       currentX = -maxTranslate;
-      if(block.classList.contains('bottom-center-style')) {
-        const marginRight = window.getComputedStyle(block.querySelector('.media-carousel-viewport')).marginRight;
+      if (block.classList.contains('bottom-center-style')) {
+        const { marginRight } = window.getComputedStyle(block.querySelector('.media-carousel-viewport'));
         currentX -= parseInt(marginRight, 10) || 0; // 考虑 margin-right 的影响
       }
-    } else {      
+    } else {
       currentX -= step;
     }
     updateState();
@@ -90,7 +107,7 @@ function bindEvent(block) {
 
   prevBtn.addEventListener('click', () => {
     if (currentX >= 0) return;
-
+    currentIndex -= 1;
     // 往回走时，如果距离起点不足一个 step，直接归零
     if (Math.abs(currentX) < step) {
       currentX = 0;
@@ -112,11 +129,30 @@ function bindEvent(block) {
   if (isUniversalEditor()) return;
   // 初始化
   updateState();
-  window.addEventListener('resize', () => {
-    maxWidth = block.querySelector('.media-carousel-viewport').offsetWidth;
-    console.log(111);
-    updateState();
-  });
+  if (type === 'resize') return;
+  let lastWidth = window.innerWidth;
+
+  window.onresize = () => {
+    const currentWidth = window.innerWidth;
+    if (currentWidth !== lastWidth) {
+      const blocks = document.querySelectorAll('.media-carousel');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const v = entry.target;
+            const currentBlock = document.getElementById(v.id);
+            // bindEvent(currentBlock);
+            bindEvent(currentBlock, 'resize');
+          }
+        });
+      }, { threshold: 0.5 });
+
+      blocks.forEach((blockItem) => {
+        observer.observe(blockItem);
+      });
+      lastWidth = currentWidth;
+    }
+  };
 }
 
 function createVideo(child, idx) {
@@ -143,13 +179,32 @@ function createVideo(child, idx) {
   video.setAttribute('data-is-playing', 'false');
   video.setAttribute('webkit-playsinline', '');
   video.setAttribute('x5-playsinline', '');
-  video.setAttribute('playsinline', '');
+  video.setAttribute('playsinline', true);
   video.appendChild(source);
   videoDivDom.appendChild(video);
   videoDivDom.appendChild(img);
   return videoDivDom;
 }
-
+function createScrollButton(direction) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = `slide-${direction}`;
+  button.setAttribute('aria-label', direction === 'prev' ? 'slide-prev' : 'slide-next');
+  button.disabled = direction === 'prev';
+  // 创建图片元素
+  const img = document.createElement('img');
+  img.src = direction === 'prev' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left-g.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right-g.svg';
+  img.alt = direction === 'prev' ? 'slide-prev' : 'slide-next';
+  img.className = 'disabled-icon';
+  button.appendChild(img);
+  // 创建图片元素
+  const imgClick = document.createElement('img');
+  imgClick.src = direction === 'prev' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right.svg';
+  imgClick.alt = direction === 'prev' ? 'slide-prev' : 'slide-next';
+  imgClick.className = 'click-icon';
+  button.appendChild(imgClick);
+  return button;
+}
 export default async function decorate(block) {
   carouselId += 1;
   block.setAttribute('id', `media-carousel-${carouselId}`);
@@ -212,13 +267,12 @@ export default async function decorate(block) {
 
   if (mediaCarouselBlocks.children) {
     const buttonContainer = createElement('div', 'media-carousel-pagination');
-    buttonContainer.innerHTML = `
-      <button type="button" class="slide-prev" disabled></button>
-      <button type="button" class="slide-next"></button>
-    `;
+    buttonContainer.appendChild(createScrollButton('prev'));
+    buttonContainer.appendChild(createScrollButton('next'));
     titleBox.lastElementChild.appendChild(buttonContainer);
   }
   whenElementReady('.media-carousel', () => {
+    block.dataset.currentIndex = 0;
     bindEvent(block);
   });
 }

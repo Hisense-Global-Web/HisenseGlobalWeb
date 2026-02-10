@@ -112,8 +112,8 @@
 .text-left {
   .card-carousel-viewport ul>li {
     border: none;
-    height: min(18.05555556vw, 260px);
-    width: min(18.19444444vw, 262px);
+    height: min(calc(260/var(--breakpoint-pc)*100vw), 260px);
+    width: min(calc(262/var(--breakpoint-pc)*100vw), 262px);
     background-color: var(--color-hisense-grey-04);
     padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-pc-md);
     box-sizing: border-box;
@@ -130,8 +130,8 @@
       text-align: left;
 
       .item-picture {
-        width: min(4.86111111vw, 70px);
-        height: min(4.86111111vw, 70px);
+        width: min(calc(70/var(--breakpoint-pc)*100vw), 70px);
+        height: min(calc(70/var(--breakpoint-pc)*100vw), 70px);
       }
 
       picture, img {
@@ -198,42 +198,41 @@
   align-items: end;
   gap: var(--spacing-2xs);
 
-  button {
-    position: relative;
-    width: var(--size-28);
-    height: var(--size-28);
-    border: 1px solid var(--color-primary-green-50);
-    color: var(--color-primary-green-50);
-    background-color: white;
-    margin: 0;
-    border-radius: 50%;
-    padding: 0;
-    transition: background-color 0.2s;
+   button {
+      width: min(calc(28 / var(--breakpoint-pc) * 100vw), 28px);
+      height: min(calc(28 / var(--breakpoint-pc) * 100vw), 28px);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.3s;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
 
-    &::after {
-      display: block;
-      content: '';
-      border: 2px solid;
-      border-bottom: 0;
-      border-left: 0;
-      height: var(--size-8);
-      width: var(--size-8);
-      position: absolute;
-      top: 50%;
-      left: calc(50% + 2px);
-      transform: translate(-50%, -50%) rotate(-135deg);
-    }
+      > .disabled-icon {
+       display: none;
+      }
+      
+      > .click-icon {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
 
-    &.slide-next::after {
-      transform: translate(-50%, -50%) rotate(45deg);
-      left: calc(50% - 2px);
-    }
+      &:disabled {
+        cursor: not-allowed;
 
-    &:disabled {
-      border-color: var(--color-primary-grey-40);
-      color: var(--color-primary-grey-40);
+        > .click-icon {
+          display: none;
+        }
+
+        > .disabled-icon {
+          display: block;
+        }
+      }
     }
-  }
 }
 
 .card-carousel-pagination.show {
@@ -267,8 +266,8 @@
     }
 
     ul>li {
-      width: 61.53846154vw;
-      height: 61.53846154vw;
+      width: min(calc(240/var(--breakpoint-mobile)*100vw), 240px);
+      height: min(calc(240/var(--breakpoint-mobile)*100vw), 240px);
       box-sizing: border-box;
       padding: var(--spacing-md) 0;
       border-radius: var( --radius-xl);

@@ -48,7 +48,26 @@ function bindEvent(block) {
     }
   }, 500));
 }
-
+function createScrollButton(direction) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = `slide-${direction}`;
+  button.setAttribute('aria-label', direction === 'prev' ? 'slide-prev' : 'slide-next');
+  button.disabled = direction === 'prev';
+  // 创建图片元素
+  const img = document.createElement('img');
+  img.src = direction === 'prev' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left-g.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right-g.svg';
+  img.alt = direction === 'prev' ? 'slide-prev' : 'slide-next';
+  img.className = 'disabled-icon';
+  button.appendChild(img);
+  // 创建图片元素
+  const imgClick = document.createElement('img');
+  imgClick.src = direction === 'prev' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right.svg';
+  imgClick.alt = direction === 'prev' ? 'slide-prev' : 'slide-next';
+  imgClick.className = 'click-icon';
+  button.appendChild(imgClick);
+  return button;
+}
 export default async function decorate(block) {
   block.dataset.slideIndex = 0;
   block.setAttribute('id', `card-carousel-${cardCarouselId}`);
@@ -94,10 +113,8 @@ export default async function decorate(block) {
 
   if (cardCarouselBlocks.children) {
     const buttonContainer = createElement('div', 'card-carousel-pagination');
-    buttonContainer.innerHTML = `
-      <button type="button" class="slide-prev" disabled></button>
-      <button type="button" class="slide-next"></button>
-    `;
+    buttonContainer.appendChild(createScrollButton('prev'));
+    buttonContainer.appendChild(createScrollButton('next'));
     titleBox.lastElementChild.appendChild(buttonContainer);
   }
   bindEvent(block);
