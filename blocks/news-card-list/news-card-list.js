@@ -10,6 +10,7 @@ const MOCK_NEWSROOM_ITEMS = [
     subtitle: 'PARTNERSHIP -3',
     date: '2026-02-05T00:00:00.000Z',
     location: 'QingDao -3',
+    keywords: 'Hisense, ESG, AI, Sustainability',
   },
   {
     path: '/us/en/company/newsroom/article-4',
@@ -20,6 +21,7 @@ const MOCK_NEWSROOM_ITEMS = [
     subtitle: 'PARTNERSHIP -4',
     date: '2026-02-05T00:00:00.000Z',
     location: 'QingDao',
+    keywords: 'Hisense, Technology, Innovation',
   },
   {
     path: '/us/en/company/newsroom/article-2',
@@ -30,6 +32,7 @@ const MOCK_NEWSROOM_ITEMS = [
     subtitle: 'PARTNERSHIP -2',
     date: '2026-02-05T00:00:00.000Z',
     location: 'QingDao -2',
+    keywords: 'Hisense, ESG, Strategy',
   },
   {
     path: '/us/en/company/newsroom/article-body',
@@ -40,6 +43,7 @@ const MOCK_NEWSROOM_ITEMS = [
     subtitle: 'PARTNERSHIP',
     date: '2026-02-05T00:00:00.000Z',
     location: 'QingDao',
+    keywords: 'Hisense, ESG, Technology',
   },
 ];
 
@@ -68,9 +72,22 @@ function filterItemsByUrlParams(items) {
     return s.includes(q);
   };
 
-  return items.filter((item) => (
-    filters.every(({ key, value }) => lowerIncludes(item[key], value))
-  ));
+  return items.filter((item) => filters.every(({ key, value }) => {
+    // fulltext 参数：搜索所有字段
+    if (key === 'fulltext') {
+      const searchableFields = [
+        item.title,
+        item.subtitle,
+        item.location,
+        item.description,
+        item.keywords,
+        item.path,
+      ];
+      return searchableFields.some((field) => lowerIncludes(field, value));
+    }
+    // 其他参数：精确匹配对应字段
+    return lowerIncludes(item[key], value);
+  }));
 }
 
 function getItemDateValue(item) {
