@@ -99,7 +99,7 @@
   width: min(12.0833333vw, 174px);
 
   @media (width < 860px) {
-    width:20vw;
+    width: 33.8461vw;
   }
 }
 
@@ -113,7 +113,7 @@
   box-shadow: 0 8px 20px rgb(0 0 0 / 10%);
   width: min(25vw, 369px) ;
    @media (width < 860px) {
-    width:50vw;
+    width:76.923vw;
   }
 }
 
@@ -159,10 +159,11 @@
   font-size: var(--size-20);
   line-height: 120%;
   font-weight: var(--fontweight-medium);
-  width: min(12.0833333vw, 174px);
+   width: min(12.0833333vw, 174px);
 
   @media (width < 860px) {
-    width:20vw;
+    margin: auto;
+    width: 33.8461vw;
   }
 }
 
