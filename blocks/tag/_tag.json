@@ -11,8 +11,7 @@
               "name": "Tag",
               "model": "tag",
               "key-value": true,
-              "title": "Tags",
-              "tags": "FIFA, World Cup 2026, Sports marketing, Sponsorship, Partnership"
+              "title": "Tags"
             }
           }
         }
@@ -34,7 +33,6 @@
           "name": "tags",
           "label": "Tags",
           "valueType": "string",
-          "multi": true,
           "rootPath": "/content/cq:tags/hisense/download"
         }
       ]

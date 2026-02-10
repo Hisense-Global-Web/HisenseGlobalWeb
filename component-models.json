@@ -2973,7 +2973,6 @@
         "name": "tags",
         "label": "Tags",
         "valueType": "string",
-        "multi": true,
         "rootPath": "/content/cq:tags/hisense/download"
       }
     ]
