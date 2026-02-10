@@ -877,6 +877,11 @@ main {
 		color: var(--text-dark);
 	}
 
+  .section.gradient-green {
+    background: var(--color-primary-green-10, #EDFCFB);
+    color: var(--text-dark);
+  }
+  
 	.section.green {
 		background-color: var(--color-hisense-green-04);
 		color: var(--text-light);

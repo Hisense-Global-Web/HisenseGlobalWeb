@@ -22,6 +22,7 @@
       "collection-cards",
       "collection-title",
       "columns",
+      "corprate-governance-cards",
       "disclaimer",
       "feature-banner",
       "fragment",
@@ -63,6 +64,7 @@
       "card-grid",
       "honors-awards",
       "feature-navigation"
+      "news-card-list"
     ]
   },
   {
@@ -131,6 +133,12 @@
     "id": "core-value-card",
     "components": [
       "core-value-card-item"
+    ]
+  },
+  {
+    "id": "corprate-governance-cards",
+    "components": [
+      "cards-container-item"
     ]
   },
   {

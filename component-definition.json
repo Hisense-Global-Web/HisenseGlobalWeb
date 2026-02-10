@@ -466,6 +466,36 @@
           }
         },
         {
+          "title": "Corprate Governance Cards",
+          "id": "corprate-governance-cards",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Corprate Governance Cards",
+                  "filter": "corprate-governance-cards"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cards Container Item",
+          "id": "cards-container-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Cards Container Item",
+                  "model": "cards-container-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Cross Page Redirect",
           "id": "cross-page-redirect",
           "plugins": {
@@ -1118,6 +1148,25 @@
                   "model": "navigation",
                   "filter": "navigation",
                   "classes": "navigation-block"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "News Card List",
+          "id": "news-card-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "News Card List",
+                  "model": "news-card-list",
+                  "key-value": true,
+                  "title": "Recent Press Releases",
+                  "page-size": "9",
+                  "empty-text": "No news items match your filters."
                 }
               }
             }
