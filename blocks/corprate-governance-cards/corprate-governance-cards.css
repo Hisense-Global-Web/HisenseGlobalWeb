@@ -69,7 +69,7 @@ p {
             gap: var(--spacing-3xs, 8px);
             border-radius: 100px;
             background: var(--color-primary-green-60, #008482);
-            color: var(--Greyscale-Gray-10, #FFF);
+            color: var(--color-primary-grey-10, #FFF);
             text-align: center;
             font-size: var(--fontsize-body3, 12px);
             font-weight: var(--fontweight-medium);
@@ -83,6 +83,7 @@ p {
         max-width: unset!important;
         padding: 0 !important;
     }
+
     .corprate-governance-cards {
         gap: var(--spacing-2xs, 12px);
         padding: 0 var(--size-18);
