@@ -23,14 +23,14 @@
       "fields": [
         {
           "component": "text",
-          "name": "page_title",
+          "name": "title",
           "value": "",
           "label": "Title",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "page_subtitle",
+          "name": "subtitle",
           "value": "",
           "label": "Subtitle",
           "valueType": "string"
