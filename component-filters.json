@@ -62,6 +62,8 @@
       "industry-categories",
       "module-title",
       "card-grid",
+      "honors-awards",
+      "feature-navigation",
       "news-card-list"
     ]
   },
@@ -146,6 +148,12 @@
     ]
   },
   {
+    "id": "feature-navigation",
+    "components": [
+      "feature-navigation-item"
+    ]
+  },
+  {
     "id": "footerContainer",
     "components": [
       "footerLogo",
@@ -190,9 +198,9 @@
     ]
   },
   {
-    "id": "honors-awards-cards",
+    "id": "honors-awards",
     "components": [
-      "honors-awards-card"
+      "honors-awards-list-item"
     ]
   },
   {
