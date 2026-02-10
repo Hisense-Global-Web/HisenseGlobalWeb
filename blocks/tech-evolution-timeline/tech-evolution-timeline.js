@@ -5,6 +5,17 @@ export default async function decorate(block) {
   techCardWrapper.className = 'tech-card-wrapper';
   const timeGreenLineEL = document.createElement('div');
   timeGreenLineEL.classList = 'time-green-line';
+
+  // block add background color
+  const timelineBlockEl = document.querySelector('.tech-evolution-timeline');
+  const backgroundSelectArr = ['background-gradient'];
+  const blockClassList = timelineBlockEl.className.split(' ');
+  const existingItems = blockClassList.filter((item) => backgroundSelectArr.includes(item));
+  if (existingItems.length > 0) {
+    const timelineSectionEl = document.querySelector('.section.tech-evolution-timeline-container');
+    timelineSectionEl.classList.add(`${existingItems}-container`);
+  }
+
   [...block.children].forEach((row) => {
     // component type name
     const type = row.firstElementChild?.textContent?.trim() || '';
@@ -41,5 +52,10 @@ export default async function decorate(block) {
       techCardWrapper.append(row);
     }
   });
-  block.append(timeGreenLineEL, timelineWrapper, techCardWrapper);
+  // block.append(timeGreenLineEL, timelineWrapper, techCardWrapper);
+  block.append(timelineWrapper, techCardWrapper);
+  if ([...timelineWrapper.children].length > 0) {
+    // When the `timelinewrapper` element has a value, then add the `green line` element.
+    timelineWrapper.parentNode.insertBefore(timeGreenLineEL, timelineWrapper);
+  }
 }

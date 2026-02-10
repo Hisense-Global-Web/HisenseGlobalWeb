@@ -1,5 +1,7 @@
 .section.tech-evolution-timeline-container {
-  background: linear-gradient(180deg, var(--white-alpha-white-10, rgb(255 255 255 / 10%)) 60.24%, var(--color-primary-grey-10) 106.27%), var(--color-primary-green-10) !important;
+  &.background-gradient-container {
+    background: linear-gradient(180deg, var(--white-alpha-white-10, rgb(255 255 255 / 10%)) 60.24%, var(--color-primary-grey-10) 106.27%), var(--color-primary-green-10) !important;
+  }
 
   .module-title-wrapper {
     max-width: var(--container-max-width);
