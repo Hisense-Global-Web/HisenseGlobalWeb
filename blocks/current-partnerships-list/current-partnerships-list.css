@@ -28,6 +28,7 @@
 
    @media (width < 860px) {
    font-size: var(--size-18);
+   margin-bottom: var(--size-32);
   }
 }
 
@@ -51,10 +52,6 @@
   border-radius: var(--size-20);
   overflow: hidden;
   position: relative;
-
-  @media (width < 860px) {
-   margin-top: var(--spacing-m);
-  }
 }
 
 .current-partnerships-list .card-image{
@@ -64,9 +61,11 @@
   justify-content: center;
   align-items: center;
   background-color: var(--color-primary-green-10);
+  border-radius: var(--size-20);
 
   @media (width < 860px) {
-    height: 150px;
+    height: 38.4615vw;
+    border-radius: var(--radius-xl);
   }
 }
 

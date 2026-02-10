@@ -11,6 +11,12 @@
       {
         "component": "text",
         "valueType": "string",
+        "name": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
         "name": "jcr:description",
         "label": "Description"
       },
@@ -20,6 +26,37 @@
         "name": "keywords",
         "multi": true,
         "label": "Keywords"
+      },
+      {
+        "component": "date-time",
+        "valueType": "date",
+        "name": "date",
+        "label": "Date"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "location",
+        "label": "Location"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "author",
+        "label": "Author"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "thumbnail",
+        "label": "Thumbnail",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta-text",
+        "label": "CTA Text"
       }
     ]
   },
@@ -167,12 +204,16 @@
             "value": "grey"
           },
           {
-            "name": "Gray 00",
-            "value": "gray-00"
+            "name": "Gray 90",
+            "value": "gray-90"
           },
           {
             "name": "Gradient Gray",
             "value": "gradient-gray"
+          },
+          {
+            "name": "Green",
+            "value": "green"
           }
         ]
       },
@@ -1167,12 +1208,6 @@
         "name": "feature-banner_text",
         "label": "Text",
         "valueType": "string"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "feature-banner_tips",
-        "label": "Feature banner tips"
       }
     ]
   },
@@ -1292,6 +1327,124 @@
     ]
   },
   {
+    "id": "global-presence",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "container_background",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "container_title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "container_desc",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "stats-strip",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "stats_number",
+        "label": "Number",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "stats_text",
+        "label": "Label Text",
+        "value": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "globalization-timeline",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "container_overline",
+        "label": "Overline",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "container_title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "container_image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "phase-bar",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_time",
+        "label": "Phase Time",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_label",
+        "label": "Phase Label",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_desc",
+        "label": "Phase Description",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "phase_image",
+        "label": "Phase Image",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "gradient-text-image",
     "fields": [
       {
@@ -1338,6 +1491,80 @@
         "label": "Text",
         "valueType": "string",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "headline",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "section-title",
+        "label": "Section Title",
+        "placeholder": "Featured"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "date",
+        "label": "Date"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "location",
+        "label": "Location"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "author",
+        "label": "Author"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta-text",
+        "label": "CTA Text"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "cta-link",
+        "label": "CTA Link"
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "has-download",
+        "label": "Has Download",
+        "value": false
       }
     ]
   },
@@ -1531,6 +1758,32 @@
     ]
   },
   {
+    "id": "hero-presence",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "",
+        "name": "hero_video",
+        "label": "Video",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "hero_image",
+        "label": "Cover Image for Video",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Overlay Image",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "honors-awards-cards",
     "fields": [
       {
@@ -1603,11 +1856,11 @@
             "value": "large-icon"
           },
           {
-            "name": "Top Space",
+            "name": "Margin-top",
             "value": "top-space"
           },
           {
-            "name": "Bottom Space",
+            "name": "Margin-bottom",
             "value": "bottom-space"
           },
           {
@@ -1619,11 +1872,11 @@
             "value": "small-icon"
           },
           {
-            "name": "Icon Overlay_Left",
+            "name": "Icon-Overlay_left",
             "value": "customize-feature-banner"
           },
           {
-            "name": "Icon Overlay_Bottom",
+            "name": "Icon-Overlay_bottom",
             "value": "customize-bottom"
           }
         ]
@@ -1746,6 +1999,10 @@
         "description": "",
         "valueType": "string",
         "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
           {
             "name": "overlay_text-left",
             "value": "left-style"
@@ -2027,6 +2284,31 @@
         "name": "logoAlt",
         "label": "Logo Alt",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "news-card-list",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Section Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many news cards to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "empty-text",
+        "label": "Empty Result Text",
+        "description": "Text to show when no news items match the current filters.",
+        "valueType": "string"
       }
     ]
   },
@@ -2599,14 +2881,14 @@
         "component": "multiselect",
         "name": "classes",
         "value": [
-          ""
+          "text-align-center"
         ],
         "label": "Description Alignment Class Name Options",
         "valueType": "array",
         "options": [
           {
             "name": "Default",
-            "value": ""
+            "value": "text-align-center"
           },
           {
             "name": "text-align-left",
