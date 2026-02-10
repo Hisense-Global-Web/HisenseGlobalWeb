@@ -88,9 +88,8 @@ function filterItemsByUrlParams(items) {
       if (value.includes('-')) {
         const originalValue = value;
         const spaceValue = value.replace(/-/g, ' ');
-        return searchableFields.some((field) =>
-          lowerIncludes(field, originalValue) || lowerIncludes(field, spaceValue)
-        );
+        return searchableFields.some((field) => lowerIncludes(field, originalValue)
+          || lowerIncludes(field, spaceValue));
       }
 
       return searchableFields.some((field) => lowerIncludes(field, value));

@@ -104,7 +104,9 @@ function readTagConfig(block) {
 
 export default async function decorate(block) {
   const config = readTagConfig(block);
-  const { title, tagPaths, link, target } = config;
+  const {
+    title, tagPaths, link, target,
+  } = config;
 
   const tagData = await fetchTagData();
 
