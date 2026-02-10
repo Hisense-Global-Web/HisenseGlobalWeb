@@ -877,6 +877,11 @@ main {
 		color: var(--text-dark);
 	}
 
+  .section.gradient-green {
+    background: var(--color-primary-green-10, #EDFCFB);
+    color: var(--text-dark);
+  }
+
   .section.section-background-style {
     background-repeat: no-repeat;
     background-size: cover;

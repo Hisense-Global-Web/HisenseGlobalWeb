@@ -62,6 +62,10 @@
             {
               "name": "Gradient Gray",
               "value": "gradient-gray"
+            },
+            {
+              "name": "Gradient Green",
+              "value": "gradient-green"
             }
           ]
         },

@@ -3,7 +3,7 @@ p {
     padding: 0;
 }
 
-#coprate-governance-cards {
+.corprate-governance-cards {
     width: 100%;
     height: auto;
     display: flex;
@@ -14,17 +14,18 @@ p {
         display: flex;
         flex-direction: column;
         text-align: center;
-        gap: var(--spacing-xl);
+        gap: var(--spacing-m);
         padding: var(--spacing-lg, 40px) var(--spacing-lg, 40px);
         border-radius: var(--radius-lg, 20px);
         background: linear-gradient(170deg, var(--color-primary-grey-10, #FFF) 16.98%, var(--white-alpha-60, rgb(255 255 255 / 60%)) 100%);
+        box-sizing: border-box;
 
         .icon-div {
             width: 100%;
             height: var(--size-80);
             line-height: 0;
 
-            picture > img {
+            img {
                 width: var(--size-80);
                 height: var(--size-80);
                 object-fit: cover;
@@ -45,6 +46,7 @@ p {
             font-size: var(--fontsize-title2, 20px);
             font-weight: var(--fontweight-medium);
             line-height: 120%; /* 24px */
+            color: var(--color-hisense-black, #000);
         }
 
         .text {
@@ -60,12 +62,91 @@ p {
             margin: auto;
             display: flex;
             height: var(--size-30);
+            box-sizing: border-box;
             padding: 0 var(--spacing-xs, 16px);
             justify-content: center;
             align-items: center;
             gap: var(--spacing-3xs, 8px);
             border-radius: 100px;
             background: var(--color-primary-green-60, #008482);
+            color: var(--Greyscale-Gray-10, #FFF);
+            text-align: center;
+            font-size: var(--fontsize-body3, 12px);
+            font-weight: var(--fontweight-medium);
+            line-height: 166.667%; /* 166.667% */
+        }
+    }
+}
+
+@media (width < 860px) {
+    .corprate-governance-cards-wrapper {
+        max-width: unset!important;
+        padding: 0 !important;
+    }
+    .corprate-governance-cards {
+        gap: var(--spacing-2xs, 12px);
+        padding: 0 var(--size-18);
+        overflow-x: scroll;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        scroll-snap-type: x mandatory; /* 强制水平吸附 */
+        scroll-behavior: smooth;
+        max-width: 100vw;
+
+        .card-item {
+            width: calc(300/var(--breakpoint-mobile)* 100vw);
+            padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-m);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-m, 32px);
+            flex-shrink: 0;
+            border-radius: var(--radius-xl, 16px);
+            background: var(--color-primary-grey-10, #FFF);
+
+            .icon-div {
+                height: var(--size-64);
+                
+                img {
+                    width: var(--size-64);
+                    height: var(--size-64);
+                }
+            }
+
+            .text-content {
+                gap: var(--spacing-4xs, 8px);
+
+                .title {
+                    font-size: var(--fontsize-title2, 20px);
+                    line-height: 130%; /* 26px */
+                    text-transform: capitalize;
+                    font-weight: var(--fontweight-medium);
+                }
+
+                .text {
+                    font-size: var(--fontsize-body2, 14px);
+                    line-height: 140%; /* 20px */
+                    font-weight: var(--fontweight-light);
+                }
+            }
+
+            .link-div {
+                a {
+                    height: var(--size-40);
+                    font-size: var(--fontsize-body2, 14px);
+                    display: flex;
+                    padding: var(--spacing-4xs, 4px) var(--spacing-s2, 20px);
+                    justify-content: center;
+                    align-items: center;
+                    gap: var(--spacing-3xs, 8px);
+                    line-height: 140%;
+                    font-weight: var(--fontweight-medium);
+                    border-radius: 100px;
+                    border: none;
+                    background: var(--color-primary-green-60, #008482);
+                }
+            }
         }
     }
 }
