@@ -59,6 +59,7 @@
       "product-spec",
       "properties",
       "quick-link",
+      "resource-list",
       "search-box",
       "slide",
       "sub-menu-link",
@@ -266,6 +267,12 @@
     "id": "quick-link",
     "components": [
       "quick-link-item"
+    ]
+  },
+  {
+    "id": "resource-list",
+    "components": [
+      "resource-list-item"
     ]
   },
   {

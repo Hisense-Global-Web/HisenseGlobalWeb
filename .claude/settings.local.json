@@ -3,7 +3,8 @@
     "allow": [
       "Bash(node:*)",
       "Bash(npx eslint:*)",
-      "Bash(npx stylelint:*)"
+      "Bash(npx stylelint:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }
