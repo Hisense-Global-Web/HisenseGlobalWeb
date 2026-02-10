@@ -16,7 +16,7 @@
   
 
   @media (width >= 860px) {
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
   }
 }
 
@@ -100,6 +100,7 @@
     
    @media (width >= 860px) {
      margin: calc(-1 * min(20.83333vw,300px)) 0 min(20.83333vw,300px);
+     gap: var(--size-24);
    }
 }
 
