@@ -1,16 +1,16 @@
 {
   "definitions": [
     {
-      "title": "Partnerships Section Title",
-      "id": "partnerships-section-title",
+      "title": "About Hisense General Title",
+      "id": "about-hisense-general-title",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Partnerships Section Title",
-              "model": "partnerships-section-title",
-               "classes": "partnerships-section-title"
+              "name": "About Hisense General Title",
+              "model": "about-hisense-general-title",
+               "classes": "about-hisense-general-title"
             }
           }
         }
@@ -20,7 +20,7 @@
   ],
   "models": [
     {
-      "id": "partnerships-section-title",
+      "id": "about-hisense-general-title",
       "fields": [
         {
           "component": "select",
