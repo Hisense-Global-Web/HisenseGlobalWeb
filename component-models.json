@@ -2676,6 +2676,7 @@
         "component": "text",
         "name": "title",
         "label": "Title",
+        "value": "Quick Links",
         "valueType": "string"
       }
     ]
@@ -2687,12 +2688,14 @@
         "component": "text",
         "name": "text",
         "label": "Text",
+        "value": "Link Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
         "name": "link",
         "label": "Link",
+        "value": "",
         "valueType": "string"
       }
     ]
