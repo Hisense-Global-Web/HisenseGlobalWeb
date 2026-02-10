@@ -133,7 +133,7 @@ export default async function decorate(block) {
     // 文字带link的用这个
     // button.classList.add('text-btn');
     // button.textContent = data.ctaText;
-    
+
     // download 和其他只有icon的用这个
     const iconImg = document.createElement('img');
     iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
