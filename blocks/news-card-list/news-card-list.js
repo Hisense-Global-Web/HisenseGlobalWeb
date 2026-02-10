@@ -247,19 +247,24 @@ function buildPaginationControls(container, state, onPageChange) {
     btn.type = 'button';
     btn.classList.add('page-button');
 
-    if (label === 'prev' || label === 'next') {
+    if (label === 'prev') {
       const icon = document.createElement('img');
-      icon.src = '/resources/news-pagination-arrow.svg';
-      icon.alt = '';
-      icon.classList.add('page-arrow');
-      if (label === 'prev') {
-        icon.classList.add('is-prev');
-        btn.setAttribute('aria-label', 'Previous page');
-      } else {
-        icon.classList.add('is-next');
-        btn.setAttribute('aria-label', 'Next page');
-      }
-      btn.appendChild(icon);
+      icon.src = '/content/dam/hisense/us/common-icons/left.svg';
+      icon.className = 'page-arrow is-prev normal';
+      const disabledIcon = document.createElement('img');
+      disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
+      disabledIcon.className = 'page-arrow is-prev disabled';
+      btn.setAttribute('aria-label', 'Previous page');
+      btn.append(icon, disabledIcon);
+    } else if (label === 'next') {
+      const icon = document.createElement('img');
+      icon.src = '/content/dam/hisense/us/common-icons/right.svg';
+      icon.className = 'page-arrow is-next normal';
+      const disabledIcon = document.createElement('img');
+      disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
+      disabledIcon.className = 'page-arrow is-next disabled';
+      btn.setAttribute('aria-label', 'Next page');
+      btn.append(icon, disabledIcon);
     } else {
       btn.textContent = label;
     }
