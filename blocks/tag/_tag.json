@@ -11,7 +11,8 @@
               "name": "Tag",
               "model": "tag",
               "key-value": true,
-              "title": "Tags"
+              "title": "Tags",
+              "target": "_self"
             }
           }
         }
@@ -34,6 +35,28 @@
           "label": "Tags",
           "valueType": "string",
           "rootPath": "/content/cq:tags/hisense/download"
+        },
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link",
+          "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "target",
+          "label": "Target",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Same Window",
+              "value": "_self"
+            },
+            {
+              "name": "New Window",
+              "value": "_blank"
+            }
+          ]
         }
       ]
     }

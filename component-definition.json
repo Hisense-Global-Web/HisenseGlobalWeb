@@ -1566,7 +1566,8 @@
                   "name": "Tag",
                   "model": "tag",
                   "key-value": true,
-                  "title": "Tags"
+                  "title": "Tags",
+                  "target": "_self"
                 }
               }
             }

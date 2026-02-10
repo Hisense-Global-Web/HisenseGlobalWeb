@@ -45,6 +45,8 @@ function readTagConfig(block) {
   const config = {
     title: '',
     tagPaths: [], // Store full tag paths for API lookup
+    link: '',
+    target: '_self',
   };
 
   // Check if first row has 2 columns (author mode with key-value)
@@ -67,11 +69,16 @@ function readTagConfig(block) {
             const text = valueCell.textContent.trim();
             config.tagPaths = text.split(',').map((tag) => tag.trim()).filter(Boolean);
           }
+        } else if (key === 'link') {
+          const linkEl = valueCell.querySelector('a');
+          config.link = linkEl ? linkEl.getAttribute('href') : valueCell.textContent.trim();
+        } else if (key === 'target') {
+          config.target = valueCell.textContent.trim() || '_self';
         }
       }
     });
   } else {
-    // Publish mode: first 2 rows are config values
+    // Publish mode: sequential rows
     if (rows[0]) config.title = rows[0].textContent.trim();
     if (rows[1]) {
       // Tags row - can contain links or text
@@ -83,20 +90,24 @@ function readTagConfig(block) {
         config.tagPaths = text.split(',').map((tag) => tag.trim()).filter(Boolean);
       }
     }
+    if (rows[2]) {
+      const linkEl = rows[2].querySelector('a');
+      config.link = linkEl ? linkEl.getAttribute('href') : rows[2].textContent.trim();
+    }
+    if (rows[3]) {
+      config.target = rows[3].textContent.trim() || '_self';
+    }
   }
 
   return config;
 }
 
 export default async function decorate(block) {
-  // Read configuration
   const config = readTagConfig(block);
-  const { title, tagPaths } = config;
+  const { title, tagPaths, link, target } = config;
 
-  // Fetch tag data from API
   const tagData = await fetchTagData();
 
-  // Main container
   const container = document.createElement('div');
   container.className = 'tag-container';
 
@@ -114,11 +125,22 @@ export default async function decorate(block) {
     tagList.className = 'tag-list';
 
     tagPaths.forEach((tagPath) => {
-      const tagEl = document.createElement('span');
-      tagEl.className = 'tag-item';
-      // Get tag title from API data
-      tagEl.textContent = getTagTitle(tagPath, tagData);
-      tagList.appendChild(tagEl);
+      const tagName = tagPath.split(':').pop().split('/').pop();
+
+      if (link) {
+        const tagEl = document.createElement('a');
+        tagEl.className = 'tag-item';
+        const separator = link.includes('?') ? '&' : '?';
+        tagEl.href = `${link}${separator}fulltext=${tagName}`;
+        tagEl.target = target;
+        tagEl.textContent = getTagTitle(tagPath, tagData);
+        tagList.appendChild(tagEl);
+      } else {
+        const tagEl = document.createElement('span');
+        tagEl.className = 'tag-item';
+        tagEl.textContent = getTagTitle(tagPath, tagData);
+        tagList.appendChild(tagEl);
+      }
     });
 
     container.appendChild(tagList);

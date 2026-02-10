@@ -28,6 +28,12 @@
   border-radius: var(--size-100, 100px);
   white-space: nowrap;
   transition: background-color 0.3s ease;
+  text-decoration: none;
+  cursor: default;
+}
+
+.tag-container .tag-list a.tag-item {
+  cursor: pointer;
 }
 
 .tag-container .tag-list .tag-item:hover {
