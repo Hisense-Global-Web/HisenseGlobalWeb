@@ -1198,21 +1198,18 @@
         "component": "text",
         "name": "image-px",
         "label": "Image Size",
-        "description": "e.g., 1200×800px",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "image-dpi",
         "label": "Image DPI",
-        "description": "e.g., 72dpi",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "image-size",
         "label": "File Size",
-        "description": "e.g., 2.5MB",
         "valueType": "string"
       },
       {
