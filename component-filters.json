@@ -63,7 +63,8 @@
       "module-title",
       "card-grid",
       "tech-evolution-timeline",
-      "news-card-list"
+      "news-card-list",
+      "enterprise-tech"
     ]
   },
   {
@@ -144,6 +145,12 @@
     "id": "current-partnerships-list",
     "components": [
       "current-partnerships-list-item"
+    ]
+  },
+  {
+    "id": "enterprise-tech",
+    "components": [
+      "enterprise-card-item"
     ]
   },
   {
