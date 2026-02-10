@@ -80,7 +80,7 @@ function bindEvent(block) {
       currentX = -maxTranslate;
       if(block.classList.contains('bottom-center-style')) {
         const marginRight = window.getComputedStyle(block.querySelector('.media-carousel-viewport')).marginRight;
-        currentX += parseInt(marginRight, 10) || 0; // 考虑 margin-right 的影响
+        currentX -= parseInt(marginRight, 10) || 0; // 考虑 margin-right 的影响
       }
     } else {      
       currentX -= step;
@@ -112,6 +112,11 @@ function bindEvent(block) {
   if (isUniversalEditor()) return;
   // 初始化
   updateState();
+  window.addEventListener('resize', () => {
+    maxWidth = block.querySelector('.media-carousel-viewport').offsetWidth;
+    console.log(111);
+    updateState();
+  });
 }
 
 function createVideo(child, idx) {
