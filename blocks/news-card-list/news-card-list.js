@@ -83,6 +83,15 @@ function filterItemsByUrlParams(items) {
         item.keywords,
         item.path,
       ];
+
+      // 如果 value 包含 "-"，同时匹配原值和空格替换
+      if (value.includes('-')) {
+        const originalValue = value;
+        const spaceValue = value.replace(/-/g, ' ');
+        return searchableFields.some((field) => lowerIncludes(field, originalValue)
+          || lowerIncludes(field, spaceValue));
+      }
+
       return searchableFields.some((field) => lowerIncludes(field, value));
     }
     // 其他参数：精确匹配对应字段

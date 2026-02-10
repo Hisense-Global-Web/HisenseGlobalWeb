@@ -1155,6 +1155,88 @@
     ]
   },
   {
+    "id": "download",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button-to-download",
+        "label": "Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "download-all-link",
+        "label": "Download All Link",
+        "description": "Link for downloading all resources (optional)",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "download-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "description": "Upload image (default placeholder will be used if not set)",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "image-name",
+        "label": "Image Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-px",
+        "label": "Image Size",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-dpi",
+        "label": "Image DPI",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-size",
+        "label": "File Size",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "download-icon",
+        "label": "Download Icon",
+        "description": "Custom download icon (default icon will be used if not set)",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "download-link",
+        "label": "Download Link",
+        "description": "Link to the downloadable file",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "feature-banner",
     "fields": [
       {
@@ -2714,6 +2796,69 @@
     ]
   },
   {
+    "id": "resource-list",
+    "fields": []
+  },
+  {
+    "id": "resource-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "download-asset",
+        "label": "Download Asset URL",
+        "description": "Enter the resource download link",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "icon",
+        "label": "Icon",
+        "description": "Optional custom icon (default folder icon will be used if not provided)",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "description": "Use H2-H6 headings to structure your content",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button-text",
+        "label": "Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button-link",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "card-type",
+        "label": "Card Type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Button To Download",
+            "value": "download"
+          },
+          {
+            "name": "Button To Contact",
+            "value": "contact"
+          },
+          {
+            "name": "Button To Subscribe",
+            "value": "subscribe"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "search-box",
     "fields": [
       {
@@ -2825,6 +2970,46 @@
         "name": "searchTags",
         "label": "Search Tags",
         "rootPath": "/content/cq:tags/hisense/product"
+      }
+    ]
+  },
+  {
+    "id": "tag",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "name": "tags",
+        "label": "Tags",
+        "valueType": "string",
+        "rootPath": "/content/cq:tags/hisense/download"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "target",
+        "label": "Target",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Same Window",
+            "value": "_self"
+          },
+          {
+            "name": "New Window",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },

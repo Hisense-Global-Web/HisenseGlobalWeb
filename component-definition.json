@@ -559,6 +559,49 @@
           }
         },
         {
+          "title": "Download",
+          "id": "download",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Download",
+                  "model": "download",
+                  "filter": "download",
+                  "key-value": true,
+                  "title": "Download Resources",
+                  "subtitle": "Select the image format you need to download",
+                  "button-to-download": "Download All",
+                  "download-all-link": ""
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Download Item",
+          "id": "download-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Download Item",
+                  "model": "download-item",
+                  "image": "https://picsum.photos/90/60",
+                  "image-name": "Logo.png",
+                  "image-px": "1200×800px",
+                  "image-dpi": "72dpi",
+                  "image-size": "2.5MB",
+                  "download-icon": "/content/dam/hisense/us/common-icons/download.svg",
+                  "download-link": ""
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Feature Banner",
           "id": "feature-banner",
           "plugins": {
@@ -1429,6 +1472,42 @@
           }
         },
         {
+          "title": "Resource List",
+          "id": "resource-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Resource List",
+                  "model": "resource-list",
+                  "filter": "resource-list"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Resource List Item",
+          "id": "resource-list-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Resource List Item",
+                  "model": "resource-list-item",
+                  "download-asset": "",
+                  "text": "<h2>Resource Title</h2><p>Resource description</p>",
+                  "button-text": "Learn More",
+                  "button-link": "",
+                  "card-type": "download"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Search Box",
           "id": "search-box",
           "plugins": {
@@ -1473,6 +1552,24 @@
                   "name": "Sub Menu Link",
                   "model": "sub-menu-link",
                   "classes": "sub-menu-link"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Tag",
+          "id": "tag",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Tag",
+                  "model": "tag",
+                  "key-value": true,
+                  "title": "Tags",
+                  "target": "_self"
                 }
               }
             }

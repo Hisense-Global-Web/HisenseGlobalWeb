@@ -27,6 +27,7 @@
       "cross-page-redirect",
       "current-partnerships-list",
       "disclaimer",
+      "download",
       "feature-banner",
       "feature-navigation",
       "fragment",
@@ -59,9 +60,11 @@
       "product-spec",
       "properties",
       "quick-link",
+      "resource-list",
       "search-box",
       "slide",
       "sub-menu-link",
+      "tag",
       "tech-information",
       "text",
       "title",
@@ -147,6 +150,12 @@
     "id": "current-partnerships-list",
     "components": [
       "current-partnerships-list-item"
+    ]
+  },
+  {
+    "id": "download",
+    "components": [
+      "download-item"
     ]
   },
   {
@@ -266,6 +275,12 @@
     "id": "quick-link",
     "components": [
       "quick-link-item"
+    ]
+  },
+  {
+    "id": "resource-list",
+    "components": [
+      "resource-list-item"
     ]
   },
   {
