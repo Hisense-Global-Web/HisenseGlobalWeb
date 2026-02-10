@@ -54,7 +54,7 @@ export default async function decorate(block) {
   block.appendChild(video);
   videoContent.remove();
 
-  const playBtn = createElement('button', 'hero-presence-video-play-btn playing');
+  const playBtn = createElement('button', 'hero-presence-video-play-btn');
   const playIcon = createElement('img', 'hero-presence-video-play-icon');
   playIcon.src = '/content/dam/hisense/us/common-icons/play.svg';
   playBtn.appendChild(playIcon);
@@ -83,6 +83,7 @@ export default async function decorate(block) {
 
   // ========== VIDEO [START] ========== //
   const playVideo = () => {
+    playBtn.classList.toggle('playing', true);
     video.play()
       .catch(() => {
         // autoplay might be blocked
@@ -92,7 +93,6 @@ export default async function decorate(block) {
 
   const setupVideoPlayPause = () => {
     playBtn.addEventListener('click', () => {
-      playBtn.classList.toggle('playing');
       if (video.paused) {
         playVideo();
       } else {
@@ -109,10 +109,12 @@ export default async function decorate(block) {
 
   const handleScroll = () => {
     const rect = video.getBoundingClientRect();
-    if (rect.bottom < 0 || rect.top > window.innerHeight) {
+    if (!video.paused && (rect.bottom < 0 || rect.top > window.innerHeight)) {
       video.pause();
-    } else {
+      playBtn.classList.toggle('pause-on-scroll', true);
+    } else if (rect.bottom >= 0 && rect.top <= window.innerHeight && playBtn.classList.contains('pause-on-scroll')) {
       playVideo();
+      playBtn.classList.toggle('pause-on-scroll', false);
     }
   };
 
