@@ -89,15 +89,6 @@
     z-index: 6;
   }
 
-  [data-aue-prop="feature-banner_tips"] {
-    position: absolute;
-    bottom: min(calc(42 / var(--breakpoint-pc) * 100vw), 42px);
-    left: min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
-    font-size: min(calc(10 / var(--breakpoint-pc) * 100vw), 10px);
-    color: #666;
-    z-index: 6;
-  }
-
   .feature-mobile-img {
     img {
       display: none;
