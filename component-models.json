@@ -2670,6 +2670,34 @@
     "fields": []
   },
   {
+    "id": "quick-link",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "quick-link-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "search-box",
     "fields": [
       {
