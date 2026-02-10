@@ -141,8 +141,11 @@
   }
 
   .addional-support-card-item-link:hover {
-    color: var(--color-primary-grey-10, #fff);
-    background-color: var(--color-primary-grey-70, #333);
+    @media (width>=860px) {
+      color: var(--color-primary-grey-10, #fff);
+      background-color: var(--color-primary-grey-70, #333);
+      border: none;
+    }
   }
 
   .addional-support-card-item-link:active {
@@ -152,7 +155,6 @@
 
     @media (width<860px) {
       color: var(--color-primary-grey-10, rgb(255 255 255 / 80%));
-      background: var(--color-primary-grey-100, #000);
     }
   }
 }
