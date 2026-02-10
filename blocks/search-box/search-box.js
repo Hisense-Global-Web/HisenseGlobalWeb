@@ -40,7 +40,7 @@ export default async function decorate(block) {
 
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && input.value.trim()) {
-      const url = `${searchLink}?q=${encodeURIComponent(input.value.trim())}`;
+      const url = `${searchLink}?fulltext=${encodeURIComponent(input.value.trim())}`;
       if (target === '_blank') {
         window.open(url, '_blank', 'noopener');
       } else {
