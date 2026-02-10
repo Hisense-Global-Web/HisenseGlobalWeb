@@ -1174,6 +1174,13 @@
         "name": "button-to-download",
         "label": "Button Text",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "download-all-link",
+        "label": "Download All Link",
+        "description": "Link for downloading all resources (optional)",
+        "valueType": "string"
       }
     ]
   },
@@ -1219,6 +1226,13 @@
         "description": "Custom download icon (default icon will be used if not set)",
         "valueType": "string",
         "multi": false
+      },
+      {
+        "component": "text",
+        "name": "download-link",
+        "label": "Download Link",
+        "description": "Link to the downloadable file",
+        "valueType": "string"
       }
     ]
   },

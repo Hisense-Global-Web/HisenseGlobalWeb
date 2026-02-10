@@ -10,6 +10,7 @@ export default function decorate(block) {
   const title = config.title || '';
   const subtitle = config.subtitle || '';
   const buttonText = config['button-to-download'] || '';
+  const downloadAllLink = config['download-all-link'] || '';
 
   // Main container
   const container = document.createElement('div');
@@ -46,7 +47,7 @@ export default function decorate(block) {
   imageList.className = 'image-list';
 
   const allRows = [...block.children];
-  const configKeys = ['title', 'subtitle', 'button-to-download'];
+  const configKeys = ['title', 'subtitle', 'button-to-download', 'download-all-link'];
   const itemRows = allRows.filter((row) => {
     if (row.children.length === 2) {
       const firstCol = row.children[0].textContent.trim().toLowerCase();
@@ -54,14 +55,14 @@ export default function decorate(block) {
         return false;
       }
     }
-    return row.children.length >= 6;
+    return row.children.length >= 7;
   });
 
   let totalSize = 0;
 
   itemRows.forEach((item) => {
     const cells = [...item.children];
-    if (cells.length < 6) return;
+    if (cells.length < 7) return;
 
     // Extract data from cells
     const imageCell = cells[0];
@@ -70,6 +71,7 @@ export default function decorate(block) {
     const imageDpi = cells[3]?.textContent.trim() || '';
     const imageSize = cells[4]?.textContent.trim() || '';
     const downloadIconCell = cells[5];
+    const downloadLinkCell = cells[6];
 
     // Parse size for total calculation
     const sizeMatch = imageSize.match(/(\d+\.?\d*)\s*MB/i);
@@ -131,11 +133,31 @@ export default function decorate(block) {
     const downloadIconWrapper = document.createElement('div');
     downloadIconWrapper.className = 'item-meta-item';
 
-    const downloadIconImg = downloadIconCell?.querySelector('img');
-    const downloadIcon = document.createElement('img');
-    downloadIcon.src = downloadIconImg?.src || DEFAULT_DOWNLOAD_ICON;
-    downloadIcon.alt = 'Download';
-    downloadIconWrapper.appendChild(downloadIcon);
+    // Get download link
+    const downloadLinkEl = downloadLinkCell?.querySelector('a');
+    const downloadLink = downloadLinkEl?.href || downloadLinkCell?.textContent.trim() || '';
+
+    if (downloadLink) {
+      // Make download icon clickable
+      const downloadLinkWrapper = document.createElement('a');
+      downloadLinkWrapper.href = downloadLink;
+      downloadLinkWrapper.download = '';
+      downloadLinkWrapper.className = 'download-link';
+
+      const downloadIconImg = downloadIconCell?.querySelector('img');
+      const downloadIcon = document.createElement('img');
+      downloadIcon.src = downloadIconImg?.src || DEFAULT_DOWNLOAD_ICON;
+      downloadIcon.alt = 'Download';
+      downloadLinkWrapper.appendChild(downloadIcon);
+      downloadIconWrapper.appendChild(downloadLinkWrapper);
+    } else {
+      // No link, just show icon
+      const downloadIconImg = downloadIconCell?.querySelector('img');
+      const downloadIcon = document.createElement('img');
+      downloadIcon.src = downloadIconImg?.src || DEFAULT_DOWNLOAD_ICON;
+      downloadIcon.alt = 'Download';
+      downloadIconWrapper.appendChild(downloadIcon);
+    }
 
     itemMeta.appendChild(downloadIconWrapper);
     itemInfo.appendChild(itemMeta);
@@ -166,11 +188,21 @@ export default function decorate(block) {
     const downloadBtn = document.createElement('button');
     downloadBtn.className = 'download-btn';
     downloadBtn.textContent = buttonText;
-    downloadBtn.addEventListener('click', () => {
-      // eslint-disable-next-line no-console
-      console.log('Download all clicked');
-    });
-    downloadPanel.appendChild(downloadBtn);
+
+    if (downloadAllLink) {
+      const downloadBtnLink = document.createElement('a');
+      downloadBtnLink.href = downloadAllLink;
+      downloadBtnLink.download = '';
+      downloadBtnLink.className = 'download-btn-link';
+      downloadBtnLink.appendChild(downloadBtn);
+      downloadPanel.appendChild(downloadBtnLink);
+    } else {
+      downloadBtn.addEventListener('click', () => {
+        // eslint-disable-next-line no-console
+        console.log('Download all clicked');
+      });
+      downloadPanel.appendChild(downloadBtn);
+    }
   }
 
   // Total size

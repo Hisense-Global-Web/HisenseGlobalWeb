@@ -572,7 +572,8 @@
                   "key-value": true,
                   "title": "Download Resources",
                   "subtitle": "Select the image format you need to download",
-                  "button-to-download": "Download All"
+                  "button-to-download": "Download All",
+                  "download-all-link": ""
                 }
               }
             }
@@ -593,7 +594,8 @@
                   "image-px": "1200×800px",
                   "image-dpi": "72dpi",
                   "image-size": "2.5MB",
-                  "download-icon": "/content/dam/hisense/us/common-icons/download.svg"
+                  "download-icon": "/content/dam/hisense/us/common-icons/download.svg",
+                  "download-link": ""
                 }
               }
             }
