@@ -55,6 +55,19 @@
     {
       "id": "tech-evolution-timeline",
       "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "label": "Background Style",
+          "valueType": "string",
+          "value": "background-gradient",
+          "options": [
+              {
+                "name": "Gradient",
+                "value": "background-gradient"
+              }
+          ]
+        }
       ]
     },
     {

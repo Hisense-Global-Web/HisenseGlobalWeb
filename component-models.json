@@ -2692,7 +2692,21 @@
   },
   {
     "id": "tech-evolution-timeline",
-    "fields": []
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Background Style",
+        "valueType": "string",
+        "value": "background-gradient",
+        "options": [
+          {
+            "name": "Gradient",
+            "value": "background-gradient"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "timeline-nodes-item",
