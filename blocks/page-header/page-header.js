@@ -1,18 +1,15 @@
 export default function decorate(block) {
   try {
-    const [title, subtitle] = block.querySelectorAll('p');
-    title.classList.add('section-title-title');
-    // If subtitle exists
-    if (subtitle) {
-      // Check if subtitle is empty
-      if (subtitle?.innerHTML?.trim() === '') {
-        subtitle.remove();
-      } else {
-        subtitle.classList.add('section-title-subtitle');
+    const elementItems = [...block.children];
+    elementItems.forEach((element, index) => {
+      if (index === 0) {
+        element?.classList.add('page-header-title');
+      } else if (index === 1) {
+        element?.classList.add('page-header-subtitle');
       }
-    }
+    });
   } catch (error) {
     /* eslint-disable-next-line no-console */
-    console.error('Section Title block decoration error:', error);
+    console.error('Page Header block decoration error:', error);
   }
 }

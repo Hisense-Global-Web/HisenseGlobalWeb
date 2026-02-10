@@ -1,36 +1,29 @@
-.section-title.block {
-  font-family: var(--font-family);
-  margin-bottom: var(--spacing-xl, 48px);
+.page-header-title {
+  color: var(--color-primary-green-50, #009f9c);
+  text-align: center;
+  font-size: var(--fontsize-pc-h1, 46px);
+  font-weight: var(--fontweight-medium, 500);
+  line-height: 1.2;
 
-  @media (width < 860px) {
-    margin-bottom: var(--spacing-m, 32px);
+  @media (width<860px) {
+    font-size: var(--size-30, 30px);
   }
+}
 
-  .section-title-title {
-    margin: 0;
-    font-size: var(--fontsize-h2, 34px);
-    font-weight: var(--fontweight-medium);
-    line-height: var(--line-height-m, 1.2);
+.page-header-subtitle {
+  margin-top: var(--spacing-sm, 24px);
+  color: var(--color-primary-grey-70, #333);
+  text-align: center;
+  font-size: var(--font-size-normal, 24px);
+  font-weight: var(--fontweight-medium, 500);
+  line-height: 1.2;
 
-    @media (width < 860px) {
-      font-size: var(--fontsize-title1, 24px);
-      line-height: var(--line-height-m, 1.2);
-    }
+  @media (width<860px) {
+    margin-top: var(--spacing-xs, 16px);
+    font-size: var(--size-16, 16px);
   }
+}
 
-  .section-title-subtitle {
-    margin-top: var(--spacing-3xs);
-    margin-bottom: 0;
-    font-size: var(--fontsize-body1, 16px);
-    color: var(--color-primary-grey-70, #333);
-    font-weight: var(--fontweight-book);
-    line-height: var(--line-height-m, 1.2);
-    font-family: var(--font-family);
-
-    @media (width < 860px) {
-      margin-top: var(--spacing-3xs, 8px);
-      font-size: var(--fontsize-body2, 14px);
-      line-height: var(--line-height-m, 1.2);
-    }
-  }
+.page-header p {
+  margin: 0;
 }
