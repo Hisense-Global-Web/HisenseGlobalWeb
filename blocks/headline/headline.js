@@ -130,8 +130,15 @@ export default async function decorate(block) {
     actionsEl.classList.add('featured-actions');
 
     const button = document.createElement('button');
-    button.classList.add('btn', 'btn-primary');
-    button.textContent = data.ctaText;
+    // 文字带link的用这个
+    // button.classList.add('text-btn');
+    // button.textContent = data.ctaText;
+    
+    // download 和其他只有icon的用这个
+    const iconImg = document.createElement('img');
+    iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
+    button.classList.add('icon-btn');
+    button.appendChild(iconImg);
 
     // 如果有链接，包装在链接中
     if (data.ctaLink) {
