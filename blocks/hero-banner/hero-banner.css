@@ -266,6 +266,12 @@ p {
   }
 }
 
+.video-mode {
+  p {
+    display: none;
+  }
+}
+
 .video-div-box {
   position: relative;
   width: 100%;
