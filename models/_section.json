@@ -64,6 +64,10 @@
               "value": "gradient-gray"
             },
             {
+              "name": "Gradient Green",
+              "value": "gradient-green"
+            },
+            {
               "name": "Green",
               "value": "green"
             }
@@ -245,6 +249,7 @@
         "collection-cards",
         "collection-title",
         "columns",
+        "corprate-governance-cards",
         "disclaimer",
         "feature-banner",
         "fragment",

@@ -212,6 +212,10 @@
             "value": "gradient-gray"
           },
           {
+            "name": "Gradient Green",
+            "value": "gradient-green"
+          },
+          {
             "name": "Green",
             "value": "green"
           }
@@ -976,6 +980,58 @@
         "name": "item_text",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "corprate-governance-cards",
+    "fields": []
+  },
+  {
+    "id": "cards-container-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "svg",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "container",
+        "label": "",
+        "name": "container_cta",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "aem-content",
+            "name": "cta_link",
+            "label": "CTA",
+            "valueType": "string",
+            "value": "/"
+          },
+          {
+            "component": "text",
+            "name": "cta_Label",
+            "label": "CTA Label",
+            "valueType": "string",
+            "value": "label text"
+          }
+        ]
       }
     ]
   },
