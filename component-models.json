@@ -1736,7 +1736,7 @@
     ]
   },
   {
-    "id": "honors-awards-list",
+    "id": "honors-awards",
     "fields": [
       {
         "component": "text",
@@ -1747,7 +1747,7 @@
     ]
   },
   {
-    "id": "honors-awards-list-item",
+    "id": "honors-awards-item",
     "fields": [
       {
         "component": "reference",
@@ -2278,6 +2278,23 @@
   {
     "id": "partnerships-section-title",
     "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
       {
         "component": "text",
         "name": "title",
