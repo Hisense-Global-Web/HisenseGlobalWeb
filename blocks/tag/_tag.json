@@ -1,0 +1,44 @@
+{
+  "definitions": [
+    {
+      "title": "Tag",
+      "id": "tag",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Tag",
+              "model": "tag",
+              "key-value": true,
+              "title": "Tags",
+              "tags": "FIFA, World Cup 2026, Sports marketing, Sponsorship, Partnership"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "tag",
+      "fields": [
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-tag",
+          "name": "tags",
+          "label": "Tags",
+          "valueType": "string",
+          "multi": true,
+          "rootPath": "/content/cq:tags/hisense/download"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

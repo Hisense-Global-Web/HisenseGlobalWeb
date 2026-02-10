@@ -2960,6 +2960,25 @@
     ]
   },
   {
+    "id": "tag",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "name": "tags",
+        "label": "Tags",
+        "valueType": "string",
+        "multi": true,
+        "rootPath": "/content/cq:tags/hisense/download"
+      }
+    ]
+  },
+  {
     "id": "tech-information",
     "fields": [
       {
