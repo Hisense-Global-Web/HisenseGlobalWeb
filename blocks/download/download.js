@@ -1,8 +1,9 @@
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const DEFAULT_ITEM_IMAGE = 'https://picsum.photos/90/60';
 const DEFAULT_DOWNLOAD_ICON = '/content/dam/hisense/us/common-icons/download.svg';
+const DEFAULT_FOLDER_ICON = 'https://picsum.photos/80/80';
 
 export default function decorate(block) {
   const config = readBlockConfig(block);
@@ -10,38 +11,43 @@ export default function decorate(block) {
   const subtitle = config.subtitle || '';
   const buttonText = config['button-to-download'] || '';
 
+  // Main container
   const container = document.createElement('div');
-  container.className = 'download-container';
+  container.className = 'download-meta-container';
 
-  // Left side: Image list
+  // Title group
+  if (title || subtitle) {
+    const titleGroup = document.createElement('div');
+    titleGroup.className = 'title-group';
+
+    if (title) {
+      const titleEl = document.createElement('div');
+      titleEl.className = 'title';
+      titleEl.textContent = title;
+      titleGroup.appendChild(titleEl);
+    }
+
+    if (subtitle) {
+      const subtitleEl = document.createElement('div');
+      subtitleEl.className = 'subtitle';
+      subtitleEl.textContent = subtitle;
+      titleGroup.appendChild(subtitleEl);
+    }
+
+    container.appendChild(titleGroup);
+  }
+
+  // Content wrapper
+  const contentWrapper = document.createElement('div');
+  contentWrapper.className = 'content-wrapper';
+
+  // Image list
   const imageList = document.createElement('div');
-  imageList.className = 'download-image-list';
-
-  // Right side: Download panel
-  const downloadPanel = document.createElement('div');
-  downloadPanel.className = 'download-panel';
-
-  // Title
-  if (title) {
-    const titleEl = document.createElement('h2');
-    titleEl.className = 'download-title';
-    titleEl.textContent = title;
-    downloadPanel.appendChild(titleEl);
-  }
-
-  // Subtitle
-  if (subtitle) {
-    const subtitleEl = document.createElement('p');
-    subtitleEl.className = 'download-subtitle';
-    subtitleEl.textContent = subtitle;
-    downloadPanel.appendChild(subtitleEl);
-  }
-
-  // Meta list
-  const metaList = document.createElement('div');
-  metaList.className = 'download-meta-list';
+  imageList.className = 'image-list';
 
   const rows = [...block.children];
+  let totalSize = 0;
+
   rows.forEach((row) => {
     if (row.children.length < 2) return;
 
@@ -53,82 +59,117 @@ export default function decorate(block) {
     const imageSize = cells[4]?.textContent.trim() || '';
     const downloadIconCell = cells[5];
 
-    // Image item for left side
-    const imageItem = document.createElement('div');
-    imageItem.className = 'download-image-item';
-    moveInstrumentation(row, imageItem);
-
-    const imageImg = imageCell?.querySelector('img');
-    const imageSrc = imageImg?.src || DEFAULT_ITEM_IMAGE;
-    const picture = createOptimizedPicture(
-      imageSrc,
-      imageImg?.alt || imageName || 'Download item',
-      false,
-      [{ width: '120' }],
-    );
-    imageItem.appendChild(picture);
-
-    imageList.appendChild(imageItem);
-
-    // Meta item for right side
-    const metaItem = document.createElement('div');
-    metaItem.className = 'download-meta-item';
-
-    const metaInfo = document.createElement('div');
-    metaInfo.className = 'download-meta-info';
-
-    if (imageName) {
-      const nameEl = document.createElement('div');
-      nameEl.className = 'download-meta-name';
-      nameEl.textContent = imageName;
-      metaInfo.appendChild(nameEl);
+    // Parse size for total calculation
+    const sizeMatch = imageSize.match(/(\d+\.?\d*)\s*MB/i);
+    if (sizeMatch) {
+      totalSize += parseFloat(sizeMatch[1]);
     }
 
-    const specs = document.createElement('div');
-    specs.className = 'download-meta-specs';
-    const specParts = [];
-    if (imagePx) specParts.push(imagePx);
-    if (imageDpi) specParts.push(imageDpi);
-    if (imageSize) specParts.push(imageSize);
-    specs.textContent = specParts.join(' | ');
-    metaInfo.appendChild(specs);
+    // Image item
+    const imageItem = document.createElement('div');
+    imageItem.className = 'image-item';
+    moveInstrumentation(row, imageItem);
 
-    metaItem.appendChild(metaInfo);
+    // Image
+    const imageImg = imageCell?.querySelector('img');
+    const img = document.createElement('img');
+    img.src = imageImg?.src || DEFAULT_ITEM_IMAGE;
+    img.alt = imageImg?.alt || imageName || '';
+    imageItem.appendChild(img);
+
+    // Item info
+    const itemInfo = document.createElement('div');
+    itemInfo.className = 'item-info';
+
+    // Item name
+    if (imageName) {
+      const itemName = document.createElement('div');
+      itemName.className = 'item-name';
+      itemName.textContent = imageName;
+      itemInfo.appendChild(itemName);
+    }
+
+    // Item meta
+    const itemMeta = document.createElement('div');
+    itemMeta.className = 'item-meta';
+
+    // Add meta items with separators
+    const metaItems = [imagePx, imageDpi, imageSize].filter(Boolean);
+    metaItems.forEach((item, index) => {
+      const metaItem = document.createElement('div');
+      metaItem.className = 'item-meta-item';
+      metaItem.textContent = item;
+      itemMeta.appendChild(metaItem);
+
+      if (index < metaItems.length - 1) {
+        const line = document.createElement('div');
+        line.className = 'line';
+        itemMeta.appendChild(line);
+      }
+    });
 
     // Download icon
-    const downloadIcon = document.createElement('div');
-    downloadIcon.className = 'download-icon';
+    if (metaItems.length > 0) {
+      const line = document.createElement('div');
+      line.className = 'line';
+      itemMeta.appendChild(line);
+    }
+
+    const downloadIconWrapper = document.createElement('div');
+    downloadIconWrapper.className = 'item-meta-item';
 
     const downloadIconImg = downloadIconCell?.querySelector('img');
-    const downloadIconSrc = downloadIconImg?.src || DEFAULT_DOWNLOAD_ICON;
-    const downloadPicture = createOptimizedPicture(
-      downloadIconSrc,
-      downloadIconImg?.alt || 'Download',
-      false,
-      [{ width: '24' }],
-    );
-    downloadIcon.appendChild(downloadPicture);
+    const downloadIcon = document.createElement('img');
+    downloadIcon.src = downloadIconImg?.src || DEFAULT_DOWNLOAD_ICON;
+    downloadIcon.alt = 'Download';
+    downloadIconWrapper.appendChild(downloadIcon);
 
-    metaItem.appendChild(downloadIcon);
-    metaList.appendChild(metaItem);
+    itemMeta.appendChild(downloadIconWrapper);
+    itemInfo.appendChild(itemMeta);
+    imageItem.appendChild(itemInfo);
+    imageList.appendChild(imageItem);
   });
 
-  downloadPanel.appendChild(metaList);
+  contentWrapper.appendChild(imageList);
 
-  // Button
+  // Vertical line separator
+  const verticalLine = document.createElement('div');
+  verticalLine.className = 'line';
+  contentWrapper.appendChild(verticalLine);
+
+  // Download panel
+  const downloadPanel = document.createElement('div');
+  downloadPanel.className = 'download-panel';
+
+  // Folder icon
+  const folderIcon = document.createElement('img');
+  folderIcon.className = 'folder-icon';
+  folderIcon.src = DEFAULT_FOLDER_ICON;
+  folderIcon.alt = 'Folder';
+  downloadPanel.appendChild(folderIcon);
+
+  // Download button
   if (buttonText) {
-    const buttonEl = document.createElement('button');
-    buttonEl.className = 'download-button';
-    buttonEl.textContent = buttonText;
-    buttonEl.addEventListener('click', () => {
+    const downloadBtn = document.createElement('button');
+    downloadBtn.className = 'download-btn';
+    downloadBtn.textContent = buttonText;
+    downloadBtn.addEventListener('click', () => {
       // eslint-disable-next-line no-console
       console.log('Download all clicked');
     });
-    downloadPanel.appendChild(buttonEl);
+    downloadPanel.appendChild(downloadBtn);
   }
 
-  container.appendChild(imageList);
-  container.appendChild(downloadPanel);
+  // Total size
+  if (totalSize > 0) {
+    const totalSizeEl = document.createElement('div');
+    totalSizeEl.className = 'total-size';
+    totalSizeEl.textContent = `Total file size: ${totalSize.toFixed(0)} MB`;
+    downloadPanel.appendChild(totalSizeEl);
+  }
+
+  contentWrapper.appendChild(downloadPanel);
+  container.appendChild(contentWrapper);
 
   block.replaceChildren(container);
   block.classList.add('loaded');
