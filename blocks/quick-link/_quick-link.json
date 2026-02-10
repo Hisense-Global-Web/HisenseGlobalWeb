@@ -10,7 +10,9 @@
             "template": {
               "name": "Quick Link",
               "model": "quick-link",
-              "filter": "quick-link"
+              "filter": "quick-link",
+              "key-value": true,
+              "title": "Quick Links"
             }
           }
         }
@@ -25,7 +27,10 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Quick Link Item",
-              "model": "quick-link-item"
+              "model": "quick-link-item",
+              "text": "Link Text",
+              "link": "",
+              "target": "_self"
             }
           }
         }
@@ -40,7 +45,6 @@
           "component": "text",
           "name": "title",
           "label": "Title",
-          "value": "Quick Links",
           "valueType": "string"
         }
       ]
@@ -52,15 +56,29 @@
           "component": "text",
           "name": "text",
           "label": "Text",
-          "value": "Link Text",
           "valueType": "string"
         },
         {
           "component": "aem-content",
           "name": "link",
           "label": "Link",
-          "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "target",
+          "label": "Open In",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Same Window",
+              "value": "_self"
+            },
+            {
+              "name": "New Tab",
+              "value": "_blank"
+            }
+          ]
         }
       ]
     }

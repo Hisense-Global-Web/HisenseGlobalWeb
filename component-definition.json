@@ -1402,7 +1402,9 @@
                 "template": {
                   "name": "Quick Link",
                   "model": "quick-link",
-                  "filter": "quick-link"
+                  "filter": "quick-link",
+                  "key-value": true,
+                  "title": "Quick Links"
                 }
               }
             }
@@ -1417,7 +1419,10 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Quick Link Item",
-                  "model": "quick-link-item"
+                  "model": "quick-link-item",
+                  "text": "Link Text",
+                  "link": "",
+                  "target": "_self"
                 }
               }
             }
