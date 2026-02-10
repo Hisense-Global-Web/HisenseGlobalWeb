@@ -2313,6 +2313,25 @@
     ]
   },
   {
+    "id": "page-header",
+    "fields": [
+      {
+        "component": "text",
+        "name": "page_title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "page_subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "parallax",
     "fields": [
       {
