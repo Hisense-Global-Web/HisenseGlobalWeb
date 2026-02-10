@@ -6,25 +6,26 @@ export default function decorate(block) {
   const ul = document.createElement('ul');
   const title = document.createElement('div');
   [...block.children].forEach((row, i) => {
-    if (i === 0) {
-      title.className = 'title';
-      title.append(row);
+    const li = document.createElement('li');
+    li.classList.add('card-item');
+    moveInstrumentation(row, li);
+    while (row.firstElementChild) li.append(row.firstElementChild);
+    [...li.children].forEach((div) => {
+      if (div.querySelector('picture')) div.className = 'card-image';
+      else {
+        div.className = 'card-body';
+        const tit = document.createElement('div');
+        const desc = document.createElement('div');
+        tit.append(div.firstElementChild);
+        desc.append(div.lastElementChild);
+        div.replaceChildren(tit, desc);
+      }
+    });
+    const diver = document.createElement('div');
+    diver.className = 'diver';
+    if (i < [...block.children].length - 1) {
+      ul.append(li, diver);
     } else {
-      const li = document.createElement('li');
-      li.classList.add('card-item');
-      moveInstrumentation(row, li);
-      while (row.firstElementChild) li.append(row.firstElementChild);
-      [...li.children].forEach((div) => {
-        if (div.querySelector('picture')) div.className = 'card-image';
-        else {
-          div.className = 'card-body';
-          const tit = document.createElement('div');
-          const desc = document.createElement('div');
-          tit.append(div.firstElementChild);
-          desc.append(div.lastElementChild);
-          div.replaceChildren(tit, desc);
-        }
-      });
       ul.append(li);
     }
   });
