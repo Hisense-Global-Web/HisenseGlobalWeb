@@ -1155,6 +1155,77 @@
     ]
   },
   {
+    "id": "download",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button-to-download",
+        "label": "Button Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "download-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "description": "Upload image (default placeholder will be used if not set)",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "image-name",
+        "label": "Image Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-px",
+        "label": "Image Size",
+        "description": "e.g., 1200×800px",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-dpi",
+        "label": "Image DPI",
+        "description": "e.g., 72dpi",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-size",
+        "label": "File Size",
+        "description": "e.g., 2.5MB",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "download-icon",
+        "label": "Download Icon",
+        "description": "Custom download icon (default icon will be used if not set)",
+        "valueType": "string",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "feature-banner",
     "fields": [
       {
@@ -2738,7 +2809,7 @@
       {
         "component": "richtext",
         "name": "text",
-        "label": "Content",
+        "label": "Text",
         "description": "Use H2-H6 headings to structure your content",
         "valueType": "string"
       },

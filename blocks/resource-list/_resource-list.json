@@ -63,7 +63,7 @@
         {
           "component": "richtext",
           "name": "text",
-          "label": "Content",
+          "label": "Text",
           "description": "Use H2-H6 headings to structure your content",
           "valueType": "string"
         },

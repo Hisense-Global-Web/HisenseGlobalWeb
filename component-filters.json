@@ -27,6 +27,7 @@
       "cross-page-redirect",
       "current-partnerships-list",
       "disclaimer",
+      "download",
       "feature-banner",
       "feature-navigation",
       "fragment",
@@ -148,6 +149,12 @@
     "id": "current-partnerships-list",
     "components": [
       "current-partnerships-list-item"
+    ]
+  },
+  {
+    "id": "download",
+    "components": [
+      "download-item"
     ]
   },
   {
