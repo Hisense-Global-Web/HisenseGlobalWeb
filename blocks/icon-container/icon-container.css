@@ -16,7 +16,7 @@
   
 
   @media (width >= 860px) {
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
   }
 }
 
@@ -50,7 +50,7 @@
 .icon-container-item {
     display: flex;
     align-items: center;
-    gap: var(--size-8);
+    gap: var(--size-16);
 }
 
 
@@ -100,6 +100,7 @@
     
    @media (width >= 860px) {
      margin: calc(-1 * min(20.83333vw,300px)) 0 min(20.83333vw,300px);
+     gap: var(--size-24);
    }
 }
 

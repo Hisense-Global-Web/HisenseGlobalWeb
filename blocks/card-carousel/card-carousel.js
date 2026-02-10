@@ -96,7 +96,7 @@ export default async function decorate(block) {
       <button type="button" class="slide-prev" disabled></button>
       <button type="button" class="slide-next"></button>
     `;
-    block.appendChild(buttonContainer);
+    titleBox.lastElementChild.appendChild(buttonContainer);
   }
   bindEvent(block);
   window.onresize = debounce(() => {

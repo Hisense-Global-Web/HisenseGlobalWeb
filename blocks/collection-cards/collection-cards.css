@@ -16,7 +16,7 @@
 }
 
 .collection-cards > ul {
-  gap: var(--spacing-sm);
+  gap: var(--fontsize-title1);
 
   @media (width < 860px) {
 		overflow-x: auto;
@@ -28,7 +28,7 @@
     touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
     overscroll-behavior-x: contain; /* 防止滚动链 */
     grid-auto-flow: column;
-    gap: var(--spacing-xs);
+    gap: var(--fontsize-body1);
 	}
 }
 
@@ -44,7 +44,6 @@
     aspect-ratio: 1;
     transition: transform 0.3s;
     pointer-events: auto; /* 允许事件穿透到容器 */
-    
 
     /* -webkit-user-select: none; */
     user-select: none;
@@ -85,7 +84,6 @@
   position: relative;
 
     @media (width >= 860px) {
-     width: min(18.194444vw, 262px);
      height: min(17.361111vw,250px);
   }
 }
@@ -160,17 +158,18 @@
   border-radius: var(--border-radius-l);
   overflow: hidden;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   padding: var(--spacing-sm);
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   aspect-ratio: 1;
+  gap: var(--spacing-xs);
 
   @media (width >= 860px) {
     gap: var(--size-16);
-    width:min(24.26111vw, 358px) ;
-    height:min(24.26111vw, 358px) ;
+    width: 100%;
+    height:min(24.26111vw, 358px);
     padding: var(--spacing-lg) var(--spacing-md)  var(--spacing-md);
   }
 }
@@ -183,8 +182,8 @@
 }
 
 .center-style > ul > li .collection-cards-card-image {
-  width: 46.154vw;
-  height: 46.154vw;;
+  width: 42.05128vw;
+  height: 42.05128vw;;
   object-fit: contain;
 
   @media (width >= 860px) {

@@ -11,22 +11,29 @@
   {
     "id": "section",
     "components": [
+      "article-title",
       "article-body",
       "article-body-list",
       "button",
       "card-carousel",
       "category-carousel",
+      "cross-page-redirect",
       "collection-banner",
       "collection-cards",
       "collection-title",
       "columns",
+      "corprate-governance-cards",
       "disclaimer",
       "feature-banner",
       "fragment",
+      "global-presence",
+      "globalization-timeline",
       "gradient-text-image",
       "header",
+      "headline",
       "hero",
       "hero-banner",
+      "hero-presence",
       "icon-container",
       "image",
       "image-comparison-slider",
@@ -55,7 +62,8 @@
       "industry-categories",
       "module-title",
       "card-grid",
-      "tech-evolution-timeline"
+      "tech-evolution-timeline",
+      "news-card-list"
     ]
   },
   {
@@ -127,6 +135,12 @@
     ]
   },
   {
+    "id": "corprate-governance-cards",
+    "components": [
+      "cards-container-item"
+    ]
+  },
+  {
     "id": "current-partnerships-list",
     "components": [
       "current-partnerships-list-item"
@@ -156,6 +170,18 @@
     "id": "footerNavColumn",
     "components": [
       "footerNavColumnList"
+    ]
+  },
+  {
+    "id": "global-presence",
+    "components": [
+      "stats-strip"
+    ]
+  },
+  {
+    "id": "globalization-timeline",
+    "components": [
+      "phase-bar"
     ]
   },
   {
