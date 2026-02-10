@@ -1239,7 +1239,7 @@
       {
         "id": "richtext",
         "component": "richtext",
-        "name": "description_name",
+        "name": "rte",
         "label": "Tech Description",
         "valueType": "string",
         "rte": {
