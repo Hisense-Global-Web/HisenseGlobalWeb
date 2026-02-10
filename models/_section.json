@@ -291,7 +291,8 @@
         "card-grid",
         "honors-awards",
         "feature-navigation",
-        "news-card-list"
+        "news-card-list",
+        "search-box"
       ]
     }
   ]

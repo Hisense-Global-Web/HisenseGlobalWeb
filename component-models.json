@@ -2670,6 +2670,39 @@
     "fields": []
   },
   {
+    "id": "search-box",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "search-link",
+        "label": "Search Page Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "placeholder",
+        "label": "Placeholder Text"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "target",
+        "label": "Open In",
+        "options": [
+          {
+            "name": "Same Window",
+            "value": "_self"
+          },
+          {
+            "name": "New Tab",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "slide",
     "fields": [
       {
