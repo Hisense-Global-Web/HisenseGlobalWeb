@@ -21,17 +21,17 @@ export default function decorate(block) {
     titleGroup.className = 'title-group';
 
     if (title) {
-      const titleEl = document.createElement('div');
-      titleEl.className = 'title';
-      titleEl.textContent = title;
-      titleGroup.appendChild(titleEl);
+      const titleDiv = document.createElement('div');
+      titleDiv.className = 'title';
+      titleDiv.textContent = title;
+      titleGroup.appendChild(titleDiv);
     }
 
     if (subtitle) {
-      const subtitleEl = document.createElement('div');
-      subtitleEl.className = 'subtitle';
-      subtitleEl.textContent = subtitle;
-      titleGroup.appendChild(subtitleEl);
+      const subtitleDiv = document.createElement('div');
+      subtitleDiv.className = 'subtitle';
+      subtitleDiv.textContent = subtitle;
+      titleGroup.appendChild(subtitleDiv);
     }
 
     container.appendChild(titleGroup);
@@ -45,13 +45,25 @@ export default function decorate(block) {
   const imageList = document.createElement('div');
   imageList.className = 'image-list';
 
-  const rows = [...block.children];
+  const allRows = [...block.children];
+  const configKeys = ['title', 'subtitle', 'button-to-download'];
+  const itemRows = allRows.filter((row) => {
+    if (row.children.length === 2) {
+      const firstCol = row.children[0].textContent.trim().toLowerCase();
+      if (configKeys.includes(firstCol)) {
+        return false;
+      }
+    }
+    return row.children.length >= 6;
+  });
+
   let totalSize = 0;
 
-  rows.forEach((row) => {
-    if (row.children.length < 2) return;
+  itemRows.forEach((item) => {
+    const cells = [...item.children];
+    if (cells.length < 6) return;
 
-    const cells = [...row.children];
+    // Extract data from cells
     const imageCell = cells[0];
     const imageName = cells[1]?.textContent.trim() || '';
     const imagePx = cells[2]?.textContent.trim() || '';
@@ -68,12 +80,13 @@ export default function decorate(block) {
     // Image item
     const imageItem = document.createElement('div');
     imageItem.className = 'image-item';
-    moveInstrumentation(row, imageItem);
+    moveInstrumentation(item, imageItem);
 
     // Image
+    const imageLink = imageCell?.querySelector('a');
     const imageImg = imageCell?.querySelector('img');
     const img = document.createElement('img');
-    img.src = imageImg?.src || DEFAULT_ITEM_IMAGE;
+    img.src = imageImg?.src || imageLink?.href || DEFAULT_ITEM_IMAGE;
     img.alt = imageImg?.alt || imageName || '';
     imageItem.appendChild(img);
 
@@ -83,10 +96,10 @@ export default function decorate(block) {
 
     // Item name
     if (imageName) {
-      const itemName = document.createElement('div');
-      itemName.className = 'item-name';
-      itemName.textContent = imageName;
-      itemInfo.appendChild(itemName);
+      const itemNameDiv = document.createElement('div');
+      itemNameDiv.className = 'item-name';
+      itemNameDiv.textContent = imageName;
+      itemInfo.appendChild(itemNameDiv);
     }
 
     // Item meta
@@ -95,11 +108,11 @@ export default function decorate(block) {
 
     // Add meta items with separators
     const metaItems = [imagePx, imageDpi, imageSize].filter(Boolean);
-    metaItems.forEach((item, index) => {
-      const metaItem = document.createElement('div');
-      metaItem.className = 'item-meta-item';
-      metaItem.textContent = item;
-      itemMeta.appendChild(metaItem);
+    metaItems.forEach((metaItem, index) => {
+      const metaItemDiv = document.createElement('div');
+      metaItemDiv.className = 'item-meta-item';
+      metaItemDiv.textContent = metaItem;
+      itemMeta.appendChild(metaItemDiv);
 
       if (index < metaItems.length - 1) {
         const line = document.createElement('div');

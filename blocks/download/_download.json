@@ -11,7 +11,7 @@
               "name": "Download",
               "model": "download",
               "filter": "download",
-              "key-value": "true",
+              "key-value":true,
               "title": "Download Resources",
               "subtitle": "Select the image format you need to download",
               "button-to-download": "Download All"
