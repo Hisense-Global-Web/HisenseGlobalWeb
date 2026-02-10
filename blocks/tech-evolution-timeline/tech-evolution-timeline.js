@@ -30,7 +30,7 @@ export default async function decorate(block) {
       const timelineDotEl = document.createElement('div');
       timelineDotEl.className = 'timeline-dot';
       const circleImg = document.createElement('img');
-      circleImg.src = '/content/dam/hisense/us/common-icons/timeline-circle.svg';
+      circleImg.src = '/content/dam/hisense/us/common-icons/custom-icons/timeline-circle.svg';
       circleImg.alt = 'Timeline dot';
       timelineDotEl.append(circleImg);
       row.prepend(timelineDotEl);
