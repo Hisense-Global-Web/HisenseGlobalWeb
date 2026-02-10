@@ -122,6 +122,7 @@ function buildCard(item) {
     subtitle,
     date,
     location,
+    download,
     thumbnail,
   } = item;
 
@@ -197,7 +198,27 @@ function buildCard(item) {
     metaGroupEl.appendChild(locationEl);
   }
 
+  if (download) {
+    const downloadEl = document.createElement('span');
+    downloadEl.classList.add('meta-item');
+    const iconImg = document.createElement('img');
+    iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
+    iconImg.alt = '';
+    iconImg.classList.add('meta-icon');
+    downloadEl.appendChild(iconImg);
+    // 追加点击下载
+    metaGroupEl.appendChild(downloadEl);
+  }
+
   if (metaGroupEl.children.length > 0) {
+    if (metaGroupEl.children.length > 1) {
+      const itemElements = metaGroupEl.children;
+      for (let i = itemElements.length - 2; i >= 0; i -= 1) {
+        const lineEl = document.createElement('div');
+        lineEl.className = 'line';
+        itemElements[i].after(lineEl);
+      }
+    }
     contentEl.appendChild(metaGroupEl);
   }
 
