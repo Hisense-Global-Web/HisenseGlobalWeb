@@ -53,20 +53,23 @@ export default async function decorate(block) {
       itemContent.split('')
         .forEach((char) => {
           const wrapper = createElement('div', 'number-wrapper');
-          const isNumber = Number(char)
-            .toString() !== 'NaN';
+          const isNumber = Number(char).toString() !== 'NaN';
           const numberValue = Number(char);
           const finalNumberEle = createElement('div', isNumber ? 'number-char final-number-char' : '');
+          const extraNumberEle = createElement('div', 'number-char');
           finalNumberEle.textContent = char;
-          if (isNumber && numberValue >= 0) {
+          if (isNumber && numberValue > 0) {
+            wrapper.classList.add('animate');
             // eslint-disable-next-line no-plusplus
             for (let i = 0; i < numberValue; i++) {
               const div = createElement('div', 'number-char');
               div.textContent = i.toString();
               wrapper.appendChild(div);
             }
+            extraNumberEle.textContent = (numberValue + 1).toString();
           }
           wrapper.appendChild(finalNumberEle);
+          wrapper.appendChild(extraNumberEle);
           animatedItem.appendChild(wrapper);
         });
       firstItem.replaceWith(animatedItem);
@@ -111,9 +114,9 @@ export default async function decorate(block) {
     const timeline = gsap.timeline();
 
     statsItems.forEach((item, itemIndex) => {
-      const numberWrappers = item.querySelectorAll('.number-wrapper');
+      const numberWrappers = item.querySelectorAll('.number-wrapper.animate');
 
-      numberWrappers.forEach((wrapper) => {
+      numberWrappers.forEach((wrapper, wrapperIndex) => {
         const chars = wrapper.querySelectorAll('.number-char');
         const finalCharIndex = Array.from(chars)
           .findIndex((char) => char.classList.contains('final-number-char'));
@@ -126,21 +129,19 @@ export default async function decorate(block) {
         // Calculate the distance to move
         const charHeight = chars[0].getBoundingClientRect().height;
         const finalPosition = -finalCharIndex * charHeight;
-        const bounceOvershoot = finalCharIndex < chars.length - 1 ? -(charHeight / 4) : 0;
+        const bounceOvershoot = finalCharIndex < chars.length - 1 ? -(charHeight / 3) : 0;
 
         // Add animation to timeline
         timeline.to(wrapper, {
           y: finalPosition + bounceOvershoot,
-          duration: 1,
-          yoyo: true,
-          ease: 'power2.inOut',
-        }, itemIndex * 0.2) // Stagger each item by 0.2s
+          duration: 1.5,
+          ease: 'ease.outBack',
+        }, `${itemIndex * 0.5 + wrapperIndex * 0.2}`)
           .to(wrapper, {
             y: finalPosition,
             duration: 0.2,
-            yoyo: true,
-            ease: 'bounce.out',
-          }, '>-0.1'); // Start slightly before the previous animation ends
+            ease: 'ease.outBack',
+          }, '>-0.2');
       });
     });
 
