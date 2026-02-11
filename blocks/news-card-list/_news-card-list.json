@@ -43,6 +43,13 @@
           "label": "Empty Result Text",
           "description": "Text to show when no news items match the current filters.",
           "valueType": "string"
+        },
+        {
+          "component": "boolean",
+          "name": "should-paginated",
+          "label": "Do you need the text to be paginated?",
+          "valueType": "boolean",
+          "description": "Switch OFF: no paginated | Switch ON: should paginated"
         }
       ]
     }
