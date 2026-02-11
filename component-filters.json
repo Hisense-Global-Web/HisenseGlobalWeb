@@ -28,6 +28,7 @@
       "current-partnerships-list",
       "disclaimer",
       "download",
+      "enterprise-tech",
       "feature-banner",
       "feature-navigation",
       "fragment",
@@ -65,6 +66,7 @@
       "slide",
       "sub-menu-link",
       "tag",
+      "tech-evolution-timeline",
       "tech-information",
       "text",
       "title",
@@ -156,6 +158,12 @@
     "id": "download",
     "components": [
       "download-item"
+    ]
+  },
+  {
+    "id": "enterprise-tech",
+    "components": [
+      "enterprise-card-item"
     ]
   },
   {
@@ -281,6 +289,13 @@
     "id": "resource-list",
     "components": [
       "resource-list-item"
+    ]
+  },
+  {
+    "id": "tech-evolution-timeline",
+    "components": [
+      "timeline-nodes-item",
+      "tech-card-item"
     ]
   },
   {
