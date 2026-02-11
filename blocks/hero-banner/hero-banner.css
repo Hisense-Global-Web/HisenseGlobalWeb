@@ -399,7 +399,7 @@ p {
 @media (width < 860px) {
   .hero-banner  .hero-banner-items-container {
     /* overflow: scroll; */
-    touch-action: none;
+    touch-action: pan-y;
     user-select: none;
     aspect-ratio: 390/640;
     max-height: 100dvh;
