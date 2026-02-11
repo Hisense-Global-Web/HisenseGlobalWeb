@@ -11,34 +11,44 @@
 }
 
 .feature-navigation > ul {
+  list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr;
+  gap: var(--size-24);
 
   @media (width < 860px) {
      grid-template-columns: 1fr;
 	}
 }
+.feature-navigation .diver{
+  width: 1px;
+  height: calc(100% - var(--size-80));
+  background-color: var(--color-primary-green-50);
+  margin: auto 0;
 
+}
 .feature-navigation > ul > li {
    font-family: var(--font-family);
-   height: 380px;
+   padding: var(--size-48);
+   display: flex;
+   flex-direction: column;
 
    @media (width < 860px) {
-   height: 281px;
+    padding: var(--size-48) var(--size-43);
   }
 }
 
-.feature-navigation > ul > li {
-   font-family: var(--font-family);
-   height: 380px;
-
-   @media (width < 860px) {
-   height: 281px;
-  }
+.feature-navigation .card-cta a.button:any-link, button {
+  margin: 0;
+      margin: 0;
+    padding: 0;
+    background: none;
+    color: black;
 }
 
+.feature-navigation .card-cta a.button:any-link, button ::after{
 
+}
 .feature-navigation  > ul > li .card-image {
   width: var(--size-80);
   aspect-ratio: 1 / 1 ;

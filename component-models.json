@@ -1929,30 +1929,6 @@
     ]
   },
   {
-    "id": "industry-categories",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title_title",
-        "label": "Title",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "title_subtitle",
-        "label": "Sub Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "title_content",
-        "label": "Content",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "industry-categories-item",
     "fields": [
       {
