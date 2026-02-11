@@ -92,7 +92,6 @@ p {
         -ms-overflow-style: none;
         scroll-snap-type: x mandatory; /* 强制水平吸附 */
         scroll-behavior: smooth;
-        max-width: 100vw;
 
         .card-item {
             width: calc(300/var(--breakpoint-mobile)* 100vw);

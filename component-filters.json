@@ -28,6 +28,7 @@
       "current-partnerships-list",
       "disclaimer",
       "download",
+      "enterprise-tech",
       "feature-banner",
       "feature-navigation",
       "fragment",
@@ -63,8 +64,10 @@
       "resource-list",
       "search-box",
       "slide",
+      "social-media-list",
       "sub-menu-link",
       "tag",
+      "tech-evolution-timeline",
       "tech-information",
       "text",
       "title",
@@ -182,6 +185,12 @@
     "id": "download",
     "components": [
       "download-item"
+    ]
+  },
+  {
+    "id": "enterprise-tech",
+    "components": [
+      "enterprise-card-item"
     ]
   },
   {
@@ -313,6 +322,19 @@
     "id": "resource-list",
     "components": [
       "resource-list-item"
+    ]
+  },
+  {
+    "id": "social-media-list",
+    "components": [
+      "social-media-list-item"
+    ]
+  },
+  {
+    "id": "tech-evolution-timeline",
+    "components": [
+      "timeline-nodes-item",
+      "tech-card-item"
     ]
   },
   {

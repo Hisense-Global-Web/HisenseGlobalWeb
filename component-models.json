@@ -57,6 +57,13 @@
         "valueType": "string",
         "name": "cta-text",
         "label": "CTA Text"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "cq:tags",
+        "label": "Tags",
+        "rootPath": "/content/cq:tags/hisense"
       }
     ]
   },
@@ -1293,6 +1300,13 @@
         "label": "Download All Link",
         "description": "Link for downloading all resources (optional)",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "total-size-text",
+        "label": "Total Size Text",
+        "description": "Text label for total file size",
+        "valueType": "string"
       }
     ]
   },
@@ -1345,6 +1359,74 @@
         "label": "Download Link",
         "description": "Link to the downloadable file",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "enterprise-tech",
+    "fields": []
+  },
+  {
+    "id": "enterprise-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "pc_url",
+        "label": "Card Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile_Url",
+        "label": "Card Mobile Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title_name",
+        "label": "Tech Category Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle_name",
+        "label": "Tech Subtitle",
+        "valueType": "string"
+      },
+      {
+        "id": "richtext",
+        "component": "richtext",
+        "name": "rte_description",
+        "label": "Tech Description",
+        "valueType": "string",
+        "rte": {
+          "toolbar": {
+            "format": [],
+            "alignment": [
+              "left",
+              "center",
+              "right",
+              "justify"
+            ],
+            "direction": [],
+            "indentation": [],
+            "blocks": [
+              "paragraph"
+            ],
+            "list": [
+              "bullet_list",
+              "ordered_list"
+            ],
+            "insert": [],
+            "sr_script": [],
+            "editor": [
+              "removeformat"
+            ],
+            "sections": []
+          }
+        }
       }
     ]
   },
@@ -2515,6 +2597,26 @@
         "label": "Empty Result Text",
         "description": "Text to show when no news items match the current filters.",
         "valueType": "string"
+      },
+      {
+        "component": "boolean",
+        "name": "should-paginated",
+        "label": "Do you need paginated?",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "label": "button",
+        "name": "paginated-btn-text",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "should-paginated"
+            },
+            false
+          ]
+        }
       }
     ]
   },
@@ -3117,6 +3219,36 @@
     ]
   },
   {
+    "id": "social-media-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "social-media-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Social Icon",
+        "required": true,
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "sub-menu-link",
     "fields": [
       {
@@ -3191,6 +3323,152 @@
             "value": "_blank"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "tech-evolution-timeline",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Background Style",
+        "valueType": "string",
+        "value": "background-gradient",
+        "options": [
+          {
+            "name": "Gradient",
+            "value": "background-gradient"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "timeline-nodes-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "component-timeline",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "year_type",
+        "valueType": "string",
+        "value": "timeline-year",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "year_name",
+        "label": "Year",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title_type",
+        "valueType": "string",
+        "value": "timeline-title",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "title_name",
+        "label": "Milestone Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description_type",
+        "valueType": "string",
+        "value": "timeline-description",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "description_name",
+        "label": "Milestone Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "tech-card-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "component-tech-card",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "background_type",
+        "valueType": "string",
+        "value": "background-box",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "background_img",
+        "label": "Card Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "image_type",
+        "valueType": "string",
+        "value": "image-box",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image_url",
+        "label": "Card Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "category_style",
+        "valueType": "string",
+        "value": "category-title",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "category_title",
+        "label": "Tech Category Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description_type",
+        "valueType": "string",
+        "value": "description-style",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "description_name",
+        "label": "Tech Description",
+        "valueType": "string"
       }
     ]
   },

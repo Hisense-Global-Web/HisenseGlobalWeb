@@ -11,6 +11,7 @@ export default function decorate(block) {
   const subtitle = config.subtitle || '';
   const buttonText = config['button-to-download'] || '';
   const downloadAllLink = config['download-all-link'] || '';
+  const totalSizeText = config['total-size-text'] || 'Total file size';
 
   // Main container
   const container = document.createElement('div');
@@ -47,7 +48,7 @@ export default function decorate(block) {
   imageList.className = 'image-list';
 
   const allRows = [...block.children];
-  const configKeys = ['title', 'subtitle', 'button-to-download', 'download-all-link'];
+  const configKeys = ['title', 'subtitle', 'button-to-download', 'download-all-link', 'total-size-text'];
   const itemRows = allRows.filter((row) => {
     if (row.children.length === 2) {
       const firstCol = row.children[0].textContent.trim().toLowerCase();
@@ -209,7 +210,7 @@ export default function decorate(block) {
   if (totalSize > 0) {
     const totalSizeEl = document.createElement('div');
     totalSizeEl.className = 'total-size';
-    totalSizeEl.textContent = `Total file size: ${totalSize.toFixed(0)} MB`;
+    totalSizeEl.textContent = `${totalSizeText}: ${totalSize.toFixed(0)} MB`;
     downloadPanel.appendChild(totalSizeEl);
   }
 
