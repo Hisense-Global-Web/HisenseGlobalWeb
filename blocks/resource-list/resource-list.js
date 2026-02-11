@@ -80,6 +80,11 @@ export default function decorate(block) {
       const imgEl = document.createElement('img');
       imgEl.src = '/content/dam/hisense/us/common-icons/close-70.svg';
       clearEl.appendChild(imgEl);
+      clearEl.addEventListener('click', (e) => {
+        const targetInputEl = e.currentTarget.parentNode.querySelector('input');
+        targetInputEl.value = '';
+        targetInputEl.focus();
+      });
 
       const errorEl = document.createElement('span');
       errorEl.className = 'error-tip';
