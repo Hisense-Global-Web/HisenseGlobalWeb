@@ -1,0 +1,82 @@
+{
+  "definitions": [
+    {
+      "title": "Honors Awards",
+      "id": "honors-awards",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Honors Awards",
+              "model": "honors-awards",
+              "filter": "honors-awards"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Honors Awards Item",
+      "id": "honors-awards-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Honors Awards Item",
+              "model": "honors-awards-item"
+            }
+          }
+        }
+      }
+    }
+    
+  ],
+  "models": [
+     {
+      "id": "honors-awards",
+      "fields": [
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        }
+      ]
+    },
+    {
+      "id": "honors-awards-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+         {
+          "component": "text",
+          "name": "text_title",
+          "label": "Title",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "text_content",
+          "label": "Content",
+          "valueType": "string"
+        }
+        
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "honors-awards",
+      "components": [
+        "honors-awards-list-item"
+      ]
+    }
+  ]
+}

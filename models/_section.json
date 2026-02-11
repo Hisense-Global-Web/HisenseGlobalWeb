@@ -62,6 +62,18 @@
             {
               "name": "Gradient Gray",
               "value": "gradient-gray"
+            },
+            {
+              "name": "Soft Green(green-10)",
+              "value": "soft-green"
+            },
+            {
+              "name": "Gradient Green",
+              "value": "gradient-green"
+            },
+            {
+              "name": "Green",
+              "value": "green"
             }
           ]
         },
@@ -230,31 +242,47 @@
     {
       "id": "section",
       "components": [
-        "article-title",
         "article-body",
         "article-body-list",
+        "article-title",
         "button",
         "card-carousel",
+        "card-grid",
         "category-carousel",
-        "cross-page-redirect",
         "collection-banner",
         "collection-cards",
         "collection-title",
         "columns",
+        "core-value-card",
+        "corprate-governance-cards",
+        "cross-page-redirect",
+        "current-partnerships-list",
         "disclaimer",
+        "download",
+        "enterprise-tech",
         "feature-banner",
+        "feature-navigation",
         "fragment",
+        "global-presence",
+        "globalization-timeline",
         "gradient-text-image",
         "header",
         "headline",
         "hero",
         "hero-banner",
+        "hero-presence",
+        "honors-awards",
         "icon-container",
         "image",
         "image-comparison-slider",
+        "industry-categories",
         "media-carousel",
         "minimalist-hero-banner",
+        "module-title",
+        "news-card-list",
         "parallax",
+        "partnerships-section-title",
+        "past-partnerships-list",
         "product-card",
         "product-filter",
         "product-filters-carousel",
@@ -263,20 +291,20 @@
         "product-sorting",
         "product-spec",
         "properties",
+        "quick-link",
+        "resource-list",
+        "search-box",
         "slide",
+        "social-media-list",
         "sub-menu-link",
+        "sustainability-dashboard-list",
+        "tag",
+        "tech-evolution-timeline",
+        "tech-information",
         "text",
         "title",
         "video",
-        "videoinfo",
-        "tech-information",
-        "core-value-card",
-        "past-partnerships-list",
-  	    "partnerships-section-title",
-        "current-partnerships-list",
-        "industry-categories",
-        "module-title",
-        "card-grid"
+        "videoinfo"
       ]
     }
   ]

@@ -23,24 +23,41 @@
       "id": "partnerships-section-title",
       "fields": [
         {
-          "component": "richtext",
+          "component": "select",
+          "name": "classes",
+          "label": "Card options",
+          "description": "",
+          "valueType": "string",
+          "options": [
+              {
+                  "name": "Default Style",
+                  "value": "default-style"
+              },
+              {
+                  "name": "Center Style",
+                  "value": "center-style"
+              }
+          ]
+        },
+        {
+          "component": "text",
           "name": "title",
           "value": "title",
           "label": "Title",
           "valueType": "string"
         },
         {
-          "component": "richtext",
-          "name": "subtitle",
-          "value": "sub title",
-          "label": "Sub Title",
+          "component": "text",
+          "name": "headline",
+          "value": "Headline",
+          "label": "Headline",
           "valueType": "string"
         },
         {
-          "component": "richtext",
-          "name": "text",
-          "value": "text",
-          "label": "Text",
+          "component": "text",
+          "name": "bodycopy",
+          "value": "Bodycopy",
+          "label": "Bodycopy",
           "valueType": "string"
         }
       ]

@@ -3,7 +3,7 @@
 .plp-sidebar {
     width: min(calc(262 / var(--breakpoint-pc) * 100vw), 262px);
     flex-shrink: 0;
-    padding: var(--size-16) var(--size-20);
+    padding: var(--size-16) var(--size-21);
     border-radius: var(--size-20);
     background: #fff;
 }
@@ -22,7 +22,8 @@
 }
 
 .plp-filter-group.hide .plp-filter-list {
-  max-height: var(--size-2);
+  max-height: 0;
+  margin: 0;
   overflow: hidden;
 }
 
@@ -50,6 +51,8 @@
   cursor: pointer;
   padding: 0 var(--size-16);
   font-size: var(--size-14);
+  color: var(--color-primary-grey-70);
+  line-height: 1.5;
 }
 
 .plp-filter-title span {

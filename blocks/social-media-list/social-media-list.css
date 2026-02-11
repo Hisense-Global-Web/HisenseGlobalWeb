@@ -1,0 +1,27 @@
+/* social-media-list-item */
+
+main .section.social-media-list-container .social-media-list-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--size-24);
+  
+  .social-media-list {
+    width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+    display: flex;
+    gap: var(--size-16);
+    color: var(--color-primary-grey-70);
+
+    .social-media-list-item {
+      cursor: pointer;
+      
+      .social-media-list-item-img img {
+        width: var(--size-34);
+        height: var(--size-34);
+      }
+      
+      .social-media-list-item-link {
+        display: none;
+      }
+    }
+  }
+}

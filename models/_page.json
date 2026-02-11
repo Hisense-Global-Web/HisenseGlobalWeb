@@ -47,16 +47,24 @@
           "label": "Author"
         },
         {
-          "component": "image",
+          "component": "reference",
           "valueType": "string",
-          "name": "image",
-          "label": "Image"
+          "name": "thumbnail",
+          "label": "Thumbnail",
+          "multi": false
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "cta-text",
           "label": "CTA Text"
+        },
+        {
+          "component": "aem-tag",
+          "valueType": "string",
+          "name": "cq:tags",
+          "label": "Tags",
+          "rootPath": "/content/cq:tags/hisense"
         }
       ]
     }
