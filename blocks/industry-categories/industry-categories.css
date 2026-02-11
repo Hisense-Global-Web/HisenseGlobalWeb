@@ -158,7 +158,7 @@
    
 }
 
-.industry-categories .active .card-title{
+.industry-categories .card-title{
   z-index: 99;
   position: relative;
   color: var(--color-primary-grey-10);
