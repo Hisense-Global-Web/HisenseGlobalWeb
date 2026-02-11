@@ -12,6 +12,8 @@
       font-size: var(--fontsize-pc-h3);
       font-weight: var(--fontweight-medium);
       margin-bottom: var(--size-48);
+      color: var(--color-hisense-black);
+      line-height: 1.2;
     }
 
     /* 卡片整体 */
