@@ -64,7 +64,7 @@
             border-color: var(--color-primary-green-50);
           }
           
-          &:not(:placeholder-shown) + .clear-icon {
+          &:not(:placeholder-shown):focus + .clear-icon {
             display: block;
           }
         }
@@ -85,6 +85,11 @@
 
         & + .resource-button {
           width: 100%;
+        }
+        
+        &.error .resource-email-input {
+          color: var(--color-accent-red-30);
+          border-color: var(--color-accent-red-30);
         }
       }
 

@@ -1,5 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { validateEmail } from '../../utils/carousel-common.js';
 
 const DEFAULT_ICON_SVG = '<svg width="80" height="80" viewBox="0 0 80 80" fill="none" '
   + 'xmlns="http://www.w3.org/2000/svg">'
@@ -74,6 +75,9 @@ export default function decorate(block) {
       inputEl.placeholder = 'your@email.com';
       inputEl.className = 'resource-email-input';
       inputEl.required = true;
+      inputEl.addEventListener('input', (e) => {
+        e.currentTarget.parentNode.classList.remove('error');
+      });
 
       const clearEl = document.createElement('span');
       clearEl.className = 'clear-icon';
@@ -114,11 +118,15 @@ export default function decorate(block) {
           e.preventDefault();
           const form = card.querySelector('.resource-subscribe-form');
           const input = form?.querySelector('input.resource-email-input');
-          if (input && input.value && input.checkValidity()) {
+          if (input && input.value) {
             // Handle subscription
-            // eslint-disable-next-line no-console
-            console.log('Subscribe:', input.value);
-            input.value = '';
+            if (validateEmail(input.value)) {
+              // eslint-disable-next-line no-console
+              console.log('Subscribe:', input.value);
+              input.value = '';
+            } else {
+              form.classList.add('error');
+            }
           } else {
             input?.reportValidity();
           }
