@@ -66,16 +66,26 @@ export default function decorate(block) {
 
     // Subscribe form (only for subscribe type)
     if (cardType === 'subscribe') {
-      const formEl = document.createElement('form');
+      const formEl = document.createElement('div');
       formEl.className = 'resource-subscribe-form';
 
       const inputEl = document.createElement('input');
-      inputEl.type = 'email';
+      inputEl.type = 'text';
       inputEl.placeholder = 'your@email.com';
       inputEl.className = 'resource-email-input';
       inputEl.required = true;
 
-      formEl.appendChild(inputEl);
+      const clearEl = document.createElement('span');
+      clearEl.className = 'clear-icon';
+      const imgEl = document.createElement('img');
+      imgEl.src = '/content/dam/hisense/us/common-icons/close-70.svg';
+      clearEl.appendChild(imgEl);
+
+      const errorEl = document.createElement('span');
+      errorEl.className = 'error-tip';
+      errorEl.innerHTML = '请输入正确的邮箱';
+
+      formEl.append(inputEl, clearEl, errorEl);
       card.appendChild(formEl);
     }
 
@@ -98,7 +108,7 @@ export default function decorate(block) {
         btnEl.addEventListener('click', (e) => {
           e.preventDefault();
           const form = card.querySelector('.resource-subscribe-form');
-          const input = form?.querySelector('input[type="email"]');
+          const input = form?.querySelector('input.resource-email-input');
           if (input && input.value && input.checkValidity()) {
             // Handle subscription
             // eslint-disable-next-line no-console
