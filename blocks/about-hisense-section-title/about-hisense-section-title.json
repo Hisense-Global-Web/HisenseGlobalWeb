@@ -20,12 +20,12 @@
   ],
   "models": [
     {
-      "id": "about-hisense-Section-title",
+      "id": "about-hisense-section-title",
       "fields": [
         {
           "component": "select",
           "name": "classes",
-          "label": "Card options",
+          "label": "Style",
           "description": "",
           "valueType": "string",
           "options": [

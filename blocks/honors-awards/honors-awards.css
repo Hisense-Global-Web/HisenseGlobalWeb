@@ -15,7 +15,6 @@
   padding: 0;
 }
 
-
 .honors-awards{
   width: 100%;
   height: 100%;
@@ -32,6 +31,7 @@
 
    @media (width < 860px) {
     text-align: left;
+    font-size: var(--size-20);
   }
 }
 
@@ -43,7 +43,7 @@
   margin-top: var(--size-48);
 
   @media (width < 860px) {
-	
+	  margin-top: var(--size-32);
 	}
 }
 
