@@ -2,6 +2,7 @@ import {
   getSlideWidth,
   getChildSlideWidth,
   whenElementReady,
+  throttle,
 } from '../../utils/carousel-common.js';
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
@@ -10,9 +11,6 @@ let carouselId = 0;
 
 function bindEvent(block, type = 'normal') {
   const track = block.querySelector('.media-carousel-track');
-  if (window.innerWidth < 860) {
-    track.style.transform = 'none';
-  }
   const videos = block.querySelectorAll('.video-autoPlay');
   const prevBtn = block.querySelector('.slide-prev');
   const nextBtn = block.querySelector('.slide-next');
@@ -48,13 +46,19 @@ function bindEvent(block, type = 'normal') {
     videos.forEach((v, i) => {
       if (i === index) {
         v.parentElement.classList.add('is-playing');
-        v.click();
-        v.muted = true;
-        v.nextElementSibling.style.display = 'none'; // 隐藏封面图
+        v.muted = true; // 确保视频静音
+        v.playsInline = true;
+        v.preload = 'metadata';
+        v.setAttribute('data-is-playing', 'true');
+        v.setAttribute('webkit-playsinline', '');
+        v.setAttribute('x5-playsinline', '');
+        v.setAttribute('playsinline', 'true');
+        v.setAttribute('muted', 'true');
+        v.setAttribute('autoplay', 'true');
         v.play().catch(() => {}); // 捕获浏览器静音播放策略错误
+        v.nextElementSibling.style.display = 'none'; // 隐藏封面图
       } else {
         v.pause();
-        v.currentTime = 0; // 重置进度
         v.parentElement.classList.remove('is-playing');
       }
     });
@@ -64,8 +68,17 @@ function bindEvent(block, type = 'normal') {
   const updateState = () => {
     if (Math.abs(currentX) > maxTranslate && type === 'resize') {
       currentX = -maxTranslate;
+      if (block.classList.contains('bottom-center-style')) {
+        const blockWidth = block.offsetWidth;
+        const viewportWidth = block.querySelector('.media-carousel-viewport').offsetWidth;
+        const marginRight = (1 / 2) * (blockWidth - viewportWidth);
+        currentX -= parseInt(marginRight, 10) || 0; // 考虑 margin-right 的影响
+      }
     }
     track.style.transform = `translateX(${currentX}px)`;
+    if (window.innerWidth < 860) {
+      track.style.transform = 'none';
+    }
     block.dataset.currentIndex = currentIndex;
     if (currentX === 0) {
       block.dataset.currentIndex = 0;
@@ -91,11 +104,11 @@ function bindEvent(block, type = 'normal') {
   nextBtn.addEventListener('click', () => {
     const remaining = maxTranslate - Math.abs(currentX);
     if (remaining <= 0) return;
-    // 如果剩余距离不足一个 step，则直接滑动到底对齐
+    // 如果剩余距离不足一个 step + 8，则直接滑动到底对齐
     currentIndex += 1;
-    if (remaining < step) {
+    if (remaining < (step + 8)) {
       currentX = -maxTranslate;
-      if (block.classList.contains('bottom-center-style')) {
+      if (block.classList.contains('bottom-center-style') && type === 'normal') {
         const { marginRight } = window.getComputedStyle(block.querySelector('.media-carousel-viewport'));
         currentX -= parseInt(marginRight, 10) || 0; // 考虑 margin-right 的影响
       }
@@ -108,8 +121,8 @@ function bindEvent(block, type = 'normal') {
   prevBtn.addEventListener('click', () => {
     if (currentX >= 0) return;
     currentIndex -= 1;
-    // 往回走时，如果距离起点不足一个 step，直接归零
-    if (Math.abs(currentX) < step) {
+    // 往回走时，如果距离起点不足一个 step + 8，直接归零
+    if (Math.abs(currentX) < (step + 8)) {
       currentX = 0;
     } else {
       currentX += step;
@@ -132,7 +145,7 @@ function bindEvent(block, type = 'normal') {
   if (type === 'resize') return;
   let lastWidth = window.innerWidth;
 
-  window.onresize = () => {
+  window.onresize = throttle(() => {
     const currentWidth = window.innerWidth;
     if (currentWidth !== lastWidth) {
       const blocks = document.querySelectorAll('.media-carousel');
@@ -152,7 +165,7 @@ function bindEvent(block, type = 'normal') {
       });
       lastWidth = currentWidth;
     }
-  };
+  }, 300);
 }
 
 function createVideo(child, idx) {
@@ -166,8 +179,7 @@ function createVideo(child, idx) {
   const video = createElement('video', 'video-autoPlay');
   video.id = `video-${carouselId}-carousel-${idx - 2}`;
   video.controls = true;
-  video.preload = 'auto';
-  video.autoplay = false;
+  video.preload = 'metadata';
   video.loop = true;
   const source = document.createElement('source');
   source.src = videourl; // 替换为你的视频
@@ -179,7 +191,9 @@ function createVideo(child, idx) {
   video.setAttribute('data-is-playing', 'false');
   video.setAttribute('webkit-playsinline', '');
   video.setAttribute('x5-playsinline', '');
-  video.setAttribute('playsinline', true);
+  video.setAttribute('playsinline', 'true');
+  video.setAttribute('muted', 'true');
+  video.setAttribute('autoplay', 'true');
   video.appendChild(source);
   videoDivDom.appendChild(video);
   videoDivDom.appendChild(img);

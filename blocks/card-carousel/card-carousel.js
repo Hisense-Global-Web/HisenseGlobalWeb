@@ -1,19 +1,115 @@
 import {
-  updatePosition,
+  whenElementReady,
   getSlideWidth,
+  getChildSlideWidth,
   throttle,
   mobilePressEffect,
-  resizeObserver,
 } from '../../utils/carousel-common.js';
-import { createElement, debounce } from '../../utils/dom-helper.js';
+import { createElement } from '../../utils/dom-helper.js';
+import { isUniversalEditor } from '../../utils/ue-helper.js';
 
 const cardCarouselId = 0;
-
-function bindEvent(block) {
+function bindEvent(block, type = 'normal') {
+  const track = block.querySelector('.card-carousel-track');
   const cards = block.querySelectorAll('li');
-  const ul = block.querySelector('ul');
-  const containerWidth = block.querySelector('.card-carousel-viewport').offsetWidth;
-  const viewportWidth = window.innerWidth;
+  const viewportWidth = block.querySelector('.card-carousel-viewport').offsetWidth;
+  const prevBtn = block.querySelector('.slide-prev');
+  const nextBtn = block.querySelector('.slide-next');
+  const gap = parseInt(window.getComputedStyle(block.querySelector('.card-carousel-track')).gap, 10) || 0;
+  const CONFIG = {
+    itemWidth: getChildSlideWidth(block),
+    gap,
+    containerWidth: viewportWidth,
+    totalItems: cards.length,
+  };
+
+  if (cards.length * getSlideWidth(block) - gap >= viewportWidth) {
+    block.querySelector('.card-carousel-pagination').classList.add('show');
+  }
+
+  const step = CONFIG.itemWidth + CONFIG.gap;
+  const totalTrackWidth = (CONFIG.totalItems * CONFIG.itemWidth) + ((CONFIG.totalItems - 1) * CONFIG.gap);
+  const maxTranslate = totalTrackWidth - CONFIG.containerWidth; // 最大的负向偏移量
+
+  let currentX = 0;
+  let currentIndex = 0;
+
+  if (type === 'resize') {
+    currentX = -parseInt(block.dataset.currentIndex, 10) * step;
+    currentIndex = parseInt(block.dataset.currentIndex, 10) || 0;
+  }
+
+  // 更新状态
+  const updateState = () => {
+    if (Math.abs(currentX) > maxTranslate && type === 'resize') {
+      currentX = -maxTranslate;
+    }
+    track.style.transform = `translateX(${currentX}px)`;
+    if (window.innerWidth < 860) {
+      track.style.transform = 'none';
+    }
+    block.dataset.currentIndex = currentIndex;
+    if (currentX === 0) {
+      block.dataset.currentIndex = 0;
+    }
+    // 按钮禁用状态
+    prevBtn.disabled = currentX >= 0;
+    nextBtn.disabled = Math.abs(currentX) >= maxTranslate;
+  };
+
+  // 按钮点击事件
+  nextBtn.addEventListener('click', () => {
+    const remaining = maxTranslate - Math.abs(currentX);
+    if (remaining <= 0) return;
+    // 如果剩余距离不足一个 step + 8，则直接滑动到底对齐
+    currentIndex += 1;
+    if (remaining < (step + 8)) {
+      currentX = -maxTranslate;
+    } else {
+      currentX -= step;
+    }
+    updateState();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentX >= 0) return;
+    currentIndex -= 1;
+    // 往回走时，如果距离起点不足一个 step，直接归零
+    if (Math.abs(currentX) < (step + 8)) {
+      currentX = 0;
+    } else {
+      currentX += step;
+    }
+    updateState();
+  });
+
+  if (isUniversalEditor()) return;
+  // 初始化
+  updateState();
+  if (type === 'resize') return;
+  let lastWidth = window.innerWidth;
+
+  window.onresize = throttle(() => {
+    const currentWidth = window.innerWidth;
+    if (currentWidth !== lastWidth) {
+      const blocks = document.querySelectorAll('.card-carousel');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const v = entry.target;
+            const currentBlock = document.getElementById(v.id);
+            bindEvent(currentBlock, 'resize');
+          }
+        });
+      }, { threshold: 0.5 });
+
+      blocks.forEach((blockItem) => {
+        observer.observe(blockItem);
+      });
+      lastWidth = currentWidth;
+    }
+  }, 300);
+
   // text-left type展示button组件，卡片不需要点击，通过button跳转
   if (!block.classList.contains('text-left')) {
     const goToNextPage = (card) => {
@@ -29,25 +125,8 @@ function bindEvent(block) {
       });
     });
   }
-  const { gap } = window.getComputedStyle(ul);
-  if (cards.length * getSlideWidth(block) - parseFloat(gap) > containerWidth) {
-    block.querySelector('.card-carousel-pagination').classList.add('show');
-  }
-  block.querySelector('.slide-prev').addEventListener('click', throttle(() => {
-    let index = parseInt(block.dataset.slideIndex, 10);
-    if (index > 0) {
-      index -= 1;
-      updatePosition(block, index, 'click');
-    }
-  }, 500));
-  block.querySelector('.slide-next').addEventListener('click', throttle(() => {
-    let index = parseInt(block.dataset.slideIndex, 10);
-    if (index < cards.length) {
-      index += 1;
-      updatePosition(block, index, 'click');
-    }
-  }, 500));
 }
+
 function createScrollButton(direction) {
   const button = document.createElement('button');
   button.type = 'button';
@@ -117,18 +196,8 @@ export default async function decorate(block) {
     buttonContainer.appendChild(createScrollButton('next'));
     titleBox.lastElementChild.appendChild(buttonContainer);
   }
-  bindEvent(block);
-  // check which block inner viewport
-  const mutation = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        resizeObserver(entry.target.id, debounce((target) => {
-          if (target.id === block.id) {
-            updatePosition(block, parseInt(block.dataset.slideIndex, 10), 'resize');
-          }
-        }, 500));
-      }
-    });
-  }, { threshold: 1 });
-  mutation.observe(block);
+  whenElementReady('.card-carousel', () => {
+    block.dataset.currentIndex = 0;
+    bindEvent(block);
+  });
 }

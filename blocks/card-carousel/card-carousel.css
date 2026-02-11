@@ -266,8 +266,8 @@
     }
 
     ul>li {
-      width: min(calc(240/var(--breakpoint-mobile)*100vw), 240px);
-      height: min(calc(240/var(--breakpoint-mobile)*100vw), 240px);
+      width: calc(240/var(--breakpoint-mobile)*100vw);
+      height: calc(240/var(--breakpoint-mobile)*100vw);
       box-sizing: border-box;
       padding: var(--spacing-md) 0;
       border-radius: var( --radius-xl);
