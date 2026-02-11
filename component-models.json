@@ -1181,6 +1181,13 @@
         "label": "Download All Link",
         "description": "Link for downloading all resources (optional)",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "total-size-text",
+        "label": "Total Size Text",
+        "description": "Text label for total file size",
+        "valueType": "string"
       }
     ]
   },

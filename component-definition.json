@@ -573,7 +573,8 @@
                   "title": "Download Resources",
                   "subtitle": "Select the image format you need to download",
                   "button-to-download": "Download All",
-                  "download-all-link": ""
+                  "download-all-link": "",
+                  "total-size-text": "Total file size"
                 }
               }
             }
