@@ -877,6 +877,11 @@ main {
 		color: var(--text-dark);
 	}
 
+  .section.gradient-green {
+    background: var(--color-primary-green-10, #EDFCFB);
+    color: var(--text-dark);
+  }
+  
 	.section.green {
 		background-color: var(--color-hisense-green-04);
 		color: var(--text-light);
@@ -1036,4 +1041,11 @@ main .section.navigation-item-container {
 
 main > .footer-container.section {
 	margin: 0;
+}
+
+/* ========== sextion show  horizontal========== */
+.horizontal-section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

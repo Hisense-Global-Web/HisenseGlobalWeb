@@ -212,6 +212,10 @@
             "value": "gradient-gray"
           },
           {
+            "name": "Gradient Green",
+            "value": "gradient-green"
+          },
+          {
             "name": "Green",
             "value": "green"
           }
@@ -1036,7 +1040,7 @@
         "multi": false
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "subtitle",
         "label": "Sub Title",
         "valueType": "string"
@@ -1060,10 +1064,62 @@
         "valueType": "string"
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "item_text",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "corprate-governance-cards",
+    "fields": []
+  },
+  {
+    "id": "cards-container-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "svg",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "container",
+        "label": "",
+        "name": "container_cta",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "aem-content",
+            "name": "cta_link",
+            "label": "CTA",
+            "valueType": "string",
+            "value": "/"
+          },
+          {
+            "component": "text",
+            "name": "cta_Label",
+            "label": "CTA Label",
+            "valueType": "string",
+            "value": "label text"
+          }
+        ]
       }
     ]
   },
@@ -1161,14 +1217,14 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "title",
+        "component": "text",
+        "name": "desc_title",
         "label": "Image Title",
         "valueType": "string"
       },
       {
-        "component": "richtext",
-        "name": "text",
+        "component": "text",
+        "name": "desc_text",
         "label": "Image Text",
         "valueType": "string"
       }
@@ -1182,6 +1238,88 @@
         "name": "disclaimer_text",
         "value": "",
         "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "download",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button-to-download",
+        "label": "Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "download-all-link",
+        "label": "Download All Link",
+        "description": "Link for downloading all resources (optional)",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "download-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "description": "Upload image (default placeholder will be used if not set)",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "image-name",
+        "label": "Image Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-px",
+        "label": "Image Size",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-dpi",
+        "label": "Image DPI",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-size",
+        "label": "File Size",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "download-icon",
+        "label": "Download Icon",
+        "description": "Custom download icon (default icon will be used if not set)",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "download-link",
+        "label": "Download Link",
+        "description": "Link to the downloadable file",
         "valueType": "string"
       }
     ]
@@ -1207,6 +1345,41 @@
         "component": "richtext",
         "name": "feature-banner_text",
         "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "feature-navigation",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "feature-navigation-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_content",
+        "label": "Content",
         "valueType": "string"
       }
     ]
@@ -1784,40 +1957,19 @@
     ]
   },
   {
-    "id": "honors-awards-cards",
+    "id": "honors-awards",
     "fields": [
       {
-        "component": "select",
-        "name": "classes",
-        "label": "Card options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Cover Style",
-            "value": "cover-style"
-          },
-          {
-            "name": "Cover Style Width Dark Font",
-            "value": "cover-dark"
-          },
-          {
-            "name": "Center Style",
-            "value": "center-style"
-          }
-        ]
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
       }
     ]
   },
   {
-    "id": "honors-awards-card",
+    "id": "honors-awards-item",
     "fields": [
-      {
-        "component": "richtext",
-        "name": "title",
-        "label": "Title",
-        "valueType": "string"
-      },
       {
         "component": "reference",
         "valueType": "string",
@@ -1826,15 +1978,15 @@
         "multi": false
       },
       {
-        "component": "aem-content",
-        "name": "honors-awards-card_ctaPrimary",
-        "label": "Primary CTA",
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "honors-awards-card_ctaPrimaryText",
-        "label": "Primary CTA Label",
+        "name": "text_content",
+        "label": "Content",
         "valueType": "string"
       }
     ]
@@ -1951,20 +2103,20 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "title",
+        "name": "title_title",
         "label": "Title",
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "subtitle",
+        "component": "text",
+        "name": "title_subtitle",
         "label": "Sub Title",
         "valueType": "string"
       },
       {
-        "component": "richtext",
-        "name": "desc",
-        "label": "Description",
+        "component": "text",
+        "name": "title_content",
+        "label": "Content",
         "valueType": "string"
       }
     ]
@@ -1973,6 +2125,12 @@
     "id": "industry-categories-item",
     "fields": [
       {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1980,11 +2138,35 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "text",
-        "label": "Text",
+        "component": "text",
+        "name": "text_first",
+        "label": "First Text",
         "valueType": "string",
-        "value": "split with ,"
+        "value": "first"
+      },
+      {
+        "component": "text",
+        "name": "text_second",
+        "label": "Second Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_third",
+        "label": "Third Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_fourth",
+        "label": "Fourth Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_fifth",
+        "label": "Fifth Text",
+        "valueType": "string"
       }
     ]
   },
@@ -2366,24 +2548,41 @@
     "id": "partnerships-section-title",
     "fields": [
       {
-        "component": "richtext",
+        "component": "select",
+        "name": "classes",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
+      {
+        "component": "text",
         "name": "title",
         "value": "title",
         "label": "Title",
         "valueType": "string"
       },
       {
-        "component": "richtext",
-        "name": "subtitle",
-        "value": "sub title",
-        "label": "Sub Title",
+        "component": "text",
+        "name": "headline",
+        "value": "Headline",
+        "label": "Headline",
         "valueType": "string"
       },
       {
-        "component": "richtext",
-        "name": "text",
-        "value": "text",
-        "label": "Text",
+        "component": "text",
+        "name": "bodycopy",
+        "value": "Bodycopy",
+        "label": "Bodycopy",
         "valueType": "string"
       }
     ]
@@ -2411,7 +2610,7 @@
         "multi": false
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "text",
         "label": "Image Text",
         "valueType": "string"
@@ -2691,6 +2890,146 @@
     ]
   },
   {
+    "id": "quick-link",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "quick-link-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "target",
+        "label": "Open In",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Same Window",
+            "value": "_self"
+          },
+          {
+            "name": "New Tab",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "resource-list",
+    "fields": []
+  },
+  {
+    "id": "resource-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "download-asset",
+        "label": "Download Asset URL",
+        "description": "Enter the resource download link",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "icon",
+        "label": "Icon",
+        "description": "Optional custom icon (default folder icon will be used if not provided)",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "description": "Use H2-H6 headings to structure your content",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button-text",
+        "label": "Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button-link",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "card-type",
+        "label": "Card Type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Button To Download",
+            "value": "download"
+          },
+          {
+            "name": "Button To Contact",
+            "value": "contact"
+          },
+          {
+            "name": "Button To Subscribe",
+            "value": "subscribe"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "search-box",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "search-link",
+        "label": "Search Page Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "placeholder",
+        "label": "Placeholder Text"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "target",
+        "label": "Open In",
+        "options": [
+          {
+            "name": "Same Window",
+            "value": "_self"
+          },
+          {
+            "name": "New Tab",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "section-title",
     "fields": [
       {
@@ -2788,6 +3127,46 @@
         "name": "searchTags",
         "label": "Search Tags",
         "rootPath": "/content/cq:tags/hisense/product"
+      }
+    ]
+  },
+  {
+    "id": "tag",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "name": "tags",
+        "label": "Tags",
+        "valueType": "string",
+        "rootPath": "/content/cq:tags/hisense/download"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "target",
+        "label": "Target",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Same Window",
+            "value": "_self"
+          },
+          {
+            "name": "New Window",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },

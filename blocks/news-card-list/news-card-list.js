@@ -10,6 +10,7 @@ const MOCK_NEWSROOM_ITEMS = [
     subtitle: 'PARTNERSHIP -3',
     date: '2026-02-05T00:00:00.000Z',
     location: 'QingDao -3',
+    keywords: 'Hisense, ESG, AI, Sustainability',
   },
   {
     path: '/us/en/company/newsroom/article-4',
@@ -20,6 +21,7 @@ const MOCK_NEWSROOM_ITEMS = [
     subtitle: 'PARTNERSHIP -4',
     date: '2026-02-05T00:00:00.000Z',
     location: 'QingDao',
+    keywords: 'Hisense, Technology, Innovation',
   },
   {
     path: '/us/en/company/newsroom/article-2',
@@ -30,6 +32,7 @@ const MOCK_NEWSROOM_ITEMS = [
     subtitle: 'PARTNERSHIP -2',
     date: '2026-02-05T00:00:00.000Z',
     location: 'QingDao -2',
+    keywords: 'Hisense, ESG, Strategy',
   },
   {
     path: '/us/en/company/newsroom/article-body',
@@ -40,6 +43,7 @@ const MOCK_NEWSROOM_ITEMS = [
     subtitle: 'PARTNERSHIP',
     date: '2026-02-05T00:00:00.000Z',
     location: 'QingDao',
+    keywords: 'Hisense, ESG, Technology',
   },
 ];
 
@@ -68,9 +72,31 @@ function filterItemsByUrlParams(items) {
     return s.includes(q);
   };
 
-  return items.filter((item) => (
-    filters.every(({ key, value }) => lowerIncludes(item[key], value))
-  ));
+  return items.filter((item) => filters.every(({ key, value }) => {
+    // fulltext 参数：搜索所有字段
+    if (key === 'fulltext') {
+      const searchableFields = [
+        item.title,
+        item.subtitle,
+        item.location,
+        item.description,
+        item.keywords,
+        item.path,
+      ];
+
+      // 如果 value 包含 "-"，同时匹配原值和空格替换
+      if (value.includes('-')) {
+        const originalValue = value;
+        const spaceValue = value.replace(/-/g, ' ');
+        return searchableFields.some((field) => lowerIncludes(field, originalValue)
+          || lowerIncludes(field, spaceValue));
+      }
+
+      return searchableFields.some((field) => lowerIncludes(field, value));
+    }
+    // 其他参数：精确匹配对应字段
+    return lowerIncludes(item[key], value);
+  }));
 }
 
 function getItemDateValue(item) {
@@ -122,6 +148,7 @@ function buildCard(item) {
     subtitle,
     date,
     location,
+    download,
     thumbnail,
   } = item;
 
@@ -197,7 +224,27 @@ function buildCard(item) {
     metaGroupEl.appendChild(locationEl);
   }
 
+  if (download) {
+    const downloadEl = document.createElement('span');
+    downloadEl.classList.add('meta-item');
+    const iconImg = document.createElement('img');
+    iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
+    iconImg.alt = '';
+    iconImg.classList.add('meta-icon');
+    downloadEl.appendChild(iconImg);
+    // 追加点击下载
+    metaGroupEl.appendChild(downloadEl);
+  }
+
   if (metaGroupEl.children.length > 0) {
+    if (metaGroupEl.children.length > 1) {
+      const itemElements = metaGroupEl.children;
+      for (let i = itemElements.length - 2; i >= 0; i -= 1) {
+        const lineEl = document.createElement('div');
+        lineEl.className = 'line';
+        itemElements[i].after(lineEl);
+      }
+    }
     contentEl.appendChild(metaGroupEl);
   }
 
@@ -226,19 +273,24 @@ function buildPaginationControls(container, state, onPageChange) {
     btn.type = 'button';
     btn.classList.add('page-button');
 
-    if (label === 'prev' || label === 'next') {
+    if (label === 'prev') {
       const icon = document.createElement('img');
-      icon.src = '/resources/news-pagination-arrow.svg';
-      icon.alt = '';
-      icon.classList.add('page-arrow');
-      if (label === 'prev') {
-        icon.classList.add('is-prev');
-        btn.setAttribute('aria-label', 'Previous page');
-      } else {
-        icon.classList.add('is-next');
-        btn.setAttribute('aria-label', 'Next page');
-      }
-      btn.appendChild(icon);
+      icon.src = '/content/dam/hisense/us/common-icons/left.svg';
+      icon.className = 'page-arrow is-prev normal';
+      const disabledIcon = document.createElement('img');
+      disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
+      disabledIcon.className = 'page-arrow is-prev disabled';
+      btn.setAttribute('aria-label', 'Previous page');
+      btn.append(icon, disabledIcon);
+    } else if (label === 'next') {
+      const icon = document.createElement('img');
+      icon.src = '/content/dam/hisense/us/common-icons/right.svg';
+      icon.className = 'page-arrow is-next normal';
+      const disabledIcon = document.createElement('img');
+      disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
+      disabledIcon.className = 'page-arrow is-next disabled';
+      btn.setAttribute('aria-label', 'Next page');
+      btn.append(icon, disabledIcon);
     } else {
       btn.textContent = label;
     }
