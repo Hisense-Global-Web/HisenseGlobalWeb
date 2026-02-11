@@ -142,6 +142,18 @@ function bindEvent(block, type = 'normal') {
   if (isUniversalEditor()) return;
   // 初始化
   updateState();
+  // 监听手机端video的视口变化，进入视口开始自动播放
+  if (block.classList.contains('video-media-carousel-block') && window.innerWidth < 860) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const video = entry.target;
+          playSoloVideo(parseInt(video.closest('li').dataset.slideIndex, 10));
+        }
+      });
+    }, { threshold: 0.8 });
+    cards.forEach((v) => videoObserver.observe(v));
+  }
   if (type === 'resize') return;
   let lastWidth = window.innerWidth;
 
@@ -149,12 +161,12 @@ function bindEvent(block, type = 'normal') {
     const currentWidth = window.innerWidth;
     if (currentWidth !== lastWidth) {
       const blocks = document.querySelectorAll('.media-carousel');
+      // 获取视口内的block
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const v = entry.target;
             const currentBlock = document.getElementById(v.id);
-            // bindEvent(currentBlock);
             bindEvent(currentBlock, 'resize');
           }
         });
