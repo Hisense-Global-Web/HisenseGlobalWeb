@@ -1,0 +1,8 @@
+.sustainability-dashboard-list {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+  height: auto;
+  min-height: calc(152/var(--breakpoint-pc)*100vw);
+}
