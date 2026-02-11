@@ -58,6 +58,13 @@
           "valueType": "string",
           "name": "cta-text",
           "label": "CTA Text"
+        },
+        {
+          "component": "aem-tag",
+          "valueType": "string",
+          "name": "cq:tags",
+          "label": "Tags",
+          "rootPath": "/content/cq:tags/hisense"
         }
       ]
     }

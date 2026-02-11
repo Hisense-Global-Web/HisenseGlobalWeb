@@ -11,20 +11,25 @@
   {
     "id": "section",
     "components": [
-      "article-title",
       "article-body",
       "article-body-list",
+      "article-title",
       "button",
       "card-carousel",
+      "card-grid",
       "category-carousel",
-      "cross-page-redirect",
       "collection-banner",
       "collection-cards",
       "collection-title",
       "columns",
+      "core-value-card",
       "corprate-governance-cards",
+      "cross-page-redirect",
+      "current-partnerships-list",
       "disclaimer",
+      "download",
       "feature-banner",
+      "feature-navigation",
       "fragment",
       "global-presence",
       "globalization-timeline",
@@ -34,12 +39,18 @@
       "hero",
       "hero-banner",
       "hero-presence",
+      "honors-awards",
       "icon-container",
       "image",
       "image-comparison-slider",
+      "industry-categories",
       "media-carousel",
       "minimalist-hero-banner",
+      "module-title",
+      "news-card-list",
       "parallax",
+      "partnerships-section-title",
+      "past-partnerships-list",
       "product-card",
       "product-filter",
       "product-filters-carousel",
@@ -48,21 +59,17 @@
       "product-sorting",
       "product-spec",
       "properties",
+      "quick-link",
+      "resource-list",
+      "search-box",
       "slide",
       "sub-menu-link",
+      "tag",
+      "tech-information",
       "text",
       "title",
       "video",
-      "videoinfo",
-      "tech-information",
-      "core-value-card",
-      "past-partnerships-list",
-      "partnerships-section-title",
-      "current-partnerships-list",
-      "industry-categories",
-      "module-title",
-      "card-grid",
-      "news-card-list"
+      "videoinfo"
     ]
   },
   {
@@ -146,6 +153,18 @@
     ]
   },
   {
+    "id": "download",
+    "components": [
+      "download-item"
+    ]
+  },
+  {
+    "id": "feature-navigation",
+    "components": [
+      "feature-navigation-item"
+    ]
+  },
+  {
     "id": "footerContainer",
     "components": [
       "footerLogo",
@@ -190,9 +209,9 @@
     ]
   },
   {
-    "id": "honors-awards-cards",
+    "id": "honors-awards",
     "components": [
-      "honors-awards-card"
+      "honors-awards-list-item"
     ]
   },
   {
@@ -250,6 +269,18 @@
     "id": "product-sorting",
     "components": [
       "plp-product-sort"
+    ]
+  },
+  {
+    "id": "quick-link",
+    "components": [
+      "quick-link-item"
+    ]
+  },
+  {
+    "id": "resource-list",
+    "components": [
+      "resource-list-item"
     ]
   },
   {
