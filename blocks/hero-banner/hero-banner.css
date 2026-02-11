@@ -119,7 +119,7 @@ p {
   }
 
   .hero-banner-item-content.icon-svg {
-    width: min(25.27777778vw, 327px);
+    width: min(calc(327/var(--breakpoint-pc)*100vw), 327px);
 
     picture {
       inset: 0;
@@ -196,25 +196,46 @@ p {
   }
 
   .video-play-icon {
-    width: var(--size-40);
-    height: var(--size-40);
     position: absolute;
     bottom: var(--size-24);
-    left: min(11.1111vw, 160px);
+    left: min(calc(160/var(--breakpoint-pc)*100vw), 160px);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     background-color: var(--white-alpha-40, rgb(255 255 255 / 40%));
-    border-radius: var(--size-40);
     cursor: pointer;
     z-index: 1;
+    width: var(--size-40);
+    height: var(--size-40);
+    border: none;
+    margin: 0;
+    border-radius: 50%;
+    padding: 0;
+    transition: background-color 0.2s;
 
     &.is-playing {
-      background-image: url('/content/dam/hisense/us/common-icons/pause.svg');
+      background-color: transparent;
+
+      .play-icon {
+        display: none;
+      }
+
+      .pause-icon {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
     }
 
     &.is-paused {
-      background-image: url('/content/dam/hisense/us/common-icons/play.svg');
+      .play-icon {
+        display: block;
+      }
+
+      .pause-icon {
+        display: none;
+      }
     }
   }
 
@@ -242,6 +263,12 @@ p {
     .video-play-icon {
       background-color: var(--grey-alpha-40, rgb(20 20 20 / 40%));
     }
+  }
+}
+
+.video-mode {
+  p {
+    display: none;
   }
 }
 
@@ -334,29 +361,14 @@ p {
   background-color: var(--white-alpha-60);
 }
 
-.hero-banner-navigation-buttons button::after {
-  display: block;
-  content: '';
-  border: 2px solid;
-  border-bottom: 0;
-  border-left: 0;
-  height: var(--size-12);
-  width: var(--size-12);
-  position: absolute;
-  top: 50%;
-  left: calc(50% + 2px);
-  transform: translate(-50%, -50%) rotate(-135deg);
+.hero-banner-navigation-buttons button img {
+  width: var(--size-40);
+  height: var(--size-40);
 }
-
-.hero-banner-navigation-buttons button.slide-next::after {
-  transform: translate(-50%, -50%) rotate(45deg);
-  left: calc(50% - 2px);
-}
-
 
 .hero-banner.only-picture {
   .hero-banner-items-container {
-    max-height: min(44.44444444vw, 640px) !important;
+    max-height: min(calc(640/var(--breakpoint-pc)*100vw), 640px) !important;
 
     .hero-banner-item {
       .hero-banner-content {
@@ -386,7 +398,9 @@ p {
 
 @media (width < 860px) {
   .hero-banner  .hero-banner-items-container {
-    overflow: scroll;
+    /* overflow: scroll; */
+    touch-action: none;
+    user-select: none;
     aspect-ratio: 390/640;
     max-height: 100dvh;
 
@@ -396,6 +410,7 @@ p {
 
     picture > img {
       object-position: center 35% !important;
+      pointer-events: none;
     }
 
     .hero-banner-item {
@@ -404,15 +419,25 @@ p {
         top: auto;
         transform: none;
         font-weight: var(--fontweight-medium);
-        bottom: min(13.33333333vw, 8.125vh);
+        bottom: var(--size-36);
         left: calc(50% - min(var(--container-max-width), 100vw) / 2);
-        gap: min(var(--size-30), 4.6875vh);
+        gap: var(--size-30);
+        padding: var(--spacing-2xs) var(--size-18);
 
         .hero-banner-cta-container {
           gap: var(--size-16);
         }
 
+        .hero-banner-item-content {
+          max-height: calc(192/var(--breakpoint-mobile)*100vw);
+        }
+
+        .text-content {
+          gap: var(--size-4);
+        }
+
         .teal-text {
+          width: 100%;
           font-size: min(var(--fontsize-title2), 3.125vh);
           line-height: 1.3;
         }
@@ -495,7 +520,7 @@ p {
   }
 
   .hero-banner .hero-banner-item-indicators {
-    height: min(var(--size-36), 5.625vh);
+    height: var(--size-36);
     gap: var(--size-8);
 
     button {
