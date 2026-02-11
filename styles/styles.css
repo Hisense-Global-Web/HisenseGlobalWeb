@@ -884,6 +884,7 @@ main {
 
   .section.gradient-green {
     background: linear-gradient(203deg, var(--color-primary-grey-10, rgba(255, 255, 255, 0.50)) 10.16%, rgba(242, 252, 252, 0.00) 55.01%), linear-gradient(203deg, rgba(242, 252, 252, 0.00) 32.59%, #D7F5F4 84.91%), linear-gradient(180deg, rgba(242, 252, 252, 0.00) 60%, #D7F5F4 100%), linear-gradient(196deg, var(--color-primary-grey-10, rgba(255, 255, 255, 0.40)) 7.57%, var(--color-primary-green-20, rgba(200, 239, 238, 0.40)) 35.95%, rgba(0, 90, 92, 0.38) 72.45%), linear-gradient(228deg, var(--color-primary-green-30, rgba(133, 214, 212, 0.20)) 0%, var(--color-primary-green-50, rgba(0, 159, 156, 0.20)) 59.09%);
+    background-repeat: no-repeat;
     color: var(--text-dark);
   }
   
