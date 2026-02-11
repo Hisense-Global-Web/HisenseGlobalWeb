@@ -15,7 +15,8 @@
               "title": "Download Resources",
               "subtitle": "Select the image format you need to download",
               "button-to-download": "Download All",
-              "download-all-link": ""
+              "download-all-link": "",
+              "total-size-text": "Total file size"
             }
           }
         }
@@ -71,6 +72,13 @@
           "name": "download-all-link",
           "label": "Download All Link",
           "description": "Link for downloading all resources (optional)",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "total-size-text",
+          "label": "Total Size Text",
+          "description": "Text label for total file size",
           "valueType": "string"
         }
       ]
