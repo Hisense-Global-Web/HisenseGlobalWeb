@@ -1552,6 +1552,8 @@
                 "template": {
                   "name": "Social Media List",
                   "filter": "social-media-list",
+                  "model": "social-media-list",
+                  "key-value": true,
                   "classes": "social-media-list"
                 }
               }
