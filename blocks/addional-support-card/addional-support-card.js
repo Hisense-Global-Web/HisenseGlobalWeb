@@ -3,6 +3,7 @@ export default function decorate(block) {
     const elementItems = [...block.children];
     elementItems.forEach((element) => {
       element.classList.add('addional-support-card-item');
+      console.log('element:', element);
       const [icon, title, subtitle, workingTime, responseTime, buttonLink, buttonText] = element.children;
       icon?.classList?.add('addional-support-card-item-icon');
       title?.classList?.add('addional-support-card-item-title');
