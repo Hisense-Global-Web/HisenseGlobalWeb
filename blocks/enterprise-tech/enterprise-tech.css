@@ -1,3 +1,5 @@
+@import url('../../styles/reset-rich-text.css');
+
 .enterprise-tech {
   background: transparent;
 
@@ -47,10 +49,40 @@
 
     .description-box {
       margin-top: var(--size-16);
-      font-size: var(--size-14);
-      font-weight: var(--fontweight-book);
-      color: var(--color-primary-grey-50);
-      line-height: var(--size-21);
+      
+      h1, h2, h3, h4, h5, h6, p, ul li, ol li {
+        margin: 0;
+        font-size: var(--size-14);
+        font-weight: var(--fontweight-book);
+        color: var(--color-primary-grey-50);
+        line-height: var(--size-21);
+      }
+
+      h1, h2, h3, h4, h5, h6, p {
+        padding-left: var(--size-12);
+      }
+
+      h1::before, h2::before, h3::before, h4::before, h5::before, h6::before, p::before {
+        display: inline-block;
+        width: var(--size-5);
+        height: var(--size-5);
+        content: '';
+        background-color: var(--color-primary-grey-50);
+        border-radius: 50%;
+        margin-right: var(--size-12);
+        position: relative;
+        top: max(calc(-2 / var(--breakpoint-pc) * 100vw), -2px);
+      }
+
+      ul, ol {
+        padding-left: var(--size-12);
+        margin-left: var(--size-12);
+
+        li {
+          padding: 0;
+          list-style: disc;
+        }
+      }
     }
   }
 }
@@ -92,6 +124,7 @@
             font-size: var(--size-24);
             color: var(--color-primary-grey-10);
             line-height: calc(28.8 / var(--breakpoint-mobile) * 100vw);
+            width: calc(220 / var(--breakpoint-mobile) * 100vw);
           }
 
           .mobile-arrow {
