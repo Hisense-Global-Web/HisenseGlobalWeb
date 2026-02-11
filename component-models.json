@@ -445,7 +445,7 @@
             "value": "pc-and-mobile"
           },
           {
-            "name": "Don't displayed on PC",
+            "name": "Only displayed on Mobile",
             "value": "mobile-only"
           }
         ]
@@ -455,14 +455,6 @@
         "label": "",
         "name": "container_cta",
         "valueType": "string",
-        "condition": {
-          "===": [
-            {
-              "var": "button-display"
-            },
-            "pc-and-mobile"
-          ]
-        },
         "fields": [
           {
             "component": "aem-content",
