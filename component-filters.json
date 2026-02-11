@@ -232,20 +232,7 @@
   {
     "id": "sustainability-dashboard-list",
     "components": [
-      "column",
       "sustainability-dashboard-list-item"
-    ]
-  },
-  {
-    "id": "column",
-    "components": [
-      "sustainability-dashboard-list-item"
-    ]
-  },
-  {
-    "id": "sustainability-dashboard-list-item",
-    "components": [
-      "dashboard-list-item"
     ]
   },
   {
