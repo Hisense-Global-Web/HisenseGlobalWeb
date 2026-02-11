@@ -588,7 +588,7 @@
 
     .item-picture {
       width: 100%;
-      height: calc(259/var(--breakpoint-mobile)*100vw);
+      height: calc(184/var(--breakpoint-mobile)*100vw);
       border-radius: var(--size-16);
     }
 

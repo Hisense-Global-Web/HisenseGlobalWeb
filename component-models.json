@@ -219,6 +219,10 @@
             "value": "gradient-gray"
           },
           {
+            "name": "Soft Green(green-10)",
+            "value": "soft-green"
+          },
+          {
             "name": "Gradient Green",
             "value": "gradient-green"
           },
@@ -3102,6 +3106,39 @@
         "name": "searchTags",
         "label": "Search Tags",
         "rootPath": "/content/cq:tags/hisense/product"
+      }
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-list",
+    "fields": []
+  },
+  {
+    "id": "sustainability-dashboard-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "value",
+        "value": "",
+        "label": "Value",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "required": true
       }
     ]
   },
