@@ -25,7 +25,7 @@
 .about-hisense-section-title-wrapper > div > div:nth-child(2) div p{
   font-size: var(--fontsize-title1);
   line-height: 120%;
-  margin-top: var(--spacing-2xs);
+  margin: var(--spacing-2xs) 0;
   padding: 0;
   color:var(--color-primary-grey-90);
   font-weight: var(--fontweight-medium);
@@ -33,7 +33,7 @@
 
    @media (width < 860px) {
     font-size: var(--size-18);
-    margin-top: var(--spacing-xs);
+    margin: var(--spacing-xs) 0;
   }
 }
 

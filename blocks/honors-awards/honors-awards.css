@@ -44,6 +44,7 @@
 
   @media (width < 860px) {
 	  margin-top: var(--size-32);
+    gap: var(--size-24);
 	}
 }
 
@@ -53,11 +54,10 @@
    gap: var(--size-20);
    
    @media (width < 860px) {
-    /* flex: 0 0 auto;  */
+    gap: var(--size-12);
     position: relative;
     transition: transform 0.3s;
     pointer-events: auto; /* 允许事件穿透到容器 */
-    
 
     /* -webkit-user-select: none; */
     user-select: none;
@@ -87,26 +87,26 @@
   gap: var(--size-8);
 }
 
-.honors-awards .card-body div:first {
+.honors-awards .card-body > div:first-child {
   overflow-wrap: break-word;
   font-size: var(--fontsize-title2);
   color:var(--color-primary-grey-90);
   font-weight: var(--fontweight-medium);
   font-family: var(--font-family);
 
-  @media (width >= 860px) {
+  @media (width < 860px) {
     font-size: var(--size-12);
   }
 }
 
-.honors-awards .card-body div:nth-child(2) {
+.honors-awards .card-body > div:nth-child(2) {
   overflow-wrap: break-word;
   font-size: var(--fontsize-body1);
   color:var(--color-primary-grey-60);
   font-weight: var(--fontweight-book);
   font-family: var(--font-family);
 
-  @media (width >= 860px) {
+  @media (width < 860px) {
     font-size: var(--size-12);
   }
 }
