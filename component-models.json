@@ -382,6 +382,48 @@
     ]
   },
   {
+    "id": "about-hisense-section-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "subtitle",
+        "label": "Sub Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "bodycopy",
+        "value": "Bodycopy",
+        "label": "Bodycopy",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "text-body-image",
     "classes": "text-body-image",
     "fields": [
