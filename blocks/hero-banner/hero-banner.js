@@ -139,12 +139,15 @@ function bindEvents(block) {
   block.querySelectorAll('.hero-banner-item').forEach((slide) => {
     slideObserver.observe(slide);
     if (window.innerWidth < 860) {
+      let touchStartTime;
       let isScrolling = false;
       let startX;
       let startY;
 
       slide.addEventListener('touchstart', (e) => {
         e.preventDefault(); // 阻止默认滚动行为
+        stopAutoPlay(); // 停止自动播放
+        touchStartTime = Date.now();
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
         isScrolling = false;
@@ -167,6 +170,20 @@ function bindEvents(block) {
       slide.addEventListener('touchend', (e) => {
         slide.classList.remove('touch-start');
         slide.classList.add('touch-end');
+        const touchDuration = Date.now() - touchStartTime;
+        if (!isScrolling && touchDuration < 500) {
+          // touch情况下点击button执行跳转
+          if(e.target.tagName === 'A') {
+            const url = e.target.href;
+            if (url) {
+              window.location.href = url;
+            }
+          }
+            //touch 情况下点击video暂停/播放按钮 
+          if(e.target.tagName === 'IMG' && e.target.parentElement.classList.contains('video-play-icon')) {
+            e.target.click();
+          }
+        }
         if (isScrolling) {
           const endX = e.changedTouches[0].clientX;
           const endY = e.changedTouches[0].clientY;
