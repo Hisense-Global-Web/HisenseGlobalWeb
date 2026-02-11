@@ -2950,6 +2950,17 @@
     ]
   },
   {
+    "id": "social-media-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "social-media-list-item",
     "fields": [
       {
