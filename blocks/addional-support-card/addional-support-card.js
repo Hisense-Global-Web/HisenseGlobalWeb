@@ -3,33 +3,38 @@ export default function decorate(block) {
     const elementItems = [...block.children];
     elementItems.forEach((element) => {
       element.classList.add('addional-support-card-item');
-      console.log('element:', element);
-      const [icon, title, subtitle, workingTime, responseTime, buttonLink, buttonText] = element.children;
+      const [icon, title, subtitle, timeContainer, phoneNumber, displayButton, buttonLink] = element.children;
       icon?.classList?.add('addional-support-card-item-icon');
       title?.classList?.add('addional-support-card-item-title');
       subtitle?.classList?.add('addional-support-card-item-subtitle');
-      // 将working time和response time合并到一个div中
+      timeContainer?.classList?.add('addional-support-card-item-time-container');
+      const workingTime = timeContainer?.children[0];
+      const responseTime = timeContainer?.children[1];
       workingTime?.classList?.add('working-time');
       responseTime?.classList?.add('response-time');
-      const timeDivContainer = document.createElement('div');
-      timeDivContainer.appendChild(workingTime);
-      timeDivContainer.appendChild(responseTime);
-      element.insertBefore(timeDivContainer, buttonLink);
-      timeDivContainer.classList.add('addional-support-card-item-time-container');
-      buttonText?.classList?.add('addional-support-card-item-link-text');
-      const buttonALink = buttonLink.querySelector('a');
-      buttonALink.classList.remove('button');
-      buttonALink.classList.add('addional-support-card-item-link');
-      // Live Chart 可能需要第三方来实现，所以此处暂时注释掉
-      // if (index === 0) {
-      //   const circleDiv = document.createElement('div');
-      //   circleDiv.classList.add('main-circle');
-      //   timeDivContainer.insertBefore(circleDiv, workingTime);
-      //   workingTime?.classList?.add('main-working-time');
-      //   responseTime?.classList?.add('main-response-time');
-      // }
-      buttonLink.querySelector('a').innerHTML = buttonText?.querySelector('p')?.innerHTML || '';
-      buttonText?.remove();
+      phoneNumber?.children[0]?.classList?.add('phone-number');
+      const displayButtonValue = displayButton?.querySelector('p')?.innerHTML || '';
+      displayButton.style.display = 'none';
+      if (displayButtonValue === 'mobile-only') {
+        buttonLink?.classList?.add('button-hidden');
+        phoneNumber?.classList?.add('phone-number-hidden');
+      }
+      const buttonALink = buttonLink?.querySelector('a');
+      if (buttonALink) {
+        buttonALink?.classList?.remove('button');
+        buttonALink?.classList?.add('addional-support-card-item-link');
+        // Live Chart 可能需要第三方来实现，所以此处暂时注释掉
+        // if (index === 0) {
+        //   const circleDiv = document.createElement('div');
+        //   circleDiv.classList.add('main-circle');
+        //   timeDivContainer.insertBefore(circleDiv, workingTime);
+        //   workingTime?.classList?.add('main-working-time');
+        //   responseTime?.classList?.add('main-response-time');
+        // }
+        const buttonText = buttonLink?.children?.[1] ?? '';
+        buttonLink.querySelector('a').innerHTML = buttonText?.innerHTML || '';
+        buttonText?.remove();
+      }
     });
   } catch (error) {
     /* eslint-disable-next-line no-console */

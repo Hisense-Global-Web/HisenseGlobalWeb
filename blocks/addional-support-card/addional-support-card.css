@@ -79,7 +79,6 @@
     justify-content: flex-start;
     align-items: center;
     gap: var(--spacing-3xs, 8px);
-    margin-bottom: var(--spacing-m, 32px);
 
     .main-circle {
       width: var(--size-10, 10px);
@@ -102,8 +101,8 @@
       }
     }
 
-    .working-time,
-    .response-time p {
+    .working-time {
+      color: var(--color-primary-grey-70, #333);
       line-height: 1.5;
 
       @media (width<860px) {
@@ -111,16 +110,40 @@
       }
     }
 
-    .working-time {
-      color: var(--color-primary-grey-70, #333);
-    }
-
     .response-time {
       color: var(--color-primary-grey-50, #747474);
     }
   }
 
+  .phone-number {
+    display: flex;
+    align-items: center;
+    font-size: var(--fontsize-body2, 14px);
+    font-weight: var(--fontweight-medium, 500);
+    height: var(--size-21, 21px);
+    color: var(--color-primary-grey-70, #333);
+    line-height: 1.5;
+
+    @media (width<860px) {
+      height: var(--size-20, 20px);
+      line-height: 1.4;
+    }
+  }
+
+  .phone-number-hidden {
+    @media (width <860px) {
+      display: none;
+    }
+  }
+
+  .button-hidden {
+    @media (width >=860px) {
+      display: none;
+    }
+  }
+
   .addional-support-card-item-link {
+    margin-top: var(--spacing-m, 32px);
     display: flex;
     justify-content: center;
     align-items: center;
