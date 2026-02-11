@@ -13,7 +13,8 @@
               "key-value": true,
               "title": "Recent Press Releases",
               "page-size": "9",
-              "empty-text": "No news items match your filters."
+              "empty-text": "No news items match your filters.",
+              "should-paginated": true
             }
           }
         }
