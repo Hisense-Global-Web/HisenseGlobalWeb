@@ -3121,21 +3121,24 @@
         "valueType": "string",
         "name": "title",
         "value": "",
-        "label": "Title"
+        "label": "Title",
+        "required": true
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "value",
         "value": "",
-        "label": "Value"
+        "label": "Value",
+        "required": true
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "text",
         "value": "",
-        "label": "Text"
+        "label": "Text",
+        "required": true
       }
     ]
   },

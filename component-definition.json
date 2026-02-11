@@ -1638,8 +1638,7 @@
                   "classes": "sustainability-dashboard-list",
                   "name": "sustainability-dashboard-list",
                   "model": "sustainability-dashboard-list",
-                  "filter": "sustainability-dashboard-list",
-                  "key-value": true
+                  "filter": "sustainability-dashboard-list"
                 }
               }
             }
@@ -1654,8 +1653,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "sustainability-dashboard-list-item",
-                  "model": "sustainability-dashboard-list-item",
-                  "key-value": true
+                  "model": "sustainability-dashboard-list-item"
                 }
               }
             }
