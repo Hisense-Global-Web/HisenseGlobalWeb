@@ -64,8 +64,7 @@
           "valueType": "string",
           "name": "cq:tags",
           "label": "Tags",
-          "multi": true,
-          "rootPath": "/content/cq:tags"
+          "rootPath": "/content/cq:tags/hisense"
         }
       ]
     }
