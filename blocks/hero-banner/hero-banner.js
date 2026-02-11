@@ -102,6 +102,7 @@ function showSlide(block, targetLogicalIndex, init = false) {
     targetSlide.querySelector('.video-play-icon').click();
   }
   isInitializing = false; // 触发完后解锁初始化
+  autoPlay(block); // 开始自动播放
 }
 
 function stopAutoPlay() {
@@ -206,15 +207,18 @@ function bindEvents(block) {
   });
   // -----arrow function
   block.querySelector('.slide-left').addEventListener('click', throttle(() => {
+    stopAutoPlay();
     showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
   }, 1000));
   block.querySelector('.slide-right').addEventListener('click', throttle(() => {
+    stopAutoPlay();
     showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
   }, 1000));
   // ----- indicator function
   slideIndicators.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', throttle((e) => {
       const slideIndicator = e.currentTarget.parentElement;
+      stopAutoPlay();
       showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
     }, 500));
   });
@@ -424,6 +428,7 @@ export default async function decorate(block) {
         e.target.parentElement.classList.add('is-playing');
         e.target.closest('li').querySelector('video')?.play();
       }
+      autoPlay(block);
     }, 300));
   });
   const VideoObserver = new IntersectionObserver((entries) => {
