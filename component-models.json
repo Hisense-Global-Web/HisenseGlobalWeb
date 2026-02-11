@@ -420,28 +420,28 @@
         "valueType": "string"
       },
       {
+        "component": "select",
+        "name": "button-display",
+        "value": "pc-and-mobile",
+        "label": "Button Display Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Displayed on both PC and Mobile",
+            "value": "pc-and-mobile"
+          },
+          {
+            "name": "Only displayed on Mobile",
+            "value": "mobile-only"
+          }
+        ]
+      },
+      {
         "component": "container",
         "label": "",
         "name": "container_cta",
         "valueType": "string",
         "fields": [
-          {
-            "component": "select",
-            "name": "button-display",
-            "value": "",
-            "label": "Button Display Options",
-            "valueType": "string",
-            "options": [
-              {
-                "name": "Displayed on both PC and Mobile",
-                "value": "pc-and-mobile"
-              },
-              {
-                "name": "Only displayed on Mobile",
-                "value": "mobile-only"
-              }
-            ]
-          },
           {
             "component": "aem-content",
             "name": "button_link",
