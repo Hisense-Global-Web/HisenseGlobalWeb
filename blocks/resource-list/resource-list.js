@@ -1,5 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { validateEmail } from '../../utils/carousel-common.js';
 
 const DEFAULT_ICON_SVG = '<svg width="80" height="80" viewBox="0 0 80 80" fill="none" '
   + 'xmlns="http://www.w3.org/2000/svg">'
@@ -66,16 +67,34 @@ export default function decorate(block) {
 
     // Subscribe form (only for subscribe type)
     if (cardType === 'subscribe') {
-      const formEl = document.createElement('form');
+      const formEl = document.createElement('div');
       formEl.className = 'resource-subscribe-form';
 
       const inputEl = document.createElement('input');
-      inputEl.type = 'email';
+      inputEl.type = 'text';
       inputEl.placeholder = 'your@email.com';
       inputEl.className = 'resource-email-input';
       inputEl.required = true;
+      inputEl.addEventListener('input', (e) => {
+        e.currentTarget.parentNode.classList.remove('error');
+      });
 
-      formEl.appendChild(inputEl);
+      const clearEl = document.createElement('span');
+      clearEl.className = 'clear-icon';
+      const imgEl = document.createElement('img');
+      imgEl.src = '/content/dam/hisense/us/common-icons/close-70.svg';
+      clearEl.appendChild(imgEl);
+      clearEl.addEventListener('click', (e) => {
+        const targetInputEl = e.currentTarget.parentNode.querySelector('input');
+        targetInputEl.value = '';
+        targetInputEl.focus();
+      });
+
+      const errorEl = document.createElement('span');
+      errorEl.className = 'error-tip';
+      errorEl.innerHTML = '请输入正确的邮箱';
+
+      formEl.append(inputEl, clearEl, errorEl);
       card.appendChild(formEl);
     }
 
@@ -98,12 +117,16 @@ export default function decorate(block) {
         btnEl.addEventListener('click', (e) => {
           e.preventDefault();
           const form = card.querySelector('.resource-subscribe-form');
-          const input = form?.querySelector('input[type="email"]');
-          if (input && input.value && input.checkValidity()) {
+          const input = form?.querySelector('input.resource-email-input');
+          if (input && input.value) {
             // Handle subscription
-            // eslint-disable-next-line no-console
-            console.log('Subscribe:', input.value);
-            input.value = '';
+            if (validateEmail(input.value)) {
+              // eslint-disable-next-line no-console
+              console.log('Subscribe:', input.value);
+              input.value = '';
+            } else {
+              form.classList.add('error');
+            }
           } else {
             input?.reportValidity();
           }

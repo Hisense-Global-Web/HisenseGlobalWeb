@@ -206,6 +206,15 @@ export function cancelListener(block, selector) {
   });
 }
 
+// 验证邮箱方法
+export function validateEmail(email) {
+  const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  if (!email.trim()) {
+    return false;
+  }
+  return EMAIL_REGEX.test(email);
+}
+
 /**
  * UTC时区转换ISO时间为 Mmm D, YYYY 格式（如Nov 7, 2025）
  * @param {string} isoStr - 带Z的ISO时间字符串（如2026-02-14T00:00:00.000Z）
