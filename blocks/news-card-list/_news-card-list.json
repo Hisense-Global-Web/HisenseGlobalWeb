@@ -13,7 +13,8 @@
               "key-value": true,
               "title": "Recent Press Releases",
               "page-size": "9",
-              "empty-text": "No news items match your filters."
+              "empty-text": "No news items match your filters.",
+              "should-paginated": true
             }
           }
         }
@@ -43,6 +44,26 @@
           "label": "Empty Result Text",
           "description": "Text to show when no news items match the current filters.",
           "valueType": "string"
+        },
+        {
+          "component": "boolean",
+          "name": "should-paginated",
+          "label": "Do you need paginated?",
+          "valueType": "boolean"
+        },
+        {
+          "component" : "text",
+          "label" : "button",
+          "name" : "paginated-btn-text",
+          "valueType" : "string",
+          "condition" : {
+            "===" : [
+              {
+                "var" : "should-paginated"
+              },
+              false
+            ]
+          }
         }
       ]
     }

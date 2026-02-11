@@ -64,6 +64,10 @@
               "value": "gradient-gray"
             },
             {
+              "name": "Soft Green(green-10)",
+              "value": "soft-green"
+            },
+            {
               "name": "Gradient Green",
               "value": "gradient-green"
             },
@@ -291,7 +295,9 @@
         "resource-list",
         "search-box",
         "slide",
+        "social-media-list",
         "sub-menu-link",
+        "sustainability-dashboard-list",
         "tag",
         "tech-evolution-timeline",
         "tech-information",

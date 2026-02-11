@@ -385,6 +385,8 @@ export default async function decorate(block) {
   const titleText = config.title || 'Recent Press Releases';
   const pageSize = Number.parseInt(config['page-size'], 10) || 9;
   const emptyText = config['empty-text'] || 'No news items match your filters.';
+  const shouldPaginated = config['should-paginated'];
+  const paginatedBtnText = config['paginated-btn-text'] || '';
 
   const blockResource = block.getAttribute('data-aue-resource');
 
@@ -404,7 +406,20 @@ export default async function decorate(block) {
 
   const paginationEl = document.createElement('div');
   paginationEl.className = 'releases-pagination';
-  container.appendChild(paginationEl);
+
+  const noPaginationEl = document.createElement('div');
+  noPaginationEl.className = 'releases-no-pagination';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.classList.add('page-button');
+  btn.textContent = paginatedBtnText;
+  noPaginationEl.appendChild(btn);
+  console.log(shouldPaginated, paginatedBtnText);
+  if (shouldPaginated === 'false') {
+    container.appendChild(noPaginationEl);
+  } else {
+    container.appendChild(paginationEl);
+  }
 
   // Ensure the editor can still find this block
   if (blockResource) {
