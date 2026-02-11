@@ -75,6 +75,13 @@
           "valueType": "string"
         },
         {
+          "component": "text",
+          "name": "support_phone",
+          "value": "",
+          "label": "Support Phone Number",
+          "valueType": "string"
+        },
+        {
           "component": "select",
           "name": "button-display",
           "value": "pc-and-mobile",
