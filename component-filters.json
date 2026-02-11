@@ -64,6 +64,7 @@
       "resource-list",
       "search-box",
       "slide",
+      "social-media-list",
       "sub-menu-link",
       "tag",
       "tech-evolution-timeline",
@@ -289,6 +290,12 @@
     "id": "resource-list",
     "components": [
       "resource-list-item"
+    ]
+  },
+  {
+    "id": "social-media-list",
+    "components": [
+      "social-media-list-item"
     ]
   },
   {

@@ -2485,6 +2485,26 @@
         "label": "Empty Result Text",
         "description": "Text to show when no news items match the current filters.",
         "valueType": "string"
+      },
+      {
+        "component": "boolean",
+        "name": "should-paginated",
+        "label": "Do you need paginated?",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "label": "button",
+        "name": "paginated-btn-text",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "should-paginated"
+            },
+            false
+          ]
+        }
       }
     ]
   },
@@ -3014,6 +3034,36 @@
         "name": "slide_link",
         "label": "Link",
         "required": false
+      }
+    ]
+  },
+  {
+    "id": "social-media-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "social-media-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Social Icon",
+        "required": true,
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "required": true
       }
     ]
   },

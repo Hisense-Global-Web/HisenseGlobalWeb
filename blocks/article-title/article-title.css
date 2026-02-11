@@ -1,6 +1,6 @@
 /* 标题部分的样式随页面调整 */
 .section.article-title-container .article-title-wrapper {
-  margin-top: calc(166px + 80px);
+  margin-top: calc(166px);
   display: flex;
   justify-content: center;
 
