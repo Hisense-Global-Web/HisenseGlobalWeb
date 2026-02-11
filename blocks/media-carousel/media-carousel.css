@@ -247,6 +247,7 @@
     width: min(calc(630/var(--breakpoint-pc)*100vw), 630px);
     height: min(calc(368/var(--breakpoint-pc)*100vw), 368px);
     overflow: hidden;
+    background-color: var(--color-hisense-black);
   }
 
   .item-content,
