@@ -1,0 +1,82 @@
+{
+  "definitions": [
+    {
+      "title": "Feature Navigation",
+      "id": "feature-navigation",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Feature Navigation",
+              "model": "feature-navigation",
+              "filter": "feature-navigation"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Feature Navigation Item",
+      "id": "feature-navigation-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Feature Navigation Item",
+              "model": "feature-navigation-item"
+            }
+          }
+        }
+      }
+    }
+    
+  ],
+  "models": [
+     {
+      "id": "feature-navigation",
+      "fields": [
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        }
+      ]
+    },
+    {
+      "id": "feature-navigation-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+         {
+          "component": "text",
+          "name": "text_title",
+          "label": "Title",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "text_content",
+          "label": "Content",
+          "valueType": "string"
+        }
+        
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "feature-navigation",
+      "components": [
+        "feature-navigation-item"
+      ]
+    }
+  ]
+}

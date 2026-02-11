@@ -1,0 +1,67 @@
+
+.honors-awards-list-wrapper {
+  width: 100%;
+}
+
+.honors-awards-list-wrapper p{
+  margin: 0;
+  padding: 0;
+}
+
+.honors-awards-list > ul {
+  gap: var(--spacing-sm);
+
+  @media (width < 860px) {
+		overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
+    scroll-behavior: smooth; /* 平滑滚动 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
+    overscroll-behavior-x: contain; /* 防止滚动链 */
+    grid-auto-flow: column;
+    gap: var(--spacing-xs);
+	}
+}
+
+.honors-awards-list > ul > li {
+   aspect-ratio: 1;
+   font-family: var(--font-family);
+
+   @media (width < 860px) {
+    /* flex: 0 0 auto;  */
+    position: relative;
+		width: 70.7vw !important;
+    height: 70.7vw;
+    aspect-ratio: 1;
+    transition: transform 0.3s;
+    pointer-events: auto; /* 允许事件穿透到容器 */
+    
+
+    /* -webkit-user-select: none; */
+    user-select: none;
+  }
+}
+
+
+.honors-awards-list  > ul > li .honors-awards-list-card-image {
+  width: 40px;
+  aspect-ratio: 1 / 1 ;
+  object-fit: contain;
+  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
+
+  @media (width >= 860px) {
+    width:  min(40px, 40px);
+  }
+}
+
+.honors-awards-list  > ul > li img {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+
