@@ -57,13 +57,13 @@
 @media (width < 860px) {
   .section.feature-card-navigation-container {
     .card-navigation-wrapper {
-      gap: var(--size-16);
+      gap: var(--size-18);
       flex-wrap: wrap;
       background: transparent;
       padding: 0;
 
       .card-box {
-        width: calc(50% - var(--size-8));
+        width: calc(50% - var(--size-9));
         aspect-ratio: 168 / 160;
         border-right: none;
         background: var(--color-primary-green-10);
@@ -72,8 +72,6 @@
         padding: var(--size-24) var(--size-18);
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
 
         .card-image-box {
           width: var(--size-40);
