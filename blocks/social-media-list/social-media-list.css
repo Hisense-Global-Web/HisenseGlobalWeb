@@ -3,7 +3,18 @@
 main .section.social-media-list-container .social-media-list-wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin-top: var(--size-24);
+  
+  .share-title {
+    margin: var(--size-24) 0;
+    width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+    font-size: var(--fontsize-title2);
+    font-weight: var(--fontweight-medium);
+    color: var(--color-hisense-black);
+    line-height: 1.2;
+  }
   
   .social-media-list {
     width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
