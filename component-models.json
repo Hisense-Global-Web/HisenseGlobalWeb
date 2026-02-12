@@ -219,6 +219,10 @@
             "value": "gradient-gray"
           },
           {
+            "name": "Soft Green(green-10)",
+            "value": "soft-green"
+          },
+          {
             "name": "Gradient Green",
             "value": "gradient-green"
           },
@@ -385,6 +389,48 @@
             ]
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "about-hisense-section-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "subtitle",
+        "label": "Sub Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "bodycopy",
+        "value": "Bodycopy",
+        "label": "Bodycopy",
+        "valueType": "string"
       }
     ]
   },
@@ -980,7 +1026,8 @@
         "component": "text",
         "name": "item_title",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "value": ""
       },
       {
         "component": "text",
@@ -1139,7 +1186,8 @@
         "component": "text",
         "name": "desc_title",
         "label": "Image Title",
-        "valueType": "string"
+        "valueType": "string",
+        "value": ""
       },
       {
         "component": "text",
@@ -1344,17 +1392,6 @@
     ]
   },
   {
-    "id": "feature-navigation",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "feature-navigation-item",
     "fields": [
       {
@@ -1374,6 +1411,18 @@
         "component": "text",
         "name": "text_content",
         "label": "Content",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "cta_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cta_ctaPrimaryText",
+        "label": "Primary CTA Label",
         "valueType": "string"
       }
     ]
@@ -2092,30 +2141,6 @@
     ]
   },
   {
-    "id": "industry-categories",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title_title",
-        "label": "Title",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "title_subtitle",
-        "label": "Sub Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "title_content",
-        "label": "Content",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "industry-categories-item",
     "fields": [
       {
@@ -2535,49 +2560,6 @@
         "component": "richtext",
         "name": "sub_text",
         "label": "Description",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "partnerships-section-title",
-    "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "label": "Card options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default Style",
-            "value": "default-style"
-          },
-          {
-            "name": "Center Style",
-            "value": "center-style"
-          }
-        ]
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "value": "title",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "headline",
-        "value": "Headline",
-        "label": "Headline",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "bodycopy",
-        "value": "Bodycopy",
-        "label": "Bodycopy",
         "valueType": "string"
       }
     ]
@@ -3102,6 +3084,39 @@
         "name": "searchTags",
         "label": "Search Tags",
         "rootPath": "/content/cq:tags/hisense/product"
+      }
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-list",
+    "fields": []
+  },
+  {
+    "id": "sustainability-dashboard-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "value",
+        "value": "",
+        "label": "Value",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "required": true
       }
     ]
   },

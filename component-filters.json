@@ -61,18 +61,24 @@
       "product-spec",
       "properties",
       "quick-link",
-      "resource-list",
       "search-box",
       "slide",
       "social-media-list",
       "sub-menu-link",
-      "tag",
-      "tech-evolution-timeline",
       "tech-information",
       "text",
       "title",
       "video",
-      "videoinfo"
+      "videoinfo",
+      "tech-information",
+      "core-value-card",
+      "past-partnerships-list",
+      "about-hisense-section-title",
+      "current-partnerships-list",
+      "industry-categories",
+      "module-title",
+      "card-grid",
+      "news-card-list"
     ]
   },
   {
@@ -220,7 +226,7 @@
   {
     "id": "honors-awards",
     "components": [
-      "honors-awards-list-item"
+      "honors-awards-item"
     ]
   },
   {
@@ -296,6 +302,12 @@
     "id": "social-media-list",
     "components": [
       "social-media-list-item"
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-list",
+    "components": [
+      "sustainability-dashboard-list-item"
     ]
   },
   {
