@@ -74,6 +74,7 @@
       "video",
       "videoinfo",
       "page-header",
+      "icon-card-container",
       "section-title",
       "quick-action-card",
       "category-support-card",
@@ -250,6 +251,12 @@
     ]
   },
   {
+    "id": "icon-card-container",
+    "components": [
+      "icon-item"
+    ]
+  },
+  {
     "id": "icon-container",
     "components": [
       "icon-item"
@@ -280,6 +287,12 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
+    ]
+  },
+  {
+    "id": "parters-container",
+    "components": [
+      "parters-container-item"
     ]
   },
   {
