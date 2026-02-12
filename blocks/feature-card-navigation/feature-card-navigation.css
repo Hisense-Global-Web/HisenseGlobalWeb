@@ -1,0 +1,96 @@
+.section.feature-card-navigation-container {
+  display: block;
+  height: auto;
+  max-width: unset;
+  padding: 0;
+
+  p {
+    margin: 0;
+  }
+
+  .card-navigation-wrapper {
+    display: flex;
+    padding: var(--size-24) 0;
+    background: var(--color-primary-green-10);
+    border-radius: var(--size-12);
+    overflow: hidden;
+
+    .card-box {
+      flex-shrink: 0;
+      width: 25%;
+      padding: var(--size-24);
+      border-right: 1px solid var(--color-primary-green-50);
+      text-align: center;
+      color: var(--color-primary-grey-100);
+      
+      &:last-child {
+        border-right: none;
+      }
+
+      .card-image-box {
+        width: var(--size-80);
+        height: var(--size-80);
+        margin: 0 auto var(--size-24);
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .card-title {
+        font-size: var(--size-40);
+        font-weight: var(--fontweight-medium);
+        line-height: var(--size-48);
+        
+      }
+
+      .card-description {
+        font-size: var(--size-16);
+        font-weight: var(--fontweight-book);
+        line-height: var(--size-24);
+      }
+    }
+  }
+}
+
+@media (width < 860px) {
+  .section.feature-card-navigation-container {
+    .card-navigation-wrapper {
+      gap: var(--size-16);
+      flex-wrap: wrap;
+      background: transparent;
+      padding: 0;
+
+      .card-box {
+        width: calc(50% - var(--size-8));
+        aspect-ratio: 168 / 160;
+        border-right: none;
+        background: var(--color-primary-green-10);
+        border-radius: var(--size-16);
+        overflow: hidden;
+        padding: var(--size-24) var(--size-18);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .card-image-box {
+          width: var(--size-40);
+          height: var(--size-40);
+          margin-bottom: var(--size-12);
+        }
+
+        .card-title {
+          font-size: var(--size-20);
+          line-height: var(--size-26);
+        }
+
+        .card-description {
+          font-size: var(--size-12);
+          line-height: calc(16.8 / var(--breakpoint-mobile) * 100vw);
+        }
+      }
+    }
+  }
+}
