@@ -18,6 +18,11 @@ main .section.download-container .download-wrapper {
       flex-direction: column;
       gap: var(--size-32);
 
+      @media (width < 860px) {
+        width: 100%;
+        gap: var(--size-8);
+      }
+
       .title-group {
         display: flex;
         flex-direction: column;
@@ -41,11 +46,26 @@ main .section.download-container .download-wrapper {
         display: flex;
         gap: var(--size-80);
 
+        @media (width < 860px) {
+          flex-direction: column;
+          gap: var(--size-32);
+          
+          > .line {
+            display: none;
+          }
+        }
+
         .image-list {
           display: flex;
           flex-direction: column;
           gap: var(--size-24);
-          width: min(calc(386 / var(--breakpoint-pc) * 100vw), 386px);;
+          width: min(calc(386 / var(--breakpoint-pc) * 100vw), 386px);
+
+          @media (width < 860px) {
+            width: 100%;
+            height: auto;
+            flex: 1;
+          }
 
           .image-item {
             display: flex;
@@ -53,11 +73,24 @@ main .section.download-container .download-wrapper {
             gap: var(--size-16);
             height: var(--size-60);
 
+            @media (width < 860px) {
+              width: 100%;
+              height: auto;
+              flex: 1;
+            }
+
             img {
               border-radius: var(--radius-md);
               overflow: hidden;
               height: 100%;
               width: auto;
+              
+              @media (width < 860px) {
+                max-width: inherit;
+                width: var(--size-80);
+                height: var(--size-80);
+                flex-shrink: 0;
+              }
             }
 
             .item-info {
@@ -65,6 +98,10 @@ main .section.download-container .download-wrapper {
               flex-direction: column;
               gap: var(--size-8);
               padding: var(--size-5) 0;
+              
+              @media (width < 860px) {
+                padding: 0;
+              }
 
               .item-name {
                 font-size: var(--fontsize-body1);
@@ -79,6 +116,12 @@ main .section.download-container .download-wrapper {
                 display: flex;
                 align-items: center;
                 gap: var(--size-12);
+
+                @media (width < 860px) {
+                  flex-shrink: 0;
+                  flex-wrap: wrap;
+                  height: auto;
+                }
 
                 .item-meta-item {
                   font-size: var(--size-12);
@@ -96,7 +139,15 @@ main .section.download-container .download-wrapper {
                     width: var(--size-16);
                     height: var(--size-16);
                     display: block;
+
+                    @media (width < 860px) {
+                      max-width: inherit;
+                    }
                   }
+                }
+                
+                .line {
+                  height: var(--size-12);
                 }
               }
             }
@@ -117,12 +168,21 @@ main .section.download-container .download-wrapper {
           justify-content: center;
           gap: var(--size-12);
 
+          @media (width < 860px) {
+            gap: var(--size-8);
+          }
+
           .folder-icon {
             width: var(--size-80);
             height: var(--size-80);
+
+            @media (width < 860px) {
+              display: none;
+            }
           }
 
           .download-btn {
+            margin: 0;
             padding: 0 var(--size-32);
             height: var(--size-50);
             background-color: var(--color-hisense-black);
