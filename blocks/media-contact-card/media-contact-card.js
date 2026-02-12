@@ -38,12 +38,6 @@ export default async function decorate(block) {
       }
     });
     row.appendChild(btnGroupEl);
-    // row.children[0].classList.add('media-contact-card-item-img');
-    // row.children[1].classList.add('media-contact-card-item-link');
-    // row.addEventListener('click', (e) => {
-    //   e.stopPropagation();
-    //   window.location.href = e.currentTarget.textContent?.trim();
-    // });
   });
 
   if (config.title) {
