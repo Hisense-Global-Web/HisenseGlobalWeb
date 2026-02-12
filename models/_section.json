@@ -56,6 +56,10 @@
               "value": "grey"
             },
             {
+              "name": "Gray 20",
+              "value": "gray-20"
+            },
+            {
               "name": "Gray 90",
               "value": "gray-90"
             },

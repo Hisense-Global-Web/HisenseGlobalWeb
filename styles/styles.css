@@ -867,6 +867,11 @@ main {
 		color: var(--text-dark);
 	}
 
+  .setction.gray-20 {
+    background: var(--color-primary-grey-20);
+    color: var(--text-dark);
+  }
+
 	.section.gray-90 {
 		background: var(--color-primary-grey-90);
 		color: var(--text-dark);
