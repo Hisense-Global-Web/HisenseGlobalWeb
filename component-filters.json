@@ -46,6 +46,7 @@
       "image-comparison-slider",
       "industry-categories",
       "media-carousel",
+      "media-contact-card",
       "minimalist-hero-banner",
       "module-title",
       "news-card-list",
@@ -245,6 +246,12 @@
     "id": "media-carousel",
     "components": [
       "media-carouselItem"
+    ]
+  },
+  {
+    "id": "media-contact-card",
+    "components": [
+      "media-contact-card-item"
     ]
   },
   {
