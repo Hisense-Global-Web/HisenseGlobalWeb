@@ -1,3 +1,78 @@
-.media-contact-card {
+main .section.media-contact-card-container .media-contact-card-wrapper {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: var(--size-24);
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .share-title {
+    margin: var(--size-24) 0;
+    width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+    font-size: var(--fontsize-title2);
+    font-weight: var(--fontweight-medium);
+    color: var(--color-hisense-black);
+    line-height: 1.2;
+  }
+
+  .media-contact-card {
+    width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+    display: flex;
+    gap: var(--size-16);
+    color: var(--color-primary-grey-70);
+
+    .media-contact-card-item {
+      width: 100%;
+      padding: var(--size-48);
+      display: flex;
+      justify-content: space-between;
+      background: var(--color-primary-grey-20);
+      border-radius: var(--radius-lg);
+      gap: var(--size-48);
+      
+      .media-contact-card-richtext {
+        a {
+          border: none;
+          border-radius: initial;
+          background: initial;
+          color: var(--color-primary-green-50);
+        }
+      }
+      
+      .media-contact-card-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-12);
+        width: min(calc(257 / var(--breakpoint-pc) * 100vw), 257px);
+        
+        .media-contact-card-btn {
+          width: 100%;
+          height: var(--size-50);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: var(--fontsize-body2);
+          font-weight: var(--fontweight-medium);
+          line-height: 1.5;
+          color: var(--color-primary-grey-10);
+          background: var(--color-primary-green-60);
+          border-radius: var(--size-100);
+          cursor: pointer;
+        }
+        
+        .media-contact-card-description {
+          font-size: var(--fontsize-body2);
+          font-weight: var(--fontweight-light);
+          line-height: 22px;
+          color: var(--color-primary-grey-70);
+        }
+      }
+      
+    }
+  }
 }
