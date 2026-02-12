@@ -12,7 +12,7 @@
     display: flex;
     padding: var(--size-24) 0;
     background: var(--color-primary-green-10);
-    border-radius: var(--size-12);
+    border-radius: var(--size-20);
     overflow: hidden;
 
     .card-box {

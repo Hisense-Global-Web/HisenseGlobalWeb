@@ -26,7 +26,7 @@
 
     .feature-item-box {
       position: relative;
-      border-radius: var(--size-16);
+      border-radius: var(--size-20);
       overflow: hidden;
       aspect-ratio: 1 / 1;
       
@@ -87,6 +87,7 @@
 
       .feature-item-box {
         width: 100%;
+        border-radius: var(--size-16);
 
         .item-text-box {
           .item-subtitle {
