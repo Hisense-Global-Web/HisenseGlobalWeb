@@ -64,6 +64,10 @@
               "value": "gradient-gray"
             },
             {
+              "name": "Soft Green(green-10)",
+              "value": "soft-green"
+            },
+            {
               "name": "Gradient Green",
               "value": "gradient-green"
             },
@@ -288,13 +292,10 @@
         "product-spec",
         "properties",
         "quick-link",
-        "resource-list",
         "search-box",
         "slide",
         "social-media-list",
         "sub-menu-link",
-        "tag",
-        "tech-evolution-timeline",
         "tech-information",
         "text",
         "title",
@@ -307,9 +308,12 @@
         "category-support-card",
         "addional-support-card",
         "tech-information",
-        "core-value-card",
         "past-partnerships-list",
         "partnerships-section-title",
+        "tech-information",
+        "core-value-card",
+        "past-partnerships-list",
+        "about-hisense-section-title",
         "current-partnerships-list",
         "industry-categories",
         "module-title",
