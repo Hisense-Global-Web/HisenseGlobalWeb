@@ -1,5 +1,9 @@
 @import url('../../styles/reset-rich-text.css');
 
+.enterprise-tech-wrapper {
+  width: 100%;
+}
+
 .enterprise-tech {
   background: transparent;
 
@@ -58,7 +62,7 @@
         line-height: var(--size-21);
       }
 
-      h1, h2, h3, h4, h5, h6, p {
+      /* h1, h2, h3, h4, h5, h6, p {
         padding-left: var(--size-12);
       }
 
@@ -72,10 +76,10 @@
         margin-right: var(--size-12);
         position: relative;
         top: max(calc(-2 / var(--breakpoint-pc) * 100vw), -2px);
-      }
+      } */
 
       ul, ol {
-        padding-left: var(--size-17);
+        padding-left: var(--size-12);
         margin-left: var(--size-12);
 
         li {

@@ -1434,6 +1434,30 @@
     ]
   },
   {
+    "id": "nav-card-items",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon_url",
+        "label": "Feature Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title_name",
+        "label": "Feature Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description_name",
+        "label": "Feature Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "feature-navigation-item",
     "fields": [
       {
