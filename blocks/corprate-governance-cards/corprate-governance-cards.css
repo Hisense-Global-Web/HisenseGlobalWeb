@@ -10,7 +10,7 @@ p {
     gap: var(--spacing-xl);
 
      .card-item {
-        width: calc(352/var(--breakpoint-pc) * 100vw);
+        flex: 1 0 calc(352/var(--breakpoint-pc) * 100vw);
         display: flex;
         flex-direction: column;
         text-align: center;

@@ -102,7 +102,6 @@ function showSlide(block, targetLogicalIndex, init = false) {
     targetSlide.querySelector('.video-play-icon').click();
   }
   isInitializing = false; // 触发完后解锁初始化
-  autoPlay(block); // 开始自动播放
 }
 
 function stopAutoPlay() {
@@ -168,20 +167,20 @@ function bindEvents(block) {
       }, { passive: false });
 
       // 触摸结束
-      slide.addEventListener('touchend', (e) => {
+      slide.addEventListener('touchend', async (e) => {
         slide.classList.remove('touch-start');
         slide.classList.add('touch-end');
         const touchDuration = Date.now() - touchStartTime;
         if (!isScrolling && touchDuration < 500) {
           // touch情况下点击button执行跳转
-          if(e.target.tagName === 'A') {
+          if (e.target.tagName === 'A') {
             const url = e.target.href;
             if (url) {
               window.location.href = url;
             }
           }
-            //touch 情况下点击video暂停/播放按钮 
-          if(e.target.tagName === 'IMG' && e.target.parentElement.classList.contains('video-play-icon')) {
+          // touch 情况下点击video暂停/播放按钮
+          if (e.target.tagName === 'IMG' && e.target.parentElement.classList.contains('video-play-icon')) {
             e.target.click();
           }
         }
@@ -195,31 +194,35 @@ function bindEvents(block) {
             // 水平滑动
             if (diffX > 0) {
               // 向左滑动，显示下一张
-              showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
+              await showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
             } else {
               // 向右滑动，显示上一张
-              showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
+              await showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
             }
+            autoPlay(block); // 开始自动播放
           }
         }
       });
     }
   });
   // -----arrow function
-  block.querySelector('.slide-left').addEventListener('click', throttle(() => {
+  block.querySelector('.slide-left').addEventListener('click', throttle(async () => {
     stopAutoPlay();
-    showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
+    await showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
+    autoPlay(block); // 开始自动播放
   }, 1000));
-  block.querySelector('.slide-right').addEventListener('click', throttle(() => {
+  block.querySelector('.slide-right').addEventListener('click', throttle(async () => {
     stopAutoPlay();
-    showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
+    await showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
+    autoPlay(block); // 开始自动播放
   }, 1000));
   // ----- indicator function
   slideIndicators.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', throttle((e) => {
+    button.addEventListener('click', throttle(async (e) => {
       const slideIndicator = e.currentTarget.parentElement;
       stopAutoPlay();
-      showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
+      await showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
+      autoPlay(block); // 开始自动播放
     }, 500));
   });
   // ----- mouse observe

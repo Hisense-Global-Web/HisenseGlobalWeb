@@ -462,7 +462,9 @@ p {
       .hero-banner-item-image {
         touch-action: manipulation;
         user-select: none;
+
         --webkit-user-select: none;
+
         p:nth-child(1) {
           display: none;
         }

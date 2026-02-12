@@ -1508,6 +1508,22 @@
           }
         },
         {
+          "title": "Related News",
+          "id": "related-news",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Related News",
+                  "model": "related-news",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Resource List",
           "id": "resource-list",
           "plugins": {

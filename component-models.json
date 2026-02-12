@@ -2902,6 +2902,17 @@
     ]
   },
   {
+    "id": "related-news",
+    "fields": [
+      {
+        "component": "text",
+        "name": "keywords",
+        "label": "Keywords",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "resource-list",
     "fields": []
   },
