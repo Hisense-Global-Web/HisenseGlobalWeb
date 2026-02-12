@@ -16,27 +16,9 @@ export default async function decorate(block) {
           break;
         case 1:
           column.className = 'mobile-image-box';
-          // const mobileArrowEl = document.createElement('div');
-          // mobileArrowEl.className = 'mobile-arrow';
-          // const arrowImg = document.createElement('img');
-          // arrowImg.src = '/content/dam/hisense/us/common-icons/chevron-white-up.svg';
-          // arrowImg.alt = 'Arrow image';
-
-          // mobileArrowEl.append(arrowImg);
-          // column.append(mobileArrowEl);
-          // mobileTitWrapperEl.append(column);
-          // const toggleExpand = (e) => {
-          //   e.stopPropagation();
-          //   const grandParent = e.target.closest('.enterprise-card-box');
-          //   if (!grandParent) { return; }
-          //   grandParent.classList.toggle('info-hide');
-          // };
-
-          // mobileArrowEl.addEventListener('click', toggleExpand);
           break;
         case 2:
           column.className = 'title-box';
-          mobileTitWrapperEl.append(column);
           break;
         case 3:
           column.className = 'subtitle-box';
@@ -52,10 +34,14 @@ export default async function decorate(block) {
         const arrowImg = document.createElement('img');
         arrowImg.src = '/content/dam/hisense/us/common-icons/chevron-white-up.svg';
         arrowImg.alt = 'Arrow image';
-
         mobileArrowEl.append(arrowImg);
-        column.append(mobileArrowEl);
-        mobileTitWrapperEl.append(column);
+
+        const mobileTitBoxEl = document.createElement('div');
+        mobileTitBoxEl.className = 'mobile-tit-box';
+        // title-box element
+        const titleBoxEl = row.children[2];
+        mobileTitBoxEl.append(titleBoxEl, mobileArrowEl);
+        mobileTitWrapperEl.append(column, mobileTitBoxEl);
         // mobile arrow add click event
         const toggleExpand = (e) => {
           e.stopPropagation();

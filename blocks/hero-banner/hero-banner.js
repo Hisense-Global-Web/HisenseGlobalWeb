@@ -139,14 +139,12 @@ function bindEvents(block) {
   block.querySelectorAll('.hero-banner-item').forEach((slide) => {
     slideObserver.observe(slide);
     if (window.innerWidth < 860) {
-      let touchStartTime;
       let isScrolling = false;
       let startX;
       let startY;
 
       slide.addEventListener('touchstart', (e) => {
         e.preventDefault(); // 阻止默认滚动行为
-        touchStartTime = Date.now();
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
         isScrolling = false;
@@ -169,14 +167,6 @@ function bindEvents(block) {
       slide.addEventListener('touchend', (e) => {
         slide.classList.remove('touch-start');
         slide.classList.add('touch-end');
-        const touchDuration = Date.now() - touchStartTime;
-        if (!isScrolling && touchDuration < 500) {
-          const link = slide.querySelector('a');
-          const url = link?.href;
-          if (url) {
-            window.location.href = url;
-          }
-        }
         if (isScrolling) {
           const endX = e.changedTouches[0].clientX;
           const endY = e.changedTouches[0].clientY;
