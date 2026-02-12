@@ -1,6 +1,6 @@
 .page-header {
-  padding-left: min(calc(290 / var(--breakpoint-pc) * 100vw), 290px);
-  padding-right: min(calc(290 / var(--breakpoint-pc) * 100vw), 290px);
+  padding-left: min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
+  padding-right: min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
 
   @media (width<860px) {
     padding: 0;
