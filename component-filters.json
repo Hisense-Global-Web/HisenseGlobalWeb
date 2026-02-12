@@ -253,7 +253,7 @@
   {
     "id": "icon-card-container",
     "components": [
-      "icon-item"
+      "icon-card-container-item"
     ]
   },
   {

@@ -2147,7 +2147,7 @@
     ]
   },
   {
-    "id": "icon-item",
+    "id": "icon-card-container-item",
     "fields": [
       {
         "component": "reference",

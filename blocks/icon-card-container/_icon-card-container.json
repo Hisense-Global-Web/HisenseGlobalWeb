@@ -10,24 +10,22 @@
             "template": {
               "name": "Icon Card Container",
               "model": "icon-card-container",
-              "filter": "icon-card-container",
-              "style_position": "left",
-              "style_container": "horizontal"
+              "filter": "icon-card-container"
             }
           }
         }
       }
     },
     {
-      "title": "Icon Item",
-      "id": "icon-item",
+      "title": "Icon Card Container Item",
+      "id": "icon-card-container-item",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Icon Item",
-              "model": "icon-item"
+              "name": "Icon Card Container Item",
+              "model": "icon-card-container-item"
             }
           }
         }
@@ -36,7 +34,7 @@
   ],
   "models": [
     {
-      "id": "icon-item",
+      "id": "icon-card-container-item",
       "fields": [
         {
           "component": "reference",
@@ -66,7 +64,7 @@
     {
       "id": "icon-card-container",
       "components": [
-        "icon-item"
+        "icon-card-container-item"
       ]
     }
   ]
