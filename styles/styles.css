@@ -1049,9 +1049,3 @@ main > .footer-container.section {
 	margin: 0;
 }
 
-/* ========== sextion show  horizontal========== */
-.horizontal-section{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}

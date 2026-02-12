@@ -59,7 +59,8 @@
           "component": "text",
           "name": "desc_title",
           "label": "Image Title",
-          "valueType": "string"
+          "valueType": "string",
+          "value": ""
         },
          {
           "component": "text",
