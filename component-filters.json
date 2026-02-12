@@ -31,6 +31,7 @@
       "enterprise-tech",
       "feature-banner",
       "feature-navigation",
+      "feature-card-navigation",
       "fragment",
       "global-presence",
       "globalization-timeline",
@@ -172,6 +173,12 @@
     "id": "enterprise-tech",
     "components": [
       "enterprise-card-item"
+    ]
+  },
+  {
+    "id": "feature-card-navigation",
+    "components": [
+      "nav-card-items"
     ]
   },
   {
