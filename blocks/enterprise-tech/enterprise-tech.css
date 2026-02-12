@@ -1,5 +1,9 @@
 @import url('../../styles/reset-rich-text.css');
 
+.enterprise-tech-wrapper {
+  width: 100%;
+}
+
 .enterprise-tech {
   background: transparent;
 

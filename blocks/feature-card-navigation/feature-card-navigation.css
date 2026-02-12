@@ -4,6 +4,10 @@
   max-width: unset;
   padding: 0;
 
+  .feature-card-navigation-wrapper {
+    width: 100%;
+  }
+
   p {
     margin: 0;
   }

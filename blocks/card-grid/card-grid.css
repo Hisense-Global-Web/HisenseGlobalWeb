@@ -2,6 +2,10 @@
   width: 100%;
   position: relative;
   min-height: min(calc(679 / var(--breakpoint-pc) * 100vw), 679px);
+
+  .card-grid-wrapper {
+    width: 100%;
+  }
 }
 
 .card-grid {
