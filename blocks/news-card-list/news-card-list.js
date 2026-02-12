@@ -405,6 +405,7 @@ export default async function decorate(block) {
   btn.classList.add('page-button');
   btn.textContent = paginatedBtnText;
   noPaginationEl.appendChild(btn);
+  console.log(shouldPaginated, paginatedBtnText);
   if (shouldPaginated === 'false') {
     container.appendChild(noPaginationEl);
   } else {
