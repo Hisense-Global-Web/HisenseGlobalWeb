@@ -1434,6 +1434,30 @@
     ]
   },
   {
+    "id": "nav-card-items",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon_url",
+        "label": "Feature Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title_name",
+        "label": "Feature Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description_name",
+        "label": "Feature Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "feature-navigation-item",
     "fields": [
       {
@@ -2322,6 +2346,47 @@
         "name": "img",
         "label": "Img Snapshot For Video",
         "multi": false
+      }
+    ]
+  },
+  {
+    "id": "media-contact-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "media-contact-card-item",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "list",
+        "value": "list",
+        "label": "List",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button-text",
+        "label": "Button Text",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "button-link",
+        "label": "Button Link",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "button-description",
+        "label": "Button Description",
+        "required": true
       }
     ]
   },
