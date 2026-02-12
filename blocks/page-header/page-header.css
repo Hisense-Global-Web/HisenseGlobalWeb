@@ -1,3 +1,11 @@
+.page-header {
+  padding-left: min(calc(290 / var(--breakpoint-pc) * 100vw), 290px);
+  padding-right: min(calc(290 / var(--breakpoint-pc) * 100vw), 290px);
+  @media (width<860px) {
+    padding: 0;
+  }
+}
+
 .page-header-title {
   color: var(--color-primary-green-50, #009f9c);
   text-align: center;

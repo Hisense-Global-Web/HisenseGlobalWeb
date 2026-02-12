@@ -2157,14 +2157,14 @@
         "multi": false
       },
       {
-        "component": "title",
+        "component": "text",
         "name": "title",
         "value": "",
         "label": "Title",
         "valueType": "string"
       },
       {
-        "component": "subtitle",
+        "component": "text",
         "name": "subtitle",
         "value": "",
         "label": "Subtitle",
