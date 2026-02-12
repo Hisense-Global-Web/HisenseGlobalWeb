@@ -1,10 +1,17 @@
+import { readBlockConfig } from '../../scripts/aem.js';
+
 export default function decorate(block) {
   // social-media-list-item
   // const isEditMode = block.hasAttribute('data-aue-resource');
   // if (isEditMode) {
   //   return;
   // }
+  const config = readBlockConfig(block);
   [...block.children].forEach((row) => {
+    if (row.children[0].textContent?.trim() === 'title') {
+      row.style.display = 'none';
+      return;
+    }
     row.classList.add('social-media-list-item');
     row.children[0].classList.add('social-media-list-item-img');
     row.children[1].classList.add('social-media-list-item-link');
@@ -13,4 +20,11 @@ export default function decorate(block) {
       window.location.href = e.currentTarget.textContent?.trim();
     });
   });
+
+  if (config.title) {
+    const titleEl = document.createElement('div');
+    titleEl.classList.add('share-title');
+    titleEl.innerHTML = config.title;
+    block.parentNode.prepend(titleEl);
+  }
 }

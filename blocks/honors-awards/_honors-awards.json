@@ -75,7 +75,7 @@
     {
       "id": "honors-awards",
       "components": [
-        "honors-awards-list-item"
+        "honors-awards-item"
       ]
     }
   ]

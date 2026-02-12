@@ -62,19 +62,24 @@
       "product-spec",
       "properties",
       "quick-link",
-      "resource-list",
       "search-box",
       "slide",
       "social-media-list",
       "sub-menu-link",
-      "sustainability-dashboard-list",
-      "tag",
-      "tech-evolution-timeline",
       "tech-information",
       "text",
       "title",
       "video",
-      "videoinfo"
+      "videoinfo",
+      "tech-information",
+      "core-value-card",
+      "past-partnerships-list",
+      "about-hisense-section-title",
+      "current-partnerships-list",
+      "industry-categories",
+      "module-title",
+      "card-grid",
+      "news-card-list"
     ]
   },
   {
@@ -222,7 +227,7 @@
   {
     "id": "honors-awards",
     "components": [
-      "honors-awards-list-item"
+      "honors-awards-item"
     ]
   },
   {

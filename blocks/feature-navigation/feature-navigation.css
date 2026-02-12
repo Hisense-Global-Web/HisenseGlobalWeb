@@ -1,6 +1,9 @@
 
 .feature-navigation-wrapper {
   width: 100%;
+  background-color: var(--color-primary-green-10);
+  border-radius: var(--radius-xl);
+  padding: 0 !important;
 }
 
 .feature-navigation-wrapper p{
@@ -9,50 +12,95 @@
 }
 
 .feature-navigation > ul {
-  gap: var(--spacing-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr;
+  gap: var(--size-24);
 
   @media (width < 860px) {
-		overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
-    scroll-behavior: smooth; /* 平滑滚动 */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-    touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
-    overscroll-behavior-x: contain; /* 防止滚动链 */
-    grid-auto-flow: column;
-    gap: var(--spacing-xs);
+     grid-template-columns: 1fr;
+     gap: 0;
+	}
+}
+
+.feature-navigation .diver{
+  width: 1px;
+  height: calc(100% - var(--size-80));
+  background-color: var(--color-primary-green-50);
+  margin: auto 0;
+ 
+   @media (width < 860px) {
+    width: calc(100% - var(--size-86));
+    height: 1px;
+    margin: 0 auto;
 	}
 }
 
 .feature-navigation > ul > li {
-   aspect-ratio: 1;
    font-family: var(--font-family);
+   padding: var(--size-48);
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
 
    @media (width < 860px) {
-    /* flex: 0 0 auto;  */
-    position: relative;
-		width: 70.7vw !important;
-    height: 70.7vw;
-    aspect-ratio: 1;
-    transition: transform 0.3s;
-    pointer-events: auto; /* 允许事件穿透到容器 */
-    
-
-    /* -webkit-user-select: none; */
-    user-select: none;
+    padding: var(--size-48) var(--size-43);
+    text-align: center;
   }
 }
 
+.feature-navigation .card-body {
+  color:var(--color-primary-grey-100);
+   font-family: var(--font-family);
+   margin: var(--spacing-sm) 0 var(--spacing-md);
+   
+   @media (width < 860px) {
+     margin: var(--size-12) 0 var(--spacing-sm);
+  }
+}
 
-.feature-navigation  > ul > li .feature-navigation-card-image {
-  width: 40px;
+.feature-navigation .card-body div:first-child {
+  font-weight: var(--fontweight-medium);
+  font-size: var(--fontsize-title1);
+  margin-bottom: var(--size-8);
+
+   @media (width < 860px) {
+    font-size: var(--size-20);
+    margin-bottom: var(--size-4);
+  }
+}
+
+.feature-navigation .card-body div:nth-child(2){
+   font-weight: var(--fontweight-book);
+   font-size: var(--fontsize-body2);
+   
+   @media (width < 860px) {
+      font-size: var(--size-14);
+  }
+}
+
+.feature-navigation .card-cta a.button:any-link, button {
+    margin: 0;
+    padding: 0;
+    background: none;
+    color: black;
+}
+
+/* .feature-navigation .card-cta a.button:any-link, button ::after{
+
+} */
+
+.feature-navigation  > ul > li .card-image {
+  width: var(--size-80);
   aspect-ratio: 1 / 1 ;
   object-fit: contain;
   transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
 
-  @media (width >= 860px) {
-    width:  min(40px, 40px);
+  @media (width < 860px) {
+     width: var(--size-64);
+     margin: auto;
   }
 }
 
@@ -61,7 +109,6 @@
   height: 100%;
 }
 
-
-
-
-
+.feature-navigation-container{
+  height: 100% !important;
+}
