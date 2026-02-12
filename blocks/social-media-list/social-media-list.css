@@ -22,12 +22,22 @@ main .section.social-media-list-container .social-media-list-wrapper {
     gap: var(--size-16);
     color: var(--color-primary-grey-70);
 
+    @media (width < 860px) {
+      width: 100%;
+      gap: var(--size-8);
+    }
+
     .social-media-list-item {
       cursor: pointer;
       
       .social-media-list-item-img img {
         width: var(--size-34);
         height: var(--size-34);
+
+        @media (width < 860px) {
+          width: var(--size-24);
+          height: var(--size-24);
+        }
       }
       
       .social-media-list-item-link {
