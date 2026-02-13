@@ -18,6 +18,10 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
     font-weight: var(--fontweight-medium);
     color: var(--color-hisense-black);
     line-height: 1.2;
+
+    @media (width < 860px) {
+      width: 100%;
+    }
   }
 
   .media-contact-card {
