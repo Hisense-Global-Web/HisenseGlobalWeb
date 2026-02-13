@@ -31,11 +31,9 @@ function transformTagData(data) {
     return data.data[0] || data;
   }
 
-  const topLevelKeys = Object.keys(data).filter((key) =>
-    !key.startsWith('jcr:') &&
-    key !== 'sling:resourceType' &&
-    key !== 'jcr:primaryType'
-  );
+  const topLevelKeys = Object.keys(data).filter((key) => !key.startsWith('jcr:')
+    && key !== 'sling:resourceType'
+    && key !== 'jcr:primaryType');
 
   if (topLevelKeys.length > 0) {
     return data;
@@ -72,7 +70,7 @@ function readTagConfig(block) {
   const rows = [...block.children];
   const config = {
     title: '',
-    tagPaths: [], 
+    tagPaths: [],
     tagsEndpoint: '/content/dam/hisense/us/tag-data/en/tag-data.json', // New: tags endpoint URL
     link: '',
     target: '_self',
@@ -90,16 +88,16 @@ function readTagConfig(block) {
       }
     });
 
-  // Store tags for API lookup
-  if (rows[1]) {
+    // Store tags for API lookup
+    if (rows[1]) {
       const text = rows[1].textContent.trim();
       if (text && text.includes(',') && text.includes(',')) {
         config.tagPaths = text.split(',').map((s) => s.trim()).filter(Boolean);
       }
     }
 
-  return config;
-}
+    return config;
+  }
 
   if (rows[0]?.children.length === 2) {
     // Author mode: read key-value pairs
