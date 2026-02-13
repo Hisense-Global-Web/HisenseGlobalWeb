@@ -22,6 +22,11 @@
       display: none;
     }
 
+    .tech-pc-img {
+      width: 100%;
+      height: 100%;
+    }
+
     .tech-img-box {
       width: 100%;
       height: 100%;
@@ -59,12 +64,14 @@
         font-weight: var(--fontweight-medium);
         color: var(--color-primary-grey-100);
         margin-bottom: var(--size-20);
+        line-height: var(--size-36);
       }
 
       .tech-info-text {
         font-size: var(--size-16);
         font-weight: var(--fontweight-book);
-        color: var(--color-primary-grey-70);
+        color: var(--color-primary-grey-80);
+        line-height: var(--size-24);
       }
     }
 
@@ -136,16 +143,18 @@
           }
   
           p:first-child {
-            font-size: var(--size-23);
+            font-size: var(--size-24);
             font-weight: var(--fontweight-medium);
             color: var(--color-primary-green-50);
+            line-height: min(calc(28.8 / var(--breakpoint-pc) * 100vw), 28.8px);
           }
   
           p:nth-child(2) {
-            margin-top: var(--size-8);
+            margin-top: var(--size-4);
             font-size: var(--size-16);
             font-weight: var(--fontweight-book);
             color: var(--color-primary-grey-50);
+            line-height: var(--size-24);
           }
         }
       }
@@ -154,7 +163,7 @@
 
 
     .tech-cta-wrapper {
-      margin-top: auto;
+      margin-top: var(--size-32);
 
       .cta-button {
         display: inline-block;
@@ -226,13 +235,16 @@
       }
 
       .tech-item-wrapper {
-        margin-bottom: var(--size-32);
-
         &.icon-style {
           .tech-item-box {
             .tech-item-text-content {
               p:first-child {
-                font-size: var(--size-18);
+                font-size: var(--size-16);
+                line-height: calc(20.8 / var(--breakpoint-mobile) * 100vw);
+              }
+
+              p:nth-child(2) {
+                line-height: calc(19.6 / var(--breakpoint-mobile) * 100vw);
               }
             }
 
@@ -252,11 +264,13 @@
 
             .tech-item-text-content {
               p:first-child {
-                font-size: var(--size-20);
+                font-size: var(--size-18);
+                line-height: calc(21.6 / var(--breakpoint-mobile) * 100vw);
               }
 
               p:nth-child(2) {
                 font-size: var(--size-14);
+                line-height: calc(19.6 / var(--breakpoint-mobile) * 100vw);
               }
             }
           }
