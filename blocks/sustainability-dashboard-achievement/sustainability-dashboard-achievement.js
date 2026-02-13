@@ -1,5 +1,8 @@
+import { readBlockConfig } from '../../scripts/aem.js';
+
 export default function decorate(block) {
-  console.log(block);
+  const config = readBlockConfig(block);
+  console.log(config);
   
   // const config = ['title', 'value', 'description'];
   // [...block.children].forEach((child) => {

@@ -10,6 +10,7 @@
             "template": {
               "name": "Sustainability Dashboard Achievement",
               "model": "sustainability-dashboard-achievement",
+              "key-value": true,
               "filter": "sustainability-dashboard-achievement"
             }
           }
@@ -25,7 +26,8 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Sustainability Dashboard Achievement Matrix",
-              "model": "sustainability-dashboard-achievement-matrix"
+              "model": "sustainability-dashboard-achievement-matrix",
+              "key-value": true
             }
           }
         }
@@ -104,7 +106,7 @@
         {
           "component": "text",
           "name": "btn-ctaLabel",
-          "label": "Button",
+          "label": "Button Label",
           "valueType": "string"
         }
       ]
@@ -113,14 +115,30 @@
       "id": "sustainability-dashboard-achievement-matrix",
       "fields": [
         {
+          "component": "text-input",
+          "label": "",
+          "name": "label",
+          "valueType":"string",
+          "value": "matrix-label",
+          "hidden": true
+        },
+        {
           "component": "text",
-          "name": "matrix_label",
+          "name": "matrix-label",
           "label": "Label",
           "valueType": "string"
         },
         {
+          "component": "text-input",
+          "label": "",
+          "name": "label",
+          "valueType":"string",
+          "value": "matrix-value",
+          "hidden": true
+        },
+        {
           "component": "text",
-          "name": "matrix_value",
+          "name": "matrix-value",
           "label": "Value",
           "valueType": "string"
         }
