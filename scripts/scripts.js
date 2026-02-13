@@ -101,10 +101,61 @@ export function decorateMain(main) {
 }
 
 /**
+ * Get GraphQL API base URL based on current hostname
+ * - author environment: empty string (same origin)
+ * - publish environment: empty string (same origin)
+ * - hisense-dev: https://publish-p174152-e1909940.adobeaemcloud.com/
+ * - hisense-stage: https://publish-p174152-e1855674.adobeaemcloud.com/
+ * - hisense.com or hisenseglobalweb: https://publish-p174152-e1855954.adobeaemcloud.com/
+ */
+function getGraphQLBaseUrl() {
+  const { hostname } = window.location;
+
+  // Author environment - use same origin
+  if (hostname.includes('author-')) {
+    return '';
+  }
+
+  // Publish environment - use same origin
+  if (hostname.includes('publish-')) {
+    return '';
+  }
+
+  // Dev environment
+  if (hostname.includes('hisense-dev')) {
+    return 'https://publish-p174152-e1855821.adobeaemcloud.com';
+  }
+
+  // Stage environment
+  if (hostname.includes('hisense-stage')) {
+    return 'https://publish-p174152-e1855674.adobeaemcloud.com';
+  }
+
+  // Production environment
+  if (hostname.includes('hisense.com') || hostname.includes('hisenseglobalweb')) {
+    return 'https://publish-p174152-e1855954.adobeaemcloud.com';
+  }
+
+  // Default fallback for localhost or unknown environments
+  return '';
+}
+
+/**
+ * Set global variables for API endpoints
+ */
+function setGlobalApiVariables() {
+  const gqlBaseUrl = getGraphQLBaseUrl();
+  window.GRAPHQL_BASE_URL = gqlBaseUrl;
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  // Set global API variables first
+  setGlobalApiVariables();
+
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
