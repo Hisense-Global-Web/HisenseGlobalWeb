@@ -1,51 +1,51 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
-// const MOCK_NEWSROOM_ITEMS = [
-//   {
-//     path: '/us/en/company/newsroom/article-3',
-//     title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 3',
-//     'published-date': '2026-02-09T06:55:15.717Z',
-//     description: '',
-//     thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-rgb-1.png',
-//     subtitle: 'PARTNERSHIP -3',
-//     date: '2026-02-05T00:00:00.000Z',
-//     location: 'QingDao -3',
-//     keywords: 'Hisense, ESG, AI, Sustainability',
-//   },
-//   {
-//     path: '/us/en/company/newsroom/article-4',
-//     title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 4',
-//     'published-date': '2026-02-09T06:56:08.838Z',
-//     description: '',
-//     thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-micro-1.png',
-//     subtitle: 'PARTNERSHIP -4',
-//     date: '2026-02-05T00:00:00.000Z',
-//     location: 'QingDao',
-//     keywords: 'Hisense, Technology, Innovation',
-//   },
-//   {
-//     path: '/us/en/company/newsroom/article-2',
-//     title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 2',
-//     'published-date': '2026-02-09T06:54:23.865Z',
-//     description: '',
-//     thumbnail: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
-//     subtitle: 'PARTNERSHIP -2',
-//     date: '2026-02-05T00:00:00.000Z',
-//     location: 'QingDao -2',
-//     keywords: 'Hisense, ESG, Strategy',
-//   },
-//   {
-//     path: '/us/en/company/newsroom/article-body',
-//     title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones',
-//     'published-date': '2026-02-09T06:29:23.342Z',
-//     description: '',
-//     thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-hi-qled.png',
-//     subtitle: 'PARTNERSHIP',
-//     date: '2026-02-05T00:00:00.000Z',
-//     location: 'QingDao',
-//     keywords: 'Hisense, ESG, Technology',
-//   },
-// ];
+const MOCK_NEWSROOM_ITEMS = [
+  {
+    path: '/us/en/company/newsroom/article-3',
+    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 3',
+    'published-date': '2026-02-09T06:55:15.717Z',
+    description: '',
+    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-rgb-1.png',
+    subtitle: 'PARTNERSHIP -3',
+    date: '2026-02-05T00:00:00.000Z',
+    location: 'QingDao -3',
+    keywords: 'Hisense, ESG, AI, Sustainability',
+  },
+  {
+    path: '/us/en/company/newsroom/article-4',
+    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 4',
+    'published-date': '2026-02-09T06:56:08.838Z',
+    description: '',
+    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-micro-1.png',
+    subtitle: 'PARTNERSHIP -4',
+    date: '2026-02-05T00:00:00.000Z',
+    location: 'QingDao',
+    keywords: 'Hisense, Technology, Innovation',
+  },
+  {
+    path: '/us/en/company/newsroom/article-2',
+    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 2',
+    'published-date': '2026-02-09T06:54:23.865Z',
+    description: '',
+    thumbnail: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
+    subtitle: 'PARTNERSHIP -2',
+    date: '2026-02-05T00:00:00.000Z',
+    location: 'QingDao -2',
+    keywords: 'Hisense, ESG, Strategy',
+  },
+  {
+    path: '/us/en/company/newsroom/article-body',
+    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones',
+    'published-date': '2026-02-09T06:29:23.342Z',
+    description: '',
+    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-hi-qled.png',
+    subtitle: 'PARTNERSHIP',
+    date: '2026-02-05T00:00:00.000Z',
+    location: 'QingDao',
+    keywords: 'Hisense, ESG, Technology',
+  },
+];
 
 function getSearchFiltersFromUrl() {
   const params = new URLSearchParams(window.location.search || '');
@@ -99,35 +99,35 @@ function filterItemsByUrlParams(items) {
   }));
 }
 
-// function getItemDateValue(item) {
-//   const value = item.date || item['published-date'];
-//   const time = Date.parse(value);
-//   return Number.isNaN(time) ? 0 : time;
-// }
+function getItemDateValue(item) {
+  const value = item.date || item['published-date'];
+  const time = Date.parse(value);
+  return Number.isNaN(time) ? 0 : time;
+}
 
-// function normalizeNewsroomData(json) {
-//   if (!json || !Array.isArray(json.data)) return [];
+function normalizeNewsroomData(json) {
+  if (!json || !Array.isArray(json.data)) return [];
 
-//   if (json.data.length > 0 && !Array.isArray(json.data[0])) {
-//     const items = [...json.data];
-//     items.sort((a, b) => getItemDateValue(b) - getItemDateValue(a));
-//     return items;
-//   }
+  if (json.data.length > 0 && !Array.isArray(json.data[0])) {
+    const items = [...json.data];
+    items.sort((a, b) => getItemDateValue(b) - getItemDateValue(a));
+    return items;
+  }
 
-//   // Classic format: columns + rows
-//   const { columns } = json;
-//   if (!Array.isArray(columns)) return [];
+  // Classic format: columns + rows
+  const { columns } = json;
+  if (!Array.isArray(columns)) return [];
 
-//   const items = json.data.map((row) => {
-//     const item = {};
-//     row.forEach((value, index) => {
-//       item[columns[index]] = value;
-//     });
-//     return item;
-//   });
-//   items.sort((a, b) => getItemDateValue(b) - getItemDateValue(a));
-//   return items;
-// }
+  const items = json.data.map((row) => {
+    const item = {};
+    row.forEach((value, index) => {
+      item[columns[index]] = value;
+    });
+    return item;
+  });
+  items.sort((a, b) => getItemDateValue(b) - getItemDateValue(a));
+  return items;
+}
 
 function formatDate(iso) {
   if (!iso) return '';
@@ -153,7 +153,7 @@ function buildCard(item) {
   } = item;
 
   const cardEl = document.createElement('div');
-  cardEl.classList.add('releases-card');
+  cardEl.classList.add('news-card');
 
   const linkHref = typeof path === 'string' ? path : '#';
 
@@ -161,7 +161,7 @@ function buildCard(item) {
   if (thumbnail) {
     const imageWrapper = document.createElement('a');
     imageWrapper.href = linkHref;
-    imageWrapper.classList.add('releases-image');
+    imageWrapper.classList.add('news-image');
 
     const picture = createOptimizedPicture(
       thumbnail,
@@ -176,28 +176,30 @@ function buildCard(item) {
 
   // Content
   const contentEl = document.createElement('div');
-  contentEl.classList.add('releases-content');
-
+  contentEl.classList.add('news-content');
+  const textEl = document.createElement('div');
+  textEl.classList.add('news-text');
+  contentEl.appendChild(textEl);
   // Eyebrow (use subtitle as category)
   if (subtitle) {
-    const eyebrowEl = document.createElement('span');
-    eyebrowEl.classList.add('releases-eyebrow');
+    const eyebrowEl = document.createElement('div');
+    eyebrowEl.classList.add('news-eyebrow');
     eyebrowEl.textContent = subtitle;
-    contentEl.appendChild(eyebrowEl);
+    textEl.appendChild(eyebrowEl);
   }
 
   // Title
   if (title) {
     const titleLink = document.createElement('a');
     titleLink.href = linkHref;
-    titleLink.classList.add('releases-subtitle');
+    titleLink.classList.add('news-subtitle');
     titleLink.textContent = title;
-    contentEl.appendChild(titleLink);
+    textEl.appendChild(titleLink);
   }
 
   // Meta group
   const metaGroupEl = document.createElement('div');
-  metaGroupEl.classList.add('releases-meta-group');
+  metaGroupEl.classList.add('news-meta-group');
 
   const formattedDate = formatDate(date);
   if (formattedDate) {
@@ -208,7 +210,9 @@ function buildCard(item) {
     iconImg.alt = '';
     iconImg.classList.add('meta-icon');
     dateEl.appendChild(iconImg);
-    dateEl.appendChild(document.createTextNode(formattedDate));
+    const dateSpan = document.createElement('span');
+    dateSpan.textContent = formattedDate;
+    dateEl.appendChild(dateSpan);
     metaGroupEl.appendChild(dateEl);
   }
 
@@ -220,7 +224,9 @@ function buildCard(item) {
     iconImg.alt = '';
     iconImg.classList.add('meta-icon');
     locationEl.appendChild(iconImg);
-    locationEl.appendChild(document.createTextNode(location));
+    const locationSpan = document.createElement('span');
+    locationSpan.textContent = location;
+    locationEl.appendChild(locationSpan);
     metaGroupEl.appendChild(locationEl);
   }
 
@@ -274,52 +280,44 @@ function createScrollButton(direction) {
   return button;
 }
 
-// async function fetchNewsroom(offset, limit) {
-//   const { pathname } = window.location;
+async function fetchNewsroom() {
+  const { pathname } = window.location;
 
-//   // /content 开头，使用本地 mock 数据，避免跨域请求失败
-//   if (pathname.startsWith('/content')) {
-//     const start = Number.isFinite(offset) ? offset : 0;
-//     const pageSize = Number.isFinite(limit) ? limit : MOCK_NEWSROOM_ITEMS.length;
-//     const sliced = MOCK_NEWSROOM_ITEMS.slice(start, start + pageSize);
+  // /content 开头，使用本地 mock 数据，避免跨域请求失败
+  if (pathname.startsWith('/content')) {
+    return {
+      data: MOCK_NEWSROOM_ITEMS,
+    };
+  }
 
-//     return {
-//       data: sliced,
-//       offset: start,
-//       limit: pageSize,
-//       total: MOCK_NEWSROOM_ITEMS.length,
-//     };
-//   }
+  const segments = pathname.split('/').filter(Boolean);
 
-//   const segments = pathname.split('/').filter(Boolean);
+  const country = segments[0] || 'us';
+  let language;
 
-//   const country = segments[0] || 'us';
-//   let language;
+  if (country.toLowerCase() === 'us') {
+    language = 'en';
+  } else {
+    language = segments[1] || 'en';
+  }
 
-//   if (country.toLowerCase() === 'us') {
-//     language = 'en';
-//   } else {
-//     language = segments[1] || 'en';
-//   }
+  const basePath = `/${country}/${language}/newsroom.json`;
+  const url = basePath;
 
-//   const basePath = `/${country}/${language}/newsroom.json`;
-//   const url = basePath;
+  const response = await fetch(url, { credentials: 'same-origin' });
+  if (!response.ok) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to load newsroom index', response.status);
+    return null;
+  }
+  return response.json();
+}
 
-//   const response = await fetch(url, { credentials: 'same-origin' });
-//   if (!response.ok) {
-//     // eslint-disable-next-line no-console
-//     console.error('Failed to load newsroom index', response.status);
-//     return null;
-//   }
-//   return response.json();
-// }
-
-// async function loadAllNewsroom(pageSize) {
-//   const size = Number.isFinite(pageSize) ? pageSize : MOCK_NEWSROOM_ITEMS.length;
-//   const json = await fetchNewsroom(0, size);
-//   if (!json) return [];
-//   return normalizeNewsroomData(json);
-// }
+async function loadAllNewsroom() {
+  const json = await fetchNewsroom();
+  if (!json) return [];
+  return normalizeNewsroomData(json);
+}
 
 /**
  * News Card List Block
@@ -329,15 +327,10 @@ export default async function decorate(block) {
 
   // Build static structure
   const container = document.createElement('div');
-  container.className = 'releases-container';
-
-  const sectionTitleEl = document.createElement('div');
-  sectionTitleEl.className = 'section-title';
-
-  container.appendChild(sectionTitleEl);
+  container.className = 'related-news-container';
 
   const cardGroupEl = document.createElement('div');
-  cardGroupEl.className = 'releases-card-group';
+  cardGroupEl.className = 'news-card-group';
   container.appendChild(cardGroupEl);
 
   // Ensure the editor can still find this block
@@ -346,22 +339,30 @@ export default async function decorate(block) {
   }
 
   block.replaceChildren(container);
-
+  const allItems = await loadAllNewsroom();
   const loadPage = async () => {
-    const filteredItems = filterItemsByUrlParams([]);
+    const filteredItems = filterItemsByUrlParams(allItems);
 
     cardGroupEl.textContent = '';
     filteredItems.forEach((item) => {
       const card = buildCard(item);
       cardGroupEl.appendChild(card);
     });
-    const prevButton = createScrollButton('prev');
-    const nextButton = createScrollButton('next');
-    container.appendChild(prevButton);
-    container.appendChild(nextButton);
   };
 
   await loadPage();
+
+  const prevButton = createScrollButton('prev');
+  const nextButton = createScrollButton('next');
+  const sectionTitle = block.closest('.section').querySelector('.module-title');
+  const buttonContainer = document.createElement('div');
+  buttonContainer.className = 'button-container';
+  buttonContainer.appendChild(prevButton);
+  buttonContainer.appendChild(nextButton);
+  if (sectionTitle) {
+    sectionTitle.lastElementChild.appendChild(buttonContainer);
+    sectionTitle.lastElementChild.classList.add('has-button');
+  }
 
   block.classList.add('loaded');
 }

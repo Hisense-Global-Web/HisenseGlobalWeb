@@ -39,6 +39,10 @@ p {
             align-items: center;
             gap: var(--spacing-4xs, 4px);
             align-self: stretch;
+             
+            &.no-text {
+                display: none;
+            }
         }
 
         .title {
