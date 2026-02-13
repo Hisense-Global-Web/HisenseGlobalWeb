@@ -4,6 +4,10 @@
   max-width: unset;
   padding: 0;
 
+  .feature-card-navigation-wrapper {
+    width: 100%;
+  }
+
   p {
     margin: 0;
   }
@@ -12,7 +16,7 @@
     display: flex;
     padding: var(--size-24) 0;
     background: var(--color-primary-green-10);
-    border-radius: var(--size-12);
+    border-radius: var(--size-20);
     overflow: hidden;
 
     .card-box {
