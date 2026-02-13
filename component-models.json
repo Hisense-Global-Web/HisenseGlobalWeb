@@ -3314,7 +3314,7 @@
     ]
   },
   {
-    "id": "quick-link-item",
+    "id": "search-box-quick-link-item",
     "fields": [
       {
         "component": "aem-content",
