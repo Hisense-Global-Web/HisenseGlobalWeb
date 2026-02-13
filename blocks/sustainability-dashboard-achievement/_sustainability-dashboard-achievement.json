@@ -16,22 +16,6 @@
           }
         }
       }
-    },
-    {
-      "title": "Sustainability Dashboard Achievement Matrix",
-      "id": "sustainability-dashboard-achievement-matrix",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Sustainability Dashboard Achievement Matrix",
-              "model": "sustainability-dashboard-achievement-matrix",
-              "key-value": true
-            }
-          }
-        }
-      }
     }
   ],
   "models": [
@@ -102,46 +86,12 @@
           "name": "btn-cta",
           "label": "Button",
           "valueType":"string",
-          "description": "Enter a popup sectionId associated with this."
+          "description": "Tips: Enter a popup sectionId associated with this if you need popup."
         },
         {
           "component": "text",
           "name": "btn-ctaLabel",
           "label": "Button Label",
-          "valueType": "string"
-        }
-      ]
-    },
-    {
-      "id": "sustainability-dashboard-achievement-matrix",
-      "fields": [
-        {
-          "component": "text-input",
-          "label": "",
-          "name": "label-tag",
-          "valueType":"string",
-          "value": "matrix-label",
-          "hidden": true,
-          "readOnly": true
-        },
-        {
-          "component": "text",
-          "name": "matrix-label",
-          "label": "Label",
-          "valueType": "string"
-        },
-        {
-          "component": "text-input",
-          "label": "",
-          "name": "value-tag",
-          "valueType":"string",
-          "value": "matrix-value",
-          "hidden": true
-        },
-        {
-          "component": "text",
-          "name": "matrix-value",
-          "label": "Value",
           "valueType": "string"
         }
       ]
