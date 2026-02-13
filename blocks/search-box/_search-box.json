@@ -14,7 +14,7 @@
               "search-link": "/search",
               "placeholder": "Search",
               "target": "_self",
-              "filter": "search-box"
+              "filter": "search-box-filter"
             }
           }
         }
@@ -29,8 +29,7 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Quick Link Item",
-              "model": "search-box-quick-link-item",
-              "key-value": true
+              "model": "search-box-quick-link-item"
             }
           }
         }
@@ -93,7 +92,7 @@
   ],
   "filters": [
     {
-      "id": "search-box",
+      "id": "search-box-filter",
       "components": [
         "search-box-quick-link-item"
       ]
