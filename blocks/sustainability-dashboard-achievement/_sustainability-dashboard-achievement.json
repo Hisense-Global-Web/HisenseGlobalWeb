@@ -96,7 +96,7 @@
           "label": "Text"
         },
         {
-          "component": "aem-cta",
+          "component": "aem-content",
           "name": "btn-cta",
           "label": "Button",
           "valueType":"string"
