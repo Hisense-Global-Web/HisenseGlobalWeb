@@ -82,7 +82,8 @@
       "card-grid",
       "news-card-list",
       "about-hisense-module-title",
-      "honors-awards"
+      "honors-awards",
+      "bi-directional-conten"
     ]
   },
   {
@@ -99,6 +100,12 @@
     "id": "article-body-list",
     "components": [
       "article-body-list-item"
+    ]
+  },
+  {
+    "id": "bi-directional-content",
+    "components": [
+      "bi-directional-content-item"
     ]
   },
   {

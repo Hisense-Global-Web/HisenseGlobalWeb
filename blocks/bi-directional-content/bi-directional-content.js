@@ -3,9 +3,10 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   /* change to ul, li */
-  const ul = document.createElement('ul');
+  const ul = document.createElement('div');
+  ul.classList.add('card-item');
   [...block.children].forEach((row, i) => {
-    const li = document.createElement('li');
+    const li = document.createElement('div');
     li.classList.add('card-item');
     moveInstrumentation(row, li);
     while (row.firstElementChild) li.append(row.firstElementChild);
@@ -18,11 +19,6 @@ export default function decorate(block) {
         tit.append(div.firstElementChild);
         desc.append(div.lastElementChild);
         div.replaceChildren(tit, desc);
-      } else {
-        div.className = 'card-cta';
-        const arrow = document.createElement('div');
-        arrow.classList = 'arrow';
-        div.append(arrow);
       }
     });
     const diver = document.createElement('div');
@@ -38,5 +34,5 @@ export default function decorate(block) {
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
   });
-  block.replaceChildren(ul);
+  block.replaceChildren(ul.children);
 }
