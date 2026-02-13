@@ -18,46 +18,44 @@ export default function decorate(block) {
       child.classList.add(child.firstElementChild?.textContent.trim());
       child.firstElementChild.remove();
     }
-    if(child.classList.contains('matrix-block-item')) {
-      const label = ['matrix-label','matrix-value'];
-      console.log(child);
+    if (child.classList.contains('matrix-block-item')) {
+      const label = ['matrix-label', 'matrix-value'];
       // blockItem 最少两个节点，最多4个节点
       const blockItem = Array.from(child.children);
-      console.log(blockItem,'tem');
       for (let i = 0; i < blockItem.length; i += 2) {
         const labelDiv = blockItem[i];
         const valueDiv = blockItem[i + 1];
-  
+
         // 获取标签内容，比如 "matrix-label" 或 "matrix-value"
         const labelText = labelDiv?.querySelector('p')?.textContent.trim();
-  
-        if (labelText && valueDiv) {
+
+        if (label.includes(labelText) && !label.includes(valueDiv)) {
           // 将内容作为类名添加
-          const className = labelText.toLowerCase();
+          const className = labelText;
           valueDiv.classList.add(className);
           labelDiv.remove();
         }
       }
     }
-    if(!child.classList.contains('image')) {
-      if(!child.className.includes('btn')) {
-        if(child.className !== 'matrix-block-item') {
+    if (!child.classList.contains('image')) {
+      if (!child.className.includes('btn')) {
+        if (child.className !== 'matrix-block-item') {
           titleArea.appendChild(child);
         } else items.appendChild(child);
-      } else if(child.className.includes('btn')) {
+      } else if (child.className.includes('btn')) {
         btnDiv.appendChild(child);
       } else {
         textContainer.appendChild(child);
       }
     }
   });
-  [...items.children].forEach(item=> {
-    if(item !== [...items.children][items.children.length-1]) {
+  [...items.children].forEach((item) => {
+    if (item !== [...items.children][items.children.length - 1]) {
       const line = document.createElement('span');
       line.className = 'line';
       item.after(line);
     }
-  })
+  });
   textArea.appendChild(items);
   textContainer.appendChild(textArea);
   textContainer.appendChild(btnDiv);
