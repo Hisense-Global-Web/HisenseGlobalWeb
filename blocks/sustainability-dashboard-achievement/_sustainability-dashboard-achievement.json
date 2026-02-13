@@ -101,7 +101,8 @@
           "component": "aem-content",
           "name": "btn-cta",
           "label": "Button",
-          "valueType":"string"
+          "valueType":"string",
+          "description": "Enter a popup sectionId associated with this."
         },
         {
           "component": "text",
@@ -117,10 +118,11 @@
         {
           "component": "text-input",
           "label": "",
-          "name": "label",
+          "name": "label-tag",
           "valueType":"string",
           "value": "matrix-label",
-          "hidden": true
+          "hidden": true,
+          "readOnly": true
         },
         {
           "component": "text",
@@ -131,7 +133,7 @@
         {
           "component": "text-input",
           "label": "",
-          "name": "label",
+          "name": "value-tag",
           "valueType":"string",
           "value": "matrix-value",
           "hidden": true
