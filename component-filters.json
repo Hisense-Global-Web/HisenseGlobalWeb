@@ -338,6 +338,12 @@
     ]
   },
   {
+    "id": "search-box",
+    "components": [
+      "quick-link-item"
+    ]
+  },
+  {
     "id": "social-media-list",
     "components": [
       "social-media-list-item"

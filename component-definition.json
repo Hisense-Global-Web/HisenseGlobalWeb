@@ -1736,7 +1736,24 @@
                   "key-value": true,
                   "search-link": "/search",
                   "placeholder": "Search",
-                  "target": "_self"
+                  "target": "_self",
+                  "filter": ""
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Quick Link Item",
+          "id": "quick-link-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Quick Link Item",
+                  "model": "quick-link-item",
+                  "key-value": true
                 }
               }
             }
