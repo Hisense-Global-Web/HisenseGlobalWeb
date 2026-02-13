@@ -2244,9 +2244,9 @@
       },
       {
         "component": "richtext",
-        "name": "title",
+        "name": "text",
         "value": "",
-        "label": "Title",
+        "label": "Text Content",
         "valueType": "string"
       },
       {
@@ -3125,12 +3125,11 @@
         "name": "label-tag",
         "valueType": "string",
         "value": "matrix-label",
-        "hidden": true,
-        "readOnly": true
+        "hidden": true
       },
       {
         "component": "text",
-        "name": "matrix-label",
+        "name": "matrix_label",
         "label": "Label",
         "valueType": "string"
       },
@@ -3140,12 +3139,11 @@
         "name": "value-tag",
         "valueType": "string",
         "value": "matrix-value",
-        "hidden": true,
-        "readOnly": true
+        "hidden": true
       },
       {
         "component": "text",
-        "name": "matrix-value",
+        "name": "matrix_value",
         "label": "Value",
         "valueType": "string"
       }
