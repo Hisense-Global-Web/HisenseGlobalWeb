@@ -14,7 +14,7 @@
               "search-link": "/search",
               "placeholder": "Search",
               "target": "_self",
-              "filter": ""
+              "filter": "search-box"
             }
           }
         }
