@@ -14,6 +14,10 @@ main .section.social-media-list-container .social-media-list-wrapper {
     font-weight: var(--fontweight-medium);
     color: var(--color-hisense-black);
     line-height: 1.2;
+    
+    @media (width < 860px) {
+      width: 100%;
+    }
   }
   
   .social-media-list {
@@ -30,13 +34,20 @@ main .section.social-media-list-container .social-media-list-wrapper {
     .social-media-list-item {
       cursor: pointer;
       
-      .social-media-list-item-img img {
-        width: var(--size-34);
-        height: var(--size-34);
-
+      .social-media-list-item-img {
         @media (width < 860px) {
           width: var(--size-24);
           height: var(--size-24);
+        }
+        
+        img {
+          width: var(--size-34);
+          height: var(--size-34);
+
+          @media (width < 860px) {
+            width: var(--size-24);
+            height: var(--size-24);
+          }
         }
       }
       
