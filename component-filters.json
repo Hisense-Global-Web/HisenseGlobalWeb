@@ -74,7 +74,9 @@
       "text",
       "title",
       "video",
-      "videoinfo"
+      "videoinfo",
+      "sustainability-dashboard-achievement",
+      "sustainability-dashboard-achievement-matrix"
     ]
   },
   {
@@ -298,6 +300,12 @@
     "id": "social-media-list",
     "components": [
       "social-media-list-item"
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-achievement",
+    "components": [
+      "sustainability-dashboard-achievement-matrix"
     ]
   },
   {

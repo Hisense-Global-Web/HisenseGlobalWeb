@@ -3117,6 +3117,99 @@
     ]
   },
   {
+    "id": "sustainability-dashboard-achievement",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Image Position",
+        "valueType": "string",
+        "value": "img-left",
+        "options": [
+          {
+            "name": "Image Position Left",
+            "value": "img-left"
+          },
+          {
+            "name": "Image Position Right",
+            "value": "img-right"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "select",
+        "name": "classes_backgroundColor",
+        "label": "Text Area Background Color",
+        "valueType": "string",
+        "value": "white-background",
+        "options": [
+          {
+            "name": "white-background(Default)",
+            "value": "white-background"
+          },
+          {
+            "name": "grey-background",
+            "value": "grey-background"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subtitle",
+        "label": "SubTitle"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text"
+      },
+      {
+        "component": "aem-cta",
+        "name": "btn-cta",
+        "label": "Button",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "btn-ctaLabel",
+        "label": "Button",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-achievement-matrix",
+    "fields": [
+      {
+        "component": "text",
+        "name": "matrix_label",
+        "label": "Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "matrix_value",
+        "label": "Value",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "sustainability-dashboard-list",
     "fields": []
   },

@@ -1,0 +1,4 @@
+.sustainability-dashboard-achievement {
+  width: 100%;
+  height: calc(480/var(--breakpoint-pc)*100vw);
+}

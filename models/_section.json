@@ -301,7 +301,9 @@
         "text",
         "title",
         "video",
-        "videoinfo"
+        "videoinfo",
+        "sustainability-dashboard-achievement",
+        "sustainability-dashboard-achievement-matrix"
       ]
     }
   ]
