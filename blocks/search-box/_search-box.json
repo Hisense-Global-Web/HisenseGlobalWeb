@@ -14,7 +14,7 @@
               "search-link": "/search",
               "placeholder": "Search",
               "target": "_self",
-              "filter": "search-box-filter"
+              "filter": "search-box"
             }
           }
         }
@@ -92,7 +92,7 @@
   ],
   "filters": [
     {
-      "id": "search-box-filter",
+      "id": "search-box",
       "components": [
         "search-box-quick-link-item"
       ]

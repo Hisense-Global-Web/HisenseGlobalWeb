@@ -1820,7 +1820,7 @@
                   "search-link": "/search",
                   "placeholder": "Search",
                   "target": "_self",
-                  "filter": "search-box-filter"
+                  "filter": "search-box"
                 }
               }
             }

@@ -354,7 +354,7 @@
     ]
   },
   {
-    "id": "search-box-filter",
+    "id": "search-box",
     "components": [
       "search-box-quick-link-item"
     ]
