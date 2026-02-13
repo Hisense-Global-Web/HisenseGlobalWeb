@@ -21,7 +21,19 @@ export default async function decorate(block) {
 
   if (!endpoint || !sku) return;
 
-  const url = `${endpoint}`;
+  /**
+   * Get GraphQL endpoint URL with base URL
+   */
+  function getGraphQLUrl(endpointPath) {
+    const baseUrl = window.GRAPHQL_BASE_URL || '';
+    // 如果 endpointPath 已经是完整 URL，直接返回
+    if (endpointPath && (endpointPath.startsWith('http://') || endpointPath.startsWith('https://'))) {
+      return endpointPath;
+    }
+    return baseUrl ? `${baseUrl}${endpointPath}` : endpointPath;
+  }
+
+  const url = getGraphQLUrl(endpoint);
 
   /**
    * 将新的 GraphQL 返回结构转换为可用的产品数组格式

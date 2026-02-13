@@ -1,5 +1,16 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
+
+/**
+ * Get tags endpoint URL with GraphQL base URL
+ */
+function getTagsEndpointUrl(customPath) {
+  const baseUrl = window.GRAPHQL_BASE_URL || '';
+  const path = customPath || DEFAULT_TAGS_ENDPOINT;
+  return baseUrl ? `${baseUrl}${path}` : path;
+}
+
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
 
@@ -12,8 +23,8 @@ export default function decorate(block) {
     const text = row.textContent && row.textContent.trim();
     return text && text.includes(',') && text.split(',').map((s) => s.trim()).includes('tagsEndpoint');
   });
-  const tagsEndpoint = tagsEndpointRow ? rows[tagsEndpointRow + 1]?.textContent?.trim() || '/content/dam/hisense/us/tag-data/en/tag-data.json'
-    : '/content/dam/hisense/us/tag-data/en/tag-data.json';
+  const tagsEndpointPath = tagsEndpointRow ? rows[tagsEndpointRow + 1]?.textContent?.trim() || DEFAULT_TAGS_ENDPOINT
+    : DEFAULT_TAGS_ENDPOINT;
 
   const mockTags = {
     total: 1,
@@ -442,7 +453,7 @@ export default function decorate(block) {
     return tagsData;
   }
 
-  fetch(tagsEndpoint)
+  fetch(getTagsEndpointUrl(tagsEndpointPath))
     .then((resp) => {
       if (!resp.ok) throw new Error('Network response not ok');
       return resp.json();

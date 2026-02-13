@@ -1,4 +1,13 @@
-const TAG_DATA_URL = 'https://publish-p174152-e1909940.adobeaemcloud.com/content/cq:tags/hisense.-1.json';
+const DEFAULT_TAG_DATA_PATH = '/content/cq:tags/hisense.-1.json';
+
+/**
+ * Get tag data URL with GraphQL base URL
+ */
+function getTagDataUrl(customPath) {
+  const baseUrl = window.GRAPHQL_BASE_URL || '';
+  const path = customPath || DEFAULT_TAG_DATA_PATH;
+  return baseUrl ? `${baseUrl}${path}` : path;
+}
 
 /**
  * Transform tag data to handle new GraphQL format
@@ -29,9 +38,10 @@ function transformTagData(data) {
 /**
  * Fetch tag data from API
  */
-async function fetchTagData() {
+async function fetchTagData(tagPath) {
   try {
-    const response = await fetch(window.TAGS_DATA_URL || TAG_DATA_URL);
+    const url = getTagDataUrl(tagPath);
+    const response = await fetch(url);
     if (response.ok) {
       const data = await response.json();
       return transformTagData(data);
@@ -154,19 +164,15 @@ function readTagConfig(block) {
 export default async function decorate(block) {
   const config = readTagConfig(block);
 
-  // Store tags endpoint globally for fetchTagData function
-  if (config.tagsEndpoint) {
-    window.TAGS_DATA_URL = config.tagsEndpoint;
-  }
-
   const {
     title,
     tagPaths,
+    tagsEndpoint,
     link,
     target,
   } = config;
 
-  const tagData = await fetchTagData();
+  const tagData = await fetchTagData(tagsEndpoint);
 
   const container = document.createElement('div');
   container.className = 'tag-container';

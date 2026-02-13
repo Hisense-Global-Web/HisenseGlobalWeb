@@ -749,6 +749,18 @@ export default function decorate(block) {
   const mockData = {};
 
   /**
+   * Get GraphQL endpoint URL with base URL
+   */
+  function getGraphQLUrl(endpointPath) {
+    const baseUrl = window.GRAPHQL_BASE_URL || '';
+    // 如果 endpointPath 已经是完整 URL，直接返回
+    if (endpointPath && (endpointPath.startsWith('http://') || endpointPath.startsWith('https://'))) {
+      return endpointPath;
+    }
+    return baseUrl ? `${baseUrl}${endpointPath}` : endpointPath;
+  }
+
+  /**
    * 新的 GraphQL 返回结构转换为现有可用的结构
    */
   function transformTagStructureToProducts(tagData) {
@@ -769,7 +781,7 @@ export default function decorate(block) {
     return [];
   }
 
-  fetch(graphqlUrl)
+  fetch(getGraphQLUrl(graphqlUrl))
     .then((resp) => {
       if (!resp.ok) throw new Error('Network response not ok');
       return resp.json();
