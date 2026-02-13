@@ -3441,6 +3441,13 @@
         "multi": false
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tech_mobileImage",
+        "label": "Mobile Image",
+        "multi": false
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "info_title",
