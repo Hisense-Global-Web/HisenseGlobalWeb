@@ -1,23 +1,6 @@
 const TAG_DATA_URL = 'https://publish-p174152-e1909940.adobeaemcloud.com/content/cq:tags/hisense.-1.json';
 
 /**
- * Fetch tag data from API
- */
-async function fetchTagData() {
-  try {
-    const response = await fetch(window.TAGS_DATA_URL || TAG_DATA_URL);
-    if (response.ok) {
-      const data = await response.json();
-      return transformTagData(data);
-    }
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.warn('Failed to fetch tag data:', error);
-  }
-  return null;
-}
-
-/**
  * Transform tag data to handle new GraphQL format
  */
 function transformTagData(data) {
@@ -41,6 +24,23 @@ function transformTagData(data) {
 
   // Default fallback
   return data;
+}
+
+/**
+ * Fetch tag data from API
+ */
+async function fetchTagData() {
+  try {
+    const response = await fetch(window.TAGS_DATA_URL || TAG_DATA_URL);
+    if (response.ok) {
+      const data = await response.json();
+      return transformTagData(data);
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn('Failed to fetch tag data:', error);
+  }
+  return null;
 }
 
 /**
