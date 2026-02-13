@@ -3139,8 +3139,15 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
-        "label": "Image",
+        "name": "image_pc",
+        "label": "Image For PC",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image_mobile",
+        "label": "Image For Mobile",
         "multi": false
       },
       {
@@ -3198,9 +3205,27 @@
     "fields": [
       {
         "component": "text",
+        "label": "",
+        "name": "label-tag",
+        "valueType": "string",
+        "value": "matrix-label",
+        "hidden": true,
+        "readOnly": true
+      },
+      {
+        "component": "text",
         "name": "matrix-label",
         "label": "Label",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "label": "",
+        "name": "value-tag",
+        "valueType": "string",
+        "value": "matrix-value",
+        "hidden": true,
+        "readOnly": true
       },
       {
         "component": "text",
