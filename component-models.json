@@ -3284,6 +3284,15 @@
       {
         "component": "text",
         "label": "",
+        "name": "block-item",
+        "valueType": "string",
+        "value": "matrix-block-item",
+        "hidden": true,
+        "readOnly": true
+      },
+      {
+        "component": "text",
+        "label": "",
         "name": "label-tag",
         "valueType": "string",
         "value": "matrix-label",
