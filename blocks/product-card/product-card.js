@@ -748,13 +748,35 @@ export default function decorate(block) {
 
   const mockData = {};
 
+  /**
+   * 新的 GraphQL 返回结构转换为现有可用的结构
+   */
+  function transformTagStructureToProducts(tagData) {
+    if (!tagData) return [];
+
+    if (Array.isArray(tagData)) {
+      return tagData;
+    }
+
+    if (tagData.data && Array.isArray(tagData.data)) {
+      return tagData.data;
+    }
+
+    if (tagData.data && tagData.data.productModelList && Array.isArray(tagData.data.productModelList.items)) {
+      return tagData.data.productModelList.items;
+    }
+
+    return [];
+  }
+
   fetch(graphqlUrl)
     .then((resp) => {
       if (!resp.ok) throw new Error('Network response not ok');
       return resp.json();
     })
     .then((data) => {
-      const items = (data && data.data) || [];
+      // 转换新的标签结构为产品列表格式
+      const items = transformTagStructureToProducts(data);
       // 缓存到全局，供过滤器使用
       window.productData = items;
       if (window.renderPlpProducts) {
