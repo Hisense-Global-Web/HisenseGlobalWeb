@@ -16,6 +16,22 @@
           }
         }
       }
+    },
+    {
+      "title": "Sustainability Dashboard Achievement Matrix",
+      "id": "sustainability-dashboard-achievement-matrix",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Sustainability Dashboard Achievement Matrix",
+              "model": "sustainability-dashboard-achievement-matrix",
+              "key-value": true
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
@@ -92,6 +108,23 @@
           "component": "text",
           "name": "btn-ctaLabel",
           "label": "Button Label",
+          "valueType": "string"
+        }
+      ]
+    },
+    {
+      "id": "sustainability-dashboard-achievement-matrix",
+      "fields": [
+        {
+          "component": "text",
+          "name": "matrix-label",
+          "label": "Label",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "matrix-value",
+          "label": "Value",
           "valueType": "string"
         }
       ]
