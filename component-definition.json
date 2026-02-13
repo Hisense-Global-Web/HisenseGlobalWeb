@@ -78,6 +78,22 @@
       "id": "blocks",
       "components": [
         {
+          "title": "About Hisense Module Title",
+          "id": "about-hisense-module-title",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "About Hisense Module Title",
+                  "model": "about-hisense-module-title",
+                  "classes": "about-hisense-module-title"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "About Hisense Section Title",
           "id": "about-hisense-section-title",
           "plugins": {
@@ -738,6 +754,39 @@
           }
         },
         {
+          "title": "Feature Card Navigation",
+          "id": "feature-card-navigation",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Feature Card Navigation",
+                  "model": "feature-card-navigation",
+                  "filter": "feature-card-navigation"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Nav Card Items",
+          "id": "nav-card-items",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Nav Card Items",
+                  "model": "nav-card-items",
+                  "title_name": "This is the title",
+                  "description_name": "This is the description"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Feature Navigation",
           "id": "feature-navigation",
           "plugins": {
@@ -1204,6 +1253,40 @@
                 "template": {
                   "name": "Media Carousel Item",
                   "model": "media-carouselItem"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Media Contact Card",
+          "id": "media-contact-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Media Contact Card",
+                  "filter": "media-contact-card",
+                  "model": "media-contact-card",
+                  "key-value": true,
+                  "classes": "media-contact-card"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Media Contact Card Item",
+          "id": "media-contact-card-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Media Contact Card Item",
+                  "model": "media-contact-card-item",
+                  "classes": "media-contact-card-item"
                 }
               }
             }

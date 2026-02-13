@@ -31,6 +31,7 @@
       "enterprise-tech",
       "feature-banner",
       "feature-navigation",
+      "feature-card-navigation",
       "fragment",
       "global-presence",
       "globalization-timeline",
@@ -46,6 +47,7 @@
       "image-comparison-slider",
       "industry-categories",
       "media-carousel",
+      "media-contact-card",
       "minimalist-hero-banner",
       "module-title",
       "news-card-list",
@@ -87,7 +89,9 @@
       "industry-categories",
       "module-title",
       "card-grid",
-      "news-card-list"
+      "news-card-list",
+      "about-hisense-module-title",
+      "honors-awards"
     ]
   },
   {
@@ -195,6 +199,12 @@
     ]
   },
   {
+    "id": "feature-card-navigation",
+    "components": [
+      "nav-card-items"
+    ]
+  },
+  {
     "id": "feature-navigation",
     "components": [
       "feature-navigation-item"
@@ -272,6 +282,12 @@
     "id": "media-carousel",
     "components": [
       "media-carouselItem"
+    ]
+  },
+  {
+    "id": "media-contact-card",
+    "components": [
+      "media-contact-card-item"
     ]
   },
   {
