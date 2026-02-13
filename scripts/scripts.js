@@ -102,11 +102,6 @@ export function decorateMain(main) {
 
 /**
  * Get GraphQL API base URL based on current hostname
- * - author environment: empty string (same origin)
- * - publish environment: empty string (same origin)
- * - hisense-dev: https://publish-p174152-e1909940.adobeaemcloud.com/
- * - hisense-stage: https://publish-p174152-e1855674.adobeaemcloud.com/
- * - hisense.com or hisenseglobalweb: https://publish-p174152-e1855954.adobeaemcloud.com/
  */
 function getGraphQLBaseUrl() {
   const { hostname } = window.location;
