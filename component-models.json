@@ -3139,15 +3139,8 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image_pc",
-        "label": "Image For PC",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image_mobile",
-        "label": "Image For Mobile",
+        "name": "image",
+        "label": "Image",
         "multi": false
       },
       {
@@ -3221,7 +3214,7 @@
       {
         "component": "text",
         "label": "",
-        "name": "value-tag",
+        "name": "label-value",
         "valueType": "string",
         "value": "matrix-value",
         "hidden": true,

@@ -54,6 +54,7 @@
 
 .related-news {
   position: relative;
+
   * {
     padding: 0;
     margin: 0;
@@ -88,6 +89,7 @@
           width: 100%;
           height: calc(234/var(--breakpoint-pc)*100vw);
           flex-shrink: 0;
+
           /* aspect-ratio: 176/117; */
 
           img {
