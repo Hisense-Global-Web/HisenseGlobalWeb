@@ -1,4 +1,111 @@
 .sustainability-dashboard-achievement {
   width: 100%;
-  height: calc(480/var(--breakpoint-pc)*100vw);
+  height: min(calc(480/var(--breakpoint-pc)*100vw), 480px);
+  display: flex;
+  gap: var(--size-48);
+  border-radius: var(--size-20);
+
+  &.white-background {
+    background: var(--color-primary-grey-10, #FFF);
+  }
+
+  &.grey-background {
+    background: var(--color-primary-grey-20, #F7F7F7);
+  }
+
+  &.img-left {
+    flex-direction: row;
+  }
+
+  &.img-right {
+    flex-direction: row-reverse;
+  }
+
+  .image {
+    flex: 1;
+
+    img {
+      object-fit: cover;
+    }
+  }
+  .text-content {
+    flex: 1;
+    display: flex;
+    height: 100%;
+    padding: var(--size-48) var(--size-48) var(--size-48) 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--size-32);
+    justify-content: space-between;
+
+    .text-area {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--size-32);
+      flex: 1 0 0;
+      align-self: stretch;
+
+      .title-area {
+        width: calc(488/var(--breakpoint-pc)*100vw);
+
+        .title {
+          color: var(--color-primary-green-60, #008482);
+          font-size: var(--size-body2, 14px);
+          font-weight: var(--fontweight-medium);
+          line-height: 150%; /* 21px */
+          margin-bottom: var(--size-8);
+        }
+        .subtitle {
+          color: var(--color-hisense-black, #000);
+          font-size: var(--size-30);
+          font-weight: var(--fontweight-medium);
+          line-height: 120%; /* 36px */
+          margin-bottom: var(--size-16);
+        }
+
+        .text {
+          color: var(--color-primary-grey-70, #333);
+font-size: var(--fontsize-body1, 16px);
+font-weight: var(--fontweight-book);
+line-height: 150%; /* 24px */
+        }
+      }
+
+      .matrix-block-items {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: var(--size-32);
+
+        .matrix-block-item {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0;
+
+          .matrix-label {
+            color: var(--color-primary-grey-70, #333);
+            font-size: var(--fontsize-body2, 14px);
+            font-weight: var(--fontweight-book);
+            line-height: 150%; /* 21px */
+            text-transform: capitalize;
+          }
+
+          .matrix-value {
+            color: var(--color-primary-green-50, #009E9B);
+            font-size: var(--fontsize-title1, 24px);
+            font-weight: var(--fontweight-medium);
+            line-height: 133.333%; /* 133.333% */
+          }
+        }
+
+        .line {
+          width: 1px;
+          height: var(--size-48);
+          background-color: var(--color-primary-grey-40);
+        }
+      }
+    }
+  }
 }

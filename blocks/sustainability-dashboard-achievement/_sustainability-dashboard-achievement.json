@@ -98,16 +98,15 @@
           "label": "Text"
         },
         {
-          "component": "aem-content",
-          "name": "btn-cta",
-          "label": "Button",
-          "valueType":"string",
-          "description": "Tips: Enter a popup sectionId associated with this if you need popup."
+          "component": "text",
+          "name": "btn-label",
+          "label": "Button Label",
+          "valueType": "string"
         },
         {
           "component": "text",
-          "name": "btn-ctaLabel",
-          "label": "Button Label",
+          "name": "btn-popup-id",
+          "label": "Popup SectionId",
           "valueType": "string"
         }
       ]
