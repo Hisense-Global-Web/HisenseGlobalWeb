@@ -3,7 +3,6 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: var(--size-24);
   
   * {
     margin: 0;
@@ -11,8 +10,8 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
     box-sizing: border-box;
   }
 
-  .share-title {
-    margin: var(--size-24) 0;
+  .media-contact-card-title {
+    margin-bottom: var(--size-24);
     width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
     font-size: var(--fontsize-title2);
     font-weight: var(--fontweight-medium);
@@ -29,6 +28,11 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
     display: flex;
     gap: var(--size-16);
     color: var(--color-primary-grey-70);
+
+
+    @media (width < 860px) {
+      width: 100%;
+    }
 
     .media-contact-card-item {
       width: 100%;
