@@ -23,6 +23,27 @@ export default async function decorate(block) {
 
   const url = `${endpoint}`;
 
+  /**
+   * 将新的 GraphQL 返回结构转换为可用的产品数组格式
+   */
+  function transformTagStructureToProducts(tagData) {
+    if (!tagData) return [];
+
+    if (Array.isArray(tagData)) {
+      return tagData;
+    }
+
+    if (tagData.data && Array.isArray(tagData.data)) {
+      return tagData.data;
+    }
+
+    if (tagData.data && tagData.data.productModelList && Array.isArray(tagData.data.productModelList.items)) {
+      return tagData.data.productModelList.items;
+    }
+
+    return [];
+  }
+
   let json = null;
   try {
     const resp = await fetch(url);
@@ -3159,13 +3180,8 @@ export default async function decorate(block) {
   }
 
   let items = null;
-  if (json && json.data) {
-    if (json.data.productModelList && json.data.productModelList.items) {
-      items = json.data.productModelList.items;
-    } else if (Array.isArray(json.data)) {
-      items = json.data;
-    }
-  }
+  // 使用统一的数据转换函数处理 GraphQL 返回的各种格式
+  items = transformTagStructureToProducts(json);
 
   // 根据SKU找到对应的产品
   const currentProduct = items ? items.find((item) => item.sku === sku) : null;

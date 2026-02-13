@@ -1,20 +1,48 @@
-const TAG_DATA_URL = '/content/dam/hisense/us/tag-data/en/tag-data.json';
+const TAG_DATA_URL = 'https://publish-p174152-e1909940.adobeaemcloud.com/content/cq:tags/hisense.-1.json';
 
 /**
  * Fetch tag data from API
  */
 async function fetchTagData() {
   try {
-    const response = await fetch(TAG_DATA_URL);
+    const response = await fetch(window.TAGS_DATA_URL || TAG_DATA_URL);
     if (response.ok) {
       const data = await response.json();
-      return data;
+      return transformTagData(data);
     }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.warn('Failed to fetch tag data:', error);
   }
   return null;
+}
+
+/**
+ * Transform tag data to handle new GraphQL format
+ */
+function transformTagData(data) {
+  if (!data) return null;
+
+  if (data.tags) {
+    return data.tags;
+  }
+
+  if (data.data && Array.isArray(data.data)) {
+    return data.data[0] || data;
+  }
+
+  const topLevelKeys = Object.keys(data).filter((key) =>
+    !key.startsWith('jcr:') &&
+    key !== 'sling:resourceType' &&
+    key !== 'jcr:primaryType'
+  );
+
+  if (topLevelKeys.length > 0) {
+    return data;
+  }
+
+  // Default fallback
+  return data;
 }
 
 /**
@@ -44,12 +72,35 @@ function readTagConfig(block) {
   const rows = [...block.children];
   const config = {
     title: '',
-    tagPaths: [], // Store full tag paths for API lookup
+    tagPaths: [], 
+    tagsEndpoint: '/content/dam/hisense/us/tag-data/en/tag-data.json', // New: tags endpoint URL
     link: '',
     target: '_self',
   };
 
-  // Check if first row has 2 columns (author mode with key-value)
+  if (rows[0]?.children.length === 2) {
+    rows.forEach((row) => {
+      if (row.children.length === 2) {
+        const key = row.children[0].textContent.trim().toLowerCase();
+        const valueCell = row.children[1];
+
+        if (key === 'tagsendpoint') {
+          config.tagsEndpoint = valueCell.textContent.trim();
+        }
+      }
+    });
+
+  // Store tags for API lookup
+  if (rows[1]) {
+      const text = rows[1].textContent.trim();
+      if (text && text.includes(',') && text.includes(',')) {
+        config.tagPaths = text.split(',').map((s) => s.trim()).filter(Boolean);
+      }
+    }
+
+  return config;
+}
+
   if (rows[0]?.children.length === 2) {
     // Author mode: read key-value pairs
     rows.forEach((row) => {
@@ -104,8 +155,17 @@ function readTagConfig(block) {
 
 export default async function decorate(block) {
   const config = readTagConfig(block);
+
+  // Store tags endpoint globally for fetchTagData function
+  if (config.tagsEndpoint) {
+    window.TAGS_DATA_URL = config.tagsEndpoint;
+  }
+
   const {
-    title, tagPaths, link, target,
+    title,
+    tagPaths,
+    link,
+    target,
   } = config;
 
   const tagData = await fetchTagData();

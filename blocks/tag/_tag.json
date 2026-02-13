@@ -43,6 +43,12 @@
           "valueType": "string"
         },
         {
+          "component": "text",
+          "name": "tagsEndpoint",
+          "label": "Tags Endpoint URL",
+          "description": "GraphQL endpoint for tag data"
+        },
+        {
           "component": "select",
           "name": "target",
           "label": "Target",
