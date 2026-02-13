@@ -1,3 +1,9 @@
+@import url('../../styles/reset-rich-text.css');
+
+.enterprise-tech-wrapper {
+  width: 100%;
+}
+
 .enterprise-tech {
   background: transparent;
 
@@ -5,7 +11,7 @@
     margin: 0;
   }
 
-  .mobile-image-box {
+  .mobile-image-box, .mobile-arrow {
     display: none;
   }
 
@@ -25,7 +31,7 @@
 
         img {
           width: 100%;
-          height: 100%;
+          height: auto;
         }
       }
     }
@@ -47,10 +53,40 @@
 
     .description-box {
       margin-top: var(--size-16);
-      font-size: var(--size-14);
-      font-weight: var(--fontweight-book);
-      color: var(--color-primary-grey-50);
-      line-height: var(--size-21);
+      
+      h1, h2, h3, h4, h5, h6, p, ul li, ol li {
+        margin: 0;
+        font-size: var(--size-14);
+        font-weight: var(--fontweight-book);
+        color: var(--color-primary-grey-50);
+        line-height: var(--size-21);
+      }
+
+      /* h1, h2, h3, h4, h5, h6, p {
+        padding-left: var(--size-12);
+      }
+
+      h1::before, h2::before, h3::before, h4::before, h5::before, h6::before, p::before {
+        display: inline-block;
+        width: var(--size-5);
+        height: var(--size-5);
+        content: '';
+        background-color: var(--color-primary-grey-50);
+        border-radius: 50%;
+        margin-right: var(--size-12);
+        position: relative;
+        top: max(calc(-2 / var(--breakpoint-pc) * 100vw), -2px);
+      } */
+
+      ul, ol {
+        padding-left: var(--size-12);
+        margin-left: var(--size-12);
+
+        li {
+          padding: 0;
+          list-style: disc;
+        }
+      }
     }
   }
 }
@@ -84,21 +120,24 @@
         .mobile-tit-wrapper {
           position: relative;
 
-          .title-box {
+          .mobile-tit-box {
             position: absolute;
-            bottom: var(--size-12);
-            left: var(--size-24);
-            z-index: 6;
+            padding: var(--size-12) var(--size-24);
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .title-box {
             font-size: var(--size-24);
             color: var(--color-primary-grey-10);
             line-height: calc(28.8 / var(--breakpoint-mobile) * 100vw);
+            width: calc(220 / var(--breakpoint-mobile) * 100vw);
           }
 
           .mobile-arrow {
-            position: absolute;
-            right: var(--size-24);
-            bottom: var(--size-12);
-            z-index: 6;
             width: var(--size-36);
             height: var(--size-30);
             display: flex;

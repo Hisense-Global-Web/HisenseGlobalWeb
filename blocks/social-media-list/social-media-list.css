@@ -3,7 +3,18 @@
 main .section.social-media-list-container .social-media-list-wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin-top: var(--size-24);
+  
+  .share-title {
+    margin: var(--size-24) 0;
+    width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+    font-size: var(--fontsize-title2);
+    font-weight: var(--fontweight-medium);
+    color: var(--color-hisense-black);
+    line-height: 1.2;
+  }
   
   .social-media-list {
     width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
@@ -11,12 +22,22 @@ main .section.social-media-list-container .social-media-list-wrapper {
     gap: var(--size-16);
     color: var(--color-primary-grey-70);
 
+    @media (width < 860px) {
+      width: 100%;
+      gap: var(--size-8);
+    }
+
     .social-media-list-item {
       cursor: pointer;
       
       .social-media-list-item-img img {
         width: var(--size-34);
         height: var(--size-34);
+
+        @media (width < 860px) {
+          width: var(--size-24);
+          height: var(--size-24);
+        }
       }
       
       .social-media-list-item-link {

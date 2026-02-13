@@ -389,6 +389,90 @@
     ]
   },
   {
+    "id": "about-hisense-module-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "subtitle",
+        "label": "Sub Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "value": "Content",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "about-hisense-section-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "subtitle",
+        "label": "Sub Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "value": "Content",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "text-body-image",
     "classes": "text-body-image",
     "fields": [
@@ -980,7 +1064,8 @@
         "component": "text",
         "name": "item_title",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "value": ""
       },
       {
         "component": "text",
@@ -1139,7 +1224,8 @@
         "component": "text",
         "name": "desc_title",
         "label": "Image Title",
-        "valueType": "string"
+        "valueType": "string",
+        "value": ""
       },
       {
         "component": "text",
@@ -1344,12 +1430,25 @@
     ]
   },
   {
-    "id": "feature-navigation",
+    "id": "nav-card-items",
     "fields": [
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon_url",
+        "label": "Feature Icon",
+        "multi": false
+      },
+      {
         "component": "text",
-        "name": "title",
-        "label": "Title",
+        "name": "title_name",
+        "label": "Feature Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description_name",
+        "label": "Feature Description",
         "valueType": "string"
       }
     ]
@@ -1374,6 +1473,18 @@
         "component": "text",
         "name": "text_content",
         "label": "Content",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "cta_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cta_ctaPrimaryText",
+        "label": "Primary CTA Label",
         "valueType": "string"
       }
     ]
@@ -2092,30 +2203,6 @@
     ]
   },
   {
-    "id": "industry-categories",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title_title",
-        "label": "Title",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "title_subtitle",
-        "label": "Sub Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "title_content",
-        "label": "Content",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "industry-categories-item",
     "fields": [
       {
@@ -2255,6 +2342,47 @@
         "name": "img",
         "label": "Img Snapshot For Video",
         "multi": false
+      }
+    ]
+  },
+  {
+    "id": "media-contact-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "media-contact-card-item",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "list",
+        "value": "list",
+        "label": "List",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button-text",
+        "label": "Button Text",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "button-link",
+        "label": "Button Link",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "button-description",
+        "label": "Button Description",
+        "required": true
       }
     ]
   },
@@ -2535,49 +2663,6 @@
         "component": "richtext",
         "name": "sub_text",
         "label": "Description",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "partnerships-section-title",
-    "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "label": "Card options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default Style",
-            "value": "default-style"
-          },
-          {
-            "name": "Center Style",
-            "value": "center-style"
-          }
-        ]
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "value": "title",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "headline",
-        "value": "Headline",
-        "label": "Headline",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "bodycopy",
-        "value": "Bodycopy",
-        "label": "Bodycopy",
         "valueType": "string"
       }
     ]

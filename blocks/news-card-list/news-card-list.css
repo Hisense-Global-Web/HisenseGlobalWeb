@@ -166,29 +166,5 @@
         }
       }
     }
-    
-    .releases-no-pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--size-16);
-      margin-top: var(--size-48);
-
-      .page-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: var(--size-48);
-        padding: 0 var(--size-32);
-        border-radius: var(--size-100);
-        border: 1px solid var(--color-primary-grey-70);
-        background-color: transparent;
-        color: var(--color-hisense-black);
-        font-size: var(--fontsize-body2);
-        line-height: 1.5;
-        font-weight: var(--fontweight-medium);
-        cursor: pointer;
-      }
-    }
   }
 }

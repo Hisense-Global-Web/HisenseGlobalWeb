@@ -83,15 +83,6 @@ function filterItemsByUrlParams(items) {
         item.keywords,
         item.path,
       ];
-
-      // 如果 value 包含 "-"，同时匹配原值和空格替换
-      if (value.includes('-')) {
-        const originalValue = value;
-        const spaceValue = value.replace(/-/g, ' ');
-        return searchableFields.some((field) => lowerIncludes(field, originalValue)
-          || lowerIncludes(field, spaceValue));
-      }
-
       return searchableFields.some((field) => lowerIncludes(field, value));
     }
     // 其他参数：精确匹配对应字段
@@ -414,7 +405,6 @@ export default async function decorate(block) {
   btn.classList.add('page-button');
   btn.textContent = paginatedBtnText;
   noPaginationEl.appendChild(btn);
-  console.log(shouldPaginated, paginatedBtnText);
   if (shouldPaginated === 'false') {
     container.appendChild(noPaginationEl);
   } else {

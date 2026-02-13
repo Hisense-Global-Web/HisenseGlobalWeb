@@ -250,7 +250,7 @@ async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
-  transHorizontalSection('.honors-awards-list-wrapper');
+  transHorizontalSection('.honors-awards-wrapper');
 
   // Update US site links after page load is complete
   if (document.readyState === 'complete') {
