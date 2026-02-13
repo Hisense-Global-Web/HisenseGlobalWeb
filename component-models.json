@@ -3294,22 +3294,6 @@
         "valueType": "string",
         "name": "placeholder",
         "label": "Placeholder Text"
-      },
-      {
-        "component": "select",
-        "valueType": "string",
-        "name": "target",
-        "label": "Open In",
-        "options": [
-          {
-            "name": "Same Window",
-            "value": "_self"
-          },
-          {
-            "name": "New Tab",
-            "value": "_blank"
-          }
-        ]
       }
     ]
   },
