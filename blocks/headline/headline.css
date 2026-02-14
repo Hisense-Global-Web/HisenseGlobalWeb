@@ -14,6 +14,11 @@
       margin-bottom: var(--size-48);
       color: var(--color-hisense-black);
       line-height: 1.2;
+      
+      @media (width < 860px) {
+        font-size: var(--size-30);
+        margin-bottom: var(--size-24);
+      }
     }
 
     /* 卡片整体 */
@@ -25,6 +30,12 @@
       border-radius: var(--radius-lg);
       height: 480px;
       overflow: hidden;
+      
+      @media (width < 860px) {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: var(--size-32);
+      }
 
       > * {
         flex: 1;
@@ -45,6 +56,10 @@
         flex-direction: column;
         justify-content: space-between;
         padding: var(--size-48) var(--size-48) var(--size-48) 0;
+        
+        @media (width < 860px) {
+          padding: 0 var(--size-24) var(--size-48);
+        }
 
         .featured-eyebrow {
           text-transform: uppercase;
@@ -53,6 +68,12 @@
           font-weight: var(--fontweight-medium);
           margin-bottom: var(--size-8);
           line-height: 1.5;
+          
+          @media (width < 860px) {
+            margin-bottom: var(--size-4);
+            font-size: var(--size-16);
+            line-height: 1.3;
+          }
         }
 
         .featured-subtitle {
@@ -60,14 +81,25 @@
           font-weight: var(--fontweight-medium);
           line-height: 1.3;
           margin-bottom: var(--size-20);
+          
+          @media (width < 860px) {
+            font-size: var(--size-24);
+            line-height: 1.2;
+          }
         }
 
         .featured-text {
           font-size: var(--size-16);
           line-height: 1.5;
           color: var(--color-primary-grey-70);
-          flex: 1;
+
+          /* flex: 1; */
           margin-bottom: var(--size-24);
+          
+          @media (width < 860px) {
+            font-size: var(--size-14);
+            margin-bottom: var(--size-32);
+          }
         }
 
         .featured-meta-group {
@@ -97,7 +129,11 @@
           display: flex;
           align-items: center;
           gap: var(--size-16);
-          margin-top: var(--size-32);
+          margin-top: auto;
+          
+          @media (width < 860px) {
+            margin-top: var(--size-32);
+          }
 
           .text-btn {
             height: var(--size-50);
@@ -131,22 +167,5 @@
         }
       }
     }
-  }
-}
-
-/* 响应式设计 */
-@media (width < 860px) {
-  .headline .featured-container .featured-card {
-    grid-template-columns: 1fr;
-    height: auto;
-    min-height: 480px;
-  }
-
-  .headline .featured-container .featured-card .featured-image {
-    height: 300px;
-  }
-
-  .headline .featured-container .featured-card .featured-content {
-    padding: var(--size-24);
   }
 }
