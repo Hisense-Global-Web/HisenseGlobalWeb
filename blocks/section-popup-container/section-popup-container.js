@@ -18,6 +18,7 @@ export default function decorate(block) {
         } else {
           column.parentElement.closest('.section-popup-container-container').classList.remove('popup-show');
         }
+        column.firstElementChild.remove();
       }
     });
   });
