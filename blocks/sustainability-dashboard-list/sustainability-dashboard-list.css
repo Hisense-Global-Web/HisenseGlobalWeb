@@ -4,7 +4,7 @@
   gap: var(--size-32);
   width: 100%;
   height: auto;
-  min-height: calc(152/var(--breakpoint-pc)*100vw);
+  min-height: calc(104/var(--breakpoint-pc)*100vw);
 
   p {
     margin: 0;
