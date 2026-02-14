@@ -111,7 +111,7 @@
   background-size: 100% auto;  
   background-position: center;
   transform: translateY(-2px);
-  
+
    @media (width < 860px) {
       width: var(--size-8);
       height: var(--size-8);
@@ -120,8 +120,6 @@
       background-position: center;
   }
 }
-
-
 
 .feature-navigation  > ul > li .card-image {
   width: var(--size-80);
