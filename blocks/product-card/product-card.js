@@ -749,15 +749,41 @@ export default function decorate(block) {
   const mockData = {};
 
   /**
+   * 简单哈希，用于生成缓存破坏参数
+   */
+  function simpleHash(str) {
+    const s = String(str);
+    let h = 0;
+    for (let i = 0; i < s.length; i += 1) {
+      h = ((h << 5) - h) + s.charCodeAt(i);
+      h |= 0;
+    }
+    return (h >>> 0).toString(36);
+  }
+
+  /**
    * Get GraphQL endpoint URL with base URL
    */
   function getGraphQLUrl(endpointPath) {
-    const baseUrl = window.GRAPHQL_BASE_URL || '';
-    // 如果 endpointPath 已经是完整 URL，直接返回
-    if (endpointPath && (endpointPath.startsWith('http://') || endpointPath.startsWith('https://'))) {
-      return endpointPath;
+    let path = endpointPath;
+    const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) ? window.location.hostname : '';
+    const isAemEnv = hostname.includes('author') || hostname.includes('publish');
+
+    if (isAemEnv && path && path.endsWith('.json')) {
+      const pathWithoutJson = path.replace(/\.json$/, '');
+      path = `/graphql/execute.json/global/GetProductByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
     }
-    return baseUrl ? `${baseUrl}${endpointPath}` : endpointPath;
+
+    const baseUrl = window.GRAPHQL_BASE_URL || '';
+    let url;
+    if (path && (path.startsWith('http://') || path.startsWith('https://'))) {
+      url = path;
+    } else {
+      url = baseUrl ? `${baseUrl}${path}` : path;
+    }
+    const cacheBuster = simpleHash(Math.floor(Date.now() / 5));
+    const sep = url.indexOf('?') >= 0 ? '&' : '?';
+    return `${url}${sep}_t=${cacheBuster}`;
   }
 
   /**
