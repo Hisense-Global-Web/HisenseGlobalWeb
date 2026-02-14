@@ -405,6 +405,14 @@ export default async function decorate(block) {
   const paginationEl = document.createElement('div');
   paginationEl.className = 'releases-pagination';
 
+  const mobilePaginationEl = document.createElement('div');
+  mobilePaginationEl.className = 'releases-pagination-mobile';
+  const mobileBtn = document.createElement('button');
+  mobileBtn.type = 'button';
+  mobileBtn.classList.add('page-button');
+  mobileBtn.textContent = 'Discover more';
+  mobilePaginationEl.appendChild(mobileBtn);
+
   const noPaginationEl = document.createElement('div');
   noPaginationEl.className = 'releases-no-pagination';
   const btn = document.createElement('button');
@@ -415,7 +423,7 @@ export default async function decorate(block) {
   if (shouldPaginated === 'false') {
     container.appendChild(noPaginationEl);
   } else {
-    container.appendChild(paginationEl);
+    container.append(paginationEl, mobilePaginationEl);
   }
 
   // Ensure the editor can still find this block
