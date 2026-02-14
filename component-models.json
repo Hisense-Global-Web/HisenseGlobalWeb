@@ -2457,7 +2457,7 @@
       },
       {
         "component": "select",
-        "name": "classes",
+        "name": "text-align-type",
         "value": "text-align-left",
         "label": "Module title align type",
         "valueType": "string",
