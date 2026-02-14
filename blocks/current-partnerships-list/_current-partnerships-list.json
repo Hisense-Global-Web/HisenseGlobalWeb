@@ -56,14 +56,15 @@
           "multi": false
         },
          {
-          "component": "richtext",
-          "name": "title",
+          "component": "text",
+          "name": "desc_title",
           "label": "Image Title",
-          "valueType": "string"
+          "valueType": "string",
+          "value": ""
         },
          {
-          "component": "richtext",
-          "name": "text",
+          "component": "text",
+          "name": "desc_text",
           "label": "Image Text",
           "valueType": "string"
         }

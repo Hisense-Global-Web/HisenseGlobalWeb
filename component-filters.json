@@ -12,26 +12,48 @@
     "id": "section",
     "components": [
       "article-body",
+      "article-body-list",
+      "article-title",
       "button",
       "card-carousel",
+      "card-grid",
       "category-carousel",
       "collection-banner",
       "collection-cards",
       "collection-title",
       "columns",
+      "core-value-card",
+      "corprate-governance-cards",
+      "cross-page-redirect",
+      "current-partnerships-list",
       "disclaimer",
+      "download",
+      "enterprise-tech",
       "feature-banner",
+      "feature-navigation",
+      "feature-card-navigation",
       "fragment",
+      "global-presence",
+      "globalization-timeline",
       "gradient-text-image",
       "header",
+      "headline",
       "hero",
       "hero-banner",
+      "hero-presence",
+      "honors-awards",
       "icon-container",
       "image",
       "image-comparison-slider",
+      "industry-categories",
       "media-carousel",
+      "media-contact-card",
       "minimalist-hero-banner",
+      "module-title",
+      "news-card-list",
       "parallax",
+      "partnerships-section-title",
+      "past-partnerships-list",
       "product-card",
       "product-filter",
       "product-filters-carousel",
@@ -40,19 +62,35 @@
       "product-sorting",
       "product-spec",
       "properties",
+      "quick-link",
+      "resource-list",
+      "related-news",
+      "search-box",
       "slide",
+      "social-media-list",
       "sub-menu-link",
       "strategic-card-items",
+      "tech-evolution-timeline",
+      "tech-information",
       "text",
       "title",
       "video",
       "videoinfo",
+      "sustainability-dashboard-achievement",
+      "sustainability-dashboard-list",
+      "stats-grid",
       "tech-information",
       "core-value-card",
       "past-partnerships-list",
-      "partnerships-section-title",
+      "about-hisense-section-title",
       "current-partnerships-list",
-      "industry-categories"
+      "industry-categories",
+      "module-title",
+      "card-grid",
+      "news-card-list",
+      "about-hisense-module-title",
+      "honors-awards",
+      "bi-directional-content"
     ]
   },
   {
@@ -66,9 +104,27 @@
     ]
   },
   {
+    "id": "article-body-list",
+    "components": [
+      "article-body-list-item"
+    ]
+  },
+  {
+    "id": "bi-directional-content",
+    "components": [
+      "bi-directional-content-item"
+    ]
+  },
+  {
     "id": "card-carousel",
     "components": [
       "card-carouselItem"
+    ]
+  },
+  {
+    "id": "card-grid",
+    "components": [
+      "feature-items"
     ]
   },
   {
@@ -112,9 +168,39 @@
     ]
   },
   {
+    "id": "corprate-governance-cards",
+    "components": [
+      "cards-container-item"
+    ]
+  },
+  {
     "id": "current-partnerships-list",
     "components": [
       "current-partnerships-list-item"
+    ]
+  },
+  {
+    "id": "download",
+    "components": [
+      "download-item"
+    ]
+  },
+  {
+    "id": "enterprise-tech",
+    "components": [
+      "enterprise-card-item"
+    ]
+  },
+  {
+    "id": "feature-card-navigation",
+    "components": [
+      "nav-card-items"
+    ]
+  },
+  {
+    "id": "feature-navigation",
+    "components": [
+      "feature-navigation-item"
     ]
   },
   {
@@ -144,15 +230,27 @@
     ]
   },
   {
+    "id": "global-presence",
+    "components": [
+      "stats-strip"
+    ]
+  },
+  {
+    "id": "globalization-timeline",
+    "components": [
+      "phase-bar"
+    ]
+  },
+  {
     "id": "hero-banner",
     "components": [
       "hero-bannerItem"
     ]
   },
   {
-    "id": "honors-awards-cards",
+    "id": "honors-awards",
     "components": [
-      "honors-awards-card"
+      "honors-awards-item"
     ]
   },
   {
@@ -171,6 +269,12 @@
     "id": "media-carousel",
     "components": [
       "media-carouselItem"
+    ]
+  },
+  {
+    "id": "media-contact-card",
+    "components": [
+      "media-contact-card-item"
     ]
   },
   {
@@ -213,9 +317,52 @@
     ]
   },
   {
+    "id": "quick-link",
+    "components": [
+      "quick-link-item"
+    ]
+  },
+  {
+    "id": "resource-list",
+    "components": [
+      "resource-list-item"
+    ]
+  },
+  {
+    "id": "social-media-list",
+    "components": [
+      "social-media-list-item"
+    ]
+  },
+  {
+    "id": "stats-grid",
+    "components": [
+      "sustainability-dashboard-achievement-matrix"
+    ]
+  },
+  {
     "id": "strategic-card-items",
     "components": [
       "strategic-card-item"
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-achievement",
+    "components": [
+      "sustainability-dashboard-achievement-matrix"
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-list",
+    "components": [
+      "sustainability-dashboard-list-item"
+    ]
+  },
+  {
+    "id": "tech-evolution-timeline",
+    "components": [
+      "timeline-nodes-item",
+      "tech-card-item"
     ]
   },
   {

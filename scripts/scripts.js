@@ -146,7 +146,7 @@ async function loadLazy(doc) {
 function loadDelayedImages() {
   const currentHostname = window.location.hostname;
 
-  if (currentHostname.includes('hisensesitestage') || currentHostname.includes('hisensesitedev') || currentHostname.includes('localhost')) {
+  if (currentHostname.includes('hisense-stage') || currentHostname.includes('hisense-dev') || currentHostname.includes('localhost')) {
     const domainPrefix = 'https://publish-p174152-e1855821.adobeaemcloud.com';
 
     const processImage = (img) => {
@@ -227,10 +227,30 @@ function updateUSLinks() {
   }
 }
 
+function transHorizontalSection(className) {
+  const bElements = document.querySelectorAll(className);
+
+  if (bElements.length > 0) {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('horizontal-section');
+    bElements.forEach((el) => {
+      wrapper.appendChild(el.cloneNode(true));
+    });
+
+    // 用 wrapper 替换所有 .b 元素
+    bElements[0].replaceWith(wrapper);
+
+    // 删除剩余的 .b 元素
+    for (let i = 1; i < bElements.length; i += 1) {
+      bElements[i].remove();
+    }
+  }
+}
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
+  transHorizontalSection('.honors-awards-wrapper');
 
   // Update US site links after page load is complete
   if (document.readyState === 'complete') {

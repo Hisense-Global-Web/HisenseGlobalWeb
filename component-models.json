@@ -11,6 +11,12 @@
       {
         "component": "text",
         "valueType": "string",
+        "name": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
         "name": "jcr:description",
         "label": "Description"
       },
@@ -20,6 +26,44 @@
         "name": "keywords",
         "multi": true,
         "label": "Keywords"
+      },
+      {
+        "component": "date-time",
+        "valueType": "date",
+        "name": "date",
+        "label": "Date"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "location",
+        "label": "Location"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "author",
+        "label": "Author"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "thumbnail",
+        "label": "Thumbnail",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta-text",
+        "label": "CTA Text"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "cq:tags",
+        "label": "Tags",
+        "rootPath": "/content/cq:tags/hisense"
       }
     ]
   },
@@ -167,12 +211,20 @@
             "value": "grey"
           },
           {
-            "name": "Gray 00",
-            "value": "gray-00"
+            "name": "Gray 90",
+            "value": "gray-90"
           },
           {
             "name": "Gradient Gray",
             "value": "gradient-gray"
+          },
+          {
+            "name": "Soft Green(green-10)",
+            "value": "soft-green"
+          },
+          {
+            "name": "Green",
+            "value": "green"
           }
         ]
       },
@@ -190,6 +242,13 @@
             "value": "fluid"
           }
         ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "section-background",
+        "label": "Section Background Image",
+        "multi": false
       },
       {
         "component": "container",
@@ -221,6 +280,38 @@
               {
                 "name": "Extra Large (120px)",
                 "value": "pt-xl"
+              }
+            ]
+          },
+          {
+            "component": "select",
+            "name": "style_gap",
+            "label": "Gap",
+            "description": "Select a gap option when you need to add spacing between multiple blocks within this section.",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Small (pc-24px mobile-16px)",
+                "value": "gap-s"
+              },
+              {
+                "name": "Mid (pc-32px mobile-24px)",
+                "value": "gap-m"
+              },
+              {
+                "name": "Medium (pc-48px mobile-32px)",
+                "value": "gap-md"
+              },
+              {
+                "name": "Large (pc-80px mobile-48px)",
+                "value": "gap-l"
+              },
+              {
+                "name": "Extra Large (pc-120px mobile-80px)",
+                "value": "gap-xl"
               }
             ]
           },
@@ -294,6 +385,65 @@
             ]
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "about-hisense-module-title",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "Sub Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "about-hisense-section-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "subtitle",
+        "label": "Sub Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "value": "Content",
+        "label": "Content",
+        "valueType": "string"
       }
     ]
   },
@@ -428,6 +578,98 @@
     ]
   },
   {
+    "id": "article-body-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "list_title",
+        "label": "List Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "item_headline",
+        "label": "Item Headline",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "article-title",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title-content",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "name": "subtitle-content",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "date-time",
+        "name": "article-date",
+        "label": "Date(Mm Dd.Yyyy)",
+        "placeholder": "MM/DD/YYYY",
+        "displayFormat": "MM/DD/YYYY",
+        "valueFormat": "YYYY-MM-DD",
+        "valueType": "date"
+      },
+      {
+        "component": "text",
+        "name": "article-location",
+        "label": "Location",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "bi-directional-content",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title_content",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "bi-directional-content-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_content",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "card-carousel",
     "fields": [
       {
@@ -503,6 +745,64 @@
             "value": "label text"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "card-grid",
+    "fields": []
+  },
+  {
+    "id": "feature-items",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "feature-img",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "subtitle_type",
+        "valueType": "string",
+        "value": "item-subtitle",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "subtitle_name",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title_type",
+        "valueType": "string",
+        "value": "item-title",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "title_name",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_type",
+        "valueType": "string",
+        "value": "item-text",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "text_name",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
@@ -759,7 +1059,7 @@
         "multi": false
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "subtitle",
         "label": "Sub Title",
         "valueType": "string"
@@ -780,13 +1080,137 @@
         "component": "text",
         "name": "item_title",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "value": ""
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "item_text",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "corprate-governance-cards",
+    "fields": []
+  },
+  {
+    "id": "cards-container-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "svg",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "container",
+        "label": "",
+        "name": "container_cta",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "aem-content",
+            "name": "cta_link",
+            "label": "CTA",
+            "valueType": "string",
+            "value": "/"
+          },
+          {
+            "component": "text",
+            "name": "cta_Label",
+            "label": "CTA Label",
+            "valueType": "string",
+            "value": "label text"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cross-page-redirect",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes_bgcolor",
+        "value": "gray-20",
+        "label": "Background Color Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Gray 20(default)",
+            "value": "gray-20"
+          },
+          {
+            "name": "Green 60",
+            "value": "green-60"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "headline",
+        "label": "Title",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "bodycopy",
+        "label": "Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "link_classes",
+        "value": "transparent",
+        "label": "Button Background Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "transparent",
+            "value": "transparent"
+          },
+          {
+            "name": "white",
+            "value": "white"
+          },
+          {
+            "name": "black",
+            "value": "black"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "name": "link_url",
+        "label": "Link",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "link_text",
+        "label": "Link Label",
+        "valueType": "string",
+        "value": ""
       }
     ]
   },
@@ -813,14 +1237,15 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "title",
+        "component": "text",
+        "name": "desc_title",
         "label": "Image Title",
-        "valueType": "string"
+        "valueType": "string",
+        "value": ""
       },
       {
-        "component": "richtext",
-        "name": "text",
+        "component": "text",
+        "name": "desc_text",
         "label": "Image Text",
         "valueType": "string"
       }
@@ -835,6 +1260,163 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "download",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button-to-download",
+        "label": "Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "download-all-link",
+        "label": "Download All Link",
+        "description": "Link for downloading all resources (optional)",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "total-size-text",
+        "label": "Total Size Text",
+        "description": "Text label for total file size",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "download-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "description": "Upload image (default placeholder will be used if not set)",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "image-name",
+        "label": "Image Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-px",
+        "label": "Image Size",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-dpi",
+        "label": "Image DPI",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "image-size",
+        "label": "File Size",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "download-icon",
+        "label": "Download Icon",
+        "description": "Custom download icon (default icon will be used if not set)",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "download-link",
+        "label": "Download Link",
+        "description": "Link to the downloadable file",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "enterprise-tech",
+    "fields": []
+  },
+  {
+    "id": "enterprise-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "pc_url",
+        "label": "Card Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile_Url",
+        "label": "Card Mobile Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title_name",
+        "label": "Tech Category Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle_name",
+        "label": "Tech Subtitle",
+        "valueType": "string"
+      },
+      {
+        "id": "richtext",
+        "component": "richtext",
+        "name": "rte_description",
+        "label": "Tech Description",
+        "valueType": "string",
+        "rte": {
+          "toolbar": {
+            "format": [],
+            "alignment": [
+              "left",
+              "center",
+              "right",
+              "justify"
+            ],
+            "direction": [],
+            "indentation": [],
+            "blocks": [
+              "paragraph"
+            ],
+            "list": [
+              "bullet_list",
+              "ordered_list"
+            ],
+            "insert": [],
+            "sr_script": [],
+            "editor": [
+              "removeformat"
+            ],
+            "sections": []
+          }
+        }
       }
     ]
   },
@@ -860,12 +1442,66 @@
         "name": "feature-banner_text",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "nav-card-items",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon_url",
+        "label": "Feature Icon",
+        "multi": false
       },
       {
         "component": "text",
+        "name": "title_name",
+        "label": "Feature Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description_name",
+        "label": "Feature Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "feature-navigation-item",
+    "fields": [
+      {
+        "component": "reference",
         "valueType": "string",
-        "name": "feature-banner_tips",
-        "label": "Feature banner tips"
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_content",
+        "label": "Content",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "cta_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cta_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string"
       }
     ]
   },
@@ -985,6 +1621,124 @@
     ]
   },
   {
+    "id": "global-presence",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "container_background",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "container_title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "container_desc",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "stats-strip",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "stats_number",
+        "label": "Number",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "stats_text",
+        "label": "Label Text",
+        "value": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "globalization-timeline",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "container_overline",
+        "label": "Overline",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "container_title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "container_image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "phase-bar",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_time",
+        "label": "Phase Time",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_label",
+        "label": "Phase Label",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_desc",
+        "label": "Phase Description",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "phase_image",
+        "label": "Phase Image",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "gradient-text-image",
     "fields": [
       {
@@ -1031,6 +1785,80 @@
         "label": "Text",
         "valueType": "string",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "headline",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "section-title",
+        "label": "Section Title",
+        "placeholder": "Featured"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "date",
+        "label": "Date"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "location",
+        "label": "Location"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "author",
+        "label": "Author"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta-text",
+        "label": "CTA Text"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "cta-link",
+        "label": "CTA Link"
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "has-download",
+        "label": "Has Download",
+        "value": false
       }
     ]
   },
@@ -1224,40 +2052,45 @@
     ]
   },
   {
-    "id": "honors-awards-cards",
+    "id": "hero-presence",
     "fields": [
       {
-        "component": "select",
-        "name": "classes",
-        "label": "Card options",
-        "description": "",
+        "component": "aem-content",
+        "valueType": "",
+        "name": "hero_video",
+        "label": "Video",
+        "multi": false
+      },
+      {
+        "component": "reference",
         "valueType": "string",
-        "options": [
-          {
-            "name": "Cover Style",
-            "value": "cover-style"
-          },
-          {
-            "name": "Cover Style Width Dark Font",
-            "value": "cover-dark"
-          },
-          {
-            "name": "Center Style",
-            "value": "center-style"
-          }
-        ]
+        "name": "hero_image",
+        "label": "Cover Image for Video",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Overlay Image",
+        "multi": false
       }
     ]
   },
   {
-    "id": "honors-awards-card",
+    "id": "honors-awards",
     "fields": [
       {
-        "component": "richtext",
+        "component": "text",
         "name": "title",
         "label": "Title",
         "valueType": "string"
-      },
+      }
+    ]
+  },
+  {
+    "id": "honors-awards-item",
+    "fields": [
       {
         "component": "reference",
         "valueType": "string",
@@ -1266,15 +2099,15 @@
         "multi": false
       },
       {
-        "component": "aem-content",
-        "name": "honors-awards-card_ctaPrimary",
-        "label": "Primary CTA",
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "honors-awards-card_ctaPrimaryText",
-        "label": "Primary CTA Label",
+        "name": "text_content",
+        "label": "Content",
         "valueType": "string"
       }
     ]
@@ -1296,11 +2129,11 @@
             "value": "large-icon"
           },
           {
-            "name": "Top Space",
+            "name": "Margin-top",
             "value": "top-space"
           },
           {
-            "name": "Bottom Space",
+            "name": "Margin-bottom",
             "value": "bottom-space"
           },
           {
@@ -1312,11 +2145,11 @@
             "value": "small-icon"
           },
           {
-            "name": "Icon Overlay_Left",
+            "name": "Icon-Overlay_left",
             "value": "customize-feature-banner"
           },
           {
-            "name": "Icon Overlay_Bottom",
+            "name": "Icon-Overlay_bottom",
             "value": "customize-bottom"
           }
         ]
@@ -1386,32 +2219,14 @@
     ]
   },
   {
-    "id": "industry-categories",
+    "id": "industry-categories-item",
     "fields": [
       {
         "component": "text",
-        "valueType": "string",
         "name": "title",
         "label": "Title",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "subtitle",
-        "label": "Sub Title",
         "valueType": "string"
       },
-      {
-        "component": "richtext",
-        "name": "desc",
-        "label": "Description",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "industry-categories-item",
-    "fields": [
       {
         "component": "reference",
         "valueType": "string",
@@ -1420,11 +2235,35 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "text",
-        "label": "Text",
+        "component": "text",
+        "name": "text_first",
+        "label": "First Text",
         "valueType": "string",
-        "value": "split with ,"
+        "value": "first"
+      },
+      {
+        "component": "text",
+        "name": "text_second",
+        "label": "Second Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_third",
+        "label": "Third Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_fourth",
+        "label": "Fourth Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_fifth",
+        "label": "Fifth Text",
+        "valueType": "string"
       }
     ]
   },
@@ -1439,6 +2278,10 @@
         "description": "",
         "valueType": "string",
         "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
           {
             "name": "overlay_text-left",
             "value": "left-style"
@@ -1504,9 +2347,9 @@
       },
       {
         "component": "richtext",
-        "name": "title",
+        "name": "text",
         "value": "",
-        "label": "Title",
+        "label": "Text Content",
         "valueType": "string"
       },
       {
@@ -1515,6 +2358,47 @@
         "name": "img",
         "label": "Img Snapshot For Video",
         "multi": false
+      }
+    ]
+  },
+  {
+    "id": "media-contact-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "media-contact-card-item",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "list",
+        "value": "list",
+        "label": "List",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button-text",
+        "label": "Button Text",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "button-link",
+        "label": "Button Link",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "button-description",
+        "label": "Button Description",
+        "required": true
       }
     ]
   },
@@ -1560,6 +2444,46 @@
             "value": "white-font"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "module-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "color-black",
+        "label": "Module title classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "font-color-white",
+            "value": "color-white"
+          },
+          {
+            "name": "font-color-black",
+            "value": "color-black"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title-content",
+        "label": "Eyebrow Headline"
+      },
+      {
+        "component": "text",
+        "name": "subtitle-content",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text-content",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
@@ -1684,6 +2608,51 @@
     ]
   },
   {
+    "id": "news-card-list",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Section Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many news cards to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "empty-text",
+        "label": "Empty Result Text",
+        "description": "Text to show when no news items match the current filters.",
+        "valueType": "string"
+      },
+      {
+        "component": "boolean",
+        "name": "should-paginated",
+        "label": "Do you need paginated?",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "label": "button",
+        "name": "paginated-btn-text",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "should-paginated"
+            },
+            false
+          ]
+        }
+      }
+    ]
+  },
+  {
     "id": "parallax",
     "fields": [
       {
@@ -1715,32 +2684,6 @@
     ]
   },
   {
-    "id": "partnerships-section-title",
-    "fields": [
-      {
-        "component": "richtext",
-        "name": "title",
-        "value": "title",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "subtitle",
-        "value": "sub title",
-        "label": "Sub Title",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "text",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "past-partnerships-list",
     "fields": [
       {
@@ -1763,7 +2706,7 @@
         "multi": false
       },
       {
-        "component": "richtext",
+        "component": "text",
         "name": "text",
         "label": "Image Text",
         "valueType": "string"
@@ -2012,6 +2955,157 @@
     "fields": []
   },
   {
+    "id": "quick-link",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "quick-link-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "target",
+        "label": "Open In",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Same Window",
+            "value": "_self"
+          },
+          {
+            "name": "New Tab",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "related-news",
+    "fields": [
+      {
+        "component": "text",
+        "name": "keywords",
+        "label": "Keywords",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "resource-list",
+    "fields": []
+  },
+  {
+    "id": "resource-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "download-asset",
+        "label": "Download Asset URL",
+        "description": "Enter the resource download link",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "icon",
+        "label": "Icon",
+        "description": "Optional custom icon (default folder icon will be used if not provided)",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "description": "Use H2-H6 headings to structure your content",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button-text",
+        "label": "Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button-link",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "card-type",
+        "label": "Card Type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Button To Download",
+            "value": "download"
+          },
+          {
+            "name": "Button To Contact",
+            "value": "contact"
+          },
+          {
+            "name": "Button To Subscribe",
+            "value": "subscribe"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "search-box",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "search-link",
+        "label": "Search Page Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "placeholder",
+        "label": "Placeholder Text"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "target",
+        "label": "Open In",
+        "options": [
+          {
+            "name": "Same Window",
+            "value": "_self"
+          },
+          {
+            "name": "New Tab",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "slide",
     "fields": [
       {
@@ -2054,6 +3148,40 @@
         "required": false
       }
     ]
+  },
+  {
+    "id": "social-media-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "social-media-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Social Icon",
+        "required": true,
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "slide",
+    "fields": []
   },
   {
     "id": "strategic-card-items",
@@ -2144,6 +3272,345 @@
     ]
   },
   {
+    "id": "sustainability-dashboard-achievement",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Image Position",
+        "valueType": "string",
+        "value": "img-left",
+        "options": [
+          {
+            "name": "Image Position Left",
+            "value": "img-left"
+          },
+          {
+            "name": "Image Position Right",
+            "value": "img-right"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "select",
+        "name": "classes_backgroundColor",
+        "label": "Text Area Background Color",
+        "valueType": "string",
+        "value": "white-background",
+        "options": [
+          {
+            "name": "white-background(Default)",
+            "value": "white-background"
+          },
+          {
+            "name": "grey-background",
+            "value": "grey-background"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subtitle",
+        "label": "SubTitle"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text"
+      },
+      {
+        "component": "text",
+        "name": "btn-label",
+        "label": "Button Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "btn-popup-id",
+        "label": "Popup SectionId",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-achievement-matrix",
+    "fields": [
+      {
+        "component": "text",
+        "label": "",
+        "name": "block-item",
+        "valueType": "string",
+        "value": "matrix-block-item",
+        "hidden": true,
+        "readOnly": true
+      },
+      {
+        "component": "text",
+        "label": "",
+        "name": "label-tag",
+        "valueType": "string",
+        "value": "matrix-label",
+        "hidden": true,
+        "readOnly": true
+      },
+      {
+        "component": "text",
+        "name": "matrix-label",
+        "label": "Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "label": "",
+        "name": "label-value",
+        "valueType": "string",
+        "value": "matrix-value",
+        "hidden": true,
+        "readOnly": true
+      },
+      {
+        "component": "text",
+        "name": "matrix-value",
+        "label": "Value",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-list",
+    "fields": []
+  },
+  {
+    "id": "sustainability-dashboard-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "value",
+        "value": "",
+        "label": "Value",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "tag",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "name": "tags",
+        "label": "Tags",
+        "valueType": "string",
+        "rootPath": "/content/cq:tags/hisense/download"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "target",
+        "label": "Target",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Same Window",
+            "value": "_self"
+          },
+          {
+            "name": "New Window",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tech-evolution-timeline",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Background Style",
+        "valueType": "string",
+        "value": "background-gradient",
+        "options": [
+          {
+            "name": "Gradient",
+            "value": "background-gradient"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "timeline-nodes-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "component-timeline",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "year_type",
+        "valueType": "string",
+        "value": "timeline-year",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "year_name",
+        "label": "Year",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title_type",
+        "valueType": "string",
+        "value": "timeline-title",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "title_name",
+        "label": "Milestone Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description_type",
+        "valueType": "string",
+        "value": "timeline-description",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "description_name",
+        "label": "Milestone Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "tech-card-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "component-tech-card",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "background_type",
+        "valueType": "string",
+        "value": "background-box",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "background_img",
+        "label": "Card Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "image_type",
+        "valueType": "string",
+        "value": "image-box",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image_url",
+        "label": "Card Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "category_style",
+        "valueType": "string",
+        "value": "category-title",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "category_title",
+        "label": "Tech Category Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description_type",
+        "valueType": "string",
+        "value": "description-style",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
+        "name": "description_name",
+        "label": "Tech Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "tech-information",
     "fields": [
       {
@@ -2151,7 +3618,7 @@
         "name": "classes",
         "label": "Image Position",
         "valueType": "string",
-        "value": "img-right",
+        "value": "img-left",
         "options": [
           {
             "name": "Image Position Left",
@@ -2168,6 +3635,13 @@
         "valueType": "string",
         "name": "tech_image",
         "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tech_mobileImage",
+        "label": "Mobile Image",
         "multi": false
       },
       {
@@ -2252,14 +3726,14 @@
         "component": "multiselect",
         "name": "classes",
         "value": [
-          ""
+          "text-align-center"
         ],
         "label": "Description Alignment Class Name Options",
         "valueType": "array",
         "options": [
           {
             "name": "Default",
-            "value": ""
+            "value": "text-align-center"
           },
           {
             "name": "text-align-left",

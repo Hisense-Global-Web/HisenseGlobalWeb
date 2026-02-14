@@ -1,0 +1,139 @@
+
+.honors-awards-wrapper {
+  width: 100%;
+  background: linear-gradient(rgb(243 224 196 / 10%) 0%, rgb(243 224 196 / 100%) 100%);
+  border-radius: var(--size-16);
+  height: auto;
+
+  @media (width < 860px) {
+    width: 65.6410vw;
+  }
+}
+
+.honors-awards-wrapper p{
+  margin: 0;
+  padding: 0;
+}
+
+.honors-awards{
+  width: 100%;
+  height: 100%;
+  padding: var(--size-48) var(--size-24);
+}
+
+.honors-awards .title{
+  font-size: var(--fontsize-pc-h4);
+  color:var(--color-primary-grey-90);
+  font-weight: var(--fontweight-medium);
+  font-family: var(--font-family);
+  text-align: center;
+  overflow-wrap: break-word;
+
+   @media (width < 860px) {
+    text-align: left;
+    font-size: var(--size-20);
+  }
+}
+
+
+.honors-awards .honors-awards-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-48);
+  margin-top: var(--size-48);
+
+  @media (width < 860px) {
+	  margin-top: var(--size-32);
+    gap: var(--size-24);
+	}
+}
+
+.honors-awards .honors-awards-content .card-item {
+   font-family: var(--font-family);
+   display: flex;
+   gap: var(--size-20);
+   
+   @media (width < 860px) {
+    gap: var(--size-12);
+    position: relative;
+    transition: transform 0.3s;
+    pointer-events: auto; /* 允许事件穿透到容器 */
+
+    /* -webkit-user-select: none; */
+    user-select: none;
+  }
+}
+
+
+.honors-awards .card-image {
+  width: var(--size-64);
+  aspect-ratio: 1 / 1 ;
+  object-fit: contain;
+  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
+
+  @media (width < 860px) {
+     width: var(--size-40);
+  }
+}
+
+.honors-awards .card-image img {
+  width: 100%;
+  height: 100%;
+}
+
+.honors-awards .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-8);
+}
+
+.honors-awards .card-body > div:first-child {
+  overflow-wrap: break-word;
+  font-size: var(--fontsize-title2);
+  color:var(--color-primary-grey-90);
+  font-weight: var(--fontweight-medium);
+  font-family: var(--font-family);
+
+  @media (width < 860px) {
+    font-size: var(--size-12);
+  }
+}
+
+.honors-awards .card-body > div:nth-child(2) {
+  overflow-wrap: break-word;
+  font-size: var(--fontsize-body1);
+  color:var(--color-primary-grey-60);
+  font-weight: var(--fontweight-book);
+  font-family: var(--font-family);
+
+  @media (width < 860px) {
+    font-size: var(--size-12);
+  }
+}
+
+/* ========== sextion show  horizontal========== */
+.horizontal-section {
+  gap: var(--spacing-sm);
+  list-style: none;
+  padding: 0;
+  display: grid;
+	grid-template-columns: repeat(3, 1fr);
+
+   @media (width < 860px) {
+	  overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
+    scroll-behavior: smooth; /* 平滑滚动 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
+    overscroll-behavior-x: contain; /* 防止滚动链 */
+    grid-auto-flow: column;
+    gap: var(--size-16);
+   }
+}
+
+
+
+
+

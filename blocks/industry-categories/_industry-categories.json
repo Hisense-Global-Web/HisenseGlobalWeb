@@ -34,33 +34,15 @@
     
   ],
   "models": [
-     {
-      "id": "industry-categories",
-      "fields": [
-       {
-          "component": "text",
-          "valueType": "string",
-          "name": "title",
-          "label": "Title",
-          "multi": false
-        },
-         {
-          "component": "richtext",
-          "name": "subtitle",
-          "label": "Sub Title",
-          "valueType": "string"
-        },
-        {
-          "component": "richtext",
-          "name": "desc",
-          "label": "Description",
-          "valueType": "string"
-        }
-      ]
-    },
     {
       "id": "industry-categories-item",
       "fields": [
+         {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
          {
           "component": "reference",
           "valueType": "string",
@@ -69,13 +51,38 @@
           "multi": false
         },
          {
-          "component": "richtext",
-          "name": "text",
-          "label": "Text",
+          "component": "text",
+          "name": "text_first",
+          "label": "First Text",
           "valueType": "string",
-          "value":"split with ,"
+          "value":"first"
+        },
+         {
+          "component": "text",
+          "name": "text_second",
+          "label": "Second Text",
+          "valueType": "string"
+          
+        },
+         {
+          "component": "text",
+          "name": "text_third",
+          "label": "Third Text",
+          "valueType": "string"
+        
+        },
+         {
+          "component": "text",
+          "name": "text_fourth",
+          "label": "Fourth Text",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "text_fifth",
+          "label": "Fifth Text",
+          "valueType": "string"
         }
-         
       ]
     }
   ],
