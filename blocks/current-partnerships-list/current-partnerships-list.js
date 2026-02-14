@@ -24,10 +24,10 @@ export default function decorate(block) {
           if (children.length > 0) {
             const tit = document.createElement('div');
             const desc = document.createElement('div');
-            tit.append(children[0]); // 移动第一个
+            tit.append(children[0]);
 
             if (children.length > 1) {
-              desc.append(children[children.length - 1]); // 移动最后一个
+              desc.append(children[children.length - 1]);
             }
             div.replaceChildren(tit, desc);
           }
