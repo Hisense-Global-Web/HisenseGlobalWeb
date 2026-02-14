@@ -271,14 +271,14 @@
           }
         },
         {
-          "title": "Bi-Directional Content Item",
+          "title": "Bi Directional Content Item",
           "id": "bi-directional-content-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Bi-Directional Content Item",
+                  "name": "Bi Directional Content Item",
                   "model": "bi-directional-content-item"
                 }
               }

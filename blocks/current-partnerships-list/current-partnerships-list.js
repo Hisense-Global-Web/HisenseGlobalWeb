@@ -22,8 +22,18 @@ export default function decorate(block) {
           div.className = 'card-body';
           const tit = document.createElement('div');
           const desc = document.createElement('div');
-          tit.append(div.firstElementChild);
-          desc.append(div.lastElementChild);
+          const { children } = div;
+
+          // 只有当存在时才移动元素
+          if (children.length > 0) {
+            tit.append(children[0]); // 移动第一个
+
+            if (children.length > 1) {
+              desc.append(children[children.length - 1]); // 移动最后一个
+            }
+          }
+
+          // 替换内容，确保不会传入null
           div.replaceChildren(tit, desc);
         }
       });

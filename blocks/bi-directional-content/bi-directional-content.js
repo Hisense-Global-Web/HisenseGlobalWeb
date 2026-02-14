@@ -12,13 +12,8 @@ export default function decorate(block) {
     while (row.firstElementChild) li.append(row.firstElementChild);
     [...li.children].forEach((div) => {
       if (div.querySelector('picture')) div.className = 'card-image';
-      else if (div.children.length > 1) {
+      else {
         div.className = 'card-body';
-        const tit = document.createElement('div');
-        const desc = document.createElement('div');
-        tit.append(div.firstElementChild);
-        desc.append(div.lastElementChild);
-        div.replaceChildren(tit, desc);
       }
     });
     const diver = document.createElement('div');
