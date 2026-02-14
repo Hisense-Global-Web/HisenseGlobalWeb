@@ -3,6 +3,7 @@
     "id": "main",
     "components": [
       "section",
+      "section-popup",
       "navigation",
       "company-page-navigation",
       "footerContainer"

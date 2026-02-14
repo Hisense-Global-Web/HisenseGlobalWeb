@@ -3,6 +3,7 @@
     "id": "main",
     "components": [
       "section",
+      "section-popup",
       "navigation",
       "company-page-navigation",
       "footerContainer"
@@ -64,7 +65,6 @@
       "properties",
       "quick-link",
       "search-box",
-      "section-popup",
       "slide",
       "social-media-list",
       "sub-menu-link",
