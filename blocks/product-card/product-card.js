@@ -748,17 +748,13 @@ export default function decorate(block) {
 
   const mockData = {};
 
-  /**
-   * 简单哈希，用于生成缓存破坏参数
-   */
   function simpleHash(str) {
     const s = String(str);
     let h = 0;
     for (let i = 0; i < s.length; i += 1) {
-      h = ((h << 5) - h) + s.charCodeAt(i);
-      h |= 0;
+      h = (h * 31 + s.charCodeAt(i)) % 2147483647;
     }
-    return (h >>> 0).toString(36);
+    return Math.abs(h).toString(36);
   }
 
   /**
