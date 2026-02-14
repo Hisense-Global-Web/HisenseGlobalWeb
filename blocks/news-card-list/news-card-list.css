@@ -24,10 +24,19 @@
         align-items: baseline;
         justify-content: space-between;
         
+        @media (width < 860px) {
+          flex-direction: column;
+          gap: var(--size-12);
+        }
+        
         .result-title {
           font-size: var(--fontsize-h3);
           font-weight: var(--fontweight-medium);
           line-height: 1.2;
+          
+          @media (width < 860px) {
+            font-size: var(--size-30);
+          }
           
           .search-value {
             color: var(--color-primary-green-50);
