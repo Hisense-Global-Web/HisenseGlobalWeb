@@ -13,6 +13,7 @@
   font-size: var(--fontsize-pc-h1, 46px);
   font-weight: var(--fontweight-medium, 500);
   line-height: 1.2;
+  text-transform: capitalize;
 
   @media (width<860px) {
     font-size: var(--size-30, 30px);
