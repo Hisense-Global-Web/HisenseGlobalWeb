@@ -345,6 +345,36 @@
                 "value": "pb-xl"
               }
             ]
+          },
+          {
+            "component": "select",
+            "name": "style_paddingLeft",
+            "label": "Padding Left",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Huge PC Only (160px)",
+                "value": "pl-xxl"
+              }
+            ]
+          },
+          {
+            "component": "select",
+            "name": "style_paddingRight",
+            "label": "Padding Right",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Huge PC Only (160px)",
+                "value": "pr-xxl"
+              }
+            ]
           }
         ]
       },

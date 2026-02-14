@@ -949,6 +949,14 @@ main {
 		padding-bottom: var(--size-120);
 	}
 
+  .section.pl-xxl {
+    padding-left: var(--size-160);
+  }
+
+  .section.pr-xxl {
+    padding-right: var(--size-160);
+  }
+
   /* section gap */
 
 	.section.gap-s {
