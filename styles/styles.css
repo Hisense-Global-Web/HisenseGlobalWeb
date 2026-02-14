@@ -950,7 +950,7 @@ main {
 	}
 
   .section.pl-4xl-pc {
-    padding-left: var(--size-320);
+    padding-left: min(calc(320/var(--breakpoint-pc)*100vw), 320px);
 
     @media (width<860px) {
       padding-left: 0;
@@ -958,7 +958,7 @@ main {
   }
 
   .section.pr-4xl-pc {
-    padding-right: var(--size-320);
+    padding-right: min(calc(320/var(--breakpoint-pc)*100vw), 320px);
 
     @media (width<860px) {
       padding-right: 0;
