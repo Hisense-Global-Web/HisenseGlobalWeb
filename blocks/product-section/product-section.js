@@ -21,7 +21,63 @@ export default async function decorate(block) {
 
   if (!endpoint || !sku) return;
 
-  const url = `${endpoint}`;
+  function simpleHash(str) {
+    const s = String(str);
+    let h = 0;
+    for (let i = 0; i < s.length; i += 1) {
+      h = (h * 31 + s.charCodeAt(i)) % 2147483647;
+    }
+    return Math.abs(h).toString(36);
+  }
+
+  /**
+   * Get GraphQL endpoint URL with base URL
+   */
+  function getGraphQLUrl(endpointPath) {
+    let path = endpointPath;
+    const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) ? window.location.hostname : '';
+    const isAemEnv = hostname.includes('author') || hostname.includes('publish');
+
+    if (isAemEnv && path && path.endsWith('.json')) {
+      const pathWithoutJson = path.replace(/\.json$/, '');
+      path = `/graphql/execute.json/global/GetProductByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
+    }
+
+    const baseUrl = window.GRAPHQL_BASE_URL || '';
+    let url;
+    if (path && (path.startsWith('http://') || path.startsWith('https://'))) {
+      url = path;
+    } else {
+      url = baseUrl ? `${baseUrl}${path}` : path;
+    }
+    const fiveMinutesMs = 5 * 60 * 1000;
+    const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
+    const sep = url.indexOf('?') >= 0 ? '&' : '?';
+    return `${url}${sep}_t=${cacheBuster}`;
+  }
+
+  const url = getGraphQLUrl(endpoint);
+
+  /**
+   * 将新的 GraphQL 返回结构转换为可用的产品数组格式
+   */
+  function transformTagStructureToProducts(tagData) {
+    if (!tagData) return [];
+
+    if (Array.isArray(tagData)) {
+      return tagData;
+    }
+
+    if (tagData.data && Array.isArray(tagData.data)) {
+      return tagData.data;
+    }
+
+    if (tagData.data && tagData.data.productModelList && Array.isArray(tagData.data.productModelList.items)) {
+      return tagData.data.productModelList.items;
+    }
+
+    return [];
+  }
 
   let json = null;
   try {
@@ -3159,13 +3215,8 @@ export default async function decorate(block) {
   }
 
   let items = null;
-  if (json && json.data) {
-    if (json.data.productModelList && json.data.productModelList.items) {
-      items = json.data.productModelList.items;
-    } else if (Array.isArray(json.data)) {
-      items = json.data;
-    }
-  }
+  // 使用统一的数据转换函数处理 GraphQL 返回的各种格式
+  items = transformTagStructureToProducts(json);
 
   // 根据SKU找到对应的产品
   const currentProduct = items ? items.find((item) => item.sku === sku) : null;
