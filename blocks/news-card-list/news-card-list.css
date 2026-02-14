@@ -12,6 +12,12 @@
       margin-bottom: var(--size-48);
       color: var(--color-hisense-black);
       line-height: 1.2;
+      
+      @media (width < 860px) {
+        font-size: var(--size-30);
+        font-weight: var(--fontweight-medium);
+        margin-bottom: var(--size-32);
+      }
 
       .search-value {
         color: var(--color-primary-green-50);
@@ -23,6 +29,10 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--size-32) var(--size-48);
+      
+      @media (width < 860px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
 
       .releases-card {
         display: flex;
@@ -31,6 +41,13 @@
         overflow: hidden;
         gap: var(--size-16);
         padding-bottom: var(--size-23);
+        
+        @media (width < 860px) {
+          flex-direction: row;
+          padding-bottom: var(--size-32);
+          border-bottom: 1px solid var(--color-primary-grey-40);
+          border-radius: inherit;
+        }
 
         /* 卡片图片区 */
         .releases-image{
@@ -42,6 +59,10 @@
             height: auto;
             object-fit: cover;
             display: block;
+            
+            @media (width < 860px) {
+              width: var(--size-120);
+            }
           }
         }
 
@@ -60,6 +81,12 @@
             color: var(--color-primary-green-50);
             font-weight: var(--fontweight-medium);
             margin-bottom: var(--size-4);
+            
+            @media (width < 860px) {
+              font-size: var(--size-12);
+              line-height: 1.4;
+              color: var(--color-primary-green-60);
+            }
           }
           
           .releases-subtitle {
@@ -68,6 +95,12 @@
             line-height: 1.2;
             margin-bottom: var(--size-20);
             color: var(--color-hisense-black);
+            
+            @media (width < 860px) {
+              font-size: var(--size-16);
+              line-height: 1.3;
+              margin-bottom: var(--size-18);
+            }
             
             &:hover {
               text-decoration: none;
@@ -80,6 +113,10 @@
             font-size: var(--size-14);
             color: var(--color-primary-grey-70);
             gap: var(--size-12);
+            
+            @media (width < 860px) {
+              flex-wrap: wrap;
+            }
 
             .meta-item {
               display: flex;
@@ -96,6 +133,10 @@
                 flex-shrink: 0;
                 display: block;
                 object-fit: contain;
+                
+                @media (width < 860px) {
+                  display: none;
+                }
               }
             }
             

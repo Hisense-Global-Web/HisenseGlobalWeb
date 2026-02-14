@@ -20,6 +20,8 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
 
     @media (width < 860px) {
       width: 100%;
+      font-size: var(--size-16);
+      line-height: 1.3;
     }
   }
 
