@@ -20,21 +20,17 @@ export default function decorate(block) {
         if (div.querySelector('picture')) div.className = 'card-image';
         else {
           div.className = 'card-body';
-          const tit = document.createElement('div');
-          const desc = document.createElement('div');
           const { children } = div;
-
-          // 只有当存在时才移动元素
           if (children.length > 0) {
+            const tit = document.createElement('div');
+            const desc = document.createElement('div');
             tit.append(children[0]); // 移动第一个
 
             if (children.length > 1) {
               desc.append(children[children.length - 1]); // 移动最后一个
             }
+            div.replaceChildren(tit, desc);
           }
-
-          // 替换内容，确保不会传入null
-          div.replaceChildren(tit, desc);
         }
       });
       ul.append(li);
