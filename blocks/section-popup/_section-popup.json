@@ -9,7 +9,8 @@
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
               "name": "Section Popup",
-              "model": "section-popup"
+              "model": "section-popup",
+              "filter": "section-popup"
             }
           }
         }
@@ -41,7 +42,7 @@
       "components": [
         "collection-banner",
         "enterprise-tech",
-        "moduel-title"
+        "module-title"
       ]
     }
   ]
