@@ -9,6 +9,10 @@
   padding: 16px 0;
   width: 100%;
   gap: var(--spacing-sm, 24px);
+
+  @media (width<860px) {
+    gap: var(--spacing-s, 18px);
+  }
 }
 
 .search-box .input-wrapper {
@@ -21,9 +25,20 @@
   width: 100%;
   height: var(--size-66, 66px);
   background: var(--color-white, #fff);
+
+  @media (width<860px) {
+    padding: 0 var(--spacing-sm, 24px);
+    height: var(--size-52, 52px);
+  }
 }
 
 .search-box .input-wrapper:focus-within {
+  @media (width>=860px) {
+    border: 2px solid var(--color-primary-green-50, #009f9c);
+  }
+}
+
+.search-box .popup-input-wrapper:focus-within {
   border: 2px solid var(--color-primary-green-50, #009f9c);
 }
 
@@ -48,6 +63,11 @@
   height: var(--size-24, 24px);
   line-height: 1.2;
   text-overflow: ellipsis;
+
+  @media (width<860px) {
+    font-size: var(--fontsize-body1, 16px);
+    line-height: 1.3;
+  }
 }
 
 .search-box .search-box-input::placeholder {
@@ -66,10 +86,6 @@
   cursor: pointer;
 }
 
-.search-box .search-box-clear:hover {
-  color: #333;
-}
-
 .search-box .search-box-clear.visible {
   display: flex;
 }
@@ -80,6 +96,10 @@
   align-items: center;
   flex-wrap: wrap;
   gap: var(--spacing-2xs, 12px);
+
+  @media (width<860px) {
+    justify-content: flex-start;
+  }
 }
 
 .search-box .quick-link {
@@ -93,4 +113,34 @@
   line-height: 1.5;
   color: var(--color-primary-grey-70, #333);
   padding: var(--spacing-3xs, 8px) var(--spacing-sm, 24px);
+
+  @media (width<860px) {
+    font-size: var(--fontsize-body2, 14px);
+    padding: var(--spacing-3xs, 8px) var(--spacing-s2, 20px);
+  }
+}
+
+.search-box .popup-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 60%);
+  z-index: 9999;
+  display: none;
+}
+
+.search-box .popup-wrapper.visible {
+  display: block;
+}
+
+.search-box .popup-search-wrapper {
+  padding: var(--spacing-xl, 48px) var(--spacing-s, 18px);
+  background-color: var(--color-primary-grey-10, #fff);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--spacing-s, 18px);
 }
