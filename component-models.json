@@ -2456,6 +2456,27 @@
         ]
       },
       {
+        "component": "select",
+        "name": "classes",
+        "value": "text-align-left",
+        "label": "Module title align type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "text-align-left",
+            "value": "text-align-left"
+          },
+          {
+            "name": "text-align-right",
+            "value": "text-align-right"
+          },
+          {
+            "name": "text-align-center",
+            "value": "text-align-center"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "title-content",
@@ -3084,7 +3105,15 @@
   },
   {
     "id": "section-popup-container",
-    "fields": []
+    "fields": [
+      {
+        "component": "boolean",
+        "name": "show_type",
+        "label": "Popup visibility?",
+        "valueType": "boolean",
+        "description": "Switch OFF: Popup Hide | Switch ON: Popup Show"
+      }
+    ]
   },
   {
     "id": "section-popup",
