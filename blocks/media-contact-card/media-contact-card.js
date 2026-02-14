@@ -42,7 +42,7 @@ export default async function decorate(block) {
 
   if (config.title) {
     const titleEl = document.createElement('div');
-    titleEl.classList.add('share-title');
+    titleEl.classList.add('media-contact-card-title');
     titleEl.innerHTML = config.title;
     block.parentNode.prepend(titleEl);
   }

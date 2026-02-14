@@ -298,6 +298,7 @@
         "slide",
         "social-media-list",
         "sub-menu-link",
+        "tech-evolution-timeline",
         "tech-information",
         "text",
         "title",
@@ -322,7 +323,8 @@
         "card-grid",
         "news-card-list",
         "about-hisense-module-title",
-        "honors-awards"
+        "honors-awards",
+        "bi-directional-content"
       ]
     }
   ]
