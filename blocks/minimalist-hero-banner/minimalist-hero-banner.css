@@ -62,7 +62,8 @@ p {
 		font-weight: var(--fontweight-medium);
 		width: 100%;
 		justify-content: center;
-
+		align-items: center;
+		
 		p:first-child {
 			font-size: var(--fontsize-pc-h1);
 			text-transform: capitalize;
