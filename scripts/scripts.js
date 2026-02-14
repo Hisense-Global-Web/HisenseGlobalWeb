@@ -193,7 +193,9 @@ function loadDelayedImages() {
   const currentHostname = window.location.hostname;
 
   if (currentHostname.includes('hisense-stage') || currentHostname.includes('hisense-dev') || currentHostname.includes('localhost')) {
-    const domainPrefix = 'https://publish-p174152-e1855821.adobeaemcloud.com';
+    const domainPrefix = currentHostname.includes('hisense-stage')
+      ? 'https://publish-p174152-e1855674.adobeaemcloud.com'
+      : 'https://publish-p174152-e1855821.adobeaemcloud.com';
 
     const processImage = (img) => {
       const src = img.getAttribute('src');
