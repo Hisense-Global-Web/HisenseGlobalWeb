@@ -1,12 +1,31 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
+
+/**
+ * Get tags endpoint URL with GraphQL base URL
+ */
+function getTagsEndpointUrl(customPath) {
+  const baseUrl = window.GRAPHQL_BASE_URL || '';
+  const path = customPath || DEFAULT_TAGS_ENDPOINT;
+  return baseUrl ? `${baseUrl}${path}` : path;
+}
+
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
 
   const rows = [...block.children];
   const fragment = document.createDocumentFragment();
   let tagCounter = 0;
-  const tagsEndpoint = '/content/dam/hisense/us/tag-data/en/tag-data.json';
+
+  // 从 block 配置中读取 tagsEndpoint，如果没有配置则使用默认值
+  const tagsEndpointRow = rows.find((row) => {
+    const text = row.textContent && row.textContent.trim();
+    return text && text.includes(',') && text.split(',').map((s) => s.trim()).includes('tagsEndpoint');
+  });
+  const tagsEndpointPath = tagsEndpointRow ? rows[tagsEndpointRow + 1]?.textContent?.trim() || DEFAULT_TAGS_ENDPOINT
+    : DEFAULT_TAGS_ENDPOINT;
+
   const mockTags = {
     total: 1,
     offset: 0,
@@ -402,18 +421,46 @@ export default function decorate(block) {
     }
   }
 
-  fetch(tagsEndpoint)
+  /**
+   * 将新的 GraphQL 返回结构转换为可用的标签数据格式
+   * 新的 GraphQL 返回格式直接在根层级包含标签树
+   */
+  function transformTagData(tagsData) {
+    if (!tagsData) return mockTags;
+
+    // 如果返回的已经是旧格式（包含 tags 属性），直接返回
+    if (tagsData.tags) {
+      return tagsData.tags;
+    }
+
+    // 检查是否是包含 data 数组的响应格式（旧兼容格式）
+    if (tagsData.data && Array.isArray(tagsData.data)) {
+      return tagsData.data[0] || tagsData;
+    }
+
+    // 新的 GraphQL 格式：根层级直接包含 product/tv 等标签树
+    // 检查是否有 product 或 tv 等顶层标签
+    const topLevelKeys = Object.keys(tagsData).filter((key) => !key.startsWith('jcr:')
+      && key !== 'sling:resourceType'
+      && key !== 'jcr:primaryType');
+
+    // 如果找到了标签层级，说明这是新的 GraphQL 格式
+    if (topLevelKeys.length > 0) {
+      return tagsData;
+    }
+
+    // 默认返回原数据（可能是其他兼容格式）
+    return tagsData;
+  }
+
+  fetch(getTagsEndpointUrl(tagsEndpointPath))
     .then((resp) => {
       if (!resp.ok) throw new Error('Network response not ok');
       return resp.json();
     })
     .then((data) => {
-      let tagsData = data;
-      if (data && data.tags) {
-        tagsData = data.tags;
-      } else if (data && data.data && Array.isArray(data.data)) {
-        tagsData = data.data[0] || data;
-      }
+      // 使用转换函数处理新的 JSON 格式
+      const tagsData = transformTagData(data);
       renderWithTitles(tagsData || mockTags);
     })
     .catch(() => {
