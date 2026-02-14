@@ -10,8 +10,7 @@
             "template": {
               "name": "Strategic Card Items",
               "model": "strategic-card-items",
-              "filter": "strategic-card-items",
-              "key-value": true
+              "filter": "strategic-card-items"
             }
           }
         }
@@ -58,18 +57,18 @@
           "valueType": "string"
         },
         {
-            "component": "aem-content",
-            "name": "btn_link",
-            "label": "Button",
-            "valueType": "string",
-            "value": ""
+          "component": "text",
+          "name": "btn_label",
+          "label": "Button Label",
+          "valueType": "string",
+          "value": ""
         },
         {
-            "component": "text",
-            "name": "btn_label",
-            "label": "Button Label",
-            "valueType": "string",
-            "value": ""
+          "component": "text",
+          "name": "btn_id",
+          "label": "PopupSectionId",
+          "valueType": "string",
+          "value": ""
         }
       ]
     }

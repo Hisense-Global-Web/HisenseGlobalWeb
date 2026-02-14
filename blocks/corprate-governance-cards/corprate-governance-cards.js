@@ -2,8 +2,9 @@ export default function decorate(block) {
   block.id = 'corprate-governance-cards';
   if (!block.firstElementChild.textContent.trim()) return;
   [...block.children].forEach((cardItem) => {
-    const [iconDiv, title, text, linkDiv] = cardItem.children;
     cardItem.classList.add('card-item');
+    if(!cardItem.children.length) return;
+    const [iconDiv, title, text, linkDiv] = cardItem.children;
     iconDiv?.classList.add('icon-div');
     const textContent = document.createElement('div');
     textContent.classList.add('text-content');

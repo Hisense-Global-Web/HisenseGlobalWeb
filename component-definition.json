@@ -1768,8 +1768,7 @@
                 "template": {
                   "name": "Strategic Card Items",
                   "model": "strategic-card-items",
-                  "filter": "strategic-card-items",
-                  "key-value": true
+                  "filter": "strategic-card-items"
                 }
               }
             }

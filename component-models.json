@@ -3206,16 +3206,16 @@
         "valueType": "string"
       },
       {
-        "component": "aem-content",
-        "name": "btn_link",
-        "label": "Button",
+        "component": "text",
+        "name": "btn_label",
+        "label": "Button Label",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "text",
-        "name": "btn_label",
-        "label": "Button Label",
+        "name": "btn_id",
+        "label": "PopupSectionId",
         "valueType": "string",
         "value": ""
       }
