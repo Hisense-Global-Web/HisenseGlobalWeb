@@ -59,6 +59,7 @@
     line-height: 1.2;
     font-style: normal;
     text-align: center;
+
     @media (width < 860px) {
       line-height: 1.3;
     }
