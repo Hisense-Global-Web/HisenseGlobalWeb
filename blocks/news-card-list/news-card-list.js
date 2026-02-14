@@ -193,6 +193,11 @@ function buildCard(item) {
     contentEl.appendChild(titleLink);
   }
 
+  // author
+  const authorEl = document.createElement('div');
+  authorEl.classList.add('author');
+  contentEl.append(authorEl);
+
   // Meta group
   const metaGroupEl = document.createElement('div');
   metaGroupEl.classList.add('releases-meta-group');
