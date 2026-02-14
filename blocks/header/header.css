@@ -174,9 +174,12 @@
       padding: 4px 0;
       font-size: 14px;
       font-weight: var(--fontweight-book);
-      border-bottom: 2px solid var(--color-hisense-black);
       text-transform: capitalize;
       cursor: pointer;
+      
+      &.current {
+        border-bottom: 2px solid var(--color-hisense-black);
+      }
       
       p {
         margin: 0;
