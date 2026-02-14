@@ -15,4 +15,11 @@ export default async function decorate(block) {
   //   popupContentDom.append(block.parentElement)
   // }
   popupContainerAddBlockUtils(block);
+
+  // module title text align type
+  const textAlignType = document.querySelector('.text-align-type p').innerHTML;
+  if (textAlignType) {
+    document.querySelector('.text-align-type').parentElement.classList.add(textAlignType);
+    document.querySelector('.text-align-type').remove();
+  }
 }

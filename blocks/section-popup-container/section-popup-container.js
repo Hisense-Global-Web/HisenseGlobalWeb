@@ -11,6 +11,13 @@ export default function decorate(block) {
     [...row.children].forEach((column, colIndex) => {
       if (colIndex === 1) {
         column.className = 'popup-content-container';
+        // popup visibility
+        const popupVisibility = column.firstElementChild.innerText;
+        if (popupVisibility === 'true') {
+          column.parentElement.closest('.section-popup-container-container').classList.add('popup-show');
+        } else {
+          column.parentElement.closest('.section-popup-container-container').classList.remove('popup-show');
+        }
       }
     });
   });
