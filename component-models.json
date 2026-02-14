@@ -3185,19 +3185,7 @@
   },
   {
     "id": "strategic-card-items",
-    "fields": [
-      {
-        "component": "number",
-        "valueType": "number",
-        "name": "columns",
-        "label": "Columns",
-        "required": true,
-        "validation": {
-          "numberMin": 1,
-          "numberMax": 5
-        }
-      }
-    ]
+    "fields": []
   },
   {
     "id": "strategic-card-item",
@@ -3219,14 +3207,14 @@
       },
       {
         "component": "aem-content",
-        "name": "button",
+        "name": "btn_link",
         "label": "Button",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "text",
-        "name": "button_label",
+        "name": "btn_label",
         "label": "Button Label",
         "valueType": "string",
         "value": ""

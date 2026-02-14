@@ -1769,8 +1769,7 @@
                   "name": "Strategic Card Items",
                   "model": "strategic-card-items",
                   "filter": "strategic-card-items",
-                  "key-value": true,
-                  "columns": 1
+                  "key-value": true
                 }
               }
             }

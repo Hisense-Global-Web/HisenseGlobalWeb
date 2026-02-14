@@ -11,8 +11,7 @@
               "name": "Strategic Card Items",
               "model": "strategic-card-items",
               "filter": "strategic-card-items",
-              "key-value": true,
-              "columns": 1
+              "key-value": true
             }
           }
         }
@@ -38,17 +37,6 @@
     {
       "id": "strategic-card-items",
       "fields": [
-        {
-            "component": "number",
-            "valueType": "number",
-            "name": "columns",
-            "label": "Columns",
-            "required": true,
-            "validation": {
-                "numberMin": 1,
-                "numberMax": 5
-            }
-        }
       ]
     },
     {
@@ -71,14 +59,14 @@
         },
         {
             "component": "aem-content",
-            "name": "button",
+            "name": "btn_link",
             "label": "Button",
             "valueType": "string",
             "value": ""
         },
         {
             "component": "text",
-            "name": "button_label",
+            "name": "btn_label",
             "label": "Button Label",
             "valueType": "string",
             "value": ""

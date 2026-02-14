@@ -1,0 +1,5 @@
+.strategic-card-items {
+  display: flex;
+  align-items: center;
+  gap: var(--size-24, 24px);
+}
