@@ -949,12 +949,20 @@ main {
 		padding-bottom: var(--size-120);
 	}
 
-  .section.pl-xxl {
-    padding-left: var(--size-160);
+  .section.pl-4xl-pc {
+    padding-left: var(--size-320);
+
+    @media (width<860px) {
+      padding-left: 0;
+    }
   }
 
-  .section.pr-xxl {
-    padding-right: var(--size-160);
+  .section.pr-4xl-pc {
+    padding-right: var(--size-320);
+
+    @media (width<860px) {
+      padding-right: 0;
+    }
   }
 
   /* section gap */

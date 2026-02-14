@@ -356,8 +356,8 @@
                 "value": ""
               },
               {
-                "name": "Huge PC Only (160px)",
-                "value": "pl-xxl"
+                "name": "Huge PC Only (320px)",
+                "value": "pl-4xl-pc"
               }
             ]
           },
@@ -371,8 +371,8 @@
                 "value": ""
               },
               {
-                "name": "Huge PC Only (160px)",
-                "value": "pr-xxl"
+                "name": "Huge PC Only (320px)",
+                "value": "pr-4xl-pc"
               }
             ]
           }
