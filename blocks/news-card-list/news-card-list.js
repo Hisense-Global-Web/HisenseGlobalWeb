@@ -394,7 +394,19 @@ export default async function decorate(block) {
 
   const sectionTitleEl = document.createElement('div');
   sectionTitleEl.className = 'section-title';
-  sectionTitleEl.textContent = titleText;
+
+  // 标准的title逻辑
+  const titleSpanEl = document.createElement('span');
+  titleSpanEl.textContent = titleText;
+  sectionTitleEl.appendChild(titleSpanEl);
+
+  // result 逻辑
+  // const resultTitleEl = document.createElement('div');
+  // resultTitleEl.className = 'section-result-title';
+  // const r = 'FIFA';
+  // const n = 12;
+  // resultTitleEl.innerHTML = `<div class="result-title"><span class="search-value">${r}</span> Results</div><div class="result-num"><span>${n}</span> RESULTS</div>`;
+  // sectionTitleEl.appendChild(resultTitleEl);
 
   container.appendChild(sectionTitleEl);
 

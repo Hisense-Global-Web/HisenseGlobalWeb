@@ -18,11 +18,29 @@
         font-weight: var(--fontweight-medium);
         margin-bottom: var(--size-32);
       }
+      
+      .section-result-title {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        
+        .result-title {
+          font-size: var(--fontsize-h3);
+          font-weight: var(--fontweight-medium);
+          line-height: 1.2;
+          
+          .search-value {
+            color: var(--color-primary-green-50);
+          }
+        }
 
-      .search-value {
-        color: var(--color-primary-green-50);
-        margin-right: var(--size-8);
+        .result-num {
+          font-size: var(--size-16);
+          line-height: 1.5;
+          color: var(--color-primary-grey-50);
+        }
       }
+
     }
 
     .releases-card-group {
