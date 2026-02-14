@@ -1646,6 +1646,21 @@
           }
         },
         {
+          "title": "Section Popup Container",
+          "id": "section-popup-container",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Section Popup Container",
+                  "model": "section-popup-container"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Section Popup",
           "id": "section-popup",
           "plugins": {
@@ -1653,9 +1668,9 @@
               "page": {
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
-                  "name": "Section Popup",
                   "model": "section-popup",
-                  "filter": "section-popup"
+                  "filter": "section-popup",
+                  "classes": "h-section-popup-wrapper"
                 }
               }
             }

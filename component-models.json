@@ -3083,6 +3083,10 @@
     ]
   },
   {
+    "id": "section-popup-container",
+    "fields": []
+  },
+  {
     "id": "section-popup",
     "fields": [
       {
@@ -3486,6 +3490,12 @@
         "component": "text",
         "name": "btn_ctaLabel",
         "label": "Button",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "btn_ctaID",
+        "label": "Button ID",
         "valueType": "string"
       }
     ]

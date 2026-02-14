@@ -319,8 +319,7 @@
   {
     "id": "section-popup",
     "components": [
-      "collection-banner",
-      "enterprise-tech",
+      "section-popup-container",
       "module-title"
     ]
   },
