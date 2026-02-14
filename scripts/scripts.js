@@ -101,10 +101,56 @@ export function decorateMain(main) {
 }
 
 /**
+ * Get GraphQL API base URL based on current hostname
+ */
+function getGraphQLBaseUrl() {
+  const { hostname } = window.location;
+
+  // Author environment - use same origin
+  if (hostname.includes('author-')) {
+    return '';
+  }
+
+  // Publish environment - use same origin
+  if (hostname.includes('publish-')) {
+    return '';
+  }
+
+  // Dev environment
+  if (hostname.includes('hisense-dev')) {
+    return 'https://publish-p174152-e1855821.adobeaemcloud.com';
+  }
+
+  // Stage environment
+  if (hostname.includes('hisense-stage')) {
+    return 'https://publish-p174152-e1855674.adobeaemcloud.com';
+  }
+
+  // Production environment
+  if (hostname.includes('hisense.com') || hostname.includes('hisenseglobalweb')) {
+    return 'https://publish-p174152-e1855954.adobeaemcloud.com';
+  }
+
+  // Default fallback for localhost or unknown environments
+  return '';
+}
+
+/**
+ * Set global variables for API endpoints
+ */
+function setGlobalApiVariables() {
+  const gqlBaseUrl = getGraphQLBaseUrl();
+  window.GRAPHQL_BASE_URL = gqlBaseUrl;
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  // Set global API variables first
+  setGlobalApiVariables();
+
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
@@ -146,7 +192,7 @@ async function loadLazy(doc) {
 function loadDelayedImages() {
   const currentHostname = window.location.hostname;
 
-  if (currentHostname.includes('hisensesitestage') || currentHostname.includes('hisensesitedev') || currentHostname.includes('localhost')) {
+  if (currentHostname.includes('hisense-stage') || currentHostname.includes('hisense-dev') || currentHostname.includes('localhost')) {
     const domainPrefix = 'https://publish-p174152-e1855821.adobeaemcloud.com';
 
     const processImage = (img) => {
@@ -227,10 +273,30 @@ function updateUSLinks() {
   }
 }
 
+function transHorizontalSection(className) {
+  const bElements = document.querySelectorAll(className);
+
+  if (bElements.length > 0) {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('horizontal-section');
+    bElements.forEach((el) => {
+      wrapper.appendChild(el.cloneNode(true));
+    });
+
+    // 用 wrapper 替换所有 .b 元素
+    bElements[0].replaceWith(wrapper);
+
+    // 删除剩余的 .b 元素
+    for (let i = 1; i < bElements.length; i += 1) {
+      bElements[i].remove();
+    }
+  }
+}
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
+  transHorizontalSection('.honors-awards-wrapper');
 
   // Update US site links after page load is complete
   if (document.readyState === 'complete') {
