@@ -6,7 +6,7 @@
 
 .cross-page-redirect {
     width: 100%;
-    height: calc(400/var(--breakpoint-pc) *100vw);
+    height: min(calc(400/var(--breakpoint-pc) *100vw), 400px);
     display: flex;
     padding: 0 var(--spacing-4xl, 160px);
     flex-direction: column;
@@ -36,7 +36,7 @@ p {
     font-weight: var(--fontweight-medium);
     line-height: 150%; /* 21px */
     display: inline-flex;
-    height: calc(50/var(--breakpoint-pc) * 100vw);
+    height: min(calc(50/var(--breakpoint-pc) * 100vw), 50px);
     padding: var(--spacing-4xs, 4px) var(--spacing-pc-md, 32px);
     justify-content: center;
     align-items: center;

@@ -9,7 +9,7 @@ import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 
 const cardCarouselId = 0;
-function bindEvent(block, type = 'normal') {
+export function bindEvent(block, type = 'normal') {
   const track = block.querySelector('.card-carousel-track');
   const cards = block.querySelectorAll('li');
   const viewportWidth = block.querySelector('.card-carousel-viewport').offsetWidth;
@@ -63,7 +63,7 @@ function bindEvent(block, type = 'normal') {
     if (remaining <= 0) return;
     // 如果剩余距离不足一个 step + 8，则直接滑动到底对齐
     currentIndex += 1;
-    if (remaining < (step + 8)) {
+    if (remaining < (step + 1)) {
       currentX = -maxTranslate;
     } else {
       currentX -= step;
@@ -75,7 +75,7 @@ function bindEvent(block, type = 'normal') {
     if (currentX >= 0) return;
     currentIndex -= 1;
     // 往回走时，如果距离起点不足一个 step，直接归零
-    if (Math.abs(currentX) < (step + 8)) {
+    if (Math.abs(currentX) < (step + 1)) {
       currentX = 0;
     } else {
       currentX += step;

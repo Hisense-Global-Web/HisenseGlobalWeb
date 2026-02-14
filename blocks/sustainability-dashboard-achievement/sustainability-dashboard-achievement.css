@@ -50,7 +50,7 @@
       align-self: stretch;
 
       .title-area {
-        width: calc(488/var(--breakpoint-pc)*100vw);
+        width: min(calc(488/var(--breakpoint-pc)*100vw), 488px);
 
         .title {
           color: var(--color-primary-green-60, #008482);
@@ -146,6 +146,7 @@
     }
   }
 }
+
 /* 遮罩层：全屏、半透明 */
 .popup-overlay {
   position: fixed;
@@ -154,7 +155,7 @@
   width: 100%;
   height: 100%;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.7);
+  background: rgb(0 0 0 / 70%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -185,6 +186,7 @@
   font-size: 24px;
   cursor: pointer;
 }
+
 @media (width < 860px) {
   .sustainability-dashboard-achievement {
     width: 100%;

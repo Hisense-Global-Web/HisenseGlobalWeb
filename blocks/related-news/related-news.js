@@ -1,4 +1,10 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import {
+  whenElementReady,
+  getSlideWidth,
+  getChildSlideWidth,
+  throttle,
+} from '../../utils/carousel-common.js';
 
 const MOCK_NEWSROOM_ITEMS = [
   {
@@ -89,10 +95,10 @@ function filterItemsByUrlParams(items) {
         const originalValue = value;
         const spaceValue = value.replace(/-/g, ' ');
         return searchableFields.some((field) => lowerIncludes(field, originalValue)
-          || lowerIncludes(field, spaceValue));
+          || lowerIncludes(field, spaceValue)).filter((v, i) => i <= 6);
       }
 
-      return searchableFields.some((field) => lowerIncludes(field, value));
+      return searchableFields.some((field) => lowerIncludes(field, value)).filter((v, i) => i <= 6);
     }
     // 其他参数：精确匹配对应字段
     return lowerIncludes(item[key], value);
@@ -141,6 +147,94 @@ function formatDate(iso) {
   });
 }
 
+function bindEvent(block, type = 'normal') {
+  const track = block.querySelector('.news-card-group');
+  const cards = block.querySelectorAll('.news-card');
+  const viewportWidth = block.querySelector('.news-container').offsetWidth;
+  const prevBtn = block.closest('.section').querySelector('.slide-prev');
+  const nextBtn = block.closest('.section').querySelector('.slide-next');
+  const gap = parseInt(window.getComputedStyle(block.querySelector('.news-card-group')).gap, 10) || 0;
+  const CONFIG = {
+    itemWidth: getChildSlideWidth(block),
+    gap,
+    containerWidth: viewportWidth,
+    totalItems: cards.length,
+  };
+
+  if (cards.length * getSlideWidth(block) - gap >= viewportWidth) {
+    block.closest('.section').querySelector('.has-button').querySelector('.button-container').classList.add('show');
+  }
+
+  const step = CONFIG.itemWidth + CONFIG.gap;
+  const totalTrackWidth = (CONFIG.totalItems * CONFIG.itemWidth) + ((CONFIG.totalItems - 1) * CONFIG.gap);
+  const maxTranslate = totalTrackWidth - CONFIG.containerWidth; // 最大的负向偏移量
+
+  let currentX = 0;
+  let currentIndex = 0;
+
+  if (type === 'resize') {
+    currentX = -parseInt(block.dataset.currentIndex, 10) * step;
+    currentIndex = parseInt(block.dataset.currentIndex, 10) || 0;
+  }
+
+  // 更新状态
+  const updateState = () => {
+    if (Math.abs(currentX) > maxTranslate && type === 'resize') {
+      currentX = -maxTranslate;
+    }
+    track.style.transform = `translateX(${currentX}px)`;
+    if (window.innerWidth < 860) {
+      track.style.transform = 'none';
+    }
+    block.dataset.currentIndex = currentIndex;
+    if (currentX === 0) {
+      block.dataset.currentIndex = 0;
+    }
+    // 按钮禁用状态
+    prevBtn.disabled = currentX >= 0;
+    nextBtn.disabled = Math.abs(currentX) >= maxTranslate;
+  };
+
+  // 按钮点击事件
+  nextBtn.addEventListener('click', () => {
+    const remaining = maxTranslate - Math.abs(currentX);
+    if (remaining <= 0) return;
+    // 如果剩余距离不足一个 step，则直接滑动到底对齐
+    currentIndex += 1;
+    if (remaining < (step + 1)) {
+      currentX = -maxTranslate;
+    } else {
+      currentX -= step;
+    }
+    updateState();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentX >= 0) return;
+    currentIndex -= 1;
+    // 往回走时，如果距离起点不足一个 step，直接归零
+    if (Math.abs(currentX) < (step + 1)) {
+      currentX = 0;
+    } else {
+      currentX += step;
+    }
+    updateState();
+  });
+
+  // 初始化
+  updateState();
+  if (type === 'resize') return;
+  let lastWidth = window.innerWidth;
+
+  window.onresize = throttle(() => {
+    const currentWidth = window.innerWidth;
+    if (currentWidth !== lastWidth) {
+      bindEvent(block, 'resize');
+      lastWidth = currentWidth;
+    }
+  }, 300);
+}
+
 function buildCard(item) {
   const {
     path,
@@ -152,7 +246,7 @@ function buildCard(item) {
     thumbnail,
   } = item;
 
-  const cardEl = document.createElement('div');
+  const cardEl = document.createElement('li');
   cardEl.classList.add('news-card');
 
   const linkHref = typeof path === 'string' ? path : '#';
@@ -236,7 +330,7 @@ function buildCard(item) {
     const iconImg = document.createElement('img');
     iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
     iconImg.alt = '';
-    iconImg.classList.add('meta-icon');
+    iconImg.classList.add('meta-icon download');
     downloadEl.appendChild(iconImg);
     // 追加点击下载
     metaGroupEl.appendChild(downloadEl);
@@ -320,16 +414,16 @@ async function loadAllNewsroom() {
 }
 
 /**
- * News Card List Block
+ * Related News Block
  */
 export default async function decorate(block) {
   const blockResource = block.getAttribute('data-aue-resource');
 
   // Build static structure
   const container = document.createElement('div');
-  container.className = 'related-news-container';
+  container.className = 'news-container';
 
-  const cardGroupEl = document.createElement('div');
+  const cardGroupEl = document.createElement('ul');
   cardGroupEl.className = 'news-card-group';
   container.appendChild(cardGroupEl);
 
@@ -363,6 +457,10 @@ export default async function decorate(block) {
     sectionTitle.lastElementChild.appendChild(buttonContainer);
     sectionTitle.lastElementChild.classList.add('has-button');
   }
-
+  block.dataset.slideIndex = 0;
   block.classList.add('loaded');
+  whenElementReady('.related-news', () => {
+    block.dataset.currentIndex = 0;
+    bindEvent(block);
+  });
 }
