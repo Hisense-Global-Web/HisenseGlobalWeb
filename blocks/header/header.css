@@ -282,32 +282,30 @@
   display: flex;
   align-items: center;
   margin-right: 38px;
-}
 
-.navigation-logo-wrapper .navigation-logo {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.navigation-logo-wrapper picture,
-.navigation-logo-wrapper img {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  display: block;
+  .navigation-logo {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    
+    & > div:nth-child(2), 
+    & > div:nth-child(3) {
+      display: none;
+    }
+  }
+  
+  picture, img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    display: block;
+  }
 }
 
 .dropdown-links div {
   height: 15px;
   font-weight: 400;
   font-size: 12px;
-}
-
-/* 隐藏编辑模式下的 alt 和 link 字段显示 */
-.navigation-logo-wrapper .navigation-logo > div:nth-child(2),
-.navigation-logo-wrapper .navigation-logo > div:nth-child(3) {
-  display: none;
 }
 
 /* 中间导航按钮区域：flex布局 */
