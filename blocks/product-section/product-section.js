@@ -50,7 +50,8 @@ export default async function decorate(block) {
     } else {
       url = baseUrl ? `${baseUrl}${path}` : path;
     }
-    const cacheBuster = simpleHash(Math.floor(Date.now() / 5));
+    const fiveMinutesMs = 5 * 60 * 1000;
+    const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
     const sep = url.indexOf('?') >= 0 ? '&' : '?';
     return `${url}${sep}_t=${cacheBuster}`;
   }
