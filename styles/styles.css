@@ -844,6 +844,7 @@ main > .section:first-of-type {
 main > .section > div,
 .h-grid-container {
 	max-width: var(--container-max-width);
+  width: 100%;
 	margin: auto;
 	padding: 0 var(--common-padding);
 }
