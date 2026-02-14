@@ -1646,6 +1646,21 @@
           }
         },
         {
+          "title": "Section Popup",
+          "id": "section-popup",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Section Popup",
+                  "model": "Section Popup"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Slide",
           "id": "slide",
           "plugins": {
