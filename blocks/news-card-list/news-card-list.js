@@ -83,6 +83,13 @@ function filterItemsByUrlParams(items) {
         item.keywords,
         item.path,
       ];
+      // 如果 value 包含 "-"，同时匹配原值和空格替换
+      if (value.includes('-')) {
+        const originalValue = value;
+        const spaceValue = value.replace(/-/g, ' ');
+        return searchableFields.some((field) => lowerIncludes(field, originalValue)
+            || lowerIncludes(field, spaceValue));
+      }
       return searchableFields.some((field) => lowerIncludes(field, value));
     }
     // 其他参数：精确匹配对应字段
@@ -185,6 +192,11 @@ function buildCard(item) {
     titleLink.textContent = title;
     contentEl.appendChild(titleLink);
   }
+
+  // author
+  const authorEl = document.createElement('div');
+  authorEl.classList.add('author');
+  contentEl.append(authorEl);
 
   // Meta group
   const metaGroupEl = document.createElement('div');
@@ -387,7 +399,19 @@ export default async function decorate(block) {
 
   const sectionTitleEl = document.createElement('div');
   sectionTitleEl.className = 'section-title';
-  sectionTitleEl.textContent = titleText;
+
+  // 标准的title逻辑
+  const titleSpanEl = document.createElement('span');
+  titleSpanEl.textContent = titleText;
+  sectionTitleEl.appendChild(titleSpanEl);
+
+  // result 逻辑
+  // const resultTitleEl = document.createElement('div');
+  // resultTitleEl.className = 'section-result-title';
+  // const r = 'FIFA';
+  // const n = 12;
+  // resultTitleEl.innerHTML = `<div class="result-title"><span class="search-value">${r}</span> Results</div><div class="result-num"><span>${n}</span> RESULTS</div>`;
+  // sectionTitleEl.appendChild(resultTitleEl);
 
   container.appendChild(sectionTitleEl);
 
@@ -397,6 +421,14 @@ export default async function decorate(block) {
 
   const paginationEl = document.createElement('div');
   paginationEl.className = 'releases-pagination';
+
+  const mobilePaginationEl = document.createElement('div');
+  mobilePaginationEl.className = 'releases-pagination-mobile';
+  const mobileBtn = document.createElement('button');
+  mobileBtn.type = 'button';
+  mobileBtn.classList.add('page-button');
+  mobileBtn.textContent = 'Discover more';
+  mobilePaginationEl.appendChild(mobileBtn);
 
   const noPaginationEl = document.createElement('div');
   noPaginationEl.className = 'releases-no-pagination';
@@ -408,7 +440,7 @@ export default async function decorate(block) {
   if (shouldPaginated === 'false') {
     container.appendChild(noPaginationEl);
   } else {
-    container.appendChild(paginationEl);
+    container.append(paginationEl, mobilePaginationEl);
   }
 
   // Ensure the editor can still find this block

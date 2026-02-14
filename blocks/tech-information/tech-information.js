@@ -35,6 +35,15 @@ export default async function decorate(block) {
   infoTextDiv.append(techItemWrapperDom, techCtaDom);
   block.append(infoTextDiv);
 
+  const techImgBoxPAll = block.querySelectorAll('.tech-img-box p');
+  techImgBoxPAll.forEach((imgP, imgIdx) => {
+    if (imgIdx === 0) {
+      imgP.className = 'tech-pc-img';
+    } else {
+      imgP.className = 'tech-mobile-img';
+    }
+  });
+
   // Assign class names to p elements in tech-text-wrapper
   const textWrapperPAll = block.querySelectorAll('.tech-text-wrapper p');
   textWrapperPAll.forEach((p, idx) => {

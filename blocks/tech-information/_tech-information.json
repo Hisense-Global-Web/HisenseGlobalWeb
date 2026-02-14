@@ -48,7 +48,7 @@
           "name": "classes",
           "label": "Image Position",
           "valueType": "string",
-          "value": "img-right",
+          "value": "img-left",
           "options": [
               {
                 "name": "Image Position Left",
@@ -65,6 +65,13 @@
           "valueType": "string",
           "name": "tech_image",
           "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "tech_mobileImage",
+          "label": "Mobile Image",
           "multi": false
         },
         {
