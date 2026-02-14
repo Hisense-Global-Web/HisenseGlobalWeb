@@ -10,6 +10,9 @@ export default function decorate(block) {
     textContent.append(title, text);
     title?.classList.add('title');
     text?.classList.add('text');
+    if (!title?.textContent.trim() && !text?.textContent.trim()) {
+      textContent.classList.add('no-text');
+    }
     cardItem.insertBefore(textContent, linkDiv);
     linkDiv?.querySelectorAll('a').forEach((button) => {
       button.closest('div').classList.add('link-div');
@@ -17,5 +20,8 @@ export default function decorate(block) {
       button.nextElementSibling?.remove();
       button.parentElement?.nextElementSibling?.remove();
     });
+    if (!linkDiv.textContent.trim()) {
+      linkDiv.remove();
+    }
   });
 }

@@ -68,10 +68,6 @@
               "value": "soft-green"
             },
             {
-              "name": "Gradient Green",
-              "value": "gradient-green"
-            },
-            {
               "name": "Green",
               "value": "green"
             }
@@ -324,6 +320,8 @@
         "product-spec",
         "properties",
         "quick-link",
+        "resource-list",
+        "related-news",
         "search-box",
         "slide",
         "social-media-list",
@@ -343,6 +341,9 @@
         "tech-information",
         "past-partnerships-list",
         "partnerships-section-title",
+        "sustainability-dashboard-achievement",
+        "sustainability-dashboard-list",
+        "stats-grid",
         "tech-information",
         "core-value-card",
         "past-partnerships-list",

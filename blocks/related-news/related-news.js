@@ -1,4 +1,10 @@
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { createOptimizedPicture } from '../../scripts/aem.js';
+import {
+  whenElementReady,
+  getSlideWidth,
+  getChildSlideWidth,
+  throttle,
+} from '../../utils/carousel-common.js';
 
 const MOCK_NEWSROOM_ITEMS = [
   {
@@ -83,14 +89,16 @@ function filterItemsByUrlParams(items) {
         item.keywords,
         item.path,
       ];
+
       // 如果 value 包含 "-"，同时匹配原值和空格替换
       if (value.includes('-')) {
         const originalValue = value;
         const spaceValue = value.replace(/-/g, ' ');
         return searchableFields.some((field) => lowerIncludes(field, originalValue)
-            || lowerIncludes(field, spaceValue));
+          || lowerIncludes(field, spaceValue)).filter((v, i) => i <= 6);
       }
-      return searchableFields.some((field) => lowerIncludes(field, value));
+
+      return searchableFields.some((field) => lowerIncludes(field, value)).filter((v, i) => i <= 6);
     }
     // 其他参数：精确匹配对应字段
     return lowerIncludes(item[key], value);
@@ -139,6 +147,94 @@ function formatDate(iso) {
   });
 }
 
+function bindEvent(block, type = 'normal') {
+  const track = block.querySelector('.news-card-group');
+  const cards = block.querySelectorAll('.news-card');
+  const viewportWidth = block.querySelector('.news-container').offsetWidth;
+  const prevBtn = block.closest('.section').querySelector('.slide-prev');
+  const nextBtn = block.closest('.section').querySelector('.slide-next');
+  const gap = parseInt(window.getComputedStyle(block.querySelector('.news-card-group')).gap, 10) || 0;
+  const CONFIG = {
+    itemWidth: getChildSlideWidth(block),
+    gap,
+    containerWidth: viewportWidth,
+    totalItems: cards.length,
+  };
+
+  if (cards.length * getSlideWidth(block) - gap >= viewportWidth) {
+    block.closest('.section').querySelector('.has-button').querySelector('.button-container').classList.add('show');
+  }
+
+  const step = CONFIG.itemWidth + CONFIG.gap;
+  const totalTrackWidth = (CONFIG.totalItems * CONFIG.itemWidth) + ((CONFIG.totalItems - 1) * CONFIG.gap);
+  const maxTranslate = totalTrackWidth - CONFIG.containerWidth; // 最大的负向偏移量
+
+  let currentX = 0;
+  let currentIndex = 0;
+
+  if (type === 'resize') {
+    currentX = -parseInt(block.dataset.currentIndex, 10) * step;
+    currentIndex = parseInt(block.dataset.currentIndex, 10) || 0;
+  }
+
+  // 更新状态
+  const updateState = () => {
+    if (Math.abs(currentX) > maxTranslate && type === 'resize') {
+      currentX = -maxTranslate;
+    }
+    track.style.transform = `translateX(${currentX}px)`;
+    if (window.innerWidth < 860) {
+      track.style.transform = 'none';
+    }
+    block.dataset.currentIndex = currentIndex;
+    if (currentX === 0) {
+      block.dataset.currentIndex = 0;
+    }
+    // 按钮禁用状态
+    prevBtn.disabled = currentX >= 0;
+    nextBtn.disabled = Math.abs(currentX) >= maxTranslate;
+  };
+
+  // 按钮点击事件
+  nextBtn.addEventListener('click', () => {
+    const remaining = maxTranslate - Math.abs(currentX);
+    if (remaining <= 0) return;
+    // 如果剩余距离不足一个 step，则直接滑动到底对齐
+    currentIndex += 1;
+    if (remaining < (step + 1)) {
+      currentX = -maxTranslate;
+    } else {
+      currentX -= step;
+    }
+    updateState();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentX >= 0) return;
+    currentIndex -= 1;
+    // 往回走时，如果距离起点不足一个 step，直接归零
+    if (Math.abs(currentX) < (step + 1)) {
+      currentX = 0;
+    } else {
+      currentX += step;
+    }
+    updateState();
+  });
+
+  // 初始化
+  updateState();
+  if (type === 'resize') return;
+  let lastWidth = window.innerWidth;
+
+  window.onresize = throttle(() => {
+    const currentWidth = window.innerWidth;
+    if (currentWidth !== lastWidth) {
+      bindEvent(block, 'resize');
+      lastWidth = currentWidth;
+    }
+  }, 300);
+}
+
 function buildCard(item) {
   const {
     path,
@@ -150,8 +246,8 @@ function buildCard(item) {
     thumbnail,
   } = item;
 
-  const cardEl = document.createElement('div');
-  cardEl.classList.add('releases-card');
+  const cardEl = document.createElement('li');
+  cardEl.classList.add('news-card');
 
   const linkHref = typeof path === 'string' ? path : '#';
 
@@ -159,7 +255,7 @@ function buildCard(item) {
   if (thumbnail) {
     const imageWrapper = document.createElement('a');
     imageWrapper.href = linkHref;
-    imageWrapper.classList.add('releases-image');
+    imageWrapper.classList.add('news-image');
 
     const picture = createOptimizedPicture(
       thumbnail,
@@ -174,33 +270,30 @@ function buildCard(item) {
 
   // Content
   const contentEl = document.createElement('div');
-  contentEl.classList.add('releases-content');
-
+  contentEl.classList.add('news-content');
+  const textEl = document.createElement('div');
+  textEl.classList.add('news-text');
+  contentEl.appendChild(textEl);
   // Eyebrow (use subtitle as category)
   if (subtitle) {
-    const eyebrowEl = document.createElement('span');
-    eyebrowEl.classList.add('releases-eyebrow');
+    const eyebrowEl = document.createElement('div');
+    eyebrowEl.classList.add('news-eyebrow');
     eyebrowEl.textContent = subtitle;
-    contentEl.appendChild(eyebrowEl);
+    textEl.appendChild(eyebrowEl);
   }
 
   // Title
   if (title) {
     const titleLink = document.createElement('a');
     titleLink.href = linkHref;
-    titleLink.classList.add('releases-subtitle');
+    titleLink.classList.add('news-subtitle');
     titleLink.textContent = title;
-    contentEl.appendChild(titleLink);
+    textEl.appendChild(titleLink);
   }
-
-  // author
-  const authorEl = document.createElement('div');
-  authorEl.classList.add('author');
-  contentEl.append(authorEl);
 
   // Meta group
   const metaGroupEl = document.createElement('div');
-  metaGroupEl.classList.add('releases-meta-group');
+  metaGroupEl.classList.add('news-meta-group');
 
   const formattedDate = formatDate(date);
   if (formattedDate) {
@@ -211,7 +304,9 @@ function buildCard(item) {
     iconImg.alt = '';
     iconImg.classList.add('meta-icon');
     dateEl.appendChild(iconImg);
-    dateEl.appendChild(document.createTextNode(formattedDate));
+    const dateSpan = document.createElement('span');
+    dateSpan.textContent = formattedDate;
+    dateEl.appendChild(dateSpan);
     metaGroupEl.appendChild(dateEl);
   }
 
@@ -223,7 +318,9 @@ function buildCard(item) {
     iconImg.alt = '';
     iconImg.classList.add('meta-icon');
     locationEl.appendChild(iconImg);
-    locationEl.appendChild(document.createTextNode(location));
+    const locationSpan = document.createElement('span');
+    locationSpan.textContent = location;
+    locationEl.appendChild(locationSpan);
     metaGroupEl.appendChild(locationEl);
   }
 
@@ -233,7 +330,7 @@ function buildCard(item) {
     const iconImg = document.createElement('img');
     iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
     iconImg.alt = '';
-    iconImg.classList.add('meta-icon');
+    iconImg.classList.add('meta-icon download');
     downloadEl.appendChild(iconImg);
     // 追加点击下载
     metaGroupEl.appendChild(downloadEl);
@@ -256,96 +353,34 @@ function buildCard(item) {
   return cardEl;
 }
 
-function buildPaginationControls(container, state, onPageChange) {
-  const { total, limit, offset } = state;
-
-  const paginationEl = container.querySelector('.releases-pagination');
-  if (!paginationEl) return;
-
-  paginationEl.textContent = '';
-
-  if (!total || !limit || total <= limit) {
-    return;
-  }
-
-  const currentPage = Math.floor(offset / limit) + 1;
-  const totalPages = Math.ceil(total / limit);
-
-  const createButton = (label, page, disabled = false, isActive = false) => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.classList.add('page-button');
-
-    if (label === 'prev') {
-      const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/left.svg';
-      icon.className = 'page-arrow is-prev normal';
-      const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
-      disabledIcon.className = 'page-arrow is-prev disabled';
-      btn.setAttribute('aria-label', 'Previous page');
-      btn.append(icon, disabledIcon);
-    } else if (label === 'next') {
-      const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/right.svg';
-      icon.className = 'page-arrow is-next normal';
-      const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
-      disabledIcon.className = 'page-arrow is-next disabled';
-      btn.setAttribute('aria-label', 'Next page');
-      btn.append(icon, disabledIcon);
-    } else {
-      btn.textContent = label;
-    }
-
-    if (isActive) btn.classList.add('is-active');
-    if (disabled) {
-      btn.disabled = true;
-    } else {
-      btn.addEventListener('click', () => onPageChange(page));
-    }
-    return btn;
-  };
-
-  // Prev
-  paginationEl.appendChild(
-    createButton('prev', currentPage - 1, currentPage === 1),
-  );
-
-  const maxButtons = 5;
-  let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
-  let end = start + maxButtons - 1;
-  if (end > totalPages) {
-    end = totalPages;
-    start = Math.max(1, end - maxButtons + 1);
-  }
-
-  for (let page = start; page <= end; page += 1) {
-    paginationEl.appendChild(
-      createButton(String(page), page, false, page === currentPage),
-    );
-  }
-
-  // Next
-  paginationEl.appendChild(
-    createButton('next', currentPage + 1, currentPage === totalPages),
-  );
+function createScrollButton(direction) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = `slide-${direction}`;
+  button.setAttribute('aria-label', direction === 'prev' ? 'slide-prev' : 'slide-next');
+  button.disabled = direction === 'prev';
+  // 创建图片元素
+  const img = document.createElement('img');
+  img.src = direction === 'prev' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left-g.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right-g.svg';
+  img.alt = direction === 'prev' ? 'slide-prev' : 'slide-next';
+  img.className = 'disabled-icon';
+  button.appendChild(img);
+  // 创建图片元素
+  const imgClick = document.createElement('img');
+  imgClick.src = direction === 'prev' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right.svg';
+  imgClick.alt = direction === 'prev' ? 'slide-prev' : 'slide-next';
+  imgClick.className = 'click-icon';
+  button.appendChild(imgClick);
+  return button;
 }
 
-async function fetchNewsroom(offset, limit) {
+async function fetchNewsroom() {
   const { pathname } = window.location;
 
   // /content 开头，使用本地 mock 数据，避免跨域请求失败
   if (pathname.startsWith('/content')) {
-    const start = Number.isFinite(offset) ? offset : 0;
-    const pageSize = Number.isFinite(limit) ? limit : MOCK_NEWSROOM_ITEMS.length;
-    const sliced = MOCK_NEWSROOM_ITEMS.slice(start, start + pageSize);
-
     return {
-      data: sliced,
-      offset: start,
-      limit: pageSize,
-      total: MOCK_NEWSROOM_ITEMS.length,
+      data: MOCK_NEWSROOM_ITEMS,
     };
   }
 
@@ -372,76 +407,25 @@ async function fetchNewsroom(offset, limit) {
   return response.json();
 }
 
-async function loadAllNewsroom(pageSize) {
-  const size = Number.isFinite(pageSize) ? pageSize : MOCK_NEWSROOM_ITEMS.length;
-  const json = await fetchNewsroom(0, size);
+async function loadAllNewsroom() {
+  const json = await fetchNewsroom();
   if (!json) return [];
   return normalizeNewsroomData(json);
 }
 
 /**
- * News Card List Block
+ * Related News Block
  */
 export default async function decorate(block) {
-  const config = readBlockConfig(block);
-
-  const titleText = config.title || 'Recent Press Releases';
-  const pageSize = Number.parseInt(config['page-size'], 10) || 9;
-  const emptyText = config['empty-text'] || 'No news items match your filters.';
-  const shouldPaginated = config['should-paginated'];
-  const paginatedBtnText = config['paginated-btn-text'] || '';
-
   const blockResource = block.getAttribute('data-aue-resource');
 
   // Build static structure
   const container = document.createElement('div');
-  container.className = 'releases-container';
+  container.className = 'news-container';
 
-  const sectionTitleEl = document.createElement('div');
-  sectionTitleEl.className = 'section-title';
-
-  // 标准的title逻辑
-  const titleSpanEl = document.createElement('span');
-  titleSpanEl.textContent = titleText;
-  sectionTitleEl.appendChild(titleSpanEl);
-
-  // result 逻辑
-  // const resultTitleEl = document.createElement('div');
-  // resultTitleEl.className = 'section-result-title';
-  // const r = 'FIFA';
-  // const n = 12;
-  // resultTitleEl.innerHTML = `<div class="result-title"><span class="search-value">${r}</span> Results</div><div class="result-num"><span>${n}</span> RESULTS</div>`;
-  // sectionTitleEl.appendChild(resultTitleEl);
-
-  container.appendChild(sectionTitleEl);
-
-  const cardGroupEl = document.createElement('div');
-  cardGroupEl.className = 'releases-card-group';
+  const cardGroupEl = document.createElement('ul');
+  cardGroupEl.className = 'news-card-group';
   container.appendChild(cardGroupEl);
-
-  const paginationEl = document.createElement('div');
-  paginationEl.className = 'releases-pagination';
-
-  const mobilePaginationEl = document.createElement('div');
-  mobilePaginationEl.className = 'releases-pagination-mobile';
-  const mobileBtn = document.createElement('button');
-  mobileBtn.type = 'button';
-  mobileBtn.classList.add('page-button');
-  mobileBtn.textContent = 'Discover more';
-  mobilePaginationEl.appendChild(mobileBtn);
-
-  const noPaginationEl = document.createElement('div');
-  noPaginationEl.className = 'releases-no-pagination';
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.classList.add('page-button');
-  btn.textContent = paginatedBtnText;
-  noPaginationEl.appendChild(btn);
-  if (shouldPaginated === 'false') {
-    container.appendChild(noPaginationEl);
-  } else {
-    container.append(paginationEl, mobilePaginationEl);
-  }
 
   // Ensure the editor can still find this block
   if (blockResource) {
@@ -449,49 +433,34 @@ export default async function decorate(block) {
   }
 
   block.replaceChildren(container);
-
-  const allItems = await loadAllNewsroom(pageSize);
-
-  const loadPage = async (page) => {
+  const allItems = await loadAllNewsroom();
+  const loadPage = async () => {
     const filteredItems = filterItemsByUrlParams(allItems);
-    const totalItems = filteredItems.length;
 
     cardGroupEl.textContent = '';
-    paginationEl.textContent = '';
-
-    if (!totalItems) {
-      const emptyEl = document.createElement('div');
-      emptyEl.className = 'releases-empty';
-      emptyEl.innerHTML = emptyText;
-      cardGroupEl.appendChild(emptyEl);
-      return;
-    }
-
-    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
-    const safePage = Math.min(Math.max(page, 1), totalPages);
-    const startIndex = (safePage - 1) * pageSize;
-    const pageItems = filteredItems.slice(startIndex, startIndex + pageSize);
-
-    pageItems.forEach((item) => {
+    filteredItems.forEach((item) => {
       const card = buildCard(item);
       cardGroupEl.appendChild(card);
     });
-
-    const state = {
-      total: totalItems,
-      limit: pageSize,
-      offset: startIndex,
-    };
-
-    buildPaginationControls(container, state, (targetPage) => {
-      if (targetPage < 1) return;
-      const maxPage = Math.ceil(state.total / state.limit);
-      if (targetPage > maxPage) return;
-      loadPage(targetPage);
-    });
   };
 
-  await loadPage(1);
+  await loadPage();
 
+  const prevButton = createScrollButton('prev');
+  const nextButton = createScrollButton('next');
+  const sectionTitle = block.closest('.section').querySelector('.module-title');
+  const buttonContainer = document.createElement('div');
+  buttonContainer.className = 'button-container';
+  buttonContainer.appendChild(prevButton);
+  buttonContainer.appendChild(nextButton);
+  if (sectionTitle) {
+    sectionTitle.lastElementChild.appendChild(buttonContainer);
+    sectionTitle.lastElementChild.classList.add('has-button');
+  }
+  block.dataset.slideIndex = 0;
   block.classList.add('loaded');
+  whenElementReady('.related-news', () => {
+    block.dataset.currentIndex = 0;
+    bindEvent(block);
+  });
 }

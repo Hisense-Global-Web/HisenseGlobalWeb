@@ -1802,6 +1802,22 @@
           }
         },
         {
+          "title": "Related News",
+          "id": "related-news",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Related News",
+                  "model": "related-news",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Resource List",
           "id": "resource-list",
           "plugins": {
@@ -1937,6 +1953,23 @@
           }
         },
         {
+          "title": "Stats Grid",
+          "id": "stats-grid",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "stats-grid",
+                  "model": "stats-grid",
+                  "filter": "stats-grid",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Sub Menu Link",
           "id": "sub-menu-link",
           "plugins": {
@@ -1947,6 +1980,39 @@
                   "name": "Sub Menu Link",
                   "model": "sub-menu-link",
                   "classes": "sub-menu-link"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Sustainability Dashboard Achievement",
+          "id": "sustainability-dashboard-achievement",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Sustainability Dashboard Achievement",
+                  "model": "sustainability-dashboard-achievement",
+                  "key-value": true,
+                  "filter": "sustainability-dashboard-achievement"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Sustainability Dashboard Achievement Matrix",
+          "id": "sustainability-dashboard-achievement-matrix",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Sustainability Dashboard Achievement Matrix",
+                  "model": "sustainability-dashboard-achievement-matrix",
+                  "key-value": true
                 }
               }
             }
