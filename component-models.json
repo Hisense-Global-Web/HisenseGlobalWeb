@@ -223,10 +223,6 @@
             "value": "soft-green"
           },
           {
-            "name": "Gradient Green",
-            "value": "gradient-green"
-          },
-          {
             "name": "Green",
             "value": "green"
           }
@@ -2351,9 +2347,9 @@
       },
       {
         "component": "richtext",
-        "name": "title",
+        "name": "text",
         "value": "",
-        "label": "Title",
+        "label": "Text Content",
         "valueType": "string"
       },
       {
@@ -3003,6 +2999,17 @@
     ]
   },
   {
+    "id": "related-news",
+    "fields": [
+      {
+        "component": "text",
+        "name": "keywords",
+        "label": "Keywords",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "resource-list",
     "fields": []
   },
@@ -3173,6 +3180,10 @@
     ]
   },
   {
+    "id": "slide",
+    "fields": []
+  },
+  {
     "id": "sub-menu-link",
     "fields": [
       {
@@ -3207,6 +3218,126 @@
         "name": "searchTags",
         "label": "Search Tags",
         "rootPath": "/content/cq:tags/hisense/product"
+      }
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-achievement",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Image Position",
+        "valueType": "string",
+        "value": "img-left",
+        "options": [
+          {
+            "name": "Image Position Left",
+            "value": "img-left"
+          },
+          {
+            "name": "Image Position Right",
+            "value": "img-right"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "select",
+        "name": "classes_backgroundColor",
+        "label": "Text Area Background Color",
+        "valueType": "string",
+        "value": "white-background",
+        "options": [
+          {
+            "name": "white-background(Default)",
+            "value": "white-background"
+          },
+          {
+            "name": "grey-background",
+            "value": "grey-background"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subtitle",
+        "label": "SubTitle"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text"
+      },
+      {
+        "component": "text",
+        "name": "btn-label",
+        "label": "Button Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "btn-popup-id",
+        "label": "Popup SectionId",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-achievement-matrix",
+    "fields": [
+      {
+        "component": "text",
+        "label": "",
+        "name": "block-item",
+        "valueType": "string",
+        "value": "matrix-block-item",
+        "hidden": true,
+        "readOnly": true
+      },
+      {
+        "component": "text",
+        "label": "",
+        "name": "label-tag",
+        "valueType": "string",
+        "value": "matrix-label",
+        "hidden": true,
+        "readOnly": true
+      },
+      {
+        "component": "text",
+        "name": "matrix-label",
+        "label": "Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "label": "",
+        "name": "label-value",
+        "valueType": "string",
+        "value": "matrix-value",
+        "hidden": true,
+        "readOnly": true
+      },
+      {
+        "component": "text",
+        "name": "matrix-value",
+        "label": "Value",
+        "valueType": "string"
       }
     ]
   },

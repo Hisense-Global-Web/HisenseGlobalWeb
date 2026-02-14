@@ -63,6 +63,8 @@
       "product-spec",
       "properties",
       "quick-link",
+      "resource-list",
+      "related-news",
       "search-box",
       "slide",
       "social-media-list",
@@ -73,6 +75,9 @@
       "title",
       "video",
       "videoinfo",
+      "sustainability-dashboard-achievement",
+      "sustainability-dashboard-list",
+      "stats-grid",
       "tech-information",
       "core-value-card",
       "past-partnerships-list",
@@ -326,6 +331,18 @@
     "id": "social-media-list",
     "components": [
       "social-media-list-item"
+    ]
+  },
+  {
+    "id": "stats-grid",
+    "components": [
+      "sustainability-dashboard-achievement-matrix"
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-achievement",
+    "components": [
+      "sustainability-dashboard-achievement-matrix"
     ]
   },
   {

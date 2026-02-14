@@ -113,9 +113,9 @@
         },
         {
           "component": "richtext",
-          "name": "title",
+          "name": "text",
           "value": "",
-          "label": "Title",
+          "label": "Text Content",
           "valueType": "string"
         },
         {

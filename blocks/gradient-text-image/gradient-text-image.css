@@ -1,5 +1,5 @@
 .gradient-text-image {
-	height:  calc(360/var(--breakpoint-pc) * 100vw);
+	height:  min(calc(360/var(--breakpoint-pc) * 100vw), 360px);
 	width: 100%;
 	border-radius: var(--radius-pc-xl);
 	overflow: hidden;
@@ -64,7 +64,7 @@
 
 .text-container {
 	height: 100%;
-	width: calc(496/var(--breakpoint-pc) * 100vw);
+	width: min(calc(496/var(--breakpoint-pc) * 100vw), 496px);
 	display: flex;
 	padding: var(--spacing-xl) var(--spacing-lg);
 	flex-direction: column;

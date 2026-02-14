@@ -71,14 +71,14 @@
     justify-content: center;
     flex-shrink: 0;
     gap: var(--spacing-xs);
-    height: calc(168/var(--breakpoint-pc)*100vw);
-    width: calc(173/var(--breakpoint-pc)*100vw);
+    height: min(calc(168/var(--breakpoint-pc)*100vw), 168px);
+    width: min(calc(173/var(--breakpoint-pc)*100vw), 173px);
     box-sizing: border-box;
     text-align: center;
 
     .item-picture {
-      width: calc(100/var(--breakpoint-pc)*100vw);
-      height: calc(100/var(--breakpoint-pc)*100vw);
+      width: min(calc(100/var(--breakpoint-pc)*100vw), 100px);
+      height: min(calc(100/var(--breakpoint-pc)*100vw),100px);
     }
   }
 
@@ -94,7 +94,7 @@
 
 .item-text {
   width: 100%;
-  height: calc(44/var(--breakpoint-pc)*100vw);
+  height: min(calc(44/var(--breakpoint-pc)*100vw), 44px);
   padding: var(--fontsize-caption1);
   font-size: var(--fontsize-body1);
   text-align: center;
@@ -102,7 +102,7 @@
   font-weight: var(--fontweight-medium);
 
   p {
-    width: calc(162/var(--breakpoint-pc)*100vw);
+    width: min(calc(162/var(--breakpoint-pc)*100vw), 162px);
 
     /* 兼容Laser home Cinema在一行 */
     white-space: nowrap;
