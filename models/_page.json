@@ -71,9 +71,7 @@
           "valueType": "string",
           "name": "downloadLink",
           "label": "Download Link",
-          "multi": false,
-          "rootPath": "/content/dam/hisense"
-        }
+          "multi": false        }
       ]
     }
   ]
