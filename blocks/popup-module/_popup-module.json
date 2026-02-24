@@ -24,14 +24,14 @@
       "fields": [
         {
           "component": "select",
-          "name": "classes",
-          "value": "section-popup-module-white",
+          "name": "style_popup",
+          "value": "popup-module-white",
           "label": "Popup module classes options",
           "valueType": "string",
           "options": [
             {
               "name": "Popup Module White",
-              "value": "section-popup-module-white"
+              "value": "popup-module-white"
             }
           ]
         },
