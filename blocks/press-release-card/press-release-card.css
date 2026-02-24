@@ -233,7 +233,7 @@
 }
 
 /* Tablet responsive */
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
   .press-release-card {
     .pr-container {
       .pr-card-group {
@@ -245,7 +245,7 @@
 }
 
 /* Mobile responsive */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .press-release-card {
     .pr-container {
       .pr-header {
