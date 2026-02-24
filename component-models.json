@@ -4070,7 +4070,6 @@
         "label": "Popup module classes options",
         "valueType": "string",
         "hidden": true,
-        "readonly": true,
         "options": [
           {
             "name": "Popup Module",
