@@ -5,8 +5,12 @@ export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('div');
   ul.classList.add('card-list');
-  [...block.children].forEach((row) => {
-    if (row.children.length > 1) {
+  const title = document.createElement('div');
+  [...block.children].forEach((row, i) => {
+    if (i < 1) {
+      title.classList = 'title';
+      title.append(...row.children);
+    } else {
       const li = document.createElement('div');
       li.classList.add('card-item');
       moveInstrumentation(row, li);
@@ -25,5 +29,5 @@ export default function decorate(block) {
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
   });
-  block.replaceChildren(ul);
+  block.replaceChildren(title, ul);
 }
