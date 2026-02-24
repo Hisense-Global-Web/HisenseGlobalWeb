@@ -47,7 +47,6 @@
           "label": "Filter by Tags",
           "description": "Select tags to filter press releases. Leave empty to show all.",
           "valueType": "string",
-          "multi": true,
           "rootPath": "/content/cq:tags/hisense"
         },
         {

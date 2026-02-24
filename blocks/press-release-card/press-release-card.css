@@ -31,32 +31,35 @@
       }
 
       .pr-discover-all {
-        font-size: var(--fontsize-body1);
-        font-weight: var(--fontweight-regular);
-        color: var(--color-primary-green-50);
-        text-decoration: none;
-        display: inline-flex;
+        display: flex;
+        justify-content: center;
         align-items: center;
-        gap: var(--size-8);
-        transition: opacity 0.2s ease;
+        height: var(--size-48);
+        padding: 0 var(--size-32);
+        border-radius: var(--size-100);
+        border: 1px solid var(--color-primary-grey-70);
+        background-color: transparent;
+        color: var(--color-hisense-black);
+        font-size: var(--fontsize-body2);
+        line-height: 1.5;
+        font-weight: var(--fontweight-medium);
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
 
         @media (width < 860px) {
-          font-size: var(--fontsize-body2);
+          width: 100%;
+          font-size: var(--size-14);
         }
 
         &:hover {
-          opacity: 0.8;
+          background-color: var(--color-primary-grey-70);
+          color: #fff;
           text-decoration: none;
         }
 
         &::after {
-          content: '';
-          width: var(--size-16);
-          height: var(--size-16);
-          background-image: url('/content/dam/hisense/us/common-icons/arrow-right.svg');
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
+          display: none;
         }
       }
     }
