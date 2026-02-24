@@ -341,6 +341,36 @@
                 "value": "pb-xl"
               }
             ]
+          },
+          {
+            "component": "select",
+            "name": "style_paddingLeft",
+            "label": "Padding Left",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Huge PC Only (320px)",
+                "value": "pl-4xl-pc"
+              }
+            ]
+          },
+          {
+            "component": "select",
+            "name": "style_paddingRight",
+            "label": "Padding Right",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Huge PC Only (320px)",
+                "value": "pr-4xl-pc"
+              }
+            ]
           }
         ]
       },
@@ -444,6 +474,92 @@
         "value": "Content",
         "label": "Content",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "addional-support-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "time_workingHours",
+        "value": "",
+        "label": "Working Hours",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "time_responseTime",
+        "value": "",
+        "label": "Response Time",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "support_phone",
+        "value": "",
+        "label": "Support Phone Number",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "button-display",
+        "value": "pc-and-mobile",
+        "label": "Button Display Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Displayed on both PC and Mobile",
+            "value": "pc-and-mobile"
+          },
+          {
+            "name": "Only displayed on Mobile",
+            "value": "mobile-only"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "label": "",
+        "name": "container_cta",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "aem-content",
+            "name": "button_link",
+            "label": "Button Link",
+            "valueType": "string",
+            "value": ""
+          },
+          {
+            "component": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "valueType": "string",
+            "value": ""
+          }
+        ]
       }
     ]
   },
@@ -844,6 +960,32 @@
         "label": "Tag",
         "multi": false,
         "rootPath": "/content/cq:tags/hisense/product"
+      }
+    ]
+  },
+  {
+    "id": "category-support-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "valueType": "string",
+        "value": ""
       }
     ]
   },
@@ -2113,6 +2255,32 @@
     ]
   },
   {
+    "id": "icon-card-container-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "SVG Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "icon-container",
     "fields": [
       {
@@ -2653,6 +2821,25 @@
     ]
   },
   {
+    "id": "page-header",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "parallax",
     "fields": [
       {
@@ -2679,6 +2866,49 @@
         "component": "richtext",
         "name": "sub_text",
         "label": "Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "Parters Container",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "headline",
+        "value": "Headline",
+        "label": "Headline",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "bodycopy",
+        "value": "Bodycopy",
+        "label": "Bodycopy",
         "valueType": "string"
       }
     ]
@@ -2955,6 +3185,37 @@
     "fields": []
   },
   {
+    "id": "quick-action-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "card-item-image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "button-link",
+        "label": "Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "button-text",
+        "label": "Button Text"
+      }
+    ]
+  },
+  {
     "id": "quick-link",
     "fields": [
       {
@@ -3086,22 +3347,44 @@
         "valueType": "string",
         "name": "placeholder",
         "label": "Placeholder Text"
+      }
+    ]
+  },
+  {
+    "id": "search-box-quick-link-item",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "value": ""
       },
       {
-        "component": "select",
+        "component": "text",
+        "name": "link_text",
+        "label": "Link Text",
         "valueType": "string",
-        "name": "target",
-        "label": "Open In",
-        "options": [
-          {
-            "name": "Same Window",
-            "value": "_self"
-          },
-          {
-            "name": "New Tab",
-            "value": "_blank"
-          }
-        ]
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "section-title",
+    "fields": [
+      {
+        "component": "text",
+        "name": "section_title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "section_subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
       }
     ]
   },
