@@ -71,13 +71,11 @@
           "valueType": "string"
         },
         {
-          "component": "reference",
+          "component": "aem-content",
           "name": "discover-all-link",
           "label": "Discover All Link",
-          "description": "The link for the 'Discover All' button.",
-          "valueType": "string",
-          "multi": false,
-          "rootPath": "/content"
+          "description": "The link path for the 'Discover All' button.",
+          "valueType": "string"
         }
       ]
     }
