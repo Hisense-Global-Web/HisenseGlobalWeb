@@ -804,6 +804,12 @@
       height: 100vh;
       background: rgb(0 0 0 / 70%);
     }
+    
+    &.scroll-active {
+      .mobile-second-menu {
+        height: calc(100vh - 56px);
+      }
+    }
   }
 
   @media (width < 860px) {

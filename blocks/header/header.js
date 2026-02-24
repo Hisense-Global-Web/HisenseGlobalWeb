@@ -506,8 +506,13 @@ export default async function decorate(block) {
   companyArrow.className = 'company-arrow';
   companyArrow.src = '/content/dam/hisense/us/common-icons/chevron-down-black.svg';
   companyArrow.addEventListener('click', () => {
-    document.body.style.overflow = 'hidden';
-    navigation.classList.toggle('show-second-menu');
+    if (navigation.classList.contains('show-second-menu')) {
+      document.body.style.overflow = 'auto';
+      navigation.classList.toggle('show-second-menu');
+    } else {
+      document.body.style.overflow = 'hidden';
+      navigation.classList.toggle('show-second-menu');
+    }
   });
   navSecond.append(CompanyEl, CompanyGroupEl, companyArrow);
 
@@ -555,9 +560,15 @@ export default async function decorate(block) {
     arrow.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
     arrow.addEventListener('click', (e) => {
       e.stopPropagation();
-      const grandParent = e.target.parentNode?.parentNode;
-      if (!grandParent) { return; }
-      grandParent.classList.toggle('hide');
+      const mobileLinksEl = e.target.closest('.mobile-links');
+      if (!mobileLinksEl) { return; }
+      const shouldShow = e.target.closest('.mobile-link').classList.contains('hide');
+      mobileLinksEl.querySelectorAll('.mobile-link').forEach((el) => {
+        el.classList.add('hide');
+      });
+      if (shouldShow) {
+        e.target.closest('.mobile-link').classList.remove('hide');
+      }
     });
     // 这个是手机端二级菜单的title，相当于pc的nav的item
     const mobileLinkTitleLine = document.createElement('div');
