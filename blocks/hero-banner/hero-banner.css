@@ -8,6 +8,7 @@ main > .section:first-of-type {
 p {
   margin: 0;
   padding: 0;
+  line-height: unset;
 }
 
 .hero-banner-wrapper {
@@ -411,6 +412,9 @@ p {
     picture > img {
       object-position: center 35% !important;
       pointer-events: none;
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
     .hero-banner-item {
@@ -457,6 +461,11 @@ p {
       }
 
       .hero-banner-item-image {
+        touch-action: manipulation;
+        user-select: none;
+
+        --webkit-user-select: none;
+
         p:nth-child(1) {
           display: none;
         }

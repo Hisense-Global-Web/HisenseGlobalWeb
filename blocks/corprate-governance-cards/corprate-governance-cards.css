@@ -1,6 +1,7 @@
 p {
     margin: 0;
     padding: 0;
+    line-height: unset;
 }
 
 .corprate-governance-cards {
@@ -10,7 +11,7 @@ p {
     gap: var(--spacing-xl);
 
      .card-item {
-        width: calc(352/var(--breakpoint-pc) * 100vw);
+        flex: 1 0 calc(352/var(--breakpoint-pc) * 100vw);
         display: flex;
         flex-direction: column;
         text-align: center;
@@ -39,6 +40,10 @@ p {
             align-items: center;
             gap: var(--spacing-4xs, 4px);
             align-self: stretch;
+             
+            &.no-text {
+                display: none;
+            }
         }
 
         .title {
@@ -86,7 +91,7 @@ p {
 
     .corprate-governance-cards {
         gap: var(--spacing-2xs, 12px);
-        padding: 0 var(--size-18);
+        padding: 0 var(--common-padding);
         overflow-x: scroll;
         scrollbar-width: none;
         -ms-overflow-style: none;

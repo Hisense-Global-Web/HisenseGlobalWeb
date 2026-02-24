@@ -20,6 +20,8 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
 
     @media (width < 860px) {
       width: 100%;
+      font-size: var(--size-16);
+      line-height: 1.3;
     }
   }
 
@@ -43,6 +45,11 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
       border-radius: var(--radius-lg);
       gap: var(--size-48);
       
+      @media (width < 860px) {
+        flex-direction: column;
+        padding: var(--size-48) var(--size-24);
+      }
+      
       .media-contact-card-richtext {
         a {
           border: none;
@@ -58,6 +65,10 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
         gap: var(--size-12);
         width: min(calc(257 / var(--breakpoint-pc) * 100vw), 257px);
         
+        @media (width < 860px) {
+          width: 100%;
+        }
+        
         .media-contact-card-btn {
           width: 100%;
           height: var(--size-50);
@@ -71,6 +82,15 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
           background: var(--color-primary-green-60);
           border-radius: var(--size-100);
           cursor: pointer;
+          
+          @media (width < 860px) {
+            align-self: flex-start;
+            width: auto;
+            height: auto;
+            padding: var(--size-10) var(--size-24);
+            font-size: var(--size-14);
+            line-height: 1.4;
+          }
         }
         
         .media-contact-card-description {
@@ -78,6 +98,11 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
           font-weight: var(--fontweight-light);
           line-height: 22px;
           color: var(--color-primary-grey-70);
+          
+          @media (width < 860px) {
+            font-size: var(--size-14);
+            line-height: 1.4;
+          }
         }
       }
       

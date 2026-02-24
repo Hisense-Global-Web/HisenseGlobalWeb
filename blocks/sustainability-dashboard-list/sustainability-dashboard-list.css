@@ -4,11 +4,12 @@
   gap: var(--size-32);
   width: 100%;
   height: auto;
-  min-height: calc(152/var(--breakpoint-pc)*100vw);
+  min-height: min(calc(104/var(--breakpoint-pc)*100vw), 104px);
 
   p {
     margin: 0;
     padding: 0;
+    line-height: unset;
   }
 }
 

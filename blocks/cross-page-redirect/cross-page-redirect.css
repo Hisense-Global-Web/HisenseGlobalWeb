@@ -6,17 +6,44 @@
 
 .cross-page-redirect {
     width: 100%;
-    height: calc(400/var(--breakpoint-pc) *100vw);
+    height: min(calc(400/var(--breakpoint-pc) *100vw), 400px);
     display: flex;
     padding: 0 var(--spacing-4xl, 160px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: var(--spacing-pc-md, 32px);
+
+    .text-container {
+        width: 100%;
+        display: flex;
+        padding: 0 var(--spacing-xl, 48px);
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm, 24px);
+        text-align: center;
+    }
+    
+    .title {
+        width: 100%;
+        font-size: var(--fontsize-pc-h1, 46px);
+        font-weight: var(--fontweight-medium);
+        line-height: 120%; /* 55.2px */
+        text-transform: capitalize;
+    }
+    
+    .text {
+        width: 100%;
+        font-size: var(--size-title1, 24px);
+        font-weight: var(--fontweight-medium);
+        line-height: 120%; /* 28.8px */
+    }
+    
 }
 
 p {
     margin: 0;
+    line-height: unset;
 }
 
 .gray-20 {
@@ -36,7 +63,7 @@ p {
     font-weight: var(--fontweight-medium);
     line-height: 150%; /* 21px */
     display: inline-flex;
-    height: calc(50/var(--breakpoint-pc) * 100vw);
+    height: min(calc(50/var(--breakpoint-pc) * 100vw), 50px);
     padding: var(--spacing-4xs, 4px) var(--spacing-pc-md, 32px);
     justify-content: center;
     align-items: center;
@@ -69,31 +96,6 @@ p {
             background-color: var(--color-primary-grey-70);
         }
     }
-}
-
-.text-container {
-    width: 100%;
-    display: flex;
-    padding: 0 var(--spacing-xl, 48px);
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-sm, 24px);
-    text-align: center;
-}
-
-.title {
-    width: 100%;
-    font-size: var(--fontsize-pc-h1, 46px);
-    font-weight: var(--fontweight-medium);
-    line-height: 120%; /* 55.2px */
-    text-transform: capitalize;
-}
-
-.text {
-    width: 100%;
-    font-size: var(--size-title1, 24px);
-    font-weight: var(--fontweight-medium);
-    line-height: 120%; /* 28.8px */
 }
 
 @media (width < 860px) {

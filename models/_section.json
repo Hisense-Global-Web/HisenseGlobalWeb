@@ -68,10 +68,6 @@
               "value": "soft-green"
             },
             {
-              "name": "Gradient Green",
-              "value": "gradient-green"
-            },
-            {
               "name": "Green",
               "value": "green"
             }
@@ -190,6 +186,36 @@
                   "value": "pb-xl"
                 }
               ]
+            },
+            {
+              "component": "select",
+              "name": "style_paddingLeft",
+              "label": "Padding Left",
+              "options": [
+                {
+                  "name": "None",
+                  "value": ""
+                },
+                {
+                  "name": "Huge PC Only (320px)",
+                  "value": "pl-4xl-pc"
+                }
+              ]
+            },
+            {
+              "component": "select",
+              "name": "style_paddingRight",
+              "label": "Padding Right",
+              "options": [
+                {
+                  "name": "None",
+                  "value": ""
+                },
+                {
+                  "name": "Huge PC Only (320px)",
+                  "value": "pr-4xl-pc"
+                }
+              ]
             }
           ]
         },
@@ -294,20 +320,35 @@
         "product-spec",
         "properties",
         "quick-link",
+        "resource-list",
+        "related-news",
         "search-box",
         "slide",
         "social-media-list",
         "sub-menu-link",
+        "strategic-card-items",
         "tech-evolution-timeline",
         "tech-information",
         "text",
         "title",
         "video",
         "videoinfo",
+        "page-header",
+        "icon-card-container",
+        "section-title",
+        "quick-action-card",
+        "category-support-card",
+        "addional-support-card",
+        "tech-information",
+        "past-partnerships-list",
+        "partnerships-section-title",
+        "sustainability-dashboard-achievement",
+        "sustainability-dashboard-list",
+        "stats-grid",
         "tech-information",
         "core-value-card",
         "past-partnerships-list",
-  	    "about-hisense-section-title",
+        "about-hisense-section-title",
         "current-partnerships-list",
         "industry-categories",
         "module-title",
