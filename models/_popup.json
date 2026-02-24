@@ -11,7 +11,7 @@
               "name": "Popup",
               "model": "popup",
               "filter": "popup",
-              "classes": "popup-section"
+              "style": "popup-section"
             }
           }
         }
