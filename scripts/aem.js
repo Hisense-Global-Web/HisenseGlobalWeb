@@ -756,7 +756,7 @@ async function loadSections(element) {
     await Promise.all(footerSections.map((s) => decorateFooterSection(s)));
   }
   // load popup module section
-  const popupModuleSections = sections.filter((section) => section.classList.contains('popup-module-white'));
+  const popupModuleSections = sections.filter((section) => section.classList.contains('popup-module-container'));
   if (popupModuleSections.length) {
     await Promise.all(popupModuleSections.map((s) => decoratePopupModuleSection(s)));
   }

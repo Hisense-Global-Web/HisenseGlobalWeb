@@ -1,6 +1,7 @@
 // import { readBlockConfig } from '../../scripts/aem.js';
 
-import { popupContainerAddBlockUtils } from '../../utils/section-popup-utils.js';
+// import { popupContainerAddBlockUtils } from '../../utils/section-popup-utils.js';
+import { popupContainerAddBlockUtils } from '../../utils/popup-module-utils.js';
 
 export default async function decorate(block) {
   [...block.children].forEach((child) => {

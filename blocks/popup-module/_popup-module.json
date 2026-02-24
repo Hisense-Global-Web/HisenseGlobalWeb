@@ -25,15 +25,22 @@
         {
           "component": "select",
           "name": "style_popup",
-          "value": "popup-module-white",
+          "value": "popup-module-container",
           "label": "Popup module classes options",
           "valueType": "string",
           "options": [
             {
-              "name": "Popup Module White",
-              "value": "popup-module-white"
+              "name": "Popup Module Container",
+              "value": "popup-module-container"
             }
           ]
+        },
+        {
+          "component": "boolean",
+          "name": "show_type",
+          "label": "Popup visibility?",
+          "valueType": "boolean",
+          "description": "Switch OFF: Popup Hide | Switch ON: Popup Show"
         },
         {
           "component": "text",
@@ -54,7 +61,6 @@
     {
       "id": "popup-module",
       "components": [
-        "popup-container",
         "module-title",
         "sustainability-dashboard-list"
       ]

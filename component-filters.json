@@ -328,7 +328,6 @@
   {
     "id": "popup-module",
     "components": [
-      "popup-container",
       "module-title",
       "sustainability-dashboard-list"
     ]
