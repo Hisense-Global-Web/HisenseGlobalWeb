@@ -21,13 +21,7 @@
       "components": [
         {
           "...": "./_section.json#/definitions"
-        }
-      ]
-    },
-    {
-      "title": "Popup",
-      "id": "popup",
-      "components": [
+        },
         {
           "...": "./_popup.json#/definitions"
         }
