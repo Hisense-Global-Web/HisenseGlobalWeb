@@ -1,17 +1,17 @@
 {
   "definitions": [
     {
-      "title": "Section Popup",
-      "id": "section-popup",
+      "title": "Popup Module",
+      "id": "popup-module",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
-              "name": "Section Popup",
-              "model": "section-popup",
-              "filter": "section-popup",
-              "classes": "h-section-popup-wrapper"
+              "name": "Popup Module",
+              "model": "popup-module",
+              "filter": "popup-module",
+              "classes": "h-popup-module-wrapper"
             }
           }
         }
@@ -20,7 +20,7 @@
   ],
   "models": [
     {
-      "id": "section-popup",
+      "id": "popup-module",
       "fields": [
         {
           "component": "text",
@@ -39,9 +39,9 @@
   ],
   "filters": [
     {
-      "id": "section-popup",
+      "id": "popup-module",
       "components": [
-        "section-popup-container",
+        "popup-container",
         "module-title",
         "sustainability-dashboard-list"
       ]

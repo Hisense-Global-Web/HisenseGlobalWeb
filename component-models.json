@@ -2723,6 +2723,35 @@
     ]
   },
   {
+    "id": "popup-container",
+    "fields": [
+      {
+        "component": "boolean",
+        "name": "show_type",
+        "label": "Popup visibility?",
+        "valueType": "boolean",
+        "description": "Switch OFF: Popup Hide | Switch ON: Popup Show"
+      }
+    ]
+  },
+  {
+    "id": "popup-module",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "text",
+        "name": "id",
+        "label": "Section ID",
+        "description": "Enter a unique ID."
+      }
+    ]
+  },
+  {
     "id": "product-card",
     "fields": [
       {
@@ -3100,35 +3129,6 @@
             "value": "_blank"
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "section-popup-container",
-    "fields": [
-      {
-        "component": "boolean",
-        "name": "show_type",
-        "label": "Popup visibility?",
-        "valueType": "boolean",
-        "description": "Switch OFF: Popup Hide | Switch ON: Popup Show"
-      }
-    ]
-  },
-  {
-    "id": "section-popup",
-    "fields": [
-      {
-        "component": "text",
-        "name": "name",
-        "label": "Section Name",
-        "description": "The label shown for this section in the Content Tree"
-      },
-      {
-        "component": "text",
-        "name": "id",
-        "label": "Section ID",
-        "description": "Enter a unique ID."
       }
     ]
   },

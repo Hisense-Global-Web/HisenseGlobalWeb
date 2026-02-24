@@ -1397,6 +1397,38 @@
           }
         },
         {
+          "title": "Popup Container",
+          "id": "popup-container",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Popup Container",
+                  "model": "popup-container"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Popup Module",
+          "id": "popup-module",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Popup Module",
+                  "model": "popup-module",
+                  "filter": "popup-module",
+                  "classes": "h-popup-module-wrapper"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Product Card",
           "id": "product-card",
           "plugins": {
@@ -1640,38 +1672,6 @@
                   "search-link": "/search",
                   "placeholder": "Search",
                   "target": "_self"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Section Popup Container",
-          "id": "section-popup-container",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Section Popup Container",
-                  "model": "section-popup-container"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Section Popup",
-          "id": "section-popup",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/section/v1/section",
-                "template": {
-                  "name": "Section Popup",
-                  "model": "section-popup",
-                  "filter": "section-popup",
-                  "classes": "h-section-popup-wrapper"
                 }
               }
             }

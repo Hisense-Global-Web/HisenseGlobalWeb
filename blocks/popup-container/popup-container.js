@@ -11,13 +11,13 @@ export default function decorate(block) {
     [...row.children].forEach((column, colIndex) => {
       if (colIndex === 1) {
         column.className = 'popup-content-container';
-        // In editor mode, popup visibility, the value is set in section-popup block, and used to control whether show popup or not when page load
+        // In editor mode, the value is set in popup module block, and used to control whether show popup or not when page load
         const popupVisibility = column.firstElementChild.innerText;
         if (popupVisibility === 'true') {
-          column.parentElement.closest('.section-popup-container-container').classList.add('popup-show');
+          column.parentElement.closest('.popup-container-container').classList.add('popup-show');
           document.body.style.overflow = 'hidden';
         } else {
-          column.parentElement.closest('.section-popup-container-container').classList.remove('popup-show');
+          column.parentElement.closest('.popup-container-container').classList.remove('popup-show');
           document.body.style.overflow = 'auto';
         }
         column.firstElementChild.remove();
@@ -26,7 +26,7 @@ export default function decorate(block) {
   });
   // close popup
   closeDivEl.addEventListener('click', () => {
-    document.querySelectorAll('.section-popup-container-container').forEach((popupItem) => {
+    document.querySelectorAll('.popup-container-container').forEach((popupItem) => {
       popupItem.classList.remove('popup-show');
     });
     document.body.style.overflow = 'auto';

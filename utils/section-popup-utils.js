@@ -1,6 +1,6 @@
 // block element append to popup container element
 export function popupContainerAddBlockUtils(block) {
-  const sectionPopupContainerDom = block.parentElement.closest('.section-popup-container-container');
+  const sectionPopupContainerDom = block.parentElement.closest('.popup-container-container');
   if (sectionPopupContainerDom) {
     const popupContentDom = sectionPopupContainerDom.querySelector('.popup-content-container');
     popupContentDom.append(block.parentElement);
@@ -13,10 +13,10 @@ export function popupShowUtils(e) {
   // 获取目标 data-id 值
   const ctaId = e.target.dataset.id;
   // 找到对应 data-id 的 popup
-  const targetPopup = document.querySelector(`.section-popup-container-container[data-id="${ctaId}"]`);
+  const targetPopup = document.querySelector(`.popup-container-container[data-id="${ctaId}"]`);
   if (targetPopup) {
     // 先隐藏所有 popup 元素
-    // document.querySelectorAll('.section-popup-container-container').forEach(popupItem => {
+    // document.querySelectorAll('.popup-container-container').forEach(popupItem => {
     //     popupItem.classList.remove('popup-show');
     // });
 

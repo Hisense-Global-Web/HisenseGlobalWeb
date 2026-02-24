@@ -1,12 +1,12 @@
-.section.section-popup-container-container {
+.section.popup-container-container {
   display: none;
 }
 
-.section.section-popup-container-container.popup-show {
+.section.popup-container-container.popup-show {
   display: block;
 }
 
-main .section .section-popup-container-wrapper {
+main .section .popup-container-wrapper {
   position: fixed;
   inset: 0;
   z-index: 1000000000;
@@ -15,7 +15,7 @@ main .section .section-popup-container-wrapper {
   padding: 0;
   margin: 0;
 
-  .section-popup-container {
+  .popup-container {
     width: min(55.5%, 800px);
 
     /* max-height: 86.41975308%; */

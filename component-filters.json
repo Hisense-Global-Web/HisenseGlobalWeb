@@ -3,7 +3,7 @@
     "id": "main",
     "components": [
       "section",
-      "section-popup",
+      "popup-module",
       "navigation",
       "company-page-navigation",
       "footerContainer"
@@ -287,6 +287,14 @@
     ]
   },
   {
+    "id": "popup-module",
+    "components": [
+      "popup-container",
+      "module-title",
+      "sustainability-dashboard-list"
+    ]
+  },
+  {
     "id": "product-filter",
     "components": [
       "product-filter-item"
@@ -314,14 +322,6 @@
     "id": "resource-list",
     "components": [
       "resource-list-item"
-    ]
-  },
-  {
-    "id": "section-popup",
-    "components": [
-      "section-popup-container",
-      "module-title",
-      "sustainability-dashboard-list"
     ]
   },
   {
