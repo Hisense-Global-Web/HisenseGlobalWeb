@@ -69,6 +69,7 @@
       "slide",
       "social-media-list",
       "sub-menu-link",
+      "strategic-card-items",
       "tech-evolution-timeline",
       "tech-information",
       "text",
@@ -382,6 +383,12 @@
     "id": "stats-grid",
     "components": [
       "sustainability-dashboard-achievement-matrix"
+    ]
+  },
+  {
+    "id": "strategic-card-items",
+    "components": [
+      "strategic-card-item"
     ]
   },
   {

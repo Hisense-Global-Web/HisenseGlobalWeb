@@ -8,6 +8,7 @@ main > .section:first-of-type {
 p {
   margin: 0;
   padding: 0;
+  line-height: unset;
 }
 
 .hero-banner-wrapper {

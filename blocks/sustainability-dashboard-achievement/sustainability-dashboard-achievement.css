@@ -108,6 +108,7 @@
           width: 1px;
           height: var(--size-48);
           background-color: var(--color-primary-grey-40);
+          margin: auto 0;
         }
       }
     }
