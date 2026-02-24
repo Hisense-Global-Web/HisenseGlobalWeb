@@ -26,4 +26,17 @@ export default function decorate(block) {
     });
     document.body.style.overflow = 'auto';
   });
+
+  // default hide popup when page load
+  const isEditorMode = block.hasAttribute('data-aue-resource')
+  || block.hasAttribute('data-aue-type')
+  || block.closest('[data-aue-resource]')
+  || block.closest('[data-aue-type]');
+  if (!isEditorMode) {
+    // 非编辑模式下隐藏所有 popup 元素
+    document.querySelectorAll('.popup-module-container').forEach((popupItem) => {
+      popupItem.classList.remove('popup-show');
+      document.body.style.overflow = 'auto';
+    });
+  }
 }
