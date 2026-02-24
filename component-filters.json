@@ -320,12 +320,6 @@
     ]
   },
   {
-    "id": "parters-container",
-    "components": [
-      "parters-container-item"
-    ]
-  },
-  {
     "id": "past-partnerships-list",
     "components": [
       "past-partnerships-list-item"
