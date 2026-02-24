@@ -58,3 +58,27 @@ main .section.popup-module-container {
     }
   }
 }
+
+@media (width < 860px) {
+  main .section.popup-module-container {
+    .popup-container {
+      width: calc(100vw - 36px);
+      padding: 0;
+
+      .popup-close {
+        width: var(--size-72);
+        height: var(--size-72);
+
+        img {
+          width: var(--size-24);
+          height: var(--size-24);
+        }
+      }
+
+      .popup-content-container {
+        padding: var(--size-72) var(--size-24) var(--size-24);
+        max-height: min(calc(560 / var(--breakpoint-mobile) * 100vw), 560px);
+      }
+    }
+  }
+}
