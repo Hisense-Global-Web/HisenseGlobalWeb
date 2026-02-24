@@ -25,6 +25,15 @@
       ]
     },
     {
+      "title": "Popup",
+      "id": "popup",
+      "components": [
+        {
+          "...": "./_popup.json#/definitions"
+        }
+      ]
+    },
+    {
       "title": "Blocks",
       "id": "blocks",
       "components": [
