@@ -3485,6 +3485,44 @@
     "fields": []
   },
   {
+    "id": "strategic-card-items",
+    "fields": []
+  },
+  {
+    "id": "strategic-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Icon",
+        "required": true,
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "btn_label",
+        "label": "Button Label",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "btn_id",
+        "label": "PopupSectionId",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "sub-menu-link",
     "fields": [
       {

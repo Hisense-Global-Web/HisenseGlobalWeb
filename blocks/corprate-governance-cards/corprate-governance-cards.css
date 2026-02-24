@@ -1,6 +1,7 @@
 p {
     margin: 0;
     padding: 0;
+    line-height: unset;
 }
 
 .corprate-governance-cards {
@@ -90,7 +91,7 @@ p {
 
     .corprate-governance-cards {
         gap: var(--spacing-2xs, 12px);
-        padding: 0 var(--size-18);
+        padding: 0 var(--common-padding);
         overflow-x: scroll;
         scrollbar-width: none;
         -ms-overflow-style: none;

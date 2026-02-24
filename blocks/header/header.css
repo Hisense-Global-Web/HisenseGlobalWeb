@@ -1,5 +1,9 @@
 /* navigation styles */
 
+:root {
+  --root-header-height: 100px;
+}
+
 /* 兼容编辑模式和预览模式 */
 
 /* 导航栏容器：固定顶部 */
@@ -36,7 +40,11 @@
   animation-fill-mode: forwards;
   
   &.hidden {
-    top: -100%;
+    top: calc(-1 * var(--root-header-height));
+  }
+  
+  &.is-company {
+    transition: none;
   }
   
   /* 滚动的时候，一级菜单 */
@@ -53,7 +61,7 @@
   .nav-container {
     display: flex;
     align-items: center;
-    height: 100px;
+    height: var(--root-header-height);
     box-sizing: border-box;
     
     .nav-links {
@@ -140,6 +148,8 @@
   justify-content: space-between;
   box-sizing: border-box;
   background: #fff;
+  max-width: inherit;
+  padding: 0 calc(calc(100% - var(--container-max-width)) / 2 + var(--common-padding));
   
   &.hidden {
     display: none;
@@ -270,14 +280,14 @@
   align-items: center;
   padding: 0 25px;
   max-width: 1200px;
-  height: 100px;
+  height: var(--root-header-height);
   margin: 0 auto;
 }
 
 /* 左侧logo区域 */
 .navigation-logo-wrapper {
   order: 1;
-  min-width: 100px;
+  min-width: var(--root-header-height);
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -624,10 +634,10 @@
 .nav-mask {
   display: none;
   position: fixed;
-  top: 100px;
+  top: var(--root-header-height);
   left: 0;
   width: 100%;
-  height: calc(100vh - 100px);
+  height: calc(100vh - var(--root-header-height));
   background: rgb(0 0 0 / 50%);
   z-index: 997;
 }
@@ -719,6 +729,7 @@
 
   #navigation .nav-second {
     height: 56px;
+    padding: 0 var(--common-padding);
     
     .company-group {
       display: none;
@@ -732,14 +743,15 @@
   }
   
   #navigation .mobile-second-menu {
-    max-height: 0;
+    max-height: inherit;
+    height: 0;
     padding: 0 24px;
     overflow: hidden;
     overscroll-behavior: contain;
     margin-top: 66px;
     box-sizing: border-box;
     background: var(--color-primary-grey-10);
-    transition: max-height .36s ease-in-out;
+    transition: height .36s ease-in-out;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -777,8 +789,9 @@
 
   #navigation.show-second-menu {
     .mobile-second-menu {
-      max-height: calc(100vh - 120px);
+      height: calc(100vh - 112px);
       padding: 0 24px;
+      max-height: inherit;
     }
 
     .company-arrow {
@@ -791,6 +804,12 @@
       height: 100vh;
       background: rgb(0 0 0 / 70%);
     }
+    
+    &.scroll-active {
+      .mobile-second-menu {
+        height: calc(100vh - 56px);
+      }
+    }
   }
 
   @media (width < 860px) {
@@ -802,6 +821,7 @@
 
 #navigation .shadow {
   position: fixed;
+  display: none;
   width: 100vw;
   height: 0;
   background: rgb(0 0 0 / 0%);

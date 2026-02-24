@@ -2,8 +2,6 @@
 .bi-directional-content-wrapper {
    @media (width < 860px) {
     width: 100%;
-    background-color: var(--color-primary-green-10);
-    border-radius: var(--radius-xl);
    }
 }
 
@@ -12,62 +10,122 @@
   padding: 0;
 }
 
+.bi-directional-content-wrapper .title div{
+  display: flex;
+  flex-direction: column-reverse;
+  padding: var(--size-80) 0;
+  margin: auto;
+  width: min(51.38888vw ,740px);
+  color: var(--color-primary-green-60);
+  font-family: var(--font-family);
+  text-align: center;
+  
+   @media (width < 860px) {
+    width: 100%;
+    padding: var(--size-48) var(--size-32) ;
+   }
+}
+
+.bi-directional-content-wrapper .title div p:first-child{
+   font-size: var(--fontsize-pc-h4);
+   margin-top:  var(--fontsize-pc-h4);
+    font-weight: var(--fontweight-medium);
+
+   @media (width < 860px) {
+    font-size: var(--size-14);
+    margin-top:  var(--size-16);
+  }
+}
+
+.bi-directional-content-wrapper .title div p:nth-child(2) {
+  font-size: var(--fontsize-pc-h4);
+ 
+
+   @media (width < 860px) {
+    font-size: var(--size-14);
+  }
+}
+
 .bi-directional-content .card-list {
   display: grid;
   grid-template-columns: 1fr;
+  gap: var(--size-48);
+
+   @media (width < 860px) {
+     margin: var(--size-48) var(--size-18);
+     gap: var(--size-32);
+  }
 }
 
 
 .bi-directional-content .card-list .card-item{
-  display: grid;
-	grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
   gap: var(--size-24);
 
    @media (width < 860px) {
-    grid-template-columns: 1fr;
+     flex-direction: column;
+     gap: 0;
+  }
+}
+
+.bi-directional-content .card-list .card-item:nth-child(odd){
+  flex-direction: row-reverse;
+
+   @media (width < 860px) {
+     flex-direction: column;
   }
 }
 
 .bi-directional-content .card-body {
+  width:min(4525545%, 496px);
+  background: var(--color-primary-green-20);
   border-radius: 20px;
-   color:var(--color-primary-grey-100);
+  overflow: hidden;
    font-family: var(--font-family);
-   margin: var(--spacing-sm) 0 var(--spacing-md);
+   margin: 0;
+   padding: var(--size-48) var(--spacing-lg);
    
    @media (width < 860px) {
-     margin: var(--size-12) 0 var(--spacing-sm);
+    width: 100%;
+     border-radius: 0 0 20px 20px;
+     padding: var(--spacing-m)  var(--spacing-sm)  var(--spacing-xl);
   }
 }
 
-.bi-directional-content .card-body div:first-child {
+.bi-directional-content .card-body p:first-child {
   font-weight: var(--fontweight-medium);
-  font-size: var(--fontsize-title1);
-  margin-bottom: var(--size-8);
+  font-size: var(--fontsize-pc-h3);
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-hisense-black);
 
    @media (width < 860px) {
     font-size: var(--size-20);
-    margin-bottom: var(--size-4);
+    margin-bottom: var(--spacing-2xs);
   }
 }
 
-.bi-directional-content .card-body div:nth-child(2){
+.bi-directional-content .card-body p:nth-child(2){
    font-weight: var(--fontweight-book);
-   font-size: var(--fontsize-body2);
-   
+   font-size: var(--fontsize-body1);
+   color:var(--color-primary-grey-70);;
+
    @media (width < 860px) {
       font-size: var(--size-14);
   }
 }
 
-.bi-directional-content  .card-image {
-  border-radius: 20px;
-  width: 100%;
-  aspect-ratio: 1 / 1 ;
-  object-fit: contain;
+.bi-directional-content  .card-image  {
+  border-radius: 20px ;
+  width: min(54.7445%, 600px);
   transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
+  overflow: hidden;
 
   @media (width < 860px) {
-     margin: auto;
+    border-radius:  20px 20px 0 0;
+    width: 100%;
+    margin: auto;
   }
 }
 
