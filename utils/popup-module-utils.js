@@ -14,7 +14,7 @@ export function popupShowUtils(e) {
   const ctaId = e.target.dataset.id;
   // 找到对应 data-id 的 popup
   const targetPopup = document.querySelector(`.popup-module-container[data-id="${ctaId}"]`);
-  const popupMaskDom = document.querySelector('.popup-mask');
+  // const popupMaskDom = document.querySelector('.popup-mask');
   if (targetPopup) {
     // 先隐藏所有 popup 元素
     // document.querySelectorAll('.popup-module-container').forEach(popupItem => {
@@ -24,6 +24,6 @@ export function popupShowUtils(e) {
     document.body.style.overflow = 'hidden';
     // 显示目标 popup 元素
     targetPopup.classList.add('popup-show');
-    popupMaskDom.classList.add('popup-mask-show');
+    // popupMaskDom.classList.add('popup-mask-show');
   }
 }
