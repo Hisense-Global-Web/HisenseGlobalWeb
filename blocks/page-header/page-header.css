@@ -1,0 +1,30 @@
+.page-header-title {
+  color: var(--color-primary-green-50, #009f9c);
+  text-align: center;
+  font-size: var(--fontsize-pc-h1, 46px);
+  font-weight: var(--fontweight-medium, 500);
+  line-height: 1.2;
+  text-transform: capitalize;
+
+  @media (width<860px) {
+    font-size: var(--size-30, 30px);
+  }
+}
+
+.page-header-subtitle {
+  margin-top: var(--spacing-sm, 24px);
+  color: var(--color-primary-grey-70, #333);
+  text-align: center;
+  font-size: var(--font-size-normal, 24px);
+  font-weight: var(--fontweight-medium, 500);
+  line-height: 1.2;
+
+  @media (width<860px) {
+    margin-top: var(--spacing-xs, 16px);
+    font-size: var(--size-16, 16px);
+  }
+}
+
+.page-header p {
+  margin: 0;
+}
