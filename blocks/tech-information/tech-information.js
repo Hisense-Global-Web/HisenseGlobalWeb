@@ -1,4 +1,5 @@
-import { popupShowUtils } from '../../utils/section-popup-utils.js';
+// import { popupShowUtils } from '../../utils/section-popup-utils.js';
+import { popupShowUtils } from '../../utils/popup-module-utils.js';
 
 export default async function decorate(block) {
   // console.log(block, 'bb');

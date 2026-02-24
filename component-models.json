@@ -2950,11 +2950,21 @@
         ]
       },
       {
-        "component": "boolean",
-        "name": "show_type",
-        "label": "Popup visibility?",
-        "valueType": "boolean",
-        "description": "Switch OFF: Popup Hide | Switch ON: Popup Show"
+        "component": "select",
+        "name": "style_popupVisibility",
+        "label": "Popup visibility options",
+        "value": "popup-show",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Popup Show",
+            "value": "popup-show"
+          },
+          {
+            "name": "Popup Hide",
+            "value": ""
+          }
+        ]
       },
       {
         "component": "text",

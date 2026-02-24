@@ -1,3 +1,5 @@
+import { popupContainerAddBlockUtils } from '../../utils/popup-module-utils.js';
+
 export default function decorate(block) {
   const config = ['title', 'value', 'description'];
   [...block.children].forEach((child) => {
@@ -6,4 +8,5 @@ export default function decorate(block) {
       grandChild.classList.add(config[index]);
     });
   });
+  popupContainerAddBlockUtils(block);
 }
