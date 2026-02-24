@@ -31,7 +31,16 @@ export default function decorate(block) {
   || block.hasAttribute('data-aue-type')
   || block.closest('[data-aue-resource]')
   || block.closest('[data-aue-type]');
-  if (!isEditorMode) {
+  if (isEditorMode) {
+    const popupShowLength = document.querySelectorAll('.popup-show')
+    if (popupShowLength.length) {
+      document.querySelector('.popup-mask').classList.add('popup-mask-show');
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.querySelector('.popup-mask').classList.remove('popup-mask-show');
+      document.body.style.overflow = 'auto';
+    }
+  } else {
     // 非编辑模式下隐藏所有 popup 元素
     document.querySelectorAll('.popup-module-container').forEach((popupItem) => {
       popupItem.classList.remove('popup-show');
