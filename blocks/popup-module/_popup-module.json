@@ -23,6 +23,15 @@
       "id": "popup-module",
       "fields": [
         {
+          "component" : "text",
+          "name" : "component_type",
+          "label": "",
+          "valueType" : "string",
+          "value": "section-popup-module",
+          "hidden": true,
+          "readonly": true
+        },
+        {
           "component": "text",
           "name": "name",
           "label": "Section Name",
