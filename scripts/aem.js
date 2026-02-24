@@ -735,7 +735,7 @@ async function loadSections(element) {
     await Promise.all(footerSections.map((s) => decorateFooterSection(s)));
   }
   const popupSection = sections.filter(section=> section.classList.contains('popup-module'));
-  if(popupSection) {
+  if(popupSection.length) {
    const cssLoaded = loadCSS(`${window.hlx.codeBasePath}/styles/popup.css`);
     const decorationComplete = (async () => {
       try {
