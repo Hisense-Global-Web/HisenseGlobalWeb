@@ -79,8 +79,11 @@ export default async function decorate(block) {
   // ========== VIDEO [START] ========== //
   const playVideo = () => {
     playBtn.classList.toggle('playing', true);
+    video.muted = true;
     video.play()
-      .catch(() => {
+      .catch((error) => {
+        /* eslint-disable-next-line no-console */
+        console.error('Video play failed:', error);
         // autoplay might be blocked
         playBtn.classList.toggle('playing', false);
       });
