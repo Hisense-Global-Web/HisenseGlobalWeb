@@ -23,9 +23,18 @@
       "fields": [
         {
           "component": "text",
-          "name": "keywords",
-          "label": "Keywords",
-          "valueType": "string"
+          "valueType": "string",
+          "name": "graphql",
+          "label": "GraphQL Endpoint",
+          "description": "GraphQL endpoint URL"
+        },
+        {
+          "component": "aem-tag",
+          "valueType": "string",
+          "name": "tag",
+          "label": "Tag",
+          "multi": false,
+          "rootPath": "/content/cq:tags/hisense/product"
         }
       ]
     }
