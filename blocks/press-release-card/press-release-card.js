@@ -43,7 +43,14 @@ function normalizeNewsroomData(json) {
 }
 
 function filterByTags(items, filterTags) {
-  if (!filterTags || !Array.isArray(filterTags) || filterTags.length === 0) {
+  let tagArray = [];
+  if (typeof filterTags === 'string') {
+    tagArray = filterTags.split(',').map((t) => t.trim()).filter((t) => t);
+  } else if (Array.isArray(filterTags)) {
+    tagArray = filterTags;
+  }
+
+  if (!tagArray || tagArray.length === 0) {
     return items;
   }
 
@@ -52,9 +59,9 @@ function filterByTags(items, filterTags) {
     if (!itemTags) return false;
 
     const itemTagArray = itemTags.split(',').map((t) => t.trim().toLowerCase());
-    return filterTags.some((filterTag) => {
+    return tagArray.some((filterTag) => {
       const filterTagLower = String(filterTag).toLowerCase();
-      return itemTagArray.some((itemTag) => itemTag.includes(filterTagLower) || filterTagLower.includes(itemTag));
+      return itemTagArray.some((itemTag) => itemTag === filterTagLower || itemTag.includes(filterTagLower));
     });
   });
 }
@@ -94,7 +101,6 @@ function buildCard(item) {
   const contentEl = document.createElement('div');
   contentEl.classList.add('pr-card-content');
 
-  // Eyebrow (use subtitle as category)
   if (subtitle) {
     const eyebrowEl = document.createElement('span');
     eyebrowEl.classList.add('pr-card-eyebrow');
@@ -111,7 +117,6 @@ function buildCard(item) {
     contentEl.appendChild(titleLink);
   }
 
-  // Meta group - only show date
   const formattedDate = formatDate(date);
   if (formattedDate) {
     const metaGroupEl = document.createElement('div');
@@ -173,7 +178,7 @@ export default async function decorate(block) {
   const container = document.createElement('div');
   container.className = 'pr-container';
 
-  // Header with title and discover all link
+  // Header
   const headerEl = document.createElement('div');
   headerEl.className = 'pr-header';
 
@@ -182,19 +187,25 @@ export default async function decorate(block) {
   sectionTitleEl.textContent = titleText;
   headerEl.appendChild(sectionTitleEl);
 
-  if (discoverAllLink) {
-    const discoverAllEl = document.createElement('a');
-    discoverAllEl.href = discoverAllLink;
-    discoverAllEl.className = 'pr-discover-all';
-    discoverAllEl.textContent = discoverAllLinkText;
-    headerEl.appendChild(discoverAllEl);
-  }
-
   container.appendChild(headerEl);
 
   const cardGroupEl = document.createElement('div');
   cardGroupEl.className = 'pr-card-group';
   container.appendChild(cardGroupEl);
+
+  // Discover All button
+  if (discoverAllLink) {
+    const discoverAllContainer = document.createElement('div');
+    discoverAllContainer.className = 'pr-discover-all-container';
+
+    const discoverAllEl = document.createElement('a');
+    discoverAllEl.href = discoverAllLink;
+    discoverAllEl.className = 'pr-discover-all';
+    discoverAllEl.textContent = discoverAllLinkText;
+    discoverAllContainer.appendChild(discoverAllEl);
+
+    container.appendChild(discoverAllContainer);
+  }
 
   // Preserve instrumentation
   if (blockResource) {
@@ -203,14 +214,12 @@ export default async function decorate(block) {
 
   block.replaceChildren(container);
 
-  // Fetch and render data
   const json = await fetchPressReleaseData(endpoint);
   const allItems = json ? normalizeNewsroomData(json) : [];
 
   // Filter by tags
   const filteredItems = filterByTags(allItems, filterTags);
 
-  // Render cards (limited by page-size)
   const itemsToShow = filteredItems.slice(0, pageSize);
 
   if (!filteredItems.length) {
