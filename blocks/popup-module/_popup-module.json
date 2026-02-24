@@ -11,7 +11,8 @@
               "name": "Popup Module",
               "model": "popup-module",
               "filter": "popup-module",
-              "classes": "h-popup-module-wrapper"
+              "classes": "h-popup-module-wrapper",
+              "style_popupVisibility": "popup-show"
             }
           }
         }
@@ -39,7 +40,7 @@
           "component": "select",
           "name": "style_popupVisibility",
           "label": "Popup visibility options",
-          "value": "popup-show",
+          "value": "",
           "valueType": "string",
           "options": [
             {
@@ -48,7 +49,7 @@
             },
             {
               "name": "Popup Hide",
-              "value": "popup-hide"
+              "value": ""
             }
           ]
         },

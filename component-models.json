@@ -2953,7 +2953,7 @@
         "component": "select",
         "name": "style_popupVisibility",
         "label": "Popup visibility options",
-        "value": "popup-show",
+        "value": "",
         "valueType": "string",
         "options": [
           {
@@ -2962,7 +2962,7 @@
           },
           {
             "name": "Popup Hide",
-            "value": "popup-hide"
+            "value": ""
           }
         ]
       },
