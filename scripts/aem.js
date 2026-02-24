@@ -736,7 +736,7 @@ async function loadSections(element) {
   }
   const popupSection = sections.filter(section=> section.classList.contains('popup-module'));
   if(popupSection) {
-    loadCSS(`${window.hlx.codeBasePath}/styles/popup.css`);
+   const cssLoaded = loadCSS(`${window.hlx.codeBasePath}/styles/popup.css`);
     const decorationComplete = (async () => {
       try {
         const mod = await import('./popup.js');
