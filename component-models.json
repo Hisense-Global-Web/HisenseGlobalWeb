@@ -64,6 +64,14 @@
         "name": "cq:tags",
         "label": "Tags",
         "rootPath": "/content/cq:tags/hisense"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "downloadLink",
+        "label": "Download Link",
+        "multi": false,
+        "rootPath": "/content/dam/hisense"
       }
     ]
   },
@@ -2871,49 +2879,6 @@
     ]
   },
   {
-    "id": "Parters Container",
-    "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "label": "Card options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default Style",
-            "value": "default-style"
-          },
-          {
-            "name": "Center Style",
-            "value": "center-style"
-          }
-        ]
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "value": "title",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "headline",
-        "value": "Headline",
-        "label": "Headline",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "bodycopy",
-        "value": "Bodycopy",
-        "label": "Bodycopy",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "past-partnerships-list",
     "fields": [
       {
@@ -2940,6 +2905,76 @@
         "name": "text",
         "label": "Image Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "press-release-card",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Section Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "endpoint",
+        "label": "API Endpoint",
+        "description": "The JSON endpoint to fetch press release data from.",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "name": "filter-tags",
+        "label": "Filter by Tags",
+        "description": "Select tags to filter press releases. Leave empty to show all.",
+        "valueType": "string",
+        "multi": true,
+        "rootPath": "/content/cq:tags/hisense"
+      },
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many press release cards to show.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "empty-text",
+        "label": "Empty Result Text",
+        "description": "Text to show when no press releases found.",
+        "valueType": "string"
+      },
+      {
+        "component": "boolean",
+        "name": "should-paginated",
+        "label": "Enable Pagination",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "paginated-btn-text",
+        "label": "Load More Button Text",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "should-paginated"
+            },
+            false
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "discover-all-link",
+        "label": "Discover All News Link",
+        "description": "The link for the 'Discover all news' button.",
+        "valueType": "string",
+        "multi": false,
+        "rootPath": "/content"
       }
     ]
   },

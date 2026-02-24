@@ -54,6 +54,7 @@
       "parallax",
       "partnerships-section-title",
       "past-partnerships-list",
+      "press-release-card",
       "product-card",
       "product-filter",
       "product-filters-carousel",
@@ -316,12 +317,6 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
-    ]
-  },
-  {
-    "id": "parters-container",
-    "components": [
-      "parters-container-item"
     ]
   },
   {
