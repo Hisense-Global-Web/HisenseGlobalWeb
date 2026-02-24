@@ -4,20 +4,20 @@
 
 /* 导航栏容器：固定顶部 */
 #nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: var(--header-backgroundcolor);
-  z-index: 999;
-  font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 14px;
-  box-sizing: border-box;
-
-  * {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--header-backgroundcolor);
+    z-index: 999;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 14px;
     box-sizing: border-box;
-  }
+}
+
+#nav * {
+  box-sizing: border-box;
 }
 
 /* 容器布局 */
@@ -34,63 +34,53 @@
   box-sizing: border-box;
   transition: top .5s cubic-bezier(0.35, 0, 0.36, 1), background-color 0s .36s;
   animation-fill-mode: forwards;
-  
-  &.hidden {
-    top: -100%;
-  }
-  
-  /* 滚动的时候，一级菜单 */
-  &.scroll-active {
-    background: #fff;
-    border-color: #fff;
-    color: rgb(51 51 51 / 100%);
-    
-    .nav-link, .nav-section{
-      color: var(--header-light-color);
-    }
-  }
-  
-  .nav-container {
-    display: flex;
-    align-items: center;
-    height: 100px;
-    box-sizing: border-box;
-    
-    .nav-links {
-      display: flex;
-      height: 100%;
-      padding-left: calc(75.5px - 12px);
-      
-      .nav-link {
-        cursor: pointer;
-        height: 100%;
-        padding: 0 12px;
-        display: flex;
-        align-items: center;
-        color: var(--header-active-color);
-        transition: color .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
-        
-        &:hover {
-          color: #333;
-        }
-      }
-    }
-    
-    .nav-actions {
-      .nav-section {
-        cursor: pointer;
-        color: var(--header-active-color);
-        height: 24px;
-        line-height: 24px;
-        transition: color .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
-      }
-      
-      .nav-link {
-        padding: 0 3px;
-      }
-    }
-    
-  }
+}
+
+#navigation.hidden {
+  top: -100%;
+}
+
+#navigation.scroll-active {
+  background: #fff;
+  border-color: #fff;
+  color: rgb(51 51 51 / 100%);
+}
+
+.nav-links {
+  display: flex;
+  height: 100%;
+  padding-left: calc(75.5px - 12px);
+}
+
+.nav-section {
+  cursor: pointer;
+  color: var(--header-active-color);
+  height: 24px;
+  line-height: 24px;
+  transition: color .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
+}
+
+.nav-link {
+  cursor: pointer;
+  height: 100%;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  color: var(--header-active-color);
+  transition: color .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
+}
+
+.nav-link:hover {
+  color: #333;
+}
+
+.nav-actions .nav-link {
+  padding: 0 3px;
+}
+
+#navigation.scroll-active .nav-link,
+#navigation.scroll-active .nav-section{
+  color: var(--header-light-color);
 }
 
 @media (hover: hover) {
@@ -99,20 +89,24 @@
     border-color: #fff;
     color: rgb(51 51 51 / 100%);
     transition: none;
+  }
 
-    .nav-link, .nav-section {
-      transition: none;
-    }
-  
-   .nav-action-btn {
-     .light-img {
-       opacity: 1;
-     }
+  #navigation:has(.nav-container:hover) .nav-link {
+    transition: none;
+  }
+}
 
-     .dark-img {
-       opacity: 0;
-     }
-   }
+#navigation .mobile-actions .nav-section {
+  font-size: 16px;
+  font-weight: 400;
+  height: 22px;
+  line-height: 22px;
+  color: #000;
+}
+
+@media (hover: hover) {
+  #navigation:has(.nav-container:hover) .nav-section {
+    transition: none;
   }
 }
 
@@ -124,14 +118,29 @@
   opacity: 0;
 }
 
-#navigation.scroll-active .nav-actions .nav-action-btn {
-  .dark-img {
-    opacity: 0;
-  }
+#navigation.scroll-active .nav-actions .nav-action-btn .dark-img {
+  opacity: 0;
+}
 
-  .light-img {
+#navigation.scroll-active .nav-actions .nav-action-btn .light-img {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  #navigation:has(.nav-container:hover) .nav-action-btn .light-img {
     opacity: 1;
   }
+
+  #navigation:has(.nav-container:hover) .nav-action-btn .dark-img {
+    opacity: 0;
+  }
+}
+
+#navigation .nav-container {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  box-sizing: border-box;
 }
 
 #navigation .nav-second {
@@ -221,24 +230,24 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
 
-  .mobile-link {
-    line-height: 28px;
-    font-weight: 400;
-    font-size: 20px;
-    color: #000;
-
-    &:first-child {
-      padding-top: 32px;
-    }
-
-    .mobile-link-title-line {
-      height: 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+#navigation .mobile-menu .mobile-links .mobile-link {
+  line-height: 28px;
+  font-weight: 400;
+  font-size: 20px;
+  color: #000;
+  
+  &:first-child {
+    padding-top: 32px;
   }
+}
+
+#navigation .mobile-menu .mobile-links .mobile-link .mobile-link-title-line {
+  height: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #navigation .mobile-menu .dividing-line {
@@ -251,14 +260,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-
-  .nav-section {
-    font-size: 16px;
-    font-weight: 400;
-    height: 22px;
-    line-height: 22px;
-    color: #000;
-  }
 }
 
 .section.navigation-logo-container.navigation-item-container.navigation-action-container,
@@ -282,30 +283,32 @@
   display: flex;
   align-items: center;
   margin-right: 38px;
+}
 
-  .navigation-logo {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    
-    & > div:nth-child(2), 
-    & > div:nth-child(3) {
-      display: none;
-    }
-  }
-  
-  picture, img {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    display: block;
-  }
+.navigation-logo-wrapper .navigation-logo {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.navigation-logo-wrapper picture,
+.navigation-logo-wrapper img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  display: block;
 }
 
 .dropdown-links div {
   height: 15px;
   font-weight: 400;
   font-size: 12px;
+}
+
+/* 隐藏编辑模式下的 alt 和 link 字段显示 */
+.navigation-logo-wrapper .navigation-logo > div:nth-child(2),
+.navigation-logo-wrapper .navigation-logo > div:nth-child(3) {
+  display: none;
 }
 
 /* 中间导航按钮区域：flex布局 */
