@@ -139,12 +139,15 @@ function bindEvents(block) {
   block.querySelectorAll('.hero-banner-item').forEach((slide) => {
     slideObserver.observe(slide);
     if (window.innerWidth < 860) {
+      let touchStartTime;
       let isScrolling = false;
       let startX;
       let startY;
 
       slide.addEventListener('touchstart', (e) => {
         e.preventDefault(); // 阻止默认滚动行为
+        stopAutoPlay(); // 停止自动播放
+        touchStartTime = Date.now();
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
         isScrolling = false;
@@ -164,9 +167,23 @@ function bindEvents(block) {
       }, { passive: false });
 
       // 触摸结束
-      slide.addEventListener('touchend', (e) => {
+      slide.addEventListener('touchend', async (e) => {
         slide.classList.remove('touch-start');
         slide.classList.add('touch-end');
+        const touchDuration = Date.now() - touchStartTime;
+        if (!isScrolling && touchDuration < 500) {
+          // touch情况下点击button执行跳转
+          if (e.target.tagName === 'A') {
+            const url = e.target.href;
+            if (url) {
+              window.location.href = url;
+            }
+          }
+          // touch 情况下点击video暂停/播放按钮
+          if (e.target.tagName === 'IMG' && e.target.parentElement.classList.contains('video-play-icon')) {
+            e.target.click();
+          }
+        }
         if (isScrolling) {
           const endX = e.changedTouches[0].clientX;
           const endY = e.changedTouches[0].clientY;
@@ -177,28 +194,35 @@ function bindEvents(block) {
             // 水平滑动
             if (diffX > 0) {
               // 向左滑动，显示下一张
-              showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
+              await showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
             } else {
               // 向右滑动，显示上一张
-              showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
+              await showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
             }
+            autoPlay(block); // 开始自动播放
           }
         }
       });
     }
   });
   // -----arrow function
-  block.querySelector('.slide-left').addEventListener('click', throttle(() => {
-    showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
+  block.querySelector('.slide-left').addEventListener('click', throttle(async () => {
+    stopAutoPlay();
+    await showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
+    autoPlay(block); // 开始自动播放
   }, 1000));
-  block.querySelector('.slide-right').addEventListener('click', throttle(() => {
-    showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
+  block.querySelector('.slide-right').addEventListener('click', throttle(async () => {
+    stopAutoPlay();
+    await showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
+    autoPlay(block); // 开始自动播放
   }, 1000));
   // ----- indicator function
   slideIndicators.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', throttle((e) => {
+    button.addEventListener('click', throttle(async (e) => {
       const slideIndicator = e.currentTarget.parentElement;
-      showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
+      stopAutoPlay();
+      await showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
+      autoPlay(block); // 开始自动播放
     }, 500));
   });
   // ----- mouse observe
@@ -407,6 +431,7 @@ export default async function decorate(block) {
         e.target.parentElement.classList.add('is-playing');
         e.target.closest('li').querySelector('video')?.play();
       }
+      autoPlay(block);
     }, 300));
   });
   const VideoObserver = new IntersectionObserver((entries) => {

@@ -64,6 +64,8 @@
       "product-spec",
       "properties",
       "quick-link",
+      "resource-list",
+      "related-news",
       "search-box",
       "slide",
       "social-media-list",
@@ -74,6 +76,18 @@
       "title",
       "video",
       "videoinfo",
+      "page-header",
+      "icon-card-container",
+      "section-title",
+      "quick-action-card",
+      "category-support-card",
+      "addional-support-card",
+      "tech-information",
+      "past-partnerships-list",
+      "partnerships-section-title",
+      "sustainability-dashboard-achievement",
+      "sustainability-dashboard-list",
+      "stats-grid",
       "tech-information",
       "core-value-card",
       "past-partnerships-list",
@@ -84,7 +98,14 @@
       "card-grid",
       "news-card-list",
       "about-hisense-module-title",
-      "honors-awards"
+      "honors-awards",
+      "bi-directional-content"
+    ]
+  },
+  {
+    "id": "addional-support-card",
+    "components": [
+      "addional-support-card-item"
     ]
   },
   {
@@ -104,6 +125,12 @@
     ]
   },
   {
+    "id": "bi-directional-content",
+    "components": [
+      "bi-directional-content-item"
+    ]
+  },
+  {
     "id": "card-carousel",
     "components": [
       "card-carouselItem"
@@ -119,6 +146,12 @@
     "id": "category-carousel",
     "components": [
       "category-carousel-item"
+    ]
+  },
+  {
+    "id": "category-support-card",
+    "components": [
+      "category-support-card-item"
     ]
   },
   {
@@ -242,6 +275,12 @@
     ]
   },
   {
+    "id": "icon-card-container",
+    "components": [
+      "icon-card-container-item"
+    ]
+  },
+  {
     "id": "icon-container",
     "components": [
       "icon-item"
@@ -281,6 +320,12 @@
     ]
   },
   {
+    "id": "parters-container",
+    "components": [
+      "parters-container-item"
+    ]
+  },
+  {
     "id": "past-partnerships-list",
     "components": [
       "past-partnerships-list-item"
@@ -313,6 +358,12 @@
     ]
   },
   {
+    "id": "quick-action-card",
+    "components": [
+      "quick-action-card-item"
+    ]
+  },
+  {
     "id": "quick-link",
     "components": [
       "quick-link-item"
@@ -325,9 +376,27 @@
     ]
   },
   {
+    "id": "search-box",
+    "components": [
+      "search-box-quick-link-item"
+    ]
+  },
+  {
     "id": "social-media-list",
     "components": [
       "social-media-list-item"
+    ]
+  },
+  {
+    "id": "stats-grid",
+    "components": [
+      "sustainability-dashboard-achievement-matrix"
+    ]
+  },
+  {
+    "id": "sustainability-dashboard-achievement",
+    "components": [
+      "sustainability-dashboard-achievement-matrix"
     ]
   },
   {

@@ -436,7 +436,10 @@ export default async function decorate(block) {
   const pdpEl = document.querySelector('.product-section-container');
   // eslint-disable-next-line no-unused-vars
   const plpEl = document.querySelector('.product-sorting');
-  const isCompanyPage = window.location.pathname.includes('company-page');
+  const isCompanyPage = window.location.pathname.includes('company');
+  if (isCompanyPage) {
+    navigation.classList.add('is-company');
+  }
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
   });
@@ -485,7 +488,8 @@ export default async function decorate(block) {
   CompanyGroupEl.className = 'company-group';
   company.forEach((item) => {
     const CompanyItemEl = document.createElement('div');
-    CompanyItemEl.className = 'company-item';
+    const isCurrent = window.location.pathname === item.href;
+    CompanyItemEl.className = `company-item ${isCurrent ? 'current' : ''}`;
     CompanyItemEl.innerHTML = item.title;
     CompanyItemEl.dataset.href = item.href;
     CompanyItemEl.addEventListener('click', (e) => {

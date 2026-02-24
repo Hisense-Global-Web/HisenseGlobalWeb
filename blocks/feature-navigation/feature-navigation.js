@@ -20,6 +20,9 @@ export default function decorate(block) {
         div.replaceChildren(tit, desc);
       } else {
         div.className = 'card-cta';
+        const arrow = document.createElement('div');
+        arrow.classList = 'arrow';
+        div.append(arrow);
       }
     });
     const diver = document.createElement('div');
