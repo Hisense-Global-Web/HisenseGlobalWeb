@@ -196,12 +196,6 @@
     ]
   },
   {
-    "id": "cross-page-redirect",
-    "components": [
-      "button"
-    ]
-  },
-  {
     "id": "current-partnerships-list",
     "components": [
       "current-partnerships-list-item"
