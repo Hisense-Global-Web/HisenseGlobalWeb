@@ -153,82 +153,6 @@ async function fetchPressReleaseData(endpoint) {
   }
 }
 
-function buildPaginationControls(container, state, onPageChange) {
-  const { total, limit, offset } = state;
-
-  const paginationEl = container.querySelector('.pr-pagination');
-  if (!paginationEl) return;
-
-  paginationEl.textContent = '';
-
-  if (!total || !limit || total <= limit) {
-    return;
-  }
-
-  const currentPage = Math.floor(offset / limit) + 1;
-  const totalPages = Math.ceil(total / limit);
-
-  const createButton = (label, page, disabled = false, isActive = false) => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.classList.add('page-button');
-
-    if (label === 'prev') {
-      const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/left.svg';
-      icon.className = 'page-arrow is-prev normal';
-      const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
-      disabledIcon.className = 'page-arrow is-prev disabled';
-      btn.setAttribute('aria-label', 'Previous page');
-      btn.append(icon, disabledIcon);
-    } else if (label === 'next') {
-      const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/right.svg';
-      icon.className = 'page-arrow is-next normal';
-      const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
-      disabledIcon.className = 'page-arrow is-next disabled';
-      btn.setAttribute('aria-label', 'Next page');
-      btn.append(icon, disabledIcon);
-    } else {
-      btn.textContent = label;
-    }
-
-    if (isActive) btn.classList.add('is-active');
-    if (disabled) {
-      btn.disabled = true;
-    } else {
-      btn.addEventListener('click', () => onPageChange(page));
-    }
-    return btn;
-  };
-
-  // Prev
-  paginationEl.appendChild(
-    createButton('prev', currentPage - 1, currentPage === 1),
-  );
-
-  const maxButtons = 5;
-  let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
-  let end = start + maxButtons - 1;
-  if (end > totalPages) {
-    end = totalPages;
-    start = Math.max(1, end - maxButtons + 1);
-  }
-
-  for (let page = start; page <= end; page += 1) {
-    paginationEl.appendChild(
-      createButton(String(page), page, false, page === currentPage),
-    );
-  }
-
-  // Next
-  paginationEl.appendChild(
-    createButton('next', currentPage + 1, currentPage === totalPages),
-  );
-}
-
 /**
  * Press Release Card Block
  */
@@ -240,8 +164,7 @@ export default async function decorate(block) {
   const filterTags = config['filter-tags'];
   const pageSize = Number.parseInt(config['page-size'], 10) || 3;
   const emptyText = config['empty-text'] || 'No press releases found.';
-  const shouldPaginated = config['should-paginated'];
-  const paginatedBtnText = config['paginated-btn-text'] || 'Load More';
+  const discoverAllLinkText = config['discover-all-link-text'] || 'Discover all news';
   const discoverAllLink = config['discover-all-link'] || '';
 
   const blockResource = block.getAttribute('data-aue-resource');
@@ -263,7 +186,7 @@ export default async function decorate(block) {
     const discoverAllEl = document.createElement('a');
     discoverAllEl.href = discoverAllLink;
     discoverAllEl.className = 'pr-discover-all';
-    discoverAllEl.textContent = 'Discover all news';
+    discoverAllEl.textContent = discoverAllLinkText;
     headerEl.appendChild(discoverAllEl);
   }
 
@@ -272,24 +195,6 @@ export default async function decorate(block) {
   const cardGroupEl = document.createElement('div');
   cardGroupEl.className = 'pr-card-group';
   container.appendChild(cardGroupEl);
-
-  // Pagination or Load More button
-  const paginationEl = document.createElement('div');
-  paginationEl.className = 'pr-pagination';
-
-  const noPaginationEl = document.createElement('div');
-  noPaginationEl.className = 'pr-no-pagination';
-  const loadMoreBtn = document.createElement('button');
-  loadMoreBtn.type = 'button';
-  loadMoreBtn.classList.add('pr-load-more-btn');
-  loadMoreBtn.textContent = paginatedBtnText;
-  noPaginationEl.appendChild(loadMoreBtn);
-
-  if (shouldPaginated === 'true' || shouldPaginated === true) {
-    container.appendChild(paginationEl);
-  } else {
-    container.appendChild(noPaginationEl);
-  }
 
   // Preserve instrumentation
   if (blockResource) {
@@ -300,75 +205,25 @@ export default async function decorate(block) {
 
   // Fetch and render data
   const json = await fetchPressReleaseData(endpoint);
-  let allItems = json ? normalizeNewsroomData(json) : [];
+  const allItems = json ? normalizeNewsroomData(json) : [];
 
   // Filter by tags
-  allItems = filterByTags(allItems, filterTags);
+  const filteredItems = filterByTags(allItems, filterTags);
 
-  let currentPage = 1;
-  const totalPages = Math.ceil(allItems.length / pageSize);
+  // Render cards (limited by page-size)
+  const itemsToShow = filteredItems.slice(0, pageSize);
 
-  const loadPage = async (page) => {
-    const totalItems = allItems.length;
-    cardGroupEl.textContent = '';
-    paginationEl.textContent = '';
-
-    if (!totalItems) {
-      const emptyEl = document.createElement('div');
-      emptyEl.className = 'pr-empty';
-      emptyEl.innerHTML = emptyText;
-      cardGroupEl.appendChild(emptyEl);
-      return;
-    }
-
-    const safePage = Math.min(Math.max(page, 1), totalPages);
-    const startIndex = (safePage - 1) * pageSize;
-    const pageItems = allItems.slice(startIndex, startIndex + pageSize);
-
-    pageItems.forEach((item) => {
+  if (!filteredItems.length) {
+    const emptyEl = document.createElement('div');
+    emptyEl.className = 'pr-empty';
+    emptyEl.innerHTML = emptyText;
+    cardGroupEl.appendChild(emptyEl);
+  } else {
+    itemsToShow.forEach((item) => {
       const card = buildCard(item);
       cardGroupEl.appendChild(card);
     });
-
-    if (shouldPaginated === 'true' || shouldPaginated === true) {
-      const state = {
-        total: totalItems,
-        limit: pageSize,
-        offset: startIndex,
-      };
-
-      buildPaginationControls(container, state, (targetPage) => {
-        if (targetPage < 1) return;
-        const maxPage = Math.ceil(state.total / state.limit);
-        if (targetPage > maxPage) return;
-        currentPage = targetPage;
-        loadPage(targetPage);
-      });
-    } else if (startIndex + pageSize < totalItems) {
-      // Show load more button if there are more items
-      loadMoreBtn.style.display = 'block';
-    } else {
-      loadMoreBtn.style.display = 'none';
-    }
-  };
-
-  // Load More button click handler
-  loadMoreBtn.addEventListener('click', () => {
-    currentPage += 1;
-    const startIndex = (currentPage - 1) * pageSize;
-    const pageItems = allItems.slice(startIndex, startIndex + pageSize);
-
-    pageItems.forEach((item) => {
-      const card = buildCard(item);
-      cardGroupEl.appendChild(card);
-    });
-
-    if (startIndex + pageSize >= allItems.length) {
-      loadMoreBtn.style.display = 'none';
-    }
-  });
-
-  await loadPage(1);
+  }
 
   block.classList.add('loaded');
 }

@@ -16,7 +16,7 @@
               "endpoint": "/us/en/newsroom.json",
               "page-size": "3",
               "empty-text": "No press releases found.",
-              "should-paginated": false,
+              "discover-all-link-text": "Discover all news",
               "discover-all-link": "/us/en/company/newsroom"
             }
           }
@@ -65,28 +65,17 @@
           "valueType": "string"
         },
         {
-          "component": "boolean",
-          "name": "should-paginated",
-          "label": "Enable Pagination",
-          "valueType": "boolean"
-        },
-        {
           "component": "text",
-          "name": "paginated-btn-text",
-          "label": "Load More Button Text",
-          "valueType": "string",
-          "condition": {
-            "===": [
-              { "var": "should-paginated" },
-              false
-            ]
-          }
+          "name": "discover-all-link-text",
+          "label": "Discover All Link Text",
+          "description": "The text for the 'Discover All' link button.",
+          "valueType": "string"
         },
         {
           "component": "reference",
           "name": "discover-all-link",
-          "label": "Discover All News Link",
-          "description": "The link for the 'Discover all news' button.",
+          "label": "Discover All Link",
+          "description": "The link for the 'Discover All' button.",
           "valueType": "string",
           "multi": false,
           "rootPath": "/content"

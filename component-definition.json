@@ -1558,7 +1558,7 @@
                   "endpoint": "/us/en/newsroom.json",
                   "page-size": "3",
                   "empty-text": "No press releases found.",
-                  "should-paginated": false,
+                  "discover-all-link-text": "Discover all news",
                   "discover-all-link": "/us/en/company/newsroom"
                 }
               }
