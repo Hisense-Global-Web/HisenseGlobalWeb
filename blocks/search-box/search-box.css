@@ -1,5 +1,9 @@
 .search-box-wrapper {
   width: 100%;
+
+  @media (width >= 860px) {
+    padding: 0 !important;
+  }
 }
 
 .search-box .out-wrapper {
