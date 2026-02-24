@@ -10,7 +10,8 @@
             "template": {
               "name": "Cross Page Redirect",
               "model": "cross-page-redirect",
-              "classes":"cross-page-redirect"
+              "classes":"gray-20",
+              "link_classes":"transparent"
             }
           }
         }
@@ -24,12 +25,12 @@
         {
           "component": "select",
           "name": "classes_bgcolor",
-          "value": "gray-20",
+          "value": "",
           "label": "Background Color Variant",
           "valueType": "string",
           "options": [
             {
-              "name": "Gray 20(default)",
+              "name": "Gray 20(Default)",
               "value": "gray-20"
             },
             {
@@ -40,14 +41,14 @@
         },
         {
           "component": "text",
-          "name": "headline",
+          "name": "title",
           "label": "Title",
           "valueType": "string",
           "value": ""
         },
         {
           "component": "text",
-          "name": "bodycopy",
+          "name": "text",
           "label": "Text",
           "valueType": "string",
           "value": ""
@@ -55,12 +56,12 @@
         {
           "component": "select",
           "name": "link_classes",
-          "value": "transparent",
+          "value": "",
           "label": "Button Background Color",
           "valueType": "string",
           "options": [
             {
-              "name": "transparent",
+              "name": "transparent(Default)",
               "value": "transparent"
             },
             {
