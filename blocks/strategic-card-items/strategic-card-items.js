@@ -56,23 +56,23 @@ function bindEvent(block) {
 }
 
 export default function decorate(block) {
-    [...block.children].forEach(child=>{
-        child.className = 'strategic-card-item';
-        if(!child.children.length) return;
-        const [iconDiv, textDiv, btnDiv] = child.children;
-        iconDiv.className = 'card-icon';
-        textDiv.className = 'card-text';
-        btnDiv.className = 'card-btn';
-        if(btnDiv && !btnDiv.textContent.trim()) {
-            btnDiv.style.display = 'none';
-        } else {
-            const [label, popupId] = btnDiv.children;
-            label.className = 'btn-label';
-            popupId.className = 'btn-popup-id';
-        }
-    })
+  [...block.children].forEach((child) => {
+    child.className = 'strategic-card-item';
+    if (!child.children.length) return;
+    const [iconDiv, textDiv, btnDiv] = child.children;
+    iconDiv.className = 'card-icon';
+    textDiv.className = 'card-text';
+    btnDiv.className = 'card-btn';
+    if (btnDiv && !btnDiv.textContent.trim()) {
+      btnDiv.style.display = 'none';
+    } else {
+      const [label, popupId] = btnDiv.children;
+      label.className = 'btn-label';
+      popupId.className = 'btn-popup-id';
+    }
+  });
 
-    whenElementReady('.strategic-card-items', () => {
-        bindEvent(block);
-    });
+  whenElementReady('.strategic-card-items', () => {
+    bindEvent(block);
+  });
 }

@@ -76,6 +76,7 @@
     }
   }
 }
+
 /* 遮罩层：全屏、半透明 */
 .popup-overlay {
   position: fixed;
@@ -121,10 +122,10 @@
     max-width: unset!important;
     padding: 0 !important;
   }
+
   .strategic-card-items {
     gap: var(--size-16);
     padding: 0 var(--common-padding);
-    scrollbar-width: none;
     overflow-x: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;

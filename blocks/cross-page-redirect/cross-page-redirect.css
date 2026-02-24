@@ -97,6 +97,7 @@ p {
         }
     }
 }
+
 @media (width < 860px) {
     .cross-page-redirect{
         width: 100%;
