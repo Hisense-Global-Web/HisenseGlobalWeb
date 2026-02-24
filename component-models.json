@@ -2871,49 +2871,6 @@
     ]
   },
   {
-    "id": "Parters Container",
-    "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "label": "Card options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default Style",
-            "value": "default-style"
-          },
-          {
-            "name": "Center Style",
-            "value": "center-style"
-          }
-        ]
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "value": "title",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "headline",
-        "value": "Headline",
-        "label": "Headline",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "bodycopy",
-        "value": "Bodycopy",
-        "label": "Bodycopy",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "past-partnerships-list",
     "fields": [
       {

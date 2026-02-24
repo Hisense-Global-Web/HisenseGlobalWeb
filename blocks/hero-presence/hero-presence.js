@@ -56,10 +56,10 @@ export default async function decorate(block) {
 
   const playBtn = createElement('button', 'hero-presence-video-play-btn');
   const playIcon = createElement('img', 'hero-presence-video-play-icon');
-  playIcon.src = '/content/dam/hisense/us/common-icons/play.svg';
+  playIcon.src = '/content/dam/hisense/us/common-icons/play-dark-mode.svg';
   playBtn.appendChild(playIcon);
   const pauseIcon = createElement('img', 'hero-presence-video-pause-icon');
-  pauseIcon.src = '/content/dam/hisense/us/common-icons/pause.svg';
+  pauseIcon.src = '/content/dam/hisense/us/common-icons/pause-dark-mode.svg';
   playBtn.appendChild(pauseIcon);
   block.appendChild(playBtn);
 
@@ -75,11 +75,6 @@ export default async function decorate(block) {
   block.appendChild(animateContainer);
   animateContent.remove();
   // ========== CONSTRUCT DOM [END] ========== //
-
-  const isEditing = await isUniversalEditorAsync();
-  if (isEditing) {
-    return;
-  }
 
   // ========== VIDEO [START] ========== //
   const playVideo = () => {
@@ -123,6 +118,11 @@ export default async function decorate(block) {
   const debounceScroll = debounce(handleScroll, 150);
   window.addEventListener('scroll', debounceScroll);
   // ========== VIDEO [END] ========== //
+
+  const isEditing = await isUniversalEditorAsync();
+  if (isEditing) {
+    return;
+  }
 
   // ========== ANIMATION [START] ========== //
   const scrollTriggerLoaded = await loadScrollTrigger();
