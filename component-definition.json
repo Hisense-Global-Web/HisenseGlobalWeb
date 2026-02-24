@@ -653,10 +653,7 @@
                   "name": "Cross Page Redirect",
                   "model": "cross-page-redirect",
                   "classes": "gray-20",
-                  "link_classes": "transparent",
-                  "modelFields": [
-                    "button"
-                  ]
+                  "link_classes": "transparent"
                 }
               }
             }
