@@ -13,6 +13,9 @@
     "...": "./_section.json#/filters"
   },
   {
+    "...": "./_popup-module.json#/filters"
+  },
+  {
     "...": "../blocks/*/_*.json#/filters"
   }
 ]

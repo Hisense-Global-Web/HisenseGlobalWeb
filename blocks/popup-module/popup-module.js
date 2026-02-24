@@ -1,5 +1,6 @@
 export default function decorate(block) {
   // console.log(block, 'section-popup-block');
+  // console.log(block, 'section-popup-block');
   // create popup mask
   const popupMaskDom = document.querySelector('.popup-mask');
   if (!popupMaskDom) {
@@ -32,7 +33,7 @@ export default function decorate(block) {
   || block.closest('[data-aue-resource]')
   || block.closest('[data-aue-type]');
   if (isEditorMode) {
-    const popupShowLength = document.querySelectorAll('.popup-show')
+    const popupShowLength = document.querySelectorAll('.popup-show');
     if (popupShowLength.length) {
       document.querySelector('.popup-mask').classList.add('popup-mask-show');
       document.body.style.overflow = 'hidden';

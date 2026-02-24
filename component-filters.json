@@ -103,6 +103,13 @@
     ]
   },
   {
+    "id": "popup-module",
+    "components": [
+      "module-title",
+      "sustainability-dashboard-list"
+    ]
+  },
+  {
     "id": "addional-support-card",
     "components": [
       "addional-support-card-item"
@@ -323,13 +330,6 @@
     "id": "past-partnerships-list",
     "components": [
       "past-partnerships-list-item"
-    ]
-  },
-  {
-    "id": "popup-module",
-    "components": [
-      "module-title",
-      "sustainability-dashboard-list"
     ]
   },
   {

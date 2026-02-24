@@ -70,6 +70,24 @@
               }
             }
           }
+        },
+        {
+          "title": "Popup Module",
+          "id": "popup-module",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Popup Module",
+                  "model": "popup-module",
+                  "filter": "popup-module",
+                  "classes": "h-popup-module-wrapper",
+                  "style_popupVisibility": "popup-show"
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -1552,24 +1570,6 @@
                 "template": {
                   "name": "Popup Container",
                   "model": "popup-container"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Popup Module",
-          "id": "popup-module",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/section/v1/section",
-                "template": {
-                  "name": "Popup Module",
-                  "model": "popup-module",
-                  "filter": "popup-module",
-                  "classes": "h-popup-module-wrapper",
-                  "style_popupVisibility": "popup-show"
                 }
               }
             }
