@@ -4064,6 +4064,20 @@
     "id": "popup",
     "fields": [
       {
+        "component": "select",
+        "name": "style_popup",
+        "value": "popup-module",
+        "label": "Popup module classes options",
+        "valueType": "string",
+        "hidden": true,
+        "options": [
+          {
+            "name": "Popup Module",
+            "value": "popup-module"
+          }
+        ]
+      },
+      {
         "component": "text",
         "name": "name",
         "label": "Section Name",

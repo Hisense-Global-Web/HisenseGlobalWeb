@@ -81,8 +81,7 @@
                 "template": {
                   "name": "Popup",
                   "model": "popup",
-                  "filter": "popup",
-                  "style": "popup-section"
+                  "filter": "popup"
                 }
               }
             }
