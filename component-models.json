@@ -2871,44 +2871,42 @@
     ]
   },
   {
-    "id": "Parters Container",
+    "id": "parters-container",
     "fields": [
-      {
-        "component": "select",
-        "name": "classes",
-        "label": "Card options",
-        "description": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default Style",
-            "value": "default-style"
-          },
-          {
-            "name": "Center Style",
-            "value": "center-style"
-          }
-        ]
-      },
       {
         "component": "text",
         "name": "title",
-        "value": "title",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "headline",
-        "value": "Headline",
-        "label": "Headline",
+        "name": "text",
+        "label": "Text",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "bodycopy",
-        "value": "Bodycopy",
-        "label": "Bodycopy",
+        "name": "highlight-text",
+        "label": "Highlight Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "parters-container-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "svg-icon",
+        "value": "",
+        "label": "SVG icon",
         "valueType": "string"
       }
     ]
