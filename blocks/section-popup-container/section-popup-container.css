@@ -16,10 +16,11 @@ main .section .section-popup-container-wrapper {
   margin: 0;
 
   .section-popup-container {
-    width: 55.5%;
+    width: min(55.5%, 800px);
 
     /* max-height: 86.41975308%; */
-    max-height: 30%;
+
+    /* max-height: 30%; */
     overflow: hidden;
     background: var(--color-primary-grey-10);
     border-radius: var(--size-20);
@@ -47,16 +48,20 @@ main .section .section-popup-container-wrapper {
     }
 
     .popup-content-container {
-      padding: 0 var(--size-80) var(--size-80);
-      margin-top: var(--size-80);
+      padding: var(--size-80);
+
+      /* margin-top: var(--size-80); */
       width: 100%;
       height: 100%;
 
       /* max-height: var(--size-160); */
+
+      /* max-height: 86.41975308%; */
+      max-height: calc(100vh - 110px);
       overflow-y: auto;
       scroll-behavior: smooth;
 
-      /* & ::-webkit-scrollbar-thumb {
+      /* &::-webkit-scrollbar-thumb {
         background: transparent;
       } */
     }
