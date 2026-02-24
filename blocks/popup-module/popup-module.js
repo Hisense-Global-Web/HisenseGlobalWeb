@@ -1,9 +1,12 @@
 export default function decorate(block) {
   // console.log(block, 'section-popup-block');
-  // create popup container
-  const popupContainer = document.createElement('div');
-  popupContainer.className = 'popup-container';
-  block.appendChild(popupContainer);
+  // create popup mask
+  const popupMaskDom = document.querySelector('.popup-mask');
+  if (!popupMaskDom) {
+    const popupMaskEl = document.createElement('div');
+    popupMaskEl.className = 'popup-mask';
+    block.parentNode.append(popupMaskEl);
+  }
 
   // create close button
   const closeDivEl = document.createElement('div');
@@ -12,18 +15,14 @@ export default function decorate(block) {
   closeImgEl.src = '/content/dam/hisense/us/common-icons/close-50.svg';
   closeImgEl.alt = 'Close Image';
   closeDivEl.append(closeImgEl);
-  popupContainer.appendChild(closeDivEl);
-
-  // create popup content container
-  const popupContentContainer = document.createElement('div');
-  popupContentContainer.className = 'popup-content-container';
-  popupContainer.appendChild(popupContentContainer);
+  block.appendChild(closeDivEl);
 
   // close popup
   closeDivEl.addEventListener('click', () => {
     document.querySelectorAll('.popup-module-container').forEach((popupItem) => {
       popupItem.classList.remove('popup-show');
     });
+    document.querySelector('.popup-mask').classList.remove('popup-mask-show');
     document.body.style.overflow = 'auto';
   });
 
