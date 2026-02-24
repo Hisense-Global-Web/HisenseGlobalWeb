@@ -17,7 +17,7 @@
     padding: var(--spacing-xl, 48px) var(--spacing-m, 32px);
     background-color: var(--color-primary-green-50);
     width: min(calc(357 / var(--breakpoint-pc) * 100vw), 357px);
-    height: min(calc(232 / var(--breakpoint-pc) * 100vw), 232px);
+    height: min(calc(256 / var(--breakpoint-pc) * 100vw), 256px);
     border-radius: var(--border-radius-l, 20px);
 
     @media (width < 860px) {
