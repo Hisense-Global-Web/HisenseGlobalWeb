@@ -447,8 +447,11 @@ export default async function decorate(block) {
   let lastScrollTop = 0;
   const scrollThreshold = 10;
   window.addEventListener('scroll', () => {
-    // if (pdpEl || plpEl) return;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (isCompanyPage) {
+      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -100)}px`;
+      return;
+    }
     if (Math.abs(scrollTop - lastScrollTop) <= scrollThreshold) {
       return;
     }
@@ -718,6 +721,9 @@ export default async function decorate(block) {
       navigation.classList.add('scroll-active');
     } else {
       navigation.classList.remove('scroll-active');
+      if (navigation.classList.contains('hidden')) {
+        navigation.classList.remove('hidden');
+      }
     }
   });
   const carousel = document.querySelector('.carousel');
