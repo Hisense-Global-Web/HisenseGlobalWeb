@@ -66,7 +66,7 @@
         "rootPath": "/content/cq:tags/hisense"
       },
       {
-        "component": "reference",
+        "component": "aem-content",
         "valueType": "string",
         "name": "downloadLink",
         "label": "Download Link",
