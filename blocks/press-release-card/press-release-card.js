@@ -59,7 +59,7 @@ function filterByTags(items, filterTags) {
   });
 }
 
-function buildCard(item, block) {
+function buildCard(item) {
   const {
     path,
     title,
@@ -326,7 +326,7 @@ export default async function decorate(block) {
     const pageItems = allItems.slice(startIndex, startIndex + pageSize);
 
     pageItems.forEach((item) => {
-      const card = buildCard(item, block);
+      const card = buildCard(item);
       cardGroupEl.appendChild(card);
     });
 
@@ -359,7 +359,7 @@ export default async function decorate(block) {
     const pageItems = allItems.slice(startIndex, startIndex + pageSize);
 
     pageItems.forEach((item) => {
-      const card = buildCard(item, block);
+      const card = buildCard(item);
       cardGroupEl.appendChild(card);
     });
 
