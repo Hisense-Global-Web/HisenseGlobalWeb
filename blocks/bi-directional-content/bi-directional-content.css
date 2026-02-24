@@ -72,9 +72,9 @@
 
 .bi-directional-content .card-list .card-item:nth-child(odd){
   flex-direction: row-reverse;
+
    @media (width < 860px) {
      flex-direction: column;
-     
   }
 }
 
