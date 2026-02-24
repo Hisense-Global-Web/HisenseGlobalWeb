@@ -41,7 +41,8 @@
       "id": "section-popup",
       "components": [
         "section-popup-container",
-        "module-title"
+        "module-title",
+        "sustainability-dashboard-list"
       ]
     }
   ]
