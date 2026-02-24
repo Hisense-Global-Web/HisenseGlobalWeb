@@ -48,7 +48,7 @@
             },
             {
               "name": "Popup Hide",
-              "value": ""
+              "value": "popup-hide"
             }
           ]
         },
