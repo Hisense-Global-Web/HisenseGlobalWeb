@@ -776,9 +776,9 @@
       {
         "component": "reference",
         "name": "image",
-        "label": "Image",
-        "valueType": "string",
-        "multi": false
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
       },
       {
         "component": "text",
