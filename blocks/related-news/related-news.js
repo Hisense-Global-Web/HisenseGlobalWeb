@@ -65,6 +65,7 @@ function formatDate(iso) {
 function bindEvent(block, type = 'normal') {
   const track = block.querySelector('.news-card-group');
   const cards = block.querySelectorAll('.news-card');
+  if(!cards.length) return;
   const viewportWidth = block.querySelector('.news-container').offsetWidth;
   const prevBtn = block.closest('.section').querySelector('.slide-prev');
   const nextBtn = block.closest('.section').querySelector('.slide-next');
