@@ -1248,6 +1248,23 @@
     "id": "core-value-card",
     "fields": [
       {
+        "component": "select",
+        "name": "classes",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "title",
