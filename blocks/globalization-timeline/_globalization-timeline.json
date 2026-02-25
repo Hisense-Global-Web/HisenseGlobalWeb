@@ -17,14 +17,14 @@
       }
     },
     {
-      "title": "Phase Bar",
+      "title": "Timeline Phase Bar",
       "id": "phase-bar",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Phase Bar",
+              "name": "Timeline Phase Bar",
               "model": "phase-bar"
             }
           }

@@ -1030,14 +1030,14 @@
           }
         },
         {
-          "title": "Phase Bar",
+          "title": "Timeline Phase Bar",
           "id": "phase-bar",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Phase Bar",
+                  "name": "Timeline Phase Bar",
                   "model": "phase-bar"
                 }
               }
@@ -1492,7 +1492,8 @@
                   "title": "Recent Press Releases",
                   "page-size": "9",
                   "empty-text": "No news items match your filters.",
-                  "should-paginated": true
+                  "should-paginated": true,
+                  "data-source": "/us/en/newsroom.json"
                 }
               }
             }
@@ -1965,6 +1966,37 @@
                   "model": "stats-grid",
                   "filter": "stats-grid",
                   "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Strategic Card Items",
+          "id": "strategic-card-items",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Strategic Card Items",
+                  "model": "strategic-card-items",
+                  "filter": "strategic-card-items"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Strategic Card Item",
+          "id": "strategic-card-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Strategic Card Item",
+                  "model": "strategic-card-item"
                 }
               }
             }

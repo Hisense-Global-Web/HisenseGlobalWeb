@@ -3,12 +3,6 @@ main > .section:first-of-type {
 	background: transparent !important;
 }
 
-p {
-	margin: 0;
-	padding: 0;
-	line-height: 1.2;
-}
-
 .minimalist-hero-banner-wrapper {
 	max-width: 2560px !important;
 	padding: 0 !important;
@@ -20,6 +14,12 @@ p {
 	text-align: center;
 	color: var(--color-hisense-black);
 	position: relative;
+
+	p {
+		margin: 0;
+		padding: 0;
+		line-height: 1.2;
+	}
 
 	@media (width < 860px) {
 		height: calc(480/var(--breakpoint-mobile) * 100vw);
@@ -62,7 +62,8 @@ p {
 		font-weight: var(--fontweight-medium);
 		width: 100%;
 		justify-content: center;
-
+		align-items: center;
+		
 		p:first-child {
 			font-size: var(--fontsize-pc-h1);
 			text-transform: capitalize;
