@@ -1,4 +1,4 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
+import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 import {
   whenElementReady,
   getSlideWidth,
@@ -6,71 +6,7 @@ import {
   throttle,
 } from '../../utils/carousel-common.js';
 
-const MOCK_NEWSROOM_ITEMS = [
-  {
-    path: '/us/en/company/newsroom/article-3',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 3',
-    'published-date': '2026-02-09T06:55:15.717Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-rgb-1.png',
-    subtitle: 'PARTNERSHIP -3',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao -3',
-    keywords: 'Hisense, ESG, AI, Sustainability',
-  },
-  {
-    path: '/us/en/company/newsroom/article-4',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 4',
-    'published-date': '2026-02-09T06:56:08.838Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-micro-1.png',
-    subtitle: 'PARTNERSHIP -4',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao',
-    keywords: 'Hisense, Technology, Innovation',
-  },
-  {
-    path: '/us/en/company/newsroom/article-2',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 2',
-    'published-date': '2026-02-09T06:54:23.865Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
-    subtitle: 'PARTNERSHIP -2',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao -2',
-    keywords: 'Hisense, ESG, Strategy',
-  },
-  {
-    path: '/us/en/company/newsroom/article-body',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones',
-    'published-date': '2026-02-09T06:29:23.342Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-hi-qled.png',
-    subtitle: 'PARTNERSHIP',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao',
-    keywords: 'Hisense, ESG, Technology',
-  },
-];
-
-function getSearchFiltersFromUrl() {
-  const params = new URLSearchParams(window.location.search || '');
-  const filters = [];
-
-  params.forEach((value, key) => {
-    if (!value) return;
-    // 跳过分页相关参数和 ref 等非搜索参数
-    if (key === 'offset' || key === 'limit' || key === 'ref') return;
-    filters.push({ key, value });
-  });
-
-  return filters;
-}
-
-function filterItemsByUrlParams(items) {
-  const filters = getSearchFiltersFromUrl();
-  if (!filters.length) return items;
-
+function filterItems(items, filters) {
   const lowerIncludes = (source, query) => {
     if (source == null) return false;
     const s = String(source).toLowerCase();
@@ -78,30 +14,8 @@ function filterItemsByUrlParams(items) {
     return s.includes(q);
   };
 
-  return items.filter((item) => filters.every(({ key, value }) => {
-    // fulltext 参数：搜索所有字段
-    if (key === 'fulltext') {
-      const searchableFields = [
-        item.title,
-        item.subtitle,
-        item.location,
-        item.description,
-        item.keywords,
-        item.path,
-      ];
-
-      // 如果 value 包含 "-"，同时匹配原值和空格替换
-      if (value.includes('-')) {
-        const originalValue = value;
-        const spaceValue = value.replace(/-/g, ' ');
-        return searchableFields.some((field) => lowerIncludes(field, originalValue)
-          || lowerIncludes(field, spaceValue)).filter((v, i) => i <= 6);
-      }
-
-      return searchableFields.some((field) => lowerIncludes(field, value)).filter((v, i) => i <= 6);
-    }
-    // 其他参数：精确匹配对应字段
-    return lowerIncludes(item[key], value);
+  return items.filter((item) => filters.some((tag) => {
+    return lowerIncludes(item['tags'], tag);
   }));
 }
 
@@ -113,14 +27,15 @@ function getItemDateValue(item) {
 
 function normalizeNewsroomData(json) {
   if (!json || !Array.isArray(json.data)) return [];
-
+  console.log(json, 'json');
+  
   if (json.data.length > 0 && !Array.isArray(json.data[0])) {
     const items = [...json.data];
     items.sort((a, b) => getItemDateValue(b) - getItemDateValue(a));
     return items;
   }
 
-  // Classic format: columns + rows
+  // Classic format: columns + rows-----------author
   const { columns } = json;
   if (!Array.isArray(columns)) return [];
 
@@ -378,11 +293,11 @@ async function fetchNewsroom() {
   const { pathname } = window.location;
 
   // /content 开头，使用本地 mock 数据，避免跨域请求失败
-  if (pathname.startsWith('/content')) {
-    return {
-      data: MOCK_NEWSROOM_ITEMS,
-    };
-  }
+  // if (pathname.startsWith('/content')) {
+  //   return {
+  //     data: MOCK_NEWSROOM_ITEMS,
+  //   };
+  // }
 
   const segments = pathname.split('/').filter(Boolean);
 
@@ -417,6 +332,8 @@ async function loadAllNewsroom() {
  * Related News Block
  */
 export default async function decorate(block) {
+  const config = readBlockConfig(block);
+  
   const blockResource = block.getAttribute('data-aue-resource');
 
   // Build static structure
@@ -434,11 +351,14 @@ export default async function decorate(block) {
 
   block.replaceChildren(container);
   const allItems = await loadAllNewsroom();
+  const filters = config['tag'].split(',') || [];
   const loadPage = async () => {
-    const filteredItems = filterItemsByUrlParams(allItems);
-
+    const filteredItems = filterItems(allItems, filters).filter((item,index)=> index < 6);
+    
     cardGroupEl.textContent = '';
     filteredItems.forEach((item) => {
+      console.log(item,'item');
+      
       const card = buildCard(item);
       cardGroupEl.appendChild(card);
     });
