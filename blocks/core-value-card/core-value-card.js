@@ -8,7 +8,7 @@ export default function decorate(block) {
   [...block.children].forEach((row, i) => {
     if (i <= 1) {
       title.className = 'title';
-      title.append(row);
+      title.append(...row.children);
     } else {
       const li = document.createElement('li');
       li.classList.add('card-item');

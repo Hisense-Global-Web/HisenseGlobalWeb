@@ -426,6 +426,53 @@
     ]
   },
   {
+    "id": "popup-module",
+    "fields": [
+      {
+        "component": "select",
+        "name": "style_popup",
+        "value": "popup-module-container",
+        "label": "Popup module classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Popup Module Container",
+            "value": "popup-module-container"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_popupVisibility",
+        "label": "Popup visibility options",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Popup Show",
+            "value": "popup-show"
+          },
+          {
+            "name": "Popup Hide",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "text",
+        "name": "id",
+        "label": "Section ID",
+        "description": "Enter a unique ID."
+      }
+    ]
+  },
+  {
     "id": "about-hisense-module-title",
     "fields": [
       {
@@ -1200,6 +1247,23 @@
   {
     "id": "core-value-card",
     "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
       {
         "component": "text",
         "valueType": "string",
@@ -2745,6 +2809,27 @@
         ]
       },
       {
+        "component": "select",
+        "name": "text-align-type",
+        "value": "text-align-left",
+        "label": "Module title align type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "text-align-left",
+            "value": "text-align-left"
+          },
+          {
+            "name": "text-align-right",
+            "value": "text-align-right"
+          },
+          {
+            "name": "text-align-center",
+            "value": "text-align-center"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "title-content",
@@ -3033,6 +3118,80 @@
         "name": "text",
         "label": "Image Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "popup-quote",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "quote",
+        "label": "Quote",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "notes",
+        "label": "Notes",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "popup-text",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "popup-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Title align options",
+        "valueType": "string",
+        "value": "text-center",
+        "options": [
+          {
+            "name": "Title align left",
+            "value": "text-left"
+          },
+          {
+            "name": "Title align center",
+            "value": "text-center"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-subtitle",
+        "label": "SubTitle"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-text",
+        "label": "Text"
       }
     ]
   },
@@ -4070,7 +4229,7 @@
         "name": "classes",
         "label": "Image Position",
         "valueType": "string",
-        "value": "img-left",
+        "value": "img-right",
         "options": [
           {
             "name": "Image Position Left",
@@ -4118,6 +4277,12 @@
         "component": "text",
         "name": "btn_ctaLabel",
         "label": "Button",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "btn_ctaID",
+        "label": "Button ID",
         "valueType": "string"
       }
     ]
