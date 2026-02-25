@@ -129,8 +129,8 @@ main .section.popup-module-container {
       }
 
       .popup-content-container {
-        padding: 0 var(--size-24) var(--size-24);
-        margin-top: var(--size-72);
+        padding: var(--size-32) var(--size-24);
+        margin-top: var(--size-48);
         max-height: min(calc(560 / var(--breakpoint-mobile) * 100vw), 560px);
         gap: var(--size-24);
       }
