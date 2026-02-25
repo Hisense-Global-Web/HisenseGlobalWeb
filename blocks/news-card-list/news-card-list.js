@@ -256,7 +256,7 @@ function buildCard(item) {
   return cardEl;
 }
 
-function buildPaginationControls(container, state, onPageChange) {
+function buildPaginationControls(container, state, onPageChange, isEditMode) {
   const { total, limit, offset } = state;
 
   const paginationEl = container.querySelector('.releases-pagination');
@@ -264,7 +264,7 @@ function buildPaginationControls(container, state, onPageChange) {
 
   paginationEl.textContent = '';
 
-  if (!total || !limit || total <= limit) {
+  if (!total || !limit || (total <= limit && !isEditMode)) {
     return;
   }
 
@@ -332,7 +332,7 @@ function buildPaginationControls(container, state, onPageChange) {
   );
 }
 
-async function fetchNewsroom(offset, limit) {
+async function fetchNewsroom(offset, limit, dataSource) {
   const { pathname } = window.location;
 
   // /content 开头，使用本地 mock 数据，避免跨域请求失败
@@ -361,7 +361,7 @@ async function fetchNewsroom(offset, limit) {
   }
 
   const basePath = `/${country}/${language}/newsroom.json`;
-  const url = basePath;
+  const url = dataSource || basePath;
 
   const response = await fetch(url, { credentials: 'same-origin' });
   if (!response.ok) {
@@ -372,9 +372,9 @@ async function fetchNewsroom(offset, limit) {
   return response.json();
 }
 
-async function loadAllNewsroom(pageSize) {
+async function loadAllNewsroom(pageSize, dataSource) {
   const size = Number.isFinite(pageSize) ? pageSize : MOCK_NEWSROOM_ITEMS.length;
-  const json = await fetchNewsroom(0, size);
+  const json = await fetchNewsroom(0, size, dataSource);
   if (!json) return [];
   return normalizeNewsroomData(json);
 }
@@ -384,12 +384,14 @@ async function loadAllNewsroom(pageSize) {
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
+  const isEditMode = block.hasAttribute('data-aue-resource');
 
   const titleText = config.title || 'Recent Press Releases';
   const pageSize = Number.parseInt(config['page-size'], 10) || 9;
   const emptyText = config['empty-text'] || 'No news items match your filters.';
-  const shouldPaginated = config['should-paginated'];
+  const shouldPaginated = true;
   const paginatedBtnText = config['paginated-btn-text'] || '';
+  const dataSource = config['data-source'] || '';
 
   const blockResource = block.getAttribute('data-aue-resource');
 
@@ -450,7 +452,7 @@ export default async function decorate(block) {
 
   block.replaceChildren(container);
 
-  const allItems = await loadAllNewsroom(pageSize);
+  const allItems = await loadAllNewsroom(pageSize, dataSource);
 
   const loadPage = async (page) => {
     const filteredItems = filterItemsByUrlParams(allItems);
@@ -488,7 +490,7 @@ export default async function decorate(block) {
       const maxPage = Math.ceil(state.total / state.limit);
       if (targetPage > maxPage) return;
       loadPage(targetPage);
-    });
+    }, isEditMode);
   };
 
   await loadPage(1);
