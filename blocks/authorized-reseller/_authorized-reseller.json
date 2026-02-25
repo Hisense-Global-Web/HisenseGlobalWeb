@@ -67,17 +67,17 @@
       "fields": [
         {
           "component": "reference",
-          "name": "item_image",
-          "value": "",
-          "label": "SVG icon",
-          "valueType": "string"
+          "name": "badge_image",
+          "label": "Image",
+          "valueType": "string",
+          "multi": false
         },
         {
           "component": "text",
-          "name": "item_text",
-          "value": "",
-          "label": "Title",
-          "valueType": "string"
+          "name": "badge_text",
+          "label": "Text",
+          "valueType": "string",
+          "value": ""
         }
       ]
     }
