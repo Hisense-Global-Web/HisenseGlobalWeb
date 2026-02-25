@@ -3232,7 +3232,7 @@
         "name": "tag",
         "label": "Tag",
         "multi": false,
-        "rootPath": "/content/cq:tags/hisense/product"
+        "rootPath": "/content/cq:tags/hisense/newsroom"
       }
     ]
   },
