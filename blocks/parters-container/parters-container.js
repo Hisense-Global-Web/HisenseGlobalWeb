@@ -22,14 +22,8 @@ export default async function decorate(block) {
       iconWrapper.appendChild(iconItem);
     });
     title.parentNode.insertBefore(iconWrapper, highlightText);
-    iconList.forEach((icon) => icon.remove());
+    // iconList.forEach((icon) => icon.remove());
   }
   highlightText.classList.add('parters-container-highlight-text');
   content.classList.add('parters-container-content');
-  const highlightTextDiv = document.createElement('div');
-  highlightTextDiv.className = 'parters-container-highlight-text';
-  highlightTextDiv.textContent = highlightText;
-  const contentDiv = document.createElement('div');
-  contentDiv.className = 'parters-container-content';
-  contentDiv.textContent = content;
 }

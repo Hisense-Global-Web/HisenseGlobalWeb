@@ -63,9 +63,13 @@
     }
 
     .parters-container-icon-item-img {
-      width: auto;
-      height: auto;
-      display: block;
+      width: min(calc(180 / var(--breakpoint-pc) * 100vw), 180px);
+      height: min(calc(80 / var(--breakpoint-pc) * 100vw), 80px);
+
+      @media (width < 860px) {
+        width: calc(92 / var(--breakpoint-mobile) * 100vw);
+        height: calc(40 / var(--breakpoint-mobile) * 100vw);
+      }
     }
   }
 
