@@ -67,14 +67,14 @@
       "fields": [
         {
           "component": "reference",
-          "name": "itemImage",
+          "name": "item-image",
           "value": "",
           "label": "SVG icon",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "itemText",
+          "name": "item-text",
           "label": "Text",
           "valueType": "string",
           "value": ""
