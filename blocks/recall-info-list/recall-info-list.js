@@ -42,7 +42,7 @@ const MOCK_NEWSROOM_ITEMS = [
     thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-hi-qled.png',
     subtitle: 'PARTNERSHIP',
     date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao',
+    location: 'QingDao1',
     keywords: 'Hisense, ESG, Technology',
   },
 ];
@@ -88,7 +88,7 @@ function filterItemsByUrlParams(items) {
         const originalValue = value;
         const spaceValue = value.replace(/-/g, ' ');
         return searchableFields.some((field) => lowerIncludes(field, originalValue)
-            || lowerIncludes(field, spaceValue));
+          || lowerIncludes(field, spaceValue));
       }
       return searchableFields.some((field) => lowerIncludes(field, value));
     }
