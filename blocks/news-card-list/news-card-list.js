@@ -256,7 +256,7 @@ function buildCard(item) {
   return cardEl;
 }
 
-function buildPaginationControls(container, state, onPageChange) {
+function buildPaginationControls(container, state, onPageChange, isEditMode) {
   const { total, limit, offset } = state;
 
   const paginationEl = container.querySelector('.releases-pagination');
@@ -264,7 +264,7 @@ function buildPaginationControls(container, state, onPageChange) {
 
   paginationEl.textContent = '';
 
-  if (!total || !limit || total <= limit) {
+  if (!total || !limit || (total <= limit && !isEditMode)) {
     return;
   }
 
@@ -384,6 +384,7 @@ async function loadAllNewsroom(pageSize, dataSource) {
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
+  const isEditMode = block.hasAttribute('data-aue-resource');
 
   const titleText = config.title || 'Recent Press Releases';
   const pageSize = Number.parseInt(config['page-size'], 10) || 9;
@@ -489,7 +490,7 @@ export default async function decorate(block) {
       const maxPage = Math.ceil(state.total / state.limit);
       if (targetPage > maxPage) return;
       loadPage(targetPage);
-    });
+    }, isEditMode);
   };
 
   await loadPage(1);
