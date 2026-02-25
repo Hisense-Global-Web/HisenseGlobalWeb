@@ -13,7 +13,7 @@
 .bi-directional-content-wrapper .title div{
   display: flex;
   flex-direction: column-reverse;
-  padding: var(--Large) var(--Medium);
+  padding: var(--large) var(--medium);
   margin: auto;
   width: min(51.38888vw ,740px);
   color: var(--color-primary-green-60);
@@ -49,11 +49,11 @@
 .bi-directional-content .card-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--Medium) ;
-  margin: var(--Large) 0;
+  gap: var(--medium) ;
+  margin: var(--large) 0;
 
    @media (width < 860px) {
-     margin: var(--Large) var(--size-18);
+     margin: var(--large) var(--size-18);
    
   }
 }

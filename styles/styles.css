@@ -213,11 +213,10 @@ html {
   --spacing-pc-md: var(--size-32);
   --spacing-pc-xl-2: var(--size-56);
   --spacing-pc-3xl: var(--size-120);
- 
-  --Large: var(--size-48);
-  --Medium: var(--size-32);
-  --Mid: var(--size-24);
-  --Small:var(--size-16);
+  --large: var(--size-48);
+  --medium: var(--size-32);
+  --mid: var(--size-24);
+  --small:var(--size-16);
 
   /* 圆角变量（映射基础尺寸） */
   --radius-s: var(--size-2);
@@ -427,10 +426,9 @@ html {
     /* common */
     --common-padding: 30px;
     
-   /*spacing*/
+   /* spacing */
    --spacing-s: var(--size-20);
    --spacing-4xl: var(--size-160);
-
 
 	/* basic size in desktop */
     --size-2: min(0.13888889vw, 2px);
@@ -592,12 +590,10 @@ html {
     --size-158: min(10.97222222vw, 158px);
     --size-159: min(11.04166667vw, 159px);
     --size-160: min(11.11111111vw, 160px);
-
-
-    --Large: var(--size-80);
-    --Medium: var(--size-48);
-    --Mid: var(--size-32);
-    --Small:var(--size-24);
+    --large: var(--size-80);
+    --medium: var(--size-48);
+    --mid: var(--size-32);
+    --small:var(--size-24);
   }
 }
 
