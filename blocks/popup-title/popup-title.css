@@ -1,11 +1,14 @@
 .popup-title-wrapper {
   text-align: center;
+
   p {
     margin: 0;
   }
+
   &.text-left {
     text-align: left;
   }
+
   .p-title {
     font-size: var(--size-16);
     font-weight: var(--fontweight-medium);
@@ -29,6 +32,7 @@
     line-height: var(--size-24);
   }
 }
+
 @media (width < 860px) {
   .popup-title-wrapper {
     .p-title {

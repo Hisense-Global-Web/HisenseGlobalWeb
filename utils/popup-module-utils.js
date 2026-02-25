@@ -1,5 +1,5 @@
 // show popup
-export function popupShowUtils(e) {
+export default function popupShowUtils(e) {
   e.stopPropagation();
   // 获取目标 data-id 值
   const ctaId = e.target.dataset.id;
