@@ -65,7 +65,13 @@
           "name": "cq:tags",
           "label": "Tags",
           "rootPath": "/content/cq:tags/hisense"
-        }
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "downloadLink",
+          "label": "Download Link",
+          "multi": false        }
       ]
     }
   ]
