@@ -64,6 +64,13 @@
         "name": "cq:tags",
         "label": "Tags",
         "rootPath": "/content/cq:tags/hisense"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "downloadLink",
+        "label": "Download Link",
+        "multi": false
       }
     ]
   },
@@ -1941,42 +1948,6 @@
         "placeholder": "Featured"
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "eyebrow",
-        "label": "Eyebrow"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "subtitle",
-        "label": "Subtitle"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "text",
-        "label": "Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "date",
-        "label": "Date"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "location",
-        "label": "Location"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "author",
-        "label": "Author"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1984,23 +1955,161 @@
         "multi": false
       },
       {
+        "component": "select",
+        "valueType": "string",
+        "name": "data-source",
+        "label": "Data Source",
+        "options": [
+          {
+            "name": "Fill",
+            "value": "fill"
+          },
+          {
+            "name": "Child Page",
+            "value": "child-page"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "source-path",
+        "label": "Source Path",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "child-page"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "date",
+        "label": "Date",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "location",
+        "label": "Location",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "author",
+        "label": "Author",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "cta-text",
-        "label": "CTA Text"
+        "label": "CTA Text",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
       },
       {
         "component": "aem-content",
         "valueType": "string",
         "name": "cta-link",
-        "label": "CTA Link"
+        "label": "CTA Link",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
       },
       {
         "component": "checkbox",
         "valueType": "boolean",
         "name": "has-download",
         "label": "Has Download",
-        "value": false
+        "value": false,
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
       }
     ]
   },
@@ -2792,31 +2901,17 @@
         "valueType": "number"
       },
       {
+        "component": "text",
+        "name": "data-source",
+        "label": "Data Source",
+        "valueType": "string"
+      },
+      {
         "component": "richtext",
         "name": "empty-text",
         "label": "Empty Result Text",
         "description": "Text to show when no news items match the current filters.",
         "valueType": "string"
-      },
-      {
-        "component": "boolean",
-        "name": "should-paginated",
-        "label": "Do you need paginated?",
-        "valueType": "boolean"
-      },
-      {
-        "component": "text",
-        "label": "button",
-        "name": "paginated-btn-text",
-        "valueType": "string",
-        "condition": {
-          "===": [
-            {
-              "var": "should-paginated"
-            },
-            false
-          ]
-        }
       }
     ]
   },
@@ -2871,6 +2966,47 @@
     ]
   },
   {
+    "id": "parters-container",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "highlight-text",
+        "label": "Highlight Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "parters-container-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "svg-icon",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "past-partnerships-list",
     "fields": [
       {
@@ -2896,6 +3032,60 @@
         "component": "text",
         "name": "text",
         "label": "Image Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "press-release-card",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Section Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "endpoint",
+        "label": "API Endpoint",
+        "description": "The JSON endpoint to fetch press release data from.",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "name": "filter-tags",
+        "label": "Filter by Tags",
+        "description": "Select tags to filter press releases. Leave empty to show all.",
+        "valueType": "string",
+        "rootPath": "/content/cq:tags/hisense"
+      },
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many press release cards to show.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "empty-text",
+        "label": "Empty Result Text",
+        "description": "Text to show when no press releases found.",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "discover-all-link-text",
+        "label": "Discover All Link Text",
+        "description": "The text for the 'Discover All' link button.",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "discover-all-link",
+        "label": "Discover All Link",
+        "description": "The link path for the 'Discover All' button.",
         "valueType": "string"
       }
     ]
@@ -3213,6 +3403,31 @@
             "value": "_blank"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "recall-info-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many news cards to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "text",
+        "name": "data-source",
+        "label": "Data Source",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "empty-text",
+        "label": "Empty Result Text",
+        "description": "Text to show when no news items match the current filters.",
+        "valueType": "string"
       }
     ]
   },

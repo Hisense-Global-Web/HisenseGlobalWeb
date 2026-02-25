@@ -40,6 +40,14 @@
 	.global-presence-content {
 		position: relative;
 		z-index: 3;
+
+		h1, h2, h3, h4, h5, h6 {
+			text-transform: capitalize;
+		}
+
+		.h-text {
+			font-size: var(--size-24);
+		}
 	}
 
 	ul {
@@ -73,7 +81,7 @@
 
 			font-size: var(--size-24);
 			font-weight: var(--fontweight-medium);
-			color: var(--color-hisense-teal);
+			color: var(--color-primary-green-50);
 
 			@media (width >= 860px) {
 				--number-height: calc(var(--size-46, 46px) * 1.2);
