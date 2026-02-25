@@ -73,7 +73,8 @@
       "id": "popup-module",
       "components": [
         "module-title",
-        "sustainability-dashboard-list"
+        "sustainability-dashboard-list",
+        "popup-text"
       ]
     }
   ]
