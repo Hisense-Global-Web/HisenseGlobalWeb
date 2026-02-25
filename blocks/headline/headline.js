@@ -12,19 +12,17 @@ function formatDate(dateStr) {
 
 function getSourcePathFromBlock(block) {
   const rows = [...block.querySelectorAll(':scope > div')];
-  for (const row of rows) {
+  const matched = rows.find((row) => {
     const cols = [...row.children];
-    if (cols[0]?.textContent?.trim().toLowerCase() === 'source-path' && cols[1]) {
-      const anchor = cols[1].querySelector('a');
-      if (anchor) {
-        return {
-          aemPath: anchor.textContent.trim(),
-          relativePath: new URL(anchor.href, window.location.origin).pathname,
-        };
-      }
-    }
-  }
-  return null;
+    return cols[0]?.textContent?.trim().toLowerCase() === 'source-path' && cols[1];
+  });
+  if (!matched) return null;
+  const anchor = matched.children[1].querySelector('a');
+  if (!anchor) return null;
+  return {
+    aemPath: anchor.textContent.trim(),
+    relativePath: new URL(anchor.href, window.location.origin).pathname,
+  };
 }
 
 async function fetchChildPageData(sourcePathInfo) {
