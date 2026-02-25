@@ -3,7 +3,6 @@
     "id": "main",
     "components": [
       "section",
-      "popup",
       "navigation",
       "company-page-navigation",
       "footerContainer"
@@ -424,14 +423,6 @@
     "id": "text",
     "components": [
       "featureDisclaimer"
-    ]
-  },
-  {
-    "id": "popup",
-    "components": [
-      "popup-container",
-      "module-title",
-      "sustainability-dashboard-list"
     ]
   }
 ]

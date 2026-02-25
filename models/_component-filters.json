@@ -3,7 +3,6 @@
     "id": "main",
     "components": [
       "section",
-      "popup",
       "navigation",
       "company-page-navigation",
       "footerContainer"
@@ -14,8 +13,5 @@
   },
   {
     "...": "../blocks/*/_*.json#/filters"
-  },
-  {
-    "...":"./_popup.json#/filters"
   }
 ]

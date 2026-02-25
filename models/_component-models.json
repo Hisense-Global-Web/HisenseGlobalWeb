@@ -16,8 +16,5 @@
   },
   {
     "...": "../blocks/*/_*.json#/models"
-  },
-  {
-    "...": "./_popup.json#/models"
   }
 ]

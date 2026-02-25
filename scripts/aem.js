@@ -734,20 +734,6 @@ async function loadSections(element) {
   if (footerSections.length) {
     await Promise.all(footerSections.map((s) => decorateFooterSection(s)));
   }
-  const popupSection = sections.filter(section=> section.classList.contains('popup-module'));
-  if(popupSection.length) {
-    const cssLoaded = loadCSS(`${window.hlx.codeBasePath}/styles/popup.css`);
-    const decorationComplete = (async () => {
-      try {
-        const mod = await import('./popup.js');
-        if (mod && mod.default) await mod.default(section);
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.debug('No module found for popup', err);
-      }
-    })();
-    await Promise.all([cssLoaded, decorationComplete]);
-  }
   for (let i = 0; i < sections.length; i += 1) {
     // eslint-disable-next-line no-await-in-loop
     await loadSection(sections[i]);

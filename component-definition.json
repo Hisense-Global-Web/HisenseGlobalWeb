@@ -70,22 +70,6 @@
               }
             }
           }
-        },
-        {
-          "title": "Popup",
-          "id": "popup",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/section/v1/section",
-                "template": {
-                  "name": "Popup",
-                  "model": "popup",
-                  "filter": "popup"
-                }
-              }
-            }
-          }
         }
       ]
     },
