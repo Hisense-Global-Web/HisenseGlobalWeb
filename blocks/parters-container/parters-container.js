@@ -12,20 +12,12 @@ export default async function decorate(block) {
   if (iconSrcList?.length) {
     const iconWrapper = document.createElement('div');
     iconWrapper.className = 'parters-container-icon-wrapper';
-    iconSrcList.forEach((src) => {
-      const iconItem = document.createElement('div');
-      iconItem.className = 'parters-container-icon-item';
-      const icon = document.createElement('img');
-      icon.className = 'parters-container-icon-item-img';
-      icon.src = src;
-      iconItem.appendChild(icon);
-      iconWrapper.appendChild(iconItem);
+    iconList.forEach((icon) => {
+      icon.classList.add('parters-container-icon-item');
+      icon.querySelector('img')?.classList.add('parters-container-icon-item-img');
+      iconWrapper.appendChild(icon);
     });
     title.parentNode.insertBefore(iconWrapper, highlightText);
-    iconList.forEach((icon) => {
-      icon.style.display = 'none';
-    });
-    // iconList.forEach((icon) => icon.remove());
   }
   highlightText.classList.add('parters-container-highlight-text');
   content.classList.add('parters-container-content');
