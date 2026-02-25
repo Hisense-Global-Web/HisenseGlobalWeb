@@ -1810,6 +1810,25 @@
           }
         },
         {
+          "title": "Recall Info List",
+          "id": "recall-info-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Recall Info List",
+                  "model": "recall-info-list",
+                  "key-value": true,
+                  "page-size": "9",
+                  "empty-text": "No recall info items match your filters.",
+                  "data-source": "/us/en/recallInfoList.json"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Related News",
           "id": "related-news",
           "plugins": {

@@ -12,8 +12,8 @@
               "model": "recall-info-list",
               "key-value": true,
               "page-size": "9",
-              "empty-text": "No recall information match your filters.",
-              "should-paginated": true
+              "empty-text": "No recall info items match your filters.",
+              "data-source": "/us/en/recallInfoList.json"
             }
           }
         }
@@ -28,8 +28,14 @@
           "component": "text",
           "name": "page-size",
           "label": "Items per page",
-          "description": "How many recall information to show per page.",
+          "description": "How many news cards to show per page.",
           "valueType": "number"
+        },
+        {
+          "component": "text",
+          "name": "data-source",
+          "label": "Data Source",
+          "valueType": "string"
         },
         {
           "component": "richtext",
@@ -37,26 +43,6 @@
           "label": "Empty Result Text",
           "description": "Text to show when no news items match the current filters.",
           "valueType": "string"
-        },
-        {
-          "component": "boolean",
-          "name": "should-paginated",
-          "label": "Do you need paginated?",
-          "valueType": "boolean"
-        },
-        {
-          "component": "text",
-          "label": "button",
-          "name": "paginated-btn-text",
-          "valueType": "string",
-          "condition": {
-            "===": [
-              {
-                "var": "should-paginated"
-              },
-              false
-            ]
-          }
         }
       ]
     }

@@ -3244,6 +3244,31 @@
     ]
   },
   {
+    "id": "recall-info-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many news cards to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "text",
+        "name": "data-source",
+        "label": "Data Source",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "empty-text",
+        "label": "Empty Result Text",
+        "description": "Text to show when no news items match the current filters.",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "related-news",
     "fields": [
       {
