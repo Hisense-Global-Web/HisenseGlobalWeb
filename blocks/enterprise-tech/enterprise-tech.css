@@ -81,6 +81,7 @@
       ul, ol {
         padding-left: var(--size-12);
         margin-left: var(--size-12);
+        line-height: var(--size-21);
 
         li {
           padding: 0;

@@ -12,6 +12,7 @@
     font-weight: var(--fontweight-medium);
     color: var(--color-primary-green-50);
     line-height: var(--size-24);
+    text-transform: uppercase;
   }
 
   .subtitle-content {
