@@ -19,24 +19,6 @@
           }
         }
       }
-    },
-    {
-      "title": "Tech Items",
-      "id": "tech-items",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Tech Items",
-              "model": "tech-items",
-              "classes": "tech-items-box",
-              "item_title": "Item Title",
-              "item_text": "Item text goes here."
-            }
-          }
-        }
-      }
     }
   ],
   "models": [
@@ -48,7 +30,7 @@
           "name": "classes",
           "label": "Image Position",
           "valueType": "string",
-          "value": "img-left",
+          "value": "img-right",
           "options": [
               {
                 "name": "Image Position Left",
@@ -97,47 +79,11 @@
           "name": "btn_ctaLabel",
           "label": "Button",
           "valueType": "string"
-        }
-      ]
-    },
-    {
-      "id": "tech-items",
-      "fields": [
-        {
-          "component": "select",
-          "name": "component-style",
-          "label": "Style",
-          "valueType": "string",
-          "value": "icon-style",
-          "options": [
-              {
-                "name": "Icon",
-                "value": "icon-style"
-              },
-              {
-                "name": "Stats",
-                "value": "stats-style"
-              }
-          ]
-        },
-        {
-          "component": "reference",
-          "valueType": "string",
-          "condition": { "===": [{"var" : "component-style"}, "icon-style"] },
-          "name": "icon",
-          "label": "Icon",
-          "multi": false
         },
         {
           "component": "text",
-          "name": "item_title",
-          "label": "Title",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "item_text",
-          "label": "Text",
+          "name": "btn_ctaID",
+          "label": "Button ID",
           "valueType": "string"
         }
       ]

@@ -3,6 +3,7 @@
     "id": "main",
     "components": [
       "section",
+      "popup-module",
       "navigation",
       "company-page-navigation",
       "footerContainer"
@@ -103,6 +104,15 @@
       "about-hisense-module-title",
       "honors-awards",
       "bi-directional-content"
+    ]
+  },
+  {
+    "id": "popup-module",
+    "components": [
+      "sustainability-dashboard-list",
+      "popup-text",
+      "popup-quote",
+      "popup-title"
     ]
   },
   {
