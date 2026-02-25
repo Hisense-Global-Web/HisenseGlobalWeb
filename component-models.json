@@ -775,14 +775,14 @@
     "fields": [
       {
         "component": "reference",
-        "name": "badge_image",
+        "name": "image",
         "label": "Image",
         "valueType": "string",
         "multi": false
       },
       {
         "component": "text",
-        "name": "badge_text",
+        "name": "text",
         "label": "Text",
         "valueType": "string",
         "value": ""
