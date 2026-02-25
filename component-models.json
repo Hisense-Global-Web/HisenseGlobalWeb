@@ -2955,18 +2955,6 @@
     ]
   },
   {
-    "id": "popup-container",
-    "fields": [
-      {
-        "component": "boolean",
-        "name": "show_type",
-        "label": "Popup visibility?",
-        "valueType": "boolean",
-        "description": "Switch OFF: Popup Hide | Switch ON: Popup Show"
-      }
-    ]
-  },
-  {
     "id": "product-card",
     "fields": [
       {
