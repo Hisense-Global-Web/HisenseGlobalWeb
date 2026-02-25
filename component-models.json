@@ -2989,6 +2989,46 @@
     ]
   },
   {
+    "id": "popup-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Title align options",
+        "valueType": "string",
+        "value": "text-center",
+        "options": [
+          {
+            "name": "Title align left",
+            "value": "text-left"
+          },
+          {
+            "name": "Title align center",
+            "value": "text-center"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-subtitle",
+        "label": "SubTitle"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-text",
+        "label": "Text"
+      }
+    ]
+  },
+  {
     "id": "product-card",
     "fields": [
       {
