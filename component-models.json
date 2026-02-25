@@ -775,14 +775,14 @@
     "fields": [
       {
         "component": "reference",
-        "name": "image",
+        "name": "reseller_image",
         "value": "",
         "label": "SVG icon",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "text",
+        "name": "reseller_text",
         "label": "Text",
         "valueType": "string",
         "value": ""
