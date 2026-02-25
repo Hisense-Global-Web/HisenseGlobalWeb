@@ -19,7 +19,7 @@
   ],
   "models": [
     {
-      "id": "text",
+      "id": "popup-text",
       "fields": [
         {
           "component": "text",
