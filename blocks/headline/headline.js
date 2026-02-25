@@ -10,17 +10,35 @@ function formatDate(dateStr) {
   }
 }
 
-async function fetchChildPageData(sourcePath) {
+function getSourcePathFromBlock(block) {
+  const rows = [...block.querySelectorAll(':scope > div')];
+  for (const row of rows) {
+    const cols = [...row.children];
+    if (cols[0]?.textContent?.trim().toLowerCase() === 'source-path' && cols[1]) {
+      const anchor = cols[1].querySelector('a');
+      if (anchor) {
+        return {
+          aemPath: anchor.textContent.trim(),
+          relativePath: new URL(anchor.href, window.location.origin).pathname,
+        };
+      }
+    }
+  }
+  return null;
+}
+
+async function fetchChildPageData(sourcePathInfo) {
   const { hostname, pathname } = window.location;
 
   if (hostname.includes('adobeaemcloud.com')) {
-    const resp = await fetch(`${sourcePath}.1.json`);
+    const resp = await fetch(`${sourcePathInfo.aemPath}.1.json`);
     if (!resp.ok) return null;
     const json = await resp.json();
     const content = json['jcr:content'] || {};
     return {
       title: content['jcr:title'] || '',
       subtitle: content.subtitle || '',
+      text: content['jcr:description'] || '',
       keywords: Array.isArray(content.keywords) ? content.keywords.join(', ') : (content.keywords || ''),
       date: content.date || '',
       location: content.location || '',
@@ -40,12 +58,14 @@ async function fetchChildPageData(sourcePath) {
   if (!resp.ok) return null;
   const json = await resp.json();
 
-  const item = json.data.find((d) => d.path === sourcePath);
+  const matchPath = sourcePathInfo.relativePath;
+  const item = json.data.find((d) => d.path === matchPath);
   if (!item) return null;
 
   return {
     title: item.title || '',
     subtitle: item.subtitle || '',
+    text: item.description || '',
     keywords: item.keywords || '',
     date: item.date || '',
     location: item.location || '',
@@ -64,22 +84,26 @@ export default async function decorate(block) {
   const config = readBlockConfig(block);
 
   let data;
-  if (config['data-source'] === 'child-page' && config['source-path']) {
-    const fetched = await fetchChildPageData(config['source-path']);
-    if (fetched) {
-      data = {
-        'section-title': config['section-title'] || 'Featured',
-        eyebrow: fetched.subtitle || '',
-        subtitle: fetched.title || '',
-        text: '',
-        date: fetched.date ? formatDate(fetched.date) : '',
-        location: fetched.location || '',
-        author: fetched.author || '',
-        image: config.image || '/resources/490120ecff332a924ab425cce8dbe8a57ec0bbbf.jpg',
-        ctaText: fetched['cta-text'] || '',
-        ctaLink: config['cta-link'] || '',
-        hasDownload: !!fetched.downloadLink,
-      };
+  if (config['data-source'] === 'child-page') {
+    const sourcePathInfo = getSourcePathFromBlock(block);
+    if (sourcePathInfo) {
+      const fetched = await fetchChildPageData(sourcePathInfo);
+      if (fetched) {
+        data = {
+          'section-title': config['section-title'] || 'Featured',
+          eyebrow: fetched.subtitle || '',
+          subtitle: fetched.title || '',
+          text: fetched.text || '',
+          date: fetched.date ? formatDate(fetched.date) : '',
+          location: fetched.location || '',
+          author: fetched.author || '',
+          image: config.image || '/resources/490120ecff332a924ab425cce8dbe8a57ec0bbbf.jpg',
+          ctaText: fetched['cta-text'] || '',
+          ctaLink: config['cta-link'] || '',
+          hasDownload: !!fetched.downloadLink,
+          downloadLink: fetched.downloadLink || '',
+        };
+      }
     }
   }
 
@@ -96,6 +120,7 @@ export default async function decorate(block) {
       ctaText: config['cta-text'] || '',
       ctaLink: config['cta-link'] || '',
       hasDownload: config['has-download'] === true || config['has-download'] === 'true' || false,
+      downloadLink: '',
     };
   }
 
@@ -188,24 +213,40 @@ export default async function decorate(block) {
     featuredContent.appendChild(metaGroupEl);
   }
 
-  if (data.ctaText) {
+  if (data.ctaText || data.downloadLink) {
     const actionsEl = document.createElement('div');
     actionsEl.classList.add('featured-actions');
 
-    const button = document.createElement('button');
-
-    const iconImg = document.createElement('img');
-    iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
-    button.classList.add('icon-btn');
-    button.appendChild(iconImg);
-
-    if (data.ctaLink) {
+    if (data.downloadLink) {
       const link = document.createElement('a');
-      link.href = data.ctaLink;
+      link.href = data.downloadLink;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+
+      const button = document.createElement('button');
+      button.classList.add('icon-btn');
+      const iconImg = document.createElement('img');
+      iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
+      iconImg.alt = 'Download';
+      button.appendChild(iconImg);
       link.appendChild(button);
       actionsEl.appendChild(link);
-    } else {
-      actionsEl.appendChild(button);
+    } else if (data.ctaText) {
+      const button = document.createElement('button');
+      button.classList.add('icon-btn');
+      const iconImg = document.createElement('img');
+      iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
+      iconImg.alt = '';
+      button.appendChild(iconImg);
+
+      if (data.ctaLink) {
+        const link = document.createElement('a');
+        link.href = data.ctaLink;
+        link.appendChild(button);
+        actionsEl.appendChild(link);
+      } else {
+        actionsEl.appendChild(button);
+      }
     }
 
     featuredContent.appendChild(actionsEl);
