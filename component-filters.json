@@ -126,6 +126,12 @@
     ]
   },
   {
+    "id": "authorized-reseller",
+    "components": [
+      "authorized-reseller-item"
+    ]
+  },
+  {
     "id": "bi-directional-content",
     "components": [
       "bi-directional-content-item"
