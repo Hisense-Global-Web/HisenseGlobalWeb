@@ -30,7 +30,7 @@ export default function decorate(block) {
   const popupContentDom = document.createElement('div');
   popupContentDom.className = 'popup-content-container';
   block.appendChild(popupContentDom);
-  console.log(block, 'block');
+  // console.log(block, 'block');
   [...block.children].forEach((row) => {
     if (!row.classList.contains('popup-close') && !row.classList.contains('popup-content-container')) {
       popupContentDom.appendChild(row);
