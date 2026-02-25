@@ -3125,7 +3125,7 @@
     "id": "popup-quote",
     "fields": [
       {
-        "component": "richtext",
+        "component": "text",
         "name": "quote",
         "label": "Quote",
         "value": ""
