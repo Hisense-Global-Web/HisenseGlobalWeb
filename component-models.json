@@ -4203,7 +4203,7 @@
         "name": "classes",
         "label": "Image Position",
         "valueType": "string",
-        "value": "img-left",
+        "value": "img-right",
         "options": [
           {
             "name": "Image Position Left",

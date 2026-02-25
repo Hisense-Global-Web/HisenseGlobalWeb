@@ -1,12 +1,3 @@
-// block element append to popup container element
-export function popupContainerAddBlockUtils(block) {
-  const sectionPopupContainerDom = block.parentElement.closest('.popup-module-container');
-  if (sectionPopupContainerDom) {
-    const popupContentDom = sectionPopupContainerDom.querySelector('.popup-content-container');
-    popupContentDom.append(block.parentElement);
-  }
-}
-
 // show popup
 export function popupShowUtils(e) {
   e.stopPropagation();
