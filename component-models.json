@@ -2955,6 +2955,23 @@
     ]
   },
   {
+    "id": "popup-quote",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "quote",
+        "label": "Quote",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "notes",
+        "label": "Notes",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "popup-text",
     "fields": [
       {
