@@ -1,20 +1,14 @@
 export default async function decorate(block) {
   const [title, text, highlightText, content, ...iconList] = [...block.children];
+  title.classList.add('parters-container-title');
+  text.classList.add('parters-container-text');
+  const textDiv = document.createElement('div');
+  textDiv.className = 'parters-container-text';
+  textDiv.textContent = text;
   const iconSrcList = [];
   iconList.forEach((icon) => {
     iconSrcList.push(icon.querySelector('img')?.src || '');
   });
-  const outWrapper = document.createElement('div');
-  outWrapper.className = 'out-wrapper';
-  const titleDiv = document.createElement('div');
-  titleDiv.className = 'parters-container-title';
-  titleDiv.textContent = title.queryAllSelector('p')[1]?.innerHTML || '';
-  outWrapper.appendChild(titleDiv);
-  const textDiv = document.createElement('div');
-  textDiv.className = 'parters-container-text';
-  textDiv.textContent = text;
-  outWrapper.appendChild(textDiv);
-
   if (iconSrcList?.length) {
     const iconWrapper = document.createElement('div');
     iconWrapper.className = 'parters-container-icon-wrapper';
@@ -27,15 +21,15 @@ export default async function decorate(block) {
       iconItem.appendChild(icon);
       iconWrapper.appendChild(iconItem);
     });
-    outWrapper.appendChild(iconWrapper);
+    title.parentNode.insertBefore(iconWrapper, highlightText);
+    iconList.forEach((icon) => icon.remove());
   }
-
+  highlightText.classList.add('parters-container-highlight-text');
+  content.classList.add('parters-container-content');
   const highlightTextDiv = document.createElement('div');
   highlightTextDiv.className = 'parters-container-highlight-text';
   highlightTextDiv.textContent = highlightText;
-  outWrapper.appendChild(highlightTextDiv);
   const contentDiv = document.createElement('div');
   contentDiv.className = 'parters-container-content';
   contentDiv.textContent = content;
-  outWrapper.appendChild(contentDiv);
 }
