@@ -1,12 +1,5 @@
-import { readBlockConfig } from '../../scripts/aem.js';
-
 export default async function decorate(block) {
-  const config = readBlockConfig(block);
-  const title = config.title || '';
-  const text = config.text || '';
-  const highlightText = config['highlight-text'] || '';
-  const content = config.content || '';
-  const iconList = [...block.children]?.slice(3);
+  const [title, text, highlightText, content, ...iconList] = [...block.children];
   const iconSrcList = [];
   iconList.forEach((icon) => {
     iconSrcList.push(icon.querySelector('img')?.src || '');
@@ -15,7 +8,7 @@ export default async function decorate(block) {
   outWrapper.className = 'out-wrapper';
   const titleDiv = document.createElement('div');
   titleDiv.className = 'parters-container-title';
-  titleDiv.textContent = title;
+  titleDiv.textContent = title.queryAllSelector('p')[1]?.innerHTML || '';
   outWrapper.appendChild(titleDiv);
   const textDiv = document.createElement('div');
   textDiv.className = 'parters-container-text';
@@ -45,5 +38,4 @@ export default async function decorate(block) {
   contentDiv.className = 'parters-container-content';
   contentDiv.textContent = content;
   outWrapper.appendChild(contentDiv);
-  block.replaceChildren(outWrapper);
 }
