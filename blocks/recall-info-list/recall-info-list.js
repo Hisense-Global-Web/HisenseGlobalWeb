@@ -1,51 +1,11 @@
-// import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 
-// const MOCK_NEWSROOM_ITEMS = [
-//   {
-//     path: '/us/en/company/newsroom/article-3',
-//     title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 3',
-//     'published-date': '2026-02-09T06:55:15.717Z',
-//     description: '',
-//     thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-rgb-1.png',
-//     subtitle: 'PARTNERSHIP -3',
-//     date: '2026-02-05T00:00:00.000Z',
-//     location: 'QingDao -3',
-//     keywords: 'Hisense, ESG, AI, Sustainability',
-//   },
-//   {
-//     path: '/us/en/company/newsroom/article-4',
-//     title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 4',
-//     'published-date': '2026-02-09T06:56:08.838Z',
-//     description: '',
-//     thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-micro-1.png',
-//     subtitle: 'PARTNERSHIP -4',
-//     date: '2026-02-05T00:00:00.000Z',
-//     location: 'QingDao',
-//     keywords: 'Hisense, Technology, Innovation',
-//   },
-//   {
-//     path: '/us/en/company/newsroom/article-2',
-//     title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 2',
-//     'published-date': '2026-02-09T06:54:23.865Z',
-//     description: '',
-//     thumbnail: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
-//     subtitle: 'PARTNERSHIP -2',
-//     date: '2026-02-05T00:00:00.000Z',
-//     location: 'QingDao -2',
-//     keywords: 'Hisense, ESG, Strategy',
-//   },
-//   {
-//     path: '/us/en/company/newsroom/article-body',
-//     title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones',
-//     'published-date': '2026-02-09T06:29:23.342Z',
-//     description: '',
-//     thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-hi-qled.png',
-//     subtitle: 'PARTNERSHIP',
-//     date: '2026-02-05T00:00:00.000Z',
-//     location: 'QingDao',
-//     keywords: 'Hisense, ESG, Technology',
-//   },
-// ];
+const MOCK_RECALL_INFORMATION_ITEM = {
+  title: 'Hisense French Door Refrigerator with Ice Maker (model number: HRF266N6CSE)',
+  announcedDate: '2026-02-09T06:55:15.717Z',
+  downloadUrl: 'http://www.ces.cn/file/upload/201407/25/14-57-43-23-182.jpg',
+  fileName: 'HisenseLogo.jpg',
+};
 
 // function getSearchFiltersFromUrl() {
 //   const params = new URLSearchParams(window.location.search || '');
@@ -98,7 +58,7 @@
 // }
 
 // function getItemDateValue(item) {
-//   const value = item.date || item['published-date'];
+//   const value = item.date || item['nnounced-date'];
 //   const time = Date.parse(value);
 //   return Number.isNaN(time) ? 0 : time;
 // }
@@ -256,81 +216,81 @@
 //   return cardEl;
 // }
 
-// function buildPaginationControls(container, state, onPageChange, isEditMode) {
-//   const { total, limit, offset } = state;
+function buildPaginationControls(container, state, onPageChange, isEditMode) {
+  const { total, limit, offset } = state;
 
-//   const paginationEl = container.querySelector('.releases-pagination');
-//   if (!paginationEl) return;
+  const paginationEl = container.querySelector('.recall-info-pagination');
+  if (!paginationEl) return;
 
-//   paginationEl.textContent = '';
+  paginationEl.textContent = '';
 
-//   if (!total || !limit || (total <= limit && !isEditMode)) {
-//     return;
-//   }
+  if (!total || !limit || (total <= limit && !isEditMode)) {
+    return;
+  }
 
-//   const currentPage = Math.floor(offset / limit) + 1;
-//   const totalPages = Math.ceil(total / limit);
+  const currentPage = Math.floor(offset / limit) + 1;
+  const totalPages = Math.ceil(total / limit);
 
-//   const createButton = (label, page, disabled = false, isActive = false) => {
-//     const btn = document.createElement('button');
-//     btn.type = 'button';
-//     btn.classList.add('page-button');
+  const createButton = (label, page, disabled = false, isActive = false) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.classList.add('page-button');
 
-//     if (label === 'prev') {
-//       const icon = document.createElement('img');
-//       icon.src = '/content/dam/hisense/us/common-icons/left.svg';
-//       icon.className = 'page-arrow is-prev normal';
-//       const disabledIcon = document.createElement('img');
-//       disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
-//       disabledIcon.className = 'page-arrow is-prev disabled';
-//       btn.setAttribute('aria-label', 'Previous page');
-//       btn.append(icon, disabledIcon);
-//     } else if (label === 'next') {
-//       const icon = document.createElement('img');
-//       icon.src = '/content/dam/hisense/us/common-icons/right.svg';
-//       icon.className = 'page-arrow is-next normal';
-//       const disabledIcon = document.createElement('img');
-//       disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
-//       disabledIcon.className = 'page-arrow is-next disabled';
-//       btn.setAttribute('aria-label', 'Next page');
-//       btn.append(icon, disabledIcon);
-//     } else {
-//       btn.textContent = label;
-//     }
+    if (label === 'prev') {
+      const icon = document.createElement('img');
+      icon.src = '/content/dam/hisense/us/common-icons/left.svg';
+      icon.className = 'page-arrow is-prev normal';
+      const disabledIcon = document.createElement('img');
+      disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
+      disabledIcon.className = 'page-arrow is-prev disabled';
+      btn.setAttribute('aria-label', 'Previous page');
+      btn.append(icon, disabledIcon);
+    } else if (label === 'next') {
+      const icon = document.createElement('img');
+      icon.src = '/content/dam/hisense/us/common-icons/right.svg';
+      icon.className = 'page-arrow is-next normal';
+      const disabledIcon = document.createElement('img');
+      disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
+      disabledIcon.className = 'page-arrow is-next disabled';
+      btn.setAttribute('aria-label', 'Next page');
+      btn.append(icon, disabledIcon);
+    } else {
+      btn.textContent = label;
+    }
 
-//     if (isActive) btn.classList.add('is-active');
-//     if (disabled) {
-//       btn.disabled = true;
-//     } else {
-//       btn.addEventListener('click', () => onPageChange(page));
-//     }
-//     return btn;
-//   };
+    if (isActive) btn.classList.add('is-active');
+    if (disabled) {
+      btn.disabled = true;
+    } else {
+      btn.addEventListener('click', () => onPageChange(page));
+    }
+    return btn;
+  };
 
-//   // Prev
-//   paginationEl.appendChild(
-//     createButton('prev', currentPage - 1, currentPage === 1),
-//   );
+  // Prev
+  paginationEl.appendChild(
+    createButton('prev', currentPage - 1, currentPage === 1),
+  );
 
-//   const maxButtons = 5;
-//   let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
-//   let end = start + maxButtons - 1;
-//   if (end > totalPages) {
-//     end = totalPages;
-//     start = Math.max(1, end - maxButtons + 1);
-//   }
+  const maxButtons = 5;
+  let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+  let end = start + maxButtons - 1;
+  if (end > totalPages) {
+    end = totalPages;
+    start = Math.max(1, end - maxButtons + 1);
+  }
 
-//   for (let page = start; page <= end; page += 1) {
-//     paginationEl.appendChild(
-//       createButton(String(page), page, false, page === currentPage),
-//     );
-//   }
+  for (let page = start; page <= end; page += 1) {
+    paginationEl.appendChild(
+      createButton(String(page), page, false, page === currentPage),
+    );
+  }
 
-//   // Next
-//   paginationEl.appendChild(
-//     createButton('next', currentPage + 1, currentPage === totalPages),
-//   );
-// }
+  // Next
+  paginationEl.appendChild(
+    createButton('next', currentPage + 1, currentPage === totalPages),
+  );
+}
 
 // async function fetchNewsroom(offset, limit, dataSource) {
 //   const { pathname } = window.location;
@@ -338,14 +298,14 @@
 //   // /content 开头，使用本地 mock 数据，避免跨域请求失败
 //   if (pathname.startsWith('/content')) {
 //     const start = Number.isFinite(offset) ? offset : 0;
-//     const pageSize = Number.isFinite(limit) ? limit : MOCK_NEWSROOM_ITEMS.length;
-//     const sliced = MOCK_NEWSROOM_ITEMS.slice(start, start + pageSize);
+//     const pageSize = Number.isFinite(limit) ? limit : MOCK_RECALL_INFORMATION_ITEMS.length;
+//     const sliced = MOCK_RECALL_INFORMATION_ITEMS.slice(start, start + pageSize);
 
 //     return {
 //       data: sliced,
 //       offset: start,
 //       limit: pageSize,
-//       total: MOCK_NEWSROOM_ITEMS.length,
+//       total: MOCK_RECALL_INFORMATION_ITEMS.length,
 //     };
 //   }
 
@@ -373,127 +333,187 @@
 // }
 
 // async function loadAllNewsroom(pageSize, dataSource) {
-//   const size = Number.isFinite(pageSize) ? pageSize : MOCK_NEWSROOM_ITEMS.length;
+//   const size = Number.isFinite(pageSize) ? pageSize : MOCK_RECALL_INFORMATION_ITEMS.length;
 //   const json = await fetchNewsroom(0, size, dataSource);
 //   if (!json) return [];
 //   return normalizeNewsroomData(json);
 // }
 
-// /**
-//  * News Card List Block
-//  */
-// export default async function decorate(block) {
-//   const config = readBlockConfig(block);
-//   const isEditMode = block.hasAttribute('data-aue-resource');
+/**
+ * Recall Information List Block
+ */
+export default async function decorate(block) {
+  const config = readBlockConfig(block);
+  const isEditMode = block.hasAttribute('data-aue-resource');
 
-//   const titleText = config.title || 'Recent Press Releases';
-//   const pageSize = Number.parseInt(config['page-size'], 10) || 9;
-//   const emptyText = config['empty-text'] || 'No news items match your filters.';
-//   const shouldPaginated = true;
-//   const paginatedBtnText = config['paginated-btn-text'] || '';
-//   const dataSource = config['data-source'] || '';
+  const pageSize = Number.parseInt(config['page-size'], 10) || 10;
+  const emptyText = config['empty-text'] || 'No news items match your filters.';
+  const shouldPaginated = true;
+  const paginatedBtnText = config['paginated-btn-text'] || '';
+  // const dataSource = config['data-source'] || '';
 
-//   const blockResource = block.getAttribute('data-aue-resource');
+  const blockResource = block.getAttribute('data-aue-resource');
 
-//   // Build static structure
-//   const container = document.createElement('div');
-//   container.className = 'releases-container';
+  // Build static structure
+  const container = document.createElement('div');
+  container.className = 'recall-info-container';
 
-//   const sectionTitleEl = document.createElement('div');
-//   sectionTitleEl.className = 'section-title';
+  const cardGroupEl = document.createElement('div');
+  cardGroupEl.className = 'recall-info-card-group';
+  container.appendChild(cardGroupEl);
 
-//   // 标准的title逻辑
-//   const titleSpanEl = document.createElement('span');
-//   titleSpanEl.textContent = titleText;
-//   sectionTitleEl.appendChild(titleSpanEl);
+  const paginationEl = document.createElement('div');
+  paginationEl.className = 'recall-info-pagination';
 
-//   // result 逻辑
-//   // const resultTitleEl = document.createElement('div');
-//   // resultTitleEl.className = 'section-result-title';
-//   // const r = 'FIFA';
-//   // const n = 12;
-//   // resultTitleEl.innerHTML = `<div class="result-title"><span class="search-value">${r}</span> Results</div><div class="result-num"><span>${n}</span> RESULTS</div>`;
-//   // sectionTitleEl.appendChild(resultTitleEl);
+  const mobilePaginationEl = document.createElement('div');
+  mobilePaginationEl.className = 'recall-info-pagination-mobile';
+  const mobileBtn = document.createElement('button');
+  mobileBtn.type = 'button';
+  mobileBtn.classList.add('page-button');
+  mobileBtn.textContent = 'Load more';
+  mobilePaginationEl.appendChild(mobileBtn);
 
-//   container.appendChild(sectionTitleEl);
+  const noPaginationEl = document.createElement('div');
+  noPaginationEl.className = 'recall-info-no-pagination';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.classList.add('page-button');
+  btn.textContent = paginatedBtnText;
+  noPaginationEl.appendChild(btn);
+  if (shouldPaginated === 'false') {
+    container.appendChild(noPaginationEl);
+  } else {
+    container.append(paginationEl, mobilePaginationEl);
+  }
 
-//   const cardGroupEl = document.createElement('div');
-//   cardGroupEl.className = 'releases-card-group';
-//   container.appendChild(cardGroupEl);
+  // Ensure the editor can still find this block
+  if (blockResource) {
+    block.setAttribute('data-aue-resource', blockResource);
+  }
 
-//   const paginationEl = document.createElement('div');
-//   paginationEl.className = 'releases-pagination';
+  block.replaceChildren(container);
 
-//   const mobilePaginationEl = document.createElement('div');
-//   mobilePaginationEl.className = 'releases-pagination-mobile';
-//   const mobileBtn = document.createElement('button');
-//   mobileBtn.type = 'button';
-//   mobileBtn.classList.add('page-button');
-//   mobileBtn.textContent = 'Discover more';
-//   mobilePaginationEl.appendChild(mobileBtn);
+  // const allItems = await loadAllNewsroom(pageSize, dataSource);
+  const allItems = new Array(100).fill(0).map((_, i) => ({
+    title: `${MOCK_RECALL_INFORMATION_ITEM.title} ${i + 1}`,
+    announcedDate: MOCK_RECALL_INFORMATION_ITEM.announcedDate,
+    downloadUrl: MOCK_RECALL_INFORMATION_ITEM.downloadUrl,
+    fileName: `${MOCK_RECALL_INFORMATION_ITEM.title} ${i + 1}'.pdf'`,
+  }));
 
-//   const noPaginationEl = document.createElement('div');
-//   noPaginationEl.className = 'releases-no-pagination';
-//   const btn = document.createElement('button');
-//   btn.type = 'button';
-//   btn.classList.add('page-button');
-//   btn.textContent = paginatedBtnText;
-//   noPaginationEl.appendChild(btn);
-//   if (shouldPaginated === 'false') {
-//     container.appendChild(noPaginationEl);
-//   } else {
-//     container.append(paginationEl, mobilePaginationEl);
-//   }
+  const generateDownloadButton = (item) => {
+    const { downloadUrl, fileName } = item;
+    const downloadContainer = document.createElement('div');
+    downloadContainer.className = 'download-container';
+    const icon = document.createElement('img');
+    icon.src = '/content/dam/hisense/us/common-icons/download-white.svg';
+    const downloadText = document.createElement('span');
+    downloadText.textContent = 'Download';
+    downloadContainer.append(icon, downloadText);
+    const handleDownload = () => {
+      console.log('Download file:', fileName, downloadUrl);
+      // if (downloadUrl) {
+      //   const link = document.createElement('a');
+      //   link.href = downloadUrl;
+      //   if (fileName) {
+      //     link.download = fileName; // 指定下载文件名
+      //   }
+      //   document.body.appendChild(link);
+      //   link.click();
+      //   document.body.removeChild(link);
+      // }
+    };
+    downloadContainer.addEventListener('click', handleDownload);
+    return downloadContainer;
+  };
 
-//   // Ensure the editor can still find this block
-//   if (blockResource) {
-//     block.setAttribute('data-aue-resource', blockResource);
-//   }
+  const generateCard = (item) => {
+    const { title, announcedDate } = item;
+    const cardEl = document.createElement('div');
+    cardEl.className = 'recall-info-card';
 
-//   block.replaceChildren(container);
+    // card 左侧: icon + title + date 容器
+    const leftEl = document.createElement('div');
+    leftEl.className = 'card-left';
 
-//   const allItems = await loadAllNewsroom(pageSize, dataSource);
+    // card 左侧: icon
+    const documentIcon = document.createElement('img');
+    documentIcon.src = '/content/dam/hisense/us/common-icons/document.svg';
+    documentIcon.alt = 'document';
+    documentIcon.className = 'document-icon';
+    leftEl.appendChild(documentIcon);
 
-//   const loadPage = async (page) => {
-//     const filteredItems = filterItemsByUrlParams(allItems);
-//     const totalItems = filteredItems.length;
+    // card 左侧: title + date 容器
+    const titleContainer = document.createElement('div');
+    titleContainer.className = 'title-container';
 
-//     cardGroupEl.textContent = '';
-//     paginationEl.textContent = '';
+    // card 左侧: title
+    const titleEl = document.createElement('div');
+    titleEl.className = 'card-title';
+    titleEl.textContent = title || '';
+    titleContainer.appendChild(titleEl);
 
-//     if (!totalItems) {
-//       const emptyEl = document.createElement('div');
-//       emptyEl.className = 'releases-empty';
-//       emptyEl.innerHTML = emptyText;
-//       cardGroupEl.appendChild(emptyEl);
-//       return;
-//     }
+    // card 左侧: date
+    const dateEl = document.createElement('div');
+    dateEl.className = 'announced-date';
+    const date = new Date(announcedDate);
+    dateEl.textContent = Number.isNaN(date.getTime()) ? announcedDate : date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+    titleContainer.appendChild(dateEl);
+    leftEl.appendChild(titleContainer);
 
-//     const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
-//     const safePage = Math.min(Math.max(page, 1), totalPages);
-//     const startIndex = (safePage - 1) * pageSize;
-//     const pageItems = filteredItems.slice(startIndex, startIndex + pageSize);
+    // card 右侧: download button
+    const downloadButton = generateDownloadButton(item);
+    cardEl.appendChild(leftEl);
+    cardEl.appendChild(downloadButton);
 
-//     pageItems.forEach((item) => {
-//       const card = buildCard(item);
-//       cardGroupEl.appendChild(card);
-//     });
+    return cardEl;
+  };
 
-//     const state = {
-//       total: totalItems,
-//       limit: pageSize,
-//       offset: startIndex,
-//     };
+  const loadPage = async (page) => {
+    // const filteredItems = filterItemsByUrlParams(allItems);
+    const filteredItems = allItems;
+    const totalItems = filteredItems.length;
 
-//     buildPaginationControls(container, state, (targetPage) => {
-//       if (targetPage < 1) return;
-//       const maxPage = Math.ceil(state.total / state.limit);
-//       if (targetPage > maxPage) return;
-//       loadPage(targetPage);
-//     }, isEditMode);
-//   };
+    cardGroupEl.textContent = '';
+    paginationEl.textContent = '';
 
-//   await loadPage(1);
+    if (!totalItems) {
+      const emptyEl = document.createElement('div');
+      emptyEl.className = 'recall-info-empty';
+      emptyEl.innerHTML = emptyText;
+      cardGroupEl.appendChild(emptyEl);
+      return;
+    }
 
-//   block.classList.add('loaded');
-// }
+    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+    const safePage = Math.min(Math.max(page, 1), totalPages);
+    const startIndex = (safePage - 1) * pageSize;
+    const pageItems = filteredItems.slice(startIndex, startIndex + pageSize);
+
+    pageItems.forEach((item) => {
+      const card = generateCard(item);
+      cardGroupEl.appendChild(card);
+    });
+
+    const state = {
+      total: totalItems,
+      limit: pageSize,
+      offset: startIndex,
+    };
+
+    buildPaginationControls(container, state, (targetPage) => {
+      if (targetPage < 1) return;
+      const maxPage = Math.ceil(state.total / state.limit);
+      if (targetPage > maxPage) return;
+      loadPage(targetPage);
+    }, isEditMode);
+  };
+
+  await loadPage(1);
+
+  block.classList.add('loaded');
+}

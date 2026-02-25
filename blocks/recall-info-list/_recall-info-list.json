@@ -11,7 +11,7 @@
               "name": "Recall Info List",
               "model": "recall-info-list",
               "key-value": true,
-              "page-size": "9",
+              "page-size": "10",
               "empty-text": "No recall info items match your filters.",
               "data-source": "/us/en/recallInfoList.json"
             }
