@@ -18,3 +18,18 @@
     font-weight: var(--fontweight-book);
   }
 }
+
+@media (width < 860px) {
+  .popup-text-wrapper {
+    .title {
+      font-size: var(--size-16);
+      line-height: calc(20.8 / var(--breakpoint-mobile) * 100vw);
+      margin-bottom: var(--size-12);
+    }
+
+    .text {
+      font-size: var(--size-14);
+      line-height: var(--size-21);
+    }
+   }
+}

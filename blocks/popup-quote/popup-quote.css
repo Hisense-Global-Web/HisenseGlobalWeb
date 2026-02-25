@@ -29,7 +29,7 @@
     }
   }
   
-  .text-body-quote-notes {
+  .notes {
     color: var(--color-primary-grey-70);
     font-size: var(--fontsize-body1);
     font-weight: var(--fontweight-book);
