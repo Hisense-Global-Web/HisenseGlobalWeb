@@ -22,14 +22,14 @@
   
    @media (width < 860px) {
     width: 100%;
-    padding: var(--size-48) var(--size-32) ;
+    padding: var(--spacing-large) var(--spacing-medium) ;
    }
 }
 
 .bi-directional-content-wrapper .title div p:first-child{
    font-size: var(--fontsize-pc-h4);
    margin-top:  var(--fontsize-pc-h4);
-    font-weight: var(--fontweight-medium);
+   font-weight: var(--fontweight-medium);
 
    @media (width < 860px) {
     font-size: var(--size-14);
@@ -49,11 +49,11 @@
 .bi-directional-content .card-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--size-48);
+  gap: var(--spacing-largr);
 
    @media (width < 860px) {
-     margin: var(--size-48) var(--size-18);
-     gap: var(--size-32);
+     margin: var(--spacing-large) var(--size-18);
+     gap: var(--spacing-medium);
   }
 }
 
@@ -79,17 +79,17 @@
 }
 
 .bi-directional-content .card-body {
-  width:min(4525545%, 496px);
+  width:min(45.25545%, 496px);
   background: var(--color-primary-green-20);
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   overflow: hidden;
    font-family: var(--font-family);
    margin: 0;
-   padding: var(--size-48) var(--spacing-lg);
+   padding: var(--spacing-large) var(--spacing-lg);
    
    @media (width < 860px) {
     width: 100%;
-     border-radius: 0 0 20px 20px;
+     border-radius: 0 0 var(--fontsize-body1)  var(--fontsize-body1);
      padding: var(--spacing-m)  var(--spacing-sm)  var(--spacing-xl);
   }
 }
@@ -117,14 +117,16 @@
 }
 
 .bi-directional-content  .card-image  {
-  border-radius: 20px ;
+  border-radius: var(--radius-xl) ;
   width: min(54.7445%, 600px);
+  aspect-ratio: 600 / 360;
   transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
   overflow: hidden;
 
   @media (width < 860px) {
-    border-radius:  20px 20px 0 0;
+    border-radius:  var(--fontsize-body1) var(--fontsize-body1) 0 0;
     width: 100%;
+    aspect-ratio: 354 / 246;
     margin: auto;
   }
 }

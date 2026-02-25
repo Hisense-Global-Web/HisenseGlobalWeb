@@ -25,6 +25,10 @@
   }
 }
 
+.core-value-card-wrapper.center-style .core-value-card .title >div {
+  text-align: center;
+}
+
 .core-value-card .title >div:nth-child(2){
   color: var(--color-primary-grey-90);
   font-family: var(--font-family);

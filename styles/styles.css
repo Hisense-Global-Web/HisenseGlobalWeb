@@ -213,6 +213,8 @@ html {
   --spacing-pc-md: var(--size-32);
   --spacing-pc-xl-2: var(--size-56);
   --spacing-pc-3xl: var(--size-120);
+  --spacing-large: var(--size-48);
+  --spacing-medium: var(--size-32);
 
   /* 圆角变量（映射基础尺寸） */
   --radius-s: var(--size-2);
