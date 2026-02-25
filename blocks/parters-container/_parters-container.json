@@ -11,12 +11,7 @@
               "name": "Parters Container",
               "model": "parters-container",
               "classes": "Parters Container",
-              "filter": "parters-container",
-              "key-value": true,
-              "title": "",
-              "text": "",
-              "highlight-text": "",
-              "content": ""
+              "filter": "parters-container"
             }
           }
         }
