@@ -388,7 +388,7 @@ export default async function decorate(block) {
   const titleText = config.title || 'Recent Press Releases';
   const pageSize = Number.parseInt(config['page-size'], 10) || 9;
   const emptyText = config['empty-text'] || 'No news items match your filters.';
-  const shouldPaginated = config['should-paginated'];
+  const shouldPaginated = true;
   const paginatedBtnText = config['paginated-btn-text'] || '';
 
   const blockResource = block.getAttribute('data-aue-resource');

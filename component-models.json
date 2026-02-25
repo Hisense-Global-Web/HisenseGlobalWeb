@@ -2797,26 +2797,6 @@
         "label": "Empty Result Text",
         "description": "Text to show when no news items match the current filters.",
         "valueType": "string"
-      },
-      {
-        "component": "boolean",
-        "name": "should-paginated",
-        "label": "Do you need paginated?",
-        "valueType": "boolean"
-      },
-      {
-        "component": "text",
-        "label": "button",
-        "name": "paginated-btn-text",
-        "valueType": "string",
-        "condition": {
-          "===": [
-            {
-              "var": "should-paginated"
-            },
-            false
-          ]
-        }
       }
     ]
   },
