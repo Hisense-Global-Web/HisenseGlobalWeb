@@ -14,7 +14,8 @@
               "title": "Recent Press Releases",
               "page-size": "9",
               "empty-text": "No news items match your filters.",
-              "should-paginated": true
+              "should-paginated": true,
+              "data-source": "/us/en/newsroom.json"
             }
           }
         }
@@ -37,6 +38,12 @@
           "label": "Items per page",
           "description": "How many news cards to show per page.",
           "valueType": "number"
+        },
+        {
+          "component": "text",
+          "name": "data-source",
+          "label": "Data Source",
+          "valueType": "string"
         },
         {
           "component": "richtext",

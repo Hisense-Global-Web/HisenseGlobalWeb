@@ -2792,6 +2792,12 @@
         "valueType": "number"
       },
       {
+        "component": "text",
+        "name": "data-source",
+        "label": "Data Source",
+        "valueType": "string"
+      },
+      {
         "component": "richtext",
         "name": "empty-text",
         "label": "Empty Result Text",
