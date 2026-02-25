@@ -1054,6 +1054,7 @@
                   "name": "Headline",
                   "model": "headline",
                   "key-value": true,
+                  "data-source": "fill",
                   "section-title": "Featured",
                   "eyebrow": "PARTNERSHIPS & SPONSORSHIPS",
                   "subtitle": "Hisense Accelerates ESG Strategy With AI-Driven Sustainability Milestones",
@@ -1474,7 +1475,8 @@
                   "title": "Recent Press Releases",
                   "page-size": "9",
                   "empty-text": "No news items match your filters.",
-                  "should-paginated": true
+                  "should-paginated": true,
+                  "data-source": "/us/en/newsroom.json"
                 }
               }
             }
@@ -1512,6 +1514,40 @@
           }
         },
         {
+          "title": "Parters Container",
+          "id": "parters-container",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Parters Container",
+                  "model": "parters-container",
+                  "classes": "Parters Container",
+                  "filter": "parters-container"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Parters Container Item",
+          "id": "parters-container-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Parters Container Item",
+                  "model": "parters-container-item",
+                  "key-value": true,
+                  "svg-icon": ""
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Past Partnerships List",
           "id": "past-partnerships-list",
           "plugins": {
@@ -1537,6 +1573,29 @@
                 "template": {
                   "name": "Past Partnerships List Item",
                   "model": "past-partnerships-list-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Press Release Card",
+          "id": "press-release-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Press Release Card",
+                  "model": "press-release-card",
+                  "filter": "press-release-card",
+                  "key-value": true,
+                  "title": "Related Press Releases",
+                  "endpoint": "/us/en/newsroom.json",
+                  "page-size": "3",
+                  "empty-text": "No press releases found.",
+                  "discover-all-link-text": "Discover all news",
+                  "discover-all-link": "/us/en/company/newsroom"
                 }
               }
             }
@@ -1764,6 +1823,25 @@
                   "text": "Link Text",
                   "link": "",
                   "target": "_self"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Recall Info List",
+          "id": "recall-info-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Recall Info List",
+                  "model": "recall-info-list",
+                  "key-value": true,
+                  "page-size": "9",
+                  "empty-text": "No recall info items match your filters.",
+                  "data-source": "/us/en/recallInfoList.json"
                 }
               }
             }

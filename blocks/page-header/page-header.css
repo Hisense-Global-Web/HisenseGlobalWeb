@@ -1,3 +1,9 @@
+.page-header-wrapper {
+  @media (width >= 860px) {
+    padding: 0 !important;
+  }
+}
+
 .page-header-title {
   color: var(--color-primary-green-50, #009f9c);
   text-align: center;
