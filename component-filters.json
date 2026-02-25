@@ -108,7 +108,8 @@
     "components": [
       "module-title",
       "sustainability-dashboard-list",
-      "popup-text"
+      "popup-text",
+      "popup-quote"
     ]
   },
   {
