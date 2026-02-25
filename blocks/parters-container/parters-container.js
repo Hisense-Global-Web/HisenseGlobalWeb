@@ -22,6 +22,9 @@ export default async function decorate(block) {
       iconWrapper.appendChild(iconItem);
     });
     title.parentNode.insertBefore(iconWrapper, highlightText);
+    iconList.forEach((icon) => {
+      icon.style.display = 'none';
+    });
     // iconList.forEach((icon) => icon.remove());
   }
   highlightText.classList.add('parters-container-highlight-text');
