@@ -207,14 +207,17 @@ html {
   --spacing-xl: var(--size-48);
   --spacing-2xl: var(--size-80);
   --spacing-3xl: var(--size-100);
-  --spacing-4xl: var(--size-160);
+  --spacing-4xl: var(--size-120);
   --spacing-pc-s: var(--size-20);
   --spacing-pc-m: var(--size-30);
   --spacing-pc-md: var(--size-32);
   --spacing-pc-xl-2: var(--size-56);
   --spacing-pc-3xl: var(--size-120);
-  --spacing-large: var(--size-48);
-  --spacing-medium: var(--size-32);
+ 
+  --Large: var(--size-48);
+  --Medium: var(--size-32);
+  --Mid: var(--size-24);
+  --Small:var(--size-16);
 
   /* 圆角变量（映射基础尺寸） */
   --radius-s: var(--size-2);
@@ -423,6 +426,11 @@ html {
   :root {
     /* common */
     --common-padding: 30px;
+    
+   /*spacing*/
+   --spacing-s: var(--size-20);
+   --spacing-4xl: var(--size-160);
+
 
 	/* basic size in desktop */
     --size-2: min(0.13888889vw, 2px);
@@ -584,6 +592,12 @@ html {
     --size-158: min(10.97222222vw, 158px);
     --size-159: min(11.04166667vw, 159px);
     --size-160: min(11.11111111vw, 160px);
+
+
+    --Large: var(--size-80);
+    --Medium: var(--size-48);
+    --Mid: var(--size-32);
+    --Small:var(--size-24);
   }
 }
 

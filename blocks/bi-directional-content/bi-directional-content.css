@@ -13,7 +13,7 @@
 .bi-directional-content-wrapper .title div{
   display: flex;
   flex-direction: column-reverse;
-  padding: var(--size-80) 0;
+  padding: var(--Large) var(--Medium);
   margin: auto;
   width: min(51.38888vw ,740px);
   color: var(--color-primary-green-60);
@@ -22,7 +22,7 @@
   
    @media (width < 860px) {
     width: 100%;
-    padding: var(--spacing-large) var(--spacing-medium) ;
+  
    }
 }
 
@@ -49,11 +49,12 @@
 .bi-directional-content .card-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--spacing-largr);
+  gap: var(--Medium) ;
+  margin: var(--Large) 0;
 
    @media (width < 860px) {
-     margin: var(--spacing-large) var(--size-18);
-     gap: var(--spacing-medium);
+     margin: var(--Large) var(--size-18);
+   
   }
 }
 
@@ -85,7 +86,7 @@
   overflow: hidden;
    font-family: var(--font-family);
    margin: 0;
-   padding: var(--spacing-large) var(--spacing-lg);
+   padding: var(--size-48) var(--spacing-lg);
    
    @media (width < 860px) {
     width: 100%;
