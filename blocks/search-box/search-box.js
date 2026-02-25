@@ -108,7 +108,9 @@ export default async function decorate(block) {
   const popupSearchWrapper = document.createElement('div');
   popupSearchWrapper.className = 'popup-search-wrapper';
   popupSearchWrapper.appendChild(cloneInputWrapper);
-  popupSearchWrapper.appendChild(cloneQuickLink);
+  if (cloneQuickLink) {
+    popupSearchWrapper.appendChild(cloneQuickLink);
+  }
   popupWrapper.appendChild(popupSearchWrapper);
   searchBoxWrapper.appendChild(popupWrapper);
   popupSearchWrapper.addEventListener('click', (e) => {

@@ -4,6 +4,9 @@
   text-align: center;
   height: 100vh;
 
+	/* company header height */
+	padding-top: 66px;
+
   &.animated {
     .hero-presence-video {
       filter: brightness(0.5);

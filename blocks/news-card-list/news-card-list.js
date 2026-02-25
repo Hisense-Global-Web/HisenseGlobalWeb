@@ -146,7 +146,7 @@ function buildCard(item) {
     subtitle,
     date,
     location,
-    download,
+    downloadlink,
     thumbnail,
   } = item;
 
@@ -227,15 +227,17 @@ function buildCard(item) {
     metaGroupEl.appendChild(locationEl);
   }
 
-  if (download) {
-    const downloadEl = document.createElement('span');
+  if (downloadlink) {
+    const downloadEl = document.createElement('a');
+    downloadEl.href = downloadlink;
+    downloadEl.target = '_blank';
     downloadEl.classList.add('meta-item');
+    downloadEl.classList.add('meta-download');
     const iconImg = document.createElement('img');
     iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
-    iconImg.alt = '';
+    iconImg.alt = 'Download';
     iconImg.classList.add('meta-icon');
     downloadEl.appendChild(iconImg);
-    // 追加点击下载
     metaGroupEl.appendChild(downloadEl);
   }
 

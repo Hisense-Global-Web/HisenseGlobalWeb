@@ -1,6 +1,7 @@
 import { createElement, debounce } from '../../utils/dom-helper.js';
 import { loadScrollTrigger } from '../../utils/animation-helper.js';
 import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
+import { whenElementReady } from '../../utils/carousel-common.js';
 
 export default async function decorate(block) {
   // ========== CONSTRUCT DOM [START] ========== //
@@ -179,7 +180,7 @@ export default async function decorate(block) {
     });
   };
 
-  animateImg.addEventListener('load', animate, { once: true });
+  animate();
 
   const handleResize = debounce(() => {
     // Refresh ScrollTrigger after a brief delay to ensure DOM has updated
@@ -189,4 +190,11 @@ export default async function decorate(block) {
   }, 500);
   window.addEventListener('resize', handleResize);
   // ========== ANIMATION [END] ========== //
+
+  whenElementReady('#navigation', () => {
+    const header = document.querySelector('#navigation');
+    if (!header) return;
+
+    header.style.backgroundColor = 'white';
+  });
 }
