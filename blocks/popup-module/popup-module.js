@@ -40,8 +40,8 @@ export default function decorate(block) {
   // popup container element
   const popupContainerEl = document.createElement('div');
   popupContainerEl.className = 'popup-container';
-  block.append(popupContainerEl);
   popupContainerEl.append(closeDivEl, popupContentDom);
+  block.append(popupContainerEl);
 
   // default hide popup when page load
   const isEditorMode = block.hasAttribute('data-aue-resource')
