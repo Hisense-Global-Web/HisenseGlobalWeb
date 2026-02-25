@@ -34,6 +34,7 @@
       font-weight: var(--fontweight-medium);
       line-height: 120%; /* 28.8px */
       margin-bottom: var(--size-24);
+      text-transform: capitalize;
 
       &::first-letter {
         text-transform: uppercase;
@@ -155,6 +156,12 @@
 
       .card-text {
         line-height: 130%;
+        font-size: var(--size-20);
+        text-transform: capitalize;
+
+        &::first-letter {
+          font-size: var(--size-24);
+        }
       }
 
       .btn-cta {
