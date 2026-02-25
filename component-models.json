@@ -2966,6 +2966,47 @@
     ]
   },
   {
+    "id": "parters-container",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "highlight-text",
+        "label": "Highlight Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "parters-container-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "svg-icon",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "past-partnerships-list",
     "fields": [
       {
@@ -3362,6 +3403,31 @@
             "value": "_blank"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "recall-info-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many news cards to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "text",
+        "name": "data-source",
+        "label": "Data Source",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "empty-text",
+        "label": "Empty Result Text",
+        "description": "Text to show when no news items match the current filters.",
+        "valueType": "string"
       }
     ]
   },

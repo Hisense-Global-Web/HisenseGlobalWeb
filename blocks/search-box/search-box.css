@@ -1,12 +1,15 @@
 .search-box-wrapper {
   width: 100%;
+
+  @media (width >= 860px) {
+    padding: 0 !important;
+  }
 }
 
 .search-box .out-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 16px 0;
   width: 100%;
   gap: var(--spacing-sm, 24px);
 
@@ -95,7 +98,7 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--spacing-2xs, 12px);
+  gap: var(--spacing-s, 18px) var(--spacing-2xs, 12px);
 
   @media (width<860px) {
     justify-content: flex-start;

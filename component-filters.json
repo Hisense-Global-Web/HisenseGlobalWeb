@@ -80,6 +80,8 @@
       "page-header",
       "icon-card-container",
       "section-title",
+      "parters-container",
+      "recall-info-list",
       "quick-action-card",
       "category-support-card",
       "addional-support-card",
@@ -318,6 +320,12 @@
       "navigationItem",
       "navigationLink",
       "navigationAction"
+    ]
+  },
+  {
+    "id": "parters-container",
+    "components": [
+      "parters-container-item"
     ]
   },
   {
