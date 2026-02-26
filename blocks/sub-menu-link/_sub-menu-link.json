@@ -60,8 +60,10 @@
           "name": "order",
           "label": "Order",
           "value": 1,
-          "numberMin": 1,
-          "numberMax": 5
+          "validation": {
+            "numberMin": 1,
+            "numberMax": 5
+          }
         }
       ]
     }
