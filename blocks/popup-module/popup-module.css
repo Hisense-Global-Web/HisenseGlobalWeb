@@ -74,6 +74,12 @@ main .section.popup-module-container {
       gap: var(--size-48);
     }
   }
+
+  &[data-aue-component="popup-module"] {
+    .popup-content-container {
+      max-height: none;
+    }
+  }
 }
 
 /* main .section.popup-module-container {
@@ -137,6 +143,12 @@ main .section.popup-module-container {
         margin-top: var(--size-48);
         max-height: min(calc(560 / var(--breakpoint-mobile) * 100vw), 560px);
         gap: var(--size-32);
+      }
+    }
+
+    &[data-aue-component="popup-module"] {
+      .popup-content-container {
+        max-height: none;
       }
     }
   }

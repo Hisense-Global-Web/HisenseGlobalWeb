@@ -1404,12 +1404,12 @@
       {
         "component": "select",
         "name": "classes_bgcolor",
-        "value": "gray-20",
+        "value": "",
         "label": "Background Color Variant",
         "valueType": "string",
         "options": [
           {
-            "name": "Gray 20(default)",
+            "name": "Gray 20(Default)",
             "value": "gray-20"
           },
           {
@@ -1420,14 +1420,14 @@
       },
       {
         "component": "text",
-        "name": "headline",
+        "name": "title",
         "label": "Title",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "text",
-        "name": "bodycopy",
+        "name": "text",
         "label": "Text",
         "valueType": "string",
         "value": ""
@@ -1435,12 +1435,12 @@
       {
         "component": "select",
         "name": "link_classes",
-        "value": "transparent",
+        "value": "",
         "label": "Button Background Color",
         "valueType": "string",
         "options": [
           {
-            "name": "transparent",
+            "name": "transparent(Default)",
             "value": "transparent"
           },
           {
@@ -3627,9 +3627,18 @@
     "fields": [
       {
         "component": "text",
-        "name": "keywords",
-        "label": "Keywords",
-        "valueType": "string"
+        "valueType": "string",
+        "name": "graphql",
+        "label": "GraphQL Endpoint",
+        "description": "GraphQL endpoint URL"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "tag",
+        "label": "Tag",
+        "multi": false,
+        "rootPath": "/content/cq:tags/hisense/newsroom"
       }
     ]
   },
@@ -3966,7 +3975,7 @@
         "name": "classes",
         "label": "Image Position",
         "valueType": "string",
-        "value": "img-left",
+        "value": "",
         "options": [
           {
             "name": "Image Position Left",
@@ -3990,7 +3999,7 @@
         "name": "classes_backgroundColor",
         "label": "Text Area Background Color",
         "valueType": "string",
-        "value": "white-background",
+        "value": "",
         "options": [
           {
             "name": "white-background(Default)",
