@@ -1,17 +1,6 @@
 
-function setEditableVP() {
- const isUE = !!document.getElementByClass('EditableOverlays');
- let height;
-
- if(isUE) {
-  height = document.getElementByClass('EditableOverlays').clientHeight;
- } else {
-  height = window.innerHeight;
- }
- document.documentElement.style.setProperty('--ue-viewport-height', `${height}px`);
-}
-
 export default function decorate(block) {
+  let height;
   // console.log(block, 'section-popup-block');
   // create popup mask
   // const popupMaskDom = document.querySelector('.popup-mask');
@@ -64,14 +53,14 @@ export default function decorate(block) {
   if (isEditorMode) {
     // 编辑模式下， 找到包裹页面iframe 的 类名为 EditableOverlays 的 main 元素，将其设置为overflow:hidden，避免编辑器页面滚动导致的popup滚动问题
     block.closest('.EditableOverlays').style.overflow = 'hidden';
+    height = document.getElementByClass('EditableOverlays').clientHeight;
   } else {
     // 非编辑模式下隐藏所有 popup 元素
     document.querySelectorAll('.popup-module-container').forEach((popupItem) => {
       popupItem.classList.remove('popup-show');
       document.body.style.overflow = 'auto';
     });
+    height = window.innerHeight;
   }
-
-  setEditableVP();
-  window.addEventListener('resize', setEditableVP);
+  document.documentElement.style.setProperty('--ue-viewport-height', `${height}px`);
 }
