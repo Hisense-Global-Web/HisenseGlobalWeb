@@ -95,12 +95,12 @@
     gap: var(--spacing-sm, 24px);
 
     @media (width < 860px) {
-      margin-top: 32px;
+      margin-top: var(--spacing-m, 32px);
     }
   }
 
-  .authorized-reseller-header-item {
-    width: min(calc(357 / var(--breakpoint-pc) * 100vw), 357px);
+  .authorized-reseller-item {
+    width: calc(100% / 3 - var(--spacing-sm, 24px) *2 / 3);
     height: min(calc(255 / var(--breakpoint-pc) * 100vw), 255px);
     padding: var(--spacing-m, 32px);
     text-align: center;
@@ -131,6 +131,12 @@
     justify-content: center;
     align-items: center;
     margin-bottom: var(--spacing-xs, 16px);
+
+    picture,
+    img {
+      width: 100%;
+      height: 100%;
+    }
 
     @media (width < 860px) {
       height: min(calc(80 / var(--breakpoint-mobile) * 100vw), 80px);

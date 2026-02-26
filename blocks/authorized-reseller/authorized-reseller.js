@@ -28,7 +28,7 @@ export default function decorate(block) {
 
         textContainer.appendChild(element);
       } else {
-        element?.classList.add('authorized-reseller-header-item');
+        element?.classList.add('authorized-reseller-item');
         const [icon, title] = element.children;
         icon?.classList?.add('authorized-reseller-item-icon');
         title?.classList?.add('authorized-reseller-item-title');
