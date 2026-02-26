@@ -173,8 +173,15 @@
     }
 
     .text-content {
-      gap: var(--size-48);
-      padding: 0;
+      gap: var(--size-48) !important;
+      padding: 0 var(--size-24) var(--size-48) !important;
+
+      p {
+        padding: 0;
+        margin: 0;
+        line-height: unset;
+        text-align: left;
+      }
 
       .text-area {
         gap: var(--size-48);
@@ -206,7 +213,6 @@
         
         .matrix-block-items {
           display: flex;
-          padding: 0 var(--size-24);
           align-items: flex-end;
           gap: var(--size-24);
   
