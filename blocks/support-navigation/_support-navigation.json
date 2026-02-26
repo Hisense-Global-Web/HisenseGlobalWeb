@@ -9,12 +9,19 @@
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
               "name": "Support Navigation",
+              "model": "support-navigation",
               "filter": "support-navigation",
               "classes": "support-navigation-block"
             }
           }
         }
       }
+    }
+  ],
+  "models": [
+    {
+      "id": "support-navigation",
+      "fields": []
     }
   ],
   "filters": [

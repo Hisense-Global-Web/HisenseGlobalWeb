@@ -3874,26 +3874,30 @@
     ]
   },
   {
-    "id": "support-navigation",
+    "id": "support-navigation-route",
     "fields": []
   },
   {
-    "id": "support-navigation-item",
+    "id": "support-navigation-route-item",
     "fields": [
       {
-        "component": "richtext",
-        "name": "support-navigation-item-title",
+        "component": "text",
+        "name": "support-navigation-route-title",
         "label": "Rich Text",
         "valueType": "string",
         "required": true
       },
       {
         "component": "aem-content",
-        "name": "support-navigation-item-link",
+        "name": "support-navigation-route-link",
         "label": "Link",
         "required": true
       }
     ]
+  },
+  {
+    "id": "support-navigation",
+    "fields": []
   },
   {
     "id": "sustainability-dashboard-achievement",
