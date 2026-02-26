@@ -1371,10 +1371,7 @@
                 "template": {
                   "name": "Module Title",
                   "model": "module-title",
-                  "key-value": true,
-                  "title-content": "This is the title",
-                  "subtitle-content": "This is the subtitle",
-                  "text-content": "This is the text"
+                  "key-value": true
                 }
               }
             }
