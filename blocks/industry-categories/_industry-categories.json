@@ -54,8 +54,7 @@
           "component": "text",
           "name": "text_first",
           "label": "First Text",
-          "valueType": "string",
-          "value":"first"
+          "valueType": "string"
         },
          {
           "component": "text",
