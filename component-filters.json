@@ -3,8 +3,10 @@
     "id": "main",
     "components": [
       "section",
+      "popup-module",
       "navigation",
       "company-page-navigation",
+      "support-navigation",
       "footerContainer"
     ]
   },
@@ -103,6 +105,15 @@
       "about-hisense-module-title",
       "honors-awards",
       "bi-directional-content"
+    ]
+  },
+  {
+    "id": "popup-module",
+    "components": [
+      "sustainability-dashboard-list",
+      "popup-text",
+      "popup-quote",
+      "popup-title"
     ]
   },
   {
@@ -392,6 +403,32 @@
     "id": "strategic-card-items",
     "components": [
       "strategic-card-item"
+    ]
+  },
+  {
+    "id": "support-navigation-route",
+    "components": [
+      "support-navigation-route-item"
+    ]
+  },
+  {
+    "id": "support-navigation",
+    "components": [
+      "support-navigation-route",
+      "support-navigation-product-links",
+      "support-navigation-menu-links"
+    ]
+  },
+  {
+    "id": "support-navigation-product-links",
+    "components": [
+      "sub-menu-link"
+    ]
+  },
+  {
+    "id": "support-navigation-menu-links",
+    "components": [
+      "sub-menu-link"
     ]
   },
   {

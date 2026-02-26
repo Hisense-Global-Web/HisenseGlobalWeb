@@ -27,7 +27,7 @@
       grid-template-columns: 1fr 1fr;
       gap: var(--size-48);
       background: var(--color-primary-grey-20);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius-xl);
       height: 480px;
       overflow: hidden;
       
@@ -64,7 +64,7 @@
         .featured-eyebrow {
           text-transform: uppercase;
           font-size: var(--fontsize-body2);
-          color: var(--color-primary-green-50);
+          color: var(--color-primary-green-60);
           font-weight: var(--fontweight-medium);
           margin-bottom: var(--size-8);
           line-height: 1.5;
@@ -79,7 +79,7 @@
         .featured-subtitle {
           font-size: var(--size-30);
           font-weight: var(--fontweight-medium);
-          line-height: 1.3;
+          line-height: 1.2;
           margin-bottom: var(--size-20);
           
           @media (width < 860px) {
@@ -107,7 +107,7 @@
           align-items: center;
           font-size: var(--size-14);
           color: var(--color-primary-grey-70);
-          gap: var(--size-8);
+          gap: var(--size-12);
 
           .meta-item {
             display: flex;
@@ -122,6 +122,12 @@
               display: block;
               object-fit: contain;
             }
+          }
+          
+          .line {
+            width: 1px;
+            height: var(--size-12);
+            background-color: var(--color-primary-grey-40);
           }
         }
 
