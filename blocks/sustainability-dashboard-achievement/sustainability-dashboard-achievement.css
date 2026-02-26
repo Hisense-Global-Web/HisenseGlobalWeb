@@ -18,10 +18,6 @@
     flex-direction: row;
   }
 
-  &.img-right {
-    flex-direction: row-reverse;
-  }
-
   .image {
     flex: 1;
 
@@ -144,6 +140,14 @@
       .btn-popup-id {
         display: none;
       }
+    }
+  }
+
+  &.img-right {
+    flex-direction: row-reverse;
+
+    .text-content {
+      padding: var(--size-48);
     }
   }
 }
