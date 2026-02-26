@@ -6,6 +6,7 @@
       "popup-module",
       "navigation",
       "company-page-navigation",
+      "support-navigation",
       "footerContainer"
     ]
   },
@@ -402,6 +403,12 @@
     "id": "strategic-card-items",
     "components": [
       "strategic-card-item"
+    ]
+  },
+  {
+    "id": "support-navigation",
+    "components": [
+      "support-navigation-item"
     ]
   },
   {
