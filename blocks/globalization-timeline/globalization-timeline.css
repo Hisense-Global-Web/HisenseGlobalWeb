@@ -114,7 +114,8 @@
 			width: 50%;
 
 			@media (width >= 860px) {
-				font-size: 26px;
+				font-size: 24px;
+				color: var(--color-primary-green-50);
 				font-weight: var(--fontweight-light);
 				width: 100%;
 			}
@@ -172,8 +173,8 @@
 	}
 
 	@media (width >= 860px) {
-		color: var(--color-primary-grey-90);
-		font-size: var(--size-16);
+		color: var(--color-primary-green-70);
+		font-size: var(--size-14);
 		line-height: 1.4;
 		padding: 0;
 		will-change: opacity;
