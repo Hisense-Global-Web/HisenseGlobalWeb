@@ -42,11 +42,17 @@ export default function decorate(block) {
           div.append(arrow);
         } else {
           div.className = 'card-body';
-          const tit = document.createElement('div');
-          const desc = document.createElement('div');
-          tit.append(div.firstElementChild);
-          desc.append(div.lastElementChild);
-          div.replaceChildren(tit, desc);
+          const { children } = div;
+          if (children.length > 0) {
+            const tit = document.createElement('div');
+            const desc = document.createElement('div');
+            tit.append(children[0]);
+
+            if (children.length > 1) {
+              desc.append(children[children.length - 1]);
+            }
+            div.replaceChildren(tit, desc);
+          }
         }
       });
       ul.append(li);
