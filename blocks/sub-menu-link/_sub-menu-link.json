@@ -59,7 +59,9 @@
           "valueType": "number",
           "name": "order",
           "label": "Order",
-          "value": "1"
+          "value": 1,
+          "numberMin": 1,
+          "numberMax": 5
         }
       ]
     }
