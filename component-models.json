@@ -3894,7 +3894,7 @@
       {
         "component": "text",
         "name": "support-navigation-route-title",
-        "label": "Rich Text",
+        "label": "Route Title",
         "valueType": "string",
         "required": true
       },
