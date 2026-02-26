@@ -41,21 +41,18 @@
         {
           "component": "text",
           "name": "title",
-          "value": "title",
           "label": "Title",
           "valueType": "string"
         },
         {
           "component": "text",
           "name": "subtitle",
-          "value": "subtitle",
           "label": "Sub Title",
           "valueType": "string"
         },
         {
           "component": "text",
           "name": "content",
-          "value": "Content",
           "label": "Content",
           "valueType": "string"
         }
