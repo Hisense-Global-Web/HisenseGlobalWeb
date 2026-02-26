@@ -109,7 +109,7 @@ p {
         gap: var(--spacing-m, 32px);
     }
 
-    .text-container {
+    .cross-page-redirect .text-container {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -118,7 +118,7 @@ p {
         text-align: center;
     }
 
-    .title {
+    .cross-page-redirect .title {
         font-size: var(--fontsize-title1, 24px);
         font-weight: var(--fontweight-medium, 400);
         line-height: 120%; /* 28.8px */
@@ -127,7 +127,7 @@ p {
         text-align: center;
     }
 
-    .text {
+    .cross-page-redirect .text {
         width: 100%;
         font-size: var(--fontsize-body2, 14px);
         font-weight: var(--fontweight-medium);
