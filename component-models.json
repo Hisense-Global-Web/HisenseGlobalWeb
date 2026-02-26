@@ -3122,6 +3122,18 @@
     ]
   },
   {
+    "id": "popup-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "popup-image-box",
+        "label": "Image",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "popup-quote",
     "fields": [
       {

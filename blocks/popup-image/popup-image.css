@@ -1,0 +1,13 @@
+.popup-image {
+  .popup-image-box {
+    aspect-ratio: 640 / 360;
+    border-radius: var(--size-20);
+    overflow: hidden;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block !important;
+  }
+}
