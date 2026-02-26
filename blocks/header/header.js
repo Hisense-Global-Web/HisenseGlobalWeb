@@ -440,7 +440,7 @@ function buildSupportDropdown(mainEl) {
         const hasGroup = supportProductListEl.querySelector(`.support-product-order-${i}`) !== null;
         if (!hasGroup) {
           const orderGroup = document.createElement('div');
-          orderGroup.className = `support-product-order-${i}`;
+          orderGroup.className = `support-product-item support-product-order-${i}`;
           supportProductListEl.append(orderGroup);
         }
         const supportProductListGroupEl = supportProductListEl.querySelector(`.support-product-order-${i}`);
