@@ -75,7 +75,9 @@
         "sustainability-dashboard-list",
         "popup-text",
         "popup-quote",
-        "popup-title"
+        "popup-title",
+        "popup-key-stats",
+        "popup-image"
       ]
     }
   ]

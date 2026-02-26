@@ -113,7 +113,9 @@
       "sustainability-dashboard-list",
       "popup-text",
       "popup-quote",
-      "popup-title"
+      "popup-title",
+      "popup-key-stats",
+      "popup-image"
     ]
   },
   {
@@ -343,6 +345,12 @@
     "id": "past-partnerships-list",
     "components": [
       "past-partnerships-list-item"
+    ]
+  },
+  {
+    "id": "popup-key-stats",
+    "components": [
+      "tech-items"
     ]
   },
   {
