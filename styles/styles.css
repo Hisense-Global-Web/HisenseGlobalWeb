@@ -19,6 +19,7 @@ html {
 }
 
 :root {
+  --ue-viewport-height: 500px;
   --breakpoint-large: 1440px;
   --breakpoint-normal: 860px;
   --breakpoint-small: 390px;
