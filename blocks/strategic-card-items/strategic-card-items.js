@@ -4,8 +4,10 @@ import popupShowUtils from '../../utils/popup-module-utils.js';
 function bindEvent(block) {
   const triggerBtn = block.querySelector('.btn-label'); // 触发按钮
   const popupSectionId = block.querySelector('.btn-popup-id')?.textContent.trim();
-  triggerBtn.setAttribute('data-id', popupSectionId);
-  triggerBtn && triggerBtn.addEventListener('click', popupShowUtils);
+  if (triggerBtn && popupSectionId) {
+    triggerBtn.setAttribute('data-id', popupSectionId);
+    triggerBtn.addEventListener('click', popupShowUtils);
+  }
 }
 
 export default function decorate(block) {

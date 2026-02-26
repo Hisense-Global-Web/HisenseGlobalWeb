@@ -3,10 +3,12 @@ import { whenElementReady } from '../../utils/carousel-common.js';
 import popupShowUtils from '../../utils/popup-module-utils.js';
 
 function bindEvent(block) {
-  const triggerBtn = block.querySelector('.btn-label > div > p'); // 触发按钮  
-  const popupSectionId = block.querySelector('.btn-popup-id')?.textContent.trim();  
-  if(popupSectionId) triggerBtn.setAttribute('data-id', popupSectionId);
-  triggerBtn && triggerBtn.addEventListener('click', popupShowUtils);
+  const triggerBtn = block.querySelector('.btn-label > div > p'); // 触发按钮
+  const popupSectionId = block.querySelector('.btn-popup-id')?.textContent.trim();
+  if (triggerBtn && popupSectionId) {
+    triggerBtn.setAttribute('data-id', popupSectionId);
+    triggerBtn.addEventListener('click', popupShowUtils);
+  }
 }
 export default function decorate(block) {
   const config = readBlockConfig(block);
@@ -67,8 +69,8 @@ export default function decorate(block) {
   textArea.appendChild(items);
   textContainer.appendChild(textArea);
   textContainer.appendChild(btnDiv);
-  block.appendChild(textContainer);  
-  whenElementReady('.sustainability-dashboard-achievement', () => {    
+  block.appendChild(textContainer);
+  whenElementReady('.sustainability-dashboard-achievement', () => {
     bindEvent(block);
   });
 }

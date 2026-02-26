@@ -6,6 +6,7 @@
   .strategic-card-item {
     display: flex;
     flex: 1 0 min(calc(204/var(--breakpoint-pc)*100vw),204px);
+
     /* width: min(calc(204/var(--breakpoint-pc)*100vw),204px); */
     height: auto;
     padding: var(--size-24) var(--size-24) var(--size-32) var(--size-24);
