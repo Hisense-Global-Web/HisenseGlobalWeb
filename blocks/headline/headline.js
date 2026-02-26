@@ -208,6 +208,12 @@ export default async function decorate(block) {
   }
 
   if (metaGroupEl.children.length > 0) {
+    const children = Array.from(metaGroupEl.children);
+    for (let i = children.length - 2; i >= 0; i -= 1) {
+      const lineEl = document.createElement('div');
+      lineEl.className = 'line';
+      children[i].after(lineEl);
+    }
     featuredContent.appendChild(metaGroupEl);
   }
 
