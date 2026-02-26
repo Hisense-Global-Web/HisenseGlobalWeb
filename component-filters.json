@@ -415,6 +415,7 @@
     "id": "support-navigation",
     "components": [
       "support-navigation-route",
+      "support-navigation-product-links-title",
       "support-navigation-menu-links"
     ]
   },
