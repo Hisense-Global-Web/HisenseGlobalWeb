@@ -1,6 +1,4 @@
 export default function decorate(block) {
-  console.log('===== authorized-reseller block decoration', block);
-
   try {
     const elementItems = [...block.children];
 
@@ -18,8 +16,7 @@ export default function decorate(block) {
         textContainer.appendChild(element);
       } else if (index === 2) {
         element?.classList.add('authorized-reseller-header-subtitle');
-        
-        // 为 subtitle 下第二个 div 中的 p 标签添加 title 属性
+        // 为 subtitle 下第二个 div 中的 p 标签添加 title 属性s
         const divElements = element.querySelectorAll('div');
         if (divElements.length >= 2) {
           const secondDiv = divElements[1];
@@ -32,7 +29,6 @@ export default function decorate(block) {
         textContainer.appendChild(element);
       } else {
         element?.classList.add('authorized-reseller-header-item');
-        
         const [icon, title] = element.children;
         icon?.classList?.add('authorized-reseller-item-icon');
         title?.classList?.add('authorized-reseller-item-title');
@@ -44,7 +40,6 @@ export default function decorate(block) {
 
         listContainer.appendChild(element);
       }
-
     });
     if (textContainer.children.length > 0) {
       block.appendChild(textContainer);
