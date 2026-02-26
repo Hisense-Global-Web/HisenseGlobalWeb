@@ -2129,6 +2129,36 @@
           }
         },
         {
+          "title": "Support Navigation Route",
+          "id": "support-navigation-route",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Support Navigation",
+                  "model": "support-navigation-route"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Support Navigation Route Item",
+          "id": "support-navigation-route-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Support Navigation Item",
+                  "model": "support-navigation-route-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Support Navigation",
           "id": "support-navigation",
           "plugins": {
@@ -2137,24 +2167,8 @@
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
                   "name": "Support Navigation",
-                  "model": "support-navigation",
                   "filter": "support-navigation",
                   "classes": "support-navigation-block"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Support Navigation Item",
-          "id": "support-navigation-item",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Support Navigation Item",
-                  "model": "support-navigation-item"
                 }
               }
             }

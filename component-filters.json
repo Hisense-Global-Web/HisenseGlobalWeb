@@ -406,9 +406,15 @@
     ]
   },
   {
+    "id": "support-navigation-route",
+    "components": [
+      "support-navigation-route-item"
+    ]
+  },
+  {
     "id": "support-navigation",
     "components": [
-      "support-navigation-item"
+      "support-navigation-route"
     ]
   },
   {
