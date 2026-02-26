@@ -15,6 +15,7 @@
     line-height: var(--size-24);
     color: var(--color-primary-green-60);
     margin-bottom: var(--size-8);
+    text-transform: uppercase;
   }
 
   .p-subtitle {

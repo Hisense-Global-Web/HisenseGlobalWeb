@@ -511,21 +511,18 @@
       {
         "component": "text",
         "name": "title",
-        "value": "title",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "subtitle",
-        "value": "subtitle",
         "label": "Sub Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "content",
-        "value": "Content",
         "label": "Content",
         "valueType": "string"
       }
@@ -3122,10 +3119,22 @@
     ]
   },
   {
+    "id": "popup-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "popup-image-box",
+        "label": "Image",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "popup-quote",
     "fields": [
       {
-        "component": "richtext",
+        "component": "text",
         "name": "quote",
         "label": "Quote",
         "value": ""
@@ -3879,8 +3888,61 @@
         "name": "searchTags",
         "label": "Search Tags",
         "rootPath": "/content/cq:tags/hisense/product"
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "order",
+        "label": "Order",
+        "value": 1,
+        "validation": {
+          "numberMin": 1,
+          "numberMax": 5
+        }
       }
     ]
+  },
+  {
+    "id": "support-navigation-route",
+    "fields": []
+  },
+  {
+    "id": "support-navigation-route-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "support-navigation-route-title",
+        "label": "Route Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "support-navigation-route-link",
+        "label": "Link",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "support-navigation",
+    "fields": []
+  },
+  {
+    "id": "support-navigation-product-links",
+    "fields": [
+      {
+        "component": "text",
+        "name": "support-navigation-product-links-title",
+        "label": "Product Links Title",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "support-navigation-menu-links",
+    "fields": []
   },
   {
     "id": "sustainability-dashboard-achievement",

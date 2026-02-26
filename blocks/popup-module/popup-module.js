@@ -48,28 +48,14 @@ export default function decorate(block) {
   || block.hasAttribute('data-aue-type')
   || block.closest('[data-aue-resource]')
   || block.closest('[data-aue-type]');
-  if (!isEditorMode) {
-    // setTimeout(() => {
-    //   const popupShowLength = document.querySelectorAll('.popup-show');
-    //   if (popupShowLength.length) {
-    //     document.querySelector('.popup-mask').classList.add('popup-mask-show');
-    //     document.body.style.overflow = 'hidden';
-    //   } else {
-    //     document.querySelector('.popup-mask').classList.remove('popup-mask-show');
-    //     document.body.style.overflow = 'auto';
-    //   }
-    // }, 500);
+  if (isEditorMode) {
+    // 编辑模式下， 找到包裹页面iframe 的 类名为 EditableOverlays 的 main 元素，将其设置为overflow:hidden，避免编辑器页面滚动导致的popup滚动问题
+    block.closest('.EditableOverlays').style.overflow = 'hidden';
+  } else {
     // 非编辑模式下隐藏所有 popup 元素
     document.querySelectorAll('.popup-module-container').forEach((popupItem) => {
       popupItem.classList.remove('popup-show');
       document.body.style.overflow = 'auto';
     });
   }
-  // else {
-  //   // 非编辑模式下隐藏所有 popup 元素
-  //   document.querySelectorAll('.popup-module-container').forEach((popupItem) => {
-  //     popupItem.classList.remove('popup-show');
-  //     document.body.style.overflow = 'auto';
-  //   });
-  // }
 }
