@@ -3890,7 +3890,7 @@
         "name": "classes",
         "label": "Image Position",
         "valueType": "string",
-        "value": "img-left",
+        "value": "",
         "options": [
           {
             "name": "Image Position Left",
@@ -3914,7 +3914,7 @@
         "name": "classes_backgroundColor",
         "label": "Text Area Background Color",
         "valueType": "string",
-        "value": "white-background",
+        "value": "",
         "options": [
           {
             "name": "white-background(Default)",
