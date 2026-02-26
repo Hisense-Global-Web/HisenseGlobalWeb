@@ -16,7 +16,7 @@ export default function decorate(block) {
         textContainer.appendChild(element);
       } else if (index === 2) {
         element?.classList.add('authorized-reseller-header-subtitle');
-        // 为 subtitle 下第二个 div 中的 p 标签添加 title 属性s
+        // 为 subtitle 下第二个 div 中的 p 标签添加 title 属性
         const divElements = element.querySelectorAll('div');
         if (divElements.length >= 2) {
           const secondDiv = divElements[1];

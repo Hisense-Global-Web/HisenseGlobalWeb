@@ -1,3 +1,4 @@
+/* 页面部分样式 */
 .authorized-reseller {
   padding: var(--spacing-lg) 0;
   display: flex;
@@ -5,7 +6,7 @@
   justify-content: flex-start;
   flex-wrap: wrap;
 
-  @media (width<860px) {
+  @media (width < 860px) {
     flex-direction: column;
   }
 
@@ -125,7 +126,6 @@
 
   .authorized-reseller-item-icon {
     padding: var(--spacing-4xs, 4px);
-    /* width: min(calc(70 / var(--breakpoint-pc) * 100vw), 70px); */
     height: min(calc(70 / var(--breakpoint-pc) * 100vw), 70px);
     display: flex;
     justify-content: center;
@@ -155,5 +155,4 @@
       -webkit-line-clamp: none;
     }
   }
-
 }
