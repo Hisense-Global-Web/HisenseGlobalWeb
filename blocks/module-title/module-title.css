@@ -12,6 +12,7 @@
     font-weight: var(--fontweight-medium);
     color: var(--color-primary-green-50);
     line-height: var(--size-24);
+    text-transform: uppercase;
   }
 
   .subtitle-content {
@@ -39,7 +40,20 @@
       color: var(--color-primary-grey-20);
     }
   }
+
+  &.text-align-left {
+    text-align: left;
+  }
+
+  &.text-align-right {
+    text-align: right;
+  }
+
+  &.text-align-center {
+    text-align: center;
+  }
 }
+
 
 @media (width < 860px) {
   .module-title {

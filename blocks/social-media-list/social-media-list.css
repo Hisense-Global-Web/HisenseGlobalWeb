@@ -22,7 +22,9 @@ main .section.social-media-list-container .social-media-list-wrapper {
   
   .social-media-list {
     width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+    height: var(--size-36);
     display: flex;
+    align-items: center;
     gap: var(--size-16);
     color: var(--color-primary-grey-70);
 
@@ -35,9 +37,16 @@ main .section.social-media-list-container .social-media-list-wrapper {
       cursor: pointer;
       
       .social-media-list-item-img {
+        width: var(--size-34);
+        height: var(--size-34);
+        
         @media (width < 860px) {
           width: var(--size-24);
           height: var(--size-24);
+        }
+
+        picture {
+          height: var(--size-34);
         }
         
         img {
