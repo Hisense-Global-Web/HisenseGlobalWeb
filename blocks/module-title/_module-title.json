@@ -28,34 +28,13 @@
           "label": "Module title classes options",
           "valueType": "string",
           "options": [
-              {
-                  "name": "font-color-white",
-                  "value": "color-white"
-              },
-              {
-                  "name": "font-color-black",
-                  "value": "color-black"
-              }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "text-align-type",
-          "value": "text-align-left",
-          "label": "Module title align type",
-          "valueType": "string",
-          "options": [
             {
-              "name": "text-align-left",
-              "value": "text-align-left"
+              "name": "font-color-white",
+              "value": "color-white"
             },
             {
-              "name": "text-align-right",
-              "value": "text-align-right"
-            },
-            {
-              "name": "text-align-center",
-              "value": "text-align-center"
+              "name": "font-color-black",
+              "value": "color-black"
             }
           ]
         },
