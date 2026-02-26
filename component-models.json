@@ -3900,6 +3900,18 @@
     "fields": []
   },
   {
+    "id": "support-navigation-product-links",
+    "fields": [
+      {
+        "component": "text",
+        "name": "support-navigation-product-links-title",
+        "label": "Product Links Title",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "support-navigation-menu-links",
     "fields": []
   },

@@ -419,6 +419,10 @@
     ]
   },
   {
+    "id": "support-navigation-product-links-title",
+    "components": []
+  },
+  {
     "id": "support-navigation-menu-links",
     "components": [
       "sub-menu-link"

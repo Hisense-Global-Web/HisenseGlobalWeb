@@ -2177,6 +2177,22 @@
           }
         },
         {
+          "title": "Support Navigation Products Links",
+          "id": "support-navigation-product-links",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Support Navigation Products Links",
+                  "model": "support-navigation-product-links",
+                  "filter": "support-navigation-product-links"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Support Navigation Menu Links",
           "id": "support-navigation-menu-links",
           "plugins": {
