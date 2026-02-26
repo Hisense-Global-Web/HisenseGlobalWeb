@@ -85,12 +85,21 @@
     }
     
     .nav-actions {
+      height: 100%;
+      
       .nav-section {
         cursor: pointer;
         color: var(--header-active-color);
-        height: 24px;
-        line-height: 24px;
+        display: flex;
+        align-items: center;
+        height: 100%;
         transition: color .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
+        
+        > span {
+          display: block;
+          height: 24px;
+          line-height: 24px;
+        }
       }
       
       .nav-link {
