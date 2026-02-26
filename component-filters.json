@@ -16,6 +16,7 @@
       "article-body",
       "article-body-list",
       "article-title",
+      "authorized-reseller",
       "button",
       "card-carousel",
       "card-grid",
@@ -138,6 +139,12 @@
     "id": "article-body-list",
     "components": [
       "article-body-list-item"
+    ]
+  },
+  {
+    "id": "authorized-reseller",
+    "components": [
+      "authorized-reseller-item"
     ]
   },
   {
