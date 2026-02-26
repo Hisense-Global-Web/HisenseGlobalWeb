@@ -3,6 +3,10 @@
     aspect-ratio: 640 / 360;
     border-radius: var(--size-20);
     overflow: hidden;
+
+    @media (width < 860px) {
+      border-radius: var(--size-16);
+    }
   }
 
   img {
