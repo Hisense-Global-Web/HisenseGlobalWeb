@@ -1,3 +1,16 @@
+
+function setEditableVP() {
+ const isUE = !!document.getElementByClass('EditableOverlays');
+ let height;
+
+ if(isUE) {
+  height = document.getElementByClass('EditableOverlays').clientHeight;
+ } else {
+  height = window.innerHeight;
+ }
+ document.documentElement.style.setProperty('--ue-viewport-height', `${height}px`);
+}
+
 export default function decorate(block) {
   // console.log(block, 'section-popup-block');
   // create popup mask
@@ -58,4 +71,7 @@ export default function decorate(block) {
       document.body.style.overflow = 'auto';
     });
   }
+
+  setEditableVP();
+  window.addEventListener('resize', setEditableVP);
 }
