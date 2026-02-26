@@ -1,5 +1,39 @@
+@import url('../tech-items/tech-items.css');
+
 .popup-key-stats {
-  .tech-item-box {
-    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%);
+  p {
+    margin: 0;
+  }
+
+  .tech-item-wrapper {
+    margin-top: 0;
+
+    &.icon-style {
+      .tech-item-box {
+        margin-bottom: var(--size-32);
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        @media (width < 860px) {
+          margin-bottom: var(--size-24);
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    &.stats-style {
+      .tech-item-box {
+        box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%);
+
+        @media (width < 860px) {
+          box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%);
+        }
+      }
+    }
   }
 }
