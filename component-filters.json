@@ -421,7 +421,9 @@
   },
   {
     "id": "support-navigation-product-links",
-    "components": []
+    "components": [
+      "sub-menu-link"
+    ]
   },
   {
     "id": "support-navigation-menu-links",

@@ -3870,6 +3870,13 @@
         "name": "searchTags",
         "label": "Search Tags",
         "rootPath": "/content/cq:tags/hisense/product"
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "order",
+        "label": "Order",
+        "value": "1"
       }
     ]
   },
