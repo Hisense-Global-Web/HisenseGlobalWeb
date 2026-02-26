@@ -92,7 +92,7 @@
         width: min(calc(352/var(--breakpoint-pc)*100vw), 352px);
         min-height: min(calc(380/var(--breakpoint-pc)*100vw),380px);
         flex-direction: column;
-        align-items: center;
+        /* align-items: center; */
         gap: var(--spacing-xs, 16px);
         flex-shrink: 0;
 
