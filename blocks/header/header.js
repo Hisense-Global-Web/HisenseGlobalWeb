@@ -552,8 +552,12 @@ export default async function decorate(block) {
   // eslint-disable-next-line no-unused-vars
   const plpEl = document.querySelector('.product-sorting');
   const isCompanyPage = window.location.pathname.includes('company');
+  const isSupportPage = window.location.pathname.includes('support');
   if (isCompanyPage) {
     navigation.classList.add('is-company');
+  }
+  if (isSupportPage) {
+    navigation.classList.add('is-support');
   }
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
@@ -629,7 +633,10 @@ export default async function decorate(block) {
       navigation.classList.toggle('show-second-menu');
     }
   });
-  navSecond.append(CompanyEl, CompanyGroupEl, companyArrow);
+
+  if (isCompanyPage) {
+    navSecond.append(CompanyEl, CompanyGroupEl, companyArrow);
+  }
 
   // 悬浮展开
   const mobileMenu = document.createElement('div');
