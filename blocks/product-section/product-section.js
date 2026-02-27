@@ -3354,18 +3354,20 @@ export default async function decorate(block) {
   const buy = document.createElement('button');
   buy.className = 'pdp-buy-btn';
   buy.textContent = 'Where to buy';
-  const buyLink = (product && (product.whereToBuyLink || product.productDetailPageLink)) || '';
-  if (buyLink) {
-    buy.addEventListener('click', () => { window.location.href = buyLink; });
-  }
+  buy.setAttribute('ps-sku', sku);
+  // const buyLink = (product && (product.whereToBuyLink || product.productDetailPageLink)) || '';
+  // if (buyLink) {
+  //   buy.addEventListener('click', () => { window.location.href = buyLink; });
+  // }
 
   const cart = document.createElement('button');
   cart.className = 'pdp-buy-btn';
   cart.textContent = 'Add to Cart';
-  const cartLink = (product && (product.whereToBuyLink || product.productDetailPageLink)) || '';
-  if (buyLink) {
-    buy.addEventListener('click', () => { window.location.href = cartLink; });
-  }
+  cart.style.display = 'none';
+  // const cartLink = (product && (product.whereToBuyLink || product.productDetailPageLink)) || '';
+  // if (buyLink) {
+  //   buy.addEventListener('click', () => { window.location.href = cartLink; });
+  // }
   const btnGroup = document.createElement('div');
   btnGroup.className = 'pdp-btn-group';
   btnGroup.append(buy, cart);
