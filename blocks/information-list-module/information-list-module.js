@@ -5,17 +5,17 @@ const DOWNLOAD_ICON = '/content/dam/hisense/us/common-icons/download.svg';
 const EMPTY_TITLE = 'No Recall Information';
 const EMPTY_TEXT = 'There is currently no product recall information available.';
 
-const MOCK_RECALL_INFORMATION_ITEM = {
-  title: 'Hisense French Door Refrigerator with Ice Maker (model number: HRF266N6CSE)',
-  announcedDate: '2026-02-09T06:55:15.717Z',
-  downloadUrl: 'http://www.ces.cn/file/upload/201407/25/14-57-43-23-182.jpg',
-  fileName: 'HisenseLogo.jpg',
-};
+// const MOCK_RECALL_INFORMATION_ITEM = {
+//   title: 'Hisense French Door Refrigerator with Ice Maker (model number: HRF266N6CSE)',
+//   announcedDate: '2026-02-09T06:55:15.717Z',
+//   downloadUrl: 'http://www.ces.cn/file/upload/201407/25/14-57-43-23-182.jpg',
+//   fileName: 'HisenseLogo.jpg',
+// };
 
 function buildPaginationControls(container, state, onPageChange, isEditMode) {
   const { total, limit, offset } = state;
 
-  const paginationEl = container.querySelector('.recall-info-pagination');
+  const paginationEl = container.querySelector('.info-list-pagination');
   if (!paginationEl) return;
 
   paginationEl.textContent = '';
@@ -151,27 +151,32 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 export default async function decorate(block) {
   const config = readBlockConfig(block);
   const isEditMode = block.hasAttribute('data-aue-resource');
-
   const pageSize = Number.parseInt(config['page-size'], 10) || 10;
   const shouldPaginated = true;
   const paginatedBtnText = config['paginated-btn-text'] || '';
-  // const dataSource = config['data-source'] || '';
-
-  const blockResource = block.getAttribute('data-aue-resource');
-
+  const infoListContainer = document.querySelector('.information-list-module');
+  const [pageSizeDiv, ...infoList] = [...block.children];
+  pageSizeDiv.remove();
+  const cardGroupEl = document.createElement('div');
+  cardGroupEl.className = 'info-list-card-group';
+  infoList.forEach((info) => {
+    // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
+    cardGroupEl.appendChild(info);
+  });
+  infoListContainer.appendChild(cardGroupEl);
   // Build static structure
   const container = document.createElement('div');
-  container.className = 'recall-info-container';
+  container.className = 'info-list-container';
 
-  const cardGroupEl = document.createElement('div');
-  cardGroupEl.className = 'recall-info-card-group';
-  container.appendChild(cardGroupEl);
+  // const cardGroupEl = document.createElement('div');
+  // cardGroupEl.className = 'info-list-card-group';
+  // container.appendChild(cardGroupEl);
 
   const paginationEl = document.createElement('div');
-  paginationEl.className = 'recall-info-pagination';
+  paginationEl.className = 'info-list-pagination';
 
   const mobilePaginationEl = document.createElement('div');
-  mobilePaginationEl.className = 'recall-info-pagination-mobile';
+  mobilePaginationEl.className = 'info-list-pagination-mobile';
   const mobileBtn = document.createElement('button');
   mobileBtn.type = 'button';
   mobileBtn.classList.add('page-button');
@@ -179,7 +184,7 @@ export default async function decorate(block) {
   mobilePaginationEl.appendChild(mobileBtn);
 
   const noPaginationEl = document.createElement('div');
-  noPaginationEl.className = 'recall-info-no-pagination';
+  noPaginationEl.className = 'info-list-no-pagination';
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.classList.add('page-button');
@@ -191,21 +196,16 @@ export default async function decorate(block) {
     container.append(paginationEl, mobilePaginationEl);
   }
 
-  // Ensure the editor can still find this block
-  if (blockResource) {
-    block.setAttribute('data-aue-resource', blockResource);
-  }
-
   // block.replaceChildren(container);
 
   // TODO: API获取数据，现在先用mock数据
-  const allItems = new Array(100).fill(0).map((_, i) => ({
-    title: `${MOCK_RECALL_INFORMATION_ITEM.title} ${i + 1}`,
-    announcedDate: MOCK_RECALL_INFORMATION_ITEM.announcedDate,
-    downloadUrl: MOCK_RECALL_INFORMATION_ITEM.downloadUrl,
-    fileName: `${MOCK_RECALL_INFORMATION_ITEM.title} ${i + 1}'.pdf'`,
-  }));
-  // const allItems = [];
+  // const allItems = new Array(100).fill(0).map((_, i) => ({
+  //   title: `${MOCK_RECALL_INFORMATION_ITEM.title} ${i + 1}`,
+  //   announcedDate: MOCK_RECALL_INFORMATION_ITEM.announcedDate,
+  //   downloadUrl: MOCK_RECALL_INFORMATION_ITEM.downloadUrl,
+  //   fileName: `${MOCK_RECALL_INFORMATION_ITEM.title} ${i + 1}'.pdf'`,
+  // }));
+  const allItems = infoList;
 
   const generateDownloadButton = (item) => {
     const { downloadUrl, fileName } = item;
@@ -254,9 +254,10 @@ export default async function decorate(block) {
   };
 
   const generateCard = (item) => {
+    console.log('Generating card for item:', item);
     const { title, announcedDate } = item;
     const cardEl = document.createElement('div');
-    cardEl.className = 'recall-info-card';
+    cardEl.className = 'info-list-card';
 
     // card 左侧: icon + title + date 容器
     const leftEl = document.createElement('div');
@@ -309,13 +310,13 @@ export default async function decorate(block) {
 
     if (!totalItems) {
       const emptyEl = document.createElement('div');
-      emptyEl.className = 'recall-info-empty-container';
+      emptyEl.className = 'info-list-empty-container';
       const emptyTitleEl = document.createElement('div');
-      emptyTitleEl.className = 'recall-info-empty-title';
+      emptyTitleEl.className = 'info-list-empty-title';
       emptyTitleEl.textContent = EMPTY_TITLE;
       emptyEl.appendChild(emptyTitleEl);
       const emptyTextEl = document.createElement('div');
-      emptyTextEl.className = 'recall-info-empty-text';
+      emptyTextEl.className = 'info-list-empty-text';
       emptyTextEl.textContent = EMPTY_TEXT;
       emptyEl.appendChild(emptyTextEl);
       cardGroupEl.appendChild(emptyEl);
