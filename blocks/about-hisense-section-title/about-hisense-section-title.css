@@ -7,6 +7,10 @@
   position: relative;
 }
 
+.about-hisense-section-title-wrapper .center-style > div > div{
+  text-align: center ;
+}
+
 .about-hisense-section-title-wrapper > div > div:first-child div p{
   font-size:var(--fontsize-pc-h2);
   text-transform: uppercase;
@@ -16,6 +20,7 @@
   margin: 0;
   padding: 0;
   font-weight: var(--fontweight-medium);
+  text-transform: capitalize;
 
    @media (width < 860px) {
     font-size: var(--size-30);
