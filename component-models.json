@@ -426,6 +426,53 @@
     ]
   },
   {
+    "id": "popup-module",
+    "fields": [
+      {
+        "component": "select",
+        "name": "style_popup",
+        "value": "popup-module-container",
+        "label": "Popup module classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Popup Module Container",
+            "value": "popup-module-container"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_popupVisibility",
+        "label": "Popup visibility options",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Popup Show",
+            "value": "popup-show"
+          },
+          {
+            "name": "Popup Hide",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "text",
+        "name": "id",
+        "label": "Section ID",
+        "description": "Enter a unique ID."
+      }
+    ]
+  },
+  {
     "id": "about-hisense-module-title",
     "fields": [
       {
@@ -464,21 +511,18 @@
       {
         "component": "text",
         "name": "title",
-        "value": "title",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "subtitle",
-        "value": "subtitle",
         "label": "Sub Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "content",
-        "value": "Content",
         "label": "Content",
         "valueType": "string"
       }
@@ -748,6 +792,51 @@
         "name": "article-location",
         "label": "Location",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-reseller",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-reseller-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "item-text",
+        "label": "Text",
+        "valueType": "string",
+        "value": ""
       }
     ]
   },
@@ -1201,6 +1290,23 @@
     "id": "core-value-card",
     "fields": [
       {
+        "component": "select",
+        "name": "classes",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "title",
@@ -1298,12 +1404,12 @@
       {
         "component": "select",
         "name": "classes_bgcolor",
-        "value": "gray-20",
+        "value": "",
         "label": "Background Color Variant",
         "valueType": "string",
         "options": [
           {
-            "name": "Gray 20(default)",
+            "name": "Gray 20(Default)",
             "value": "gray-20"
           },
           {
@@ -1314,14 +1420,14 @@
       },
       {
         "component": "text",
-        "name": "headline",
+        "name": "title",
         "label": "Title",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "text",
-        "name": "bodycopy",
+        "name": "text",
         "label": "Text",
         "valueType": "string",
         "value": ""
@@ -1329,12 +1435,12 @@
       {
         "component": "select",
         "name": "link_classes",
-        "value": "transparent",
+        "value": "",
         "label": "Button Background Color",
         "valueType": "string",
         "options": [
           {
-            "name": "transparent",
+            "name": "transparent(Default)",
             "value": "transparent"
           },
           {
@@ -2515,8 +2621,7 @@
         "component": "text",
         "name": "text_first",
         "label": "First Text",
-        "valueType": "string",
-        "value": "first"
+        "valueType": "string"
       },
       {
         "component": "text",
@@ -2748,7 +2853,7 @@
         "component": "text",
         "valueType": "string",
         "name": "title-content",
-        "label": "Eyebrow Headline"
+        "label": "Title"
       },
       {
         "component": "text",
@@ -3033,6 +3138,92 @@
         "name": "text",
         "label": "Image Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "popup-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "popup-image-box",
+        "label": "Image",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "popup-quote",
+    "fields": [
+      {
+        "component": "text",
+        "name": "quote",
+        "label": "Quote",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "notes",
+        "label": "Notes",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "popup-text",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "popup-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Title align options",
+        "valueType": "string",
+        "value": "text-center",
+        "options": [
+          {
+            "name": "Title align left",
+            "value": "text-left"
+          },
+          {
+            "name": "Title align center",
+            "value": "text-center"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-subtitle",
+        "label": "SubTitle"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-text",
+        "label": "Text"
       }
     ]
   },
@@ -3436,9 +3627,18 @@
     "fields": [
       {
         "component": "text",
-        "name": "keywords",
-        "label": "Keywords",
-        "valueType": "string"
+        "valueType": "string",
+        "name": "graphql",
+        "label": "GraphQL Endpoint",
+        "description": "GraphQL endpoint URL"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "tag",
+        "label": "Tag",
+        "multi": false,
+        "rootPath": "/content/cq:tags/hisense/newsroom"
       }
     ]
   },
@@ -3711,8 +3911,61 @@
         "name": "searchTags",
         "label": "Search Tags",
         "rootPath": "/content/cq:tags/hisense/product"
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "order",
+        "label": "Order",
+        "value": 1,
+        "validation": {
+          "numberMin": 1,
+          "numberMax": 5
+        }
       }
     ]
+  },
+  {
+    "id": "support-navigation-route",
+    "fields": []
+  },
+  {
+    "id": "support-navigation-route-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "support-navigation-route-title",
+        "label": "Route Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "support-navigation-route-link",
+        "label": "Link",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "support-navigation",
+    "fields": []
+  },
+  {
+    "id": "support-navigation-product-links",
+    "fields": [
+      {
+        "component": "text",
+        "name": "support-navigation-product-links-title",
+        "label": "Product Links Title",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "support-navigation-menu-links",
+    "fields": []
   },
   {
     "id": "sustainability-dashboard-achievement",
@@ -3722,7 +3975,7 @@
         "name": "classes",
         "label": "Image Position",
         "valueType": "string",
-        "value": "img-left",
+        "value": "",
         "options": [
           {
             "name": "Image Position Left",
@@ -3746,7 +3999,7 @@
         "name": "classes_backgroundColor",
         "label": "Text Area Background Color",
         "valueType": "string",
-        "value": "white-background",
+        "value": "",
         "options": [
           {
             "name": "white-background(Default)",
@@ -4061,7 +4314,7 @@
         "name": "classes",
         "label": "Image Position",
         "valueType": "string",
-        "value": "img-left",
+        "value": "img-right",
         "options": [
           {
             "name": "Image Position Left",
@@ -4109,6 +4362,12 @@
         "component": "text",
         "name": "btn_ctaLabel",
         "label": "Button",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "btn_ctaID",
+        "label": "Button ID",
         "valueType": "string"
       }
     ]

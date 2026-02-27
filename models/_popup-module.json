@@ -1,0 +1,85 @@
+{
+  "definitions": [
+    {
+      "title": "Popup Module",
+      "id": "popup-module",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "name": "Popup Module",
+              "model": "popup-module",
+              "filter": "popup-module",
+              "classes": "h-popup-module-wrapper",
+              "style_popupVisibility": "popup-show"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "popup-module",
+      "fields": [
+        {
+          "component": "select",
+          "name": "style_popup",
+          "value": "popup-module-container",
+          "label": "Popup module classes options",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Popup Module Container",
+              "value": "popup-module-container"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "style_popupVisibility",
+          "label": "Popup visibility options",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Popup Show",
+              "value": "popup-show"
+            },
+            {
+              "name": "Popup Hide",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "name",
+          "label": "Section Name",
+          "description": "The label shown for this section in the Content Tree"
+        },
+        {
+          "component": "text",
+          "name": "id",
+          "label": "Section ID",
+          "description": "Enter a unique ID."
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "popup-module",
+      "components": [
+        "sustainability-dashboard-list",
+        "popup-text",
+        "popup-quote",
+        "popup-title",
+        "popup-key-stats",
+        "popup-image",
+        "stats-grid"
+      ]
+    }
+  ]
+}

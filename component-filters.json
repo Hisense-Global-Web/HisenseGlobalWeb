@@ -3,8 +3,10 @@
     "id": "main",
     "components": [
       "section",
+      "popup-module",
       "navigation",
       "company-page-navigation",
+      "support-navigation",
       "footerContainer"
     ]
   },
@@ -14,6 +16,7 @@
       "article-body",
       "article-body-list",
       "article-title",
+      "authorized-reseller",
       "button",
       "card-carousel",
       "card-grid",
@@ -106,6 +109,18 @@
     ]
   },
   {
+    "id": "popup-module",
+    "components": [
+      "sustainability-dashboard-list",
+      "popup-text",
+      "popup-quote",
+      "popup-title",
+      "popup-key-stats",
+      "popup-image",
+      "stats-grid"
+    ]
+  },
+  {
     "id": "addional-support-card",
     "components": [
       "addional-support-card-item"
@@ -125,6 +140,12 @@
     "id": "article-body-list",
     "components": [
       "article-body-list-item"
+    ]
+  },
+  {
+    "id": "authorized-reseller",
+    "components": [
+      "authorized-reseller-item"
     ]
   },
   {
@@ -335,6 +356,12 @@
     ]
   },
   {
+    "id": "popup-key-stats",
+    "components": [
+      "tech-items"
+    ]
+  },
+  {
     "id": "product-filter",
     "components": [
       "product-filter-item"
@@ -392,6 +419,32 @@
     "id": "strategic-card-items",
     "components": [
       "strategic-card-item"
+    ]
+  },
+  {
+    "id": "support-navigation-route",
+    "components": [
+      "support-navigation-route-item"
+    ]
+  },
+  {
+    "id": "support-navigation",
+    "components": [
+      "support-navigation-route",
+      "support-navigation-product-links",
+      "support-navigation-menu-links"
+    ]
+  },
+  {
+    "id": "support-navigation-product-links",
+    "components": [
+      "sub-menu-link"
+    ]
+  },
+  {
+    "id": "support-navigation-menu-links",
+    "components": [
+      "sub-menu-link"
     ]
   },
   {
