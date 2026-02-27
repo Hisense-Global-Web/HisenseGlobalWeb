@@ -190,7 +190,7 @@ const generateCard = (info) => {
   info.appendChild(leftEl);
 
   // return cardEl;
-  return info;
+  // return info;
 };
 
 /**
@@ -212,8 +212,8 @@ export default async function decorate(block) {
     console.log('Processing info item:', info);
     // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
     // cardGroupEl.appendChild(info);
-    const cardEL = generateCard(info);
-    infoListContainer.appendChild(cardEL);
+    generateCard(info);
+    // infoListContainer.appendChild(cardEL);
     // info.style.display = 'none';
   });
   // infoListContainer.appendChild(cardGroupEl);
