@@ -29,14 +29,7 @@
               "name": "Information List Module Item",
               "model": "information-list-module-item",
               "key-value": true,
-              "item-icon": "/content/dam/hisense/us/common-icons/document.svg",
-              "title": "",
-              "text": "",
-              "button-copy": "",
-              "button-color": "",
-              "button-link": "",
-              "icon-mobile": "",
-              "pdf-select": ""
+              "item-icon": "/content/dam/hisense/us/common-icons/document.svg"
             }
           }
         }
@@ -75,6 +68,12 @@
           "component": "text",
           "name": "text",
           "label": "Text",
+          "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "name": "icon-pc",
+          "label": "Cta Icon For PC",
           "valueType": "string"
         },
         {

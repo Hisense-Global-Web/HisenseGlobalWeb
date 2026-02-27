@@ -2683,6 +2683,12 @@
         "valueType": "string"
       },
       {
+        "component": "reference",
+        "name": "icon-pc",
+        "label": "Cta Icon For PC",
+        "valueType": "string"
+      },
+      {
         "component": "text",
         "name": "button-copy",
         "label": "Button Copy",
