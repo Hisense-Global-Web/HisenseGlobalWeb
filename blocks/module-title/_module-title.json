@@ -10,10 +10,7 @@
             "template": {
               "name": "Module Title",
               "model": "module-title",
-              "key-value": true,
-              "title-content": "This is the title",
-              "subtitle-content": "This is the subtitle",
-              "text-content": "This is the text"
+              "key-value": true
             }
           }
         }
@@ -31,21 +28,21 @@
           "label": "Module title classes options",
           "valueType": "string",
           "options": [
-              {
-                  "name": "font-color-white",
-                  "value": "color-white"
-              },
-              {
-                  "name": "font-color-black",
-                  "value": "color-black"
-              }
+            {
+              "name": "font-color-white",
+              "value": "color-white"
+            },
+            {
+              "name": "font-color-black",
+              "value": "color-black"
+            }
           ]
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "title-content",
-          "label": "Eyebrow Headline"
+          "label": "Title"
         },
         {
           "component": "text",

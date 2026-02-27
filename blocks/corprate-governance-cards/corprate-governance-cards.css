@@ -99,6 +99,7 @@ p {
         scroll-behavior: smooth;
 
         .card-item {
+            flex: auto;
             width: calc(300/var(--breakpoint-mobile)* 100vw);
             padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-m);
             display: flex;

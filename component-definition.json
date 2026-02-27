@@ -70,6 +70,24 @@
               }
             }
           }
+        },
+        {
+          "title": "Popup Module",
+          "id": "popup-module",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Popup Module",
+                  "model": "popup-module",
+                  "filter": "popup-module",
+                  "classes": "h-popup-module-wrapper",
+                  "style_popupVisibility": "popup-show"
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -670,7 +688,8 @@
                 "template": {
                   "name": "Cross Page Redirect",
                   "model": "cross-page-redirect",
-                  "classes": "cross-page-redirect"
+                  "classes": "gray-20",
+                  "link_classes": "transparent"
                 }
               }
             }
@@ -1088,6 +1107,7 @@
                   "name": "Headline",
                   "model": "headline",
                   "key-value": true,
+                  "data-source": "fill",
                   "section-title": "Featured",
                   "eyebrow": "PARTNERSHIPS & SPONSORSHIPS",
                   "subtitle": "Hisense Accelerates ESG Strategy With AI-Driven Sustainability Milestones",
@@ -1386,10 +1406,7 @@
                 "template": {
                   "name": "Module Title",
                   "model": "module-title",
-                  "key-value": true,
-                  "title-content": "This is the title",
-                  "subtitle-content": "This is the subtitle",
-                  "text-content": "This is the text"
+                  "key-value": true
                 }
               }
             }
@@ -1547,6 +1564,40 @@
           }
         },
         {
+          "title": "Parters Container",
+          "id": "parters-container",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Parters Container",
+                  "model": "parters-container",
+                  "classes": "Parters Container",
+                  "filter": "parters-container"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Parters Container Item",
+          "id": "parters-container-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Parters Container Item",
+                  "model": "parters-container-item",
+                  "key-value": true,
+                  "svg-icon": ""
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Past Partnerships List",
           "id": "past-partnerships-list",
           "plugins": {
@@ -1572,6 +1623,109 @@
                 "template": {
                   "name": "Past Partnerships List Item",
                   "model": "past-partnerships-list-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Popup Image",
+          "id": "popup-image",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Popup Image",
+                  "model": "popup-image",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Popup Key Stats",
+          "id": "popup-key-stats",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Popup Key Stats",
+                  "model": "popup-key-stats",
+                  "filter": "popup-key-stats"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Popup Quote",
+          "id": "popup-quote",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Popup Quote",
+                  "model": "popup-quote",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Popup Text",
+          "id": "popup-text",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Popup Text",
+                  "model": "popup-text",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Popup Title",
+          "id": "popup-title",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Popup Title",
+                  "model": "popup-title",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Press Release Card",
+          "id": "press-release-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Press Release Card",
+                  "model": "press-release-card",
+                  "filter": "press-release-card",
+                  "key-value": true,
+                  "title": "Related Press Releases",
+                  "endpoint": "/us/en/newsroom.json",
+                  "page-size": "3",
+                  "empty-text": "No press releases found.",
+                  "discover-all-link-text": "Discover all news",
+                  "discover-all-link": "/us/en/company/newsroom"
                 }
               }
             }
@@ -1805,6 +1959,25 @@
           }
         },
         {
+          "title": "Recall Info List",
+          "id": "recall-info-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Recall Info List",
+                  "model": "recall-info-list",
+                  "key-value": true,
+                  "page-size": "9",
+                  "empty-text": "No recall info items match your filters.",
+                  "data-source": "/us/en/recallInfoList.json"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Related News",
           "id": "related-news",
           "plugins": {
@@ -2020,6 +2193,86 @@
           }
         },
         {
+          "title": "Support Navigation Route",
+          "id": "support-navigation-route",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Support Navigation Route",
+                  "model": "support-navigation-route",
+                  "filter": "support-navigation-route"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Support Navigation Route Item",
+          "id": "support-navigation-route-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Support Navigation Item",
+                  "model": "support-navigation-route-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Support Navigation",
+          "id": "support-navigation",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Support Navigation",
+                  "model": "support-navigation",
+                  "filter": "support-navigation",
+                  "classes": "support-navigation-block"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Support Navigation Products Links",
+          "id": "support-navigation-product-links",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Support Navigation Products Links",
+                  "model": "support-navigation-product-links",
+                  "filter": "support-navigation-product-links"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Support Navigation Menu Links",
+          "id": "support-navigation-menu-links",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Support Navigation Menu Links",
+                  "model": "support-navigation-menu-links",
+                  "filter": "support-navigation-menu-links"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Sustainability Dashboard Achievement",
           "id": "sustainability-dashboard-achievement",
           "plugins": {
@@ -2030,7 +2283,9 @@
                   "name": "Sustainability Dashboard Achievement",
                   "model": "sustainability-dashboard-achievement",
                   "key-value": true,
-                  "filter": "sustainability-dashboard-achievement"
+                  "filter": "sustainability-dashboard-achievement",
+                  "classes": "img-left",
+                  "classes_backgroundColor": "white-background"
                 }
               }
             }
@@ -2061,7 +2316,7 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "classes": "sustainability-dashboard-list",
-                  "name": "sustainability-dashboard-list",
+                  "name": "Sustainability Dashboard List",
                   "model": "sustainability-dashboard-list",
                   "filter": "sustainability-dashboard-list"
                 }

@@ -8,7 +8,7 @@ export default function decorate(block) {
   [...block.children].forEach((row, i) => {
     if (i <= 1) {
       title.className = 'title';
-      title.append(row);
+      title.append(...row.children);
     } else {
       const li = document.createElement('li');
       li.classList.add('card-item');
@@ -42,11 +42,17 @@ export default function decorate(block) {
           div.append(arrow);
         } else {
           div.className = 'card-body';
-          const tit = document.createElement('div');
-          const desc = document.createElement('div');
-          tit.append(div.firstElementChild);
-          desc.append(div.lastElementChild);
-          div.replaceChildren(tit, desc);
+          const { children } = div;
+          const { length } = children;
+          if (length > 0) {
+            const tit = document.createElement('div');
+            const desc = document.createElement('div');
+            tit.append(children[0]);
+            if (length > 1) {
+              desc.append(children[children.length - 1]);
+            }
+            div.replaceChildren(tit, desc);
+          }
         }
       });
       ul.append(li);

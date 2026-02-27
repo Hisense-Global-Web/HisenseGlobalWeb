@@ -85,12 +85,21 @@
     }
     
     .nav-actions {
+      height: 100%;
+      
       .nav-section {
         cursor: pointer;
         color: var(--header-active-color);
-        height: 24px;
-        line-height: 24px;
+        display: flex;
+        align-items: center;
+        height: 100%;
         transition: color .1s cubic-bezier(0.1, 0, 0.95, 1) .4s;
+        
+        > span {
+          display: block;
+          height: 24px;
+          line-height: 24px;
+        }
       }
       
       .nav-link {
@@ -477,6 +486,81 @@
   font-weight: 400;
 }
 
+#navigation .nav-section.nav-link .nav-dropdown {
+  .dropdown-main {
+    .dropdown-products {
+      gap: var(--size-160);
+      
+      .support-route {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-16);
+        
+        .support-route-title {
+          font-size: var(--fontsize-body2);
+          color: var(--color-primary-grey-70);
+          font-weight: var(--fontweight-medium);
+          line-height: 1.5;
+        }
+
+        .support-route-group {
+          display: flex;
+          flex-direction: column;
+          gap: var(--size-16);
+          
+          .nav-link {
+            padding: 0;
+            color: var(--color-primary-grey-70);
+            font-size: var(--size-12);
+            font-weight: var(--fontweight-book);
+            line-height: 1.5;
+            
+            span {
+              display: block;
+            }
+          }
+        }
+      }
+
+      .support-product {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-16);
+        
+        .support-product-title {
+          font-size: var(--fontsize-body2);
+          color: var(--color-primary-grey-70);
+          font-weight: var(--fontweight-medium);
+          line-height: 1.5;
+        }
+
+        .support-product-list {
+          display: flex;
+          gap: var(--size-80);
+          
+          .support-product-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--size-16);
+            
+            .nav-link {
+              padding: 0;
+              color: var(--color-primary-grey-70);
+              font-size: var(--size-12);
+              font-weight: var(--fontweight-book);
+              line-height: 1.5;
+
+              span {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .dropdown-content {
   display: flex;
   flex-direction: column;
@@ -647,7 +731,7 @@
 .nav-link .nav-dropdown:hover {
     display: block;
     max-height: 600px;
-    padding: 20px 0 56px;
+    padding: 24px 0 56px;
 }
 
 .nav-link:hover .nav-mask,

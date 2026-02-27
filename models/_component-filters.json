@@ -3,13 +3,18 @@
     "id": "main",
     "components": [
       "section",
+      "popup-module",
       "navigation",
       "company-page-navigation",
+      "support-navigation",
       "footerContainer"
     ]
   },
   {
     "...": "./_section.json#/filters"
+  },
+  {
+    "...": "./_popup-module.json#/filters"
   },
   {
     "...": "../blocks/*/_*.json#/filters"

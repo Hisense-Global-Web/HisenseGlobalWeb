@@ -14,7 +14,7 @@
   padding: 0;
 }
 
-.core-value-card .title >div:first-child{
+.core-value-card .title > div:first-child{
   color: var(--color-primary-green-50);
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
@@ -25,8 +25,12 @@
   }
 }
 
-.core-value-card .title >div:nth-child(2){
-  color: var(--color-primary-grey-90);
+.core-value-card-wrapper .center-style .title >div{
+  text-align: center;
+}
+
+.core-value-card .title > div:nth-child(2){
+  color: var(--color-primary-grey-100);
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
   font-size: var(--size-46);
@@ -102,7 +106,7 @@
 }
 
 .core-value-card .card-body > div:first-child {
-  color: black;
+  color:  var(--color-primary-grey-100);
   font-weight: var(--fontweight-medium);
   font-family: var(--font-family);
   font-size: var(--size-30);
@@ -119,7 +123,7 @@
 }
 
 .core-value-card .card-body > div:nth-child(2) {
-  color: var(--color-primary-grey-70);
+  color: var(--color-primary-grey-100);
   font-family: var(--font-family);
   font-weight: var(--fontweight-book);
    font-size: var(--size-16);

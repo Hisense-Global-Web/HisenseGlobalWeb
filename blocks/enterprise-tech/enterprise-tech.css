@@ -48,7 +48,7 @@
       font-size: var(--size-16);
       font-weight: var(--fontweight-book);
       color: var(--color-primary-grey-70);
-      line-height: var(--size-24);
+      line-height: var(--size-21);
     }
 
     .description-box {
@@ -81,6 +81,7 @@
       ul, ol {
         padding-left: var(--size-12);
         margin-left: var(--size-12);
+        line-height: var(--size-21);
 
         li {
           padding: 0;
@@ -161,7 +162,7 @@
           .subtitle-box {
             padding-top: var(--size-32);
             font-size: var(--size-18);
-            line-height: calc(21.6 / var(--breakpoint-mobile) * 100vw);
+            line-height: var(--size-21);
             margin-top: 0;
           }
 

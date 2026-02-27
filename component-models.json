@@ -64,6 +64,13 @@
         "name": "cq:tags",
         "label": "Tags",
         "rootPath": "/content/cq:tags/hisense"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "downloadLink",
+        "label": "Download Link",
+        "multi": false
       }
     ]
   },
@@ -419,6 +426,53 @@
     ]
   },
   {
+    "id": "popup-module",
+    "fields": [
+      {
+        "component": "select",
+        "name": "style_popup",
+        "value": "popup-module-container",
+        "label": "Popup module classes options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Popup Module Container",
+            "value": "popup-module-container"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_popupVisibility",
+        "label": "Popup visibility options",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Popup Show",
+            "value": "popup-show"
+          },
+          {
+            "name": "Popup Hide",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "text",
+        "name": "id",
+        "label": "Section ID",
+        "description": "Enter a unique ID."
+      }
+    ]
+  },
+  {
     "id": "about-hisense-module-title",
     "fields": [
       {
@@ -457,21 +511,18 @@
       {
         "component": "text",
         "name": "title",
-        "value": "title",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "subtitle",
-        "value": "subtitle",
         "label": "Sub Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "content",
-        "value": "Content",
         "label": "Content",
         "valueType": "string"
       }
@@ -1239,6 +1290,23 @@
     "id": "core-value-card",
     "fields": [
       {
+        "component": "select",
+        "name": "classes",
+        "label": "Card options",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default Style",
+            "value": "default-style"
+          },
+          {
+            "name": "Center Style",
+            "value": "center-style"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "title",
@@ -1336,12 +1404,12 @@
       {
         "component": "select",
         "name": "classes_bgcolor",
-        "value": "gray-20",
+        "value": "",
         "label": "Background Color Variant",
         "valueType": "string",
         "options": [
           {
-            "name": "Gray 20(default)",
+            "name": "Gray 20(Default)",
             "value": "gray-20"
           },
           {
@@ -1352,14 +1420,14 @@
       },
       {
         "component": "text",
-        "name": "headline",
+        "name": "title",
         "label": "Title",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "text",
-        "name": "bodycopy",
+        "name": "text",
         "label": "Text",
         "valueType": "string",
         "value": ""
@@ -1367,12 +1435,12 @@
       {
         "component": "select",
         "name": "link_classes",
-        "value": "transparent",
+        "value": "",
         "label": "Button Background Color",
         "valueType": "string",
         "options": [
           {
-            "name": "transparent",
+            "name": "transparent(Default)",
             "value": "transparent"
           },
           {
@@ -1986,42 +2054,6 @@
         "placeholder": "Featured"
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "eyebrow",
-        "label": "Eyebrow"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "subtitle",
-        "label": "Subtitle"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "text",
-        "label": "Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "date",
-        "label": "Date"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "location",
-        "label": "Location"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "author",
-        "label": "Author"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -2029,23 +2061,161 @@
         "multi": false
       },
       {
+        "component": "select",
+        "valueType": "string",
+        "name": "data-source",
+        "label": "Data Source",
+        "options": [
+          {
+            "name": "Fill",
+            "value": "fill"
+          },
+          {
+            "name": "Child Page",
+            "value": "child-page"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "source-path",
+        "label": "Source Path",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "child-page"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "date",
+        "label": "Date",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "location",
+        "label": "Location",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "author",
+        "label": "Author",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "cta-text",
-        "label": "CTA Text"
+        "label": "CTA Text",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
       },
       {
         "component": "aem-content",
         "valueType": "string",
         "name": "cta-link",
-        "label": "CTA Link"
+        "label": "CTA Link",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
       },
       {
         "component": "checkbox",
         "valueType": "boolean",
         "name": "has-download",
         "label": "Has Download",
-        "value": false
+        "value": false,
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
       }
     ]
   },
@@ -2451,8 +2621,7 @@
         "component": "text",
         "name": "text_first",
         "label": "First Text",
-        "valueType": "string",
-        "value": "first"
+        "valueType": "string"
       },
       {
         "component": "text",
@@ -2684,7 +2853,7 @@
         "component": "text",
         "valueType": "string",
         "name": "title-content",
-        "label": "Eyebrow Headline"
+        "label": "Title"
       },
       {
         "component": "text",
@@ -2902,6 +3071,47 @@
     ]
   },
   {
+    "id": "parters-container",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "highlight-text",
+        "label": "Highlight Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "parters-container-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "svg-icon",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "past-partnerships-list",
     "fields": [
       {
@@ -2927,6 +3137,146 @@
         "component": "text",
         "name": "text",
         "label": "Image Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "popup-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "popup-image-box",
+        "label": "Image",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "popup-quote",
+    "fields": [
+      {
+        "component": "text",
+        "name": "quote",
+        "label": "Quote",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "notes",
+        "label": "Notes",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "popup-text",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "popup-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Title align options",
+        "valueType": "string",
+        "value": "text-center",
+        "options": [
+          {
+            "name": "Title align left",
+            "value": "text-left"
+          },
+          {
+            "name": "Title align center",
+            "value": "text-center"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-subtitle",
+        "label": "SubTitle"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "p-text",
+        "label": "Text"
+      }
+    ]
+  },
+  {
+    "id": "press-release-card",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "title",
+        "label": "Section Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "endpoint",
+        "label": "API Endpoint",
+        "description": "The JSON endpoint to fetch press release data from.",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "name": "filter-tags",
+        "label": "Filter by Tags",
+        "description": "Select tags to filter press releases. Leave empty to show all.",
+        "valueType": "string",
+        "rootPath": "/content/cq:tags/hisense"
+      },
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many press release cards to show.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "empty-text",
+        "label": "Empty Result Text",
+        "description": "Text to show when no press releases found.",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "discover-all-link-text",
+        "label": "Discover All Link Text",
+        "description": "The text for the 'Discover All' link button.",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "discover-all-link",
+        "label": "Discover All Link",
+        "description": "The link path for the 'Discover All' button.",
         "valueType": "string"
       }
     ]
@@ -3248,13 +3598,47 @@
     ]
   },
   {
+    "id": "recall-info-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many news cards to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "text",
+        "name": "data-source",
+        "label": "Data Source",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "empty-text",
+        "label": "Empty Result Text",
+        "description": "Text to show when no news items match the current filters.",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "related-news",
     "fields": [
       {
         "component": "text",
-        "name": "keywords",
-        "label": "Keywords",
-        "valueType": "string"
+        "valueType": "string",
+        "name": "graphql",
+        "label": "GraphQL Endpoint",
+        "description": "GraphQL endpoint URL"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "tag",
+        "label": "Tag",
+        "multi": false,
+        "rootPath": "/content/cq:tags/hisense/newsroom"
       }
     ]
   },
@@ -3527,8 +3911,61 @@
         "name": "searchTags",
         "label": "Search Tags",
         "rootPath": "/content/cq:tags/hisense/product"
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "order",
+        "label": "Order",
+        "value": 1,
+        "validation": {
+          "numberMin": 1,
+          "numberMax": 5
+        }
       }
     ]
+  },
+  {
+    "id": "support-navigation-route",
+    "fields": []
+  },
+  {
+    "id": "support-navigation-route-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "support-navigation-route-title",
+        "label": "Route Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "support-navigation-route-link",
+        "label": "Link",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "support-navigation",
+    "fields": []
+  },
+  {
+    "id": "support-navigation-product-links",
+    "fields": [
+      {
+        "component": "text",
+        "name": "support-navigation-product-links-title",
+        "label": "Product Links Title",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "support-navigation-menu-links",
+    "fields": []
   },
   {
     "id": "sustainability-dashboard-achievement",
@@ -3538,7 +3975,7 @@
         "name": "classes",
         "label": "Image Position",
         "valueType": "string",
-        "value": "img-left",
+        "value": "",
         "options": [
           {
             "name": "Image Position Left",
@@ -3562,7 +3999,7 @@
         "name": "classes_backgroundColor",
         "label": "Text Area Background Color",
         "valueType": "string",
-        "value": "white-background",
+        "value": "",
         "options": [
           {
             "name": "white-background(Default)",
@@ -3877,7 +4314,7 @@
         "name": "classes",
         "label": "Image Position",
         "valueType": "string",
-        "value": "img-left",
+        "value": "img-right",
         "options": [
           {
             "name": "Image Position Left",
@@ -3925,6 +4362,12 @@
         "component": "text",
         "name": "btn_ctaLabel",
         "label": "Button",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "btn_ctaID",
+        "label": "Button ID",
         "valueType": "string"
       }
     ]

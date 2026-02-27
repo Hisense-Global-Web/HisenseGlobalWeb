@@ -382,6 +382,121 @@ function buildDropdown(data) {
   return dropdown;
 }
 
+function buildSupportDropdown(mainEl) {
+  const supportEl = mainEl.querySelector('.support-navigation-route-container');
+  const dropdown = document.createElement('div');
+  dropdown.className = 'nav-dropdown';
+  const content = document.createElement('div');
+  content.className = 'dropdown-content h-grid-container';
+
+  const main = document.createElement('div');
+  main.className = 'dropdown-main';
+
+  const productsWrap = document.createElement('div');
+  productsWrap.className = 'dropdown-products';
+  const supportRouteBaseList = supportEl.querySelector('.support-navigation-route-wrapper .support-navigation-route');
+
+  // support route 标题
+  const supportRouteEl = document.createElement('div');
+  supportRouteEl.className = 'support-route';
+  const supportRouteTitleEl = document.createElement('div');
+  supportRouteTitleEl.className = 'support-route-title';
+  supportRouteTitleEl.innerHTML = 'Support';
+  supportRouteEl.append(supportRouteTitleEl);
+
+  // support route group
+  const supportRouteGroupEl = document.createElement('div');
+  supportRouteGroupEl.className = 'support-route-group';
+  [...supportRouteBaseList.children].forEach((item) => {
+    const link = document.createElement('div');
+    link.className = 'nav-link';
+    const title = item.children[0]?.textContent?.trim() || '';
+    const href = item.children[1]?.textContent?.trim() || '#';
+    const span1 = document.createElement('span');
+    span1.textContent = title;
+    link.append(span1);
+    if (href && href !== '#') {
+      link.dataset.href = href;
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.location.href = href;
+      });
+    }
+    supportRouteGroupEl.append(link);
+  });
+  supportRouteEl.append(supportRouteGroupEl);
+  productsWrap.append(supportRouteEl);
+
+  // support product list
+  const supportProductBaseList = supportEl.querySelectorAll('.support-navigation-products-links-wrapper .support-navigation-products-links');
+  supportProductBaseList.forEach((proGroup) => {
+    const supportProductEl = document.createElement('div');
+    supportProductEl.className = 'support-product';
+
+    [...proGroup.children].forEach((item, index) => {
+      if (index) {
+        const i = item.lastElementChild.textContent?.trim();
+        const supportProductListEl = supportProductEl.querySelector('.support-product-list');
+        const hasGroup = supportProductListEl.querySelector(`.support-product-order-${i}`) !== null;
+        if (!hasGroup) {
+          const orderGroup = document.createElement('div');
+          orderGroup.className = `support-product-item support-product-order-${i}`;
+          supportProductListEl.append(orderGroup);
+        }
+        const supportProductListGroupEl = supportProductListEl.querySelector(`.support-product-order-${i}`);
+        const link = document.createElement('div');
+        link.className = 'nav-link';
+        const title = item.children[2].textContent.trim() || '';
+        const href = item.children[3].textContent.trim() || '#';
+        const span1 = document.createElement('span');
+        span1.textContent = title;
+        link.append(span1);
+        if (href && href !== '#') {
+          link.dataset.href = href;
+          link.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.location.href = href;
+          });
+        }
+        supportProductListGroupEl.append(link);
+      } else {
+        const supportProductTitleEl = document.createElement('div');
+        supportProductTitleEl.className = 'support-product-title';
+        supportProductTitleEl.innerHTML = item.textContent?.trim();
+        const supportProductListEl = document.createElement('div');
+        supportProductListEl.className = 'support-product-list';
+        supportProductEl.append(supportProductTitleEl, supportProductListEl);
+      }
+    });
+    productsWrap.append(supportProductEl);
+  });
+
+  const linksWrap = document.createElement('div');
+  linksWrap.className = 'dropdown-links';
+  const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
+  console.log(supportMenuLinksList);
+  [...supportMenuLinksList.children].forEach((item) => {
+    console.log(item);
+    const title = item.children[2].textContent.trim() || '';
+    const href = item.children[3].textContent.trim() || '#';
+    const div = document.createElement('div');
+    if (href && href !== '#') {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = title;
+      div.append(a);
+    } else {
+      div.textContent = title;
+    }
+    linksWrap.append(div);
+  });
+
+  main.append(productsWrap, linksWrap);
+  content.append(main);
+  dropdown.append(content);
+  return dropdown;
+}
+
 // function convertToDarkSvgUrl(url) {
 //   if (url.indexOf('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660') !== -1) {
 //     return url.replace('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660', 'media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b');
@@ -449,7 +564,7 @@ export default async function decorate(block) {
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     if (isCompanyPage) {
-      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -100)}px`;
+      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -84)}px`;
       return;
     }
     if (Math.abs(scrollTop - lastScrollTop) <= scrollThreshold) {
@@ -607,7 +722,9 @@ export default async function decorate(block) {
   navLinks.forEach((action) => {
     const link = document.createElement('div');
     link.className = 'nav-section';
-    link.textContent = action.title;
+    const span1 = document.createElement('span');
+    span1.textContent = action.title;
+    link.append(span1);
     const cloneLink = link.cloneNode(true);
     const mobileCloneLink = link.cloneNode(true);
     if (action.href && action.href !== '#') {
@@ -621,6 +738,14 @@ export default async function decorate(block) {
         e.stopPropagation();
         window.location.href = action.href;
       });
+    }
+    if (action.title.trim().toLowerCase() === 'support') {
+      cloneLink.classList.add('nav-link');
+      const mask = document.createElement('div');
+      mask.className = 'nav-mask';
+      mask.id = 'nav-mask';
+      const dropdownEl = buildSupportDropdown(fragment);
+      cloneLink.append(mask, dropdownEl);
     }
     actionsEl.append(cloneLink);
     mobileActions.append(mobileCloneLink);
