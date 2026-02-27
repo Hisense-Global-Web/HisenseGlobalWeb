@@ -1325,7 +1325,7 @@
                   "key-value": true,
                   "page_size": "10",
                   "module_type": "",
-                  "no_result_content": "",
+                  "no_result": "",
                   "filter": "information-list-module"
                 }
               }
