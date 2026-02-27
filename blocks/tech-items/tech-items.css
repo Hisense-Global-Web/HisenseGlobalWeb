@@ -40,6 +40,7 @@
           font-size: var(--size-14);
           font-weight: var(--fontweight-book);
           color: var(--color-primary-grey-60);
+          line-height: var(--size-21);
       }
     }
   }
@@ -105,12 +106,11 @@
     }
 
     &.stats-style {
-      gap: var(--size-16);
+      gap: var(--size-18);
 
       .tech-item-box {
         padding: var(--size-24) var(--size-18);
         border-radius: var(--size-8);
-        width: calc(145 / var(--breakpoint-mobile) * 100vw);
 
         .tech-item-text-content {
           p:first-child {
@@ -120,7 +120,7 @@
 
           p:nth-child(2) {
             font-size: var(--size-14);
-            line-height: calc(19.6 / var(--breakpoint-mobile) * 100vw);
+            line-height: var(--size-21);
           }
         }
       }
