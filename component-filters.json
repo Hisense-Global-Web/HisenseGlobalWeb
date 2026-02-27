@@ -307,6 +307,12 @@
     ]
   },
   {
+    "id": "key-features",
+    "components": [
+      "key-features-item"
+    ]
+  },
+  {
     "id": "media-carousel",
     "components": [
       "media-carouselItem"
