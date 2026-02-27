@@ -60,20 +60,20 @@
         },
         {
           "component": "text",
-          "name": "text_title",
+          "name": "text-title",
           "label": "Title",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "text_text",
+          "name": "text-text",
           "label": "Text",
           "valueType": "string"
         },
         {
           "component": "reference",
-          "name": "button_iconPC",
-          "label": "Cta Icon For PC",
+          "name": "button-iconPC",
+          "label": "CTA Icon For PC",
           "valueType": "string"
         },
         {
@@ -84,7 +84,7 @@
         },
         {
           "component": "select",
-          "name": "button_color",
+          "name": "button-color",
           "label": "Button Color",
           "options": [
             {
@@ -99,13 +99,13 @@
         },
         {
           "component": "aem-content",
-          "name": "button_link",
+          "name": "button-link",
           "label": "Button Link",
           "valueType": "string"
         },
         {
           "component": "reference",
-          "name": "button_iconMobile",
+          "name": "button-iconMobile",
           "label": "Cta Icon For Mobile",
           "valueType": "string"
         },
