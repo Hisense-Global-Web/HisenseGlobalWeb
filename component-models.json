@@ -2690,7 +2690,8 @@
         "component": "reference",
         "name": "item-icon",
         "label": "Item Icon",
-        "valueType": "string"
+        "valueType": "string",
+        "value": "/content/dam/hisense/us/common-icons/document.svg"
       },
       {
         "component": "text",

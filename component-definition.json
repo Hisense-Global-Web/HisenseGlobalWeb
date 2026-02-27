@@ -1322,11 +1322,11 @@
                 "template": {
                   "name": "Information List Module",
                   "model": "information-list-module",
+                  "filter": "information-list-module",
                   "key-value": true,
                   "module_type": "",
                   "page_size": 10,
-                  "no_result": "",
-                  "filter": "information-list-module"
+                  "no_result": ""
                 }
               }
             }
@@ -1341,8 +1341,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Information List Module Item",
-                  "model": "information-list-module-item",
-                  "item-icon": "/content/dam/hisense/us/common-icons/document.svg"
+                  "model": "information-list-module-item"
                 }
               }
             }
