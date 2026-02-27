@@ -29,11 +29,11 @@
               "name": "Information List Module Item",
               "model": "information-list-module-item",
               "key-value": true,
-              "item-icon": "/content/dam/hisense/us/common-icons/left.svg",
+              "item-icon": "/content/dam/hisense/us/common-icons/document.svg",
               "title": "",
               "text": "",
               "button-copy": "",
-              "button-color": "green-60",
+              "button-color": "",
               "button-link": "",
               "icon-mobile": "",
               "pdf-select": ""
