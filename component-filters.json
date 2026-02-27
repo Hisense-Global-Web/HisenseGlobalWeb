@@ -16,6 +16,7 @@
       "article-body",
       "article-body-list",
       "article-title",
+      "authorized-reseller",
       "button",
       "card-carousel",
       "card-grid",
@@ -115,7 +116,8 @@
       "popup-quote",
       "popup-title",
       "popup-key-stats",
-      "popup-image"
+      "popup-image",
+      "stats-grid"
     ]
   },
   {
@@ -138,6 +140,12 @@
     "id": "article-body-list",
     "components": [
       "article-body-list-item"
+    ]
+  },
+  {
+    "id": "authorized-reseller",
+    "components": [
+      "authorized-reseller-item"
     ]
   },
   {

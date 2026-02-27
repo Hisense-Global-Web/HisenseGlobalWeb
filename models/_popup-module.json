@@ -77,7 +77,8 @@
         "popup-quote",
         "popup-title",
         "popup-key-stats",
-        "popup-image"
+        "popup-image",
+        "stats-grid"
       ]
     }
   ]
