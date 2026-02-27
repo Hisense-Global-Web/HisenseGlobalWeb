@@ -145,24 +145,74 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
   );
 }
 
+const generateCard = (item) => {
+  // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
+  const [documentIcon, title, text] = item.children;
+  console.log('Generating card for item:', item);
+  // const { title, announcedDate } = item;
+  const cardEl = document.createElement('div');
+  cardEl.className = 'info-list-card';
+
+  // card 左侧: icon + title + date 容器
+  const leftEl = document.createElement('div');
+  leftEl.className = 'card-left';
+
+  // card 左侧: icon
+  // const documentIcon = document.createElement('img');
+  // documentIcon.src = '/content/dam/hisense/us/common-icons/document.svg';
+  // documentIcon.alt = 'document';
+  documentIcon.classList.add('document-icon');
+  leftEl.appendChild(documentIcon);
+
+  // card 左侧: title + date 容器
+  const titleContainer = document.createElement('div');
+  titleContainer.classList.add('title-container');
+
+  // card 左侧: title
+  // const titleEl = document.createElement('div');
+  title.classList.add('card-title');
+  // title.textContent = title || '';
+  titleContainer.appendChild(title);
+
+  // card 左侧: date
+  // const dateEl = document.createElement('div');
+  text.classList.add('announced-date');
+  // text.textContent = text;
+  titleContainer.appendChild(text);
+  leftEl.appendChild(titleContainer);
+
+  // card 右侧: download button
+  // const downloadButton = generateDownloadButton(item);
+  cardEl.appendChild(leftEl);
+  // cardEl.appendChild(downloadButton);
+
+  // return cardEl;
+  return cardEl;
+};
+
 /**
  * Recall Information List Block
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  const isEditMode = block.hasAttribute('data-aue-resource');
-  const pageSize = Number.parseInt(config['page-size'], 10) || 10;
+  // const isEditMode = block.hasAttribute('data-aue-resource');
+  // const pageSize = Number.parseInt(config['page-size'], 10) || 10;
   const shouldPaginated = true;
   const paginatedBtnText = config['paginated-btn-text'] || '';
   const infoListContainer = document.querySelector('.information-list-module');
-  const [pageSizeDiv, ...infoList] = [...block.children];
-  pageSizeDiv.remove();
+  // const [pageSizeDiv, ...infoList] = [...block.children];
+  // pageSizeDiv.remove();
   const cardGroupEl = document.createElement('div');
   cardGroupEl.className = 'info-list-card-group';
-  infoList.forEach((info) => {
-    // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
-    cardGroupEl.appendChild(info);
-  });
+  // infoList.forEach((info) => {
+  // console.log('Processing info item:', info);
+  // info.style.dispay = 'none';
+  // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
+  // cardGroupEl.appendChild(info);
+  // const cardEL = generateCard(info);
+  // cardGroupEl.appendChild(cardEL);
+  // info.style.display = 'none';
+  // });
   infoListContainer.appendChild(cardGroupEl);
   // Build static structure
   const container = document.createElement('div');
@@ -205,158 +255,156 @@ export default async function decorate(block) {
   //   downloadUrl: MOCK_RECALL_INFORMATION_ITEM.downloadUrl,
   //   fileName: `${MOCK_RECALL_INFORMATION_ITEM.title} ${i + 1}'.pdf'`,
   // }));
-  const allItems = infoList;
+  // const allItems = infoList;
+  // const allItems = [];
 
-  const generateDownloadButton = (item) => {
-    const { downloadUrl, fileName } = item;
-    const downloadContainer = document.createElement('div');
-    downloadContainer.className = 'download-container';
-    // PC端的Download按钮
-    const downloadPC = document.createElement('div');
-    downloadPC.className = 'download-button';
-    const icon = document.createElement('img');
-    icon.alt = 'download';
-    icon.className = 'download-icon';
-    icon.src = DOWNLOAD_WHITE_ICON;
-    const downloadText = document.createElement('div');
-    downloadText.textContent = 'Download';
-    downloadPC.append(icon, downloadText);
-    downloadContainer.appendChild(downloadPC);
+  // const generateDownloadButton = (item) => {
+  //   const { downloadUrl, fileName } = item;
+  //   const downloadContainer = document.createElement('div');
+  //   downloadContainer.className = 'download-container';
+  //   // PC端的Download按钮
+  //   const downloadPC = document.createElement('div');
+  //   downloadPC.className = 'download-button';
+  //   const icon = document.createElement('img');
+  //   icon.alt = 'download';
+  //   icon.className = 'download-icon';
+  //   icon.src = DOWNLOAD_WHITE_ICON;
+  //   const downloadText = document.createElement('div');
+  //   downloadText.textContent = 'Download';
+  //   downloadPC.append(icon, downloadText);
+  //   downloadContainer.appendChild(downloadPC);
 
-    // Mobile端的Download按钮
-    const downloadMobile = document.createElement('div');
-    downloadMobile.className = 'download-button-mobile';
-    const mobileIcon = document.createElement('img');
-    mobileIcon.alt = 'download';
-    mobileIcon.className = 'download-icon';
-    mobileIcon.src = DOWNLOAD_ICON;
-    downloadMobile.append(mobileIcon);
-    downloadContainer.appendChild(downloadMobile);
-    const handleDownload = () => {
-      // TODO: 下载代码在这写
-      /* eslint-disable-next-line no-console */
-      console.log('Download file:', fileName, downloadUrl);
-      //   const link = document.createElement('a');
-      //   link.href = downloadUrl;
-      //   if (fileName) {
-      //     link.download = fileName; // 指定下载文件名
-      //   }
-      //   document.body.appendChild(link);
-      //   link.click();
-      //   document.body.removeChild(link);
-    };
-    if (downloadUrl) {
-      downloadPC.addEventListener('click', handleDownload);
-    } else {
-      downloadPC.classList.add('disabled');
-    }
-    return downloadContainer;
-  };
+  //   // Mobile端的Download按钮
+  //   const downloadMobile = document.createElement('div');
+  //   downloadMobile.className = 'download-button-mobile';
+  //   const mobileIcon = document.createElement('img');
+  //   mobileIcon.alt = 'download';
+  //   mobileIcon.className = 'download-icon';
+  //   mobileIcon.src = DOWNLOAD_ICON;
+  //   downloadMobile.append(mobileIcon);
+  //   downloadContainer.appendChild(downloadMobile);
+  //   const handleDownload = () => {
+  //     // TODO: 下载代码在这写
+  //     /* eslint-disable-next-line no-console */
+  //     console.log('Download file:', fileName, downloadUrl);
+  //     //   const link = document.createElement('a');
+  //     //   link.href = downloadUrl;
+  //     //   if (fileName) {
+  //     //     link.download = fileName; // 指定下载文件名
+  //     //   }
+  //     //   document.body.appendChild(link);
+  //     //   link.click();
+  //     //   document.body.removeChild(link);
+  //   };
+  //   if (downloadUrl) {
+  //     downloadPC.addEventListener('click', handleDownload);
+  //   } else {
+  //     downloadPC.classList.add('disabled');
+  //   }
+  //   return downloadContainer;
+  // };
 
-  const generateCard = (item) => {
-    console.log('Generating card for item:', item);
-    const { title, announcedDate } = item;
-    const cardEl = document.createElement('div');
-    cardEl.className = 'info-list-card';
+  // const generateCard = (item) => {
+  //   // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
+  //   const [documentIcon, title, text] = item.children;
+  //   console.log('Generating card for item:', item);
+  //   // const { title, announcedDate } = item;
+  //   const cardEl = document.createElement('div');
+  //   cardEl.className = 'info-list-card';
 
-    // card 左侧: icon + title + date 容器
-    const leftEl = document.createElement('div');
-    leftEl.className = 'card-left';
+  //   // card 左侧: icon + title + date 容器
+  //   const leftEl = document.createElement('div');
+  //   leftEl.className = 'card-left';
 
-    // card 左侧: icon
-    const documentIcon = document.createElement('img');
-    documentIcon.src = '/content/dam/hisense/us/common-icons/document.svg';
-    documentIcon.alt = 'document';
-    documentIcon.className = 'document-icon';
-    leftEl.appendChild(documentIcon);
+  //   // card 左侧: icon
+  //   // const documentIcon = document.createElement('img');
+  //   // documentIcon.src = '/content/dam/hisense/us/common-icons/document.svg';
+  //   // documentIcon.alt = 'document';
+  //   documentIcon.classList.add('document-icon');
+  //   leftEl.appendChild(documentIcon);
 
-    // card 左侧: title + date 容器
-    const titleContainer = document.createElement('div');
-    titleContainer.className = 'title-container';
+  //   // card 左侧: title + date 容器
+  //   const titleContainer = document.createElement('div');
+  //   titleContainer.classList.add('title-container');
 
-    // card 左侧: title
-    const titleEl = document.createElement('div');
-    titleEl.className = 'card-title';
-    titleEl.textContent = title || '';
-    titleContainer.appendChild(titleEl);
+  //   // card 左侧: title
+  //   // const titleEl = document.createElement('div');
+  //   title.classList.add('card-title');
+  //   // title.textContent = title || '';
+  //   titleContainer.appendChild(title);
 
-    // card 左侧: date
-    const dateEl = document.createElement('div');
-    dateEl.className = 'announced-date';
-    const date = new Date(announcedDate);
-    const formattedDate = Number.isNaN(date.getTime()) ? announcedDate : date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-    dateEl.textContent = `Date Announced: ${formattedDate}`;
-    titleContainer.appendChild(dateEl);
-    leftEl.appendChild(titleContainer);
+  //   // card 左侧: date
+  //   // const dateEl = document.createElement('div');
+  //   text.classList.add('announced-date');
+  //   // text.textContent = text;
+  //   titleContainer.appendChild(text);
+  //   leftEl.appendChild(titleContainer);
 
-    // card 右侧: download button
-    const downloadButton = generateDownloadButton(item);
-    cardEl.appendChild(leftEl);
-    cardEl.appendChild(downloadButton);
+  //   // card 右侧: download button
+  //   // const downloadButton = generateDownloadButton(item);
+  //   cardEl.appendChild(leftEl);
+  //   // cardEl.appendChild(downloadButton);
 
-    return cardEl;
-  };
+  //   // return cardEl;
+  //   return cardEl;
+  // };
 
-  const loadPage = async (page, type = 'PC') => {
-    const totalItems = allItems.length;
+  // const loadPage = async (page, type = 'PC') => {
+  //   const totalItems = allItems.length;
 
-    cardGroupEl.textContent = '';
-    paginationEl.textContent = '';
-    mobileBtn.style.display = 'none';
+  //   cardGroupEl.textContent = '';
+  //   paginationEl.textContent = '';
+  //   mobileBtn.style.display = 'none';
 
-    if (!totalItems) {
-      const emptyEl = document.createElement('div');
-      emptyEl.className = 'info-list-empty-container';
-      const emptyTitleEl = document.createElement('div');
-      emptyTitleEl.className = 'info-list-empty-title';
-      emptyTitleEl.textContent = EMPTY_TITLE;
-      emptyEl.appendChild(emptyTitleEl);
-      const emptyTextEl = document.createElement('div');
-      emptyTextEl.className = 'info-list-empty-text';
-      emptyTextEl.textContent = EMPTY_TEXT;
-      emptyEl.appendChild(emptyTextEl);
-      cardGroupEl.appendChild(emptyEl);
-      return;
-    }
+  //   if (!totalItems) {
+  //     const emptyEl = document.createElement('div');
+  //     emptyEl.className = 'info-list-empty-container';
+  //     const emptyTitleEl = document.createElement('div');
+  //     emptyTitleEl.className = 'info-list-empty-title';
+  //     emptyTitleEl.textContent = EMPTY_TITLE;
+  //     emptyEl.appendChild(emptyTitleEl);
+  //     const emptyTextEl = document.createElement('div');
+  //     emptyTextEl.className = 'info-list-empty-text';
+  //     emptyTextEl.textContent = EMPTY_TEXT;
+  //     emptyEl.appendChild(emptyTextEl);
+  //     cardGroupEl.appendChild(emptyEl);
+  //     return;
+  //   }
 
-    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
-    const safePage = Math.min(Math.max(page, 1), totalPages);
-    const startIndex = (safePage - 1) * pageSize;
-    const pageItems = type === 'PC' ? allItems.slice(startIndex, startIndex + pageSize) : allItems.slice(0, startIndex + pageSize);
+  //   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+  //   const safePage = Math.min(Math.max(page, 1), totalPages);
+  //   const startIndex = (safePage - 1) * pageSize;
+  //   const pageItems = type === 'PC' ? allItems.slice(startIndex, startIndex + pageSize) : allItems.slice(0, startIndex + pageSize);
 
-    pageItems.forEach((item) => {
-      const card = generateCard(item);
-      cardGroupEl.appendChild(card);
-    });
+  //   pageItems.forEach((item) => {
+  //     const card = generateCard(item);
+  //     cardGroupEl.appendChild(card);
+  //   });
 
-    const state = {
-      total: totalItems,
-      limit: pageSize,
-      offset: startIndex,
-    };
+  //   const state = {
+  //     total: totalItems,
+  //     limit: pageSize,
+  //     offset: startIndex,
+  //   };
 
-    // 创建PC端的分页器
-    buildPaginationControls(container, state, (targetPage) => {
-      if (targetPage < 1) return;
-      const maxPage = Math.ceil(state.total / state.limit);
-      if (targetPage > maxPage) return;
-      loadPage(targetPage);
-    }, isEditMode);
+  //   // 创建PC端的分页器
+  //   buildPaginationControls(container, state, (targetPage) => {
+  //     if (targetPage < 1) return;
+  //     const maxPage = Math.ceil(state.total / state.limit);
+  //     if (targetPage > maxPage) return;
+  //     loadPage(targetPage);
+  //   }, isEditMode);
 
-    // 给移动端的 Load More 按钮添加事件
-    if (page * pageSize < totalItems) {
-      mobileBtn.style.display = 'block';
-      mobileBtn.onclick = () => loadPage(safePage + 1, 'Mobile');
-    } else {
-      mobileBtn.style.display = 'none';
-    }
-  };
+  //   // 给移动端的 Load More 按钮添加事件
+  //   if (page * pageSize < totalItems) {
+  //     mobileBtn.style.display = 'block';
+  //     mobileBtn.onclick = () => loadPage(safePage + 1, 'Mobile');
+  //   } else {
+  //     mobileBtn.style.display = 'none';
+  //   }
+  // };
 
-  await loadPage(1);
+  // await loadPage(1);
 
   block.classList.add('loaded');
 }
