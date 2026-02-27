@@ -2654,7 +2654,7 @@
     "fields": [
       {
         "component": "select",
-        "name": "module_type",
+        "name": "moduleType",
         "label": "Module Type",
         "valueType": "string",
         "options": [
@@ -2670,16 +2670,16 @@
       },
       {
         "component": "text",
-        "name": "page_size",
+        "name": "pageSize",
         "label": "Items per page",
-        "description": "How many news cards to show per page.",
+        "value": 10,
+        "description": "How many items to show per page.",
         "valueType": "number"
       },
       {
         "component": "richtext",
-        "name": "no_result",
+        "name": "noResultContent",
         "label": "no result content",
-        "description": "How many news cards to show per page.",
         "valueType": "string"
       }
     ]
