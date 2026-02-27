@@ -535,6 +535,18 @@ export default function decorate(block) {
             extraFields.appendChild(fld);
           }
         });
+
+        // product button group
+        const productBtnGroupEl = document.createElement('div');
+        productBtnGroupEl.className = 'plp-product-btn-group';
+
+        // where to by
+        const whereToBuyBtnEl = document.createElement('div');
+        whereToBuyBtnEl.className = 'plp-product-btn plp-where-to-buy-btn';
+        whereToBuyBtnEl.textContent = 'Where to buy';
+        whereToBuyBtnEl.setAttribute('ps-sku', variant.sku || group.sku || '');
+        productBtnGroupEl.append(whereToBuyBtnEl);
+
         // productDetailPageLink - 先检查当前产品尺寸是否有productDetailPageLink链接，如果没有，才使用共享链接
         const productDetailPageLink = variant.productDetailPageLink || group.sharedProductDetailPageLink || '#';
         if (productDetailPageLink && productDetailPageLink !== '#') {
@@ -543,7 +555,8 @@ export default function decorate(block) {
             link = document.createElement('a');
             link.className = 'plp-product-btn';
             link.target = '_blank';
-            card.append(link);
+            // card.append(link);
+            productBtnGroupEl.append(link);
           }
           link.href = productDetailPageLink;
           link.textContent = 'Learn more';
@@ -551,6 +564,9 @@ export default function decorate(block) {
           const existingLink = card.querySelector && card.querySelector('.plp-product-btn');
           if (existingLink) existingLink.remove();
         }
+
+        // 将按钮组添加到卡片底部
+        card.append(productBtnGroupEl);
       };
 
       // 创建尺寸节点并绑定事件
