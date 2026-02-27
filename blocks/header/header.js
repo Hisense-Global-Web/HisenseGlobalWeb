@@ -882,6 +882,9 @@ export default async function decorate(block) {
     mobileSecondMenuSupport.style.display = 'none';
   }
 
+  const supportEl = fragment.querySelector('.support-navigation-route-container');
+  console.log(supportEl);
+
   company.forEach((item) => {
     const mobileSecondMenuSupportItem = document.createElement('div');
     const isCurrent = window.location.pathname === item.href;

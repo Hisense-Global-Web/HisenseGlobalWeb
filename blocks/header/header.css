@@ -901,7 +901,7 @@
       height: calc(100vh - 112px);
       padding: 0 24px;
       max-height: inherit;
-    }
+    } 
 
     .support-arrow {
       transform: rotate(-180deg);
