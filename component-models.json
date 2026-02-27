@@ -2742,7 +2742,7 @@
       },
       {
         "component": "reference",
-        "name": "button_iconMobile",
+        "name": "iconMobile",
         "label": "Cta Icon For Mobile",
         "valueType": "string"
       },
