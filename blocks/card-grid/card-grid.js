@@ -10,7 +10,7 @@ export default async function decorate(block) {
       if (itemIndex > 0) {
         const type = item.firstElementChild?.textContent;
         item.classList.add(type);
-        item.firstElementChild.remove();
+        // item.firstElementChild.remove();
         itemTextBoxEl.append(item);
       } else {
         item.className = 'item-img-box';
