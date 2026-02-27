@@ -308,7 +308,7 @@
         },
         {
           "title": "Authorized Reseller Note",
-          "id": "authorized-reseller-note-note",
+          "id": "authorized-reseller-note",
           "plugins": {
             "xwalk": {
               "page": {
