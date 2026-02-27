@@ -1324,9 +1324,9 @@
                   "model": "information-list-module",
                   "filter": "information-list-module",
                   "key-value": true,
-                  "moduleType": "",
-                  "pageSize": 10,
-                  "noResultContent": ""
+                  "module-type": "",
+                  "page-size": 10,
+                  "no-result": ""
                 }
               }
             }

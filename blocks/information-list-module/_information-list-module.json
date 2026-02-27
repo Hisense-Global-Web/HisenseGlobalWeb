@@ -12,9 +12,9 @@
               "model": "information-list-module",
               "filter": "information-list-module",
               "key-value": true,
-              "moduleType": "",
-              "pageSize": 10,
-              "noResultContent": ""
+              "module-type": "",
+              "page-size": 10,
+              "no-result": ""
             }
           }
         }
@@ -42,7 +42,7 @@
       "fields": [
         {
           "component": "select",
-          "name": "moduleType",
+          "name": "module-type",
           "label": "Module Type",
           "valueType": "string",
           "options": [
@@ -58,7 +58,7 @@
         },
         {
           "component": "text",
-          "name": "pageSize",
+          "name": "page-size",
           "label": "Items per page",
           "value": 10,
           "description": "How many items to show per page.",
@@ -66,7 +66,7 @@
         },
         {
           "component": "richtext",
-          "name": "noResultContent",
+          "name": "no-result",
           "label": "no result content",
           "valueType": "string"
         }
