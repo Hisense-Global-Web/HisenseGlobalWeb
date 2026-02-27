@@ -12,7 +12,7 @@
               "model": "information-list-module",
               "key-value": true,
               "page-size": "10",
-              "data-source": "/us/en/recallInfoList.json"
+              "filter": "information-list-module"
             }
           }
         }
