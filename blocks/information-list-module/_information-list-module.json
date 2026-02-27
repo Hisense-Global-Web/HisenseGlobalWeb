@@ -53,82 +53,61 @@
       "id": "information-list-module-item",
       "fields": [
         {
-          "component": "container",
-          "name": "card-left",
-          "valueType": "string",
-          "fields": [
+          "component": "reference",
+          "name": "item-icon",
+          "label": "Item Icon",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "text",
+          "label": "Text",
+          "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "name": "icon-pc",
+          "label": "Cta Icon For PC",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "button-copy",
+          "label": "Button Copy",
+          "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "button-color",
+          "label": "Button Color",
+          "options": [
             {
-              "component": "reference",
-              "name": "item-icon",
-              "label": "Item Icon",
-              "valueType": "string"
+              "name": "Green 60",
+              "value": "green-60"
             },
             {
-              "component": "container",
-              "name": "title-contianer",
-              "valueType": "string",
-              "fields": [
-                {
-                  "component": "text",
-                  "name": "title",
-                  "label": "Title",
-                  "valueType": "string"
-                },
-                {
-                  "component": "text",
-                  "name": "text",
-                  "label": "Text",
-                  "valueType": "string"
-                }
-              ]
+              "name": "Black",
+              "value": "grey-100"
             }
           ]
         },
         {
-          "component": "container",
-          "name": "button-container",
-          "valueType": "string",
-          "fields": [
-            {
-              "component": "reference",
-              "name": "icon-pc",
-              "label": "Cta Icon For PC",
-              "valueType": "string"
-            },
-            {
-              "component": "text",
-              "name": "button-copy",
-              "label": "Button Copy",
-              "valueType": "string"
-            },
-            {
-              "component": "select",
-              "name": "button-color",
-              "label": "Button Color",
-              "options": [
-                {
-                  "name": "Green 60",
-                  "value": "green-60"
-                },
-                {
-                  "name": "Black",
-                  "value": "grey-100"
-                }
-              ]
-            },
-            {
-              "component": "aem-content",
-              "name": "button-link",
-              "label": "Button Link",
-              "valueType": "string"
-            },
-            {
-              "component": "reference",
-              "name": "icon-mobile",
-              "label": "Cta Icon For Mobile",
-              "valueType": "string"
-            }
-          ]
+          "component": "aem-content",
+          "name": "button-link",
+          "label": "Button Link",
+          "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "name": "icon-mobile",
+          "label": "Cta Icon For Mobile",
+          "valueType": "string"
         },
         {
           "component": "reference",
