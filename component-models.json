@@ -2679,7 +2679,7 @@
         "name": "no_result",
         "label": "no result content",
         "description": "How many news cards to show per page.",
-        "valueType": "number"
+        "valueType": "string"
       }
     ]
   },

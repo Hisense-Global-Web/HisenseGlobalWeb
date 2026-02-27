@@ -11,8 +11,8 @@
               "name": "Information List Module",
               "model": "information-list-module",
               "key-value": true,
-              "page_size": "10",
               "module_type": "",
+              "page_size": 10,
               "no_result": "",
               "filter": "information-list-module"
             }
@@ -30,7 +30,6 @@
             "template": {
               "name": "Information List Module Item",
               "model": "information-list-module-item",
-              "key-value": true,
               "item-icon": "/content/dam/hisense/us/common-icons/document.svg"
             }
           }
@@ -69,7 +68,7 @@
           "name": "no_result",
           "label": "no result content",
           "description": "How many news cards to show per page.",
-          "valueType": "number"
+          "valueType": "string"
         }
       ]
     },
