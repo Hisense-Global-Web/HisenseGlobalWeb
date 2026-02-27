@@ -58,7 +58,7 @@
           "component": "number",
           "valueType": "number",
           "name": "order",
-          "label": "Order",
+          "label": "Group",
           "value": 1,
           "validation": {
             "numberMin": 1,
