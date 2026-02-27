@@ -164,7 +164,7 @@
     display: none;
   }
   
-  .route-company {
+  .route-company, .route-support {
     font-size: 16px;
     font-weight: var(--fontweight-medium);
     line-height: 1.5;
@@ -198,7 +198,7 @@
     }
   }
   
-  .company-arrow {
+  .company-arrow, .support-arrow {
     display: none;
   }
 }
@@ -819,7 +819,7 @@
       display: none;
     }
     
-    .company-arrow {
+    .company-arrow, .support-arrow {
       display: block;
       width: 24px;
       transition: transform .36s cubic-bezier(0, 0.18, 0.07, 1), -webkit-transform .36s cubic-bezier(0, 0.18, 0.07, 1);
@@ -871,8 +871,8 @@
     margin: 0;
   }
 
-  #navigation.show-second-menu {
-    .mobile-second-menu {
+  #navigation.show-second-menu-company {
+    .mobile-second-menu.company {
       height: calc(100vh - 112px);
       padding: 0 24px;
       max-height: inherit;
@@ -889,6 +889,31 @@
       background: rgb(0 0 0 / 70%);
     }
     
+    &.scroll-active {
+      .mobile-second-menu {
+        height: calc(100vh - 56px);
+      }
+    }
+  }
+
+  #navigation.show-second-menu-support {
+    .mobile-second-menu.support {
+      height: calc(100vh - 112px);
+      padding: 0 24px;
+      max-height: inherit;
+    }
+
+    .support-arrow {
+      transform: rotate(-180deg);
+    }
+
+    .shadow {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: rgb(0 0 0 / 70%);
+    }
+
     &.scroll-active {
       .mobile-second-menu {
         height: calc(100vh - 56px);
