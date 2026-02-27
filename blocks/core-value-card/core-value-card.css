@@ -19,6 +19,7 @@
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
   font-size: var(--size-20);
+  text-transform: capitalize;
 
    @media (width < 860px) {
    font-size: var(--size-18);
