@@ -1,9 +1,9 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 
-const DOWNLOAD_WHITE_ICON = '/content/dam/hisense/us/common-icons/download-white.svg';
-const DOWNLOAD_ICON = '/content/dam/hisense/us/common-icons/download.svg';
-const EMPTY_TITLE = 'No Recall Information';
-const EMPTY_TEXT = 'There is currently no product recall information available.';
+// const DOWNLOAD_WHITE_ICON = '/content/dam/hisense/us/common-icons/download-white.svg';
+// const DOWNLOAD_ICON = '/content/dam/hisense/us/common-icons/download.svg';
+// const EMPTY_TITLE = 'No Recall Information';
+// const EMPTY_TEXT = 'There is currently no product recall information available.';
 
 // const MOCK_RECALL_INFORMATION_ITEM = {
 //   title: 'Hisense French Door Refrigerator with Ice Maker (model number: HRF266N6CSE)',
@@ -12,183 +12,183 @@ const EMPTY_TEXT = 'There is currently no product recall information available.'
 //   fileName: 'HisenseLogo.jpg',
 // };
 
-function buildPaginationControls(container, state, onPageChange, isEditMode) {
-  const { total, limit, offset } = state;
+// function buildPaginationControls(container, state, onPageChange, isEditMode) {
+//   const { total, limit, offset } = state;
 
-  const paginationEl = container.querySelector('.info-list-pagination');
-  if (!paginationEl) return;
+//   const paginationEl = container.querySelector('.info-list-pagination');
+//   if (!paginationEl) return;
 
-  paginationEl.textContent = '';
+//   paginationEl.textContent = '';
 
-  if (!total || !limit || (total <= limit && !isEditMode)) {
-    return;
-  }
+//   if (!total || !limit || (total <= limit && !isEditMode)) {
+//     return;
+//   }
 
-  const currentPage = Math.floor(offset / limit) + 1;
-  const totalPages = Math.ceil(total / limit);
+//   const currentPage = Math.floor(offset / limit) + 1;
+//   const totalPages = Math.ceil(total / limit);
 
-  const createPaginationButton = (label, page, disabled = false, isActive = false) => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.classList.add('page-button');
+//   const createPaginationButton = (label, page, disabled = false, isActive = false) => {
+//     const btn = document.createElement('button');
+//     btn.type = 'button';
+//     btn.classList.add('page-button');
 
-    if (label === 'prev') {
-      const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/left.svg';
-      icon.className = 'page-arrow is-prev normal';
-      const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
-      disabledIcon.className = 'page-arrow is-prev disabled';
-      btn.setAttribute('aria-label', 'Previous page');
-      btn.append(icon, disabledIcon);
-    } else if (label === 'next') {
-      const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/right.svg';
-      icon.className = 'page-arrow is-next normal';
-      const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
-      disabledIcon.className = 'page-arrow is-next disabled';
-      btn.setAttribute('aria-label', 'Next page');
-      btn.append(icon, disabledIcon);
-    } else {
-      btn.textContent = label;
-    }
+//     if (label === 'prev') {
+//       const icon = document.createElement('img');
+//       icon.src = '/content/dam/hisense/us/common-icons/left.svg';
+//       icon.className = 'page-arrow is-prev normal';
+//       const disabledIcon = document.createElement('img');
+//       disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
+//       disabledIcon.className = 'page-arrow is-prev disabled';
+//       btn.setAttribute('aria-label', 'Previous page');
+//       btn.append(icon, disabledIcon);
+//     } else if (label === 'next') {
+//       const icon = document.createElement('img');
+//       icon.src = '/content/dam/hisense/us/common-icons/right.svg';
+//       icon.className = 'page-arrow is-next normal';
+//       const disabledIcon = document.createElement('img');
+//       disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
+//       disabledIcon.className = 'page-arrow is-next disabled';
+//       btn.setAttribute('aria-label', 'Next page');
+//       btn.append(icon, disabledIcon);
+//     } else {
+//       btn.textContent = label;
+//     }
 
-    if (isActive) btn.classList.add('is-active');
-    if (disabled) {
-      btn.disabled = true;
-    } else {
-      btn.addEventListener('click', () => onPageChange(page));
-    }
-    return btn;
-  };
+//     if (isActive) btn.classList.add('is-active');
+//     if (disabled) {
+//       btn.disabled = true;
+//     } else {
+//       btn.addEventListener('click', () => onPageChange(page));
+//     }
+//     return btn;
+//   };
 
-  // Prev
-  paginationEl.appendChild(
-    createPaginationButton('prev', currentPage - 1, currentPage === 1),
-  );
+//   // Prev
+//   paginationEl.appendChild(
+//     createPaginationButton('prev', currentPage - 1, currentPage === 1),
+//   );
 
-  // const maxButtons = 6;
-  // let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
-  // let end = start + maxButtons - 1;
-  // if (end > totalPages) {
-  //   end = totalPages;
-  //   start = Math.max(1, end - maxButtons + 1);
-  // }
+//   // const maxButtons = 6;
+//   // let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+//   // let end = start + maxButtons - 1;
+//   // if (end > totalPages) {
+//   //   end = totalPages;
+//   //   start = Math.max(1, end - maxButtons + 1);
+//   // }
 
-  // for (let page = start; page <= end; page += 1) {
-  //   paginationEl.appendChild(
-  //     createPaginationButton(String(page), page, false, page === currentPage),
-  //   );
-  // }
+//   // for (let page = start; page <= end; page += 1) {
+//   //   paginationEl.appendChild(
+//   //     createPaginationButton(String(page), page, false, page === currentPage),
+//   //   );
+//   // }
 
-  // for (let page = 1; page <= totalPages; page += 1) {
-  //   paginationEl.appendChild(
-  //     createPaginationButton(String(page), page, false, page === currentPage),
-  //   );
-  // }
+//   // for (let page = 1; page <= totalPages; page += 1) {
+//   //   paginationEl.appendChild(
+//   //     createPaginationButton(String(page), page, false, page === currentPage),
+//   //   );
+//   // }
 
-  const getVisiblePages = () => {
-    const pages = [];
+//   const getVisiblePages = () => {
+//     const pages = [];
 
-    if (totalPages <= 7) {
-      // 总页数少，直接显示所有页
-      for (let i = 1; i <= totalPages; i += 1) {
-        pages.push(i);
-      }
-    } else if (currentPage <= 4) {
-      // 当前页在前部
-      for (let i = 1; i <= 5; i += 1) {
-        pages.push(i);
-      }
-      pages.push('ellipsis');
-      pages.push(totalPages);
-    } else if (currentPage >= totalPages - 3) {
-      // 当前页在后部
-      pages.push(1);
-      pages.push('ellipsis');
-      for (let i = totalPages - 4; i <= totalPages; i += 1) {
-        pages.push(i);
-      }
-    } else {
-      // 当前页在中部
-      pages.push(1);
-      pages.push('ellipsis');
-      for (let i = currentPage - 1; i <= currentPage + 1; i += 1) {
-        pages.push(i);
-      }
-      pages.push('ellipsis');
-      pages.push(totalPages);
-    }
-    return pages;
-  };
+//     if (totalPages <= 7) {
+//       // 总页数少，直接显示所有页
+//       for (let i = 1; i <= totalPages; i += 1) {
+//         pages.push(i);
+//       }
+//     } else if (currentPage <= 4) {
+//       // 当前页在前部
+//       for (let i = 1; i <= 5; i += 1) {
+//         pages.push(i);
+//       }
+//       pages.push('ellipsis');
+//       pages.push(totalPages);
+//     } else if (currentPage >= totalPages - 3) {
+//       // 当前页在后部
+//       pages.push(1);
+//       pages.push('ellipsis');
+//       for (let i = totalPages - 4; i <= totalPages; i += 1) {
+//         pages.push(i);
+//       }
+//     } else {
+//       // 当前页在中部
+//       pages.push(1);
+//       pages.push('ellipsis');
+//       for (let i = currentPage - 1; i <= currentPage + 1; i += 1) {
+//         pages.push(i);
+//       }
+//       pages.push('ellipsis');
+//       pages.push(totalPages);
+//     }
+//     return pages;
+//   };
 
-  const visiblePages = getVisiblePages();
-  visiblePages.forEach((page) => {
-    if (page === 'ellipsis') {
-      const ellipsis = document.createElement('div');
-      ellipsis.className = 'pagination-ellipsis';
-      const circle = document.createElement('div');
-      circle.className = 'pagination-ellipsis-circle';
-      ellipsis.append(circle, circle.cloneNode(), circle.cloneNode());
-      paginationEl.appendChild(ellipsis);
-    } else {
-      paginationEl.appendChild(
-        createPaginationButton(String(page), page, false, page === currentPage),
-      );
-    }
-  });
+//   const visiblePages = getVisiblePages();
+//   visiblePages.forEach((page) => {
+//     if (page === 'ellipsis') {
+//       const ellipsis = document.createElement('div');
+//       ellipsis.className = 'pagination-ellipsis';
+//       const circle = document.createElement('div');
+//       circle.className = 'pagination-ellipsis-circle';
+//       ellipsis.append(circle, circle.cloneNode(), circle.cloneNode());
+//       paginationEl.appendChild(ellipsis);
+//     } else {
+//       paginationEl.appendChild(
+//         createPaginationButton(String(page), page, false, page === currentPage),
+//       );
+//     }
+//   });
 
-  // Next
-  paginationEl.appendChild(
-    createPaginationButton('next', currentPage + 1, currentPage === totalPages),
-  );
-}
+//   // Next
+//   paginationEl.appendChild(
+//     createPaginationButton('next', currentPage + 1, currentPage === totalPages),
+//   );
+// }
 
-const generateCard = (item) => {
-  // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
-  const [documentIcon, title, text] = item.children;
-  console.log('Generating card for item:', item);
-  // const { title, announcedDate } = item;
-  const cardEl = document.createElement('div');
-  cardEl.className = 'info-list-card';
+// const generateCard = (item) => {
+//   // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
+//   const [documentIcon, title, text] = item.children;
+//   console.log('Generating card for item:', item);
+//   // const { title, announcedDate } = item;
+//   const cardEl = document.createElement('div');
+//   cardEl.className = 'info-list-card';
 
-  // card 左侧: icon + title + date 容器
-  const leftEl = document.createElement('div');
-  leftEl.className = 'card-left';
+//   // card 左侧: icon + title + date 容器
+//   const leftEl = document.createElement('div');
+//   leftEl.className = 'card-left';
 
-  // card 左侧: icon
-  // const documentIcon = document.createElement('img');
-  // documentIcon.src = '/content/dam/hisense/us/common-icons/document.svg';
-  // documentIcon.alt = 'document';
-  documentIcon.classList.add('document-icon');
-  leftEl.appendChild(documentIcon);
+//   // card 左侧: icon
+//   // const documentIcon = document.createElement('img');
+//   // documentIcon.src = '/content/dam/hisense/us/common-icons/document.svg';
+//   // documentIcon.alt = 'document';
+//   documentIcon.classList.add('document-icon');
+//   leftEl.appendChild(documentIcon);
 
-  // card 左侧: title + date 容器
-  const titleContainer = document.createElement('div');
-  titleContainer.classList.add('title-container');
+//   // card 左侧: title + date 容器
+//   const titleContainer = document.createElement('div');
+//   titleContainer.classList.add('title-container');
 
-  // card 左侧: title
-  // const titleEl = document.createElement('div');
-  title.classList.add('card-title');
-  // title.textContent = title || '';
-  titleContainer.appendChild(title);
+//   // card 左侧: title
+//   // const titleEl = document.createElement('div');
+//   title.classList.add('card-title');
+//   // title.textContent = title || '';
+//   titleContainer.appendChild(title);
 
-  // card 左侧: date
-  // const dateEl = document.createElement('div');
-  text.classList.add('announced-date');
-  // text.textContent = text;
-  titleContainer.appendChild(text);
-  leftEl.appendChild(titleContainer);
+//   // card 左侧: date
+//   // const dateEl = document.createElement('div');
+//   text.classList.add('announced-date');
+//   // text.textContent = text;
+//   titleContainer.appendChild(text);
+//   leftEl.appendChild(titleContainer);
 
-  // card 右侧: download button
-  // const downloadButton = generateDownloadButton(item);
-  cardEl.appendChild(leftEl);
-  // cardEl.appendChild(downloadButton);
+//   // card 右侧: download button
+//   // const downloadButton = generateDownloadButton(item);
+//   cardEl.appendChild(leftEl);
+//   // cardEl.appendChild(downloadButton);
 
-  // return cardEl;
-  return cardEl;
-};
+//   // return cardEl;
+//   return cardEl;
+// };
 
 /**
  * Recall Information List Block
