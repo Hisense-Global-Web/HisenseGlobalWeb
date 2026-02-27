@@ -196,7 +196,7 @@ export default async function decorate(block) {
     block.setAttribute('data-aue-resource', blockResource);
   }
 
-  block.replaceChildren(container);
+  // block.replaceChildren(container);
 
   // TODO: API获取数据，现在先用mock数据
   const allItems = new Array(100).fill(0).map((_, i) => ({
