@@ -1,13 +1,17 @@
+.strategic-card-items-wrapper {
+  width: 100%;
+}
+
 .strategic-card-items {
-  display: flex;
-  align-items: center;
-  gap: var(--size-24, 24px);
+  .card-container {
+    display: flex;
+    align-items: center;
+    gap: var(--size-24, 24px);
+  }
 
   .strategic-card-item {
     display: flex;
     flex: 1 0 min(calc(204/var(--breakpoint-pc)*100vw),204px);
-
-    /* width: min(calc(204/var(--breakpoint-pc)*100vw),204px); */
     height: auto;
     padding: var(--size-24) var(--size-24) var(--size-32) var(--size-24);
     flex-direction: column;
@@ -82,19 +86,16 @@
 }
 
 @media (width < 860px) {
-  .strategic-card-items-wrapper {
-    max-width: unset!important;
-    padding: 0 !important;
-  }
-
   .strategic-card-items {
-    gap: var(--size-16);
-    padding: 0 var(--common-padding);
-    overflow-x: scroll;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    scroll-snap-type: x mandatory; /* 强制水平吸附 */
-    scroll-behavior: smooth;
+    .card-container {
+      gap: var(--size-16);
+      padding: 0 var(--common-padding);
+      overflow-x: scroll;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-snap-type: x mandatory; /* 强制水平吸附 */
+      scroll-behavior: smooth;
+    }
 
     .strategic-card-item {
       display: flex;
