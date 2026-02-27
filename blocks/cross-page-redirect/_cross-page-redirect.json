@@ -36,6 +36,10 @@
             {
               "name": "Green 60",
               "value": "green-60"
+            },
+            {
+              "name": "white",
+              "value": "white"
             }
           ]
         },
