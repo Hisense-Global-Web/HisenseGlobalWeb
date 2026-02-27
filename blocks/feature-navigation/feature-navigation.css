@@ -97,10 +97,11 @@
   color: var(--color-primary-green-60);
   position: relative;
   font-size: var(--size-12);
+  font-weight: var(--fontweight-medium);
 
   @media (width < 860px) {
       font-size: var(--size-14);
-       color: var(--color-primary-grey-100);
+      color: var(--color-primary-grey-100);
   }
 }
 
