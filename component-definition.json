@@ -1323,7 +1323,9 @@
                   "name": "Information List Module",
                   "model": "information-list-module",
                   "key-value": true,
-                  "page-size": "10",
+                  "page_size": "10",
+                  "module_type": "",
+                  "no_result_content": "",
                   "filter": "information-list-module"
                 }
               }
