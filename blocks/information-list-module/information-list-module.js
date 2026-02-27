@@ -145,53 +145,53 @@ import { readBlockConfig } from '../../scripts/aem.js';
 //   );
 // }
 
-const generateCard = (info) => {
-  // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
-  const [documentIcon, title, text] = info.children;
-  console.log('Generating card for item:', info);
-  // const { title, announcedDate } = item;
-  // const cardEl = document.createElement('div');
-  // cardEl.className = 'info-list-card';
+// const generateCard = (info) => {
+//   // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
+//   const [documentIcon, title, text] = info.children;
+//   console.log('Generating card for item:', info);
+//   // const { title, announcedDate } = item;
+//   // const cardEl = document.createElement('div');
+//   // cardEl.className = 'info-list-card';
 
-  // card 左侧: icon + title + date 容器
-  const leftEl = document.createElement('div');
-  leftEl.className = 'card-left';
+//   // card 左侧: icon + title + date 容器
+//   const leftEl = document.createElement('div');
+//   leftEl.className = 'card-left';
 
-  // card 左侧: icon
-  // const documentIcon = document.createElement('img');
-  // documentIcon.src = '/content/dam/hisense/us/common-icons/document.svg';
-  // documentIcon.alt = 'document';
-  documentIcon.classList.add('document-icon');
-  leftEl.appendChild(documentIcon);
+//   // card 左侧: icon
+//   // const documentIcon = document.createElement('img');
+//   // documentIcon.src = '/content/dam/hisense/us/common-icons/document.svg';
+//   // documentIcon.alt = 'document';
+//   documentIcon.classList.add('document-icon');
+//   leftEl.appendChild(documentIcon);
 
-  // card 左侧: title + date 容器
-  const titleContainer = document.createElement('div');
-  titleContainer.classList.add('title-container');
+//   // card 左侧: title + date 容器
+//   const titleContainer = document.createElement('div');
+//   titleContainer.classList.add('title-container');
 
-  // card 左侧: title
-  // const titleEl = document.createElement('div');
-  title.classList.add('card-title');
-  // title.textContent = title || '';
-  titleContainer.appendChild(title);
+//   // card 左侧: title
+//   // const titleEl = document.createElement('div');
+//   title.classList.add('card-title');
+//   // title.textContent = title || '';
+//   titleContainer.appendChild(title);
 
-  // card 左侧: date
-  // const dateEl = document.createElement('div');
-  text.classList.add('announced-date');
-  // text.textContent = text;
-  titleContainer.appendChild(text);
-  leftEl.appendChild(titleContainer);
+//   // card 左侧: date
+//   // const dateEl = document.createElement('div');
+//   text.classList.add('announced-date');
+//   // text.textContent = text;
+//   titleContainer.appendChild(text);
+//   leftEl.appendChild(titleContainer);
 
-  // card 右侧: download button
-  // const downloadButton = generateDownloadButton(item);
-  // cardEl.appendChild(leftEl);
-  // cardEl.appendChild(downloadButton);
-  info.className = 'info-list-card';
-  info.innerHTML = '';
-  info.appendChild(leftEl);
+//   // card 右侧: download button
+//   // const downloadButton = generateDownloadButton(item);
+//   // cardEl.appendChild(leftEl);
+//   // cardEl.appendChild(downloadButton);
+//   info.className = 'info-list-card';
+//   info.innerHTML = '';
+//   info.appendChild(leftEl);
 
-  // return cardEl;
-  return info;
-};
+//   // return cardEl;
+//   return info;
+// };
 
 /**
  * Recall Information List Block
@@ -203,18 +203,18 @@ export default async function decorate(block) {
   const shouldPaginated = true;
   const paginatedBtnText = config['paginated-btn-text'] || '';
   const infoListContainer = document.querySelector('.information-list-module');
-  const [pageSizeDiv, ...infoList] = [...block.children];
-  pageSizeDiv.remove();
+  // const [pageSizeDiv, ...infoList] = [...block.children];
+  // pageSizeDiv.remove();
   const cardGroupEl = document.createElement('div');
   cardGroupEl.className = 'info-list-card-group';
-  infoList.forEach((info) => {
-    console.log('Processing info item:', info);
-    // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
-    // cardGroupEl.appendChild(info);
-    const cardEL = generateCard(info);
-    cardGroupEl.appendChild(cardEL);
-    // info.style.display = 'none';
-  });
+  // infoList.forEach((info) => {
+  //   console.log('Processing info item:', info);
+  //   // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
+  //   // cardGroupEl.appendChild(info);
+  //   // const cardEL = generateCard(info);
+  //   cardGroupEl.appendChild(cardEL);
+  //   // info.style.display = 'none';
+  // });
   infoListContainer.appendChild(cardGroupEl);
   // Build static structure
   const container = document.createElement('div');
