@@ -796,32 +796,6 @@
     ]
   },
   {
-    "id": "authorized-reseller-note",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "icon",
-        "value": "",
-        "label": "SVG icon",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "content",
-        "value": "",
-        "label": "Content",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "authorized-reseller",
     "fields": [
       {
@@ -863,6 +837,32 @@
         "label": "Text",
         "valueType": "string",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "authorized-reseller-note",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "icon",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
       }
     ]
   },
