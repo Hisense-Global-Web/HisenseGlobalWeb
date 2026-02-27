@@ -130,7 +130,7 @@
         },
         {
           "component": "reference",
-          "name": "iconMobile",
+          "name": "button_iconMobile",
           "label": "Cta Icon For Mobile",
           "valueType": "string"
         },
