@@ -14,3 +14,23 @@ indices:
       robots:
         select: head > meta[name="robots"]
         value: attribute(el, "content")
+  us-en-article-pages:
+    include:
+      - '/us/en/**'
+    exclude:
+      - '/**.json'
+    target: /us-en-article-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, "content")
+      hasArticleBody:
+        selectFirst: .article-title
+        value: textContent(el)
+      thumbnail:
+        selectFirst: head > meta[name="thumbnail"]
+        value: attribute(el, "content")
+      

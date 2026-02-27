@@ -140,8 +140,18 @@
 .product-card .plp-product-btn:active {
   background-color: #000;
   border-color: #000;
-  color: #fff;
+  color: var(--white-alpha-80);
   text-decoration: none;
+}
+
+.product-card .plp-product-btn-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-card .plp-where-to-buy-btn {
+  background: var(--color-primary-grey-100);
+  color: var(--color-primary-grey-10);
 }
 
 .plp-load-more {
@@ -191,6 +201,11 @@
       padding: var(--size-16) var(--size-12);
       border-radius: var(--size-12);
       overflow: hidden;
+
+      .plp-product-btn-group {
+        flex-direction: column;
+        gap: var(--size-8);
+      }
 
       .plp-product-btn {
         width: 100%;

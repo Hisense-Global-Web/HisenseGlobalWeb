@@ -56,6 +56,11 @@ p {
     color: var(--color-primary-grey-10);
 }
 
+.white {
+    background: var(--color-primary-grey-10, #FFF);
+    color: var(--color-hisense-black, #000);
+}
+
 .cross-page-redirect .button-container a {
     background-color: transparent;
     border: 1px solid var(--color-primary-grey-10, #FFF);
