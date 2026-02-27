@@ -2656,6 +2656,7 @@
         "component": "select",
         "name": "module_type",
         "label": "Module Type",
+        "valueType": "string",
         "options": [
           {
             "name": "For download",
@@ -2721,6 +2722,7 @@
         "component": "select",
         "name": "button_color",
         "label": "Button Color",
+        "valueType": "string",
         "options": [
           {
             "name": "Green 60",
