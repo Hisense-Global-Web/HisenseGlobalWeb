@@ -60,6 +60,7 @@ export function decorateRichtext(container = document) {
       if (richtextLabel) group.dataset.aueLabel = richtextLabel;
       if (richtextFilter) group.dataset.aueFilter = richtextFilter;
       group.dataset.aueType = 'richtext';
+      group.classList.add('rte');
       element.replaceWith(group);
       group.append(element, ...siblings);
     }

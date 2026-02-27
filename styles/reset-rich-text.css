@@ -27,3 +27,8 @@ sub, sup {
   font-size: inherit;
   vertical-align: baseline;
 }
+
+.rte a.button:any-link {
+  color: var(--color-primary-green-60);
+  text-decoration: underline;
+}
