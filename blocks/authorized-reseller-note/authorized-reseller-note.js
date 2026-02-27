@@ -3,16 +3,16 @@ export default function decorate(block) {
     const elementItems = [...block.children];
 
     const textContainer = document.createElement('div');
-    textContainer.classList.add('ar-note-header-text');
+    textContainer.classList.add('ar-note-text');
 
     elementItems.forEach((element, index) => {
       if (index === 0) {
-        element?.classList.add('ar-note-header-icon');
+        element?.classList.add('ar-note-icon');
       } else if (index === 1) {
-        element?.classList.add('ar-note-header-title');
+        element?.classList.add('ar-note-title');
         textContainer.appendChild(element);
       } else if (index === 2) {
-        element?.classList.add('ar-note-header-content');
+        element?.classList.add('ar-note-content');
         textContainer.appendChild(element);
       }
     });
