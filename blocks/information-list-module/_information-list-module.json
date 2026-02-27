@@ -78,7 +78,7 @@
         },
         {
           "component": "text",
-          "name": "button-copy",
+          "name": "button-text",
           "label": "Button Copy",
           "valueType": "string"
         },
