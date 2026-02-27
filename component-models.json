@@ -2601,6 +2601,18 @@
         "name": "text_fifth",
         "label": "Fifth Text",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_sixth",
+        "label": "Sixth Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_seventh",
+        "label": "Seventh Text",
+        "valueType": "string"
       }
     ]
   },

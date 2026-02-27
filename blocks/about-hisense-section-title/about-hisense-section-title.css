@@ -13,7 +13,6 @@
 
 .about-hisense-section-title-wrapper > div > div:first-child div p{
   font-size:var(--fontsize-pc-h2);
-  text-transform: uppercase;
   color:var(--color-primary-green-50);
   font-family: var(--font-family);
   line-height: 120%;
