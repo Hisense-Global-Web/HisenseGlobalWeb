@@ -92,6 +92,7 @@
     max-width: 73.33333vw;
   }
 }
+
 .feature-navigation .card-cta .button-container{
   height: var(--size-22);
 }

@@ -59,7 +59,6 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  aspect-ratio: 1;
   background: white;
 
    @media (width < 860px) {
