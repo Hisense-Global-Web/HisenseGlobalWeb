@@ -1419,7 +1419,7 @@
         "label": "Button Background Color",
         "valueType": "string",
         "condition": {
-          "in": [
+          "some": [
             {
               "var": "third-party"
             },
@@ -1448,7 +1448,7 @@
         "valueType": "string",
         "value": "",
         "condition": {
-          "in": [
+          "some": [
             {
               "var": "third-party"
             },
@@ -1463,7 +1463,7 @@
         "valueType": "string",
         "value": "",
         "condition": {
-          "in": [
+          "some": [
             {
               "var": "third-party"
             },
