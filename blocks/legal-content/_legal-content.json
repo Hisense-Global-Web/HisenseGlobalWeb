@@ -26,7 +26,8 @@
           "name": "text",
           "value": "",
           "label": "Text",
-          "valueType": "string"
+          "valueType": "string",
+          "description": "please type Shift+Enter to give a empty line; and select H5 used to paragraph title"
         }
       ]
     }

@@ -10,7 +10,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
-} from './aem.js';
+} from "./aem.js";
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -42,7 +42,10 @@ export function moveInstrumentation(from, to) {
     to,
     [...from.attributes]
       .map(({ nodeName }) => nodeName)
-      .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
+      .filter(
+        (attr) =>
+          attr.startsWith("data-aue-") || attr.startsWith("data-richtext-"),
+      ),
   );
 }
 
@@ -52,7 +55,8 @@ export function moveInstrumentation(from, to) {
 async function loadFonts() {
   await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
   try {
-    if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
+    if (!window.location.hostname.includes("localhost"))
+      sessionStorage.setItem("fonts-loaded", "true");
   } catch (e) {
     // do nothing
   }
@@ -67,8 +71,21 @@ function buildAutoBlocks() {
     // TODO: add auto block, if needed
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Auto Blocking failed', error);
+    console.error("Auto Blocking failed", error);
   }
+}
+
+// 尝试修复空行
+function fixEmptyLines(main) {
+  const ps = main.querySelectorAll("p");
+  ps.forEach((p) => {
+    // 检查段落是否完全为空，或者只包含看不见的空白符
+    // Franklin 有时会留下一个空的 <p></p>
+    if (p.textContent.trim() === "" && p.children.length === 0) {
+      p.innerHTML = "&nbsp;"; // 插入不换行空格，强制浏览器渲染该行
+      p.classList.add("empty-line");
+    }
+  });
 }
 
 /**
@@ -78,21 +95,25 @@ function buildAutoBlocks() {
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
-  if (window.location.hostname.includes('hisense.com') && window.location.pathname.includes('/us')) {
-    const links = main.querySelectorAll('a');
+  if (
+    window.location.hostname.includes("hisense.com") &&
+    window.location.pathname.includes("/us")
+  ) {
+    const links = main.querySelectorAll("a");
     links.forEach((link) => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('/us/en')) {
-        link.setAttribute('href', href.replace('/us/en', '/us'));
+      const href = link.getAttribute("href");
+      if (href && href.startsWith("/us/en")) {
+        link.setAttribute("href", href.replace("/us/en", "/us"));
       }
 
       const { textContent } = link;
-      if (textContent && textContent.startsWith('/us/en')) {
-        link.textContent = textContent.replace('/us/en', '/us');
+      if (textContent && textContent.startsWith("/us/en")) {
+        link.textContent = textContent.replace("/us/en", "/us");
       }
     });
   }
 
+  fixEmptyLines(main);
   decorateButtons(main);
   decorateIcons(main);
   buildAutoBlocks(main);
@@ -107,32 +128,35 @@ function getGraphQLBaseUrl() {
   const { hostname } = window.location;
 
   // Author environment - use same origin
-  if (hostname.includes('author-')) {
-    return '';
+  if (hostname.includes("author-")) {
+    return "";
   }
 
   // Publish environment - use same origin
-  if (hostname.includes('publish-')) {
-    return '';
+  if (hostname.includes("publish-")) {
+    return "";
   }
 
   // Dev environment
-  if (hostname.includes('hisense-dev')) {
-    return 'https://publish-p174152-e1855821.adobeaemcloud.com';
+  if (hostname.includes("hisense-dev")) {
+    return "https://publish-p174152-e1855821.adobeaemcloud.com";
   }
 
   // Stage environment
-  if (hostname.includes('hisense-stage')) {
-    return 'https://publish-p174152-e1855674.adobeaemcloud.com';
+  if (hostname.includes("hisense-stage")) {
+    return "https://publish-p174152-e1855674.adobeaemcloud.com";
   }
 
   // Production environment
-  if (hostname.includes('hisense.com') || hostname.includes('hisenseglobalweb')) {
-    return 'https://publish-p174152-e1855954.adobeaemcloud.com';
+  if (
+    hostname.includes("hisense.com") ||
+    hostname.includes("hisenseglobalweb")
+  ) {
+    return "https://publish-p174152-e1855954.adobeaemcloud.com";
   }
 
   // Default fallback for localhost or unknown environments
-  return '';
+  return "";
 }
 
 /**
@@ -151,19 +175,19 @@ async function loadEager(doc) {
   // Set global API variables first
   setGlobalApiVariables();
 
-  document.documentElement.lang = 'en';
+  document.documentElement.lang = "en";
   decorateTemplateAndTheme();
-  const main = doc.querySelector('main');
+  const main = doc.querySelector("main");
   if (main) {
-    loadHeader(doc.querySelector('header'));
+    loadHeader(doc.querySelector("header"));
     decorateMain(main);
-    document.body.classList.add('appear');
-    await loadSection(main.querySelector('.section'), waitForFirstImage);
+    document.body.classList.add("appear");
+    await loadSection(main.querySelector(".section"), waitForFirstImage);
   }
 
   try {
     /* if desktop (proxy for fast connection) or fonts already loaded, load fonts.css */
-    if (window.innerWidth >= 900 || sessionStorage.getItem('fonts-loaded')) {
+    if (window.innerWidth >= 900 || sessionStorage.getItem("fonts-loaded")) {
       loadFonts();
     }
   } catch (e) {
@@ -176,14 +200,14 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  const main = doc.querySelector('main');
+  const main = doc.querySelector("main");
   await loadSections(main);
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadFooter(doc.querySelector('footer'));
+  loadFooter(doc.querySelector("footer"));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
@@ -192,48 +216,56 @@ async function loadLazy(doc) {
 function loadDelayedImages() {
   const currentHostname = window.location.hostname;
 
-  if (currentHostname.includes('hisense-stage') || currentHostname.includes('hisense-dev') || currentHostname.includes('localhost')) {
-    const domainPrefix = 'https://publish-p174152-e1855821.adobeaemcloud.com';
+  if (
+    currentHostname.includes("hisense-stage") ||
+    currentHostname.includes("hisense-dev") ||
+    currentHostname.includes("localhost")
+  ) {
+    const domainPrefix = "https://publish-p174152-e1855821.adobeaemcloud.com";
 
     const processImage = (img) => {
-      const src = img.getAttribute('src');
-      if (src && src.startsWith('/content/dam')) {
+      const src = img.getAttribute("src");
+      if (src && src.startsWith("/content/dam")) {
         if (!src.startsWith(domainPrefix)) {
-          img.setAttribute('src', domainPrefix + src);
+          img.setAttribute("src", domainPrefix + src);
         }
       }
     };
 
     const addImageLoadListener = (img) => {
-      if (img.hasAttribute('data-processed')) return;
+      if (img.hasAttribute("data-processed")) return;
 
-      img.addEventListener('error', () => {
-        const src = img.getAttribute('src');
-        if (src && src.startsWith('/content/dam') && !src.startsWith(domainPrefix)) {
-          img.setAttribute('src', domainPrefix + src);
+      img.addEventListener("error", () => {
+        const src = img.getAttribute("src");
+        if (
+          src &&
+          src.startsWith("/content/dam") &&
+          !src.startsWith(domainPrefix)
+        ) {
+          img.setAttribute("src", domainPrefix + src);
         }
       });
 
-      img.addEventListener('load', () => {
+      img.addEventListener("load", () => {
         processImage(img);
-        img.setAttribute('data-processed', 'true');
+        img.setAttribute("data-processed", "true");
       });
 
       if (img.complete) {
         processImage(img);
-        img.setAttribute('data-processed', 'true');
+        img.setAttribute("data-processed", "true");
       }
     };
 
-    document.querySelectorAll('img').forEach(addImageLoadListener);
+    document.querySelectorAll("img").forEach(addImageLoadListener);
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
-          if (node.tagName === 'img') {
+          if (node.tagName === "img") {
             addImageLoadListener(node);
           } else if (node.nodeType === Node.ELEMENT_NODE) {
-            const images = node.querySelectorAll('img');
+            const images = node.querySelectorAll("img");
             images.forEach(addImageLoadListener);
           }
         });
@@ -253,21 +285,21 @@ function loadDelayedImages() {
  */
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
-  window.setTimeout(() => import('./delayed.js'), 3000);
+  window.setTimeout(() => import("./delayed.js"), 3000);
   loadDelayedImages();
 }
 
 function updateUSLinks() {
   const currentUrl = window.location.href;
-  const isUSSite = currentUrl.includes('hisense.com/us');
+  const isUSSite = currentUrl.includes("hisense.com/us");
 
   if (isUSSite) {
-    const links = document.querySelectorAll('a[href]');
+    const links = document.querySelectorAll("a[href]");
     links.forEach((link) => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('/us/en')) {
-        const newHref = href.replace(/^\/us\/en/, '/us');
-        link.setAttribute('href', newHref);
+      const href = link.getAttribute("href");
+      if (href && href.startsWith("/us/en")) {
+        const newHref = href.replace(/^\/us\/en/, "/us");
+        link.setAttribute("href", newHref);
       }
     });
   }
@@ -277,8 +309,8 @@ function transHorizontalSection(className) {
   const bElements = document.querySelectorAll(className);
 
   if (bElements.length > 0) {
-    const wrapper = document.createElement('div');
-    wrapper.classList.add('horizontal-section');
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("horizontal-section");
     bElements.forEach((el) => {
       wrapper.appendChild(el.cloneNode(true));
     });
@@ -296,13 +328,13 @@ async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
-  transHorizontalSection('.honors-awards-wrapper');
+  transHorizontalSection(".honors-awards-wrapper");
 
   // Update US site links after page load is complete
-  if (document.readyState === 'complete') {
+  if (document.readyState === "complete") {
     updateUSLinks();
   } else {
-    window.addEventListener('load', updateUSLinks);
+    window.addEventListener("load", updateUSLinks);
   }
 }
 
