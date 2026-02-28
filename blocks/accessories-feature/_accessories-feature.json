@@ -1,31 +1,31 @@
 {
   "definitions": [
     {
-      "title": "Key Features List",
-      "id": "key-features",
+      "title": "Accessories Feature",
+      "id": "accessories-feature",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Key Features List",
-              "model": "key-features",
-              "filter": "key-features"
+              "name": "Accessories Feature",
+              "model": "accessories-feature",
+              "filter": "accessories-feature"
             }
           }
         }
       }
     },
     {
-      "title": "Key Features List Item",
-      "id": "key-features-item",
+      "title": "Accessories Feature Item",
+      "id": "accessories-feature-item",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Key Features List Item",
-              "model": "key-features-item"
+              "name": "Accessories Feature Item",
+              "model": "accessories-feature-item"
             }
           }
         }
@@ -35,7 +35,7 @@
   ],
   "models": [
      {
-      "id": "key-features",
+      "id": "accessories-feature",
       "fields": [
         {
           "component": "text",
@@ -47,7 +47,7 @@
       ]
     },
     {
-      "id": "key-features-item",
+      "id": "accessories-feature-item",
       "fields": [
          {
           "component": "reference",
@@ -67,9 +67,9 @@
   ],
   "filters": [
     {
-      "id": "key-features",
+      "id": "past-partnerships-list",
       "components": [
-        "key-features-item"
+        "past-partnerships-list-item"
       ]
     }
   ]
