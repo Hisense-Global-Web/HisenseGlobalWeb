@@ -15,14 +15,12 @@
     gap: var(--size-24);
   }
 
-  p:has(+ p),
-  p:has(+ ul),
-  p:has(+ ol) {
+  :is(p, ol, ul, pre):has(~ :is(p, ol, ul, pre)) {
     margin-bottom: var(--size-24);
   }
 
-  p:has(+ h5),
-  h5:has(+ p) {
-    margin-bottom: var(--size-32);
+  h5 {
+    margin-top: var(--size-32);
+    margin-bottom: var(--size-24);
   }
 }
