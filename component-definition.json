@@ -307,6 +307,56 @@
           }
         },
         {
+          "title": "Authorized Reseller Note",
+          "id": "authorized-reseller-note",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Authorized Reseller Note",
+                  "model": "authorized-reseller-note",
+                  "classes": "authorized-reseller-note"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Authorized Reseller Our",
+          "id": "authorized-reseller-our",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Authorized Reseller",
+                  "model": "authorized-reseller-our",
+                  "classes": "authorized-reseller-our",
+                  "key-value": true,
+                  "filter": "authorized-reseller-our"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Authorized Reseller Our Item",
+          "id": "authorized-reseller-our-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Authorized Reseller Our Item",
+                  "model": "authorized-reseller-our-item",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Authorized Reseller",
           "id": "authorized-reseller",
           "plugins": {
@@ -430,10 +480,7 @@
                   "name": "Feature Items",
                   "model": "feature-items",
                   "classes": "tech-items-box",
-                  "key-value": true,
-                  "subtitle_name": "This is the subtitle",
-                  "title_name": "Item Title",
-                  "text_name": "Item text goes here."
+                  "key-value": true
                 }
               }
             }
@@ -1347,6 +1394,53 @@
           }
         },
         {
+          "title": "Key Features List",
+          "id": "key-features",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Key Features List",
+                  "model": "key-features",
+                  "filter": "key-features"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Key Features List Item",
+          "id": "key-features-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Key Features List Item",
+                  "model": "key-features-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Legal Content",
+          "id": "legal-content",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Legal Content",
+                  "model": "legal-content",
+                  "classes": "legal-content"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Media Carousel",
           "id": "media-carousel",
           "plugins": {
@@ -1856,6 +1950,22 @@
           }
         },
         {
+          "title": "Product Information",
+          "id": "product-information",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Product Information",
+                  "model": "product-information",
+                  "classes": "product-information"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Product Section",
           "id": "product-section",
           "plugins": {
@@ -2002,7 +2112,8 @@
                 "template": {
                   "name": "Related News",
                   "model": "related-news",
-                  "key-value": true
+                  "key-value": true,
+                  "graphql": "/us/en/newsroom.json"
                 }
               }
             }
@@ -2151,7 +2262,7 @@
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "stats-grid",
+                  "name": "Stats Grid",
                   "model": "stats-grid",
                   "filter": "stats-grid",
                   "key-value": true
@@ -2347,7 +2458,7 @@
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "sustainability-dashboard-list-item",
+                  "name": "Sustainability Dashboard List Item",
                   "model": "sustainability-dashboard-list-item"
                 }
               }

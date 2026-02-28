@@ -11,6 +11,8 @@ function bindEvent(block) {
 }
 
 export default function decorate(block) {
+  const containerDiv = document.createElement('div');
+  containerDiv.classList.add('card-container');
   [...block.children].forEach((child) => {
     child.className = 'strategic-card-item';
     if (!child.children.length) return;
@@ -25,8 +27,9 @@ export default function decorate(block) {
       label.className = 'btn-label';
       popupId.className = 'btn-popup-id';
     }
+    containerDiv.append(child);
   });
-
+  block.replaceChildren(containerDiv);
   whenElementReady('.strategic-card-items', () => {
     bindEvent(block);
   });

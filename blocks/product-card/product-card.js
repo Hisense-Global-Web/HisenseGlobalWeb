@@ -535,6 +535,18 @@ export default function decorate(block) {
             extraFields.appendChild(fld);
           }
         });
+
+        // product button group
+        const productBtnGroupEl = document.createElement('div');
+        productBtnGroupEl.className = 'plp-product-btn-group';
+
+        // where to by
+        const whereToBuyBtnEl = document.createElement('div');
+        whereToBuyBtnEl.className = 'plp-product-btn plp-where-to-buy-btn';
+        whereToBuyBtnEl.textContent = 'Where to buy';
+        whereToBuyBtnEl.setAttribute('ps-sku', variant.sku || group.sku || '');
+        productBtnGroupEl.append(whereToBuyBtnEl);
+
         // productDetailPageLink - 先检查当前产品尺寸是否有productDetailPageLink链接，如果没有，才使用共享链接
         const productDetailPageLink = variant.productDetailPageLink || group.sharedProductDetailPageLink || '#';
         if (productDetailPageLink && productDetailPageLink !== '#') {
@@ -543,7 +555,8 @@ export default function decorate(block) {
             link = document.createElement('a');
             link.className = 'plp-product-btn';
             link.target = '_blank';
-            card.append(link);
+            // card.append(link);
+            productBtnGroupEl.append(link);
           }
           link.href = productDetailPageLink;
           link.textContent = 'Learn more';
@@ -551,6 +564,9 @@ export default function decorate(block) {
           const existingLink = card.querySelector && card.querySelector('.plp-product-btn');
           if (existingLink) existingLink.remove();
         }
+
+        // 将按钮组添加到卡片底部
+        card.append(productBtnGroupEl);
       };
 
       // 创建尺寸节点并绑定事件
@@ -748,13 +764,70 @@ export default function decorate(block) {
 
   const mockData = {};
 
-  fetch(graphqlUrl)
+  function simpleHash(str) {
+    const s = String(str);
+    let h = 0;
+    for (let i = 0; i < s.length; i += 1) {
+      h = (h * 31 + s.charCodeAt(i)) % 2147483647;
+    }
+    return Math.abs(h).toString(36);
+  }
+
+  /**
+   * Get GraphQL endpoint URL with base URL
+   */
+  function getGraphQLUrl(endpointPath) {
+    let path = endpointPath;
+    const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) ? window.location.hostname : '';
+    const isAemEnv = hostname.includes('author') || hostname.includes('publish');
+
+    if (isAemEnv && path && path.endsWith('.json')) {
+      const pathWithoutJson = path.replace(/\.json$/, '');
+      path = `/graphql/execute.json/global/GetProductByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
+    }
+
+    const baseUrl = window.GRAPHQL_BASE_URL || '';
+    let url;
+    if (path && (path.startsWith('http://') || path.startsWith('https://'))) {
+      url = path;
+    } else {
+      url = baseUrl ? `${baseUrl}${path}` : path;
+    }
+    const fiveMinutesMs = 5 * 60 * 1000;
+    const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
+    const sep = url.indexOf('?') >= 0 ? '&' : '?';
+    return `${url}${sep}_t=${cacheBuster}`;
+  }
+
+  /**
+   * 新的 GraphQL 返回结构转换为现有可用的结构
+   */
+  function transformTagStructureToProducts(tagData) {
+    if (!tagData) return [];
+
+    if (Array.isArray(tagData)) {
+      return tagData;
+    }
+
+    if (tagData.data && Array.isArray(tagData.data)) {
+      return tagData.data;
+    }
+
+    if (tagData.data && tagData.data.productModelList && Array.isArray(tagData.data.productModelList.items)) {
+      return tagData.data.productModelList.items;
+    }
+
+    return [];
+  }
+
+  fetch(getGraphQLUrl(graphqlUrl))
     .then((resp) => {
       if (!resp.ok) throw new Error('Network response not ok');
       return resp.json();
     })
     .then((data) => {
-      const items = (data && data.data) || [];
+      // 转换新的标签结构为产品列表格式
+      const items = transformTagStructureToProducts(data);
       // 缓存到全局，供过滤器使用
       window.productData = items;
       if (window.renderPlpProducts) {

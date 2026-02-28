@@ -10,7 +10,8 @@
             "template": {
               "name": "Related News",
               "model": "related-news",
-              "key-value": true
+              "key-value": true,
+              "graphql": "/us/en/newsroom.json"
             }
           }
         }
