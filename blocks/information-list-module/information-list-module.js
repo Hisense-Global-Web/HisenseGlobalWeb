@@ -136,7 +136,6 @@ const generateRightButton = (moduleType, info) => {
     btnLinkEl = buttonContainerEl?.children?.[2];
     mobileIconEl = buttonContainerEl?.children?.[3];
   }
-  // const [pcIconEl, btnTextEl, btnColorEl, btnLinkEl, mobileIconEl] = buttonContainerEl.children ?? [];
 
   const btnBgColor = btnColorEl?.textContent?.trim();
   btnColorEl?.remove();
@@ -193,30 +192,6 @@ const generateRightButton = (moduleType, info) => {
   }
 };
 
-// const generateAuthorRightButton = (info) => {
-//   const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
-//   const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
-//   buttonContainerEl.classList.add('download-button');
-//   let btnColorEl; let btnLinkEl; let mobileIconEl;
-//   // 需要判断 PCIcon不存在的情况
-//   if (buttonContainerEl?.children?.[0]?.querySelector?.('img')) {
-//     btnColorEl = buttonContainerEl?.children?.[2];
-//     btnLinkEl = buttonContainerEl?.children?.[3];
-//     mobileIconEl = buttonContainerEl?.children?.[4];
-//   } else {
-//     btnColorEl = buttonContainerEl?.children?.[1];
-//     btnLinkEl = buttonContainerEl?.children?.[2];
-//     mobileIconEl = buttonContainerEl?.children?.[3];
-//   }
-
-//   const btnBgColor = btnColorEl?.textContent?.trim();
-//   buttonContainerEl.classList.add(btnBgColor);
-//   btnColorEl?.remove();
-//   btnLinkEl?.remove();
-//   pdfUrlEl?.remove();
-//   mobileIconEl?.remove();
-// };
-
 const generateCard = (moduleType, isEditMode, info) => {
   info?.classList?.add?.('info-list-card');
   const [documentIconEl, titleContainerEl] = info?.children ?? [];
@@ -232,20 +207,13 @@ const generateCard = (moduleType, isEditMode, info) => {
   if (textEl) {
     textEl.classList.add('card-text');
   }
-
-  // card 右侧: download button
   generateRightButton(moduleType, info);
-  // if (isEditMode) {
-  //   generateAuthorRightButton(info);
-  // } else {
-  //   generateRightButton(moduleType, info);
-  // }
 };
 
 /**
- * Recall Information List Block
+ * Information List Module Block
  */
-export default async function decorate(block) {
+export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   const config = readBlockConfig(block);
   const moduleType = config['module-type'] ?? '';
@@ -258,7 +226,6 @@ export default async function decorate(block) {
   pageSizeEl?.remove?.();
   noResultEl?.remove?.();
 
-  // infoListContainer.classList.add('info-list-card-group');
   infoList?.forEach((info) => {
     generateCard(moduleType, isEditMode, info);
   });
@@ -295,7 +262,7 @@ export default async function decorate(block) {
     infoListContainer.appendChild(mobilePaginationEl);
   }
 
-  const loadPage = async (page, type = 'PC') => {
+  const loadPage = (page, type = 'PC') => {
     const totalItems = infoList?.length ?? 0;
 
     const loadInfoList = document.querySelectorAll('.info-list-card');
@@ -356,7 +323,7 @@ export default async function decorate(block) {
     }
   };
 
-  await loadPage(1);
+  loadPage(1);
 
   block.classList.add('loaded');
 }
