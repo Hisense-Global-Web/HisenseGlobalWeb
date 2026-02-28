@@ -1326,7 +1326,7 @@
                   "key-value": true,
                   "module-type": "",
                   "page-size": 10,
-                  "no-result": ""
+                  "no-result": "No Items Found."
                 }
               }
             }
