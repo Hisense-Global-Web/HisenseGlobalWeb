@@ -254,9 +254,9 @@ export default async function decorate(block) {
   const infoListContainer = document.querySelector('.information-list-module');
   const [moduleTypeEl, pageSizeEl, noResultEl, ...infoList] = [...block.children];
   const noResultCloneEl = noResultEl?.cloneNode?.(true);
-  moduleTypeEl?.remove();
-  pageSizeEl?.remove();
-  noResultEl?.remove();
+  moduleTypeEl?.remove?.();
+  pageSizeEl?.remove?.();
+  noResultEl?.remove?.();
 
   // infoListContainer.classList.add('info-list-card-group');
   infoList?.forEach((info) => {
