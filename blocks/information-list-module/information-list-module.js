@@ -218,13 +218,13 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 // };
 
 const generateCard = (moduleType, isEditMode, info) => {
-  info.classList.add('info-list-card');
+  info?.classList?.add?.('info-list-card');
   const [documentIconEl, titleContainerEl] = info?.children ?? [];
 
   // card 左侧: icon
-  documentIconEl.classList.add('document-icon');
+  documentIconEl?.classList?.add?.('document-icon');
 
-  titleContainerEl.classList.add('title-container');
+  titleContainerEl?.classList?.add?.('title-container');
   const [titleEl, textEl] = titleContainerEl?.children ?? [];
   if (titleEl) {
     titleEl.classList.add('card-title');
@@ -258,7 +258,7 @@ export default async function decorate(block) {
   // noResultEl?.remove();
   console.log(moduleTypeEl, pageSizeEl);
 
-  infoListContainer.classList.add('info-list-card-group');
+  // infoListContainer.classList.add('info-list-card-group');
   infoList?.forEach((info) => {
     generateCard(moduleType, isEditMode, info);
   });
