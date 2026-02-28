@@ -1,0 +1,11 @@
+.legal-content {
+  [data-aue-type="richtext"] a {
+    color: var(--color-primary-green-60);
+    text-decoration: underline;
+  }
+
+  div:not(.button-container) > a {
+    color: var(--color-primary-green-60);
+    text-decoration: underline;
+  }
+}

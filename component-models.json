@@ -2710,6 +2710,18 @@
     ]
   },
   {
+    "id": "legal-content",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "media-carousel",
     "fields": [
       {
