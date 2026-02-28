@@ -2165,7 +2165,7 @@
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "stats-grid",
+                  "name": "Stats Grid",
                   "model": "stats-grid",
                   "filter": "stats-grid",
                   "key-value": true
@@ -2361,7 +2361,7 @@
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "sustainability-dashboard-list-item",
+                  "name": "Sustainability Dashboard List Item",
                   "model": "sustainability-dashboard-list-item"
                 }
               }
