@@ -25,7 +25,6 @@
     }
 
     @media (width < 860px) {
-      background: red;
       width: min(calc(320/var(--breakpoint-mobile)*100vw), 320px);
       height: min(calc(320/var(--breakpoint-mobile)*100vw), 320px);
       margin-right: 0;
