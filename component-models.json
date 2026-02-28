@@ -1448,12 +1448,17 @@
         "value": ""
       },
       {
-        "component": "checkbox",
-        "valueType": "boolean",
+        "component": "checkbox-group",
+        "valueType": "string[]",
         "name": "third-party",
-        "label": "Enable subscription 3rd-party scripts",
-        "value": false,
-        "description": "Tips: Enable the scripts to display the corresponding 3rd-party data on the website. Maintain the 3rd-party scripts under the integration component."
+        "label": "",
+        "multi": false,
+        "options": [
+          {
+            "name": "Enable subscription 3rd-party scripts",
+            "value": "is-third-party"
+          }
+        ]
       }
     ]
   },

@@ -12,6 +12,6 @@ export default function decorate(block) {
   button.firstElementChild?.firstElementChild?.remove();
   button.firstElementChild?.lastElementChild?.remove();
 
-  const isThirdPartyScript = subscription?.textContent.trim() || false;
+  const isThirdPartyScript = subscription?.textContent.trim() || '';
   subscription.classList.add(`${isThirdPartyScript ? 'is-thrid-party': 'no-third-party'}`);
 }

@@ -25,9 +25,6 @@ export function decorateRichtext(container = document) {
     deleteInstrumentation(element);
     const siblings = [];
     let sibling = element;
-    if (!sibling.parentElement.classList.contains('rte')) {
-      sibling.parentElement.classList.add('rte');
-    }
     while (sibling = sibling.nextElementSibling) {
       if (sibling.dataset.richtextResource === richtextResource
         && sibling.dataset.richtextProp === richtextProp) {
