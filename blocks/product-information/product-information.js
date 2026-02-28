@@ -1,5 +1,4 @@
 export default function decorate(block) {
-  debugger
   try {
     const elementItems = [...block.children];
 
