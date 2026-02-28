@@ -43,8 +43,12 @@
     top: calc(-1 * var(--root-header-height));
   }
   
-  &.is-company {
+  &.is-company, &.is-support {
     transition: none;
+    
+    .nav-container {
+      background: var(--color-primary-grey-10);
+    }
   }
   
   /* 滚动的时候，一级菜单 */
