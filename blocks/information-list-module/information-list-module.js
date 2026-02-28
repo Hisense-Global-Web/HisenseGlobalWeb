@@ -122,12 +122,12 @@ const generateRightButton = (moduleType, info) => {
   const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
   const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
   buttonContainerEl.classList.add('operate-button-container');
-  const [pcIconEl, btnTextEl, btnColorEl, btnLinkEl, mobileIconEl] = buttonContainerEl.children;
+  const [pcIconEl, btnTextEl, btnColorEl, btnLinkEl, mobileIconEl] = buttonContainerEl.children ?? [];
 
-  const btnBgColor = btnColorEl.textContent.trim();
-  btnColorEl.remove();
-  const btnLink = btnLinkEl.textContent.trim();
-  btnLinkEl.remove();
+  const btnBgColor = btnColorEl?.textContent?.trim();
+  btnColorEl?.remove();
+  const btnLink = btnLinkEl?.textContent?.trim?.();
+  btnLinkEl?.remove();
   let pdfUrl = null;
   if (pdfUrlEl) {
     if (pdfUrlEl.querySelector('a')) {
