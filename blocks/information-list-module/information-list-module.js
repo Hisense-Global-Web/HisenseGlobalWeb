@@ -1,9 +1,9 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 
-const EModuleType = Object.freeze({
-  download: 'download',
-  navigate: 'navigate',
-});
+// const EModuleType = Object.freeze({
+//   download: 'download',
+//   navigate: 'navigate',
+// });
 
 function buildPaginationControls(container, state, onPageChange, isEditMode) {
   const { total, limit, offset } = state;
@@ -117,105 +117,105 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
   );
 }
 
-const generateRightButton = (moduleType, info) => {
-  const isDownload = moduleType === EModuleType.download;
-  const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
-  const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
-  buttonContainerEl.classList.add('operate-button-container');
-  let pcIconEl; let btnTextEl; let btnColorEl; let btnLinkEl; let mobileIconEl;
-  // 需要判断 PCIcon不存在的情况
-  if (buttonContainerEl?.children?.[0]?.querySelector?.('img')) {
-    pcIconEl = buttonContainerEl?.children?.[0];
-    btnTextEl = buttonContainerEl?.children?.[1];
-    btnColorEl = buttonContainerEl?.children?.[2];
-    btnLinkEl = buttonContainerEl?.children?.[3];
-    mobileIconEl = buttonContainerEl?.children?.[4];
-  } else {
-    btnTextEl = buttonContainerEl?.children?.[0];
-    btnColorEl = buttonContainerEl?.children?.[1];
-    btnLinkEl = buttonContainerEl?.children?.[2];
-    mobileIconEl = buttonContainerEl?.children?.[3];
-  }
-  // const [pcIconEl, btnTextEl, btnColorEl, btnLinkEl, mobileIconEl] = buttonContainerEl.children ?? [];
+// const generateRightButton = (moduleType, info) => {
+//   const isDownload = moduleType === EModuleType.download;
+//   const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
+//   const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
+//   buttonContainerEl.classList.add('operate-button-container');
+//   let pcIconEl; let btnTextEl; let btnColorEl; let btnLinkEl; let mobileIconEl;
+//   // 需要判断 PCIcon不存在的情况
+//   if (buttonContainerEl?.children?.[0]?.querySelector?.('img')) {
+//     pcIconEl = buttonContainerEl?.children?.[0];
+//     btnTextEl = buttonContainerEl?.children?.[1];
+//     btnColorEl = buttonContainerEl?.children?.[2];
+//     btnLinkEl = buttonContainerEl?.children?.[3];
+//     mobileIconEl = buttonContainerEl?.children?.[4];
+//   } else {
+//     btnTextEl = buttonContainerEl?.children?.[0];
+//     btnColorEl = buttonContainerEl?.children?.[1];
+//     btnLinkEl = buttonContainerEl?.children?.[2];
+//     mobileIconEl = buttonContainerEl?.children?.[3];
+//   }
+//   // const [pcIconEl, btnTextEl, btnColorEl, btnLinkEl, mobileIconEl] = buttonContainerEl.children ?? [];
 
-  const btnBgColor = btnColorEl?.textContent?.trim();
-  btnColorEl?.remove();
-  const btnLink = btnLinkEl?.textContent?.trim?.();
-  btnLinkEl?.remove();
-  let pdfUrl = null;
-  if (pdfUrlEl) {
-    if (pdfUrlEl.querySelector('a')) {
-      pdfUrl = pdfUrlEl.querySelector('a').href;
-    } else if (pdfUrlEl.querySelector('img')) {
-      pdfUrl = pdfUrlEl.querySelector('img').src;
-    }
-  }
-  pdfUrlEl.remove();
+//   const btnBgColor = btnColorEl?.textContent?.trim();
+//   btnColorEl?.remove();
+//   const btnLink = btnLinkEl?.textContent?.trim?.();
+//   btnLinkEl?.remove();
+//   let pdfUrl = null;
+//   if (pdfUrlEl) {
+//     if (pdfUrlEl.querySelector('a')) {
+//       pdfUrl = pdfUrlEl.querySelector('a').href;
+//     } else if (pdfUrlEl.querySelector('img')) {
+//       pdfUrl = pdfUrlEl.querySelector('img').src;
+//     }
+//   }
+//   pdfUrlEl.remove();
 
-  // PC端的按钮
-  const buttonPCContainer = document.createElement('div');
-  buttonPCContainer.className = 'download-button';
-  if (btnBgColor) {
-    buttonPCContainer.classList.add(btnBgColor);
-  }
-  if (pcIconEl) {
-    buttonPCContainer.appendChild(pcIconEl);
-  }
-  if (btnTextEl) {
-    buttonPCContainer.appendChild(btnTextEl);
-  }
-  buttonContainerEl.appendChild(buttonPCContainer);
+//   // PC端的按钮
+//   const buttonPCContainer = document.createElement('div');
+//   buttonPCContainer.className = 'download-button';
+//   if (btnBgColor) {
+//     buttonPCContainer.classList.add(btnBgColor);
+//   }
+//   if (pcIconEl) {
+//     buttonPCContainer.appendChild(pcIconEl);
+//   }
+//   if (btnTextEl) {
+//     buttonPCContainer.appendChild(btnTextEl);
+//   }
+//   buttonContainerEl.appendChild(buttonPCContainer);
 
-  // Mobile端的Download按钮
-  if (mobileIconEl) {
-    mobileIconEl.className = 'download-button-mobile';
-  }
+//   // Mobile端的Download按钮
+//   if (mobileIconEl) {
+//     mobileIconEl.className = 'download-button-mobile';
+//   }
 
-  const btnOperateUrl = isDownload ? pdfUrl : btnLink;
-  const handleDownload = () => {
-    if (isDownload) {
-      const link = document.createElement('a');
-      link.href = btnOperateUrl;
-      link.download = btnOperateUrl.substring(btnOperateUrl.lastIndexOf('/') + 1);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } else {
-      window.location.href = btnOperateUrl;
-    }
-  };
+//   const btnOperateUrl = isDownload ? pdfUrl : btnLink;
+//   const handleDownload = () => {
+//     if (isDownload) {
+//       const link = document.createElement('a');
+//       link.href = btnOperateUrl;
+//       link.download = btnOperateUrl.substring(btnOperateUrl.lastIndexOf('/') + 1);
+//       document.body.appendChild(link);
+//       link.click();
+//       document.body.removeChild(link);
+//     } else {
+//       window.location.href = btnOperateUrl;
+//     }
+//   };
 
-  if (btnOperateUrl) {
-    buttonContainerEl.classList.remove('disabled');
-    buttonContainerEl.addEventListener('click', handleDownload);
-  } else {
-    buttonContainerEl.classList.add('disabled');
-  }
-};
+//   if (btnOperateUrl) {
+//     buttonContainerEl.classList.remove('disabled');
+//     buttonContainerEl.addEventListener('click', handleDownload);
+//   } else {
+//     buttonContainerEl.classList.add('disabled');
+//   }
+// };
 
-const generateAuthorRightButton = (info) => {
-  const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
-  const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
-  buttonContainerEl.classList.add('download-button');
-  let btnColorEl; let btnLinkEl; let mobileIconEl;
-  // 需要判断 PCIcon不存在的情况
-  if (buttonContainerEl?.children?.[0]?.querySelector?.('img')) {
-    btnColorEl = buttonContainerEl?.children?.[2];
-    btnLinkEl = buttonContainerEl?.children?.[3];
-    mobileIconEl = buttonContainerEl?.children?.[4];
-  } else {
-    btnColorEl = buttonContainerEl?.children?.[1];
-    btnLinkEl = buttonContainerEl?.children?.[2];
-    mobileIconEl = buttonContainerEl?.children?.[3];
-  }
+// const generateAuthorRightButton = (info) => {
+//   const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
+//   const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
+//   buttonContainerEl.classList.add('download-button');
+//   let btnColorEl; let btnLinkEl; let mobileIconEl;
+//   // 需要判断 PCIcon不存在的情况
+//   if (buttonContainerEl?.children?.[0]?.querySelector?.('img')) {
+//     btnColorEl = buttonContainerEl?.children?.[2];
+//     btnLinkEl = buttonContainerEl?.children?.[3];
+//     mobileIconEl = buttonContainerEl?.children?.[4];
+//   } else {
+//     btnColorEl = buttonContainerEl?.children?.[1];
+//     btnLinkEl = buttonContainerEl?.children?.[2];
+//     mobileIconEl = buttonContainerEl?.children?.[3];
+//   }
 
-  const btnBgColor = btnColorEl?.textContent?.trim();
-  buttonContainerEl.classList.add(btnBgColor);
-  btnColorEl?.remove();
-  btnLinkEl?.remove();
-  pdfUrlEl?.remove();
-  mobileIconEl?.remove();
-};
+//   const btnBgColor = btnColorEl?.textContent?.trim();
+//   buttonContainerEl.classList.add(btnBgColor);
+//   btnColorEl?.remove();
+//   btnLinkEl?.remove();
+//   pdfUrlEl?.remove();
+//   mobileIconEl?.remove();
+// };
 
 const generateCard = (moduleType, isEditMode, info) => {
   info.classList.add('info-list-card');
@@ -234,11 +234,11 @@ const generateCard = (moduleType, isEditMode, info) => {
   }
 
   // card 右侧: download button
-  if (isEditMode) {
-    generateAuthorRightButton(info);
-  } else {
-    generateRightButton(moduleType, info);
-  }
+  // if (isEditMode) {
+  //   generateAuthorRightButton(info);
+  // } else {
+  //   generateRightButton(moduleType, info);
+  // }
 };
 
 /**
@@ -253,9 +253,10 @@ export default async function decorate(block) {
   const infoListContainer = document.querySelector('.information-list-module');
   const [moduleTypeEl, pageSizeEl, noResultEl, ...infoList] = [...block.children];
   const noResultCloneEl = noResultEl?.cloneNode?.(true);
-  moduleTypeEl?.remove();
-  pageSizeEl?.remove();
-  noResultEl?.remove();
+  // moduleTypeEl?.remove();
+  // pageSizeEl?.remove();
+  // noResultEl?.remove();
+  console.log(moduleTypeEl, pageSizeEl);
 
   infoListContainer.classList.add('info-list-card-group');
   infoList?.forEach((info) => {
