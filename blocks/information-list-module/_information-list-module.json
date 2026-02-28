@@ -13,7 +13,7 @@
               "filter": "information-list-module",
               "key-value": true,
               "module-type": "",
-              "page-size": 10
+              "page-size": "10"
             }
           }
         }
@@ -60,7 +60,6 @@
           "component": "text",
           "name": "page-size",
           "label": "Items per page",
-          "value": 10,
           "description": "How many items to show per page.",
           "valueType": "number",
           "required": true

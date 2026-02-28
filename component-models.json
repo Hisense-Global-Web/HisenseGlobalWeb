@@ -2673,7 +2673,6 @@
         "component": "text",
         "name": "page-size",
         "label": "Items per page",
-        "value": 10,
         "description": "How many items to show per page.",
         "valueType": "number",
         "required": true
