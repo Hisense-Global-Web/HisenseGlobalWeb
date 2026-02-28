@@ -1,4 +1,4 @@
-/* navigation styles */
+@import url('../../styles/reset-rich-text.css'); /* navigation styles */
 
 :root {
   --root-header-height: 100px;
@@ -200,14 +200,24 @@
       font-weight: var(--fontweight-book);
       text-transform: capitalize;
       cursor: pointer;
+      display: flex;
+      align-items: center;
       
       &.current {
         border-bottom: 2px solid var(--color-hisense-black);
       }
       
-      p {
+      * {
+        font-size: 14px;
+        font-weight: var(--fontweight-book);
+        text-transform: capitalize;
         margin: 0;
         padding: 0;
+        background: transparent;
+        color: var(--color-hisense-black);
+        border: none;
+        border-radius: inherit;
+        line-height: 1.5;
       }
     }
   }
