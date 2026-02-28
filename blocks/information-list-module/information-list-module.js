@@ -12,7 +12,7 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 
   paginationEl.textContent = '';
 
-  if (!total || !limit || (total <= limit && !isEditMode)) {
+  if (!total ?? !limit ?? (total <= limit && !isEditMode)) {
     return;
   }
 
@@ -119,8 +119,8 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 
 const generateRightButton = (moduleType, info) => {
   const isDownload = moduleType === EModuleType.download;
-  const buttonContainerEl = info?.children?.[2] || document.createElement('div');
-  const pdfUrlEl = info?.children?.[3] || document.createElement('div');
+  const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
+  const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
   buttonContainerEl.classList.add('operate-button-container');
   const [pcIconEl, btnTextEl, btnColorEl, btnLinkEl, mobileIconEl] = buttonContainerEl.children;
 
@@ -176,7 +176,7 @@ const generateRightButton = (moduleType, info) => {
 
 const generateCard = (moduleType, info) => {
   info.classList.add('info-list-card');
-  const [documentIconEl, titleContainerEl] = info.children;
+  const [documentIconEl, titleContainerEl] = info?.children ?? [];
 
   // card 左侧: icon + title + date 容器
   const leftEl = document.createElement('div');
@@ -186,9 +186,13 @@ const generateCard = (moduleType, info) => {
   documentIconEl.classList.add('document-icon');
 
   titleContainerEl.classList.add('title-container');
-  const [titleEl, textEl] = titleContainerEl.children;
-  titleEl.classList.add('card-title');
-  textEl.classList.add('card-text');
+  const [titleEl, textEl] = titleContainerEl?.children ?? [];
+  if (titleEl) {
+    titleEl.classList.add('card-title');
+  }
+  if (textEl) {
+    textEl.classList.add('card-text');
+  }
 
   // card 右侧: download button
   generateRightButton(moduleType, info);
@@ -200,18 +204,19 @@ const generateCard = (moduleType, info) => {
 export default async function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   const config = readBlockConfig(block);
-  const moduleType = config['module-type'] || '';
-  const pageSize = config['page-size'] || 10;
-  const paginatedBtnText = config['paginated-btn-text'] || '';
+  const moduleType = config['module-type'] ?? '';
+  const pageSize = config['page-size'] ?? 10;
+  const paginatedBtnText = config['paginated-btn-text'] ?? '';
   const infoListContainer = document.querySelector('.information-list-module');
   const [moduleTypeEl, pageSizeEl, noResultEl, ...infoList] = [...block.children];
-  const noResultCloneEl = noResultEl.cloneNode(true);
-  moduleTypeEl.remove();
-  pageSizeEl.remove();
-  noResultEl.remove();
+  console.log('moduleTypeEl', moduleTypeEl, 'pagesizeEl', pageSizeEl, 'noResultEl', noResultEl, 'infoList', infoList);
+  const noResultCloneEl = noResultEl?.cloneNode?.(true);
+  moduleTypeEl?.remove();
+  pageSizeEl?.remove();
+  noResultEl?.remove();
 
   infoListContainer.classList.add('info-list-card-group');
-  infoList.forEach((info) => {
+  infoList?.forEach((info) => {
     generateCard(moduleType, info);
   });
 
@@ -243,10 +248,10 @@ export default async function decorate(block) {
   }
 
   const loadPage = async (page, type = 'PC') => {
-    const totalItems = infoList.length;
+    const totalItems = infoList?.length ?? 0;
 
     const loadInfoList = document.querySelectorAll('.info-list-card');
-    if (loadInfoList) {
+    if (loadInfoList?.length) {
       loadInfoList.forEach((info) => {
         info.remove();
       });
@@ -258,7 +263,7 @@ export default async function decorate(block) {
       const emptyEl = noResultCloneEl?.children?.[1] ?? document.createElement('div');
       emptyEl.className = 'info-list-empty-container';
       if (emptyEl) {
-        const [emptyTitleEl, emptyTextEl] = emptyEl?.children || [];
+        const [emptyTitleEl, emptyTextEl] = emptyEl?.children ?? [];
         if (emptyTitleEl) emptyTitleEl.className = 'info-list-empty-title';
         if (emptyTextEl) emptyTextEl.className = 'info-list-empty-text';
 
