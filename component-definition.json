@@ -1901,15 +1901,15 @@
         },
         {
           "title": "Product Information",
-          "id": "product-info",
+          "id": "product-information",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Product Information",
-                  "model": "product-info",
-                  "classes": "product-info"
+                  "model": "product-information",
+                  "classes": "product-information"
                 }
               }
             }

@@ -3520,7 +3520,7 @@
     ]
   },
   {
-    "id": "product-info",
+    "id": "product-information",
     "fields": [
       {
         "component": "reference",

@@ -1,18 +1,19 @@
 export default function decorate(block) {
+  debugger
   try {
     const elementItems = [...block.children];
 
     const textContainer = document.createElement('div');
-    textContainer.classList.add('product-info-text');
+    textContainer.classList.add('product-information-text');
 
     elementItems.forEach((element, index) => {
       if (index === 0) {
-        element?.classList.add('product-info-image');
+        element?.classList.add('product-information-image');
       } else if (index === 1) {
-        element?.classList.add('product-info-subtitle');
+        element?.classList.add('product-information-subtitle');
         textContainer.appendChild(element);
       } else if (index === 2) {
-        element?.classList.add('product-info-title');
+        element?.classList.add('product-information-title');
         textContainer.appendChild(element);
       }
     });
@@ -21,6 +22,6 @@ export default function decorate(block) {
     }
   } catch (error) {
     /* eslint-disable-next-line no-console */
-    console.error('Authorized Reseller Note block decoration error:', error);
+    console.error('Product Info block decoration error:', error);
   }
 }
