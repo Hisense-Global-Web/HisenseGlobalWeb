@@ -529,6 +529,36 @@
     ]
   },
   {
+    "id": "accessories-feature",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "section_title",
+        "label": "Section Title",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "accessories-feature-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Image Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "addional-support-card-item",
     "fields": [
       {
@@ -2837,7 +2867,7 @@
     ]
   },
   {
-    "id": "key-features",
+    "id": "key-features-card-container",
     "fields": [
       {
         "component": "text",
@@ -2849,7 +2879,7 @@
     ]
   },
   {
-    "id": "key-features-item",
+    "id": "key-features-card-container-item",
     "fields": [
       {
         "component": "reference",

@@ -109,6 +109,7 @@
       "about-hisense-module-title",
       "honors-awards",
       "bi-directional-content",
+      "key-features-card-container",
       "legal-content"
     ]
   },
@@ -122,6 +123,12 @@
       "popup-key-stats",
       "popup-image",
       "stats-grid"
+    ]
+  },
+  {
+    "id": "past-partnerships-list",
+    "components": [
+      "past-partnerships-list-item"
     ]
   },
   {
@@ -333,9 +340,9 @@
     ]
   },
   {
-    "id": "key-features",
+    "id": "key-features-card-container",
     "components": [
-      "key-features-item"
+      "key-features-card-container-item"
     ]
   },
   {
