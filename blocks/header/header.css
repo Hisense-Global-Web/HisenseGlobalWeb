@@ -43,8 +43,18 @@
     top: calc(-1 * var(--root-header-height));
   }
   
-  &.is-company, &.is-support {
+  &.is-company{
     transition: none;
+    
+    .nav-container {
+      background: var(--color-primary-grey-10);
+    }
+  }
+
+  &.is-support {
+    @media (width < 1180px) {
+      transition: none;
+    }
     
     .nav-container {
       background: var(--color-primary-grey-10);
@@ -747,6 +757,14 @@
 .nav-link:hover .nav-mask:hover,
 .nav-link .nav-dropdown:hover .nav-mask:hover {
   display: none;
+}
+
+#navigation.is-support .nav-second {
+  display: none;
+  
+  @media (width < 1180px) {
+    display: flex;
+  }
 }
 
 @media (width < 1180px) {
