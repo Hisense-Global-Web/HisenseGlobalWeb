@@ -14,4 +14,15 @@
     flex-direction: column;
     gap: var(--size-24);
   }
+
+  p:has(+ p),
+  p:has(+ ul),
+  p:has(+ ol) {
+    margin-bottom: var(--size-24);
+  }
+
+  p:has(+ h5),
+  h5:has(+ p) {
+    margin-bottom: var(--size-32);
+  }
 }
