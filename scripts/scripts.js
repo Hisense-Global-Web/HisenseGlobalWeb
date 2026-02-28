@@ -75,19 +75,6 @@ function buildAutoBlocks() {
   }
 }
 
-// 尝试修复空行
-function fixEmptyLines(main) {
-  const ps = main.querySelectorAll("p");
-  ps.forEach((p) => {
-    // 检查段落是否完全为空，或者只包含看不见的空白符
-    // Franklin 有时会留下一个空的 <p></p>
-    if (p.textContent.trim() === "" && p.children.length === 0) {
-      p.innerHTML = "&nbsp;"; // 插入不换行空格，强制浏览器渲染该行
-      p.classList.add("empty-line");
-    }
-  });
-}
-
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -113,7 +100,6 @@ export function decorateMain(main) {
     });
   }
 
-  fixEmptyLines(main);
   decorateButtons(main);
   decorateIcons(main);
   buildAutoBlocks(main);
