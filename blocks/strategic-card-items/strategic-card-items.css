@@ -11,17 +11,16 @@
 
   .strategic-card-item {
     display: flex;
-    flex: 1 0 min(calc(204/var(--breakpoint-pc)*100vw),204px);
+    flex: min(calc(204/var(--breakpoint-pc)*100vw),204px) 0 0;
     height: auto;
     padding: var(--size-24) var(--size-24) var(--size-32) var(--size-24);
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     gap: var(--size-32);
     border-radius: var(--radius-lg, 20px);
     background: var(--color-primary-green-10, #EDFCFB);
     backdrop-filter: blur(calc(var(--szie-40) / 2));
-    aspect-ratio: 204/260;
 
 
     .card-icon {

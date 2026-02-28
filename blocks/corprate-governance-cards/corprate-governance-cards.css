@@ -16,8 +16,8 @@ p {
         gap: var(--spacing-xl);
     }
 
-     .card-item {
-        flex: 1 0 calc(352/var(--breakpoint-pc) * 100vw);
+    .card-item {
+        flex: 1 0 min(calc(352/var(--breakpoint-pc) * 100vw),352px);
         display: flex;
         flex-direction: column;
         text-align: center;
