@@ -63,7 +63,7 @@
           "value": "",
           "label": "Button Background Color",
           "valueType": "string",
-          "condition": { "some": [{ "var": "third-party" }, "is-third-party"] },
+          "condition": { "none": [{ "var": "third-party" }, "is-third-party"] },
           "options": [
             {
               "name": "transparent(Default)",
@@ -85,7 +85,7 @@
             "label": "Link",
             "valueType": "string",
             "value": "",
-            "condition": { "some": [{ "var": "third-party" }, "is-third-party"] }
+            "condition": { "none": [{ "var": "third-party" }, "is-third-party"] }
         },
         {
             "component": "text",
@@ -93,7 +93,7 @@
             "label": "Link Label",
             "valueType": "string",
             "value": "",
-            "condition": { "some": [{ "var": "third-party" }, "is-third-party"] }
+            "condition": { "none": [{ "var": "third-party" }, "is-third-party"] }
         },
         {
           "component": "checkbox-group",
