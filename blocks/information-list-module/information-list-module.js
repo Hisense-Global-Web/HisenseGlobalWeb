@@ -124,7 +124,7 @@ const generateRightButton = (moduleType, info) => {
   buttonContainerEl.classList.add('operate-button-container');
   let pcIconEl; let btnTextEl; let btnColorEl; let btnLinkEl; let mobileIconEl;
   // 需要判断 PCIcon不存在的情况
-  if (buttonContainerEl?.children?.[0].querySelector('img')) {
+  if (buttonContainerEl?.children?.[0]?.querySelector?.('img')) {
     pcIconEl = buttonContainerEl?.children?.[0];
     btnTextEl = buttonContainerEl?.children?.[1];
     btnColorEl = buttonContainerEl?.children?.[2];
