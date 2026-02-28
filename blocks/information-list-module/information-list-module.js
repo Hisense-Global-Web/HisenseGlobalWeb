@@ -5,150 +5,117 @@ const EModuleType = Object.freeze({
   navigate: 'navigate',
 });
 
-// const DOWNLOAD_WHITE_ICON = '/content/dam/hisense/us/common-icons/download-white.svg';
-// const DOWNLOAD_ICON = '/content/dam/hisense/us/common-icons/download.svg';
-// const EMPTY_TITLE = 'No Recall Information';
-// const EMPTY_TEXT = 'There is currently no product recall information available.';
+function buildPaginationControls(container, state, onPageChange, isEditMode) {
+  const { total, limit, offset } = state;
+  const paginationEl = container.querySelector('.info-list-pagination');
+  if (!paginationEl) return;
 
-// const MOCK_RECALL_INFORMATION_ITEM = {
-//   title: 'Hisense French Door Refrigerator with Ice Maker (model number: HRF266N6CSE)',
-//   announcedDate: '2026-02-09T06:55:15.717Z',
-//   downloadUrl: 'http://www.ces.cn/file/upload/201407/25/14-57-43-23-182.jpg',
-//   fileName: 'HisenseLogo.jpg',
-// };
+  paginationEl.textContent = '';
 
-// function buildPaginationControls(container, state, onPageChange, isEditMode) {
-//   const { total, limit, offset } = state;
+  if (!total || !limit || (total <= limit && !isEditMode)) {
+    return;
+  }
 
-//   const paginationEl = container.querySelector('.info-list-pagination');
-//   if (!paginationEl) return;
+  const currentPage = Math.floor(offset / limit) + 1;
+  const totalPages = Math.ceil(total / limit);
 
-//   paginationEl.textContent = '';
+  const createPaginationButton = (label, page, disabled = false, isActive = false) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.classList.add('page-button');
 
-//   if (!total || !limit || (total <= limit && !isEditMode)) {
-//     return;
-//   }
+    if (label === 'prev') {
+      const icon = document.createElement('img');
+      icon.src = '/content/dam/hisense/us/common-icons/left.svg';
+      icon.className = 'page-arrow is-prev normal';
+      const disabledIcon = document.createElement('img');
+      disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
+      disabledIcon.className = 'page-arrow is-prev disabled';
+      btn.setAttribute('aria-label', 'Previous page');
+      btn.append(icon, disabledIcon);
+    } else if (label === 'next') {
+      const icon = document.createElement('img');
+      icon.src = '/content/dam/hisense/us/common-icons/right.svg';
+      icon.className = 'page-arrow is-next normal';
+      const disabledIcon = document.createElement('img');
+      disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
+      disabledIcon.className = 'page-arrow is-next disabled';
+      btn.setAttribute('aria-label', 'Next page');
+      btn.append(icon, disabledIcon);
+    } else {
+      btn.textContent = label;
+    }
 
-//   const currentPage = Math.floor(offset / limit) + 1;
-//   const totalPages = Math.ceil(total / limit);
+    if (isActive) btn.classList.add('is-active');
+    if (disabled) {
+      btn.disabled = true;
+    } else {
+      btn.addEventListener('click', () => onPageChange(page));
+    }
+    return btn;
+  };
 
-//   const createPaginationButton = (label, page, disabled = false, isActive = false) => {
-//     const btn = document.createElement('button');
-//     btn.type = 'button';
-//     btn.classList.add('page-button');
+  // Prev
+  paginationEl.appendChild(
+    createPaginationButton('prev', currentPage - 1, currentPage === 1),
+  );
 
-//     if (label === 'prev') {
-//       const icon = document.createElement('img');
-//       icon.src = '/content/dam/hisense/us/common-icons/left.svg';
-//       icon.className = 'page-arrow is-prev normal';
-//       const disabledIcon = document.createElement('img');
-//       disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
-//       disabledIcon.className = 'page-arrow is-prev disabled';
-//       btn.setAttribute('aria-label', 'Previous page');
-//       btn.append(icon, disabledIcon);
-//     } else if (label === 'next') {
-//       const icon = document.createElement('img');
-//       icon.src = '/content/dam/hisense/us/common-icons/right.svg';
-//       icon.className = 'page-arrow is-next normal';
-//       const disabledIcon = document.createElement('img');
-//       disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
-//       disabledIcon.className = 'page-arrow is-next disabled';
-//       btn.setAttribute('aria-label', 'Next page');
-//       btn.append(icon, disabledIcon);
-//     } else {
-//       btn.textContent = label;
-//     }
+  const getVisiblePages = () => {
+    const pages = [];
 
-//     if (isActive) btn.classList.add('is-active');
-//     if (disabled) {
-//       btn.disabled = true;
-//     } else {
-//       btn.addEventListener('click', () => onPageChange(page));
-//     }
-//     return btn;
-//   };
+    if (totalPages <= 7) {
+      // 总页数少，直接显示所有页
+      for (let i = 1; i <= totalPages; i += 1) {
+        pages.push(i);
+      }
+    } else if (currentPage <= 4) {
+      // 当前页在前部
+      for (let i = 1; i <= 5; i += 1) {
+        pages.push(i);
+      }
+      pages.push('ellipsis');
+      pages.push(totalPages);
+    } else if (currentPage >= totalPages - 3) {
+      // 当前页在后部
+      pages.push(1);
+      pages.push('ellipsis');
+      for (let i = totalPages - 4; i <= totalPages; i += 1) {
+        pages.push(i);
+      }
+    } else {
+      // 当前页在中部
+      pages.push(1);
+      pages.push('ellipsis');
+      for (let i = currentPage - 1; i <= currentPage + 1; i += 1) {
+        pages.push(i);
+      }
+      pages.push('ellipsis');
+      pages.push(totalPages);
+    }
+    return pages;
+  };
 
-//   // Prev
-//   paginationEl.appendChild(
-//     createPaginationButton('prev', currentPage - 1, currentPage === 1),
-//   );
+  const visiblePages = getVisiblePages();
+  visiblePages.forEach((page) => {
+    if (page === 'ellipsis') {
+      const ellipsis = document.createElement('div');
+      ellipsis.className = 'pagination-ellipsis';
+      const circle = document.createElement('div');
+      circle.className = 'pagination-ellipsis-circle';
+      ellipsis.append(circle, circle.cloneNode(), circle.cloneNode());
+      paginationEl.appendChild(ellipsis);
+    } else {
+      paginationEl.appendChild(
+        createPaginationButton(String(page), page, false, page === currentPage),
+      );
+    }
+  });
 
-//   // const maxButtons = 6;
-//   // let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
-//   // let end = start + maxButtons - 1;
-//   // if (end > totalPages) {
-//   //   end = totalPages;
-//   //   start = Math.max(1, end - maxButtons + 1);
-//   // }
-
-//   // for (let page = start; page <= end; page += 1) {
-//   //   paginationEl.appendChild(
-//   //     createPaginationButton(String(page), page, false, page === currentPage),
-//   //   );
-//   // }
-
-//   // for (let page = 1; page <= totalPages; page += 1) {
-//   //   paginationEl.appendChild(
-//   //     createPaginationButton(String(page), page, false, page === currentPage),
-//   //   );
-//   // }
-
-//   const getVisiblePages = () => {
-//     const pages = [];
-
-//     if (totalPages <= 7) {
-//       // 总页数少，直接显示所有页
-//       for (let i = 1; i <= totalPages; i += 1) {
-//         pages.push(i);
-//       }
-//     } else if (currentPage <= 4) {
-//       // 当前页在前部
-//       for (let i = 1; i <= 5; i += 1) {
-//         pages.push(i);
-//       }
-//       pages.push('ellipsis');
-//       pages.push(totalPages);
-//     } else if (currentPage >= totalPages - 3) {
-//       // 当前页在后部
-//       pages.push(1);
-//       pages.push('ellipsis');
-//       for (let i = totalPages - 4; i <= totalPages; i += 1) {
-//         pages.push(i);
-//       }
-//     } else {
-//       // 当前页在中部
-//       pages.push(1);
-//       pages.push('ellipsis');
-//       for (let i = currentPage - 1; i <= currentPage + 1; i += 1) {
-//         pages.push(i);
-//       }
-//       pages.push('ellipsis');
-//       pages.push(totalPages);
-//     }
-//     return pages;
-//   };
-
-//   const visiblePages = getVisiblePages();
-//   visiblePages.forEach((page) => {
-//     if (page === 'ellipsis') {
-//       const ellipsis = document.createElement('div');
-//       ellipsis.className = 'pagination-ellipsis';
-//       const circle = document.createElement('div');
-//       circle.className = 'pagination-ellipsis-circle';
-//       ellipsis.append(circle, circle.cloneNode(), circle.cloneNode());
-//       paginationEl.appendChild(ellipsis);
-//     } else {
-//       paginationEl.appendChild(
-//         createPaginationButton(String(page), page, false, page === currentPage),
-//       );
-//     }
-//   });
-
-//   // Next
-//   paginationEl.appendChild(
-//     createPaginationButton('next', currentPage + 1, currentPage === totalPages),
-//   );
-// }
+  // Next
+  paginationEl.appendChild(
+    createPaginationButton('next', currentPage + 1, currentPage === totalPages),
+  );
+}
 
 const generateRightButton = (moduleType, info) => {
   const isDownload = moduleType === EModuleType.download;
@@ -182,7 +149,9 @@ const generateRightButton = (moduleType, info) => {
   buttonContainerEl.appendChild(buttonPCContainer);
 
   // Mobile端的Download按钮
-  mobileIconEl.className = 'download-button-mobile';
+  if (mobileIconEl) {
+    mobileIconEl.className = 'download-button-mobile';
+  }
 
   const btnOperateUrl = isDownload ? pdfUrl : btnLink;
   const handleDownload = () => {
@@ -229,15 +198,14 @@ const generateCard = (moduleType, info) => {
  * Recall Information List Block
  */
 export default async function decorate(block) {
+  const isEditMode = block.hasAttribute('data-aue-resource');
   const config = readBlockConfig(block);
-  const shouldPaginated = true;
   const moduleType = config['module-type'] || '';
   const pageSize = config['page-size'] || 10;
-  const noResult = config['no-result'] || '';
   const paginatedBtnText = config['paginated-btn-text'] || '';
   const infoListContainer = document.querySelector('.information-list-module');
-  console.log('blockchildren', moduleType, pageSize, noResult, infoListContainer);
   const [moduleTypeEl, pageSizeEl, noResultEl, ...infoList] = [...block.children];
+  const noResultCloneEl = noResultEl.cloneNode(true);
   moduleTypeEl.remove();
   pageSizeEl.remove();
   noResultEl.remove();
@@ -247,17 +215,11 @@ export default async function decorate(block) {
     generateCard(moduleType, info);
   });
 
-  // Build static structure
-  const container = document.createElement('div');
-  container.className = 'info-list-container';
-
-  // const cardGroupEl = document.createElement('div');
-  // cardGroupEl.className = 'info-list-card-group';
-  // container.appendChild(cardGroupEl);
-
+  // PC分页器
   const paginationEl = document.createElement('div');
   paginationEl.className = 'info-list-pagination';
 
+  // Mobile按钮
   const mobilePaginationEl = document.createElement('div');
   mobilePaginationEl.className = 'info-list-pagination-mobile';
   const mobileBtn = document.createElement('button');
@@ -273,171 +235,75 @@ export default async function decorate(block) {
   btn.classList.add('page-button');
   btn.textContent = paginatedBtnText;
   noPaginationEl.appendChild(btn);
-  if (shouldPaginated === 'false') {
-    container.appendChild(noPaginationEl);
+  if (isEditMode) {
+    infoListContainer.appendChild(noPaginationEl);
   } else {
-    container.append(paginationEl, mobilePaginationEl);
+    infoListContainer.appendChild(paginationEl);
+    infoListContainer.appendChild(mobilePaginationEl);
   }
 
-  // block.replaceChildren(container);
+  const loadPage = async (page, type = 'PC') => {
+    const totalItems = infoList.length;
 
-  // TODO: API获取数据，现在先用mock数据
-  // const allItems = new Array(100).fill(0).map((_, i) => ({
-  //   title: `${MOCK_RECALL_INFORMATION_ITEM.title} ${i + 1}`,
-  //   announcedDate: MOCK_RECALL_INFORMATION_ITEM.announcedDate,
-  //   downloadUrl: MOCK_RECALL_INFORMATION_ITEM.downloadUrl,
-  //   fileName: `${MOCK_RECALL_INFORMATION_ITEM.title} ${i + 1}'.pdf'`,
-  // }));
-  // const allItems = infoList;
-  // const allItems = [];
+    const loadInfoList = document.querySelectorAll('.info-list-card');
+    if (loadInfoList) {
+      loadInfoList.forEach((info) => {
+        info.remove();
+      });
+    }
+    paginationEl.textContent = '';
+    mobileBtn.style.display = 'none';
 
-  // const generateDownloadButton = (item) => {
-  //   const { downloadUrl, fileName } = item;
-  //   const downloadContainer = document.createElement('div');
-  //   downloadContainer.className = 'download-container';
-  //   // PC端的Download按钮
-  //   const downloadPC = document.createElement('div');
-  //   downloadPC.className = 'download-button';
-  //   const icon = document.createElement('img');
-  //   icon.alt = 'download';
-  //   icon.className = 'download-icon';
-  //   icon.src = DOWNLOAD_WHITE_ICON;
-  //   const downloadText = document.createElement('div');
-  //   downloadText.textContent = 'Download';
-  //   downloadPC.append(icon, downloadText);
-  //   downloadContainer.appendChild(downloadPC);
+    if (!totalItems) {
+      const emptyEl = noResultCloneEl?.children?.[1] ?? document.createElement('div');
+      emptyEl.className = 'info-list-empty-container';
+      if (emptyEl) {
+        const [emptyTitleEl, emptyTextEl] = emptyEl?.children || [];
+        if (emptyTitleEl) emptyTitleEl.className = 'info-list-empty-title';
+        if (emptyTextEl) emptyTextEl.className = 'info-list-empty-text';
 
-  //   // Mobile端的Download按钮
-  //   const downloadMobile = document.createElement('div');
-  //   downloadMobile.className = 'download-button-mobile';
-  //   const mobileIcon = document.createElement('img');
-  //   mobileIcon.alt = 'download';
-  //   mobileIcon.className = 'download-icon';
-  //   mobileIcon.src = DOWNLOAD_ICON;
-  //   downloadMobile.append(mobileIcon);
-  //   downloadContainer.appendChild(downloadMobile);
-  //   const handleDownload = () => {
-  //     // TODO: 下载代码在这写
-  //     /* eslint-disable-next-line no-console */
-  //     console.log('Download file:', fileName, downloadUrl);
-  //     //   const link = document.createElement('a');
-  //     //   link.href = downloadUrl;
-  //     //   if (fileName) {
-  //     //     link.download = fileName; // 指定下载文件名
-  //     //   }
-  //     //   document.body.appendChild(link);
-  //     //   link.click();
-  //     //   document.body.removeChild(link);
-  //   };
-  //   if (downloadUrl) {
-  //     downloadPC.addEventListener('click', handleDownload);
-  //   } else {
-  //     downloadPC.classList.add('disabled');
-  //   }
-  //   return downloadContainer;
-  // };
+        infoListContainer.appendChild(emptyEl);
+      } else {
+        emptyEl.textContent = 'No items found.';
+        emptyEl.classList.add('info-list-empty-title');
+      }
+      return;
+    }
 
-  // const generateCard = (item) => {
-  //   // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
-  //   const [documentIcon, title, text] = item.children;
-  //   console.log('Generating card for item:', item);
-  //   // const { title, announcedDate } = item;
-  //   const cardEl = document.createElement('div');
-  //   cardEl.className = 'info-list-card';
+    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+    const safePage = Math.min(Math.max(page, 1), totalPages);
+    const startIndex = (safePage - 1) * pageSize;
+    const pageItems = type === 'PC' ? infoList.slice(startIndex, startIndex + pageSize) : infoList.slice(0, startIndex + pageSize);
 
-  //   // card 左侧: icon + title + date 容器
-  //   const leftEl = document.createElement('div');
-  //   leftEl.className = 'card-left';
+    const pagination = document.querySelector('.info-list-pagination');
+    pageItems.forEach((info) => {
+      infoListContainer.insertBefore(info, pagination);
+    });
 
-  //   // card 左侧: icon
-  //   // const documentIcon = document.createElement('img');
-  //   // documentIcon.src = '/content/dam/hisense/us/common-icons/document.svg';
-  //   // documentIcon.alt = 'document';
-  //   documentIcon.classList.add('document-icon');
-  //   leftEl.appendChild(documentIcon);
+    const state = {
+      total: totalItems,
+      limit: pageSize,
+      offset: startIndex,
+    };
 
-  //   // card 左侧: title + date 容器
-  //   const titleContainer = document.createElement('div');
-  //   titleContainer.classList.add('title-container');
+    // 创建PC端的分页器
+    buildPaginationControls(infoListContainer, state, (targetPage) => {
+      if (targetPage < 1) return;
+      const maxPage = Math.ceil(state.total / state.limit);
+      if (targetPage > maxPage) return;
+      loadPage(targetPage);
+    }, isEditMode);
 
-  //   // card 左侧: title
-  //   // const titleEl = document.createElement('div');
-  //   title.classList.add('card-title');
-  //   // title.textContent = title || '';
-  //   titleContainer.appendChild(title);
+    // 给移动端的 Load More 按钮添加事件
+    if (page * pageSize < totalItems) {
+      mobileBtn.style.display = 'block';
+      mobileBtn.onclick = () => loadPage(safePage + 1, 'Mobile');
+    } else {
+      mobileBtn.style.display = 'none';
+    }
+  };
 
-  //   // card 左侧: date
-  //   // const dateEl = document.createElement('div');
-  //   text.classList.add('announced-date');
-  //   // text.textContent = text;
-  //   titleContainer.appendChild(text);
-  //   leftEl.appendChild(titleContainer);
-
-  //   // card 右侧: download button
-  //   // const downloadButton = generateDownloadButton(item);
-  //   cardEl.appendChild(leftEl);
-  //   // cardEl.appendChild(downloadButton);
-
-  //   // return cardEl;
-  //   return cardEl;
-  // };
-
-  // const loadPage = async (page, type = 'PC') => {
-  //   const totalItems = allItems.length;
-
-  //   cardGroupEl.textContent = '';
-  //   paginationEl.textContent = '';
-  //   mobileBtn.style.display = 'none';
-
-  //   if (!totalItems) {
-  //     const emptyEl = document.createElement('div');
-  //     emptyEl.className = 'info-list-empty-container';
-  //     const emptyTitleEl = document.createElement('div');
-  //     emptyTitleEl.className = 'info-list-empty-title';
-  //     emptyTitleEl.textContent = EMPTY_TITLE;
-  //     emptyEl.appendChild(emptyTitleEl);
-  //     const emptyTextEl = document.createElement('div');
-  //     emptyTextEl.className = 'info-list-empty-text';
-  //     emptyTextEl.textContent = EMPTY_TEXT;
-  //     emptyEl.appendChild(emptyTextEl);
-  //     cardGroupEl.appendChild(emptyEl);
-  //     return;
-  //   }
-
-  //   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
-  //   const safePage = Math.min(Math.max(page, 1), totalPages);
-  //   const startIndex = (safePage - 1) * pageSize;
-  //   const pageItems = type === 'PC' ? allItems.slice(startIndex, startIndex + pageSize) : allItems.slice(0, startIndex + pageSize);
-
-  //   pageItems.forEach((item) => {
-  //     const card = generateCard(item);
-  //     cardGroupEl.appendChild(card);
-  //   });
-
-  //   const state = {
-  //     total: totalItems,
-  //     limit: pageSize,
-  //     offset: startIndex,
-  //   };
-
-  //   // 创建PC端的分页器
-  //   buildPaginationControls(container, state, (targetPage) => {
-  //     if (targetPage < 1) return;
-  //     const maxPage = Math.ceil(state.total / state.limit);
-  //     if (targetPage > maxPage) return;
-  //     loadPage(targetPage);
-  //   }, isEditMode);
-
-  //   // 给移动端的 Load More 按钮添加事件
-  //   if (page * pageSize < totalItems) {
-  //     mobileBtn.style.display = 'block';
-  //     mobileBtn.onclick = () => loadPage(safePage + 1, 'Mobile');
-  //   } else {
-  //     mobileBtn.style.display = 'none';
-  //   }
-  // };
-
-  // await loadPage(1);
+  await loadPage(1);
 
   block.classList.add('loaded');
 }
