@@ -959,7 +959,25 @@ export default async function decorate(block) {
   });
 
   // support contact us list
-  console.log(supportEl);
+  const contactUsEl = document.createElement('div');
+  contactUsEl.className = 'contact-us-links';
+  const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
+  [...supportMenuLinksList.children].forEach((item) => {
+    const title = item.children[2].textContent.trim() || '';
+    const href = item.children[3].textContent.trim() || '#';
+    const div = document.createElement('div');
+    div.className = 'mobile-product-item';
+    if (href && href !== '#') {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = title;
+      div.append(a);
+    } else {
+      div.textContent = title;
+    }
+    contactUsEl.append(div);
+  });
+  mobileSecondMenuSupport.append(contactUsEl);
 
   navigation.append(navContainer);
   navigation.append(navSecond);
