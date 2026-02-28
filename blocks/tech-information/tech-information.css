@@ -147,6 +147,7 @@
 
         .tech-info-text {
           font-size: var(--size-14);
+          line-height: var(--size-21);
         }
       }
 

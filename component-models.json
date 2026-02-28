@@ -1026,39 +1026,15 @@
       },
       {
         "component": "text",
-        "name": "subtitle_type",
-        "valueType": "string",
-        "value": "item-subtitle",
-        "hidden": true,
-        "readonly": true
-      },
-      {
-        "component": "text",
         "name": "subtitle_name",
         "label": "Subtitle",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "title_type",
-        "valueType": "string",
-        "value": "item-title",
-        "hidden": true,
-        "readonly": true
-      },
-      {
-        "component": "text",
         "name": "title_name",
         "label": "Title",
         "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "text_type",
-        "valueType": "string",
-        "value": "item-text",
-        "hidden": true,
-        "readonly": true
       },
       {
         "component": "text",
@@ -1465,6 +1441,10 @@
           {
             "name": "Green 60",
             "value": "green-60"
+          },
+          {
+            "name": "white",
+            "value": "white"
           }
         ]
       },
@@ -1488,6 +1468,14 @@
         "value": "",
         "label": "Button Background Color",
         "valueType": "string",
+        "condition": {
+          "none": [
+            {
+              "var": "third-party"
+            },
+            "is-third-party"
+          ]
+        },
         "options": [
           {
             "name": "transparent(Default)",
@@ -1508,14 +1496,44 @@
         "name": "link_url",
         "label": "Link",
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "condition": {
+          "none": [
+            {
+              "var": "third-party"
+            },
+            "is-third-party"
+          ]
+        }
       },
       {
         "component": "text",
         "name": "link_text",
         "label": "Link Label",
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "condition": {
+          "none": [
+            {
+              "var": "third-party"
+            },
+            "is-third-party"
+          ]
+        }
+      },
+      {
+        "component": "checkbox-group",
+        "valueType": "string[]",
+        "name": "third-party",
+        "label": "",
+        "multi": false,
+        "description": "Tips: Enable the scripts to display the corresponding 3rd-party data on the website. Maintain the 3rd-party scripts under the integration component.",
+        "options": [
+          {
+            "name": "Enable subscription 3rd-party scripts",
+            "value": "is-third-party"
+          }
+        ]
       }
     ]
   },
@@ -2696,6 +2714,48 @@
         "name": "text_fifth",
         "label": "Fifth Text",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_sixth",
+        "label": "Sixth Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_seventh",
+        "label": "Seventh Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "key-features",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "section_title",
+        "label": "Section Title",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "key-features-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Image Text",
+        "valueType": "string"
       }
     ]
   },
@@ -3415,6 +3475,13 @@
         "rootPath": "/content/cq:tags/hisense/product"
       },
       {
+        "component": "text",
+        "valueType": "string",
+        "name": "tagsEndpoint",
+        "label": "Tags Endpoint URL",
+        "description": "GraphQL endpoint for tag data (default: https://publish-p174152-e1909940.adobeaemcloud.com/content/cq:tags/hisense.-1.json)"
+      },
+      {
         "component": "select",
         "name": "tags_type",
         "label": "Tags Type",
@@ -3885,10 +3952,6 @@
     ]
   },
   {
-    "id": "slide",
-    "fields": []
-  },
-  {
     "id": "strategic-card-items",
     "fields": []
   },
@@ -3966,7 +4029,7 @@
         "component": "number",
         "valueType": "number",
         "name": "order",
-        "label": "Order",
+        "label": "Group",
         "value": 1,
         "validation": {
           "numberMin": 1,

@@ -552,8 +552,12 @@ export default async function decorate(block) {
   // eslint-disable-next-line no-unused-vars
   const plpEl = document.querySelector('.product-sorting');
   const isCompanyPage = window.location.pathname.includes('company');
+  const isSupportPage = window.location.pathname.includes('support');
   if (isCompanyPage) {
     navigation.classList.add('is-company');
+  }
+  if (isSupportPage) {
+    navigation.classList.add('is-support');
   }
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
@@ -598,7 +602,7 @@ export default async function decorate(block) {
 
   // Company 等第二nav
   const navSecond = document.createElement('div');
-  navSecond.className = `nav-second h-grid-container ${isCompanyPage ? '' : 'hidden'}`;
+  navSecond.className = `nav-second h-grid-container ${isCompanyPage || isSupportPage ? '' : 'hidden'}`;
   const CompanyEl = document.createElement('div');
   CompanyEl.className = 'route-company';
   CompanyEl.textContent = 'Company';
@@ -621,15 +625,38 @@ export default async function decorate(block) {
   companyArrow.className = 'company-arrow';
   companyArrow.src = '/content/dam/hisense/us/common-icons/chevron-down-black.svg';
   companyArrow.addEventListener('click', () => {
-    if (navigation.classList.contains('show-second-menu')) {
+    if (navigation.classList.contains('show-second-menu-company')) {
       document.body.style.overflow = 'auto';
-      navigation.classList.toggle('show-second-menu');
+      navigation.classList.toggle('show-second-menu-company');
     } else {
       document.body.style.overflow = 'hidden';
-      navigation.classList.toggle('show-second-menu');
+      navigation.classList.toggle('show-second-menu-company');
     }
   });
-  navSecond.append(CompanyEl, CompanyGroupEl, companyArrow);
+
+  if (isCompanyPage) {
+    navSecond.append(CompanyEl, CompanyGroupEl, companyArrow);
+  }
+
+  const SupportEl = document.createElement('div');
+  SupportEl.className = 'route-support';
+  SupportEl.textContent = 'Support';
+
+  const supportArrow = document.createElement('img');
+  supportArrow.className = 'support-arrow';
+  supportArrow.src = '/content/dam/hisense/us/common-icons/chevron-down-black.svg';
+  supportArrow.addEventListener('click', () => {
+    if (navigation.classList.contains('show-second-menu-support')) {
+      document.body.style.overflow = 'auto';
+      navigation.classList.toggle('show-second-menu-support');
+    } else {
+      document.body.style.overflow = 'hidden';
+      navigation.classList.toggle('show-second-menu-support');
+    }
+  });
+  if (isSupportPage) {
+    navSecond.append(SupportEl, supportArrow);
+  }
 
   // 悬浮展开
   const mobileMenu = document.createElement('div');
@@ -828,9 +855,12 @@ export default async function decorate(block) {
   mobileMenu.append(dividingLine);
   mobileMenu.append(mobileActions);
 
-  // 悬浮展开二级菜单
+  // 悬浮展开二级菜单 company
   const mobileSecondMenu = document.createElement('div');
-  mobileSecondMenu.className = 'mobile-second-menu';
+  mobileSecondMenu.className = 'mobile-second-menu company';
+  if (!isCompanyPage) {
+    mobileSecondMenu.style.display = 'none';
+  }
 
   company.forEach((item) => {
     const mobileSecondMenuItem = document.createElement('div');
@@ -845,10 +875,34 @@ export default async function decorate(block) {
     mobileSecondMenu.append(mobileSecondMenuItem);
   });
 
+  // 悬浮展开二级菜单 company
+  const mobileSecondMenuSupport = document.createElement('div');
+  mobileSecondMenuSupport.className = 'mobile-second-menu support';
+  if (!isSupportPage) {
+    mobileSecondMenuSupport.style.display = 'none';
+  }
+
+  const supportEl = fragment.querySelector('.support-navigation-route-container');
+  console.log(supportEl);
+
+  company.forEach((item) => {
+    const mobileSecondMenuSupportItem = document.createElement('div');
+    const isCurrent = window.location.pathname === item.href;
+    mobileSecondMenuSupportItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
+    mobileSecondMenuSupportItem.innerHTML = item.title;
+    mobileSecondMenuSupportItem.dataset.href = item.href;
+    mobileSecondMenuSupportItem.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.location.href = item.href;
+    });
+    mobileSecondMenuSupport.append(mobileSecondMenuSupportItem);
+  });
+
   navigation.append(navContainer);
   navigation.append(navSecond);
   navigation.append(mobileMenu);
   navigation.append(mobileSecondMenu);
+  navigation.append(mobileSecondMenuSupport);
   const shadow = document.createElement('div');
   shadow.className = 'shadow';
   navigation.append(shadow);

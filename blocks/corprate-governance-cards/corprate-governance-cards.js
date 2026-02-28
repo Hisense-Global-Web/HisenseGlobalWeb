@@ -1,6 +1,8 @@
 export default function decorate(block) {
   block.id = 'corprate-governance-cards';
   if (!block.firstElementChild.textContent.trim()) return;
+  const gContainer = document.createElement('div');
+  gContainer.classList.add('g-container');
   [...block.children].forEach((cardItem) => {
     cardItem.classList.add('card-item');
     if (!cardItem.children.length) return;
@@ -24,5 +26,7 @@ export default function decorate(block) {
     if (!linkDiv.textContent.trim()) {
       linkDiv.remove();
     }
+    gContainer.append(cardItem);
   });
+  block.replaceChildren(gContainer);
 }

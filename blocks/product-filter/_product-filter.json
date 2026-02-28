@@ -60,6 +60,13 @@
           "rootPath": "/content/cq:tags/hisense/product"
         },
         {
+          "component": "text",
+          "valueType": "string",
+          "name": "tagsEndpoint",
+          "label": "Tags Endpoint URL",
+          "description": "GraphQL endpoint for tag data (default: https://publish-p174152-e1909940.adobeaemcloud.com/content/cq:tags/hisense.-1.json)"
+        },
+        {
           "component": "select",
           "name": "tags_type",
           "label": "Tags Type",

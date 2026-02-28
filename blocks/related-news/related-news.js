@@ -89,6 +89,8 @@ function bindEvent(block, type = 'normal') {
 
   if (cards.length * getSlideWidth(block) - gap >= viewportWidth) {
     block.closest('.section').querySelector('.has-button').querySelector('.button-container').classList.add('show');
+  } else {
+    return;
   }
 
   const step = CONFIG.itemWidth + CONFIG.gap;
@@ -324,7 +326,7 @@ async function fetchRelatedNews(endpoint) {
 export default async function decorate(block) {
   const config = readBlockConfig(block);
 
-  const endpoint = config.graphql || '/us/en/newsroom.json';
+  const endpoint = config.graphql || '';
   const filterTags = config.tag;
 
   const blockResource = block.getAttribute('data-aue-resource');
