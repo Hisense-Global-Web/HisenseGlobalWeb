@@ -39,64 +39,73 @@
         line-height: 120%; /* 28.8px */
     }
     
-}
-
-p {
-    margin: 0;
-    line-height: unset;
-}
-
-.gray-20 {
-    background: var(--color-primary-grey-20, #F7F7F7);
-    color: var(--color-hisense-black, #000);
-}
-
-.green-60 {
-    background: var(--color-primary-green-60, #008482);
-    color: var(--color-primary-grey-10);
-}
-
-.cross-page-redirect .button-container a {
-    background-color: transparent;
-    border: 1px solid var(--color-primary-grey-10, #FFF);
-    font-size: var(--fontsize-body2, 14px);
-    font-weight: var(--fontweight-medium);
-    line-height: 150%; /* 21px */
-    display: inline-flex;
-    height: min(calc(50/var(--breakpoint-pc) * 100vw), 50px);
-    padding: var(--spacing-4xs, 4px) var(--spacing-pc-md, 32px);
-    justify-content: center;
-    align-items: center;
-    gap: var(--spacing-3xs, 8px);
-    margin: 0;
-    text-align: center;
-
-    &:hover {
-        border: none;
-        background-color: var(--color-primary-grey-10);
-        color: var(--color-primary-grey-100);
+    p {
+        margin: 0;
+        line-height: unset;
     }
-
-    &.bg-white {
-        border: none;
-        background-color: var(--color-primary-grey-10);
-        color: var(--color-primary-grey-100);
-
-        &:hover {
-            background-color: var(--white-alpha-90);
-        }
+    
+    &.gray-20 {
+        background: var(--color-primary-grey-20, #F7F7F7);
+        color: var(--color-hisense-black, #000);
     }
-
-    &.bg-black {
-        border: none;
-        background-color: var(--color-hisense-black, #000);
+    
+    &.green-60 {
+        background: var(--color-primary-green-60, #008482);
         color: var(--color-primary-grey-10);
-
+    }
+    
+    &.white {
+        background: var(--color-primary-grey-10, #FFF);
+        color: var(--color-hisense-black, #000);
+    }
+    
+    .button-container a {
+        background-color: transparent;
+        border: 1px solid var(--color-primary-grey-10, #FFF);
+        font-size: var(--fontsize-body2, 14px);
+        font-weight: var(--fontweight-medium);
+        line-height: 150%; /* 21px */
+        display: inline-flex;
+        height: min(calc(50/var(--breakpoint-pc) * 100vw), 50px);
+        padding: var(--spacing-4xs, 4px) var(--spacing-pc-md, 32px);
+        justify-content: center;
+        align-items: center;
+        gap: var(--spacing-3xs, 8px);
+        margin: 0;
+        text-align: center;
+    
         &:hover {
-            background-color: var(--color-primary-grey-70);
+            border: none;
+            background-color: var(--color-primary-grey-10);
+            color: var(--color-primary-grey-100);
+        }
+    
+        &.bg-white {
+            border: none;
+            background-color: var(--color-primary-grey-10);
+            color: var(--color-primary-grey-100);
+    
+            &:hover {
+                background-color: var(--white-alpha-90);
+            }
+        }
+    
+        &.bg-black {
+            border: none;
+            background-color: var(--color-hisense-black, #000);
+            color: var(--color-primary-grey-10);
+    
+            &:hover {
+                background-color: var(--color-primary-grey-70);
+            }
         }
     }
+    
+    .no-third-party {
+        display: none;
+    }
 }
+
 
 @media (width < 860px) {
     .cross-page-redirect{
@@ -109,7 +118,7 @@ p {
         gap: var(--spacing-m, 32px);
     }
 
-    .text-container {
+    .cross-page-redirect .text-container {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -118,7 +127,7 @@ p {
         text-align: center;
     }
 
-    .title {
+    .cross-page-redirect .title {
         font-size: var(--fontsize-title1, 24px);
         font-weight: var(--fontweight-medium, 400);
         line-height: 120%; /* 28.8px */
@@ -127,7 +136,7 @@ p {
         text-align: center;
     }
 
-    .text {
+    .cross-page-redirect .text {
         width: 100%;
         font-size: var(--fontsize-body2, 14px);
         font-weight: var(--fontweight-medium);

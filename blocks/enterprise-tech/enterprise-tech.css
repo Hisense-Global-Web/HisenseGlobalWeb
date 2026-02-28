@@ -162,7 +162,7 @@
           .subtitle-box {
             padding-top: var(--size-32);
             font-size: var(--size-18);
-            line-height: calc(21.6 / var(--breakpoint-mobile) * 100vw);
+            line-height: var(--size-21);
             margin-top: 0;
           }
 

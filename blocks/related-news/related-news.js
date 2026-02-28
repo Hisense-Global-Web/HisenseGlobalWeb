@@ -1,139 +1,10 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
+import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 import {
   whenElementReady,
   getSlideWidth,
   getChildSlideWidth,
   throttle,
 } from '../../utils/carousel-common.js';
-
-const MOCK_NEWSROOM_ITEMS = [
-  {
-    path: '/us/en/company/newsroom/article-3',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 3',
-    'published-date': '2026-02-09T06:55:15.717Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-rgb-1.png',
-    subtitle: 'PARTNERSHIP -3',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao -3',
-    keywords: 'Hisense, ESG, AI, Sustainability',
-  },
-  {
-    path: '/us/en/company/newsroom/article-4',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 4',
-    'published-date': '2026-02-09T06:56:08.838Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-micro-1.png',
-    subtitle: 'PARTNERSHIP -4',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao',
-    keywords: 'Hisense, Technology, Innovation',
-  },
-  {
-    path: '/us/en/company/newsroom/article-2',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 2',
-    'published-date': '2026-02-09T06:54:23.865Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
-    subtitle: 'PARTNERSHIP -2',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao -2',
-    keywords: 'Hisense, ESG, Strategy',
-  },
-  {
-    path: '/us/en/company/newsroom/article-body',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones',
-    'published-date': '2026-02-09T06:29:23.342Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-hi-qled.png',
-    subtitle: 'PARTNERSHIP',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao',
-    keywords: 'Hisense, ESG, Technology',
-  },
-];
-
-function getSearchFiltersFromUrl() {
-  const params = new URLSearchParams(window.location.search || '');
-  const filters = [];
-
-  params.forEach((value, key) => {
-    if (!value) return;
-    // 跳过分页相关参数和 ref 等非搜索参数
-    if (key === 'offset' || key === 'limit' || key === 'ref') return;
-    filters.push({ key, value });
-  });
-
-  return filters;
-}
-
-function filterItemsByUrlParams(items) {
-  const filters = getSearchFiltersFromUrl();
-  if (!filters.length) return items;
-
-  const lowerIncludes = (source, query) => {
-    if (source == null) return false;
-    const s = String(source).toLowerCase();
-    const q = String(query).toLowerCase();
-    return s.includes(q);
-  };
-
-  return items.filter((item) => filters.every(({ key, value }) => {
-    // fulltext 参数：搜索所有字段
-    if (key === 'fulltext') {
-      const searchableFields = [
-        item.title,
-        item.subtitle,
-        item.location,
-        item.description,
-        item.keywords,
-        item.path,
-      ];
-
-      // 如果 value 包含 "-"，同时匹配原值和空格替换
-      if (value.includes('-')) {
-        const originalValue = value;
-        const spaceValue = value.replace(/-/g, ' ');
-        return searchableFields.some((field) => lowerIncludes(field, originalValue)
-          || lowerIncludes(field, spaceValue)).filter((v, i) => i <= 6);
-      }
-
-      return searchableFields.some((field) => lowerIncludes(field, value)).filter((v, i) => i <= 6);
-    }
-    // 其他参数：精确匹配对应字段
-    return lowerIncludes(item[key], value);
-  }));
-}
-
-function getItemDateValue(item) {
-  const value = item.date || item['published-date'];
-  const time = Date.parse(value);
-  return Number.isNaN(time) ? 0 : time;
-}
-
-function normalizeNewsroomData(json) {
-  if (!json || !Array.isArray(json.data)) return [];
-
-  if (json.data.length > 0 && !Array.isArray(json.data[0])) {
-    const items = [...json.data];
-    items.sort((a, b) => getItemDateValue(b) - getItemDateValue(a));
-    return items;
-  }
-
-  // Classic format: columns + rows
-  const { columns } = json;
-  if (!Array.isArray(columns)) return [];
-
-  const items = json.data.map((row) => {
-    const item = {};
-    row.forEach((value, index) => {
-      item[columns[index]] = value;
-    });
-    return item;
-  });
-  items.sort((a, b) => getItemDateValue(b) - getItemDateValue(a));
-  return items;
-}
 
 function formatDate(iso) {
   if (!iso) return '';
@@ -147,9 +18,64 @@ function formatDate(iso) {
   });
 }
 
+function normalizeNewsroomData(json) {
+  if (!json || !Array.isArray(json.data)) return [];
+
+  if (json.data.length > 0 && !Array.isArray(json.data[0])) {
+    const items = [...json.data];
+    return items.sort((a, b) => {
+      const dateA = new Date(a.date || a['published-date'] || 0).getTime();
+      const dateB = new Date(b.date || b['published-date'] || 0).getTime();
+      return dateB - dateA;
+    });
+  }
+
+  const { columns } = json;
+  if (!Array.isArray(columns)) return [];
+
+  const items = json.data.map((row) => {
+    const item = {};
+    row.forEach((value, index) => {
+      item[columns[index]] = value;
+    });
+    return item;
+  });
+
+  return items.sort((a, b) => {
+    const dateA = new Date(a.date || a['published-date'] || 0).getTime();
+    const dateB = new Date(b.date || b['published-date'] || 0).getTime();
+    return dateB - dateA;
+  });
+}
+
+function filterByTags(items, filterTags) {
+  let tagArray = [];
+  if (typeof filterTags === 'string') {
+    tagArray = filterTags.split(',').map((t) => t.trim()).filter((t) => t);
+  } else if (Array.isArray(filterTags)) {
+    tagArray = filterTags;
+  }
+
+  if (!tagArray || tagArray.length === 0) {
+    return items;
+  }
+
+  return items.filter((item) => {
+    const itemTags = item.tags || '';
+    if (!itemTags) return false;
+
+    const itemTagArray = itemTags.split(',').map((t) => t.trim().toLowerCase());
+    return tagArray.some((filterTag) => {
+      const filterTagLower = String(filterTag).toLowerCase();
+      return itemTagArray.some((itemTag) => itemTag === filterTagLower || itemTag.includes(filterTagLower));
+    });
+  });
+}
+
 function bindEvent(block, type = 'normal') {
   const track = block.querySelector('.news-card-group');
   const cards = block.querySelectorAll('.news-card');
+  if (!cards.length) return;
   const viewportWidth = block.querySelector('.news-container').offsetWidth;
   const prevBtn = block.closest('.section').querySelector('.slide-prev');
   const nextBtn = block.closest('.section').querySelector('.slide-next');
@@ -163,6 +89,8 @@ function bindEvent(block, type = 'normal') {
 
   if (cards.length * getSlideWidth(block) - gap >= viewportWidth) {
     block.closest('.section').querySelector('.has-button').querySelector('.button-container').classList.add('show');
+  } else {
+    return;
   }
 
   const step = CONFIG.itemWidth + CONFIG.gap;
@@ -374,49 +302,33 @@ function createScrollButton(direction) {
   return button;
 }
 
-async function fetchNewsroom() {
-  const { pathname } = window.location;
+async function fetchRelatedNews(endpoint) {
+  if (!endpoint) return null;
 
-  // /content 开头，使用本地 mock 数据，避免跨域请求失败
-  if (pathname.startsWith('/content')) {
-    return {
-      data: MOCK_NEWSROOM_ITEMS,
-    };
-  }
-
-  const segments = pathname.split('/').filter(Boolean);
-
-  const country = segments[0] || 'us';
-  let language;
-
-  if (country.toLowerCase() === 'us') {
-    language = 'en';
-  } else {
-    language = segments[1] || 'en';
-  }
-
-  const basePath = `/${country}/${language}/newsroom.json`;
-  const url = basePath;
-
-  const response = await fetch(url, { credentials: 'same-origin' });
-  if (!response.ok) {
+  try {
+    const response = await fetch(endpoint, { credentials: 'same-origin' });
+    if (!response.ok) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to load press release data', response.status);
+      return null;
+    }
+    return response.json();
+  } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Failed to load newsroom index', response.status);
+    console.error('Error fetching press release data:', error);
     return null;
   }
-  return response.json();
-}
-
-async function loadAllNewsroom() {
-  const json = await fetchNewsroom();
-  if (!json) return [];
-  return normalizeNewsroomData(json);
 }
 
 /**
  * Related News Block
  */
 export default async function decorate(block) {
+  const config = readBlockConfig(block);
+
+  const endpoint = config.graphql || '';
+  const filterTags = config.tag;
+
   const blockResource = block.getAttribute('data-aue-resource');
 
   // Build static structure
@@ -433,31 +345,38 @@ export default async function decorate(block) {
   }
 
   block.replaceChildren(container);
-  const allItems = await loadAllNewsroom();
-  const loadPage = async () => {
-    const filteredItems = filterItemsByUrlParams(allItems);
 
-    cardGroupEl.textContent = '';
-    filteredItems.forEach((item) => {
+  const json = await fetchRelatedNews(endpoint);
+  const allItems = json ? normalizeNewsroomData(json) : [];
+
+  // Filter by tags
+  const filteredItems = filterByTags(allItems, filterTags);
+  const maxShowCard = 6;
+  const itemsToShow = filteredItems.slice(0, maxShowCard);
+  if (!filteredItems.length) {
+    // const emptyEl = document.createElement('div');
+    // emptyEl.className = 'pr-empty';
+    // emptyEl.innerHTML = emptyText;
+    // cardGroupEl.appendChild(emptyEl);
+  } else {
+    itemsToShow.forEach((item) => {
       const card = buildCard(item);
       cardGroupEl.appendChild(card);
     });
-  };
-
-  await loadPage();
-
-  const prevButton = createScrollButton('prev');
-  const nextButton = createScrollButton('next');
-  const sectionTitle = block.closest('.section').querySelector('.module-title');
-  const buttonContainer = document.createElement('div');
-  buttonContainer.className = 'button-container';
-  buttonContainer.appendChild(prevButton);
-  buttonContainer.appendChild(nextButton);
-  if (sectionTitle) {
-    sectionTitle.lastElementChild.appendChild(buttonContainer);
-    sectionTitle.lastElementChild.classList.add('has-button');
+    // carousel arrow
+    const prevButton = createScrollButton('prev');
+    const nextButton = createScrollButton('next');
+    const sectionTitle = block.closest('.section').querySelector('.module-title');
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'button-container';
+    buttonContainer.appendChild(prevButton);
+    buttonContainer.appendChild(nextButton);
+    if (sectionTitle) {
+      sectionTitle.lastElementChild.appendChild(buttonContainer);
+      sectionTitle.lastElementChild.classList.add('has-button');
+    }
+    block.dataset.slideIndex = 0;
   }
-  block.dataset.slideIndex = 0;
   block.classList.add('loaded');
   whenElementReady('.related-news', () => {
     block.dataset.currentIndex = 0;

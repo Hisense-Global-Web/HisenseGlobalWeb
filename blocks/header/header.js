@@ -382,6 +382,119 @@ function buildDropdown(data) {
   return dropdown;
 }
 
+function buildSupportDropdown(mainEl) {
+  const supportEl = mainEl.querySelector('.support-navigation-route-container');
+  const dropdown = document.createElement('div');
+  dropdown.className = 'nav-dropdown';
+  const content = document.createElement('div');
+  content.className = 'dropdown-content h-grid-container';
+
+  const main = document.createElement('div');
+  main.className = 'dropdown-main';
+
+  const productsWrap = document.createElement('div');
+  productsWrap.className = 'dropdown-products';
+  const supportRouteBaseList = supportEl.querySelector('.support-navigation-route-wrapper .support-navigation-route');
+
+  // support route 标题
+  const supportRouteEl = document.createElement('div');
+  supportRouteEl.className = 'support-route';
+  const supportRouteTitleEl = document.createElement('div');
+  supportRouteTitleEl.className = 'support-route-title';
+  supportRouteTitleEl.innerHTML = 'Support';
+  supportRouteEl.append(supportRouteTitleEl);
+
+  // support route group
+  const supportRouteGroupEl = document.createElement('div');
+  supportRouteGroupEl.className = 'support-route-group';
+  [...supportRouteBaseList.children].forEach((item) => {
+    const link = document.createElement('div');
+    link.className = 'nav-link';
+    const title = item.children[0]?.textContent?.trim() || '';
+    const href = item.children[1]?.textContent?.trim() || '#';
+    const span1 = document.createElement('span');
+    span1.textContent = title;
+    link.append(span1);
+    if (href && href !== '#') {
+      link.dataset.href = href;
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.location.href = href;
+      });
+    }
+    supportRouteGroupEl.append(link);
+  });
+  supportRouteEl.append(supportRouteGroupEl);
+  productsWrap.append(supportRouteEl);
+
+  // support product list
+  const supportProductBaseList = supportEl.querySelectorAll('.support-navigation-products-links-wrapper .support-navigation-products-links');
+  supportProductBaseList.forEach((proGroup) => {
+    const supportProductEl = document.createElement('div');
+    supportProductEl.className = 'support-product';
+
+    [...proGroup.children].forEach((item, index) => {
+      if (index) {
+        const i = item.lastElementChild.textContent?.trim();
+        const supportProductListEl = supportProductEl.querySelector('.support-product-list');
+        const hasGroup = supportProductListEl.querySelector(`.support-product-order-${i}`) !== null;
+        if (!hasGroup) {
+          const orderGroup = document.createElement('div');
+          orderGroup.className = `support-product-item support-product-order-${i}`;
+          supportProductListEl.append(orderGroup);
+        }
+        const supportProductListGroupEl = supportProductListEl.querySelector(`.support-product-order-${i}`);
+        const link = document.createElement('div');
+        link.className = 'nav-link';
+        const title = item.children[2].textContent.trim() || '';
+        const href = item.children[3].textContent.trim() || '#';
+        const span1 = document.createElement('span');
+        span1.textContent = title;
+        link.append(span1);
+        if (href && href !== '#') {
+          link.dataset.href = href;
+          link.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.location.href = href;
+          });
+        }
+        supportProductListGroupEl.append(link);
+      } else {
+        const supportProductTitleEl = document.createElement('div');
+        supportProductTitleEl.className = 'support-product-title';
+        supportProductTitleEl.innerHTML = item.textContent?.trim();
+        const supportProductListEl = document.createElement('div');
+        supportProductListEl.className = 'support-product-list';
+        supportProductEl.append(supportProductTitleEl, supportProductListEl);
+      }
+    });
+    productsWrap.append(supportProductEl);
+  });
+
+  const linksWrap = document.createElement('div');
+  linksWrap.className = 'dropdown-links';
+  const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
+  [...supportMenuLinksList.children].forEach((item) => {
+    const title = item.children[2].textContent.trim() || '';
+    const href = item.children[3].textContent.trim() || '#';
+    const div = document.createElement('div');
+    if (href && href !== '#') {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = title;
+      div.append(a);
+    } else {
+      div.textContent = title;
+    }
+    linksWrap.append(div);
+  });
+
+  main.append(productsWrap, linksWrap);
+  content.append(main);
+  dropdown.append(content);
+  return dropdown;
+}
+
 // function convertToDarkSvgUrl(url) {
 //   if (url.indexOf('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660') !== -1) {
 //     return url.replace('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660', 'media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b');
@@ -437,8 +550,12 @@ export default async function decorate(block) {
   // eslint-disable-next-line no-unused-vars
   const plpEl = document.querySelector('.product-sorting');
   const isCompanyPage = window.location.pathname.includes('company');
+  const isSupportPage = window.location.pathname.includes('support');
   if (isCompanyPage) {
     navigation.classList.add('is-company');
+  }
+  if (isSupportPage) {
+    navigation.classList.add('is-support');
   }
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
@@ -448,9 +565,15 @@ export default async function decorate(block) {
   const scrollThreshold = 10;
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (isCompanyPage) {
+    if (isCompanyPage || isSupportPage) {
       navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -84)}px`;
       return;
+    }
+    if (isSupportPage) {
+      if (window.innerWidth < 1180) {
+        navigation.style.top = `${Math.max(scrollTop * -1, -56)}px`;
+        return;
+      }
     }
     if (Math.abs(scrollTop - lastScrollTop) <= scrollThreshold) {
       return;
@@ -483,7 +606,7 @@ export default async function decorate(block) {
 
   // Company 等第二nav
   const navSecond = document.createElement('div');
-  navSecond.className = `nav-second h-grid-container ${isCompanyPage ? '' : 'hidden'}`;
+  navSecond.className = `nav-second h-grid-container ${isCompanyPage || isSupportPage ? '' : 'hidden'}`;
   const CompanyEl = document.createElement('div');
   CompanyEl.className = 'route-company';
   CompanyEl.textContent = 'Company';
@@ -506,15 +629,38 @@ export default async function decorate(block) {
   companyArrow.className = 'company-arrow';
   companyArrow.src = '/content/dam/hisense/us/common-icons/chevron-down-black.svg';
   companyArrow.addEventListener('click', () => {
-    if (navigation.classList.contains('show-second-menu')) {
+    if (navigation.classList.contains('show-second-menu-company')) {
       document.body.style.overflow = 'auto';
-      navigation.classList.toggle('show-second-menu');
+      navigation.classList.toggle('show-second-menu-company');
     } else {
       document.body.style.overflow = 'hidden';
-      navigation.classList.toggle('show-second-menu');
+      navigation.classList.toggle('show-second-menu-company');
     }
   });
-  navSecond.append(CompanyEl, CompanyGroupEl, companyArrow);
+
+  if (isCompanyPage) {
+    navSecond.append(CompanyEl, CompanyGroupEl, companyArrow);
+  }
+
+  const SupportEl = document.createElement('div');
+  SupportEl.className = 'route-support';
+  SupportEl.textContent = 'Support';
+
+  const supportArrow = document.createElement('img');
+  supportArrow.className = 'support-arrow';
+  supportArrow.src = '/content/dam/hisense/us/common-icons/chevron-down-black.svg';
+  supportArrow.addEventListener('click', () => {
+    if (navigation.classList.contains('show-second-menu-support')) {
+      document.body.style.overflow = 'auto';
+      navigation.classList.toggle('show-second-menu-support');
+    } else {
+      document.body.style.overflow = 'hidden';
+      navigation.classList.toggle('show-second-menu-support');
+    }
+  });
+  if (isSupportPage) {
+    navSecond.append(SupportEl, supportArrow);
+  }
 
   // 悬浮展开
   const mobileMenu = document.createElement('div');
@@ -607,7 +753,9 @@ export default async function decorate(block) {
   navLinks.forEach((action) => {
     const link = document.createElement('div');
     link.className = 'nav-section';
-    link.textContent = action.title;
+    const span1 = document.createElement('span');
+    span1.textContent = action.title;
+    link.append(span1);
     const cloneLink = link.cloneNode(true);
     const mobileCloneLink = link.cloneNode(true);
     if (action.href && action.href !== '#') {
@@ -621,6 +769,14 @@ export default async function decorate(block) {
         e.stopPropagation();
         window.location.href = action.href;
       });
+    }
+    if (action.title.trim().toLowerCase() === 'support') {
+      cloneLink.classList.add('nav-link');
+      const mask = document.createElement('div');
+      mask.className = 'nav-mask';
+      mask.id = 'nav-mask';
+      const dropdownEl = buildSupportDropdown(fragment);
+      cloneLink.append(mask, dropdownEl);
     }
     actionsEl.append(cloneLink);
     mobileActions.append(mobileCloneLink);
@@ -703,9 +859,12 @@ export default async function decorate(block) {
   mobileMenu.append(dividingLine);
   mobileMenu.append(mobileActions);
 
-  // 悬浮展开二级菜单
+  // 悬浮展开二级菜单 company
   const mobileSecondMenu = document.createElement('div');
-  mobileSecondMenu.className = 'mobile-second-menu';
+  mobileSecondMenu.className = 'mobile-second-menu company';
+  if (!isCompanyPage) {
+    mobileSecondMenu.style.display = 'none';
+  }
 
   company.forEach((item) => {
     const mobileSecondMenuItem = document.createElement('div');
@@ -720,10 +879,117 @@ export default async function decorate(block) {
     mobileSecondMenu.append(mobileSecondMenuItem);
   });
 
+  // 悬浮展开二级菜单 support
+  const mobileSecondMenuSupport = document.createElement('div');
+  mobileSecondMenuSupport.className = 'mobile-second-menu support';
+  if (!isSupportPage) {
+    mobileSecondMenuSupport.style.display = 'none';
+  }
+
+  const supportEl = fragment.querySelector('.support-navigation-route-container');
+  const supportRouteBaseList = supportEl.querySelector('.support-navigation-route-wrapper .support-navigation-route');
+  const support = [...supportRouteBaseList.children].map((item) => {
+    const title = item.children[0]?.textContent?.trim() || '';
+    const href = item.children[1]?.textContent?.trim() || '#';
+    return { href, title };
+  });
+
+  support.forEach((item) => {
+    const mobileSecondMenuSupportItem = document.createElement('div');
+    const isCurrent = window.location.pathname === item.href;
+    mobileSecondMenuSupportItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
+    mobileSecondMenuSupportItem.innerHTML = item.title;
+    mobileSecondMenuSupportItem.dataset.href = item.href;
+    mobileSecondMenuSupportItem.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.location.href = item.href;
+    });
+    mobileSecondMenuSupport.append(mobileSecondMenuSupportItem);
+  });
+  mobileSecondMenuSupport.append(dividingLine.cloneNode(true));
+
+  // support product list
+  const supportProductBaseList = supportEl.querySelectorAll('.support-navigation-products-links-wrapper .support-navigation-products-links');
+  supportProductBaseList.forEach((proGroup) => {
+    const supportProductEl = document.createElement('div');
+    supportProductEl.className = 'support-product mobile-link hide';
+
+    [...proGroup.children].forEach((item, index) => {
+      if (index) {
+        const hasGroup = supportProductEl.querySelector('.mobile-link-second-list') !== null;
+        if (!hasGroup) {
+          const orderGroup = document.createElement('div');
+          orderGroup.className = 'mobile-link-second-list';
+          supportProductEl.append(orderGroup);
+        }
+        const supportProductItemEl = supportProductEl.querySelector('.mobile-link-second-list');
+        const link = document.createElement('div');
+        link.className = 'mobile-product-item';
+        const title = item.children[2].textContent.trim() || '';
+        const href = item.children[3].textContent.trim() || '#';
+        const span1 = document.createElement('span');
+        span1.textContent = title;
+        link.append(span1);
+        if (href && href !== '#') {
+          link.dataset.href = href;
+          link.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.location.href = href;
+          });
+        }
+        supportProductItemEl.append(link);
+      } else {
+        const mobileLinkTitle = document.createElement('span');
+        mobileLinkTitle.textContent = item.textContent?.trim();
+        const arrow = document.createElement('img');
+        arrow.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+        arrow.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const mobileLinksEl = e.target.closest('.mobile-second-menu');
+          if (!mobileLinksEl) { return; }
+          const shouldShow = e.target.closest('.mobile-link').classList.contains('hide');
+          mobileLinksEl.querySelectorAll('.mobile-link').forEach((el) => {
+            el.classList.add('hide');
+          });
+          if (shouldShow) {
+            e.target.closest('.mobile-link').classList.remove('hide');
+          }
+        });
+        const mobileLinkTitleLine = document.createElement('div');
+        mobileLinkTitleLine.className = 'mobile-link-title-line';
+        mobileLinkTitleLine.append(mobileLinkTitle, arrow);
+        supportProductEl.append(mobileLinkTitleLine);
+      }
+    });
+    mobileSecondMenuSupport.append(supportProductEl, dividingLine.cloneNode(true));
+  });
+
+  // support contact us list
+  const contactUsEl = document.createElement('div');
+  contactUsEl.className = 'contact-us-links';
+  const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
+  [...supportMenuLinksList.children].forEach((item) => {
+    const title = item.children[2].textContent.trim() || '';
+    const href = item.children[3].textContent.trim() || '#';
+    const div = document.createElement('div');
+    div.className = 'mobile-product-item';
+    if (href && href !== '#') {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = title;
+      div.append(a);
+    } else {
+      div.textContent = title;
+    }
+    contactUsEl.append(div);
+  });
+  mobileSecondMenuSupport.append(contactUsEl);
+
   navigation.append(navContainer);
   navigation.append(navSecond);
   navigation.append(mobileMenu);
   navigation.append(mobileSecondMenu);
+  navigation.append(mobileSecondMenuSupport);
   const shadow = document.createElement('div');
   shadow.className = 'shadow';
   navigation.append(shadow);

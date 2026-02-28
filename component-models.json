@@ -826,6 +826,101 @@
     ]
   },
   {
+    "id": "authorized-reseller-note",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "icon",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-reseller-our",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-reseller-our-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-image",
+        "value": "",
+        "label": "Logo",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-reseller",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-reseller-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "item-text",
+        "label": "Text",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "bi-directional-content",
     "fields": [
       {
@@ -961,39 +1056,15 @@
       },
       {
         "component": "text",
-        "name": "subtitle_type",
-        "valueType": "string",
-        "value": "item-subtitle",
-        "hidden": true,
-        "readonly": true
-      },
-      {
-        "component": "text",
         "name": "subtitle_name",
         "label": "Subtitle",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "title_type",
-        "valueType": "string",
-        "value": "item-title",
-        "hidden": true,
-        "readonly": true
-      },
-      {
-        "component": "text",
         "name": "title_name",
         "label": "Title",
         "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "text_type",
-        "valueType": "string",
-        "value": "item-text",
-        "hidden": true,
-        "readonly": true
       },
       {
         "component": "text",
@@ -1389,30 +1460,34 @@
       {
         "component": "select",
         "name": "classes_bgcolor",
-        "value": "gray-20",
+        "value": "",
         "label": "Background Color Variant",
         "valueType": "string",
         "options": [
           {
-            "name": "Gray 20(default)",
+            "name": "Gray 20(Default)",
             "value": "gray-20"
           },
           {
             "name": "Green 60",
             "value": "green-60"
+          },
+          {
+            "name": "white",
+            "value": "white"
           }
         ]
       },
       {
         "component": "text",
-        "name": "headline",
+        "name": "title",
         "label": "Title",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "text",
-        "name": "bodycopy",
+        "name": "text",
         "label": "Text",
         "valueType": "string",
         "value": ""
@@ -1420,12 +1495,20 @@
       {
         "component": "select",
         "name": "link_classes",
-        "value": "transparent",
+        "value": "",
         "label": "Button Background Color",
         "valueType": "string",
+        "condition": {
+          "none": [
+            {
+              "var": "third-party"
+            },
+            "is-third-party"
+          ]
+        },
         "options": [
           {
-            "name": "transparent",
+            "name": "transparent(Default)",
             "value": "transparent"
           },
           {
@@ -1443,14 +1526,44 @@
         "name": "link_url",
         "label": "Link",
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "condition": {
+          "none": [
+            {
+              "var": "third-party"
+            },
+            "is-third-party"
+          ]
+        }
       },
       {
         "component": "text",
         "name": "link_text",
         "label": "Link Label",
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "condition": {
+          "none": [
+            {
+              "var": "third-party"
+            },
+            "is-third-party"
+          ]
+        }
+      },
+      {
+        "component": "checkbox-group",
+        "valueType": "string[]",
+        "name": "third-party",
+        "label": "",
+        "multi": false,
+        "description": "Tips: Enable the scripts to display the corresponding 3rd-party data on the website. Maintain the 3rd-party scripts under the integration component.",
+        "options": [
+          {
+            "name": "Enable subscription 3rd-party scripts",
+            "value": "is-third-party"
+          }
+        ]
       }
     ]
   },
@@ -2677,6 +2790,19 @@
     ]
   },
   {
+    "id": "legal-content",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string",
+        "description": "Select H5 as a paragraph title"
+      }
+    ]
+  },
+  {
     "id": "media-carousel",
     "fields": [
       {
@@ -2877,31 +3003,10 @@
         ]
       },
       {
-        "component": "select",
-        "name": "text-align-type",
-        "value": "text-align-left",
-        "label": "Module title align type",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "text-align-left",
-            "value": "text-align-left"
-          },
-          {
-            "name": "text-align-right",
-            "value": "text-align-right"
-          },
-          {
-            "name": "text-align-center",
-            "value": "text-align-center"
-          }
-        ]
-      },
-      {
         "component": "text",
         "valueType": "string",
         "name": "title-content",
-        "label": "Eyebrow Headline"
+        "label": "Title"
       },
       {
         "component": "text",
@@ -3190,6 +3295,18 @@
     ]
   },
   {
+    "id": "popup-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "popup-image-box",
+        "label": "Image",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "popup-quote",
     "fields": [
       {
@@ -3401,6 +3518,13 @@
         "rootPath": "/content/cq:tags/hisense/product"
       },
       {
+        "component": "text",
+        "valueType": "string",
+        "name": "tagsEndpoint",
+        "label": "Tags Endpoint URL",
+        "description": "GraphQL endpoint for tag data (default: https://publish-p174152-e1909940.adobeaemcloud.com/content/cq:tags/hisense.-1.json)"
+      },
+      {
         "component": "select",
         "name": "tags_type",
         "label": "Tags Type",
@@ -3435,6 +3559,32 @@
         "name": "alt",
         "label": "Alt Text",
         "required": true
+      }
+    ]
+  },
+  {
+    "id": "product-information",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "value": "",
+        "label": "Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
       }
     ]
   },
@@ -3663,9 +3813,18 @@
     "fields": [
       {
         "component": "text",
-        "name": "keywords",
-        "label": "Keywords",
-        "valueType": "string"
+        "valueType": "string",
+        "name": "graphql",
+        "label": "GraphQL Endpoint",
+        "description": "GraphQL endpoint URL"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "tag",
+        "label": "Tag",
+        "multi": false,
+        "rootPath": "/content/cq:tags/hisense/newsroom"
       }
     ]
   },
@@ -3862,10 +4021,6 @@
     ]
   },
   {
-    "id": "slide",
-    "fields": []
-  },
-  {
     "id": "strategic-card-items",
     "fields": []
   },
@@ -3943,7 +4098,7 @@
         "component": "number",
         "valueType": "number",
         "name": "order",
-        "label": "Order",
+        "label": "Group",
         "value": 1,
         "validation": {
           "numberMin": 1,
@@ -4002,7 +4157,7 @@
         "name": "classes",
         "label": "Image Position",
         "valueType": "string",
-        "value": "img-left",
+        "value": "",
         "options": [
           {
             "name": "Image Position Left",
@@ -4026,7 +4181,7 @@
         "name": "classes_backgroundColor",
         "label": "Text Area Background Color",
         "valueType": "string",
-        "value": "white-background",
+        "value": "",
         "options": [
           {
             "name": "white-background(Default)",

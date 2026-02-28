@@ -4,14 +4,20 @@ p {
     line-height: unset;
 }
 
-.corprate-governance-cards {
+.corprate-governance-cards-wrapper {
     width: 100%;
-    height: auto;
-    display: flex;
-    gap: var(--spacing-xl);
+}
 
-     .card-item {
-        flex: 1 0 calc(352/var(--breakpoint-pc) * 100vw);
+.corprate-governance-cards {
+    .g-container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        gap: var(--spacing-xl);
+    }
+
+    .card-item {
+        flex: 1 0 min(calc(352/var(--breakpoint-pc) * 100vw),352px);
         display: flex;
         flex-direction: column;
         text-align: center;
@@ -84,21 +90,20 @@ p {
 }
 
 @media (width < 860px) {
-    .corprate-governance-cards-wrapper {
-        max-width: unset!important;
-        padding: 0 !important;
-    }
-
     .corprate-governance-cards {
-        gap: var(--spacing-2xs, 12px);
-        padding: 0 var(--common-padding);
-        overflow-x: scroll;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-        scroll-snap-type: x mandatory; /* 强制水平吸附 */
-        scroll-behavior: smooth;
+        .g-container {
+            display: flex;
+            gap: var(--spacing-2xs, 12px);
+            padding: 0 var(--common-padding);
+            overflow-x: scroll;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-snap-type: x mandatory; /* 强制水平吸附 */
+            scroll-behavior: smooth;
+        }
 
         .card-item {
+            flex: auto;
             width: calc(300/var(--breakpoint-mobile)* 100vw);
             padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-m);
             display: flex;

@@ -1,8 +1,8 @@
 export default async function decorate(block) {
   const textContainer = document.createElement('div');
-  const isCompanyPage = window.location.pathname.includes('company-page');
+  const isCompanyPage = window.location.pathname.includes('company');
   if (isCompanyPage) {
-    const height = window.innerWidth > 860 ? '166px' : '112px';
+    const height = window.innerWidth >= 1180 ? '166px' : '112px';
     document.documentElement.style.setProperty('--nav-height', height);
   }
   [...block.children].forEach((child) => {

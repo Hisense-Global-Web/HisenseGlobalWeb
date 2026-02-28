@@ -10,7 +10,8 @@
             "template": {
               "name": "Cross Page Redirect",
               "model": "cross-page-redirect",
-              "classes":"cross-page-redirect"
+              "classes":"gray-20",
+              "link_classes":"transparent"
             }
           }
         }
@@ -24,30 +25,34 @@
         {
           "component": "select",
           "name": "classes_bgcolor",
-          "value": "gray-20",
+          "value": "",
           "label": "Background Color Variant",
           "valueType": "string",
           "options": [
             {
-              "name": "Gray 20(default)",
+              "name": "Gray 20(Default)",
               "value": "gray-20"
             },
             {
               "name": "Green 60",
               "value": "green-60"
+            },
+            {
+              "name": "white",
+              "value": "white"
             }
           ]
         },
         {
           "component": "text",
-          "name": "headline",
+          "name": "title",
           "label": "Title",
           "valueType": "string",
           "value": ""
         },
         {
           "component": "text",
-          "name": "bodycopy",
+          "name": "text",
           "label": "Text",
           "valueType": "string",
           "value": ""
@@ -55,12 +60,13 @@
         {
           "component": "select",
           "name": "link_classes",
-          "value": "transparent",
+          "value": "",
           "label": "Button Background Color",
           "valueType": "string",
+          "condition": { "none": [{ "var": "third-party" }, "is-third-party"] },
           "options": [
             {
-              "name": "transparent",
+              "name": "transparent(Default)",
               "value": "transparent"
             },
             {
@@ -78,14 +84,27 @@
             "name": "link_url",
             "label": "Link",
             "valueType": "string",
-            "value": ""
+            "value": "",
+            "condition": { "none": [{ "var": "third-party" }, "is-third-party"] }
         },
         {
             "component": "text",
             "name": "link_text",
             "label": "Link Label",
             "valueType": "string",
-            "value": ""
+            "value": "",
+            "condition": { "none": [{ "var": "third-party" }, "is-third-party"] }
+        },
+        {
+          "component": "checkbox-group",
+          "valueType": "string[]",
+          "name": "third-party",
+          "label": "",
+          "multi": false,
+          "description": "Tips: Enable the scripts to display the corresponding 3rd-party data on the website. Maintain the 3rd-party scripts under the integration component.",
+          "options": [
+            { "name": "Enable subscription 3rd-party scripts", "value": "is-third-party" }
+          ]
         }
       ]
     }
