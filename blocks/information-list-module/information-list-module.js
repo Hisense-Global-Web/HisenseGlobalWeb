@@ -122,7 +122,21 @@ const generateRightButton = (moduleType, info) => {
   const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
   const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
   buttonContainerEl.classList.add('operate-button-container');
-  const [pcIconEl, btnTextEl, btnColorEl, btnLinkEl, mobileIconEl] = buttonContainerEl.children ?? [];
+  let pcIconEl; let btnTextEl; let btnColorEl; let btnLinkEl; let mobileIconEl;
+  // 需要判断 PCIcon不存在的情况
+  if (buttonContainerEl?.children?.[0].querySelector('img')) {
+    pcIconEl = buttonContainerEl?.children?.[0];
+    btnTextEl = buttonContainerEl?.children?.[1];
+    btnColorEl = buttonContainerEl?.children?.[2];
+    btnLinkEl = buttonContainerEl?.children?.[3];
+    mobileIconEl = buttonContainerEl?.children?.[4];
+  } else {
+    btnTextEl = buttonContainerEl?.children?.[0];
+    btnColorEl = buttonContainerEl?.children?.[1];
+    btnLinkEl = buttonContainerEl?.children?.[2];
+    mobileIconEl = buttonContainerEl?.children?.[3];
+  }
+  // const [pcIconEl, btnTextEl, btnColorEl, btnLinkEl, mobileIconEl] = buttonContainerEl.children ?? [];
 
   const btnBgColor = btnColorEl?.textContent?.trim();
   btnColorEl?.remove();
@@ -172,6 +186,7 @@ const generateRightButton = (moduleType, info) => {
   };
 
   if (btnOperateUrl) {
+    buttonContainerEl.classList.remove('disabled');
     buttonContainerEl.addEventListener('click', handleDownload);
   } else {
     buttonContainerEl.classList.add('disabled');
@@ -209,11 +224,10 @@ export default async function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   const config = readBlockConfig(block);
   const moduleType = config['module-type'] ?? '';
-  const pageSize = config['page-size'] ?? 10;
+  const pageSize = config['page-size'] * 1 ?? 10;
   const paginatedBtnText = config['paginated-btn-text'] ?? '';
   const infoListContainer = document.querySelector('.information-list-module');
   const [moduleTypeEl, pageSizeEl, noResultEl, ...infoList] = [...block.children];
-  console.log('moduleTypeEl', moduleTypeEl, 'pagesizeEl', pageSizeEl, 'noResultEl', noResultEl, 'infoList', infoList);
   const noResultCloneEl = noResultEl?.cloneNode?.(true);
   moduleTypeEl?.remove();
   pageSizeEl?.remove();
@@ -223,6 +237,7 @@ export default async function decorate(block) {
   infoList?.forEach((info) => {
     generateCard(moduleType, info);
   });
+
   if (isEditMode) {
     return;
   }

@@ -88,8 +88,54 @@
         background: var(--color-primary-green-60, #008482);
       }
 
+      .green-60:hover {
+        background-color: var(--color-primary-green-50, #009f9c);
+        border: none;
+      }
+
+      .green-60:active {
+        background-color: var(--color-primary-green-70, #005a5c);
+        border: none;
+      }
+
+      .green-60:active > p {
+        color: var(--white-alpha-80, rgb(255 255 255 / 80%));
+      }
+
+      .green-60.disabled,
+      .green-60.disabled:hover,
+      .green-60.disabled:active {
+        color: var(--white-alpha-80, rgb(255 255 255 / 80%));
+        background-color: var(--color-primary-green-60, #008482);
+        border: none;
+        opacity: 0.4;
+      }
+
       .grey-100 {
         background: var(--color-primary-grey-100, #000);
+      }
+
+      .grey-100:hover {
+        background-color: var(--color-primary-grey-70, #333);
+        border: none;
+      }
+
+      .grey-100:active {
+        background: var(--color-primary-grey-100, #000);
+        border: none;
+      }
+
+      .grey-100:active > p {
+        color: var(--white-alpha-80, rgb(255 255 255 / 80%));
+      }
+
+      .grey-100.disabled,
+      .grey-100.disabled:hover,
+      .grey-100.disabled:active {
+        color: var(--white-alpha-80, rgb(255 255 255 / 80%));
+        background-color: var(--color-primary-grey-40, #bbb);
+        border: none;
+        opacity: 0.4;
       }
 
       .download-button {
@@ -123,26 +169,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-      }
-
-      .download-button:hover {
-        background-color: var(--color-primary-green-50, #009f9c);
-        border: none;
-      }
-
-      .download-button:active {
-        color: var(--white-alpha-80, rgb(255 255 255 / 80%));
-        background-color: var(--color-primary-green-70, #005a5c);
-        border: none;
-      }
-
-      .download-button.disabled,
-      .download-button.disabled:hover,
-      .download-button.disabled:active {
-        color: var(--white-alpha-80, rgb(255 255 255 / 80%));
-        background-color: var(--color-primary-green-60, #008482);
-        border: none;
-        opacity: 0.4;
       }
 
       .download-button-mobile {
