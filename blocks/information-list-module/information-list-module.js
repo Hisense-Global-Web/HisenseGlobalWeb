@@ -193,13 +193,33 @@ const generateRightButton = (moduleType, info) => {
   }
 };
 
-const generateCard = (moduleType, info) => {
+const generateAuthorRightButton = (info) => {
+  const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
+  const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
+  buttonContainerEl.classList.add('download-button');
+  let btnColorEl; let btnLinkEl; let mobileIconEl;
+  // 需要判断 PCIcon不存在的情况
+  if (buttonContainerEl?.children?.[0]?.querySelector?.('img')) {
+    btnColorEl = buttonContainerEl?.children?.[2];
+    btnLinkEl = buttonContainerEl?.children?.[3];
+    mobileIconEl = buttonContainerEl?.children?.[4];
+  } else {
+    btnColorEl = buttonContainerEl?.children?.[1];
+    btnLinkEl = buttonContainerEl?.children?.[2];
+    mobileIconEl = buttonContainerEl?.children?.[3];
+  }
+
+  const btnBgColor = btnColorEl?.textContent?.trim();
+  buttonContainerEl.classList.add(btnBgColor);
+  btnColorEl?.remove();
+  btnLinkEl?.remove();
+  pdfUrlEl?.remove();
+  mobileIconEl?.remove();
+};
+
+const generateCard = (moduleType, isEditMode, info) => {
   info.classList.add('info-list-card');
   const [documentIconEl, titleContainerEl] = info?.children ?? [];
-
-  // card 左侧: icon + title + date 容器
-  const leftEl = document.createElement('div');
-  leftEl.className = 'card-left';
 
   // card 左侧: icon
   documentIconEl.classList.add('document-icon');
@@ -214,7 +234,11 @@ const generateCard = (moduleType, info) => {
   }
 
   // card 右侧: download button
-  generateRightButton(moduleType, info);
+  if (isEditMode) {
+    generateAuthorRightButton(info);
+  } else {
+    generateRightButton(moduleType, info);
+  }
 };
 
 /**
@@ -235,9 +259,10 @@ export default async function decorate(block) {
 
   infoListContainer.classList.add('info-list-card-group');
   infoList?.forEach((info) => {
-    generateCard(moduleType, info);
+    generateCard(moduleType, isEditMode, info);
   });
 
+  // Author页面,不添加分页器
   if (isEditMode) {
     return;
   }
