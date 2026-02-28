@@ -1,5 +1,10 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 
+const EModuleType = Object.freeze({
+  download: 'download',
+  navigate: 'navigate',
+});
+
 // const DOWNLOAD_WHITE_ICON = '/content/dam/hisense/us/common-icons/download-white.svg';
 // const DOWNLOAD_ICON = '/content/dam/hisense/us/common-icons/download.svg';
 // const EMPTY_TITLE = 'No Recall Information';
@@ -145,135 +150,103 @@ import { readBlockConfig } from '../../scripts/aem.js';
 //   );
 // }
 
-// const generateRightButton = (info) => {
-//   const [documentIconEl, titleEl, textEl, pcIconEl, btnTextEl, btnColorEl, btnLinkEl, mobileIconEl, pdfUrlEl] = info.children;
-//   const rightBtnContainer = document.createElement('div');
-//   rightBtnContainer.className = 'download-container';
-//   console.log('info', info);
-//   console.log('pcIconEl:', pcIconEl, 'btnTextEl:', btnTextEl, 'mobileIconEl:', mobileIconEl);
-//   // PC端的Download按钮
-//   pcIconEl?.classList?.add('download-icon');
-//   btnTextEl?.classList?.add('download-text');
-//   rightBtnContainer.appendChild(pcIconEl);
-//   rightBtnContainer.appendChild(btnTextEl);
-//   // const downloadPC = document.createElement('div');
-//   // downloadPC.className = 'download-button';
-//   // const icon = document.createElement('img');
-//   // icon.alt = 'download';
-//   // icon.className = 'download-icon';
-//   // // icon.src = DOWNLOAD_WHITE_ICON;
-//   // const downloadText = document.createElement('div');
-//   // downloadText.textContent = 'Download';
-//   // downloadPC.append(icon, downloadText);
-//   // downloadContainer.appendChild(downloadPC);
+const generateRightButton = (moduleType, info) => {
+  const isDownload = moduleType === EModuleType.download;
+  const buttonContainerEl = info?.children?.[2] || document.createElement('div');
+  const pdfUrlEl = info?.children?.[3] || document.createElement('div');
+  buttonContainerEl.classList.add('operate-button-container');
+  const [pcIconEl, btnTextEl, btnColorEl, btnLinkEl, mobileIconEl] = buttonContainerEl.children;
 
-//   // Mobile端的Download按钮
-//   const downloadMobile = document.createElement('div');
-//   downloadMobile.className = 'download-button-mobile';
-//   // const mobileIcon = document.createElement('img');
-//   // mobileIcon.alt = 'download';
-//   // mobileIcon.className = 'download-icon';
-//   // mobileIcon.src = DOWNLOAD_ICON;
-//   downloadMobile.append(mobileIconEl);
-//   rightBtnContainer.appendChild(downloadMobile);
-//   // const handleDownload = () => {
-//   //   // TODO: 下载代码在这写
-//   //   /* eslint-disable-next-line no-console */
-//   //   console.log('Download file:', fileName, downloadUrl);
-//   //   //   const link = document.createElement('a');
-//   //   //   link.href = downloadUrl;
-//   //   //   if (fileName) {
-//   //   //     link.download = fileName; // 指定下载文件名
-//   //   //   }
-//   //   //   document.body.appendChild(link);
-//   //   //   link.click();
-//   //   //   document.body.removeChild(link);
-//   // };
-//   // if (downloadUrl) {
-//   //   downloadPC.addEventListener('click', handleDownload);
-//   // } else {
-//   //   downloadPC.classList.add('disabled');
-//   // }
-//   return rightBtnContainer;
-// };
+  const btnBgColor = btnColorEl.textContent.trim();
+  btnColorEl.remove();
+  const btnLink = btnLinkEl.textContent.trim();
+  btnLinkEl.remove();
+  let pdfUrl = null;
+  if (pdfUrlEl) {
+    if (pdfUrlEl.querySelector('a')) {
+      pdfUrl = pdfUrlEl.querySelector('a').href;
+    } else if (pdfUrlEl.querySelector('img')) {
+      pdfUrl = pdfUrlEl.querySelector('img').src;
+    }
+  }
+  pdfUrlEl.remove();
 
-// const generateCard = (info) => {
-//   // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
-//   const [documentIconEl, titleEl, textEl] = info.children;
-//   // card 右侧: download button
-//   generateRightButton(info);
-//   console.log('Generating card for item:', info);
-//   // const { title, announcedDate } = item;
-//   // const cardEl = document.createElement('div');
-//   // cardEl.className = 'info-list-card';
+  // PC端的按钮
+  const buttonPCContainer = document.createElement('div');
+  buttonPCContainer.className = 'download-button';
+  if (btnBgColor) {
+    buttonPCContainer.classList.add(btnBgColor);
+  }
+  buttonPCContainer.appendChild(pcIconEl);
+  buttonPCContainer.appendChild(btnTextEl);
+  buttonContainerEl.appendChild(buttonPCContainer);
 
-//   // card 左侧: icon + title + date 容器
-//   const leftEl = document.createElement('div');
-//   leftEl.className = 'card-left';
+  // Mobile端的Download按钮
+  mobileIconEl.className = 'download-button-mobile';
 
-//   // card 左侧: icon
-//   // const documentIcon = document.createElement('img');
-//   // documentIcon.src = '/content/dam/hisense/us/common-icons/document.svg';
-//   // documentIcon.alt = 'document';
-//   documentIconEl.classList.add('document-icon');
-//   leftEl.appendChild(documentIconEl);
+  const btnOperateUrl = isDownload ? pdfUrl : btnLink;
+  const handleDownload = () => {
+    if (isDownload) {
+      const link = document.createElement('a');
+      link.href = btnOperateUrl;
+      link.download = btnOperateUrl.substring(btnOperateUrl.lastIndexOf('/') + 1);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      window.location.href = btnOperateUrl;
+    }
+  };
 
-//   // card 左侧: title + date 容器
-//   const titleContainer = document.createElement('div');
-//   titleContainer.classList.add('title-container');
+  if (btnOperateUrl) {
+    buttonContainerEl.addEventListener('click', handleDownload);
+  } else {
+    buttonContainerEl.classList.add('disabled');
+  }
+};
 
-//   // card 左侧: title
-//   // const titleEl = document.createElement('div');
-//   titleEl.classList.add('card-title');
-//   // title.textContent = title || '';
-//   titleContainer.appendChild(titleEl);
+const generateCard = (moduleType, info) => {
+  info.classList.add('info-list-card');
+  const [documentIconEl, titleContainerEl] = info.children;
 
-//   // card 左侧: date
-//   // const dateEl = document.createElement('div');
-//   textEl.classList.add('announced-date');
-//   // text.textContent = text;
-//   titleContainer.appendChild(textEl);
-//   leftEl.appendChild(titleContainer);
+  // card 左侧: icon + title + date 容器
+  const leftEl = document.createElement('div');
+  leftEl.className = 'card-left';
 
-//   // // card 右侧: download button
-//   // generateRightButton(info);
-//   // cardEl.appendChild(leftEl);
-//   // cardEl.appendChild(downloadButton);
-//   info.className = 'info-list-card';
-//   info.innerHTML = '';
-//   info.appendChild(leftEl);
+  // card 左侧: icon
+  documentIconEl.classList.add('document-icon');
 
-//   // return cardEl;
-//   // return info;
-// };
+  titleContainerEl.classList.add('title-container');
+  const [titleEl, textEl] = titleContainerEl.children;
+  titleEl.classList.add('card-title');
+  textEl.classList.add('card-text');
+
+  // card 右侧: download button
+  generateRightButton(moduleType, info);
+};
 
 /**
  * Recall Information List Block
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  // const isEditMode = block.hasAttribute('data-aue-resource');
-  // const pageSize = Number.parseInt(config['page-size'], 10) || 10;
   const shouldPaginated = true;
-  const moduleType = config?.module_type || '';
-  const noResult = config?.no_result || '';
+  const moduleType = config['module-type'] || '';
+  const pageSize = config['page-size'] || 10;
+  const noResult = config['no-result'] || '';
   const paginatedBtnText = config['paginated-btn-text'] || '';
   const infoListContainer = document.querySelector('.information-list-module');
-  console.log('blockchildren', moduleType, noResult);
-  // const [module_type, pageSizeDiv, no_result, ...infoList] = [...block.children];
-  // pageSizeDiv.remove();
-  // const cardGroupEl = document.createElement('div');
-  // cardGroupEl.className = 'info-list-card-group';
+  console.log('blockchildren', moduleType, pageSize, noResult, infoListContainer);
+  const [moduleTypeEl, pageSizeEl, noResultEl, ...infoList] = [...block.children];
+  moduleTypeEl.remove();
+  pageSizeEl.remove();
+  noResultEl.remove();
+
   infoListContainer.classList.add('info-list-card-group');
-  // infoList.forEach((info) => {
-  //   console.log('Processing info item:', info);
-  //   // const [documentIcon, title, text, pcDownloadIcon, downloadBtnText, downloadBtnColor, downloadLink, mobileIcon, pdfUrl] = info.children;
-  //   // cardGroupEl.appendChild(info);
-  //   // generateCard(info);
-  //   // infoListContainer.appendChild(cardEL);
-  //   // info.style.display = 'none';
-  // });
-  // infoListContainer.appendChild(cardGroupEl);
+  infoList.forEach((info) => {
+    generateCard(moduleType, info);
+  });
+
   // Build static structure
   const container = document.createElement('div');
   container.className = 'info-list-container';
