@@ -1,0 +1,26 @@
+.legal-content {
+  div[data-aue-type="richtext"] a:any-link {
+    color: var(--color-primary-green-60);
+    text-decoration: underline;
+  }
+
+  p:not(.button-container) > a {
+    color: var(--color-primary-green-60);
+    text-decoration: underline;
+  }
+
+  ol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-24);
+  }
+
+  :is(p, ol, ul, pre):has(~ :is(p, ol, ul, pre)) {
+    margin-bottom: var(--size-24);
+  }
+
+  h5 {
+    margin-top: var(--size-32);
+    margin-bottom: var(--size-24);
+  }
+}

@@ -2760,6 +2760,19 @@
     ]
   },
   {
+    "id": "legal-content",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string",
+        "description": "Select H5 as a paragraph title"
+      }
+    ]
+  },
+  {
     "id": "media-carousel",
     "fields": [
       {
