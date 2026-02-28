@@ -2657,6 +2657,7 @@
         "name": "module-type",
         "label": "Module Type",
         "valueType": "string",
+        "required": true,
         "options": [
           {
             "name": "For download",
@@ -2674,13 +2675,16 @@
         "label": "Items per page",
         "value": 10,
         "description": "How many items to show per page.",
-        "valueType": "number"
+        "valueType": "number",
+        "required": true
       },
       {
         "component": "richtext",
         "name": "no-result",
         "label": "no result content",
-        "valueType": "string"
+        "valueType": "string",
+        "value": "No items found.",
+        "required": true
       }
     ]
   },
