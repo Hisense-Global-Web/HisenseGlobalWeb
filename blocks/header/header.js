@@ -569,6 +569,12 @@ export default async function decorate(block) {
       navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -84)}px`;
       return;
     }
+    if (isSupportPage) {
+      if (window.innerWidth < 1180) {
+        navigation.style.top = `${Math.max(scrollTop * -1, -56)}px`;
+        return;
+      }
+    }
     if (Math.abs(scrollTop - lastScrollTop) <= scrollThreshold) {
       return;
     }

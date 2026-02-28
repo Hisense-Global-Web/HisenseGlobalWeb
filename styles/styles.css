@@ -618,6 +618,10 @@ body.appear {
 
 header {
 	height: var(--nav-height);
+
+  @media (width < 860px) {
+    height: auto;
+  }
 }
 
 header .header,

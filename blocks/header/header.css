@@ -1,4 +1,5 @@
 /* navigation styles */
+@import url('../../styles/reset-rich-text.css');
 
 :root {
   --root-header-height: 100px;
@@ -43,8 +44,18 @@
     top: calc(-1 * var(--root-header-height));
   }
   
-  &.is-company, &.is-support {
+  &.is-company {
     transition: none;
+    
+    .nav-container {
+      background: var(--color-primary-grey-10);
+    }
+  }
+
+  &.is-support {
+    @media (width < 1180px) {
+      transition: none;
+    }
     
     .nav-container {
       background: var(--color-primary-grey-10);
@@ -190,14 +201,28 @@
       font-weight: var(--fontweight-book);
       text-transform: capitalize;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
       
       &.current {
         border-bottom: 2px solid var(--color-hisense-black);
       }
       
-      p {
+      * {
+        font-size: 14px;
+        font-weight: var(--fontweight-book);
+        font-family: var(--font-family);
+        text-transform: capitalize;
         margin: 0;
         padding: 0;
+        background: transparent;
+        color: var(--color-hisense-black);
+        border: none;
+        border-radius: inherit;
+        line-height: 1.5;
+        overflow-x: inherit;
       }
     }
   }
@@ -749,6 +774,14 @@
   display: none;
 }
 
+#navigation.is-support .nav-second {
+  display: none;
+  
+  @media (width < 1180px) {
+    display: flex;
+  }
+}
+
 @media (width < 1180px) {
   #navigation.show-menu {
     background: #fff;
@@ -852,10 +885,30 @@
       color: var(--color-primary-grey-50);
       display: flex;
       gap: 8px;
-      
-      p {
+
+      * {
+        font-size: 16px;;
+        font-weight: var(--fontweight-book);
+        font-family: var(--font-family);
+        text-transform: capitalize;
         margin: 0;
         padding: 0;
+        background: transparent;
+        color: var(--color-primary-grey-50);
+        border: none;
+        border-radius: inherit;
+        line-height: 1.3;
+        overflow-x: inherit;
+        display: flex;
+        gap: 8px;
+
+        &:empty {
+          display: none;
+        }
+
+        br {
+          display: none;
+        }
       }
       
       &.current {
