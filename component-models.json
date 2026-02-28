@@ -2674,8 +2674,7 @@
         "name": "page-size",
         "label": "Items per page",
         "description": "How many items to show per page.",
-        "valueType": "number",
-        "required": true
+        "valueType": "number"
       },
       {
         "component": "richtext",
