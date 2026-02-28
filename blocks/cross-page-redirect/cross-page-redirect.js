@@ -14,4 +14,7 @@ export default function decorate(block) {
 
   const isThirdPartyScript = subscription?.textContent.trim() || '';
   subscription.classList.add(`${isThirdPartyScript ? 'is-thrid-party': 'no-third-party'}`);
+  if (isThirdPartyScript) {
+    button.remove();
+  }
 }
