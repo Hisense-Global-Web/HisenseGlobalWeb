@@ -616,7 +616,6 @@ export default async function decorate(block) {
     const CompanyItemEl = document.createElement('div');
     const isCurrent = window.location.pathname === item.href;
     CompanyItemEl.className = `company-item ${isCurrent ? 'current' : ''}`;
-    console.log(item.title);
     CompanyItemEl.innerHTML = item.title;
     CompanyItemEl.dataset.href = item.href;
     CompanyItemEl.addEventListener('click', (e) => {
