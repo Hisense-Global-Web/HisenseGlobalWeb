@@ -2626,6 +2626,48 @@
         "name": "text_fifth",
         "label": "Fifth Text",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_sixth",
+        "label": "Sixth Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_seventh",
+        "label": "Seventh Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "key-features",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "section_title",
+        "label": "Section Title",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "key-features-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Image Text",
+        "valueType": "string"
       }
     ]
   },
@@ -3345,6 +3387,13 @@
         "rootPath": "/content/cq:tags/hisense/product"
       },
       {
+        "component": "text",
+        "valueType": "string",
+        "name": "tagsEndpoint",
+        "label": "Tags Endpoint URL",
+        "description": "GraphQL endpoint for tag data (default: https://publish-p174152-e1909940.adobeaemcloud.com/content/cq:tags/hisense.-1.json)"
+      },
+      {
         "component": "select",
         "name": "tags_type",
         "label": "Tags Type",
@@ -3896,7 +3945,7 @@
         "component": "number",
         "valueType": "number",
         "name": "order",
-        "label": "Order",
+        "label": "Group",
         "value": 1,
         "validation": {
           "numberMin": 1,

@@ -67,12 +67,14 @@
 
 .honors-awards .card-image {
   width: var(--size-64);
+  height: var(--size-64);
   aspect-ratio: 1 / 1 ;
   object-fit: contain;
   transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
 
   @media (width < 860px) {
-     width: var(--size-40);
+    width: var(--size-40);
+    height: var(--size-40);
   }
 }
 
