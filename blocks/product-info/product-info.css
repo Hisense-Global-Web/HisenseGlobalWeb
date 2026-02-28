@@ -1,0 +1,68 @@
+/* 页面部分样式 */
+.product-info {
+  margin: var(--spacing-2xl) 0;
+  padding: var(--spacing-m, 32px) var(--spacing-sm, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: var(--radius-pc-xl, 20px);
+  background: var(--color-primary-green-10, #EDFCFB);
+
+  @media (width < 860px) {
+    align-items: flex-start;
+    padding: var(--spacing-xs, 16px) var(--spacing-sm, 24px);
+  }
+
+  .ar-note-icon {
+    flex: none;
+    width: var(--size-45, 45px);
+    height: var(--size-45, 45px);
+    text-align: center;
+    margin-right: var(--spacing-xs, 16px);
+
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+
+    @media (width < 860px) {
+      width: var(--size-32, 32px);
+      height: var(--size-32, 32px);
+    }
+  }
+
+  .ar-note-text {
+    flex: auto;
+  }
+
+  .ar-note-title {
+    color: var(--greyscale-grey-60, #555);
+    font-size: var(--size-body2, 14px);
+    font-weight: 400;
+    text-transform: capitalize;
+
+    p {
+      margin: 0;
+      line-height: 150%;
+    }
+
+    @media (width < 860px) {
+      font-size: var(--size-14, 14px);
+    }
+  }
+
+  .ar-note-content {
+    color: var(--color-primary-grey-70, #333);
+    font-size: var(--size-16, 16px);
+    font-weight: 400;
+
+    p {
+      margin: 0;
+      line-height: 150%;
+    }
+
+    @media (width < 860px) {
+      font-size: var(--size-14, 14px);
+    }
+  }
+}
