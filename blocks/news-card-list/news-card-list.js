@@ -88,7 +88,7 @@ function filterItemsByUrlParams(items) {
         const originalValue = value;
         const spaceValue = value.replace(/-/g, ' ');
         return searchableFields.some((field) => lowerIncludes(field, originalValue)
-            || lowerIncludes(field, spaceValue));
+          || lowerIncludes(field, spaceValue));
       }
       return searchableFields.some((field) => lowerIncludes(field, value));
     }
@@ -314,19 +314,70 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
     createButton('prev', currentPage - 1, currentPage === 1),
   );
 
-  const maxButtons = 5;
-  let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
-  let end = start + maxButtons - 1;
-  if (end > totalPages) {
-    end = totalPages;
-    start = Math.max(1, end - maxButtons + 1);
-  }
+  // const maxButtons = 5;
+  // let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+  // let end = start + maxButtons - 1;
+  // if (end > totalPages) {
+  //   end = totalPages;
+  //   start = Math.max(1, end - maxButtons + 1);
+  // }
 
-  for (let page = start; page <= end; page += 1) {
-    paginationEl.appendChild(
-      createButton(String(page), page, false, page === currentPage),
-    );
-  }
+  // for (let page = start; page <= end; page += 1) {
+  //   paginationEl.appendChild(
+  //     createButton(String(page), page, false, page === currentPage),
+  //   );
+  // }
+
+  const getVisiblePages = () => {
+    const pages = [];
+
+    if (totalPages <= 7) {
+      // 总页数少，直接显示所有页
+      for (let i = 1; i <= totalPages; i += 1) {
+        pages.push(i);
+      }
+    } else if (currentPage <= 4) {
+      // 当前页在前部
+      for (let i = 1; i <= 5; i += 1) {
+        pages.push(i);
+      }
+      pages.push('ellipsis');
+      pages.push(totalPages);
+    } else if (currentPage >= totalPages - 3) {
+      // 当前页在后部
+      pages.push(1);
+      pages.push('ellipsis');
+      for (let i = totalPages - 4; i <= totalPages; i += 1) {
+        pages.push(i);
+      }
+    } else {
+      // 当前页在中部
+      pages.push(1);
+      pages.push('ellipsis');
+      for (let i = currentPage - 1; i <= currentPage + 1; i += 1) {
+        pages.push(i);
+      }
+      pages.push('ellipsis');
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
+  const visiblePages = getVisiblePages();
+  visiblePages.forEach((page) => {
+    if (page === 'ellipsis') {
+      const ellipsis = document.createElement('div');
+      ellipsis.className = 'pagination-ellipsis';
+      const circle = document.createElement('div');
+      circle.className = 'pagination-ellipsis-circle';
+      ellipsis.append(circle, circle.cloneNode(), circle.cloneNode());
+      paginationEl.appendChild(ellipsis);
+    } else {
+      paginationEl.appendChild(
+        createButton(String(page), page, false, page === currentPage),
+      );
+    }
+  });
 
   // Next
   paginationEl.appendChild(

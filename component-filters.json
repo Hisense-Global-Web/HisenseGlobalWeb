@@ -87,7 +87,7 @@
       "icon-card-container",
       "section-title",
       "parters-container",
-      "recall-info-list",
+      "information-list-module",
       "quick-action-card",
       "category-support-card",
       "addional-support-card",
@@ -331,6 +331,12 @@
     "id": "industry-categories",
     "components": [
       "industry-categories-item"
+    ]
+  },
+  {
+    "id": "information-list-module",
+    "components": [
+      "information-list-module-item"
     ]
   },
   {
