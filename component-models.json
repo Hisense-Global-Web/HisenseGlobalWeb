@@ -2730,6 +2730,113 @@
     ]
   },
   {
+    "id": "information-list-module",
+    "fields": [
+      {
+        "component": "select",
+        "name": "module-type",
+        "label": "Module Type",
+        "valueType": "string",
+        "required": true,
+        "options": [
+          {
+            "name": "For download",
+            "value": "download"
+          },
+          {
+            "name": "For navigate to new page",
+            "value": "navigate"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many items to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "no-result",
+        "label": "no result content",
+        "valueType": "string",
+        "value": "No items found.",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "information-list-module-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-icon",
+        "label": "Item Icon",
+        "valueType": "string",
+        "value": "/content/dam/hisense/us/common-icons/document.svg"
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "button_iconPC",
+        "label": "CTA Icon For PC",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Button Copy",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "button_color",
+        "label": "Button Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Green 60",
+            "value": "green-60"
+          },
+          {
+            "name": "Black",
+            "value": "grey-100"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "button_iconMobile",
+        "label": "Cta Icon For Mobile",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "pdf-select",
+        "label": "PDF Select",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "key-features",
     "fields": [
       {
@@ -3750,31 +3857,6 @@
             "value": "_blank"
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "recall-info-list",
-    "fields": [
-      {
-        "component": "text",
-        "name": "page-size",
-        "label": "Items per page",
-        "description": "How many news cards to show per page.",
-        "valueType": "number"
-      },
-      {
-        "component": "text",
-        "name": "data-source",
-        "label": "Data Source",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "empty-text",
-        "label": "Empty Result Text",
-        "description": "Text to show when no news items match the current filters.",
-        "valueType": "string"
       }
     ]
   },
