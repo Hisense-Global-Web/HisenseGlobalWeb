@@ -144,8 +144,12 @@ const generateRightButton = (moduleType, info) => {
   if (btnBgColor) {
     buttonPCContainer.classList.add(btnBgColor);
   }
-  buttonPCContainer.appendChild(pcIconEl);
-  buttonPCContainer.appendChild(btnTextEl);
+  if (pcIconEl) {
+    buttonPCContainer.appendChild(pcIconEl);
+  }
+  if (btnTextEl) {
+    buttonPCContainer.appendChild(btnTextEl);
+  }
   buttonContainerEl.appendChild(buttonPCContainer);
 
   // Mobile端的Download按钮
