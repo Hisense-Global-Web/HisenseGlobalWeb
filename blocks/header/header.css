@@ -44,7 +44,7 @@
     top: calc(-1 * var(--root-header-height));
   }
   
-  &.is-company{
+  &.is-company {
     transition: none;
     
     .nav-container {
