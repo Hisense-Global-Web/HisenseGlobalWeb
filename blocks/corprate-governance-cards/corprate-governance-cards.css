@@ -10,19 +10,19 @@ p {
 
 .corprate-governance-cards {
     .g-container {
-        width: 100%;
         height: auto;
         display: flex;
         gap: var(--spacing-xl);
     }
 
     .card-item {
-        flex: 1 0 min(calc(352/var(--breakpoint-pc) * 100vw),352px);
+        /* width: min(calc(352/var(--breakpoint-pc) * 100vw),352px); */
+        width: 352px;
         display: flex;
         flex-direction: column;
         text-align: center;
         gap: var(--spacing-m);
-        padding: var(--spacing-lg, 40px) var(--spacing-lg, 40px);
+        padding: var(--spacing-lg, 40px);
         border-radius: var(--radius-lg, 20px);
         background: linear-gradient(170deg, var(--color-primary-grey-10, #FFF) 16.98%, var(--white-alpha-60, rgb(255 255 255 / 60%)) 100%);
         box-sizing: border-box;
@@ -95,6 +95,7 @@ p {
             display: flex;
             gap: var(--spacing-2xs, 12px);
             padding: 0 var(--common-padding);
+            margin: 0 calc(-1 * var(--common-padding));
             overflow-x: scroll;
             scrollbar-width: none;
             -ms-overflow-style: none;
