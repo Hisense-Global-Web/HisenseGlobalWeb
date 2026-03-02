@@ -129,13 +129,6 @@ function filterFaqs(items, keyword) {
   });
 }
 
-function getTagLabel(tags) {
-  if (!Array.isArray(tags) || tags.length === 0) return '';
-  const tag = tags[0];
-  const lastPart = tag.split('/').pop();
-  return lastPart.replace(/-/g, ' ').toUpperCase();
-}
-
 // 创建单个产品卡片
 function createProductCard(item) {
   const card = document.createElement('a');
@@ -187,13 +180,7 @@ function createFaqCard(faqItem, index) {
 
   const titleContent = document.createElement('div');
 
-  const tagLabel = getTagLabel(faqItem.tags);
-  if (tagLabel) {
-    const categoryDiv = document.createElement('div');
-    categoryDiv.className = 'title-content';
-    categoryDiv.textContent = tagLabel;
-    titleContent.appendChild(categoryDiv);
-  } else if (faqItem.productCategory) {
+  if (faqItem.productCategory) {
     const categoryDiv = document.createElement('div');
     categoryDiv.className = 'title-content';
     categoryDiv.textContent = faqItem.productCategory;
@@ -481,6 +468,15 @@ export default async function decorate(block) {
   const results = await Promise.all(fetchPromises);
   results.forEach((r) => tabDataMap.push(r));
 
+  const allEmpty = tabDataMap.every((t) => t.filteredItems.length === 0);
+
+  if (allEmpty && keyword) {
+    tabNav.style.display = 'none';
+    contentArea.appendChild(renderNoResult(keyword, '', config));
+    block.classList.add('loaded');
+    return;
+  }
+
   let activeTabIndex = tabDataMap.findIndex((t) => t.filteredItems.length > 0);
   if (activeTabIndex < 0) activeTabIndex = 0;
 
@@ -613,8 +609,6 @@ export default async function decorate(block) {
   const tabItems = tabNav.querySelectorAll('.tab-item');
   tabItems.forEach((tab) => {
     tab.addEventListener('click', () => {
-      if (tab.classList.contains('empty')) return;
-
       tabItems.forEach((t) => t.classList.remove('select'));
       tab.classList.add('select');
 
