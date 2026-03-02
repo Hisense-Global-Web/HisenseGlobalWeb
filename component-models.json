@@ -1409,14 +1409,14 @@
       },
       {
         "component": "text",
-        "name": "item_title",
+        "name": "title",
         "label": "Title",
         "valueType": "string",
         "value": " "
       },
       {
         "component": "text",
-        "name": "item_text",
+        "name": "text",
         "label": "Text",
         "valueType": "string"
       }

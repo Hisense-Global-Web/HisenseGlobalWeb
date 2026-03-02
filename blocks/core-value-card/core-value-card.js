@@ -42,8 +42,8 @@ export default function decorate(block) {
           div.append(arrow);
         } else {
           div.className = 'card-body';
-          const { children } = div;
-          console.log(children);
+          // const { children } = div;
+          console.log(div);
           // const { length } = children;
           // if (length > 0) {
           //   const tit = document.createElement('div');
