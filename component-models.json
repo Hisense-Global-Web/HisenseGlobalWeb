@@ -1778,21 +1778,21 @@
     "fields": [
       {
         "component": "reference",
-        "name": "exception-icon",
+        "name": "exceptionIcon",
         "value": "",
         "label": "Icon",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "exception-title",
+        "name": "exceptionTitle",
         "value": "",
         "label": "Exception Scenario Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "exception-description",
+        "name": "exceptionDescription",
         "value": "",
         "label": "Exception Scenario Description",
         "valueType": "string"
