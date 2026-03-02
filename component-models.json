@@ -1719,7 +1719,9 @@
       },
       {
         "component": "container",
+        "name": "paginationContainer",
         "label": "Pagination Settings",
+        "valueType": "string",
         "collapsible": true,
         "fields": [
           {
@@ -1739,29 +1741,31 @@
           {
             "component": "text-input",
             "valueType": "string",
-            "name": "prevButtonText",
-            "label": "Previous Button Text (aria-label)",
+            "name": "prevButtonAriaLabel",
+            "label": "Previous Button Aria Label",
             "value": ""
           },
           {
             "component": "text-input",
             "valueType": "string",
-            "name": "nextButtonText",
-            "label": "Next Button Text (aria-label)",
+            "name": "nextButtonAriaLabel",
+            "label": "Next Button Aria Label",
             "value": ""
           },
           {
             "component": "text-input",
             "valueType": "string",
-            "name": "loadMoreText",
-            "label": "Load More Button Text",
+            "name": "loadMoreLabel",
+            "label": "Load More Button Label",
             "value": "Load More"
           }
         ]
       },
       {
         "component": "container",
+        "name": "tabContainer",
         "label": "Tab Settings",
+        "valueType": "string",
         "collapsible": true,
         "fields": [
           {

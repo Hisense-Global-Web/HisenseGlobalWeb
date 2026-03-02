@@ -284,8 +284,8 @@ function buildPaginationControls(container, state, onPageChange, config) {
   }
 
   const totalPages = Math.ceil(total / pageSize);
-  const prevAriaLabel = config['prev-button-text'] || config.prevButtonText || 'Previous page';
-  const nextAriaLabel = config['next-button-text'] || config.nextButtonText || 'Next page';
+  const prevAriaLabel = config['prev-button-aria-label'] || config.prevButtonAriaLabel || 'Previous page';
+  const nextAriaLabel = config['next-button-aria-label'] || config.nextButtonAriaLabel || 'Next page';
 
   const createButton = (label, page, disabled = false, isActive = false) => {
     const btn = document.createElement('button');
@@ -362,12 +362,12 @@ function buildMobilePaginationControls(container, state, onLoadMore, config) {
     return;
   }
 
-  const loadMoreText = config['load-more-text'] || config.loadMoreText || 'Load More';
+  const loadMoreLabel = config['load-more-label'] || config.loadMoreLabel || 'Load More';
 
   const loadMoreBtn = document.createElement('button');
   loadMoreBtn.type = 'button';
   loadMoreBtn.classList.add('page-button');
-  loadMoreBtn.textContent = loadMoreText;
+  loadMoreBtn.textContent = loadMoreLabel;
   loadMoreBtn.addEventListener('click', onLoadMore);
   mobilePaginationEl.appendChild(loadMoreBtn);
 }
@@ -535,9 +535,9 @@ export default async function decorate(block) {
     allTabLabel,
     pageSize,
     pagination: state.pagination,
-    prevButtonText: config['prev-button-text'] || config.prevButtonText || '',
-    nextButtonText: config['next-button-text'] || config.nextButtonText || '',
-    loadMoreText: config['load-more-text'] || config.loadMoreText || 'Load More',
+    prevButtonAriaLabel: config['prev-button-aria-label'] || config.prevButtonAriaLabel || '',
+    nextButtonAriaLabel: config['next-button-aria-label'] || config.nextButtonAriaLabel || '',
+    loadMoreLabel: config['load-more-label'] || config.loadMoreLabel || 'Load More',
   };
 
   try {
