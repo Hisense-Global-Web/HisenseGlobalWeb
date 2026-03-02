@@ -50,6 +50,12 @@
           "valueType": "string",
           "name": "placeholder",
           "label": "Placeholder Text"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "suggestion-label",
+          "label": "Suggestion Lable"
         }
       ]
     },
