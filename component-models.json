@@ -3157,6 +3157,13 @@
         "component": "aem-content",
         "name": "link",
         "label": "Link"
+      },
+      {
+        "component": "boolean",
+        "name": "enable-search",
+        "label": "Enable Search Box",
+        "valueType": "boolean",
+        "value": false
       }
     ]
   },
