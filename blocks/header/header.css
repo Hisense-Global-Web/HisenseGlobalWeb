@@ -906,6 +906,8 @@
       gap: 8px;
       
       &.current {
+        color: var(--color-primary-green-50);
+        
         * {
           color: var(--color-primary-green-60);
           font-weight: var(--fontweight-medium);
@@ -937,10 +939,6 @@
         }
       }
       
-      &.current {
-        color: var(--color-primary-green-50);
-      }
-      
       &:first-child {
         padding-top: 24px;
       }
@@ -958,7 +956,7 @@
   #navigation.show-second-menu-company {
     .mobile-second-menu.company {
       height: calc(100vh - 112px);
-      padding: 0 24px;
+      padding: 0 40px;
       max-height: inherit;
     }
 
@@ -977,6 +975,12 @@
       .mobile-second-menu {
         height: calc(100vh - 56px);
       }
+    }
+  }
+  
+  #navigation.is-company {
+    .mobile-second-menu.company {
+      padding: 0 40px;
     }
   }
 
