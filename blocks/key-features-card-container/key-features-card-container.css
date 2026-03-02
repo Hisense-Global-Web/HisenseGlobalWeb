@@ -1,19 +1,21 @@
 
-.key-features-wrapper {
+.key-features-card-container-wrapper {
   width: 100%;
+  background-color: #f7f7f7;
 }
 
-.key-features-wrapper p{
+.key-features-card-container-wrapper p{
   margin: 0;
   padding: 0;
 }
 
-.key-features .title >div:first-child{
-  color: var(--color-primary-grey-10);
+.key-features-card-container .title >div:first-child{
+  color: var(--color-primary-grey-100);
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
   font-size: var(--fontsize-h2);
   margin-bottom: var(--large);
+  text-align: center;
 
    @media (width < 860px) {
     font-size: var(--size-18);
@@ -21,7 +23,7 @@
   }
 }
 
-.key-features > ul {
+.key-features-card-container > ul {
   gap: var(--size-20);
   list-style: none;
   margin: 0;
@@ -46,8 +48,9 @@
 	}
 }
 
-.key-features > ul > li {
+.key-features-card-container > ul > li {
   font-family: var(--font-family);
+  aspect-ratio: 1;
   position: relative;
   border-radius: var(--border-radius-l);
   overflow: hidden;
@@ -56,8 +59,8 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  aspect-ratio: 1;
-  
+  background: white;
+
    @media (width < 860px) {
     position: relative;
 		width: 51.282vw !important;
@@ -72,9 +75,9 @@
   }
 }
 
-.key-features .card-image {
-  width: min(11.11111vw, 160px);
-  height: min(12.4305vw, 179px);
+.key-features-card-container .card-image {
+  width: var(--size-80);
+  height:  var(--size-80);
   object-fit: contain;
   display: flex;
   align-items: center;
@@ -86,17 +89,14 @@
   }
 }
 
-.key-features  > ul > li .card-image img {
-  width: min(7.6388888, 110px);
-  height: min(9.44444vw, 136px);
+.key-features-card-container  > ul > li .card-image img {
+  width: 100%;
+  height:100%;
 
-   @media (width < 860px) {
-    width: 22.051281vw;   /* 86 in mobile */
-    height: 27.179487vw;  /* 106 in mobile */
-  }
+
 }
 
-.key-features .card-body{
+.key-features-card-container .card-body{
   color: var(--color-primary-grey-90);
   font-weight: var(--fontweight-book);
   font-family: var(--font-family);

@@ -20,7 +20,8 @@
       "article-body-list",
       "article-title",
       "authorized-reseller",
-      "bi-directional-content",
+      "authorized-reseller-note",
+      "authorized-reseller-our",
       "button",
       "card-carousel",
       "card-grid",
@@ -71,6 +72,7 @@
       "product-filter",
       "product-filters-carousel",
       "product-gallery",
+      "product-information",
       "product-section",
       "product-sorting",
       "product-spec",
@@ -95,7 +97,36 @@
       "text",
       "title",
       "video",
-      "videoinfo"
+      "videoinfo",
+      "page-header",
+      "icon-card-container",
+      "section-title",
+      "parters-container",
+      "information-list-module",
+      "quick-action-card",
+      "category-support-card",
+      "addional-support-card",
+      "tech-information",
+      "past-partnerships-list",
+      "partnerships-section-title",
+      "sustainability-dashboard-achievement",
+      "sustainability-dashboard-list",
+      "stats-grid",
+      "tech-information",
+      "core-value-card",
+      "past-partnerships-list",
+      "about-hisense-section-title",
+      "current-partnerships-list",
+      "industry-categories",
+      "module-title",
+      "card-grid",
+      "news-card-list",
+      "about-hisense-module-title",
+      "honors-awards",
+      "bi-directional-content",
+      "key-features-card-container",
+      "legal-content",
+      "accessories-feature"
     ]
   },
   {
@@ -108,6 +139,12 @@
       "popup-key-stats",
       "popup-image",
       "stats-grid"
+    ]
+  },
+  {
+    "id": "accessories-feature",
+    "components": [
+      "accessories-feature-item"
     ]
   },
   {
@@ -130,6 +167,12 @@
     "id": "article-body-list",
     "components": [
       "article-body-list-item"
+    ]
+  },
+  {
+    "id": "authorized-reseller-our",
+    "components": [
+      "authorized-reseller-our-item"
     ]
   },
   {
@@ -307,9 +350,15 @@
     ]
   },
   {
-    "id": "key-features",
+    "id": "information-list-module",
     "components": [
-      "key-features-item"
+      "information-list-module-item"
+    ]
+  },
+  {
+    "id": "key-features-card-container",
+    "components": [
+      "key-features-card-container-item"
     ]
   },
   {

@@ -49,7 +49,6 @@
           color: var(--color-primary-grey-50);
         }
       }
-
     }
 
     .releases-card-group {
@@ -241,6 +240,10 @@
       gap: var(--size-16);
       margin-top: var(--size-48);
       
+      &:empty {
+        display: none;
+      }
+      
       @media (width < 860px) {
         display: none;
       }
@@ -284,6 +287,22 @@
           &.disabled {
             display: none;
           }
+        }
+      }
+
+      .pagination-ellipsis {
+        width: var(--size-40);
+        height: var(--size-40);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--size-6, 6px);
+
+        .pagination-ellipsis-circle {
+          width: var(--size-4, 4px);
+          height: var(--size-4, 4px);
+          border-radius: var(--size-10, 10px);
+          background: var(--color-primary-grey-40, #bbb);
         }
       }
     }
@@ -337,6 +356,10 @@
         font-weight: var(--fontweight-medium);
         cursor: pointer;
       }
+    }
+    
+    &:has(.releases-card-group:empty) .section-title {
+      margin-bottom: 0;
     }
   }
 }

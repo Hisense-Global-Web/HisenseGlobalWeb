@@ -1,0 +1,72 @@
+{
+  "definitions": [
+    {
+      "title": "Authorized Reseller Our",
+      "id": "authorized-reseller-our",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Authorized Reseller",
+              "model": "authorized-reseller-our",
+              "classes": "authorized-reseller-our",
+              "key-value": true,
+              "filter": "authorized-reseller-our"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Authorized Reseller Our Item",
+      "id": "authorized-reseller-our-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Authorized Reseller Our Item",
+              "model": "authorized-reseller-our-item",
+              "key-value": true
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "authorized-reseller-our",
+      "fields": [
+        {
+          "component": "text",
+          "name": "title",
+          "value": "",
+          "label": "Title",
+          "valueType": "string"
+        }
+      ]
+    },
+    {
+      "id": "authorized-reseller-our-item",
+      "fields": [
+        {
+          "component": "reference",
+          "name": "item-image",
+          "value": "",
+          "label": "Logo",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "authorized-reseller-our",
+      "components": [
+        "authorized-reseller-our-item"
+      ]
+    }
+  ]
+}
