@@ -259,7 +259,7 @@
         }
       }
 
-      &:hover:not(.is-active):not(:disabled) {
+      &:hover:not(:is(.is-active, :disabled)) {
         background-color: var(--color-primary-grey-20);
       }
 

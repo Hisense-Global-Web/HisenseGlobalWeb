@@ -135,35 +135,6 @@ async function fetchFaqTags() {
   }
 }
 
-function renderFaqSummary(container, config, faqData, tags) {
-  const summaryEl = document.createElement('div');
-  summaryEl.className = 'faq-summary';
-
-  // 标题
-  if (config.title) {
-    const titleEl = document.createElement('div');
-    titleEl.className = 'faq-summary-title';
-    titleEl.textContent = config.title;
-    summaryEl.appendChild(titleEl);
-  }
-
-  // 副标题
-  if (config.subtitle) {
-    const subtitleEl = document.createElement('div');
-    subtitleEl.className = 'faq-summary-subtitle';
-    subtitleEl.textContent = config.subtitle;
-    summaryEl.appendChild(subtitleEl);
-  }
-
-  // 标签 tabs
-  if (config.showTabs !== 'false' && Object.keys(tags).length > 0) {
-    const tabsEl = renderFaqTabs(faqData, tags, config.allTabLabel || 'All');
-    summaryEl.appendChild(tabsEl);
-  }
-
-  container.appendChild(summaryEl);
-}
-
 /**
  * 渲染标签 tabs
  */
@@ -205,6 +176,35 @@ function renderFaqTabs(faqData, tags, allTabLabel) {
   });
 
   return tabsEl;
+}
+
+function renderFaqSummary(container, config, faqData, tags) {
+  const summaryEl = document.createElement('div');
+  summaryEl.className = 'faq-summary';
+
+  // 标题
+  if (config.title) {
+    const titleEl = document.createElement('div');
+    titleEl.className = 'faq-summary-title';
+    titleEl.textContent = config.title;
+    summaryEl.appendChild(titleEl);
+  }
+
+  // 副标题
+  if (config.subtitle) {
+    const subtitleEl = document.createElement('div');
+    subtitleEl.className = 'faq-summary-subtitle';
+    subtitleEl.textContent = config.subtitle;
+    summaryEl.appendChild(subtitleEl);
+  }
+
+  // 标签 tabs
+  if (config.showTabs !== 'false' && Object.keys(tags).length > 0) {
+    const tabsEl = renderFaqTabs(faqData, tags, config.allTabLabel || 'All');
+    summaryEl.appendChild(tabsEl);
+  }
+
+  container.appendChild(summaryEl);
 }
 
 /**
@@ -579,6 +579,7 @@ export default async function decorate(block) {
     );
 
     // 分页渲染函数
+    // eslint-disable-next-line no-unused-vars
     const renderPage = (data, page = 1) => {
       state.currentPage = page;
       const displayData = state.pagination ? data.slice((page - 1) * state.pageSize, page * state.pageSize) : data;

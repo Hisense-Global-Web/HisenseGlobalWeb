@@ -1718,53 +1718,67 @@
         "value": ""
       },
       {
-        "component": "text-input",
-        "valueType": "number",
-        "name": "pageSize",
-        "label": "Page Size",
-        "value": 10
+        "component": "container",
+        "label": "Pagination Settings",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text-input",
+            "valueType": "number",
+            "name": "pageSize",
+            "label": "Page Size",
+            "value": 10
+          },
+          {
+            "component": "checkbox",
+            "valueType": "boolean",
+            "name": "pagination",
+            "label": "Enable Pagination",
+            "value": true
+          },
+          {
+            "component": "text-input",
+            "valueType": "string",
+            "name": "prevButtonText",
+            "label": "Previous Button Text (aria-label)",
+            "value": ""
+          },
+          {
+            "component": "text-input",
+            "valueType": "string",
+            "name": "nextButtonText",
+            "label": "Next Button Text (aria-label)",
+            "value": ""
+          },
+          {
+            "component": "text-input",
+            "valueType": "string",
+            "name": "loadMoreText",
+            "label": "Load More Button Text",
+            "value": "Load More"
+          }
+        ]
       },
       {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "pagination",
-        "label": "Enable Pagination",
-        "value": true
-      },
-      {
-        "component": "text-input",
-        "valueType": "string",
-        "name": "prevButtonText",
-        "label": "Previous Button Text (aria-label)",
-        "value": ""
-      },
-      {
-        "component": "text-input",
-        "valueType": "string",
-        "name": "nextButtonText",
-        "label": "Next Button Text (aria-label)",
-        "value": ""
-      },
-      {
-        "component": "text-input",
-        "valueType": "string",
-        "name": "loadMoreText",
-        "label": "Load More Button Text",
-        "value": "Load More"
-      },
-      {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "showTabs",
-        "label": "Show Tag Tabs",
-        "value": true
-      },
-      {
-        "component": "text-input",
-        "valueType": "string",
-        "name": "allTabLabel",
-        "label": "All Tab Label",
-        "value": "All"
+        "component": "container",
+        "label": "Tab Settings",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "checkbox",
+            "valueType": "boolean",
+            "name": "showTabs",
+            "label": "Show Tag Tabs",
+            "value": true
+          },
+          {
+            "component": "text-input",
+            "valueType": "string",
+            "name": "allTabLabel",
+            "label": "All Tab Label",
+            "value": "All"
+          }
+        ]
       }
     ]
   },
