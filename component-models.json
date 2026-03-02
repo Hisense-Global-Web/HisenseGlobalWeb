@@ -4129,6 +4129,64 @@
     "fields": []
   },
   {
+    "id": "support-search-result-module",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "pageSize",
+        "label": "Page Size"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "prevButtonAriaLabel",
+        "label": "Previous Button Aria Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "nextButtonAriaLabel",
+        "label": "Next Button Aria Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreLabel",
+        "label": "Load More Button Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "emptyResultHeading",
+        "label": "No Result Title Prefix"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "noResultSubtitle",
+        "label": "No Result Subtitle"
+      }
+    ]
+  },
+  {
+    "id": "support-search-result-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Tab Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "endpoint",
+        "label": "Data Endpoint"
+      }
+    ]
+  },
+  {
     "id": "sustainability-dashboard-achievement",
     "fields": [
       {

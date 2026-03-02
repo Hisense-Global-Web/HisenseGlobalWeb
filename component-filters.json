@@ -85,6 +85,7 @@
       "slide",
       "social-media-list",
       "stats-grid",
+      "support-search-result-module",
       "strategic-card-items",
       "sub-menu-link",
       "sustainability-dashboard-achievement",
@@ -440,6 +441,12 @@
     "id": "support-navigation-menu-links",
     "components": [
       "sub-menu-link"
+    ]
+  },
+  {
+    "id": "support-search-result-module",
+    "components": [
+      "support-search-result-item"
     ]
   },
   {
