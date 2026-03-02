@@ -15,12 +15,14 @@
               "endpoint": "/faq/us/en/television.json",
               "title": "Frequently Asked Questions",
               "subtitle": "Common questions about the Hisense 65\" ULED 5K Smart TV",
+              "showSubtitle": true,
               "pageSize": "10",
               "pagination": true,
               "prevButtonAriaLabel": "Prev",
               "nextButtonAriaLabel": "Next",
               "loadMoreLabel": "Load More",
               "showTabs": true,
+              "showTabCount": true,
               "allTabLabel": "All"
             }
           }
@@ -45,10 +47,25 @@
           "label": "Title"
         },
         {
-          "component": "text",
+          "component": "container",
+          "name": "subtitleContainer",
+          "label": "Subtitle Settings",
           "valueType": "string",
-          "name": "subtitle",
-          "label": "Subtitle"
+          "collapsible": true,
+          "fields": [
+            {
+              "component": "text",
+              "valueType": "string",
+              "name": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "component": "checkbox",
+              "valueType": "boolean",
+              "name": "showSubtitle",
+              "label": "Show Subtitle"
+            }
+          ]
         },
         {
           "component": "container",
@@ -101,6 +118,12 @@
               "valueType": "boolean",
               "name": "showTabs",
               "label": "Show Tag Tabs"
+            },
+            {
+              "component": "checkbox",
+              "valueType": "boolean",
+              "name": "showTabCount",
+              "label": "Show Tab Count"
             },
             {
               "component": "text",

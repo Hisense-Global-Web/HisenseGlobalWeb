@@ -110,7 +110,7 @@ async function fetchFaqTags() {
 }
 
 // 渲染FAQ标签页
-function renderFaqTabs(faqData, tags, allTabLabel) {
+function renderFaqTabs(faqData, tags, allTabLabel, showTabCount) {
   const tabsEl = document.createElement('div');
   tabsEl.className = 'faq-summary-tabs';
 
@@ -129,7 +129,9 @@ function renderFaqTabs(faqData, tags, allTabLabel) {
 
   const allTab = document.createElement('div');
   allTab.className = 'faq-summary-tab selected';
-  allTab.textContent = `${allTabLabel} (${faqData.length})`;
+  allTab.textContent = showTabCount !== 'false'
+    ? `${allTabLabel} (${faqData.length})`
+    : allTabLabel;
   allTab.dataset.tag = 'all';
   tabsEl.appendChild(allTab);
 
@@ -137,7 +139,9 @@ function renderFaqTabs(faqData, tags, allTabLabel) {
     if (allTags.has(tagKey)) {
       const tab = document.createElement('div');
       tab.className = 'faq-summary-tab';
-      tab.textContent = `${tags[tagKey]} (${tagCounts[tagKey] || 0})`;
+      tab.textContent = showTabCount !== 'false'
+        ? `${tags[tagKey]} (${tagCounts[tagKey] || 0})`
+        : tags[tagKey];
       tab.dataset.tag = tagKey;
       tabsEl.appendChild(tab);
     }
@@ -158,7 +162,7 @@ function renderFaqSummary(container, config, faqData, tags) {
     summaryEl.appendChild(titleEl);
   }
 
-  if (config.subtitle) {
+  if (config.subtitle && config.showSubtitle !== 'false') {
     const subtitleEl = document.createElement('div');
     subtitleEl.className = 'faq-summary-subtitle';
     subtitleEl.textContent = config.subtitle;
@@ -166,7 +170,7 @@ function renderFaqSummary(container, config, faqData, tags) {
   }
 
   if (config.showTabs !== 'false' && Object.keys(tags).length > 0) {
-    const tabsEl = renderFaqTabs(faqData, tags, config.allTabLabel || 'All');
+    const tabsEl = renderFaqTabs(faqData, tags, config.allTabLabel || 'All', config.showTabCount);
     summaryEl.appendChild(tabsEl);
   }
 
@@ -455,6 +459,8 @@ export default async function decorate(block) {
 
   const pageSize = parseInt(config['page-size'] || config.pageSize || config.pagesize || DEFAULT_PAGE_SIZE, 10);
   const showTabs = config.showTabs !== 'false' && config.showtabs !== 'false';
+  const showTabCount = config.showTabCount !== 'false' && config.showtabcount !== 'false';
+  const showSubtitle = config.showSubtitle !== 'false' && config.showsubtitle !== 'false';
   const allTabLabel = config['all-tab-label'] || config.allTabLabel || config.alltablabel || 'All';
   const title = config.title || '';
   const subtitle = config.subtitle || '';
@@ -499,7 +505,9 @@ export default async function decorate(block) {
   const fullConfig = {
     title,
     subtitle,
+    showSubtitle,
     showTabs,
+    showTabCount,
     allTabLabel,
     pageSize,
     pagination: state.pagination,
@@ -536,7 +544,9 @@ export default async function decorate(block) {
       {
         title,
         subtitle,
+        showSubtitle,
         showTabs,
+        showTabCount,
         allTabLabel,
       },
       allFaqData,

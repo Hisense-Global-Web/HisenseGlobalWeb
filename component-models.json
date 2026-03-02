@@ -1709,10 +1709,25 @@
         "label": "Title"
       },
       {
-        "component": "text",
+        "component": "container",
+        "name": "subtitleContainer",
+        "label": "Subtitle Settings",
         "valueType": "string",
-        "name": "subtitle",
-        "label": "Subtitle"
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "subtitle",
+            "label": "Subtitle"
+          },
+          {
+            "component": "checkbox",
+            "valueType": "boolean",
+            "name": "showSubtitle",
+            "label": "Show Subtitle"
+          }
+        ]
       },
       {
         "component": "container",
@@ -1765,6 +1780,12 @@
             "valueType": "boolean",
             "name": "showTabs",
             "label": "Show Tag Tabs"
+          },
+          {
+            "component": "checkbox",
+            "valueType": "boolean",
+            "name": "showTabCount",
+            "label": "Show Tab Count"
           },
           {
             "component": "text",

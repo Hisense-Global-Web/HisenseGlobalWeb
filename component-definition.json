@@ -832,12 +832,14 @@
                   "endpoint": "/faq/us/en/television.json",
                   "title": "Frequently Asked Questions",
                   "subtitle": "Common questions about the Hisense 65\" ULED 5K Smart TV",
+                  "showSubtitle": true,
                   "pageSize": "10",
                   "pagination": true,
                   "prevButtonAriaLabel": "Prev",
                   "nextButtonAriaLabel": "Next",
                   "loadMoreLabel": "Load More",
                   "showTabs": true,
+                  "showTabCount": true,
                   "allTabLabel": "All"
                 }
               }
