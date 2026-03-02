@@ -45,14 +45,14 @@
         },
         {
           "component": "text",
-          "name": "exception_btntext",
+          "name": "btnText",
           "value": "",
           "label": "Button Copy",
           "valueType": "string"
         },
         {
           "component": "aem-content",
-          "name": "exception_btnlink",
+          "name": "btnLink",
           "value": "",
           "label": "Button Link",
           "valueType": "string"

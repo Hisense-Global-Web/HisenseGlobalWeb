@@ -1,8 +1,23 @@
 .exception-page {
     padding: var(--size-24) 0;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-48);
 
     div {
         margin: 0 auto;
+    }
+
+    picture {
+        width: var(--size-80);
+        height: var(--size-77);
+        display: block;
+    }
+
+    picture > img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
     }
 }
