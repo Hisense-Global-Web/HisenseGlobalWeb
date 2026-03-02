@@ -427,6 +427,12 @@
     ]
   },
   {
+    "id": "search-box-navigation",
+    "components": [
+      "search-box"
+    ]
+  },
+  {
     "id": "search-box",
     "components": [
       "search-box-quick-link-item"

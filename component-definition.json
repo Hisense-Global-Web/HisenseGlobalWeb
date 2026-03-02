@@ -2187,6 +2187,23 @@
           }
         },
         {
+          "title": "Search Box Navigation",
+          "id": "search-box-navigation",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Search Box Navigation",
+                  "model": "search-box-navigation",
+                  "filter": "search-box-navigation",
+                  "classes": "search-box-navigation-block"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Search Box",
           "id": "search-box",
           "plugins": {
