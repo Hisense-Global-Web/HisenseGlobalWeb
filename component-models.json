@@ -532,10 +532,24 @@
     "id": "accessories-feature",
     "fields": [
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "title_image",
+        "label": "Primary Image",
+        "multi": false
+      },
+      {
         "component": "text",
         "valueType": "string",
-        "name": "section_title",
-        "label": "Section Title",
+        "name": "title_content",
+        "label": "Primary content",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title_secondary",
+        "label": "Secondary Title",
         "multi": false
       }
     ]
@@ -552,8 +566,14 @@
       },
       {
         "component": "text",
-        "name": "text",
-        "label": "Image Text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_subtitle",
+        "label": "Sub Title",
         "valueType": "string"
       }
     ]
@@ -1389,14 +1409,14 @@
       },
       {
         "component": "text",
-        "name": "item_title",
+        "name": "valuetitle",
         "label": "Title",
         "valueType": "string",
-        "value": ""
+        "value": " "
       },
       {
         "component": "text",
-        "name": "item_text",
+        "name": "valuetext",
         "label": "Text",
         "valueType": "string"
       }

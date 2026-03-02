@@ -110,7 +110,8 @@
       "honors-awards",
       "bi-directional-content",
       "key-features-card-container",
-      "legal-content"
+      "legal-content",
+      "accessories-feature"
     ]
   },
   {
@@ -126,9 +127,9 @@
     ]
   },
   {
-    "id": "past-partnerships-list",
+    "id": "accessories-feature",
     "components": [
-      "past-partnerships-list-item"
+      "accessories-feature-item"
     ]
   },
   {

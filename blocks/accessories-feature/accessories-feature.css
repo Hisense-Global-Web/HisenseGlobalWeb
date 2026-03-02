@@ -1,6 +1,7 @@
 
 .accessories-feature-wrapper {
   width: 100%;
+  margin-top: var(--mid);
 }
 
 .accessories-feature-wrapper p{
@@ -8,110 +9,107 @@
   padding: 0;
 }
 
-.accessories-feature .title >div:first-child{
-  color: var(--color-primary-green-50);
+.accessories-feature .title  img{
+  @media (width < 860px) {
+    border-radius: var(--border-radius-l);
+    overflow: hidden;
+    aspect-ratio: 354 / 200;
+  }
+}
+
+.accessories-feature .title p:nth-child(2){
+  color: var(--color-primary-grey-70);
   font-family: var(--font-family);
-  font-weight: var(--fontweight-medium);
-  font-size: var(--size-20);
-  margin-bottom: var(--spacing-sm);
+  font-weight: var(--fontweight-light);
+  font-size: var(--fontsize-body1);
+  margin: var(--mid) 0 var(--large);
 
    @media (width < 860px) {
-    font-size: var(--size-18);
-    margin-bottom: var(--size-30);
+    color: var(--color-primary-grey-80);
+    font-size: var(--size-14);
+    margin: var(--mid) 0 var(--size-80);
+  }
+}
+
+.accessories-feature .title p:nth-child(3){
+  color: var(--color-primary-grey-100);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+  font-size: var(--fontsize-h3);
+
+   @media (width < 860px) {
+    font-size: var(--size-30);
   }
 }
 
 .accessories-feature > ul {
-  gap: var(--spacing-sm);
+  gap: var(--large);
   list-style: none;
-  margin: 0;
+  margin:var(--mid) 0 0;
   padding: 0;
   display: grid;
-	
-  @media (width >= 860px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
+	grid-template-columns: repeat(2, 1fr);
+  
 
   @media (width < 860px) {
-		overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
-    scroll-behavior: smooth; /* 平滑滚动 */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-    touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
-    overscroll-behavior-x: contain; /* 防止滚动链 */
-    grid-auto-flow: column;
-    gap: var(--spacing-xs);
+    grid-template-columns: repeat(1, 1fr);
+		gap: var(--mid);
+    margin:var(--mid) 0;
 	}
 }
 
 .accessories-feature > ul > li {
   font-family: var(--font-family);
-  background: var(--color-primary-green-10);
 
   /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
   position: relative;
-  border-radius: var(--border-radius-l);
-  overflow: hidden;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  aspect-ratio: 1;
-  
-   @media (width < 860px) {
-    position: relative;
-		width: 51.282vw !important;
-    height: 58.9743vw;
-    aspect-ratio: 1;
-    transition: transform 0.3s;
-    pointer-events: auto; /* 允许事件穿透到容器 */
-    padding: var(--spacing-sm);
+  gap: var(--fontsize-h2);
 
-    /* -webkit-user-select: none; */
-    user-select: none;
+   @media (width < 860px) {
+    gap: var(--mid);
+   
   }
 }
 
 .accessories-feature .card-image {
-  background-color: var(--color-primary-grey-10);
-  width: min(11.11111vw, 160px);
-  height: min(12.4305vw, 179px);
-  object-fit: contain;
-  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  @media (width < 860px) {
-    width: 29.74358vw;   /* 116px in mobile */
-    height: 33.33333vw;;  /* 130px in mobile */
-  }
+  width: 100%;
 }
 
 .accessories-feature  > ul > li .card-image img {
-  width: min(7.6388888, 110px);
-  height: min(9.44444vw, 136px);
-
-   @media (width < 860px) {
-    width: 22.051281vw;   /* 86 in mobile */
-    height: 27.179487vw;  /* 106 in mobile */
-  }
+  width: 100%;
+  height: 100%; 
+  aspect-ratio: 520 / 366;
+  border-radius: var(--border-radius-l);
+  overflow: hidden;
 }
 
-.accessories-feature .card-body{
-  color: var(--color-hisense-grey-01);
+.accessories-feature .card-body  p:first-child{
+  color: var(--color-primary-grey-100);
   font-weight: var(--fontweight-medium);
   font-family: var(--font-family);
-  font-size: var(--size-20);
+  font-size: var(--fontsize-title1);
   line-height: 120%;
-  margin-top: var(--spacing-md);
-  text-align: center;
+  margin-bottom: var(--spacing-xs);
 
   @media (width < 860px) {
     color: var(--color-primary-grey-70);
+    margin-bottom: var(--size-4);
+    line-height: 140%;
+    font-size: var(--size-20);
+  }
+}
+
+.accessories-feature .card-body  p:nth-child(2){
+  color: var(--color-primary-grey-70);
+  font-weight: var(--fontweight-book);
+  font-family: var(--font-family);
+  font-size: var(--fontsize-body1);
+  line-height: 150%;
+
+  @media (width < 860px) {
     line-height: 140%;
     font-size: var(--size-14);
   }
