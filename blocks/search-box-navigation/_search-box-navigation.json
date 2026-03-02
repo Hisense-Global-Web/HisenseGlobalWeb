@@ -24,12 +24,5 @@
       "fields": []
     }
   ],
-  "filters": [
-    {
-      "id": "search-box-navigation",
-      "components": [
-        "search-box"
-      ]
-    }
-  ]
+  "filters": []
 }
