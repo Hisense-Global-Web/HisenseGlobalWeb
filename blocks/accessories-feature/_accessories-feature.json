@@ -87,9 +87,9 @@
   ],
   "filters": [
     {
-      "id": "past-partnerships-list",
+      "id": "accessories-feature",
       "components": [
-        "past-partnerships-list-item"
+        "accessories-feature-item"
       ]
     }
   ]

@@ -1,5 +1,4 @@
 /* navigation styles */
-@import url('../../styles/reset-rich-text.css');
 
 :root {
   --root-header-height: 100px;
@@ -173,6 +172,7 @@
   box-sizing: border-box;
   background: #fff;
   max-width: inherit;
+  color: var(--color-primary-grey-90);
   padding: 0 calc(calc(100% - var(--container-max-width)) / 2 + var(--common-padding));
   
   &.hidden {
@@ -188,12 +188,22 @@
     margin-bottom: 19px;
     display: flex;
     align-items: center;
+    
+    @media (width < 1180px) {
+      height: 22px;
+      font-size: 18px;
+      line-height: 1.2;
+      margin: 0;
+      align-self: center;
+      color: var(--color-primary-grey-70);
+    }
   }
 
   .company-group {
     height: 50px;
     display: flex;
     gap: 48px;
+    color: var(--color-primary-grey-70);
     
     .company-item {
       padding: 4px 0;
@@ -208,6 +218,11 @@
       
       &.current {
         border-bottom: 2px solid var(--color-hisense-black);
+        color: var(--color-hisense-black);
+
+        * {
+          color: var(--color-hisense-black);
+        }
       }
       
       * {
@@ -218,7 +233,7 @@
         margin: 0;
         padding: 0;
         background: transparent;
-        color: var(--color-hisense-black);
+        color: var(--color-primary-grey-70);
         border: none;
         border-radius: inherit;
         line-height: 1.5;
@@ -245,7 +260,7 @@
   transition: all .36s ease-in-out;
 }
 
-#navigation .nav-second:not(.hidden) + .mobile-menu {
+#navigation:not(.is-support) .nav-second:not(.hidden) + .mobile-menu {
   margin-top: -66px;
 
   @media (width < 1180px) {
@@ -878,6 +893,10 @@
     flex-direction: column;
     gap: 24px;
     
+    &.support {
+      margin-top: 0;
+    }
+    
     .mobile-second-menu-item {
       height: 21px;
       font-size: 16px;
@@ -885,6 +904,15 @@
       color: var(--color-primary-grey-50);
       display: flex;
       gap: 8px;
+      
+      &.current {
+        color: var(--color-primary-green-50);
+        
+        * {
+          color: var(--color-primary-green-60);
+          font-weight: var(--fontweight-medium);
+        }
+      }
 
       * {
         font-size: 16px;;
@@ -911,10 +939,6 @@
         }
       }
       
-      &.current {
-        color: var(--color-primary-green-50);
-      }
-      
       &:first-child {
         padding-top: 24px;
       }
@@ -932,7 +956,7 @@
   #navigation.show-second-menu-company {
     .mobile-second-menu.company {
       height: calc(100vh - 112px);
-      padding: 0 24px;
+      padding: 0 40px;
       max-height: inherit;
     }
 
@@ -953,6 +977,90 @@
       }
     }
   }
+  
+  #navigation.is-company {
+    .mobile-second-menu.company {
+      padding: 0 40px;
+    }
+  }
+
+  #navigation.is-support {
+    .support-product {
+      &.mobile-link.hide {
+        .mobile-link-title-line {
+          img {
+            transform: rotate(180deg);
+          }
+        }
+
+        .mobile-link-second-list {
+          max-height: 0;
+          padding: 0;
+        }
+      }
+
+      .mobile-link-title-line {
+        height: 21px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 16px;
+        line-height: 1.3;
+        color: var(--color-hisense-black);
+        font-weight: var(--fontweight-medium);
+
+        img {
+          width: 16px;
+          height: 16px;
+          transition: transform .36s cubic-bezier(0, 0.18, 0.07, 1), -webkit-transform .36s cubic-bezier(0, 0.18, 0.07, 1);
+        }
+      }
+      
+      .mobile-link-second-list {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        color: #747474;
+        overflow: hidden;
+        max-height: 500px;
+        transition: max-height .36s ease-in-out, padding .36s ease-in-out;
+        padding-right: 12px;
+  
+        .mobile-product-item {
+          height: 21px;
+          line-height: 1.3;
+          font-size: 16px;
+          font-weight: var(--fontweight-book);
+          color: var(--color-primary-grey-50);
+  
+          &:first-child {
+            padding-top: 24px;
+          }
+        }
+      }
+    }
+    
+    .contact-us-links {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 32px;
+
+      .mobile-product-item {
+        height: 21px;
+        line-height: 1.3;
+        font-size: 16px;
+        font-weight: var(--fontweight-book);
+        color: var(--color-primary-grey-50);
+
+        a {
+          display: inline-block;
+          color: var(--color-primary-grey-50);
+          text-decoration: none;
+        }
+      }
+    }
+  }
 
   #navigation.show-second-menu-support {
     .mobile-second-menu.support {
@@ -961,81 +1069,7 @@
       max-height: inherit;
       overflow: auto;
       
-      .support-product {
-        .mobile-link-title-line {
-          height: 21px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-size: 16px;
-          line-height: 1.3;
-          color: var(--color-hisense-black);
-          font-weight: var(--fontweight-medium);
-          
-          img {
-            width: 16px;
-            height: 16px;
-            transition: transform .36s cubic-bezier(0, 0.18, 0.07, 1), -webkit-transform .36s cubic-bezier(0, 0.18, 0.07, 1);
-          }
-        }
-        
-        .mobile-link-second-list {
-          display: flex;
-          flex-direction: column;
-          gap: 24px;
-          color: #747474;
-          overflow: hidden;
-          max-height: 500px;
-          transition: max-height .36s ease-in-out, padding .36s ease-in-out;
-          padding-right: 12px;
-          
-          .mobile-product-item {
-            height: 21px;
-            line-height: 1.3;
-            font-size: 16px;
-            font-weight: var(--fontweight-book);
-            color: var(--color-primary-grey-50);
-
-            &:first-child {
-              padding-top: 24px;
-            }
-          }
-        }
-        
-        &.mobile-link.hide {
-          .mobile-link-title-line {
-            img {
-              transform: rotate(180deg);
-            }
-          }
-          
-          .mobile-link-second-list {
-            max-height: 0;
-            padding: 0;
-          }
-        }
-      }
       
-      .contact-us-links {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        margin-bottom: 32px;
-        
-        .mobile-product-item {
-          height: 21px;
-          line-height: 1.3;
-          font-size: 16px;
-          font-weight: var(--fontweight-book);
-          color: var(--color-primary-grey-50);
-          
-          a {
-            display: inline-block;
-            color: var(--color-primary-grey-50);
-            text-decoration: none;
-          }
-        }
-      }
     } 
 
     .support-arrow {
