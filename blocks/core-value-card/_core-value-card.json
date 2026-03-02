@@ -81,14 +81,14 @@
         },
          {
           "component": "text",
-          "name": "title",
+          "name": "coreValueTitle",
           "label": "Title",
           "valueType": "string",
           "value": " "
         },
          {
           "component": "text",
-          "name": "text",
+          "name": "coreValueText",
           "label": "Text",
           "valueType": "string"
           
