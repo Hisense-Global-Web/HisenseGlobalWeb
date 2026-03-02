@@ -43,16 +43,17 @@ export default function decorate(block) {
         } else {
           div.className = 'card-body';
           const { children } = div;
-          const { length } = children;
-          if (length > 0) {
-            const tit = document.createElement('div');
-            const desc = document.createElement('div');
-            tit.append(children[0]);
-            if (length > 1) {
-              desc.append(children[children.length - 1]);
-            }
-            div.replaceChildren(tit, desc);
-          }
+          console.log(children);
+          // const { length } = children;
+          // if (length > 0) {
+          //   const tit = document.createElement('div');
+          //   const desc = document.createElement('div');
+          //   tit.append(children[0]);
+          //   if (length > 1) {
+          //     desc.append(children[children.length - 1]);
+          //   }
+          //   div.replaceChildren(tit, desc);
+          // }
         }
       });
       ul.append(li);

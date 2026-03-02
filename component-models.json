@@ -1412,7 +1412,7 @@
         "name": "item_title",
         "label": "Title",
         "valueType": "string",
-        "value": ""
+        "value": " "
       },
       {
         "component": "text",

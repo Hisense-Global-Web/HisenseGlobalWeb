@@ -84,13 +84,14 @@
           "name": "item_title",
           "label": "Title",
           "valueType": "string",
-          "value": ""
+          "value": " "
         },
          {
           "component": "text",
           "name": "item_text",
           "label": "Text",
           "valueType": "string"
+          
         }
       ]
     }
