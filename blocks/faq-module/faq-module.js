@@ -1,11 +1,10 @@
-import { readBlockConfig, moveInstrumentation } from '../../scripts/scripts.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 
 const DEFAULT_FAQ_ENDPOINT = '/faq/us/en/television.json';
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense/faq.-1.json';
 const DEFAULT_PAGE_SIZE = 10;
 
 /**
- * 简单哈希函数，用于缓存控制
  * 每5分钟生成一次新的哈希值
  */
 function simpleHash(str) {
@@ -18,7 +17,6 @@ function simpleHash(str) {
 }
 
 /**
- * 获取带缓存控制的接口 URL
  * author 环境使用 GraphQL 路径，publish 环境使用 JSON 路径
  */
 function getEndpointUrl(endpointPath) {
@@ -29,7 +27,6 @@ function getEndpointUrl(endpointPath) {
   let url;
   if (isAuthorEnv) {
     // Author 环境: 使用 GraphQL 接口
-    // 移除 .json 后缀，构建 GraphQL 路径
     const pathWithoutJson = path.replace(/\.json$/, '');
     const graphqlPath = `/graphql/execute.json/global/GetFaqByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
     url = window.GRAPHQL_BASE_URL ? `${window.GRAPHQL_BASE_URL}${graphqlPath}` : graphqlPath;
@@ -67,7 +64,6 @@ function getLocalizedEndpoint(configEndpoint) {
     return configEndpoint;
   }
 
-  // 根据 URL 构建动态路径
   const { pathname } = window.location;
   const segments = pathname.split('/').filter(Boolean);
 
@@ -133,14 +129,12 @@ async function fetchFaqTags() {
 
     return tags;
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('faq-module: failed to fetch FAQ tags', err);
     return {};
   }
 }
 
-/**
- * 渲染 FAQ 摘要
- */
 function renderFaqSummary(container, config, faqData, tags) {
   const summaryEl = document.createElement('div');
   summaryEl.className = 'faq-summary';
@@ -290,8 +284,8 @@ function buildPaginationControls(container, state, onPageChange, config) {
   }
 
   const totalPages = Math.ceil(total / pageSize);
-  const prevLabel = config['prev-button-text'] || config.prevButtonText || '';
-  const nextLabel = config['next-button-text'] || config.nextButtonText || '';
+  const prevAriaLabel = config['prev-button-text'] || config.prevButtonText || 'Previous page';
+  const nextAriaLabel = config['next-button-text'] || config.nextButtonText || 'Next page';
 
   const createButton = (label, page, disabled = false, isActive = false) => {
     const btn = document.createElement('button');
@@ -305,7 +299,7 @@ function buildPaginationControls(container, state, onPageChange, config) {
       const disabledIcon = document.createElement('img');
       disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
       disabledIcon.className = 'page-arrow is-prev disabled';
-      btn.setAttribute('aria-label', 'Previous page');
+      btn.setAttribute('aria-label', prevAriaLabel);
       btn.append(icon, disabledIcon);
     } else if (label === 'next') {
       const icon = document.createElement('img');
@@ -314,7 +308,7 @@ function buildPaginationControls(container, state, onPageChange, config) {
       const disabledIcon = document.createElement('img');
       disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
       disabledIcon.className = 'page-arrow is-next disabled';
-      btn.setAttribute('aria-label', 'Next page');
+      btn.setAttribute('aria-label', nextAriaLabel);
       btn.append(icon, disabledIcon);
     } else {
       btn.textContent = label;
@@ -497,7 +491,7 @@ export default async function decorate(block) {
   faqGrid.className = 'faq-grid';
   wrapper.appendChild(faqGrid);
 
-  // 分页容器（桌面）
+  // 分页容器
   if (state.pagination) {
     const paginationEl = document.createElement('div');
     paginationEl.className = 'faq-pagination';
@@ -525,7 +519,6 @@ export default async function decorate(block) {
     aside.appendChild(fragment);
     block.replaceChildren(aside);
   } else {
-    // 发布模式
     block.className = 'faq-module';
     block.replaceChildren(fragment);
   }
@@ -563,6 +556,7 @@ export default async function decorate(block) {
       tags = tagsData.value;
     }
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('faq-module: failed to fetch data', err);
   }
 
@@ -572,7 +566,17 @@ export default async function decorate(block) {
   // 渲染摘要区域
   const container = block.querySelector('.faq-module-wrapper');
   if (container) {
-    renderFaqSummary(container, { title, subtitle, showTabs, allTabLabel }, allFaqData, tags);
+    renderFaqSummary(
+      container,
+      {
+        title,
+        subtitle,
+        showTabs,
+        allTabLabel,
+      },
+      allFaqData,
+      tags,
+    );
 
     // 分页渲染函数
     const renderPage = (data, page = 1) => {

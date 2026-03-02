@@ -474,8 +474,10 @@ function buildSupportDropdown(mainEl) {
   const linksWrap = document.createElement('div');
   linksWrap.className = 'dropdown-links';
   const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
+  // eslint-disable-next-line no-console
   console.log(supportMenuLinksList);
   [...supportMenuLinksList.children].forEach((item) => {
+    // eslint-disable-next-line no-console
     console.log(item);
     const title = item.children[2].textContent.trim() || '';
     const href = item.children[3].textContent.trim() || '#';
@@ -883,6 +885,7 @@ export default async function decorate(block) {
   }
 
   const supportEl = fragment.querySelector('.support-navigation-route-container');
+  // eslint-disable-next-line no-console
   console.log(supportEl);
 
   company.forEach((item) => {
