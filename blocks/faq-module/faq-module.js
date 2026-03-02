@@ -459,8 +459,8 @@ export default async function decorate(block) {
 
   fragment.appendChild(wrapper);
 
-  block.className = 'faq-module';
-  block.replaceChildren(fragment);
+  block.textContent = '';
+  block.appendChild(fragment);
 
   let allFaqData = [];
   let tags = {};
