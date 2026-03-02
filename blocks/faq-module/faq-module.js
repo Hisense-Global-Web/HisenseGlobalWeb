@@ -234,6 +234,38 @@ function createFaqCard(faqItem, index) {
   return card;
 }
 
+// 计算分页页码
+function getPageNumbers(currentPage, totalPages) {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+
+  const maxVisible = 5;
+
+  if (currentPage <= maxVisible - 1) {
+    const pages = Array.from({ length: maxVisible }, (_, i) => i + 1);
+    pages.push('ellipsis', totalPages);
+    return pages;
+  }
+
+  if (currentPage >= totalPages - (maxVisible - 2)) {
+    const startPage = totalPages - maxVisible + 1;
+    const pages = [1, 'ellipsis'];
+    for (let i = startPage; i <= totalPages; i += 1) pages.push(i);
+    return pages;
+  }
+
+  return [
+    1,
+    'ellipsis',
+    currentPage - 1,
+    currentPage,
+    currentPage + 1,
+    'ellipsis',
+    totalPages,
+  ];
+}
+
 // 创建PC端分页按钮
 function buildPaginationControls(container, state, onPageChange, config) {
   const { total, pageSize, currentPage } = state;
@@ -251,63 +283,62 @@ function buildPaginationControls(container, state, onPageChange, config) {
   const prevAriaLabel = config['prev-button-aria-label'] || config.prevButtonAriaLabel || 'Previous';
   const nextAriaLabel = config['next-button-aria-label'] || config.nextButtonAriaLabel || 'Next';
 
-  const createButton = (label, page, disabled = false, isActive = false) => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.classList.add('page-button');
-
-    if (label === 'prev') {
-      const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/left.svg';
-      icon.className = 'page-arrow is-prev normal';
-      const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
-      disabledIcon.className = 'page-arrow is-prev disabled';
-      btn.setAttribute('aria-label', prevAriaLabel);
-      btn.append(icon, disabledIcon);
-    } else if (label === 'next') {
-      const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/right.svg';
-      icon.className = 'page-arrow is-next normal';
-      const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
-      disabledIcon.className = 'page-arrow is-next disabled';
-      btn.setAttribute('aria-label', nextAriaLabel);
-      btn.append(icon, disabledIcon);
-    } else {
-      btn.textContent = label;
-    }
-
-    if (isActive) btn.classList.add('is-active');
-    if (disabled) {
-      btn.disabled = true;
-    } else {
-      btn.addEventListener('click', () => onPageChange(page));
-    }
-    return btn;
-  };
-
-  paginationEl.appendChild(
-    createButton('prev', currentPage - 1, currentPage === 1),
-  );
-
-  const maxButtons = 5;
-  let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
-  let end = start + maxButtons - 1;
-  if (end > totalPages) {
-    end = totalPages;
-    start = Math.max(1, end - maxButtons + 1);
+  const prevBtn = document.createElement('button');
+  prevBtn.type = 'button';
+  prevBtn.className = 'page-button page-arrow-btn is-prev';
+  prevBtn.setAttribute('aria-label', prevAriaLabel);
+  const prevIcon = document.createElement('img');
+  prevIcon.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+  prevIcon.alt = '';
+  prevIcon.className = 'page-arrow-icon';
+  prevBtn.appendChild(prevIcon);
+  if (currentPage === 1) {
+    prevBtn.disabled = true;
+  } else {
+    prevBtn.addEventListener('click', () => onPageChange(currentPage - 1));
   }
+  paginationEl.appendChild(prevBtn);
 
-  for (let page = start; page <= end; page += 1) {
-    paginationEl.appendChild(
-      createButton(String(page), page, false, page === currentPage),
-    );
+  const pageNumbers = getPageNumbers(currentPage, totalPages);
+  pageNumbers.forEach((item) => {
+    if (item === 'ellipsis') {
+      const dots = document.createElement('span');
+      dots.className = 'pagination-ellipsis';
+      for (let i = 0; i < 3; i += 1) {
+        const dot = document.createElement('span');
+        dot.className = 'circle';
+        dots.appendChild(dot);
+      }
+      paginationEl.appendChild(dots);
+    } else {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'page-button';
+      btn.textContent = String(item);
+      if (item === currentPage) {
+        btn.classList.add('is-active');
+      } else {
+        btn.addEventListener('click', () => onPageChange(item));
+      }
+      paginationEl.appendChild(btn);
+    }
+  });
+
+  const nextBtn = document.createElement('button');
+  nextBtn.type = 'button';
+  nextBtn.className = 'page-button page-arrow-btn is-next';
+  nextBtn.setAttribute('aria-label', nextAriaLabel);
+  const nextIcon = document.createElement('img');
+  nextIcon.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+  nextIcon.alt = '';
+  nextIcon.className = 'page-arrow-icon';
+  nextBtn.appendChild(nextIcon);
+  if (currentPage === totalPages) {
+    nextBtn.disabled = true;
+  } else {
+    nextBtn.addEventListener('click', () => onPageChange(currentPage + 1));
   }
-
-  paginationEl.appendChild(
-    createButton('next', currentPage + 1, currentPage === totalPages),
-  );
+  paginationEl.appendChild(nextBtn);
 }
 
 // 创建移动端加载load more按钮

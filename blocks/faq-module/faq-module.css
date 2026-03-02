@@ -216,12 +216,12 @@
     }
   }
 
-  /* 桌面分页 */
+  /*PC分页 */
   .faq-pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--size-16);
+    gap: var(--size-8);
     margin-top: var(--size-48);
 
     @media (width < 860px) {
@@ -232,45 +232,76 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: var(--size-40);
+      min-width: var(--size-40);
       height: var(--size-40);
-      padding: 0;
+      padding: 0 var(--size-4);
       border-radius: var(--radius-md);
-      border: 1px solid transparent;
+      border: none;
       background-color: transparent;
-      color: var(--color-hisense-black);
+      color: var(--color-primary-grey-70);
       font-size: var(--fontsize-body1);
-      line-height: 1.5;
+      line-height: 1;
       font-weight: var(--fontweight-medium);
       cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
 
       &.is-active {
         background-color: var(--color-primary-green-60);
         color: #fff;
+        border-radius: var(--radius-md);
       }
 
       &:disabled {
-        .page-arrow.normal {
-          display: none;
-        }
-
-        .page-arrow.disabled {
-          display: block;
-        }
+        color: var(--color-primary-grey-30);
+        cursor: default;
       }
 
       &:hover:not(:is(.is-active, :disabled)) {
         background-color: var(--color-primary-grey-20);
       }
+    }
 
-      .page-arrow {
+    .page-arrow-btn {
+      background-color: transparent;
+
+      .page-arrow-icon {
         width: var(--size-24);
         height: var(--size-24);
         display: block;
+      }
 
-        &.disabled {
-          display: none;
-        }
+      &.is-prev .page-arrow-icon {
+        transform: rotate(-90deg);
+      }
+
+      &.is-next .page-arrow-icon {
+        transform: rotate(90deg);
+      }
+
+      &:disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+
+      &:hover:not(:disabled) {
+        background-color: var(--color-primary-grey-20);
+      }
+    }
+
+    .pagination-ellipsis {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      min-width: var(--size-32);
+      height: var(--size-40);
+      user-select: none;
+
+      .circle {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: var(--color-primary-grey-50);
       }
     }
   }
