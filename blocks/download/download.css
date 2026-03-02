@@ -37,6 +37,7 @@ main .section.download-container .download-wrapper {
         .subtitle {
           font-size: var(--fontsize-body1);
           color: var(--color-primary-grey-70);
+          font-weight: var(--fontweight-book);
           line-height: 1.6;
         }
       }
@@ -106,7 +107,7 @@ main .section.download-container .download-wrapper {
               .item-name {
                 font-size: var(--fontsize-body1);
                 color: var(--color-hisense-black);
-                font-weight: var(--fontweight-medium);
+                font-weight: var(--fontweight-book);
               }
 
               .item-meta {
