@@ -9,4 +9,3 @@ helix-importer-ui
 .idea
 *.mdc
 *.md
-.claude/*
