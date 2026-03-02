@@ -131,7 +131,6 @@ function applyAggregatedSort(sortProperty, direction = -1) {
     console.warn('Aggregated sort error:', e);
   }
 }
-
 export default function decorate(block) {
   const isEditMode = block && block.hasAttribute && block.hasAttribute('data-aue-resource');
   block.classList.add('plp-product-card');
@@ -201,6 +200,7 @@ export default function decorate(block) {
   let currentPage = 1;
   const loadMoreStep = 9;
   let allGroupedData = []; // 存储所有聚合后的产品数据
+  let compareDataArr = []; // 存储比较的产品数据
 
   // 修改：Load More 点击逻辑
   productsLoadMore.addEventListener('click', () => {
@@ -272,6 +272,164 @@ export default function decorate(block) {
   }
 
   if (!graphqlUrl) return;
+
+  // compare products bar
+  function fixedBottomCompareBar() {
+    const compareBarEl = document.createElement('div');
+    compareBarEl.className = 'plp-compare-bar';
+    const compareCardList = document.createElement('ul');
+    compareCardList.className = 'plp-compare-cards';
+    // const compareCardItem = document.createElement('li');
+    // compareCardItem.className = 'plp-compare-card-item';
+    // // add image load box
+    // const compareImgLoadBox = document.createElement('div');
+    // compareImgLoadBox.className = 'plp-compare-card-img-load';
+    // // 比较产品的图片放在这个加载框里，默认是空的，用户点击添加比较时才会加载对应产品的图片
+    // const compareImgBox = document.createElement('div');
+    // compareImgBox.className = 'compare-img-box';
+    // const compareImg = document.createElement('img');
+    // const compareProductTitle = document.createElement('span');
+    // compareProductTitle.className = 'compare-product-title';
+    // // add card item close button
+    // const itemCloseBtn = document.createElement('div');
+    // itemCloseBtn.className = 'plp-compare-card-close';
+    // const closeIcon = document.createElement('img');
+    // closeIcon.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+    // closeIcon.alt = 'Close';
+    // itemCloseBtn.append(closeIcon);
+    // compareImgBox.append(compareImg, compareProductTitle, itemCloseBtn);
+    // // add plus image to indicate adding compare item
+    // const cardPlusImage = document.createElement('div');
+    // cardPlusImage.className = 'plp-compare-card-plus-box';
+    // const plusIcon = document.createElement('img');
+    // plusIcon.className = 'plp-compare-card-plus';
+    // plusIcon.src = '/content/dam/hisense/us/common-icons/plus-grey30.png';
+    // cardPlusImage.appendChild(plusIcon);
+    // compareImgLoadBox.append(compareImgBox,cardPlusImage);
+    // compareCardItem.append(compareImgLoadBox);
+    // for (let i = 0; i < 3; i++){
+    //   compareCardList.appendChild(compareCardItem.cloneNode(true));
+    // }
+
+    // add compare button and compare bar close button
+    const compareBtnEl = document.createElement('div');
+    compareBtnEl.className = 'plp-compare-btn';
+    compareBtnEl.textContent = 'Compare';
+    const compareBarCloseBtn = document.createElement('img');
+    compareBarCloseBtn.className = 'plp-compare-bar-close';
+    compareBarCloseBtn.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+    compareBarCloseBtn.alt = 'Close';
+    // add event listener to close compare bar
+    compareBarCloseBtn.addEventListener('click', () => {
+      compareBarEl.classList.remove('compare-bar-show');
+      // 重置比较数据为空
+      compareDataArr = [];
+      // product card 【Compare】按钮取消选中状态
+      const cardCompareBtnAll = document.querySelectorAll('.compare-checked');
+      cardCompareBtnAll.forEach((item) => {
+        item.classList.remove('compare-checked');
+      });
+      // 重置底部比较栏dom 元素
+      const compareBarLiAll = document.querySelectorAll('.plp-compare-cards li');
+      compareBarLiAll.forEach((resetLi) => {
+        resetLi.classList.remove('active-compare');
+        resetLi.setAttribute('data-compare-id', '');
+        resetLi.querySelector('.compare-img-box img').src = '';
+        resetLi.querySelector('.compare-product-title').textContent = '';
+      });
+    });
+
+    compareBarEl.append(compareCardList, compareBtnEl, compareBarCloseBtn);
+    document.body.appendChild(compareBarEl);
+  }
+
+  // 为对应比较产品设置 图片与title
+  function setCompareProductImgTit(targetEl, productInfo) {
+    targetEl.classList.add('active-compare');
+    targetEl.setAttribute('data-compare-id', productInfo.sku || '');
+    const pPath = Object.keys(productInfo.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
+    targetEl.querySelector('.compare-img-box img').src = productInfo.mediaGallery_image ? productInfo.mediaGallery_image[pPath] : '';
+    targetEl.querySelector('.compare-product-title').textContent = productInfo.title;
+  }
+
+  // 追加比较产品 li
+  function appendCompareProductUtil(productItem) {
+    const compareCardItem = document.createElement('li');
+    compareCardItem.className = 'plp-compare-card-item';
+    // add image load box
+    const compareImgLoadBox = document.createElement('div');
+    compareImgLoadBox.className = 'plp-compare-card-img-load';
+    // 比较产品的图片放在这个加载框里，默认是空的，用户点击添加比较时才会加载对应产品的图片
+    const compareImgBox = document.createElement('div');
+    compareImgBox.className = 'compare-img-box';
+    const compareImg = document.createElement('img');
+    const compareProductTitle = document.createElement('span');
+    compareProductTitle.className = 'compare-product-title';
+
+    // add card item close button
+    const itemCloseBtn = document.createElement('div');
+    itemCloseBtn.className = 'plp-compare-card-close';
+    const closeIcon = document.createElement('img');
+    closeIcon.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+    closeIcon.alt = 'Close';
+    itemCloseBtn.append(closeIcon);
+    compareImgBox.append(compareImg, compareProductTitle, itemCloseBtn);
+
+    // add plus image to indicate adding compare item
+    const cardPlusImage = document.createElement('div');
+    cardPlusImage.className = 'plp-compare-card-plus-box';
+    const plusIcon = document.createElement('img');
+    plusIcon.className = 'plp-compare-card-plus';
+    plusIcon.src = '/content/dam/hisense/us/common-icons/plus-grey30.png';
+    cardPlusImage.appendChild(plusIcon);
+    compareImgLoadBox.append(compareImgBox, cardPlusImage);
+
+    // item add image load box
+    compareCardItem.append(compareImgLoadBox);
+    const compareCardListLiAll = document.querySelectorAll('.plp-compare-cards li');
+    if (compareCardListLiAll.length >= 3) return;
+    const compareCardList = document.querySelector('.plp-compare-cards');
+    compareCardList.appendChild(compareCardItem);
+
+    // 首次添加元素，为对应li 赋值，设置对应数据
+    if (productItem) {
+      setCompareProductImgTit(compareCardItem, productItem);
+    }
+  }
+
+  // 更新比较栏的产品信息
+  // function compareProductInfoUtil(product, compareDataIndex) {
+  //   const compareLiAllEl = document.querySelectorAll('.plp-compare-cards .plp-compare-card-item');
+  //   compareLiAllEl.forEach((li, liIndex) => {
+  //     if (liIndex === compareDataIndex) {
+  //       li.classList.add('active-compare');
+  //       li.setAttribute('data-compare-id', product.sku || '');
+  //       const pPath = Object.keys(product.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
+  //       li.querySelector('.compare-img-box img').src = product.mediaGallery_image ? product.mediaGallery_image[pPath] : '';
+  //       li.querySelector('.compare-product-title').textContent = product.title;
+  //     }
+  //     const cardItemCloseBtn = li.querySelector('.plp-compare-card-close');
+  //     // cardItemCloseBtn.addEventListener('click', () => {
+  //     //   li.remove();
+  //     //   compareDataArr = compareDataArr.filter((_, index) => index !== liIndex);
+  //     //   appendCompareProductUtil(compareProductAppendType.addEmptyLi);
+  //     //   currentDeleteCompareId = product.sku;
+  //     //   const cardCompareBtn = document.querySelectorAll('.compare-checked');
+  //     //   console.log('remove compare product, current compare btn:', cardCompareBtn);
+  //     //   for(let i = 0; i < cardCompareBtn.length; i++){
+  //     //     const btnCompareId = cardCompareBtn[i].getAttribute('compare-id');
+  //     //     if (btnCompareId === currentDeleteCompareId) {
+  //     //       console.log(btnCompareId, product.sku, '88888888888888888')
+  //     //       console.log(cardCompareBtn[i], '999999')
+  //     //       cardCompareBtn[i].classList.remove('compare-checked');
+  //     //       cardCompareBtn[i].removeAttribute('compare-id');
+  //     //       currentDeleteCompareId = '';
+  //     //       break;
+  //     //     }
+  //     //   }
+  //     // });
+  //   })
+  // }
 
   function extractImageFromShortDescription(item) {
     if (!item || !item.description_shortDescription || !item.description_shortDescription.html) {
@@ -567,6 +725,100 @@ export default function decorate(block) {
 
         // 将按钮组添加到卡片底部
         card.append(productBtnGroupEl);
+
+        // 移除对比数据dom集合中对应 li 元素
+        function removeCompareLiUtil(removeProductSku) {
+          const activeCompareLiAll = document.querySelectorAll('.active-compare');
+          // 移除比较数据集合中的对应 li
+          activeCompareLiAll.forEach((compareLiItem) => {
+            if (compareLiItem.dataset.compareId === removeProductSku) {
+              compareLiItem.remove();
+              appendCompareProductUtil();
+            }
+          });
+        }
+
+        // 隐藏 compare bar 底部固定栏
+        function hideCompareBar() {
+          if (compareDataArr.length < 2) {
+            document.querySelector('.plp-compare-bar').classList.remove('compare-bar-show');
+          }
+        }
+
+        // add compare btn
+        const compareEl = document.createElement('div');
+        compareEl.className = 'plp-product-compare';
+        compareEl.setAttribute('data-compare-id', variant.sku || group.sku || '');
+        const compareIcon = document.createElement('span');
+        compareIcon.className = 'plp-product-compare-icon';
+        compareIcon.innerHTML = `<img class="icon-unchecked" src="/content/dam/hisense/us/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
+          <img class="icon-checked" src="/content/dam/hisense/us/common-icons/icon-carousel/checkbox.svg" alt="" />`;
+        const labelSpan = document.createElement('span');
+        labelSpan.textContent = 'Compare';
+        compareEl.append(compareIcon, labelSpan);
+        card.append(compareEl);
+        compareEl.addEventListener('click', (compareE) => {
+          compareE.stopPropagation();
+          // 最多只能比较3个产品
+          if (compareDataArr.length > 2 && !compareEl.classList.contains('compare-checked')) {
+            return;
+          }
+          compareEl.classList.toggle('compare-checked');
+          const isAdded = compareEl.classList.contains('compare-checked');
+          if (isAdded) {
+            // 更新数据源
+            compareDataArr.push(variant);
+            // compareProductInfoUtil(variant, compareDataArr.length - 1);
+            // 追加li 元素
+            // appendCompareProductUtil(variant);
+            const compareBarAllLi = document.querySelectorAll('.plp-compare-card-item');
+            if (compareDataArr.length === 2) {
+              document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
+            }
+            if (compareBarAllLi.length === 3) {
+              // 当页面已追加过比较产品的三个li dom 结构时，只需要修改对应元素中的数据即可
+              compareBarAllLi.forEach((curLi, index) => {
+                if (index === compareDataArr.length - 1) {
+                  setCompareProductImgTit(curLi, variant);
+                }
+              });
+            } else {
+              // 首次追加li 元素
+              appendCompareProductUtil(variant);
+            }
+            const comparBarUlEl = document.querySelector('.plp-compare-cards');
+            comparBarUlEl.addEventListener('click', (e) => {
+              const { target } = e;
+              // 只处理点击元素是删除按钮
+              if (!target.parentNode.classList.contains('plp-compare-card-close')) return;
+              // 获取按钮所在的 li (parentNode 因为按钮直接放在li内)
+              const parentLi = target.closest('.plp-compare-card-item');
+              if (!parentLi) return;
+              // 获取 li 上存储的数据 id
+              const delCompareId = parentLi.dataset.compareId;
+              if (!delCompareId) return;
+              // filter 数据源
+              compareDataArr = compareDataArr.filter((v) => v.sku !== delCompareId);
+              // 移除比较数据dom集合中的对应 li
+              removeCompareLiUtil(delCompareId);
+              // 取消产品 card 中 【Compare】 button 选中态
+              const cardCompareBtnAll = document.querySelectorAll('.compare-checked');
+              cardCompareBtnAll.forEach((compareBtnItem) => {
+                if (compareBtnItem.dataset.compareId === delCompareId) {
+                  compareBtnItem.classList.remove('compare-checked');
+                }
+              });
+              // 隐藏底部固定比较栏
+              hideCompareBar();
+            });
+          } else {
+            compareDataArr = compareDataArr.filter((v) => v.sku !== variant.sku);
+            // 移除比较数据集合中的对应 li
+            removeCompareLiUtil(variant.sku);
+            // 隐藏底部固定比较栏
+            hideCompareBar();
+          }
+        });
       };
 
       // 创建尺寸节点并绑定事件
@@ -760,6 +1012,8 @@ export default function decorate(block) {
     renderPagedItems();
     // 更新Load More显示状态
     updateLoadMoreVisibility();
+    // 底部显示固定比较栏
+    fixedBottomCompareBar();
   }
 
   const mockData = {};
