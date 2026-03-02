@@ -10,7 +10,6 @@ const getSearchInput = (block) => {
   const searchLink = config['search-link'] || '/search';
   const placeholder = config.placeholder || 'Search';
   const target = config.target || '_self';
-  // const suggestionLabel = config['suggestion-label'];
 
   const inputWrapper = document.createElement('div');
   inputWrapper.className = 'input-wrapper';
@@ -66,13 +65,25 @@ const getSearchInput = (block) => {
 
 // 获取Quick Link的HTML元素
 const getQuickLink = (block) => {
-  const quickLinkList = [...block.children]?.slice(2);
+  const config = readBlockConfig(block);
+  const suggestionLabel = config['suggestion-label'];
+  let quickLinkIndex = 2;
+  if (suggestionLabel?.length) {
+    quickLinkIndex = 3;
+  }
+  const quickLinkList = [...block.children]?.slice(quickLinkIndex);
   if (!quickLinkList?.length) {
     return null;
   }
   // quick link的wrapper
   const quickLinkWrapper = document.createElement('div');
   quickLinkWrapper.className = 'quick-link-wrapper';
+  if (suggestionLabel?.length) {
+    const suggestionLabelEl = document.createElement('div');
+    suggestionLabelEl.className = 'suggestion-label';
+    suggestionLabelEl.textContent = suggestionLabel;
+    quickLinkWrapper.appendChild(suggestionLabelEl);
+  }
   let hasQuickLink = false;
   quickLinkList.forEach((linkElement) => {
     const linkDiv = document.createElement('div');
@@ -84,12 +95,12 @@ const getQuickLink = (block) => {
     linkDiv.addEventListener('click', () => {
       window.location.href = link;
     });
-    if (link && linkText) {
+    if (linkText) {
       quickLinkWrapper.appendChild(linkDiv);
       hasQuickLink = true;
     }
   });
-  if (hasQuickLink) {
+  if (suggestionLabel?.length || hasQuickLink) {
     return quickLinkWrapper;
   }
   return null;
