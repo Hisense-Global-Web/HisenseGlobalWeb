@@ -45,14 +45,6 @@ function getEndpointUrl(endpointPath) {
 }
 
 /**
- * 获取标签接口 URL
- */
-function getTagsEndpointUrl() {
-  const baseUrl = window.GRAPHQL_BASE_URL || '';
-  return baseUrl ? `${baseUrl}${DEFAULT_TAGS_ENDPOINT}` : DEFAULT_TAGS_ENDPOINT;
-}
-
-/**
  * 根据当前 URL 构建多国家语言的接口路径
  */
 function getLocalizedEndpoint(configEndpoint) {
@@ -116,7 +108,7 @@ function extractFaqList(data) {
  */
 async function fetchFaqTags() {
   try {
-    const url = getEndpointUrl(getTagsEndpointUrl());
+    const url = getEndpointUrl(DEFAULT_TAGS_ENDPOINT);
     const resp = await fetch(url);
     const data = await resp.json();
 
@@ -204,7 +196,13 @@ function renderFaqSummary(container, config, faqData, tags) {
     summaryEl.appendChild(tabsEl);
   }
 
-  container.appendChild(summaryEl);
+  // 插入到 container 的开头，在 faq-grid 之前
+  const faqGrid = container.querySelector('.faq-grid');
+  if (faqGrid) {
+    container.insertBefore(summaryEl, faqGrid);
+  } else {
+    container.appendChild(summaryEl);
+  }
 }
 
 /**
@@ -220,7 +218,7 @@ function createFaqCard(faqItem, index) {
 
   const titleContent = document.createElement('div');
 
-  // 产品分类（如 "Television"）
+  // 产品分类
   if (faqItem.productCategory) {
     const categoryDiv = document.createElement('div');
     categoryDiv.className = 'title-content';
@@ -458,12 +456,29 @@ function initTabSwitching(block, allFaqData, state, renderCallback) {
   });
 }
 
+/**
+ * 获取相对路径 URL
+ * 如果传入的是完整 URL，返回路径部分
+ */
+function getRelativePath(url) {
+  if (!url) return '';
+  try {
+    // 尝试解析为 URL
+    const urlObj = new URL(url, window.location.origin);
+    return urlObj.pathname;
+  } catch (e) {
+    // 如果不是有效 URL，直接返回原值
+    return url;
+  }
+}
+
 export default async function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   const config = readBlockConfig(block);
 
-  // 读取配置
-  const configuredEndpoint = config.endpoint || DEFAULT_FAQ_ENDPOINT;
+  // 读取配置，endpoint 可能是完整 URL，需要提取路径部分
+  const rawEndpoint = config.endpoint || DEFAULT_FAQ_ENDPOINT;
+  const configuredEndpoint = getRelativePath(rawEndpoint);
   const pageSize = parseInt(config['page-size'] || config.pageSize || DEFAULT_PAGE_SIZE, 10);
   const showTabs = config.showTabs !== 'false';
   const allTabLabel = config['all-tab-label'] || config.allTabLabel || 'All';
@@ -507,6 +522,7 @@ export default async function decorate(block) {
 
   fragment.appendChild(wrapper);
 
+  // 设置 block 结构
   if (isEditMode) {
     // 编辑模式：保留原始结构
     const aside = document.createElement('aside');
@@ -519,6 +535,7 @@ export default async function decorate(block) {
     aside.appendChild(fragment);
     block.replaceChildren(aside);
   } else {
+    // 发布模式
     block.className = 'faq-module';
     block.replaceChildren(fragment);
   }
@@ -653,6 +670,9 @@ export default async function decorate(block) {
       },
       fullConfig,
     );
+
+    // 初始化手风琴交互
+    initFaqAccordion(block);
 
     // 初始化标签切换
     initTabSwitching(block, allFaqData, state, (filteredData) => {

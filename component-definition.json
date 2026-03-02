@@ -828,7 +828,17 @@
                   "name": "FAQ Module",
                   "model": "faq-module",
                   "key-value": true,
-                  "classes": "faq-module"
+                  "classes": "faq-module",
+                  "endpoint": "/faq/us/en/television.json",
+                  "title": "Frequently Asked Questions",
+                  "subtitle": "Common questions about the Hisense 65\" ULED 5K Smart TV",
+                  "pageSize": "10",
+                  "pagination": true,
+                  "prevButtonAriaLabel": "Prev",
+                  "nextButtonAriaLabel": "Next",
+                  "loadMoreLabel": "Load More",
+                  "showTabs": true,
+                  "allTabLabel": "All"
                 }
               }
             }
