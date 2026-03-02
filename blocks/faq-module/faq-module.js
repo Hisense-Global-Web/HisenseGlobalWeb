@@ -439,6 +439,31 @@ function initTabSwitching(block, allFaqData, state, renderCallback) {
   });
 }
 
+// 获取URL参数
+function getUrlParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+// 根据SKU过滤FAQ列表
+function filterFaqBySku(faqData, sku) {
+  if (!sku) return faqData;
+
+  return faqData.filter((faq) => {
+    const faqSkus = faq.sku;
+
+    if (Array.isArray(faqSkus)) {
+      return faqSkus.some((item) => String(item).toLowerCase() === String(sku).toLowerCase());
+    }
+
+    if (typeof faqSkus === 'string') {
+      return String(faqSkus).toLowerCase() === String(sku).toLowerCase();
+    }
+
+    return false;
+  });
+}
+
 // 获取相对路径
 function getRelativePath(url) {
   if (!url) return '';
@@ -537,6 +562,13 @@ export default async function decorate(block) {
 
   state.total = allFaqData.length;
 
+  // 根据URL参数sku过滤FAQ
+  const skuParam = getUrlParameter('sku');
+  let filteredFaqData = allFaqData;
+  if (skuParam) {
+    filteredFaqData = filterFaqBySku(allFaqData, skuParam);
+  }
+
   const container = block.querySelector('.faq-module-wrapper');
   if (container) {
     renderFaqSummary(
@@ -549,7 +581,7 @@ export default async function decorate(block) {
         showTabCount,
         allTabLabel,
       },
-      allFaqData,
+      filteredFaqData,
       tags,
     );
 
@@ -569,7 +601,7 @@ export default async function decorate(block) {
       initFaqAccordion(block);
     };
 
-    let currentData = allFaqData;
+    let currentData = filteredFaqData;
 
     const loadMore = () => {
       const gridEl = container.querySelector('.faq-grid');
@@ -601,15 +633,15 @@ export default async function decorate(block) {
     };
 
     renderFaqList(
-      allFaqData.slice(0, state.pageSize),
+      filteredFaqData.slice(0, state.pageSize),
       container,
-      { ...state, total: allFaqData.length },
-      (newPage) => renderPage(allFaqData, newPage),
+      { ...state, total: filteredFaqData.length },
+      (newPage) => renderPage(filteredFaqData, newPage),
       loadMore,
       fullConfig,
     );
 
-    initTabSwitching(block, allFaqData, state, (filteredData) => {
+    initTabSwitching(block, filteredFaqData, state, (filteredData) => {
       currentData = filteredData;
 
       const gridEl = container.querySelector('.faq-grid');

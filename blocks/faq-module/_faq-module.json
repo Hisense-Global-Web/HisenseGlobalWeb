@@ -60,7 +60,7 @@
               "label": "Subtitle"
             },
             {
-              "component": "checkbox",
+              "component": "boolean",
               "valueType": "boolean",
               "name": "showSubtitle",
               "label": "Show Subtitle"
@@ -81,7 +81,7 @@
               "label": "Page Size"
             },
             {
-              "component": "checkbox",
+              "component": "boolean",
               "valueType": "boolean",
               "name": "pagination",
               "label": "Enable Pagination"
@@ -114,13 +114,13 @@
           "collapsible": true,
           "fields": [
             {
-              "component": "checkbox",
+              "component": "boolean",
               "valueType": "boolean",
               "name": "showTabs",
               "label": "Show Tag Tabs"
             },
             {
-              "component": "checkbox",
+              "component": "boolean",
               "valueType": "boolean",
               "name": "showTabCount",
               "label": "Show Tab Count"
