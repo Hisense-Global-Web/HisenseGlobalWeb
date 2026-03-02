@@ -1409,14 +1409,14 @@
       },
       {
         "component": "text",
-        "name": "coreValueTitle",
+        "name": "valuetitle",
         "label": "Title",
         "valueType": "string",
         "value": " "
       },
       {
         "component": "text",
-        "name": "coreValueText",
+        "name": "valuetext",
         "label": "Text",
         "valueType": "string"
       }
