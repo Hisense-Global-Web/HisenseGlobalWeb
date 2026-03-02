@@ -25,7 +25,7 @@ function getEndpointUrl(endpointPath) {
   const isAuthorEnv = hostname.includes('author-');
 
   let url;
-  if (isAuthorEnv) {
+  if (isAuthorEnv && !path.includes('/content/cq:tags')) {
     // Author 环境: 使用 GraphQL 接口
     const pathWithoutJson = path.replace(/\.json$/, '');
     const graphqlPath = `/graphql/execute.json/global/GetFaqByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
@@ -473,7 +473,6 @@ function getRelativePath(url) {
 }
 
 export default async function decorate(block) {
-  const isEditMode = block.hasAttribute('data-aue-resource');
   const config = readBlockConfig(block);
 
   // 读取配置，endpoint 可能是完整 URL，需要提取路径部分
@@ -522,23 +521,8 @@ export default async function decorate(block) {
 
   fragment.appendChild(wrapper);
 
-  // 设置 block 结构
-  if (isEditMode) {
-    // 编辑模式：保留原始结构
-    const aside = document.createElement('aside');
-    aside.className = 'faq-module';
-    [...block.attributes].forEach((attr) => {
-      if (attr.name.startsWith('data-aue-')) {
-        aside.setAttribute(attr.name, attr.value);
-      }
-    });
-    aside.appendChild(fragment);
-    block.replaceChildren(aside);
-  } else {
-    // 发布模式
-    block.className = 'faq-module';
-    block.replaceChildren(fragment);
-  }
+  block.className = 'faq-module';
+  block.replaceChildren(fragment);
 
   // 获取 FAQ 数据
   let allFaqData = [];
