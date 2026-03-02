@@ -546,10 +546,9 @@ export default async function decorate(block) {
         state.currentPage = Math.ceil(currentCount / state.pageSize) + 1;
 
         buildPaginationControls(container, { ...state, total: currentData.length, currentPage: state.currentPage }, (newPage) => {
-          currentData = allFaqData;
-          renderPage(allFaqData, newPage);
-        }, fullConfig);
-        buildMobilePaginationControls(container, { ...state, total: currentData.length, currentPage: state.currentPage }, loadMore, fullConfig);
+        renderPage(currentData, newPage);
+      }, fullConfig);
+      buildMobilePaginationControls(container, { ...state, total: currentData.length, currentPage: state.currentPage }, loadMore, fullConfig);
 
         if (currentCount + newData.length >= currentData.length) {
           const mobileBtn = container.querySelector('.faq-pagination-mobile .page-button');
@@ -584,8 +583,7 @@ export default async function decorate(block) {
       });
 
       buildPaginationControls(container, { ...state, total: filteredData.length, currentPage: 1 }, (newPage) => {
-        currentData = allFaqData;
-        renderPage(allFaqData, newPage);
+        renderPage(filteredData, newPage);
       }, fullConfig);
       buildMobilePaginationControls(container, { ...state, total: filteredData.length, currentPage: 1 }, loadMore, fullConfig);
 
