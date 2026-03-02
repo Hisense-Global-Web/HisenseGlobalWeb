@@ -68,6 +68,7 @@ main .section.tag-container .tag-wrapper {
           transition: background-color 0.3s ease;
           text-decoration: none;
           cursor: default;
+          text-transform: capitalize;
           
           @media (width < 860px) {
             &:last-child {

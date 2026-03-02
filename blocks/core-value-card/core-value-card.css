@@ -127,9 +127,10 @@
   color: var(--color-primary-grey-100);
   font-family: var(--font-family);
   font-weight: var(--fontweight-book);
-   font-size: var(--size-16);
+  font-size: var(--size-16);
 
   @media (width < 860px) {
+    color: var(--color-primary-grey-70);
     text-align: left;
     font-size: var(--size-14);
     padding:var(--spacing-sm) 0 0 var(--spacing-sm);

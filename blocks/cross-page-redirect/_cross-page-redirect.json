@@ -63,6 +63,7 @@
           "value": "",
           "label": "Button Background Color",
           "valueType": "string",
+          "condition": { "none": [{ "var": "third-party" }, "is-third-party"] },
           "options": [
             {
               "name": "transparent(Default)",
@@ -83,14 +84,27 @@
             "name": "link_url",
             "label": "Link",
             "valueType": "string",
-            "value": ""
+            "value": "",
+            "condition": { "none": [{ "var": "third-party" }, "is-third-party"] }
         },
         {
             "component": "text",
             "name": "link_text",
             "label": "Link Label",
             "valueType": "string",
-            "value": ""
+            "value": "",
+            "condition": { "none": [{ "var": "third-party" }, "is-third-party"] }
+        },
+        {
+          "component": "checkbox-group",
+          "valueType": "string[]",
+          "name": "third-party",
+          "label": "",
+          "multi": false,
+          "description": "Tips: Enable the scripts to display the corresponding 3rd-party data on the website. Maintain the 3rd-party scripts under the integration component.",
+          "options": [
+            { "name": "Enable subscription 3rd-party scripts", "value": "is-third-party" }
+          ]
         }
       ]
     }

@@ -83,6 +83,21 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
           border-radius: var(--size-100);
           cursor: pointer;
           
+          &:hover {
+            background-color: var(--color-primary-green-50);
+          }
+
+          &:active {
+            background-color: var(--color-primary-green-70);
+            color: rgb(255 255 255 / 80%);
+          }
+
+          &:disabled {
+            color: rgb(255 255 255 / 80%);
+            background-color: var(--color-primary-green-60);
+            opacity: .4;
+          }
+          
           @media (width < 860px) {
             align-self: flex-start;
             width: auto;

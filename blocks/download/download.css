@@ -12,7 +12,7 @@ main .section.download-container .download-wrapper {
     .download-meta-container {
       width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
       background-color: var(--color-primary-grey-20);
-      border-radius: var(--radius-xl);
+      border-radius: var(--radius-pc-xl);
       padding: var(--size-32);
       display: flex;
       flex-direction: column;
@@ -37,6 +37,7 @@ main .section.download-container .download-wrapper {
         .subtitle {
           font-size: var(--fontsize-body1);
           color: var(--color-primary-grey-70);
+          font-weight: var(--fontweight-book);
           line-height: 1.6;
         }
       }
@@ -106,7 +107,7 @@ main .section.download-container .download-wrapper {
               .item-name {
                 font-size: var(--fontsize-body1);
                 color: var(--color-hisense-black);
-                font-weight: var(--fontweight-medium);
+                font-weight: var(--fontweight-book);
               }
 
               .item-meta {
@@ -195,6 +196,19 @@ main .section.download-container .download-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
+            
+            &:hover {
+              background-color: var(--color-primary-grey-70);
+            }
+            
+            &:active {
+              color: rgb(255 255 255 / 80%);
+            }
+            
+            &:disabled {
+              color: rgb(255 255 255 / 80%);
+              background-color: var(--color-primary-grey-40);
+            }
           }
 
           .download-btn-link {

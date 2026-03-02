@@ -128,6 +128,37 @@
           }
         },
         {
+          "title": "Accessories Feature",
+          "id": "accessories-feature",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Accessories Feature",
+                  "model": "accessories-feature",
+                  "filter": "accessories-feature"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Accessories Feature Item",
+          "id": "accessories-feature-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Accessories Feature Item",
+                  "model": "accessories-feature-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Addional Support Card",
           "id": "addional-support-card",
           "plugins": {
@@ -301,6 +332,56 @@
                   "key-value": true,
                   "title-content": "This is the title",
                   "subtitle-content": "This is the subtitle"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Authorized Reseller Note",
+          "id": "authorized-reseller-note",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Authorized Reseller Note",
+                  "model": "authorized-reseller-note",
+                  "classes": "authorized-reseller-note"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Authorized Reseller Our",
+          "id": "authorized-reseller-our",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Authorized Reseller",
+                  "model": "authorized-reseller-our",
+                  "classes": "authorized-reseller-our",
+                  "key-value": true,
+                  "filter": "authorized-reseller-our"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Authorized Reseller Our Item",
+          "id": "authorized-reseller-our-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Authorized Reseller Our Item",
+                  "model": "authorized-reseller-our-item",
+                  "key-value": true
                 }
               }
             }
@@ -1310,31 +1391,81 @@
           }
         },
         {
-          "title": "Key Features List",
-          "id": "key-features",
+          "title": "Information List Module",
+          "id": "information-list-module",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Key Features List",
-                  "model": "key-features",
-                  "filter": "key-features"
+                  "name": "Information List Module",
+                  "model": "information-list-module",
+                  "filter": "information-list-module",
+                  "key-value": true,
+                  "module-type": "",
+                  "page-size": "10"
                 }
               }
             }
           }
         },
         {
-          "title": "Key Features List Item",
-          "id": "key-features-item",
+          "title": "Information List Module Item",
+          "id": "information-list-module-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Information List Module Item",
+                  "model": "information-list-module-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Key Features Card Container",
+          "id": "key-features-card-container",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Key Features Card Container",
+                  "model": "key-features-card-container",
+                  "filter": "key-features-card-container"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Key Features Card Container Item",
+          "id": "key-features-card-container-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Key Features List Item",
-                  "model": "key-features-item"
+                  "model": "key-features-card-container-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Legal Content",
+          "id": "legal-content",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Legal Content",
+                  "model": "legal-content",
+                  "classes": "legal-content"
                 }
               }
             }
@@ -1850,6 +1981,22 @@
           }
         },
         {
+          "title": "Product Information",
+          "id": "product-information",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Product Information",
+                  "model": "product-information",
+                  "classes": "product-information"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Product Section",
           "id": "product-section",
           "plugins": {
@@ -1981,25 +2128,6 @@
                   "text": "Link Text",
                   "link": "",
                   "target": "_self"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Recall Info List",
-          "id": "recall-info-list",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Recall Info List",
-                  "model": "recall-info-list",
-                  "key-value": true,
-                  "page-size": "9",
-                  "empty-text": "No recall info items match your filters.",
-                  "data-source": "/us/en/recallInfoList.json"
                 }
               }
             }
@@ -2165,7 +2293,7 @@
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "stats-grid",
+                  "name": "Stats Grid",
                   "model": "stats-grid",
                   "filter": "stats-grid",
                   "key-value": true
@@ -2361,7 +2489,7 @@
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "sustainability-dashboard-list-item",
+                  "name": "Sustainability Dashboard List Item",
                   "model": "sustainability-dashboard-list-item"
                 }
               }

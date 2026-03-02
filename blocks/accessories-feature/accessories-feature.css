@@ -1,19 +1,19 @@
 
-.key-features-wrapper {
+.accessories-feature-wrapper {
   width: 100%;
 }
 
-.key-features-wrapper p{
+.accessories-feature-wrapper p{
   margin: 0;
   padding: 0;
 }
 
-.key-features .title >div:first-child{
-  color: var(--color-primary-grey-10);
+.accessories-feature .title >div:first-child{
+  color: var(--color-primary-green-50);
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
-  font-size: var(--fontsize-h2);
-  margin-bottom: var(--large);
+  font-size: var(--size-20);
+  margin-bottom: var(--spacing-sm);
 
    @media (width < 860px) {
     font-size: var(--size-18);
@@ -21,15 +21,15 @@
   }
 }
 
-.key-features > ul {
-  gap: var(--size-20);
+.accessories-feature > ul {
+  gap: var(--spacing-sm);
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-
+	
   @media (width >= 860px) {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   @media (width < 860px) {
@@ -46,8 +46,11 @@
 	}
 }
 
-.key-features > ul > li {
+.accessories-feature > ul > li {
   font-family: var(--font-family);
+  background: var(--color-primary-green-10);
+
+  /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
   position: relative;
   border-radius: var(--border-radius-l);
   overflow: hidden;
@@ -72,10 +75,12 @@
   }
 }
 
-.key-features .card-image {
+.accessories-feature .card-image {
+  background-color: var(--color-primary-grey-10);
   width: min(11.11111vw, 160px);
   height: min(12.4305vw, 179px);
   object-fit: contain;
+  transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,7 +91,7 @@
   }
 }
 
-.key-features  > ul > li .card-image img {
+.accessories-feature  > ul > li .card-image img {
   width: min(7.6388888, 110px);
   height: min(9.44444vw, 136px);
 
@@ -96,16 +101,17 @@
   }
 }
 
-.key-features .card-body{
-  color: var(--color-primary-grey-90);
-  font-weight: var(--fontweight-book);
+.accessories-feature .card-body{
+  color: var(--color-hisense-grey-01);
+  font-weight: var(--fontweight-medium);
   font-family: var(--font-family);
-  font-size: var(--fontzie-body1);
+  font-size: var(--size-20);
   line-height: 120%;
-  margin-top: var(--spacing-2xs);
+  margin-top: var(--spacing-md);
   text-align: center;
 
   @media (width < 860px) {
+    color: var(--color-primary-grey-70);
     line-height: 140%;
     font-size: var(--size-14);
   }

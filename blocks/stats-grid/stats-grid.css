@@ -1,7 +1,7 @@
 .matrix-block-items {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--size-32);
 
   .matrix-block-item {

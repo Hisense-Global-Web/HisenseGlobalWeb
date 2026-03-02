@@ -17,6 +17,8 @@
       "article-body-list",
       "article-title",
       "authorized-reseller",
+      "authorized-reseller-note",
+      "authorized-reseller-our",
       "button",
       "card-carousel",
       "card-grid",
@@ -62,6 +64,7 @@
       "product-filter",
       "product-filters-carousel",
       "product-gallery",
+      "product-information",
       "product-section",
       "product-sorting",
       "product-spec",
@@ -84,7 +87,7 @@
       "icon-card-container",
       "section-title",
       "parters-container",
-      "recall-info-list",
+      "information-list-module",
       "quick-action-card",
       "category-support-card",
       "addional-support-card",
@@ -105,7 +108,9 @@
       "news-card-list",
       "about-hisense-module-title",
       "honors-awards",
-      "bi-directional-content"
+      "bi-directional-content",
+      "key-features-card-container",
+      "legal-content"
     ]
   },
   {
@@ -118,6 +123,12 @@
       "popup-key-stats",
       "popup-image",
       "stats-grid"
+    ]
+  },
+  {
+    "id": "past-partnerships-list",
+    "components": [
+      "past-partnerships-list-item"
     ]
   },
   {
@@ -140,6 +151,12 @@
     "id": "article-body-list",
     "components": [
       "article-body-list-item"
+    ]
+  },
+  {
+    "id": "authorized-reseller-our",
+    "components": [
+      "authorized-reseller-our-item"
     ]
   },
   {
@@ -317,9 +334,15 @@
     ]
   },
   {
-    "id": "key-features",
+    "id": "information-list-module",
     "components": [
-      "key-features-item"
+      "information-list-module-item"
+    ]
+  },
+  {
+    "id": "key-features-card-container",
+    "components": [
+      "key-features-card-container-item"
     ]
   },
   {
