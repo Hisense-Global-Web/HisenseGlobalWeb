@@ -17,7 +17,6 @@
               "subtitle": "Common questions about the Hisense 65\" ULED 5K Smart TV",
               "showSubtitle": true,
               "pageSize": "10",
-              "pagination": true,
               "prevButtonAriaLabel": "Prev",
               "nextButtonAriaLabel": "Next",
               "loadMoreLabel": "Load More",
@@ -79,12 +78,6 @@
               "valueType": "number",
               "name": "pageSize",
               "label": "Page Size"
-            },
-            {
-              "component": "boolean",
-              "valueType": "boolean",
-              "name": "pagination",
-              "label": "Enable Pagination"
             },
             {
               "component": "text",

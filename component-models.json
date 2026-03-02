@@ -1743,12 +1743,6 @@
             "label": "Page Size"
           },
           {
-            "component": "boolean",
-            "valueType": "boolean",
-            "name": "pagination",
-            "label": "Enable Pagination"
-          },
-          {
             "component": "text",
             "valueType": "string",
             "name": "prevButtonAriaLabel",

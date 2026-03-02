@@ -129,7 +129,7 @@ function renderFaqTabs(faqData, tags, allTabLabel, showTabCount) {
 
   const allTab = document.createElement('div');
   allTab.className = 'faq-summary-tab selected';
-  allTab.textContent = showTabCount !== 'false'
+  allTab.textContent = showTabCount
     ? `${allTabLabel} (${faqData.length})`
     : allTabLabel;
   allTab.dataset.tag = 'all';
@@ -139,7 +139,7 @@ function renderFaqTabs(faqData, tags, allTabLabel, showTabCount) {
     if (allTags.has(tagKey)) {
       const tab = document.createElement('div');
       tab.className = 'faq-summary-tab';
-      tab.textContent = showTabCount !== 'false'
+      tab.textContent = showTabCount
         ? `${tags[tagKey]} (${tagCounts[tagKey] || 0})`
         : tags[tagKey];
       tab.dataset.tag = tagKey;
@@ -162,14 +162,14 @@ function renderFaqSummary(container, config, faqData, tags) {
     summaryEl.appendChild(titleEl);
   }
 
-  if (config.subtitle && config.showSubtitle !== 'false') {
+  if (config.subtitle && config.showSubtitle) {
     const subtitleEl = document.createElement('div');
     subtitleEl.className = 'faq-summary-subtitle';
     subtitleEl.textContent = config.subtitle;
     summaryEl.appendChild(subtitleEl);
   }
 
-  if (config.showTabs !== 'false' && Object.keys(tags).length > 0) {
+  if (config.showTabs && Object.keys(tags).length > 0) {
     const tabsEl = renderFaqTabs(faqData, tags, config.allTabLabel || 'All', config.showTabCount);
     summaryEl.appendChild(tabsEl);
   }
@@ -389,10 +389,8 @@ function renderFaqList(faqData, container, state, onPageChange, onLoadMore, conf
     faqGrid.appendChild(card);
   });
 
-  if (state.pagination !== 'false') {
-    buildPaginationControls(container, state, onPageChange, config);
-    buildMobilePaginationControls(container, state, onLoadMore, config);
-  }
+  buildPaginationControls(container, state, onPageChange, config);
+  buildMobilePaginationControls(container, state, onLoadMore, config);
 }
 
 // 初始化FAQ交互
@@ -483,16 +481,15 @@ export default async function decorate(block) {
   const configuredEndpoint = getRelativePath(rawEndpoint);
 
   const pageSize = parseInt(config['page-size'] || config.pageSize || config.pagesize || DEFAULT_PAGE_SIZE, 10);
-  const showTabs = config.showTabs !== 'false' && config.showtabs !== 'false';
-  const showTabCount = config.showTabCount !== 'false' && config.showtabcount !== 'false';
-  const showSubtitle = config.showSubtitle !== 'false' && config.showsubtitle !== 'false';
+  const showTabs = String(config.showTabs ?? config.showtabs ?? 'true') !== 'false';
+  const showTabCount = String(config.showTabCount ?? config.showtabcount ?? 'true') !== 'false';
+  const showSubtitle = String(config.showSubtitle ?? config.showsubtitle ?? 'true') !== 'false';
   const allTabLabel = config['all-tab-label'] || config.allTabLabel || config.alltablabel || 'All';
   const title = config.title || '';
   const subtitle = config.subtitle || '';
 
   const state = {
     pageSize,
-    pagination: config.pagination !== 'false' && config.pagination !== 'false' && config.pagination && config.pagination !== 'false',
     currentPage: 1,
     total: 0,
   };
@@ -507,17 +504,13 @@ export default async function decorate(block) {
   faqGrid.className = 'faq-grid';
   wrapper.appendChild(faqGrid);
 
-  if (state.pagination) {
-    const paginationEl = document.createElement('div');
-    paginationEl.className = 'faq-pagination';
-    wrapper.appendChild(paginationEl);
-  }
+  const paginationEl = document.createElement('div');
+  paginationEl.className = 'faq-pagination';
+  wrapper.appendChild(paginationEl);
 
-  if (state.pagination) {
-    const mobilePaginationEl = document.createElement('div');
-    mobilePaginationEl.className = 'faq-pagination-mobile';
-    wrapper.appendChild(mobilePaginationEl);
-  }
+  const mobilePaginationEl = document.createElement('div');
+  mobilePaginationEl.className = 'faq-pagination-mobile';
+  wrapper.appendChild(mobilePaginationEl);
 
   fragment.appendChild(wrapper);
 
@@ -535,7 +528,6 @@ export default async function decorate(block) {
     showTabCount,
     allTabLabel,
     pageSize,
-    pagination: state.pagination,
     prevButtonAriaLabel: config['prev-button-aria-label'] || config.prevbuttonarialabel || config.prevButtonAriaLabel || 'Previous page',
     nextButtonAriaLabel: config['next-button-aria-label'] || config.nextbuttonarialabel || config.nextButtonAriaLabel || 'Next page',
     loadMoreLabel: config['load-more-label'] || config.loadmorelabel || config.loadMoreLabel || 'Load More',
@@ -587,7 +579,7 @@ export default async function decorate(block) {
 
     const renderPage = (data, page = 1) => {
       state.currentPage = page;
-      const displayData = state.pagination ? data.slice((page - 1) * state.pageSize, page * state.pageSize) : data;
+      const displayData = data.slice((page - 1) * state.pageSize, page * state.pageSize);
 
       renderFaqList(
         displayData,
@@ -649,7 +641,7 @@ export default async function decorate(block) {
         gridEl.textContent = '';
       }
 
-      const initialData = state.pagination ? filteredData.slice(0, state.pageSize) : filteredData;
+      const initialData = filteredData.slice(0, state.pageSize);
       initialData.forEach((faqItem, index) => {
         const card = createFaqCard(faqItem, index);
         gridEl.appendChild(card);
