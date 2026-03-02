@@ -33,19 +33,19 @@
       "id": "faq-module",
       "fields": [
         {
-          "component": "text-input",
+          "component": "text",
           "valueType": "string",
           "name": "endpoint",
           "label": "FAQ Endpoint"
         },
         {
-          "component": "text-input",
+          "component": "text",
           "valueType": "string",
           "name": "title",
           "label": "Title"
         },
         {
-          "component": "text-input",
+          "component": "text",
           "valueType": "string",
           "name": "subtitle",
           "label": "Subtitle"
@@ -58,7 +58,7 @@
           "collapsible": true,
           "fields": [
             {
-              "component": "text-input",
+              "component": "text",
               "valueType": "number",
               "name": "pageSize",
               "label": "Page Size"
@@ -70,19 +70,19 @@
               "label": "Enable Pagination"
             },
             {
-              "component": "text-input",
+              "component": "text",
               "valueType": "string",
               "name": "prevButtonAriaLabel",
               "label": "Previous Button Aria Label"
             },
             {
-              "component": "text-input",
+              "component": "text",
               "valueType": "string",
               "name": "nextButtonAriaLabel",
               "label": "Next Button Aria Label"
             },
             {
-              "component": "text-input",
+              "component": "text",
               "valueType": "string",
               "name": "loadMoreLabel",
               "label": "Load More Button Label"
@@ -103,7 +103,7 @@
               "label": "Show Tag Tabs"
             },
             {
-              "component": "text-input",
+              "component": "text",
               "valueType": "string",
               "name": "allTabLabel",
               "label": "All Tab Label"

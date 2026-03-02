@@ -4,9 +4,7 @@ const DEFAULT_FAQ_ENDPOINT = '/faq/us/en/television.json';
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense/faq.-1.json';
 const DEFAULT_PAGE_SIZE = 10;
 
-/**
- * 每5分钟生成一次新的哈希值
- */
+// 简单哈希函数，用于缓存破坏
 function simpleHash(str) {
   const s = String(str);
   let h = 0;
@@ -16,9 +14,7 @@ function simpleHash(str) {
   return Math.abs(h).toString(36);
 }
 
-/**
- * author 环境使用 GraphQL 路径，publish 环境使用 JSON 路径
- */
+// 获取带缓存的URL，author环境使用GraphQL
 function getEndpointUrl(endpointPath) {
   const path = endpointPath || DEFAULT_FAQ_ENDPOINT;
   const hostname = window.location.hostname || '';
@@ -26,17 +22,14 @@ function getEndpointUrl(endpointPath) {
 
   let url;
   if (isAuthorEnv && !path.includes('/content/cq:tags')) {
-    // Author 环境: 使用 GraphQL 接口
     const pathWithoutJson = path.replace(/\.json$/, '');
     const graphqlPath = `/graphql/execute.json/global/GetFaqByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
     url = window.GRAPHQL_BASE_URL ? `${window.GRAPHQL_BASE_URL}${graphqlPath}` : graphqlPath;
   } else {
-    // Publish 环境: 使用原有的 JSON 路径
     const baseUrl = window.GRAPHQL_BASE_URL || '';
     url = baseUrl ? `${baseUrl}${path}` : path;
   }
 
-  // 5分钟缓存控制
   const fiveMinutesMs = 5 * 60 * 1000;
   const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
   const sep = url.indexOf('?') >= 0 ? '&' : '?';
@@ -44,14 +37,11 @@ function getEndpointUrl(endpointPath) {
   return `${url}${sep}_t=${cacheBuster}`;
 }
 
-/**
- * 根据当前 URL 构建多国家语言的接口路径
- */
+// 根据当前URL语言获取本地化接口Url
 function getLocalizedEndpoint(configEndpoint) {
   const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) ? window.location.hostname : '';
   const isAemEnv = hostname.includes('author') || hostname.includes('publish');
 
-  // 如果是 AEM 环境，直接返回配置的 endpoint
   if (isAemEnv) {
     return configEndpoint;
   }
@@ -74,28 +64,22 @@ function getLocalizedEndpoint(configEndpoint) {
   return `/faq/${country}/${language}/${lastSegment}`;
 }
 
-/**
- * 提取 FAQ 列表
- */
+// 从两种格式中提取FAQ列表（为了兼容EDS JSON 格式）
 function extractFaqList(data) {
   if (!data) return [];
 
-  // 适配 GraphQL 返回格式: data.faqList.items
   if (data.data && data.data.faqList && Array.isArray(data.data.faqList.items)) {
     return data.data.faqList.items;
   }
 
-  // 直接返回数组
   if (Array.isArray(data)) {
     return data;
   }
 
-  // 适配 data.data 格式
   if (data.data && Array.isArray(data.data)) {
     return data.data;
   }
 
-  // 适配 items 格式
   if (data.items && Array.isArray(data.items)) {
     return data.items;
   }
@@ -103,9 +87,7 @@ function extractFaqList(data) {
   return [];
 }
 
-/**
- * 获取 FAQ 标签数据
- */
+// 获取FAQ标签数据
 async function fetchFaqTags() {
   try {
     const url = getEndpointUrl(DEFAULT_TAGS_ENDPOINT);
@@ -127,21 +109,17 @@ async function fetchFaqTags() {
   }
 }
 
-/**
- * 渲染标签 tabs
- */
+// 渲染FAQ标签页
 function renderFaqTabs(faqData, tags, allTabLabel) {
   const tabsEl = document.createElement('div');
   tabsEl.className = 'faq-summary-tabs';
 
-  // 统计每个标签的 FAQ 数量
   const tagCounts = {};
   const allTags = new Set();
 
   faqData.forEach((faq) => {
     if (Array.isArray(faq.tags)) {
       faq.tags.forEach((tag) => {
-        // 提取标签名称， "hisense:faq/test-1" -> "test-1"
         const tagKey = tag.split('/').pop();
         allTags.add(tagKey);
         tagCounts[tagKey] = (tagCounts[tagKey] || 0) + 1;
@@ -149,14 +127,12 @@ function renderFaqTabs(faqData, tags, allTabLabel) {
     }
   });
 
-  // All tab
   const allTab = document.createElement('div');
   allTab.className = 'faq-summary-tab selected';
   allTab.textContent = `${allTabLabel} (${faqData.length})`;
   allTab.dataset.tag = 'all';
   tabsEl.appendChild(allTab);
 
-  // 其他 tabs
   Object.keys(tags).forEach((tagKey) => {
     if (allTags.has(tagKey)) {
       const tab = document.createElement('div');
@@ -170,11 +146,11 @@ function renderFaqTabs(faqData, tags, allTabLabel) {
   return tabsEl;
 }
 
+// 渲染FAQ文本区域（标题、副标题、标签页）
 function renderFaqSummary(container, config, faqData, tags) {
   const summaryEl = document.createElement('div');
   summaryEl.className = 'faq-summary';
 
-  // 标题
   if (config.title) {
     const titleEl = document.createElement('div');
     titleEl.className = 'faq-summary-title';
@@ -182,7 +158,6 @@ function renderFaqSummary(container, config, faqData, tags) {
     summaryEl.appendChild(titleEl);
   }
 
-  // 副标题
   if (config.subtitle) {
     const subtitleEl = document.createElement('div');
     subtitleEl.className = 'faq-summary-subtitle';
@@ -190,13 +165,11 @@ function renderFaqSummary(container, config, faqData, tags) {
     summaryEl.appendChild(subtitleEl);
   }
 
-  // 标签 tabs
   if (config.showTabs !== 'false' && Object.keys(tags).length > 0) {
     const tabsEl = renderFaqTabs(faqData, tags, config.allTabLabel || 'All');
     summaryEl.appendChild(tabsEl);
   }
 
-  // 插入到 container 的开头，在 faq-grid 之前
   const faqGrid = container.querySelector('.faq-grid');
   if (faqGrid) {
     container.insertBefore(summaryEl, faqGrid);
@@ -205,9 +178,7 @@ function renderFaqSummary(container, config, faqData, tags) {
   }
 }
 
-/**
- * 创建 FAQ 卡片元素
- */
+// 创建单个FAQ卡片
 function createFaqCard(faqItem, index) {
   const card = document.createElement('div');
   card.className = index === 0 ? 'faq-card' : 'faq-card hide';
@@ -218,7 +189,6 @@ function createFaqCard(faqItem, index) {
 
   const titleContent = document.createElement('div');
 
-  // 产品分类
   if (faqItem.productCategory) {
     const categoryDiv = document.createElement('div');
     categoryDiv.className = 'title-content';
@@ -226,7 +196,6 @@ function createFaqCard(faqItem, index) {
     titleContent.appendChild(categoryDiv);
   }
 
-  // 问题标题
   if (faqItem.question) {
     const questionDiv = document.createElement('div');
     questionDiv.className = 'subtitle-content';
@@ -249,7 +218,6 @@ function createFaqCard(faqItem, index) {
 
   const answerSpan = document.createElement('span');
 
-  // 支持纯文本和 HTML 格式
   if (faqItem.answer) {
     if (typeof faqItem.answer === 'object' && faqItem.answer.html) {
       answerSpan.innerHTML = faqItem.answer.html;
@@ -266,9 +234,7 @@ function createFaqCard(faqItem, index) {
   return card;
 }
 
-/**
- * 构建分页控件
- */
+// 创建PC端分页按钮
 function buildPaginationControls(container, state, onPageChange, config) {
   const { total, pageSize, currentPage } = state;
 
@@ -282,8 +248,8 @@ function buildPaginationControls(container, state, onPageChange, config) {
   }
 
   const totalPages = Math.ceil(total / pageSize);
-  const prevAriaLabel = config['prev-button-aria-label'] || config.prevButtonAriaLabel || 'Previous page';
-  const nextAriaLabel = config['next-button-aria-label'] || config.nextButtonAriaLabel || 'Next page';
+  const prevAriaLabel = config['prev-button-aria-label'] || config.prevButtonAriaLabel || 'Previous';
+  const nextAriaLabel = config['next-button-aria-label'] || config.nextButtonAriaLabel || 'Next';
 
   const createButton = (label, page, disabled = false, isActive = false) => {
     const btn = document.createElement('button');
@@ -321,7 +287,6 @@ function buildPaginationControls(container, state, onPageChange, config) {
     return btn;
   };
 
-  // Prev
   paginationEl.appendChild(
     createButton('prev', currentPage - 1, currentPage === 1),
   );
@@ -340,15 +305,12 @@ function buildPaginationControls(container, state, onPageChange, config) {
     );
   }
 
-  // Next
   paginationEl.appendChild(
     createButton('next', currentPage + 1, currentPage === totalPages),
   );
 }
 
-/**
- * 构建移动端分页控件（Load More）
- */
+// 创建移动端加载load more按钮
 function buildMobilePaginationControls(container, state, onLoadMore, config) {
   const { total, pageSize, currentPage } = state;
   const mobilePaginationEl = container.querySelector('.faq-pagination-mobile');
@@ -370,19 +332,15 @@ function buildMobilePaginationControls(container, state, onLoadMore, config) {
   mobilePaginationEl.appendChild(loadMoreBtn);
 }
 
-/**
- * 渲染 FAQ 列表
- */
+// 渲染FAQ列表
 function renderFaqList(faqData, container, state, onPageChange, onLoadMore, config) {
   if (!container) return;
 
   const faqGrid = container.querySelector('.faq-grid');
   if (!faqGrid) return;
 
-  // 清空现有内容
   faqGrid.textContent = '';
 
-  // 如果没有数据，显示空状态
   if (!faqData || faqData.length === 0) {
     const emptyMessage = document.createElement('div');
     emptyMessage.className = 'faq-empty';
@@ -391,22 +349,18 @@ function renderFaqList(faqData, container, state, onPageChange, onLoadMore, conf
     return;
   }
 
-  // 渲染 FAQ 卡片
   faqData.forEach((faqItem, index) => {
     const card = createFaqCard(faqItem, index);
     faqGrid.appendChild(card);
   });
 
-  // 构建分页控件
   if (state.pagination !== 'false') {
     buildPaginationControls(container, state, onPageChange, config);
     buildMobilePaginationControls(container, state, onLoadMore, config);
   }
 }
 
-/**
- * 初始化 FAQ 手风琴功能
- */
+// 初始化FAQ交互
 function initFaqAccordion(block) {
   const faqTitles = block.querySelectorAll('.faq-card .faq-title');
 
@@ -421,19 +375,15 @@ function initFaqAccordion(block) {
   });
 }
 
-/**
- * 初始化标签 tab 切换功能
- */
+// 初始化标签切换
 function initTabSwitching(block, allFaqData, state, renderCallback) {
   const tabs = block.querySelectorAll('.faq-summary-tab');
 
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
-      // 更新选中状态
       tabs.forEach((t) => t.classList.remove('selected'));
       tab.classList.add('selected');
 
-      // 过滤 FAQ
       const selectedTag = tab.dataset.tag;
       let filteredData = allFaqData;
 
@@ -446,73 +396,61 @@ function initTabSwitching(block, allFaqData, state, renderCallback) {
         });
       }
 
-      // 重置分页状态
       state.currentPage = 1;
       state.total = filteredData.length;
 
-      // 重新渲染
       renderCallback(filteredData);
     });
   });
 }
 
-/**
- * 获取相对路径 URL
- * 如果传入的是完整 URL，返回路径部分
- */
+// 获取相对路径
 function getRelativePath(url) {
   if (!url) return '';
   try {
-    // 尝试解析为 URL
     const urlObj = new URL(url, window.location.origin);
     return urlObj.pathname;
   } catch (e) {
-    // 如果不是有效 URL，直接返回原值
     return url;
   }
 }
 
+// 初始化FAQ模块
 export default async function decorate(block) {
   const config = readBlockConfig(block);
 
-  // 读取配置，endpoint 可能是完整 URL，需要提取路径部分
   const rawEndpoint = config.endpoint || DEFAULT_FAQ_ENDPOINT;
   const configuredEndpoint = getRelativePath(rawEndpoint);
-  const pageSize = parseInt(config['page-size'] || config.pageSize || DEFAULT_PAGE_SIZE, 10);
-  const showTabs = config.showTabs !== 'false';
-  const allTabLabel = config['all-tab-label'] || config.allTabLabel || 'All';
+
+  const pageSize = parseInt(config['page-size'] || config.pageSize || config.pagesize || DEFAULT_PAGE_SIZE, 10);
+  const showTabs = config.showTabs !== 'false' && config.showtabs !== 'false';
+  const allTabLabel = config['all-tab-label'] || config.allTabLabel || config.alltablabel || 'All';
   const title = config.title || '';
   const subtitle = config.subtitle || '';
 
-  // 构建本地化接口路径
-  const endpoint = getLocalizedEndpoint(configuredEndpoint);
-
-  // 分页状态
   const state = {
     pageSize,
-    pagination: config.pagination !== 'false',
+    pagination: config.pagination !== 'false' && config.pagination !== 'false' && config.pagination && config.pagination !== 'false',
     currentPage: 1,
     total: 0,
   };
 
-  // 创建 FAQ 容器
+  const endpoint = getLocalizedEndpoint(configuredEndpoint);
+
   const fragment = document.createDocumentFragment();
   const wrapper = document.createElement('div');
   wrapper.className = 'faq-module-wrapper';
 
-  // FAQ grid
   const faqGrid = document.createElement('div');
   faqGrid.className = 'faq-grid';
   wrapper.appendChild(faqGrid);
 
-  // 分页容器
   if (state.pagination) {
     const paginationEl = document.createElement('div');
     paginationEl.className = 'faq-pagination';
     wrapper.appendChild(paginationEl);
   }
 
-  // 分页容器（移动端）
   if (state.pagination) {
     const mobilePaginationEl = document.createElement('div');
     mobilePaginationEl.className = 'faq-pagination-mobile';
@@ -524,11 +462,9 @@ export default async function decorate(block) {
   block.className = 'faq-module';
   block.replaceChildren(fragment);
 
-  // 获取 FAQ 数据
   let allFaqData = [];
   let tags = {};
 
-  // 完整的配置对象
   const fullConfig = {
     title,
     subtitle,
@@ -536,13 +472,12 @@ export default async function decorate(block) {
     allTabLabel,
     pageSize,
     pagination: state.pagination,
-    prevButtonAriaLabel: config['prev-button-aria-label'] || config.prevButtonAriaLabel || '',
-    nextButtonAriaLabel: config['next-button-aria-label'] || config.nextButtonAriaLabel || '',
-    loadMoreLabel: config['load-more-label'] || config.loadMoreLabel || 'Load More',
+    prevButtonAriaLabel: config['prev-button-aria-label'] || config.prevbuttonarialabel || config.prevButtonAriaLabel || 'Previous page',
+    nextButtonAriaLabel: config['next-button-aria-label'] || config.nextbuttonarialabel || config.nextButtonAriaLabel || 'Next page',
+    loadMoreLabel: config['load-more-label'] || config.loadmorelabel || config.loadMoreLabel || 'Load More',
   };
 
   try {
-    // 并行获取 FAQ 数据和标签数据
     const [faqResp, tagsData] = await Promise.allSettled([
       fetch(getEndpointUrl(endpoint)),
       showTabs ? fetchFaqTags() : Promise.resolve({}),
@@ -561,10 +496,8 @@ export default async function decorate(block) {
     console.error('faq-module: failed to fetch data', err);
   }
 
-  // 设置总数
   state.total = allFaqData.length;
 
-  // 渲染摘要区域
   const container = block.querySelector('.faq-module-wrapper');
   if (container) {
     renderFaqSummary(
@@ -579,8 +512,6 @@ export default async function decorate(block) {
       tags,
     );
 
-    // 分页渲染函数
-    // eslint-disable-next-line no-unused-vars
     const renderPage = (data, page = 1) => {
       state.currentPage = page;
       const displayData = state.pagination ? data.slice((page - 1) * state.pageSize, page * state.pageSize) : data;
@@ -588,92 +519,79 @@ export default async function decorate(block) {
       renderFaqList(
         displayData,
         container,
-        state,
+        { ...state, total: data.length },
         (newPage) => renderPage(data, newPage),
         () => renderPage(data, state.currentPage + 1),
         fullConfig,
       );
 
-      // 初始化手风琴交互
       initFaqAccordion(block);
     };
 
-    // 禁用分页时显示所有数据，启用分页时显示第一页
-    const initialData = state.pagination ? allFaqData.slice(0, state.pageSize) : allFaqData;
+    let currentData = allFaqData;
+
+    const loadMore = () => {
+      const gridEl = container.querySelector('.faq-grid');
+      const currentCards = gridEl.querySelectorAll('.faq-card');
+      const currentCount = currentCards.length;
+
+      const newData = currentData.slice(currentCount, currentCount + state.pageSize);
+
+      if (newData.length > 0) {
+        newData.forEach((faqItem, index) => {
+          const card = createFaqCard(faqItem, currentCount + index);
+          gridEl.appendChild(card);
+        });
+
+        state.currentPage = Math.ceil(currentCount / state.pageSize) + 1;
+
+        buildPaginationControls(container, { ...state, total: currentData.length, currentPage: state.currentPage }, (newPage) => {
+          currentData = allFaqData;
+          renderPage(allFaqData, newPage);
+        }, fullConfig);
+        buildMobilePaginationControls(container, { ...state, total: currentData.length, currentPage: state.currentPage }, loadMore, fullConfig);
+
+        if (currentCount + newData.length >= currentData.length) {
+          const mobileBtn = container.querySelector('.faq-pagination-mobile .page-button');
+          if (mobileBtn) mobileBtn.style.display = 'none';
+        }
+      }
+
+      initFaqAccordion(block);
+    };
+
     renderFaqList(
-      initialData,
+      allFaqData.slice(0, state.pageSize),
       container,
-      state,
-      (newPage) => {
-        const start = (newPage - 1) * state.pageSize;
-        const end = start + state.pageSize;
-        const pageData = allFaqData.slice(start, end);
-        renderFaqList(
-          pageData,
-          container,
-          { ...state, currentPage: newPage },
-          (p) => {
-            const s = (p - 1) * state.pageSize;
-            const e = s + state.pageSize;
-            renderFaqList(
-              allFaqData.slice(s, e),
-              container,
-              { ...state, currentPage: p },
-              (np) => {
-                const ns = (np - 1) * state.pageSize;
-                const ne = ns + state.pageSize;
-                renderFaqList(
-                  allFaqData.slice(ns, ne),
-                  container,
-                  { ...state, currentPage: np },
-                  () => {},
-                  () => {},
-                  fullConfig,
-                );
-              },
-              () => {},
-              fullConfig,
-            );
-          },
-          () => {},
-          fullConfig,
-        );
-      },
-      () => {
-        const nextPage = state.currentPage + 1;
-        const start = nextPage * state.pageSize;
-        const end = start + state.pageSize;
-        renderFaqList(
-          allFaqData.slice(0, end),
-          container,
-          { ...state, currentPage: nextPage },
-          () => {},
-          () => {},
-          fullConfig,
-        );
-      },
+      { ...state, total: allFaqData.length },
+      (newPage) => renderPage(allFaqData, newPage),
+      loadMore,
       fullConfig,
     );
 
-    // 初始化手风琴交互
-    initFaqAccordion(block);
-
-    // 初始化标签切换
     initTabSwitching(block, allFaqData, state, (filteredData) => {
-      // 禁用分页时显示所有过滤后的数据，启用分页时显示第一页
-      const displayData = state.pagination ? filteredData.slice(0, state.pageSize) : filteredData;
-      renderFaqList(
-        displayData,
-        container,
-        { ...state, total: filteredData.length, currentPage: 1 },
-        () => {},
-        () => {},
-        fullConfig,
-      );
+      currentData = filteredData;
+
+      const gridEl = container.querySelector('.faq-grid');
+      if (gridEl) {
+        gridEl.textContent = '';
+      }
+
+      const initialData = state.pagination ? filteredData.slice(0, state.pageSize) : filteredData;
+      initialData.forEach((faqItem, index) => {
+        const card = createFaqCard(faqItem, index);
+        gridEl.appendChild(card);
+      });
+
+      buildPaginationControls(container, { ...state, total: filteredData.length, currentPage: 1 }, (newPage) => {
+        currentData = allFaqData;
+        renderPage(allFaqData, newPage);
+      }, fullConfig);
+      buildMobilePaginationControls(container, { ...state, total: filteredData.length, currentPage: 1 }, loadMore, fullConfig);
+
       initFaqAccordion(block);
     });
   }
 
-  // 标记为已加载
   block.classList.add('loaded');
 }
