@@ -1,5 +1,4 @@
 /* navigation styles */
-@import url('../../styles/reset-rich-text.css');
 
 :root {
   --root-header-height: 100px;
@@ -173,6 +172,7 @@
   box-sizing: border-box;
   background: #fff;
   max-width: inherit;
+  color: var(--color-primary-grey-90);
   padding: 0 calc(calc(100% - var(--container-max-width)) / 2 + var(--common-padding));
   
   &.hidden {
