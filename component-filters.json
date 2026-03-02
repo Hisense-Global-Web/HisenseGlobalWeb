@@ -7,7 +7,8 @@
       "navigation",
       "company-page-navigation",
       "support-navigation",
-      "footerContainer"
+      "footerContainer",
+      "search-box-navigation"
     ]
   },
   {
@@ -424,6 +425,12 @@
     "id": "resource-list",
     "components": [
       "resource-list-item"
+    ]
+  },
+  {
+    "id": "search-box-navigation",
+    "components": [
+      "search-box"
     ]
   },
   {
