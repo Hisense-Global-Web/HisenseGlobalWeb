@@ -441,7 +441,7 @@ export default async function decorate(block) {
 
   const titleText = config.title || 'Recent Press Releases';
   const pageSize = Number.parseInt(config['page-size'], 10) || 9;
-  const emptyText = config['empty-text'] || 'No news items match your filters.';
+  // const emptyText = config['empty-text'] || 'No news items match your filters.';
   const shouldPaginated = true;
   const paginatedBtnText = config['paginated-btn-text'] || '';
   const dataSource = config['data-source'] || '';
@@ -455,18 +455,25 @@ export default async function decorate(block) {
   const sectionTitleEl = document.createElement('div');
   sectionTitleEl.className = 'section-title';
 
+  const isSearchPage = window.location.pathname.includes('search');
   // 标准的title逻辑
   const titleSpanEl = document.createElement('span');
   titleSpanEl.textContent = titleText;
-  sectionTitleEl.appendChild(titleSpanEl);
 
   // result 逻辑
-  // const resultTitleEl = document.createElement('div');
-  // resultTitleEl.className = 'section-result-title';
-  // const r = 'FIFA';
-  // const n = 12;
-  // resultTitleEl.innerHTML = `<div class="result-title"><span class="search-value">${r}</span> Results</div><div class="result-num"><span>${n}</span> RESULTS</div>`;
-  // sectionTitleEl.appendChild(resultTitleEl);
+  const currentUrl = window.location.href;
+  const url = new URL(currentUrl);
+  const fulltextValue = url.searchParams.get('fulltext');
+  const resultTitleEl = document.createElement('div');
+  resultTitleEl.className = 'section-result-title';
+  const r = fulltextValue;
+  const n = 'NO';
+  resultTitleEl.innerHTML = `<div class="result-title"><span class="search-value">${r}</span> Results</div><div class="result-num"><span>${n}</span> RESULTS</div>`;
+  if (isSearchPage) {
+    sectionTitleEl.appendChild(resultTitleEl);
+  } else {
+    sectionTitleEl.appendChild(titleSpanEl);
+  }
 
   container.appendChild(sectionTitleEl);
 
@@ -515,13 +522,14 @@ export default async function decorate(block) {
     paginationEl.textContent = '';
 
     if (!totalItems) {
-      const emptyEl = document.createElement('div');
-      emptyEl.className = 'releases-empty';
-      emptyEl.innerHTML = emptyText;
-      cardGroupEl.appendChild(emptyEl);
+      // const emptyEl = document.createElement('div');
+      // emptyEl.className = 'releases-empty';
+      // emptyEl.innerHTML = emptyText;
+      // cardGroupEl.appendChild(emptyEl);
       return;
     }
 
+    document.querySelector('.section-title .result-num span').textContent = totalItems;
     const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
     const safePage = Math.min(Math.max(page, 1), totalPages);
     const startIndex = (safePage - 1) * pageSize;
