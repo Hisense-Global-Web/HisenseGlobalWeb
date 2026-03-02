@@ -2,10 +2,15 @@ import { readBlockConfig, decorateIcons } from '../../scripts/aem.js';
 
 // 获取Search Input的HTML元素
 const getSearchInput = (block) => {
+  const isEditMode = block.hasAttribute('data-aue-resource');
+  if (isEditMode) {
+    return null;
+  }
   const config = readBlockConfig(block);
   const searchLink = config['search-link'] || '/search';
   const placeholder = config.placeholder || 'Search';
   const target = config.target || '_self';
+  // const suggestionLabel = config['suggestion-label'];
 
   const inputWrapper = document.createElement('div');
   inputWrapper.className = 'input-wrapper';

@@ -13,6 +13,7 @@
               "key-value": true,
               "search-link": "/search",
               "placeholder": "Search",
+              "suggestion-label": "",
               "filter": "search-box"
             }
           }
