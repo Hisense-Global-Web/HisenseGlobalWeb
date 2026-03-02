@@ -10,6 +10,7 @@
             "template": {
               "name": "Exception Page",
               "model": "exception-page",
+              "key-value": true,
               "classes": "error-information"
             }
           }

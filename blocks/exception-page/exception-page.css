@@ -1,3 +1,8 @@
 .exception-page {
     padding: var(--size-24) 0;
+    text-align: center;
+
+    div {
+        margin: 0 auto;
+    }
 }

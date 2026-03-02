@@ -35,7 +35,7 @@ p {
             img {
                 width: var(--size-80);
                 height: var(--size-80);
-                object-fit: cover;
+                object-fit: contain;
             }
         }
         

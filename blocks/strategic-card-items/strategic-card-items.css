@@ -11,7 +11,7 @@
 
   .strategic-card-item {
     display: flex;
-    flex: min(calc(204/var(--breakpoint-pc)*100vw),204px) 0 0;
+    flex: 1 0 min(calc(204/var(--breakpoint-pc)*100vw),204px);
     height: auto;
     padding: var(--size-24) var(--size-24) var(--size-32) var(--size-24);
     flex-direction: column;
@@ -28,7 +28,7 @@
       height: var(--size-80);
 
       img {
-        object-fit: cover;
+        object-fit: contain;
         width: 100%;
         height: 100%;
       }
@@ -115,7 +115,7 @@
         img {
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: contain;
         }
       }
 

@@ -54,6 +54,7 @@
           "name": "title",
           "value": "",
           "label": "Title",
+          "multi": true,
           "valueType": "string"
         },
         {
