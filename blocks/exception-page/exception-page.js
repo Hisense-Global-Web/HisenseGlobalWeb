@@ -1,13 +1,17 @@
 import { readBlockConfig } from "../../scripts/aem.js";
 export default function decorate(block) {
     const config = readBlockConfig(block);
-    const [icon, title, description, btn] = block.children;
+    const [icon, title, description, btnText, btnLink] = block.children;
+    console.log(config);
     
     // add className
-    [icon, title, description, btn].forEach(d => {
-        if(d.firstElement?.textContent.trim() && Object.keys(config).includes(d.firstElement.textContent.trim())) {
-            d.className = d.firstElement.textContent.trim();
-            d.firstElement.remove();
+    [icon, title, description, btnText, btnLink].forEach(d => {
+        const key = d.children[0].textContent.trim();
+        console.log(Object.keys(config).includes(key.toLowerCase()));
+        
+        if(key && Object.keys(config).includes(key.toLowerCase())) {
+            d.classList.add(key);
+            d.children[0].remove();
         }
     })
 
@@ -15,11 +19,7 @@ export default function decorate(block) {
     textArea.className = 'textArea';
     textArea.append(title, description);
     block.append(textArea);
-    const link = btn.querySelector('a');
-    if (link) {
-        link.innerText = link.parentElement.previousElementSibling.innerText;
-        link.title = link.parentElement.previousElementSibling.innerText;
-        link.parentElement.previousElementSibling.remove();
-    }
-    block.append(btn);
+    btnLink.querySelector('a').innerText = btnText.innerText.trim();
+    btnText.remove();
+    block.append(btnLink);
 }

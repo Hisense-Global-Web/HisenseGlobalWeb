@@ -11,7 +11,7 @@
 
     picture {
         width: var(--size-80);
-        height: var(--size-77);
+        height: var(--size-80);
         display: block;
     }
 
@@ -19,5 +19,81 @@
         width: 100%;
         height: 100%;
         object-fit: contain;
+    }
+
+    .textArea {
+        width: min(calc(640/var(--breakpoint-pc) * 100vw), 640px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--size-16);
+
+        .exceptionTitle {
+            color: var(--color-hisense-black, #000);
+            text-align: center;
+            font-size: var(--size-24);
+            font-weight: var(--fontweight-medium);
+            line-height: 120%; /* 28.8px */
+        }
+
+        .exceptionDescription {
+            color: var(--color-primary-grey-70, #333);
+            text-align: center;
+            font-size: var(--size-16);
+            font-weight: var(--fontweight-book);
+            line-height: 150%; /* 24px */
+        }
+    }
+
+    .btnLink {
+        a {
+            height: var(--size-50);
+            display: flex;
+            padding: var(--size-4) var(--size-32);
+            justify-content: center;
+            align-items: center;
+            gap: var(--size-8);
+            border-radius: 100px;
+            background: var(--color-primary-green-60, #008482);
+            color: var(--color-primary-gray-10, #FFF);
+            text-align: center;
+             font-size: var(--size-14);
+            font-weight: var(--fontweight-medium);
+            line-height: 150%;
+        }
+    }
+}
+
+@media (width < 860px) {
+    .exception-page {
+        gap: var(--size-32);
+    }
+    
+    .textArea {
+        width: 100%;
+        gap: var(--size-12);
+
+        .exceptionTitle {
+            font-size: var(--size-24);
+            line-height: 120%; /* 28.8px */
+            text-transform: capitalize;
+        }
+
+        .exceptionDescription {
+            font-size: var(--Size-14);
+            line-height: 150%; /* 21px */
+        }
+    }
+    .btnLink {
+        a {
+            height: var(--size-40);
+            display: flex;
+            padding: var(--size-4) var(--size-24);
+            justify-content: center;
+            align-items: center;
+            gap: var(--size-8);
+            font-size: var(--size-14);
+            line-height: 140%; /* 19.6px */
+        }
     }
 }
