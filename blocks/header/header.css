@@ -194,6 +194,7 @@
     height: 50px;
     display: flex;
     gap: 48px;
+    color: var(--color-primary-grey-70);
     
     .company-item {
       padding: 4px 0;
@@ -208,6 +209,11 @@
       
       &.current {
         border-bottom: 2px solid var(--color-hisense-black);
+        color: var(--color-hisense-black);
+
+        * {
+          color: var(--color-hisense-black);
+        }
       }
       
       * {
@@ -218,7 +224,7 @@
         margin: 0;
         padding: 0;
         background: transparent;
-        color: var(--color-hisense-black);
+        color: var(--color-primary-grey-70);
         border: none;
         border-radius: inherit;
         line-height: 1.5;
@@ -245,7 +251,7 @@
   transition: all .36s ease-in-out;
 }
 
-#navigation .nav-second:not(.hidden) + .mobile-menu {
+#navigation:not(.is-support) .nav-second:not(.hidden) + .mobile-menu {
   margin-top: -66px;
 
   @media (width < 1180px) {
