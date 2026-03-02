@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const DEFAULT_PAGE_SIZE = 12;
 
@@ -338,31 +339,29 @@ function buildMobilePaginationControls(mobileEl, state, onLoadMore, config) {
   mobileEl.appendChild(loadMoreBtn);
 }
 
-// 解析 block DOM
+// 解析 block DOM：config 行为纯文本 key-value，item 行第二列含 <a> 链接
 function parseConfig(block) {
   const config = {};
   const items = [];
-  let currentItem = null;
 
   const rows = [...block.children];
   rows.forEach((row) => {
     const cols = [...row.children];
-    if (cols.length >= 2) {
-      const key = (cols[0].textContent || '').trim();
-      const keyLower = key.toLowerCase();
-      const value = (cols[1].textContent || '').trim();
+    if (cols.length < 2) return;
 
-      if (keyLower === 'title') {
-        if (currentItem) items.push(currentItem);
-        currentItem = { title: value, endpoint: '' };
-      } else if (keyLower === 'endpoint' && currentItem) {
-        currentItem.endpoint = value;
-      } else {
-        config[keyLower] = value;
-      }
+    const link = cols[1].querySelector('a');
+    if (link) {
+      items.push({
+        title: (cols[0].textContent || '').trim(),
+        endpoint: link.getAttribute('href') || '',
+        sourceRow: row,
+      });
+    } else {
+      const key = (cols[0].textContent || '').trim().toLowerCase();
+      const value = (cols[1].textContent || '').trim();
+      config[key] = value;
     }
   });
-  if (currentItem) items.push(currentItem);
 
   return { config, items };
 }
@@ -458,6 +457,7 @@ export default async function decorate(block) {
       return {
         title: item.title,
         endpoint: item.endpoint,
+        sourceRow: item.sourceRow,
         type: resolvedType,
         allItems,
         filteredItems,
@@ -469,6 +469,7 @@ export default async function decorate(block) {
       return {
         title: item.title,
         endpoint: item.endpoint,
+        sourceRow: item.sourceRow,
         type: 'unknown',
         allItems: [],
         filteredItems: [],
@@ -488,6 +489,10 @@ export default async function decorate(block) {
     tabItem.className = 'tab-item';
     if (tabData.filteredItems.length === 0) tabItem.classList.add('empty');
     if (index === activeTabIndex) tabItem.classList.add('select');
+
+    if (tabData.sourceRow) {
+      moveInstrumentation(tabData.sourceRow, tabItem);
+    }
 
     const titleText = document.createTextNode(`${tabData.title} `);
     tabItem.appendChild(titleText);
