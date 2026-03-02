@@ -1,0 +1,99 @@
+{
+  "definitions": [
+    {
+      "title": "FAQ Module",
+      "id": "faq-module",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "FAQ Module",
+              "model": "faq-module",
+              "key-value": true,
+              "classes": "faq-module"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "faq-module",
+      "fields": [
+        {
+          "component": "text-input",
+          "valueType": "string",
+          "name": "endpoint",
+          "label": "FAQ Endpoint",
+          "value": "/faq/us/en/television.json"
+        },
+        {
+          "component": "text-input",
+          "valueType": "string",
+          "name": "title",
+          "label": "Title",
+          "value": "Frequently Asked Questions"
+        },
+        {
+          "component": "text-input",
+          "valueType": "string",
+          "name": "subtitle",
+          "label": "Subtitle",
+          "value": ""
+        },
+        {
+          "component": "text-input",
+          "valueType": "number",
+          "name": "pageSize",
+          "label": "Page Size",
+          "value": 10
+        },
+        {
+          "component": "checkbox",
+          "valueType": "boolean",
+          "name": "pagination",
+          "label": "Enable Pagination",
+          "value": true
+        },
+        {
+          "component": "text-input",
+          "valueType": "string",
+          "name": "prevButtonText",
+          "label": "Previous Button Text (aria-label)",
+          "value": ""
+        },
+        {
+          "component": "text-input",
+          "valueType": "string",
+          "name": "nextButtonText",
+          "label": "Next Button Text (aria-label)",
+          "value": ""
+        },
+        {
+          "component": "text-input",
+          "valueType": "string",
+          "name": "loadMoreText",
+          "label": "Load More Button Text",
+          "value": "Load More"
+        },
+        {
+          "component": "checkbox",
+          "valueType": "boolean",
+          "name": "showTabs",
+          "label": "Show Tag Tabs",
+          "value": true
+        },
+        {
+          "component": "text-input",
+          "valueType": "string",
+          "name": "allTabLabel",
+          "label": "All Tab Label",
+          "value": "All"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

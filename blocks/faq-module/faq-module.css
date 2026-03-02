@@ -1,0 +1,314 @@
+/* FAQ Module */
+.faq-module {
+  width: 100%;
+
+  .faq-module-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* FAQ Summary - 标题、副标题、标签 tabs */
+  .faq-summary {
+    margin-bottom: var(--size-48);
+
+    .faq-summary-title {
+      font-size: var(--fontsize-h3);
+      line-height: 1.2;
+      color: var(--color-hisense-black);
+      font-weight: var(--fontweight-medium);
+
+      @media (width < 860px) {
+        font-size: var(--fontsize-title1);
+      }
+    }
+
+    .faq-summary-subtitle {
+      margin-top: var(--size-8);
+      font-size: var(--fontsize-body1);
+      font-weight: var(--fontweight-book);
+      line-height: 1.5;
+      color: var(--color-primary-grey-70);
+
+      @media (width < 860px) {
+        font-size: var(--fontsize-body2);
+      }
+    }
+
+    .faq-summary-tabs {
+      margin-top: var(--size-32);
+      display: flex;
+      gap: var(--size-12);
+      flex-wrap: wrap;
+
+      @media (width < 860px) {
+        margin-top: var(--size-24);
+        gap: var(--size-8);
+      }
+
+      .faq-summary-tab {
+        height: var(--size-40);
+        border: 1px solid var(--color-primary-grey-30);
+        border-radius: var(--radius-pc-xl);
+        font-size: var(--fontsize-body2);
+        font-weight: var(--fontweight-book);
+        line-height: 1.5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 var(--size-24);
+        cursor: pointer;
+        background-color: transparent;
+        color: var(--color-hisense-black);
+        transition: all 0.2s ease;
+
+        @media (width < 860px) {
+          height: var(--size-32);
+          padding: 0 var(--size-16);
+          font-size: var(--fontsize-body3);
+          border-radius: var(--radius-lg);
+        }
+
+        &.selected {
+          border: 2px solid var(--color-primary-green-50);
+          font-weight: var(--fontweight-medium);
+        }
+
+        &:hover:not(.selected) {
+          border-color: var(--color-primary-grey-50);
+        }
+      }
+    }
+  }
+
+  /* FAQ Grid - 卡片列表 */
+  .faq-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-24);
+
+    @media (width < 860px) {
+      gap: var(--size-16);
+    }
+  }
+
+  /* FAQ Card */
+  .faq-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--size-32) var(--size-32) var(--size-40);
+    border: 1px solid var(--color-primary-grey-30);
+    border-radius: var(--radius-pc-xl);
+
+    @media (width < 860px) {
+      padding: var(--size-24) var(--size-20) var(--size-32);
+      border-radius: var(--radius-lg);
+    }
+
+    .faq-title {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      cursor: pointer;
+
+      > div:first-child {
+        flex: 1;
+      }
+
+      img.chevron {
+        transition: transform .36s cubic-bezier(0, 0.18, 0.07, 1), -webkit-transform .36s cubic-bezier(0, 0.18, 0.07, 1);
+        width: var(--size-24);
+        height: var(--size-24);
+        flex-shrink: 0;
+        margin-left: var(--size-16);
+
+        @media (width < 860px) {
+          width: var(--size-20);
+          height: var(--size-20);
+          margin-left: var(--size-12);
+        }
+      }
+    }
+
+    .faq-content {
+      transition: max-height .36s ease-in-out;
+
+      span {
+        white-space-collapse: preserve-breaks;
+        display: inline-block;
+        width: 100%;
+        padding-top: var(--size-20);
+
+        @media (width < 860px) {
+          padding-top: var(--size-16);
+        }
+
+        /* 支持富文本内容 */
+        p {
+          margin-bottom: var(--size-16);
+          line-height: 1.6;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+
+        ul, ol {
+          margin-left: var(--size-24);
+          margin-bottom: var(--size-16);
+
+          li {
+            margin-bottom: var(--size-8);
+          }
+        }
+      }
+    }
+
+    &.hide {
+      .faq-title img.chevron {
+        transform: rotate(180deg);
+      }
+
+      .faq-content {
+        max-height: 0;
+        overflow: hidden;
+      }
+    }
+  }
+
+  /* 卡片标题样式 */
+  .title-content {
+    color: var(--color-primary-green-60);
+    line-height: 1.5;
+    font-size: var(--fontsize-body2);
+    font-weight: var(--fontweight-medium);
+    height: 22px;
+    margin-bottom: var(--size-4);
+
+    @media (width < 860px) {
+      font-size: var(--fontsize-body3);
+      height: auto;
+      margin-bottom: var(--size-2);
+    }
+  }
+
+  .subtitle-content {
+    color: var(--color-hisense-black);
+    line-height: 1.2;
+    font-size: var(--fontsize-title2);
+    font-weight: var(--fontweight-medium);
+
+    @media (width < 860px) {
+      font-size: var(--fontsize-title3);
+      line-height: 1.3;
+    }
+  }
+
+  /* 空状态 */
+  .faq-empty {
+    padding: var(--size-48);
+    text-align: center;
+    color: var(--color-primary-grey-50);
+    font-size: var(--fontsize-body1);
+
+    @media (width < 860px) {
+      padding: var(--size-32);
+      font-size: var(--fontsize-body2);
+    }
+  }
+
+  /* 桌面分页 */
+  .faq-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--size-16);
+    margin-top: var(--size-48);
+
+    @media (width < 860px) {
+      display: none;
+    }
+
+    .page-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: var(--size-40);
+      height: var(--size-40);
+      padding: 0;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      background-color: transparent;
+      color: var(--color-hisense-black);
+      font-size: var(--fontsize-body1);
+      line-height: 1.5;
+      font-weight: var(--fontweight-medium);
+      cursor: pointer;
+
+      &.is-active {
+        background-color: var(--color-primary-green-60);
+        color: #fff;
+      }
+
+      &:disabled {
+        .page-arrow.normal {
+          display: none;
+        }
+
+        .page-arrow.disabled {
+          display: block;
+        }
+      }
+
+      &:hover:not(.is-active):not(:disabled) {
+        background-color: var(--color-primary-grey-20);
+      }
+
+      .page-arrow {
+        width: var(--size-24);
+        height: var(--size-24);
+        display: block;
+
+        &.disabled {
+          display: none;
+        }
+      }
+    }
+  }
+
+  /* 移动端分页 (Load More) */
+  .faq-pagination-mobile {
+    display: none;
+
+    @media (width < 860px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: var(--size-32);
+    }
+
+    .page-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: var(--size-40);
+      padding: 0 var(--size-32);
+      border-radius: var(--radius-xxl);
+      border: 1px solid var(--color-primary-grey-70);
+      background-color: transparent;
+      color: var(--color-hisense-black);
+      font-size: var(--fontsize-body2);
+      line-height: 1.4;
+      font-weight: var(--fontweight-medium);
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: var(--color-primary-grey-20);
+      }
+
+      &:active {
+        background-color: var(--color-primary-grey-30);
+      }
+    }
+  }
+}
