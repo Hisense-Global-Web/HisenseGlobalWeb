@@ -250,7 +250,7 @@
   transition: all .36s ease-in-out;
 }
 
-#navigation .nav-second:not(.hidden) + .mobile-menu {
+#navigation:not(.is-support) .nav-second:not(.hidden) + .mobile-menu {
   margin-top: -66px;
 
   @media (width < 1180px) {
