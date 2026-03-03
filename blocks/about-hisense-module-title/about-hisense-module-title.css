@@ -1,6 +1,6 @@
 .about-hisense-module-title-container .about-hisense-module-title-wrapper {
   padding:var(--large) 0;
-  background: #0C131F;
+  background: var(--color-primary-grey-95);
   width: 100%;
 
    @media (width < 860px) {

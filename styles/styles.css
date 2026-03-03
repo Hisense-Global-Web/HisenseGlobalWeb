@@ -43,6 +43,7 @@ html {
   --color-primary-green-20: #C8EFEF;
   --color-primary-green-10: #EDFCFB;
   --color-primary-grey-100: #000;
+  --color-primary-grey-95: #0C131F;
   --color-primary-grey-90: #141414;
   --color-primary-grey-80: #242424;
   --color-primary-grey-70: #333;
@@ -886,6 +887,11 @@ main {
 
 	.section.gray-90 {
 		background: var(--color-primary-grey-90);
+		color: var(--text-dark);
+	}
+
+  .section.gray-95 {
+		background: var(--color-primary-grey-95);
 		color: var(--text-dark);
 	}
 
