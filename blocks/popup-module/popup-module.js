@@ -25,11 +25,15 @@ export default function decorate(block) {
     }
   });
 
-  // popup container element
-  const popupContainerEl = document.createElement('div');
-  popupContainerEl.className = 'popup-container';
-  popupContainerEl.append(closeDivEl, popupContentDom);
-  block.append(popupContainerEl);
+  const popContainerEl = block.querySelector('.popup-container');
+  if (!popContainerEl) {
+    // popup container element
+    const popupContainerEl = document.createElement('div');
+    popupContainerEl.className = 'popup-container';
+    popupContainerEl.append(closeDivEl, popupContentDom);
+    block.append(popupContainerEl);
+  }
+
 
   // default hide popup when page load
   const isEditorMode = block.hasAttribute('data-aue-resource')
