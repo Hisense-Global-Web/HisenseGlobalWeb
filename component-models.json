@@ -1798,6 +1798,46 @@
     ]
   },
   {
+    "id": "exception-page",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "exceptionicon",
+        "value": "",
+        "label": "Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "exceptiontitle",
+        "value": "",
+        "label": "Exception Scenario Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "exceptiondescription",
+        "value": "",
+        "label": "Exception Scenario Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "btntext",
+        "value": "",
+        "label": "Button Copy",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "btnlink",
+        "value": "",
+        "label": "Button Link",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "faq-module",
     "fields": [
       {
