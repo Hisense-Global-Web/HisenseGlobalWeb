@@ -69,8 +69,9 @@ async function fetchChildPageData(sourcePathInfo) {
     location: item.location || '',
     author: item.author || '',
     thumbnail: item.thumbnail || '',
-    'cta-text': item['cta-text'] || '',
+    'cta-text': item['cta-text'] || 'Read now',
     downloadLink: item.downloadlink || '',
+    matchPath,
   };
 }
 
@@ -100,6 +101,7 @@ export default async function decorate(block) {
           ctaLink: config['cta-link'] || '',
           hasDownload: !!fetched.downloadLink,
           downloadLink: fetched.downloadLink || '',
+          matchPath: fetched.matchPath,
         };
       }
     }
@@ -119,6 +121,7 @@ export default async function decorate(block) {
       ctaLink: config['cta-link'] || '',
       hasDownload: config['has-download'] === true || config['has-download'] === 'true' || false,
       downloadLink: '',
+      matchPath: config['match-path'] || '',
     };
   }
 
@@ -221,6 +224,20 @@ export default async function decorate(block) {
     const actionsEl = document.createElement('div');
     actionsEl.classList.add('featured-actions');
 
+    if (data.ctaText) {
+      const button = document.createElement('button');
+      button.classList.add('text-btn');
+      button.textContent = data.ctaText;
+      if (data.matchPath) {
+        const link = document.createElement('a');
+        link.href = data.matchPath;
+        link.appendChild(button);
+        actionsEl.appendChild(link);
+      } else {
+        actionsEl.appendChild(button);
+      }
+    }
+
     if (data.downloadLink) {
       const link = document.createElement('a');
       link.href = data.downloadLink;
@@ -235,22 +252,6 @@ export default async function decorate(block) {
       button.appendChild(iconImg);
       link.appendChild(button);
       actionsEl.appendChild(link);
-    } else if (data.ctaText) {
-      const button = document.createElement('button');
-      button.classList.add('icon-btn');
-      const iconImg = document.createElement('img');
-      iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
-      iconImg.alt = '';
-      button.appendChild(iconImg);
-
-      if (data.ctaLink) {
-        const link = document.createElement('a');
-        link.href = data.ctaLink;
-        link.appendChild(button);
-        actionsEl.appendChild(link);
-      } else {
-        actionsEl.appendChild(button);
-      }
     }
 
     featuredContent.appendChild(actionsEl);
