@@ -2,12 +2,14 @@ import { whenElementReady } from '../../utils/carousel-common.js';
 import popupShowUtils from '../../utils/popup-module-utils.js';
 
 function bindEvent(block) {
-  const triggerBtn = block.querySelector('.btn-label'); // 触发按钮
-  const popupSectionId = block.querySelector('.btn-popup-id')?.textContent.trim();
-  if (triggerBtn && popupSectionId) {
-    triggerBtn.setAttribute('data-id', popupSectionId);
-    triggerBtn.addEventListener('click', popupShowUtils);
-  }
+  const triggerBtns = block.querySelectorAll('.btn-label'); // 触发按钮
+  triggerBtns.forEach(triggerBtn=> {
+    const popupSectionId = triggerBtn.parentElement.querySelector('.btn-popup-id')?.textContent.trim();
+    if (triggerBtn && popupSectionId) {
+      triggerBtn.setAttribute('data-id', popupSectionId);
+      triggerBtn.addEventListener('click', popupShowUtils);
+    }
+  })
 }
 
 export default function decorate(block) {
