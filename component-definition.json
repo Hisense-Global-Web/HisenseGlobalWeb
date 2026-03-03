@@ -83,7 +83,7 @@
                   "model": "popup-module",
                   "filter": "popup-module",
                   "classes": "h-popup-module-wrapper",
-                  "style_popupVisibility": "popup-show"
+                  "style_popupVisibility": ""
                 }
               }
             }

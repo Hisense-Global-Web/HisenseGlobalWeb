@@ -542,7 +542,7 @@ export default function decorate(block) {
 
         // where to by
         const whereToBuyBtnEl = document.createElement('div');
-        whereToBuyBtnEl.className = 'plp-product-btn plp-where-to-buy-btn';
+        whereToBuyBtnEl.className = 'plp-product-btn plp-where-to-buy-btn ps-widge';
         whereToBuyBtnEl.textContent = 'Where to buy';
         whereToBuyBtnEl.setAttribute('ps-sku', variant.sku || group.sku || '');
         productBtnGroupEl.append(whereToBuyBtnEl);
