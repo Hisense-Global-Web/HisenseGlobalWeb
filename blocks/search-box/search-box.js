@@ -81,7 +81,7 @@ const getQuickLink = (block) => {
   if (suggestionLabel?.length) {
     const suggestionLabelEl = document.createElement('div');
     suggestionLabelEl.className = 'suggestion-label';
-    suggestionLabelEl.textContent = suggestionLabel;
+    suggestionLabel.textContent = suggestionLabel;
     quickLinkWrapper.appendChild(suggestionLabelEl);
   }
   let hasQuickLink = false;
@@ -181,7 +181,7 @@ export default async function decorate(block) {
     searchBoxWrapper.appendChild(quickLinkElement);
   }
 
-  block.replaceChildren(searchBoxWrapper);
+  // block.replaceChildren(searchBoxWrapper);
   decorateIcons(block);
   block.classList.add('loaded');
 }
