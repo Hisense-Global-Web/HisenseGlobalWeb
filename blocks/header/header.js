@@ -868,7 +868,7 @@ export default async function decorate(block) {
 
   company.forEach((item) => {
     const mobileSecondMenuItem = document.createElement('div');
-    const isCurrent = window.location.pathname.includes(item.href);;
+    const isCurrent = window.location.pathname.includes(item.href);
     mobileSecondMenuItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
     mobileSecondMenuItem.innerHTML = item.title;
     mobileSecondMenuItem.dataset.href = item.href;
