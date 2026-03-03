@@ -50,6 +50,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--size-24);
+    /* 所有元素等高 */
+    /* grid-auto-rows: 1fr;  */
 
     .tech-item-box {
       /* height: var(--size-96); */
@@ -61,7 +63,7 @@
       .tech-item-text-content {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        /* justify-content: center; */
         align-items: center;
         height: 100%;
       }
