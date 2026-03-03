@@ -105,7 +105,6 @@
 
           .item-title {
             line-height: calc(28.8 / var(--breakpoint-mobile) * 100vw);
-            width: calc(200 / var(--breakpoint-mobile) * 100vw);
           }
         }
       }
