@@ -10,7 +10,7 @@ export default function decorate(block) {
       title.className = 'title';
       // const div = document.createElement('div');
       // moveInstrumentation(row, div);
-      title.append(row);
+      title.append(...row.children);
     } else {
       const li = document.createElement('li');
       li.classList.add('card-item');

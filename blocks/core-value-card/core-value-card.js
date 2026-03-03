@@ -12,6 +12,8 @@ export default function decorate(block) {
     } else {
       const li = document.createElement('li');
       li.classList.add('card-item');
+      const cardbody = document.createElement('div');
+      cardbody.className = 'card-body';
       moveInstrumentation(row, li);
       while (row.firstElementChild) li.append(row.firstElementChild);
       [...li.children].forEach((div, index) => {
@@ -41,19 +43,19 @@ export default function decorate(block) {
           });
           div.append(arrow);
         } else {
-          div.className = 'card-body';
-          const { children } = div;
-          const { length } = children;
-          if (length > 0) {
-            const tit = document.createElement('div');
-            const desc = document.createElement('div');
-            tit.append(children[0]);
-            if (length > 1) {
-              desc.append(children[children.length - 1]);
-            }
-            div.replaceChildren(tit, desc);
-          }
+          cardbody.append(div);
+          // const { length } = children;
+          // if (length > 0) {
+          //   const tit = document.createElement('div');
+          //   const desc = document.createElement('div');
+          //   tit.append(children[0]);
+          //   if (length > 1) {
+          //     desc.append(children[children.length - 1]);
+          //   }
+          //   div.replaceChildren(tit, desc);
+          // }
         }
+        li.append(cardbody);
       });
       ul.append(li);
     }
