@@ -27,15 +27,18 @@
   font-weight: var(--fontweight-medium);
   font-family: var(--font-family);
   text-align: center;
-  overflow-wrap: break-word;
+  overflow: hidden;
   width: var(--size-240);
   height: var(--size-72);
+  margin: auto;
+
 
    @media (width < 860px) {
     width: var(--size-158);
     height: var(--size-52);
     text-align: left;
     font-size: var(--size-20);
+    margin: 0;
   }
 }
 
