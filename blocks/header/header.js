@@ -51,8 +51,15 @@ function parseActions(root) {
     }
     const img = fixImageUrl(lightSrc);
     const darkImg = fixImageUrl(darkSrc);
+    let enableSearchBox = false;
+    // 判断Enable Search Box
+    const navigationActionEl = wrapper.querySelector('.navigation-action');
+    if (navigationActionEl?.children?.length === 5) {
+      const strEnableSearchBox = navigationActionEl?.children[4].querySelector('p').textContent;
+      enableSearchBox = strEnableSearchBox.toLowerCase() === 'true';
+    }
     return {
-      title, href, img, darkImg,
+      title, href, img, darkImg, enableSearchBox,
     };
   });
 }
@@ -514,6 +521,87 @@ function buildSupportDropdown(mainEl) {
 //   return darkMainPart + suffix;
 // }
 
+let hideSearchBoxPopupTimer = null;
+
+const getSearchBoxInputWrapperEl = (searchBoxPopupEl) => searchBoxPopupEl.querySelectorAll('.input-wrapper')[1];
+
+const clearSearchBoxInput = (inputWrapperEl) => {
+  const inputEl = inputWrapperEl.querySelector('input');
+  const clearButtonEl = inputWrapperEl.querySelector('.search-box-clear');
+  inputEl.value = '';
+  clearButtonEl.classList.remove('visible');
+};
+
+const checkMobileSearchBox = (inputWrapperEl) => {
+  if (window.innerWidth < 860) {
+    const inputEl = inputWrapperEl.querySelector('input');
+    inputEl.removeAttribute('readonly');
+    inputWrapperEl.classList.add('input-wrapper-mobile');
+    inputEl.addEventListener('click', (e) => {
+      e.stopImmediatePropagation(); // 阻止其他 click 监听器执行
+      e.stopPropagation();
+    }, true);
+  }
+};
+const toggleSearchBoxPopup = (e) => {
+  e.stopPropagation();
+  clearTimeout(hideSearchBoxPopupTimer);
+  const searchBoxPopupEl = document.querySelector('.search-box-popup');
+  const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
+  if ([...searchBoxPopupEl.classList].includes('show')) {
+    // debugger
+    clearSearchBoxInput(inputWrapperEl);
+    searchBoxPopupEl.classList.remove('show');
+  } else {
+    clearSearchBoxInput(inputWrapperEl);
+    searchBoxPopupEl.classList.add('show');
+  }
+};
+
+// 显示模态框
+const showSearchBoxPopup = (e) => {
+  e.stopPropagation();
+  clearTimeout(hideSearchBoxPopupTimer);
+  const searchBoxPopupEl = document.querySelector('.search-box-popup');
+  const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
+  if (searchBoxPopupEl) {
+    checkMobileSearchBox(inputWrapperEl);
+    searchBoxPopupEl.classList.add('show');
+  }
+};
+
+const checkSearchBoxPopup = () => {
+  const searchBoxPopupEl = document.querySelector('.search-box-popup');
+  if ([...searchBoxPopupEl.classList].includes('show')) {
+    clearTimeout(hideSearchBoxPopupTimer);
+  }
+};
+
+// 隐藏模态框（带延迟）
+const hideSearchBoxPopup = (e) => {
+  e.stopPropagation();
+  hideSearchBoxPopupTimer = setTimeout(() => {
+    const searchBoxPopupEl = document.querySelector('.search-box-popup');
+    const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
+    // debugger
+    if (searchBoxPopupEl) {
+      clearSearchBoxInput(inputWrapperEl);
+      searchBoxPopupEl.classList.remove('show');
+    }
+  }, 200);
+};
+
+const buildSearchBoxPopup = (mainEl) => {
+  const searchBoxEl = mainEl.querySelector('.search-box-container');
+  searchBoxEl.classList.add('search-box-width');
+  const searchBoxOuterEl = document.createElement('div');
+  searchBoxOuterEl.className = 'search-box-outer';
+  searchBoxOuterEl.appendChild(searchBoxEl);
+  searchBoxOuterEl.addEventListener('mouseenter', showSearchBoxPopup);
+  searchBoxOuterEl.addEventListener('mouseleave', hideSearchBoxPopup);
+  return searchBoxOuterEl;
+};
+
 const handleChangeNavPosition = (navigation) => {
   const pdpEl = document.querySelector('.product-section-container');
   const plpEl = document.querySelector('.product-sorting');
@@ -796,7 +884,11 @@ export default async function decorate(block) {
       imgDark.alt = action.title || 'action';
       imgDark.className = 'dark-img';
       btn.append(imgDark);
-      if (action.href && action.href !== '#') {
+      if (action.enableSearchBox) {
+        btn.addEventListener('click', toggleSearchBoxPopup);
+        btn.addEventListener('mouseenter', checkSearchBoxPopup);
+        btn.addEventListener('mouseleave', hideSearchBoxPopup);
+      } else if (action.href && action.href !== '#') {
         btn.dataset.href = action.href;
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -985,11 +1077,19 @@ export default async function decorate(block) {
   });
   mobileSecondMenuSupport.append(contactUsEl);
 
+  // 展开SearchBox
+  const searchBoxEl = buildSearchBoxPopup(fragment);
+  // navigation.append(searchBoxPopEl);
+  const searchBoxPopupEl = document.createElement('div');
+  searchBoxPopupEl.className = 'search-box-popup';
+  searchBoxPopupEl.appendChild(searchBoxEl);
+
   navigation.append(navContainer);
   navigation.append(navSecond);
   navigation.append(mobileMenu);
   navigation.append(mobileSecondMenu);
   navigation.append(mobileSecondMenuSupport);
+  navigation.append(searchBoxPopupEl);
   const shadow = document.createElement('div');
   shadow.className = 'shadow';
   navigation.append(shadow);

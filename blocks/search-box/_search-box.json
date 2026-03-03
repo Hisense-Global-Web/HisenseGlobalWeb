@@ -13,6 +13,7 @@
               "key-value": true,
               "search-link": "/search",
               "placeholder": "Search",
+              "suggestion-label": "",
               "filter": "search-box"
             }
           }
@@ -50,6 +51,12 @@
           "valueType": "string",
           "name": "placeholder",
           "label": "Placeholder Text"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "suggestion-label",
+          "label": "Suggestion Lable"
         }
       ]
     },
