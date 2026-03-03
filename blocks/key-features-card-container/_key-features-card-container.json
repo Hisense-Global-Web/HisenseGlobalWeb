@@ -1,31 +1,31 @@
 {
   "definitions": [
     {
-      "title": "Key Features List",
-      "id": "key-features",
+      "title": "Key Features Card Container",
+      "id": "key-features-card-container",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Key Features List",
-              "model": "key-features",
-              "filter": "key-features"
+              "name": "Key Features Card Container",
+              "model": "key-features-card-container",
+              "filter": "key-features-card-container"
             }
           }
         }
       }
     },
     {
-      "title": "Key Features List Item",
-      "id": "key-features-item",
+      "title": "Key Features Card Container Item",
+      "id": "key-features-card-container-item",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Key Features List Item",
-              "model": "key-features-item"
+              "model": "key-features-card-container-item"
             }
           }
         }
@@ -35,7 +35,7 @@
   ],
   "models": [
      {
-      "id": "key-features",
+      "id": "key-features-card-container",
       "fields": [
         {
           "component": "text",
@@ -47,7 +47,7 @@
       ]
     },
     {
-      "id": "key-features-item",
+      "id": "key-features-card-container-item",
       "fields": [
          {
           "component": "reference",
@@ -67,9 +67,9 @@
   ],
   "filters": [
     {
-      "id": "key-features",
+      "id": "key-features-card-container",
       "components": [
-        "key-features-item"
+        "key-features-card-container-item"
       ]
     }
   ]

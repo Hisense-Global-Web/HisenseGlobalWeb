@@ -218,6 +218,10 @@
             "value": "grey"
           },
           {
+            "name": "Gray 95",
+            "value": "gray-95"
+          },
+          {
             "name": "Gray 90",
             "value": "gray-90"
           },
@@ -529,6 +533,56 @@
     ]
   },
   {
+    "id": "accessories-feature",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "title_image",
+        "label": "Primary Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title_content",
+        "label": "Primary content",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title_secondary",
+        "label": "Secondary Title",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "accessories-feature-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_subtitle",
+        "label": "Sub Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "addional-support-card-item",
     "fields": [
       {
@@ -791,6 +845,56 @@
         "component": "text",
         "name": "article-location",
         "label": "Location",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-reseller-note",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "icon",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-reseller-our",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-reseller-our-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-image",
+        "value": "",
+        "label": "Logo",
         "valueType": "string"
       }
     ]
@@ -1309,14 +1413,14 @@
       },
       {
         "component": "text",
-        "name": "item_title",
+        "name": "valuetitle",
         "label": "Title",
         "valueType": "string",
-        "value": ""
+        "value": " "
       },
       {
         "component": "text",
-        "name": "item_text",
+        "name": "valuetext",
         "label": "Text",
         "valueType": "string"
       }
@@ -1418,6 +1522,14 @@
         "value": "",
         "label": "Button Background Color",
         "valueType": "string",
+        "condition": {
+          "none": [
+            {
+              "var": "third-party"
+            },
+            "is-third-party"
+          ]
+        },
         "options": [
           {
             "name": "transparent(Default)",
@@ -1438,14 +1550,44 @@
         "name": "link_url",
         "label": "Link",
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "condition": {
+          "none": [
+            {
+              "var": "third-party"
+            },
+            "is-third-party"
+          ]
+        }
       },
       {
         "component": "text",
         "name": "link_text",
         "label": "Link Label",
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "condition": {
+          "none": [
+            {
+              "var": "third-party"
+            },
+            "is-third-party"
+          ]
+        }
+      },
+      {
+        "component": "checkbox-group",
+        "valueType": "string[]",
+        "name": "third-party",
+        "label": "",
+        "multi": false,
+        "description": "Tips: Enable the scripts to display the corresponding 3rd-party data on the website. Maintain the 3rd-party scripts under the integration component.",
+        "options": [
+          {
+            "name": "Enable subscription 3rd-party scripts",
+            "value": "is-third-party"
+          }
+        ]
       }
     ]
   },
@@ -1652,6 +1794,104 @@
             "sections": []
           }
         }
+      }
+    ]
+  },
+  {
+    "id": "faq-module",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "endpoint",
+        "label": "FAQ Endpoint"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "container",
+        "name": "subtitleContainer",
+        "label": "Subtitle Settings",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "subtitle",
+            "label": "Subtitle"
+          },
+          {
+            "component": "boolean",
+            "valueType": "boolean",
+            "name": "showSubtitle",
+            "label": "Show Subtitle"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "paginationContainer",
+        "label": "Pagination Settings",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "number",
+            "name": "pageSize",
+            "label": "Page Size"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "prevButtonAriaLabel",
+            "label": "Previous Button Aria Label"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "nextButtonAriaLabel",
+            "label": "Next Button Aria Label"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "loadMoreLabel",
+            "label": "Load More Button Label"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "tabContainer",
+        "label": "Tab Settings",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "valueType": "boolean",
+            "name": "showTabs",
+            "label": "Show Tag Tabs"
+          },
+          {
+            "component": "boolean",
+            "valueType": "boolean",
+            "name": "showTabCount",
+            "label": "Show Tab Count"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "allTabLabel",
+            "label": "All Tab Label"
+          }
+        ]
       }
     ]
   },
@@ -2642,7 +2882,114 @@
     ]
   },
   {
-    "id": "key-features",
+    "id": "information-list-module",
+    "fields": [
+      {
+        "component": "select",
+        "name": "module-type",
+        "label": "Module Type",
+        "valueType": "string",
+        "required": true,
+        "options": [
+          {
+            "name": "For download",
+            "value": "download"
+          },
+          {
+            "name": "For navigate to new page",
+            "value": "navigate"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many items to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "no-result",
+        "label": "no result content",
+        "valueType": "string",
+        "value": "No items found.",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "information-list-module-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-icon",
+        "label": "Item Icon",
+        "valueType": "string",
+        "value": "/content/dam/hisense/us/common-icons/document.svg"
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "button_iconPC",
+        "label": "CTA Icon For PC",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Button Copy",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "button_color",
+        "label": "Button Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Green 60",
+            "value": "green-60"
+          },
+          {
+            "name": "Black",
+            "value": "grey-100"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "button_iconMobile",
+        "label": "Cta Icon For Mobile",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "pdf-select",
+        "label": "PDF Select",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "key-features-card-container",
     "fields": [
       {
         "component": "text",
@@ -2654,7 +3001,7 @@
     ]
   },
   {
-    "id": "key-features-item",
+    "id": "key-features-card-container-item",
     "fields": [
       {
         "component": "reference",
@@ -2668,6 +3015,19 @@
         "name": "text",
         "label": "Image Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "legal-content",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string",
+        "description": "Select H5 as a paragraph title"
       }
     ]
   },
@@ -3432,6 +3792,32 @@
     ]
   },
   {
+    "id": "product-information",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "value": "",
+        "label": "Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "product-section",
     "fields": [
       {
@@ -3623,31 +4009,6 @@
             "value": "_blank"
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "recall-info-list",
-    "fields": [
-      {
-        "component": "text",
-        "name": "page-size",
-        "label": "Items per page",
-        "description": "How many news cards to show per page.",
-        "valueType": "number"
-      },
-      {
-        "component": "text",
-        "name": "data-source",
-        "label": "Data Source",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "empty-text",
-        "label": "Empty Result Text",
-        "description": "Text to show when no news items match the current filters.",
-        "valueType": "string"
       }
     ]
   },
@@ -3864,10 +4225,6 @@
     ]
   },
   {
-    "id": "slide",
-    "fields": []
-  },
-  {
     "id": "strategic-card-items",
     "fields": []
   },
@@ -3995,6 +4352,64 @@
   {
     "id": "support-navigation-menu-links",
     "fields": []
+  },
+  {
+    "id": "support-search-result-module",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "pageSize",
+        "label": "Page Size"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "prevButtonAriaLabel",
+        "label": "Previous Button Aria Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "nextButtonAriaLabel",
+        "label": "Next Button Aria Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreLabel",
+        "label": "Load More Button Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "emptyResultHeading",
+        "label": "No Result Title Prefix"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "noResultSubtitle",
+        "label": "No Result Subtitle"
+      }
+    ]
+  },
+  {
+    "id": "support-search-result-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Tab Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "endpoint",
+        "label": "Data Endpoint"
+      }
+    ]
   },
   {
     "id": "sustainability-dashboard-achievement",
@@ -4515,6 +4930,36 @@
         "name": "text",
         "label": "Feature disclaimer",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "third-party-integration",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "externalJsPaths",
+        "multi": true,
+        "label": "External JS paths"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript1",
+        "label": "External script 1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript2",
+        "label": "External script 2"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript3",
+        "label": "External script 3"
       }
     ]
   },

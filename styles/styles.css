@@ -43,6 +43,7 @@ html {
   --color-primary-green-20: #C8EFEF;
   --color-primary-green-10: #EDFCFB;
   --color-primary-grey-100: #000;
+  --color-primary-grey-95: #0C131F;
   --color-primary-grey-90: #141414;
   --color-primary-grey-80: #242424;
   --color-primary-grey-70: #333;
@@ -590,6 +591,7 @@ html {
     --size-158: min(10.97222222vw, 158px);
     --size-159: min(11.04166667vw, 159px);
     --size-160: min(11.11111111vw, 160px);
+    --size-220: min(15.27777778vw, 220px);
     --large: var(--size-80);
     --medium: var(--size-48);
     --mid: var(--size-32);
@@ -618,6 +620,10 @@ body.appear {
 
 header {
 	height: var(--nav-height);
+
+  @media (width < 860px) {
+    height: auto;
+  }
 }
 
 header .header,
@@ -881,6 +887,11 @@ main {
 
 	.section.gray-90 {
 		background: var(--color-primary-grey-90);
+		color: var(--text-dark);
+	}
+
+  .section.gray-95 {
+		background: var(--color-primary-grey-95);
 		color: var(--text-dark);
 	}
 

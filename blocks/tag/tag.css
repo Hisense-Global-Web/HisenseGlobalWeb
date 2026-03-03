@@ -53,6 +53,7 @@ main .section.tag-container .tag-wrapper {
           overflow-x: auto;
           scrollbar-width: none;
           flex-wrap: nowrap;
+          gap: var(--size-10);
         }
 
         .tag-item {
@@ -68,8 +69,14 @@ main .section.tag-container .tag-wrapper {
           transition: background-color 0.3s ease;
           text-decoration: none;
           cursor: default;
+          text-transform: capitalize;
           
           @media (width < 860px) {
+            padding: var(--size-8) var(--size-24);
+            font-size: var(--size-14);
+            line-height: 1.4;
+            height: var(--size-36);
+
             &:last-child {
               margin-right: calc(var(--common-padding) * 1);
             }

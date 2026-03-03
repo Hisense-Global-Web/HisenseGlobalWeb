@@ -12,7 +12,7 @@ main .section.download-container .download-wrapper {
     .download-meta-container {
       width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
       background-color: var(--color-primary-grey-20);
-      border-radius: var(--radius-xl);
+      border-radius: var(--radius-pc-xl);
       padding: var(--size-32);
       display: flex;
       flex-direction: column;
@@ -20,24 +20,40 @@ main .section.download-container .download-wrapper {
 
       @media (width < 860px) {
         width: 100%;
+        padding: var(--size-24);
       }
 
       .title-group {
         display: flex;
         flex-direction: column;
         gap: var(--size-8);
+        
+        @media (width < 860px) {
+          gap: var(--size-4);
+        }
 
         .title {
           font-size: var(--fontsize-title2);
           color: var(--color-hisense-black);
           font-weight: var(--fontweight-medium);
           line-height: 1.2;
+          
+          @media (width < 860px) {
+            font-size: var(--size-16);
+            line-height: 1.3;
+          }
         }
 
         .subtitle {
           font-size: var(--fontsize-body1);
           color: var(--color-primary-grey-70);
+          font-weight: var(--fontweight-book);
           line-height: 1.6;
+          
+          @media (width < 860px) {
+            font-size: var(--size-14);
+            line-height: 1.5;
+          }
         }
       }
 
@@ -77,6 +93,7 @@ main .section.download-container .download-wrapper {
               width: 100%;
               height: auto;
               flex: 1;
+              gap: var(--size-24);
             }
 
             img {
@@ -106,7 +123,12 @@ main .section.download-container .download-wrapper {
               .item-name {
                 font-size: var(--fontsize-body1);
                 color: var(--color-hisense-black);
-                font-weight: var(--fontweight-medium);
+                font-weight: var(--fontweight-book);
+                
+                @media (width < 860px) {
+                  font-size: var(--size-16);
+                  line-height: 1.3;
+                }
               }
 
               .item-meta {
@@ -121,6 +143,7 @@ main .section.download-container .download-wrapper {
                   flex-shrink: 0;
                   flex-wrap: wrap;
                   height: auto;
+                  gap: var(--size-8) var(--size-12) ;
                 }
 
                 .item-meta-item {
@@ -128,8 +151,7 @@ main .section.download-container .download-wrapper {
                   line-height: 1.5;
 
                   .download-link {
-                    display: inline-flex;
-                    align-items: center;
+                    display: block;
                     text-decoration: none;
                     cursor: pointer;
                     transition: opacity 0.3s ease;
@@ -195,6 +217,19 @@ main .section.download-container .download-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
+            
+            &:hover {
+              background-color: var(--color-primary-grey-70);
+            }
+            
+            &:active {
+              color: rgb(255 255 255 / 80%);
+            }
+            
+            &:disabled {
+              color: rgb(255 255 255 / 80%);
+              background-color: var(--color-primary-grey-40);
+            }
           }
 
           .download-btn-link {

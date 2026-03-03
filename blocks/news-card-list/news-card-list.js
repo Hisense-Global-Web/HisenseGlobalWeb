@@ -88,7 +88,7 @@ function filterItemsByUrlParams(items) {
         const originalValue = value;
         const spaceValue = value.replace(/-/g, ' ');
         return searchableFields.some((field) => lowerIncludes(field, originalValue)
-            || lowerIncludes(field, spaceValue));
+          || lowerIncludes(field, spaceValue));
       }
       return searchableFields.some((field) => lowerIncludes(field, value));
     }
@@ -314,19 +314,70 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
     createButton('prev', currentPage - 1, currentPage === 1),
   );
 
-  const maxButtons = 5;
-  let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
-  let end = start + maxButtons - 1;
-  if (end > totalPages) {
-    end = totalPages;
-    start = Math.max(1, end - maxButtons + 1);
-  }
+  // const maxButtons = 5;
+  // let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+  // let end = start + maxButtons - 1;
+  // if (end > totalPages) {
+  //   end = totalPages;
+  //   start = Math.max(1, end - maxButtons + 1);
+  // }
 
-  for (let page = start; page <= end; page += 1) {
-    paginationEl.appendChild(
-      createButton(String(page), page, false, page === currentPage),
-    );
-  }
+  // for (let page = start; page <= end; page += 1) {
+  //   paginationEl.appendChild(
+  //     createButton(String(page), page, false, page === currentPage),
+  //   );
+  // }
+
+  const getVisiblePages = () => {
+    const pages = [];
+
+    if (totalPages <= 7) {
+      // 总页数少，直接显示所有页
+      for (let i = 1; i <= totalPages; i += 1) {
+        pages.push(i);
+      }
+    } else if (currentPage <= 4) {
+      // 当前页在前部
+      for (let i = 1; i <= 5; i += 1) {
+        pages.push(i);
+      }
+      pages.push('ellipsis');
+      pages.push(totalPages);
+    } else if (currentPage >= totalPages - 3) {
+      // 当前页在后部
+      pages.push(1);
+      pages.push('ellipsis');
+      for (let i = totalPages - 4; i <= totalPages; i += 1) {
+        pages.push(i);
+      }
+    } else {
+      // 当前页在中部
+      pages.push(1);
+      pages.push('ellipsis');
+      for (let i = currentPage - 1; i <= currentPage + 1; i += 1) {
+        pages.push(i);
+      }
+      pages.push('ellipsis');
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
+  const visiblePages = getVisiblePages();
+  visiblePages.forEach((page) => {
+    if (page === 'ellipsis') {
+      const ellipsis = document.createElement('div');
+      ellipsis.className = 'pagination-ellipsis';
+      const circle = document.createElement('div');
+      circle.className = 'pagination-ellipsis-circle';
+      ellipsis.append(circle, circle.cloneNode(), circle.cloneNode());
+      paginationEl.appendChild(ellipsis);
+    } else {
+      paginationEl.appendChild(
+        createButton(String(page), page, false, page === currentPage),
+      );
+    }
+  });
 
   // Next
   paginationEl.appendChild(
@@ -390,7 +441,7 @@ export default async function decorate(block) {
 
   const titleText = config.title || 'Recent Press Releases';
   const pageSize = Number.parseInt(config['page-size'], 10) || 9;
-  const emptyText = config['empty-text'] || 'No news items match your filters.';
+  // const emptyText = config['empty-text'] || 'No news items match your filters.';
   const shouldPaginated = true;
   const paginatedBtnText = config['paginated-btn-text'] || '';
   const dataSource = config['data-source'] || '';
@@ -404,18 +455,25 @@ export default async function decorate(block) {
   const sectionTitleEl = document.createElement('div');
   sectionTitleEl.className = 'section-title';
 
+  const isSearchPage = window.location.pathname.includes('search');
   // 标准的title逻辑
   const titleSpanEl = document.createElement('span');
   titleSpanEl.textContent = titleText;
-  sectionTitleEl.appendChild(titleSpanEl);
 
   // result 逻辑
-  // const resultTitleEl = document.createElement('div');
-  // resultTitleEl.className = 'section-result-title';
-  // const r = 'FIFA';
-  // const n = 12;
-  // resultTitleEl.innerHTML = `<div class="result-title"><span class="search-value">${r}</span> Results</div><div class="result-num"><span>${n}</span> RESULTS</div>`;
-  // sectionTitleEl.appendChild(resultTitleEl);
+  const currentUrl = window.location.href;
+  const url = new URL(currentUrl);
+  const fulltextValue = url.searchParams.get('fulltext');
+  const resultTitleEl = document.createElement('div');
+  resultTitleEl.className = 'section-result-title';
+  const r = fulltextValue;
+  const n = 'NO';
+  resultTitleEl.innerHTML = `<div class="result-title"><span class="search-value">${r}</span> Results</div><div class="result-num"><span>${n}</span> RESULTS</div>`;
+  if (isSearchPage) {
+    sectionTitleEl.appendChild(resultTitleEl);
+  } else {
+    sectionTitleEl.appendChild(titleSpanEl);
+  }
 
   container.appendChild(sectionTitleEl);
 
@@ -464,13 +522,14 @@ export default async function decorate(block) {
     paginationEl.textContent = '';
 
     if (!totalItems) {
-      const emptyEl = document.createElement('div');
-      emptyEl.className = 'releases-empty';
-      emptyEl.innerHTML = emptyText;
-      cardGroupEl.appendChild(emptyEl);
+      // const emptyEl = document.createElement('div');
+      // emptyEl.className = 'releases-empty';
+      // emptyEl.innerHTML = emptyText;
+      // cardGroupEl.appendChild(emptyEl);
       return;
     }
 
+    document.querySelector('.section-title .result-num span').textContent = totalItems;
     const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
     const safePage = Math.min(Math.max(page, 1), totalPages);
     const startIndex = (safePage - 1) * pageSize;

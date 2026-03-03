@@ -106,6 +106,10 @@ export function decorateMain(main) {
 function getGraphQLBaseUrl() {
   const { hostname } = window.location;
 
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return 'https://publish-p174152-e1855821.adobeaemcloud.com/';
+  }
+
   // Author environment - use same origin
   if (hostname.includes('author-')) {
     return '';
