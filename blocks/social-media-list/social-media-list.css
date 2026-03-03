@@ -14,9 +14,11 @@ main .section.social-media-list-container .social-media-list-wrapper {
     font-weight: var(--fontweight-medium);
     color: var(--color-hisense-black);
     line-height: 1.2;
+    text-transform: capitalize;
     
     @media (width < 860px) {
       width: 100%;
+      font-size: var(--size-16);
     }
   }
   
