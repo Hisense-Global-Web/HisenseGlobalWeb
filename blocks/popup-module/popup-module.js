@@ -26,6 +26,10 @@ export default function decorate(block) {
   });
 
   const popContainerEl = block.querySelector('.popup-container');
+  /**
+   * 先判断 block 中是否存在 ".popup-container" 元素
+   * 为了解决在 author 页面中，编辑其中一个popup module时，去修改另外一个popup module，页面会刷新渲染重复追加元素，导致页面无法review 当前操作的 popup module
+   */
   if (!popContainerEl) {
     // popup container element
     const popupContainerEl = document.createElement('div');
@@ -33,7 +37,6 @@ export default function decorate(block) {
     popupContainerEl.append(closeDivEl, popupContentDom);
     block.append(popupContainerEl);
   }
-
 
   // default hide popup when page load
   const isEditorMode = block.hasAttribute('data-aue-resource')
