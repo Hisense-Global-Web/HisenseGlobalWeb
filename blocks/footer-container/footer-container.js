@@ -361,7 +361,7 @@ export default function decorate(block) {
           if (!isInternalLink(itemData.link)) {
             const img = document.createElement('img');
             img.src = '/content/dam/hisense/us/common-icons/share.svg';
-            // li.appendChild(img);
+            li.appendChild(img);
           }
           ul.appendChild(li);
         });
