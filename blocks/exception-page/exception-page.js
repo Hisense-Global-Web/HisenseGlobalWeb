@@ -2,10 +2,8 @@ import { readBlockConfig } from '../../scripts/aem.js';
 
 export default function decorate(block) {
   const config = readBlockConfig(block);
-  const [icon, title, description, btnText, btnLink] = block.children;
-
   // add className
-  [icon, title, description, btnText, btnLink].forEach((d) => {
+  [...block.children].forEach((d) => {
     const key = d.children[0].textContent.trim();
 
     if (key && Object.keys(config).includes(key.toLowerCase())) {
@@ -16,9 +14,13 @@ export default function decorate(block) {
 
   const textArea = document.createElement('div');
   textArea.className = 'text-area';
+  const title = block.querySelector('.exceptiontitle');
+  const description = block.querySelector('.exceptiondescription');
   textArea.append(title, description);
   block.append(textArea);
-  btnLink.querySelector('a').innerText = btnText.innerText.trim();
+  const btn = block.querySelector('.btnlink');
+  const btnText = block.querySelector('.btntext');
+  btn.querySelector('a').innerText = btnText.innerText.trim();
   btnText.remove();
-  block.append(btnLink);
+  block.append(btn);
 }
