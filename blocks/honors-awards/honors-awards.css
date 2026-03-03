@@ -28,8 +28,12 @@
   font-family: var(--font-family);
   text-align: center;
   overflow-wrap: break-word;
+  width: var(--size-240);
+  height: var(--size-72);
 
    @media (width < 860px) {
+    width: var(--size-158);
+    height: var(--size-52);
     text-align: left;
     font-size: var(--size-20);
   }
