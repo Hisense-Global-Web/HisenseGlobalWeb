@@ -183,41 +183,62 @@ export default async function decorate(block) {
     featuredContent.appendChild(excerptEl);
   }
 
-  const metaGroupEl = document.createElement('div');
-  metaGroupEl.classList.add('featured-meta-group');
-
-  if (data.date) {
-    const dateEl = document.createElement('span');
-    dateEl.classList.add('meta-item');
-    const iconImg = document.createElement('img');
-    iconImg.src = '/resources/clock-icon.svg';
-    iconImg.alt = '';
-    iconImg.classList.add('meta-icon');
-    dateEl.appendChild(iconImg);
-    dateEl.appendChild(document.createTextNode(data.date));
-    metaGroupEl.appendChild(dateEl);
-  }
-
-  if (data.location) {
-    const locationEl = document.createElement('span');
-    locationEl.classList.add('meta-item');
-    const iconImg = document.createElement('img');
-    iconImg.src = '/resources/location-icon.svg';
-    iconImg.alt = '';
-    iconImg.classList.add('meta-icon');
-    locationEl.appendChild(iconImg);
-    locationEl.appendChild(document.createTextNode(data.location));
-    metaGroupEl.appendChild(locationEl);
-  }
-
-  if (metaGroupEl.children.length > 0) {
-    const children = Array.from(metaGroupEl.children);
-    for (let i = children.length - 2; i >= 0; i -= 1) {
-      const lineEl = document.createElement('div');
-      lineEl.className = 'line';
-      children[i].after(lineEl);
+  console.log(data.author);
+  if (data.author) {
+    const authorMetaGroupEl = document.createElement('div');
+    authorMetaGroupEl.classList.add('featured-author-meta-group');
+    const authorEl = document.createElement('div');
+    authorEl.classList.add('meta-author');
+    authorEl.innerHTML = data.author;
+    authorMetaGroupEl.appendChild(authorEl);
+    if (data.date) {
+      const dateEl = document.createElement('span');
+      dateEl.classList.add('meta-item');
+      const iconImg = document.createElement('img');
+      iconImg.src = '/resources/clock-icon.svg';
+      iconImg.alt = '';
+      iconImg.classList.add('meta-icon');
+      dateEl.appendChild(iconImg);
+      dateEl.appendChild(document.createTextNode(data.date));
+      authorMetaGroupEl.appendChild(dateEl);
     }
-    featuredContent.appendChild(metaGroupEl);
+    featuredContent.appendChild(authorMetaGroupEl);
+  } else {
+    const metaGroupEl = document.createElement('div');
+    metaGroupEl.classList.add('featured-meta-group');
+    if (data.date) {
+      const dateEl = document.createElement('span');
+      dateEl.classList.add('meta-item');
+      const iconImg = document.createElement('img');
+      iconImg.src = '/resources/clock-icon.svg';
+      iconImg.alt = '';
+      iconImg.classList.add('meta-icon');
+      dateEl.appendChild(iconImg);
+      dateEl.appendChild(document.createTextNode(data.date));
+      metaGroupEl.appendChild(dateEl);
+    }
+
+    if (data.location) {
+      const locationEl = document.createElement('span');
+      locationEl.classList.add('meta-item');
+      const iconImg = document.createElement('img');
+      iconImg.src = '/resources/location-icon.svg';
+      iconImg.alt = '';
+      iconImg.classList.add('meta-icon');
+      locationEl.appendChild(iconImg);
+      locationEl.appendChild(document.createTextNode(data.location));
+      metaGroupEl.appendChild(locationEl);
+    }
+
+    if (metaGroupEl.children.length > 0) {
+      const children = Array.from(metaGroupEl.children);
+      for (let i = children.length - 2; i >= 0; i -= 1) {
+        const lineEl = document.createElement('div');
+        lineEl.className = 'line';
+        children[i].after(lineEl);
+      }
+      featuredContent.appendChild(metaGroupEl);
+    }
   }
 
   if (data.ctaText || data.downloadLink) {
