@@ -45,8 +45,8 @@
       text-transform: capitalize;
 
       @media (width < 860px) {
-        font-size: var(--fontsize-h2);
-        line-height: var(--size-48);
+        font-size: var(--size-30);
+        line-height: 1.2;
       }
     }
 
@@ -101,7 +101,7 @@
 
         @media (width < 860px) {
           font-size: var(--size-14);
-          line-height: 1.4;
+          line-height: 1.5;
         }
         
         img {

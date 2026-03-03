@@ -218,6 +218,10 @@
             "value": "grey"
           },
           {
+            "name": "Gray 95",
+            "value": "gray-95"
+          },
+          {
             "name": "Gray 90",
             "value": "gray-90"
           },
@@ -532,10 +536,24 @@
     "id": "accessories-feature",
     "fields": [
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "title_image",
+        "label": "Primary Image",
+        "multi": false
+      },
+      {
         "component": "text",
         "valueType": "string",
-        "name": "section_title",
-        "label": "Section Title",
+        "name": "title_content",
+        "label": "Primary content",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title_secondary",
+        "label": "Secondary Title",
         "multi": false
       }
     ]
@@ -552,8 +570,14 @@
       },
       {
         "component": "text",
-        "name": "text",
-        "label": "Image Text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_subtitle",
+        "label": "Sub Title",
         "valueType": "string"
       }
     ]
@@ -1389,14 +1413,14 @@
       },
       {
         "component": "text",
-        "name": "item_title",
+        "name": "valuetitle",
         "label": "Title",
         "valueType": "string",
-        "value": ""
+        "value": " "
       },
       {
         "component": "text",
-        "name": "item_text",
+        "name": "valuetext",
         "label": "Text",
         "valueType": "string"
       }
@@ -1770,6 +1794,104 @@
             "sections": []
           }
         }
+      }
+    ]
+  },
+  {
+    "id": "faq-module",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "endpoint",
+        "label": "FAQ Endpoint"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "container",
+        "name": "subtitleContainer",
+        "label": "Subtitle Settings",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "subtitle",
+            "label": "Subtitle"
+          },
+          {
+            "component": "boolean",
+            "valueType": "boolean",
+            "name": "showSubtitle",
+            "label": "Show Subtitle"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "paginationContainer",
+        "label": "Pagination Settings",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "number",
+            "name": "pageSize",
+            "label": "Page Size"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "prevButtonAriaLabel",
+            "label": "Previous Button Aria Label"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "nextButtonAriaLabel",
+            "label": "Next Button Aria Label"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "loadMoreLabel",
+            "label": "Load More Button Label"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "tabContainer",
+        "label": "Tab Settings",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "boolean",
+            "valueType": "boolean",
+            "name": "showTabs",
+            "label": "Show Tag Tabs"
+          },
+          {
+            "component": "boolean",
+            "valueType": "boolean",
+            "name": "showTabCount",
+            "label": "Show Tab Count"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "allTabLabel",
+            "label": "All Tab Label"
+          }
+        ]
       }
     ]
   },
@@ -4232,6 +4354,64 @@
     "fields": []
   },
   {
+    "id": "support-search-result-module",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "pageSize",
+        "label": "Page Size"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "prevButtonAriaLabel",
+        "label": "Previous Button Aria Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "nextButtonAriaLabel",
+        "label": "Next Button Aria Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreLabel",
+        "label": "Load More Button Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "emptyResultHeading",
+        "label": "No Result Title Prefix"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "noResultSubtitle",
+        "label": "No Result Subtitle"
+      }
+    ]
+  },
+  {
+    "id": "support-search-result-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Tab Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "endpoint",
+        "label": "Data Endpoint"
+      }
+    ]
+  },
+  {
     "id": "sustainability-dashboard-achievement",
     "fields": [
       {
@@ -4750,6 +4930,36 @@
         "name": "text",
         "label": "Feature disclaimer",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "third-party-integration",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "externalJsPaths",
+        "multi": true,
+        "label": "External JS paths"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript1",
+        "label": "External script 1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript2",
+        "label": "External script 2"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript3",
+        "label": "External script 3"
       }
     ]
   },
