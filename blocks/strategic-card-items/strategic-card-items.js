@@ -3,13 +3,13 @@ import popupShowUtils from '../../utils/popup-module-utils.js';
 
 function bindEvent(block) {
   const triggerBtns = block.querySelectorAll('.btn-label'); // 触发按钮
-  triggerBtns.forEach(triggerBtn=> {
+  triggerBtns.forEach((triggerBtn) => {
     const popupSectionId = triggerBtn.parentElement.querySelector('.btn-popup-id')?.textContent.trim();
     if (triggerBtn && popupSectionId) {
       triggerBtn.setAttribute('data-id', popupSectionId);
       triggerBtn.addEventListener('click', popupShowUtils);
     }
-  })
+  });
 }
 
 export default function decorate(block) {
