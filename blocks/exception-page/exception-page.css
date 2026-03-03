@@ -69,7 +69,7 @@
         gap: var(--size-32);
     }
 
-    .text-area {
+    .exception-page .text-area {
         width: 100%;
         gap: var(--size-12);
 
@@ -85,7 +85,7 @@
         }
     }
 
-    .btnlink {
+    .exception-page .btnlink {
         a {
             height: var(--size-40);
             display: flex;
