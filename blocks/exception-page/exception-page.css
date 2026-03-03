@@ -21,14 +21,14 @@
         object-fit: contain;
     }
 
-    .textArea {
+    .text-area {
         width: min(calc(640/var(--breakpoint-pc) * 100vw), 640px);
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: var(--size-16);
 
-        .exceptionTitle {
+        .exceptiontitle {
             color: var(--color-hisense-black, #000);
             text-align: center;
             font-size: var(--size-24);
@@ -36,7 +36,7 @@
             line-height: 120%; /* 28.8px */
         }
 
-        .exceptionDescription {
+        .exceptiondescription {
             color: var(--color-primary-grey-70, #333);
             text-align: center;
             font-size: var(--size-16);
@@ -45,7 +45,7 @@
         }
     }
 
-    .btnLink {
+    .btnlink {
         a {
             height: var(--size-50);
             display: flex;
@@ -68,23 +68,24 @@
     .exception-page {
         gap: var(--size-32);
     }
-    
-    .textArea {
+
+    .text-area {
         width: 100%;
         gap: var(--size-12);
 
-        .exceptionTitle {
+        .exceptiontitle {
             font-size: var(--size-24);
             line-height: 120%; /* 28.8px */
             text-transform: capitalize;
         }
 
-        .exceptionDescription {
-            font-size: var(--Size-14);
+        .exceptiondescription {
+            font-size: var(--size-14);
             line-height: 150%; /* 21px */
         }
     }
-    .btnLink {
+
+    .btnlink {
         a {
             height: var(--size-40);
             display: flex;
