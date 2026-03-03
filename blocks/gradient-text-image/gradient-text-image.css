@@ -1,3 +1,7 @@
+.gradient-text-image-wrapper {
+	width: 100%;
+}
+
 .gradient-text-image {
 	height:  min(calc(360/var(--breakpoint-pc) * 100vw), 360px);
 	width: 100%;

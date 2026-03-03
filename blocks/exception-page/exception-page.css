@@ -1,0 +1,100 @@
+.exception-page {
+    padding: var(--size-24) 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-48);
+
+    div {
+        margin: 0 auto;
+    }
+
+    picture {
+        width: var(--size-80);
+        height: var(--size-80);
+        display: block;
+    }
+
+    picture > img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .text-area {
+        width: min(calc(640/var(--breakpoint-pc) * 100vw), 640px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--size-16);
+
+        .exceptiontitle {
+            color: var(--color-hisense-black, #000);
+            text-align: center;
+            font-size: var(--size-24);
+            font-weight: var(--fontweight-medium);
+            line-height: 120%; /* 28.8px */
+        }
+
+        .exceptiondescription {
+            color: var(--color-primary-grey-70, #333);
+            text-align: center;
+            font-size: var(--size-16);
+            font-weight: var(--fontweight-book);
+            line-height: 150%; /* 24px */
+        }
+    }
+
+    .btnlink {
+        a {
+            height: var(--size-50);
+            display: flex;
+            padding: var(--size-4) var(--size-32);
+            justify-content: center;
+            align-items: center;
+            gap: var(--size-8);
+            border-radius: 100px;
+            background: var(--color-primary-green-60, #008482);
+            color: var(--color-primary-gray-10, #FFF);
+            text-align: center;
+             font-size: var(--size-14);
+            font-weight: var(--fontweight-medium);
+            line-height: 150%;
+        }
+    }
+}
+
+@media (width < 860px) {
+    .exception-page {
+        gap: var(--size-32);
+    }
+
+    .text-area {
+        width: 100%;
+        gap: var(--size-12);
+
+        .exceptiontitle {
+            font-size: var(--size-24);
+            line-height: 120%; /* 28.8px */
+            text-transform: capitalize;
+        }
+
+        .exceptiondescription {
+            font-size: var(--size-14);
+            line-height: 150%; /* 21px */
+        }
+    }
+
+    .btnlink {
+        a {
+            height: var(--size-40);
+            display: flex;
+            padding: var(--size-4) var(--size-24);
+            justify-content: center;
+            align-items: center;
+            gap: var(--size-8);
+            font-size: var(--size-14);
+            line-height: 140%; /* 19.6px */
+        }
+    }
+}

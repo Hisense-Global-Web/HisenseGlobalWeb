@@ -125,6 +125,7 @@
         gap: var(--spacing-2xs, 12px);
         align-self: stretch;
         text-align: center;
+        padding: 0;
     }
 
     .cross-page-redirect .title {

@@ -13,7 +13,7 @@ export default function decorate(block) {
   button.firstElementChild?.lastElementChild?.remove();
 
   const isThirdPartyScript = subscription?.textContent.trim() || '';
-  subscription.classList.add(`${isThirdPartyScript ? 'is-thrid-party' : 'no-third-party'}`);
+  subscription?.classList.add(`${isThirdPartyScript ? 'is-thrid-party' : 'no-third-party'}`);
   if (isThirdPartyScript) {
     button.remove();
   }
