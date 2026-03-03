@@ -69,8 +69,9 @@ async function fetchChildPageData(sourcePathInfo) {
     location: item.location || '',
     author: item.author || '',
     thumbnail: item.thumbnail || '',
-    'cta-text': item['cta-text'] || '',
+    'cta-text': item['cta-text'] || 'Read now',
     downloadLink: item.downloadlink || '',
+    matchPath,
   };
 }
 
@@ -100,6 +101,7 @@ export default async function decorate(block) {
           ctaLink: config['cta-link'] || '',
           hasDownload: !!fetched.downloadLink,
           downloadLink: fetched.downloadLink || '',
+          matchPath: fetched.matchPath,
         };
       }
     }
@@ -119,6 +121,7 @@ export default async function decorate(block) {
       ctaLink: config['cta-link'] || '',
       hasDownload: config['has-download'] === true || config['has-download'] === 'true' || false,
       downloadLink: '',
+      matchPath: config['match-path'] || '',
     };
   }
 
@@ -180,46 +183,81 @@ export default async function decorate(block) {
     featuredContent.appendChild(excerptEl);
   }
 
-  const metaGroupEl = document.createElement('div');
-  metaGroupEl.classList.add('featured-meta-group');
-
-  if (data.date) {
-    const dateEl = document.createElement('span');
-    dateEl.classList.add('meta-item');
-    const iconImg = document.createElement('img');
-    iconImg.src = '/resources/clock-icon.svg';
-    iconImg.alt = '';
-    iconImg.classList.add('meta-icon');
-    dateEl.appendChild(iconImg);
-    dateEl.appendChild(document.createTextNode(data.date));
-    metaGroupEl.appendChild(dateEl);
-  }
-
-  if (data.location) {
-    const locationEl = document.createElement('span');
-    locationEl.classList.add('meta-item');
-    const iconImg = document.createElement('img');
-    iconImg.src = '/resources/location-icon.svg';
-    iconImg.alt = '';
-    iconImg.classList.add('meta-icon');
-    locationEl.appendChild(iconImg);
-    locationEl.appendChild(document.createTextNode(data.location));
-    metaGroupEl.appendChild(locationEl);
-  }
-
-  if (metaGroupEl.children.length > 0) {
-    const children = Array.from(metaGroupEl.children);
-    for (let i = children.length - 2; i >= 0; i -= 1) {
-      const lineEl = document.createElement('div');
-      lineEl.className = 'line';
-      children[i].after(lineEl);
+  console.log(data.author);
+  if (data.author) {
+    const authorMetaGroupEl = document.createElement('div');
+    authorMetaGroupEl.classList.add('featured-author-meta-group');
+    const authorEl = document.createElement('div');
+    authorEl.classList.add('meta-author');
+    authorEl.innerHTML = data.author;
+    authorMetaGroupEl.appendChild(authorEl);
+    if (data.date) {
+      const dateEl = document.createElement('span');
+      dateEl.classList.add('meta-item');
+      const iconImg = document.createElement('img');
+      iconImg.src = '/resources/clock-icon.svg';
+      iconImg.alt = '';
+      iconImg.classList.add('meta-icon');
+      dateEl.appendChild(iconImg);
+      dateEl.appendChild(document.createTextNode(data.date));
+      authorMetaGroupEl.appendChild(dateEl);
     }
-    featuredContent.appendChild(metaGroupEl);
+    featuredContent.appendChild(authorMetaGroupEl);
+  } else {
+    const metaGroupEl = document.createElement('div');
+    metaGroupEl.classList.add('featured-meta-group');
+    if (data.date) {
+      const dateEl = document.createElement('span');
+      dateEl.classList.add('meta-item');
+      const iconImg = document.createElement('img');
+      iconImg.src = '/resources/clock-icon.svg';
+      iconImg.alt = '';
+      iconImg.classList.add('meta-icon');
+      dateEl.appendChild(iconImg);
+      dateEl.appendChild(document.createTextNode(data.date));
+      metaGroupEl.appendChild(dateEl);
+    }
+
+    if (data.location) {
+      const locationEl = document.createElement('span');
+      locationEl.classList.add('meta-item');
+      const iconImg = document.createElement('img');
+      iconImg.src = '/resources/location-icon.svg';
+      iconImg.alt = '';
+      iconImg.classList.add('meta-icon');
+      locationEl.appendChild(iconImg);
+      locationEl.appendChild(document.createTextNode(data.location));
+      metaGroupEl.appendChild(locationEl);
+    }
+
+    if (metaGroupEl.children.length > 0) {
+      const children = Array.from(metaGroupEl.children);
+      for (let i = children.length - 2; i >= 0; i -= 1) {
+        const lineEl = document.createElement('div');
+        lineEl.className = 'line';
+        children[i].after(lineEl);
+      }
+      featuredContent.appendChild(metaGroupEl);
+    }
   }
 
   if (data.ctaText || data.downloadLink) {
     const actionsEl = document.createElement('div');
     actionsEl.classList.add('featured-actions');
+
+    if (data.ctaText) {
+      const button = document.createElement('button');
+      button.classList.add('text-btn');
+      button.textContent = data.ctaText;
+      if (data.matchPath) {
+        const link = document.createElement('a');
+        link.href = data.matchPath;
+        link.appendChild(button);
+        actionsEl.appendChild(link);
+      } else {
+        actionsEl.appendChild(button);
+      }
+    }
 
     if (data.downloadLink) {
       const link = document.createElement('a');
@@ -235,22 +273,6 @@ export default async function decorate(block) {
       button.appendChild(iconImg);
       link.appendChild(button);
       actionsEl.appendChild(link);
-    } else if (data.ctaText) {
-      const button = document.createElement('button');
-      button.classList.add('icon-btn');
-      const iconImg = document.createElement('img');
-      iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
-      iconImg.alt = '';
-      button.appendChild(iconImg);
-
-      if (data.ctaLink) {
-        const link = document.createElement('a');
-        link.href = data.ctaLink;
-        link.appendChild(button);
-        actionsEl.appendChild(link);
-      } else {
-        actionsEl.appendChild(button);
-      }
     }
 
     featuredContent.appendChild(actionsEl);

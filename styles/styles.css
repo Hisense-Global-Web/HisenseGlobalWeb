@@ -592,6 +592,7 @@ html {
     --size-159: min(11.04166667vw, 159px);
     --size-160: min(11.11111111vw, 160px);
     --size-220: min(15.27777778vw, 220px);
+    --size-240: min(16.66666667vw, 240px);
     --large: var(--size-80);
     --medium: var(--size-48);
     --mid: var(--size-32);
