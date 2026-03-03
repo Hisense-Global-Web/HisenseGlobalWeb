@@ -45,6 +45,8 @@
       font-weight: var(--fontweight-medium);
       line-height: 120%; /* 28.8px */
       text-transform: capitalize;
+      word-break: keep-all;
+      hyphens: none;
 
       &::first-letter {
         text-transform: uppercase;
