@@ -66,6 +66,10 @@ main .section.resource-list-container .resource-list-wrapper {
           margin-bottom: var(--size-16);
           flex: 1;
           width: 100%;
+          
+          ul {
+            padding-left: var(--size-20);
+          }
         }
         
         .resource-subscribe-form {

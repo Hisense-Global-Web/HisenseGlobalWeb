@@ -702,7 +702,7 @@ export default async function decorate(block) {
   CompanyGroupEl.className = 'company-group';
   company.forEach((item) => {
     const CompanyItemEl = document.createElement('div');
-    const isCurrent = window.location.pathname === item.href;
+    const isCurrent = window.location.pathname.includes(item.href);
     CompanyItemEl.className = `company-item ${isCurrent ? 'current' : ''}`;
     CompanyItemEl.innerHTML = item.title;
     CompanyItemEl.dataset.href = item.href;
@@ -960,7 +960,7 @@ export default async function decorate(block) {
 
   company.forEach((item) => {
     const mobileSecondMenuItem = document.createElement('div');
-    const isCurrent = window.location.pathname === item.href;
+    const isCurrent = window.location.pathname.includes(item.href);
     mobileSecondMenuItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
     mobileSecondMenuItem.innerHTML = item.title;
     mobileSecondMenuItem.dataset.href = item.href;
@@ -988,7 +988,7 @@ export default async function decorate(block) {
 
   support.forEach((item) => {
     const mobileSecondMenuSupportItem = document.createElement('div');
-    const isCurrent = window.location.pathname === item.href;
+    const isCurrent = window.location.pathname.includes(item.href);
     mobileSecondMenuSupportItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
     mobileSecondMenuSupportItem.innerHTML = item.title;
     mobileSecondMenuSupportItem.dataset.href = item.href;

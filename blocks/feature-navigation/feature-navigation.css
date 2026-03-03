@@ -54,7 +54,7 @@
 .feature-navigation .card-body {
   color:var(--color-primary-grey-100);
   font-family: var(--font-family);
-  margin: var(--spacing-sm) auto var(--spacing-md);
+  margin: var(--spacing-sm) 0 var(--spacing-md);
   max-width: 73.33333vw;
 
    @media (width < 860px) {
@@ -85,16 +85,13 @@
 .feature-navigation .card-cta{
   display: flex;
   align-items: center;
-  margin: auto;
+  height: var(--size-12);
 
    @media (width < 860px) {
     justify-content: center;
     max-width: 73.33333vw;
+    margin: auto;
   }
-}
-
-.feature-navigation .card-cta .button-container{
-  height: var(--size-22);
 }
 
 .feature-navigation .card-cta a.button:any-link, button {
@@ -134,7 +131,7 @@
 
 .feature-navigation  > ul > li .card-image {
   width: var(--size-80);
-  aspect-ratio: 1 / 1 ;
+  height: var(--size-80);
   object-fit: contain;
   transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
 
@@ -147,7 +144,7 @@
 
 .feature-navigation  > ul > li img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 1;
 }
 
 .feature-navigation-container{

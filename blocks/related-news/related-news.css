@@ -22,6 +22,10 @@
             &.show {
               display: flex;
             }
+
+            @media (width < 860px) {
+              display: none;
+            }
         }
 
         button {
@@ -59,10 +63,6 @@
                 }
             }
         }
-
-      @media (width < 860px) {
-        display: none;
-      }
     }
 }
 

@@ -218,6 +218,10 @@
             "value": "grey"
           },
           {
+            "name": "Gray 95",
+            "value": "gray-95"
+          },
+          {
             "name": "Gray 90",
             "value": "gray-90"
           },
@@ -1790,6 +1794,46 @@
             "sections": []
           }
         }
+      }
+    ]
+  },
+  {
+    "id": "exception-page",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "exceptionicon",
+        "value": "",
+        "label": "Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "exceptiontitle",
+        "value": "",
+        "label": "Exception Scenario Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "exceptiondescription",
+        "value": "",
+        "label": "Exception Scenario Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "btntext",
+        "value": "",
+        "label": "Button Copy",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "btnlink",
+        "value": "",
+        "label": "Button Link",
+        "valueType": "string"
       }
     ]
   },
@@ -4943,6 +4987,36 @@
         "name": "text",
         "label": "Feature disclaimer",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "third-party-integration",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "externalJsPaths",
+        "multi": true,
+        "label": "External JS paths"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript1",
+        "label": "External script 1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript2",
+        "label": "External script 2"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript3",
+        "label": "External script 3"
       }
     ]
   },

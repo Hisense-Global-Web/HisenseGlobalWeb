@@ -3352,8 +3352,8 @@ export default async function decorate(block) {
   }
 
   const buy = document.createElement('button');
-  buy.className = 'pdp-buy-btn';
-  buy.textContent = 'Where to buy';
+  buy.className = 'pdp-buy-btn ps-widget';
+  buy.setAttribute('ps-button-label', 'where to buy');
   buy.setAttribute('ps-sku', sku);
   // const buyLink = (product && (product.whereToBuyLink || product.productDetailPageLink)) || '';
   // if (buyLink) {
