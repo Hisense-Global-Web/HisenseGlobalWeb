@@ -59,7 +59,7 @@
 @media (width < 860px) {
   .module-title {
     .title-content {
-      font-size: var(--size-16);
+      font-size: var(--size-18);
       line-height: calc(20.8 / var(--breakpoint-mobile) * 100vw);
     }
 

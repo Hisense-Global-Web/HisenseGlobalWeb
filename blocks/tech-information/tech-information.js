@@ -84,6 +84,10 @@ export default async function decorate(block) {
           item.className = 'tech-item-style';
         } else if (idx === 1) {
           item.className = 'tech-item-icon';
+          // item style 由icon 切换到 stats时，要清空 icon 图片内容
+          if (techItemStyle === 'stats-style') {
+            item.innerHTML = '';
+          }
         } else {
           item.className = 'tech-item-text-content';
         }

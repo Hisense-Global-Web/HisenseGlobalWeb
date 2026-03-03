@@ -186,7 +186,7 @@
       .text-area {
         gap: var(--size-48);
 
-        .title {
+        .title-area .title {
           color: var(--color-primary-green-60, #008482);
           font-size: var(--size-16);
           font-weight: var(--fontweight-medium);
@@ -195,7 +195,7 @@
           margin-bottom: var(--size-4);
         }
 
-        .subtitle {
+        .title-area .subtitle {
           color: var(--color-hisense-black, #000);
           font-size: var(--size-24);
           font-weight: var(--fontweight-medium, 400);
@@ -204,7 +204,7 @@
           margin-bottom: var(--size-20);
         }
 
-        .text {
+        .title-area .text {
           color: var(--color-primary-grey-70, #333);
           font-size: var(--size-14);
           font-weight: var(--fontweight-book);

@@ -3352,7 +3352,7 @@ export default async function decorate(block) {
   }
 
   const buy = document.createElement('button');
-  buy.className = 'pdp-buy-btn';
+  buy.className = 'pdp-buy-btn ps-widge';
   buy.textContent = 'Where to buy';
   buy.setAttribute('ps-sku', sku);
   // const buyLink = (product && (product.whereToBuyLink || product.productDetailPageLink)) || '';
