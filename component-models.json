@@ -4930,6 +4930,36 @@
     ]
   },
   {
+    "id": "third-party-integration",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "externalJsPaths",
+        "multi": true,
+        "label": "External JS paths"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript1",
+        "label": "External script1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript2",
+        "label": "External script2"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "externalJsScript3",
+        "label": "External script3"
+      }
+    ]
+  },
+  {
     "id": "video",
     "fields": [
       {
