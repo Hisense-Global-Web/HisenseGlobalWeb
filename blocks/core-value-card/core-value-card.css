@@ -110,6 +110,7 @@
   width: 100%;
   text-align: center;
   position: relative;
+
 }
 
 .core-value-card .card-body > div:first-child {
@@ -139,7 +140,7 @@
     color: var(--color-primary-grey-70);
     text-align: left;
     font-size: var(--size-14);
-    padding:var(--spacing-sm) 0 0 var(--spacing-sm);
+    padding:var(--spacing-m) 0 0 var(--spacing-sm);
   }
 }
 
