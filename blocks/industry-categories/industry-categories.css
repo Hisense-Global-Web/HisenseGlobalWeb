@@ -48,7 +48,7 @@
 }
 
 .industry-categories > ul {
-  display: none;
+  display: grid;
   gap: var(--size-16);
   grid-auto-flow: column;
   padding: 0;
@@ -71,10 +71,6 @@
     grid-auto-flow: column;
     gap: var(--spacing-xs);
 	}
-}
-
-.industry-categories .active > ul{
-    display: grid;
 }
 
 .industry-categories > ul > li {
@@ -124,18 +120,23 @@
 }
 
 .industry-categories .card-body {
-  display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center; 
   gap: var(--size-8);
   margin:var(--size-24) 0 0;
+  display: none;
 
   @media (width >= 860px) {
     font-size: var(--size-24);
      gap: var(--size-12);
      margin:var(--size-48) 0 var(--size-44);
   }
+}
+
+
+.industry-categories .active .card-body {
+    display: flex;
 }
 
 

@@ -20,18 +20,28 @@ main .section.download-container .download-wrapper {
 
       @media (width < 860px) {
         width: 100%;
+        padding: var(--size-24);
       }
 
       .title-group {
         display: flex;
         flex-direction: column;
         gap: var(--size-8);
+        
+        @media (width < 860px) {
+          gap: var(--size-4);
+        }
 
         .title {
           font-size: var(--fontsize-title2);
           color: var(--color-hisense-black);
           font-weight: var(--fontweight-medium);
           line-height: 1.2;
+          
+          @media (width < 860px) {
+            font-size: var(--size-16);
+            line-height: 1.3;
+          }
         }
 
         .subtitle {
@@ -39,6 +49,11 @@ main .section.download-container .download-wrapper {
           color: var(--color-primary-grey-70);
           font-weight: var(--fontweight-book);
           line-height: 1.6;
+          
+          @media (width < 860px) {
+            font-size: var(--size-14);
+            line-height: 1.5;
+          }
         }
       }
 
@@ -78,6 +93,7 @@ main .section.download-container .download-wrapper {
               width: 100%;
               height: auto;
               flex: 1;
+              gap: var(--size-24);
             }
 
             img {
@@ -108,6 +124,11 @@ main .section.download-container .download-wrapper {
                 font-size: var(--fontsize-body1);
                 color: var(--color-hisense-black);
                 font-weight: var(--fontweight-book);
+                
+                @media (width < 860px) {
+                  font-size: var(--size-16);
+                  line-height: 1.3;
+                }
               }
 
               .item-meta {
@@ -122,6 +143,7 @@ main .section.download-container .download-wrapper {
                   flex-shrink: 0;
                   flex-wrap: wrap;
                   height: auto;
+                  gap: var(--size-8) var(--size-12) ;
                 }
 
                 .item-meta-item {
@@ -129,8 +151,7 @@ main .section.download-container .download-wrapper {
                   line-height: 1.5;
 
                   .download-link {
-                    display: inline-flex;
-                    align-items: center;
+                    display: block;
                     text-decoration: none;
                     cursor: pointer;
                     transition: opacity 0.3s ease;
