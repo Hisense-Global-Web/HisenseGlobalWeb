@@ -27,7 +27,7 @@
       grid-template-columns: 1fr 1fr;
       gap: var(--size-48);
       background: var(--color-primary-grey-20);
-      border-radius: var(--radius-xl);
+      border-radius: var(--radius-pc-xl);
       height: 480px;
       overflow: hidden;
       
