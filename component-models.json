@@ -4943,19 +4943,19 @@
         "component": "richtext",
         "valueType": "string",
         "name": "externalJsScript1",
-        "label": "External script1"
+        "label": "External script 1"
       },
       {
         "component": "richtext",
         "valueType": "string",
         "name": "externalJsScript2",
-        "label": "External script2"
+        "label": "External script 2"
       },
       {
         "component": "richtext",
         "valueType": "string",
         "name": "externalJsScript3",
-        "label": "External script3"
+        "label": "External script 3"
       }
     ]
   },
