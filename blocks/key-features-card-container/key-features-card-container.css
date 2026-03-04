@@ -44,7 +44,7 @@
     touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
     overscroll-behavior-x: contain; /* 防止滚动链 */
     grid-auto-flow: column;
-    gap: var(--spacing-xs);
+    gap: var(--small);
 	}
 }
 
@@ -63,15 +63,9 @@
 
    @media (width < 860px) {
     position: relative;
-		width: 51.282vw !important;
-    height: 58.9743vw;
-    aspect-ratio: 1;
-    transition: transform 0.3s;
-    pointer-events: auto; /* 允许事件穿透到容器 */
-    padding: var(--spacing-sm);
-
-    /* -webkit-user-select: none; */
-    user-select: none;
+		width: 53.33333vw !important;
+    height: 47.6923077vw;
+    padding: var(--small);
   }
 }
 
@@ -79,14 +73,6 @@
   width: var(--size-80);
   height:  var(--size-80);
   object-fit: contain;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  @media (width < 860px) {
-    width: 29.74358vw;   /* 116px in mobile */
-    height: 33.33333vw;;  /* 130px in mobile */
-  }
 }
 
 .key-features-card-container  > ul > li .card-image img {
@@ -104,11 +90,6 @@
   line-height: 120%;
   margin-top: var(--spacing-2xs);
   text-align: center;
-
-  @media (width < 860px) {
-    line-height: 140%;
-    font-size: var(--size-14);
-  }
 }
 
 

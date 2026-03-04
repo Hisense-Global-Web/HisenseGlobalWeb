@@ -214,6 +214,7 @@ html {
   --spacing-pc-md: var(--size-32);
   --spacing-pc-xl-2: var(--size-56);
   --spacing-pc-3xl: var(--size-120);
+  --extralarge: var(--size-80);
   --large: var(--size-48);
   --medium: var(--size-32);
   --mid: var(--size-24);
@@ -593,6 +594,7 @@ html {
     --size-160: min(11.11111111vw, 160px);
     --size-220: min(15.27777778vw, 220px);
     --size-240: min(16.66666667vw, 240px);
+    --extralarge: var(--size-120);
     --large: var(--size-80);
     --medium: var(--size-48);
     --mid: var(--size-32);

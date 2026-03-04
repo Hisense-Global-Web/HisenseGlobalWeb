@@ -71,6 +71,13 @@
         "name": "downloadLink",
         "label": "Download Link",
         "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "format-detection",
+        "label": "Format Detection",
+        "value": "telephone=no"
       }
     ]
   },
@@ -845,32 +852,6 @@
         "component": "text",
         "name": "article-location",
         "label": "Location",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "authorized-reseller-note",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "icon",
-        "value": "",
-        "label": "SVG icon",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "content",
-        "value": "",
-        "label": "Content",
         "valueType": "string"
       }
     ]
@@ -2197,20 +2178,22 @@
         "valueType": "string",
         "name": "container_overline",
         "label": "Overline",
-        "value": ""
+        "value": "",
+        "required": true
       },
       {
-        "component": "richtext",
+        "component": "text",
         "valueType": "string",
         "name": "container_title",
         "label": "Title",
-        "value": ""
+        "value": "",
+        "required": true
       },
       {
         "component": "reference",
         "valueType": "string",
         "name": "container_image",
-        "label": "Image",
+        "label": "Static Image",
         "multi": false,
         "required": true
       }
@@ -2691,6 +2674,32 @@
         "name": "image",
         "label": "Overlay Image",
         "multi": false
+      }
+    ]
+  },
+  {
+    "id": "highlight-note",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "icon",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
       }
     ]
   },
@@ -3401,22 +3410,7 @@
   },
   {
     "id": "navigation",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "logo",
-        "label": "Logo",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "logoAlt",
-        "label": "Logo Alt",
-        "value": ""
-      }
-    ]
+    "fields": []
   },
   {
     "id": "news-card-list",
@@ -4056,6 +4050,18 @@
             "value": "_blank"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "region-page-title",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
       }
     ]
   },

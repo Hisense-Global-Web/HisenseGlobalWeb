@@ -188,9 +188,9 @@
     font-size: 16px;
     font-weight: var(--fontweight-medium);
     line-height: 1.5;
-    height: 44px;
-    margin-top: 3px;
-    margin-bottom: 19px;
+    height: 22px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
 
@@ -638,6 +638,7 @@
 .dropdown-products {
   display: flex;
   gap: 40px;
+  flex-wrap: wrap;
 }
 
 .dropdown-product {
@@ -766,6 +767,7 @@
   margin-left: 60px;
   color: #666;
   font-weight: 500;
+  flex-shrink: 0;
 }
 
 .dropdown-links a {
@@ -833,6 +835,12 @@
 
   @media (width < 1180px) {
     display: flex;
+  }
+}
+
+#navigation.is-support.show-menu .mobile-menu {
+  @media (width < 1180px) {
+    display: none;
   }
 }
 
@@ -1033,6 +1041,10 @@
   }
 
   #navigation.is-support {
+    .mobile-second-menu.support {
+      padding: 0 40px !important;
+    }
+    
     .support-product {
       &.mobile-link.hide {
         .mobile-link-title-line {

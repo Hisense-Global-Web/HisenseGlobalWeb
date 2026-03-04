@@ -338,30 +338,14 @@
           }
         },
         {
-          "title": "Authorized Reseller Note",
-          "id": "authorized-reseller-note",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Authorized Reseller Note",
-                  "model": "authorized-reseller-note",
-                  "classes": "authorized-reseller-note"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Authorized Reseller Our",
+          "title": "Authorized Resellers List",
           "id": "authorized-reseller-our",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Authorized Reseller",
+                  "name": "Authorized Resellers List",
                   "model": "authorized-reseller-our",
                   "classes": "authorized-reseller-our",
                   "key-value": true,
@@ -372,14 +356,14 @@
           }
         },
         {
-          "title": "Authorized Reseller Our Item",
+          "title": "Authorized Resellers List item",
           "id": "authorized-reseller-our-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Authorized Reseller Our Item",
+                  "name": "Authorized Resellers List item",
                   "model": "authorized-reseller-our-item",
                   "key-value": true
                 }
@@ -388,14 +372,14 @@
           }
         },
         {
-          "title": "Authorized Reseller",
+          "title": "Authorized Reseller Badge",
           "id": "authorized-reseller",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Authorized Reseller",
+                  "name": "Authorized Reseller Badge",
                   "model": "authorized-reseller",
                   "classes": "authorized-reseller",
                   "key-value": true,
@@ -406,14 +390,14 @@
           }
         },
         {
-          "title": "Authorized Reseller Item",
+          "title": "Badge item",
           "id": "authorized-reseller-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Authorized Reseller Item",
+                  "name": "Badge item",
                   "model": "authorized-reseller-item",
                   "key-value": true
                 }
@@ -1294,6 +1278,22 @@
           }
         },
         {
+          "title": "Highlight Note",
+          "id": "highlight-note",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Highlight Note",
+                  "model": "highlight-note",
+                  "classes": "highlight-note"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Honors Awards",
           "id": "honors-awards",
           "plugins": {
@@ -1707,7 +1707,6 @@
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
                   "name": "Navigation",
-                  "model": "navigation",
                   "filter": "navigation",
                   "classes": "navigation-block"
                 }
@@ -2173,6 +2172,22 @@
                   "text": "Link Text",
                   "link": "",
                   "target": "_self"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Region Page Title",
+          "id": "region-page-title",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Region Page Title",
+                  "model": "region-page-title",
+                  "classes": "region-page-title"
                 }
               }
             }
