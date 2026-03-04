@@ -202,7 +202,7 @@
                 "template": {
                   "name": "Article Body",
                   "filter": "article-body",
-                  "classes": "article-body richtext-component"
+                  "classes": "article-body"
                 }
               }
             }
@@ -1510,7 +1510,7 @@
                 "template": {
                   "name": "Legal Content",
                   "model": "legal-content",
-                  "classes": "legal-content richtext-component"
+                  "classes": "legal-content"
                 }
               }
             }

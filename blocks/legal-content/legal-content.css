@@ -39,7 +39,7 @@
     gap: var(--size-24);
   }
 
-  strong {
+  strong, h5 {
     font-weight: var(--fontweight-medium);
   }
 }
