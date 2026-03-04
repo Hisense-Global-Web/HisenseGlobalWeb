@@ -4095,11 +4095,19 @@
     "id": "resource-list-item",
     "fields": [
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "download-asset",
         "label": "Download Asset URL",
         "description": "Enter the resource download link",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "card-type"
+            },
+            "download"
+          ]
+        }
       },
       {
         "component": "reference",
@@ -4126,7 +4134,15 @@
         "component": "aem-content",
         "name": "button-link",
         "label": "Button Link",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "!==": [
+            {
+              "var": "card-type"
+            },
+            "download"
+          ]
+        }
       },
       {
         "component": "select",
