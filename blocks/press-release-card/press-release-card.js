@@ -165,7 +165,8 @@ export default async function decorate(block) {
   const config = readBlockConfig(block);
 
   const titleText = config.title || 'Related Press Releases';
-  const endpoint = config.endpoint || '/us/en/newsroom.json';
+  const edsBaseUrl = window.EDS_BASE_URL || window.location.origin;
+  const endpoint = config.endpoint || `${edsBaseUrl}/us/en/newsroom.json`;
   const filterTags = config['filter-tags'];
   const pageSize = Number.parseInt(config['page-size'], 10) || 3;
   const emptyText = config['empty-text'] || 'No press releases found.';

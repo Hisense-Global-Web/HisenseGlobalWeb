@@ -352,7 +352,8 @@ async function fetchNewsroom(offset, limit, dataSource) {
     language = segments[1] || 'en';
   }
 
-  const basePath = `/${country}/${language}/newsroom.json`;
+  const baseUrl = window.EDS_BASE_URL || window.location.origin;
+  const basePath = `${baseUrl}/${country}/${language}/newsroom.json`;
   const url = dataSource || basePath;
 
   const response = await fetch(url, { credentials: 'same-origin' });
@@ -365,7 +366,7 @@ async function fetchNewsroom(offset, limit, dataSource) {
 }
 
 async function loadAllNewsroom(pageSize, dataSource) {
-  const size = Number.isFinite(pageSize) ? pageSize : MOCK_NEWSROOM_ITEMS.length;
+  const size = Number.isFinite(pageSize) ? pageSize : dataSource.length;
   const json = await fetchNewsroom(0, size, dataSource);
   if (!json) return [];
   return normalizeNewsroomData(json);
