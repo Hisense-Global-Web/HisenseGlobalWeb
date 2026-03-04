@@ -4189,25 +4189,6 @@
     ]
   },
   {
-    "id": "section-title",
-    "fields": [
-      {
-        "component": "text",
-        "name": "section_title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "section_subtitle",
-        "value": "",
-        "label": "Subtitle",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "slide",
     "fields": [
       {
@@ -4365,6 +4346,41 @@
           "numberMin": 1,
           "numberMax": 5
         }
+      }
+    ]
+  },
+  {
+    "id": "support-module-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "text-style",
+        "label": "Style",
+        "value": "left",
+        "options": [
+          {
+            "name": "Text Left",
+            "value": "left"
+          },
+          {
+            "name": "Text Center",
+            "value": "center"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "section_title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "section_subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
       }
     ]
   },
