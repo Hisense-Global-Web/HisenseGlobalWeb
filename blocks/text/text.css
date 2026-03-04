@@ -4,7 +4,20 @@
   width: 100%;
 }
 
-.text-container.light {
+/* 解决为 section 设计 gap，section 为flex 布局时，外框只占内容宽度，无法左对齐问题 */
+.text-container.gap-s .text-wrapper,
+.text-container.gap-m .text-wrapper,
+.text-container.gap-md .text-wrapper,
+.text-container.gap-l .text-wrapper,
+.text-container.gap-xl .text-wrapper{
+  width: var(--container-max-width);
+}
+
+/* light mode */
+.text-container.light,
+.text-container.grey,
+.text-container.soft-green{
+  /* 小标题--绿色50 */
   p:first-child {
     color: var(--color-primary-green-50);
   }
@@ -14,7 +27,8 @@
   }
 }
 
-.text-container.dark,.text-container.gray-00 {
+/* dark mode */
+.text-container.dark,.text-container.gray-00.gray-90.gray-95 {
   p:first-child {
     color: var(--color-hisense-teal);
   }
@@ -97,6 +111,14 @@
 }
 
 @media (width < 860px) {
+  .text-container.gap-s .text-wrapper,
+  .text-container.gap-m .text-wrapper,
+  .text-container.gap-md .text-wrapper,
+  .text-container.gap-l .text-wrapper,
+  .text-container.gap-xl .text-wrapper{
+    width: var(--breakpoint-small);
+  }
+
   .text {
     p:first-child {
       font-size: var(--size-18);

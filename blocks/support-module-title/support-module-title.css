@@ -1,4 +1,4 @@
-.section-title.block {
+.support-module-title.block {
   font-family: var(--font-family);
   margin-bottom: var(--spacing-xl, 48px);
 
@@ -6,7 +6,11 @@
     margin-bottom: var(--spacing-m, 32px);
   }
 
-  .section-title-title {
+  .text-center {
+    text-align: center;
+  }
+
+  .support-module-title-title {
     margin: 0;
     font-size: var(--fontsize-h2, 34px);
     font-weight: var(--fontweight-medium);
@@ -18,7 +22,7 @@
     }
   }
 
-  .section-title-subtitle {
+  .support-module-title-subtitle {
     margin-top: var(--spacing-3xs);
     margin-bottom: 0;
     font-size: var(--fontsize-body1, 16px);

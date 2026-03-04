@@ -204,6 +204,10 @@
           color: #fff;
           text-decoration: none;
         }
+
+        &:active {
+          color: rgb(255 255 255 / 80%);
+        }
       }
     }
   }

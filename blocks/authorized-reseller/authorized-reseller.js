@@ -49,6 +49,6 @@ export default function decorate(block) {
     }
   } catch (error) {
     /* eslint-disable-next-line no-console */
-    console.error('Authorized Reseller block decoration error:', error);
+    console.error('Authorized Reseller Badge block decoration error:', error);
   }
 }

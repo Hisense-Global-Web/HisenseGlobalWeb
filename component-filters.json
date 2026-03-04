@@ -7,7 +7,8 @@
       "navigation",
       "company-page-navigation",
       "support-navigation",
-      "footerContainer"
+      "footerContainer",
+      "search-box-navigation"
     ]
   },
   {
@@ -21,7 +22,6 @@
       "article-body-list",
       "article-title",
       "authorized-reseller",
-      "authorized-reseller-note",
       "authorized-reseller-our",
       "bi-directional-content",
       "button",
@@ -53,6 +53,7 @@
       "hero",
       "hero-banner",
       "hero-presence",
+      "highlight-note",
       "honors-awards",
       "icon-card-container",
       "icon-container",
@@ -84,11 +85,12 @@
       "properties",
       "quick-action-card",
       "quick-link",
+      "region-page-title",
       "recall-info-list",
       "related-news",
       "resource-list",
       "search-box",
-      "section-title",
+      "support-module-title",
       "slide",
       "social-media-list",
       "stats-grid",
@@ -106,7 +108,6 @@
       "videoinfo",
       "page-header",
       "icon-card-container",
-      "section-title",
       "parters-container",
       "information-list-module",
       "quick-action-card",
@@ -447,6 +448,12 @@
     "id": "resource-list",
     "components": [
       "resource-list-item"
+    ]
+  },
+  {
+    "id": "search-box-navigation",
+    "components": [
+      "search-box"
     ]
   },
   {
