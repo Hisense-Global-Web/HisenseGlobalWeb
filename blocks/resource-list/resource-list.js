@@ -30,11 +30,11 @@ export default function decorate(block) {
     moveInstrumentation(row, card);
 
     const cells = [...row.children];
-    const downloadAsset = cells[0]?.textContent.trim() || '';
-    const iconCell = cells[1];
-    const textContent = cells[2]?.innerHTML || '';
-    const buttonText = cells[3]?.textContent.trim() || '';
-    const buttonLink = cells[4]?.querySelector('a')?.href || '';
+    const iconCell = cells[0];
+    const textContent = cells[1]?.innerHTML || '';
+    const buttonText = cells[2]?.textContent.trim() || '';
+    const buttonLink = cells[3]?.querySelector('a')?.href || '';
+    const downloadAsset = cells[4]?.querySelector('a')?.href || cells[4]?.textContent.trim() || '';
     const cardType = cells[5]?.textContent.trim() || 'download';
 
     card.setAttribute('data-card-type', cardType);
