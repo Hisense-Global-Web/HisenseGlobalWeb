@@ -549,7 +549,6 @@ const toggleSearchBoxPopup = (e) => {
   const searchBoxPopupEl = document.querySelector('.search-box-popup');
   const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
   if ([...searchBoxPopupEl.classList].includes('show')) {
-    // debugger
     clearSearchBoxInput(inputWrapperEl);
     searchBoxPopupEl.classList.remove('show');
   } else {
@@ -563,10 +562,12 @@ const showSearchBoxPopup = (e) => {
   e.stopPropagation();
   clearTimeout(hideSearchBoxPopupTimer);
   const searchBoxPopupEl = document.querySelector('.search-box-popup');
-  const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
-  if (searchBoxPopupEl) {
-    checkMobileSearchBox(inputWrapperEl);
-    searchBoxPopupEl.classList.add('show');
+  if ([...searchBoxPopupEl.classList].includes('show')) {
+    const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
+    if (searchBoxPopupEl) {
+      checkMobileSearchBox(inputWrapperEl);
+      searchBoxPopupEl.classList.add('show');
+    }
   }
 };
 
@@ -583,7 +584,6 @@ const hideSearchBoxPopup = (e) => {
   hideSearchBoxPopupTimer = setTimeout(() => {
     const searchBoxPopupEl = document.querySelector('.search-box-popup');
     const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
-    // debugger
     if (searchBoxPopupEl) {
       clearSearchBoxInput(inputWrapperEl);
       searchBoxPopupEl.classList.remove('show');
