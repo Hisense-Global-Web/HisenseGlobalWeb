@@ -993,6 +993,10 @@
   }
 
   #navigation.is-support {
+    .mobile-second-menu.support {
+      padding: 0 40px !important;
+    }
+    
     .support-product {
       &.mobile-link.hide {
         .mobile-link-title-line {
