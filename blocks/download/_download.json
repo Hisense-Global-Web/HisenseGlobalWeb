@@ -69,7 +69,7 @@
           "valueType": "string"
         },
         {
-          "component": "text",
+          "component": "aem-content",
           "name": "download-all-link",
           "label": "Download All Link",
           "description": "Link for downloading all resources (optional)",
@@ -136,7 +136,7 @@
           "multi": false
         },
         {
-          "component": "text",
+          "component": "aem-content",
           "name": "download-link",
           "label": "Download Link",
           "description": "Link to the downloadable file",
