@@ -1,26 +1,22 @@
 export default function decorate() {
   try {
-    // const isCenter = true;
-    // const [textStyleP, titleP, subtitleP] = block.querySelectorAll('p');
-    // titleP.classList.add('support-module-title-title');
-    // if (isCenter) {
-    //   titleP.classList.add('text-center');
-    // }
-    // // If subtitle exists
-    // if (subtitleP) {
-    //   // Check if subtitle is empty
-    //   if (subtitleP?.innerHTML?.trim() === '') {
-    //     subtitleP.remove();
-    //   } else {
-    //     subtitleP.classList.add('support-module-title-subtitle');
-    //     if (isCenter) {
-    //       subtitleP.classList.add('text-center');
-    //     }
-    //   }
-    // }
-    // textStyleP?.remove();
+    const [textStyleEl, titleContainerEl] = document.querySelector('.support-module-title')?.children ?? [];
+    const textStyle = textStyleEl.querySelector('p').textContent;
+    const isCenter = textStyle === 'center' ?? false;
+    textStyleEl.remove();
+    const [titleEl, subtitleEl] = titleContainerEl.querySelectorAll('p');
+    titleEl.classList.add('support-module-title-title');
+    if (isCenter) {
+      titleEl.classList.add('text-center');
+    }
+    if (subtitleEl) {
+      subtitleEl.classList.add('support-module-title-subtitle');
+      if (isCenter) {
+        subtitleEl.classList.add('text-center');
+      }
+    }
   } catch (error) {
     /* eslint-disable-next-line no-console */
-    console.error('Section Title block decoration error:', error);
+    console.error('Support Module Title block decoration error:', error);
   }
 }
