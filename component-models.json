@@ -2200,7 +2200,7 @@
         "value": ""
       },
       {
-        "component": "richtext",
+        "component": "text",
         "valueType": "string",
         "name": "container_title",
         "label": "Title",
