@@ -84,7 +84,8 @@
   position: relative;
 
     @media (width >= 860px) {
-     height: min(17.361111vw,250px);
+     width: 100%;
+     aspect-ratio: 262 / 250;
   }
 }
 
