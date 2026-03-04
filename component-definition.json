@@ -2406,8 +2406,7 @@
                 "template": {
                   "name": "Support Module Title",
                   "model": "support-module-title",
-                  "classes": "support-module-title",
-                  "key-value": true
+                  "classes": "support-module-title"
                 }
               }
             }
