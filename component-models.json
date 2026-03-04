@@ -895,7 +895,7 @@
     ]
   },
   {
-    "id": "authorized-reseller-list",
+    "id": "authorized-resellers-list",
     "fields": [
       {
         "component": "text",
@@ -907,7 +907,7 @@
     ]
   },
   {
-    "id": "authorized-reseller-list-item",
+    "id": "authorized-resellers-list-item",
     "fields": [
       {
         "component": "reference",
