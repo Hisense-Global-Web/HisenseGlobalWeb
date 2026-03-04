@@ -6,6 +6,10 @@
     margin-bottom: var(--spacing-m, 32px);
   }
 
+  .text-center {
+    text-align: center;
+  }
+
   .support-module-title-title {
     margin: 0;
     font-size: var(--fontsize-h2, 34px);

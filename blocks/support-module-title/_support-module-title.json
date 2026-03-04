@@ -10,7 +10,9 @@
             "template": {
               "name": "Support Module Title",
               "model": "support-module-title",
-              "classes": "support-module-title"
+              "classes": "support-module-title",
+              "key-value": true,
+              "text-style": "left"
             }
           }
         }
@@ -21,6 +23,21 @@
     {
       "id": "support-module-title",
       "fields": [
+        {
+          "component": "select",
+          "name": "text-style",
+          "label": "Style",
+          "options": [
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Center",
+              "value": "center"
+            }
+          ]
+        },
         {
           "component": "text",
           "name": "section_title",
