@@ -3454,6 +3454,13 @@
         "label": "Empty Result Text",
         "description": "Text to show when no news items match the current filters.",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "discover-more-text",
+        "label": "Discover More Button Text",
+        "description": "Text for the mobile 'load more' button.",
+        "valueType": "string"
       }
     ]
   },

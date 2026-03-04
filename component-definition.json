@@ -1731,7 +1731,8 @@
                   "page-size": "9",
                   "empty-text": "No news items match your filters.",
                   "should-paginated": true,
-                  "data-source": "/us/en/newsroom.json"
+                  "data-source": "/us/en/newsroom.json",
+                  "discover-more-text": "Discover more"
                 }
               }
             }

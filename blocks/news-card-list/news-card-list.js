@@ -388,6 +388,7 @@ export default async function decorate(block) {
   // const emptyText = config['empty-text'] || 'No news items match your filters.';
   const shouldPaginated = true;
   const paginatedBtnText = config['paginated-btn-text'] || '';
+  const discoverMoreText = config['discover-more-text'] || 'Discover more';
   const dataSource = config['data-source'] || '';
 
   const blockResource = block.getAttribute('data-aue-resource');
@@ -433,7 +434,8 @@ export default async function decorate(block) {
   const mobileBtn = document.createElement('button');
   mobileBtn.type = 'button';
   mobileBtn.classList.add('page-button');
-  mobileBtn.textContent = 'Discover more';
+  mobileBtn.textContent = discoverMoreText;
+  let mobileCurrentPage = 1;
   mobilePaginationEl.appendChild(mobileBtn);
 
   const noPaginationEl = document.createElement('div');
@@ -464,12 +466,10 @@ export default async function decorate(block) {
 
     cardGroupEl.textContent = '';
     paginationEl.textContent = '';
+    mobileCurrentPage = 1;
 
     if (!totalItems) {
-      // const emptyEl = document.createElement('div');
-      // emptyEl.className = 'releases-empty';
-      // emptyEl.innerHTML = emptyText;
-      // cardGroupEl.appendChild(emptyEl);
+      mobilePaginationEl.style.display = 'none';
       return;
     }
 
@@ -488,6 +488,12 @@ export default async function decorate(block) {
       cardGroupEl.appendChild(card);
     });
 
+    // Mobile: show/hide "discover more" based on remaining items
+    const mobileShown = pageSize;
+    const mobileTotalPages = Math.ceil(totalItems / pageSize);
+    mobileCurrentPage = 1;
+    mobilePaginationEl.style.display = (mobileShown >= totalItems) ? 'none' : '';
+
     const state = {
       total: totalItems,
       limit: pageSize,
@@ -500,6 +506,27 @@ export default async function decorate(block) {
       if (targetPage > maxPage) return;
       loadPage(targetPage);
     }, isEditMode);
+
+    // Mobile "load more": append next page items without clearing previous
+    if (mobileBtn._abortCtrl) mobileBtn._abortCtrl.abort();
+    const abortCtrl = new AbortController();
+    mobileBtn._abortCtrl = abortCtrl;
+
+    mobileBtn.addEventListener('click', () => {
+      mobileCurrentPage += 1;
+      if (mobileCurrentPage > mobileTotalPages) return;
+
+      const mobileStart = (mobileCurrentPage - 1) * pageSize;
+      const mobileItems = filteredItems.slice(mobileStart, mobileStart + pageSize);
+      mobileItems.forEach((item) => {
+        const card = buildCard(item);
+        cardGroupEl.appendChild(card);
+      });
+
+      if (mobileCurrentPage >= mobileTotalPages) {
+        mobilePaginationEl.style.display = 'none';
+      }
+    }, { signal: abortCtrl.signal });
   };
 
   await loadPage(1);
