@@ -21,9 +21,8 @@
       "article-body",
       "article-body-list",
       "article-title",
-      "authorized-reseller",
-      "authorized-reseller-note",
-      "authorized-reseller-our",
+      "authorized-reseller-badge",
+      "authorized-resellers-list",
       "bi-directional-content",
       "button",
       "card-carousel",
@@ -54,6 +53,7 @@
       "hero",
       "hero-banner",
       "hero-presence",
+      "highlight-note",
       "honors-awards",
       "icon-card-container",
       "icon-container",
@@ -85,6 +85,7 @@
       "properties",
       "quick-action-card",
       "quick-link",
+      "region-page-title",
       "recall-info-list",
       "related-news",
       "resource-list",
@@ -111,7 +112,7 @@
       "information-list-module",
       "quick-action-card",
       "category-support-card",
-      "addional-support-card",
+      "additional-support-card",
       "tech-information",
       "past-partnerships-list",
       "partnerships-section-title",
@@ -155,9 +156,9 @@
     ]
   },
   {
-    "id": "addional-support-card",
+    "id": "additional-support-card",
     "components": [
-      "addional-support-card-item"
+      "additional-support-card-item"
     ]
   },
   {
@@ -177,15 +178,15 @@
     ]
   },
   {
-    "id": "authorized-reseller-our",
+    "id": "authorized-reseller-badge",
     "components": [
-      "authorized-reseller-our-item"
+      "authorized-reseller-badge-item"
     ]
   },
   {
-    "id": "authorized-reseller",
+    "id": "authorized-resellers-list",
     "components": [
-      "authorized-reseller-item"
+      "authorized-resellers-list-item"
     ]
   },
   {

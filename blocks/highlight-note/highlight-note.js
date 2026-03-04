@@ -21,6 +21,6 @@ export default function decorate(block) {
     }
   } catch (error) {
     /* eslint-disable-next-line no-console */
-    console.error('Authorized Reseller Note block decoration error:', error);
+    console.error('Highlight Note block decoration error:', error);
   }
 }

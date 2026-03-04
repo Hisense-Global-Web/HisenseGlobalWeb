@@ -32,6 +32,7 @@
   .parters-container-text {
     line-height: 1.5;
     margin-bottom: var(--spacing-xl, 48px);
+    font-weight: var(--fontweight-book, 400);
 
     @media (width < 860px) {
       margin-bottom: var(--spacing-lg, 40px);
@@ -88,6 +89,7 @@
   .parters-container-content {
     line-height: 1.5;
     color: var(--color-primary-grey-50, #747474);
+    font-weight: var(--fontweight-book, 400);
   }
 }
 

@@ -34,7 +34,7 @@
           "name": "tags",
           "label": "Tags",
           "valueType": "string",
-          "rootPath": "/content/cq:tags/hisense/download"
+          "rootPath": "/content/cq:tags/hisense/newsroom"
         },
         {
           "component": "aem-content",

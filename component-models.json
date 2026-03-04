@@ -71,6 +71,13 @@
         "name": "downloadLink",
         "label": "Download Link",
         "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "format-detection",
+        "label": "Format Detection",
+        "value": "telephone=no"
       }
     ]
   },
@@ -583,7 +590,7 @@
     ]
   },
   {
-    "id": "addional-support-card-item",
+    "id": "additional-support-card-item",
     "fields": [
       {
         "component": "reference",
@@ -850,57 +857,7 @@
     ]
   },
   {
-    "id": "authorized-reseller-note",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "icon",
-        "value": "",
-        "label": "SVG icon",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "content",
-        "value": "",
-        "label": "Content",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "authorized-reseller-our",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "authorized-reseller-our-item",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "item-image",
-        "value": "",
-        "label": "Logo",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "authorized-reseller",
+    "id": "authorized-reseller-badge",
     "fields": [
       {
         "component": "reference",
@@ -926,7 +883,7 @@
     ]
   },
   {
-    "id": "authorized-reseller-item",
+    "id": "authorized-reseller-badge-item",
     "fields": [
       {
         "component": "reference",
@@ -941,6 +898,30 @@
         "label": "Text",
         "valueType": "string",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "authorized-resellers-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-resellers-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-image",
+        "value": "",
+        "label": "Logo",
+        "valueType": "string"
       }
     ]
   },
@@ -1662,11 +1643,19 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "download-all-link",
         "label": "Download All Link",
         "description": "Link for downloading all resources (optional)",
         "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "download-all-icon",
+        "label": "Download All Icon",
+        "description": "Custom icon for download all button (default icon will be used if not set)",
+        "valueType": "string",
+        "multi": false
       },
       {
         "component": "text",
@@ -1721,7 +1710,7 @@
         "multi": false
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "download-link",
         "label": "Download Link",
         "description": "Link to the downloadable file",
@@ -2197,20 +2186,22 @@
         "valueType": "string",
         "name": "container_overline",
         "label": "Overline",
-        "value": ""
+        "value": "",
+        "required": true
       },
       {
-        "component": "richtext",
+        "component": "text",
         "valueType": "string",
         "name": "container_title",
         "label": "Title",
-        "value": ""
+        "value": "",
+        "required": true
       },
       {
         "component": "reference",
         "valueType": "string",
         "name": "container_image",
-        "label": "Image",
+        "label": "Static Image",
         "multi": false,
         "required": true
       }
@@ -2691,6 +2682,32 @@
         "name": "image",
         "label": "Overlay Image",
         "multi": false
+      }
+    ]
+  },
+  {
+    "id": "highlight-note",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "icon",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
       }
     ]
   },
@@ -3180,11 +3197,25 @@
     "id": "media-contact-card-item",
     "fields": [
       {
-        "component": "richtext",
-        "name": "list",
-        "value": "list",
-        "label": "List",
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "label": "Content"
+      },
+      {
+        "component": "reference",
+        "name": "email-icon",
+        "label": "Email Icon",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "email-address",
+        "label": "Email Address"
       },
       {
         "component": "text",
@@ -3401,22 +3432,7 @@
   },
   {
     "id": "navigation",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "logo",
-        "label": "Logo",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "logoAlt",
-        "label": "Logo Alt",
-        "value": ""
-      }
-    ]
+    "fields": []
   },
   {
     "id": "news-card-list",
@@ -3445,6 +3461,13 @@
         "name": "empty-text",
         "label": "Empty Result Text",
         "description": "Text to show when no news items match the current filters.",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "discover-more-text",
+        "label": "Discover More Button Text",
+        "description": "Text for the mobile 'load more' button.",
         "valueType": "string"
       }
     ]
@@ -4060,6 +4083,18 @@
     ]
   },
   {
+    "id": "region-page-title",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "related-news",
     "fields": [
       {
@@ -4087,13 +4122,6 @@
     "id": "resource-list-item",
     "fields": [
       {
-        "component": "text",
-        "name": "download-asset",
-        "label": "Download Asset URL",
-        "description": "Enter the resource download link",
-        "valueType": "string"
-      },
-      {
         "component": "reference",
         "name": "icon",
         "label": "Icon",
@@ -4102,10 +4130,27 @@
         "multi": false
       },
       {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "subTitle",
+        "valueType": "string"
+      },
+      {
         "component": "richtext",
         "name": "text",
-        "label": "Text",
-        "description": "Use H2-H6 headings to structure your content",
+        "label": "Rich Text",
         "valueType": "string"
       },
       {
@@ -4118,7 +4163,30 @@
         "component": "aem-content",
         "name": "button-link",
         "label": "Button Link",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "!==": [
+            {
+              "var": "card-type"
+            },
+            "download"
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "download-asset",
+        "label": "Download Asset URL",
+        "description": "Enter the resource download link",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "card-type"
+            },
+            "download"
+          ]
+        }
       },
       {
         "component": "select",
@@ -4651,7 +4719,7 @@
         "name": "tags",
         "label": "Tags",
         "valueType": "string",
-        "rootPath": "/content/cq:tags/hisense/download"
+        "rootPath": "/content/cq:tags/hisense/newsroom"
       },
       {
         "component": "aem-content",

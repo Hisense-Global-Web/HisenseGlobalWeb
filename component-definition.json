@@ -159,33 +159,33 @@
           }
         },
         {
-          "title": "Addional Support Card",
-          "id": "addional-support-card",
+          "title": "Additional Support Card",
+          "id": "additional-support-card",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Addional Support Card",
-                  "model": "addional-support-card",
-                  "classes": "addional-support-card",
+                  "name": "Additional Support Card",
+                  "model": "additional-support-card",
+                  "classes": "additional-support-card",
                   "key-value": true,
-                  "filter": "addional-support-card"
+                  "filter": "additional-support-card"
                 }
               }
             }
           }
         },
         {
-          "title": "Addional Support Card Item",
-          "id": "addional-support-card-item",
+          "title": "Additional Support Card Item",
+          "id": "additional-support-card-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Addional Support Card Item",
-                  "model": "addional-support-card-item",
+                  "name": "Additional Support Card Item",
+                  "model": "additional-support-card-item",
                   "key-value": true
                 }
               }
@@ -338,49 +338,33 @@
           }
         },
         {
-          "title": "Authorized Reseller Note",
-          "id": "authorized-reseller-note",
+          "title": "Authorized Reseller Badge",
+          "id": "authorized-reseller-badge",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Authorized Reseller Note",
-                  "model": "authorized-reseller-note",
-                  "classes": "authorized-reseller-note"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Authorized Reseller Our",
-          "id": "authorized-reseller-our",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Authorized Reseller",
-                  "model": "authorized-reseller-our",
-                  "classes": "authorized-reseller-our",
+                  "name": "Authorized Reseller Badge",
+                  "model": "authorized-reseller-badge",
+                  "classes": "authorized-reseller-badge",
                   "key-value": true,
-                  "filter": "authorized-reseller-our"
+                  "filter": "authorized-reseller-badge"
                 }
               }
             }
           }
         },
         {
-          "title": "Authorized Reseller Our Item",
-          "id": "authorized-reseller-our-item",
+          "title": "Badge item",
+          "id": "authorized-reseller-badge-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Authorized Reseller Our Item",
-                  "model": "authorized-reseller-our-item",
+                  "name": "Badge item",
+                  "model": "authorized-reseller-badge-item",
                   "key-value": true
                 }
               }
@@ -388,33 +372,33 @@
           }
         },
         {
-          "title": "Authorized Reseller",
-          "id": "authorized-reseller",
+          "title": "Authorized Resellers List",
+          "id": "authorized-resellers-list",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Authorized Reseller",
-                  "model": "authorized-reseller",
-                  "classes": "authorized-reseller",
+                  "name": "Authorized Resellers List",
+                  "model": "authorized-resellers-list",
+                  "classes": "authorized-resellers-list",
                   "key-value": true,
-                  "filter": "authorized-reseller"
+                  "filter": "authorized-resellers-list"
                 }
               }
             }
           }
         },
         {
-          "title": "Authorized Reseller Item",
-          "id": "authorized-reseller-item",
+          "title": "Authorized Resellers List item",
+          "id": "authorized-resellers-list-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Authorized Reseller Item",
-                  "model": "authorized-reseller-item",
+                  "name": "Authorized Resellers List item",
+                  "model": "authorized-resellers-list-item",
                   "key-value": true
                 }
               }
@@ -836,6 +820,7 @@
                   "subtitle": "Select the image format you need to download",
                   "button-to-download": "Download All",
                   "download-all-link": "",
+                  "download-all-icon": "https://picsum.photos/80/80",
                   "total-size-text": "Total file size"
                 }
               }
@@ -1294,6 +1279,22 @@
           }
         },
         {
+          "title": "Highlight Note",
+          "id": "highlight-note",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Highlight Note",
+                  "model": "highlight-note",
+                  "classes": "highlight-note"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Honors Awards",
           "id": "honors-awards",
           "plugins": {
@@ -1707,7 +1708,6 @@
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
                   "name": "Navigation",
-                  "model": "navigation",
                   "filter": "navigation",
                   "classes": "navigation-block"
                 }
@@ -1730,7 +1730,8 @@
                   "page-size": "9",
                   "empty-text": "No news items match your filters.",
                   "should-paginated": true,
-                  "data-source": "/us/en/newsroom.json"
+                  "data-source": "/us/en/newsroom.json",
+                  "discover-more-text": "Discover more"
                 }
               }
             }
@@ -2173,6 +2174,22 @@
                   "text": "Link Text",
                   "link": "",
                   "target": "_self"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Region Page Title",
+          "id": "region-page-title",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Region Page Title",
+                  "model": "region-page-title",
+                  "classes": "region-page-title"
                 }
               }
             }
