@@ -436,6 +436,7 @@ export default async function decorate(block) {
   mobileBtn.classList.add('page-button');
   mobileBtn.textContent = discoverMoreText;
   let mobileCurrentPage = 1;
+  let mobileAbortCtrl = null;
   mobilePaginationEl.appendChild(mobileBtn);
 
   const noPaginationEl = document.createElement('div');
@@ -508,9 +509,8 @@ export default async function decorate(block) {
     }, isEditMode);
 
     // Mobile "load more": append next page items without clearing previous
-    if (mobileBtn._abortCtrl) mobileBtn._abortCtrl.abort();
-    const abortCtrl = new AbortController();
-    mobileBtn._abortCtrl = abortCtrl;
+    if (mobileAbortCtrl) mobileAbortCtrl.abort();
+    mobileAbortCtrl = new AbortController();
 
     mobileBtn.addEventListener('click', () => {
       mobileCurrentPage += 1;
@@ -526,7 +526,7 @@ export default async function decorate(block) {
       if (mobileCurrentPage >= mobileTotalPages) {
         mobilePaginationEl.style.display = 'none';
       }
-    }, { signal: abortCtrl.signal });
+    }, { signal: mobileAbortCtrl.signal });
   };
 
   await loadPage(1);
