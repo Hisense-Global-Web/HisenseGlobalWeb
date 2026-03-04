@@ -41,9 +41,12 @@ export default async function decorate(block) {
   });
 
   if (config.title) {
-    const titleEl = document.createElement('div');
-    titleEl.classList.add('media-contact-card-title');
+    let titleEl = block.parentNode.querySelector('.media-contact-card-title');
+    if (!titleEl) {
+      titleEl = document.createElement('div');
+      titleEl.classList.add('media-contact-card-title');
+      block.parentNode.prepend(titleEl);
+    }
     titleEl.innerHTML = config.title;
-    block.parentNode.prepend(titleEl);
   }
 }
