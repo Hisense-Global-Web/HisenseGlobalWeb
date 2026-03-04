@@ -28,6 +28,7 @@ main .section.article-body-container .article-body-wrapper {
     p {
       @media (width < 860px) {
         font-size: var(--size-14);
+        line-height: 1.5;
       }
     }
     
@@ -168,6 +169,14 @@ main .section.article-body-container .article-body-wrapper {
       @media (width < 860px) {
         padding: var(--size-60) var(--size-24) var(--size-24);
         font-size: var(--size-18);
+        line-height: 1.2;
+        color: var(--color-primary-green-60);
+        
+        * {
+          font-size: var(--size-18);
+          line-height: 1.2;
+          color: var(--color-primary-green-60);
+        }
       }
       
       .quotation {
@@ -190,7 +199,14 @@ main .section.article-body-container .article-body-wrapper {
 
         @media (width < 860px) {
           font-size: var(--size-12);
-          line-height: 1.4;
+          line-height: 1.5;
+          color: var(--color-primary-grey-70);
+          
+          * {
+            font-size: var(--size-12);
+            line-height: 1.5;
+            color: var(--color-primary-grey-70);
+          }
         }
       }
     }
