@@ -1,11 +1,18 @@
-const TAG_DATA_URL = '/content/dam/hisense/us/tag-data/en/tag-data.json';
+
+const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
+
+function getTagsEndpointUrl() {
+  const baseUrl = window.GRAPHQL_BASE_URL || '';
+  const path = DEFAULT_TAGS_ENDPOINT;
+  return baseUrl ? `${baseUrl}${path}` : path;
+}
 
 /**
  * Fetch tag data from API
  */
 async function fetchTagData() {
   try {
-    const response = await fetch(TAG_DATA_URL);
+    const response = await fetch(getTagsEndpointUrl());
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -18,23 +25,43 @@ async function fetchTagData() {
 }
 
 /**
+ * Get tag root from tag data
+ */
+function getTagRoot(tagData) {
+  if (!tagData) {
+    return null;
+  }
+
+  if (Array.isArray(tagData.data) && tagData.data.length > 0) {
+    return tagData.data[0];
+  }
+
+  return tagData;
+}
+
+/**
  * Get tag title from tag data
  */
 function getTagTitle(tagPath, tagData) {
-  if (!tagData || !tagData.data || tagData.data.length === 0) {
-    return tagPath.split(':').pop().split('/').pop();
+  const pathParts = tagPath.split(':').pop().split('/').filter(Boolean);
+  const fallback = pathParts[pathParts.length - 1] || tagPath;
+  const tagRoot = getTagRoot(tagData);
+
+  if (!tagRoot) {
+    return fallback;
   }
 
-  const pathParts = tagPath.split(':').pop().split('/');
-
-  const result = pathParts.reduce((current, part) => {
+  const resolvePath = (parts) => parts.reduce((current, part) => {
     if (current && current[part]) {
       return current[part];
     }
     return null;
-  }, tagData.data[0]);
+  }, tagRoot);
 
-  return result?.['jcr:title'] || pathParts[pathParts.length - 1];
+  const directResult = resolvePath(pathParts);
+  const result = directResult || (pathParts.length > 1 ? resolvePath(pathParts.slice(1)) : null);
+
+  return result?.['jcr:title'] || fallback;
 }
 
 /**

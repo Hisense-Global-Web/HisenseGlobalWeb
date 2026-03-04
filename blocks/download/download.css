@@ -217,7 +217,6 @@ main .section.download-container .download-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: var(--size-8);
 
             &:hover {
               background-color: var(--color-primary-grey-70);
@@ -231,12 +230,6 @@ main .section.download-container .download-wrapper {
               color: rgb(255 255 255 / 80%);
               background-color: var(--color-primary-grey-40);
             }
-          }
-
-          .download-btn-icon {
-            width: var(--size-16);
-            height: var(--size-16);
-            display: block;
           }
 
           .download-btn-link {

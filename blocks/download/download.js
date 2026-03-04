@@ -181,7 +181,7 @@ export default function decorate(block) {
   // Folder icon
   const folderIcon = document.createElement('img');
   folderIcon.className = 'folder-icon';
-  folderIcon.src = DEFAULT_FOLDER_ICON;
+  folderIcon.src = downloadAllIcon || DEFAULT_FOLDER_ICON;
   folderIcon.alt = 'Folder';
   downloadPanel.appendChild(folderIcon);
 
@@ -189,16 +189,7 @@ export default function decorate(block) {
   if (buttonText) {
     const downloadBtn = document.createElement('button');
     downloadBtn.className = 'download-btn';
-
-    const downloadBtnIcon = document.createElement('img');
-    downloadBtnIcon.className = 'download-btn-icon';
-    downloadBtnIcon.src = downloadAllIcon || DEFAULT_DOWNLOAD_ICON;
-    downloadBtnIcon.alt = '';
-    downloadBtn.appendChild(downloadBtnIcon);
-
-    const downloadBtnText = document.createElement('span');
-    downloadBtnText.textContent = buttonText;
-    downloadBtn.appendChild(downloadBtnText);
+    downloadBtn.textContent = buttonText;
 
     if (downloadAllLink) {
       const downloadBtnLink = document.createElement('a');
