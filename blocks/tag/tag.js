@@ -1,4 +1,3 @@
-
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
 
 function getTagsEndpointUrl() {
