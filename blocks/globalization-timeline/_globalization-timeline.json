@@ -41,20 +41,22 @@
           "valueType": "string",
           "name": "container_overline",
           "label": "Overline",
-          "value": ""
+          "value": "",
+          "required": true
         },
         {
-          "component": "richtext",
+          "component": "text",
           "valueType": "string",
           "name": "container_title",
           "label": "Title",
-          "value": ""
+          "value": "",
+          "required": true
         },
         {
           "component": "reference",
           "valueType": "string",
           "name": "container_image",
-          "label": "Image",
+          "label": "Static Image",
           "multi": false,
           "required": true
         }
