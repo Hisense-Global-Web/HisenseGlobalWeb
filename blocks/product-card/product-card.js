@@ -1,3 +1,11 @@
+import {
+  renderCompareDetailData,
+  aggregateData,
+  createComparePopup,
+  // fixedBottomCompareBar,
+  // setCompareProductImgTit
+} from '../../utils/plp-compare-utils.js';
+
 function applyAggregatedSort(sortProperty, direction = -1) {
   try {
     // 检查是否有已选中的 filter
@@ -205,7 +213,6 @@ export default function decorate(block) {
     initCompareLi: 'initCompareLi', // 初始化比较栏li
     addEmptyLi: 'addEmptyLi', // 添加空 li 元素（显示加号的li）
   };
-  const comparePropertyInfoArr = []; // 比较属性详情参数数据
 
   // 修改：Load More 点击逻辑
   productsLoadMore.addEventListener('click', () => {
@@ -324,37 +331,6 @@ export default function decorate(block) {
    * 比较 ----- start
    */
 
-  // 比较信息数据处理
-  function propertyDetailDataUtil() {
-    const cloneCompareDataArr = JSON.parse(JSON.stringify(compareDataArr));
-    const allAttributesArr = [];
-    cloneCompareDataArr.forEach((compareDataItem) => {
-      for (let i = 1; i <= 20; i += 1) {
-        const labelKey = `specificationsGroup${i}Label`;
-        const attrKey = `specificationsGroup${i}Attribute`;
-        if (compareDataItem[labelKey] && compareDataItem[attrKey] && Array.isArray(compareDataItem[attrKey])) {
-          const attributes = compareDataItem[attrKey];
-          // 所属属性集合
-          allAttributesArr.push(attributes);
-        }
-      }
-    });
-    const oneAttributesArr = allAttributesArr.flat();
-    // const comparePropertyInfoArr
-    oneAttributesArr.forEach((allAttrItem) => {
-      if (allAttrItem && allAttrItem.includes('::')) {
-        console.log(allAttrItem.split('::', 2), 'ssssss');
-        const [attrName, attrVal] = allAttrItem.split('::', 2);
-        comparePropertyInfoArr.push({
-          [attrName]: attrVal,
-        });
-      }
-    });
-    // console.log(allAttributesArr, 'allAttributesArr');
-    // console.log(oneAttributesArr, 'oneAttributesArr');
-    // console.log(comparePropertyInfoArr, 'comparePropertyInfoArr');
-  }
-
   // 页面底部固定栏，比较商品固定栏
   function fixedBottomCompareBar() {
     const compareBarEl = document.createElement('div');
@@ -369,7 +345,11 @@ export default function decorate(block) {
     // 显示对比详细信息弹窗
     compareBtnEl.addEventListener('click', () => {
       document.querySelector('.compare-popup-wrapper').style.display = 'block';
-      propertyDetailDataUtil();
+      // console.log(compareDataArr, 'click')
+      // 比较商品信息详细数据
+      const compareDetailInfo = aggregateData(compareDataArr);
+      // render compare popup detail data
+      renderCompareDetailData(compareDetailInfo, 'property-box-id');
     });
     const compareBarCloseBtn = document.createElement('img');
     compareBarCloseBtn.className = 'plp-compare-bar-close';
@@ -423,65 +403,54 @@ export default function decorate(block) {
   }
 
   // 比较弹窗详细信息
-  function createComparePopup() {
-    const comparePopupWrapperEl = document.createElement('div');
-    comparePopupWrapperEl.className = 'compare-popup-wrapper';
-    const comparePopupContainerEl = document.createElement('div');
-    comparePopupContainerEl.className = 'compare-popup-container';
-    const comparePopupTitBoxEl = document.createElement('div');
-    // add card item close button
-    const popupCloseBtn = document.createElement('div');
-    popupCloseBtn.className = 'compare-popup-close';
-    const closeIcon = document.createElement('img');
-    closeIcon.src = '/content/dam/hisense/us/common-icons/close-50.svg';
-    closeIcon.alt = 'Close';
-    popupCloseBtn.append(closeIcon);
-    // popup title
-    comparePopupTitBoxEl.className = 'compare-popup-tit-box';
-    const comparePopupTitEl = document.createElement('div');
-    comparePopupTitEl.className = 'popup-tit';
-    comparePopupTitEl.textContent = 'Compare TV Models';
-    const comparePopupTitTipsEl = document.createElement('div');
-    comparePopupTitTipsEl.className = 'popup-tit-tip';
-    comparePopupTitTipsEl.textContent = 'Compare features and find your fit.';
-    comparePopupTitBoxEl.append(comparePopupTitEl, comparePopupTitTipsEl);
-    // popup compare product name
-    const compareProductNameBoxEl = document.createElement('div');
-    compareProductNameBoxEl.className = 'product-name-box';
-    // compare series
-    const productSeriesEl = document.createElement('div');
-    productSeriesEl.className = 'product-series';
-    // compare name
-    const productNameEl = document.createElement('div');
-    productNameEl.className = 'product-name';
-    compareProductNameBoxEl.append(productSeriesEl, productNameEl);
+  // function createComparePopup() {
+  //   const comparePopupWrapperEl = document.createElement('div');
+  //   comparePopupWrapperEl.className = 'compare-popup-wrapper';
+  //   const comparePopupContainerEl = document.createElement('div');
+  //   comparePopupContainerEl.className = 'compare-popup-container';
+  //   const comparePopupTitBoxEl = document.createElement('div');
+  //   // add card item close button
+  //   const popupCloseBtn = document.createElement('div');
+  //   popupCloseBtn.className = 'compare-popup-close';
+  //   const closeIcon = document.createElement('img');
+  //   closeIcon.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+  //   closeIcon.alt = 'Close';
+  //   popupCloseBtn.append(closeIcon);
+  //   // popup title
+  //   comparePopupTitBoxEl.className = 'compare-popup-tit-box';
+  //   const comparePopupTitEl = document.createElement('div');
+  //   comparePopupTitEl.className = 'popup-tit';
+  //   comparePopupTitEl.textContent = 'Compare TV Models';
+  //   const comparePopupTitTipsEl = document.createElement('div');
+  //   comparePopupTitTipsEl.className = 'popup-tit-tip';
+  //   comparePopupTitTipsEl.textContent = 'Compare features and find your fit.';
+  //   comparePopupTitBoxEl.append(comparePopupTitEl, comparePopupTitTipsEl);
+  //   // popup compare product name
+  //   const compareProductNameBoxEl = document.createElement('div');
+  //   compareProductNameBoxEl.className = 'product-name-box';
 
-    // 对比商品详情信息
-    const productMainInfoBoxEl = document.createElement('div');
-    productMainInfoBoxEl.className = 'product-main-info-box';
+  //   // 对比商品详情信息
+  //   const productMainInfoBoxEl = document.createElement('div');
+  //   productMainInfoBoxEl.className = 'product-main-info-box';
+  //   // productMainInfoBoxEl.setAttribute('id', 'compare-data-detail');
 
-    // 对比商品 card 集合
-    const productCardBoxEl = document.createElement('div');
-    productCardBoxEl.className = 'product-card-box';
-    // specifications 集合
-    const productSpecificationsBoxEl = document.createElement('div');
-    productSpecificationsBoxEl.className = 'product-specifications-box';
-    const specificationsItemBox = document.createElement('div');
-    specificationsItemBox.className = 'specifications-item-box';
-    const specificationsTitBoxEl = document.createElement('div');
-    specificationsTitBoxEl.className = 'specifications-tit';
-    const specificationsItemInfoEl = document.createElement('div');
-    specificationsItemInfoEl.className = 'specifications-info-box';
-    specificationsItemBox.append(specificationsTitBoxEl, specificationsItemInfoEl);
-    productSpecificationsBoxEl.append(specificationsItemBox);
-    // 主体信息盒子里，追加 card 集合、specifications 集合
-    productMainInfoBoxEl.append(productCardBoxEl, productSpecificationsBoxEl);
-    // 为container 追加 popup title, card box, main info
-    comparePopupContainerEl.append(comparePopupTitBoxEl, compareProductNameBoxEl, productMainInfoBoxEl, popupCloseBtn);
-    comparePopupWrapperEl.append(comparePopupContainerEl);
-    document.body.append(comparePopupWrapperEl);
-  }
-  createComparePopup();
+  //   // 对比商品 card 集合
+  //   const productCardBoxEl = document.createElement('div');
+  //   productCardBoxEl.className = 'product-card-box';
+
+  //   // 对比商品属性集合
+  //   const propertyBoxEl = document.createElement('div');
+  //   propertyBoxEl.className = 'property-box';
+  //   propertyBoxEl.setAttribute('id', 'property-box-id');
+
+  //   // 主体信息盒子里，追加 card 集合、specifications 集合
+  //   // productMainInfoBoxEl.append(productCardBoxEl, productSpecificationsBoxEl);
+  //   productMainInfoBoxEl.append(productCardBoxEl, propertyBoxEl);
+  //   // 为container 追加 popup title, card box, main info
+  //   comparePopupContainerEl.append(comparePopupTitBoxEl, compareProductNameBoxEl, productMainInfoBoxEl, popupCloseBtn);
+  //   comparePopupWrapperEl.append(comparePopupContainerEl);
+  //   document.body.append(comparePopupWrapperEl);
+  // }
 
   /**
    * 比较 ----- end
@@ -865,7 +834,7 @@ export default function decorate(block) {
             // 隐藏底部固定比较栏
             hideCompareBar();
           }
-          // console.log(compareDataArr, 'comparedataarr')
+          // console.log(compareDataArr, 'comparedataarr');
         });
       };
 
@@ -1141,6 +1110,8 @@ export default function decorate(block) {
       applyUrlFilters();
       // 初始化询问比较固定栏
       fixedBottomCompareBar();
+      // 比较商品信息 popup
+      createComparePopup();
     })
     .catch(() => {
       const items = (mockData && mockData.data) || [];
@@ -1156,6 +1127,8 @@ export default function decorate(block) {
       applyUrlFilters();
       // 初始化询问比较固定栏
       fixedBottomCompareBar();
+      // 比较商品信息 popup
+      createComparePopup();
     });
   /* eslint-disable-next-line no-underscore-dangle */
   window.renderItems = renderItems;

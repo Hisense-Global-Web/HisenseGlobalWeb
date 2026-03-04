@@ -375,10 +375,11 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    padding: var(--size-80) var(--size-80) var(--size-48) var(--size-80);
     background: var(--color-primary-grey-10);
     border-radius: var(--size-20);
+    max-height: min(calc(100vh - 324px), 700px);
     max-width: min(calc(1120 / var(--breakpoint-pc) * 100vw), 1120px);
+    overflow: hidden;
 
     .compare-popup-close {
       position: absolute;
@@ -389,6 +390,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
 
       /* img {
         width: var(--size-20);
@@ -397,7 +399,10 @@
     }
 
     .compare-popup-tit-box {
-      margin-bottom: var(--size-80);
+      /* margin-bottom: var(--size-80); */
+
+      /* padding-top: var(--size-80); */
+      padding: var(--size-80);
     }
 
     .popup-tit {
@@ -414,6 +419,61 @@
       color: var(--color-primary-grey-70);
       line-height: var(--size-24);
       margin-top: var(--size-8);
+    }
+
+    .product-name-box {
+      padding: 0 var(--size-80);
+      display: flex;
+      margin-bottom: var(--size-8);
+
+      .product-title-item {
+        text-align: center;
+      }
+
+      .product-series {
+        font-size: var(--size-16);
+        line-height: var(--size-24);
+        color: var(--color-primary-green-60);
+        font-weight: var(--fontweight-medium);
+      }
+
+      .product-name {
+        font-size: var(--size-24);
+        line-height: min(calc(28.8 / var(--breakpoint-pc) * 100vw), 28.8px);
+        color: var(--color-primary-grey-100);
+        font-weight: var(--fontweight-medium);
+      }
+    }
+
+    .product-main-info-box {
+      padding: 0 var(--size-80) var(--size-48) var(--size-80);
+      max-height: calc(min(calc(100vh - 324px), 700px) - 286px - 80px);
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+
+      .property-item {
+        .property-title {
+          padding: var(--size-24) 0;
+          font-size: var(--size-20);
+          line-height: var(--size-24);
+          font-weight: var(--fontweight-medium);
+          color: var(--color-primary-grey-70);
+          border-bottom: 1px solid var(--color-primary-grey-30);
+          text-transform: capitalize;
+        }
+
+        .values-list {
+          display: flex;
+
+          .value-item {
+            padding: var(--size-32) var(--size-24) var(--size-32) 0;
+            font-size: var(--size-16);
+            line-height: var(--size-24);
+            font-weight: var(--fontweight-book);
+            color: var(--color-primary-grey-60);
+          }
+        }
+      }
     }
   }
 }
