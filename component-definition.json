@@ -1707,7 +1707,6 @@
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
                   "name": "Navigation",
-                  "model": "navigation",
                   "filter": "navigation",
                   "classes": "navigation-block"
                 }
