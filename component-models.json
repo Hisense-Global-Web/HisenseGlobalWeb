@@ -4095,21 +4095,6 @@
     "id": "resource-list-item",
     "fields": [
       {
-        "component": "aem-content",
-        "name": "download-asset",
-        "label": "Download Asset URL",
-        "description": "Enter the resource download link",
-        "valueType": "string",
-        "condition": {
-          "===": [
-            {
-              "var": "card-type"
-            },
-            "download"
-          ]
-        }
-      },
-      {
         "component": "reference",
         "name": "icon",
         "label": "Icon",
@@ -4137,6 +4122,21 @@
         "valueType": "string",
         "condition": {
           "!==": [
+            {
+              "var": "card-type"
+            },
+            "download"
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "download-asset",
+        "label": "Download Asset URL",
+        "description": "Enter the resource download link",
+        "valueType": "string",
+        "condition": {
+          "===": [
             {
               "var": "card-type"
             },
