@@ -28,6 +28,7 @@
   @media (width<860px) {
     margin-top: var(--spacing-xs, 16px);
     font-size: var(--size-16, 16px);
+    line-height: 1.3;
   }
 }
 
