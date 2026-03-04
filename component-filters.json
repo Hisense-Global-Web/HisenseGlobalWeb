@@ -21,8 +21,8 @@
       "article-body",
       "article-body-list",
       "article-title",
-      "authorized-reseller",
-      "authorized-reseller-our",
+      "authorized-reseller-badge",
+      "authorized-reseller-list",
       "bi-directional-content",
       "button",
       "card-carousel",
@@ -178,15 +178,9 @@
     ]
   },
   {
-    "id": "authorized-reseller-our",
+    "id": "authorized-reseller-badge",
     "components": [
-      "authorized-reseller-our-item"
-    ]
-  },
-  {
-    "id": "authorized-reseller",
-    "components": [
-      "authorized-reseller-item"
+      "authorized-reseller-badge-item"
     ]
   },
   {

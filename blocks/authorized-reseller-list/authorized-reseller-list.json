@@ -2,17 +2,17 @@
   "definitions": [
     {
       "title": "Authorized Resellers List",
-      "id": "authorized-reseller-our",
+      "id": "authorized-reseller-list",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Authorized Resellers List",
-              "model": "authorized-reseller-our",
-              "classes": "authorized-reseller-our",
+              "model": "authorized-reseller-list",
+              "classes": "authorized-reseller-list",
               "key-value": true,
-              "filter": "authorized-reseller-our"
+              "filter": "authorized-reseller-list"
             }
           }
         }
@@ -20,14 +20,14 @@
     },
     {
       "title": "Authorized Resellers List item",
-      "id": "authorized-reseller-our-item",
+      "id": "authorized-reseller-list-item",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Authorized Resellers List item",
-              "model": "authorized-reseller-our-item",
+              "model": "authorized-reseller-list-item",
               "key-value": true
             }
           }
@@ -37,7 +37,7 @@
   ],
   "models": [
     {
-      "id": "authorized-reseller-our",
+      "id": "authorized-reseller-list",
       "fields": [
         {
           "component": "text",
@@ -49,7 +49,7 @@
       ]
     },
     {
-      "id": "authorized-reseller-our-item",
+      "id": "authorized-reseller-list-item",
       "fields": [
         {
           "component": "reference",
@@ -63,9 +63,9 @@
   ],
   "filters": [
     {
-      "id": "authorized-reseller-our",
+      "id": "authorized-reseller-list",
       "components": [
-        "authorized-reseller-our-item"
+        "authorized-reseller-list-item"
       ]
     }
   ]
