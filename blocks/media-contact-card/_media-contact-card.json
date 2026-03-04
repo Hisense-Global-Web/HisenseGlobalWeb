@@ -49,11 +49,25 @@
       "id": "media-contact-card-item",
       "fields": [
         {
-          "component": "richtext",
-          "name": "list",
-          "value": "list",
-          "label": "List",
+          "component": "text",
+          "name": "title",
+          "label": "Title"
+        },
+        {
+          "component": "text",
+          "name": "content",
+          "label": "Content"
+        },
+        {
+          "component": "reference",
+          "name": "email-icon",
+          "label": "Email Icon",
           "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "email-address",
+          "label": "Email Address"
         },
         {
           "component": "text",
