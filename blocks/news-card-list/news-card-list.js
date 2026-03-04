@@ -1,52 +1,5 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 
-const MOCK_NEWSROOM_ITEMS = [
-  {
-    path: '/us/en/company/newsroom/article-3',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 3',
-    'published-date': '2026-02-09T06:55:15.717Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-rgb-1.png',
-    subtitle: 'PARTNERSHIP -3',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao -3',
-    keywords: 'Hisense, ESG, AI, Sustainability',
-  },
-  {
-    path: '/us/en/company/newsroom/article-4',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 4',
-    'published-date': '2026-02-09T06:56:08.838Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-micro-1.png',
-    subtitle: 'PARTNERSHIP -4',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao',
-    keywords: 'Hisense, Technology, Innovation',
-  },
-  {
-    path: '/us/en/company/newsroom/article-2',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 2',
-    'published-date': '2026-02-09T06:54:23.865Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
-    subtitle: 'PARTNERSHIP -2',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao -2',
-    keywords: 'Hisense, ESG, Strategy',
-  },
-  {
-    path: '/us/en/company/newsroom/article-body',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones',
-    'published-date': '2026-02-09T06:29:23.342Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-hi-qled.png',
-    subtitle: 'PARTNERSHIP',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao',
-    keywords: 'Hisense, ESG, Technology',
-  },
-];
-
 function getSearchFiltersFromUrl() {
   const params = new URLSearchParams(window.location.search || '');
   const filters = [];
@@ -387,20 +340,6 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 
 async function fetchNewsroom(offset, limit, dataSource) {
   const { pathname } = window.location;
-
-  // /content 开头，使用本地 mock 数据，避免跨域请求失败
-  if (pathname.startsWith('/content')) {
-    const start = Number.isFinite(offset) ? offset : 0;
-    const pageSize = Number.isFinite(limit) ? limit : MOCK_NEWSROOM_ITEMS.length;
-    const sliced = MOCK_NEWSROOM_ITEMS.slice(start, start + pageSize);
-
-    return {
-      data: sliced,
-      offset: start,
-      limit: pageSize,
-      total: MOCK_NEWSROOM_ITEMS.length,
-    };
-  }
 
   const segments = pathname.split('/').filter(Boolean);
 
