@@ -69,7 +69,7 @@
 
 .product-sorting .plp-sort-box {
   position: relative;
-  width: min(calc(184 / var(--breakpoint-pc) * 100vw), 184px);;
+  width: min(calc(184 / var(--breakpoint-pc) * 100vw), 184px);
   height: var(--size-40);
   flex-shrink: 0;
 }
