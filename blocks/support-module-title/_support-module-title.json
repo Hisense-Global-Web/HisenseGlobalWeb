@@ -11,8 +11,7 @@
               "name": "Support Module Title",
               "model": "support-module-title",
               "classes": "support-module-title",
-              "key-value": true,
-              "text-style": "left"
+              "key-value": true
             }
           }
         }
@@ -27,13 +26,14 @@
           "component": "select",
           "name": "text-style",
           "label": "Style",
+          "value": "left",
           "options": [
             {
-              "name": "Left",
+              "name": "Text Left",
               "value": "left"
             },
             {
-              "name": "Center",
+              "name": "Text Center",
               "value": "center"
             }
           ]
