@@ -171,11 +171,11 @@
 
 .product-card .plp-product-btn.ps-widget[ps-sku].ps-disabled>small,
 .product-card .plp-product-btn.ps-widget[ps-sku].ps-disabled>small:hover{
-  font-size: var(--size-12);
-  font-weight: var(--fontweight-medium);
-  height: var(--size-30);
-  line-height: var(--size-30);
-  font-family: var(--font-family);
+  font-size: var(--size-12) !important;
+  font-weight: var(--fontweight-medium) !important;
+  height: var(--size-30) !important;
+  line-height: var(--size-30) !important;
+  font-family: var(--font-family) !important;
 }
 
 .product-card .plp-product-btn.ps-widget[ps-sku].ps-disabled, 
