@@ -1,4 +1,10 @@
 .legal-content {
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  
   div[data-aue-type="richtext"] a:any-link {
     color: var(--color-primary-green-60);
     text-decoration: underline;
@@ -15,12 +21,7 @@
     gap: var(--size-24);
   }
 
-  :is(p, ol, ul, pre):has(~ :is(p, ol, ul, pre)) {
-    margin-bottom: var(--size-24);
-  }
-
-  h5 {
-    margin-top: var(--size-32);
-    margin-bottom: var(--size-24);
+  strong {
+    font-weight: var(--fontweight-medium);
   }
 }
