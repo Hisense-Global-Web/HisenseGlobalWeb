@@ -1669,6 +1669,14 @@
         "valueType": "string"
       },
       {
+        "component": "reference",
+        "name": "download-all-icon",
+        "label": "Download All Icon",
+        "description": "Custom icon for download all button (default icon will be used if not set)",
+        "valueType": "string",
+        "multi": false
+      },
+      {
         "component": "text",
         "name": "total-size-text",
         "label": "Total Size Text",
@@ -4651,7 +4659,7 @@
         "name": "tags",
         "label": "Tags",
         "valueType": "string",
-        "rootPath": "/content/cq:tags/hisense/download"
+        "rootPath": "/content/cq:tags/hisense/newsroom"
       },
       {
         "component": "aem-content",

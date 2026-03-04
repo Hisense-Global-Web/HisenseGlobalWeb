@@ -11,6 +11,7 @@ export default function decorate(block) {
   const subtitle = config.subtitle || '';
   const buttonText = config['button-to-download'] || '';
   const downloadAllLink = config['download-all-link'] || '';
+  const downloadAllIcon = config['download-all-icon'] || '';
   const totalSizeText = config['total-size-text'] || 'Total file size';
 
   // Main container
@@ -48,7 +49,7 @@ export default function decorate(block) {
   imageList.className = 'image-list';
 
   const allRows = [...block.children];
-  const configKeys = ['title', 'subtitle', 'button-to-download', 'download-all-link', 'total-size-text'];
+  const configKeys = ['title', 'subtitle', 'button-to-download', 'download-all-link', 'download-all-icon', 'total-size-text'];
   const itemRows = allRows.filter((row) => {
     if (row.children.length === 2) {
       const firstCol = row.children[0].textContent.trim().toLowerCase();
@@ -188,7 +189,16 @@ export default function decorate(block) {
   if (buttonText) {
     const downloadBtn = document.createElement('button');
     downloadBtn.className = 'download-btn';
-    downloadBtn.textContent = buttonText;
+
+    const downloadBtnIcon = document.createElement('img');
+    downloadBtnIcon.className = 'download-btn-icon';
+    downloadBtnIcon.src = downloadAllIcon || DEFAULT_DOWNLOAD_ICON;
+    downloadBtnIcon.alt = '';
+    downloadBtn.appendChild(downloadBtnIcon);
+
+    const downloadBtnText = document.createElement('span');
+    downloadBtnText.textContent = buttonText;
+    downloadBtn.appendChild(downloadBtnText);
 
     if (downloadAllLink) {
       const downloadBtnLink = document.createElement('a');

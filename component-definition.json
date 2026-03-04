@@ -836,6 +836,7 @@
                   "subtitle": "Select the image format you need to download",
                   "button-to-download": "Download All",
                   "download-all-link": "",
+                  "download-all-icon": "https://picsum.photos/80/80",
                   "total-size-text": "Total file size"
                 }
               }
