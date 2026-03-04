@@ -10,6 +10,7 @@
 	text-align: center;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 
 	p:first-child {
 		text-transform: uppercase;
@@ -32,6 +33,7 @@
 
 		@media (width >= 860px) {
 			font-size: var(--fontsize-pc-h1);
+			max-width: min(51.38888vw, 740px);
 		}
 	}
 
