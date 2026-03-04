@@ -1,6 +1,6 @@
-export default function decorate() {
+export default function decorate(block) {
   try {
-    const [textStyleEl, titleContainerEl] = document.querySelector('.support-module-title')?.children ?? [];
+    const [textStyleEl, titleContainerEl] = [...block.children];
     const textStyle = textStyleEl.querySelector('p').textContent;
     const isCenter = textStyle === 'center' ?? false;
     textStyleEl.remove();
