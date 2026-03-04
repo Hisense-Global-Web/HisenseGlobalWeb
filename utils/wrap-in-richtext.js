@@ -1,16 +1,26 @@
 export default function wrapInRichtext (element) {
-
-    [...element.children].forEach(item => {
-        if(!item.chldren.lenght) {
-            if(item.textContent.includes('\\n')) {
-                const textNodes = item.textContent.split('\\n');
-                if(textNodes.length) {
-                    item.replace('/\\n/g', '<br>');
-                } else item.replaceWith(document.createElement('br'));
+    if(![...element.children].length || element.tagName === 'LI') {
+            if(String(element.textContent)?.includes('/n')) {
+                const textNodes = element.textContent.split('/n');
+                console.log(textNodes);
+                
+                if(textNodes.filter(item=>item).length) {
+                    element.replace('//n/g','<br>');
+                } else {
+                    element.innerHTML = `<br>`;
+                }
             }
-        } else {
-            [...item.childern].forEach(child => wrapInRichtext(child));
-        }
-    })
+            else {
+                console.log(element,element.tagName,element.tagName==='LI');
+                if(element.tagName === 'LI') {
+                    console.log(element.textContent,'li-content');
+                    // item.textContent.replace('//n/g', '<br>');
+                }
+            }
+    } else {
+        [...element.children].forEach(item => {
+            wrapInRichtext(item);
+        });
+    }
     
 }
