@@ -395,9 +395,9 @@ function wrapTextNodes(block) {
     [...el.attributes]
       // move the instrumentation from the cell to the new paragraph, also keep the class
       // in case the content is a buttton and the cell the button-container
-      // || nodeName.startsWith('data-richtext')
       .filter(({ nodeName }) => nodeName === 'class'
-        || nodeName.startsWith('data-aue')
+        || (nodeName.startsWith('data-aue') && nodeName !== 'data-aue-type')
+        || nodeName.startsWith('data-richtext')
       )
       .forEach(({ nodeName, nodeValue }) => {
         wrapper.setAttribute(nodeName, nodeValue);
