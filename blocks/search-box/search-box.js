@@ -1,5 +1,7 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/aem.js';
 
+const SEARCH_ICON = '/content/dam/hisense/us/common-icons/search-grey-70.svg';
+
 // 获取Search Input的HTML元素
 const getSearchInput = (block) => {
   const config = readBlockConfig(block);
@@ -12,7 +14,7 @@ const getSearchInput = (block) => {
 
   const icon = document.createElement('img');
   icon.className = 'icon icon-search';
-  icon.src = '/content/dam/hisense/us/common-icons/search-grey-70.svg';
+  icon.src = SEARCH_ICON;
   inputWrapper.appendChild(icon);
 
   const input = document.createElement('input');
@@ -61,13 +63,25 @@ const getSearchInput = (block) => {
 
 // 获取Quick Link的HTML元素
 const getQuickLink = (block) => {
-  const quickLinkList = [...block.children]?.slice(2);
+  const config = readBlockConfig(block);
+  const suggestionLabel = config['suggestion-label'];
+  let quickLinkIndex = 2;
+  if (suggestionLabel?.length) {
+    quickLinkIndex = 3;
+  }
+  const quickLinkList = [...block.children]?.slice(quickLinkIndex);
   if (!quickLinkList?.length) {
     return null;
   }
   // quick link的wrapper
   const quickLinkWrapper = document.createElement('div');
   quickLinkWrapper.className = 'quick-link-wrapper';
+  if (suggestionLabel?.length) {
+    const suggestionLabelEl = document.createElement('div');
+    suggestionLabelEl.className = 'suggestion-label';
+    suggestionLabelEl.textContent = suggestionLabel;
+    quickLinkWrapper.appendChild(suggestionLabelEl);
+  }
   let hasQuickLink = false;
   quickLinkList.forEach((linkElement) => {
     const linkDiv = document.createElement('div');
@@ -79,18 +93,65 @@ const getQuickLink = (block) => {
     linkDiv.addEventListener('click', () => {
       window.location.href = link;
     });
-    if (link && linkText) {
+    if (linkText) {
       quickLinkWrapper.appendChild(linkDiv);
       hasQuickLink = true;
     }
   });
-  if (hasQuickLink) {
+  if (suggestionLabel?.length || hasQuickLink) {
     return quickLinkWrapper;
   }
   return null;
 };
 
+const generateAuthorSearchBox = (block) => {
+  const config = readBlockConfig(block);
+  const suggestionLabel = config['suggestion-label'];
+  let quickLinkIndex = 2;
+  if (suggestionLabel?.length) {
+    quickLinkIndex = 3;
+  }
+  const [searchLinkEl, placeholderEl, suggesstionEl] = [...block.children];
+  const quickLinkList = [...block.children]?.slice(quickLinkIndex);
+  placeholderEl.children[0].remove();
+  searchLinkEl.remove();
+  const outWrapper = document.createElement('div');
+  outWrapper.className = 'out-wrapper';
+  const inputWrapperEl = document.createElement('div');
+  inputWrapperEl.className = 'input-wrapper';
+  const searchIconEl = document.createElement('img');
+  searchIconEl.classList.add('icon-search');
+  searchIconEl.src = SEARCH_ICON;
+  inputWrapperEl.appendChild(searchIconEl);
+  const inputEl = placeholderEl.children[0].querySelector('p');
+  inputEl.classList.add('search-box-input');
+  inputWrapperEl.append(inputEl);
+  outWrapper.append(inputWrapperEl);
+  const quickLinkWrapperEl = document.createElement('div');
+  quickLinkWrapperEl.className = 'quick-link-wrapper';
+  if (suggestionLabel?.length) {
+    suggesstionEl.children[0].remove();
+    quickLinkWrapperEl.append(suggesstionEl.children[0]);
+    suggesstionEl.classList.add('suggestion-label');
+  }
+  if (quickLinkList?.length) {
+    quickLinkList.forEach((quickLinkEl) => {
+      quickLinkEl.children[0].remove();
+      const quickLinkTextEl = quickLinkEl.children[0];
+      quickLinkTextEl.className = 'quick-link';
+      quickLinkWrapperEl.append(quickLinkTextEl);
+    });
+  }
+  block.prepend(outWrapper);
+  block.appendChild(quickLinkWrapperEl);
+};
+
 export default async function decorate(block) {
+  const isEditMode = block.hasAttribute('data-aue-resource');
+  if (isEditMode) {
+    generateAuthorSearchBox(block);
+    return;
+  }
   // Input和Quick Link的父级容器
   const searchBoxWrapper = document.createElement('div');
   searchBoxWrapper.className = 'out-wrapper';

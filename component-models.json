@@ -3319,6 +3319,13 @@
         "component": "aem-content",
         "name": "link",
         "label": "Link"
+      },
+      {
+        "component": "boolean",
+        "name": "enable-search",
+        "label": "Enable Search Box",
+        "valueType": "boolean",
+        "value": false
       }
     ]
   },
@@ -4136,6 +4143,10 @@
     ]
   },
   {
+    "id": "search-box-navigation",
+    "fields": []
+  },
+  {
     "id": "search-box",
     "fields": [
       {
@@ -4149,6 +4160,12 @@
         "valueType": "string",
         "name": "placeholder",
         "label": "Placeholder Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "suggestion-label",
+        "label": "Suggestion Lable"
       }
     ]
   },

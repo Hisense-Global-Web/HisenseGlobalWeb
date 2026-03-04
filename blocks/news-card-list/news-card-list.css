@@ -125,6 +125,11 @@
             line-height: 1.2;
             margin-bottom: var(--size-20);
             color: var(--color-hisense-black);
+            text-overflow: ellipsis;
+            overflow: hidden;
+            -webkit-line-clamp: 2;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
             
             @media (width < 860px) {
               font-size: var(--size-16);
