@@ -166,7 +166,15 @@ export default async function decorate(block) {
 
   const titleText = config.title || 'Related Press Releases';
   const edsBaseUrl = window.EDS_BASE_URL || window.location.origin;
-  const endpoint = config.endpoint || `${edsBaseUrl}/us/en/newsroom.json`;
+
+  const segments = window.location.pathname.split('/').filter(Boolean);
+  const isContentPath = segments[0] === 'content';
+  const countryIndex = isContentPath ? 2 : 0;
+  const languageIndex = isContentPath ? 3 : 1;
+  const country = segments[countryIndex] || 'us';
+  const language = country.toLowerCase() === 'us' ? 'en' : (segments[languageIndex] || 'en');
+
+  const endpoint = config.endpoint || `${edsBaseUrl}/${country}/${language}/newsroom.json`;
   const filterTags = config['filter-tags'];
   const pageSize = Number.parseInt(config['page-size'], 10) || 3;
   const emptyText = config['empty-text'] || 'No press releases found.';

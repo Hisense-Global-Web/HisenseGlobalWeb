@@ -343,13 +343,17 @@ async function fetchNewsroom(offset, limit, dataSource) {
 
   const segments = pathname.split('/').filter(Boolean);
 
-  const country = segments[0] || 'us';
+  const isContentPath = segments[0] === 'content';
+  const countryIndex = isContentPath ? 2 : 0;
+  const languageIndex = isContentPath ? 3 : 1;
+
+  const country = segments[countryIndex] || 'us';
   let language;
 
   if (country.toLowerCase() === 'us') {
     language = 'en';
   } else {
-    language = segments[1] || 'en';
+    language = segments[languageIndex] || 'en';
   }
 
   const baseUrl = window.EDS_BASE_URL || window.location.origin;
