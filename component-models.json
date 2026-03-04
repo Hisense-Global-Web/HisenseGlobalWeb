@@ -3189,11 +3189,25 @@
     "id": "media-contact-card-item",
     "fields": [
       {
-        "component": "richtext",
-        "name": "list",
-        "value": "list",
-        "label": "List",
+        "component": "text",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "label": "Content"
+      },
+      {
+        "component": "reference",
+        "name": "email-icon",
+        "label": "Email Icon",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "email-address",
+        "label": "Email Address"
       },
       {
         "component": "text",
@@ -4096,10 +4110,27 @@
         "multi": false
       },
       {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "subTitle",
+        "valueType": "string"
+      },
+      {
         "component": "richtext",
         "name": "text",
-        "label": "Text",
-        "description": "Use H2-H6 headings to structure your content",
+        "label": "Rich Text",
         "valueType": "string"
       },
       {
