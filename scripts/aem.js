@@ -401,7 +401,7 @@ function wrapTextNodes(block) {
       )
       .forEach(({ nodeName, nodeValue }) => {
         wrapper.setAttribute(nodeName, nodeValue);
-        el.removeAttribute(nodeName);
+        if(!nodeName.startsWith('data-richtext'))el.removeAttribute(nodeName);
       });
     el.append(wrapper);
   };
@@ -619,6 +619,7 @@ function decorateBlock(block) {
     block.classList.add('block');
     block.dataset.blockName = shortBlockName;
     block.dataset.blockStatus = 'initialized';
+    block.dataset.richtext = block.querySelector('p')['data-aue-type'] === 'richtext';
     wrapTextNodes(block);
     const blockWrapper = block.parentElement;
     blockWrapper.classList.add(`${shortBlockName}-wrapper`);
