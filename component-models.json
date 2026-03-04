@@ -857,31 +857,7 @@
     ]
   },
   {
-    "id": "authorized-reseller-our",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "authorized-reseller-our-item",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "item-image",
-        "value": "",
-        "label": "Logo",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "authorized-reseller",
+    "id": "authorized-reseller-badge",
     "fields": [
       {
         "component": "reference",
@@ -907,7 +883,7 @@
     ]
   },
   {
-    "id": "authorized-reseller-item",
+    "id": "authorized-reseller-badge-item",
     "fields": [
       {
         "component": "reference",
@@ -922,6 +898,30 @@
         "label": "Text",
         "valueType": "string",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "authorized-resellers-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-resellers-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-image",
+        "value": "",
+        "label": "Logo",
+        "valueType": "string"
       }
     ]
   },

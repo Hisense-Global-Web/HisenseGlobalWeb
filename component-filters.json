@@ -21,8 +21,8 @@
       "article-body",
       "article-body-list",
       "article-title",
-      "authorized-reseller",
-      "authorized-reseller-our",
+      "authorized-reseller-badge",
+      "authorized-resellers-list",
       "bi-directional-content",
       "button",
       "card-carousel",
@@ -178,15 +178,15 @@
     ]
   },
   {
-    "id": "authorized-reseller-our",
+    "id": "authorized-reseller-badge",
     "components": [
-      "authorized-reseller-our-item"
+      "authorized-reseller-badge-item"
     ]
   },
   {
-    "id": "authorized-reseller",
+    "id": "authorized-resellers-list",
     "components": [
-      "authorized-reseller-item"
+      "authorized-resellers-list-item"
     ]
   },
   {
