@@ -1,6 +1,6 @@
-export default function decorate(block) {
+export default function decorate() {
   try {
-    const isCenter = true;
+    // const isCenter = true;
     // const [textStyleP, titleP, subtitleP] = block.querySelectorAll('p');
     // titleP.classList.add('support-module-title-title');
     // if (isCenter) {
