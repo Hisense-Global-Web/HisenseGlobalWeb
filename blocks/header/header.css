@@ -627,6 +627,7 @@
 .dropdown-products {
   display: flex;
   gap: 40px;
+  flex-wrap: wrap;
 }
 
 .dropdown-product {
@@ -726,6 +727,7 @@
   margin-left: 60px;
   color: #666;
   font-weight: 500;
+  flex-shrink: 0;
 }
 
 .dropdown-links a {
