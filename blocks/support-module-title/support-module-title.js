@@ -1,14 +1,14 @@
 export default function decorate(block) {
   try {
     const [title, subtitle] = block.querySelectorAll('p');
-    title.classList.add('section-title-title');
+    title.classList.add('support-module-title-title');
     // If subtitle exists
     if (subtitle) {
       // Check if subtitle is empty
       if (subtitle?.innerHTML?.trim() === '') {
         subtitle.remove();
       } else {
-        subtitle.classList.add('section-title-subtitle');
+        subtitle.classList.add('support-module-title-subtitle');
       }
     }
   } catch (error) {
