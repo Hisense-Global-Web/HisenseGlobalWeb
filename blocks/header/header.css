@@ -799,6 +799,12 @@
   }
 }
 
+#navigation.is-support.show-menu .mobile-menu {
+  @media (width < 1180px) {
+    display: none;
+  }
+}
+
 @media (width < 1180px) {
   #navigation.show-menu {
     background: #fff;
