@@ -11,6 +11,7 @@ export default function decorate(block) {
   const subtitle = config.subtitle || '';
   const buttonText = config['button-to-download'] || '';
   const downloadAllLink = config['download-all-link'] || '';
+  const downloadAllIcon = config['download-all-icon'] || '';
   const totalSizeText = config['total-size-text'] || 'Total file size';
 
   // Main container
@@ -48,7 +49,7 @@ export default function decorate(block) {
   imageList.className = 'image-list';
 
   const allRows = [...block.children];
-  const configKeys = ['title', 'subtitle', 'button-to-download', 'download-all-link', 'total-size-text'];
+  const configKeys = ['title', 'subtitle', 'button-to-download', 'download-all-link', 'download-all-icon', 'total-size-text'];
   const itemRows = allRows.filter((row) => {
     if (row.children.length === 2) {
       const firstCol = row.children[0].textContent.trim().toLowerCase();
@@ -180,7 +181,7 @@ export default function decorate(block) {
   // Folder icon
   const folderIcon = document.createElement('img');
   folderIcon.className = 'folder-icon';
-  folderIcon.src = DEFAULT_FOLDER_ICON;
+  folderIcon.src = downloadAllIcon || DEFAULT_FOLDER_ICON;
   folderIcon.alt = 'Folder';
   downloadPanel.appendChild(folderIcon);
 

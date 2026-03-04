@@ -22,9 +22,12 @@ export default function decorate(block) {
   });
 
   if (config.title) {
-    const titleEl = document.createElement('div');
-    titleEl.classList.add('share-title');
+    let titleEl = block.parentNode.querySelector('.share-title');
+    if (!titleEl) {
+      titleEl = document.createElement('div');
+      titleEl.classList.add('share-title');
+      block.parentNode.prepend(titleEl);
+    }
     titleEl.innerHTML = config.title;
-    block.parentNode.prepend(titleEl);
   }
 }

@@ -1,5 +1,5 @@
 /* 页面部分样式 */
-.authorized-reseller {
+.authorized-reseller-badge {
   padding: var(--spacing-lg) 0;
   display: flex;
   align-items: center;
@@ -10,13 +10,13 @@
     flex-direction: column;
   }
 
-  .authorized-reseller-header-icon > div:first-child,
-  .authorized-reseller-header-title > div:first-child,
-  .authorized-reseller-header-subtitle > div:first-child {
+  .authorized-reseller-badge-header-icon > div:first-child,
+  .authorized-reseller-badge-header-title > div:first-child,
+  .authorized-reseller-badge-header-subtitle > div:first-child {
     display: none;
   }
 
-  .authorized-reseller-header-icon {
+  .authorized-reseller-badge-header-icon {
     flex: none;
     width: var(--size-100, 100px);
     height: var(--size-100, 100px);
@@ -36,12 +36,12 @@
     }
   }
 
-  .authorized-reseller-header-text {
+  .authorized-reseller-badge-header-text {
     width: calc(100% - var(--size-100, 100px) - var(--spacing-sm, 24px));
     flex: auto;
   }
 
-  .authorized-reseller-header-title {
+  .authorized-reseller-badge-header-title {
     color: var(--color-primary-green-50, #009F9C);
     font-size: var(--size-title2, 20px);
     font-weight: 400;
@@ -60,7 +60,7 @@
     }
   }
 
-  .authorized-reseller-header-subtitle {
+  .authorized-reseller-badge-header-subtitle {
     color: var(--color-hisense-black, #000);
     font-size: var(--fontsize-h2, 34px);
     font-weight: 400;
@@ -84,7 +84,7 @@
     }
   }
 
-  .authorized-reseller-list {
+  .authorized-reseller-badge-list {
     width: 100%;
     flex: 0 1 100%;
     margin-top: var(--spacing-sm, 24px);
@@ -99,7 +99,7 @@
     }
   }
 
-  .authorized-reseller-item {
+  .authorized-reseller-badge-item {
     width: calc(100% / 3 - var(--spacing-sm, 24px) *2 / 3);
     height: min(calc(255 / var(--breakpoint-pc) * 100vw), 255px);
     padding: var(--spacing-m, 32px);
@@ -124,7 +124,7 @@
     }
   }
 
-  .authorized-reseller-item-icon {
+  .authorized-reseller-badge-item-icon {
     padding: var(--spacing-4xs, 4px);
     height: min(calc(70 / var(--breakpoint-pc) * 100vw), 70px);
     display: flex;
@@ -144,7 +144,7 @@
     }
   }
 
-  .authorized-reseller-item-title {
+  .authorized-reseller-badge-item-title {
     color: var(--color-primary-grey-100, #000);
     text-align: center;
     font-size: var(--size-14, 14px);
