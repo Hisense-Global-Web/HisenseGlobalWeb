@@ -4060,6 +4060,18 @@
     ]
   },
   {
+    "id": "region-page-title",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "related-news",
     "fields": [
       {
