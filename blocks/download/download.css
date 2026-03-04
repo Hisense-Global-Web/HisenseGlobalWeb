@@ -20,7 +20,7 @@ main .section.download-container .download-wrapper {
 
       @media (width < 860px) {
         width: 100%;
-        padding: var(--size-24);
+        padding: var(--size-24) var(--size-24) var(--size-32);
       }
 
       .title-group {

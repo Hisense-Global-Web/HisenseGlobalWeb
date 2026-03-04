@@ -71,7 +71,15 @@
           "valueType": "string",
           "name": "downloadLink",
           "label": "Download Link",
-          "multi": false        }
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "format-detection",
+          "label": "Format Detection",
+          "value": "telephone=no"
+        }
       ]
     }
   ]

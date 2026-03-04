@@ -799,6 +799,12 @@
   }
 }
 
+#navigation.is-support.show-menu .mobile-menu {
+  @media (width < 1180px) {
+    display: none;
+  }
+}
+
 @media (width < 1180px) {
   #navigation.show-menu {
     background: #fff;
@@ -987,6 +993,10 @@
   }
 
   #navigation.is-support {
+    .mobile-second-menu.support {
+      padding: 0 40px !important;
+    }
+    
     .support-product {
       &.mobile-link.hide {
         .mobile-link-title-line {
