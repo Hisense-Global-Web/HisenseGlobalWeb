@@ -396,12 +396,11 @@ function wrapTextNodes(block) {
       // move the instrumentation from the cell to the new paragraph, also keep the class
       // in case the content is a buttton and the cell the button-container
       .filter(({ nodeName }) => nodeName === 'class'
-        || (nodeName.startsWith('data-aue') && nodeName !== 'data-aue-type')
-        || nodeName.startsWith('data-richtext')
-      )
+        || nodeName.startsWith('data-aue')
+        || nodeName.startsWith('data-richtext'))
       .forEach(({ nodeName, nodeValue }) => {
         wrapper.setAttribute(nodeName, nodeValue);
-        if(!nodeName.startsWith('data-richtext'))el.removeAttribute(nodeName);
+        el.removeAttribute(nodeName);
       });
     el.append(wrapper);
   };

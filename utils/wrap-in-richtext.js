@@ -1,26 +1,19 @@
-export default function wrapInRichtext (element) {
-    if(![...element.children].length || element.tagName === 'LI') {
-            if(String(element.textContent)?.includes('/n')) {
-                const textNodes = element.textContent.split('/n');
-                console.log(textNodes);
-                
-                if(textNodes.filter(item=>item).length) {
-                    element.replace('//n/g','<br>');
-                } else {
-                    element.innerHTML = `<br>`;
-                }
-            }
-            else {
-                console.log(element,element.tagName,element.tagName==='LI');
-                if(element.tagName === 'LI') {
-                    console.log(element.textContent,'li-content');
-                    // item.textContent.replace('//n/g', '<br>');
-                }
-            }
+export default function wrapInRichtext(element) {
+    // if the element has no children or it's specifically an <li>,
+    // operate on its innerHTML.  <li> tags may already contain
+    // <br> elements, so we can't rely on textContent alone.
+    if (!element.children.length || element.tagName === 'LI') {
+        const html = element.innerHTML;
+
+        // replace every literal "/n" sequence with a <br> element.
+        // existing <br> tags are preserved, and if the li already
+        // contains both <br> and "/n" the latter will simply be
+        // converted without affecting the former.
+        if (html.includes('/n')) {
+            element.innerHTML = html.replace(/\/n/g, '<br>');
+        }
     } else {
-        [...element.children].forEach(item => {
-            wrapInRichtext(item);
-        });
+        // recursively process children
+        [...element.children].forEach(child => wrapInRichtext(child));
     }
-    
 }

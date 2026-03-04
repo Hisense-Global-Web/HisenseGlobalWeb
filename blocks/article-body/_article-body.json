@@ -10,7 +10,7 @@
             "template": {
               "name": "Article Body",
               "filter": "article-body",
-              "classes": "article-body richtext-component"
+              "classes": "article-body"
             }
           }
         }

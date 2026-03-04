@@ -1,3 +1,5 @@
+import wrapInRichtext from '../../utils/wrap-in-richtext.js';
+
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   if (isEditMode) {
@@ -64,4 +66,5 @@ export default function decorate(block) {
     }
   });
   block.replaceChildren(...ArticleBodyDiv.children);
+  wrapInRichtext(block);
 }
