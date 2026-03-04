@@ -183,7 +183,6 @@ export default async function decorate(block) {
     featuredContent.appendChild(excerptEl);
   }
 
-  console.log(data.author);
   if (data.author) {
     const authorMetaGroupEl = document.createElement('div');
     authorMetaGroupEl.classList.add('featured-author-meta-group');

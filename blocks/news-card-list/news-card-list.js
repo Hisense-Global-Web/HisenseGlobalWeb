@@ -529,7 +529,11 @@ export default async function decorate(block) {
       return;
     }
 
-    document.querySelector('.section-title .result-num span').textContent = totalItems;
+    try {
+      document.querySelector('.section-title .result-num span').textContent = totalItems;
+    } catch (e) {
+      // something went awry
+    }
     const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
     const safePage = Math.min(Math.max(page, 1), totalPages);
     const startIndex = (safePage - 1) * pageSize;
