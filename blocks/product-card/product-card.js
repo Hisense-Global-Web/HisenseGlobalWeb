@@ -667,7 +667,9 @@ export default function decorate(block) {
         const labelSpan = document.createElement('span');
         labelSpan.textContent = 'Compare';
         compareEl.append(compareIcon, labelSpan);
+        // 卡片添加 【Compare】按钮
         card.append(compareEl);
+        // 【Compare】 点击事件
         compareEl.addEventListener('click', (compareE) => {
           compareE.stopPropagation();
           // 最多只能比较3个产品
@@ -677,12 +679,14 @@ export default function decorate(block) {
           compareEl.classList.toggle('compare-checked');
           const isAdded = compareEl.classList.contains('compare-checked');
           if (isAdded) {
-            // 更新数据源
+            // 新增比较数据
             compareDataArr.push(variant);
             const compareBarAllLi = document.querySelectorAll('.plp-compare-card-item');
+            // 只有选择了2个产品时，才展示页面询问固定栏
             if (compareDataArr.length === 2) {
               document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
             }
+            // 为底部固定栏中的对应li 设置已选择产品的图片、产品名称
             compareBarAllLi.forEach((curLi, index) => {
               if (index === compareDataArr.length - 1) {
                 setCompareProductImgTit(curLi, variant);
@@ -696,7 +700,7 @@ export default function decorate(block) {
               // 获取按钮所在的 li (parentNode 因为按钮直接放在li内)
               const parentLi = target.closest('.plp-compare-card-item');
               if (!parentLi) return;
-              // 获取 li 上存储的数据 id
+              // 获取 li 上存储的产品 id
               const delCompareId = parentLi.dataset.compareId;
               if (!delCompareId) return;
               // filter 数据源
