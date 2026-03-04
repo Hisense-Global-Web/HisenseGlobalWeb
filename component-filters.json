@@ -79,6 +79,7 @@
       "product-filters-carousel",
       "product-gallery",
       "product-information",
+      "product-resources",
       "product-section",
       "product-sorting",
       "product-spec",
@@ -153,12 +154,6 @@
     "id": "accessories-feature",
     "components": [
       "accessories-feature-item"
-    ]
-  },
-  {
-    "id": "additional-support-card",
-    "components": [
-      "additional-support-card-item"
     ]
   },
   {
