@@ -129,6 +129,13 @@ function readTagConfig(block) {
 }
 
 export default async function decorate(block) {
+  const resource = block.dataset.aueResource;
+  if (resource && block.parentNode) {
+    [...block.parentNode.querySelectorAll('.tag.block')]
+      .filter((el) => el !== block && el.dataset.aueResource === resource)
+      .forEach((el) => el.remove());
+  }
+
   const config = readTagConfig(block);
   const {
     title, tagPaths, link, target,
