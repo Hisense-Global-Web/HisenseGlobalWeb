@@ -590,7 +590,7 @@
     ]
   },
   {
-    "id": "addional-support-card-item",
+    "id": "additional-support-card-item",
     "fields": [
       {
         "component": "reference",

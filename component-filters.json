@@ -112,7 +112,7 @@
       "information-list-module",
       "quick-action-card",
       "category-support-card",
-      "addional-support-card",
+      "additional-support-card",
       "tech-information",
       "past-partnerships-list",
       "partnerships-section-title",
@@ -156,9 +156,9 @@
     ]
   },
   {
-    "id": "addional-support-card",
+    "id": "additional-support-card",
     "components": [
-      "addional-support-card-item"
+      "additional-support-card-item"
     ]
   },
   {
