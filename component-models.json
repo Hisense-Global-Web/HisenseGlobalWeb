@@ -895,6 +895,30 @@
     ]
   },
   {
+    "id": "authorized-reseller-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "authorized-reseller-list-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-image",
+        "value": "",
+        "label": "Logo",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "bi-directional-content",
     "fields": [
       {

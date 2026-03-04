@@ -84,7 +84,7 @@
     }
   }
 
-  .authorized-reseller-list {
+  .authorized-reseller-badge-list {
     width: 100%;
     flex: 0 1 100%;
     margin-top: var(--spacing-sm, 24px);

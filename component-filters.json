@@ -184,6 +184,12 @@
     ]
   },
   {
+    "id": "authorized-reseller-list",
+    "components": [
+      "authorized-reseller-list-item"
+    ]
+  },
+  {
     "id": "bi-directional-content",
     "components": [
       "bi-directional-content-item"

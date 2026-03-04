@@ -6,7 +6,7 @@ export default function decorate(block) {
     textContainer.classList.add('authorized-reseller-badge-header-text');
 
     const listContainer = document.createElement('div');
-    listContainer.classList.add('authorized-reseller-list');
+    listContainer.classList.add('authorized-reseller-badge-list');
 
     elementItems.forEach((element, index) => {
       if (index === 0) {
