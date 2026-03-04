@@ -614,6 +614,9 @@
           "label": "Remove Link"
         }
       }
-    }
+    },
+    "components": [
+      "richtext"
+    ]
   }
 ]
