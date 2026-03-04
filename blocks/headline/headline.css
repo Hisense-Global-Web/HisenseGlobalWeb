@@ -92,6 +92,7 @@
           font-size: var(--size-16);
           line-height: 1.5;
           color: var(--color-primary-grey-70);
+          font-weight: var(--fontweight-book);
 
           /* flex: 1; */
           margin-bottom: var(--size-24);
