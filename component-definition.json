@@ -83,7 +83,7 @@
                   "model": "popup-module",
                   "filter": "popup-module",
                   "classes": "h-popup-module-wrapper",
-                  "style_popupVisibility": "popup-show"
+                  "style_popupVisibility": ""
                 }
               }
             }
@@ -893,6 +893,23 @@
                   "title_name": "This is the title",
                   "subtitle_name": "This is the subtitle",
                   "description_name": "This is the description"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Exception Page",
+          "id": "exception-page",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Exception Page",
+                  "model": "exception-page",
+                  "key-value": true,
+                  "classes": "error-information"
                 }
               }
             }
@@ -2215,6 +2232,23 @@
           }
         },
         {
+          "title": "Search Box Navigation",
+          "id": "search-box-navigation",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Search Box Navigation",
+                  "model": "search-box-navigation",
+                  "filter": "search-box-navigation",
+                  "classes": "search-box-navigation-block"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Search Box",
           "id": "search-box",
           "plugins": {
@@ -2227,6 +2261,7 @@
                   "key-value": true,
                   "search-link": "/search",
                   "placeholder": "Search",
+                  "suggestion-label": "",
                   "filter": "search-box"
                 }
               }
@@ -2243,22 +2278,6 @@
                 "template": {
                   "name": "Quick Link Item",
                   "model": "search-box-quick-link-item"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Section Title",
-          "id": "section-title",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Section Title",
-                  "model": "section-title",
-                  "classes": "section-title"
                 }
               }
             }
@@ -2372,6 +2391,22 @@
                   "name": "Sub Menu Link",
                   "model": "sub-menu-link",
                   "classes": "sub-menu-link"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Support Module Title",
+          "id": "support-module-title",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Support Module Title",
+                  "model": "support-module-title",
+                  "classes": "support-module-title"
                 }
               }
             }

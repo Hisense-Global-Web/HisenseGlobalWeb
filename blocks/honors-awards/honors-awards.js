@@ -9,7 +9,7 @@ export default function decorate(block) {
   [...block.children].forEach((row, i) => {
     if (i === 0) {
       title.className = 'title';
-      title.append(row);
+      title.append(...row.children);
     } else {
       const li = document.createElement('div');
       li.classList.add('card-item');

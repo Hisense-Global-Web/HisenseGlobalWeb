@@ -240,6 +240,7 @@ main .section.download-container .download-wrapper {
             font-size: var(--size-12);
             line-height: 1.5;
             color: var(--color-primary-grey-50);
+            font-weight: var(--fontweight-book);
           }
         }
       }

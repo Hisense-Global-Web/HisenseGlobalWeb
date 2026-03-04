@@ -1798,6 +1798,46 @@
     ]
   },
   {
+    "id": "exception-page",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "exceptionicon",
+        "value": "",
+        "label": "Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "exceptiontitle",
+        "value": "",
+        "label": "Exception Scenario Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "exceptiondescription",
+        "value": "",
+        "label": "Exception Scenario Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "btntext",
+        "value": "",
+        "label": "Button Copy",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "btnlink",
+        "value": "",
+        "label": "Button Link",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "faq-module",
     "fields": [
       {
@@ -3279,6 +3319,13 @@
         "component": "aem-content",
         "name": "link",
         "label": "Link"
+      },
+      {
+        "component": "boolean",
+        "name": "enable-search",
+        "label": "Enable Search Box",
+        "valueType": "boolean",
+        "value": false
       }
     ]
   },
@@ -4096,6 +4143,10 @@
     ]
   },
   {
+    "id": "search-box-navigation",
+    "fields": []
+  },
+  {
     "id": "search-box",
     "fields": [
       {
@@ -4109,6 +4160,12 @@
         "valueType": "string",
         "name": "placeholder",
         "label": "Placeholder Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "suggestion-label",
+        "label": "Suggestion Lable"
       }
     ]
   },
@@ -4128,25 +4185,6 @@
         "label": "Link Text",
         "valueType": "string",
         "value": ""
-      }
-    ]
-  },
-  {
-    "id": "section-title",
-    "fields": [
-      {
-        "component": "text",
-        "name": "section_title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "section_subtitle",
-        "value": "",
-        "label": "Subtitle",
-        "valueType": "string"
       }
     ]
   },
@@ -4308,6 +4346,41 @@
           "numberMin": 1,
           "numberMax": 5
         }
+      }
+    ]
+  },
+  {
+    "id": "support-module-title",
+    "fields": [
+      {
+        "component": "select",
+        "name": "text-style",
+        "label": "Style",
+        "value": "left",
+        "options": [
+          {
+            "name": "Text Left",
+            "value": "left"
+          },
+          {
+            "name": "Text Center",
+            "value": "center"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "section_title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "section_subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
       }
     ]
   },

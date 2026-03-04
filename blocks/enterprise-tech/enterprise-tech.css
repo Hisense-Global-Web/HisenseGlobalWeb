@@ -164,6 +164,7 @@
             font-size: var(--size-18);
             line-height: var(--size-21);
             margin-top: 0;
+            font-weight: var(--fontweight-medium);
           }
 
           .description-box {

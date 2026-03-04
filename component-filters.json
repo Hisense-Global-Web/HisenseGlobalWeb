@@ -7,7 +7,8 @@
       "navigation",
       "company-page-navigation",
       "support-navigation",
-      "footerContainer"
+      "footerContainer",
+      "search-box-navigation"
     ]
   },
   {
@@ -88,7 +89,7 @@
       "related-news",
       "resource-list",
       "search-box",
-      "section-title",
+      "support-module-title",
       "slide",
       "social-media-list",
       "stats-grid",
@@ -106,7 +107,6 @@
       "videoinfo",
       "page-header",
       "icon-card-container",
-      "section-title",
       "parters-container",
       "information-list-module",
       "quick-action-card",
@@ -132,6 +132,7 @@
       "bi-directional-content",
       "key-features-card-container",
       "legal-content",
+      "exception-page",
       "accessories-feature"
     ]
   },
@@ -446,6 +447,12 @@
     "id": "resource-list",
     "components": [
       "resource-list-item"
+    ]
+  },
+  {
+    "id": "search-box-navigation",
+    "components": [
+      "search-box"
     ]
   },
   {

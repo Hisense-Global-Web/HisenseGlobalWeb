@@ -1,16 +1,16 @@
 {
   "definitions": [
     {
-      "title": "Section Title",
-      "id": "section-title",
+      "title": "Support Module Title",
+      "id": "support-module-title",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Section Title",
-              "model": "section-title",
-              "classes": "section-title"
+              "name": "Support Module Title",
+              "model": "support-module-title",
+              "classes": "support-module-title"
             }
           }
         }
@@ -19,8 +19,24 @@
   ],
   "models": [
     {
-      "id": "section-title",
+      "id": "support-module-title",
       "fields": [
+        {
+          "component": "select",
+          "name": "text-style",
+          "label": "Style",
+          "value": "left",
+          "options": [
+            {
+              "name": "Text Left",
+              "value": "left"
+            },
+            {
+              "name": "Text Center",
+              "value": "center"
+            }
+          ]
+        },
         {
           "component": "text",
           "name": "section_title",
