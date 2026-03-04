@@ -1643,11 +1643,19 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "download-all-link",
         "label": "Download All Link",
         "description": "Link for downloading all resources (optional)",
         "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "download-all-icon",
+        "label": "Download All Icon",
+        "description": "Custom icon for download all button (default icon will be used if not set)",
+        "valueType": "string",
+        "multi": false
       },
       {
         "component": "text",
@@ -1702,7 +1710,7 @@
         "multi": false
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "download-link",
         "label": "Download Link",
         "description": "Link to the downloadable file",
@@ -3454,6 +3462,13 @@
         "label": "Empty Result Text",
         "description": "Text to show when no news items match the current filters.",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "discover-more-text",
+        "label": "Discover More Button Text",
+        "description": "Text for the mobile 'load more' button.",
+        "valueType": "string"
       }
     ]
   },
@@ -4107,13 +4122,6 @@
     "id": "resource-list-item",
     "fields": [
       {
-        "component": "text",
-        "name": "download-asset",
-        "label": "Download Asset URL",
-        "description": "Enter the resource download link",
-        "valueType": "string"
-      },
-      {
         "component": "reference",
         "name": "icon",
         "label": "Icon",
@@ -4155,7 +4163,30 @@
         "component": "aem-content",
         "name": "button-link",
         "label": "Button Link",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "!==": [
+            {
+              "var": "card-type"
+            },
+            "download"
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "download-asset",
+        "label": "Download Asset URL",
+        "description": "Enter the resource download link",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "card-type"
+            },
+            "download"
+          ]
+        }
       },
       {
         "component": "select",
@@ -4688,7 +4719,7 @@
         "name": "tags",
         "label": "Tags",
         "valueType": "string",
-        "rootPath": "/content/cq:tags/hisense/download"
+        "rootPath": "/content/cq:tags/hisense/newsroom"
       },
       {
         "component": "aem-content",

@@ -1,52 +1,5 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 
-const MOCK_NEWSROOM_ITEMS = [
-  {
-    path: '/us/en/company/newsroom/article-3',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 3',
-    'published-date': '2026-02-09T06:55:15.717Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-rgb-1.png',
-    subtitle: 'PARTNERSHIP -3',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao -3',
-    keywords: 'Hisense, ESG, AI, Sustainability',
-  },
-  {
-    path: '/us/en/company/newsroom/article-4',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 4',
-    'published-date': '2026-02-09T06:56:08.838Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-micro-1.png',
-    subtitle: 'PARTNERSHIP -4',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao',
-    keywords: 'Hisense, Technology, Innovation',
-  },
-  {
-    path: '/us/en/company/newsroom/article-2',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones - 2',
-    'published-date': '2026-02-09T06:54:23.865Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/us/products/televisions/a6-series/key-visual/a6.png',
-    subtitle: 'PARTNERSHIP -2',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao -2',
-    keywords: 'Hisense, ESG, Strategy',
-  },
-  {
-    path: '/us/en/company/newsroom/article-body',
-    title: 'Hisense Accelerates ESG Strategy with AI-Driven Sustainability Milestones',
-    'published-date': '2026-02-09T06:29:23.342Z',
-    description: '',
-    thumbnail: '/content/dam/hisense/plp-product-filter-carousel/source-hi-qled.png',
-    subtitle: 'PARTNERSHIP',
-    date: '2026-02-05T00:00:00.000Z',
-    location: 'QingDao',
-    keywords: 'Hisense, ESG, Technology',
-  },
-];
-
 function getSearchFiltersFromUrl() {
   const params = new URLSearchParams(window.location.search || '');
   const filters = [];
@@ -388,32 +341,23 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 async function fetchNewsroom(offset, limit, dataSource) {
   const { pathname } = window.location;
 
-  // /content 开头，使用本地 mock 数据，避免跨域请求失败
-  if (pathname.startsWith('/content')) {
-    const start = Number.isFinite(offset) ? offset : 0;
-    const pageSize = Number.isFinite(limit) ? limit : MOCK_NEWSROOM_ITEMS.length;
-    const sliced = MOCK_NEWSROOM_ITEMS.slice(start, start + pageSize);
-
-    return {
-      data: sliced,
-      offset: start,
-      limit: pageSize,
-      total: MOCK_NEWSROOM_ITEMS.length,
-    };
-  }
-
   const segments = pathname.split('/').filter(Boolean);
 
-  const country = segments[0] || 'us';
+  const isContentPath = segments[0] === 'content';
+  const countryIndex = isContentPath ? 2 : 0;
+  const languageIndex = isContentPath ? 3 : 1;
+
+  const country = segments[countryIndex] || 'us';
   let language;
 
   if (country.toLowerCase() === 'us') {
     language = 'en';
   } else {
-    language = segments[1] || 'en';
+    language = segments[languageIndex] || 'en';
   }
 
-  const basePath = `/${country}/${language}/newsroom.json`;
+  const baseUrl = window.EDS_BASE_URL || window.location.origin;
+  const basePath = `${baseUrl}/${country}/${language}/newsroom.json`;
   const url = dataSource || basePath;
 
   const response = await fetch(url, { credentials: 'same-origin' });
@@ -426,7 +370,7 @@ async function fetchNewsroom(offset, limit, dataSource) {
 }
 
 async function loadAllNewsroom(pageSize, dataSource) {
-  const size = Number.isFinite(pageSize) ? pageSize : MOCK_NEWSROOM_ITEMS.length;
+  const size = Number.isFinite(pageSize) ? pageSize : dataSource.length;
   const json = await fetchNewsroom(0, size, dataSource);
   if (!json) return [];
   return normalizeNewsroomData(json);
@@ -444,6 +388,7 @@ export default async function decorate(block) {
   // const emptyText = config['empty-text'] || 'No news items match your filters.';
   const shouldPaginated = true;
   const paginatedBtnText = config['paginated-btn-text'] || '';
+  const discoverMoreText = config['discover-more-text'] || 'Discover more';
   const dataSource = config['data-source'] || '';
 
   const blockResource = block.getAttribute('data-aue-resource');
@@ -489,7 +434,9 @@ export default async function decorate(block) {
   const mobileBtn = document.createElement('button');
   mobileBtn.type = 'button';
   mobileBtn.classList.add('page-button');
-  mobileBtn.textContent = 'Discover more';
+  mobileBtn.textContent = discoverMoreText;
+  let mobileCurrentPage = 1;
+  let mobileAbortCtrl = null;
   mobilePaginationEl.appendChild(mobileBtn);
 
   const noPaginationEl = document.createElement('div');
@@ -520,12 +467,10 @@ export default async function decorate(block) {
 
     cardGroupEl.textContent = '';
     paginationEl.textContent = '';
+    mobileCurrentPage = 1;
 
     if (!totalItems) {
-      // const emptyEl = document.createElement('div');
-      // emptyEl.className = 'releases-empty';
-      // emptyEl.innerHTML = emptyText;
-      // cardGroupEl.appendChild(emptyEl);
+      mobilePaginationEl.style.display = 'none';
       return;
     }
 
@@ -544,6 +489,12 @@ export default async function decorate(block) {
       cardGroupEl.appendChild(card);
     });
 
+    // Mobile: show/hide "discover more" based on remaining items
+    const mobileShown = pageSize;
+    const mobileTotalPages = Math.ceil(totalItems / pageSize);
+    mobileCurrentPage = 1;
+    mobilePaginationEl.style.display = (mobileShown >= totalItems) ? 'none' : '';
+
     const state = {
       total: totalItems,
       limit: pageSize,
@@ -556,6 +507,26 @@ export default async function decorate(block) {
       if (targetPage > maxPage) return;
       loadPage(targetPage);
     }, isEditMode);
+
+    // Mobile "load more": append next page items without clearing previous
+    if (mobileAbortCtrl) mobileAbortCtrl.abort();
+    mobileAbortCtrl = new AbortController();
+
+    mobileBtn.addEventListener('click', () => {
+      mobileCurrentPage += 1;
+      if (mobileCurrentPage > mobileTotalPages) return;
+
+      const mobileStart = (mobileCurrentPage - 1) * pageSize;
+      const mobileItems = filteredItems.slice(mobileStart, mobileStart + pageSize);
+      mobileItems.forEach((item) => {
+        const card = buildCard(item);
+        cardGroupEl.appendChild(card);
+      });
+
+      if (mobileCurrentPage >= mobileTotalPages) {
+        mobilePaginationEl.style.display = 'none';
+      }
+    }, { signal: mobileAbortCtrl.signal });
   };
 
   await loadPage(1);

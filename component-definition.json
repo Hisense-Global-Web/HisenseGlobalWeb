@@ -820,6 +820,7 @@
                   "subtitle": "Select the image format you need to download",
                   "button-to-download": "Download All",
                   "download-all-link": "",
+                  "download-all-icon": "https://picsum.photos/80/80",
                   "total-size-text": "Total file size"
                 }
               }
@@ -1729,7 +1730,8 @@
                   "page-size": "9",
                   "empty-text": "No news items match your filters.",
                   "should-paginated": true,
-                  "data-source": "/us/en/newsroom.json"
+                  "data-source": "/us/en/newsroom.json",
+                  "discover-more-text": "Discover more"
                 }
               }
             }
