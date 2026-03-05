@@ -1,6 +1,5 @@
 /* 页面部分样式 */
 .highlight-note {
-  margin: var(--spacing-2xl) 0;
   padding: var(--spacing-m, 32px) var(--spacing-sm, 24px);
   display: flex;
   align-items: center;

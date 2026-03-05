@@ -217,15 +217,15 @@ main .section.download-container .download-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
-            
+
             &:hover {
               background-color: var(--color-primary-grey-70);
             }
-            
+
             &:active {
               color: rgb(255 255 255 / 80%);
             }
-            
+
             &:disabled {
               color: rgb(255 255 255 / 80%);
               background-color: var(--color-primary-grey-40);

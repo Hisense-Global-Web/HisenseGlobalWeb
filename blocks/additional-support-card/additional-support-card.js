@@ -2,12 +2,12 @@ export default function decorate(block) {
   try {
     const elementItems = [...block.children];
     elementItems.forEach((element) => {
-      element.classList.add('addional-support-card-item');
+      element.classList.add('additional-support-card-item');
       const [icon, title, subtitle, timeContainer, phoneNumber, displayButton, buttonLink] = element.children;
-      icon?.classList?.add('addional-support-card-item-icon');
-      title?.classList?.add('addional-support-card-item-title');
-      subtitle?.classList?.add('addional-support-card-item-subtitle');
-      timeContainer?.classList?.add('addional-support-card-item-time-container');
+      icon?.classList?.add('additional-support-card-item-icon');
+      title?.classList?.add('additional-support-card-item-title');
+      subtitle?.classList?.add('additional-support-card-item-subtitle');
+      timeContainer?.classList?.add('additional-support-card-item-time-container');
       const workingTime = timeContainer?.children[0];
       const responseTime = timeContainer?.children[1];
       workingTime?.classList?.add('working-time');
@@ -22,7 +22,7 @@ export default function decorate(block) {
       const buttonALink = buttonLink?.querySelector('a');
       if (buttonALink) {
         buttonALink?.classList?.remove('button');
-        buttonALink?.classList?.add('addional-support-card-item-link');
+        buttonALink?.classList?.add('additional-support-card-item-link');
         // Live Chart 可能需要第三方来实现，所以此处暂时注释掉
         // if (index === 0) {
         //   const circleDiv = document.createElement('div');
@@ -38,6 +38,6 @@ export default function decorate(block) {
     });
   } catch (error) {
     /* eslint-disable-next-line no-console */
-    console.error('Addional Support Card block decoration error:', error);
+    console.error('Additional Support Card block decoration error:', error);
   }
 }

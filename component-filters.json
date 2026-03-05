@@ -21,8 +21,8 @@
       "article-body",
       "article-body-list",
       "article-title",
-      "authorized-reseller",
-      "authorized-reseller-our",
+      "authorized-reseller-badge",
+      "authorized-resellers-list",
       "bi-directional-content",
       "button",
       "card-carousel",
@@ -112,7 +112,7 @@
       "information-list-module",
       "quick-action-card",
       "category-support-card",
-      "addional-support-card",
+      "additional-support-card",
       "tech-information",
       "past-partnerships-list",
       "partnerships-section-title",
@@ -156,12 +156,6 @@
     ]
   },
   {
-    "id": "addional-support-card",
-    "components": [
-      "addional-support-card-item"
-    ]
-  },
-  {
     "id": "article-body",
     "components": [
       "text-body-image",
@@ -178,15 +172,15 @@
     ]
   },
   {
-    "id": "authorized-reseller-our",
+    "id": "authorized-reseller-badge",
     "components": [
-      "authorized-reseller-our-item"
+      "authorized-reseller-badge-item"
     ]
   },
   {
-    "id": "authorized-reseller",
+    "id": "authorized-resellers-list",
     "components": [
-      "authorized-reseller-item"
+      "authorized-resellers-list-item"
     ]
   },
   {

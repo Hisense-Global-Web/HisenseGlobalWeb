@@ -61,6 +61,7 @@
   background: transparent;
   font-size: var(--fontsize-title2, 20px);
   color: var(--color-primary-grey-100, #000);
+  font-weight: var(--fontweight-book, 400);
   min-width: 0;
   height: var(--size-24, 24px);
   line-height: 1.2;
@@ -74,6 +75,7 @@
 
 .search-box .search-box-input::placeholder {
   color: var(--color-primary-grey-40, #bbb);
+  font-weight: var(--fontweight-light, 300);
 }
 
 .search-box .search-box-clear {
@@ -128,6 +130,7 @@
   justify-content: center;
   align-items: center;
   font-size: var(--fontsize-body1, 16px);
+  font-weight: var(--fontweight-book, 400);
   line-height: 1.5;
   color: var(--color-primary-grey-70, #333);
   padding: var(--spacing-3xs, 8px) var(--spacing-sm, 24px);

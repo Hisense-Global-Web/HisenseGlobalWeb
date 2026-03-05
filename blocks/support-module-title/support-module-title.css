@@ -27,7 +27,7 @@
     margin-bottom: 0;
     font-size: var(--fontsize-body1, 16px);
     color: var(--color-primary-grey-70, #333);
-    font-weight: var(--fontweight-book);
+    font-weight: var(--fontweight-book, 400);
     line-height: var(--line-height-m, 1.2);
     font-family: var(--font-family);
 

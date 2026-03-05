@@ -46,13 +46,6 @@
       "id": "resource-list-item",
       "fields": [
         {
-          "component": "text",
-          "name": "download-asset",
-          "label": "Download Asset URL",
-          "description": "Enter the resource download link",
-          "valueType": "string"
-        },
-        {
           "component": "reference",
           "name": "icon",
           "label": "Icon",
@@ -61,10 +54,27 @@
           "multi": false
         },
         {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "description",
+          "label": "Description",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "subtitle",
+          "label": "subTitle",
+          "valueType": "string"
+        },
+        {
           "component": "richtext",
           "name": "text",
-          "label": "Text",
-          "description": "Use H2-H6 headings to structure your content",
+          "label": "Rich Text",
           "valueType": "string"
         },
         {
@@ -77,7 +87,20 @@
           "component": "aem-content",
           "name": "button-link",
           "label": "Button Link",
-          "valueType": "string"
+          "valueType": "string",
+          "condition": {
+            "!==": [{ "var": "card-type" }, "download"]
+          }
+        },
+        {
+          "component": "aem-content",
+          "name": "download-asset",
+          "label": "Download Asset URL",
+          "description": "Enter the resource download link",
+          "valueType": "string",
+          "condition": {
+            "===": [{ "var": "card-type" }, "download"]
+          }
         },
         {
           "component": "select",
