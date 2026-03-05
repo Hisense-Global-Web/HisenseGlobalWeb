@@ -657,7 +657,7 @@
         ]
       },
       {
-        "component": "button_container",
+        "component": "container",
         "label": "",
         "name": "container_cta",
         "valueType": "string",
