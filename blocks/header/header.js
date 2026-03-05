@@ -1,4 +1,5 @@
 import { loadFragment } from '../fragment/fragment.js';
+import { getFragmentPath } from '../../scripts/locale-utils.js';
 
 function parseLogo(root) {
   const logoImg = root.querySelector('.navigation-logo-wrapper img');
@@ -629,7 +630,7 @@ const handleChangeNavPosition = (navigation) => {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  const navPath = `${window.hlx.codeBasePath}${window.location.href.includes('hisense.com') ? '/us/nav' : '/us/en/nav'}`;
+  const navPath = getFragmentPath('nav');
   const fragment = await loadFragment(navPath);
 
   // 解析原始DOM
