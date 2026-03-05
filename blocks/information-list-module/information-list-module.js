@@ -120,7 +120,6 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 const generateRightButton = (moduleType, info) => {
   const isDownload = moduleType === EModuleType.download;
   const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
-  const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
   buttonContainerEl.classList.add('operate-button-container');
   let pcIconEl; let btnTextEl; let btnColorEl; let btnLinkEl; let mobileIconEl;
   // 需要判断 PCIcon不存在的情况
@@ -141,15 +140,6 @@ const generateRightButton = (moduleType, info) => {
   btnColorEl?.remove();
   const btnLink = btnLinkEl?.textContent?.trim?.();
   btnLinkEl?.remove();
-  let pdfUrl = null;
-  if (pdfUrlEl) {
-    if (pdfUrlEl.querySelector('a')) {
-      pdfUrl = pdfUrlEl.querySelector('a').href;
-    } else if (pdfUrlEl.querySelector('img')) {
-      pdfUrl = pdfUrlEl.querySelector('img').src;
-    }
-  }
-  pdfUrlEl.remove();
 
   // PC端的按钮
   const buttonPCContainer = document.createElement('div');
@@ -170,21 +160,20 @@ const generateRightButton = (moduleType, info) => {
     mobileIconEl.className = 'download-button-mobile';
   }
 
-  const btnOperateUrl = isDownload ? pdfUrl : btnLink;
   const handleDownload = () => {
     if (isDownload) {
       const link = document.createElement('a');
-      link.href = btnOperateUrl;
-      link.download = btnOperateUrl.substring(btnOperateUrl.lastIndexOf('/') + 1);
+      link.href = btnLink;
+      link.download = btnLink.substring(btnLink.lastIndexOf('/') + 1);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } else {
-      window.location.href = btnOperateUrl;
+      window.location.href = btnLink;
     }
   };
 
-  if (btnOperateUrl) {
+  if (btnLink) {
     buttonContainerEl.classList.remove('disabled');
     buttonContainerEl.addEventListener('click', handleDownload);
   } else {
