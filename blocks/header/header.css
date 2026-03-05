@@ -895,7 +895,6 @@
   }
 
   #navigation .nav-container .nav-actions .nav-action-btn.mobile-menu-icon {
-    display: block;
     margin-left: 8px;
     height: 100%;
     display: flex;
@@ -918,7 +917,6 @@
     .nav-container
     .nav-actions
     .nav-action-btn.mobile-close-icon {
-    display: block;
     height: 100%;
     display: flex;
     justify-content: center;
