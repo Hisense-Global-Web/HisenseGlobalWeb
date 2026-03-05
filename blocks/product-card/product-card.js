@@ -300,6 +300,7 @@ export default function decorate(block) {
     compareBtnEl.textContent = 'Compare';
     // 显示对比详细信息弹窗
     compareBtnEl.addEventListener('click', () => {
+      document.body.style.overflow = 'hidden';
       document.querySelector('.compare-popup-wrapper').style.display = 'block';
       // 比较商品信息详细数据
       const compareDetailInfo = aggregateData(compareDataArr);
