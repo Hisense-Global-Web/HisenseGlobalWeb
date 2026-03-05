@@ -90,7 +90,9 @@ function getLocalizedEndpoint(configEndpoint, dataSource) {
   if (dataSource === 'graphql') {
     const prefix = segments[0] || '';
     const rest = segments.slice(3).join('/');
-    return rest ? `/${prefix}/${country}/${language}/${rest}` : `/${prefix}/${country}/${language}`;
+    const endsWithJson = configEndpoint.endsWith('.json');
+    if (rest) return `/${prefix}/${country}/${language}/${rest}`;
+    return endsWithJson ? `/${prefix}/${country}/${language}.json` : `/${prefix}/${country}/${language}`;
   }
 
   const lastSegment = segments[segments.length - 1] || '';
