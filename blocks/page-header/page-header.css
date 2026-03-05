@@ -2,6 +2,10 @@
   @media (width >= 860px) {
     padding: 0 !important;
   }
+
+  @media (width < 860px) {
+    padding-top: 112px !important;
+  }
 }
 
 .page-header-title {
@@ -13,7 +17,7 @@
   text-transform: capitalize;
 
   @media (width<860px) {
-    font-size: var(--size-30, 30px);
+    font-size: var(--fontsize-h3, 30px);
   }
 }
 
