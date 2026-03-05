@@ -127,7 +127,6 @@ export function renderCompareDetailData(compareDetailInfo, containerId) {
     // 创建属性项容器
     const nameItemDiv = document.createElement('div');
     nameItemDiv.className = 'product-title-item';
-    nameItemDiv.style.width = compareTit.length === 2 ? '50%' : '33%';
     // 创建产品名字
     const nameDiv = document.createElement('div');
     nameDiv.className = 'product-name';
@@ -165,7 +164,6 @@ export function renderCompareDetailData(compareDetailInfo, containerId) {
     values.forEach((value) => {
       const valueDiv = document.createElement('div');
       valueDiv.className = 'value-item';
-      valueDiv.style.width = compareTit.length === 2 ? '50%' : '33%';
       valueDiv.textContent = value;
       valuesDiv.appendChild(valueDiv);
     });
@@ -177,6 +175,25 @@ export function renderCompareDetailData(compareDetailInfo, containerId) {
   });
 }
 
+function comparePopupScroll() {
+  // 获取元素 popup 产品名称相对于滚动容器的顶部偏移量
+  const nameBoxEl = document.querySelector('.product-name-box');
+  const scrollBoxEl = document.querySelector('.popup-scroll-box');
+  const nameBoxElTop = nameBoxEl.getBoundingClientRect().top;
+  // 获取滚动容器相对于视口的顶部偏移量
+  const scrollBoxTop = scrollBoxEl.getBoundingClientRect().top;
+
+  // 计算元素产品名称相对于滚动容器的内部偏移：当差值≤0时，元素B触顶
+  const relativeTop = nameBoxElTop - scrollBoxTop;
+
+  // 控制激活类名：触顶时添加边框，否则移除
+  if (relativeTop <= 0) {
+    nameBoxEl.classList.add('sticky-active');
+  } else {
+    nameBoxEl.classList.remove('sticky-active');
+  }
+}
+
 // 比较弹窗详细信息
 export function createComparePopup() {
   const comparePopupWrapperEl = document.createElement('div');
@@ -184,6 +201,10 @@ export function createComparePopup() {
   const comparePopupContainerEl = document.createElement('div');
   comparePopupContainerEl.className = 'compare-popup-container';
   const comparePopupTitBoxEl = document.createElement('div');
+  const popupScrollBoxEl = document.createElement('div');
+  popupScrollBoxEl.className = 'popup-scroll-box';
+  // 监听滚动容器的滚动事件（仅监听弹窗内部滚动，不监听页面滚动）
+  popupScrollBoxEl.addEventListener('scroll', comparePopupScroll);
   // add card item close button
   const popupCloseBtn = document.createElement('div');
   popupCloseBtn.className = 'compare-popup-close';
@@ -224,10 +245,10 @@ export function createComparePopup() {
   propertyBoxEl.setAttribute('id', 'property-box-id');
 
   // 主体信息盒子里，追加 card 集合、specifications 集合
-  // productMainInfoBoxEl.append(productCardBoxEl, productSpecificationsBoxEl);
   productMainInfoBoxEl.append(productCardBoxEl, propertyBoxEl);
   // 为container 追加 popup title, card box, main info
-  comparePopupContainerEl.append(comparePopupTitBoxEl, compareProductNameBoxEl, productMainInfoBoxEl, popupCloseBtn);
+  popupScrollBoxEl.append(comparePopupTitBoxEl, compareProductNameBoxEl, productMainInfoBoxEl);
+  comparePopupContainerEl.append(popupCloseBtn, popupScrollBoxEl);
   comparePopupWrapperEl.append(comparePopupContainerEl);
   document.body.append(comparePopupWrapperEl);
 }

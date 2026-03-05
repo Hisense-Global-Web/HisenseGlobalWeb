@@ -46,8 +46,6 @@
       align-self: stretch;
 
       .title-area {
-        width: min(calc(488/var(--breakpoint-pc)*100vw), 488px);
-
         .title {
           color: var(--color-primary-green-60, #008482);
           font-size: var(--size-body2, 14px);

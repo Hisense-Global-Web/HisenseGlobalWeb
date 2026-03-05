@@ -1,4 +1,5 @@
 import { loadFragment } from '../fragment/fragment.js';
+import { getFragmentPath } from '../../scripts/locale-utils.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -525,13 +526,23 @@ function buildSupportDropdown(mainEl) {
 
 let hideSearchBoxPopupTimer = null;
 
+const getUrlParams = (paramName) => {
+  const params = new URLSearchParams(window.location.search);
+  return params ? params.get(paramName) : null;
+};
+
 const getSearchBoxInputWrapperEl = (searchBoxPopupEl) => searchBoxPopupEl.querySelectorAll('.input-wrapper')[1];
 
-const clearSearchBoxInput = (inputWrapperEl) => {
+const setSearchBoxInput = (inputWrapperEl) => {
   const inputEl = inputWrapperEl.querySelector('input');
   const clearButtonEl = inputWrapperEl.querySelector('.search-box-clear');
-  inputEl.value = '';
-  clearButtonEl.classList.remove('visible');
+  const fullText = getUrlParams('fulltext');
+  if (fullText) {
+    clearButtonEl.classList.add('visible');
+  } else {
+    clearButtonEl.classList.remove('visible');
+  }
+  inputEl.value = fullText || '';
 };
 
 const checkMobileSearchBox = (inputWrapperEl) => {
@@ -551,10 +562,10 @@ const toggleSearchBoxPopup = (e) => {
   const searchBoxPopupEl = document.querySelector('.search-box-popup');
   const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
   if ([...searchBoxPopupEl.classList].includes('show')) {
-    clearSearchBoxInput(inputWrapperEl);
+    setSearchBoxInput(inputWrapperEl);
     searchBoxPopupEl.classList.remove('show');
   } else {
-    clearSearchBoxInput(inputWrapperEl);
+    setSearchBoxInput(inputWrapperEl);
     searchBoxPopupEl.classList.add('show');
   }
 };
@@ -587,7 +598,7 @@ const hideSearchBoxPopup = (e) => {
     const searchBoxPopupEl = document.querySelector('.search-box-popup');
     const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
     if (searchBoxPopupEl) {
-      clearSearchBoxInput(inputWrapperEl);
+      setSearchBoxInput(inputWrapperEl);
       searchBoxPopupEl.classList.remove('show');
     }
   }, 200);
@@ -621,7 +632,7 @@ const handleChangeNavPosition = (navigation) => {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  const navPath = `${window.hlx.codeBasePath}${window.location.href.includes('hisense.com') ? '/us/nav' : '/us/en/nav'}`;
+  const navPath = getFragmentPath('nav');
   const fragment = await loadFragment(navPath);
 
   // 解析原始DOM

@@ -56,6 +56,10 @@
       color: var(--color-primary-grey-50, #747474);
       font-weight: var(--fontweight-book, 400);
       line-height: 1.5;
+
+      @media (width < 860px) {
+        font-size: var(--fontsize-body2, 14px);
+      }
     }
 
     .title > p,
