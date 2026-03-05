@@ -4210,7 +4210,7 @@
         "rootPath": "/content/cq:tags/hisense"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "valueType": "string",
         "name": "popularSearchLink",
         "label": "Popular Search Link (search page URL)"
