@@ -1,3 +1,4 @@
+import { isMobile, isMobileWindow } from '../../scripts/device.js';
 import {
   renderCompareDetailData,
   aggregateData,
@@ -303,11 +304,11 @@ export default function decorate(block) {
     // 显示对比详细信息弹窗
     compareBtnEl.addEventListener('click', () => {
       document.body.style.overflow = 'hidden';
-      document.querySelector('.compare-popup-wrapper').style.display = 'block';
       // 比较商品信息详细数据
       const compareDetailInfo = aggregateData(compareDataArr);
       // render compare popup detail data
       renderCompareDetailData(compareDetailInfo, 'property-box-id');
+      document.querySelector('.compare-popup-wrapper').style.display = 'block';
     });
     const compareBarCloseBtn = document.createElement('img');
     compareBarCloseBtn.className = 'plp-compare-bar-close';
@@ -688,6 +689,11 @@ export default function decorate(block) {
             // 只有选择了2个产品时，才展示页面询问固定栏
             if (compareDataArr.length === 2) {
               document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
+              // 底部 compare bar 出现时且为移动端时，为footer 添加 padding-bottom
+              if (isMobile() || isMobileWindow()) {
+                const footerWrapper = document.querySelector('.footer-wrapper');
+                footerWrapper.style.paddingBottom = `${(274 / 390) * window.innerWidth}px`;
+              }
             }
             // 为底部固定栏中的对应li 设置已选择产品的图片、产品名称
             compareBarAllLi.forEach((curLi, index) => {
