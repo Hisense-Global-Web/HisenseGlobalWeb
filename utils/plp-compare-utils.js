@@ -77,14 +77,23 @@ export function aggregateData(compareDataArr) {
   const allProductNameArr = []; // 所有比较商品的名字集合
   let tempCompareInfoObj = {}; // 比较信息对象包含：比较商品名称集合、比较商品属性集合
   const allAttrsArr = []; // 所有商品属性集合
+  const allProductImgArr = []; // 所有商品图片集合
 
   cloneCompareDataArr.forEach((compareDataItem) => {
     const itemAttrArr = []; // 每个商品的属性集合
+
     // 整合比较数据中的名字
     if (compareDataItem.series || compareDataItem.title) {
       allProductNameArr.push({
         productName: compareDataItem.title,
         productSeries: compareDataItem.series,
+      });
+    }
+    // 对比商品图片
+    const pPath = Object.keys(compareDataItem.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
+    if (pPath) {
+      allProductImgArr.push({
+        imgSrc: compareDataItem.mediaGallery_image ? compareDataItem.mediaGallery_image[pPath] : '',
       });
     }
     // 整合比较数据的所有属性
@@ -102,6 +111,7 @@ export function aggregateData(compareDataArr) {
   const comparePropertyArr = comparePropertyData(allAttrsArr); // 将相同属性归类到同一数组中
   tempCompareInfoObj = {
     compareTit: allProductNameArr,
+    compareImg: allProductImgArr,
     compareProperty: comparePropertyArr,
   };
   return tempCompareInfoObj;
@@ -113,15 +123,18 @@ export function aggregateData(compareDataArr) {
  * @param {string} containerId - 容器ID
  */
 export function renderCompareDetailData(compareDetailInfo, containerId) {
-  const { compareTit, compareProperty } = compareDetailInfo;
+  const { compareTit, compareImg, compareProperty } = compareDetailInfo;
   const container = document.getElementById(containerId);
   const nameBoxEl = document.querySelector('.product-name-box');
+  const imgWrapperEl = document.querySelector('.popup-img-wrapper');
   if (!container) return;
 
   // 清空容器
   container.innerHTML = '';
   nameBoxEl.innerHTML = '';
+  imgWrapperEl.innerHTML = '';
 
+  // 对比产品名字
   compareTit.forEach((titItem) => {
     // 创建属性项容器
     const nameItemDiv = document.createElement('div');
@@ -141,7 +154,20 @@ export function renderCompareDetailData(compareDetailInfo, containerId) {
     nameBoxEl.append(nameItemDiv);
   });
 
-  // 遍历聚合数据，生成DOM
+  // 对比产品图片
+  compareImg.forEach((imgItem) => {
+    const imgItemDiv = document.createElement('div');
+    imgItemDiv.className = 'popup-img-item';
+    const imgBoxEl = document.createElement('div');
+    imgBoxEl.className = 'img-box';
+    const imgEl = document.createElement('img');
+    imgEl.src = imgItem.imgSrc;
+    imgBoxEl.append(imgEl);
+    imgItemDiv.append(imgBoxEl);
+    imgWrapperEl.appendChild(imgItemDiv);
+  });
+
+  // 对比属性，遍历聚合数据，生成DOM
   compareProperty.forEach((item) => {
     // 获取属性名和值数组
     const [key] = Object.keys(item);
@@ -340,9 +366,9 @@ export function createComparePopup() {
   productMainInfoBoxEl.className = 'product-main-info-box';
   // productMainInfoBoxEl.setAttribute('id', 'compare-data-detail');
 
-  // 对比商品 card 集合
-  const productCardBoxEl = document.createElement('div');
-  productCardBoxEl.className = 'product-card-box';
+  // 对比商品 图片集合
+  const imgBoxDiv = document.createElement('div');
+  imgBoxDiv.className = 'popup-img-wrapper';
 
   // 对比商品属性集合
   const propertyBoxEl = document.createElement('div');
@@ -350,7 +376,7 @@ export function createComparePopup() {
   propertyBoxEl.setAttribute('id', 'property-box-id');
 
   // 主体信息盒子里，追加 card 集合、specifications 集合
-  productMainInfoBoxEl.append(productCardBoxEl, propertyBoxEl);
+  productMainInfoBoxEl.append(imgBoxDiv, propertyBoxEl);
   // 为container 追加 popup title, card box, main info
   popupScrollBoxEl.append(comparePopupTitBoxEl, compareProductNameBoxEl, productMainInfoBoxEl);
   comparePopupContainerEl.append(popupCloseBtn, popupScrollBoxEl);
