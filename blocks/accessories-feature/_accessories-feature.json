@@ -49,14 +49,16 @@
           "valueType": "string",
           "name": "title_content",
           "label": "Primary content",
-          "multi": false
+          "multi": false,
+          "required": true
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "title_secondary",
           "label": "Secondary Title",
-          "multi": false
+          "multi": false,
+          "required": true
         }
       ]
     },
@@ -68,19 +70,22 @@
           "valueType": "string",
           "name": "image",
           "label": "Image",
-          "multi": false
+          "multi": false,
+          "required": true
         },
          {
           "component": "text",
           "name": "text_title",
           "label": "Title",
-          "valueType": "string"
+          "valueType": "string",
+          "required": true
         },
          {
           "component": "text",
           "name": "text_subtitle",
           "label": "Sub Title",
-          "valueType": "string"
+          "valueType": "string",
+          "required": true
         }
       ]
     }
