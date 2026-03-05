@@ -89,9 +89,16 @@ main .section.resource-list-container .resource-list-wrapper {
           margin-bottom: var(--size-16);
           flex: 1;
           width: 100%;
+          color: var(--color-primary-grey-50);
+          font-size: var(--fontsize-body2);
+          line-height: 1.5;
           
           ul {
             padding-left: var(--size-20);
+          }
+          
+          p {
+            margin-bottom: var(--size-8);
           }
         }
         

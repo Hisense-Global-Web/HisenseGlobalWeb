@@ -30,7 +30,6 @@ export default function decorate(block) {
     moveInstrumentation(row, card);
 
     const cells = [...row.children];
-    console.log([...cells]);
     const iconCell = cells[0];
     const title = cells[1]?.textContent.trim() || '';
     const description = cells[2]?.textContent.trim() || '';
