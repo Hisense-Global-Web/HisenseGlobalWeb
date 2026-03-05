@@ -1,3 +1,4 @@
+const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
 export default async function decorate(block) {
   // console.log(block, 'bbb');
   const enterpriseCardWrapperEl = document.createElement('div');
@@ -32,7 +33,7 @@ export default async function decorate(block) {
         const mobileArrowEl = document.createElement('div');
         mobileArrowEl.className = 'mobile-arrow';
         const arrowImg = document.createElement('img');
-        arrowImg.src = '/content/dam/hisense/us/common-icons/chevron-white-up.svg';
+        arrowImg.src = `/content/dam/hisense/${country}/common-icons/chevron-white-up.svg`;
         arrowImg.alt = 'Arrow image';
         mobileArrowEl.append(arrowImg);
 

@@ -1,5 +1,7 @@
 import wrapInRichtext from '../../utils/wrap-in-richtext.js';
 
+const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   if (isEditMode) {
@@ -31,7 +33,7 @@ export default function decorate(block) {
       quoteDiv.className = 'text-body-quote';
       const imgEl = document.createElement('img');
       imgEl.className = 'quotation';
-      imgEl.src = '/content/dam/hisense/us/common-icons/quotation.svg';
+      imgEl.src = `/content/dam/hisense/${country}/common-icons/quotation.svg`;
       imgEl.alt = 'quotation';
       quoteDiv.append(imgEl);
       const notesDiv = row.children[2];

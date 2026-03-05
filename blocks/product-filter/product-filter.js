@@ -1,7 +1,7 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
-
+const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
 /**
  * Get tags endpoint URL with GraphQL base URL
  */
@@ -282,7 +282,7 @@ export default function decorate(block) {
       const titleSpan = document.createElement('span');
       titleSpan.textContent = titleText;
       const arrow = document.createElement('img');
-      arrow.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+      arrow.src = `/content/dam/hisense/${country}}/common-icons/chevron-up.svg`;
 
       const toggleExpand = (e) => {
         e.stopPropagation();
@@ -298,9 +298,9 @@ export default function decorate(block) {
       const list = document.createElement('ul');
       list.className = `plp-filter-list plp-tag-${tagType}-group`;
 
-      // /content/dam/hisense/us/common-icons/icon-carousel/radio-empty.svg
+      // /content/dam/hisense/${country}/common-icons/icon-carousel/radio-empty.svg
 
-      // /content/dam/hisense/us/common-icons/icon-carousel/radio.svg
+      // /content/dam/hisense/${country}/common-icons/icon-carousel/radio.svg
 
       const tags = tagsCsv.split(',').map((t) => t.trim()).filter(Boolean);
       tags.forEach((tagPath) => {
@@ -321,10 +321,10 @@ export default function decorate(block) {
         const InputIcon = document.createElement('span');
         InputIcon.className = 'input-icon';
         InputIcon.innerHTML = tagType === 'radio'
-          ? `<img class="icon-unchecked" src="/content/dam/hisense/us/common-icons/icon-carousel/radio-empty.svg" alt="" />
-          <img class="icon-checked" src="/content/dam/hisense/us/common-icons/icon-carousel/radio.svg" alt="" />`
-          : `<img class="icon-unchecked" src="/content/dam/hisense/us/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
-          <img class="icon-checked" src="/content/dam/hisense/us/common-icons/icon-carousel/checkbox.svg" alt="" />`;
+          ? `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/radio-empty.svg" alt="" />
+          <img class="icon-checked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/radio.svg" alt="" />`
+          : `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
+          <img class="icon-checked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox.svg" alt="" />`;
 
         const label = document.createElement('label');
         label.htmlFor = input.id;
@@ -402,14 +402,14 @@ export default function decorate(block) {
       const mobileFiltersSpan = document.createElement('span');
       mobileFiltersSpan.textContent = 'FILTERS';
       const mobileFiltersImg = document.createElement('img');
-      mobileFiltersImg.src = '/content/dam/hisense/us/common-icons/mobile-filters-title.svg';
+      mobileFiltersImg.src = `/content/dam/hisense/${country}/common-icons/mobile-filters-title.svg`;
       mobileFiltersImg.alt = 'Filters title';
       mobileProdctTagTit.append(mobileFiltersImg, mobileFiltersSpan);
 
       const closeBtn = document.createElement('div');
       closeBtn.className = 'mobile-filter-close';
       const closeImg = document.createElement('img');
-      closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
+      closeImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
       closeImg.alt = 'mobile-filter';
       closeBtn.addEventListener('click', () => {
         filterTagWrapperEl.classList.remove('mobile-filter-show');

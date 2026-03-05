@@ -1,8 +1,9 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
 const DEFAULT_ITEM_IMAGE = 'https://picsum.photos/90/60';
-const DEFAULT_DOWNLOAD_ICON = '/content/dam/hisense/us/common-icons/download.svg';
+const DEFAULT_DOWNLOAD_ICON = `/content/dam/hisense/${country}/common-icons/download.svg`;
 const DEFAULT_FOLDER_ICON = 'https://picsum.photos/80/80';
 
 export default function decorate(block) {

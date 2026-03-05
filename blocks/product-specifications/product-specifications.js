@@ -1,3 +1,4 @@
+const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
 export default async function decorate(block) {
   // 等待数据加载
   const waitForProductData = () => new Promise((resolve) => {
@@ -116,7 +117,7 @@ export default async function decorate(block) {
           const headerIcon = document.createElement('span');
           headerIcon.className = 'properties-header-icon';
           const iconImg = document.createElement('img');
-          iconImg.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+          iconImg.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
           iconImg.setAttribute('aria-hidden', 'true');
           iconImg.loading = 'lazy';
           headerIcon.appendChild(iconImg);

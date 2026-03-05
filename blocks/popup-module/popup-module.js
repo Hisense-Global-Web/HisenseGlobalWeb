@@ -1,9 +1,10 @@
+const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
 export default function decorate(block) {
   // create close button
   const closeDivEl = document.createElement('div');
   closeDivEl.className = 'popup-close';
   const closeImgEl = document.createElement('img');
-  closeImgEl.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+  closeImgEl.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
   closeImgEl.alt = 'Close Image';
   closeDivEl.append(closeImgEl);
 

@@ -6,6 +6,7 @@ import { isUniversalEditor } from '../../utils/ue-helper.js';
 let heroBannerTimer;
 let heroBannerInterval;
 let isInitializing = true; // 初始化锁
+const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
 
 function updateNavTheme(block, targetSlide, heroBannerHeight) {
   const nav = document.querySelector('#navigation');
@@ -241,10 +242,10 @@ function createScrollButton(type, direction) {
   // 创建图片元素
   const img = document.createElement('img');
   if (type === 'arrow') {
-    img.src = direction === 'left' ? '/content/dam/hisense/us/common-icons/switch-arrow-left.svg' : '/content/dam/hisense/us/common-icons/switch-arrow-right.svg';
+    img.src = direction === 'left' ? `/content/dam/hisense/${country}/common-icons/switch-arrow-left.svg` : `/content/dam/hisense/${country}/common-icons/switch-arrow-right.svg`;
     img.alt = direction === 'left' ? 'slide-left' : 'slide-right';
   } else {
-    img.src = direction === 'video-dark' ? '/content/dam/hisense/us/common-icons/pause-dark-mode.svg' : '/content/dam/hisense/us/common-icons/pause-light-mode.svg';
+    img.src = direction === 'video-dark' ? `/content/dam/hisense/${country}/common-icons/pause-dark-mode.svg` : `/content/dam/hisense/${country}/common-icons/pause-light-mode.svg`;
     img.alt = direction === 'video-dark' ? 'video-dark' : 'video-light';
     img.className = 'pause-icon';
   }
@@ -252,7 +253,7 @@ function createScrollButton(type, direction) {
   // 创建图片元素
   if (type === 'video') {
     const imgClick = document.createElement('img');
-    imgClick.src = direction === 'video-dark' ? '/content/dam/hisense/us/common-icons/play-dark-mode.svg' : '/content/dam/hisense/us/common-icons/play-light-mode.svg';
+    imgClick.src = direction === 'video-dark' ? `/content/dam/hisense/${country}/common-icons/play-dark-mode.svg` : `/content/dam/hisense/${country}/common-icons/play-light-mode.svg`;
     imgClick.alt = direction === 'video-dark' ? 'video-dark' : 'video-light';
     imgClick.className = 'play-icon';
     button.appendChild(imgClick);

@@ -103,6 +103,7 @@ function buildCard(item) {
     thumbnail,
   } = item;
 
+  const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
   const cardEl = document.createElement('div');
   cardEl.classList.add('releases-card');
 
@@ -187,7 +188,7 @@ function buildCard(item) {
     downloadEl.classList.add('meta-item');
     downloadEl.classList.add('meta-download');
     const iconImg = document.createElement('img');
-    iconImg.src = '/content/dam/hisense/us/common-icons/download.svg';
+    iconImg.src = `/content/dam/hisense/${country}/common-icons/download.svg`;
     iconImg.alt = 'Download';
     iconImg.classList.add('meta-icon');
     downloadEl.appendChild(iconImg);
@@ -212,6 +213,7 @@ function buildCard(item) {
 }
 
 function buildPaginationControls(container, state, onPageChange, isEditMode) {
+  const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
   const { total, limit, offset } = state;
 
   const paginationEl = container.querySelector('.releases-pagination');
@@ -233,19 +235,19 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 
     if (label === 'prev') {
       const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/left.svg';
+      icon.src = `/content/dam/hisense/${country}/common-icons/left.svg`;
       icon.className = 'page-arrow is-prev normal';
       const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
+      disabledIcon.src = `/content/dam/hisense/${country}/common-icons/left-disabled.svg`;
       disabledIcon.className = 'page-arrow is-prev disabled';
       btn.setAttribute('aria-label', 'Previous page');
       btn.append(icon, disabledIcon);
     } else if (label === 'next') {
       const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/right.svg';
+      icon.src = `/content/dam/hisense/${country}/common-icons/right.svg`;
       icon.className = 'page-arrow is-next normal';
       const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
+      disabledIcon.src = `/content/dam/hisense/${country}/common-icons/right-disabled.svg`;
       disabledIcon.className = 'page-arrow is-next disabled';
       btn.setAttribute('aria-label', 'Next page');
       btn.append(icon, disabledIcon);

@@ -1,3 +1,4 @@
+const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
 export default function decorate(block) {
   [...block.children].forEach((child) => {
     child.setAttribute('class', child.firstElementChild.textContent);
@@ -5,7 +6,7 @@ export default function decorate(block) {
   });
   const imgEl = document.createElement('img');
   imgEl.className = 'quotation';
-  imgEl.src = '/content/dam/hisense/us/common-icons/quotation.svg';
+  imgEl.src = `/content/dam/hisense/${country}/common-icons/quotation.svg`;
   imgEl.alt = 'quotation';
   block.append(imgEl);
 }

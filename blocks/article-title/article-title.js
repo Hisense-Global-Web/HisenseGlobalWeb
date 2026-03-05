@@ -1,5 +1,6 @@
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 
+const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
 export default async function decorate(block) {
   const MateEl = document.createElement('div');
   const lineEl = document.createElement('div');
@@ -17,7 +18,7 @@ export default async function decorate(block) {
       child.setAttribute('class', type);
       child.firstElementChild.remove();
       const iconEl = document.createElement('img');
-      iconEl.src = '/content/dam/hisense/us/common-icons/time.svg';
+      iconEl.src = `/content/dam/hisense/${country}/common-icons/time.svg`;
       const date = child.textContent.trim();
       const dateEl = document.createElement('span');
       dateEl.textContent = formatIsoToUtcStr(date);
@@ -30,7 +31,7 @@ export default async function decorate(block) {
       child.setAttribute('class', type);
       child.firstElementChild.remove();
       const iconEl = document.createElement('img');
-      iconEl.src = '/content/dam/hisense/us/common-icons/address.svg';
+      iconEl.src = `/content/dam/hisense/${country}/common-icons/address.svg`;
       const address = child.textContent.trim();
       const addressEl = document.createElement('span');
       addressEl.textContent = address;

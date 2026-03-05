@@ -1,7 +1,7 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/aem.js';
 
-const SEARCH_ICON = '/content/dam/hisense/us/common-icons/search-grey-70.svg';
-
+const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const SEARCH_ICON = `/content/dam/hisense/${country}/common-icons/search-grey-70.svg`;
 // 获取Search Input的HTML元素
 const getSearchInput = (block) => {
   const config = readBlockConfig(block);
@@ -28,7 +28,7 @@ const getSearchInput = (block) => {
   clearBtn.className = 'search-box-clear';
   clearBtn.setAttribute('aria-label', 'Clear search');
   clearBtn.type = 'button';
-  clearBtn.style.backgroundImage = 'url("/content/dam/hisense/us/common-icons/close-50.svg")';
+  clearBtn.style.backgroundImage = `url("/content/dam/hisense/${country}/common-icons/close-50.svg")`;
   clearBtn.style.backgroundSize = 'contain';
   clearBtn.style.backgroundPosition = 'center';
   clearBtn.style.backgroundRepeat = 'no-repeat';
