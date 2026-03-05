@@ -305,10 +305,9 @@
     .popular-search {
       margin-top: var(--size-32);
       display: flex;
-      flex-direction: row;
+      flex-flow: row wrap;
       align-items: center;
       gap: var(--size-12);
-      flex-wrap: wrap;
 
       @media (width < 860px) {
         margin-top: var(--size-24);
