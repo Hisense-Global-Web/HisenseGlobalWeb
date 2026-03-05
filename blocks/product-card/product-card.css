@@ -188,6 +188,11 @@
   .plp-product-compare-icon {
     width: var(--size-24);
     height: var(--size-24);
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .icon-checked {
@@ -637,9 +642,10 @@
     }
 
     .plp-compare-btn {
-      width: calc(100% - 36px);
+      width: 100%;
       margin-top: var(--size-20);
       text-align: center;
+      box-sizing: border-box;
     }
   }
 
@@ -656,6 +662,7 @@
 
       .popup-scroll-box {
         max-height: calc(90vh - var(--size-72));
+        overflow-x: hidden;
       }
 
       .compare-popup-tit-box {

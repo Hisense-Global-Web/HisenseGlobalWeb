@@ -301,11 +301,11 @@ export default function decorate(block) {
     // 显示对比详细信息弹窗
     compareBtnEl.addEventListener('click', () => {
       document.body.style.overflow = 'hidden';
-      document.querySelector('.compare-popup-wrapper').style.display = 'block';
       // 比较商品信息详细数据
       const compareDetailInfo = aggregateData(compareDataArr);
       // render compare popup detail data
       renderCompareDetailData(compareDetailInfo, 'property-box-id');
+      document.querySelector('.compare-popup-wrapper').style.display = 'block';
     });
     const compareBarCloseBtn = document.createElement('img');
     compareBarCloseBtn.className = 'plp-compare-bar-close';
