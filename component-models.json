@@ -3011,13 +3011,13 @@
       {
         "component": "text",
         "name": "button_text",
-        "label": "Button Copy",
+        "label": "Button Copy For PC",
         "valueType": "string"
       },
       {
         "component": "select",
         "name": "button_color",
-        "label": "Button Color",
+        "label": "Button Color For PC",
         "valueType": "string",
         "options": [
           {
