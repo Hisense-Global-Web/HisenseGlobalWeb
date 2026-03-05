@@ -66,7 +66,8 @@ function comparePropertyData(allAttributesArr) {
 
   return result;
 }
-
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 /**
  * 解析并聚合数据
  * @param {Array} compareDataArr - 原始数据源
@@ -339,7 +340,7 @@ export function createComparePopup() {
   const popupCloseBtn = document.createElement('div');
   popupCloseBtn.className = 'compare-popup-close';
   const closeIcon = document.createElement('img');
-  closeIcon.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+  closeIcon.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
   closeIcon.alt = 'Close';
   popupCloseBtn.append(closeIcon);
   // popup close click
@@ -415,7 +416,7 @@ export function createCompareLiEl(appendType) {
   const itemCloseBtn = document.createElement('div');
   itemCloseBtn.className = 'plp-compare-card-close';
   const closeIcon = document.createElement('img');
-  closeIcon.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+  closeIcon.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
   closeIcon.alt = 'Close';
   itemCloseBtn.append(closeIcon);
   compareImgBox.append(compareImg, compareProductTitle, itemCloseBtn);
@@ -424,7 +425,7 @@ export function createCompareLiEl(appendType) {
   cardPlusImage.className = 'plp-compare-card-plus-box';
   const plusIcon = document.createElement('img');
   plusIcon.className = 'plp-compare-card-plus';
-  plusIcon.src = '/content/dam/hisense/us/common-icons/plus-grey30.png';
+  plusIcon.src = `/content/dam/hisense/${country}/common-icons/plus-grey30.png`;
   cardPlusImage.appendChild(plusIcon);
   compareImgLoadBox.append(compareImgBox, cardPlusImage);
   compareCardItem.append(compareImgLoadBox);

@@ -3,6 +3,8 @@ import { loadScrollTrigger } from '../../utils/animation-helper.js';
 import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
 import { whenElementReady } from '../../utils/carousel-common.js';
 
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default async function decorate(block) {
   // ========== CONSTRUCT DOM [START] ========== //
   const videoContent = block.querySelector('div:first-of-type');
@@ -57,10 +59,10 @@ export default async function decorate(block) {
 
   const playBtn = createElement('button', 'hero-presence-video-play-btn');
   const playIcon = createElement('img', 'hero-presence-video-play-icon');
-  playIcon.src = '/content/dam/hisense/us/common-icons/play-dark-mode.svg';
+  playIcon.src = `/content/dam/hisense/${country}/common-icons/play-dark-mode.svg`;
   playBtn.appendChild(playIcon);
   const pauseIcon = createElement('img', 'hero-presence-video-pause-icon');
-  pauseIcon.src = '/content/dam/hisense/us/common-icons/pause-dark-mode.svg';
+  pauseIcon.src = `/content/dam/hisense/${country}/common-icons/pause-dark-mode.svg`;
   playBtn.appendChild(pauseIcon);
   block.appendChild(playBtn);
 
