@@ -897,6 +897,10 @@
   #navigation .nav-container .nav-actions .nav-action-btn.mobile-menu-icon {
     display: block;
     margin-left: 8px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   #navigation .nav-container .nav-actions .nav-action-btn.mobile-close-icon {
@@ -915,6 +919,10 @@
     .nav-actions
     .nav-action-btn.mobile-close-icon {
     display: block;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   #navigation .nav-second {
@@ -1194,7 +1202,7 @@
 
     .search-box-width {
       @media (width > 1440px) {
-        max-width: calc((100vw - 1120px));
+        max-width: min(calc(1120 / var(--breakpoint-pc) * 100vw), 1120px);;
       }
     }
 
