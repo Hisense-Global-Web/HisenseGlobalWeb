@@ -90,6 +90,7 @@
       "related-news",
       "resource-list",
       "search-box",
+      "search-result-module",
       "support-module-title",
       "slide",
       "social-media-list",
@@ -454,6 +455,12 @@
     "id": "search-box",
     "components": [
       "search-box-quick-link-item"
+    ]
+  },
+  {
+    "id": "search-result-module",
+    "components": [
+      "search-result-item"
     ]
   },
   {

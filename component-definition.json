@@ -2267,6 +2267,53 @@
           }
         },
         {
+          "title": "Search Result Module",
+          "id": "search-result-module",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Search Result Module",
+                  "model": "search-result-module",
+                  "filter": "search-result-module",
+                  "key-value": true,
+                  "classes": "search-result-module",
+                  "emptyResultHeading": "No results for",
+                  "noResultSubtitle": "Try a new search or the below suggestions.",
+                  "noResultContent": "",
+                  "popularSearchHeading": "Popular Search",
+                  "popularSearchTags": "",
+                  "popularSearchLink": "",
+                  "prevButtonAriaLabel": "Prev",
+                  "nextButtonAriaLabel": "Next",
+                  "loadMoreLabel": "Load More"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Search Result Item",
+          "id": "search-result-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Search Result Item",
+                  "model": "search-result-item",
+                  "title": "Products",
+                  "endpoint": "/product/us/en/televisions.json",
+                  "type": "product",
+                  "dataSource": "graphql",
+                  "pageSize": "12"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Slide",
           "id": "slide",
           "plugins": {
