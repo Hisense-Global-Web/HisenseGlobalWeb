@@ -2304,9 +2304,7 @@
                   "name": "Search Result Item",
                   "model": "search-result-item",
                   "title": "Products",
-                  "endpoint": "/product/us/en/televisions.json",
                   "type": "product",
-                  "dataSource": "graphql",
                   "pageSize": "12"
                 }
               }

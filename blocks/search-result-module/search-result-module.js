@@ -5,6 +5,13 @@ import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 const DEFAULT_PAGE_SIZE = 12;
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
 
+// Display Type 和 endpoint + 接口类型映射
+const TYPE_CONFIG = {
+  product: { endpoint: '/product/us/en.json', dataSource: 'graphql' },
+  news: { endpoint: '/us/en/newsroom.json', dataSource: 'eds' },
+  blog: { endpoint: '/us/en/blog.json', dataSource: 'eds' },
+};
+
 function simpleHash(str) {
   const s = String(str);
   let h = 0;
@@ -371,14 +378,12 @@ function parseConfig(block) {
       return;
     }
 
-    const link = cols[1].querySelector('a');
-    if (link) {
+    const col1Text = (cols[1].textContent || '').trim().toLowerCase();
+    if (TYPE_CONFIG[col1Text]) {
       items.push({
         title: (cols[0].textContent || '').trim(),
-        endpoint: link.getAttribute('href') || '',
-        type: cols[2] ? (cols[2].textContent || '').trim().toLowerCase() : 'product',
-        dataSource: cols[3] ? (cols[3].textContent || '').trim().toLowerCase() : 'eds',
-        pageSize: cols[4] ? parseInt((cols[4].textContent || '').trim(), 10) || DEFAULT_PAGE_SIZE : DEFAULT_PAGE_SIZE,
+        type: col1Text,
+        pageSize: cols[2] ? parseInt((cols[2].textContent || '').trim(), 10) || DEFAULT_PAGE_SIZE : DEFAULT_PAGE_SIZE,
         sourceRow: row,
       });
     } else {
@@ -494,21 +499,22 @@ export default async function decorate(block) {
   const hasPopularTags = config.popularsearchtags && config.popularsearchtags.length > 0;
 
   const fetchPromises = items.map(async (item) => {
-    const { type, dataSource } = item;
-    const localizedEndpoint = getLocalizedEndpoint(item.endpoint, dataSource || 'eds');
+    const { type } = item;
+    const { endpoint: rawEndpoint, dataSource } = TYPE_CONFIG[type] || TYPE_CONFIG.product;
+    const localizedEndpoint = getLocalizedEndpoint(rawEndpoint, dataSource);
     const itemPageSize = item.pageSize || DEFAULT_PAGE_SIZE;
     try {
-      const url = getEndpointUrl(localizedEndpoint, dataSource || 'eds');
+      const url = getEndpointUrl(localizedEndpoint, dataSource);
       const resp = await fetch(url);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const rawData = await resp.json();
 
-      const allItems = extractDataList(rawData, dataSource || 'eds');
+      const allItems = extractDataList(rawData, dataSource);
       const filteredItems = filterItems(allItems, keyword, type);
 
       return {
         title: item.title,
-        endpoint: item.endpoint,
+        endpoint: rawEndpoint,
         sourceRow: item.sourceRow,
         type,
         allItems,

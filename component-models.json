@@ -4245,12 +4245,6 @@
         "label": "Tab Title"
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "endpoint",
-        "label": "Data Endpoint"
-      },
-      {
         "component": "select",
         "name": "type",
         "label": "Display Type",
@@ -4266,21 +4260,6 @@
           {
             "name": "Blog",
             "value": "blog"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "dataSource",
-        "label": "Data Source",
-        "options": [
-          {
-            "name": "GraphQL",
-            "value": "graphql"
-          },
-          {
-            "name": "EDS",
-            "value": "eds"
           }
         ]
       },
