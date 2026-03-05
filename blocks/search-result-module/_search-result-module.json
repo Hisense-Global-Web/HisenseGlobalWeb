@@ -80,7 +80,6 @@
           "component": "aem-tag",
           "name": "popularSearchTags",
           "label": "Popular Search Tags",
-          "multi": true,
           "rootPath": "/content/cq:tags/hisense"
         },
         {
