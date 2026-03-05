@@ -61,6 +61,29 @@ main .section.resource-list-container .resource-list-wrapper {
             display: block;
           }
         }
+        
+        .resource-title {
+          font-size: var(--fontsize-title1);
+          line-height: var(--size-32);
+          font-weight: var(--fontweight-medium);
+          color: var(--color-hisense-black);
+        }
+        
+        .resource-description {
+          font-size: var(--fontsize-body1);
+          line-height: var(--size-26);
+          font-weight: var(--fontweight-book);
+          color: var(--color-primary-grey-70);
+          margin-bottom: var(--size-16);
+        }
+        
+        .resource-subtitle {
+          font-size: var(--fontsize-body1);
+          line-height: 1.5;
+          font-weight: var(--fontweight-medium);
+          color: var(--color-primary-grey-70);
+          margin-bottom: var(--size-8);
+        }
   
         .resource-content {
           margin-bottom: var(--size-16);

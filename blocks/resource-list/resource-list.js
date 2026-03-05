@@ -61,6 +61,25 @@ export default function decorate(block) {
     }
     card.appendChild(iconWrapper);
 
+    if (title) {
+      const contentEl = document.createElement('div');
+      contentEl.className = 'resource-title';
+      contentEl.innerHTML = title;
+      card.appendChild(contentEl);
+    }
+    if (description) {
+      const contentEl = document.createElement('div');
+      contentEl.className = 'resource-description';
+      contentEl.innerHTML = description;
+      card.appendChild(contentEl);
+    }
+    if (subTitle) {
+      const contentEl = document.createElement('div');
+      contentEl.className = 'resource-subtitle';
+      contentEl.innerHTML = subTitle;
+      card.appendChild(contentEl);
+    }
+
     // Content (rich text with H2-H6 headings)
     if (textContent) {
       const contentEl = document.createElement('div');
