@@ -215,6 +215,9 @@ const generateCard = (moduleType, isEditMode, info) => {
  */
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
+  if (isEditMode) {
+    return;
+  }
   const config = readBlockConfig(block);
   const moduleType = config['module-type'] ?? '';
   const pageSize = config['page-size'] * 1 ?? 10;

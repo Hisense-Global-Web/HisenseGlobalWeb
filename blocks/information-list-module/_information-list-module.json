@@ -125,20 +125,14 @@
         },
         {
           "component": "aem-content",
-          "name": "button_link",
-          "label": "Button Link",
+          "name": "button_CTALink",
+          "label": "CTA Link",
           "valueType": "string"
         },
         {
           "component": "reference",
           "name": "button_iconMobile",
           "label": "Cta Icon For Mobile",
-          "valueType": "string"
-        },
-        {
-          "component": "reference",
-          "name": "pdf-select",
-          "label": "PDF Select",
           "valueType": "string"
         }
       ]
