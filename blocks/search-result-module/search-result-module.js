@@ -122,7 +122,12 @@ function extractDataList(data, dataSource) {
 // 获取搜索关键词
 function getSearchKeyword() {
   const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('fulltext') || '';
+  const raw = urlParams.get('fulltext') || '';
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    return raw;
+  }
 }
 
 // 按关键词过滤数据
@@ -325,6 +330,14 @@ function buildMobilePaginationControls(mobileEl, state, onLoadMore, config) {
   mobileEl.appendChild(loadMoreBtn);
 }
 
+// block 级配置 key，即使第二列是链接也只当 config 不入 items
+// 这是key-value 造成的问题
+const BLOCK_CONFIG_KEYS = new Set([
+  'emptyresultheading', 'noresultsubtitle', 'noresultcontent',
+  'popularsearchheading', 'popularsearchtags', 'popularsearchlink',
+  'prevbuttonarialabel', 'nextbuttonarialabel', 'loadmorelabel',
+]);
+
 // 提取 key-value
 function parseConfig(block) {
   const config = {};
@@ -349,6 +362,12 @@ function parseConfig(block) {
 
     if (RICHTEXT_KEYS.has(key)) {
       config[key] = cols[1].innerHTML || '';
+      return;
+    }
+
+    if (BLOCK_CONFIG_KEYS.has(key)) {
+      const link = cols[1].querySelector('a');
+      config[key] = link ? (link.getAttribute('href') || link.textContent || '').trim() : (cols[1].textContent || '').trim();
       return;
     }
 
