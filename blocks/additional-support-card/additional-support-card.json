@@ -99,7 +99,7 @@
           ]
         },
         {
-          "component": "container",
+          "component": "button_container",
           "label": "",
           "name": "container_cta",
           "valueType": "string",
