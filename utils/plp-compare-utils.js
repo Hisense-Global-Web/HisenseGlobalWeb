@@ -126,7 +126,6 @@ export function renderCompareDetailData(compareDetailInfo, containerId) {
     // 创建属性项容器
     const nameItemDiv = document.createElement('div');
     nameItemDiv.className = 'product-title-item';
-    nameItemDiv.style.cssText = compareTit.length === 2 ? 'width: 50% !important' : 'width: auto';
     // 创建产品名字
     const nameDiv = document.createElement('div');
     nameDiv.className = 'product-name';
@@ -164,7 +163,6 @@ export function renderCompareDetailData(compareDetailInfo, containerId) {
     values.forEach((value) => {
       const valueDiv = document.createElement('div');
       valueDiv.className = 'value-item';
-      valueDiv.style.cssText = compareTit.length === 2 ? 'width: 50% !important' : 'width: auto';
       valueDiv.textContent = value;
       valuesDiv.appendChild(valueDiv);
     });

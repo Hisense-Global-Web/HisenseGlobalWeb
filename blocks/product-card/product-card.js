@@ -1,3 +1,4 @@
+import { isMobile, isMobileWindow } from '../../scripts/device.js';
 import {
   renderCompareDetailData,
   aggregateData,
@@ -686,6 +687,11 @@ export default function decorate(block) {
             // 只有选择了2个产品时，才展示页面询问固定栏
             if (compareDataArr.length === 2) {
               document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
+              // 底部 compare bar 出现时且为移动端时，为footer 添加 padding-bottom
+              if (isMobile() || isMobileWindow()) {
+                const footerWrapper = document.querySelector('.footer-wrapper');
+                footerWrapper.style.paddingBottom = `${(274 / 390) * window.innerWidth}px`;
+              }
             }
             // 为底部固定栏中的对应li 设置已选择产品的图片、产品名称
             compareBarAllLi.forEach((curLi, index) => {
