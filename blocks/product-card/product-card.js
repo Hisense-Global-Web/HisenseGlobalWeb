@@ -8,6 +8,8 @@ import {
   appendCompareProductUtil,
 } from '../../utils/plp-compare-utils.js';
 
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function applyAggregatedSort(sortProperty, direction = -1) {
   try {
     // 检查是否有已选中的 filter
@@ -309,7 +311,7 @@ export default function decorate(block) {
     });
     const compareBarCloseBtn = document.createElement('img');
     compareBarCloseBtn.className = 'plp-compare-bar-close';
-    compareBarCloseBtn.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+    compareBarCloseBtn.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
     compareBarCloseBtn.alt = 'Close';
     // 底部固定栏上的关闭按钮点击事件
     compareBarCloseBtn.addEventListener('click', () => {
@@ -663,8 +665,8 @@ export default function decorate(block) {
         compareEl.setAttribute('data-compare-id', variant.sku || group.sku || '');
         const compareIcon = document.createElement('span');
         compareIcon.className = 'plp-product-compare-icon';
-        compareIcon.innerHTML = `<img class="icon-unchecked" src="/content/dam/hisense/us/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
-          <img class="icon-checked" src="/content/dam/hisense/us/common-icons/icon-carousel/checkbox.svg" alt="" />`;
+        compareIcon.innerHTML = `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
+          <img class="icon-checked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox.svg" alt="" />`;
         const labelSpan = document.createElement('span');
         labelSpan.textContent = 'Compare';
         compareEl.append(compareIcon, labelSpan);

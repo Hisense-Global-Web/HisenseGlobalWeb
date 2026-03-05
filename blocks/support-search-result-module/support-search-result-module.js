@@ -172,6 +172,8 @@ function createProductCard(item) {
 
 // 创建 FAQ 卡片
 function createFaqCard(faqItem, index) {
+  const segments = window.location.pathname.split('/').filter(Boolean);
+  const country = segments[segments[0] === 'content' ? 2 : 0] || '';
   const card = document.createElement('div');
   card.className = index === 0 ? 'faq-card' : 'faq-card hide';
 
@@ -196,7 +198,7 @@ function createFaqCard(faqItem, index) {
 
   const iconWrapper = document.createElement('div');
   const icon = document.createElement('img');
-  icon.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+  icon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   icon.alt = '';
   icon.className = 'chevron';
   iconWrapper.appendChild(icon);
@@ -244,6 +246,8 @@ function getPageNumbers(currentPage, totalPages) {
 
 // PC 端分页按钮
 function buildPaginationControls(paginationEl, state, onPageChange, config) {
+  const segments = window.location.pathname.split('/').filter(Boolean);
+  const country = segments[segments[0] === 'content' ? 2 : 0] || '';
   if (!paginationEl) return;
   paginationEl.textContent = '';
 
@@ -257,7 +261,7 @@ function buildPaginationControls(paginationEl, state, onPageChange, config) {
   prevBtn.className = 'page-button page-arrow-btn is-prev';
   prevBtn.setAttribute('aria-label', config.prevbuttonarialabel || 'Previous');
   const prevIcon = document.createElement('img');
-  prevIcon.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+  prevIcon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   prevIcon.alt = '';
   prevIcon.className = 'page-arrow-icon';
   prevBtn.appendChild(prevIcon);
@@ -298,7 +302,7 @@ function buildPaginationControls(paginationEl, state, onPageChange, config) {
   nextBtn.className = 'page-button page-arrow-btn is-next';
   nextBtn.setAttribute('aria-label', config.nextbuttonarialabel || 'Next');
   const nextIcon = document.createElement('img');
-  nextIcon.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+  nextIcon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   nextIcon.alt = '';
   nextIcon.className = 'page-arrow-icon';
   nextBtn.appendChild(nextIcon);

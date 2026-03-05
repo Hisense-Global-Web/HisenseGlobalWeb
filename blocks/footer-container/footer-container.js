@@ -1,3 +1,5 @@
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function isInternalLink(href) {
   if (!href || href === '#' || href === '/') {
     return true;
@@ -331,7 +333,7 @@ export default function decorate(block) {
         mobileFooterTitle.className = 'footer-nav-column-title';
         mobileFooterTitle.textContent = columnData.title;
         const arrow = document.createElement('img');
-        arrow.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+        arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
         const mobileFooterTitleLine = document.createElement('div');
         mobileFooterTitleLine.className = 'mobile-footer-title-line';
         mobileFooterTitleLine.addEventListener('click', (e) => {
@@ -360,7 +362,7 @@ export default function decorate(block) {
 
           if (!isInternalLink(itemData.link)) {
             const img = document.createElement('img');
-            img.src = '/content/dam/hisense/us/common-icons/share.svg';
+            img.src = `/content/dam/hisense/${country}/common-icons/share.svg`;
             li.appendChild(img);
           }
           ul.appendChild(li);
@@ -408,7 +410,7 @@ export default function decorate(block) {
     const lanGroup = document.createElement('div');
     lanGroup.className = 'footer-lan-group';
     lanGroup.innerHTML = `
-  <img src="/content/dam/hisense/us/common-icons/global.svg" alt="" />
+  <img src="/content/dam/hisense/${country}/common-icons/global.svg" alt="" />
   <div class="footer-lan-com">United States</div>
   <div class="footer-lan-list">
     <div class="footer-lan-item active">English</div>
