@@ -185,7 +185,7 @@ function renderFaqSummary(container, config, faqData, tags) {
 // 创建单个FAQ卡片
 function createFaqCard(faqItem, index) {
   const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+  const country = segments[segments[0] === 'content' ? 2 : 0] || '';
   const card = document.createElement('div');
   card.className = index === 0 ? 'faq-card' : 'faq-card hide';
   card.dataset.tags = Array.isArray(faqItem.tags) ? faqItem.tags.join(',') : '';
@@ -275,7 +275,7 @@ function getPageNumbers(currentPage, totalPages) {
 // 创建PC端分页按钮
 function buildPaginationControls(container, state, onPageChange, config) {
   const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+  const country = segments[segments[0] === 'content' ? 2 : 0] || '';
   const { total, pageSize, currentPage } = state;
 
   const paginationEl = container.querySelector('.faq-pagination');
