@@ -282,7 +282,7 @@ export default function decorate(block) {
       const titleSpan = document.createElement('span');
       titleSpan.textContent = titleText;
       const arrow = document.createElement('img');
-      arrow.src = `/content/dam/hisense/${country}}/common-icons/chevron-up.svg`;
+      arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
 
       const toggleExpand = (e) => {
         e.stopPropagation();
