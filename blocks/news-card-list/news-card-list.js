@@ -103,7 +103,8 @@ function buildCard(item) {
     thumbnail,
   } = item;
 
-  const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+  const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
   const cardEl = document.createElement('div');
   cardEl.classList.add('releases-card');
 
@@ -213,7 +214,8 @@ function buildCard(item) {
 }
 
 function buildPaginationControls(container, state, onPageChange, isEditMode) {
-  const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+  const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
   const { total, limit, offset } = state;
 
   const paginationEl = container.querySelector('.releases-pagination');

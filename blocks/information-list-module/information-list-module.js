@@ -4,7 +4,8 @@ const EModuleType = Object.freeze({
   download: 'download',
   navigate: 'navigate',
 });
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 function buildPaginationControls(container, state, onPageChange, isEditMode) {
   const { total, limit, offset } = state;

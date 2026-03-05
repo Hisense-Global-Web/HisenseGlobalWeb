@@ -1,7 +1,8 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const SCROLL_STEP = 260; // 单个标签宽度 + 间隙
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 function createScrollButton(direction) {
   const button = document.createElement('button');

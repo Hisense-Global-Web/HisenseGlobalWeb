@@ -6,7 +6,8 @@ import {
   throttle,
 } from '../../utils/carousel-common.js';
 
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function formatDate(iso) {
   if (!iso) return '';
   const date = new Date(iso);

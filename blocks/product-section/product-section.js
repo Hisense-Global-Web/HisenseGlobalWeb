@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default async function decorate(block) {
   const rows = [...(block.children || [])];
   let fields = [];

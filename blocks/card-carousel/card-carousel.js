@@ -9,7 +9,8 @@ import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 
 const cardCarouselId = 0;
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export function bindEvent(block, type = 'normal') {
   const track = block.querySelector('.card-carousel-track');
   const cards = block.querySelectorAll('li');

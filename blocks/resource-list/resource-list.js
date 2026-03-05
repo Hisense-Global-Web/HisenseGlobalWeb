@@ -15,7 +15,8 @@ const DEFAULT_ICON_SVG = '<svg width="80" height="80" viewBox="0 0 80 80" fill="
   + '12.6988 66.352C13.7865 67.4072 15.2617 68 16.8 68H63.2Z" '
   + 'stroke="#009E9B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>'
   + '</svg>';
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 export default function decorate(block) {
   const container = document.createElement('div');

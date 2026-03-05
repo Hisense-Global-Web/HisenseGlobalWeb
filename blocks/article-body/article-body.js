@@ -1,6 +1,7 @@
 import wrapInRichtext from '../../utils/wrap-in-richtext.js';
 
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');

@@ -1,7 +1,8 @@
 import { isMobile, isMobileWindow } from '../../scripts/device.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function buildFilterTag(row, resource, isEditMode) {
   const tag = document.createElement('div');
   tag.className = 'plp-filter-tag';

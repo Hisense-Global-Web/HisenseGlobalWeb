@@ -6,7 +6,8 @@ import { isUniversalEditor } from '../../utils/ue-helper.js';
 let heroBannerTimer;
 let heroBannerInterval;
 let isInitializing = true; // 初始化锁
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 function updateNavTheme(block, targetSlide, heroBannerHeight) {
   const nav = document.querySelector('#navigation');

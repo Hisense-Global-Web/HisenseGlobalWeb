@@ -1,6 +1,7 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/aem.js';
 
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 const SEARCH_ICON = `/content/dam/hisense/${country}/common-icons/search-grey-70.svg`;
 // 获取Search Input的HTML元素
 const getSearchInput = (block) => {

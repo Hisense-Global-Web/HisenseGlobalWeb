@@ -3,7 +3,8 @@ import { loadScrollTrigger } from '../../utils/animation-helper.js';
 import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
 import { whenElementReady } from '../../utils/carousel-common.js';
 
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default async function decorate(block) {
   // ========== CONSTRUCT DOM [START] ========== //
   const videoContent = block.querySelector('div:first-of-type');

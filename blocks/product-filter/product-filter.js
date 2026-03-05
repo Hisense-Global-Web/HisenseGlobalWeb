@@ -1,7 +1,8 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
-const country = window.location.pathname.split('/').filter(Boolean)[0] || '';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 /**
  * Get tags endpoint URL with GraphQL base URL
  */
