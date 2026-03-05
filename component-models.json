@@ -595,6 +595,92 @@
     ]
   },
   {
+    "id": "additional-support-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "time_workingHours",
+        "value": "",
+        "label": "Working Hours",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "time_responseTime",
+        "value": "",
+        "label": "Response Time",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "support_phone",
+        "value": "",
+        "label": "Support Phone Number",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "button-display",
+        "value": "pc-and-mobile",
+        "label": "Button Display Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Displayed on both PC and Mobile",
+            "value": "pc-and-mobile"
+          },
+          {
+            "name": "Only displayed on Mobile",
+            "value": "mobile-only"
+          }
+        ]
+      },
+      {
+        "component": "button_container",
+        "label": "",
+        "name": "container_cta",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "valueType": "string",
+            "value": ""
+          },
+          {
+            "component": "aem-content",
+            "name": "button_link",
+            "label": "Button Link",
+            "valueType": "string",
+            "value": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "text-body-image",
     "classes": "text-body-image",
     "fields": [

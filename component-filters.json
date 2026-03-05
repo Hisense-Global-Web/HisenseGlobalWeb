@@ -156,6 +156,12 @@
     ]
   },
   {
+    "id": "additional-support-card",
+    "components": [
+      "additional-support-card-item"
+    ]
+  },
+  {
     "id": "article-body",
     "components": [
       "text-body-image",
