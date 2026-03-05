@@ -30,12 +30,16 @@ export default function decorate(block) {
     moveInstrumentation(row, card);
 
     const cells = [...row.children];
+    console.log([...cells]);
     const iconCell = cells[0];
-    const textContent = cells[1]?.innerHTML || '';
-    const buttonText = cells[2]?.textContent.trim() || '';
-    const buttonLink = cells[3]?.querySelector('a')?.href || '';
-    const downloadAsset = cells[4]?.querySelector('a')?.href || cells[4]?.textContent.trim() || '';
-    const cardType = cells[5]?.textContent.trim() || 'download';
+    const title = cells[1]?.textContent.trim() || '';
+    const description = cells[2]?.textContent.trim() || '';
+    const subTitle = cells[3]?.textContent.trim() || '';
+    const textContent = cells[4]?.innerHTML || '';
+    const buttonText = cells[5]?.textContent.trim() || '';
+    const buttonLink = cells[6]?.querySelector('a')?.href || '';
+    const downloadAsset = cells[7]?.querySelector('a')?.href || cells[4]?.textContent.trim() || '';
+    const cardType = cells[8]?.textContent.trim() || 'download';
 
     card.setAttribute('data-card-type', cardType);
 
