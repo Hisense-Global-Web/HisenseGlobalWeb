@@ -105,16 +105,16 @@
           "valueType": "string",
           "fields": [
             {
-              "component": "aem-content",
-              "name": "button_link",
-              "label": "Button Link",
+              "component": "text",
+              "name": "button_text",
+              "label": "Button Text",
               "valueType": "string",
               "value": ""
             },
             {
-              "component": "text",
-              "name": "button_text",
-              "label": "Button Text",
+              "component": "aem-content",
+              "name": "button_link",
+              "label": "Button Link",
               "valueType": "string",
               "value": ""
             }
