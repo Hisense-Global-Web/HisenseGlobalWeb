@@ -4506,6 +4506,12 @@
         "rootPath": "/content/cq:tags/hisense/product"
       },
       {
+        "component": "boolean",
+        "name": "should-group",
+        "label": "Do you need to group them?",
+        "valueType": "boolean"
+      },
+      {
         "component": "number",
         "valueType": "number",
         "name": "order",
@@ -4514,6 +4520,14 @@
         "validation": {
           "numberMin": 1,
           "numberMax": 5
+        },
+        "condition": {
+          "===": [
+            {
+              "var": "should-group"
+            },
+            true
+          ]
         }
       }
     ]
