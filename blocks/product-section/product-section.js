@@ -356,8 +356,20 @@ export default async function decorate(block) {
     });
   });
 
-  pdpNav.querySelector('.pdp-nav-menu').append(overviewMobileBtn, specsMobileBtn);
-  pdpNav.querySelector('.pdp-nav-menu').style.height = '106px';
+  const faqMobileBtn = document.createElement('div');
+  faqMobileBtn.classList.add('pdp-nav-menu-item');
+  faqMobileBtn.textContent = 'Faq';
+  faqMobileBtn.addEventListener('click', () => {
+    if (faqLink) window.location.href = faqLink;
+  });
+
+  const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');
+  pdpNavMenu.append(overviewMobileBtn, specsMobileBtn);
+  pdpNavMenu.style.height = '106px';
+  if (faqLink) {
+    pdpNavMenu.append(faqMobileBtn);
+    pdpNavMenu.style.height = '151px';
+  }
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const blockHeight = block.getBoundingClientRect()?.height || 0;
