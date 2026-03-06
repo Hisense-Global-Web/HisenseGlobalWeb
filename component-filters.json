@@ -91,6 +91,7 @@
       "related-news",
       "resource-list",
       "search-box",
+      "search-result-module",
       "support-module-title",
       "slide",
       "social-media-list",
@@ -154,6 +155,12 @@
     "id": "accessories-feature",
     "components": [
       "accessories-feature-item"
+    ]
+  },
+  {
+    "id": "additional-support-card",
+    "components": [
+      "additional-support-card-item"
     ]
   },
   {
@@ -455,6 +462,12 @@
     "id": "search-box",
     "components": [
       "search-box-quick-link-item"
+    ]
+  },
+  {
+    "id": "search-result-module",
+    "components": [
+      "search-result-item"
     ]
   },
   {

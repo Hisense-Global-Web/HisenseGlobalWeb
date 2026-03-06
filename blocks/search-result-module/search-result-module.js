@@ -1,7 +1,16 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const DEFAULT_PAGE_SIZE = 12;
+const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
+
+// Display Type 和 endpoint + 接口类型映射
+const TYPE_CONFIG = {
+  product: { endpoint: '/product/us/en.json', dataSource: 'graphql' },
+  news: { endpoint: '/us/en/newsroom.json', dataSource: 'eds' },
+  blog: { endpoint: '/us/en/blog.json', dataSource: 'eds' },
+};
 
 function simpleHash(str) {
   const s = String(str);
@@ -12,19 +21,63 @@ function simpleHash(str) {
   return Math.abs(h).toString(36);
 }
 
-// 接口urlauthor 环境自动转为 GraphQL
-function getEndpointUrl(endpointPath, type) {
+function getTagsEndpointUrl() {
+  const baseUrl = window.GRAPHQL_BASE_URL || '';
+  return baseUrl ? `${baseUrl}${DEFAULT_TAGS_ENDPOINT}` : DEFAULT_TAGS_ENDPOINT;
+}
+
+// 获取标签数据
+async function fetchTagData() {
+  try {
+    const response = await fetch(getTagsEndpointUrl());
+    if (response.ok) return response.json();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn('search-result-module: failed to fetch tag data:', error);
+  }
+  return null;
+}
+
+function getTagRoot(tagData) {
+  if (!tagData) return null;
+  if (Array.isArray(tagData.data) && tagData.data.length > 0) return tagData.data[0];
+  return tagData;
+}
+
+// 获取标签 jcr:title
+function getTagTitle(tagPath, tagData) {
+  const pathParts = tagPath.split(':').pop().split('/').filter(Boolean);
+  const fallback = pathParts[pathParts.length - 1] || tagPath;
+  const tagRoot = getTagRoot(tagData);
+
+  if (!tagRoot) return fallback;
+
+  const resolvePath = (parts) => parts.reduce((current, part) => {
+    if (current && current[part]) return current[part];
+    return null;
+  }, tagRoot);
+
+  const directResult = resolvePath(pathParts);
+  const result = directResult || (pathParts.length > 1 ? resolvePath(pathParts.slice(1)) : null);
+
+  return result?.['jcr:title'] || fallback;
+}
+
+// 根据 dataSource 拼接不同的域名 author 环境下 graphql 类型自动转 GraphQL 查询
+function getEndpointUrl(endpointPath, dataSource) {
   let path = endpointPath;
   const hostname = window.location.hostname || '';
   const isAuthorEnv = hostname.includes('author-');
+  const isGraphQL = dataSource === 'graphql';
 
-  if (isAuthorEnv && path && path.endsWith('.json')) {
+  if (isAuthorEnv && isGraphQL && path && path.endsWith('.json')) {
     const pathWithoutJson = path.replace(/\.json$/, '');
-    const graphqlName = type === 'product' ? 'GetProductByPath' : 'GetFaqByPath';
-    const graphqlPath = `/graphql/execute.json/global/${graphqlName};path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
+    const graphqlPath = `/graphql/execute.json/global/GetProductByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
     path = window.GRAPHQL_BASE_URL ? `${window.GRAPHQL_BASE_URL}${graphqlPath}` : graphqlPath;
   } else {
-    const baseUrl = window.GRAPHQL_BASE_URL || '';
+    const baseUrl = isGraphQL
+      ? (window.GRAPHQL_BASE_URL || '')
+      : (window.EDS_BASE_URL || window.location.origin);
     path = baseUrl ? `${baseUrl}${path}` : path;
   }
 
@@ -34,102 +87,77 @@ function getEndpointUrl(endpointPath, type) {
   return `${path}${sep}_t=${cacheBuster}`;
 }
 
-// 多国家多语言国际化接口url
-function getLocalizedEndpoint(configEndpoint) {
-  const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) ? window.location.hostname : '';
-  const isAemEnv = hostname.includes('author') || hostname.includes('publish');
+// 根据接口类型替换 endpoint 中的国家/语言段
+// EDS: /{country}/{lang}/x.json
+// GQL: /{prefix}/{country}/{lang}/... .json
+function getLocalizedEndpoint(configEndpoint, dataSource) {
+  const { country, language } = getLocaleFromPath();
+  const segments = configEndpoint.split('/').filter(Boolean);
 
-  if (isAemEnv) return configEndpoint;
-
-  const { pathname } = window.location;
-  const segments = pathname.split('/').filter(Boolean);
-
-  const country = segments[0] || 'us';
-  const language = country.toLowerCase() === 'us' ? 'en' : (segments[1] || 'en');
-
-  const endpointSegments = configEndpoint.split('/').filter(Boolean);
-  const prefix = endpointSegments[0] || 'product';
-  const lastSegment = endpointSegments[endpointSegments.length - 1] || 'televisions.json';
-
-  return `/${prefix}/${country}/${language}/${lastSegment}`;
-}
-
-// 根据 endpoint 路径获取数据类型
-function detectEndpointType(endpoint) {
-  if (endpoint.includes('/product/')) return 'product';
-  if (endpoint.includes('/faq/')) return 'faq';
-  return 'unknown';
-}
-
-// 产品列表
-function extractProductList(data) {
-  if (!data) return [];
-  if (data.data && data.data.productModelList && Array.isArray(data.data.productModelList.items)) {
-    return data.data.productModelList.items;
+  if (dataSource === 'graphql') {
+    const prefix = segments[0] || '';
+    const rest = segments.slice(3).join('/');
+    const endsWithJson = configEndpoint.endsWith('.json');
+    if (rest) return `/${prefix}/${country}/${language}/${rest}`;
+    return endsWithJson ? `/${prefix}/${country}/${language}.json` : `/${prefix}/${country}/${language}`;
   }
-  if (Array.isArray(data)) return data;
+
+  const lastSegment = segments[segments.length - 1] || '';
+  return `/${country}/${language}/${lastSegment}`;
+}
+
+// 获取数据列表，根据 dataSource 区分解析方式
+// graphql: data.data.xxxList.items
+// 遍历 data.data 下第一个含 items 数组的 key
+// eds: data.data（数组）或 data 本身
+function extractDataList(data, dataSource) {
+  if (!data) return [];
+  if (dataSource === 'graphql' && data.data && typeof data.data === 'object' && !Array.isArray(data.data)) {
+    const keys = Object.keys(data.data);
+    for (let i = 0; i < keys.length; i += 1) {
+      const node = data.data[keys[i]];
+      if (node && Array.isArray(node.items)) return node.items;
+    }
+    return [];
+  }
   if (data.data && Array.isArray(data.data)) return data.data;
+  if (Array.isArray(data)) return data;
   if (data.items && Array.isArray(data.items)) return data.items;
   return [];
 }
 
-// FAQ 列表
-function extractFaqList(data) {
-  if (!data) return [];
-  if (data.data && data.data.faqList && Array.isArray(data.data.faqList.items)) {
-    return data.data.faqList.items;
-  }
-  if (Array.isArray(data)) return data;
-  if (data.data && Array.isArray(data.data)) return data.data;
-  if (data.items && Array.isArray(data.items)) return data.items;
-  return [];
-}
-
-// 根据响应结果判断数据是 product 还是 faq
-function detectDataType(data) {
-  if (data.data && data.data.productModelList) return 'product';
-  if (data.data && data.data.faqList) return 'faq';
-  return 'unknown';
-}
-
-// 从 URL 参数 ?fulltext= 获取搜索关键词
+// 获取搜索关键词
 function getSearchKeyword() {
   const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('fulltext') || '';
+  const raw = urlParams.get('fulltext') || '';
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    return raw;
+  }
 }
 
-// 过滤产品（匹配 title/series/sku/overseasModel/description）
-function filterProducts(items, keyword) {
+// 按关键词过滤数据
+// product 匹配标题/系列/SKU
+// news/blog 匹配标题/描述/副标题
+function filterItems(items, keyword, type) {
   if (!keyword) return items;
   const kw = keyword.toLowerCase();
   return items.filter((item) => {
-    const fields = [
-      item.title,
-      item.series,
-      item.sku,
-      item.overseasModel,
-    ];
-    const desc = item.description_description;
-    if (desc && desc.html) fields.push(desc.html);
+    const fields = [];
+    if (type === 'product') {
+      fields.push(item.title, item.series, item.sku, item.overseasModel);
+      // eslint-disable-next-line no-underscore-dangle
+      const desc = item.description_description;
+      if (desc && desc.html) fields.push(desc.html);
+    } else {
+      fields.push(item.title, item.description, item.subtitle, item.keywords);
+    }
     return fields.some((f) => f && String(f).toLowerCase().includes(kw));
   });
 }
 
-// 过滤 FAQ（匹配 question/productCategory/answer）
-function filterFaqs(items, keyword) {
-  if (!keyword) return items;
-  const kw = keyword.toLowerCase();
-  return items.filter((item) => {
-    const fields = [
-      item.question,
-      item.productCategory,
-    ];
-    if (item.answer && item.answer.html) fields.push(item.answer.html);
-    return fields.some((f) => f && String(f).toLowerCase().includes(kw));
-  });
-}
-
-// 创建单个产品卡片
+// 创建产品卡片
 function createProductCard(item) {
   const card = document.createElement('a');
   card.className = 'product-card';
@@ -170,61 +198,42 @@ function createProductCard(item) {
   return card;
 }
 
-// 创建 FAQ 卡片
-function createFaqCard(faqItem, index) {
-  const segments = window.location.pathname.split('/').filter(Boolean);
-  const country = segments[segments[0] === 'content' ? 2 : 0] || '';
-  const card = document.createElement('div');
-  card.className = index === 0 ? 'faq-card' : 'faq-card hide';
+// 创建文章卡片
+function createArticleCard(item) {
+  const card = document.createElement('a');
+  card.className = 'article-card';
+  card.href = item.path || '#';
 
-  const title = document.createElement('div');
-  title.className = 'faq-title';
-
-  const titleContent = document.createElement('div');
-
-  if (faqItem.productCategory) {
-    const categoryDiv = document.createElement('div');
-    categoryDiv.className = 'title-content';
-    categoryDiv.textContent = faqItem.productCategory;
-    titleContent.appendChild(categoryDiv);
+  const imgWrap = document.createElement('div');
+  imgWrap.className = 'article-img';
+  if (item.thumbnail) {
+    const picture = createOptimizedPicture(item.thumbnail, item.title || '', false);
+    imgWrap.appendChild(picture);
   }
 
-  if (faqItem.question) {
-    const questionDiv = document.createElement('div');
-    questionDiv.className = 'subtitle-content';
-    questionDiv.textContent = faqItem.question;
-    titleContent.appendChild(questionDiv);
+  const info = document.createElement('div');
+  info.className = 'article-info';
+
+  if (item.subtitle) {
+    const subtitleEl = document.createElement('div');
+    subtitleEl.className = 'title-content';
+    subtitleEl.textContent = item.subtitle;
+    info.appendChild(subtitleEl);
   }
 
-  const iconWrapper = document.createElement('div');
-  const icon = document.createElement('img');
-  icon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
-  icon.alt = '';
-  icon.className = 'chevron';
-  iconWrapper.appendChild(icon);
-
-  title.appendChild(titleContent);
-  title.appendChild(iconWrapper);
-
-  const content = document.createElement('div');
-  content.className = 'faq-content';
-
-  const answerSpan = document.createElement('span');
-  if (faqItem.answer) {
-    if (typeof faqItem.answer === 'object' && faqItem.answer.html) {
-      answerSpan.innerHTML = faqItem.answer.html;
-    } else if (typeof faqItem.answer === 'string') {
-      answerSpan.textContent = faqItem.answer;
-    }
+  if (item.title) {
+    const titleEl = document.createElement('div');
+    titleEl.className = 'subtitle-content';
+    titleEl.textContent = item.title;
+    info.appendChild(titleEl);
   }
-  content.appendChild(answerSpan);
 
-  card.appendChild(title);
-  card.appendChild(content);
+  card.appendChild(imgWrap);
+  card.appendChild(info);
   return card;
 }
 
-// 分页页码
+// 计算分页页码数组
 function getPageNumbers(currentPage, totalPages) {
   if (totalPages <= 7) {
     return Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -244,10 +253,8 @@ function getPageNumbers(currentPage, totalPages) {
   return [1, 'ellipsis', currentPage - 1, currentPage, currentPage + 1, 'ellipsis', totalPages];
 }
 
-// PC 端分页按钮
+// PC 端分页
 function buildPaginationControls(paginationEl, state, onPageChange, config) {
-  const segments = window.location.pathname.split('/').filter(Boolean);
-  const country = segments[segments[0] === 'content' ? 2 : 0] || '';
   if (!paginationEl) return;
   paginationEl.textContent = '';
 
@@ -261,7 +268,7 @@ function buildPaginationControls(paginationEl, state, onPageChange, config) {
   prevBtn.className = 'page-button page-arrow-btn is-prev';
   prevBtn.setAttribute('aria-label', config.prevbuttonarialabel || 'Previous');
   const prevIcon = document.createElement('img');
-  prevIcon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+  prevIcon.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
   prevIcon.alt = '';
   prevIcon.className = 'page-arrow-icon';
   prevBtn.appendChild(prevIcon);
@@ -302,7 +309,7 @@ function buildPaginationControls(paginationEl, state, onPageChange, config) {
   nextBtn.className = 'page-button page-arrow-btn is-next';
   nextBtn.setAttribute('aria-label', config.nextbuttonarialabel || 'Next');
   const nextIcon = document.createElement('img');
-  nextIcon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+  nextIcon.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
   nextIcon.alt = '';
   nextIcon.className = 'page-arrow-icon';
   nextBtn.appendChild(nextIcon);
@@ -314,7 +321,7 @@ function buildPaginationControls(paginationEl, state, onPageChange, config) {
   paginationEl.appendChild(nextBtn);
 }
 
-// 移动端 Load More 按钮
+// 移动端 Load More
 function buildMobilePaginationControls(mobileEl, state, onLoadMore, config) {
   if (!mobileEl) return;
   mobileEl.textContent = '';
@@ -330,25 +337,56 @@ function buildMobilePaginationControls(mobileEl, state, onLoadMore, config) {
   mobileEl.appendChild(loadMoreBtn);
 }
 
-// 解析 block DOM：config 行为纯文本 key-value，item 行第二列含 <a> 链接
+// block 级配置 key，即使第二列是链接也只当 config 不入 items
+// 这是key-value 造成的问题
+const BLOCK_CONFIG_KEYS = new Set([
+  'emptyresultheading', 'noresultsubtitle', 'noresultcontent',
+  'popularsearchheading', 'popularsearchtags', 'popularsearchlink',
+  'prevbuttonarialabel', 'nextbuttonarialabel', 'loadmorelabel',
+]);
+
+// 提取 key-value
 function parseConfig(block) {
   const config = {};
   const items = [];
+  const RICHTEXT_KEYS = new Set(['noresultcontent']);
+  const TAG_KEYS = new Set(['popularsearchtags']);
 
   const rows = [...block.children];
   rows.forEach((row) => {
     const cols = [...row.children];
     if (cols.length < 2) return;
 
-    const link = cols[1].querySelector('a');
-    if (link) {
+    const key = (cols[0].textContent || '').trim().toLowerCase();
+
+    if (TAG_KEYS.has(key)) {
+      const links = cols[1].querySelectorAll('a');
+      config[key] = links.length > 0
+        ? [...links].map((l) => l.textContent.trim())
+        : (cols[1].textContent || '').trim().split(',').map((t) => t.trim()).filter(Boolean);
+      return;
+    }
+
+    if (RICHTEXT_KEYS.has(key)) {
+      config[key] = cols[1].innerHTML || '';
+      return;
+    }
+
+    if (BLOCK_CONFIG_KEYS.has(key)) {
+      const link = cols[1].querySelector('a');
+      config[key] = link ? (link.getAttribute('href') || link.textContent || '').trim() : (cols[1].textContent || '').trim();
+      return;
+    }
+
+    const col1Text = (cols[1].textContent || '').trim().toLowerCase();
+    if (TYPE_CONFIG[col1Text]) {
       items.push({
         title: (cols[0].textContent || '').trim(),
-        endpoint: link.getAttribute('href') || '',
+        type: col1Text,
+        pageSize: cols[2] ? parseInt((cols[2].textContent || '').trim(), 10) || DEFAULT_PAGE_SIZE : DEFAULT_PAGE_SIZE,
         sourceRow: row,
       });
     } else {
-      const key = (cols[0].textContent || '').trim().toLowerCase();
       const value = (cols[1].textContent || '').trim();
       config[key] = value;
     }
@@ -357,21 +395,7 @@ function parseConfig(block) {
   return { config, items };
 }
 
-// FAQ 卡片展开/收起
-function initFaqAccordion(container) {
-  const faqTitles = container.querySelectorAll('.faq-card .faq-title');
-  faqTitles.forEach((title) => {
-    if (title.dataset.bound) return;
-    title.dataset.bound = 'true';
-    title.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const faqCard = title.closest('.faq-card');
-      if (faqCard) faqCard.classList.toggle('hide');
-    });
-  });
-}
-
-// 无结果提示
+// 单个 tab 的无结果提示
 function renderNoResult(keyword, tabTitle, config) {
   const wrap = document.createElement('div');
   wrap.className = 'no-result-grid';
@@ -390,10 +414,65 @@ function renderNoResult(keyword, tabTitle, config) {
   return wrap;
 }
 
+// 全局无结果页面
+function renderGlobalNoResult(keyword, config, tagData) {
+  const wrap = document.createElement('div');
+  wrap.className = 'no-result-grid';
+
+  const titleEl = document.createElement('div');
+  titleEl.className = 'no-result-title';
+  const prefix = config.emptyresultheading || 'No results for';
+  titleEl.innerHTML = `${prefix} <span>${keyword || ''}</span>`;
+  wrap.appendChild(titleEl);
+
+  const subtitleEl = document.createElement('div');
+  subtitleEl.className = 'no-result-subtitle';
+  subtitleEl.textContent = config.noresultsubtitle || 'Try a new search or the below suggestions.';
+  wrap.appendChild(subtitleEl);
+
+  if (config.noresultcontent) {
+    const contentEl = document.createElement('div');
+    contentEl.className = 'no-result-content';
+    contentEl.innerHTML = config.noresultcontent;
+    wrap.appendChild(contentEl);
+  }
+
+  const tags = config.popularsearchtags;
+  if (tags && tags.length > 0) {
+    const popularWrap = document.createElement('div');
+    popularWrap.className = 'popular-search';
+
+    const popularTitle = document.createElement('div');
+    popularTitle.className = 'popular-search-title';
+    popularTitle.textContent = config.popularsearchheading || 'Popular Search';
+    popularWrap.appendChild(popularTitle);
+
+    const tagList = document.createElement('div');
+    tagList.className = 'popular-search-tags';
+    const searchLink = config.popularsearchlink || window.location.pathname;
+    const linkTarget = config.popularsearchlinktarget || '_self';
+
+    tags.forEach((tagPath) => {
+      const tagTitle = getTagTitle(tagPath, tagData);
+
+      const tagEl = document.createElement('a');
+      tagEl.className = 'popular-search-tag';
+      const separator = searchLink.includes('?') ? '&' : '?';
+      tagEl.href = `${searchLink}${separator}fulltext=${encodeURIComponent(tagTitle)}`;
+      tagEl.target = linkTarget;
+      tagEl.textContent = tagTitle;
+      tagList.appendChild(tagEl);
+    });
+
+    popularWrap.appendChild(tagList);
+    wrap.appendChild(popularWrap);
+  }
+
+  return wrap;
+}
+
 export default async function decorate(block) {
   const { config, items } = parseConfig(block);
-
-  const pageSize = parseInt(config.pagesize || config.pageSize || DEFAULT_PAGE_SIZE, 10);
   const keyword = getSearchKeyword();
 
   block.textContent = '';
@@ -417,66 +496,58 @@ export default async function decorate(block) {
   }
 
   const tabDataMap = [];
+  const hasPopularTags = config.popularsearchtags && config.popularsearchtags.length > 0;
 
   const fetchPromises = items.map(async (item) => {
-    const localizedEndpoint = getLocalizedEndpoint(item.endpoint);
-    const endpointType = detectEndpointType(localizedEndpoint);
+    const { type } = item;
+    const { endpoint: rawEndpoint, dataSource } = TYPE_CONFIG[type] || TYPE_CONFIG.product;
+    const localizedEndpoint = getLocalizedEndpoint(rawEndpoint, dataSource);
+    const itemPageSize = item.pageSize || DEFAULT_PAGE_SIZE;
     try {
-      const url = getEndpointUrl(localizedEndpoint, endpointType);
+      const url = getEndpointUrl(localizedEndpoint, dataSource);
       const resp = await fetch(url);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const rawData = await resp.json();
-      const dataType = detectDataType(rawData);
 
-      let allItems = [];
-      let filteredItems = [];
-      let resolvedType = dataType !== 'unknown' ? dataType : endpointType;
-
-      if (resolvedType === 'product') {
-        allItems = extractProductList(rawData);
-        filteredItems = filterProducts(allItems, keyword);
-      } else if (resolvedType === 'faq') {
-        allItems = extractFaqList(rawData);
-        filteredItems = filterFaqs(allItems, keyword);
-      } else {
-        allItems = extractProductList(rawData);
-        if (allItems.length === 0) allItems = extractFaqList(rawData);
-        filteredItems = allItems;
-        resolvedType = 'product';
-      }
+      const allItems = extractDataList(rawData, dataSource);
+      const filteredItems = filterItems(allItems, keyword, type);
 
       return {
         title: item.title,
-        endpoint: item.endpoint,
+        endpoint: rawEndpoint,
         sourceRow: item.sourceRow,
-        type: resolvedType,
+        type,
         allItems,
         filteredItems,
-        state: { pageSize, currentPage: 1, total: filteredItems.length },
+        state: { pageSize: itemPageSize, currentPage: 1, total: filteredItems.length },
       };
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.error(`support-search-result-module: failed to fetch ${item.endpoint}`, err);
+      console.error(`search-result-module: failed to fetch ${item.endpoint}`, err);
       return {
         title: item.title,
         endpoint: item.endpoint,
         sourceRow: item.sourceRow,
-        type: 'unknown',
+        type,
         allItems: [],
         filteredItems: [],
-        state: { pageSize, currentPage: 1, total: 0 },
+        state: { pageSize: itemPageSize, currentPage: 1, total: 0 },
       };
     }
   });
 
-  const results = await Promise.all(fetchPromises);
+  const tagDataPromise = hasPopularTags ? fetchTagData() : Promise.resolve(null);
+  const [results, tagData] = await Promise.all([
+    Promise.all(fetchPromises),
+    tagDataPromise,
+  ]);
   results.forEach((r) => tabDataMap.push(r));
 
   const allEmpty = tabDataMap.every((t) => t.filteredItems.length === 0);
 
   if (allEmpty && keyword) {
     tabNav.style.display = 'none';
-    contentArea.appendChild(renderNoResult(keyword, '', config));
+    contentArea.appendChild(renderGlobalNoResult(keyword, config, tagData));
     block.classList.add('loaded');
     return;
   }
@@ -525,9 +596,9 @@ export default async function decorate(block) {
       const grid = document.createElement('div');
       grid.className = 'product-grid';
       tabContent.appendChild(grid);
-    } else if (tabData.type === 'faq') {
+    } else {
       const grid = document.createElement('div');
-      grid.className = 'faq-grid';
+      grid.className = 'article-grid';
       tabContent.appendChild(grid);
     }
 
@@ -542,13 +613,14 @@ export default async function decorate(block) {
     contentArea.appendChild(tabContent);
   });
 
+  // 处理 tab 的卡片列表和分页
   function renderTabContent(tabIndex) {
     const tabData = tabDataMap[tabIndex];
     const tabContent = contentArea.querySelector(`.tab-content[data-tab-index="${tabIndex}"]`);
     if (!tabContent || !tabData) return;
 
     const { filteredItems, type, state } = tabData;
-    const { currentPage } = state;
+    const { currentPage, pageSize } = state;
     const startIdx = (currentPage - 1) * pageSize;
     const pageItems = filteredItems.slice(startIdx, startIdx + pageSize);
 
@@ -560,14 +632,13 @@ export default async function decorate(block) {
           grid.appendChild(createProductCard(item));
         });
       }
-    } else if (type === 'faq') {
-      const grid = tabContent.querySelector('.faq-grid');
+    } else {
+      const grid = tabContent.querySelector('.article-grid');
       if (grid) {
         grid.textContent = '';
-        pageItems.forEach((item, idx) => {
-          grid.appendChild(createFaqCard(item, idx));
+        pageItems.forEach((item) => {
+          grid.appendChild(createArticleCard(item));
         });
-        initFaqAccordion(tabContent);
       }
     }
 
@@ -581,19 +652,18 @@ export default async function decorate(block) {
     };
 
     const onLoadMore = () => {
-      const grid = tabContent.querySelector('.product-grid') || tabContent.querySelector('.faq-grid');
+      const grid = tabContent.querySelector('.product-grid') || tabContent.querySelector('.article-grid');
       if (!grid) return;
 
       const nextPage = tabData.state.currentPage + 1;
       const moreStart = tabData.state.currentPage * pageSize;
       const moreItems = filteredItems.slice(moreStart, moreStart + pageSize);
 
-      moreItems.forEach((item, idx) => {
+      moreItems.forEach((item) => {
         if (type === 'product') {
           grid.appendChild(createProductCard(item));
-        } else if (type === 'faq') {
-          grid.appendChild(createFaqCard(item, moreStart + idx));
-          initFaqAccordion(tabContent);
+        } else {
+          grid.appendChild(createArticleCard(item));
         }
       });
 

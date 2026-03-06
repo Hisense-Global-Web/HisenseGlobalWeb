@@ -87,16 +87,12 @@
   .authorized-reseller-badge-list {
     width: 100%;
     flex: 0 1 100%;
-    margin-top: var(--spacing-sm, 24px);
+    margin-top: var(--spacing-m, 32px);
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
     gap: var(--spacing-sm, 24px);
-
-    @media (width < 860px) {
-      margin-top: var(--spacing-m, 32px);
-    }
   }
 
   .authorized-reseller-badge-item {
@@ -125,7 +121,6 @@
   }
 
   .authorized-reseller-badge-item-icon {
-    padding: var(--spacing-4xs, 4px);
     height: min(calc(70 / var(--breakpoint-pc) * 100vw), 70px);
     display: flex;
     justify-content: center;
@@ -145,7 +140,7 @@
   }
 
   .authorized-reseller-badge-item-title {
-    color: var(--color-primary-grey-100, #000);
+    color: var(--color-primary-grey-70, #333);
     text-align: center;
     font-size: var(--size-14, 14px);
     font-weight: 400;
