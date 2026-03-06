@@ -361,7 +361,7 @@ export default async function decorate(block) {
     btnGroup.classList.add('hide');
   }
   const showWrapper = hasColorValue ? colorsWrapper : sizesWrapper;
-  info.append(fav, series, title, ratingWrapper, price, showWrapper, badges, btnGroup, specsBtn, badgesMobileGroup);
+  info.append(fav, series, title, ratingWrapper, price, showWrapper, badges, btnGroup, linkGroupEl, badgesMobileGroup);
 
   block.replaceChildren(info);
 
