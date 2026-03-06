@@ -3955,7 +3955,7 @@
         ]
       },
       {
-        "component": "aem-content",
+        "component": "reference",
         "name": "faq-icon",
         "label": "Faq Icon",
         "valueType": "string",

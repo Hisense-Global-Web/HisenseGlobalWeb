@@ -248,6 +248,12 @@ export default async function decorate(block) {
   btnGroup.className = 'pdp-btn-group';
   btnGroup.append(buy, cart);
 
+  const linkGroupEl = document.createElement('div');
+  linkGroupEl.className = 'pdp-btn-link-group';
+
+  const faqEl = document.createElement('div');
+  faqEl.className = 'pdp-faq-btn';
+
   const specsBtn = document.createElement('div');
   specsBtn.className = 'pdp-specs-btn';
   const specsImg = document.createElement('img');
@@ -267,6 +273,7 @@ export default async function decorate(block) {
       behavior: 'auto',
     });
   });
+  linkGroupEl.appendChild(specsBtn);
   if (!fields.includes('position')) {
     specsBtn.classList.add('hide');
   }
@@ -283,7 +290,7 @@ export default async function decorate(block) {
     btnGroup.classList.add('hide');
   }
 
-  info.append(fav, series, title, ratingWrapper, price, sizesWrapper, badges, btnGroup, specsBtn, badgesMobileGroup);
+  info.append(fav, series, title, ratingWrapper, price, sizesWrapper, badges, btnGroup, linkGroupEl, badgesMobileGroup);
 
   block.replaceChildren(info);
 
