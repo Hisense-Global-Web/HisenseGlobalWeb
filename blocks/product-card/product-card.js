@@ -603,11 +603,11 @@ export default function decorate(block) {
       labelSpan.textContent = 'Compare';
       compareEl.append(compareIcon, labelSpan);
 
-      const colorsArray = (Array.isArray(group.colors) && group.colors.length)
+      const colorsArray? = (Array.isArray(group.colors) && group.colors.length)
         ? group.colors
         : Array.from(colorToVariant.keys());
       // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
-      let [selectedColor] = colorsArray;
+      let [selectedColor] = colorsArray?;
       selectedVariant = selectedColor ? (colorToVariant.get(selectedColor) || item) : item;
       // 用来更新卡片显示为指定变体
       const updateCardWithVariant = (variant) => {
@@ -805,7 +805,7 @@ export default function decorate(block) {
       });
 
       // 创建color节点并绑定事件
-      colorsArray.forEach((s) => {
+      colorsArray?.forEach((s) => {
         const sp = document.createElement('span');
         sp.classList.add('plp-product-color', s);
         if (s === selectedColor) sp.classList.add('selected');
@@ -822,7 +822,8 @@ export default function decorate(block) {
         colorsDiv.appendChild(sp);
       });
       // 如果color 和size 同时存在 显示color
-      const showDiv = colorsArray && colorsArray.length > 0 ? colorsDiv : sizesDiv;
+      const hasColorValue = colorsArray.some((x) => x && x !== undefined)
+      const showDiv = hasColorValue && colorsArray.length > 0 ? colorsDiv : sizesDiv;
       card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields);
 
       // 将where to buy 按钮追加在按钮组dom 中
