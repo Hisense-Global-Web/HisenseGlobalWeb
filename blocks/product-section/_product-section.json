@@ -53,6 +53,18 @@
           ]
         },
         {
+          "component": "aem-content",
+          "name": "faq-icon",
+          "label": "Faq Icon",
+          "valueType": "string",
+          "condition": {
+            "some": [
+              {"var": "fields"},
+              {"===": [{"var": ""}, "faq"]}
+            ]
+          }
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "faq-link",
