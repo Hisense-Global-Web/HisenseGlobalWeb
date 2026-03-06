@@ -224,36 +224,37 @@ main .section.product-gallery-container.product-section-container .product-secti
 .pdp-btn-link-group {
   display: flex;
   gap: var(--size-24);
-}
 
-.pdp-specs-btn {
-  order: 9;
-  display: flex;
-  align-items: center;
-  gap: var(--size-4);
-  background: transparent;
-  border: none;
-  color: var(--color-primary-grey-70);
-  font-size: var(--size-12);
-  cursor: pointer;
-  padding: 0;
-  font-weight: var(--fontweight-book);
-  
-  &:hover {
+  .pdp-specs-btn, .pdp-faq-btn {
+    order: 9;
+    display: flex;
+    align-items: center;
+    gap: var(--size-4);
     background: transparent;
-  }
-  
-  &.hide {
-    display: none;
-  }
+    border: none;
+    color: var(--color-primary-grey-70);
+    font-size: var(--size-12);
+    cursor: pointer;
+    padding: 0;
+    font-weight: var(--fontweight-book);
 
-  img {
-    width: var(--size-24);
-    height: var(--size-24);
-  }
+    &:hover {
+      background: transparent;
+    }
 
-  span {
-    line-height: 1.5;
+    &.hide {
+      display: none;
+    }
+
+    img {
+      width: var(--size-24);
+      height: var(--size-24);
+    }
+
+    span {
+      font-size: var(--size-12);
+      line-height: 1.5;
+    }
   }
 }
 

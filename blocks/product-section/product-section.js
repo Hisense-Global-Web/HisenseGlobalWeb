@@ -4,10 +4,20 @@ const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default async function decorate(block) {
   const rows = [...(block.children || [])];
   let fields = [];
-  rows.forEach((row) => {
+  let faqIconEl = null;
+  let faqLink = '';
+  rows.forEach((row, i) => {
     const text = row.textContent && row.textContent.trim();
-    if (text && text.indexOf(',') >= 0) {
+    if (i === 2 && text && text.indexOf(',') >= 0) {
       fields = text.split(',').map((s) => s.trim()).filter(Boolean);
+    }
+    if (fields.includes('faq')) {
+      if (i === 3) {
+        faqIconEl = row.querySelector('img');
+      }
+      if (i === 4) {
+        faqLink = row.textContent.trim();
+      }
     }
   });
   const link = block.querySelector('a');
@@ -253,6 +263,16 @@ export default async function decorate(block) {
 
   const faqEl = document.createElement('div');
   faqEl.className = 'pdp-faq-btn';
+  if (faqIconEl && faqLink) {
+    faqEl.appendChild(faqIconEl);
+    const faqLinkSpan = document.createElement('span');
+    faqLinkSpan.textContent = 'FAQ';
+    faqEl.appendChild(faqLinkSpan);
+    faqEl.addEventListener('click', () => {
+      if (faqLink) window.location.href = faqLink;
+    });
+    linkGroupEl.appendChild(faqEl);
+  }
 
   const specsBtn = document.createElement('div');
   specsBtn.className = 'pdp-specs-btn';
