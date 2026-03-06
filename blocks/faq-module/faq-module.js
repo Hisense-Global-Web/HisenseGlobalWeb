@@ -479,6 +479,14 @@ function getRelativePath(url) {
 
 // 初始化FAQ模块
 export default async function decorate(block) {
+  if (block.classList.contains('loaded')) {
+    const oldWrapper = block.querySelector('.faq-module-wrapper');
+    if (oldWrapper) oldWrapper.remove();
+    const oldSummary = block.querySelector('.faq-summary');
+    if (oldSummary) oldSummary.remove();
+    block.classList.remove('loaded');
+  }
+
   const config = readBlockConfig(block);
 
   const rawEndpoint = config.endpoint || DEFAULT_FAQ_ENDPOINT;
