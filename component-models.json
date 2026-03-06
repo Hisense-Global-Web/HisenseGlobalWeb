@@ -595,6 +595,92 @@
     ]
   },
   {
+    "id": "additional-support-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "value": "",
+        "label": "SVG icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "time_workingHours",
+        "value": "",
+        "label": "Working Hours",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "time_responseTime",
+        "value": "",
+        "label": "Response Time",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "support_phone",
+        "value": "",
+        "label": "Support Phone Number",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "button-display",
+        "value": "pc-and-mobile",
+        "label": "Button Display Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Displayed on both PC and Mobile",
+            "value": "pc-and-mobile"
+          },
+          {
+            "name": "Only displayed on Mobile",
+            "value": "mobile-only"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "label": "",
+        "name": "container_cta",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "valueType": "string",
+            "value": ""
+          },
+          {
+            "component": "aem-content",
+            "name": "button_link",
+            "label": "Button Link",
+            "valueType": "string",
+            "value": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "text-body-image",
     "classes": "text-body-image",
     "fields": [
@@ -2925,13 +3011,13 @@
       {
         "component": "text",
         "name": "button_text",
-        "label": "Button Copy",
+        "label": "Button Copy For PC",
         "valueType": "string"
       },
       {
         "component": "select",
         "name": "button_color",
-        "label": "Button Color",
+        "label": "Button Color For PC",
         "valueType": "string",
         "options": [
           {
@@ -2946,20 +3032,14 @@
       },
       {
         "component": "aem-content",
-        "name": "button_link",
-        "label": "Button Link",
+        "name": "button_CTALink",
+        "label": "CTA Link",
         "valueType": "string"
       },
       {
         "component": "reference",
         "name": "button_iconMobile",
         "label": "Cta Icon For Mobile",
-        "valueType": "string"
-      },
-      {
-        "component": "reference",
-        "name": "pdf-select",
-        "label": "PDF Select",
         "valueType": "string"
       }
     ]
@@ -3861,8 +3941,54 @@
           {
             "name": "Position",
             "value": "position"
+          },
+          {
+            "name": "Faq",
+            "value": "faq"
           }
         ]
+      },
+      {
+        "component": "reference",
+        "name": "faq-icon",
+        "label": "Faq Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "faq"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "faq-link",
+        "label": "Faq Link",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "faq"
+              ]
+            }
+          ]
+        }
       }
     ]
   },
@@ -4064,7 +4190,7 @@
       {
         "component": "text",
         "name": "subtitle",
-        "label": "subTitle",
+        "label": "SubTitle",
         "valueType": "string"
       },
       {
@@ -4173,6 +4299,101 @@
         "label": "Link Text",
         "valueType": "string",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "search-result-module",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "emptyResultHeading",
+        "label": "No Result Title Prefix"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "noResultSubtitle",
+        "label": "No Result Subtitle"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "noResultContent",
+        "label": "No Result Richtext Content"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "popularSearchHeading",
+        "label": "Popular Search Heading"
+      },
+      {
+        "component": "aem-tag",
+        "name": "popularSearchTags",
+        "label": "Popular Search Tags",
+        "rootPath": "/content/cq:tags/hisense"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "popularSearchLink",
+        "label": "Popular Search Link (search page URL)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "prevButtonAriaLabel",
+        "label": "Previous Button Aria Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "nextButtonAriaLabel",
+        "label": "Next Button Aria Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreLabel",
+        "label": "Load More Button Label"
+      }
+    ]
+  },
+  {
+    "id": "search-result-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Tab Title"
+      },
+      {
+        "component": "select",
+        "name": "type",
+        "label": "Display Type",
+        "options": [
+          {
+            "name": "Product",
+            "value": "product"
+          },
+          {
+            "name": "News",
+            "value": "news"
+          },
+          {
+            "name": "Blog",
+            "value": "blog"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "pageSize",
+        "label": "Page Size"
       }
     ]
   },

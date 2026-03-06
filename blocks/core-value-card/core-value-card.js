@@ -1,6 +1,8 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
@@ -22,7 +24,7 @@ export default function decorate(block) {
           div.setAttribute('data-card-index', index);
           const arrow = document.createElement('img');
           arrow.className = 'arrow';
-          arrow.src = '/content/dam/hisense/us/common-icons/chevron-white-up.svg';
+          arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-white-up.svg`;
           arrow.setAttribute('data-target-index', index);
           arrow.addEventListener('click', (e) => {
             e.stopPropagation();

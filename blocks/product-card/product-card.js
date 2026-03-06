@@ -1,3 +1,4 @@
+import { isMobile, isMobileWindow } from '../../scripts/device.js';
 import {
   renderCompareDetailData,
   aggregateData,
@@ -8,6 +9,8 @@ import {
   appendCompareProductUtil,
 } from '../../utils/plp-compare-utils.js';
 
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function applyAggregatedSort(sortProperty, direction = -1) {
   try {
     // 检查是否有已选中的 filter
@@ -300,15 +303,16 @@ export default function decorate(block) {
     compareBtnEl.textContent = 'Compare';
     // 显示对比详细信息弹窗
     compareBtnEl.addEventListener('click', () => {
-      document.querySelector('.compare-popup-wrapper').style.display = 'block';
+      document.body.style.overflow = 'hidden';
       // 比较商品信息详细数据
       const compareDetailInfo = aggregateData(compareDataArr);
       // render compare popup detail data
       renderCompareDetailData(compareDetailInfo, 'property-box-id');
+      document.querySelector('.compare-popup-wrapper').style.display = 'block';
     });
     const compareBarCloseBtn = document.createElement('img');
     compareBarCloseBtn.className = 'plp-compare-bar-close';
-    compareBarCloseBtn.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+    compareBarCloseBtn.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
     compareBarCloseBtn.alt = 'Close';
     // 底部固定栏上的关闭按钮点击事件
     compareBarCloseBtn.addEventListener('click', () => {
@@ -528,6 +532,15 @@ export default function decorate(block) {
           extraFields.appendChild(fld);
         }
       });
+      // color 区块（可点击，默认选中第一个尺寸，切换显示对应 variant 信息
+      const colorsDiv = document.createElement('div');
+      colorsDiv.className = 'plp-product-colors';
+
+      const colorToVariant = new Map();
+      group.variants.forEach((v) => {
+        const s = v.color;
+        if (!colorToVariant.has(s)) colorToVariant.set(s, v);
+      });
 
       // sizes 区块（可点击，默认选中第一个尺寸，切换显示对应 variant 信息
       const sizesDiv = document.createElement('div');
@@ -545,14 +558,18 @@ export default function decorate(block) {
         if (!s) s = 'default';
         if (!sizeToVariant.has(s)) sizeToVariant.set(s, v);
       });
-
       const sizesArray = (Array.isArray(group.sizes) && group.sizes.length)
         ? group.sizes
         : Array.from(sizeToVariant.keys());
       // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
       let [selectedSize] = sizesArray;
       let selectedVariant = selectedSize ? (sizeToVariant.get(selectedSize) || item) : item;
-
+      const colorsArray = (Array.isArray(group.colors) && group.colors.length)
+        ? group.colors
+        : Array.from(colorToVariant.keys());
+      // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
+      let [selectedColor] = colorsArray;
+      selectedVariant = selectedColor ? (colorToVariant.get(selectedColor) || item) : item;
       // 用来更新卡片显示为指定变体
       const updateCardWithVariant = (variant) => {
         // image
@@ -662,8 +679,8 @@ export default function decorate(block) {
         compareEl.setAttribute('data-compare-id', variant.sku || group.sku || '');
         const compareIcon = document.createElement('span');
         compareIcon.className = 'plp-product-compare-icon';
-        compareIcon.innerHTML = `<img class="icon-unchecked" src="/content/dam/hisense/us/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
-          <img class="icon-checked" src="/content/dam/hisense/us/common-icons/icon-carousel/checkbox.svg" alt="" />`;
+        compareIcon.innerHTML = `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
+          <img class="icon-checked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox.svg" alt="" />`;
         const labelSpan = document.createElement('span');
         labelSpan.textContent = 'Compare';
         compareEl.append(compareIcon, labelSpan);
@@ -685,6 +702,11 @@ export default function decorate(block) {
             // 只有选择了2个产品时，才展示页面询问固定栏
             if (compareDataArr.length === 2) {
               document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
+              // 底部 compare bar 出现时且为移动端时，为footer 添加 padding-bottom
+              if (isMobile() || isMobileWindow()) {
+                const footerWrapper = document.querySelector('.footer-wrapper');
+                footerWrapper.style.paddingBottom = `${(274 / 390) * window.innerWidth}px`;
+              }
             }
             // 为底部固定栏中的对应li 设置已选择产品的图片、产品名称
             compareBarAllLi.forEach((curLi, index) => {
@@ -745,8 +767,26 @@ export default function decorate(block) {
         });
         sizesDiv.appendChild(sp);
       });
-
-      card.append(titleDiv, imgDiv, seriesDiv, nameDiv, sizesDiv, extraFields);
+      // 创建color节点并绑定事件
+      colorsArray.forEach((s) => {
+        const sp = document.createElement('span');
+        sp.classList.add('plp-product-color', s);
+        if (s === selectedColor) sp.classList.add('selected');
+        sp.addEventListener('click', () => {
+          if (selectedColor === s) return;
+          // 更新选中样式
+          const prev = colorsDiv.querySelector('.plp-product-color.selected');
+          if (prev) prev.classList.remove('selected');
+          sp.classList.add('selected');
+          selectedColor = s;
+          selectedVariant = colorToVariant.get(s) || item;
+          updateCardWithVariant(selectedVariant);
+        });
+        colorsDiv.appendChild(sp);
+      });
+      // 如果color 和size 同时存在 显示color
+      const showDiv = colorsArray && colorsArray.length > 0 ? colorsDiv : sizesDiv;
+      card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields);
       productsGrid.append(card);
 
       updateCardWithVariant(selectedVariant);
@@ -865,6 +905,7 @@ export default function decorate(block) {
           representative: it,
           variants: [],
           sizes: new Set(),
+          colors: new Set(),
         };
       }
       groups[key].variants.push(it);
@@ -880,12 +921,16 @@ export default function decorate(block) {
       }
       const sz = extractSize(it);
       if (sz) groups[key].sizes.add(sz);
+      const color = it?.color;
+      if (color) groups[key].colors.add(color);
     });
 
     allGroupedData = Object.keys(groups).map((k) => {
       const g = groups[k];
       const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(b) - Number(a));
-
+      // 处理color的 排序  后续顺序可调整
+      const colorOrder = ['black', 'silver', 'white', 'grey', 'red'];
+      const colors = colorOrder.filter((color) => Array.from(g.colors).filter(Boolean).includes(color));
       // 检查聚合产品是否有任意size有productDetailPageLink，有就共享这个链接
       let sharedProductDetailPageLink = g.variants.find((variant) => variant && variant.productDetailPageLink)?.productDetailPageLink;
 
@@ -909,6 +954,7 @@ export default function decorate(block) {
         variants: g.variants,
         sizes,
         sharedProductDetailPageLink,
+        colors,
       };
     });
 

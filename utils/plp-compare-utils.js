@@ -66,7 +66,8 @@ function comparePropertyData(allAttributesArr) {
 
   return result;
 }
-
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 /**
  * 解析并聚合数据
  * @param {Array} compareDataArr - 原始数据源
@@ -77,14 +78,23 @@ export function aggregateData(compareDataArr) {
   const allProductNameArr = []; // 所有比较商品的名字集合
   let tempCompareInfoObj = {}; // 比较信息对象包含：比较商品名称集合、比较商品属性集合
   const allAttrsArr = []; // 所有商品属性集合
+  const allProductImgArr = []; // 所有商品图片集合
 
   cloneCompareDataArr.forEach((compareDataItem) => {
     const itemAttrArr = []; // 每个商品的属性集合
+
     // 整合比较数据中的名字
     if (compareDataItem.series || compareDataItem.title) {
       allProductNameArr.push({
         productName: compareDataItem.title,
         productSeries: compareDataItem.series,
+      });
+    }
+    // 对比商品图片
+    const pPath = Object.keys(compareDataItem.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
+    if (pPath) {
+      allProductImgArr.push({
+        imgSrc: compareDataItem.mediaGallery_image ? compareDataItem.mediaGallery_image[pPath] : '',
       });
     }
     // 整合比较数据的所有属性
@@ -102,6 +112,7 @@ export function aggregateData(compareDataArr) {
   const comparePropertyArr = comparePropertyData(allAttrsArr); // 将相同属性归类到同一数组中
   tempCompareInfoObj = {
     compareTit: allProductNameArr,
+    compareImg: allProductImgArr,
     compareProperty: comparePropertyArr,
   };
   return tempCompareInfoObj;
@@ -113,20 +124,22 @@ export function aggregateData(compareDataArr) {
  * @param {string} containerId - 容器ID
  */
 export function renderCompareDetailData(compareDetailInfo, containerId) {
-  const { compareTit, compareProperty } = compareDetailInfo;
+  const { compareTit, compareImg, compareProperty } = compareDetailInfo;
   const container = document.getElementById(containerId);
   const nameBoxEl = document.querySelector('.product-name-box');
+  const imgWrapperEl = document.querySelector('.popup-img-wrapper');
   if (!container) return;
 
   // 清空容器
   container.innerHTML = '';
   nameBoxEl.innerHTML = '';
+  imgWrapperEl.innerHTML = '';
 
+  // 对比产品名字
   compareTit.forEach((titItem) => {
     // 创建属性项容器
     const nameItemDiv = document.createElement('div');
     nameItemDiv.className = 'product-title-item';
-    nameItemDiv.style.width = compareTit.length === 2 ? '50%' : '33%';
     // 创建产品名字
     const nameDiv = document.createElement('div');
     nameDiv.className = 'product-name';
@@ -142,7 +155,20 @@ export function renderCompareDetailData(compareDetailInfo, containerId) {
     nameBoxEl.append(nameItemDiv);
   });
 
-  // 遍历聚合数据，生成DOM
+  // 对比产品图片
+  compareImg.forEach((imgItem) => {
+    const imgItemDiv = document.createElement('div');
+    imgItemDiv.className = 'popup-img-item';
+    const imgBoxEl = document.createElement('div');
+    imgBoxEl.className = 'img-box';
+    const imgEl = document.createElement('img');
+    imgEl.src = imgItem.imgSrc;
+    imgBoxEl.append(imgEl);
+    imgItemDiv.append(imgBoxEl);
+    imgWrapperEl.appendChild(imgItemDiv);
+  });
+
+  // 对比属性，遍历聚合数据，生成DOM
   compareProperty.forEach((item) => {
     // 获取属性名和值数组
     const [key] = Object.keys(item);
@@ -164,7 +190,6 @@ export function renderCompareDetailData(compareDetailInfo, containerId) {
     values.forEach((value) => {
       const valueDiv = document.createElement('div');
       valueDiv.className = 'value-item';
-      valueDiv.style.width = compareTit.length === 2 ? '50%' : '33%';
       valueDiv.textContent = value;
       valuesDiv.appendChild(valueDiv);
     });
@@ -176,6 +201,130 @@ export function renderCompareDetailData(compareDetailInfo, containerId) {
   });
 }
 
+// popup scroll box 滚动时，popup 中产品名称需要吸顶
+function comparePopupScroll() {
+  // 获取元素 popup 产品名称相对于滚动容器的顶部偏移量
+  const nameBoxEl = document.querySelector('.product-name-box');
+  const scrollBoxEl = document.querySelector('.popup-scroll-box');
+  const nameBoxElTop = nameBoxEl.getBoundingClientRect().top;
+  // 获取滚动容器相对于视口的顶部偏移量
+  const scrollBoxTop = scrollBoxEl.getBoundingClientRect().top;
+
+  // 计算元素产品名称相对于滚动容器的内部偏移：当差值≤0时，元素B触顶
+  const relativeTop = nameBoxElTop - scrollBoxTop;
+
+  // 控制激活类名：触顶时添加边框，否则移除
+  if (relativeTop <= 0) {
+    nameBoxEl.classList.add('sticky-active');
+  } else {
+    nameBoxEl.classList.remove('sticky-active');
+  }
+}
+
+// mobile 端， popup 左滑、右滑只能滑动指定距离
+function mobilePopupTouchStartEnd() {
+  // 1. 获取目标滚动容器
+  const scrollContainer = document.querySelector('.popup-scroll-box');
+
+  // 最小滑动距离（过滤误触，单位px）
+  const MIN_SWIPE_DISTANCE = 30;
+
+  // 2. 定义变量存储滑动状态
+  let startX = 0; // 滑动起点X坐标
+  let startY = 0; // 滑动起点Y坐标
+  let isSwiping = false; // 是否正在滑动
+
+  /**
+   * 处理滑动开始事件
+   * @param {Event} e - 事件对象
+   */
+  function handleStart(e) {
+    // 阻止默认行为（避免页面滚动干扰）
+    e.preventDefault();
+    // 获取起点坐标（兼容touch和mouse事件）
+    const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+    // 初始化状态
+    startX = clientX;
+    startY = clientY;
+    isSwiping = true;
+  }
+
+  /**
+   * 处理滑动移动事件（仅标记状态，不做滚动）
+   * @param {Event} e - 事件对象
+   */
+  function handleMove(e) {
+    if (!isSwiping) return;
+    e.preventDefault(); // 阻止默认行为
+  }
+
+  /**
+   * 处理滑动结束事件（核心：判断方向+执行滚动）
+   * @param {Event} e - 事件对象
+   */
+  function handleEnd(e) {
+    if (!isSwiping) return;
+
+    // 获取终点坐标
+    const clientX = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX;
+    const clientY = e.type === 'touchend' ? e.changedTouches[0].clientY : e.clientY;
+
+    // 计算滑动偏移量
+    const deltaX = clientX - startX; // X轴偏移（正值=右滑，负值=左滑）
+    const deltaY = clientY - startY; // Y轴偏移
+
+    // 过滤无效滑动：横向滑动距离需大于纵向，且超过最小距离
+    if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE || Math.abs(deltaX) < Math.abs(deltaY)) {
+      isSwiping = false;
+      return;
+    }
+
+    // 6. 判断滑动方向并执行滚动
+    const currentScrollLeft = scrollContainer.scrollLeft; // 当前滚动距离
+    let targetScrollLeft = currentScrollLeft;
+    const availableScrollWidth = scrollContainer.scrollWidth;
+    const windowW = scrollContainer.clientWidth;
+    const SCROLL_DISTANCE = availableScrollWidth - windowW; // 每次滚动可流动距离
+    if (deltaX > 0) {
+      // 右滑：向左滚动（显示左侧内容）
+      // 配置项：每次滑动的滚动距离（可自定义）
+      targetScrollLeft = Math.max(0, currentScrollLeft - SCROLL_DISTANCE);
+      // console.log(SCROLL_DISTANCE, '右滑，向左滚动');
+    } else {
+      // 左滑：向右滚动（显示右侧内容）
+      // console.log(scrollContainer.scrollWidth, 'scrollwidth');
+      // console.log(scrollContainer.clientWidth, 'clientWidth');
+      const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      targetScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + SCROLL_DISTANCE);
+      // console.log(targetScrollLeft, '左滑，向右滚动');
+    }
+
+    // 执行滚动（支持平滑滚动）
+    scrollContainer.scrollTo({
+      left: targetScrollLeft,
+      behavior: 'smooth', // 平滑动画，移除则瞬间滚动
+    });
+
+    // 重置状态
+    isSwiping = false;
+  }
+
+  // 3. 监听触摸/鼠标开始事件（兼容移动端+桌面端）
+  scrollContainer.addEventListener('touchstart', handleStart);
+  scrollContainer.addEventListener('mousedown', handleStart);
+
+  // 4. 监听触摸/鼠标移动事件
+  scrollContainer.addEventListener('touchmove', handleMove);
+  scrollContainer.addEventListener('mousemove', handleMove);
+
+  // 5. 监听触摸/鼠标结束事件
+  scrollContainer.addEventListener('touchend', handleEnd);
+  scrollContainer.addEventListener('mouseup', handleEnd);
+  scrollContainer.addEventListener('mouseleave', handleEnd); // 鼠标离开容器也结束
+}
+
 // 比较弹窗详细信息
 export function createComparePopup() {
   const comparePopupWrapperEl = document.createElement('div');
@@ -183,17 +332,22 @@ export function createComparePopup() {
   const comparePopupContainerEl = document.createElement('div');
   comparePopupContainerEl.className = 'compare-popup-container';
   const comparePopupTitBoxEl = document.createElement('div');
+  const popupScrollBoxEl = document.createElement('div');
+  popupScrollBoxEl.className = 'popup-scroll-box';
+  // 监听滚动容器的滚动事件（仅监听弹窗内部滚动，不监听页面滚动）
+  popupScrollBoxEl.addEventListener('scroll', comparePopupScroll);
   // add card item close button
   const popupCloseBtn = document.createElement('div');
   popupCloseBtn.className = 'compare-popup-close';
   const closeIcon = document.createElement('img');
-  closeIcon.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+  closeIcon.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
   closeIcon.alt = 'Close';
   popupCloseBtn.append(closeIcon);
   // popup close click
   popupCloseBtn.addEventListener('click', () => {
     document.body.style.overflow = 'auto';
     document.querySelector('.compare-popup-wrapper').style.display = 'none';
+    // document.querySelector('.popup-scroll-box').scrollTop = 0
   });
   // popup title
   comparePopupTitBoxEl.className = 'compare-popup-tit-box';
@@ -213,9 +367,9 @@ export function createComparePopup() {
   productMainInfoBoxEl.className = 'product-main-info-box';
   // productMainInfoBoxEl.setAttribute('id', 'compare-data-detail');
 
-  // 对比商品 card 集合
-  const productCardBoxEl = document.createElement('div');
-  productCardBoxEl.className = 'product-card-box';
+  // 对比商品 图片集合
+  const imgBoxDiv = document.createElement('div');
+  imgBoxDiv.className = 'popup-img-wrapper';
 
   // 对比商品属性集合
   const propertyBoxEl = document.createElement('div');
@@ -223,12 +377,14 @@ export function createComparePopup() {
   propertyBoxEl.setAttribute('id', 'property-box-id');
 
   // 主体信息盒子里，追加 card 集合、specifications 集合
-  // productMainInfoBoxEl.append(productCardBoxEl, productSpecificationsBoxEl);
-  productMainInfoBoxEl.append(productCardBoxEl, propertyBoxEl);
+  productMainInfoBoxEl.append(imgBoxDiv, propertyBoxEl);
   // 为container 追加 popup title, card box, main info
-  comparePopupContainerEl.append(comparePopupTitBoxEl, compareProductNameBoxEl, productMainInfoBoxEl, popupCloseBtn);
+  popupScrollBoxEl.append(comparePopupTitBoxEl, compareProductNameBoxEl, productMainInfoBoxEl);
+  comparePopupContainerEl.append(popupCloseBtn, popupScrollBoxEl);
   comparePopupWrapperEl.append(comparePopupContainerEl);
   document.body.append(comparePopupWrapperEl);
+  // 移动端只滑动指定距离
+  mobilePopupTouchStartEnd();
 }
 
 /**
@@ -260,7 +416,7 @@ export function createCompareLiEl(appendType) {
   const itemCloseBtn = document.createElement('div');
   itemCloseBtn.className = 'plp-compare-card-close';
   const closeIcon = document.createElement('img');
-  closeIcon.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+  closeIcon.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
   closeIcon.alt = 'Close';
   itemCloseBtn.append(closeIcon);
   compareImgBox.append(compareImg, compareProductTitle, itemCloseBtn);
@@ -269,7 +425,7 @@ export function createCompareLiEl(appendType) {
   cardPlusImage.className = 'plp-compare-card-plus-box';
   const plusIcon = document.createElement('img');
   plusIcon.className = 'plp-compare-card-plus';
-  plusIcon.src = '/content/dam/hisense/us/common-icons/plus-grey30.png';
+  plusIcon.src = `/content/dam/hisense/${country}/common-icons/plus-grey30.png`;
   cardPlusImage.appendChild(plusIcon);
   compareImgLoadBox.append(compareImgBox, cardPlusImage);
   compareCardItem.append(compareImgLoadBox);

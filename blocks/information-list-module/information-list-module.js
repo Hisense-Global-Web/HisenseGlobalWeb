@@ -4,9 +4,14 @@ const EModuleType = Object.freeze({
   download: 'download',
   navigate: 'navigate',
 });
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 function buildPaginationControls(container, state, onPageChange, isEditMode) {
   const { total, limit, offset } = state;
+  if (total <= limit) {
+    return;
+  }
   const paginationEl = container.querySelector('.info-list-pagination');
   if (!paginationEl) return;
 
@@ -26,19 +31,19 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 
     if (label === 'prev') {
       const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/left.svg';
+      icon.src = `/content/dam/hisense/${country}/common-icons/left.svg`;
       icon.className = 'page-arrow is-prev normal';
       const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/left-disabled.svg';
+      disabledIcon.src = `/content/dam/hisense/${country}/common-icons/left-disabled.svg`;
       disabledIcon.className = 'page-arrow is-prev disabled';
       btn.setAttribute('aria-label', 'Previous page');
       btn.append(icon, disabledIcon);
     } else if (label === 'next') {
       const icon = document.createElement('img');
-      icon.src = '/content/dam/hisense/us/common-icons/right.svg';
+      icon.src = `/content/dam/hisense/${country}/common-icons/right.svg`;
       icon.className = 'page-arrow is-next normal';
       const disabledIcon = document.createElement('img');
-      disabledIcon.src = '/content/dam/hisense/us/common-icons/right-disabled.svg';
+      disabledIcon.src = `/content/dam/hisense/${country}/common-icons/right-disabled.svg`;
       disabledIcon.className = 'page-arrow is-next disabled';
       btn.setAttribute('aria-label', 'Next page');
       btn.append(icon, disabledIcon);
@@ -120,7 +125,6 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 const generateRightButton = (moduleType, info) => {
   const isDownload = moduleType === EModuleType.download;
   const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
-  const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
   buttonContainerEl.classList.add('operate-button-container');
   let pcIconEl; let btnTextEl; let btnColorEl; let btnLinkEl; let mobileIconEl;
   // 需要判断 PCIcon不存在的情况
@@ -139,17 +143,13 @@ const generateRightButton = (moduleType, info) => {
 
   const btnBgColor = btnColorEl?.textContent?.trim();
   btnColorEl?.remove();
-  const btnLink = btnLinkEl?.textContent?.trim?.();
-  btnLinkEl?.remove();
-  let pdfUrl = null;
-  if (pdfUrlEl) {
-    if (pdfUrlEl.querySelector('a')) {
-      pdfUrl = pdfUrlEl.querySelector('a').href;
-    } else if (pdfUrlEl.querySelector('img')) {
-      pdfUrl = pdfUrlEl.querySelector('img').src;
-    }
+  let btnLink = '';
+  if (btnLinkEl.querySelector('img')) {
+    btnLink = btnLinkEl.querySelector('img').src;
+  } else {
+    btnLink = btnLinkEl?.textContent?.trim?.();
   }
-  pdfUrlEl.remove();
+  btnLinkEl?.remove();
 
   // PC端的按钮
   const buttonPCContainer = document.createElement('div');
@@ -170,21 +170,21 @@ const generateRightButton = (moduleType, info) => {
     mobileIconEl.className = 'download-button-mobile';
   }
 
-  const btnOperateUrl = isDownload ? pdfUrl : btnLink;
   const handleDownload = () => {
     if (isDownload) {
       const link = document.createElement('a');
-      link.href = btnOperateUrl;
-      link.download = btnOperateUrl.substring(btnOperateUrl.lastIndexOf('/') + 1);
+      link.href = btnLink;
+      const noParamsUrl = btnLink?.split('?')?.[0] ?? '';
+      link.download = noParamsUrl.substring(btnLink.lastIndexOf('/') + 1);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } else {
-      window.location.href = btnOperateUrl;
+      window.location.href = btnLink;
     }
   };
 
-  if (btnOperateUrl) {
+  if (btnLink) {
     buttonContainerEl.classList.remove('disabled');
     buttonContainerEl.addEventListener('click', handleDownload);
   } else {
@@ -219,7 +219,7 @@ export default function decorate(block) {
   const moduleType = config['module-type'] ?? '';
   const pageSize = config['page-size'] * 1 ?? 10;
   const paginatedBtnText = config['paginated-btn-text'] ?? '';
-  const infoListContainer = document.querySelector('.information-list-module');
+  const infoListContainer = block;
   const [moduleTypeEl, pageSizeEl, noResultEl, ...infoList] = [...block.children];
   const noResultCloneEl = noResultEl?.cloneNode?.(true);
   moduleTypeEl?.remove?.();
@@ -265,7 +265,7 @@ export default function decorate(block) {
   const loadPage = (page, type = 'PC') => {
     const totalItems = infoList?.length ?? 0;
 
-    const loadInfoList = document.querySelectorAll('.info-list-card');
+    const loadInfoList = infoListContainer.querySelectorAll('.info-list-card');
     if (loadInfoList?.length) {
       loadInfoList.forEach((info) => {
         info.remove();
@@ -295,7 +295,7 @@ export default function decorate(block) {
     const startIndex = (safePage - 1) * pageSize;
     const pageItems = type === 'PC' ? infoList.slice(startIndex, startIndex + pageSize) : infoList.slice(0, startIndex + pageSize);
 
-    const pagination = document.querySelector('.info-list-pagination');
+    const pagination = infoListContainer.querySelector('.info-list-pagination');
     pageItems.forEach((info) => {
       infoListContainer.insertBefore(info, pagination);
     });
