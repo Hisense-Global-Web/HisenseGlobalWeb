@@ -3045,6 +3045,10 @@
     ]
   },
   {
+    "id": "job-list",
+    "fields": []
+  },
+  {
     "id": "key-features-card-container",
     "fields": [
       {
@@ -4141,6 +4145,17 @@
     ]
   },
   {
+    "id": "region-selection",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "page-title",
+        "label": "Page Title"
+      }
+    ]
+  },
+  {
     "id": "related-news",
     "fields": [
       {
@@ -4510,7 +4525,7 @@
     ]
   },
   {
-    "id": "sub-menu-link",
+    "id": "sub-menu-link-can-group",
     "fields": [
       {
         "component": "reference",
