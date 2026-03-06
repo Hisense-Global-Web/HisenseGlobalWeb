@@ -18,7 +18,7 @@ main .section.resource-list-container .resource-list-wrapper {
       
       @media (width < 860px) {
         gap: var(--size-16);
-        overflow-x: auto;
+        overflow: auto hidden;
         scrollbar-width: none;
       }
   
@@ -67,6 +67,12 @@ main .section.resource-list-container .resource-list-wrapper {
           line-height: var(--size-32);
           font-weight: var(--fontweight-medium);
           color: var(--color-hisense-black);
+          
+          @media (width < 860px) {
+            font-size: var(--size-18);
+            line-height: 1.2;
+            color: var(--color-primary-grey-90);
+          }
         }
         
         .resource-description {
@@ -75,6 +81,13 @@ main .section.resource-list-container .resource-list-wrapper {
           font-weight: var(--fontweight-book);
           color: var(--color-primary-grey-70);
           margin-bottom: var(--size-16);
+
+          @media (width < 860px) {
+            font-size: var(--size-14);
+            line-height: 1.5;
+            color: var(--color-primary-grey-70);
+            margin-bottom: var(--size-12);
+          }
         }
         
         .resource-subtitle {
@@ -83,6 +96,13 @@ main .section.resource-list-container .resource-list-wrapper {
           font-weight: var(--fontweight-medium);
           color: var(--color-primary-grey-70);
           margin-bottom: var(--size-8);
+
+          @media (width < 860px) {
+            font-size: var(--size-14);
+            line-height: 1.4;
+            color: var(--color-primary-grey-70);
+            margin-bottom: var(--size-12);
+          }
         }
   
         .resource-content {
@@ -91,7 +111,12 @@ main .section.resource-list-container .resource-list-wrapper {
           width: 100%;
           color: var(--color-primary-grey-50);
           font-size: var(--fontsize-body2);
+          font-weight: var(--fontweight-book);
           line-height: 1.5;
+          
+          @media (width < 860px) {
+            font-size: var(--size-14);
+          }
           
           ul {
             padding-left: var(--size-20);
@@ -99,6 +124,10 @@ main .section.resource-list-container .resource-list-wrapper {
           
           p {
             margin-bottom: var(--size-8);
+
+            @media (width < 860px) {
+              margin-bottom: var(--size-12);
+            }
           }
         }
         
