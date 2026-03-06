@@ -106,10 +106,6 @@ export function decorateMain(main) {
 function getGraphQLBaseUrl() {
   const { hostname } = window.location;
 
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return 'https://publish-p174152-e1855821.adobeaemcloud.com/';
-  }
-
   // Author environment - use same origin
   if (hostname.includes('author-')) {
     return '';
@@ -140,33 +136,11 @@ function getGraphQLBaseUrl() {
 }
 
 /**
- * Get EDS base URL based hostname
- */
-function getEdsBaseUrl() {
-  const { hostname } = window.location;
-
-  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('e1855821')) {
-    return 'https://development--hisense-dev--hisense-global-web.aem.page';
-  }
-
-  if (hostname.includes('e1855674')) {
-    return 'https://stage--hisense-stage--hisense-global-web.aem.page';
-  }
-
-  if (hostname.includes('e1855954')) {
-    return 'https://main--hisenseglobalweb--hisense-global-web.aem.live';
-  }
-
-  return window.location.origin;
-}
-
-/**
  * Set global variables for API endpoints
  */
 function setGlobalApiVariables() {
   const gqlBaseUrl = getGraphQLBaseUrl();
   window.GRAPHQL_BASE_URL = gqlBaseUrl;
-  window.EDS_BASE_URL = getEdsBaseUrl();
 }
 
 /**
@@ -219,7 +193,9 @@ function loadDelayedImages() {
   const currentHostname = window.location.hostname;
 
   if (currentHostname.includes('hisense-stage') || currentHostname.includes('hisense-dev') || currentHostname.includes('localhost')) {
-    const domainPrefix = 'https://publish-p174152-e1855821.adobeaemcloud.com';
+    const domainPrefix = currentHostname.includes('hisense-stage')
+      ? 'https://publish-p174152-e1855674.adobeaemcloud.com'
+      : 'https://publish-p174152-e1855821.adobeaemcloud.com';
 
     const processImage = (img) => {
       const src = img.getAttribute('src');
