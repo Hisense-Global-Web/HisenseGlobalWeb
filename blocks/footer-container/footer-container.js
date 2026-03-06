@@ -1,16 +1,11 @@
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
-const REGION = '/content/hisense/servlet.region-selection.json';
-
-function getRegionUrl() {
-  const baseUrl = window.GRAPHQL_BASE_URL || '';
-  return baseUrl ? `${baseUrl}${REGION}` : REGION;
-}
+const REGION = '/hisense/region-selection.json';
 
 // 获取标签数据
-async function fetchRegionData() {
+async function fetchRegionData(url) {
   try {
-    const response = await fetch(getRegionUrl());
+    const response = await fetch(url);
     if (response.ok) return response.json();
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -425,7 +420,13 @@ export default async function decorate(block) {
       footerLegals.appendChild(copyrightDiv);
     }
 
-    const regionData = await fetchRegionData();
+    const getRegionUrl = () => {
+      const baseUrl = window.GRAPHQL_BASE_URL || '';
+      const isEditMode = block.hasAttribute('data-aue-resource');
+      return `${baseUrl}${isEditMode ? '/bin' : '/api'}${REGION}?path=${window.location.pathname}`;
+    };
+
+    const regionData = await fetchRegionData(getRegionUrl());
     const generateLanguageItems = (languages, selectedLang) => {
       let languageItems = '';
       const langKeys = Object.keys(languages);
