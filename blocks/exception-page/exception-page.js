@@ -1,4 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
+import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
 
 export default function decorate(block) {
   const config = readBlockConfig(block);
@@ -23,4 +24,6 @@ export default function decorate(block) {
   btn.querySelector('a').innerText = btnText.innerText.trim();
   btnText.remove();
   block.append(btn);
+
+  getDynamicHeaderHeight(block);
 }

@@ -232,6 +232,9 @@ p {
     &.is-paused {
       .play-icon {
         display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
       }
 
       .pause-icon {

@@ -1,10 +1,7 @@
+import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
+
 export default async function decorate(block) {
   const textContainer = document.createElement('div');
-  const isCompanyPage = window.location.pathname.includes('company');
-  if (isCompanyPage) {
-    const height = window.innerWidth >= 1180 ? '166px' : '112px';
-    document.documentElement.style.setProperty('--nav-height', height);
-  }
   [...block.children].forEach((child) => {
     if (child.querySelector('picture')) child.setAttribute('class', 'banner-image');
     else {
@@ -13,4 +10,6 @@ export default async function decorate(block) {
       block.replaceChild(textContainer, child);
     }
   });
+
+  getDynamicHeaderHeight(block);
 }

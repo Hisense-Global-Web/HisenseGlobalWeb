@@ -4,10 +4,20 @@ const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default async function decorate(block) {
   const rows = [...(block.children || [])];
   let fields = [];
-  rows.forEach((row) => {
+  let faqIconEl = null;
+  let faqLink = '';
+  rows.forEach((row, i) => {
     const text = row.textContent && row.textContent.trim();
-    if (text && text.indexOf(',') >= 0) {
+    if (i === 2 && text && text.indexOf(',') >= 0) {
       fields = text.split(',').map((s) => s.trim()).filter(Boolean);
+    }
+    if (fields.includes('faq')) {
+      if (i === 3) {
+        faqIconEl = row.querySelector('img');
+      }
+      if (i === 4) {
+        faqLink = row.textContent.trim();
+      }
     }
   });
   const link = block.querySelector('a');
@@ -93,7 +103,6 @@ export default async function decorate(block) {
   let items = null;
   // 使用统一的数据转换函数处理 GraphQL 返回的各种格式
   items = transformTagStructureToProducts(json);
-
   // 根据SKU找到对应的产品
   const currentProduct = items ? items.find((item) => item.sku === sku) : null;
   const product = currentProduct || (items && items[0] ? items[0] : null);
@@ -150,46 +159,98 @@ export default async function decorate(block) {
 
   const sizesWrapper = document.createElement('div');
   sizesWrapper.className = 'pdp-sizes';
+  // color
+  const colorsWrapper = document.createElement('div');
+  colorsWrapper.className = 'pdp-colors';
+  const hasColorValue = similarProducts.some((item) => item.color);
   if (similarProducts.length > 0) {
-    // 对尺寸进行升序排序
-    const sortedProducts = similarProducts.sort((a, b) => {
-      const sizeA = parseInt(a.size, 10);
-      const sizeB = parseInt(b.size, 10);
-      return sizeA - sizeB;
-    });
+    // size 和 color 同时有值 优先显示color
+    if (hasColorValue) {
+      // const colorOrder = ['black', 'white', 'grey', 'silver', 'red', 'yellow', 'blue'];
 
-    sortedProducts.forEach((p) => {
-      const el = document.createElement('div');
-      el.className = 'pdp-size';
-      el.textContent = p.size;
-      el.setAttribute('data-sku', p.sku);
-      el.setAttribute('data-title', p.title);
+      // // 创建颜色到索引的映射
+      // const colorIndexMap = new Map(
+      //   colorOrder.map((color, index) => [color, index]),
+      // );
 
-      // 默认勾选当前SKU对应的尺寸
-      if (p.sku === sku) {
-        el.classList.add('selected');
-      }
+      // const sortedProducts = similarProducts.sort((a, b) => {
+      //   const indexA = colorIndexMap.has(a.color) ? colorIndexMap.get(a.color) : Infinity;
+      //   const indexB = colorIndexMap.has(b.color) ? colorIndexMap.get(b.color) : Infinity;
+      //   return indexA - indexB;
+      // });
 
-      // 添加点击事件
-      el.addEventListener('click', () => {
+      similarProducts.forEach((p) => {
+        const el = document.createElement('div');
+        el.classList.add('pdp-color', p.color);
+        el.setAttribute('data-sku', p.sku);
+        el.setAttribute('data-title', p.title);
+
+        // 默认勾选当前SKU对应的尺寸
+        if (p.sku === sku) {
+          el.classList.add('selected');
+        }
+
+        // 添加点击事件
+        el.addEventListener('click', () => {
         // 如果当前已经是选中状态，不执行跳转
-        if (el.classList.contains('selected')) {
-          return;
-        }
-
-        // 跳转到对应产品的whereToBuyLink链接
-        let productLink = (p.whereToBuyLink || p.productDetailPageLink) || '';
-        if (productLink) {
-          // 如果当前URL是hisense.com/us，把链接中的/us/en改成/us
-          if (window.location.hostname.includes('hisense.com') && window.location.pathname.startsWith('/us')) {
-            productLink = productLink.replace('/us/en', '/us');
+          if (el.classList.contains('selected')) {
+            return;
           }
-          window.location.href = productLink;
-        }
+
+          // 跳转到对应产品的whereToBuyLink链接
+          let productLink = (p.whereToBuyLink || p.productDetailPageLink) || '';
+          if (productLink) {
+          // 如果当前URL是hisense.com/us，把链接中的/us/en改成/us
+            if (window.location.hostname.includes('hisense.com') && window.location.pathname.startsWith('/us')) {
+              productLink = productLink.replace('/us/en', '/us');
+            }
+            window.location.href = productLink;
+          }
+        });
+
+        colorsWrapper.appendChild(el);
+      });
+    } else {
+      // 对尺寸进行升序排序
+      const sortedProducts = similarProducts.sort((a, b) => {
+        const sizeA = parseInt(a.size, 10);
+        const sizeB = parseInt(b.size, 10);
+        return sizeA - sizeB;
       });
 
-      sizesWrapper.appendChild(el);
-    });
+      sortedProducts.forEach((p) => {
+        const el = document.createElement('div');
+        el.className = 'pdp-size';
+        el.textContent = p.size;
+        el.setAttribute('data-sku', p.sku);
+        el.setAttribute('data-title', p.title);
+
+        // 默认勾选当前SKU对应的尺寸
+        if (p.sku === sku) {
+          el.classList.add('selected');
+        }
+
+        // 添加点击事件
+        el.addEventListener('click', () => {
+        // 如果当前已经是选中状态，不执行跳转
+          if (el.classList.contains('selected')) {
+            return;
+          }
+
+          // 跳转到对应产品的whereToBuyLink链接
+          let productLink = (p.whereToBuyLink || p.productDetailPageLink) || '';
+          if (productLink) {
+          // 如果当前URL是hisense.com/us，把链接中的/us/en改成/us
+            if (window.location.hostname.includes('hisense.com') && window.location.pathname.startsWith('/us')) {
+              productLink = productLink.replace('/us/en', '/us');
+            }
+            window.location.href = productLink;
+          }
+        });
+
+        sizesWrapper.appendChild(el);
+      });
+    }
   }
 
   const badges = document.createElement('div');
@@ -248,6 +309,22 @@ export default async function decorate(block) {
   btnGroup.className = 'pdp-btn-group';
   btnGroup.append(buy, cart);
 
+  const linkGroupEl = document.createElement('div');
+  linkGroupEl.className = 'pdp-btn-link-group';
+
+  const faqEl = document.createElement('div');
+  faqEl.className = 'pdp-faq-btn';
+  if (faqIconEl && faqLink) {
+    faqEl.appendChild(faqIconEl);
+    const faqLinkSpan = document.createElement('span');
+    faqLinkSpan.textContent = 'FAQ';
+    faqEl.appendChild(faqLinkSpan);
+    faqEl.addEventListener('click', () => {
+      if (faqLink) window.location.href = faqLink;
+    });
+    linkGroupEl.appendChild(faqEl);
+  }
+
   const specsBtn = document.createElement('div');
   specsBtn.className = 'pdp-specs-btn';
   const specsImg = document.createElement('img');
@@ -267,6 +344,7 @@ export default async function decorate(block) {
       behavior: 'auto',
     });
   });
+  linkGroupEl.appendChild(specsBtn);
   if (!fields.includes('position')) {
     specsBtn.classList.add('hide');
   }
@@ -282,8 +360,8 @@ export default async function decorate(block) {
   if (!fields.includes('buttons')) {
     btnGroup.classList.add('hide');
   }
-
-  info.append(fav, series, title, ratingWrapper, price, sizesWrapper, badges, btnGroup, specsBtn, badgesMobileGroup);
+  const showWrapper = hasColorValue ? colorsWrapper : sizesWrapper;
+  info.append(fav, series, title, ratingWrapper, price, showWrapper, badges, btnGroup, specsBtn, badgesMobileGroup);
 
   block.replaceChildren(info);
 
@@ -329,8 +407,20 @@ export default async function decorate(block) {
     });
   });
 
-  pdpNav.querySelector('.pdp-nav-menu').append(overviewMobileBtn, specsMobileBtn);
-  pdpNav.querySelector('.pdp-nav-menu').style.height = '106px';
+  const faqMobileBtn = document.createElement('div');
+  faqMobileBtn.classList.add('pdp-nav-menu-item');
+  faqMobileBtn.textContent = 'Faq';
+  faqMobileBtn.addEventListener('click', () => {
+    if (faqLink) window.location.href = faqLink;
+  });
+
+  const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');
+  pdpNavMenu.append(overviewMobileBtn, specsMobileBtn);
+  pdpNavMenu.style.height = '106px';
+  if (faqLink) {
+    pdpNavMenu.append(faqMobileBtn);
+    pdpNavMenu.style.height = '151px';
+  }
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const blockHeight = block.getBoundingClientRect()?.height || 0;

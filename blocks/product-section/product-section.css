@@ -126,6 +126,48 @@ main .section.product-gallery-container.product-section-container .product-secti
   color: var(--color-hisense-black);
 }
 
+
+.pdp-colors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--size-16);
+
+    /* margin-top: 8px; */
+    margin:var(--size-12) 0 var(--size-24);
+}
+
+.pdp-color {
+    width: var(--size-24);
+    height: var(--size-24);
+    border-radius: var(--size-24);
+}
+
+.pdp-color.black{
+  background: black;
+}
+
+.pdp-color.silver{
+  background: linear-gradient(to bottom, var(--color-neutral-200), var(--color-neutral-300), var(--color-neutral-200));
+}
+
+.pdp-color.white{
+  border: 1px solid var(--color-neutral-200)
+}
+
+.pdp-color.grey{
+ background: var(--color-neutral-400);
+}
+
+.pdp-color.red{
+  background:#D60D0D
+}
+
+.pdp-color.selected {
+   border: 1px solid black;
+}
+
+
 .pdp-badges {
   display: flex;
   gap: var(--size-8);
@@ -221,35 +263,45 @@ main .section.product-gallery-container.product-section-container .product-secti
   color: var(--white-alpha-80);
 } */
 
-.pdp-specs-btn {
-  order: 9;
+.pdp-btn-link-group {
   display: flex;
-  align-items: center;
-  gap: var(--size-4);
-  background: transparent;
-  border: none;
-  color: var(--color-primary-grey-70);
-  font-size: var(--size-12);
-  cursor: pointer;
-  padding: 0;
-  font-weight: var(--fontweight-book);
+  gap: var(--size-24);
+
+  .pdp-specs-btn, .pdp-faq-btn {
+    order: 9;
+    display: flex;
+    align-items: center;
+    gap: var(--size-4);
+    background: transparent;
+    border: none;
+    color: var(--color-primary-grey-70);
+    font-size: var(--size-12);
+    cursor: pointer;
+    padding: 0;
+    font-weight: var(--fontweight-book);
+
+    &:hover {
+      background: transparent;
+    }
+
+    &.hide {
+      display: none;
+    }
+
+    img {
+      width: var(--size-24);
+      height: var(--size-24);
+    }
+
+    span {
+      font-size: var(--size-12);
+      line-height: 1.5;
+    }
+  }
 }
 
 .pdp-info > .hide {
   display: none;
-}
-
-.pdp-specs-btn:hover {
-  background: transparent;
-}
-
-.pdp-specs-btn img {
-  width: var(--size-24);
-  height: var(--size-24);
-}
-
-.pdp-specs-btn span {
-  line-height: 1.5;
 }
 
 @media (width < 860px) {
