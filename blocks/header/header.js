@@ -1,5 +1,6 @@
 import { loadFragment } from '../fragment/fragment.js';
 import { getFragmentPath } from '../../scripts/locale-utils.js';
+import { processPath } from '../../utils/carousel-common.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -8,7 +9,7 @@ function parseLogo(root) {
   const logoHref = root.querySelector('.navigation-logo-wrapper a')?.href || '/';
   return {
     src: logoImg?.src || '',
-    href: logoHref,
+    href: processPath(logoHref),
     alt: logoImg?.alt || 'logo',
   };
 }
@@ -18,14 +19,14 @@ function parseNavItems(root) {
     const pList = wrapper.querySelectorAll('p');
     const title = pList[1]?.textContent?.trim() || '';
     const href = pList[0]?.textContent?.trim() || '#';
-    return { title, href };
+    return { title, href: processPath(href) };
   });
 }
 function parseNavLinks(root) {
   return Array.from(root.querySelectorAll('.navigation-link-wrapper')).map((wrapper) => {
     const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
     const href = wrapper.querySelector('a')?.href || '#';
-    return { title, href };
+    return { title, href: processPath(href) };
   });
 }
 
@@ -62,7 +63,7 @@ function parseActions(root) {
       enableSearchBox = strEnableSearchBox.toLowerCase() === 'true';
     }
     return {
-      title, href, img, darkImg, enableSearchBox,
+      title, href: processPath(href), img, darkImg, enableSearchBox,
     };
   });
 }
@@ -72,7 +73,7 @@ function parseCompany(root) {
     const ItemEl = wrapper.querySelector('.company-navigation-item');
     const title = ItemEl.children[0]?.children[0].innerHTML || '';
     const href = ItemEl.children[1]?.textContent?.trim() || '#';
-    return { title, href };
+    return { title, href: processPath(href) };
   });
 }
 
@@ -121,7 +122,7 @@ function parseDropdownProducts(col) {
       }
 
       return {
-        img, text, href, altText,
+        img, text, href: processPath(href), altText,
       };
     });
   }
@@ -173,7 +174,7 @@ function parseDropdownProducts(col) {
     }
 
     products.push({
-      img, text, href, altText,
+      img, text, href: processPath(href), altText,
     });
   }
   return products;
@@ -193,7 +194,7 @@ function parseDropdownLinks(col) {
 
       return {
         text,
-        href,
+        href: processPath(href),
       };
     }).filter((item) => item.text);
   }
@@ -203,7 +204,7 @@ function parseDropdownLinks(col) {
   for (let i = 0; i < items.length; i += 2) {
     const text = items[i]?.textContent.trim();
     const href = items[i + 1]?.textContent.trim() || '#';
-    results.push({ text, href });
+    results.push({ text, href: processPath(href) });
   }
   return results;
 }
@@ -221,7 +222,7 @@ function parseDropdownBtns(col) {
       const href = linkElement ? linkElement.getAttribute('href') : '';
 
       if (text) {
-        results.push({ text, href: href || '#', altText });
+        results.push({ text, href: processPath(href), altText });
       }
     });
     return results;
@@ -272,7 +273,7 @@ function parseDropdownBtns(col) {
         }
       }
 
-      results.push({ text, href });
+      results.push({ text, href: processPath(href) });
 
       // 如果 href 之后还有一行，并且那一行是 hisense 标签，那么把标签作为当前 item 的参数
       if (i + 2 < paragraphs.length) {
