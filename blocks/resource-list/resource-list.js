@@ -33,11 +33,14 @@ export default function decorate(block) {
 
     const cells = [...row.children];
     const iconCell = cells[0];
-    const textContent = cells[1]?.innerHTML || '';
-    const buttonText = cells[2]?.textContent.trim() || '';
-    const buttonLink = cells[3]?.querySelector('a')?.href || '';
-    const downloadAsset = cells[4]?.querySelector('a')?.href || cells[4]?.textContent.trim() || '';
-    const cardType = cells[5]?.textContent.trim() || 'download';
+    const title = cells[1]?.textContent.trim() || '';
+    const description = cells[2]?.textContent.trim() || '';
+    const subTitle = cells[3]?.textContent.trim() || '';
+    const textContent = cells[4]?.innerHTML || '';
+    const buttonText = cells[5]?.textContent.trim() || '';
+    const buttonLink = cells[6]?.querySelector('a')?.href || '';
+    const downloadAsset = cells[7]?.querySelector('a')?.href || cells[4]?.textContent.trim() || '';
+    const cardType = cells[8]?.textContent.trim() || 'download';
 
     card.setAttribute('data-card-type', cardType);
 
@@ -58,6 +61,25 @@ export default function decorate(block) {
       iconWrapper.innerHTML = DEFAULT_ICON_SVG;
     }
     card.appendChild(iconWrapper);
+
+    if (title) {
+      const contentEl = document.createElement('div');
+      contentEl.className = 'resource-title';
+      contentEl.innerHTML = title;
+      card.appendChild(contentEl);
+    }
+    if (description) {
+      const contentEl = document.createElement('div');
+      contentEl.className = 'resource-description';
+      contentEl.innerHTML = description;
+      card.appendChild(contentEl);
+    }
+    if (subTitle) {
+      const contentEl = document.createElement('div');
+      contentEl.className = 'resource-subtitle';
+      contentEl.innerHTML = subTitle;
+      card.appendChild(contentEl);
+    }
 
     // Content (rich text with H2-H6 headings)
     if (textContent) {

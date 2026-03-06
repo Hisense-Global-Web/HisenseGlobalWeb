@@ -4150,7 +4150,7 @@
       {
         "component": "text",
         "name": "subtitle",
-        "label": "subTitle",
+        "label": "SubTitle",
         "valueType": "string"
       },
       {
