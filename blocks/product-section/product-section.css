@@ -164,7 +164,9 @@ main .section.product-gallery-container.product-section-container .product-secti
 }
 
 .pdp-color.selected {
-   border: 1px solid black;
+  border: 1px solid black;
+  padding: var(--size-4);
+  background-clip: content-box;
 }
 
 

@@ -42,7 +42,8 @@
           "valueType": "string",
           "name": "title_image",
           "label": "Primary Image",
-          "multi": false
+          "multi": false,
+          "required": true
         },
          {
           "component": "text",
