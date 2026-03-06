@@ -9,6 +9,9 @@ const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 function buildPaginationControls(container, state, onPageChange, isEditMode) {
   const { total, limit, offset } = state;
+  if (total <= limit) {
+    return;
+  }
   const paginationEl = container.querySelector('.info-list-pagination');
   if (!paginationEl) return;
 
@@ -122,7 +125,6 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 const generateRightButton = (moduleType, info) => {
   const isDownload = moduleType === EModuleType.download;
   const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
-  const pdfUrlEl = info?.children?.[3] ?? document.createElement('div');
   buttonContainerEl.classList.add('operate-button-container');
   let pcIconEl; let btnTextEl; let btnColorEl; let btnLinkEl; let mobileIconEl;
   // 需要判断 PCIcon不存在的情况
@@ -141,17 +143,13 @@ const generateRightButton = (moduleType, info) => {
 
   const btnBgColor = btnColorEl?.textContent?.trim();
   btnColorEl?.remove();
-  const btnLink = btnLinkEl?.textContent?.trim?.();
-  btnLinkEl?.remove();
-  let pdfUrl = null;
-  if (pdfUrlEl) {
-    if (pdfUrlEl.querySelector('a')) {
-      pdfUrl = pdfUrlEl.querySelector('a').href;
-    } else if (pdfUrlEl.querySelector('img')) {
-      pdfUrl = pdfUrlEl.querySelector('img').src;
-    }
+  let btnLink = '';
+  if (btnLinkEl.querySelector('img')) {
+    btnLink = btnLinkEl.querySelector('img').src;
+  } else {
+    btnLink = btnLinkEl?.textContent?.trim?.();
   }
-  pdfUrlEl.remove();
+  btnLinkEl?.remove();
 
   // PC端的按钮
   const buttonPCContainer = document.createElement('div');
@@ -172,21 +170,21 @@ const generateRightButton = (moduleType, info) => {
     mobileIconEl.className = 'download-button-mobile';
   }
 
-  const btnOperateUrl = isDownload ? pdfUrl : btnLink;
   const handleDownload = () => {
     if (isDownload) {
       const link = document.createElement('a');
-      link.href = btnOperateUrl;
-      link.download = btnOperateUrl.substring(btnOperateUrl.lastIndexOf('/') + 1);
+      link.href = btnLink;
+      const noParamsUrl = btnLink?.split('?')?.[0] ?? '';
+      link.download = noParamsUrl.substring(btnLink.lastIndexOf('/') + 1);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } else {
-      window.location.href = btnOperateUrl;
+      window.location.href = btnLink;
     }
   };
 
-  if (btnOperateUrl) {
+  if (btnLink) {
     buttonContainerEl.classList.remove('disabled');
     buttonContainerEl.addEventListener('click', handleDownload);
   } else {
@@ -221,7 +219,7 @@ export default function decorate(block) {
   const moduleType = config['module-type'] ?? '';
   const pageSize = config['page-size'] * 1 ?? 10;
   const paginatedBtnText = config['paginated-btn-text'] ?? '';
-  const infoListContainer = document.querySelector('.information-list-module');
+  const infoListContainer = block;
   const [moduleTypeEl, pageSizeEl, noResultEl, ...infoList] = [...block.children];
   const noResultCloneEl = noResultEl?.cloneNode?.(true);
   moduleTypeEl?.remove?.();
@@ -267,7 +265,7 @@ export default function decorate(block) {
   const loadPage = (page, type = 'PC') => {
     const totalItems = infoList?.length ?? 0;
 
-    const loadInfoList = document.querySelectorAll('.info-list-card');
+    const loadInfoList = infoListContainer.querySelectorAll('.info-list-card');
     if (loadInfoList?.length) {
       loadInfoList.forEach((info) => {
         info.remove();
@@ -297,7 +295,7 @@ export default function decorate(block) {
     const startIndex = (safePage - 1) * pageSize;
     const pageItems = type === 'PC' ? infoList.slice(startIndex, startIndex + pageSize) : infoList.slice(0, startIndex + pageSize);
 
-    const pagination = document.querySelector('.info-list-pagination');
+    const pagination = infoListContainer.querySelector('.info-list-pagination');
     pageItems.forEach((info) => {
       infoListContainer.insertBefore(info, pagination);
     });

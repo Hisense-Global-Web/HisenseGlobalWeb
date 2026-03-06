@@ -3011,13 +3011,13 @@
       {
         "component": "text",
         "name": "button_text",
-        "label": "Button Copy",
+        "label": "Button Copy For PC",
         "valueType": "string"
       },
       {
         "component": "select",
         "name": "button_color",
-        "label": "Button Color",
+        "label": "Button Color For PC",
         "valueType": "string",
         "options": [
           {
@@ -3032,20 +3032,14 @@
       },
       {
         "component": "aem-content",
-        "name": "button_link",
-        "label": "Button Link",
+        "name": "button_CTALink",
+        "label": "CTA Link",
         "valueType": "string"
       },
       {
         "component": "reference",
         "name": "button_iconMobile",
         "label": "Cta Icon For Mobile",
-        "valueType": "string"
-      },
-      {
-        "component": "reference",
-        "name": "pdf-select",
-        "label": "PDF Select",
         "valueType": "string"
       }
     ]
@@ -3947,8 +3941,54 @@
           {
             "name": "Position",
             "value": "position"
+          },
+          {
+            "name": "Faq",
+            "value": "faq"
           }
         ]
+      },
+      {
+        "component": "reference",
+        "name": "faq-icon",
+        "label": "Faq Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "faq"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "faq-link",
+        "label": "Faq Link",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "faq"
+              ]
+            }
+          ]
+        }
       }
     ]
   },
@@ -4150,7 +4190,7 @@
       {
         "component": "text",
         "name": "subtitle",
-        "label": "subTitle",
+        "label": "SubTitle",
         "valueType": "string"
       },
       {
@@ -4239,7 +4279,7 @@
         "component": "text",
         "valueType": "string",
         "name": "suggestion-label",
-        "label": "Suggestion Lable"
+        "label": "Suggestion Label"
       }
     ]
   },

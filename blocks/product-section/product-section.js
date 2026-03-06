@@ -4,10 +4,20 @@ const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default async function decorate(block) {
   const rows = [...(block.children || [])];
   let fields = [];
-  rows.forEach((row) => {
+  let faqIconEl = null;
+  let faqLink = '';
+  rows.forEach((row, i) => {
     const text = row.textContent && row.textContent.trim();
-    if (text && text.indexOf(',') >= 0) {
+    if (i === 2 && text && text.indexOf(',') >= 0) {
       fields = text.split(',').map((s) => s.trim()).filter(Boolean);
+    }
+    if (fields.includes('faq')) {
+      if (i === 3) {
+        faqIconEl = row.querySelector('img');
+      }
+      if (i === 4) {
+        faqLink = row.textContent.trim();
+      }
     }
   });
   const link = block.querySelector('a');
@@ -299,6 +309,22 @@ export default async function decorate(block) {
   btnGroup.className = 'pdp-btn-group';
   btnGroup.append(buy, cart);
 
+  const linkGroupEl = document.createElement('div');
+  linkGroupEl.className = 'pdp-btn-link-group';
+
+  const faqEl = document.createElement('div');
+  faqEl.className = 'pdp-faq-btn';
+  if (faqIconEl && faqLink) {
+    faqEl.appendChild(faqIconEl);
+    const faqLinkSpan = document.createElement('span');
+    faqLinkSpan.textContent = 'FAQ';
+    faqEl.appendChild(faqLinkSpan);
+    faqEl.addEventListener('click', () => {
+      if (faqLink) window.location.href = faqLink;
+    });
+    linkGroupEl.appendChild(faqEl);
+  }
+
   const specsBtn = document.createElement('div');
   specsBtn.className = 'pdp-specs-btn';
   const specsImg = document.createElement('img');
@@ -318,6 +344,7 @@ export default async function decorate(block) {
       behavior: 'auto',
     });
   });
+  linkGroupEl.appendChild(specsBtn);
   if (!fields.includes('position')) {
     specsBtn.classList.add('hide');
   }
@@ -380,8 +407,20 @@ export default async function decorate(block) {
     });
   });
 
-  pdpNav.querySelector('.pdp-nav-menu').append(overviewMobileBtn, specsMobileBtn);
-  pdpNav.querySelector('.pdp-nav-menu').style.height = '106px';
+  const faqMobileBtn = document.createElement('div');
+  faqMobileBtn.classList.add('pdp-nav-menu-item');
+  faqMobileBtn.textContent = 'Faq';
+  faqMobileBtn.addEventListener('click', () => {
+    if (faqLink) window.location.href = faqLink;
+  });
+
+  const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');
+  pdpNavMenu.append(overviewMobileBtn, specsMobileBtn);
+  pdpNavMenu.style.height = '106px';
+  if (faqLink) {
+    pdpNavMenu.append(faqMobileBtn);
+    pdpNavMenu.style.height = '151px';
+  }
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const blockHeight = block.getBoundingClientRect()?.height || 0;
