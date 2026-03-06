@@ -13,13 +13,17 @@ export default function decorate(block) {
       workingTime?.classList?.add('working-time');
       responseTime?.classList?.add('response-time');
       phoneNumber?.children[0]?.classList?.add('phone-number');
+      const phoneNumberText = phoneNumber?.children[0]?.textContent || null;
       const displayButtonValue = displayButton?.querySelector('p')?.innerHTML || '';
       displayButton.style.display = 'none';
       if (displayButtonValue === 'mobile-only') {
         buttonLink?.classList?.add('button-hidden');
         phoneNumber?.classList?.add('phone-number-hidden');
       }
-      const buttonALink = buttonLink?.querySelector('a');
+      let buttonALink = buttonLink?.querySelector('a');
+      if (!buttonALink) {
+        buttonALink = buttonLink?.querySelector('p');
+      }
       if (buttonALink) {
         buttonALink?.classList?.remove('button');
         buttonALink?.classList?.add('additional-support-card-item-link');
@@ -31,9 +35,19 @@ export default function decorate(block) {
         //   workingTime?.classList?.add('main-working-time');
         //   responseTime?.classList?.add('main-response-time');
         // }
-        const buttonText = buttonLink?.children?.[1] ?? '';
-        buttonLink.querySelector('a').innerHTML = buttonText?.innerHTML || '';
-        buttonText?.remove();
+        const buttonText = buttonLink?.children?.[0] ?? '';
+        buttonALink.textContent = buttonText?.textContent || '';
+        if (buttonLink.querySelector('a')) {
+          buttonText?.remove();
+        }
+
+        if (phoneNumberText) {
+          buttonALink.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.href = `tel:${phoneNumberText}`;
+            link.click();
+          }, true);
+        }
       }
     });
   } catch (error) {

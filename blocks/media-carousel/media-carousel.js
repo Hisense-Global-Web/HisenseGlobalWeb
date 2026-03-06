@@ -8,6 +8,8 @@ import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 
 let carouselId = 0;
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 function bindEvent(block, type = 'normal') {
   const track = block.querySelector('.media-carousel-track');
@@ -219,13 +221,13 @@ function createScrollButton(direction) {
   button.disabled = direction === 'prev';
   // 创建图片元素
   const img = document.createElement('img');
-  img.src = direction === 'prev' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left-g.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right-g.svg';
+  img.src = direction === 'prev' ? `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-left-g.svg` : `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-right-g.svg`;
   img.alt = direction === 'prev' ? 'slide-prev' : 'slide-next';
   img.className = 'disabled-icon';
   button.appendChild(img);
   // 创建图片元素
   const imgClick = document.createElement('img');
-  imgClick.src = direction === 'prev' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right.svg';
+  imgClick.src = direction === 'prev' ? `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-left.svg` : `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-right.svg`;
   imgClick.alt = direction === 'prev' ? 'slide-prev' : 'slide-next';
   imgClick.className = 'click-icon';
   button.appendChild(imgClick);
