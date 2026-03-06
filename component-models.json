@@ -4470,7 +4470,7 @@
     ]
   },
   {
-    "id": "sub-menu-link",
+    "id": "sub-menu-link-can-group",
     "fields": [
       {
         "component": "reference",
