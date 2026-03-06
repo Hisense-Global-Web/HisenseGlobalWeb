@@ -504,7 +504,7 @@
   {
     "id": "support-navigation-product-links",
     "components": [
-      "sub-menu-link"
+      "sub-menu-link-can-group"
     ]
   },
   {

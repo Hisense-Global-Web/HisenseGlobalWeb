@@ -103,7 +103,7 @@
   font-weight: var(--fontweight-medium);
 
   p {
-    width: min(calc(162/var(--breakpoint-pc)*100vw), 162px);
+    /* width: min(calc(162/var(--breakpoint-pc)*100vw), 162px); */
 
     /* 兼容Laser home Cinema在一行 */
     white-space: nowrap;
@@ -168,7 +168,7 @@
         display: block;
         padding: 0 var(--spacing-xs);
         height: var(--size-30);
-        line-height: 166.667%;
+        line-height: var(--size-30);
         margin: 0;
         border: none;
         color: #fff;
@@ -284,7 +284,6 @@
           height: var(--size-50);
 
           p {
-            text-align: center;
             width: 100%;
           }
         }
