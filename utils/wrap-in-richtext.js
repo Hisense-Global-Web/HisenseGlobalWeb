@@ -2,7 +2,7 @@ export default function wrapInRichtext(element) {
   // if the element has no children or it's specifically an <li>,
   // operate on its innerHTML.  <li> tags may already contain
   // <br> elements, so we can't rely on textContent alone.
-  if (!element.children.length || element.tagName === 'LI' || [...element.children].every(tag => tag.tagName === 'A')) {
+  if (!element.children.length || element.tagName === 'LI' || [...element.children].every((tag) => tag.tagName === 'A')) {
     const html = element.innerHTML;
 
     // replace every literal "/n" sequence with a <br> element.
@@ -22,7 +22,7 @@ export default function wrapInRichtext(element) {
       // strip them from the innerHTML
       element.innerHTML = html.replace(/(?:\/n)+$/, '');
       // insert the corresponding number of <br> elements after the element
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i < count; i += 1) {
         const wrapEl = document.createElement('br');
         element.insertAdjacentElement('afterend', wrapEl);
       }
