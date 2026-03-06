@@ -1,7 +1,13 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/aem.js';
 
-const SEARCH_ICON = '/content/dam/hisense/us/common-icons/search-grey-70.svg';
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const SEARCH_ICON = `/content/dam/hisense/${country}/common-icons/search-grey-70.svg`;
 
+const getUrlParams = (paramName) => {
+  const params = new URLSearchParams(window.location.search);
+  return params ? params.get(paramName) : null;
+};
 // 获取Search Input的HTML元素
 const getSearchInput = (block) => {
   const config = readBlockConfig(block);
@@ -22,16 +28,23 @@ const getSearchInput = (block) => {
   input.placeholder = placeholder;
   input.className = 'search-box-input';
   input.setAttribute('aria-label', placeholder);
+  const fullText = getUrlParams('fulltext');
+  if (fullText) {
+    input.value = fullText;
+  }
   inputWrapper.appendChild(input);
 
   const clearBtn = document.createElement('button');
   clearBtn.className = 'search-box-clear';
   clearBtn.setAttribute('aria-label', 'Clear search');
   clearBtn.type = 'button';
-  clearBtn.style.backgroundImage = 'url("/content/dam/hisense/us/common-icons/close-50.svg")';
+  clearBtn.style.backgroundImage = `url("/content/dam/hisense/${country}/common-icons/close-50.svg")`;
   clearBtn.style.backgroundSize = 'contain';
   clearBtn.style.backgroundPosition = 'center';
   clearBtn.style.backgroundRepeat = 'no-repeat';
+  if (fullText) {
+    clearBtn.classList.add('visible');
+  }
   inputWrapper.appendChild(clearBtn);
 
   // Input事件处理
@@ -181,6 +194,17 @@ export default async function decorate(block) {
   // 显示Popup
   const showPopupHandler = (e) => {
     e.stopImmediatePropagation();
+    const elementPosition = searchBoxWrapper.getBoundingClientRect().top;
+    const offset = 56;
+    // 获取当前滚动位置
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    // 计算目标滚动位置（元素位置 + 当前滚动 - 偏移量）
+    const targetPosition = elementPosition + currentScroll - offset;
+    // 点击input后，将当前的input框滚动到顶部
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth',
+    });
     popupWrapper.classList.add('visible');
   };
   // 隐藏Popup
@@ -202,6 +226,7 @@ export default async function decorate(block) {
 
   function handleMediaChange(event) {
     removeAllEvent();
+    const fullText = getUrlParams('fulltext');
     if (event.matches) {
       // PC
       input.readOnly = false;
@@ -209,8 +234,12 @@ export default async function decorate(block) {
     } else {
       // Mobile
       input.readOnly = true;
-      input.value = '';
-      clearBtn.classList.remove('visible');
+      input.value = fullText || '';
+      if (fullText) {
+        clearBtn.classList.add('visible');
+      } else {
+        clearBtn.classList.remove('visible');
+      }
       input.addEventListener('click', showPopupHandler);
       popupWrapper.addEventListener('click', hidePopupHandler);
     }

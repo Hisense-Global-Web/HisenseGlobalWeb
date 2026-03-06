@@ -1,6 +1,8 @@
 import { isMobile, isMobileWindow } from '../../scripts/device.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function buildFilterTag(row, resource, isEditMode) {
   const tag = document.createElement('div');
   tag.className = 'plp-filter-tag';
@@ -210,7 +212,7 @@ export default function decorate(block) {
   const mobileFiltersSpan = document.createElement('span');
   mobileFiltersSpan.textContent = 'FILTERS';
   const mobileFiltersImg = document.createElement('img');
-  mobileFiltersImg.src = '/content/dam/hisense/us/common-icons/mobile-filters-title.svg';
+  mobileFiltersImg.src = `/content/dam/hisense/${country}/common-icons/mobile-filters-title.svg`;
   mobileFiltersImg.alt = 'Filters title';
   mobileFilterTit.append(mobileFiltersImg, mobileFiltersSpan);
   mobileFilters.append(mobileFilterTit);
@@ -237,12 +239,12 @@ export default function decorate(block) {
   // label comes from configuration (sortBy)
   sortSpan.textContent = sortBy;
   const sortImg = document.createElement('img');
-  sortImg.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+  sortImg.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   sortImg.alt = 'Sort options';
   sortImg.className = 'sort-arrow';
   // 移动端 sort by close btn
   const closeImg = document.createElement('img');
-  closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
+  closeImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
   closeImg.alt = 'mobile-close-sort-by';
   closeImg.className = 'mobile-sort-by-close';
   // 移动端 sort by close 点击事件
@@ -259,7 +261,7 @@ export default function decorate(block) {
   // label comes from configuration (sortBy)
   mobileSortSpan.textContent = sortBy;
   const mobileSortImg = document.createElement('img');
-  mobileSortImg.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+  mobileSortImg.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   mobileSortImg.alt = 'Sort options';
   mobileSort.append(mobileSortSpan, mobileSortImg);
 

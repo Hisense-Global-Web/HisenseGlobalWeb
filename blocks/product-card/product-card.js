@@ -1,3 +1,4 @@
+import { isMobile, isMobileWindow } from '../../scripts/device.js';
 import {
   renderCompareDetailData,
   aggregateData,
@@ -8,6 +9,8 @@ import {
   appendCompareProductUtil,
 } from '../../utils/plp-compare-utils.js';
 
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function applyAggregatedSort(sortProperty, direction = -1) {
   try {
     // 检查是否有已选中的 filter
@@ -300,15 +303,16 @@ export default function decorate(block) {
     compareBtnEl.textContent = 'Compare';
     // 显示对比详细信息弹窗
     compareBtnEl.addEventListener('click', () => {
-      document.querySelector('.compare-popup-wrapper').style.display = 'block';
+      document.body.style.overflow = 'hidden';
       // 比较商品信息详细数据
       const compareDetailInfo = aggregateData(compareDataArr);
       // render compare popup detail data
       renderCompareDetailData(compareDetailInfo, 'property-box-id');
+      document.querySelector('.compare-popup-wrapper').style.display = 'block';
     });
     const compareBarCloseBtn = document.createElement('img');
     compareBarCloseBtn.className = 'plp-compare-bar-close';
-    compareBarCloseBtn.src = '/content/dam/hisense/us/common-icons/close-50.svg';
+    compareBarCloseBtn.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
     compareBarCloseBtn.alt = 'Close';
     // 底部固定栏上的关闭按钮点击事件
     compareBarCloseBtn.addEventListener('click', () => {
@@ -662,8 +666,8 @@ export default function decorate(block) {
         compareEl.setAttribute('data-compare-id', variant.sku || group.sku || '');
         const compareIcon = document.createElement('span');
         compareIcon.className = 'plp-product-compare-icon';
-        compareIcon.innerHTML = `<img class="icon-unchecked" src="/content/dam/hisense/us/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
-          <img class="icon-checked" src="/content/dam/hisense/us/common-icons/icon-carousel/checkbox.svg" alt="" />`;
+        compareIcon.innerHTML = `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
+          <img class="icon-checked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox.svg" alt="" />`;
         const labelSpan = document.createElement('span');
         labelSpan.textContent = 'Compare';
         compareEl.append(compareIcon, labelSpan);
@@ -685,6 +689,11 @@ export default function decorate(block) {
             // 只有选择了2个产品时，才展示页面询问固定栏
             if (compareDataArr.length === 2) {
               document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
+              // 底部 compare bar 出现时且为移动端时，为footer 添加 padding-bottom
+              if (isMobile() || isMobileWindow()) {
+                const footerWrapper = document.querySelector('.footer-wrapper');
+                footerWrapper.style.paddingBottom = `${(274 / 390) * window.innerWidth}px`;
+              }
             }
             // 为底部固定栏中的对应li 设置已选择产品的图片、产品名称
             compareBarAllLi.forEach((curLi, index) => {

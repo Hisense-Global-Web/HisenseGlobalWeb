@@ -1,5 +1,8 @@
 import { loadFragment } from '../fragment/fragment.js';
+import { getFragmentPath } from '../../scripts/locale-utils.js';
 
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function parseLogo(root) {
   const logoImg = root.querySelector('.navigation-logo-wrapper img');
   const logoHref = root.querySelector('.navigation-logo-wrapper a')?.href || '/';
@@ -523,13 +526,23 @@ function buildSupportDropdown(mainEl) {
 
 let hideSearchBoxPopupTimer = null;
 
+const getUrlParams = (paramName) => {
+  const params = new URLSearchParams(window.location.search);
+  return params ? params.get(paramName) : null;
+};
+
 const getSearchBoxInputWrapperEl = (searchBoxPopupEl) => searchBoxPopupEl.querySelectorAll('.input-wrapper')[1];
 
-const clearSearchBoxInput = (inputWrapperEl) => {
+const setSearchBoxInput = (inputWrapperEl) => {
   const inputEl = inputWrapperEl.querySelector('input');
   const clearButtonEl = inputWrapperEl.querySelector('.search-box-clear');
-  inputEl.value = '';
-  clearButtonEl.classList.remove('visible');
+  const fullText = getUrlParams('fulltext');
+  if (fullText) {
+    clearButtonEl.classList.add('visible');
+  } else {
+    clearButtonEl.classList.remove('visible');
+  }
+  inputEl.value = fullText || '';
 };
 
 const checkMobileSearchBox = (inputWrapperEl) => {
@@ -549,10 +562,10 @@ const toggleSearchBoxPopup = (e) => {
   const searchBoxPopupEl = document.querySelector('.search-box-popup');
   const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
   if ([...searchBoxPopupEl.classList].includes('show')) {
-    clearSearchBoxInput(inputWrapperEl);
+    setSearchBoxInput(inputWrapperEl);
     searchBoxPopupEl.classList.remove('show');
   } else {
-    clearSearchBoxInput(inputWrapperEl);
+    setSearchBoxInput(inputWrapperEl);
     searchBoxPopupEl.classList.add('show');
   }
 };
@@ -585,7 +598,7 @@ const hideSearchBoxPopup = (e) => {
     const searchBoxPopupEl = document.querySelector('.search-box-popup');
     const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
     if (searchBoxPopupEl) {
-      clearSearchBoxInput(inputWrapperEl);
+      setSearchBoxInput(inputWrapperEl);
       searchBoxPopupEl.classList.remove('show');
     }
   }, 200);
@@ -619,7 +632,7 @@ const handleChangeNavPosition = (navigation) => {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  const navPath = `${window.hlx.codeBasePath}${window.location.href.includes('hisense.com') ? '/us/nav' : '/us/en/nav'}`;
+  const navPath = getFragmentPath('nav');
   const fragment = await loadFragment(navPath);
 
   // 解析原始DOM
@@ -715,7 +728,7 @@ export default async function decorate(block) {
 
   const companyArrow = document.createElement('img');
   companyArrow.className = 'company-arrow';
-  companyArrow.src = '/content/dam/hisense/us/common-icons/chevron-down-black.svg';
+  companyArrow.src = `/content/dam/hisense/${country}/common-icons/chevron-down-black.svg`;
   companyArrow.addEventListener('click', () => {
     if (navigation.classList.contains('show-second-menu-company')) {
       document.body.style.overflow = 'auto';
@@ -736,7 +749,7 @@ export default async function decorate(block) {
 
   const supportArrow = document.createElement('img');
   supportArrow.className = 'support-arrow';
-  supportArrow.src = '/content/dam/hisense/us/common-icons/chevron-down-black.svg';
+  supportArrow.src = `/content/dam/hisense/${country}/common-icons/chevron-down-black.svg`;
   supportArrow.addEventListener('click', () => {
     if (navigation.classList.contains('show-second-menu-support')) {
       document.body.style.overflow = 'auto';
@@ -791,7 +804,7 @@ export default async function decorate(block) {
     const mobileLinkTitle = document.createElement('span');
     mobileLinkTitle.textContent = item.title;
     const arrow = document.createElement('img');
-    arrow.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+    arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
     arrow.addEventListener('click', (e) => {
       e.stopPropagation();
       const mobileLinksEl = e.target.closest('.mobile-links');
@@ -915,12 +928,12 @@ export default async function decorate(block) {
   const btn = document.createElement('div');
   btn.className = 'nav-action-btn mobile-menu-icon';
   const img = document.createElement('img');
-  img.src = '/content/dam/hisense/us/header/menu.svg';
+  img.src = `/content/dam/hisense/${country}/header/menu.svg`;
   img.className = 'light-img';
   img.alt = 'menu';
   btn.append(img);
   const imgDark = document.createElement('img');
-  imgDark.src = '/content/dam/hisense/us/header/menu-dark.svg';
+  imgDark.src = `/content/dam/hisense/${country}/header/menu-dark.svg`;
   imgDark.alt = 'menu';
   imgDark.className = 'dark-img';
   btn.append(imgDark);
@@ -933,7 +946,7 @@ export default async function decorate(block) {
   const closeBtn = document.createElement('div');
   closeBtn.className = 'nav-action-btn mobile-close-icon';
   const closeImg = document.createElement('img');
-  closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
+  closeImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
   closeImg.alt = 'menu';
   closeBtn.addEventListener('click', () => {
     document.body.style.overflow = 'auto';
@@ -1034,7 +1047,7 @@ export default async function decorate(block) {
         const mobileLinkTitle = document.createElement('span');
         mobileLinkTitle.textContent = item.textContent?.trim();
         const arrow = document.createElement('img');
-        arrow.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+        arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
         arrow.addEventListener('click', (e) => {
           e.stopPropagation();
           const mobileLinksEl = e.target.closest('.mobile-second-menu');

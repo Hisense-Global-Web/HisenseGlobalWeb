@@ -2,6 +2,14 @@ export default function decorate(block) {
   try {
     const elementItems = [...block.children];
 
+    // 检查第一个p标签内容，如果不是'image'就在elementItems的第一个位置创建空div
+    const firstPElement = block.querySelector('p');
+    if (firstPElement && firstPElement.textContent?.trim() !== 'image') {
+      const emptyDiv = document.createElement('div');
+      emptyDiv.classList.add('authorized-reseller-badge-empty');
+      elementItems.unshift(emptyDiv);
+    }
+
     const textContainer = document.createElement('div');
     textContainer.classList.add('authorized-reseller-badge-header-text');
 
@@ -41,6 +49,7 @@ export default function decorate(block) {
         listContainer.appendChild(element);
       }
     });
+
     if (textContainer.children.length > 0) {
       block.appendChild(textContainer);
     }
