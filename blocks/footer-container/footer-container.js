@@ -16,18 +16,7 @@ async function fetchRegionData() {
     // eslint-disable-next-line no-console
     console.warn('search-result-module: failed to fetch tag data:', error);
   }
-  return {
-    country: {
-      code: 'us',
-      name: 'US',
-      selectedLanguage: 'en',
-      languages: {
-        en: 'English',
-        fr: 'Français',
-        zh: '中文',
-      },
-    },
-  };
+  return null;
 }
 function isInternalLink(href) {
   if (!href || href === '#' || href === '/') {
@@ -452,12 +441,12 @@ export default async function decorate(block) {
 
     const lanGroup = document.createElement('div');
     lanGroup.className = 'footer-lan-group';
-    lanGroup.innerHTML = `
+    lanGroup.innerHTML = regionData ? `
   <img src="/content/dam/hisense/${country}/common-icons/global.svg" alt="" />
   <div class="footer-lan-com">${regionData.country.name}</div>
   <div class="footer-lan-list">
     ${generateLanguageItems(regionData.country.languages, regionData.country.selectedLanguage)}
-  </div>`;
+  </div>` : '';
     const langItems = lanGroup.querySelectorAll('.footer-lan-item');
     langItems.forEach((item) => {
       item.addEventListener('click', (e) => {
