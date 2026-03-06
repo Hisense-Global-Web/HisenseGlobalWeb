@@ -469,6 +469,8 @@ footer footer {
       }
       
       .footer-lan-item {
+        cursor: pointer;
+        
         @media (width < 860px) {
           font-size: var(--size-14);
         }

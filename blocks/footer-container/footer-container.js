@@ -1,5 +1,23 @@
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const REGION = '/content/hisense/servlet.region-selection.json';
+
+function getRegionUrl() {
+  const baseUrl = window.GRAPHQL_BASE_URL || '';
+  return baseUrl ? `${baseUrl}${REGION}` : REGION;
+}
+
+// 获取标签数据
+async function fetchRegionData() {
+  try {
+    const response = await fetch(getRegionUrl());
+    if (response.ok) return response.json();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn('search-result-module: failed to fetch tag data:', error);
+  }
+  return null;
+}
 function isInternalLink(href) {
   if (!href || href === '#' || href === '/') {
     return true;
@@ -241,7 +259,7 @@ function extractLegalLinksData(container) {
   return legalLinksData;
 }
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const isEditorMode = block.hasAttribute('data-aue-resource')
     || block.hasAttribute('data-aue-type')
     || block.closest('[data-aue-resource]')
@@ -407,16 +425,36 @@ export default function decorate(block) {
       footerLegals.appendChild(copyrightDiv);
     }
 
+    const regionData = await fetchRegionData();
+    const generateLanguageItems = (languages, selectedLang) => {
+      let languageItems = '';
+      const langKeys = Object.keys(languages);
+      languageItems += `<div class="footer-lan-item active" data-lang="${selectedLang}">${languages[selectedLang]}</div>`;
+      langKeys.forEach((langKey) => {
+        if (langKey === selectedLang) return;
+        languageItems += '<div class="footer-lan-line"></div>';
+        languageItems += `<div class="footer-lan-item" data-lang="${langKey}">${languages[langKey]}</div>`;
+      });
+
+      return languageItems;
+    };
+
     const lanGroup = document.createElement('div');
     lanGroup.className = 'footer-lan-group';
-    lanGroup.innerHTML = `
+    lanGroup.innerHTML = regionData ? `
   <img src="/content/dam/hisense/${country}/common-icons/global.svg" alt="" />
-  <div class="footer-lan-com">United States</div>
+  <div class="footer-lan-com">${regionData.country.name}</div>
   <div class="footer-lan-list">
-    <div class="footer-lan-item active">English</div>
-<!--    <div class="footer-lan-line"></div>-->
-<!--    <div class="footer-lan-item">Français</div>-->
-  </div>`;
+    ${generateLanguageItems(regionData.country.languages, regionData.country.selectedLanguage)}
+  </div>` : '';
+    const langItems = lanGroup.querySelectorAll('.footer-lan-item');
+    langItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        const langKey = e.currentTarget.getAttribute('data-lang');
+        window.location.href = `/${regionData.country.code}/${langKey}`;
+      });
+    });
+
     footerLegals.appendChild(lanGroup);
 
     footerBottom.appendChild(footerLegals);
