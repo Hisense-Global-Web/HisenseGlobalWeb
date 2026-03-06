@@ -68,6 +68,9 @@ html {
   --color-accent-golden-10: #e7b974;
   --color-hisense-teal: #00aaa6;
   --color-hisense-black: var(--color-primary-grey-100);
+  --color-neutral-200: #cfcfcf;
+  --color-neutral-300: #808080;
+  --color-neutral-400: #555;   
 
   /* color opacity */
   --grey-alpha-80: rgb(20 20 20 / 80%);

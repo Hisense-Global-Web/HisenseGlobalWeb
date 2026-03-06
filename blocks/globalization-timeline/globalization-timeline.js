@@ -1,5 +1,7 @@
 import { createElement } from '../../utils/dom-helper.js';
 
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default async function decorate(block) {
   // ========== CONSTRUCT DOM [START] ========== //
   const titleContainer = createElement('div', 'timeline-title-container h-grid-container');
@@ -45,7 +47,7 @@ export default async function decorate(block) {
               const text = createElement('div', 'timeline-phase-text-group-text');
               text.appendChild(element);
               const icon = createElement('img', 'timeline-phase-text-group-icon');
-              icon.src = '/content/dam/hisense/us/common-icons/chevron-down-black.svg';
+              icon.src = `/content/dam/hisense/${country}/common-icons/chevron-down-black.svg`;
               group.appendChild(text);
               group.appendChild(icon);
               textGroupHeader.appendChild(group);

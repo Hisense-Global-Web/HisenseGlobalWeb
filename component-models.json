@@ -4144,7 +4144,7 @@
       {
         "component": "text",
         "name": "subtitle",
-        "label": "subTitle",
+        "label": "SubTitle",
         "valueType": "string"
       },
       {
@@ -4253,6 +4253,101 @@
         "label": "Link Text",
         "valueType": "string",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "search-result-module",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "emptyResultHeading",
+        "label": "No Result Title Prefix"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "noResultSubtitle",
+        "label": "No Result Subtitle"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "noResultContent",
+        "label": "No Result Richtext Content"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "popularSearchHeading",
+        "label": "Popular Search Heading"
+      },
+      {
+        "component": "aem-tag",
+        "name": "popularSearchTags",
+        "label": "Popular Search Tags",
+        "rootPath": "/content/cq:tags/hisense"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "popularSearchLink",
+        "label": "Popular Search Link (search page URL)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "prevButtonAriaLabel",
+        "label": "Previous Button Aria Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "nextButtonAriaLabel",
+        "label": "Next Button Aria Label"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreLabel",
+        "label": "Load More Button Label"
+      }
+    ]
+  },
+  {
+    "id": "search-result-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Tab Title"
+      },
+      {
+        "component": "select",
+        "name": "type",
+        "label": "Display Type",
+        "options": [
+          {
+            "name": "Product",
+            "value": "product"
+          },
+          {
+            "name": "News",
+            "value": "news"
+          },
+          {
+            "name": "Blog",
+            "value": "blog"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "pageSize",
+        "label": "Page Size"
       }
     ]
   },
