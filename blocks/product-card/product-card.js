@@ -822,7 +822,6 @@ export default function decorate(block) {
         colorsDiv.appendChild(sp);
       });
       // 如果color 和size 同时存在 显示color
-      console.log(colorsArray, 'colorsArray')
       const showDiv = colorsArray && colorsArray.length > 0 ? colorsDiv : sizesDiv;
 
       // 将where to buy 按钮追加在按钮组dom 中
