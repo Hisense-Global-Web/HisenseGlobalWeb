@@ -151,8 +151,9 @@
 }
 
 .plp-product-color.selected {
-    border-color: var(--color-primary-grey-70);
-    color: var(--color-primary-grey-100);
+  border: 1px solid black;
+  padding: var(--size-4);
+  background-clip: content-box;
 }
 
 .product-card .plp-product-btn, 
