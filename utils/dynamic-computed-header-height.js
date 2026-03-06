@@ -15,14 +15,15 @@ export default function getDynamicHeaderHeight(block) {
       if (window.innerWidth < 1180) {
         marginTop = Math.round(header.getBoundingClientRect().height);
         block.style.marginTop = `${marginTop}px`;
+        document.documentElement.style.removeProperty('--nav-height');
       } else {
         marginTop += Math.round(header.getBoundingClientRect().height);
         const navSecond = header.querySelector('.nav-second');
         if (navSecond && getComputedStyle(navSecond).display !== 'none') {
           marginTop += Math.round(navSecond.getBoundingClientRect().height);
         }
+        document.documentElement.style.setProperty('--nav-height', `${marginTop}px`);
       }
-      document.documentElement.style.setProperty('--nav-height', `${marginTop}px`);
       return true;
     }
     return false;

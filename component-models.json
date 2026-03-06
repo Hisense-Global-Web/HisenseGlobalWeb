@@ -3045,6 +3045,10 @@
     ]
   },
   {
+    "id": "job-list",
+    "fields": []
+  },
+  {
     "id": "key-features-card-container",
     "fields": [
       {
@@ -4141,6 +4145,17 @@
     ]
   },
   {
+    "id": "region-selection",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "page-title",
+        "label": "Page Title"
+      }
+    ]
+  },
+  {
     "id": "related-news",
     "fields": [
       {
@@ -4510,7 +4525,7 @@
     ]
   },
   {
-    "id": "sub-menu-link",
+    "id": "sub-menu-link-can-group",
     "fields": [
       {
         "component": "reference",
@@ -4555,6 +4570,44 @@
           "numberMin": 1,
           "numberMax": 5
         }
+      }
+    ]
+  },
+  {
+    "id": "sub-menu-link",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "alt",
+        "label": "Alt Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "searchTags",
+        "label": "Search Tags",
+        "rootPath": "/content/cq:tags/hisense/product"
       }
     ]
   },

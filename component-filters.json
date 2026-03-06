@@ -86,6 +86,7 @@
       "quick-action-card",
       "quick-link",
       "region-page-title",
+      "region-selection",
       "recall-info-list",
       "related-news",
       "resource-list",
@@ -111,6 +112,7 @@
       "icon-card-container",
       "parters-container",
       "information-list-module",
+      "job-list",
       "quick-action-card",
       "category-support-card",
       "additional-support-card",
@@ -504,7 +506,7 @@
   {
     "id": "support-navigation-product-links",
     "components": [
-      "sub-menu-link"
+      "sub-menu-link-can-group"
     ]
   },
   {
