@@ -824,7 +824,7 @@ export default function decorate(block) {
       // 如果color 和size 同时存在 显示color
       const hasColorValue = colorsArray?.some((x) => x && x !== undefined);
       const showDiv = hasColorValue && colorsArray.length > 0 ? colorsDiv : sizesDiv;
-      card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields);
+      // card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields);
 
       // 将where to buy 按钮追加在按钮组dom 中
       productBtnGroupEl.prepend(whereToBuyBtnEl);
