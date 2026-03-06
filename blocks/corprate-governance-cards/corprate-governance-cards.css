@@ -84,7 +84,7 @@ p {
             text-align: center;
             font-size: var(--fontsize-body3, 12px);
             font-weight: var(--fontweight-medium);
-            line-height: 166.667%; /* 166.667% */
+            line-height: normal; /* 166.667% */
         }
     }
 }
