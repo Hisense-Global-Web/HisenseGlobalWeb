@@ -212,7 +212,6 @@ function parseDropdownBtns(col) {
   if (!col) return [];
 
   const results = [];
-  console.log(col);
   const subMenuLinks = col.querySelectorAll('.sub-menu-link');
   if (subMenuLinks.length > 0) {
     subMenuLinks.forEach((subMenuLink) => {
@@ -634,7 +633,6 @@ const handleChangeNavPosition = (navigation) => {
 export default async function decorate(block) {
   const navPath = getFragmentPath('nav');
   const fragment = await loadFragment(navPath);
-  console.log(block, fragment);
   // 解析原始DOM
   const logo = parseLogo(fragment);
   const navItems = parseNavItems(fragment);
