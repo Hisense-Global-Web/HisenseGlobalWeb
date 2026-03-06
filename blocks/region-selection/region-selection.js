@@ -155,6 +155,10 @@ const createRegionElement = (region) => {
       const languageCode = language?.code || '';
 
       link.href = `/${countryCode}/${languageCode}`;
+      if (isEditing) {
+        const site = window.location.pathname.match(/^\/content\/[^/]+/)?.[0] || '';
+        link.href = `${site}/${countryCode}/${languageCode}.html`;
+      }
       span.lang = languageCode;
       span.textContent = `${countryName} (${language?.name || ''})`;
 
