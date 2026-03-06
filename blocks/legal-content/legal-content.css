@@ -1,45 +1,69 @@
-.legal-content {
-  p {
-    margin: 0;
-    padding: 0;
-  }
+.legal-content-wrapper {
+  padding: 0 !important;
+
+  .legal-content {
+    p, ul, ol, li {
+      margin: 0;
+      padding: 0;
+      color: var(--color-primary-grey-70);
+      font-weight: var(--fontweight-book);
+    }
+    
+    /* div[data-aue-type="richtext"] a:any-link {
+      color: var(--color-primary-green-60);
+      text-decoration: underline;
+    } */
   
-  /* div[data-aue-type="richtext"] a:any-link {
-    color: var(--color-primary-green-60);
-    text-decoration: underline;
-  } */
-
-  /* p:not(.button-container) > a:any-link {
-    color: var(--color-primary-green-60);
-    text-decoration: underline;
-  } */
-
-  a {
-    color: var(--color-primary-green-60);
-    text-decoration: underline;
-  }
-
-  /* reset a.button style */
-  a.button:any-link {
-    color: var(--color-primary-green-60);
-    text-decoration: underline;
-    margin: 0;
-    border: none;
-    background-color: transparent;
-    white-space: unset;
-    line-height: unset;
-    padding: 0;
-    border-radius: 0;
-    text-align: left;
-  }
-
-  ol {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-24);
-  }
-
-  strong, h5 {
-    font-weight: var(--fontweight-medium);
+    /* p:not(.button-container) > a:any-link {
+      color: var(--color-primary-green-60);
+      text-decoration: underline;
+    } */
+  
+    a {
+      color: var(--color-primary-green-60);
+      text-decoration: underline;
+    }
+  
+    /* reset a.button style */
+    a.button:any-link {
+      color: var(--color-primary-green-60);
+      text-decoration: underline;
+      margin: 0;
+      border: none;
+      background-color: transparent;
+      white-space: unset;
+      line-height: unset;
+      padding: 0;
+      border-radius: 0;
+      text-align: left;
+      font-weight: unset;
+    }
+  
+    ol {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-24);
+    }
+  
+    strong, h5 {
+      font-weight: var(--fontweight-medium);
+    }
+  
+    h5 {
+      font-size: var(--size-20);
+      color: var(--color-hisense-black);
+      margin: 0;
+      padding: 0;
+    }
+  
+    /* enforce default list styles within legal content; other code may
+       globally remove them, so we override that here. */
+    ul li {
+      list-style: initial;
+    }
+  
+    ol li{
+      list-style: auto;
+    }
   }
 }
