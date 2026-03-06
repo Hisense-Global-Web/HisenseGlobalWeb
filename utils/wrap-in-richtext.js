@@ -17,19 +17,19 @@ export default function wrapInRichtext(element) {
     // First, handle interior /n markers (not at the end)
     let innerHtml = html;
     const trailingMatch = html.match(/(?:\/n)+$/);
-    
+
     if (trailingMatch) {
       // Remove trailing /n from the string before checking for interior ones
       innerHtml = html.substring(0, html.length - trailingMatch[0].length);
     }
-    
+
     // Replace interior /n markers with <br>
     if (innerHtml.includes('/n')) {
       element.innerHTML = innerHtml.replace(/\/n/g, '<br>');
     } else {
       element.innerHTML = innerHtml;
     }
-    
+
     // Then handle trailing /n markers - insert <br> after element
     if (trailingMatch) {
       const count = (trailingMatch[0].match(/\/n/g) || []).length;
