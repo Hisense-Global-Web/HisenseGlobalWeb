@@ -1,3 +1,5 @@
+import { getLocalizedTagTitle } from '../../scripts/tag-utils.js';
+
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
 
 function getTagsEndpointUrl() {
@@ -21,46 +23,6 @@ async function fetchTagData() {
     console.warn('Failed to fetch tag data:', error);
   }
   return null;
-}
-
-/**
- * Get tag root from tag data
- */
-function getTagRoot(tagData) {
-  if (!tagData) {
-    return null;
-  }
-
-  if (Array.isArray(tagData.data) && tagData.data.length > 0) {
-    return tagData.data[0];
-  }
-
-  return tagData;
-}
-
-/**
- * Get tag title from tag data
- */
-function getTagTitle(tagPath, tagData) {
-  const pathParts = tagPath.split(':').pop().split('/').filter(Boolean);
-  const fallback = pathParts[pathParts.length - 1] || tagPath;
-  const tagRoot = getTagRoot(tagData);
-
-  if (!tagRoot) {
-    return fallback;
-  }
-
-  const resolvePath = (parts) => parts.reduce((current, part) => {
-    if (current && current[part]) {
-      return current[part];
-    }
-    return null;
-  }, tagRoot);
-
-  const directResult = resolvePath(pathParts);
-  const result = directResult || (pathParts.length > 1 ? resolvePath(pathParts.slice(1)) : null);
-
-  return result?.['jcr:title'] || fallback;
 }
 
 /**
@@ -168,12 +130,12 @@ export default async function decorate(block) {
         const separator = link.includes('?') ? '&' : '?';
         tagEl.href = `${link}${separator}fulltext=${tagName}`;
         tagEl.target = target;
-        tagEl.textContent = getTagTitle(tagPath, tagData);
+        tagEl.textContent = getLocalizedTagTitle(tagPath, tagData);
         tagList.appendChild(tagEl);
       } else {
         const tagEl = document.createElement('span');
         tagEl.className = 'tag-item';
-        tagEl.textContent = getTagTitle(tagPath, tagData);
+        tagEl.textContent = getLocalizedTagTitle(tagPath, tagData);
         tagList.appendChild(tagEl);
       }
     });

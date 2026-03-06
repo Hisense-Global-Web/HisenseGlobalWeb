@@ -1,4 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { buildLocalizedTagTitleMap } from '../../scripts/tag-utils.js';
 
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
 const segments = window.location.pathname.split('/').filter(Boolean);
@@ -162,22 +163,8 @@ export default function decorate(block) {
     ':type': 'sheet',
   };
 
-  function collectTitles(obj, map) {
-    if (!obj || typeof obj !== 'object') return;
-    Object.keys(obj).forEach((k) => {
-      if (k.startsWith('jcr:') || k === 'sling:resourceType' || k === 'jcr:primaryType') return;
-      const v = obj[k];
-      if (v && typeof v === 'object') {
-        const trimmedKey = k.trim();
-        if (v['jcr:title']) map[trimmedKey] = v['jcr:title'];
-        collectTitles(v, map);
-      }
-    });
-  }
-
   function renderWithTitles(tagsData) {
-    const titlesMap = {};
-    collectTitles(tagsData, titlesMap);
+    const titlesMap = buildLocalizedTagTitleMap(tagsData);
 
     function getActiveFiltersContainer() {
       return document.querySelector('.plp-active-filters');

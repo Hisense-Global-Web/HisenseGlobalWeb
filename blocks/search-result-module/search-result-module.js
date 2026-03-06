@@ -1,6 +1,7 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { getLocalizedTagTitle } from '../../scripts/tag-utils.js';
 
 const DEFAULT_PAGE_SIZE = 12;
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
@@ -36,31 +37,6 @@ async function fetchTagData() {
     console.warn('search-result-module: failed to fetch tag data:', error);
   }
   return null;
-}
-
-function getTagRoot(tagData) {
-  if (!tagData) return null;
-  if (Array.isArray(tagData.data) && tagData.data.length > 0) return tagData.data[0];
-  return tagData;
-}
-
-// 获取标签 jcr:title
-function getTagTitle(tagPath, tagData) {
-  const pathParts = tagPath.split(':').pop().split('/').filter(Boolean);
-  const fallback = pathParts[pathParts.length - 1] || tagPath;
-  const tagRoot = getTagRoot(tagData);
-
-  if (!tagRoot) return fallback;
-
-  const resolvePath = (parts) => parts.reduce((current, part) => {
-    if (current && current[part]) return current[part];
-    return null;
-  }, tagRoot);
-
-  const directResult = resolvePath(pathParts);
-  const result = directResult || (pathParts.length > 1 ? resolvePath(pathParts.slice(1)) : null);
-
-  return result?.['jcr:title'] || fallback;
 }
 
 // 根据 dataSource 拼接不同的域名 author 环境下 graphql 类型自动转 GraphQL 查询
@@ -453,7 +429,7 @@ function renderGlobalNoResult(keyword, config, tagData) {
     const linkTarget = config.popularsearchlinktarget || '_self';
 
     tags.forEach((tagPath) => {
-      const tagTitle = getTagTitle(tagPath, tagData);
+      const tagTitle = getLocalizedTagTitle(tagPath, tagData);
 
       const tagEl = document.createElement('a');
       tagEl.className = 'popular-search-tag';

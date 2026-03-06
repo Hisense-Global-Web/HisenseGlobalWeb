@@ -1,4 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
+import { getLocalizedTagTitleValue } from '../../scripts/tag-utils.js';
 
 const DEFAULT_FAQ_ENDPOINT = '/faq/us/en/television.json';
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense/faq.-1.json';
@@ -97,7 +98,7 @@ async function fetchFaqTags() {
     const tags = {};
     Object.keys(data).forEach((key) => {
       if (!key.startsWith('jcr:') && typeof data[key] === 'object' && data[key] !== null) {
-        tags[key] = data[key]['jcr:title'] || key;
+        tags[key] = getLocalizedTagTitleValue(data[key]) || key;
       }
     });
 
