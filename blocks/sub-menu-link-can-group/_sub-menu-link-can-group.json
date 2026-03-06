@@ -53,6 +53,17 @@
           "name": "searchTags",
           "label": "Search Tags",
           "rootPath": "/content/cq:tags/hisense/product"
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "order",
+          "label": "Group",
+          "value": 1,
+          "validation": {
+            "numberMin": 1,
+            "numberMax": 5
+          }
         }
       ]
     }
