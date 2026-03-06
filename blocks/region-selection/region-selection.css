@@ -2,13 +2,17 @@
 .section {
   div.region-selection-title-wrapper {
     padding: 0;
-    margin: 0;
     background: var(--color-primary-green-10, #EDFCFB);
     max-width: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--size-80, 80px);
+    margin: 100px 0 0;
+
+    @media (width < 1180px) {
+      margin-top: 56px;
+    }
   }
 }
 
