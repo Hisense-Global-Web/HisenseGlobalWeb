@@ -3947,8 +3947,33 @@
           {
             "name": "Position",
             "value": "position"
+          },
+          {
+            "name": "Faq",
+            "value": "faq"
           }
         ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "faq-link",
+        "label": "Faq Link",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "faq"
+              ]
+            }
+          ]
+        }
       }
     ]
   },
