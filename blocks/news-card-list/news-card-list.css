@@ -54,7 +54,7 @@
     .releases-card-group {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--size-32) var(--size-48);
+      gap: var(--size-48) var(--size-32);
       
       @media (width < 860px) {
         grid-template-columns: repeat(1, 1fr);
