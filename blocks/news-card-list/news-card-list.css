@@ -115,7 +115,7 @@
             text-transform: uppercase;
             font-size: var(--fontsize-body2);
             line-height: 1.5;
-            color: var(--color-primary-green-50);
+            color: var(--color-primary-green-60);
             font-weight: var(--fontweight-medium);
             margin-bottom: var(--size-4);
             
@@ -130,7 +130,7 @@
             font-size: var(--fontsize-title2);
             font-weight: var(--fontweight-medium);
             line-height: 1.2;
-            margin-bottom: var(--size-20);
+            margin-bottom: var(--size-16);
             color: var(--color-hisense-black);
             text-overflow: ellipsis;
             overflow: hidden;
@@ -145,7 +145,7 @@
               -webkit-line-clamp: 3;
             }
             
-            &:has( ~ .author) {
+            &:has( ~ .author:not(:empty)) {
               margin-bottom: var(--size-12);
 
               @media (width < 860px) {

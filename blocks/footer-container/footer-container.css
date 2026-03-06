@@ -440,6 +440,7 @@ footer footer {
     
     * {
       box-sizing: border-box;
+      cursor: pointer;
     }
 
     @media (width < 860px) {
