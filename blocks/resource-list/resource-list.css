@@ -18,7 +18,7 @@ main .section.resource-list-container .resource-list-wrapper {
       
       @media (width < 860px) {
         gap: var(--size-16);
-        overflow-x: auto;
+        overflow: auto hidden;
         scrollbar-width: none;
       }
   
@@ -61,14 +61,73 @@ main .section.resource-list-container .resource-list-wrapper {
             display: block;
           }
         }
+        
+        .resource-title {
+          font-size: var(--fontsize-title1);
+          line-height: var(--size-32);
+          font-weight: var(--fontweight-medium);
+          color: var(--color-hisense-black);
+          
+          @media (width < 860px) {
+            font-size: var(--size-18);
+            line-height: 1.2;
+            color: var(--color-primary-grey-90);
+          }
+        }
+        
+        .resource-description {
+          font-size: var(--fontsize-body1);
+          line-height: var(--size-26);
+          font-weight: var(--fontweight-book);
+          color: var(--color-primary-grey-70);
+          margin-bottom: var(--size-16);
+
+          @media (width < 860px) {
+            font-size: var(--size-14);
+            line-height: 1.5;
+            color: var(--color-primary-grey-70);
+            margin-bottom: var(--size-12);
+          }
+        }
+        
+        .resource-subtitle {
+          font-size: var(--fontsize-body1);
+          line-height: 1.5;
+          font-weight: var(--fontweight-medium);
+          color: var(--color-primary-grey-70);
+          margin-bottom: var(--size-8);
+
+          @media (width < 860px) {
+            font-size: var(--size-14);
+            line-height: 1.4;
+            color: var(--color-primary-grey-70);
+            margin-bottom: var(--size-12);
+          }
+        }
   
         .resource-content {
           margin-bottom: var(--size-16);
           flex: 1;
           width: 100%;
+          color: var(--color-primary-grey-50);
+          font-size: var(--fontsize-body2);
+          font-weight: var(--fontweight-book);
+          line-height: 1.5;
+          
+          @media (width < 860px) {
+            font-size: var(--size-14);
+          }
           
           ul {
             padding-left: var(--size-20);
+          }
+          
+          p {
+            margin-bottom: var(--size-8);
+
+            @media (width < 860px) {
+              margin-bottom: var(--size-12);
+            }
           }
         }
         
