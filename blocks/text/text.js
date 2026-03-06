@@ -1,7 +1,10 @@
 import { loadScript } from '../../scripts/aem.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
+import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
 
 export default async function decorate(block) {
+  // 如果block 是main 元素第一个的话，需要动态设置header高度，为block添加padding-top
+  getDynamicHeaderHeight(block);
   if (isUniversalEditor()) {
     return;
   }

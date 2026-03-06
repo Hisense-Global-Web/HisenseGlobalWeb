@@ -77,10 +77,6 @@
           font-weight: var(--fontweight-book);
           line-height: var(--size-21);
         }
-
-        .item-subtitle p:first-child, .item-title p:first-child, .item-text p:first-child {
-          display: none;
-        }
       }
     }
   }
