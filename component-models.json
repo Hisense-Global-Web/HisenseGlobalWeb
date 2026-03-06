@@ -4279,7 +4279,7 @@
         "component": "text",
         "valueType": "string",
         "name": "suggestion-label",
-        "label": "Suggestion Lable"
+        "label": "Suggestion Label"
       }
     ]
   },
