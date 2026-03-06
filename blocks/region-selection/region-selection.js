@@ -4,8 +4,9 @@ import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 const isEditing = await isUniversalEditorAsync();
 const { country } = getLocaleFromPath();
 
-const REGION_API = isEditing ? '/bin/hisense/region-selection.json' : '/api/hisense/region-selection.json';
-const ARROW_ICON = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+const prefix = isEditing ? '/bin' : '/api';
+const REGION_API = `${window.GRAPHQL_BASE_URL}${prefix}/hisense/region-selection.json`;
+const ARROW_ICON = `${window.GRAPHQL_BASE_URL}/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
 
 const bindEvent = (block) => {
   const regions = block.querySelectorAll('.region');
