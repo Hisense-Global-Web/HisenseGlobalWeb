@@ -9,14 +9,15 @@ export default function decorate(block) {
       const height = window.innerWidth >= 1180 ? '100px' : '112px';
       document.documentElement.style.setProperty('--nav-height', height);
     }
-    const elementItems = [...block.children];
-    elementItems.forEach((element, index) => {
-      if (index === 0) {
-        element?.classList.add('page-header-title');
-      } else if (index === 1) {
-        element?.classList.add('page-header-subtitle');
-      }
-    });
+    const [titleStyleEl, titleEl, subtitleEl] = [...block.chidren];
+    const titleStylePEl = titleStyleEl?.querySelector?.('p') ?? null;
+    if (titleStylePEl) {
+      titleEl.classList.add(titleStylePEl?.textContent);
+    }
+    titleEl.classList.add('page-header-title');
+    if (subtitleEl) {
+      subtitleEl?.classList.add('page-header-subtitle');
+    }
   } catch (error) {
     /* eslint-disable-next-line no-console */
     console.error('Page Header block decoration error:', error);
