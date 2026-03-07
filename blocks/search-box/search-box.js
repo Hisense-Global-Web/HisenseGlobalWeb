@@ -104,6 +104,9 @@ const getQuickLink = (block) => {
     const linkText = linkTextElement?.querySelector('p')?.innerHTML ?? '';
     linkDiv.innerHTML = linkText;
     linkDiv.addEventListener('click', () => {
+      if (!link) {
+        return;
+      }
       window.location.href = link;
     });
     if (linkText) {

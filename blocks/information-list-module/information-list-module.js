@@ -1,4 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
+import { getGraphQLBaseUrl } from '../../scripts/scripts.js';
 
 const EModuleType = Object.freeze({
   download: 'download',
@@ -147,7 +148,7 @@ const generateRightButton = (moduleType, info) => {
   if (btnLinkEl.querySelector('img')) {
     btnLink = btnLinkEl.querySelector('img').src;
   } else {
-    btnLink = btnLinkEl?.textContent?.trim?.();
+    btnLink = btnLinkEl?.querySelector('a')?.href;
   }
   btnLinkEl?.remove();
 
@@ -173,7 +174,8 @@ const generateRightButton = (moduleType, info) => {
   const handleDownload = () => {
     if (isDownload) {
       const link = document.createElement('a');
-      link.href = btnLink;
+      const replaceBtnLink = btnLink.replace(`${window.location.origin}/`, '');
+      link.href = getGraphQLBaseUrl() + replaceBtnLink;
       const noParamsUrl = btnLink?.split('?')?.[0] ?? '';
       link.download = noParamsUrl.substring(btnLink.lastIndexOf('/') + 1);
       document.body.appendChild(link);
