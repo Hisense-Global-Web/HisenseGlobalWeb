@@ -104,6 +104,7 @@ export default async function decorate(block) {
   let items = null;
   // 使用统一的数据转换函数处理 GraphQL 返回的各种格式
   items = transformTagStructureToProducts(json);
+
   // 根据SKU找到对应的产品
   const currentProduct = items ? items.find((item) => item.sku === sku) : null;
   const product = currentProduct || (items && items[0] ? items[0] : null);
