@@ -805,7 +805,7 @@ export default function decorate(block) {
       });
 
       // 创建color节点并绑定事件
-      colorsArray.forEach((s) => {
+      colorsArray?.forEach((s) => {
         const sp = document.createElement('span');
         sp.classList.add('plp-product-color', s);
         if (s === selectedColor) sp.classList.add('selected');
@@ -822,7 +822,9 @@ export default function decorate(block) {
         colorsDiv.appendChild(sp);
       });
       // 如果color 和size 同时存在 显示color
-      const showDiv = colorsArray && colorsArray.length > 0 ? colorsDiv : sizesDiv;
+      const hasColorValue = colorsArray?.some((x) => x && x !== undefined);
+      const showDiv = hasColorValue && colorsArray.length > 0 ? colorsDiv : sizesDiv;
+      // card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields);
 
       // 将where to buy 按钮追加在按钮组dom 中
       productBtnGroupEl.prepend(whereToBuyBtnEl);

@@ -13,7 +13,6 @@ export default async function decorate(block) {
     const btnGroupEl = document.createElement('div');
     btnGroupEl.classList.add('media-contact-card-group');
     [...row.children].forEach((child, i) => {
-      console.log(child, i);
       if (i === 0) {
         child.classList.add('media-contact-card-text-title');
         textGroupEl.append(child);

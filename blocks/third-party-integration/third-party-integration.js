@@ -1,4 +1,5 @@
 import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
+import { loadScript } from '../../scripts/aem.js';
 
 // Functions
 function isExternalJs(url) {
@@ -7,13 +8,6 @@ function isExternalJs(url) {
 
 function isInlineScript(text) {
   return /^<script[\s\S]*?>[\s\S]*?<\/script>$/.test(text.trim());
-}
-
-function loadExternalScript(url) {
-  const script = document.createElement('script');
-  script.src = url;
-  script.async = true;
-  document.head.appendChild(script);
 }
 
 function injectInlineScript(scriptTag) {
@@ -47,7 +41,7 @@ export default async function decorate(block) {
   if (blockData.externalJsPaths) {
     blockData.externalJsPaths.forEach((path) => {
       if (isExternalJs(path)) {
-        loadExternalScript(path);
+        loadScript(path, { async: true, defer: true, type: 'text/javascript' });
       }
     });
   }

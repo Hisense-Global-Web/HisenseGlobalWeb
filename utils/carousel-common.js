@@ -231,3 +231,12 @@ export function formatIsoToUtcStr(isoStr) {
   });
   return formatter.format(date);
 }
+
+export function processPath(path) {
+  if (path.startsWith('/content')) {
+    const segments = path.split('/').filter(Boolean);
+    const remainingSegments = segments.slice(2);
+    return `/${remainingSegments.join('/')}`;
+  }
+  return path;
+}
