@@ -145,8 +145,10 @@ const generateRightButton = (moduleType, info) => {
   const btnBgColor = btnColorEl?.textContent?.trim();
   btnColorEl?.remove();
   let btnLink = '';
+  let isImg = false;
   if (btnLinkEl.querySelector('img')) {
     btnLink = btnLinkEl.querySelector('img').src;
+    isImg = true;
   } else {
     btnLink = btnLinkEl?.querySelector('a')?.href;
   }
@@ -175,7 +177,7 @@ const generateRightButton = (moduleType, info) => {
     if (isDownload) {
       const link = document.createElement('a');
       const replaceBtnLink = btnLink.replace(`${window.location.origin}/`, '');
-      link.href = getGraphQLBaseUrl() + replaceBtnLink;
+      link.href = isImg ? btnLink : getGraphQLBaseUrl() + replaceBtnLink;
       const noParamsUrl = btnLink?.split('?')?.[0] ?? '';
       link.download = noParamsUrl.substring(btnLink.lastIndexOf('/') + 1);
       document.body.appendChild(link);
