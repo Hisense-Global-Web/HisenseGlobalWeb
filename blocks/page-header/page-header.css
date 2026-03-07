@@ -8,8 +8,15 @@
   }
 }
 
-.page-header-title {
+.text-green-50 {
   color: var(--color-primary-green-50, #009f9c);
+}
+
+.text-black {
+  color: var(--color-primary-grey-100, #000);
+}
+
+.page-header-title {
   text-align: center;
   font-size: var(--fontsize-pc-h1, 46px);
   font-weight: var(--fontweight-medium, 500);
