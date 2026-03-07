@@ -2,8 +2,11 @@
 coverage/*
 logs/*
 node_modules/*
+.claude/
 
 helix-importer-ui
 .DS_Store
 *.bak
 .idea
+*.mdc
+*.md

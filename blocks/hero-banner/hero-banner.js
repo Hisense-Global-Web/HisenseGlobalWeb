@@ -6,6 +6,8 @@ import { isUniversalEditor } from '../../utils/ue-helper.js';
 let heroBannerTimer;
 let heroBannerInterval;
 let isInitializing = true; // 初始化锁
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 function updateNavTheme(block, targetSlide, heroBannerHeight) {
   const nav = document.querySelector('#navigation');
@@ -101,7 +103,9 @@ function showSlide(block, targetLogicalIndex, init = false) {
     // 5. if slide contains video, auto play the video
     targetSlide.querySelector('.video-play-icon').click();
   }
+  isInitializing = false; // 触发完后解锁初始化
 }
+
 function stopAutoPlay() {
   clearInterval(heroBannerInterval);
   heroBannerInterval = null;
@@ -114,7 +118,6 @@ function autoPlay(block) {
     const currentIndex = parseInt(block.dataset.slideIndex, 10) || 0;
     const nextIndex = currentIndex + 1;
     showSlide(block, nextIndex);
-    isInitializing = false;
   }, 5000);
 }
 
@@ -137,38 +140,143 @@ function bindEvents(block) {
   }, { threshold: 0.5 });
   block.querySelectorAll('.hero-banner-item').forEach((slide) => {
     slideObserver.observe(slide);
+    if (window.innerWidth < 860) {
+      let touchStartTime;
+      let isScrolling = false;
+      let startX;
+      let startY;
+
+      slide.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // 阻止默认滚动行为
+        stopAutoPlay(); // 停止自动播放
+        touchStartTime = Date.now();
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isScrolling = false;
+        isInitializing = true; // 开始触摸时设置初始化锁
+        slide.classList.remove('touch-end');
+        slide.classList.add('touch-start');
+      });
+
+      // 触摸移动
+      slide.addEventListener('touchmove', (e) => {
+        e.preventDefault(); // 阻止默认滚动行为
+        const currentX = e.touches[0].clientX;
+        // 如果水平移动超过10px，认为是滑动
+        if (Math.abs(currentX - startX) > 80) {
+          isScrolling = true;
+        }
+      }, { passive: false });
+
+      // 触摸结束
+      slide.addEventListener('touchend', async (e) => {
+        slide.classList.remove('touch-start');
+        slide.classList.add('touch-end');
+        const touchDuration = Date.now() - touchStartTime;
+        if (!isScrolling && touchDuration < 500) {
+          // touch情况下点击button执行跳转
+          if (e.target.tagName === 'A') {
+            const url = e.target.href;
+            if (url) {
+              window.location.href = url;
+            }
+          }
+          // touch 情况下点击video暂停/播放按钮
+          if (e.target.tagName === 'IMG' && e.target.parentElement.classList.contains('video-play-icon')) {
+            e.target.click();
+          }
+        }
+        if (isScrolling) {
+          const endX = e.changedTouches[0].clientX;
+          const endY = e.changedTouches[0].clientY;
+          const diffX = startX - endX;
+          const diffY = startY - endY;
+
+          if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
+            // 水平滑动
+            if (diffX > 0) {
+              // 向左滑动，显示下一张
+              await showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
+            } else {
+              // 向右滑动，显示上一张
+              await showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
+            }
+            autoPlay(block); // 开始自动播放
+          }
+        }
+      });
+    }
   });
   // -----arrow function
-  block.querySelector('.slide-prev').addEventListener('click', throttle(() => {
-    showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
-    isInitializing = false;
+  block.querySelector('.slide-left').addEventListener('click', throttle(async () => {
+    stopAutoPlay();
+    await showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
+    autoPlay(block); // 开始自动播放
   }, 1000));
-  block.querySelector('.slide-next').addEventListener('click', throttle(() => {
-    showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
-    isInitializing = false;
+  block.querySelector('.slide-right').addEventListener('click', throttle(async () => {
+    stopAutoPlay();
+    await showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
+    autoPlay(block); // 开始自动播放
   }, 1000));
   // ----- indicator function
   slideIndicators.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', throttle((e) => {
-      isInitializing = false;
+    button.addEventListener('click', throttle(async (e) => {
       const slideIndicator = e.currentTarget.parentElement;
-      showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
+      stopAutoPlay();
+      await showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
+      autoPlay(block); // 开始自动播放
     }, 500));
   });
   // ----- mouse observe
   observeMouse(block);
 }
-
-function initVideo(selector, type) {
+function createScrollButton(type, direction) {
+  // type : arrow or video
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = type === 'arrow' ? `slide-${direction}` : 'video-play-icon';
+  if (type === 'arrow') {
+    button.setAttribute('aria-label', direction === 'left' ? 'slide-left' : 'slide-right');
+  } else {
+    button.setAttribute('aria-label', direction === 'video-dark' ? 'video-dark' : 'video-light');
+  }
+  // 创建图片元素
+  const img = document.createElement('img');
+  if (type === 'arrow') {
+    img.src = direction === 'left' ? `/content/dam/hisense/${country}/common-icons/switch-arrow-left.svg` : `/content/dam/hisense/${country}/common-icons/switch-arrow-right.svg`;
+    img.alt = direction === 'left' ? 'slide-left' : 'slide-right';
+  } else {
+    img.src = direction === 'video-dark' ? `/content/dam/hisense/${country}/common-icons/pause-dark-mode.svg` : `/content/dam/hisense/${country}/common-icons/pause-light-mode.svg`;
+    img.alt = direction === 'video-dark' ? 'video-dark' : 'video-light';
+    img.className = 'pause-icon';
+  }
+  button.appendChild(img);
+  // 创建图片元素
+  if (type === 'video') {
+    const imgClick = document.createElement('img');
+    imgClick.src = direction === 'video-dark' ? `/content/dam/hisense/${country}/common-icons/play-dark-mode.svg` : `/content/dam/hisense/${country}/common-icons/play-light-mode.svg`;
+    imgClick.alt = direction === 'video-dark' ? 'video-dark' : 'video-light';
+    imgClick.className = 'play-icon';
+    button.appendChild(imgClick);
+  }
+  return button;
+}
+function initVideo(selector, type, theme) {
   let videoUrl;
   let link;
-  const [videoPC, videoMobile] = [...selector.querySelectorAll('a')];
-  if (type === 'desktop') link = videoPC;
-  else link = videoMobile;
+  let videoPC;
+  let videoMobile;
+  selector.querySelectorAll('a').forEach((a, i) => {
+    if (i === 0) videoPC = a;
+    else videoMobile = a;
+  });
+  if (type === 'desktop') link = videoPC; else link = videoMobile;
   if (link) videoUrl = link.href;
   const videoDivDom = createElement('div', 'video-div-box');
   const video = createElement('video', 'video-auto-play');
-  const span = createElement('span', 'video-play-icon is-playing');
+  const themeClass = theme === 'dark' ? 'video-dark' : 'video-light';
+  const span = createScrollButton('video', themeClass);
+  span.classList.add('is-playing');
   video.loop = true;
   video.preload = 'auto';
   video.autoplay = true;
@@ -177,6 +285,7 @@ function initVideo(selector, type) {
   source.type = 'video/mp4';
   video.muted = true;
   video.playsInline = true;
+  video.playsinline = '';
   video.appendChild(source);
   videoDivDom.appendChild(video);
   videoDivDom.appendChild(span);
@@ -209,11 +318,11 @@ function createSlide(block, row, slideIndex) {
         if (column.querySelector('a')) {
           // video mode
           column.classList.add('video-mode');
-          videoElement = initVideo(column, 'desktop');
+          videoElement = initVideo(column, 'desktop', theme === 'true' ? 'dark' : 'light');
           videoDom = column.querySelectorAll('a')[0]?.closest('p');
           if (window.innerWidth <= 860) {
             // mobile video
-            videoElement = initVideo(column, 'mobile');
+            videoElement = initVideo(column, 'mobile', theme === 'true' ? 'dark' : 'light');
             videoDom = column.querySelectorAll('a')[1]?.closest('p');
           }
           if (videoDom) column.replaceChild(videoElement, videoDom);
@@ -298,10 +407,8 @@ export default async function decorate(block) {
     block.append(slideIndicators);
     // 处理左右箭头(mobile不要)
     const slideNavButtons = createElement('div', 'hero-banner-navigation-buttons');
-    slideNavButtons.innerHTML = `
-      <button type="button" class= "slide-prev" aria-label="Previous Slide"></button>
-      <button type="button" class="slide-next" aria-label="Next Slide"></button>
-    `;
+    slideNavButtons.appendChild(createScrollButton('arrow', 'left'));
+    slideNavButtons.appendChild(createScrollButton('arrow', 'right'));
     block.append(slideNavButtons);
   }
   // 初始化加载主题色
@@ -317,15 +424,16 @@ export default async function decorate(block) {
   const videos = block.querySelectorAll('.video-mode');
   videos.forEach((video) => {
     video.querySelector('.video-play-icon').addEventListener('click', throttle((e) => {
-      if (e.target.classList.contains('is-playing')) {
-        e.target.classList.remove('is-playing');
-        e.target.classList.add('is-paused');
+      if (e.target.parentElement.classList.contains('is-playing')) {
+        e.target.parentElement.classList.remove('is-playing');
+        e.target.parentElement.classList.add('is-paused');
         e.target.closest('li').querySelector('video')?.pause();
       } else {
-        e.target.classList.remove('is-paused');
-        e.target.classList.add('is-playing');
+        e.target.parentElement.classList.remove('is-paused');
+        e.target.parentElement.classList.add('is-playing');
         e.target.closest('li').querySelector('video')?.play();
       }
+      autoPlay(block);
     }, 300));
   });
   const VideoObserver = new IntersectionObserver((entries) => {

@@ -1,5 +1,7 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function createScrollButton(direction) {
   const button = document.createElement('button');
   button.type = 'button';
@@ -8,13 +10,13 @@ function createScrollButton(direction) {
   button.disabled = direction === 'left';
   // 创建图片元素
   const img = document.createElement('img');
-  img.src = direction === 'left' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left-g.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right-g.svg';
+  img.src = direction === 'left' ? `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-left-g.svg` : `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-right-g.svg`;
   img.alt = direction === 'left' ? 'Scroll left' : 'Scroll right';
   img.className = 'disabled-icon';
   button.appendChild(img);
   // 创建图片元素
   const imgClick = document.createElement('img');
-  imgClick.src = direction === 'left' ? '/content/dam/hisense/us/common-icons/icon-carousel/nav-left.svg' : '/content/dam/hisense/us/common-icons/icon-carousel/nav-right.svg';
+  imgClick.src = direction === 'left' ? `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-left.svg` : `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-right.svg`;
   imgClick.alt = direction === 'left' ? 'Scroll left' : 'Scroll right';
   imgClick.className = 'click-icon';
   button.appendChild(imgClick);

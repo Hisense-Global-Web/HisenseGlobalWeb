@@ -44,6 +44,13 @@
           "name": "copyright",
           "label": "Copyright Text",
           "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "region-link",
+          "label": "Region Link",
+          "value": ""
         }
       ]
     },
