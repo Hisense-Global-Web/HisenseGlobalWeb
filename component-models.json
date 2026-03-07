@@ -547,7 +547,8 @@
         "valueType": "string",
         "name": "title_image",
         "label": "Primary Image",
-        "multi": false
+        "multi": false,
+        "required": true
       },
       {
         "component": "text",
@@ -2027,6 +2028,13 @@
         "name": "copyright",
         "label": "Copyright Text",
         "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "region-link",
+        "label": "Region Link",
+        "value": ""
       }
     ]
   },
@@ -3479,6 +3487,23 @@
   {
     "id": "page-header",
     "fields": [
+      {
+        "component": "select",
+        "name": "title-style",
+        "label": "Title Style",
+        "valueType": "string",
+        "value": "text-green-50",
+        "options": [
+          {
+            "name": "Green 50",
+            "value": "text-green-50"
+          },
+          {
+            "name": "Black",
+            "value": "text-black"
+          }
+        ]
+      },
       {
         "component": "text",
         "name": "title",
