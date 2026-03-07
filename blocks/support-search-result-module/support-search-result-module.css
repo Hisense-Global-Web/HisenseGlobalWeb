@@ -154,7 +154,7 @@
 
     @media (width < 860px) {
       padding: var(--size-24) var(--size-20) var(--size-32);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius-xl, 16px);
     }
 
     .faq-title {
@@ -315,76 +315,67 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-width: var(--size-40);
+      width: var(--size-40);
       height: var(--size-40);
-      padding: 0 var(--size-4);
+      padding: 0;
       border-radius: var(--radius-md);
-      border: none;
+      border: 1px solid transparent;
       background-color: transparent;
-      color: var(--color-primary-grey-70);
+      color: var(--color-primary-grey-70, #333);
       font-size: var(--fontsize-body1);
-      line-height: 1;
-      font-weight: var(--fontweight-medium);
+      line-height: 1.5;
+      font-weight: var(--fontweight-book, 400);
       cursor: pointer;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
 
       &.is-active {
         background-color: var(--color-primary-green-60);
-        color: #fff;
-        border-radius: var(--radius-md);
+        color: var(--color-primary-grey-10, #fff);
+        font-weight: var(--fontweight-medium, 500);
+      }
+
+      &:hover {
+        background-color: var(--color-primary-green-10, #edfcfb);
+        color: var(--color-primary-grey-100, #000);
+        font-weight: var(--fontweight-medium, 500);
       }
 
       &:disabled {
-        color: var(--color-primary-grey-30);
-        cursor: default;
+        .page-arrow {
+          display: none;
+        }
+
+        .page-arrow.disabled {
+          display: block;
+        }
       }
 
-      &:hover:not(:is(.is-active, :disabled)) {
-        background-color: var(--color-primary-grey-20);
-      }
-    }
-
-    .page-arrow-btn {
-      background-color: transparent;
-
-      .page-arrow-icon {
+      .page-arrow {
         width: var(--size-24);
         height: var(--size-24);
         display: block;
-      }
 
-      &.is-prev .page-arrow-icon {
-        transform: rotate(-90deg);
-      }
-
-      &.is-next .page-arrow-icon {
-        transform: rotate(90deg);
-      }
-
-      &:disabled {
-        opacity: 0.3;
-        cursor: default;
-      }
-
-      &:hover:not(:disabled) {
-        background-color: var(--color-primary-grey-20);
+        &.disabled {
+          display: none;
+        }
       }
     }
 
     .pagination-ellipsis {
+      width: var(--size-40);
+      height: var(--size-40);
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 4px;
-      min-width: var(--size-32);
-      height: var(--size-40);
-      user-select: none;
+      gap: var(--size-6, 6px);
 
       .circle {
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background-color: var(--color-primary-grey-50);
+        width: var(--size-4, 4px);
+        height: var(--size-4, 4px);
+        border-radius: var(--size-10, 10px);
+        background: var(--color-primary-grey-40, #bbb);
       }
     }
   }
