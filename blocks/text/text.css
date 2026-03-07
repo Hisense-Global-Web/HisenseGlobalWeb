@@ -14,9 +14,9 @@
 }
 
 /* light mode */
-.text-container.light,
-.text-container.grey,
-.text-container.soft-green{
+.text-container.light .text-wrapper,
+.text-container.grey .text-wrapper,
+.text-container.soft-green .text-wrapper{
   /* 小标题--绿色50 */
   p:first-child {
     color: var(--color-primary-green-50);
