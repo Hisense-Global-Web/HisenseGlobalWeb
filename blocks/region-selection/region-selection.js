@@ -3,9 +3,20 @@ import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const isEditing = await isUniversalEditorAsync();
 const { country } = getLocaleFromPath();
+// 简单哈希函数，用于缓存破坏
+function simpleHash(str) {
+  const s = String(str);
+  let h = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    h = (h * 31 + s.charCodeAt(i)) % 2147483647;
+  }
+  return Math.abs(h).toString(36);
+}
+const fiveMinutesMs = 5 * 60 * 1000;
+const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
 
 const prefix = isEditing ? '/bin' : '/api';
-const REGION_API = `${window.GRAPHQL_BASE_URL}${prefix}/hisense/region-selection.json`;
+const REGION_API = `${window.GRAPHQL_BASE_URL}${prefix}/hisense/region-selection.json?_t=${cacheBuster}`;
 const ARROW_ICON = `${window.GRAPHQL_BASE_URL}/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
 
 const bindEvent = (block) => {
