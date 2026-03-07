@@ -1,5 +1,12 @@
-const REGION_API = '/content/hisense/servlet.region-selection.json';
-const ARROW_ICON = 'https://publish-p174152-e1855821.adobeaemcloud.com/content/dam/hisense/us/common-icons/chevron-up.svg';
+import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+
+const isEditing = await isUniversalEditorAsync();
+const { country } = getLocaleFromPath();
+
+const prefix = isEditing ? '/bin' : '/api';
+const REGION_API = `${window.GRAPHQL_BASE_URL}${prefix}/hisense/region-selection.json`;
+const ARROW_ICON = `${window.GRAPHQL_BASE_URL}/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
 
 const bindEvent = (block) => {
   const regions = block.querySelectorAll('.region');
@@ -131,10 +138,10 @@ const createRegionElement = (region) => {
   const countries = Array.isArray(region?.countries) ? region.countries : [];
   let hasAnyLanguage = false;
 
-  countries.forEach((country) => {
-    const languages = Array.isArray(country?.languages) ? country.languages : [];
-    const countryCode = country?.code || '';
-    const countryName = country?.name || countryCode;
+  countries.forEach((countryItem) => {
+    const languages = Array.isArray(countryItem?.languages) ? countryItem.languages : [];
+    const countryCode = countryItem?.code || '';
+    const countryName = countryItem?.name || countryCode;
 
     if (!languages.length) {
       return;
@@ -148,6 +155,10 @@ const createRegionElement = (region) => {
       const languageCode = language?.code || '';
 
       link.href = `/${countryCode}/${languageCode}`;
+      if (isEditing) {
+        const site = window.location.pathname.match(/^\/content\/[^/]+/)?.[0] || '';
+        link.href = `${site}/${countryCode}/${languageCode}.html`;
+      }
       span.lang = languageCode;
       span.textContent = `${countryName} (${language?.name || ''})`;
 

@@ -1,5 +1,18 @@
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const REGION = '/hisense/region-selection.json';
+
+// 获取标签数据
+async function fetchRegionData(url) {
+  try {
+    const response = await fetch(url);
+    if (response.ok) return response.json();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn('search-result-module: failed to fetch tag data:', error);
+  }
+  return null;
+}
 function isInternalLink(href) {
   if (!href || href === '#' || href === '/') {
     return true;
@@ -185,6 +198,7 @@ function extractLegalLinksData(container) {
   const legalLinksData = {
     links: [],
     copyright: '',
+    regionLink: '',
   };
 
   const legalLinksBlock = container.querySelector('.footer-legal-links');
@@ -194,18 +208,13 @@ function extractLegalLinksData(container) {
 
   const legalItemRows = Array.from(legalLinksBlock.children).filter((child) => child.tagName === 'DIV');
 
-  let legalLinksStartIndex = 0;
-  if (legalItemRows.length > 0) {
-    const copyrightRow = legalItemRows[0];
-    const copyrightText = copyrightRow.textContent.trim();
-    if (copyrightText) {
-      legalLinksData.copyright = copyrightText;
-      legalLinksStartIndex = 1;
-    }
-  }
-
   legalItemRows.forEach((row, index) => {
-    if (index < legalLinksStartIndex) {
+    if (index === 0) {
+      legalLinksData.copyright = row.textContent.trim();
+      return;
+    }
+    if (index === 1) {
+      legalLinksData.regionLink = row.textContent.trim();
       return;
     }
 
@@ -241,7 +250,7 @@ function extractLegalLinksData(container) {
   return legalLinksData;
 }
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const isEditorMode = block.hasAttribute('data-aue-resource')
     || block.hasAttribute('data-aue-type')
     || block.closest('[data-aue-resource]')
@@ -407,16 +416,60 @@ export default function decorate(block) {
       footerLegals.appendChild(copyrightDiv);
     }
 
+    const getRegionUrl = () => {
+      const baseUrl = window.GRAPHQL_BASE_URL || '';
+      const isEditMode = block.hasAttribute('data-aue-resource');
+      return `${baseUrl}${isEditMode ? '/bin' : '/api'}${REGION}?path=${window.location.pathname}`;
+    };
+
+    const regionData = await fetchRegionData(getRegionUrl());
+    const generateLanguageItems = (languages, selectedLang) => {
+      let languageItems = '';
+      const langKeys = Object.keys(languages);
+      languageItems += `<div class="footer-lan-item active" data-lang="${selectedLang}">${languages[selectedLang]}</div>`;
+      langKeys.forEach((langKey) => {
+        if (langKey === selectedLang) return;
+        languageItems += '<div class="footer-lan-line"></div>';
+        languageItems += `<div class="footer-lan-item" data-lang="${langKey}">${languages[langKey]}</div>`;
+      });
+
+      return languageItems;
+    };
+
     const lanGroup = document.createElement('div');
     lanGroup.className = 'footer-lan-group';
-    lanGroup.innerHTML = `
-  <img src="/content/dam/hisense/${country}/common-icons/global.svg" alt="" />
-  <div class="footer-lan-com">United States</div>
+    lanGroup.innerHTML = regionData ? `
+  <img class="region-icon" src="/content/dam/hisense/${country}/common-icons/global.svg" alt="" />
+  <div class="footer-lan-com">${regionData.country.name}</div>
   <div class="footer-lan-list">
-    <div class="footer-lan-item active">English</div>
-<!--    <div class="footer-lan-line"></div>-->
-<!--    <div class="footer-lan-item">Français</div>-->
-  </div>`;
+    ${generateLanguageItems(regionData.country.languages, regionData.country.selectedLanguage)}
+  </div>` : '';
+    const regionIcon = lanGroup.querySelector('.region-icon');
+    if (regionIcon && data.legalLinks.regionLink) {
+      regionIcon.addEventListener('click', () => {
+        window.location.href = data.legalLinks.regionLink;
+      });
+    }
+    const lanComEl = lanGroup.querySelector('.footer-lan-com');
+    if (lanComEl && data.legalLinks.regionLink) {
+      lanComEl.addEventListener('click', () => {
+        window.location.href = data.legalLinks.regionLink;
+      });
+    }
+    const langItems = lanGroup.querySelectorAll('.footer-lan-item');
+    langItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        if (e.currentTarget.classList.contains('active')) {
+          window.location.href = data.legalLinks.regionLink;
+          return;
+        }
+        const languageIndex = segments[0] === 'content' ? 3 : 1;
+        segments[languageIndex] = e.currentTarget.getAttribute('data-lang');
+        const newPathname = `/${segments.join('/')}`;
+        window.location.href = `${newPathname}${window.location.search}`;
+      });
+    });
+
     footerLegals.appendChild(lanGroup);
 
     footerBottom.appendChild(footerLegals);

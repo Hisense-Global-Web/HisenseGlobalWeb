@@ -269,6 +269,10 @@ main .section.product-gallery-container.product-section-container .product-secti
   display: flex;
   gap: var(--size-24);
 
+  @media (width < 860px) {
+    display: none;
+  }
+
   .pdp-specs-btn, .pdp-faq-btn {
     order: 9;
     display: flex;
