@@ -23,7 +23,7 @@ function getEndpointUrl(endpointPath) {
   let url;
   if (isAuthorEnv && !path.includes('/content/cq:tags')) {
     const pathWithoutJson = path.replace(/\.json$/, '');
-    const graphqlPath = `/graphql/execute.json/global/GetFaqByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
+    const graphqlPath = `/bin/hisense/productList.json?path=${pathWithoutJson}`;
     url = window.GRAPHQL_BASE_URL ? `${window.GRAPHQL_BASE_URL}${graphqlPath}` : graphqlPath;
   } else {
     const baseUrl = window.GRAPHQL_BASE_URL || '';

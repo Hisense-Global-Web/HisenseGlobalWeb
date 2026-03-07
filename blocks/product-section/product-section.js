@@ -51,7 +51,7 @@ export default async function decorate(block) {
 
     if (isAemEnv && path && path.endsWith('.json')) {
       const pathWithoutJson = path.replace(/\.json$/, '');
-      path = `/graphql/execute.json/global/GetProductByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
+      path = `/bin/hisense/productList.json?path=${pathWithoutJson}`;
     }
 
     const baseUrl = window.GRAPHQL_BASE_URL || '';

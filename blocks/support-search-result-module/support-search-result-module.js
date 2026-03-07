@@ -12,17 +12,22 @@ function simpleHash(str) {
   return Math.abs(h).toString(36);
 }
 
-// 接口urlauthor 环境自动转为 GraphQL
+// author 产品接口走 /bin/hisense/productList.json?path=路径，FAQ 走 GraphQL
 function getEndpointUrl(endpointPath, type) {
   let path = endpointPath;
   const hostname = window.location.hostname || '';
   const isAuthorEnv = hostname.includes('author-');
 
   if (isAuthorEnv && path && path.endsWith('.json')) {
-    const pathWithoutJson = path.replace(/\.json$/, '');
-    const graphqlName = type === 'product' ? 'GetProductByPath' : 'GetFaqByPath';
-    const graphqlPath = `/graphql/execute.json/global/${graphqlName};path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
-    path = window.GRAPHQL_BASE_URL ? `${window.GRAPHQL_BASE_URL}${graphqlPath}` : graphqlPath;
+    if (type === 'product') {
+      const pathWithoutJson = path.replace(/\.json$/, '');
+      const productListPath = `/bin/hisense/productList.json?path=${encodeURIComponent(pathWithoutJson)}`;
+      path = window.GRAPHQL_BASE_URL ? `${window.GRAPHQL_BASE_URL}${productListPath}` : productListPath;
+    } else {
+      const pathWithoutJson = path.replace(/\.json$/, '');
+      const graphqlPath = `/graphql/execute.json/global/GetFaqByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
+      path = window.GRAPHQL_BASE_URL ? `${window.GRAPHQL_BASE_URL}${graphqlPath}` : graphqlPath;
+    }
   } else {
     const baseUrl = window.GRAPHQL_BASE_URL || '';
     path = baseUrl ? `${baseUrl}${path}` : path;
