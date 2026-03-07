@@ -79,6 +79,7 @@
    
    @media (width < 860px) {
       font-size: var(--size-14);
+      width: var(--size-240);
   }
 }
 
@@ -92,6 +93,12 @@
     max-width: 73.33333vw;
     margin: auto;
   }
+}
+
+.feature-navigation .card-cta .button-container{
+    height: var(--size-12);
+    display: flex; 
+    align-items: center;
 }
 
 .feature-navigation .card-cta a.button:any-link, button {
@@ -118,7 +125,7 @@
   background: url('/content/dam/hisense/us/common-icons/chevron-right.svg')  no-repeat;
   background-size: 100% auto;  
   background-position: center;
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); */
 
    @media (width < 860px) {
       width: var(--size-8);
