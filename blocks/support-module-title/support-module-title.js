@@ -1,5 +1,8 @@
+import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
+
 export default function decorate(block) {
   try {
+    getDynamicHeaderHeight(block);
     const [textStyleEl, titleContainerEl] = [...block.children];
     const textStyle = textStyleEl.querySelector('p').textContent;
     const isCenter = textStyle === 'center' ?? false;

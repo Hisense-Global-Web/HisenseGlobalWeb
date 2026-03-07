@@ -25,6 +25,7 @@
         border-radius: var(--size-12, 12px);
         padding: var(--spacing-sm, 24px);
         align-items: flex-start;
+        gap: var(--spacing-2xs, 12px);
       }
 
       .document-icon {
