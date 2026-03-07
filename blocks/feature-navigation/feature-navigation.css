@@ -125,6 +125,7 @@
   background: url('/content/dam/hisense/us/common-icons/chevron-right.svg')  no-repeat;
   background-size: 100% auto;  
   background-position: center;
+  
   /* transform: translateY(-2px); */
 
    @media (width < 860px) {
