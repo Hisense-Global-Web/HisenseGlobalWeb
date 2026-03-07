@@ -50,7 +50,8 @@ export default async function decorate(block) {
     const isAemEnv = hostname.includes('author') || hostname.includes('publish');
 
     if (isAemEnv && path && path.endsWith('.json')) {
-      const pathWithoutJson = path.replace(/\.json$/, '');
+      let pathWithoutJson = path.replace(/\.json$/, '');
+      pathWithoutJson = pathWithoutJson.replace(/^\/product\/?/, '/') || '/';
       path = `/bin/hisense/productList.json?path=${pathWithoutJson}`;
     }
 

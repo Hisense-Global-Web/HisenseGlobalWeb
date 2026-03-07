@@ -20,7 +20,8 @@ function getEndpointUrl(endpointPath, type) {
 
   if (isAuthorEnv && path && path.endsWith('.json')) {
     if (type === 'product') {
-      const pathWithoutJson = path.replace(/\.json$/, '');
+      let pathWithoutJson = path.replace(/\.json$/, '');
+      pathWithoutJson = pathWithoutJson.replace(/^\/product\/?/, '/') || '/';
       const productListPath = `/bin/hisense/productList.json?path=${encodeURIComponent(pathWithoutJson)}`;
       path = window.GRAPHQL_BASE_URL ? `${window.GRAPHQL_BASE_URL}${productListPath}` : productListPath;
     } else {
