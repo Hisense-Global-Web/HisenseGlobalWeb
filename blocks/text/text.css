@@ -4,13 +4,18 @@
   width: 100%;
 }
 
+/* 为了 text 和 legal content block 组合使用时，要与legal content 内容padding 保持一致 */
+.legal-content-container .text-wrapper {
+  padding: 0;
+}
+
 /* 解决为 section 设计 gap，section 为flex 布局时，外框只占内容宽度，无法左对齐问题 */
 .text-container.gap-s .text-wrapper,
 .text-container.gap-m .text-wrapper,
 .text-container.gap-md .text-wrapper,
 .text-container.gap-l .text-wrapper,
 .text-container.gap-xl .text-wrapper{
-  width: var(--container-max-width);
+  width: 100%;
 }
 
 /* light mode */
@@ -28,7 +33,11 @@
 }
 
 /* dark mode */
-.text-container.dark,.text-container.gray-00.gray-90.gray-95 {
+.text-container.dark .text-wrapper,
+.text-container.gray-00 .text-wrapper,
+.text-container.gray-90 .text-wrapper,
+.text-container.gray-95 .text-wrapper
+ {
   p:first-child {
     color: var(--color-hisense-teal);
   }
