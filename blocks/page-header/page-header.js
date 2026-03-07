@@ -9,7 +9,7 @@ export default function decorate(block) {
       const height = window.innerWidth >= 1180 ? '100px' : '112px';
       document.documentElement.style.setProperty('--nav-height', height);
     }
-    const [titleStyleEl, titleEl, subtitleEl] = [...block.chidren];
+    const [titleStyleEl, titleEl, subtitleEl] = [...block.children];
     const titleStylePEl = titleStyleEl?.querySelector?.('p') ?? null;
     if (titleStylePEl) {
       titleEl.classList.add(titleStylePEl?.textContent);
@@ -18,6 +18,7 @@ export default function decorate(block) {
     if (subtitleEl) {
       subtitleEl?.classList.add('page-header-subtitle');
     }
+    titleStyleEl?.remove();
   } catch (error) {
     /* eslint-disable-next-line no-console */
     console.error('Page Header block decoration error:', error);
