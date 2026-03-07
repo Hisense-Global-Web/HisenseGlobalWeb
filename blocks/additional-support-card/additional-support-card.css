@@ -1,7 +1,7 @@
 .additional-support-card {
   display: flex;
   gap: var(--spacing-sm, 24px);
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   @media (width<860px) {

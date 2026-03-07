@@ -103,7 +103,7 @@ export function decorateMain(main) {
 /**
  * Get GraphQL API base URL based on current hostname
  */
-function getGraphQLBaseUrl() {
+export function getGraphQLBaseUrl() {
   const { hostname } = window.location;
 
   if (hostname === 'localhost' || hostname === '127.0.0.1') {

@@ -258,13 +258,17 @@ function buildPaginationControls(paginationEl, state, onPageChange, config) {
 
   const prevBtn = document.createElement('button');
   prevBtn.type = 'button';
-  prevBtn.className = 'page-button page-arrow-btn is-prev';
+  prevBtn.className = 'page-button';
   prevBtn.setAttribute('aria-label', config.prevbuttonarialabel || 'Previous');
   const prevIcon = document.createElement('img');
-  prevIcon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+  prevIcon.src = `/content/dam/hisense/${country}/common-icons/left.svg`;
   prevIcon.alt = '';
-  prevIcon.className = 'page-arrow-icon';
+  prevIcon.className = 'page-arrow';
+  const prevDisabledIcon = document.createElement('img');
+  prevDisabledIcon.src = `/content/dam/hisense/${country}/common-icons/left-disabled.svg`;
+  prevDisabledIcon.className = 'page-arrow is-prev disabled';
   prevBtn.appendChild(prevIcon);
+  prevBtn.appendChild(prevDisabledIcon);
   if (currentPage === 1) {
     prevBtn.disabled = true;
   } else {
@@ -299,13 +303,17 @@ function buildPaginationControls(paginationEl, state, onPageChange, config) {
 
   const nextBtn = document.createElement('button');
   nextBtn.type = 'button';
-  nextBtn.className = 'page-button page-arrow-btn is-next';
+  nextBtn.className = 'page-button is-next';
   nextBtn.setAttribute('aria-label', config.nextbuttonarialabel || 'Next');
   const nextIcon = document.createElement('img');
-  nextIcon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+  nextIcon.src = `/content/dam/hisense/${country}/common-icons/right.svg`;
   nextIcon.alt = '';
-  nextIcon.className = 'page-arrow-icon';
+  nextIcon.className = 'page-arrow';
+  const nextDisabledIcon = document.createElement('img');
+  nextDisabledIcon.src = `/content/dam/hisense/${country}/common-icons/right-disabled.svg`;
+  nextDisabledIcon.className = 'page-arrow is-next disabled';
   nextBtn.appendChild(nextIcon);
+  nextBtn.appendChild(nextDisabledIcon);
   if (currentPage === totalPages) {
     nextBtn.disabled = true;
   } else {
