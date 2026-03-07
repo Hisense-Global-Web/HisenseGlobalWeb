@@ -1,0 +1,32 @@
+.quick-link {
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.quick-link-title {
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 8px;
+}
+
+.quick-link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.quick-link-list li {
+  padding: 10px 0;
+}
+
+.quick-link-list a {
+  color: #666;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.quick-link-list a:hover {
+  color: var(--color-hisense-teal);
+}

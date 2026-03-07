@@ -45,6 +45,10 @@
           "valueType": "string",
           "options": [
             {
+              "name": "default",
+              "value": ""
+            },
+            {
               "name": "overlay_text-left",
               "value": "left-style"
             },
@@ -109,9 +113,9 @@
         },
         {
           "component": "richtext",
-          "name": "title",
+          "name": "text",
           "value": "",
-          "label": "Title",
+          "label": "Text Content",
           "valueType": "string"
         },
         {

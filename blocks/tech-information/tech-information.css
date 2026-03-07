@@ -1,0 +1,167 @@
+@import url('../tech-items/tech-items.css');
+
+.tech-information {
+  display: flex;
+  border-radius: var(--size-20);
+  overflow: hidden;
+  max-height: min(calc(730 / var(--breakpoint-pc) * 100vw), 730px);
+  flex-direction: row-reverse;
+
+   &.img-left {
+    flex-direction: row;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .tech-img-wrapper {
+    /* width: min(calc(520 / var(--breakpoint-pc) * 100vw), 520px); */
+    width: 46.428%;
+    height: auto;
+
+    .tech-mobile-img {
+      display: none;
+    }
+
+    .tech-pc-img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .tech-img-box {
+      width: 100%;
+      height: 100%;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .tech-info-container {
+    /* width: min(calc(600 / var(--breakpoint-pc) * 100vw), 600px); */
+    width: 53.571%;
+    background: var(--color-primary-grey-20);
+    padding: var(--size-48);
+    display: flex;
+    flex-direction: column;
+
+    .tech-text-wrapper {
+      max-width: 100%;
+
+      .tech-info-title {
+        font-size: var(--size-16);
+        font-weight: var(--fontweight-medium);
+        line-height: var(--size-24);
+        color: var(--color-primary-green-60);
+        margin-bottom: var(--size-8);
+        text-transform: uppercase;
+      }
+
+      .tech-info-subtitle {
+        font-size: var(--size-30);
+        font-weight: var(--fontweight-medium);
+        color: var(--color-primary-grey-100);
+        margin-bottom: var(--size-20);
+        line-height: var(--size-36);
+      }
+
+      .tech-info-text {
+        font-size: var(--size-16);
+        font-weight: var(--fontweight-book);
+        color: var(--color-primary-grey-80);
+        line-height: var(--size-24);
+      }
+    }
+
+    .tech-cta-wrapper {
+      margin-top: var(--size-32);
+
+      .cta-button {
+        display: inline-block;
+        padding: 0 var(--size-32);
+        height: var(--size-50);
+        line-height: var(--size-50);
+        background-color: var(--color-primary-green-60);
+        color: #fff;
+        font-size: var(--size-14);
+        font-weight: var(--fontweight-medium);
+        border-radius: var(--size-25);
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--color-primary-green-40);
+        }
+
+        &:active {
+          background-color: var(--color-primary-green-70);
+          color: var(--white-alpha-80);
+        }
+      }
+    }
+  }
+
+  .tech-information.img-left {
+    flex-direction: row;
+  }
+}
+
+@media (width < 860px) {
+  .tech-information {
+    flex-direction: column;
+    max-height: unset;
+    border-radius: var(--size-16);
+
+    .tech-img-wrapper {
+      width: 100%;
+      height: calc(246 / var(--breakpoint-mobile) * 100vw);
+
+      .tech-mobile-img {
+        display: block;
+      }
+
+      .tech-pc-img {
+        display: none;
+      }
+    }
+
+    .tech-info-container {
+      width: 100%;
+      height: auto;
+      padding: var(--size-32) var(--size-24);
+
+      .tech-text-wrapper {
+        .tech-info-title {
+          font-size: var(--size-16);
+          margin-bottom: var(--size-4);
+        }
+
+        .tech-info-subtitle {
+          font-size: var(--size-24);
+        }
+
+        .tech-info-text {
+          font-size: var(--size-14);
+          line-height: var(--size-21);
+        }
+      }
+
+      .tech-cta-wrapper {
+        .cta-button {
+          padding: 0 var(--size-24);
+          height: var(--size-40);
+          line-height: var(--size-40);
+        }
+      }
+    }
+  }
+
+  .tech-information.img-left {
+    flex-direction: column;
+  }
+}

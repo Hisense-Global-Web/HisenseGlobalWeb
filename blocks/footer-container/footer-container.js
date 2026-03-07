@@ -1,3 +1,28 @@
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const REGION = '/hisense/region-selection.json';
+
+// 简单哈希函数，用于缓存破坏
+function simpleHash(str) {
+  const s = String(str);
+  let h = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    h = (h * 31 + s.charCodeAt(i)) % 2147483647;
+  }
+  return Math.abs(h).toString(36);
+}
+
+// 获取标签数据
+async function fetchRegionData(url) {
+  try {
+    const response = await fetch(url);
+    if (response.ok) return response.json();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn('search-result-module: failed to fetch tag data:', error);
+  }
+  return null;
+}
 function isInternalLink(href) {
   if (!href || href === '#' || href === '/') {
     return true;
@@ -183,6 +208,7 @@ function extractLegalLinksData(container) {
   const legalLinksData = {
     links: [],
     copyright: '',
+    regionLink: '',
   };
 
   const legalLinksBlock = container.querySelector('.footer-legal-links');
@@ -192,18 +218,13 @@ function extractLegalLinksData(container) {
 
   const legalItemRows = Array.from(legalLinksBlock.children).filter((child) => child.tagName === 'DIV');
 
-  let legalLinksStartIndex = 0;
-  if (legalItemRows.length > 0) {
-    const copyrightRow = legalItemRows[0];
-    const copyrightText = copyrightRow.textContent.trim();
-    if (copyrightText) {
-      legalLinksData.copyright = copyrightText;
-      legalLinksStartIndex = 1;
-    }
-  }
-
   legalItemRows.forEach((row, index) => {
-    if (index < legalLinksStartIndex) {
+    if (index === 0) {
+      legalLinksData.copyright = row.textContent.trim();
+      return;
+    }
+    if (index === 1) {
+      legalLinksData.regionLink = row.textContent.trim();
       return;
     }
 
@@ -239,7 +260,7 @@ function extractLegalLinksData(container) {
   return legalLinksData;
 }
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const isEditorMode = block.hasAttribute('data-aue-resource')
     || block.hasAttribute('data-aue-type')
     || block.closest('[data-aue-resource]')
@@ -331,7 +352,7 @@ export default function decorate(block) {
         mobileFooterTitle.className = 'footer-nav-column-title';
         mobileFooterTitle.textContent = columnData.title;
         const arrow = document.createElement('img');
-        arrow.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+        arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
         const mobileFooterTitleLine = document.createElement('div');
         mobileFooterTitleLine.className = 'mobile-footer-title-line';
         mobileFooterTitleLine.addEventListener('click', (e) => {
@@ -360,8 +381,8 @@ export default function decorate(block) {
 
           if (!isInternalLink(itemData.link)) {
             const img = document.createElement('img');
-            img.src = '/content/dam/hisense/us/common-icons/share.svg';
-            // li.appendChild(img);
+            img.src = `/content/dam/hisense/${country}/common-icons/share.svg`;
+            li.appendChild(img);
           }
           ul.appendChild(li);
         });
@@ -405,16 +426,62 @@ export default function decorate(block) {
       footerLegals.appendChild(copyrightDiv);
     }
 
+    const getRegionUrl = () => {
+      const baseUrl = window.GRAPHQL_BASE_URL || '';
+      const isEditMode = block.hasAttribute('data-aue-resource');
+      const fiveMinutesMs = 5 * 60 * 1000;
+      const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
+      return `${baseUrl}${isEditMode ? '/bin' : '/api'}${REGION}?path=${window.location.pathname}&_t=${cacheBuster}`;
+    };
+
+    const regionData = await fetchRegionData(getRegionUrl());
+    const generateLanguageItems = (languages, selectedLang) => {
+      let languageItems = '';
+      const langKeys = Object.keys(languages);
+      languageItems += `<div class="footer-lan-item active" data-lang="${selectedLang}">${languages[selectedLang]}</div>`;
+      langKeys.forEach((langKey) => {
+        if (langKey === selectedLang) return;
+        languageItems += '<div class="footer-lan-line"></div>';
+        languageItems += `<div class="footer-lan-item" data-lang="${langKey}">${languages[langKey]}</div>`;
+      });
+
+      return languageItems;
+    };
+
     const lanGroup = document.createElement('div');
     lanGroup.className = 'footer-lan-group';
-    lanGroup.innerHTML = `
-  <img src="/content/dam/hisense/us/common-icons/global.svg" alt="" />
-  <div class="footer-lan-com">United States</div>
+    lanGroup.innerHTML = regionData ? `
+  <img class="region-icon" src="/content/dam/hisense/${country}/common-icons/global.svg" alt="" />
+  <div class="footer-lan-com">${regionData.country.name}</div>
   <div class="footer-lan-list">
-    <div class="footer-lan-item active">English</div>
-<!--    <div class="footer-lan-line"></div>-->
-<!--    <div class="footer-lan-item">Français</div>-->
-  </div>`;
+    ${generateLanguageItems(regionData.country.languages, regionData.country.selectedLanguage)}
+  </div>` : '';
+    const regionIcon = lanGroup.querySelector('.region-icon');
+    if (regionIcon && data.legalLinks.regionLink) {
+      regionIcon.addEventListener('click', () => {
+        window.location.href = data.legalLinks.regionLink;
+      });
+    }
+    const lanComEl = lanGroup.querySelector('.footer-lan-com');
+    if (lanComEl && data.legalLinks.regionLink) {
+      lanComEl.addEventListener('click', () => {
+        window.location.href = data.legalLinks.regionLink;
+      });
+    }
+    const langItems = lanGroup.querySelectorAll('.footer-lan-item');
+    langItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        if (e.currentTarget.classList.contains('active')) {
+          window.location.href = data.legalLinks.regionLink;
+          return;
+        }
+        const languageIndex = segments[0] === 'content' ? 3 : 1;
+        segments[languageIndex] = e.currentTarget.getAttribute('data-lang');
+        const newPathname = `/${segments.join('/')}`;
+        window.location.href = `${newPathname}${window.location.search}`;
+      });
+    });
+
     footerLegals.appendChild(lanGroup);
 
     footerBottom.appendChild(footerLegals);

@@ -1,11 +1,15 @@
 import { loadFragment } from '../fragment/fragment.js';
+import { getFragmentPath } from '../../scripts/locale-utils.js';
+import { processPath } from '../../utils/carousel-common.js';
 
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function parseLogo(root) {
   const logoImg = root.querySelector('.navigation-logo-wrapper img');
   const logoHref = root.querySelector('.navigation-logo-wrapper a')?.href || '/';
   return {
     src: logoImg?.src || '',
-    href: logoHref,
+    href: processPath(logoHref),
     alt: logoImg?.alt || 'logo',
   };
 }
@@ -15,14 +19,14 @@ function parseNavItems(root) {
     const pList = wrapper.querySelectorAll('p');
     const title = pList[1]?.textContent?.trim() || '';
     const href = pList[0]?.textContent?.trim() || '#';
-    return { title, href };
+    return { title, href: processPath(href) };
   });
 }
 function parseNavLinks(root) {
   return Array.from(root.querySelectorAll('.navigation-link-wrapper')).map((wrapper) => {
     const title = wrapper.querySelector('p:not(.button-container)')?.textContent?.trim() || '';
     const href = wrapper.querySelector('a')?.href || '#';
-    return { title, href };
+    return { title, href: processPath(href) };
   });
 }
 
@@ -51,9 +55,25 @@ function parseActions(root) {
     }
     const img = fixImageUrl(lightSrc);
     const darkImg = fixImageUrl(darkSrc);
+    let enableSearchBox = false;
+    // 判断Enable Search Box
+    const navigationActionEl = wrapper.querySelector('.navigation-action');
+    if (navigationActionEl?.children?.length === 5) {
+      const strEnableSearchBox = navigationActionEl?.children[4].querySelector('p').textContent;
+      enableSearchBox = strEnableSearchBox.toLowerCase() === 'true';
+    }
     return {
-      title, href, img, darkImg,
+      title, href: processPath(href), img, darkImg, enableSearchBox,
     };
+  });
+}
+
+function parseCompany(root) {
+  return Array.from(root.querySelectorAll('.company-navigation-item-wrapper')).map((wrapper) => {
+    const ItemEl = wrapper.querySelector('.company-navigation-item');
+    const title = ItemEl.children[0]?.children[0].innerHTML || '';
+    const href = ItemEl.children[1]?.textContent?.trim() || '#';
+    return { title, href: processPath(href) };
   });
 }
 
@@ -102,7 +122,7 @@ function parseDropdownProducts(col) {
       }
 
       return {
-        img, text, href, altText,
+        img, text, href: processPath(href), altText,
       };
     });
   }
@@ -154,7 +174,7 @@ function parseDropdownProducts(col) {
     }
 
     products.push({
-      img, text, href, altText,
+      img, text, href: processPath(href), altText,
     });
   }
   return products;
@@ -174,7 +194,7 @@ function parseDropdownLinks(col) {
 
       return {
         text,
-        href,
+        href: processPath(href),
       };
     }).filter((item) => item.text);
   }
@@ -184,7 +204,7 @@ function parseDropdownLinks(col) {
   for (let i = 0; i < items.length; i += 2) {
     const text = items[i]?.textContent.trim();
     const href = items[i + 1]?.textContent.trim() || '#';
-    results.push({ text, href });
+    results.push({ text, href: processPath(href) });
   }
   return results;
 }
@@ -193,7 +213,6 @@ function parseDropdownBtns(col) {
   if (!col) return [];
 
   const results = [];
-
   const subMenuLinks = col.querySelectorAll('.sub-menu-link');
   if (subMenuLinks.length > 0) {
     subMenuLinks.forEach((subMenuLink) => {
@@ -203,7 +222,7 @@ function parseDropdownBtns(col) {
       const href = linkElement ? linkElement.getAttribute('href') : '';
 
       if (text) {
-        results.push({ text, href: href || '#', altText });
+        results.push({ text, href: processPath(href), altText });
       }
     });
     return results;
@@ -254,7 +273,7 @@ function parseDropdownBtns(col) {
         }
       }
 
-      results.push({ text, href });
+      results.push({ text, href: processPath(href) });
 
       // 如果 href 之后还有一行，并且那一行是 hisense 标签，那么把标签作为当前 item 的参数
       if (i + 2 < paragraphs.length) {
@@ -373,6 +392,119 @@ function buildDropdown(data) {
   return dropdown;
 }
 
+function buildSupportDropdown(mainEl) {
+  const supportEl = mainEl.querySelector('.support-navigation-route-container');
+  const dropdown = document.createElement('div');
+  dropdown.className = 'nav-dropdown';
+  const content = document.createElement('div');
+  content.className = 'dropdown-content h-grid-container';
+
+  const main = document.createElement('div');
+  main.className = 'dropdown-main';
+
+  const productsWrap = document.createElement('div');
+  productsWrap.className = 'dropdown-products';
+  const supportRouteBaseList = supportEl.querySelector('.support-navigation-route-wrapper .support-navigation-route');
+
+  // support route 标题
+  const supportRouteEl = document.createElement('div');
+  supportRouteEl.className = 'support-route';
+  const supportRouteTitleEl = document.createElement('div');
+  supportRouteTitleEl.className = 'support-route-title';
+  supportRouteTitleEl.innerHTML = 'Support';
+  supportRouteEl.append(supportRouteTitleEl);
+
+  // support route group
+  const supportRouteGroupEl = document.createElement('div');
+  supportRouteGroupEl.className = 'support-route-group';
+  [...supportRouteBaseList.children].forEach((item) => {
+    const link = document.createElement('div');
+    link.className = 'nav-link';
+    const title = item.children[0]?.textContent?.trim() || '';
+    const href = item.children[1]?.textContent?.trim() || '#';
+    const span1 = document.createElement('span');
+    span1.textContent = title;
+    link.append(span1);
+    if (href && href !== '#') {
+      link.dataset.href = href;
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.location.href = href;
+      });
+    }
+    supportRouteGroupEl.append(link);
+  });
+  supportRouteEl.append(supportRouteGroupEl);
+  productsWrap.append(supportRouteEl);
+
+  // support product list
+  const supportProductBaseList = supportEl.querySelectorAll('.support-navigation-products-links-wrapper .support-navigation-products-links');
+  supportProductBaseList.forEach((proGroup) => {
+    const supportProductEl = document.createElement('div');
+    supportProductEl.className = 'support-product';
+
+    [...proGroup.children].forEach((item, index) => {
+      if (index) {
+        const i = item.lastElementChild.textContent?.trim();
+        const supportProductListEl = supportProductEl.querySelector('.support-product-list');
+        const hasGroup = supportProductListEl.querySelector(`.support-product-order-${i}`) !== null;
+        if (!hasGroup) {
+          const orderGroup = document.createElement('div');
+          orderGroup.className = `support-product-item support-product-order-${i}`;
+          supportProductListEl.append(orderGroup);
+        }
+        const supportProductListGroupEl = supportProductListEl.querySelector(`.support-product-order-${i}`);
+        const link = document.createElement('div');
+        link.className = 'nav-link';
+        const title = item.children[2].textContent.trim() || '';
+        const href = item.children[3].textContent.trim() || '#';
+        const span1 = document.createElement('span');
+        span1.textContent = title;
+        link.append(span1);
+        if (href && href !== '#') {
+          link.dataset.href = href;
+          link.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.location.href = href;
+          });
+        }
+        supportProductListGroupEl.append(link);
+      } else {
+        const supportProductTitleEl = document.createElement('div');
+        supportProductTitleEl.className = 'support-product-title';
+        supportProductTitleEl.innerHTML = item.textContent?.trim();
+        const supportProductListEl = document.createElement('div');
+        supportProductListEl.className = 'support-product-list';
+        supportProductEl.append(supportProductTitleEl, supportProductListEl);
+      }
+    });
+    productsWrap.append(supportProductEl);
+  });
+
+  const linksWrap = document.createElement('div');
+  linksWrap.className = 'dropdown-links';
+  const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
+  [...supportMenuLinksList.children].forEach((item) => {
+    const title = item.children[2].textContent.trim() || '';
+    const href = item.children[3].textContent.trim() || '#';
+    const div = document.createElement('div');
+    if (href && href !== '#') {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = title;
+      div.append(a);
+    } else {
+      div.textContent = title;
+    }
+    linksWrap.append(div);
+  });
+
+  main.append(productsWrap, linksWrap);
+  content.append(main);
+  dropdown.append(content);
+  return dropdown;
+}
+
 // function convertToDarkSvgUrl(url) {
 //   if (url.indexOf('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660') !== -1) {
 //     return url.replace('media_103e6c351d7632f9d1aa6d5846df24dd13b5df660', 'media_1b07abf87c6eb9531442a0199bd2893ddb8b1244b');
@@ -392,6 +524,97 @@ function buildDropdown(data) {
 //   return darkMainPart + suffix;
 // }
 
+let hideSearchBoxPopupTimer = null;
+
+const getUrlParams = (paramName) => {
+  const params = new URLSearchParams(window.location.search);
+  return params ? params.get(paramName) : null;
+};
+
+const getSearchBoxInputWrapperEl = (searchBoxPopupEl) => searchBoxPopupEl.querySelectorAll('.input-wrapper')[1];
+
+const setSearchBoxInput = (inputWrapperEl) => {
+  const inputEl = inputWrapperEl.querySelector('input');
+  const clearButtonEl = inputWrapperEl.querySelector('.search-box-clear');
+  const fullText = getUrlParams('fulltext');
+  if (fullText) {
+    clearButtonEl.classList.add('visible');
+  } else {
+    clearButtonEl.classList.remove('visible');
+  }
+  inputEl.value = fullText || '';
+};
+
+const checkMobileSearchBox = (inputWrapperEl) => {
+  if (window.innerWidth < 860) {
+    const inputEl = inputWrapperEl.querySelector('input');
+    inputEl.removeAttribute('readonly');
+    inputWrapperEl.classList.add('input-wrapper-mobile');
+    inputEl.addEventListener('click', (e) => {
+      e.stopImmediatePropagation(); // 阻止其他 click 监听器执行
+      e.stopPropagation();
+    }, true);
+  }
+};
+const toggleSearchBoxPopup = (e) => {
+  e.stopPropagation();
+  clearTimeout(hideSearchBoxPopupTimer);
+  const searchBoxPopupEl = document.querySelector('.search-box-popup');
+  const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
+  if ([...searchBoxPopupEl.classList].includes('show')) {
+    setSearchBoxInput(inputWrapperEl);
+    searchBoxPopupEl.classList.remove('show');
+  } else {
+    setSearchBoxInput(inputWrapperEl);
+    searchBoxPopupEl.classList.add('show');
+  }
+};
+
+// 显示模态框
+const showSearchBoxPopup = (e) => {
+  e.stopPropagation();
+  clearTimeout(hideSearchBoxPopupTimer);
+  const searchBoxPopupEl = document.querySelector('.search-box-popup');
+  if ([...searchBoxPopupEl.classList].includes('show')) {
+    const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
+    if (searchBoxPopupEl) {
+      checkMobileSearchBox(inputWrapperEl);
+      searchBoxPopupEl.classList.add('show');
+    }
+  }
+};
+
+const checkSearchBoxPopup = () => {
+  const searchBoxPopupEl = document.querySelector('.search-box-popup');
+  if ([...searchBoxPopupEl.classList].includes('show')) {
+    clearTimeout(hideSearchBoxPopupTimer);
+  }
+};
+
+// 隐藏模态框（带延迟）
+const hideSearchBoxPopup = (e) => {
+  e.stopPropagation();
+  hideSearchBoxPopupTimer = setTimeout(() => {
+    const searchBoxPopupEl = document.querySelector('.search-box-popup');
+    const inputWrapperEl = getSearchBoxInputWrapperEl(searchBoxPopupEl);
+    if (searchBoxPopupEl) {
+      setSearchBoxInput(inputWrapperEl);
+      searchBoxPopupEl.classList.remove('show');
+    }
+  }, 200);
+};
+
+const buildSearchBoxPopup = (mainEl) => {
+  const searchBoxEl = mainEl.querySelector('.search-box-container');
+  searchBoxEl.classList.add('search-box-width');
+  const searchBoxOuterEl = document.createElement('div');
+  searchBoxOuterEl.className = 'search-box-outer';
+  searchBoxOuterEl.appendChild(searchBoxEl);
+  searchBoxOuterEl.addEventListener('mouseenter', showSearchBoxPopup);
+  searchBoxOuterEl.addEventListener('mouseleave', hideSearchBoxPopup);
+  return searchBoxOuterEl;
+};
+
 const handleChangeNavPosition = (navigation) => {
   const pdpEl = document.querySelector('.product-section-container');
   const plpEl = document.querySelector('.product-sorting');
@@ -409,15 +632,15 @@ const handleChangeNavPosition = (navigation) => {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  const navPath = `${window.hlx.codeBasePath}${window.location.href.includes('hisense.com') ? '/us/nav' : '/us/en/nav'}`;
+  const navPath = getFragmentPath('nav');
   const fragment = await loadFragment(navPath);
-
   // 解析原始DOM
   const logo = parseLogo(fragment);
   const navItems = parseNavItems(fragment);
   const navLinks = parseNavLinks(fragment);
   const actions = parseActions(fragment);
   const dropdowns = parseDropdowns(fragment);
+  const company = parseCompany(fragment);
 
   // 构建新的导航DOM
   const navigation = document.createElement('div');
@@ -426,6 +649,14 @@ export default async function decorate(block) {
   const pdpEl = document.querySelector('.product-section-container');
   // eslint-disable-next-line no-unused-vars
   const plpEl = document.querySelector('.product-sorting');
+  const isCompanyPage = window.location.pathname.includes('company');
+  const isSupportPage = window.location.pathname.includes('support');
+  if (isCompanyPage) {
+    navigation.classList.add('is-company');
+  }
+  if (isSupportPage) {
+    navigation.classList.add('is-support');
+  }
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
   });
@@ -433,8 +664,17 @@ export default async function decorate(block) {
   let lastScrollTop = 0;
   const scrollThreshold = 10;
   window.addEventListener('scroll', () => {
-    // if (pdpEl || plpEl) return;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (isCompanyPage || isSupportPage) {
+      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -84)}px`;
+      return;
+    }
+    if (isSupportPage) {
+      if (window.innerWidth < 1180) {
+        navigation.style.top = `${Math.max(scrollTop * -1, -56)}px`;
+        return;
+      }
+    }
     if (Math.abs(scrollTop - lastScrollTop) <= scrollThreshold) {
       return;
     }
@@ -464,6 +704,65 @@ export default async function decorate(block) {
   const linksEl = document.createElement('div');
   linksEl.className = 'nav-links';
 
+  // Company 等第二nav
+  const navSecond = document.createElement('div');
+  navSecond.className = `nav-second h-grid-container ${isCompanyPage || isSupportPage ? '' : 'hidden'}`;
+  const CompanyEl = document.createElement('div');
+  CompanyEl.className = 'route-company';
+  CompanyEl.textContent = 'Company';
+  const CompanyGroupEl = document.createElement('div');
+  CompanyGroupEl.className = 'company-group';
+  company.forEach((item) => {
+    const CompanyItemEl = document.createElement('div');
+    const isCurrent = window.location.pathname.includes(item.href);
+    CompanyItemEl.className = `company-item ${isCurrent ? 'current' : ''}`;
+    CompanyItemEl.innerHTML = item.title;
+    CompanyItemEl.dataset.href = item.href;
+    CompanyItemEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.location.href = item.href;
+    });
+    CompanyGroupEl.append(CompanyItemEl);
+  });
+
+  const companyArrow = document.createElement('img');
+  companyArrow.className = 'company-arrow';
+  companyArrow.src = `/content/dam/hisense/${country}/common-icons/chevron-down-black.svg`;
+  companyArrow.addEventListener('click', () => {
+    if (navigation.classList.contains('show-second-menu-company')) {
+      document.body.style.overflow = 'auto';
+      navigation.classList.toggle('show-second-menu-company');
+    } else {
+      document.body.style.overflow = 'hidden';
+      navigation.classList.toggle('show-second-menu-company');
+    }
+  });
+
+  if (isCompanyPage) {
+    navSecond.append(CompanyEl, CompanyGroupEl, companyArrow);
+  }
+
+  const SupportEl = document.createElement('div');
+  SupportEl.className = 'route-support';
+  SupportEl.textContent = 'Support';
+
+  const supportArrow = document.createElement('img');
+  supportArrow.className = 'support-arrow';
+  supportArrow.src = `/content/dam/hisense/${country}/common-icons/chevron-down-black.svg`;
+  supportArrow.addEventListener('click', () => {
+    if (navigation.classList.contains('show-second-menu-support')) {
+      document.body.style.overflow = 'auto';
+      navigation.classList.toggle('show-second-menu-support');
+    } else {
+      document.body.style.overflow = 'hidden';
+      navigation.classList.toggle('show-second-menu-support');
+    }
+  });
+  if (isSupportPage) {
+    navSecond.append(SupportEl, supportArrow);
+  }
+
+  // 悬浮展开
   const mobileMenu = document.createElement('div');
   mobileMenu.className = 'mobile-menu';
   const mobileLinks = document.createElement('div');
@@ -504,12 +803,18 @@ export default async function decorate(block) {
     const mobileLinkTitle = document.createElement('span');
     mobileLinkTitle.textContent = item.title;
     const arrow = document.createElement('img');
-    arrow.src = '/content/dam/hisense/us/common-icons/chevron-up.svg';
+    arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
     arrow.addEventListener('click', (e) => {
       e.stopPropagation();
-      const grandParent = e.target.parentNode?.parentNode;
-      if (!grandParent) { return; }
-      grandParent.classList.toggle('hide');
+      const mobileLinksEl = e.target.closest('.mobile-links');
+      if (!mobileLinksEl) { return; }
+      const shouldShow = e.target.closest('.mobile-link').classList.contains('hide');
+      mobileLinksEl.querySelectorAll('.mobile-link').forEach((el) => {
+        el.classList.add('hide');
+      });
+      if (shouldShow) {
+        e.target.closest('.mobile-link').classList.remove('hide');
+      }
     });
     // 这个是手机端二级菜单的title，相当于pc的nav的item
     const mobileLinkTitleLine = document.createElement('div');
@@ -548,7 +853,9 @@ export default async function decorate(block) {
   navLinks.forEach((action) => {
     const link = document.createElement('div');
     link.className = 'nav-section';
-    link.textContent = action.title;
+    const span1 = document.createElement('span');
+    span1.textContent = action.title;
+    link.append(span1);
     const cloneLink = link.cloneNode(true);
     const mobileCloneLink = link.cloneNode(true);
     if (action.href && action.href !== '#') {
@@ -562,6 +869,14 @@ export default async function decorate(block) {
         e.stopPropagation();
         window.location.href = action.href;
       });
+    }
+    if (action.title.trim().toLowerCase() === 'support') {
+      cloneLink.classList.add('nav-link');
+      const mask = document.createElement('div');
+      mask.className = 'nav-mask';
+      mask.id = 'nav-mask';
+      const dropdownEl = buildSupportDropdown(fragment);
+      cloneLink.append(mask, dropdownEl);
     }
     actionsEl.append(cloneLink);
     mobileActions.append(mobileCloneLink);
@@ -581,7 +896,11 @@ export default async function decorate(block) {
       imgDark.alt = action.title || 'action';
       imgDark.className = 'dark-img';
       btn.append(imgDark);
-      if (action.href && action.href !== '#') {
+      if (action.enableSearchBox) {
+        btn.addEventListener('click', toggleSearchBoxPopup);
+        btn.addEventListener('mouseenter', checkSearchBoxPopup);
+        btn.addEventListener('mouseleave', hideSearchBoxPopup);
+      } else if (action.href && action.href !== '#') {
         btn.dataset.href = action.href;
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -608,12 +927,12 @@ export default async function decorate(block) {
   const btn = document.createElement('div');
   btn.className = 'nav-action-btn mobile-menu-icon';
   const img = document.createElement('img');
-  img.src = '/content/dam/hisense/us/header/menu.svg';
+  img.src = `/content/dam/hisense/${country}/header/menu.svg`;
   img.className = 'light-img';
   img.alt = 'menu';
   btn.append(img);
   const imgDark = document.createElement('img');
-  imgDark.src = '/content/dam/hisense/us/header/menu-dark.svg';
+  imgDark.src = `/content/dam/hisense/${country}/header/menu-dark.svg`;
   imgDark.alt = 'menu';
   imgDark.className = 'dark-img';
   btn.append(imgDark);
@@ -626,7 +945,7 @@ export default async function decorate(block) {
   const closeBtn = document.createElement('div');
   closeBtn.className = 'nav-action-btn mobile-close-icon';
   const closeImg = document.createElement('img');
-  closeImg.src = '/content/dam/hisense/us/common-icons/close.svg';
+  closeImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
   closeImg.alt = 'menu';
   closeBtn.addEventListener('click', () => {
     document.body.style.overflow = 'auto';
@@ -644,14 +963,157 @@ export default async function decorate(block) {
   mobileMenu.append(dividingLine);
   mobileMenu.append(mobileActions);
 
+  // 悬浮展开二级菜单 company
+  const mobileSecondMenu = document.createElement('div');
+  mobileSecondMenu.className = 'mobile-second-menu company';
+  if (!isCompanyPage) {
+    mobileSecondMenu.style.display = 'none';
+  }
+
+  company.forEach((item) => {
+    const mobileSecondMenuItem = document.createElement('div');
+    const isCurrent = window.location.pathname.includes(item.href);
+    mobileSecondMenuItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
+    mobileSecondMenuItem.innerHTML = item.title;
+    mobileSecondMenuItem.dataset.href = item.href;
+    mobileSecondMenuItem.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.location.href = item.href;
+    });
+    mobileSecondMenu.append(mobileSecondMenuItem);
+  });
+
+  // 悬浮展开二级菜单 support
+  const mobileSecondMenuSupport = document.createElement('div');
+  mobileSecondMenuSupport.className = 'mobile-second-menu support';
+  if (!isSupportPage) {
+    mobileSecondMenuSupport.style.display = 'none';
+  }
+
+  const supportEl = fragment.querySelector('.support-navigation-route-container');
+  const supportRouteBaseList = supportEl.querySelector('.support-navigation-route-wrapper .support-navigation-route');
+  const support = [...supportRouteBaseList.children].map((item) => {
+    const title = item.children[0]?.textContent?.trim() || '';
+    const href = item.children[1]?.textContent?.trim() || '#';
+    return { href, title };
+  });
+
+  support.forEach((item) => {
+    const mobileSecondMenuSupportItem = document.createElement('div');
+    const isCurrent = window.location.pathname.includes(item.href);
+    mobileSecondMenuSupportItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
+    mobileSecondMenuSupportItem.innerHTML = item.title;
+    mobileSecondMenuSupportItem.dataset.href = item.href;
+    mobileSecondMenuSupportItem.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.location.href = item.href;
+    });
+    mobileSecondMenuSupport.append(mobileSecondMenuSupportItem);
+  });
+  mobileSecondMenuSupport.append(dividingLine.cloneNode(true));
+
+  // support product list
+  const supportProductBaseList = supportEl.querySelectorAll('.support-navigation-products-links-wrapper .support-navigation-products-links');
+  supportProductBaseList.forEach((proGroup) => {
+    const supportProductEl = document.createElement('div');
+    supportProductEl.className = 'support-product mobile-link hide';
+
+    [...proGroup.children].forEach((item, index) => {
+      if (index) {
+        const hasGroup = supportProductEl.querySelector('.mobile-link-second-list') !== null;
+        if (!hasGroup) {
+          const orderGroup = document.createElement('div');
+          orderGroup.className = 'mobile-link-second-list';
+          supportProductEl.append(orderGroup);
+        }
+        const supportProductItemEl = supportProductEl.querySelector('.mobile-link-second-list');
+        const link = document.createElement('div');
+        link.className = 'mobile-product-item';
+        const title = item.children[2].textContent.trim() || '';
+        const href = item.children[3].textContent.trim() || '#';
+        const span1 = document.createElement('span');
+        span1.textContent = title;
+        link.append(span1);
+        if (href && href !== '#') {
+          link.dataset.href = href;
+          link.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.location.href = href;
+          });
+        }
+        supportProductItemEl.append(link);
+      } else {
+        const mobileLinkTitle = document.createElement('span');
+        mobileLinkTitle.textContent = item.textContent?.trim();
+        const arrow = document.createElement('img');
+        arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+        arrow.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const mobileLinksEl = e.target.closest('.mobile-second-menu');
+          if (!mobileLinksEl) { return; }
+          const shouldShow = e.target.closest('.mobile-link').classList.contains('hide');
+          mobileLinksEl.querySelectorAll('.mobile-link').forEach((el) => {
+            el.classList.add('hide');
+          });
+          if (shouldShow) {
+            e.target.closest('.mobile-link').classList.remove('hide');
+          }
+        });
+        const mobileLinkTitleLine = document.createElement('div');
+        mobileLinkTitleLine.className = 'mobile-link-title-line';
+        mobileLinkTitleLine.append(mobileLinkTitle, arrow);
+        supportProductEl.append(mobileLinkTitleLine);
+      }
+    });
+    mobileSecondMenuSupport.append(supportProductEl, dividingLine.cloneNode(true));
+  });
+
+  // support contact us list
+  const contactUsEl = document.createElement('div');
+  contactUsEl.className = 'contact-us-links';
+  const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
+  [...supportMenuLinksList.children].forEach((item) => {
+    const title = item.children[2].textContent.trim() || '';
+    const href = item.children[3].textContent.trim() || '#';
+    const div = document.createElement('div');
+    div.className = 'mobile-product-item';
+    if (href && href !== '#') {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = title;
+      div.append(a);
+    } else {
+      div.textContent = title;
+    }
+    contactUsEl.append(div);
+  });
+  mobileSecondMenuSupport.append(contactUsEl);
+
+  // 展开SearchBox
+  const searchBoxEl = buildSearchBoxPopup(fragment);
+  // navigation.append(searchBoxPopEl);
+  const searchBoxPopupEl = document.createElement('div');
+  searchBoxPopupEl.className = 'search-box-popup';
+  searchBoxPopupEl.appendChild(searchBoxEl);
+
   navigation.append(navContainer);
+  navigation.append(navSecond);
   navigation.append(mobileMenu);
+  navigation.append(mobileSecondMenu);
+  navigation.append(mobileSecondMenuSupport);
+  navigation.append(searchBoxPopupEl);
+  const shadow = document.createElement('div');
+  shadow.className = 'shadow';
+  navigation.append(shadow);
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     if (scrollTop >= 10) {
       navigation.classList.add('scroll-active');
     } else {
       navigation.classList.remove('scroll-active');
+      if (navigation.classList.contains('hidden')) {
+        navigation.classList.remove('hidden');
+      }
     }
   });
   const carousel = document.querySelector('.carousel');

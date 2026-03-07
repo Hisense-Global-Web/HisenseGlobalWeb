@@ -12,6 +12,7 @@
               "style_theme": "light",
               "style_container": "",
               "style_paddingTop": "pt-l",
+              "style_gap": "",
               "style_paddingBottom": "pb-l",
               "style_imageBorderRadius": "",
               "style_imageRatio": ""
@@ -55,12 +56,24 @@
               "value": "grey"
             },
             {
-              "name": "Gray 00",
-              "value": "gray-00"
+              "name": "Gray 95",
+              "value": "gray-95"
+            },
+            {
+              "name": "Gray 90",
+              "value": "gray-90"
             },
             {
               "name": "Gradient Gray",
               "value": "gradient-gray"
+            },
+            {
+              "name": "Soft Green(green-10)",
+              "value": "soft-green"
+            },
+            {
+              "name": "Green",
+              "value": "green"
             }
           ]
         },
@@ -78,6 +91,13 @@
               "value": "fluid"
             }
           ]
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "section-background",
+          "label": "Section Background Image",
+          "multi": false
         },
         {
           "component": "container",
@@ -114,6 +134,38 @@
             },
             {
               "component": "select",
+              "name": "style_gap",
+              "label": "Gap",
+              "description": "Select a gap option when you need to add spacing between multiple blocks within this section.",
+              "options": [
+                {
+                  "name": "None",
+                  "value": ""
+                },
+                {
+                  "name": "Small (pc-24px mobile-16px)",
+                  "value": "gap-s"
+                },
+                {
+                  "name": "Mid (pc-32px mobile-24px)",
+                  "value": "gap-m"
+                },
+                {
+                  "name": "Medium (pc-48px mobile-32px)",
+                  "value": "gap-md"
+                },
+                {
+                  "name": "Large (pc-80px mobile-48px)",
+                  "value": "gap-l"
+                },
+                {
+                  "name": "Extra Large (pc-120px mobile-80px)",
+                  "value": "gap-xl"
+                }
+              ]
+            },
+            {
+              "component": "select",
               "name": "style_paddingBottom",
               "label": "Padding Bottom",
               "options": [
@@ -136,6 +188,36 @@
                 {
                   "name": "Extra Large (120px)",
                   "value": "pb-xl"
+                }
+              ]
+            },
+            {
+              "component": "select",
+              "name": "style_paddingLeft",
+              "label": "Padding Left",
+              "options": [
+                {
+                  "name": "None",
+                  "value": ""
+                },
+                {
+                  "name": "Huge PC Only (320px)",
+                  "value": "pl-4xl-pc"
+                }
+              ]
+            },
+            {
+              "component": "select",
+              "name": "style_paddingRight",
+              "label": "Padding Right",
+              "options": [
+                {
+                  "name": "None",
+                  "value": ""
+                },
+                {
+                  "name": "Huge PC Only (320px)",
+                  "value": "pr-4xl-pc"
                 }
               ]
             }
@@ -190,38 +272,130 @@
     {
       "id": "section",
       "components": [
+        "about-hisense-module-title",
+        "about-hisense-section-title",
+        "accessories-feature",
+        "addional-support-card",
+        "article-body",
+        "article-body-list",
+        "article-title",
+        "authorized-reseller-badge",
+        "authorized-resellers-list",
+        "bi-directional-content",
         "button",
         "card-carousel",
+        "card-grid",
         "category-carousel",
+        "category-support-card",
         "collection-banner",
         "collection-cards",
         "collection-title",
         "columns",
+        "core-value-card",
+        "corprate-governance-cards",
+        "cross-page-redirect",
+        "current-partnerships-list",
         "disclaimer",
+        "download",
+        "enterprise-tech",
+        "faq-module",
         "feature-banner",
+        "feature-card-navigation",
+        "feature-navigation",
         "fragment",
+        "global-presence",
+        "globalization-timeline",
+        "gradient-text-image",
         "header",
+        "headline",
         "hero",
         "hero-banner",
+        "hero-presence",
+        "highlight-note",
+        "honors-awards",
+        "icon-card-container",
         "icon-container",
         "image",
         "image-comparison-slider",
+        "industry-categories",
+        "information-list-module",
+        "key-features-card-container",
+        "legal-content",
         "media-carousel",
+        "media-contact-card",
+        "minimalist-hero-banner",
+        "module-title",
+        "news-card-list",
+        "page-header",
         "parallax",
+        "parters-container",
+        "partnerships-section-title",
+        "past-partnerships-list",
+        "press-release-card",
         "product-card",
         "product-filter",
         "product-filters-carousel",
         "product-gallery",
+        "product-information",
         "product-section",
         "product-sorting",
         "product-spec",
         "properties",
+        "quick-action-card",
+        "quick-link",
+        "region-page-title",
+        "region-selection",
+        "recall-info-list",
+        "related-news",
+        "resource-list",
+        "search-box",
+        "search-result-module",
+        "support-module-title",
         "slide",
+        "social-media-list",
+        "stats-grid",
+        "strategic-card-items",
         "sub-menu-link",
+        "support-search-result-module",
+        "sustainability-dashboard-achievement",
+        "sustainability-dashboard-list",
+        "tech-evolution-timeline",
+        "tech-information",
         "text",
+        "third-party-integration",
         "title",
         "video",
-        "videoinfo"
+        "videoinfo",
+        "page-header",
+        "icon-card-container",
+        "parters-container",
+        "information-list-module",
+        "job-list",
+        "quick-action-card",
+        "category-support-card",
+        "additional-support-card",
+        "tech-information",
+        "past-partnerships-list",
+        "partnerships-section-title",
+        "sustainability-dashboard-achievement",
+        "sustainability-dashboard-list",
+        "stats-grid",
+        "tech-information",
+        "core-value-card",
+        "past-partnerships-list",
+        "about-hisense-section-title",
+        "current-partnerships-list",
+        "industry-categories",
+        "module-title",
+        "card-grid",
+        "news-card-list",
+        "about-hisense-module-title",
+        "honors-awards",
+        "bi-directional-content",
+        "key-features-card-container",
+        "legal-content",
+        "exception-page",
+        "accessories-feature"
       ]
     }
   ]

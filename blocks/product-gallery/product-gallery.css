@@ -23,7 +23,7 @@
   /* width: 640px; */
 
   /* height: 360px; */
-  margin-bottom: var(--size-34);
+  margin-bottom: var(--size-30);
   position: relative;
 
   @media (width < 860px) {
@@ -94,8 +94,8 @@
 
 .pdp-media .product-filters {
   display: flex;
-  gap: var(--size-12);
-  width: min(calc(508 / var(--breakpoint-pc) * 100vw), 508px);
+  gap: var(--size-16);
+  width: min(calc(520 / var(--breakpoint-pc) * 100vw), 520px);
   scroll-behavior: smooth;
   overflow: scroll hidden;
   list-style: none;
@@ -160,7 +160,7 @@
   align-items: center;
   margin: 0;
   padding: 0;
-  height: var(--size-70);
+  height: var(--size-54);
 }
 
 .pdp-media .product-carousel .product-indicator {

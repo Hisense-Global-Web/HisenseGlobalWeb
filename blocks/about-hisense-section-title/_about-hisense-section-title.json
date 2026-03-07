@@ -1,0 +1,64 @@
+{
+  "definitions": [
+    {
+      "title": "About Hisense Section Title",
+      "id": "about-hisense-section-title",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "About Hisense Section Title",
+               "model": "about-hisense-section-title",
+               "classes": "about-hisense-section-title"
+            }
+          }
+        }
+      }
+    }
+   
+  ],
+  "models": [
+    {
+      "id": "about-hisense-section-title",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "label": "Style",
+          "valueType": "string",
+          "options": [
+              {
+                  "name": "Default Style",
+                  "value": "default-style"
+              },
+              {
+                  "name": "Center Style",
+                  "value": "center-style"
+              }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "subtitle",
+          "label": "Sub Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "content",
+          "label": "Content",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+  ]
+}
