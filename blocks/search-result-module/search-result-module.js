@@ -71,8 +71,9 @@ function getEndpointUrl(endpointPath, dataSource) {
   const isGraphQL = dataSource === 'graphql';
 
   if (isAuthorEnv && isGraphQL && path && path.endsWith('.json')) {
-    const pathWithoutJson = path.replace(/\.json$/, '');
-    const graphqlPath = `/graphql/execute.json/global/GetProductByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
+    let pathWithoutJson = path.replace(/\.json$/, '');
+    pathWithoutJson = pathWithoutJson.replace(/^\/product\/?/, '/') || '/';
+    const graphqlPath = `/bin/hisense/productList.json?path=${pathWithoutJson}`;
     path = window.GRAPHQL_BASE_URL ? `${window.GRAPHQL_BASE_URL}${graphqlPath}` : graphqlPath;
   } else {
     const baseUrl = isGraphQL
