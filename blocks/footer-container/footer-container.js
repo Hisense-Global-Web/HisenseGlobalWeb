@@ -2,6 +2,16 @@ const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 const REGION = '/hisense/region-selection.json';
 
+// 简单哈希函数，用于缓存破坏
+function simpleHash(str) {
+  const s = String(str);
+  let h = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    h = (h * 31 + s.charCodeAt(i)) % 2147483647;
+  }
+  return Math.abs(h).toString(36);
+}
+
 // 获取标签数据
 async function fetchRegionData(url) {
   try {
@@ -419,7 +429,9 @@ export default async function decorate(block) {
     const getRegionUrl = () => {
       const baseUrl = window.GRAPHQL_BASE_URL || '';
       const isEditMode = block.hasAttribute('data-aue-resource');
-      return `${baseUrl}${isEditMode ? '/bin' : '/api'}${REGION}?path=${window.location.pathname}`;
+      const fiveMinutesMs = 5 * 60 * 1000;
+      const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
+      return `${baseUrl}${isEditMode ? '/bin' : '/api'}${REGION}?path=${window.location.pathname}&_t=${cacheBuster}`;
     };
 
     const regionData = await fetchRegionData(getRegionUrl());
