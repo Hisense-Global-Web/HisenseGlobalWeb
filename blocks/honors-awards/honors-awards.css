@@ -31,7 +31,7 @@
   width: var(--size-240);
   height: var(--size-72);
   margin: auto;
-
+  line-height: 120%;
 
    @media (width < 860px) {
     width: var(--size-158);
