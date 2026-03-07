@@ -1,0 +1,249 @@
+main .section.download-container .download-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: var(--size-48);
+
+  .download {
+    display: flex;
+    justify-content: center;
+
+    .download-meta-container {
+      width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+      background-color: var(--color-primary-grey-20);
+      border-radius: var(--radius-pc-xl);
+      padding: var(--size-32);
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-32);
+
+      @media (width < 860px) {
+        width: 100%;
+        padding: var(--size-24) var(--size-24) var(--size-32);
+      }
+
+      .title-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-8);
+        
+        @media (width < 860px) {
+          gap: var(--size-4);
+        }
+
+        .title {
+          font-size: var(--fontsize-title2);
+          color: var(--color-hisense-black);
+          font-weight: var(--fontweight-medium);
+          line-height: 1.2;
+          
+          @media (width < 860px) {
+            font-size: var(--size-16);
+            line-height: 1.3;
+          }
+        }
+
+        .subtitle {
+          font-size: var(--fontsize-body1);
+          color: var(--color-primary-grey-70);
+          font-weight: var(--fontweight-book);
+          line-height: 1.6;
+          
+          @media (width < 860px) {
+            font-size: var(--size-14);
+            line-height: 1.5;
+          }
+        }
+      }
+
+      .content-wrapper {
+        display: flex;
+        gap: var(--size-80);
+
+        @media (width < 860px) {
+          flex-direction: column;
+          gap: var(--size-32);
+          
+          > .line {
+            display: none;
+          }
+        }
+
+        .image-list {
+          display: flex;
+          flex-direction: column;
+          gap: var(--size-24);
+          width: min(calc(386 / var(--breakpoint-pc) * 100vw), 386px);
+
+          @media (width < 860px) {
+            width: 100%;
+            height: auto;
+            flex: 1;
+            gap: var(--size-32);
+          }
+
+          .image-item {
+            display: flex;
+            align-items: center;
+            gap: var(--size-16);
+            height: var(--size-60);
+
+            @media (width < 860px) {
+              width: 100%;
+              height: auto;
+              flex: 1;
+              gap: var(--size-24);
+            }
+
+            img {
+              border-radius: var(--radius-md);
+              overflow: hidden;
+              height: 100%;
+              width: auto;
+              
+              @media (width < 860px) {
+                max-width: inherit;
+                width: var(--size-80);
+                height: var(--size-80);
+                flex-shrink: 0;
+              }
+            }
+
+            .item-info {
+              display: flex;
+              flex-direction: column;
+              gap: var(--size-8);
+              padding: var(--size-5) 0;
+              
+              @media (width < 860px) {
+                padding: 0;
+              }
+
+              .item-name {
+                font-size: var(--fontsize-body1);
+                color: var(--color-hisense-black);
+                font-weight: var(--fontweight-book);
+                
+                @media (width < 860px) {
+                  font-size: var(--size-16);
+                  line-height: 1.3;
+                }
+              }
+
+              .item-meta {
+                height: var(--size-18);
+                color: var(--color-primary-grey-50);
+                font-weight: var(--fontweight-book);
+                display: flex;
+                align-items: center;
+                gap: var(--size-12);
+
+                @media (width < 860px) {
+                  flex-shrink: 0;
+                  flex-wrap: wrap;
+                  height: auto;
+                  gap: var(--size-8) var(--size-12) ;
+                }
+
+                .item-meta-item {
+                  font-size: var(--size-12);
+                  line-height: 1.5;
+
+                  .download-link {
+                    display: block;
+                    text-decoration: none;
+                    cursor: pointer;
+                    transition: opacity 0.3s ease;
+                  }
+
+                  img {
+                    width: var(--size-16);
+                    height: var(--size-16);
+                    display: block;
+
+                    @media (width < 860px) {
+                      max-width: inherit;
+                    }
+                  }
+                }
+                
+                .line {
+                  height: var(--size-12);
+                }
+              }
+            }
+          }
+        }
+
+        .line {
+          flex-shrink: 0;
+          width: 1px;
+          height: 100%;
+          background: var(--color-primary-grey-40);
+        }
+
+        .download-panel {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: var(--size-12);
+
+          @media (width < 860px) {
+            gap: var(--size-8);
+          }
+
+          .folder-icon {
+            width: var(--size-80);
+            height: var(--size-80);
+
+            @media (width < 860px) {
+              display: none;
+            }
+          }
+
+          .download-btn {
+            margin: 0;
+            padding: 0 var(--size-32);
+            height: var(--size-50);
+            background-color: var(--color-hisense-black);
+            color: var(--color-primary-grey-10);
+            border: none;
+            border-radius: var(--size-100);
+            font-size: var(--fontsize-body2);
+            font-weight: var(--fontweight-medium);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+              background-color: var(--color-primary-grey-70);
+            }
+
+            &:active {
+              color: rgb(255 255 255 / 80%);
+            }
+
+            &:disabled {
+              color: rgb(255 255 255 / 80%);
+              background-color: var(--color-primary-grey-40);
+            }
+          }
+
+          .download-btn-link {
+            text-decoration: none;
+          }
+
+          .total-size {
+            font-size: var(--size-12);
+            line-height: 1.5;
+            color: var(--color-primary-grey-50);
+            font-weight: var(--fontweight-book);
+          }
+        }
+      }
+    }
+  }
+}

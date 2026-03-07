@@ -1,0 +1,119 @@
+
+.accessories-feature-wrapper {
+  width: 100%;
+  margin-top: var(--mid);
+}
+
+.accessories-feature-wrapper p{
+  margin: 0;
+  padding: 0;
+}
+
+.accessories-feature .title  img{
+  @media (width < 860px) {
+    border-radius: var(--border-radius-l);
+    overflow: hidden;
+    aspect-ratio: 354 / 200;
+  }
+}
+
+.accessories-feature .title p:nth-child(2){
+  color: var(--color-primary-grey-70);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-light);
+  font-size: var(--fontsize-body1);
+  margin: var(--mid) 0 var(--large);
+
+   @media (width < 860px) {
+    color: var(--color-primary-grey-80);
+    font-size: var(--size-14);
+    margin: var(--mid) 0 var(--size-80);
+  }
+}
+
+.accessories-feature .title p:nth-child(3){
+  color: var(--color-primary-grey-100);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+  font-size: var(--fontsize-pc-h3);
+
+   @media (width < 860px) {
+    font-size: var(--size-30);
+  }
+}
+
+.accessories-feature > ul {
+  gap: var(--large);
+  list-style: none;
+  margin:var(--mid) 0 0;
+  padding: 0;
+  display: grid;
+	grid-template-columns: repeat(2, 1fr);
+  
+
+  @media (width < 860px) {
+    grid-template-columns: repeat(1, 1fr);
+		gap: var(--mid);
+    margin:var(--mid) 0;
+	}
+}
+
+.accessories-feature > ul > li {
+  font-family: var(--font-family);
+
+  /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--fontsize-pc-h2);
+
+   @media (width < 860px) {
+    gap: var(--mid);
+   
+  }
+}
+
+.accessories-feature .card-image {
+  width: 100%;
+}
+
+.accessories-feature  > ul > li .card-image img {
+  width: 100%;
+  height: 100%; 
+  aspect-ratio: 520 / 366;
+  border-radius: var(--border-radius-l);
+  overflow: hidden;
+}
+
+.accessories-feature .card-body  p:first-child{
+  color: var(--color-primary-grey-100);
+  font-weight: var(--fontweight-medium);
+  font-family: var(--font-family);
+  font-size: var(--fontsize-title1);
+  line-height: 120%;
+  margin-bottom: var(--spacing-xs);
+
+  @media (width < 860px) {
+    margin-bottom: var(--size-4);
+    line-height: 140%;
+    font-size: var(--size-20);
+  }
+}
+
+.accessories-feature .card-body  p:nth-child(2){
+  color: var(--color-primary-grey-70);
+  font-weight: var(--fontweight-light);
+  font-family: var(--font-family);
+  font-size: var(--fontsize-body1);
+  line-height: 150%;
+
+  @media (width < 860px) {
+    line-height: 140%;
+    font-size: var(--size-14);
+  }
+}
+
+
+
+

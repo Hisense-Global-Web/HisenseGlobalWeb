@@ -6,7 +6,7 @@ export function isMobile() {
   // }
 
   // 1. 基础正则检测（不含 Macintosh）
-  const isMobileTest = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(userAgent);
+  const isMobileTest = /android|webos|iphone|blackberry|iemobile|opera mini|mobile/i.test(userAgent);
   // 2. 针对 iPad Pro/新款 iPad 的特殊检测
   // 这些设备 UA 包含 Macintosh，但支持触控点
   if (!isMobileTest && /Macintosh/i.test(userAgent) && navigator.maxTouchPoints > 1) {

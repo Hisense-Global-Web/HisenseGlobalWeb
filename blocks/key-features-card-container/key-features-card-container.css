@@ -1,0 +1,97 @@
+
+.key-features-card-container-wrapper {
+  width: 100%;
+  background-color: #f7f7f7;
+}
+
+.key-features-card-container-wrapper p{
+  margin: 0;
+  padding: 0;
+}
+
+.key-features-card-container .title >div:first-child{
+  color: var(--color-primary-grey-100);
+  font-family: var(--font-family);
+  font-weight: var(--fontweight-medium);
+  font-size: var(--fontsize-h2);
+  margin-bottom: var(--large);
+  text-align: center;
+
+   @media (width < 860px) {
+    font-size: var(--size-18);
+    margin-bottom: var(--size-30);
+  }
+}
+
+.key-features-card-container > ul {
+  gap: var(--size-20);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+
+  @media (width >= 860px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @media (width < 860px) {
+		overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
+    scroll-behavior: smooth; /* 平滑滚动 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
+    overscroll-behavior-x: contain; /* 防止滚动链 */
+    grid-auto-flow: column;
+    gap: var(--small);
+	}
+}
+
+.key-features-card-container > ul > li {
+  font-family: var(--font-family);
+  aspect-ratio: 1;
+  position: relative;
+  border-radius: var(--border-radius-l);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  background: white;
+
+   @media (width < 860px) {
+    position: relative;
+		width: 53.33333vw !important;
+    height: 47.6923077vw;
+    padding: var(--small);
+  }
+}
+
+.key-features-card-container .card-image {
+  width: var(--size-80);
+  height:  var(--size-80);
+  object-fit: contain;
+}
+
+.key-features-card-container  > ul > li .card-image img {
+  width: 100%;
+  height:100%;
+
+
+}
+
+.key-features-card-container .card-body{
+  color: var(--color-primary-grey-90);
+  font-weight: var(--fontweight-book);
+  font-family: var(--font-family);
+  font-size: var(--fontzie-body1);
+  line-height: 120%;
+  margin-top: var(--spacing-2xs);
+  text-align: center;
+}
+
+
+
+

@@ -1,3 +1,16 @@
+import { isMobile, isMobileWindow } from '../../scripts/device.js';
+import {
+  renderCompareDetailData,
+  aggregateData,
+  createComparePopup,
+  createCompareLiEl,
+  compareLiAppendType,
+  setCompareProductImgTit,
+  appendCompareProductUtil,
+} from '../../utils/plp-compare-utils.js';
+
+const segments = window.location.pathname.split('/').filter(Boolean);
+const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function applyAggregatedSort(sortProperty, direction = -1) {
   try {
     // 检查是否有已选中的 filter
@@ -131,7 +144,6 @@ function applyAggregatedSort(sortProperty, direction = -1) {
     console.warn('Aggregated sort error:', e);
   }
 }
-
 export default function decorate(block) {
   const isEditMode = block && block.hasAttribute && block.hasAttribute('data-aue-resource');
   block.classList.add('plp-product-card');
@@ -201,6 +213,7 @@ export default function decorate(block) {
   let currentPage = 1;
   const loadMoreStep = 9;
   let allGroupedData = []; // 存储所有聚合后的产品数据
+  let compareDataArr = []; // 存储比较的产品数据
 
   // 修改：Load More 点击逻辑
   productsLoadMore.addEventListener('click', () => {
@@ -272,6 +285,85 @@ export default function decorate(block) {
   }
 
   if (!graphqlUrl) return;
+
+  /**
+   * 比较 ----- start
+   */
+
+  // 移除底部固定栏中，对比数据dom集合中对应 li 元素
+  function removeCompareLiUtil(removeProductSku) {
+    const activeCompareLiAll = document.querySelectorAll('.active-compare');
+    // 移除比较数据集合中的对应 li
+    activeCompareLiAll.forEach((compareLiItem) => {
+      if (compareLiItem.dataset.compareId === removeProductSku) {
+        compareLiItem.remove();
+        appendCompareProductUtil();
+      }
+    });
+  }
+
+  // 隐藏 compare bar 底部固定栏
+  function hideCompareBar() {
+    if (compareDataArr.length < 2) {
+      document.querySelector('.plp-compare-bar').classList.remove('compare-bar-show');
+    }
+  }
+
+  // 页面底部固定栏，比较商品固定栏
+  function fixedBottomCompareBar() {
+    const compareBarEl = document.createElement('div');
+    compareBarEl.className = 'plp-compare-bar';
+    const compareCardList = document.createElement('ul');
+    compareCardList.className = 'plp-compare-cards';
+
+    // add compare button and compare bar close button
+    const compareBtnEl = document.createElement('div');
+    compareBtnEl.className = 'plp-compare-btn';
+    compareBtnEl.textContent = 'Compare';
+    // 显示对比详细信息弹窗
+    compareBtnEl.addEventListener('click', () => {
+      document.body.style.overflow = 'hidden';
+      // 比较商品信息详细数据
+      const compareDetailInfo = aggregateData(compareDataArr);
+      // render compare popup detail data
+      renderCompareDetailData(compareDetailInfo, 'property-box-id');
+      document.querySelector('.compare-popup-wrapper').style.display = 'block';
+    });
+    const compareBarCloseBtn = document.createElement('img');
+    compareBarCloseBtn.className = 'plp-compare-bar-close';
+    compareBarCloseBtn.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
+    compareBarCloseBtn.alt = 'Close';
+    // 底部固定栏上的关闭按钮点击事件
+    compareBarCloseBtn.addEventListener('click', () => {
+      compareBarEl.classList.remove('compare-bar-show');
+      // 重置比较数据为空
+      compareDataArr = [];
+      // 所有 product card 【Compare】按钮取消选中状态
+      const cardCompareBtnAll = document.querySelectorAll('.compare-checked');
+      cardCompareBtnAll.forEach((item) => {
+        item.classList.remove('compare-checked');
+      });
+      // 重置底部比较栏dom 元素
+      const compareBarLiAll = document.querySelectorAll('.plp-compare-cards li');
+      compareBarLiAll.forEach((resetLi) => {
+        resetLi.classList.remove('active-compare');
+        resetLi.setAttribute('data-compare-id', '');
+        resetLi.querySelector('.compare-img-box img').src = '';
+        resetLi.querySelector('.compare-product-title').textContent = '';
+      });
+    });
+
+    compareBarEl.append(compareCardList, compareBtnEl, compareBarCloseBtn);
+    // const mainEl = document.querySelector('main');
+    // mainEl.appendChild(compareBarEl);
+    document.body.appendChild(compareBarEl);
+    // 为询问固定栏，初始化追加三个li 元素
+    createCompareLiEl(compareLiAppendType.initCompareLi);
+  }
+
+  /**
+   * 比较 ----- end
+   */
 
   function extractImageFromShortDescription(item) {
     if (!item || !item.description_shortDescription || !item.description_shortDescription.html) {
@@ -459,6 +551,15 @@ export default function decorate(block) {
           extraFields.appendChild(fld);
         }
       });
+      // color 区块（可点击，默认选中第一个尺寸，切换显示对应 variant 信息
+      const colorsDiv = document.createElement('div');
+      colorsDiv.className = 'plp-product-colors';
+
+      const colorToVariant = new Map();
+      group.variants.forEach((v) => {
+        const s = v.color;
+        if (!colorToVariant.has(s)) colorToVariant.set(s, v);
+      });
 
       // sizes 区块（可点击，默认选中第一个尺寸，切换显示对应 variant 信息
       const sizesDiv = document.createElement('div');
@@ -476,7 +577,6 @@ export default function decorate(block) {
         if (!s) s = 'default';
         if (!sizeToVariant.has(s)) sizeToVariant.set(s, v);
       });
-
       const sizesArray = (Array.isArray(group.sizes) && group.sizes.length)
         ? group.sizes
         : Array.from(sizeToVariant.keys());
@@ -484,6 +584,31 @@ export default function decorate(block) {
       let [selectedSize] = sizesArray;
       let selectedVariant = selectedSize ? (sizeToVariant.get(selectedSize) || item) : item;
 
+      // create product button group
+      const productBtnGroupEl = document.createElement('div');
+      productBtnGroupEl.className = 'plp-product-btn-group';
+
+      // where to by
+      const whereToBuyBtnEl = document.createElement('div');
+      whereToBuyBtnEl.className = ' plp-where-to-buy-btn ps-widget';
+
+      // create compare
+      const compareEl = document.createElement('div');
+      compareEl.className = 'plp-product-compare';
+      const compareIcon = document.createElement('span');
+      compareIcon.className = 'plp-product-compare-icon';
+      compareIcon.innerHTML = `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
+        <img class="icon-checked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox.svg" alt="" />`;
+      const labelSpan = document.createElement('span');
+      labelSpan.textContent = 'Compare';
+      compareEl.append(compareIcon, labelSpan);
+
+      const colorsArray = (Array.isArray(group.colors) && group.colors.length)
+        ? group.colors
+        : Array.from(colorToVariant.keys());
+      // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
+      let [selectedColor] = colorsArray;
+      selectedVariant = selectedColor ? (colorToVariant.get(selectedColor) || item) : item;
       // 用来更新卡片显示为指定变体
       const updateCardWithVariant = (variant) => {
         // image
@@ -535,6 +660,11 @@ export default function decorate(block) {
             extraFields.appendChild(fld);
           }
         });
+
+        // 为 where to buy 按钮设置商品对应属性
+        whereToBuyBtnEl.setAttribute('ps-button-label', 'where to buy');
+        whereToBuyBtnEl.setAttribute('ps-sku', variant.sku || group.sku || '');
+
         // productDetailPageLink - 先检查当前产品尺寸是否有productDetailPageLink链接，如果没有，才使用共享链接
         const productDetailPageLink = variant.productDetailPageLink || group.sharedProductDetailPageLink || '#';
         if (productDetailPageLink && productDetailPageLink !== '#') {
@@ -543,7 +673,8 @@ export default function decorate(block) {
             link = document.createElement('a');
             link.className = 'plp-product-btn';
             link.target = '_blank';
-            card.append(link);
+            // card.append(link);
+            productBtnGroupEl.append(link);
           }
           link.href = productDetailPageLink;
           link.textContent = 'Learn more';
@@ -551,6 +682,13 @@ export default function decorate(block) {
           const existingLink = card.querySelector && card.querySelector('.plp-product-btn');
           if (existingLink) existingLink.remove();
         }
+
+        // 为商品卡片中的【Compare】按钮设置 id 属性
+        compareEl.setAttribute('data-compare-id', variant.sku || group.sku || '');
+        // 为商品卡片中的【Compare】按钮设置当前选中的size属性
+        compareEl.setAttribute('data-product-size', variant.size || group.size || '');
+        // 为商品卡片 product-card 父元素设置 id 属性，方便当size 修改时，在比较商品数据源中拿到对应数据进行移除
+        compareEl.closest('.product-card').setAttribute('data-compare-id', variant.sku || group.sku || '');
       };
 
       // 创建尺寸节点并绑定事件
@@ -567,12 +705,131 @@ export default function decorate(block) {
           sp.classList.add('selected');
           selectedSize = s;
           selectedVariant = sizeToVariant.get(s) || item;
+
+          /**
+           * size 切换时，需要清空对应的比较数据 ----start
+          */
+          // 切换该商品size 时，要把之前比较数据中已经添加的该商品的尺寸属性清空
+          const originCompareSku = sp.closest('.product-card').getAttribute('data-compare-id');
+          // 1、过滤比较商品数据源
+          compareDataArr = compareDataArr.filter((comDataItem) => comDataItem.sku !== originCompareSku);
+          // 2、取消商品 card 上【Compare】按钮选中状态
+          const compareCheckedAllEl = document.querySelectorAll('.compare-checked');
+          compareCheckedAllEl.forEach((comCheckedItem) => {
+            const cardCheckedSku = comCheckedItem.getAttribute('data-compare-id');
+            if (cardCheckedSku === originCompareSku) {
+              comCheckedItem.classList.remove('compare-checked');
+            }
+          });
+          // 3、移动询问固定栏中对应商品的LI 元素
+          removeCompareLiUtil(originCompareSku);
+          // 4、底部固定比较栏在对比数据小于2条时，不展示
+          hideCompareBar();
+          /**
+           * size 切换时，需要清空对应的比较数据 ----end
+          */
+
           updateCardWithVariant(selectedVariant);
         });
         sizesDiv.appendChild(sp);
       });
 
-      card.append(titleDiv, imgDiv, seriesDiv, nameDiv, sizesDiv, extraFields);
+      // 为商品card 中的 【Compare】按钮添加点击事件
+      compareEl.addEventListener('click', (compareE) => {
+        compareE.stopPropagation();
+        // 最多只能比较3个产品
+        if (compareDataArr.length > 2 && !compareEl.classList.contains('compare-checked')) {
+          return;
+        }
+        // card 中的 【Compare】 btn 是否添加 选中类
+        compareEl.classList.toggle('compare-checked');
+        // 当前商品选中的size值
+        const curProductSize = compareE.currentTarget.getAttribute('data-product-size');
+        // 选中size对应的数据源（也是比较商品的数据来源）
+        const selectedSizeItemVariant = sizeToVariant.get(curProductSize);
+        const isAdded = compareEl.classList.contains('compare-checked');
+        if (isAdded) {
+          // 1、新增比较数据
+          compareDataArr.push(selectedSizeItemVariant);
+          const compareBarAllLi = document.querySelectorAll('.plp-compare-card-item');
+          // 2、只有选择了2个产品时，才展示页面询问固定栏
+          if (compareDataArr.length === 2) {
+            document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
+            // 底部 compare bar 出现时且为移动端时，为footer 添加 padding-bottom
+            if (isMobile() || isMobileWindow()) {
+              const footerWrapper = document.querySelector('.footer-wrapper');
+              footerWrapper.style.paddingBottom = `${(274 / 390) * window.innerWidth}px`;
+            }
+          }
+          // 3、为底部固定栏中的对应li 设置已选择产品的图片、产品名称
+          compareBarAllLi.forEach((curLi, index) => {
+            if (index === compareDataArr.length - 1) {
+              setCompareProductImgTit(curLi, selectedSizeItemVariant);
+            }
+          });
+
+          // 4、为底部固定比较栏中的对应商品的删除按钮添加点击事件
+          const comparBarUlEl = document.querySelector('.plp-compare-cards');
+          comparBarUlEl.addEventListener('click', (e) => {
+            const { target } = e;
+            // 只处理点击元素是删除按钮
+            if (!target.parentNode.classList.contains('plp-compare-card-close')) return;
+            // 获取按钮所在的 li (parentNode 因为按钮直接放在li内)
+            const parentLi = target.closest('.plp-compare-card-item');
+            if (!parentLi) return;
+            // 获取 li 上存储的产品 id
+            const delCompareId = parentLi.dataset.compareId;
+            if (!delCompareId) return;
+            // filter 数据源
+            compareDataArr = compareDataArr.filter((v) => v.sku !== delCompareId);
+            // 移除比较数据dom集合中的对应 li
+            removeCompareLiUtil(delCompareId);
+            // 取消产品 card 中 【Compare】 button 选中态
+            const cardCompareBtnAll = document.querySelectorAll('.compare-checked');
+            cardCompareBtnAll.forEach((compareBtnItem) => {
+              if (compareBtnItem.dataset.compareId === delCompareId) {
+                compareBtnItem.classList.remove('compare-checked');
+              }
+            });
+            // 隐藏底部固定比较栏
+            hideCompareBar();
+          });
+        } else {
+          // 取消商品 card 【Compare】按钮的选中态，重新过滤比较数据集合
+          compareDataArr = compareDataArr.filter((v) => v.sku !== selectedSizeItemVariant.sku);
+          // 移除比较数据集合中的对应 li
+          removeCompareLiUtil(selectedSizeItemVariant.sku);
+          // 隐藏底部固定比较栏
+          hideCompareBar();
+        }
+      });
+
+      // 创建color节点并绑定事件
+      colorsArray?.forEach((s) => {
+        const sp = document.createElement('span');
+        sp.classList.add('plp-product-color', s);
+        if (s === selectedColor) sp.classList.add('selected');
+        sp.addEventListener('click', () => {
+          if (selectedColor === s) return;
+          // 更新选中样式
+          const prev = colorsDiv.querySelector('.plp-product-color.selected');
+          if (prev) prev.classList.remove('selected');
+          sp.classList.add('selected');
+          selectedColor = s;
+          selectedVariant = colorToVariant.get(s) || item;
+          updateCardWithVariant(selectedVariant);
+        });
+        colorsDiv.appendChild(sp);
+      });
+      // 如果color 和size 同时存在 显示color
+      const hasColorValue = colorsArray?.some((x) => x && x !== undefined);
+      const showDiv = hasColorValue && colorsArray.length > 0 ? colorsDiv : sizesDiv;
+      // card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields);
+
+      // 将where to buy 按钮追加在按钮组dom 中
+      productBtnGroupEl.prepend(whereToBuyBtnEl);
+
+      card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields, productBtnGroupEl, compareEl);
       productsGrid.append(card);
 
       updateCardWithVariant(selectedVariant);
@@ -691,6 +948,7 @@ export default function decorate(block) {
           representative: it,
           variants: [],
           sizes: new Set(),
+          colors: new Set(),
         };
       }
       groups[key].variants.push(it);
@@ -706,12 +964,16 @@ export default function decorate(block) {
       }
       const sz = extractSize(it);
       if (sz) groups[key].sizes.add(sz);
+      const color = it?.color;
+      if (color) groups[key].colors.add(color);
     });
 
     allGroupedData = Object.keys(groups).map((k) => {
       const g = groups[k];
       const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(b) - Number(a));
-
+      // 处理color的 排序  后续顺序可调整
+      const colorOrder = ['black', 'silver', 'white', 'grey', 'red'];
+      const colors = colorOrder.filter((color) => Array.from(g.colors).filter(Boolean).includes(color));
       // 检查聚合产品是否有任意size有productDetailPageLink，有就共享这个链接
       let sharedProductDetailPageLink = g.variants.find((variant) => variant && variant.productDetailPageLink)?.productDetailPageLink;
 
@@ -735,6 +997,7 @@ export default function decorate(block) {
         variants: g.variants,
         sizes,
         sharedProductDetailPageLink,
+        colors,
       };
     });
 
@@ -766,8 +1029,9 @@ export default function decorate(block) {
     const isAemEnv = hostname.includes('author') || hostname.includes('publish');
 
     if (isAemEnv && path && path.endsWith('.json')) {
-      const pathWithoutJson = path.replace(/\.json$/, '');
-      path = `/graphql/execute.json/global/GetProductByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
+      let pathWithoutJson = path.replace(/\.json$/, '');
+      pathWithoutJson = pathWithoutJson.replace(/^\/product\/?/, '/') || '/';
+      path = `/bin/hisense/productList.json?path=${pathWithoutJson}`;
     }
 
     const baseUrl = window.GRAPHQL_BASE_URL || '';
@@ -823,6 +1087,10 @@ export default function decorate(block) {
       applyDefaultSort();
       // 检查URL参数并应用筛选
       applyUrlFilters();
+      // 初始化询问比较固定栏
+      fixedBottomCompareBar();
+      // 比较商品信息 popup
+      createComparePopup();
     })
     .catch(() => {
       const items = (mockData && mockData.data) || [];
@@ -836,6 +1104,10 @@ export default function decorate(block) {
       applyDefaultSort();
       // 检查URL参数并应用筛选
       applyUrlFilters();
+      // 初始化询问比较固定栏
+      fixedBottomCompareBar();
+      // 比较商品信息 popup
+      createComparePopup();
     });
   /* eslint-disable-next-line no-underscore-dangle */
   window.renderItems = renderItems;

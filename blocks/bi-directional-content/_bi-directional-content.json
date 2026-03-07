@@ -1,0 +1,90 @@
+{
+  "definitions": [
+    {
+      "title": "Bi Directional Content",
+      "id": "bi-directional-content",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Bi Directional Content",
+              "model": "bi-directional-content",
+              "filter": "bi-directional-content"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Bi Directional Content Item",
+      "id": "bi-directional-content-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Bi Directional Content Item",
+              "model": "bi-directional-content-item"
+            }
+          }
+        }
+      }
+    }
+    
+  ],
+  "models": [
+      {
+      "id": "bi-directional-content",
+      "fields": [
+       
+         {
+          "component": "text",
+          "name": "title_title",
+          "label": "Title",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "title_content",
+          "label": "Content",
+          "valueType": "string"
+        }
+        
+      ]
+    },
+    {
+      "id": "bi-directional-content-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+         {
+          "component": "text",
+          "name": "text_title",
+          "label": "Title",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "text_content",
+          "label": "Content",
+          "valueType": "string"
+        }
+        
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "bi-directional-content",
+      "components": [
+        "bi-directional-content-item"
+      ]
+    }
+  ]
+}
