@@ -309,6 +309,29 @@ export default function decorate(block) {
     }
   }
 
+  /**
+   * 切换属性时，比较数据要做对应的清空
+   * @param {*} changeElement 当前切换的 dom 元素
+   */
+  function changeCardSelectedProperty(changeElement) {
+    // 切换该商品size 时，要把之前比较数据中已经添加的该商品的尺寸属性清空
+    const originCompareSku = changeElement.closest('.product-card').getAttribute('data-compare-id');
+    // 1、过滤比较商品数据源
+    compareDataArr = compareDataArr.filter((comDataItem) => comDataItem.sku !== originCompareSku);
+    // 2、取消商品 card 上【Compare】按钮选中状态
+    const compareCheckedAllEl = document.querySelectorAll('.compare-checked');
+    compareCheckedAllEl.forEach((comCheckedItem) => {
+      const cardCheckedSku = comCheckedItem.getAttribute('data-compare-id');
+      if (cardCheckedSku === originCompareSku) {
+        comCheckedItem.classList.remove('compare-checked');
+      }
+    });
+    // 3、移动询问固定栏中对应商品的LI 元素
+    removeCompareLiUtil(originCompareSku);
+    // 4、底部固定比较栏在对比数据小于2条时，不展示
+    hideCompareBar();
+  }
+
   // 页面底部固定栏，比较商品固定栏
   function fixedBottomCompareBar() {
     const compareBarEl = document.createElement('div');
@@ -557,7 +580,7 @@ export default function decorate(block) {
 
       const colorToVariant = new Map();
       group.variants.forEach((v) => {
-        const s = v.color;
+        const s = v.colorRGB;
         if (!colorToVariant.has(s)) colorToVariant.set(s, v);
       });
 
@@ -683,11 +706,20 @@ export default function decorate(block) {
           if (existingLink) existingLink.remove();
         }
 
-        // 为商品卡片中的【Compare】按钮设置 id 属性
+        // 为比较数据准备对应的属性值
+        // 1、为商品卡片中的【Compare】按钮设置 id 属性
         compareEl.setAttribute('data-compare-id', variant.sku || group.sku || '');
-        // 为商品卡片中的【Compare】按钮设置当前选中的size属性
-        compareEl.setAttribute('data-product-size', variant.size || group.size || '');
-        // 为商品卡片 product-card 父元素设置 id 属性，方便当size 修改时，在比较商品数据源中拿到对应数据进行移除
+
+        // 2、为商品卡片中的【Compare】按钮设置当前选中的属性（如： size 或 color）
+        let curSelectedProperty = variant.size || group.size || '';
+        const hasColorValue = colorsArray?.some((x) => x && x !== undefined);
+        // 如果 颜色 有值时，可选择的属性为颜色
+        if (hasColorValue && colorsArray.length > 0) {
+          curSelectedProperty = variant.colorRGB || group.colorRGB || '';
+        }
+        compareEl.setAttribute('data-selected-property', curSelectedProperty);
+
+        // 3、为商品卡片 product-card 父元素设置 id 属性，方便当size 修改时，在比较商品数据源中拿到对应数据进行移除
         compareEl.closest('.product-card').setAttribute('data-compare-id', variant.sku || group.sku || '');
       };
 
@@ -706,28 +738,8 @@ export default function decorate(block) {
           selectedSize = s;
           selectedVariant = sizeToVariant.get(s) || item;
 
-          /**
-           * size 切换时，需要清空对应的比较数据 ----start
-          */
-          // 切换该商品size 时，要把之前比较数据中已经添加的该商品的尺寸属性清空
-          const originCompareSku = sp.closest('.product-card').getAttribute('data-compare-id');
-          // 1、过滤比较商品数据源
-          compareDataArr = compareDataArr.filter((comDataItem) => comDataItem.sku !== originCompareSku);
-          // 2、取消商品 card 上【Compare】按钮选中状态
-          const compareCheckedAllEl = document.querySelectorAll('.compare-checked');
-          compareCheckedAllEl.forEach((comCheckedItem) => {
-            const cardCheckedSku = comCheckedItem.getAttribute('data-compare-id');
-            if (cardCheckedSku === originCompareSku) {
-              comCheckedItem.classList.remove('compare-checked');
-            }
-          });
-          // 3、移动询问固定栏中对应商品的LI 元素
-          removeCompareLiUtil(originCompareSku);
-          // 4、底部固定比较栏在对比数据小于2条时，不展示
-          hideCompareBar();
-          /**
-           * size 切换时，需要清空对应的比较数据 ----end
-          */
+          // size 切换时，需要清空对应的比较数据
+          changeCardSelectedProperty(sp);
 
           updateCardWithVariant(selectedVariant);
         });
@@ -743,14 +755,20 @@ export default function decorate(block) {
         }
         // card 中的 【Compare】 btn 是否添加 选中类
         compareEl.classList.toggle('compare-checked');
-        // 当前商品选中的size值
-        const curProductSize = compareE.currentTarget.getAttribute('data-product-size');
-        // 选中size对应的数据源（也是比较商品的数据来源）
-        const selectedSizeItemVariant = sizeToVariant.get(curProductSize);
+        // 当前商品选中属性
+        const curCardSelectedProperty = compareE.currentTarget.getAttribute('data-selected-property');
+        // 当前商品选中属性，对应的数据源（也是比较商品的数据来源）
+        let cardSelectedVariant = sizeToVariant.get(curCardSelectedProperty);
+        // 如果颜色数据存在，则数据来源为color
+        const hasColorValue = colorsArray?.some((x) => x && x !== undefined);
+        if (hasColorValue && colorsArray.length > 0) {
+          cardSelectedVariant = colorToVariant.get(curCardSelectedProperty);
+        }
+
         const isAdded = compareEl.classList.contains('compare-checked');
         if (isAdded) {
           // 1、新增比较数据
-          compareDataArr.push(selectedSizeItemVariant);
+          compareDataArr.push(cardSelectedVariant);
           const compareBarAllLi = document.querySelectorAll('.plp-compare-card-item');
           // 2、只有选择了2个产品时，才展示页面询问固定栏
           if (compareDataArr.length === 2) {
@@ -764,7 +782,7 @@ export default function decorate(block) {
           // 3、为底部固定栏中的对应li 设置已选择产品的图片、产品名称
           compareBarAllLi.forEach((curLi, index) => {
             if (index === compareDataArr.length - 1) {
-              setCompareProductImgTit(curLi, selectedSizeItemVariant);
+              setCompareProductImgTit(curLi, cardSelectedVariant);
             }
           });
 
@@ -796,9 +814,9 @@ export default function decorate(block) {
           });
         } else {
           // 取消商品 card 【Compare】按钮的选中态，重新过滤比较数据集合
-          compareDataArr = compareDataArr.filter((v) => v.sku !== selectedSizeItemVariant.sku);
+          compareDataArr = compareDataArr.filter((v) => v.sku !== cardSelectedVariant.sku);
           // 移除比较数据集合中的对应 li
-          removeCompareLiUtil(selectedSizeItemVariant.sku);
+          removeCompareLiUtil(cardSelectedVariant.sku);
           // 隐藏底部固定比较栏
           hideCompareBar();
         }
@@ -818,6 +836,8 @@ export default function decorate(block) {
           sp.classList.add('selected');
           selectedColor = s;
           selectedVariant = colorToVariant.get(s) || item;
+          // color 属性 change 时，需要清空对应的比较数据
+          changeCardSelectedProperty(sp);
           updateCardWithVariant(selectedVariant);
         });
         colorsDiv.appendChild(sp);
