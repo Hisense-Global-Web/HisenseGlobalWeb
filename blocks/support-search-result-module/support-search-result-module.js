@@ -405,6 +405,19 @@ function renderNoResult(keyword, tabTitle, config) {
 }
 
 export default async function decorate(block) {
+  const resource = block.dataset.aueResource;
+  if (resource && block.parentNode) {
+    [...block.parentNode.querySelectorAll('.support-search-result-module.block')]
+      .filter((el) => el !== block && el.dataset.aueResource === resource)
+      .forEach((el) => el.remove());
+  }
+
+  if (block.classList.contains('loaded')) {
+    const oldWrapper = block.querySelector('.search-result-wrapper');
+    if (oldWrapper) oldWrapper.remove();
+    block.classList.remove('loaded');
+  }
+
   const { config, items } = parseConfig(block);
 
   const pageSize = parseInt(config.pagesize || config.pageSize || DEFAULT_PAGE_SIZE, 10);
