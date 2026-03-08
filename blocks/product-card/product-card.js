@@ -807,7 +807,8 @@ export default function decorate(block) {
       // 创建color节点并绑定事件
       colorsArray?.forEach((s) => {
         const sp = document.createElement('span');
-        sp.classList.add('plp-product-color', s);
+        sp.classList.add('plp-product-color');
+        sp.style.backgroundColor = s;
         if (s === selectedColor) sp.classList.add('selected');
         sp.addEventListener('click', () => {
           if (selectedColor === s) return;
@@ -971,16 +972,14 @@ export default function decorate(block) {
       }
       const sz = extractSize(it);
       if (sz) groups[key].sizes.add(sz);
-      const color = it?.color;
+      const color = it?.colorRGB;
       if (color) groups[key].colors.add(color);
     });
 
     allGroupedData = Object.keys(groups).map((k) => {
       const g = groups[k];
       const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(b) - Number(a));
-      // 处理color的 排序  后续顺序可调整
-      const colorOrder = ['black', 'silver', 'white', 'grey', 'red'];
-      const colors = colorOrder.filter((color) => Array.from(g.colors).filter(Boolean).includes(color));
+      const colors = Array.from(g.colors).filter(Boolean);
       // 检查聚合产品是否有任意size有productDetailPageLink，有就共享这个链接
       let sharedProductDetailPageLink = g.variants.find((variant) => variant && variant.productDetailPageLink)?.productDetailPageLink;
 
