@@ -291,11 +291,14 @@ function createFirmwareItem(config) {
 
   const title = document.createElement('p');
   title.className = 'item-title';
-  title.textContent = config.firmwaretitle || 'Find Latest Firmware Update';
+  title.textContent = config.firmware || config.firmwaretitle || 'Find Latest Firmware Update';
   item.appendChild(title);
 
-  if (config.firmwarelink && config.firmwarebuttontext) {
-    item.appendChild(createCtaLink(config.firmwarebuttontext, toAbsoluteUrl(config.firmwarelink)));
+  if (config.firmwarelink && (config.firmwarebutton || config.firmwarebuttontext)) {
+    item.appendChild(createCtaLink(
+      config.firmwarebutton || config.firmwarebuttontext,
+      toAbsoluteUrl(config.firmwarelink),
+    ));
   }
 
   listItem.appendChild(item);
@@ -496,8 +499,8 @@ function initTabsAndCarousel(block) {
 }
 
 function getFirmwareState(config) {
-  const title = (config.firmwaretitle || '').trim();
-  const buttonText = (config.firmwarebuttontext || '').trim();
+  const title = (config.firmware || config.firmwaretitle || '').trim();
+  const buttonText = (config.firmwarebutton || config.firmwarebuttontext || '').trim();
   const link = (config.firmwarelink || '').trim();
   const icon = (config.firmwareicon || '').trim();
 

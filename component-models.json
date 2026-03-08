@@ -3926,29 +3926,38 @@
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "firmwareTitle",
-        "label": "Firmware Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "firmwareButtonText",
-        "label": "Firmware Button Text",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "firmwareLink",
-        "label": "Firmware Link",
-        "valueType": "string"
-      },
-      {
-        "component": "reference",
-        "name": "firmwareIcon",
-        "label": "Firmware Icon",
+        "component": "container",
+        "name": "firmwareContainer",
+        "label": "Firmware Settings",
         "valueType": "string",
-        "multi": false
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "name": "firmware",
+            "label": "Firmware Title",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "firmwareButton",
+            "label": "Firmware Button Text",
+            "valueType": "string"
+          },
+          {
+            "component": "aem-content",
+            "name": "firmwareLink",
+            "label": "Firmware Link",
+            "valueType": "string"
+          },
+          {
+            "component": "reference",
+            "name": "firmwareIcon",
+            "label": "Firmware Icon",
+            "valueType": "string",
+            "multi": false
+          }
+        ]
       },
       {
         "component": "richtext",
