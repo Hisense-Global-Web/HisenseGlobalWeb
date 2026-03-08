@@ -129,27 +129,6 @@
     border-radius: var(--size-20);
 }
 
-.plp-product-color.black{
-  background: black;
-}
-
-.plp-product-color.silver{
-  background: linear-gradient(to bottom, var(--color-neutral-200), var(--color-neutral-300), var(--color-neutral-200));
-}
-
-
-.plp-product-color.white{
-  border: 1px solid var(--color-neutral-200)
-}
-
-.plp-product-color.grey{
- background: var(--color-neutral-400);
-}
-
-.plp-product-color.red{
-  background:#D60D0D
-}
-
 .plp-product-color.selected {
   border: 1px solid black;
   padding: var(--size-4);

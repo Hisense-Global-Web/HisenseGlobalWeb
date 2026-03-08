@@ -164,7 +164,7 @@ export default async function decorate(block) {
   // color
   const colorsWrapper = document.createElement('div');
   colorsWrapper.className = 'pdp-colors';
-  const hasColorValue = similarProducts.some((item) => item.color);
+  const hasColorValue = similarProducts.some((item) => item.colorRGB);
   if (similarProducts.length > 0) {
     // size 和 color 同时有值 优先显示color
     if (hasColorValue) {
@@ -183,7 +183,8 @@ export default async function decorate(block) {
 
       similarProducts.forEach((p) => {
         const el = document.createElement('div');
-        el.classList.add('pdp-color', p.color);
+        el.classList.add('pdp-color');
+        el.style.backgroundColor = p.colorRGB;
         el.setAttribute('data-sku', p.sku);
         el.setAttribute('data-title', p.title);
 
