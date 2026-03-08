@@ -18,6 +18,7 @@ const DEFAULT_FIRMWARE_EMPTY = 'No firmware resource available.';
 const DEFAULT_WARRANTY_EMPTY = 'No warranty information available.';
 const DEFAULT_NO_RESULT_CONTENT = '<p>No resources available for this product.</p>';
 const DEFAULT_PRODUCT_NOT_FOUND = '<p>Product not found.</p>';
+const DEFAULT_AUTHOR_SKU = '43A65H';
 
 function simpleHash(str) {
   const s = String(str);
@@ -51,9 +52,17 @@ function isAemEnvironment() {
   return hostname.includes('author') || hostname.includes('publish');
 }
 
+function isAuthorEnvironment() {
+  const hostname = window.location.hostname || '';
+  return hostname.includes('author');
+}
+
 function getSkuFromUrl() {
   const params = new URLSearchParams(window.location.search);
-  return (params.get('sku') || '').trim();
+  const sku = (params.get('sku') || '').trim();
+  if (sku) return sku;
+  if (isAuthorEnvironment()) return DEFAULT_AUTHOR_SKU;
+  return '';
 }
 
 function getBaseUrl() {
