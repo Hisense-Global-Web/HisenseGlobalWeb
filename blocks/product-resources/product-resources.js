@@ -561,6 +561,14 @@ function renderMessageState(block, titleText, messageHtml, modifierClass) {
   block.classList.add('loaded');
 }
 
+function renderNoResultState(block, product, titleText, messageHtml) {
+  block.textContent = '';
+  block.appendChild(buildProductInformation(product));
+  block.appendChild(buildSectionTitle(titleText));
+  block.appendChild(buildRichMessage(messageHtml, 'no-result'));
+  block.classList.add('loaded');
+}
+
 export default async function decorate(block) {
   const config = readBlockConfig(block);
   config.noresultcontent = readRichtextConfig(block, 'noResultContent') || config.noresultcontent || '';
@@ -613,11 +621,11 @@ export default async function decorate(block) {
   const tabState = buildTabConfigs(config, supportData, country);
 
   if (!tabState.hasAnyTabData) {
-    renderMessageState(
+    renderNoResultState(
       block,
+      product,
       titleText,
       config.noresultcontent || DEFAULT_NO_RESULT_CONTENT,
-      'no-result',
     );
     return;
   }
