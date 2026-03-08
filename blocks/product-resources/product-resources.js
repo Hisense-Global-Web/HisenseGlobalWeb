@@ -99,7 +99,7 @@ function getProductEndpoint(country, language, sku) {
   return `/product/sku/${country}/${language}/${encodeURIComponent(sku)}.json`;
 }
 
-function getSupportEndpoint(country, language, factoryModel, category) {
+function getSupportEndpoint(country, language, factoryModel, category, sku) {
   if (!country || !language || !factoryModel || !category) return '';
   const params = new URLSearchParams({
     country,
@@ -107,6 +107,9 @@ function getSupportEndpoint(country, language, factoryModel, category) {
     factoryModel,
     category,
   });
+  if (sku) {
+    params.set('sku', sku);
+  }
   return `/bin/hisense/support/document.json?${params.toString()}`;
 }
 
@@ -619,7 +622,13 @@ export default async function decorate(block) {
 
   let supportData = normalizeSupportResponse(null);
   try {
-    const supportEndpoint = getSupportEndpoint(country, language, product.factoryModel, product.category);
+    const supportEndpoint = getSupportEndpoint(
+      country,
+      language,
+      product.factoryModel,
+      product.category,
+      product.sku || sku,
+    );
     const supportResponse = await fetchJson(supportEndpoint);
     supportData = normalizeSupportResponse(supportResponse);
   } catch (error) {
