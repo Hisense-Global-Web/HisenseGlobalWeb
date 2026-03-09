@@ -19,6 +19,7 @@
   color: var(--color-primary-green-60);
   font-family: var(--font-family);
   text-align: center;
+  text-transform: capitalize;
   
    @media (width < 860px) {
     width: 100%;
