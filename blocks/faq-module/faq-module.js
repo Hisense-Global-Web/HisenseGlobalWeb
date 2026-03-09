@@ -1,4 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const DEFAULT_FAQ_ENDPOINT = '/faq/us/en/television.json';
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense/faq.-1.json';
@@ -47,22 +48,31 @@ function getLocalizedEndpoint(configEndpoint) {
     return configEndpoint;
   }
 
-  const { pathname } = window.location;
-  const segments = pathname.split('/').filter(Boolean);
-
-  const country = segments[0] || 'us';
-  let language;
-
-  if (country.toLowerCase() === 'us') {
-    language = 'en';
-  } else {
-    language = segments[1] || 'en';
-  }
+  const { country, language } = getLocaleFromPath();
 
   const endpointSegments = configEndpoint.split('/').filter(Boolean);
-  const lastSegment = endpointSegments[endpointSegments.length - 1] || 'television.json';
+  const prefix = endpointSegments[0] || 'faq';
 
-  return `/faq/${country}/${language}/${lastSegment}`;
+  if (endpointSegments.length >= 4) {
+    return `/${prefix}/${country}/${language}/${endpointSegments.slice(3).join('/')}`;
+  }
+
+  if (endpointSegments.length === 3) {
+    const thirdSegment = endpointSegments[2];
+    const localeFile = thirdSegment.replace(/\.json$/i, '');
+
+    if (/^[a-z]{2}(?:-[a-z]{2})?$/i.test(localeFile) && thirdSegment.endsWith('.json')) {
+      return `/${prefix}/${country}/${language}.json`;
+    }
+
+    return `/${prefix}/${country}/${language}/${thirdSegment}`;
+  }
+
+  if (endpointSegments.length === 2) {
+    return `/${prefix}/${country}/${language}/${endpointSegments[1]}`;
+  }
+
+  return `/${prefix}/${country}/${language}`;
 }
 
 // 从两种格式中提取FAQ列表（为了兼容EDS JSON 格式）
@@ -403,6 +413,8 @@ function initFaqAccordion(block) {
   const faqTitles = block.querySelectorAll('.faq-card .faq-title');
 
   faqTitles.forEach((title) => {
+    if (title.dataset.bound) return;
+    title.dataset.bound = 'true';
     title.addEventListener('click', (e) => {
       e.stopPropagation();
       const faqCard = title.closest('.faq-card');
@@ -494,6 +506,19 @@ function getRelativePath(url) {
 
 // 初始化FAQ模块
 export default async function decorate(block) {
+  const resource = block.dataset.aueResource;
+  if (resource && block.parentNode) {
+    [...block.parentNode.querySelectorAll('.faq-module.block')]
+      .filter((el) => el !== block && el.dataset.aueResource === resource)
+      .forEach((el) => el.remove());
+  }
+
+  if (block.classList.contains('loaded')) {
+    const oldWrapper = block.querySelector('.faq-module-wrapper');
+    if (oldWrapper) oldWrapper.remove();
+    block.classList.remove('loaded');
+  }
+
   const config = readBlockConfig(block);
 
   const rawEndpoint = config.endpoint || DEFAULT_FAQ_ENDPOINT;

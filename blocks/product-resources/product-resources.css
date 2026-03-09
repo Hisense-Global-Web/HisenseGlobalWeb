@@ -318,9 +318,11 @@
 
 .product-resources .tab-content-ul .item-cta-icon {
   display: block;
+  flex-shrink: 0;
   width: min(calc(24 / var(--breakpoint-pc) * 100vw), 24px);
   height: min(calc(24 / var(--breakpoint-pc) * 100vw), 24px);
   color: #fff;
+  object-fit: contain;
 
   @media (width < 860px) {
     width: min(calc(24 / var(--breakpoint-mobile) * 100vw), 24px);

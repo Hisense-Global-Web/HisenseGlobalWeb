@@ -596,17 +596,13 @@ export default function decorate(block) {
       const sizeToVariant = new Map();
       group.variants.forEach((v) => {
         // eslint-disable-next-line no-use-before-define
-        let s = extractSize(v);
-        if (!s && v.sku) {
-          const skuMatch = String(v.sku).match(/(\d{2,3})/);
-          s = skuMatch ? skuMatch[1] : null;
-        }
-        if (!s) s = 'default';
-        if (!sizeToVariant.has(s)) sizeToVariant.set(s, v);
+        const s = extractSize(v);
+        if (s && !sizeToVariant.has(s)) sizeToVariant.set(s, v);
       });
       const sizesArray = (Array.isArray(group.sizes) && group.sizes.length)
         ? group.sizes
-        : Array.from(sizeToVariant.keys());
+        : Array.from(sizeToVariant.keys()).filter(Boolean);
+      const hasSizeValue = sizesArray.length > 0;
       // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
       let [selectedSize] = sizesArray;
       let selectedVariant = selectedSize ? (sizeToVariant.get(selectedSize) || item) : item;
@@ -633,9 +629,13 @@ export default function decorate(block) {
       const colorsArray = (Array.isArray(group.colors) && group.colors.length)
         ? group.colors
         : Array.from(colorToVariant.keys());
+      const hasColorValue = colorsArray.some((x) => x && x !== undefined);
+      const shouldUseColorSelection = !hasSizeValue && hasColorValue && colorsArray.length > 0;
       // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
       let [selectedColor] = colorsArray;
-      selectedVariant = selectedColor ? (colorToVariant.get(selectedColor) || item) : item;
+      if (shouldUseColorSelection) {
+        selectedVariant = selectedColor ? (colorToVariant.get(selectedColor) || item) : selectedVariant;
+      }
       // 用来更新卡片显示为指定变体
       const updateCardWithVariant = (variant) => {
         // image
@@ -715,11 +715,10 @@ export default function decorate(block) {
         compareEl.setAttribute('data-compare-id', variant.sku || group.sku || '');
 
         // 2、为商品卡片中的【Compare】按钮设置当前选中的属性（如： size 或 color）
-        let curSelectedProperty = variant.size || group.size || '';
-        const hasColorValue = colorsArray?.some((x) => x && x !== undefined);
-        // 如果 颜色 有值时，可选择的属性为颜色
-        if (hasColorValue && colorsArray.length > 0) {
-          curSelectedProperty = variant.colorRGB || group.colorRGB || '';
+        let curSelectedProperty = selectedSize || variant.size || group.size || '';
+        // 只有在没有 size 时，才回退使用 color
+        if (shouldUseColorSelection) {
+          curSelectedProperty = selectedColor || variant.colorRGB || group.colorRGB || '';
         }
         compareEl.setAttribute('data-selected-property', curSelectedProperty);
 
@@ -762,11 +761,10 @@ export default function decorate(block) {
         // 当前商品选中属性
         const curCardSelectedProperty = compareE.currentTarget.getAttribute('data-selected-property');
         // 当前商品选中属性，对应的数据源（也是比较商品的数据来源）
-        let cardSelectedVariant = sizeToVariant.get(curCardSelectedProperty);
-        // 如果颜色数据存在，则数据来源为color
-        const hasColorValue = colorsArray?.some((x) => x && x !== undefined);
-        if (hasColorValue && colorsArray.length > 0) {
-          cardSelectedVariant = colorToVariant.get(curCardSelectedProperty);
+        let cardSelectedVariant = sizeToVariant.get(curCardSelectedProperty) || selectedVariant || item;
+        // 只有在没有 size 时，才回退使用 color
+        if (shouldUseColorSelection) {
+          cardSelectedVariant = colorToVariant.get(curCardSelectedProperty) || selectedVariant || item;
         }
 
         const isAdded = compareEl.classList.contains('compare-checked');
@@ -852,15 +850,23 @@ export default function decorate(block) {
         });
         colorsDiv.appendChild(sp);
       });
-      // 如果color 和size 同时存在 显示color
-      const hasColorValue = colorsArray?.some((x) => x && x !== undefined);
-      const showDiv = hasColorValue && colorsArray.length > 0 ? colorsDiv : sizesDiv;
+      // 如果 size 和 color 同时存在，优先显示 size
+      let showDiv = null;
+      if (hasSizeValue) {
+        showDiv = sizesDiv;
+      } else if (shouldUseColorSelection) {
+        showDiv = colorsDiv;
+      }
       // card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields);
 
       // 将where to buy 按钮追加在按钮组dom 中
       productBtnGroupEl.prepend(whereToBuyBtnEl);
 
-      card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields, productBtnGroupEl, compareEl);
+      card.append(titleDiv, imgDiv, seriesDiv, nameDiv);
+      if (showDiv) {
+        card.append(showDiv);
+      }
+      card.append(extraFields, productBtnGroupEl, compareEl);
       productsGrid.append(card);
 
       updateCardWithVariant(selectedVariant);
@@ -915,32 +921,6 @@ export default function decorate(block) {
   const extractSize = (item) => {
     if (!item) return null;
     if (item.size) return String(item.size).replace(/["\s]/g, '');
-    if (item.sku) {
-      const m = String(item.sku).match(/(\d{2,3})/);
-      if (m) return m[1];
-    }
-    const metaTitle = (() => {
-      if (!item) return null;
-      const metaKey = Object.keys(item).find((k) => k.toLowerCase().includes('metadata'));
-      const meta = metaKey ? item[metaKey] : null;
-      if (meta && Array.isArray(meta.stringMetadata)) {
-        const found = meta.stringMetadata.find((x) => x.name === 'title');
-        return found ? found.value : null;
-      }
-      return null;
-    })();
-    const candidates = [metaTitle, item.title, item.subtitle].filter(Boolean);
-    let foundSize = null;
-    candidates.some((c) => {
-      const mm = String(c).match(/(\d{2,3})/);
-      if (mm) {
-        const [, size] = mm;
-        foundSize = size;
-        return true;
-      }
-      return false;
-    });
-    if (foundSize) return foundSize;
     return null;
   };
 
