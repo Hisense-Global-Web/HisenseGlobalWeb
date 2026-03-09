@@ -153,7 +153,7 @@ function filterFaqs(items, keyword) {
   });
 }
 
-function buildConfiguredProductCardLink(configuredLink, sku) {
+function buildConfiguredProductCardLink(configuredLink, sku, category) {
   if (!configuredLink) return '';
 
   try {
@@ -161,20 +161,32 @@ function buildConfiguredProductCardLink(configuredLink, sku) {
     if (sku) {
       url.searchParams.set('sku', sku);
     }
+    if (category) {
+      url.searchParams.set('category', category);
+    }
     if (url.origin === window.location.origin) {
       return `${url.pathname}${url.search}${url.hash}`;
     }
     return url.toString();
   } catch (e) {
+    const params = new URLSearchParams();
+    if (sku) {
+      params.set('sku', sku);
+    }
+    if (category) {
+      params.set('category', category);
+    }
+    const query = params.toString();
+    if (!query) return configuredLink;
     const separator = configuredLink.includes('?') ? '&' : '?';
-    return sku ? `${configuredLink}${separator}sku=${encodeURIComponent(sku)}` : configuredLink;
+    return `${configuredLink}${separator}${query}`;
   }
 }
 
 function getProductCardHref(item, config) {
   const configuredLink = config.productcardlink || config.productCardLink;
   if (configuredLink) {
-    return buildConfiguredProductCardLink(configuredLink, item?.sku);
+    return buildConfiguredProductCardLink(configuredLink, item?.sku, item?.category);
   }
   return item.productDetailPageLink || '#';
 }
