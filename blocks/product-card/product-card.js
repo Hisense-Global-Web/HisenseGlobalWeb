@@ -1,4 +1,4 @@
-import { isMobile, isMobileWindow } from '../../scripts/device.js';
+import { isMobileWindow } from '../../scripts/device.js';
 import {
   renderCompareDetailData,
   aggregateData,
@@ -374,6 +374,10 @@ export default function decorate(block) {
         resetLi.querySelector('.compare-img-box img').src = '';
         resetLi.querySelector('.compare-product-title').textContent = '';
       });
+      if (isMobileWindow()) {
+        const footerWrapper = document.querySelector('.footer-wrapper');
+        footerWrapper.style.paddingBottom = 0;
+      }
     });
 
     compareBarEl.append(compareCardList, compareBtnEl, compareBarCloseBtn);
@@ -774,7 +778,7 @@ export default function decorate(block) {
           if (compareDataArr.length === 2) {
             document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
             // 底部 compare bar 出现时且为移动端时，为footer 添加 padding-bottom
-            if (isMobile() || isMobileWindow()) {
+            if (isMobileWindow()) {
               const footerWrapper = document.querySelector('.footer-wrapper');
               footerWrapper.style.paddingBottom = `${(274 / 390) * window.innerWidth}px`;
             }

@@ -501,6 +501,8 @@
           .img-box {
             width: min(calc(272 / var(--breakpoint-pc) * 100vw), 272px);
             height: min(calc(272 / var(--breakpoint-pc) * 100vw), 272px);
+            display: flex;
+            align-items: center;
 
             img {
               width: 100%;
