@@ -1,4 +1,5 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { handleCommonDownloadClick } from '../../utils/download.js';
 
 function getSearchFiltersFromUrl() {
   const params = new URLSearchParams(window.location.search || '');
@@ -183,11 +184,9 @@ function buildCard(item) {
   }
 
   if (downloadlink) {
-    const downloadEl = document.createElement('a');
-    downloadEl.href = downloadlink;
-    downloadEl.target = '_blank';
-    downloadEl.classList.add('meta-item');
-    downloadEl.classList.add('meta-download');
+    const downloadEl = document.createElement('div');
+    downloadEl.classList.add('meta-item', 'meta-download');
+    downloadEl.addEventListener('click', () => handleCommonDownloadClick(downloadlink));
     const iconImg = document.createElement('img');
     iconImg.src = `/content/dam/hisense/${country}/common-icons/download.svg`;
     iconImg.alt = 'Download';
