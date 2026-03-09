@@ -81,7 +81,7 @@ function bindEvent(block, type = 'normal') {
   const viewportWidth = block.querySelector('.news-container').offsetWidth;
   const prevBtn = block.closest('.section').querySelector('.slide-prev');
   const nextBtn = block.closest('.section').querySelector('.slide-next');
-  const gap = parseInt(window.getComputedStyle(block.querySelector('.news-card-group')).gap, 10) || 0;
+  const gap = parseFloat(window.getComputedStyle(block.querySelector('.news-card-group')).gap) || 0;
   const CONFIG = {
     itemWidth: getChildSlideWidth(block),
     gap,

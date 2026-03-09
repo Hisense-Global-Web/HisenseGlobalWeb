@@ -25,7 +25,7 @@
   padding: var(--size-48, 48px) 320px;
   font-size: var(--size-46, 46px);
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 120%; /* 55.2px */
   text-transform: capitalize;
 
@@ -70,7 +70,7 @@
   .region-title {
     color: var(--color-primary-grey-100, #000);
     font-size: var(--size-24, 24px);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 120%;
     text-transform: capitalize;
 
