@@ -221,7 +221,7 @@
             "value": "dark"
           },
           {
-            "name": "Grey",
+            "name": "Gray 20",
             "value": "grey"
           },
           {
@@ -4049,7 +4049,7 @@
         }
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "valueType": "string",
         "name": "faq-link",
         "label": "Faq Link",
