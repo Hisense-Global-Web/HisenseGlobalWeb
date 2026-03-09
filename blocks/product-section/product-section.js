@@ -115,6 +115,9 @@ export default async function decorate(block) {
   // 根据SKU找到对应的产品
   const currentProduct = items ? items.find((item) => item.sku === sku) : null;
   const product = currentProduct || (items && items[0] ? items[0] : null);
+  if (product.category) {
+    faqLink += `&${product.category}`;
+  }
 
   // 将当前产品数据保存到window中供spec组件使用
   window.currentProduct = product;
