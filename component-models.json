@@ -4773,6 +4773,12 @@
         "label": "Page Size"
       },
       {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "productCardLink",
+        "label": "Product Card Link"
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "prevButtonAriaLabel",
