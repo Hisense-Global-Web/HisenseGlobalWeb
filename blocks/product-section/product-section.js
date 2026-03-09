@@ -431,12 +431,17 @@ export default async function decorate(block) {
   });
 
   const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');
-  pdpNavMenu.append(overviewMobileBtn, specsMobileBtn);
-  pdpNavMenu.style.height = '106px';
+  pdpNavMenu.append(overviewMobileBtn);
+  let h = 61;
+  if (fields.includes('position')) {
+    pdpNavMenu.append(specsMobileBtn);
+    h += 45;
+  }
   if (faqLink) {
     pdpNavMenu.append(faqMobileBtn);
-    pdpNavMenu.style.height = '151px';
+    h += 45;
   }
+  pdpNavMenu.style.height = `${h}px`;
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const blockHeight = block.getBoundingClientRect()?.height || 0;
