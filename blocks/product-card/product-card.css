@@ -402,8 +402,8 @@
   .compare-popup-container {
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 0;
+    transform: translateX(-50%);
     background: var(--color-primary-grey-10);
     border-radius: var(--size-20);
     overflow: hidden;
@@ -424,7 +424,7 @@
     }
 
     .popup-scroll-box {
-      max-height: calc(calc(100vh - 324px) - 80px);
+      max-height: calc(90vh - 80px);
       overflow-y: scroll;
       scroll-behavior: smooth;
     }
@@ -705,6 +705,11 @@
       max-height: calc(100vh - 100px);
       border-radius: 0;
       padding-top: var(--size-72);
+
+      .compare-popup-close {
+        width: var(--size-60);
+        height: var(--size-72);
+      }
 
       .popup-scroll-box {
         max-height: calc(90vh - var(--size-72));
