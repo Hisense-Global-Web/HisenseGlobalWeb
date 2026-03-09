@@ -211,7 +211,7 @@ export default function decorate(block) {
   // const loadMoreUrl = loadMoreLink || '#';
   // 新增：分页相关状态
   let currentPage = 1;
-  const loadMoreStep = 9;
+  const loadMoreStep = 27;
   let allGroupedData = []; // 存储所有聚合后的产品数据
   let compareDataArr = []; // 存储比较的产品数据
 
