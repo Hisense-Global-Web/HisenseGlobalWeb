@@ -231,7 +231,7 @@ function mobilePopupTouchStartEnd() {
 
   // 2. 定义变量存储滑动状态
   let startX = 0; // 滑动起点X坐标
-  let startY = 0; // 滑动起点Y坐标
+  // let startY = 0; // 滑动起点Y坐标
   let isSwiping = false; // 是否正在滑动
 
   /**
@@ -243,11 +243,11 @@ function mobilePopupTouchStartEnd() {
     e.preventDefault();
     // 获取起点坐标（兼容touch和mouse事件）
     const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-    const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+    // const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
 
     // 初始化状态
     startX = clientX;
-    startY = clientY;
+    // startY = clientY;
     isSwiping = true;
   }
 
@@ -255,10 +255,10 @@ function mobilePopupTouchStartEnd() {
    * 处理滑动移动事件（仅标记状态，不做滚动）
    * @param {Event} e - 事件对象
    */
-  function handleMove(e) {
-    if (!isSwiping) return;
-    e.preventDefault(); // 阻止默认行为
-  }
+  // function handleMove() {
+  //   if (!isSwiping) return;
+  //   e.preventDefault(); // 阻止默认行为
+  // }
 
   /**
    * 处理滑动结束事件（核心：判断方向+执行滚动）
@@ -269,14 +269,15 @@ function mobilePopupTouchStartEnd() {
 
     // 获取终点坐标
     const clientX = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX;
-    const clientY = e.type === 'touchend' ? e.changedTouches[0].clientY : e.clientY;
+    // const clientY = e.type === 'touchend' ? e.changedTouches[0].clientY : e.clientY;
 
     // 计算滑动偏移量
     const deltaX = clientX - startX; // X轴偏移（正值=右滑，负值=左滑）
-    const deltaY = clientY - startY; // Y轴偏移
+    // const deltaY = clientY - startY; // Y轴偏移
 
     // 过滤无效滑动：横向滑动距离需大于纵向，且超过最小距离
-    if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE || Math.abs(deltaX) < Math.abs(deltaY)) {
+    // if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE || Math.abs(deltaX) < Math.abs(deltaY)) {
+    if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE) {
       isSwiping = false;
       return;
     }
@@ -291,14 +292,10 @@ function mobilePopupTouchStartEnd() {
       // 右滑：向左滚动（显示左侧内容）
       // 配置项：每次滑动的滚动距离（可自定义）
       targetScrollLeft = Math.max(0, currentScrollLeft - SCROLL_DISTANCE);
-      // console.log(SCROLL_DISTANCE, '右滑，向左滚动');
     } else {
       // 左滑：向右滚动（显示右侧内容）
-      // console.log(scrollContainer.scrollWidth, 'scrollwidth');
-      // console.log(scrollContainer.clientWidth, 'clientWidth');
       const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
       targetScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + SCROLL_DISTANCE);
-      // console.log(targetScrollLeft, '左滑，向右滚动');
     }
 
     // 执行滚动（支持平滑滚动）
@@ -316,8 +313,8 @@ function mobilePopupTouchStartEnd() {
   scrollContainer.addEventListener('mousedown', handleStart);
 
   // 4. 监听触摸/鼠标移动事件
-  scrollContainer.addEventListener('touchmove', handleMove);
-  scrollContainer.addEventListener('mousemove', handleMove);
+  // scrollContainer.addEventListener('touchmove', handleMove);
+  // scrollContainer.addEventListener('mousemove', handleMove);
 
   // 5. 监听触摸/鼠标结束事件
   scrollContainer.addEventListener('touchend', handleEnd);
