@@ -154,6 +154,10 @@ main .section.product-gallery-container.product-section-container .product-secti
   display: flex;
   gap: var(--size-8);
   margin-bottom: var(--size-24); 
+  
+  &:empty {
+    display: none;
+  }
 }
 
 .pdp-badges-mobile-group {
