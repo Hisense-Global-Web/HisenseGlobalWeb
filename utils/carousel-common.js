@@ -55,11 +55,11 @@ export function whenElementReady(selector, callback, options = {}) {
 export function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
   const { gap } = window.getComputedStyle(singleItem.parentElement);
-  return singleItem.offsetWidth + parseFloat(gap);
+  return parseFloat(singleItem.getBoundingClientRect().width) + parseFloat(gap);
 }
 
 export function getChildSlideWidth(block) {
-  return block.querySelector('li')?.offsetWidth;
+  return parseFloat(block.querySelector('li')?.getBoundingClientRect().width);
 }
 
 export function updatePosition(block, currentIdx, type) {

@@ -21,7 +21,7 @@ function bindEvent(block, type = 'normal') {
   if (block.classList.contains('bottom-center-style')) {
     maxWidth = block.offsetWidth;
   }
-  const gap = parseInt(window.getComputedStyle(block.querySelector('.media-carousel-track')).gap, 10) || 0;
+  const gap = parseFloat(window.getComputedStyle(block.querySelector('.media-carousel-track')).gap, 10) || 0;
   const CONFIG = {
     itemWidth: getChildSlideWidth(block),
     gap,
