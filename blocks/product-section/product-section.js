@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import { processPath } from '../../utils/carousel-common.js';
+
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default async function decorate(block) {
@@ -16,7 +18,8 @@ export default async function decorate(block) {
         faqIconEl = row.querySelector('img');
       }
       if (i === 4) {
-        faqLink = row.textContent.trim();
+        const str = row.textContent.trim();
+        faqLink = processPath(str);
       }
     }
   });
