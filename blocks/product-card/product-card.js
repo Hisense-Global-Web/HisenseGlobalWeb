@@ -630,9 +630,12 @@ export default function decorate(block) {
         ? group.colors
         : Array.from(colorToVariant.keys());
       const hasColorValue = colorsArray.some((x) => x && x !== undefined);
+      const shouldUseColorSelection = !hasSizeValue && hasColorValue && colorsArray.length > 0;
       // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
       let [selectedColor] = colorsArray;
-      selectedVariant = selectedColor ? (colorToVariant.get(selectedColor) || item) : selectedVariant;
+      if (shouldUseColorSelection) {
+        selectedVariant = selectedColor ? (colorToVariant.get(selectedColor) || item) : selectedVariant;
+      }
       // 用来更新卡片显示为指定变体
       const updateCardWithVariant = (variant) => {
         // image
@@ -713,8 +716,8 @@ export default function decorate(block) {
 
         // 2、为商品卡片中的【Compare】按钮设置当前选中的属性（如： size 或 color）
         let curSelectedProperty = selectedSize || variant.size || group.size || '';
-        // 如果 颜色 有值时，可选择的属性为颜色
-        if (hasColorValue && colorsArray.length > 0) {
+        // 只有在没有 size 时，才回退使用 color
+        if (shouldUseColorSelection) {
           curSelectedProperty = selectedColor || variant.colorRGB || group.colorRGB || '';
         }
         compareEl.setAttribute('data-selected-property', curSelectedProperty);
@@ -759,8 +762,8 @@ export default function decorate(block) {
         const curCardSelectedProperty = compareE.currentTarget.getAttribute('data-selected-property');
         // 当前商品选中属性，对应的数据源（也是比较商品的数据来源）
         let cardSelectedVariant = sizeToVariant.get(curCardSelectedProperty) || selectedVariant || item;
-        // 如果颜色数据存在，则数据来源为color
-        if (hasColorValue && colorsArray.length > 0) {
+        // 只有在没有 size 时，才回退使用 color
+        if (shouldUseColorSelection) {
           cardSelectedVariant = colorToVariant.get(curCardSelectedProperty) || selectedVariant || item;
         }
 
@@ -847,12 +850,12 @@ export default function decorate(block) {
         });
         colorsDiv.appendChild(sp);
       });
-      // 如果color 和size 同时存在 显示color
+      // 如果 size 和 color 同时存在，优先显示 size
       let showDiv = null;
-      if (hasColorValue && colorsArray.length > 0) {
-        showDiv = colorsDiv;
-      } else if (hasSizeValue) {
+      if (hasSizeValue) {
         showDiv = sizesDiv;
+      } else if (shouldUseColorSelection) {
+        showDiv = colorsDiv;
       }
       // card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields);
 
