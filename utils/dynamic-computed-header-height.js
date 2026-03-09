@@ -22,6 +22,7 @@ export default function getDynamicHeaderHeight(block) {
         if (navSecond && getComputedStyle(navSecond).display !== 'none') {
           marginTop += Math.round(navSecond.getBoundingClientRect().height);
         }
+        block.style.marginTop = 0;
         document.documentElement.style.setProperty('--nav-height', `${marginTop}px`);
       }
       return true;
