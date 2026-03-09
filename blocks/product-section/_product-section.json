@@ -65,7 +65,7 @@
           }
         },
         {
-          "component": "text",
+          "component": "aem-content",
           "valueType": "string",
           "name": "faq-link",
           "label": "Faq Link",
