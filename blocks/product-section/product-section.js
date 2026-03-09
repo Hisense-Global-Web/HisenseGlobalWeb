@@ -185,6 +185,9 @@ export default async function decorate(block) {
         const el = document.createElement('div');
         el.classList.add('pdp-color');
         el.style.backgroundColor = p.colorRGB;
+        if (p.colorRGB.toLowerCase() === '#fff' || p.colorRGB.toLowerCase() === '#ffff' || p.colorRGB.toLowerCase() === 'white') {
+          el.style.border = '1px solid #cfcfcf';
+        }
         el.setAttribute('data-sku', p.sku);
         el.setAttribute('data-title', p.title);
 

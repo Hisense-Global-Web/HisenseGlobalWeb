@@ -827,6 +827,9 @@ export default function decorate(block) {
         const sp = document.createElement('span');
         sp.classList.add('plp-product-color');
         sp.style.backgroundColor = s;
+        if (s.toLowerCase() === '#fff' || s.toLowerCase() === '#ffff' || s.toLowerCase() === 'white') {
+          sp.style.border = '1px solid #cfcfcf';
+        }
         if (s === selectedColor) sp.classList.add('selected');
         sp.addEventListener('click', () => {
           if (selectedColor === s) return;
