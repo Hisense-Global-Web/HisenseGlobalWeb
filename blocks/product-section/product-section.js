@@ -359,20 +359,29 @@ export default async function decorate(block) {
     });
   });
   linkGroupEl.appendChild(specsBtn);
-  if (!fields.includes('position')) {
-    specsBtn.classList.add('hide');
-  }
   if (!fields.includes('favorite')) {
     fav.classList.add('hide');
+  }
+  if (!fields.includes('title')) {
+    title.classList.add('hide');
+  }
+  if (!fields.includes('series')) {
+    series.classList.add('hide');
   }
   if (!fields.includes('rating')) {
     ratingWrapper.classList.add('hide');
   }
+  if (!fields.includes('buttons')) {
+    btnGroup.classList.add('hide');
+  }
   if (!fields.includes('priceInfo_regularPrice')) {
     price.classList.add('hide');
   }
-  if (!fields.includes('buttons')) {
-    btnGroup.classList.add('hide');
+  if (!fields.includes('awards')) {
+    badges.classList.add('hide');
+  }
+  if (!fields.includes('position')) {
+    specsBtn.classList.add('hide');
   }
   const showWrapper = hasColorValue ? colorsWrapper : sizesWrapper;
   info.append(fav, series, title, ratingWrapper, price, showWrapper, badges, btnGroup, linkGroupEl, badgesMobileGroup);
