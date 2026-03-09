@@ -1,4 +1,4 @@
-import { isMobile, isMobileWindow } from '../../scripts/device.js';
+import { isMobileWindow } from '../../scripts/device.js';
 import {
   renderCompareDetailData,
   aggregateData,
@@ -211,7 +211,7 @@ export default function decorate(block) {
   // const loadMoreUrl = loadMoreLink || '#';
   // 新增：分页相关状态
   let currentPage = 1;
-  const loadMoreStep = 9;
+  const loadMoreStep = 27;
   let allGroupedData = []; // 存储所有聚合后的产品数据
   let compareDataArr = []; // 存储比较的产品数据
 
@@ -374,6 +374,10 @@ export default function decorate(block) {
         resetLi.querySelector('.compare-img-box img').src = '';
         resetLi.querySelector('.compare-product-title').textContent = '';
       });
+      if (isMobileWindow()) {
+        const footerWrapper = document.querySelector('.footer-wrapper');
+        footerWrapper.style.paddingBottom = 0;
+      }
     });
 
     compareBarEl.append(compareCardList, compareBtnEl, compareBarCloseBtn);
@@ -774,7 +778,7 @@ export default function decorate(block) {
           if (compareDataArr.length === 2) {
             document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
             // 底部 compare bar 出现时且为移动端时，为footer 添加 padding-bottom
-            if (isMobile() || isMobileWindow()) {
+            if (isMobileWindow()) {
               const footerWrapper = document.querySelector('.footer-wrapper');
               footerWrapper.style.paddingBottom = `${(274 / 390) * window.innerWidth}px`;
             }
@@ -827,7 +831,10 @@ export default function decorate(block) {
         const sp = document.createElement('span');
         sp.classList.add('plp-product-color');
         sp.style.backgroundColor = s;
-        if (s.toLowerCase() === '#fff' || s.toLowerCase() === '#ffff' || s.toLowerCase() === 'white') {
+        if (s && (s.toLowerCase() === '#fff'
+        || s.toLowerCase() === '#ffffff'
+        || s.toLowerCase() === 'white'
+        || s.toLowerCase() === 'rgb(255, 255, 255)')) {
           sp.style.border = '1px solid #cfcfcf';
         }
         if (s === selectedColor) sp.classList.add('selected');

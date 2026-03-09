@@ -402,8 +402,8 @@
   .compare-popup-container {
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    bottom:0;
+    transform: translateX(-50%);
     background: var(--color-primary-grey-10);
     border-radius: var(--size-20);
     overflow: hidden;
@@ -424,8 +424,8 @@
     }
 
     .popup-scroll-box {
-      max-height: calc(calc(100vh - 324px) - 80px);
-      overflow-y: scroll;
+      max-height: calc(90vh - 80px);
+      overflow: auto;
       scroll-behavior: smooth;
     }
 
@@ -501,6 +501,8 @@
           .img-box {
             width: min(calc(272 / var(--breakpoint-pc) * 100vw), 272px);
             height: min(calc(272 / var(--breakpoint-pc) * 100vw), 272px);
+            display: flex;
+            align-items: center;
 
             img {
               width: 100%;
@@ -706,9 +708,15 @@
       border-radius: 0;
       padding-top: var(--size-72);
 
+      .compare-popup-close {
+        width: var(--size-60);
+        height: var(--size-72);
+      }
+
       .popup-scroll-box {
         max-height: calc(90vh - var(--size-72));
-        overflow-x: hidden;
+
+        /* overflow-x: hidden; */
       }
 
       .compare-popup-tit-box {

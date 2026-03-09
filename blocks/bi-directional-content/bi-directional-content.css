@@ -30,7 +30,6 @@
    font-size: var(--fontsize-pc-h4);
    margin-top:  var(--fontsize-pc-h4);
    font-weight: var(--fontweight-medium);
-    text-transform: capitalize;
 
    @media (width < 860px) {
     font-size: var(--size-14);
@@ -101,7 +100,8 @@
   font-size: var(--fontsize-pc-h3);
   margin-bottom: var(--spacing-xs);
   color: var(--color-hisense-black);
-
+  text-transform: capitalize;
+ 
    @media (width < 860px) {
     font-size: var(--size-30);
     margin-bottom: var(--spacing-2xs);

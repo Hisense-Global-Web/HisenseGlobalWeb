@@ -24,7 +24,7 @@ function getEndpointUrl(endpointPath) {
   if (isAuthorEnv && !path.includes('/content/cq:tags')) {
     let pathWithoutJson = path.replace(/\.json$/, '');
     pathWithoutJson = pathWithoutJson.replace(/^\/product\/?/, '/') || '/';
-    const graphqlPath = `/bin/hisense/productList.json?path=${pathWithoutJson}`;
+    const graphqlPath = `/graphql/execute.json/global/GetFaqByPath;path=/content/dam/hisense/content-fragments${pathWithoutJson}`;
     url = window.GRAPHQL_BASE_URL ? `${window.GRAPHQL_BASE_URL}${graphqlPath}` : graphqlPath;
   } else {
     const baseUrl = window.GRAPHQL_BASE_URL || '';
@@ -448,23 +448,37 @@ function getUrlParameter(name) {
   return urlParams.get(name);
 }
 
+function normalizeFilterValue(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function matchesFilterValue(source, target) {
+  const normalizedTarget = normalizeFilterValue(target);
+  if (!normalizedTarget) return true;
+
+  if (Array.isArray(source)) {
+    return source.some((item) => normalizeFilterValue(item) === normalizedTarget);
+  }
+
+  if (typeof source === 'string') {
+    return normalizeFilterValue(source) === normalizedTarget;
+  }
+
+  return false;
+}
+
+// 根据Category过滤FAQ列表
+function filterFaqByCategory(faqData, category) {
+  if (!category) return faqData;
+
+  return faqData.filter((faq) => matchesFilterValue(faq.productCategory, category));
+}
+
 // 根据SKU过滤FAQ列表
 function filterFaqBySku(faqData, sku) {
   if (!sku) return faqData;
 
-  return faqData.filter((faq) => {
-    const faqSkus = faq.sku;
-
-    if (Array.isArray(faqSkus)) {
-      return faqSkus.some((item) => String(item).toLowerCase() === String(sku).toLowerCase());
-    }
-
-    if (typeof faqSkus === 'string') {
-      return String(faqSkus).toLowerCase() === String(sku).toLowerCase();
-    }
-
-    return false;
-  });
+  return faqData.filter((faq) => matchesFilterValue(faq.sku, sku));
 }
 
 // 获取相对路径
@@ -559,10 +573,13 @@ export default async function decorate(block) {
 
   state.total = allFaqData.length;
 
-  // 根据URL参数sku过滤FAQ
+  // 根据URL参数过滤FAQ，category 优先级高于 sku
+  const categoryParam = getUrlParameter('category');
   const skuParam = getUrlParameter('sku');
   let filteredFaqData = allFaqData;
-  if (skuParam) {
+  if (categoryParam) {
+    filteredFaqData = filterFaqByCategory(allFaqData, categoryParam);
+  } else if (skuParam) {
     filteredFaqData = filterFaqBySku(allFaqData, skuParam);
   }
 

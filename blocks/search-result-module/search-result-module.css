@@ -278,6 +278,8 @@
       line-height: 1.6;
       color: var(--color-primary-grey-70);
       text-align: left;
+      display: flex;
+      justify-content: center;
 
       @media (width < 860px) {
         font-size: var(--fontsize-body2);

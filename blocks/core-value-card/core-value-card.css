@@ -34,6 +34,7 @@
 
 .core-value-card-wrapper .center-style .title >div{
   text-align: center;
+  margin: auto;
 }
 
 .core-value-card .title > div:nth-child(2){

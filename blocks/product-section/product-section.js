@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import { processPath } from '../../utils/carousel-common.js';
+
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default async function decorate(block) {
@@ -6,8 +8,12 @@ export default async function decorate(block) {
   let fields = [];
   let faqIconEl = null;
   let faqLink = '';
+  let linkSku = '';
   rows.forEach((row, i) => {
     const text = row.textContent && row.textContent.trim();
+    if (i === 1) {
+      linkSku = row.textContent && row.textContent.trim();
+    }
     if (i === 2 && text && text.indexOf(',') >= 0) {
       fields = text.split(',').map((s) => s.trim()).filter(Boolean);
     }
@@ -16,7 +22,8 @@ export default async function decorate(block) {
         faqIconEl = row.querySelector('img');
       }
       if (i === 4) {
-        faqLink = row.textContent.trim();
+        const str = processPath(row.textContent.trim() || '');
+        faqLink = `${str}?sku=${linkSku}`;
       }
     }
   });
@@ -108,6 +115,9 @@ export default async function decorate(block) {
   // 根据SKU找到对应的产品
   const currentProduct = items ? items.find((item) => item.sku === sku) : null;
   const product = currentProduct || (items && items[0] ? items[0] : null);
+  if (product.category) {
+    faqLink += `&${product.category}`;
+  }
 
   // 将当前产品数据保存到window中供spec组件使用
   window.currentProduct = product;
@@ -185,7 +195,10 @@ export default async function decorate(block) {
         const el = document.createElement('div');
         el.classList.add('pdp-color');
         el.style.backgroundColor = p.colorRGB;
-        if (p.colorRGB.toLowerCase() === '#fff' || p.colorRGB.toLowerCase() === '#ffff' || p.colorRGB.toLowerCase() === 'white') {
+        if (p.colorRGB && (p.colorRGB.toLowerCase() === '#fff'
+        || p.colorRGB.toLowerCase() === '#ffffff'
+        || p.colorRGB.toLowerCase() === 'white'
+        || p.colorRGB.toLowerCase() === 'rgb(255, 255, 255)')) {
           el.style.border = '1px solid #cfcfcf';
         }
         el.setAttribute('data-sku', p.sku);
@@ -421,12 +434,17 @@ export default async function decorate(block) {
   });
 
   const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');
-  pdpNavMenu.append(overviewMobileBtn, specsMobileBtn);
-  pdpNavMenu.style.height = '106px';
+  pdpNavMenu.append(overviewMobileBtn);
+  let h = 61;
+  if (fields.includes('position')) {
+    pdpNavMenu.append(specsMobileBtn);
+    h += 45;
+  }
   if (faqLink) {
     pdpNavMenu.append(faqMobileBtn);
-    pdpNavMenu.style.height = '151px';
+    h += 45;
   }
+  pdpNavMenu.style.height = `${h}px`;
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const blockHeight = block.getBoundingClientRect()?.height || 0;
