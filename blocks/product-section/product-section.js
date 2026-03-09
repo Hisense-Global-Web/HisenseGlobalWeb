@@ -175,6 +175,8 @@ export default async function decorate(block) {
   const colorsWrapper = document.createElement('div');
   colorsWrapper.className = 'pdp-colors';
   const hasColorValue = similarProducts.some((item) => item.colorRGB);
+  const sizeProducts = similarProducts.filter((item) => item.size);
+  const hasSizeValue = sizeProducts.length > 0;
   if (similarProducts.length > 0) {
     // size 和 color 同时有值 优先显示color
     if (hasColorValue) {
@@ -229,9 +231,9 @@ export default async function decorate(block) {
 
         colorsWrapper.appendChild(el);
       });
-    } else {
+    } else if (hasSizeValue) {
       // 对尺寸进行升序排序
-      const sortedProducts = similarProducts.sort((a, b) => {
+      const sortedProducts = sizeProducts.sort((a, b) => {
         const sizeA = parseInt(a.size, 10);
         const sizeB = parseInt(b.size, 10);
         return sizeA - sizeB;
@@ -383,8 +385,13 @@ export default async function decorate(block) {
   if (!fields.includes('position')) {
     specsBtn.classList.add('hide');
   }
-  const showWrapper = hasColorValue ? colorsWrapper : sizesWrapper;
-  info.append(fav, series, title, ratingWrapper, price, showWrapper, badges, btnGroup, linkGroupEl, badgesMobileGroup);
+  info.append(fav, series, title, ratingWrapper, price);
+  if (hasColorValue) {
+    info.append(colorsWrapper);
+  } else if (hasSizeValue) {
+    info.append(sizesWrapper);
+  }
+  info.append(badges, btnGroup, linkGroupEl, badgesMobileGroup);
 
   block.replaceChildren(info);
 
