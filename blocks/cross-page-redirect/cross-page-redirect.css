@@ -35,7 +35,7 @@
     .text {
         width: 100%;
         font-size: var(--size-title1, 24px);
-        font-weight: var(--fontweight-medium);
+        font-weight: var(--fontweight-book);
         line-height: 120%; /* 28.8px */
     }
     
@@ -140,7 +140,7 @@
     .cross-page-redirect .text {
         width: 100%;
         font-size: var(--fontsize-body2, 14px);
-        font-weight: var(--fontweight-medium);
+        font-weight: var(--fontweight-book);
         line-height: 140%; /* 19.6px */
         letter-spacing: 0;
         text-align: center;
