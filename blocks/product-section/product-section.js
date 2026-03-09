@@ -8,8 +8,12 @@ export default async function decorate(block) {
   let fields = [];
   let faqIconEl = null;
   let faqLink = '';
+  let linkSku = '';
   rows.forEach((row, i) => {
     const text = row.textContent && row.textContent.trim();
+    if (i === 1) {
+      linkSku = row.textContent && row.textContent.trim();
+    }
     if (i === 2 && text && text.indexOf(',') >= 0) {
       fields = text.split(',').map((s) => s.trim()).filter(Boolean);
     }
@@ -18,8 +22,8 @@ export default async function decorate(block) {
         faqIconEl = row.querySelector('img');
       }
       if (i === 4) {
-        const str = row.textContent.trim();
-        faqLink = processPath(str);
+        const str = processPath(row.textContent.trim() || '');
+        faqLink = `${str}?sku=${linkSku}`;
       }
     }
   });
