@@ -276,7 +276,7 @@ function createCtaLink(text, href, iconUrl) {
   return link;
 }
 
-function createDocumentationItem(documentItem, country) {
+function createDocumentationItem(documentItem) {
   const listItem = document.createElement('li');
   const item = document.createElement('div');
   item.className = 'item';
@@ -296,10 +296,10 @@ function createDocumentationItem(documentItem, country) {
 
   if (documentItem?.link) {
     item.appendChild(createCtaLink(
-    'Download',
-    toAbsoluteUrl(documentItem.link),
-    toAbsoluteUrl('/resources/download-arrow.svg'),
-  ));
+      'Download',
+      toAbsoluteUrl(documentItem.link),
+      toAbsoluteUrl('/resources/download-arrow.svg'),
+    ));
   }
 
   listItem.appendChild(item);
@@ -541,7 +541,7 @@ function getFirmwareState(config) {
 function buildTabConfigs(config, supportData, country) {
   const firmwareState = getFirmwareState(config);
   const documents = supportData.documents.length
-    ? supportData.documents.map((item) => createDocumentationItem(item, country))
+    ? supportData.documents.map((item) => createDocumentationItem(item))
     : [createEmptyStateItem(DEFAULT_DOCUMENTATION_EMPTY)];
   const firmwareItems = firmwareState.hasContent
     ? [createFirmwareItem(config)]
