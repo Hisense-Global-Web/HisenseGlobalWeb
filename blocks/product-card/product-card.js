@@ -760,7 +760,7 @@ export default function decorate(block) {
         // card 中的 【Compare】 btn 是否添加 选中类
         compareEl.classList.toggle('compare-checked');
         // 当前商品选中属性
-        const curCardSelectedProperty = compareE.currentTarget.getAttribute('data-selected-property');
+        const curCardSelectedProperty = compareE.currentTarget.getAttribute('data-selected-property') ?? '';
         // 当前商品选中属性，对应的数据源（也是比较商品的数据来源）
         let cardSelectedVariant = sizeToVariant.get(curCardSelectedProperty);
         // 如果颜色数据存在，则数据来源为color
