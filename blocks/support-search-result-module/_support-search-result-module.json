@@ -16,6 +16,7 @@
               "pageSize": "12",
               "emptyResultHeading": "No results for",
               "noResultSubtitle": "Try a new search or the below suggestions.",
+              "productCardLink": "",
               "prevButtonAriaLabel": "Prev",
               "nextButtonAriaLabel": "Next",
               "loadMoreLabel": "Load More"
@@ -51,6 +52,12 @@
           "valueType": "number",
           "name": "pageSize",
           "label": "Page Size"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "productCardLink",
+          "label": "Product Card Link"
         },
         {
           "component": "text",

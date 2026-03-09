@@ -2,6 +2,22 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const DEFAULT_PAGE_SIZE = 12;
+const CONFIG_KEYS = new Set([
+  'pagesize',
+  'pageSize',
+  'emptyresultheading',
+  'emptyResultHeading',
+  'noresultsubtitle',
+  'noResultSubtitle',
+  'prevbuttonarialabel',
+  'prevButtonAriaLabel',
+  'nextbuttonarialabel',
+  'nextButtonAriaLabel',
+  'loadmorelabel',
+  'loadMoreLabel',
+  'productcardlink',
+  'productCardLink',
+]);
 
 function simpleHash(str) {
   const s = String(str);
@@ -135,11 +151,37 @@ function filterFaqs(items, keyword) {
   });
 }
 
+function buildConfiguredProductCardLink(configuredLink, sku) {
+  if (!configuredLink) return '';
+
+  try {
+    const url = new URL(configuredLink, window.location.origin);
+    if (sku) {
+      url.searchParams.set('sku', sku);
+    }
+    if (url.origin === window.location.origin) {
+      return `${url.pathname}${url.search}${url.hash}`;
+    }
+    return url.toString();
+  } catch (e) {
+    const separator = configuredLink.includes('?') ? '&' : '?';
+    return sku ? `${configuredLink}${separator}sku=${encodeURIComponent(sku)}` : configuredLink;
+  }
+}
+
+function getProductCardHref(item, config) {
+  const configuredLink = config.productcardlink || config.productCardLink;
+  if (configuredLink) {
+    return buildConfiguredProductCardLink(configuredLink, item?.sku);
+  }
+  return item.productDetailPageLink || '#';
+}
+
 // 创建单个产品卡片
-function createProductCard(item) {
+function createProductCard(item, config = {}) {
   const card = document.createElement('a');
   card.className = 'product-card';
-  card.href = item.productDetailPageLink || '#';
+  card.href = getProductCardHref(item, config);
   if (card.href.startsWith('http')) {
     card.setAttribute('target', '_blank');
     card.setAttribute('rel', 'noopener noreferrer');
@@ -354,16 +396,18 @@ function parseConfig(block) {
     const cols = [...row.children];
     if (cols.length < 2) return;
 
+    const rawKey = (cols[0].textContent || '').trim();
+    const normalizedKey = rawKey.toLowerCase();
     const link = cols[1].querySelector('a');
-    if (link) {
+    if (link && !CONFIG_KEYS.has(normalizedKey) && !CONFIG_KEYS.has(rawKey)) {
       items.push({
-        title: (cols[0].textContent || '').trim(),
+        title: rawKey,
         endpoint: link.getAttribute('href') || '',
         sourceRow: row,
       });
     } else {
-      const key = (cols[0].textContent || '').trim().toLowerCase();
-      const value = (cols[1].textContent || '').trim();
+      const key = normalizedKey;
+      const value = link ? (link.getAttribute('href') || '').trim() : (cols[1].textContent || '').trim();
       config[key] = value;
     }
   });
@@ -584,7 +628,7 @@ export default async function decorate(block) {
       if (grid) {
         grid.textContent = '';
         pageItems.forEach((item) => {
-          grid.appendChild(createProductCard(item));
+          grid.appendChild(createProductCard(item, config));
         });
       }
     } else if (type === 'faq') {
@@ -617,7 +661,7 @@ export default async function decorate(block) {
 
       moreItems.forEach((item, idx) => {
         if (type === 'product') {
-          grid.appendChild(createProductCard(item));
+          grid.appendChild(createProductCard(item, config));
         } else if (type === 'faq') {
           grid.appendChild(createFaqCard(item, moreStart + idx));
           initFaqAccordion(tabContent);

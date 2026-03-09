@@ -4775,6 +4775,12 @@
       {
         "component": "text",
         "valueType": "string",
+        "name": "productCardLink",
+        "label": "Product Card Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
         "name": "prevButtonAriaLabel",
         "label": "Previous Button Aria Label"
       },
