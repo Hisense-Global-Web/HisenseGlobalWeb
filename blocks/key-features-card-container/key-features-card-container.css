@@ -13,7 +13,7 @@
   color: var(--color-primary-grey-100);
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
-  font-size: var(--fontsize-h2);
+  font-size: var(--fontsize-pc-h2);
   margin-bottom: var(--large);
   text-align: center;
 
@@ -90,6 +90,7 @@
   line-height: 120%;
   margin-top: var(--spacing-2xs);
   text-align: center;
+  width: var(--size-134);
 }
 
 
