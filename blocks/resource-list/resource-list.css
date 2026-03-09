@@ -33,7 +33,7 @@ main .section.resource-list-container .resource-list-wrapper {
         padding: var(--size-32);
         
         @media (width < 860px) {
-          width: min(calc(300 / var(--breakpoint-mobile) * 100vw), 300px);
+          width: calc(300 / var(--breakpoint-mobile) * 100vw);
           padding: var(--size-24);
           
           &:first-child {
