@@ -71,9 +71,11 @@ function getLocalizedEndpoint(configEndpoint) {
 
   const endpointSegments = configEndpoint.split('/').filter(Boolean);
   const prefix = endpointSegments[0] || 'product';
-  const lastSegment = endpointSegments[endpointSegments.length - 1] || 'televisions.json';
+  const rest = endpointSegments.slice(3).join('/');
+  const endsWithJson = configEndpoint.endsWith('.json');
 
-  return `/${prefix}/${country}/${language}/${lastSegment}`;
+  if (rest) return `/${prefix}/${country}/${language}/${rest}`;
+  return endsWithJson ? `/${prefix}/${country}/${language}.json` : `/${prefix}/${country}/${language}`;
 }
 
 // 根据 endpoint 路径获取数据类型
