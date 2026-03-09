@@ -116,7 +116,7 @@ export default async function decorate(block) {
   const currentProduct = items ? items.find((item) => item.sku === sku) : null;
   const product = currentProduct || (items && items[0] ? items[0] : null);
   if (product.category) {
-    faqLink += `&${product.category}`;
+    faqLink += `&category=${product.category}`;
   }
 
   // 将当前产品数据保存到window中供spec组件使用
@@ -300,11 +300,6 @@ export default async function decorate(block) {
       badgesMobile.appendChild(badgesMobileItem);
     });
     badgesMobileGroup.appendChild(badgesMobile);
-  } else if (product && product.badge) {
-    const b = document.createElement('div');
-    b.className = 'pdp-badge';
-    b.textContent = product.badge;
-    badges.appendChild(b);
   }
 
   const buy = document.createElement('button');
