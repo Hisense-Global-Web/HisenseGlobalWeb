@@ -185,7 +185,10 @@ export default async function decorate(block) {
         const el = document.createElement('div');
         el.classList.add('pdp-color');
         el.style.backgroundColor = p.colorRGB;
-        if (p.colorRGB.toLowerCase() === '#fff' || p.colorRGB.toLowerCase() === '#ffff' || p.colorRGB.toLowerCase() === 'white') {
+        if (p.colorRGB.toLowerCase() === '#fff'
+        || p.colorRGB.toLowerCase() === '#ffffff'
+        || p.colorRGB.toLowerCase() === 'white'
+        || p.colorRGB.toLowerCase() === 'rgb(255, 255, 255)') {
           el.style.border = '1px solid #cfcfcf';
         }
         el.setAttribute('data-sku', p.sku);
