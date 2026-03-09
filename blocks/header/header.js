@@ -394,7 +394,6 @@ function buildDropdown(data) {
 
 function buildSupportDropdown(mainEl) {
   const supportEl = mainEl.querySelector('.support-navigation-route-container');
-  if (!supportEl) { return; }
   const dropdown = document.createElement('div');
   dropdown.className = 'nav-dropdown';
   const content = document.createElement('div');
@@ -503,7 +502,6 @@ function buildSupportDropdown(mainEl) {
   main.append(productsWrap, linksWrap);
   content.append(main);
   dropdown.append(content);
-  // eslint-disable-next-line consistent-return
   return dropdown;
 }
 
@@ -608,14 +606,12 @@ const hideSearchBoxPopup = (e) => {
 
 const buildSearchBoxPopup = (mainEl) => {
   const searchBoxEl = mainEl.querySelector('.search-box-container');
-  if (!searchBoxEl) { return; }
   searchBoxEl.classList.add('search-box-width');
   const searchBoxOuterEl = document.createElement('div');
   searchBoxOuterEl.className = 'search-box-outer';
   searchBoxOuterEl.appendChild(searchBoxEl);
   searchBoxOuterEl.addEventListener('mouseenter', showSearchBoxPopup);
   searchBoxOuterEl.addEventListener('mouseleave', hideSearchBoxPopup);
-  // eslint-disable-next-line consistent-return
   return searchBoxOuterEl;
 };
 
@@ -798,10 +794,7 @@ export default async function decorate(block) {
       mask.className = 'nav-mask';
       mask.id = 'nav-mask';
       const dropdown = buildDropdown(dropdownData);
-      link.append(mask);
-      if (dropdown) {
-        link.append(dropdown);
-      }
+      link.append(mask, dropdown);
     }
     linksEl.append(link);
 
@@ -883,10 +876,7 @@ export default async function decorate(block) {
       mask.className = 'nav-mask';
       mask.id = 'nav-mask';
       const dropdownEl = buildSupportDropdown(fragment);
-      link.append(mask);
-      if (dropdownEl) {
-        link.append(dropdownEl);
-      }
+      cloneLink.append(mask, dropdownEl);
     }
     actionsEl.append(cloneLink);
     mobileActions.append(mobileCloneLink);
@@ -1001,124 +991,117 @@ export default async function decorate(block) {
   }
 
   const supportEl = fragment.querySelector('.support-navigation-route-container');
-  if (supportEl) {
-    const supportRouteBaseList = supportEl.querySelector('.support-navigation-route-wrapper .support-navigation-route');
-    const support = [...supportRouteBaseList.children].map((item) => {
-      const title = item.children[0]?.textContent?.trim() || '';
-      const href = item.children[1]?.textContent?.trim() || '#';
-      return { href, title };
+  const supportRouteBaseList = supportEl.querySelector('.support-navigation-route-wrapper .support-navigation-route');
+  const support = [...supportRouteBaseList.children].map((item) => {
+    const title = item.children[0]?.textContent?.trim() || '';
+    const href = item.children[1]?.textContent?.trim() || '#';
+    return { href, title };
+  });
+
+  support.forEach((item) => {
+    const mobileSecondMenuSupportItem = document.createElement('div');
+    const isCurrent = window.location.pathname.includes(item.href);
+    mobileSecondMenuSupportItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
+    mobileSecondMenuSupportItem.innerHTML = item.title;
+    mobileSecondMenuSupportItem.dataset.href = item.href;
+    mobileSecondMenuSupportItem.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.location.href = item.href;
     });
+    mobileSecondMenuSupport.append(mobileSecondMenuSupportItem);
+  });
+  mobileSecondMenuSupport.append(dividingLine.cloneNode(true));
 
-    support.forEach((item) => {
-      const mobileSecondMenuSupportItem = document.createElement('div');
-      const isCurrent = window.location.pathname.includes(item.href);
-      mobileSecondMenuSupportItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
-      mobileSecondMenuSupportItem.innerHTML = item.title;
-      mobileSecondMenuSupportItem.dataset.href = item.href;
-      mobileSecondMenuSupportItem.addEventListener('click', (e) => {
-        e.stopPropagation();
-        window.location.href = item.href;
-      });
-      mobileSecondMenuSupport.append(mobileSecondMenuSupportItem);
-    });
-    mobileSecondMenuSupport.append(dividingLine.cloneNode(true));
+  // support product list
+  const supportProductBaseList = supportEl.querySelectorAll('.support-navigation-products-links-wrapper .support-navigation-products-links');
+  supportProductBaseList.forEach((proGroup) => {
+    const supportProductEl = document.createElement('div');
+    supportProductEl.className = 'support-product mobile-link hide';
 
-    // support product list
-    const supportProductBaseList = supportEl.querySelectorAll('.support-navigation-products-links-wrapper .support-navigation-products-links');
-    supportProductBaseList.forEach((proGroup) => {
-      const supportProductEl = document.createElement('div');
-      supportProductEl.className = 'support-product mobile-link hide';
-
-      [...proGroup.children].forEach((item, index) => {
-        if (index) {
-          const hasGroup = supportProductEl.querySelector('.mobile-link-second-list') !== null;
-          if (!hasGroup) {
-            const orderGroup = document.createElement('div');
-            orderGroup.className = 'mobile-link-second-list';
-            supportProductEl.append(orderGroup);
-          }
-          const supportProductItemEl = supportProductEl.querySelector('.mobile-link-second-list');
-          const link = document.createElement('div');
-          link.className = 'mobile-product-item';
-          const title = item.children[2].textContent.trim() || '';
-          const href = item.children[3].textContent.trim() || '#';
-          const span1 = document.createElement('span');
-          span1.textContent = title;
-          link.append(span1);
-          if (href && href !== '#') {
-            link.dataset.href = href;
-            link.addEventListener('click', (e) => {
-              e.stopPropagation();
-              window.location.href = href;
-            });
-          }
-          supportProductItemEl.append(link);
-        } else {
-          const mobileLinkTitle = document.createElement('span');
-          mobileLinkTitle.textContent = item.textContent?.trim();
-          const arrow = document.createElement('img');
-          arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
-          arrow.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const mobileLinksEl = e.target.closest('.mobile-second-menu');
-            if (!mobileLinksEl) {
-              return;
-            }
-            const shouldShow = e.target.closest('.mobile-link').classList.contains('hide');
-            mobileLinksEl.querySelectorAll('.mobile-link').forEach((el) => {
-              el.classList.add('hide');
-            });
-            if (shouldShow) {
-              e.target.closest('.mobile-link').classList.remove('hide');
-            }
-          });
-          const mobileLinkTitleLine = document.createElement('div');
-          mobileLinkTitleLine.className = 'mobile-link-title-line';
-          mobileLinkTitleLine.append(mobileLinkTitle, arrow);
-          supportProductEl.append(mobileLinkTitleLine);
+    [...proGroup.children].forEach((item, index) => {
+      if (index) {
+        const hasGroup = supportProductEl.querySelector('.mobile-link-second-list') !== null;
+        if (!hasGroup) {
+          const orderGroup = document.createElement('div');
+          orderGroup.className = 'mobile-link-second-list';
+          supportProductEl.append(orderGroup);
         }
-      });
-      mobileSecondMenuSupport.append(supportProductEl, dividingLine.cloneNode(true));
-    });
-
-    // support contact us list
-    const contactUsEl = document.createElement('div');
-    contactUsEl.className = 'contact-us-links';
-    const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
-    [...supportMenuLinksList.children].forEach((item) => {
-      const title = item.children[2].textContent.trim() || '';
-      const href = item.children[3].textContent.trim() || '#';
-      const div = document.createElement('div');
-      div.className = 'mobile-product-item';
-      if (href && href !== '#') {
-        const a = document.createElement('a');
-        a.href = href;
-        a.textContent = title;
-        div.append(a);
+        const supportProductItemEl = supportProductEl.querySelector('.mobile-link-second-list');
+        const link = document.createElement('div');
+        link.className = 'mobile-product-item';
+        const title = item.children[2].textContent.trim() || '';
+        const href = item.children[3].textContent.trim() || '#';
+        const span1 = document.createElement('span');
+        span1.textContent = title;
+        link.append(span1);
+        if (href && href !== '#') {
+          link.dataset.href = href;
+          link.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.location.href = href;
+          });
+        }
+        supportProductItemEl.append(link);
       } else {
-        div.textContent = title;
+        const mobileLinkTitle = document.createElement('span');
+        mobileLinkTitle.textContent = item.textContent?.trim();
+        const arrow = document.createElement('img');
+        arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+        arrow.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const mobileLinksEl = e.target.closest('.mobile-second-menu');
+          if (!mobileLinksEl) { return; }
+          const shouldShow = e.target.closest('.mobile-link').classList.contains('hide');
+          mobileLinksEl.querySelectorAll('.mobile-link').forEach((el) => {
+            el.classList.add('hide');
+          });
+          if (shouldShow) {
+            e.target.closest('.mobile-link').classList.remove('hide');
+          }
+        });
+        const mobileLinkTitleLine = document.createElement('div');
+        mobileLinkTitleLine.className = 'mobile-link-title-line';
+        mobileLinkTitleLine.append(mobileLinkTitle, arrow);
+        supportProductEl.append(mobileLinkTitleLine);
       }
-      contactUsEl.append(div);
     });
-    mobileSecondMenuSupport.append(contactUsEl);
-  }
+    mobileSecondMenuSupport.append(supportProductEl, dividingLine.cloneNode(true));
+  });
+
+  // support contact us list
+  const contactUsEl = document.createElement('div');
+  contactUsEl.className = 'contact-us-links';
+  const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
+  [...supportMenuLinksList.children].forEach((item) => {
+    const title = item.children[2].textContent.trim() || '';
+    const href = item.children[3].textContent.trim() || '#';
+    const div = document.createElement('div');
+    div.className = 'mobile-product-item';
+    if (href && href !== '#') {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = title;
+      div.append(a);
+    } else {
+      div.textContent = title;
+    }
+    contactUsEl.append(div);
+  });
+  mobileSecondMenuSupport.append(contactUsEl);
+
   // 展开SearchBox
   const searchBoxEl = buildSearchBoxPopup(fragment);
   // navigation.append(searchBoxPopEl);
   const searchBoxPopupEl = document.createElement('div');
-  if (searchBoxEl) {
-    searchBoxPopupEl.className = 'search-box-popup';
-    searchBoxPopupEl.appendChild(searchBoxEl);
-  }
+  searchBoxPopupEl.className = 'search-box-popup';
+  searchBoxPopupEl.appendChild(searchBoxEl);
 
   navigation.append(navContainer);
   navigation.append(navSecond);
   navigation.append(mobileMenu);
   navigation.append(mobileSecondMenu);
   navigation.append(mobileSecondMenuSupport);
-  if (searchBoxEl) {
-    navigation.append(searchBoxPopupEl);
-  }
+  navigation.append(searchBoxPopupEl);
   const shadow = document.createElement('div');
   shadow.className = 'shadow';
   navigation.append(shadow);
