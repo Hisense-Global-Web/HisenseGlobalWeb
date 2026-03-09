@@ -457,22 +457,22 @@ export default async function decorate(block) {
     ${generateLanguageItems(regionData.country.languages, regionData.country.selectedLanguage)}
   </div>` : '';
     const regionIcon = lanGroup.querySelector('.region-icon');
-    if (regionIcon && data.legalLinks.regionLink) {
+    if (regionIcon) {
       regionIcon.addEventListener('click', () => {
-        window.location.href = data.legalLinks.regionLink;
+        window.location.href = `/${country}/${regionData.country.selectedLanguage}/select-your-region`;
       });
     }
     const lanComEl = lanGroup.querySelector('.footer-lan-com');
-    if (lanComEl && data.legalLinks.regionLink) {
+    if (lanComEl) {
       lanComEl.addEventListener('click', () => {
-        window.location.href = data.legalLinks.regionLink;
+        window.location.href = `/${country}/${regionData.country.selectedLanguage}/select-your-region`;
       });
     }
     const langItems = lanGroup.querySelectorAll('.footer-lan-item');
     langItems.forEach((item) => {
       item.addEventListener('click', (e) => {
         if (e.currentTarget.classList.contains('active')) {
-          window.location.href = data.legalLinks.regionLink;
+          window.location.href = `/${country}/${regionData.country.selectedLanguage}/select-your-region`;
           return;
         }
         const languageIndex = segments[0] === 'content' ? 3 : 1;
