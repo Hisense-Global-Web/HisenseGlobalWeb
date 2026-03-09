@@ -115,6 +115,9 @@ export default async function decorate(block) {
   // 根据SKU找到对应的产品
   const currentProduct = items ? items.find((item) => item.sku === sku) : null;
   const product = currentProduct || (items && items[0] ? items[0] : null);
+  if (product.category) {
+    faqLink += `&${product.category}`;
+  }
 
   // 将当前产品数据保存到window中供spec组件使用
   window.currentProduct = product;
@@ -431,12 +434,17 @@ export default async function decorate(block) {
   });
 
   const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');
-  pdpNavMenu.append(overviewMobileBtn, specsMobileBtn);
-  pdpNavMenu.style.height = '106px';
+  pdpNavMenu.append(overviewMobileBtn);
+  let h = 61;
+  if (fields.includes('position')) {
+    pdpNavMenu.append(specsMobileBtn);
+    h += 45;
+  }
   if (faqLink) {
     pdpNavMenu.append(faqMobileBtn);
-    pdpNavMenu.style.height = '151px';
+    h += 45;
   }
+  pdpNavMenu.style.height = `${h}px`;
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const blockHeight = block.getBoundingClientRect()?.height || 0;
