@@ -1,5 +1,6 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
 
 const ARROW_LEFT_SVG = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path class="circle" d="M14 0.5C6.544 0.5 0.5 6.544 0.5 14C0.5 21.456 6.544 27.5 14 27.5C21.456 27.5 27.5 21.456 27.5 14C27.5 6.544 21.456 0.5 14 0.5Z" stroke="#BBBBBB"/>
@@ -655,4 +656,5 @@ export default async function decorate(block) {
 
   initTabsAndCarousel(block);
   block.classList.add('loaded');
+  getDynamicHeaderHeight(block);
 }
