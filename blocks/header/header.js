@@ -503,6 +503,7 @@ function buildSupportDropdown(mainEl) {
   main.append(productsWrap, linksWrap);
   content.append(main);
   dropdown.append(content);
+  // eslint-disable-next-line consistent-return
   return dropdown;
 }
 
@@ -1011,7 +1012,7 @@ export default async function decorate(block) {
     support.forEach((item) => {
       const mobileSecondMenuSupportItem = document.createElement('div');
       const isCurrent = window.location.pathname.includes(item.href);
-      mobileSecondMenuSupportItem.className = `mobile-second-menu-item ${ isCurrent ? 'current' : '' }`;
+      mobileSecondMenuSupportItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
       mobileSecondMenuSupportItem.innerHTML = item.title;
       mobileSecondMenuSupportItem.dataset.href = item.href;
       mobileSecondMenuSupportItem.addEventListener('click', (e) => {
@@ -1056,7 +1057,7 @@ export default async function decorate(block) {
           const mobileLinkTitle = document.createElement('span');
           mobileLinkTitle.textContent = item.textContent?.trim();
           const arrow = document.createElement('img');
-          arrow.src = `/content/dam/hisense/${ country }/common-icons/chevron-up.svg`;
+          arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
           arrow.addEventListener('click', (e) => {
             e.stopPropagation();
             const mobileLinksEl = e.target.closest('.mobile-second-menu');
