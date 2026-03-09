@@ -3917,6 +3917,63 @@
     ]
   },
   {
+    "id": "product-resources",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "container",
+        "name": "firmwareContainer",
+        "label": "Firmware Settings",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "name": "firmware",
+            "label": "Firmware Title",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "firmwareButton",
+            "label": "Firmware Button Text",
+            "valueType": "string"
+          },
+          {
+            "component": "aem-content",
+            "name": "firmwareLink",
+            "label": "Firmware Link",
+            "valueType": "string"
+          },
+          {
+            "component": "reference",
+            "name": "firmwareIcon",
+            "label": "Firmware Icon",
+            "valueType": "string",
+            "multi": false
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "name": "noResultContent",
+        "label": "No Result Content",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "productNotFoundMessage",
+        "label": "Product Not Found Message",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "product-section",
     "fields": [
       {

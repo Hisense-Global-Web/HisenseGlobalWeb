@@ -1,0 +1,87 @@
+{
+  "definitions": [
+    {
+      "title": "Product Resources",
+      "id": "product-resources",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Product Resources",
+              "model": "product-resources",
+              "key-value": true,
+              "title": "Resources",
+              "firmware": "Find Latest Firmware Update",
+              "firmwareButton": "Go to Firmware Download",
+              "firmwareLink": "",
+              "firmwareIcon": "",
+              "noResultContent": "",
+              "productNotFoundMessage": "<p>Product not found.</p>"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "product-resources",
+      "fields": [
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "container",
+          "name": "firmwareContainer",
+          "label": "Firmware Settings",
+          "valueType": "string",
+          "collapsible": true,
+          "fields": [
+            {
+              "component": "text",
+              "name": "firmware",
+              "label": "Firmware Title",
+              "valueType": "string"
+            },
+            {
+              "component": "text",
+              "name": "firmwareButton",
+              "label": "Firmware Button Text",
+              "valueType": "string"
+            },
+            {
+              "component": "aem-content",
+              "name": "firmwareLink",
+              "label": "Firmware Link",
+              "valueType": "string"
+            },
+            {
+              "component": "reference",
+              "name": "firmwareIcon",
+              "label": "Firmware Icon",
+              "valueType": "string",
+              "multi": false
+            }
+          ]
+        },
+        {
+          "component": "richtext",
+          "name": "noResultContent",
+          "label": "No Result Content",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "productNotFoundMessage",
+          "label": "Product Not Found Message",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
