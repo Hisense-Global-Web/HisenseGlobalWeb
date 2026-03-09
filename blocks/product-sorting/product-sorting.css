@@ -297,6 +297,7 @@
       padding: 0 var(--size-12);
       font-size: var(--size-14);
       cursor: pointer;
+      overflow: hidden;
 
       span {
         white-space: nowrap;
