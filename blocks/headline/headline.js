@@ -1,4 +1,5 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { handleCommonDownloadClick } from '../../utils/download.js';
 
 function formatDate(dateStr) {
   try {
@@ -259,11 +260,6 @@ export default async function decorate(block) {
     }
 
     if (data.downloadLink) {
-      const link = document.createElement('a');
-      link.href = data.downloadLink;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-
       const button = document.createElement('button');
       button.classList.add('icon-btn');
       const iconImg = document.createElement('img');
@@ -271,9 +267,9 @@ export default async function decorate(block) {
       const country = segments[segments[0] === 'content' ? 2 : 0] || '';
       iconImg.src = `/content/dam/hisense/${country}/common-icons/download.svg`;
       iconImg.alt = 'Download';
+      button.addEventListener('click', () => handleCommonDownloadClick(data.downloadLink));
       button.appendChild(iconImg);
-      link.appendChild(button);
-      actionsEl.appendChild(link);
+      actionsEl.appendChild(button);
     }
 
     featuredContent.appendChild(actionsEl);
