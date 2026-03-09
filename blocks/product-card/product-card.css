@@ -425,7 +425,7 @@
 
     .popup-scroll-box {
       max-height: calc(90vh - 80px);
-      overflow-y: scroll;
+      overflow: auto;
       scroll-behavior: smooth;
     }
 
@@ -713,7 +713,8 @@
 
       .popup-scroll-box {
         max-height: calc(90vh - var(--size-72));
-        overflow-x: hidden;
+
+        /* overflow-x: hidden; */
       }
 
       .compare-popup-tit-box {
