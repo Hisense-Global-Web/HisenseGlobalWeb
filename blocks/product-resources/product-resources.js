@@ -254,12 +254,20 @@ function createDescriptionList(items, withIcon = false, iconSrc = '') {
   return list;
 }
 
-function createCtaLink(text, href) {
+function createCtaLink(text, href, iconUrl) {
   const link = document.createElement('a');
   link.className = 'item-cta';
   link.href = href;
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
+
+  if (iconUrl) {
+    const icon = document.createElement('img');
+    icon.className = 'item-cta-icon';
+    icon.src = iconUrl;
+    icon.alt = '';
+    link.appendChild(icon);
+  }
 
   const label = document.createElement('span');
   label.className = 'item-cta-text';
@@ -273,7 +281,7 @@ function createDocumentationItem(documentItem, country) {
   const item = document.createElement('div');
   item.className = 'item';
 
-  const iconPath = toAbsoluteUrl(`/content/dam/hisense/${country}/common-icons/download.svg`);
+  const iconPath = toAbsoluteUrl('/resources/download.svg');
   item.appendChild(createPictureContainer(iconPath, 'Download'));
 
   const title = document.createElement('p');
@@ -282,12 +290,16 @@ function createDocumentationItem(documentItem, country) {
   item.appendChild(title);
 
   const metadata = [];
-  if (documentItem?.type) metadata.push(String(documentItem.type).toUpperCase());
+  if (documentItem?.title) metadata.push(documentItem.title);
   if (documentItem?.size) metadata.push(documentItem.size);
   item.appendChild(createDescriptionList(metadata));
 
   if (documentItem?.link) {
-    item.appendChild(createCtaLink('Download', toAbsoluteUrl(documentItem.link)));
+    item.appendChild(createCtaLink(
+    'Download',
+    toAbsoluteUrl(documentItem.link),
+    toAbsoluteUrl('/resources/download-arrow.svg'),
+  ));
   }
 
   listItem.appendChild(item);
