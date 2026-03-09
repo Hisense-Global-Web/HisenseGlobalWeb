@@ -18,7 +18,7 @@
   text-align: center;
 
    @media (width < 860px) {
-    font-size: var(--size-18);
+    font-size: var(--size-30);
     margin-bottom: var(--size-30);
   }
 }
@@ -91,6 +91,10 @@
   margin-top: var(--spacing-2xs);
   text-align: center;
   width: var(--size-134);
+
+  @media (width < 860px) {
+    font-size: var(--size-16);
+  }
 }
 
 
