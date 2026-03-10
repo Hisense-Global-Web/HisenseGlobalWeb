@@ -241,7 +241,7 @@
                 .meta-icon {
                   width: var(--size-16);
                   height: var(--size-16);
-                  display: none !important;
+                  display: none;
 
                   &.download {
                     display: block;
