@@ -128,6 +128,7 @@
       justify-content: flex-start;
       gap: var(--spacing-3xs);
       height: 100%;
+      width: 100%;
       text-align: left;
 
       .item-picture {
@@ -150,6 +151,7 @@
           line-height: 1.5;
           margin: 0;
           padding: 0;
+          white-space: inherit;
         }
 
         p:nth-child(2) {
