@@ -183,7 +183,7 @@ export default async function decorate(block) {
     featuredContent.appendChild(excerptEl);
   }
 
-  if (window.location.pathname.indexOf('blog') === -1) {
+  if (window.location.pathname.indexOf('blog') !== -1) {
     const authorMetaGroupEl = document.createElement('div');
     authorMetaGroupEl.classList.add('featured-author-meta-group');
     const authorEl = document.createElement('div');
