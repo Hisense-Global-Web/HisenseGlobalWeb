@@ -11,6 +11,7 @@ import {
   loadSections,
   loadCSS,
 } from './aem.js';
+import { getFragmentPath } from './locale-utils.js';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -169,6 +170,52 @@ function setGlobalApiVariables() {
   window.EDS_BASE_URL = getEdsBaseUrl();
 }
 
+async function loadRemoteErrorPage(main) {
+  if (!window.isErrorPage || !main) {
+    return false;
+  }
+
+  const errorCode = window.errorCode || '404';
+  const errorPath = getFragmentPath(`exception/${errorCode}`);
+
+  try {
+    const resp = await fetch(`${errorPath}.plain.html`);
+    if (!resp.ok) {
+      return false;
+    }
+
+    const fragmentMain = document.createElement('main');
+    fragmentMain.innerHTML = await resp.text();
+
+    const resetAttributeBase = (tag, attr) => {
+      fragmentMain.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
+        elem[attr] = new URL(elem.getAttribute(attr), new URL(errorPath, window.location)).href;
+      });
+    };
+
+    resetAttributeBase('img', 'src');
+    resetAttributeBase('source', 'srcset');
+
+    decorateMain(fragmentMain);
+    await loadSections(fragmentMain);
+
+    const fragmentSections = [...fragmentMain.children];
+    const hasExceptionPage = fragmentMain.querySelector('.exception-page');
+
+    if (!hasExceptionPage || !fragmentSections.length) {
+      return false;
+    }
+
+    main.replaceChildren(...fragmentSections);
+    main.classList.remove('error');
+    return true;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.debug(`failed to load remote error page from ${errorPath}`, error);
+    return false;
+  }
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
@@ -182,7 +229,10 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     loadHeader(doc.querySelector('header'));
-    decorateMain(main);
+    const hasRemoteErrorPage = await loadRemoteErrorPage(main);
+    if (!hasRemoteErrorPage) {
+      decorateMain(main);
+    }
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }

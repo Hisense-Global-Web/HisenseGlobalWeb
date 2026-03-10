@@ -140,12 +140,11 @@ export default function decorate(block) {
 
     // Get download link
     const downloadLinkEl = downloadLinkCell?.querySelector('a');
-    const downloadLink = downloadLinkEl?.href || downloadLinkCell?.textContent.trim() || '';
-
+    const downloadImgEl = downloadLinkCell?.querySelector('img');
+    const downloadLink = downloadLinkEl?.href || downloadImgEl?.src || downloadLinkCell?.textContent.trim() || '';
     if (downloadLink) {
       // Make download icon clickable
       const downloadLinkWrapper = document.createElement('a');
-      downloadLinkWrapper.href = downloadLink;
       downloadLinkWrapper.download = '';
       downloadLinkWrapper.className = 'download-link';
       downloadLinkWrapper.addEventListener('click', () => handleCommonDownloadClick(downloadLink));

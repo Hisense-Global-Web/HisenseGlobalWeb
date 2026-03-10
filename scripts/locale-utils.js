@@ -30,3 +30,39 @@ export function getFragmentPath(fragmentName) {
 
   return `${base}/${localeSegment}`;
 }
+
+export function localizeProductApiPath(path) {
+  if (!path || typeof path !== 'string') {
+    return path;
+  }
+
+  const isAbsoluteUrl = /^https?:\/\//i.test(path);
+  if (!isAbsoluteUrl && !path.startsWith('/')) {
+    return path;
+  }
+
+  const url = new URL(path, window.location.origin);
+  const { pathname, search, hash } = url;
+
+  if (!pathname.startsWith('/product')) {
+    return path;
+  }
+
+  const { country, language } = getLocaleFromPath();
+  const matchedPath = pathname.match(/^\/product(?:\/(.*))?\.json$/i);
+  if (!matchedPath) {
+    return isAbsoluteUrl ? `${url.origin}${pathname}${search}${hash}` : `${pathname}${search}${hash}`;
+  }
+
+  const productPath = (matchedPath[1] || '').replace(/^\/+|\/+$/g, '');
+  const pathParts = productPath ? productPath.split('/').filter(Boolean) : [];
+  const hasLocalePrefix = pathParts.length >= 2
+    && /^[a-z]{2}$/i.test(pathParts[0])
+    && /^[a-z]{2}(?:-[a-z]{2})?$/i.test(pathParts[1]);
+  const resourceParts = hasLocalePrefix ? pathParts.slice(2) : pathParts;
+
+  const localizedPath = `/product/${country}/${language}${resourceParts.length ? `/${resourceParts.join('/')}` : ''}.json`;
+  const localizedUrl = `${localizedPath}${search}${hash}`;
+
+  return isAbsoluteUrl ? `${url.origin}${localizedUrl}` : localizedUrl;
+}
