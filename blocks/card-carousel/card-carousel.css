@@ -156,7 +156,7 @@
 
         p:nth-child(2) {
           font-size: var(--fontsize-body2);
-          color: var(--color-hisense-grey-70);
+          color: var(--color-primary-grey-70);
           font-weight: normal;
         }
       }
