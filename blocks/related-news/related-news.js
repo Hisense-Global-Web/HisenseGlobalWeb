@@ -262,7 +262,8 @@ function buildCard(item) {
     const iconImg = document.createElement('img');
     iconImg.src = `/content/dam/hisense/${country}/common-icons/download.svg`;
     iconImg.alt = 'Download';
-    iconImg.classList.add('meta-icon download');
+    iconImg.classList.add('meta-icon');
+    iconImg.classList.add('download');
     downloadEl.appendChild(iconImg);
     metaGroupEl.appendChild(downloadEl);
   }
@@ -330,7 +331,7 @@ export default async function decorate(block) {
   const config = readBlockConfig(block);
 
   const endpoint = config.graphql || '';
-  const filterTags = config.tag;
+  const filterTags = config.tag || '';
 
   const blockResource = block.getAttribute('data-aue-resource');
 
