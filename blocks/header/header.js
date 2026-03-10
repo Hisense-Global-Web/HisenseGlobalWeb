@@ -485,20 +485,22 @@ function buildSupportDropdown(mainEl) {
   const linksWrap = document.createElement('div');
   linksWrap.className = 'dropdown-links';
   const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
-  [...supportMenuLinksList.children].forEach((item) => {
-    const title = item.children[2].textContent.trim() || '';
-    const href = item.children[3].textContent.trim() || '#';
-    const div = document.createElement('div');
-    if (href && href !== '#') {
-      const a = document.createElement('a');
-      a.href = processPath(href);
-      a.textContent = title;
-      div.append(a);
-    } else {
-      div.textContent = title;
-    }
-    linksWrap.append(div);
-  });
+  if (supportMenuLinksList) {
+    [...supportMenuLinksList.children].forEach((item) => {
+      const title = item.children[2].textContent.trim() || '';
+      const href = item.children[3].textContent.trim() || '#';
+      const div = document.createElement('div');
+      if (href && href !== '#') {
+        const a = document.createElement('a');
+        a.href = processPath(href);
+        a.textContent = title;
+        div.append(a);
+      } else {
+        div.textContent = title;
+      }
+      linksWrap.append(div);
+    });
+  }
 
   main.append(productsWrap, linksWrap);
   content.append(main);
@@ -1085,21 +1087,23 @@ export default async function decorate(block) {
     const contactUsEl = document.createElement('div');
     contactUsEl.className = 'contact-us-links';
     const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
-    [...supportMenuLinksList.children].forEach((item) => {
-      const title = item.children[2].textContent.trim() || '';
-      const href = item.children[3].textContent.trim() || '#';
-      const div = document.createElement('div');
-      div.className = 'mobile-product-item';
-      if (href && href !== '#') {
-        const a = document.createElement('a');
-        a.href = href;
-        a.textContent = title;
-        div.append(a);
-      } else {
-        div.textContent = title;
-      }
-      contactUsEl.append(div);
-    });
+    if (supportMenuLinksList) {
+      [...supportMenuLinksList.children].forEach((item) => {
+        const title = item.children[2].textContent.trim() || '';
+        const href = item.children[3].textContent.trim() || '#';
+        const div = document.createElement('div');
+        div.className = 'mobile-product-item';
+        if (href && href !== '#') {
+          const a = document.createElement('a');
+          a.href = href;
+          a.textContent = title;
+          div.append(a);
+        } else {
+          div.textContent = title;
+        }
+        contactUsEl.append(div);
+      });
+    }
     mobileSecondMenuSupport.append(contactUsEl);
   }
   // 展开SearchBox
