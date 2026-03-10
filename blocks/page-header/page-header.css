@@ -2,10 +2,6 @@
   @media (width >= 860px) {
     padding: 0 !important;
   }
-
-  @media (width < 860px) {
-    padding-top: 112px !important;
-  }
 }
 
 .text-green-50 {
