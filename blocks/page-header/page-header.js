@@ -2,7 +2,6 @@ import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.j
 
 export default function decorate(block) {
   try {
-    getDynamicHeaderHeight(block);
     const [titleStyleEl, titleEl, subtitleEl] = [...block.children];
     const titleStylePEl = titleStyleEl?.querySelector?.('p') ?? null;
     if (titleStylePEl) {
@@ -16,5 +15,7 @@ export default function decorate(block) {
   } catch (error) {
     /* eslint-disable-next-line no-console */
     console.error('Page Header block decoration error:', error);
+  } finally {
+    getDynamicHeaderHeight(block);
   }
 }
