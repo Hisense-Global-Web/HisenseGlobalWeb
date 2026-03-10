@@ -366,7 +366,7 @@ function buildDropdown(data) {
     const div = document.createElement('div');
     if (link.href && link.href !== '#') {
       const a = document.createElement('a');
-      a.href = link.href;
+      a.href = processPath(link.href);
       a.textContent = link.text;
       div.append(a);
     } else {
@@ -462,10 +462,10 @@ function buildSupportDropdown(mainEl) {
         span1.textContent = title;
         link.append(span1);
         if (href && href !== '#') {
-          link.dataset.href = href;
+          link.dataset.href = processPath(href);
           link.addEventListener('click', (e) => {
             e.stopPropagation();
-            window.location.href = href;
+            window.location.href = processPath(href);
           });
         }
         supportProductListGroupEl.append(link);
@@ -490,7 +490,7 @@ function buildSupportDropdown(mainEl) {
     const div = document.createElement('div');
     if (href && href !== '#') {
       const a = document.createElement('a');
-      a.href = href;
+      a.href = processPath(href);
       a.textContent = title;
       div.append(a);
     } else {

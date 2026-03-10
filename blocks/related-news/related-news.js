@@ -81,7 +81,7 @@ function bindEvent(block, type = 'normal') {
   const viewportWidth = block.querySelector('.news-container').offsetWidth;
   const prevBtn = block.closest('.section').querySelector('.slide-prev');
   const nextBtn = block.closest('.section').querySelector('.slide-next');
-  const gap = parseInt(window.getComputedStyle(block.querySelector('.news-card-group')).gap, 10) || 0;
+  const gap = parseFloat(window.getComputedStyle(block.querySelector('.news-card-group')).gap) || 0;
   const CONFIG = {
     itemWidth: getChildSlideWidth(block),
     gap,
@@ -172,7 +172,7 @@ function buildCard(item) {
     subtitle,
     date,
     location,
-    download,
+    downloadlink,
     thumbnail,
   } = item;
 
@@ -254,15 +254,16 @@ function buildCard(item) {
     metaGroupEl.appendChild(locationEl);
   }
 
-  if (download) {
-    const downloadEl = document.createElement('span');
+  if (downloadlink) {
+    const downloadEl = document.createElement('a');
+    downloadEl.href = downloadlink;
+    downloadEl.target = '_blank';
     downloadEl.classList.add('meta-item');
     const iconImg = document.createElement('img');
     iconImg.src = `/content/dam/hisense/${country}/common-icons/download.svg`;
-    iconImg.alt = '';
+    iconImg.alt = 'Download';
     iconImg.classList.add('meta-icon download');
     downloadEl.appendChild(iconImg);
-    // 追加点击下载
     metaGroupEl.appendChild(downloadEl);
   }
 

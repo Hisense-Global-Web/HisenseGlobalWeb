@@ -91,12 +91,14 @@ export function aggregateData(compareDataArr) {
       });
     }
     // 对比商品图片
-    const pPath = Object.keys(compareDataItem.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
-    if (pPath) {
-      allProductImgArr.push({
-        imgSrc: compareDataItem.mediaGallery_image ? compareDataItem.mediaGallery_image[pPath] : '',
-      });
+    let pPath = '';
+    if (compareDataItem.mediaGallery_image) {
+      // 容错处理，如果接口返回图片字段再给src 赋值
+      pPath = Object.keys(compareDataItem.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
     }
+    allProductImgArr.push({
+      imgSrc: compareDataItem.mediaGallery_image ? compareDataItem.mediaGallery_image[pPath] : '',
+    });
     // 整合比较数据的所有属性
     for (let i = 1; i <= 20; i += 1) {
       const labelKey = `specificationsGroup${i}Label`;
@@ -446,7 +448,11 @@ export function createCompareLiEl(appendType) {
 export function setCompareProductImgTit(targetEl, productInfo) {
   targetEl.classList.add('active-compare');
   targetEl.setAttribute('data-compare-id', productInfo.sku || '');
-  const pPath = Object.keys(productInfo.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
+  let pPath = '';
+  if (productInfo.mediaGallery_image) {
+    // 容错处理，如果接口返回图片字段再给src 赋值
+    pPath = Object.keys(productInfo.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
+  }
   targetEl.querySelector('.compare-img-box img').src = productInfo.mediaGallery_image ? productInfo.mediaGallery_image[pPath] : '';
   targetEl.querySelector('.compare-product-title').textContent = productInfo.title;
 }

@@ -1,5 +1,6 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { handleCommonDownloadClick } from '../../utils/download.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -147,7 +148,7 @@ export default function decorate(block) {
       downloadLinkWrapper.href = downloadLink;
       downloadLinkWrapper.download = '';
       downloadLinkWrapper.className = 'download-link';
-
+      downloadLinkWrapper.addEventListener('click', () => handleCommonDownloadClick(downloadLink));
       const downloadIconImg = downloadIconCell?.querySelector('img');
       const downloadIcon = document.createElement('img');
       downloadIcon.src = downloadIconImg?.src || DEFAULT_DOWNLOAD_ICON;
@@ -194,10 +195,11 @@ export default function decorate(block) {
     downloadBtn.textContent = buttonText;
 
     if (downloadAllLink) {
-      const downloadBtnLink = document.createElement('a');
+      const downloadBtnLink = document.createElement('div');
       downloadBtnLink.href = downloadAllLink;
       downloadBtnLink.download = '';
       downloadBtnLink.className = 'download-btn-link';
+      downloadBtnLink.addEventListener('click', () => handleCommonDownloadClick(downloadAllLink));
       downloadBtnLink.appendChild(downloadBtn);
       downloadPanel.appendChild(downloadBtnLink);
     } else {
