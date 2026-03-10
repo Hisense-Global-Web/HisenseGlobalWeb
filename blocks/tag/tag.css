@@ -25,7 +25,7 @@ main .section.tag-container .tag-wrapper {
       gap: var(--size-24);
       
       @media (width < 860px) {
-        gap: var(--size-32);
+        gap: var(--size-16);
       }
 
       .tag-title {

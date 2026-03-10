@@ -63,7 +63,7 @@
   color: var(--color-primary-grey-100, #000);
   font-weight: var(--fontweight-book, 400);
   min-width: 0;
-  height: var(--size-24, 24px);
+  height: var(--size-30, 30px);
   line-height: 1.2;
   text-overflow: ellipsis;
 
