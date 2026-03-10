@@ -12,6 +12,12 @@
         {
           "component": "text",
           "valueType": "string",
+          "name": "subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
           "name": "jcr:description",
           "label": "Description"
         },
@@ -21,8 +27,60 @@
           "name": "keywords",
           "multi": true,
           "label": "Keywords"
+        },
+        {
+          "component": "date-time",
+          "valueType": "date",
+          "name": "date",
+          "label": "Date"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "location",
+          "label": "Location"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "author",
+          "label": "Author"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "thumbnail",
+          "label": "Thumbnail",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cta-text",
+          "label": "CTA Text"
+        },
+        {
+          "component": "aem-tag",
+          "valueType": "string",
+          "name": "cq:tags",
+          "label": "Tags",
+          "rootPath": "/content/cq:tags/hisense"
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "downloadLink",
+          "label": "Download Link",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "format-detection",
+          "label": "Format Detection",
+          "value": "telephone=no"
         }
       ]
     }
   ]
-}
+} 

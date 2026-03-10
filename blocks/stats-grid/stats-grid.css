@@ -1,0 +1,67 @@
+.matrix-block-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-32);
+
+  .matrix-block-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    text-align: center;
+
+    .matrix-label {
+      width: 100%;
+      color: var(--color-primary-grey-70, #333);
+      font-size: var(--fontsize-body2, 14px);
+      font-weight: var(--fontweight-book);
+      line-height: 150%; /* 21px */
+      text-transform: capitalize;
+    }
+
+    .matrix-value {
+      color: var(--color-primary-green-50, #009E9B);
+      font-size: var(--fontsize-title1, 24px);
+      font-weight: var(--fontweight-medium);
+      line-height: 133.333%; /* 133.333% */
+    }
+  }
+
+  .line {
+    width: 1px;
+    height: var(--size-48);
+    background-color: var(--color-primary-grey-40);
+    margin: auto 0;
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media (width < 860px) {
+  .matrix-block-items {
+    display: flex;
+    padding: 0 var(--size-24);
+    align-items: flex-end;
+    gap: var(--size-24);
+
+    .matrix-label {
+      color: var(--color-primary-grey-90, #141414);
+      font-size: var(--size-14);
+      font-weight: var(--fontweight-book);
+      line-height: 150%; /* 21px */
+    }
+
+    .matrix-value {
+      color: var(--color-primary-green-50, #009F9C);
+      font-size: var(--size-24, 24px);
+      font-weight: var(--fontweight-medium);
+      line-height: 120%; /* 28.8px */
+      text-transform: capitalize;
+    }
+  }
+}

@@ -1,0 +1,92 @@
+main .section.tag-container .tag-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--size-48);
+
+  @media (width < 860px) {
+    overflow-x: hidden;
+  }
+
+  .tag {
+    width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+    display: flex;
+    gap: var(--size-16);
+    color: var(--color-primary-grey-70);
+
+    @media (width < 860px) {
+      width: 100%;
+      gap: var(--size-24);
+    }
+
+    .tag-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-24);
+      
+      @media (width < 860px) {
+        gap: var(--size-16);
+      }
+
+      .tag-title {
+        font-size: var(--fontsize-title2);
+        font-weight: var(--fontweight-medium);
+        color: var(--color-hisense-black);
+        margin: 0;
+        line-height: 1.2;
+        
+        @media (width < 860px) {
+          font-size: var(--size-16);
+          line-height: 1.3;
+        }
+      }
+      
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--size-16);
+        
+        @media (width < 860px) {
+          width: calc(100% + var(--common-padding) * 2);
+          margin-left: calc(var(--common-padding) * -1);
+          padding-left: calc(var(--common-padding) * 1);
+          overflow-x: auto;
+          scrollbar-width: none;
+          flex-wrap: nowrap;
+          gap: var(--size-10);
+        }
+
+        .tag-item {
+          display: block;
+          padding: var(--size-9) var(--size-24);
+          background-color: var(--color-primary-grey-20);
+          color: var(--color-primary-grey-70);
+          font-size: var(--fontsize-body1);
+          line-height: 1.5;
+          font-weight: var(--fontweight-book);
+          border-radius: var(--size-100);
+          white-space: nowrap;
+          transition: background-color 0.3s ease;
+          text-decoration: none;
+          cursor: default;
+          text-transform: capitalize;
+          
+          @media (width < 860px) {
+            padding: var(--size-8) var(--size-24);
+            font-size: var(--size-14);
+            line-height: 1.4;
+            height: var(--size-36);
+
+            &:last-child {
+              margin-right: calc(var(--common-padding) * 1);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.tag-container .tag-list a.tag-item {
+  cursor: pointer;
+}

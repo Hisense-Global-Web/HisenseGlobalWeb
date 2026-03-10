@@ -11,6 +11,7 @@ import {
   loadSections,
   loadCSS,
 } from './aem.js';
+import { getFragmentPath } from './locale-utils.js';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -103,8 +104,12 @@ export function decorateMain(main) {
 /**
  * Get GraphQL API base URL based on current hostname
  */
-function getGraphQLBaseUrl() {
+export function getGraphQLBaseUrl() {
   const { hostname } = window.location;
+
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return 'https://publish-p174152-e1855821.adobeaemcloud.com/';
+  }
 
   // Author environment - use same origin
   if (hostname.includes('author-')) {
@@ -136,11 +141,79 @@ function getGraphQLBaseUrl() {
 }
 
 /**
+ * Get EDS base URL based hostname
+ */
+function getEdsBaseUrl() {
+  const { hostname } = window.location;
+
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('e1855821')) {
+    return 'https://development--hisense-dev--hisense-global-web.aem.page';
+  }
+
+  if (hostname.includes('e1855674')) {
+    return 'https://stage--hisense-stage--hisense-global-web.aem.page';
+  }
+
+  if (hostname.includes('e1855954')) {
+    return 'https://main--hisenseglobalweb--hisense-global-web.aem.live';
+  }
+
+  return window.location.origin;
+}
+
+/**
  * Set global variables for API endpoints
  */
 function setGlobalApiVariables() {
   const gqlBaseUrl = getGraphQLBaseUrl();
   window.GRAPHQL_BASE_URL = gqlBaseUrl;
+  window.EDS_BASE_URL = getEdsBaseUrl();
+}
+
+async function loadRemoteErrorPage(main) {
+  if (!window.isErrorPage || !main) {
+    return false;
+  }
+
+  const errorCode = window.errorCode || '404';
+  const errorPath = getFragmentPath(`exception/${errorCode}`);
+
+  try {
+    const resp = await fetch(`${errorPath}.plain.html`);
+    if (!resp.ok) {
+      return false;
+    }
+
+    const fragmentMain = document.createElement('main');
+    fragmentMain.innerHTML = await resp.text();
+
+    const resetAttributeBase = (tag, attr) => {
+      fragmentMain.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
+        elem[attr] = new URL(elem.getAttribute(attr), new URL(errorPath, window.location)).href;
+      });
+    };
+
+    resetAttributeBase('img', 'src');
+    resetAttributeBase('source', 'srcset');
+
+    decorateMain(fragmentMain);
+    await loadSections(fragmentMain);
+
+    const fragmentSections = [...fragmentMain.children];
+    const hasExceptionPage = fragmentMain.querySelector('.exception-page');
+
+    if (!hasExceptionPage || !fragmentSections.length) {
+      return false;
+    }
+
+    main.replaceChildren(...fragmentSections);
+    main.classList.remove('error');
+    return true;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.debug(`failed to load remote error page from ${errorPath}`, error);
+    return false;
+  }
 }
 
 /**
@@ -156,7 +229,10 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     loadHeader(doc.querySelector('header'));
-    decorateMain(main);
+    const hasRemoteErrorPage = await loadRemoteErrorPage(main);
+    if (!hasRemoteErrorPage) {
+      decorateMain(main);
+    }
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }

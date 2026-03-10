@@ -1,0 +1,120 @@
+{
+  "definitions": [
+    {
+      "title": "Support Search Result Module",
+      "id": "support-search-result-module",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Support Search Result Module",
+              "model": "support-search-result-module",
+              "filter": "support-search-result-module",
+              "key-value": true,
+              "classes": "support-search-result-module",
+              "pageSize": "12",
+              "emptyResultHeading": "No results for",
+              "noResultSubtitle": "Try a new search or the below suggestions.",
+              "productCardLink": "",
+              "prevButtonAriaLabel": "Prev",
+              "nextButtonAriaLabel": "Next",
+              "loadMoreLabel": "Load More"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Support Search Result Item",
+      "id": "support-search-result-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Support Search Result Item",
+              "model": "support-search-result-item",
+              "title": "Model",
+              "endpoint": "/product/us/en/televisions.json"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "support-search-result-module",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "number",
+          "name": "pageSize",
+          "label": "Page Size"
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "productCardLink",
+          "label": "Product Card Link"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "prevButtonAriaLabel",
+          "label": "Previous Button Aria Label"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "nextButtonAriaLabel",
+          "label": "Next Button Aria Label"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "loadMoreLabel",
+          "label": "Load More Button Label"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "emptyResultHeading",
+          "label": "No Result Title Prefix"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "noResultSubtitle",
+          "label": "No Result Subtitle"
+        }
+      ]
+    },
+    {
+      "id": "support-search-result-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Tab Title"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "endpoint",
+          "label": "Data Endpoint"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "support-search-result-module",
+      "components": [
+        "support-search-result-item"
+      ]
+    }
+  ]
+}

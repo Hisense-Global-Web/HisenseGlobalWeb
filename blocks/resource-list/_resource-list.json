@@ -1,0 +1,136 @@
+{
+  "definitions": [
+    {
+      "title": "Resource List",
+      "id": "resource-list",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Resource List",
+              "model": "resource-list",
+              "filter": "resource-list"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Resource List Item",
+      "id": "resource-list-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Resource List Item",
+              "model": "resource-list-item",
+              "download-asset": "",
+              "text": "<h2>Resource Title</h2><p>Resource description</p>",
+              "button-text": "Learn More",
+              "button-link": "",
+              "card-type": "download"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "resource-list",
+      "fields": []
+    },
+    {
+      "id": "resource-list-item",
+      "fields": [
+        {
+          "component": "reference",
+          "name": "icon",
+          "label": "Icon",
+          "description": "Optional custom icon (default folder icon will be used if not provided)",
+          "valueType": "string",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "description",
+          "label": "Description",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "subtitle",
+          "label": "SubTitle",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "label": "Rich Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "button-text",
+          "label": "Button Text",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "button-link",
+          "label": "Button Link",
+          "valueType": "string",
+          "condition": {
+            "!==": [{ "var": "card-type" }, "download"]
+          }
+        },
+        {
+          "component": "aem-content",
+          "name": "download-asset",
+          "label": "Download Asset URL",
+          "description": "Enter the resource download link",
+          "valueType": "string",
+          "condition": {
+            "===": [{ "var": "card-type" }, "download"]
+          }
+        },
+        {
+          "component": "select",
+          "name": "card-type",
+          "label": "Card Type",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Button To Download",
+              "value": "download"
+            },
+            {
+              "name": "Button To Contact",
+              "value": "contact"
+            },
+            {
+              "name": "Button To Subscribe",
+              "value": "subscribe"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "resource-list",
+      "components": [
+        "resource-list-item"
+      ]
+    }
+  ]
+}

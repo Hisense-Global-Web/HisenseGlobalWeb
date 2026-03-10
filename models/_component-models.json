@@ -15,6 +15,9 @@
     "...": "./_section.json#/models"
   },
   {
+    "...": "./_popup-module.json#/models"
+  },
+  {
     "...": "../blocks/*/_*.json#/models"
   }
 ]

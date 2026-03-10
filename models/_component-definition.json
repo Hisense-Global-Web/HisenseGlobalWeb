@@ -21,6 +21,9 @@
       "components": [
         {
           "...": "./_section.json#/definitions"
+        },
+        {
+          "...": "./_popup-module.json#/definitions"
         }
       ]
     },

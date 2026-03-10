@@ -1,15 +1,24 @@
 /* disclaimer.css */
 .disclaimer-box {
-  height: 183px;
+  padding: var(--size-120) 0;
   display: flex;
   align-items: center;
+  
+  @media (width < 860px) {
+    padding: var(--size-80) 0;
+  }
 }
 
-.disclaimer-box p {
-  font-weight: 300;
-  font-size: 16px;
-  color: #000;
+.disclaimer-box div, .disclaimer-box p, .disclaimer-box li {
+  font-weight: var(--fontweight-light);
+  font-size: var(--fontsize-body1);
+  color: var(--color-primary-grey-50);
   margin: 0;
   padding: 0;
-  height: 22px;
+  line-height: 1.5;
+  
+  @media (width < 860px) {
+    font-size: var(--fontsize-caption3);
+    line-height: 1.4;
+  }
 }

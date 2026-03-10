@@ -1,0 +1,63 @@
+{
+  "definitions": [
+    {
+      "title": "Module Title",
+      "id": "module-title",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Module Title",
+              "model": "module-title",
+              "key-value": true
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "module-title",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "value": "color-black",
+          "label": "Module title classes options",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "font-color-white",
+              "value": "color-white"
+            },
+            {
+              "name": "font-color-black",
+              "value": "color-black"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title-content",
+          "label": "Title"
+        },
+        {
+          "component": "text",
+          "name": "subtitle-content",
+          "label": "Subtitle",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "text-content",
+          "label": "Text",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

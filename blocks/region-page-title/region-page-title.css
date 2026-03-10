@@ -1,0 +1,28 @@
+/* 页面部分样式 */
+.region-page-title-wrapper {
+  background-color: var(--color-primary-green-10, #EDFCFB);
+}
+
+.region-page-title {
+  padding: var(--spacing-xl, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (width < 860px) {
+    padding: var(--spacing-m, 32px) 0;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-primary-grey-100, #000);
+    text-align: center;
+    font-size: var(--size-46, 46px);
+    font-weight: 400;
+    line-height: 120%;
+
+    @media (width < 860px) {
+      font-size: var(--size-24, 24px);
+    }
+  }
+}

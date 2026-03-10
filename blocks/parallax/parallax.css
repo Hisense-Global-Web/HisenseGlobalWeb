@@ -1,72 +1,83 @@
 .parallax {
-  position: relative;
-  overflow: hidden;
-  text-align: center;
+	position: relative;
+	overflow: hidden;
+	text-align: center;
 
-  .scroll-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-  }
+	.scroll-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+	}
 
-  .sticky-container {
-    @supports (height: 100dvh) {
-      --container-height: 100dvh;
-    }
+	.sticky-container {
+		@supports (height: 100dvh) {
+			--container-height: 100dvh;
+		}
 
-    @supports not (height: 100dvh) {
-      --container-height: 100vh;
-    }
+		@supports not (height: 100dvh) {
+			--container-height: 100vh;
+		}
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: var(--container-height);
-    width: 100%;
-    position: sticky;
-    overflow: hidden;
-  }
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: var(--container-height);
+		width: 100%;
+		position: sticky;
+		overflow: hidden;
+	}
 
-  .scroll-image-container img {
-    width: auto;
-    object-fit: cover;
-    height: auto;
-    object-position: center;
-  }
+	.scroll-image-container img {
+		width: auto;
+		object-fit: cover;
+		height: auto;
+		object-position: center;
+	}
 
-  .scroll-text-container {
-    @supports (height: 100dvh) {
-      --text-container-height: 80dvh;
-    }
+	.scroll-text-container {
+		@supports (height: 100dvh) {
+			--text-container-height: 80dvh;
+		}
 
-    @supports not (height: 100dvh) {
-      --text-container-height: 80vh;
-    }
+		@supports not (height: 100dvh) {
+			--text-container-height: 80vh;
+		}
 
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    z-index: 10;
-    pointer-events: none;
-    padding: 24px 0;
+		height: 100%;
+		width: 100%;
+		text-align: center;
+		z-index: 10;
+		pointer-events: none;
+		padding: 24px 0;
 
-    @media (width >= 860px) {
-      padding: 40px 0;
-    }
+		@media (width >= 860px) {
+			padding: 40px 0;
+		}
 
-    &.animate {
-      position: absolute;
-      top: 0;
-      justify-content: center;
-      height: var(--text-container-height);
-    }
-  }
+		&.animate {
+			position: absolute;
+			top: 0;
+			justify-content: center;
+			height: var(--text-container-height);
+		}
+	}
+
+	.sub-text-container {
+		color: var(--color-primary-grey-20);
+	}
+
+	@media (width < 860px) {
+		.sub-image-container,
+		.sub-text-container {
+			margin-top: 20px;
+		}
+	}
 }
 
 .parallax-container p {
-  margin: 0;
+	margin: 0;
 }
 
 [data-aue-model="section"] .sticky-container {
