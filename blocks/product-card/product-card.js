@@ -1,4 +1,5 @@
 import { isMobileWindow } from '../../scripts/device.js';
+import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
 import {
   renderCompareDetailData,
   aggregateData,
@@ -9,8 +10,7 @@ import {
   appendCompareProductUtil,
 } from '../../utils/plp-compare-utils.js';
 
-const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const { country } = getLocaleFromPath();
 function applyAggregatedSort(sortProperty, direction = -1) {
   try {
     // 检查是否有已选中的 filter
@@ -1040,7 +1040,7 @@ export default function decorate(block) {
    * Get GraphQL endpoint URL with base URL
    */
   function getGraphQLUrl(endpointPath) {
-    let path = endpointPath;
+    let path = localizeProductApiPath(endpointPath);
     const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) ? window.location.hostname : '';
     const isAemEnv = hostname.includes('author') || hostname.includes('publish');
 
