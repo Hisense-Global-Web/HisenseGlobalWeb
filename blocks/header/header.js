@@ -883,9 +883,9 @@ export default async function decorate(block) {
       mask.className = 'nav-mask';
       mask.id = 'nav-mask';
       const dropdownEl = buildSupportDropdown(fragment);
-      link.append(mask);
+      cloneLink.append(mask);
       if (dropdownEl) {
-        link.append(dropdownEl);
+        cloneLink.append(dropdownEl);
       }
     }
     actionsEl.append(cloneLink);
