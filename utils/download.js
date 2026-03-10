@@ -4,10 +4,7 @@ import { getGraphQLBaseUrl } from '../scripts/scripts.js';
 export const handleCommonDownloadClick = (downloadlink) => {
   const isAssetsContent = downloadlink?.startsWith('/content');
   const link = document.createElement('a');
-  let replaceBtnLink = downloadlink.replace(`${window.location.origin}/`, '');
-  if (replaceBtnLink?.startsWith('/')) {
-    replaceBtnLink = replaceBtnLink.slice(1);
-  }
+  const replaceBtnLink = downloadlink.replace(`${window.location.origin}/`, '');
   link.href = !isAssetsContent ? downloadlink : getGraphQLBaseUrl() + replaceBtnLink;
   const noParamsUrl = downloadlink?.split('?')?.[0] ?? '';
   link.download = noParamsUrl.substring(downloadlink.lastIndexOf('/') + 1);
