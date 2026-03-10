@@ -410,18 +410,18 @@ function renderFaqList(faqData, container, state, onPageChange, onLoadMore, conf
 
 // 初始化FAQ交互
 function initFaqAccordion(block) {
-  const faqTitles = block.querySelectorAll('.faq-card .faq-title');
+  if (!block || block.dataset.faqAccordionBound === 'true') return;
 
-  faqTitles.forEach((title) => {
-    if (title.dataset.bound) return;
-    title.dataset.bound = 'true';
-    title.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const faqCard = title.closest('.faq-card');
-      if (faqCard) {
-        faqCard.classList.toggle('hide');
-      }
-    });
+  block.dataset.faqAccordionBound = 'true';
+  block.addEventListener('click', (e) => {
+    const title = e.target instanceof Element ? e.target.closest('.faq-card .faq-title') : null;
+    if (!title || !block.contains(title)) return;
+
+    e.stopPropagation();
+    const faqCard = title.closest('.faq-card');
+    if (faqCard) {
+      faqCard.classList.toggle('hide');
+    }
   });
 }
 
@@ -560,6 +560,7 @@ export default async function decorate(block) {
 
   block.textContent = '';
   block.appendChild(fragment);
+  initFaqAccordion(block);
 
   let allFaqData = [];
   let tags = {};
@@ -636,8 +637,6 @@ export default async function decorate(block) {
         () => renderPage(data, state.currentPage + 1),
         fullConfig,
       );
-
-      initFaqAccordion(block);
     };
 
     let currentData = filteredFaqData;
@@ -667,8 +666,6 @@ export default async function decorate(block) {
           if (mobileBtn) mobileBtn.style.display = 'none';
         }
       }
-
-      initFaqAccordion(block);
     };
 
     renderFaqList(
@@ -698,8 +695,6 @@ export default async function decorate(block) {
         renderPage(filteredData, newPage);
       }, fullConfig);
       buildMobilePaginationControls(container, { ...state, total: filteredData.length, currentPage: 1 }, loadMore, fullConfig);
-
-      initFaqAccordion(block);
     });
   }
 
