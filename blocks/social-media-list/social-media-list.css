@@ -19,6 +19,7 @@ main .section.social-media-list-container .social-media-list-wrapper {
     @media (width < 860px) {
       width: 100%;
       font-size: var(--size-16);
+      margin: var(--size-24) 0 var(--size-16);
     }
   }
   

@@ -52,7 +52,7 @@
               "value": "dark"
             },
             {
-              "name": "Grey",
+              "name": "Gray 20",
               "value": "grey"
             },
             {
@@ -337,6 +337,7 @@
         "product-filters-carousel",
         "product-gallery",
         "product-information",
+        "product-resources",
         "product-section",
         "product-sorting",
         "product-spec",

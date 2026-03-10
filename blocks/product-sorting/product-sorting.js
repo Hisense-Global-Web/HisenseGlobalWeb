@@ -1,4 +1,4 @@
-import { isMobile, isMobileWindow } from '../../scripts/device.js';
+import { isMobileWindow } from '../../scripts/device.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
@@ -369,7 +369,7 @@ export default function decorate(block) {
   sort.addEventListener('click', (e) => {
     // sortBox.classList.toggle('show');
     // 为排序移动端添加样式
-    if (isMobile() || isMobileWindow()) {
+    if (isMobileWindow()) {
       e.preventDefault();
     } else {
       sortBox.classList.toggle('show');
@@ -397,7 +397,7 @@ export default function decorate(block) {
       mobileSortSpan.textContent = `${prefix} ${splitText}`;
       sortBox.classList.remove('show');
       // 如果是移动端，点击sort by 选项要关闭全屏筛选内容，返回列表页面
-      if (isMobile || isMobileWindow) {
+      if (isMobileWindow()) {
         closeMobileSortByDom();
       }
       try {

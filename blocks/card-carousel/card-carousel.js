@@ -17,7 +17,7 @@ export function bindEvent(block, type = 'normal') {
   const viewportWidth = block.querySelector('.card-carousel-viewport').offsetWidth;
   const prevBtn = block.querySelector('.slide-prev');
   const nextBtn = block.querySelector('.slide-next');
-  const gap = parseInt(window.getComputedStyle(block.querySelector('.card-carousel-track')).gap, 10) || 0;
+  const gap = parseFloat(window.getComputedStyle(block.querySelector('.card-carousel-track')).gap, 10) || 0;
   const CONFIG = {
     itemWidth: getChildSlideWidth(block),
     gap,

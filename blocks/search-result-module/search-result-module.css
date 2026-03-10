@@ -278,6 +278,8 @@
       line-height: 1.6;
       color: var(--color-primary-grey-70);
       text-align: left;
+      display: flex;
+      justify-content: center;
 
       @media (width < 860px) {
         font-size: var(--fontsize-body2);
@@ -352,15 +354,15 @@
       cursor: pointer;
       text-decoration: none;
       color: var(--color-hisense-black);
-      transition: background 0.2s ease, color 0.2s ease;
+      transition:
+        background 0.2s ease,
+        color 0.2s ease;
 
       @media (width < 860px) {
         height: var(--size-32);
         padding: 0 var(--size-16);
         font-size: var(--fontsize-body3);
       }
-
-
     }
   }
 
@@ -391,7 +393,9 @@
       line-height: 1;
       font-weight: var(--fontweight-medium);
       cursor: pointer;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
 
       &.is-active {
         background-color: var(--color-primary-green-60);

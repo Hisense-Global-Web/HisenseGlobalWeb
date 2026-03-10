@@ -129,27 +129,6 @@
     border-radius: var(--size-20);
 }
 
-.plp-product-color.black{
-  background: black;
-}
-
-.plp-product-color.silver{
-  background: linear-gradient(to bottom, var(--color-neutral-200), var(--color-neutral-300), var(--color-neutral-200));
-}
-
-
-.plp-product-color.white{
-  border: 1px solid var(--color-neutral-200)
-}
-
-.plp-product-color.grey{
- background: var(--color-neutral-400);
-}
-
-.plp-product-color.red{
-  background:#D60D0D
-}
-
 .plp-product-color.selected {
   border: 1px solid black;
   padding: var(--size-4);
@@ -401,11 +380,13 @@
       cursor: pointer;
       border-radius: var(--size-10);
       border: 1px solid var(--color-primary-grey-40);
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       img {
-        width: var(--size-15);
-        height: var(--size-15);
+        width: var(--size-12);
+        height: var(--size-12);
       }
     }
   }
@@ -421,8 +402,8 @@
   .compare-popup-container {
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    bottom:0;
+    transform: translateX(-50%);
     background: var(--color-primary-grey-10);
     border-radius: var(--size-20);
     overflow: hidden;
@@ -443,8 +424,8 @@
     }
 
     .popup-scroll-box {
-      max-height: calc(calc(100vh - 324px) - 80px);
-      overflow-y: scroll;
+      max-height: calc(90vh - 80px);
+      overflow: auto;
       scroll-behavior: smooth;
     }
 
@@ -520,10 +501,12 @@
           .img-box {
             width: min(calc(272 / var(--breakpoint-pc) * 100vw), 272px);
             height: min(calc(272 / var(--breakpoint-pc) * 100vw), 272px);
+            display: flex;
+            align-items: center;
 
             img {
               width: 100%;
-              height: auto;
+              height: 100%;
               object-fit: contain;
             }
           }
@@ -696,7 +679,6 @@
           img {
             width: var(--size-15);
             height: var(--size-15);
-            margin-top: var(--size-2);
           }
         }
       }
@@ -726,9 +708,15 @@
       border-radius: 0;
       padding-top: var(--size-72);
 
+      .compare-popup-close {
+        width: var(--size-60);
+        height: var(--size-72);
+      }
+
       .popup-scroll-box {
         max-height: calc(90vh - var(--size-72));
-        overflow-x: hidden;
+
+        /* overflow-x: hidden; */
       }
 
       .compare-popup-tit-box {

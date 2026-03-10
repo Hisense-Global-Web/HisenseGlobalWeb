@@ -1,4 +1,4 @@
-import { isMobile, isMobileWindow } from '../../scripts/device.js';
+import { isMobileWindow } from '../../scripts/device.js';
 import {
   renderCompareDetailData,
   aggregateData,
@@ -211,7 +211,7 @@ export default function decorate(block) {
   // const loadMoreUrl = loadMoreLink || '#';
   // 新增：分页相关状态
   let currentPage = 1;
-  const loadMoreStep = 9;
+  const loadMoreStep = 27;
   let allGroupedData = []; // 存储所有聚合后的产品数据
   let compareDataArr = []; // 存储比较的产品数据
 
@@ -309,6 +309,29 @@ export default function decorate(block) {
     }
   }
 
+  /**
+   * 切换属性时，比较数据要做对应的清空
+   * @param {*} changeElement 当前切换的 dom 元素
+   */
+  function changeCardSelectedProperty(changeElement) {
+    // 切换该商品size 时，要把之前比较数据中已经添加的该商品的尺寸属性清空
+    const originCompareSku = changeElement.closest('.product-card').getAttribute('data-compare-id');
+    // 1、过滤比较商品数据源
+    compareDataArr = compareDataArr.filter((comDataItem) => comDataItem.sku !== originCompareSku);
+    // 2、取消商品 card 上【Compare】按钮选中状态
+    const compareCheckedAllEl = document.querySelectorAll('.compare-checked');
+    compareCheckedAllEl.forEach((comCheckedItem) => {
+      const cardCheckedSku = comCheckedItem.getAttribute('data-compare-id');
+      if (cardCheckedSku === originCompareSku) {
+        comCheckedItem.classList.remove('compare-checked');
+      }
+    });
+    // 3、移动询问固定栏中对应商品的LI 元素
+    removeCompareLiUtil(originCompareSku);
+    // 4、底部固定比较栏在对比数据小于2条时，不展示
+    hideCompareBar();
+  }
+
   // 页面底部固定栏，比较商品固定栏
   function fixedBottomCompareBar() {
     const compareBarEl = document.createElement('div');
@@ -351,6 +374,10 @@ export default function decorate(block) {
         resetLi.querySelector('.compare-img-box img').src = '';
         resetLi.querySelector('.compare-product-title').textContent = '';
       });
+      if (isMobileWindow()) {
+        const footerWrapper = document.querySelector('.footer-wrapper');
+        footerWrapper.style.paddingBottom = 0;
+      }
     });
 
     compareBarEl.append(compareCardList, compareBtnEl, compareBarCloseBtn);
@@ -557,7 +584,7 @@ export default function decorate(block) {
 
       const colorToVariant = new Map();
       group.variants.forEach((v) => {
-        const s = v.color;
+        const s = v.colorRGB;
         if (!colorToVariant.has(s)) colorToVariant.set(s, v);
       });
 
@@ -569,17 +596,13 @@ export default function decorate(block) {
       const sizeToVariant = new Map();
       group.variants.forEach((v) => {
         // eslint-disable-next-line no-use-before-define
-        let s = extractSize(v);
-        if (!s && v.sku) {
-          const skuMatch = String(v.sku).match(/(\d{2,3})/);
-          s = skuMatch ? skuMatch[1] : null;
-        }
-        if (!s) s = 'default';
-        if (!sizeToVariant.has(s)) sizeToVariant.set(s, v);
+        const s = extractSize(v);
+        if (s && !sizeToVariant.has(s)) sizeToVariant.set(s, v);
       });
       const sizesArray = (Array.isArray(group.sizes) && group.sizes.length)
         ? group.sizes
-        : Array.from(sizeToVariant.keys());
+        : Array.from(sizeToVariant.keys()).filter(Boolean);
+      const hasSizeValue = sizesArray.length > 0;
       // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
       let [selectedSize] = sizesArray;
       let selectedVariant = selectedSize ? (sizeToVariant.get(selectedSize) || item) : item;
@@ -606,9 +629,13 @@ export default function decorate(block) {
       const colorsArray = (Array.isArray(group.colors) && group.colors.length)
         ? group.colors
         : Array.from(colorToVariant.keys());
+      const hasColorValue = colorsArray.some((x) => x && x !== undefined);
+      const shouldUseColorSelection = !hasSizeValue && hasColorValue && colorsArray.length > 0;
       // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
       let [selectedColor] = colorsArray;
-      selectedVariant = selectedColor ? (colorToVariant.get(selectedColor) || item) : item;
+      if (shouldUseColorSelection) {
+        selectedVariant = selectedColor ? (colorToVariant.get(selectedColor) || item) : selectedVariant;
+      }
       // 用来更新卡片显示为指定变体
       const updateCardWithVariant = (variant) => {
         // image
@@ -683,11 +710,19 @@ export default function decorate(block) {
           if (existingLink) existingLink.remove();
         }
 
-        // 为商品卡片中的【Compare】按钮设置 id 属性
+        // 为比较数据准备对应的属性值
+        // 1、为商品卡片中的【Compare】按钮设置 id 属性
         compareEl.setAttribute('data-compare-id', variant.sku || group.sku || '');
-        // 为商品卡片中的【Compare】按钮设置当前选中的size属性
-        compareEl.setAttribute('data-product-size', variant.size || group.size || '');
-        // 为商品卡片 product-card 父元素设置 id 属性，方便当size 修改时，在比较商品数据源中拿到对应数据进行移除
+
+        // 2、为商品卡片中的【Compare】按钮设置当前选中的属性（如： size 或 color）
+        let curSelectedProperty = selectedSize || variant.size || group.size || '';
+        // 只有在没有 size 时，才回退使用 color
+        if (shouldUseColorSelection) {
+          curSelectedProperty = selectedColor || variant.colorRGB || group.colorRGB || '';
+        }
+        compareEl.setAttribute('data-selected-property', curSelectedProperty);
+
+        // 3、为商品卡片 product-card 父元素设置 id 属性，方便当size 修改时，在比较商品数据源中拿到对应数据进行移除
         compareEl.closest('.product-card').setAttribute('data-compare-id', variant.sku || group.sku || '');
       };
 
@@ -706,28 +741,8 @@ export default function decorate(block) {
           selectedSize = s;
           selectedVariant = sizeToVariant.get(s) || item;
 
-          /**
-           * size 切换时，需要清空对应的比较数据 ----start
-          */
-          // 切换该商品size 时，要把之前比较数据中已经添加的该商品的尺寸属性清空
-          const originCompareSku = sp.closest('.product-card').getAttribute('data-compare-id');
-          // 1、过滤比较商品数据源
-          compareDataArr = compareDataArr.filter((comDataItem) => comDataItem.sku !== originCompareSku);
-          // 2、取消商品 card 上【Compare】按钮选中状态
-          const compareCheckedAllEl = document.querySelectorAll('.compare-checked');
-          compareCheckedAllEl.forEach((comCheckedItem) => {
-            const cardCheckedSku = comCheckedItem.getAttribute('data-compare-id');
-            if (cardCheckedSku === originCompareSku) {
-              comCheckedItem.classList.remove('compare-checked');
-            }
-          });
-          // 3、移动询问固定栏中对应商品的LI 元素
-          removeCompareLiUtil(originCompareSku);
-          // 4、底部固定比较栏在对比数据小于2条时，不展示
-          hideCompareBar();
-          /**
-           * size 切换时，需要清空对应的比较数据 ----end
-          */
+          // size 切换时，需要清空对应的比较数据
+          changeCardSelectedProperty(sp);
 
           updateCardWithVariant(selectedVariant);
         });
@@ -743,20 +758,25 @@ export default function decorate(block) {
         }
         // card 中的 【Compare】 btn 是否添加 选中类
         compareEl.classList.toggle('compare-checked');
-        // 当前商品选中的size值
-        const curProductSize = compareE.currentTarget.getAttribute('data-product-size');
-        // 选中size对应的数据源（也是比较商品的数据来源）
-        const selectedSizeItemVariant = sizeToVariant.get(curProductSize);
+        // 当前商品选中属性
+        const curCardSelectedProperty = compareE.currentTarget.getAttribute('data-selected-property') ?? '';
+        // 当前商品选中属性，对应的数据源（也是比较商品的数据来源）
+        let cardSelectedVariant = sizeToVariant.get(curCardSelectedProperty) || selectedVariant || item;
+        // 只有在没有 size 时，才回退使用 color
+        if (shouldUseColorSelection) {
+          cardSelectedVariant = colorToVariant.get(curCardSelectedProperty) || selectedVariant || item;
+        }
+
         const isAdded = compareEl.classList.contains('compare-checked');
         if (isAdded) {
           // 1、新增比较数据
-          compareDataArr.push(selectedSizeItemVariant);
+          compareDataArr.push(cardSelectedVariant);
           const compareBarAllLi = document.querySelectorAll('.plp-compare-card-item');
           // 2、只有选择了2个产品时，才展示页面询问固定栏
           if (compareDataArr.length === 2) {
             document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
             // 底部 compare bar 出现时且为移动端时，为footer 添加 padding-bottom
-            if (isMobile() || isMobileWindow()) {
+            if (isMobileWindow()) {
               const footerWrapper = document.querySelector('.footer-wrapper');
               footerWrapper.style.paddingBottom = `${(274 / 390) * window.innerWidth}px`;
             }
@@ -764,7 +784,7 @@ export default function decorate(block) {
           // 3、为底部固定栏中的对应li 设置已选择产品的图片、产品名称
           compareBarAllLi.forEach((curLi, index) => {
             if (index === compareDataArr.length - 1) {
-              setCompareProductImgTit(curLi, selectedSizeItemVariant);
+              setCompareProductImgTit(curLi, cardSelectedVariant);
             }
           });
 
@@ -796,9 +816,9 @@ export default function decorate(block) {
           });
         } else {
           // 取消商品 card 【Compare】按钮的选中态，重新过滤比较数据集合
-          compareDataArr = compareDataArr.filter((v) => v.sku !== selectedSizeItemVariant.sku);
+          compareDataArr = compareDataArr.filter((v) => v.sku !== cardSelectedVariant.sku);
           // 移除比较数据集合中的对应 li
-          removeCompareLiUtil(selectedSizeItemVariant.sku);
+          removeCompareLiUtil(cardSelectedVariant.sku);
           // 隐藏底部固定比较栏
           hideCompareBar();
         }
@@ -807,7 +827,14 @@ export default function decorate(block) {
       // 创建color节点并绑定事件
       colorsArray?.forEach((s) => {
         const sp = document.createElement('span');
-        sp.classList.add('plp-product-color', s);
+        sp.classList.add('plp-product-color');
+        sp.style.backgroundColor = s;
+        if (s && (s.toLowerCase() === '#fff'
+        || s.toLowerCase() === '#ffffff'
+        || s.toLowerCase() === 'white'
+        || s.toLowerCase() === 'rgb(255, 255, 255)')) {
+          sp.style.border = '1px solid #cfcfcf';
+        }
         if (s === selectedColor) sp.classList.add('selected');
         sp.addEventListener('click', () => {
           if (selectedColor === s) return;
@@ -817,19 +844,29 @@ export default function decorate(block) {
           sp.classList.add('selected');
           selectedColor = s;
           selectedVariant = colorToVariant.get(s) || item;
+          // color 属性 change 时，需要清空对应的比较数据
+          changeCardSelectedProperty(sp);
           updateCardWithVariant(selectedVariant);
         });
         colorsDiv.appendChild(sp);
       });
-      // 如果color 和size 同时存在 显示color
-      const hasColorValue = colorsArray?.some((x) => x && x !== undefined);
-      const showDiv = hasColorValue && colorsArray.length > 0 ? colorsDiv : sizesDiv;
+      // 如果 size 和 color 同时存在，优先显示 size
+      let showDiv = null;
+      if (hasSizeValue) {
+        showDiv = sizesDiv;
+      } else if (shouldUseColorSelection) {
+        showDiv = colorsDiv;
+      }
       // card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields);
 
       // 将where to buy 按钮追加在按钮组dom 中
       productBtnGroupEl.prepend(whereToBuyBtnEl);
 
-      card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields, productBtnGroupEl, compareEl);
+      card.append(titleDiv, imgDiv, seriesDiv, nameDiv);
+      if (showDiv) {
+        card.append(showDiv);
+      }
+      card.append(extraFields, productBtnGroupEl, compareEl);
       productsGrid.append(card);
 
       updateCardWithVariant(selectedVariant);
@@ -884,32 +921,6 @@ export default function decorate(block) {
   const extractSize = (item) => {
     if (!item) return null;
     if (item.size) return String(item.size).replace(/["\s]/g, '');
-    if (item.sku) {
-      const m = String(item.sku).match(/(\d{2,3})/);
-      if (m) return m[1];
-    }
-    const metaTitle = (() => {
-      if (!item) return null;
-      const metaKey = Object.keys(item).find((k) => k.toLowerCase().includes('metadata'));
-      const meta = metaKey ? item[metaKey] : null;
-      if (meta && Array.isArray(meta.stringMetadata)) {
-        const found = meta.stringMetadata.find((x) => x.name === 'title');
-        return found ? found.value : null;
-      }
-      return null;
-    })();
-    const candidates = [metaTitle, item.title, item.subtitle].filter(Boolean);
-    let foundSize = null;
-    candidates.some((c) => {
-      const mm = String(c).match(/(\d{2,3})/);
-      if (mm) {
-        const [, size] = mm;
-        foundSize = size;
-        return true;
-      }
-      return false;
-    });
-    if (foundSize) return foundSize;
     return null;
   };
 
@@ -925,6 +936,13 @@ export default function decorate(block) {
         if (hostname.includes('hisense.com') && pathname.startsWith('/us')) {
           item.productDetailPageLink = item.productDetailPageLink.replace('/us/en', '/us');
         }
+      }
+      if (!Array.isArray(item.tags)) {
+        item.tags = [];
+      }
+      // 显示colorName时，确保color属性都不能为空
+      if (item.colorName != null && item.color == null) {
+        item.color = item.colorName;
       }
       // 补全ConnectLife Enabled没有配置的情况
       const TAG_YES = 'hisense:product/tv/connectlife-enabled/yes';
@@ -964,16 +982,14 @@ export default function decorate(block) {
       }
       const sz = extractSize(it);
       if (sz) groups[key].sizes.add(sz);
-      const color = it?.color;
+      const color = it?.colorRGB;
       if (color) groups[key].colors.add(color);
     });
 
     allGroupedData = Object.keys(groups).map((k) => {
       const g = groups[k];
       const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(b) - Number(a));
-      // 处理color的 排序  后续顺序可调整
-      const colorOrder = ['black', 'silver', 'white', 'grey', 'red'];
-      const colors = colorOrder.filter((color) => Array.from(g.colors).filter(Boolean).includes(color));
+      const colors = Array.from(g.colors).filter(Boolean);
       // 检查聚合产品是否有任意size有productDetailPageLink，有就共享这个链接
       let sharedProductDetailPageLink = g.variants.find((variant) => variant && variant.productDetailPageLink)?.productDetailPageLink;
 

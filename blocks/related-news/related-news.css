@@ -22,10 +22,6 @@
             &.show {
               display: flex;
             }
-
-            @media (width < 860px) {
-              display: none;
-            }
         }
 
         button {
@@ -257,5 +253,10 @@
         }
       }
     }
+  }
+
+  .related-news-container .button-container,
+  .related-news-container .button-container.show {
+    display: none !important;
   }
 }

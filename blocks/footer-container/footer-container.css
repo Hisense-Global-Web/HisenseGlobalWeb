@@ -267,6 +267,7 @@ footer footer {
   display: flex;
   gap: var(--size-16);
   height: var(--size-36);
+  overflow: hidden;
 
   @media (width < 860px) {
     height: var(--size-24);
