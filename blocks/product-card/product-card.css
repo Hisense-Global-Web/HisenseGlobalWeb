@@ -717,7 +717,7 @@
       .popup-scroll-box {
         max-height: calc(90vh - var(--size-72));
         -webkit-overflow-scrolling: touch;  /* iOS 流畅滚动 */
-        overflow: hidden auto;
+        overflow-x: hidden;
 
       }
 
