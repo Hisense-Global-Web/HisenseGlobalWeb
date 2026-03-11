@@ -286,7 +286,7 @@ function mobilePopupTouchStartEnd() {
         // 配置项：每次滑动的滚动距离（可自定义）
         // targetScrollLeft = Math.max(0, currentScrollLeft - SCROLL_DISTANCE);
         targetScrollLeft = SCROLL_DISTANCE * -1;
-        alert(`${targetScrollLeft} 右滑可滑动距离`);
+        // alert(`${targetScrollLeft} 右滑可滑动距离`);
       } else {
         // 左滑：向右滚动（显示右侧内容）
         const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;

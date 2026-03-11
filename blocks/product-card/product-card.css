@@ -157,7 +157,7 @@
   text-transform: capitalize;
 }
 
-.product-card .plp-product-btn.ps-widget[ps-sku] {
+.product-card .plp-where-to-buy-btn {
   display: none;
 }
 
