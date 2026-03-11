@@ -124,7 +124,7 @@
 
     &.center {
       .feature-items-wrapper {
-        gap: var(--size-24);
+        gap: var(--size-24) !important;
 
         .feature-item-box {
           height: calc(228/var(--breakpoint-mobile)*100vw);
