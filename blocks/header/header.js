@@ -427,10 +427,10 @@ function buildSupportDropdown(mainEl) {
     span1.textContent = title;
     link.append(span1);
     if (href && href !== '#') {
-      link.dataset.href = href;
+      link.dataset.href = processPath(href);
       link.addEventListener('click', (e) => {
         e.stopPropagation();
-        window.location.href = href;
+        window.location.href = processPath(href);
       });
     }
     supportRouteGroupEl.append(link);
