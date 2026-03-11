@@ -1227,6 +1227,7 @@
         "label": "Card options",
         "description": "",
         "valueType": "string",
+        "value": "center-style",
         "options": [
           {
             "name": "Cover Style",
