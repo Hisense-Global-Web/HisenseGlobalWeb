@@ -95,6 +95,7 @@ function formatDate(iso) {
 
 function buildCard(item) {
   const {
+    author,
     path,
     title,
     subtitle,
@@ -150,9 +151,12 @@ function buildCard(item) {
   }
 
   // author
-  const authorEl = document.createElement('div');
-  authorEl.classList.add('author');
-  contentEl.append(authorEl);
+  if (author && window.location.pathname.indexOf('blog') !== -1) {
+    const authorEl = document.createElement('div');
+    authorEl.classList.add('author');
+    authorEl.textContent = author;
+    contentEl.append(authorEl);
+  }
 
   // Meta group
   const metaGroupEl = document.createElement('div');
@@ -171,7 +175,7 @@ function buildCard(item) {
     metaGroupEl.appendChild(dateEl);
   }
 
-  if (location) {
+  if (location && window.location.pathname.indexOf('blog') === -1) {
     const locationEl = document.createElement('span');
     locationEl.classList.add('meta-item');
     const iconImg = document.createElement('img');
