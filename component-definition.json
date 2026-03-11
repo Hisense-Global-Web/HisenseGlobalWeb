@@ -478,6 +478,7 @@
                   "name": "Card Grid",
                   "model": "card-grid",
                   "filter": "card-grid",
+                  "classes": "left",
                   "key-value": true
                 }
               }
