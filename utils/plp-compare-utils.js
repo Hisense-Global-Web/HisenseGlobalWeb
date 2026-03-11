@@ -229,11 +229,11 @@ function mobilePopupTouchStartEnd() {
   const scrollContainer = document.querySelector('.popup-scroll-box');
 
   // 最小滑动距离（过滤误触，单位px）
-  const MIN_SWIPE_DISTANCE = 30;
+  const MIN_SWIPE_DISTANCE = 80;
 
   // 2. 定义变量存储滑动状态
   let startX = 0; // 滑动起点X坐标
-  // let startY = 0; // 滑动起点Y坐标
+  let startY = 0; // 滑动起点Y坐标
   let isSwiping = false; // 是否正在滑动
 
   /**
@@ -245,11 +245,11 @@ function mobilePopupTouchStartEnd() {
     e.preventDefault();
     // 获取起点坐标（兼容touch和mouse事件）
     const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-    // const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+    const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
 
     // 初始化状态
     startX = clientX;
-    // startY = clientY;
+    startY = clientY;
     isSwiping = true;
   }
 
@@ -271,43 +271,45 @@ function mobilePopupTouchStartEnd() {
 
     // 获取终点坐标
     const clientX = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX;
-    // const clientY = e.type === 'touchend' ? e.changedTouches[0].clientY : e.clientY;
+    const clientY = e.type === 'touchend' ? e.changedTouches[0].clientY : e.clientY;
 
     // 计算滑动偏移量
     const deltaX = clientX - startX; // X轴偏移（正值=右滑，负值=左滑）
-    // const deltaY = clientY - startY; // Y轴偏移
+    const deltaY = clientY - startY; // Y轴偏移
 
     // 过滤无效滑动：横向滑动距离需大于纵向，且超过最小距离
-    // if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE || Math.abs(deltaX) < Math.abs(deltaY)) {
-    alert(`${Math.abs(deltaX)} 滑动偏移量`);
-    if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE) {
+    if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE || Math.abs(deltaX) < Math.abs(deltaY)) {
+      alert(`${deltaX} x轴滑动偏移量`);
+      alert(`${deltaY} y轴滑动偏移量`);
       isSwiping = false;
       return;
     }
 
     // 6. 判断滑动方向并执行滚动
-    const currentScrollLeft = scrollContainer.scrollLeft; // 当前滚动距离
-    let targetScrollLeft = currentScrollLeft;
-    const availableScrollWidth = scrollContainer.scrollWidth;
-    const windowW = scrollContainer.clientWidth;
-    const SCROLL_DISTANCE = availableScrollWidth - windowW; // 每次滚动可流动距离
-    if (deltaX > 0) {
-      // 右滑：向左滚动（显示左侧内容）
-      // 配置项：每次滑动的滚动距离（可自定义）
-      targetScrollLeft = Math.max(0, currentScrollLeft - SCROLL_DISTANCE);
-      alert(`${targetScrollLeft} 右滑可滑动距离`);
-    } else {
-      // 左滑：向右滚动（显示右侧内容）
-      const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-      targetScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + SCROLL_DISTANCE);
-      alert(`${targetScrollLeft} 左滑可滑动距离`);
-    }
+    if (isSwiping) {
+      const currentScrollLeft = scrollContainer.scrollLeft; // 当前滚动距离
+      let targetScrollLeft = currentScrollLeft;
+      const availableScrollWidth = scrollContainer.scrollWidth;
+      const windowW = scrollContainer.clientWidth;
+      const SCROLL_DISTANCE = availableScrollWidth - windowW; // 每次滚动可流动距离
+      if (deltaX > 0) {
+        // 右滑：向左滚动（显示左侧内容）
+        // 配置项：每次滑动的滚动距离（可自定义）
+        targetScrollLeft = Math.max(0, currentScrollLeft - SCROLL_DISTANCE);
+        alert(`${targetScrollLeft} 右滑可滑动距离`);
+      } else {
+        // 左滑：向右滚动（显示右侧内容）
+        const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+        targetScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + SCROLL_DISTANCE);
+        alert(`${targetScrollLeft} 左滑可滑动距离`);
+      }
 
-    // 执行滚动（支持平滑滚动）
-    scrollContainer.scrollTo({
-      left: targetScrollLeft,
-      behavior: 'smooth', // 平滑动画，移除则瞬间滚动
-    });
+      // 执行滚动（支持平滑滚动）
+      scrollContainer.scrollTo({
+        left: targetScrollLeft,
+        behavior: 'smooth', // 平滑动画，移除则瞬间滚动
+      });
+    }
 
     // 重置状态
     isSwiping = false;
