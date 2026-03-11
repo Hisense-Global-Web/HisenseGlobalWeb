@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
+import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 
-const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const { country } = getLocaleFromPath();
 export default async function decorate(block) {
   const rows = [...(block.children || [])];
   let fields = [];
@@ -52,7 +52,7 @@ export default async function decorate(block) {
    * Get GraphQL endpoint URL with base URL
    */
   function getGraphQLUrl(endpointPath) {
-    let path = endpointPath;
+    let path = localizeProductApiPath(endpointPath);
     const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) ? window.location.hostname : '';
     const isAemEnv = hostname.includes('author') || hostname.includes('publish');
 

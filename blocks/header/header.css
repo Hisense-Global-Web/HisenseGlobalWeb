@@ -71,7 +71,7 @@
 
     .nav-link,
     .nav-section {
-      color: var(--header-light-color);
+      color: var(--header-light-color) !important;
     }
   }
 

@@ -327,15 +327,17 @@ function buildMobilePaginationControls(mobileEl, state, onLoadMore, config) {
   if (!mobileEl) return;
   mobileEl.textContent = '';
 
-  const { total, pageSize, currentPage } = state;
-  if (!total || !pageSize || currentPage * pageSize >= total) return;
-
   const loadMoreBtn = document.createElement('button');
   loadMoreBtn.type = 'button';
   loadMoreBtn.classList.add('page-button');
   loadMoreBtn.textContent = config.loadmorelabel || 'Load More';
   loadMoreBtn.addEventListener('click', onLoadMore);
   mobileEl.appendChild(loadMoreBtn);
+
+  const { total, pageSize, currentPage } = state;
+  if (!total || !pageSize || currentPage * pageSize >= total) {
+    mobileEl.style.display = 'none';
+  }
 }
 
 // block 级配置 key，即使第二列是链接也只当 config 不入 items
@@ -682,6 +684,36 @@ export default async function decorate(block) {
   });
 
   const tabItems = tabNav.querySelectorAll('.tab-item');
+  function handleViewportResize() {
+    const isMobile = window.innerWidth < 860;
+    tabDataMap.forEach((tabData) => {
+      const { prevIsMobile } = tabData;
+      if (prevIsMobile !== isMobile) {
+        tabData.state.currentPage = 1;
+        tabData.prevIsMobile = isMobile;
+        // 重新渲染当前激活的tab
+        const activeTabI = Array.from(tabItems).findIndex((t) => t.classList.contains('select'));
+        if (activeTabI !== -1) {
+          renderTabContent(activeTabI);
+        }
+      }
+    });
+    const mobilePaginationEl = document.querySelector('.search-pagination-mobile');
+    if (mobilePaginationEl.style.display === 'none') {
+      mobilePaginationEl.style.display = '';
+    }
+  }
+  // 初始化移动端状态
+  tabDataMap.forEach((tabData) => {
+    tabData.prevIsMobile = window.innerWidth < 860;
+  });
+  // 添加视口监听事件（防抖处理）
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(handleViewportResize, 100);
+  });
+
   tabItems.forEach((tab) => {
     tab.addEventListener('click', () => {
       tabItems.forEach((t) => t.classList.remove('select'));
