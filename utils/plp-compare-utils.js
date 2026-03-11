@@ -235,6 +235,7 @@ function mobilePopupTouchStartEnd() {
   let startX = 0; // 滑动起点X坐标
   let startY = 0; // 滑动起点Y坐标
   let isSwiping = false; // 是否正在滑动
+  let isHorizontalSwipe = false; // 新增：标记是否为横向滑动
 
   /**
    * 处理滑动开始事件
@@ -249,6 +250,7 @@ function mobilePopupTouchStartEnd() {
     startX = clientX;
     startY = clientY;
     isSwiping = true;
+    isHorizontalSwipe = false; // 重置横向滑动标记
   }
 
   /**
@@ -275,7 +277,8 @@ function mobilePopupTouchStartEnd() {
     }
 
     // 6. 判断滑动方向并执行滚动
-    if (isSwiping) {
+    // 只处理横向滑动：必须满足横向滑动标记 且 滑动距离足够
+    if (isHorizontalSwipe && Math.abs(deltaX) >= MIN_SWIPE_DISTANCE) {
       const currentScrollLeft = scrollContainer.scrollLeft; // 当前滚动距离
       let targetScrollLeft = currentScrollLeft;
       const availableScrollWidth = scrollContainer.scrollWidth;
@@ -316,9 +319,15 @@ function mobilePopupTouchStartEnd() {
     const currentY = e.touches[0].clientY;
     const deltaX = Math.abs(currentX - startX);
     const deltaY = Math.abs(currentY - startY);
+    // 在移动过程中判断滑动方向
+    if (!isHorizontalSwipe) {
+      if (deltaX > deltaY && deltaX > 10) {
+        isHorizontalSwipe = true; // 确定为横向滑动
+      }
+    }
     // 只有当明显是横向滑动时，才阻止默认行为
-    if (deltaX > deltaY && deltaX > 10) {
-      e.preventDefault(); // 阻止竖向滚动
+    if (isHorizontalSwipe) {
+      e.preventDefault();
     }
   }, { passive: false });
 
