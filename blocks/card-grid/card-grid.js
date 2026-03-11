@@ -28,8 +28,8 @@ export default async function decorate(block) {
     child.append(itemTextBoxEl);
     featureItemsWrapperEl.append(child);
   });
-  
-  if(block.classList.contains('center') && featureItemsWrapperEl.children.length > 4) {
+
+  if (block.classList.contains('center') && featureItemsWrapperEl.children.length > 4) {
     featureItemsWrapperEl.classList.add('small-gap');
   }
   block.append(featureItemsWrapperEl);
