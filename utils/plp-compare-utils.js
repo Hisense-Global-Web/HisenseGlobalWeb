@@ -241,8 +241,6 @@ function mobilePopupTouchStartEnd() {
    * @param {Event} e - 事件对象
    */
   function handleStart(e) {
-    // 阻止默认行为（避免页面滚动干扰）
-    e.preventDefault();
     // 获取起点坐标（兼容touch和mouse事件）
     const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
     const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
@@ -252,15 +250,6 @@ function mobilePopupTouchStartEnd() {
     startY = clientY;
     isSwiping = true;
   }
-
-  /**
-   * 处理滑动移动事件（仅标记状态，不做滚动）
-   * @param {Event} e - 事件对象
-   */
-  // function handleMove(e) {
-  //   if (!isSwiping) return;
-  //   e.preventDefault(); // 阻止默认行为
-  // }
 
   /**
    * 处理滑动结束事件（核心：判断方向+执行滚动）
@@ -279,8 +268,8 @@ function mobilePopupTouchStartEnd() {
 
     // 过滤无效滑动：横向滑动距离需大于纵向，且超过最小距离
     if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE || Math.abs(deltaX) < Math.abs(deltaY)) {
-      alert(`${deltaX} x轴滑动偏移量`);
-      alert(`${deltaY} y轴滑动偏移量`);
+      // alert(`${deltaX} x轴滑动偏移量`);
+      // alert(`${deltaY} y轴滑动偏移量`);
       isSwiping = false;
       return;
     }
@@ -295,13 +284,14 @@ function mobilePopupTouchStartEnd() {
       if (deltaX > 0) {
         // 右滑：向左滚动（显示左侧内容）
         // 配置项：每次滑动的滚动距离（可自定义）
-        targetScrollLeft = Math.max(0, currentScrollLeft - SCROLL_DISTANCE);
-        alert(`${targetScrollLeft} 右滑可滑动距离`);
+        // targetScrollLeft = Math.max(0, currentScrollLeft - SCROLL_DISTANCE);
+        targetScrollLeft = SCROLL_DISTANCE * -1;
+        // alert(`${targetScrollLeft} 右滑可滑动距离`);
       } else {
         // 左滑：向右滚动（显示右侧内容）
         const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
         targetScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + SCROLL_DISTANCE);
-        alert(`${targetScrollLeft} 左滑可滑动距离`);
+        // alert(`${targetScrollLeft} 左滑可滑动距离`);
       }
 
       // 执行滚动（支持平滑滚动）
@@ -317,20 +307,23 @@ function mobilePopupTouchStartEnd() {
 
   // 3. 监听触摸/鼠标开始事件（兼容移动端+桌面端）
   scrollContainer.addEventListener('touchstart', handleStart);
-  // scrollContainer.addEventListener('mousedown', handleStart);
 
   // 4. 监听触摸/鼠标移动事件
   scrollContainer.addEventListener('touchmove', (e) => {
     if (!isSwiping) return;
-    e.preventDefault(); // 阻止页面整体滚动
+
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const deltaX = Math.abs(currentX - startX);
+    const deltaY = Math.abs(currentY - startY);
+    // 只有当明显是横向滑动时，才阻止默认行为
+    if (deltaX > deltaY && deltaX > 10) {
+      e.preventDefault(); // 阻止竖向滚动
+    }
   }, { passive: false });
-  // scrollContainer.addEventListener('touchmove', handleMove);
-  // scrollContainer.addEventListener('mousemove', handleMove);
 
   // 5. 监听触摸/鼠标结束事件
   scrollContainer.addEventListener('touchend', handleEnd);
-  // scrollContainer.addEventListener('mouseup', handleEnd);
-  // scrollContainer.addEventListener('mouseleave', handleEnd); // 鼠标离开容器也结束
 }
 
 // 比较弹窗详细信息
