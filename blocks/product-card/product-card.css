@@ -425,7 +425,7 @@
     }
 
     .popup-scroll-box {
-      max-height: calc(100% - 80px);
+      max-height: calc(90vh - 80px);
       overflow-y: auto;
       scroll-behavior: smooth;
     }
@@ -773,7 +773,7 @@
       }
 
       .product-main-info-box {
-        padding: 0 18px;
+        padding: 0 18px var(--size-32);
         display: inline-flex;
         flex-direction: column;
 
@@ -803,7 +803,6 @@
           .property-title {
             font-size: var(--size-20);
             line-height: var(--size-26);
-            border-bottom: none;
           }
 
           .values-list {
@@ -814,7 +813,6 @@
               width: calc(170 / var(--breakpoint-mobile) * 100vw) !important;
               flex-shrink: 0;
               box-sizing: border-box;
-              border-bottom: 1px solid var(--color-primary-grey-30);
             }
 
             &:has(> *:nth-child(2):nth-last-child(1)) > * {

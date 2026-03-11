@@ -279,6 +279,7 @@ function mobilePopupTouchStartEnd() {
 
     // 过滤无效滑动：横向滑动距离需大于纵向，且超过最小距离
     // if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE || Math.abs(deltaX) < Math.abs(deltaY)) {
+    alert(`${Math.abs(deltaX)} 滑动偏移量`);
     if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE) {
       isSwiping = false;
       return;
@@ -294,10 +295,12 @@ function mobilePopupTouchStartEnd() {
       // 右滑：向左滚动（显示左侧内容）
       // 配置项：每次滑动的滚动距离（可自定义）
       targetScrollLeft = Math.max(0, currentScrollLeft - SCROLL_DISTANCE);
+      alert(`${targetScrollLeft} 右滑可滑动距离`);
     } else {
       // 左滑：向右滚动（显示右侧内容）
       const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
       targetScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + SCROLL_DISTANCE);
+      alert(`${targetScrollLeft} 左滑可滑动距离`);
     }
 
     // 执行滚动（支持平滑滚动）
