@@ -8,6 +8,16 @@ const getUrlParams = (paramName) => {
   const params = new URLSearchParams(window.location.search);
   return params ? params.get(paramName) : null;
 };
+
+const goToSearchResult = (target, searchLink, fulltext) => {
+  const url = `${searchLink}?fulltext=${encodeURIComponent(fulltext)}`;
+  if (target === '_blank') {
+    window.open(url, '_blank', 'noopener');
+  } else {
+    window.location.href = url;
+  }
+};
+
 // 获取Search Input的HTML元素
 const getSearchInput = (block) => {
   const config = readBlockConfig(block);
@@ -57,12 +67,7 @@ const getSearchInput = (block) => {
 
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && input.value.trim()) {
-      const url = `${searchLink}?fulltext=${encodeURIComponent(input.value.trim())}`;
-      if (target === '_blank') {
-        window.open(url, '_blank', 'noopener');
-      } else {
-        window.location.href = url;
-      }
+      goToSearchResult(target, searchLink, input.value.trim());
     }
   });
 
@@ -77,7 +82,9 @@ const getSearchInput = (block) => {
 // 获取Quick Link的HTML元素
 const getQuickLink = (block) => {
   const config = readBlockConfig(block);
+  const searchLink = config['search-link'] || '/search';
   const suggestionLabel = config['suggestion-label'];
+  const target = config.target || '_self';
   let quickLinkIndex = 2;
   if (suggestionLabel?.length) {
     quickLinkIndex = 3;
@@ -99,15 +106,13 @@ const getQuickLink = (block) => {
   quickLinkList.forEach((linkElement) => {
     const linkDiv = document.createElement('div');
     linkDiv.className = 'quick-link';
-    const link = linkElement?.querySelector('a')?.href ?? '';
-    const linkTextElement = linkElement?.children[1];
-    const linkText = linkTextElement?.querySelector('p')?.innerHTML ?? '';
+    const linkText = linkElement?.querySelector('p')?.innerHTML ?? '';
     linkDiv.innerHTML = linkText;
     linkDiv.addEventListener('click', () => {
-      if (!link) {
+      if (!searchLink) {
         return;
       }
-      window.location.href = link;
+      goToSearchResult(target, searchLink, linkText);
     });
     if (linkText) {
       quickLinkWrapper.appendChild(linkDiv);
