@@ -157,10 +157,11 @@ const generateAuthorSearchBox = (block) => {
   }
   if (quickLinkList?.length) {
     quickLinkList.forEach((quickLinkEl) => {
-      quickLinkEl.children[0].remove();
-      const quickLinkTextEl = quickLinkEl.children[0];
-      quickLinkTextEl.className = 'quick-link';
-      quickLinkWrapperEl.append(quickLinkTextEl);
+      const quickLinkTextEl = quickLinkEl.querySelector('p');
+      if (quickLinkTextEl) {
+        quickLinkTextEl.className = 'quick-link';
+        quickLinkWrapperEl.append(quickLinkTextEl);
+      }
     });
   }
   block.prepend(outWrapper);
