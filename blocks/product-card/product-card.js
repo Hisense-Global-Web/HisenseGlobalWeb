@@ -350,7 +350,8 @@ export default function decorate(block) {
       const compareDetailInfo = aggregateData(compareDataArr);
       // render compare popup detail data
       renderCompareDetailData(compareDetailInfo, 'property-box-id');
-      document.querySelector('.compare-popup-wrapper').style.display = 'block';
+      // document.querySelector('.compare-popup-wrapper').style.display = 'block';
+      document.querySelector('.compare-popup-wrapper').style.visibility = 'visible';
     });
     const compareBarCloseBtn = document.createElement('img');
     compareBarCloseBtn.className = 'plp-compare-bar-close';

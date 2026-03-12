@@ -358,20 +358,6 @@ export function createComparePopup() {
   closeIcon.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
   closeIcon.alt = 'Close';
   popupCloseBtn.append(closeIcon);
-  // popup close click
-  popupCloseBtn.addEventListener('click', () => {
-    document.body.style.overflow = 'auto';
-    document.querySelector('.compare-popup-wrapper').style.display = 'none';
-    // document.querySelector('.popup-scroll-box').scrollTop = 0
-    // 无动画重置滚动条到顶部（保证下次打开直接到顶）
-    // popupScrollBoxEl.scrollTo({
-    //   top: 0,
-    //   left: 0, // 同时重置横向滚动
-    //   behavior: 'auto' // 立即滚动，无平滑动画
-    // });
-    // // 移除吸顶样式（避免下次打开时残留）
-    // compareProductNameBoxEl.classList.remove('sticky-active');
-  });
 
   // popup title
   comparePopupTitBoxEl.className = 'compare-popup-tit-box';
@@ -385,6 +371,20 @@ export function createComparePopup() {
   // popup compare product name
   const compareProductNameBoxEl = document.createElement('div');
   compareProductNameBoxEl.className = 'product-name-box';
+
+  // popup close click
+  popupCloseBtn.addEventListener('click', () => {
+    document.body.style.overflow = 'auto';
+    // document.querySelector('.compare-popup-wrapper').style.display = 'none';
+    document.querySelector('.compare-popup-wrapper').style.visibility = 'hidden';
+    // 无动画重置滚动条到顶部（保证下次打开直接到顶）
+    popupScrollBoxEl.scrollTop = 0;
+    compareProductNameBoxEl.classList.remove('sticky-active');
+    // 左滑也需要重置
+    if (popupScrollBoxEl.scrollLeft > 0) {
+      popupScrollBoxEl.scrollLeft = 0;
+    }
+  });
 
   // 对比商品详情信息
   const productMainInfoBoxEl = document.createElement('div');
