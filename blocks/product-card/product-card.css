@@ -731,7 +731,8 @@
         -webkit-overflow-scrolling: touch;  /* iOS 流畅滚动 */
 
         /* overflow-x: auto; */
-        touch-action: pan-y;
+
+        /* touch-action: pan-y; */
       }
 
       .compare-popup-tit-box {
