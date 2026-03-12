@@ -304,9 +304,6 @@ function mobilePopupTouchStartEnd() {
     if (deltaX > 0) {
       // 右滑 → 滚动到最左侧
       targetScrollLeft = 0;
-      const xVal = document.createElement('div');
-      xVal.textContent = `x轴：${deltaX}; scrollLeft: ${targetScrollLeft}; 有效滑动：${isEffectiveSwipe}`;
-      document.querySelector('.popup-scroll-box').prepend(xVal);
     } else {
       // 左滑 → 滚动到最右侧
       targetScrollLeft = maxScrollLeft;
