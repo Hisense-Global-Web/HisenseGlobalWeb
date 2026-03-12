@@ -438,7 +438,7 @@
 
     .popup-scroll-box {
       max-height: calc(90vh - 80px);
-      overflow-y: auto;
+      overflow: auto;
       scroll-behavior: smooth;
     }
 
@@ -729,7 +729,8 @@
       .popup-scroll-box {
         max-height: calc(90vh - var(--size-72));
         -webkit-overflow-scrolling: touch;  /* iOS 流畅滚动 */
-        overflow-x: auto;
+
+        /* overflow-x: auto; */
         touch-action: pan-y;
       }
 
