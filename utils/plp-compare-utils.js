@@ -251,9 +251,9 @@ function mobilePopupTouchStartEnd() {
     if (e.touches && e.touches.length > 1) return;
 
     const touch = e.touches[0];
-    // 初始化状态（使用pageX/pageY更稳定，不受滚动影响）
-    startX = touch.pageX;
-    startY = touch.pageY;
+    // 初始化状态
+    startX = touch.clientX;
+    startY = touch.clientY;
     isSwiping = true;
     deltaX = 0;
     deltaY = 0;
@@ -267,8 +267,8 @@ function mobilePopupTouchStartEnd() {
 
     const touch = e.touches[0];
     // 实时计算偏移量
-    deltaX = touch.pageX - startX;
-    deltaY = touch.pageY - startY;
+    deltaX = touch.clientX - startX;
+    deltaY = touch.clientY - startY;
 
     // 判断是否为横向滑动：横向偏移 > 纵向偏移 且 超过最小阈值
     const isHorizontal = Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > MIN_DETECT_DISTANCE;
@@ -302,6 +302,10 @@ function mobilePopupTouchStartEnd() {
     let targetScrollLeft = currentScrollLeft;
     // 判断滑动方向并计算目标滚动位置
     if (deltaX > 0) {
+      document.querySelector('.compare-popup-close').style.background = 'red';
+      const xVal = document.createElement('div');
+      xVal.textContent = `x轴：${deltaX}`;
+      document.querySelector('.popup-scroll-box').prepend(xVal);
       // 右滑 → 向左滚动（显示左侧内容）
       targetScrollLeft = Math.max(0, currentScrollLeft - clientWidth); // 每次滚动一个可视宽度
     } else {
