@@ -247,6 +247,14 @@ main .section.product-gallery-container.product-section-container .product-secti
   font-family: var(--font-family);
 }
 
+.pdp-btn-group:has(.pdp-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku) {
+  margin-bottom: 0;
+}
+
+.pdp-btn-group .pdp-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku{
+  display:  none !important;
+}
+
 /* .pdp-buy-btn:active, .pdp-buy-btn:focus {
   background: #000;
   border-color: #000;
