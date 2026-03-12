@@ -241,6 +241,7 @@ function mobilePopupTouchStartEnd() {
   let isSwiping = false; // 是否正在滑动
   let deltaX = 0; // 缓存X轴偏移量
   let deltaY = 0; // 缓存Y轴偏移量
+  let hasProcessedSwipe = false; // flag to ensure swipe is processed only once
 
   /**
    * 处理滑动开始事件
@@ -257,6 +258,7 @@ function mobilePopupTouchStartEnd() {
     isSwiping = true;
     deltaX = 0;
     deltaY = 0;
+    hasProcessedSwipe = false; // reset flag on touch start
   }
 
   /**
@@ -285,13 +287,19 @@ function mobilePopupTouchStartEnd() {
    */
   function handleEnd() {
     if (!isSwiping) return;
+    isSwiping = false;
 
-    // 过滤无效滑动：仅处理横向且超过最小距离的滑动
-    const isEffectiveSwipe = Math.abs(deltaX) >= MIN_SWIPE_DISTANCE && Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaY) < 20;
+    // only process once per gesture
+    if (hasProcessedSwipe) return;
+
+    // 过滤无效滑动：仅处理横向且超过最小距离的滑动，且忽略垂直分量较大的情况
+    const isEffectiveSwipe = Math.abs(deltaX) >= MIN_SWIPE_DISTANCE && Math.abs(deltaX) > Math.abs(deltaY);
     if (!isEffectiveSwipe) {
-      isSwiping = false;
       return;
     }
+
+    // 标记已处理，防止重复滑动
+    hasProcessedSwipe = true;
 
     // 计算滚动容器的核心参数
     const { clientWidth } = scrollContainer; // 可视宽度
@@ -300,17 +308,13 @@ function mobilePopupTouchStartEnd() {
     const currentScrollLeft = scrollContainer.scrollLeft; // 当前滚动位置
 
     let targetScrollLeft = currentScrollLeft;
-    // 判断滑动方向并计算目标滚动位置
+    // 判断滑动方向并计算目标滚动位置（滑到底）
     if (deltaX > 0) {
-      document.querySelector('.compare-popup-close').style.background = 'green';
-      // 右滑 → 向左滚动（显示左侧内容）
-      targetScrollLeft = Math.max(0, currentScrollLeft - clientWidth); // 每次滚动一个可视宽度
-      const xVal = document.createElement('div');
-      xVal.textContent = `x轴：${deltaX}; scrollLeft: ${targetScrollLeft}`;
-      document.querySelector('.popup-scroll-box').prepend(xVal);
+      // 右滑 → 向左滚动，滑到最左边（0）
+      targetScrollLeft = 0;
     } else {
-      // 左滑 → 向右滚动（显示右侧内容）
-      targetScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + clientWidth);
+      // 左滑 → 向右滚动，滑到最右边（maxScrollLeft）
+      targetScrollLeft = maxScrollLeft;
     }
 
     // 执行平滑滚动
@@ -318,9 +322,6 @@ function mobilePopupTouchStartEnd() {
       left: targetScrollLeft,
       behavior: 'smooth',
     });
-
-    // 重置状态
-    isSwiping = false;
   }
 
   // 3. 绑定事件（passive: false 确保可以阻止默认行为）
