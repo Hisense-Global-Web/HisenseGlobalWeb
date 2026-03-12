@@ -1,0 +1,8 @@
+.calltoaction-banner-wrapper {
+    width: 100%;
+}
+
+.calltoaction-banner {
+    width: min(calc(467/var(--breakpoint-pc)), 467px);
+    height: auto;
+}
