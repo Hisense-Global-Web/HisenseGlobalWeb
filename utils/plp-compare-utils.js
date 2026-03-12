@@ -229,7 +229,8 @@ function mobilePopupTouchStartEnd() {
   if (!scrollContainer) { // 增加容错：容器不存在时直接返回
     return;
   }
-
+  // 设置水平滚动为隐藏，防止上下滑动时的左右闪动
+  scrollContainer.style.overflowX = 'hidden';
   // 最小滑动距离（过滤误触，单位px）
   const MIN_SWIPE_DISTANCE = 20;
   // 最小判断阈值（用于提前识别滑动方向）
@@ -301,6 +302,8 @@ function mobilePopupTouchStartEnd() {
     // 标记已处理，防止重复滑动
     hasProcessedSwipe = true;
 
+    // 临时允许水平滚动以执行滚动
+    scrollContainer.style.overflowX = 'auto';
     // 计算滚动容器的核心参数
     const { clientWidth } = scrollContainer; // 可视宽度
     const { scrollWidth } = scrollContainer; // 总宽度
@@ -322,6 +325,11 @@ function mobilePopupTouchStartEnd() {
       left: targetScrollLeft,
       behavior: 'smooth',
     });
+
+    // 滚动完成后重新隐藏水平滚动
+    setTimeout(() => {
+      scrollContainer.style.overflowX = 'hidden';
+    }, 300); // 匹配smooth动画时间
   }
 
   // 3. 绑定事件（passive: false 确保可以阻止默认行为）
