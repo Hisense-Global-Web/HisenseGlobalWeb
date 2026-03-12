@@ -214,7 +214,6 @@ function comparePopupScroll() {
 
   // 计算元素产品名称相对于滚动容器的内部偏移：当差值≤0时，元素B触顶
   const relativeTop = nameBoxElTop - scrollBoxTop;
-
   // 控制激活类名：触顶时添加边框，否则移除
   if (relativeTop <= 0) {
     nameBoxEl.classList.add('sticky-active');
@@ -227,112 +226,105 @@ function comparePopupScroll() {
 function mobilePopupTouchStartEnd() {
   // 1. 获取目标滚动容器
   const scrollContainer = document.querySelector('.popup-scroll-box');
+  if (!scrollContainer) { // 增加容错：容器不存在时直接返回
+    return;
+  }
 
   // 最小滑动距离（过滤误触，单位px）
   const MIN_SWIPE_DISTANCE = 80;
+  // 最小判断阈值（用于提前识别滑动方向）
+  const MIN_DETECT_DISTANCE = 10;
 
   // 2. 定义变量存储滑动状态
   let startX = 0; // 滑动起点X坐标
   let startY = 0; // 滑动起点Y坐标
   let isSwiping = false; // 是否正在滑动
-  let isHorizontalSwipe = false; // 新增：标记是否为横向滑动
+  let deltaX = 0; // 缓存X轴偏移量
+  let deltaY = 0; // 缓存Y轴偏移量
 
   /**
    * 处理滑动开始事件
    * @param {Event} e - 事件对象
    */
   function handleStart(e) {
-    // 获取起点坐标（兼容touch和mouse事件）
-    const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-    const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+    // 只处理单指触摸
+    if (e.touches && e.touches.length > 1) return;
 
-    // 初始化状态
-    startX = clientX;
-    startY = clientY;
+    const touch = e.touches[0];
+    // 初始化状态（使用pageX/pageY更稳定，不受滚动影响）
+    startX = touch.pageX;
+    startY = touch.pageY;
     isSwiping = true;
-    isHorizontalSwipe = false; // 重置横向滑动标记
+    deltaX = 0;
+    deltaY = 0;
+  }
+
+  /**
+   * 处理滑动移动事件（实时计算偏移量）
+   */
+  function handleMove(e) {
+    if (!isSwiping || e.touches.length > 1) return;
+
+    const touch = e.touches[0];
+    // 实时计算偏移量
+    deltaX = touch.pageX - startX;
+    deltaY = touch.pageY - startY;
+
+    // 判断是否为横向滑动：横向偏移 > 纵向偏移 且 超过最小阈值
+    const isHorizontal = Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > MIN_DETECT_DISTANCE;
+
+    // 横向滑动时阻止默认行为（避免页面整体滚动）
+    if (isHorizontal) {
+      e.preventDefault();
+    }
   }
 
   /**
    * 处理滑动结束事件（核心：判断方向+执行滚动）
    * @param {Event} e - 事件对象
    */
-  function handleEnd(e) {
+  function handleEnd() {
     if (!isSwiping) return;
 
-    // 获取终点坐标
-    const clientX = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX;
-    const clientY = e.type === 'touchend' ? e.changedTouches[0].clientY : e.clientY;
-
-    // 计算滑动偏移量
-    const deltaX = clientX - startX; // X轴偏移（正值=右滑，负值=左滑）
-    const deltaY = clientY - startY; // Y轴偏移
-
-    // 过滤无效滑动：横向滑动距离需大于纵向，且超过最小距离
-    if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE || Math.abs(deltaX) < Math.abs(deltaY)) {
-      // alert(`${deltaX} x轴滑动偏移量`);
-      // alert(`${deltaY} y轴滑动偏移量`);
+    // 过滤无效滑动：仅处理横向且超过最小距离的滑动
+    const isEffectiveSwipe = Math.abs(deltaX) >= MIN_SWIPE_DISTANCE && Math.abs(deltaX) > Math.abs(deltaY);
+    if (!isEffectiveSwipe) {
       isSwiping = false;
       return;
     }
 
-    // 6. 判断滑动方向并执行滚动
-    // 只处理横向滑动：必须满足横向滑动标记 且 滑动距离足够
-    if (isHorizontalSwipe && Math.abs(deltaX) >= MIN_SWIPE_DISTANCE) {
-      const currentScrollLeft = scrollContainer.scrollLeft; // 当前滚动距离
-      let targetScrollLeft = currentScrollLeft;
-      const availableScrollWidth = scrollContainer.scrollWidth;
-      const windowW = scrollContainer.clientWidth;
-      const SCROLL_DISTANCE = availableScrollWidth - windowW; // 每次滚动可流动距离
-      if (deltaX > 0) {
-        // 右滑：向左滚动（显示左侧内容）
-        // 配置项：每次滑动的滚动距离（可自定义）
-        // targetScrollLeft = Math.max(0, currentScrollLeft - SCROLL_DISTANCE);
-        targetScrollLeft = SCROLL_DISTANCE * -1;
-        // alert(`${targetScrollLeft} 右滑可滑动距离`);
-      } else {
-        // 左滑：向右滚动（显示右侧内容）
-        const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-        targetScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + SCROLL_DISTANCE);
-        // alert(`${targetScrollLeft} 左滑可滑动距离`);
-      }
+    // 计算滚动容器的核心参数
+    const { clientWidth } = scrollContainer; // 可视宽度
+    const { scrollWidth } = scrollContainer; // 总宽度
+    const maxScrollLeft = Math.max(0, scrollWidth - clientWidth); // 最大滚动距离（避免负数）
+    const currentScrollLeft = scrollContainer.scrollLeft; // 当前滚动位置
 
-      // 执行滚动（支持平滑滚动）
-      scrollContainer.scrollTo({
-        left: targetScrollLeft,
-        behavior: 'smooth', // 平滑动画，移除则瞬间滚动
-      });
+    let targetScrollLeft = currentScrollLeft;
+    // 判断滑动方向并计算目标滚动位置
+    if (deltaX > 0) {
+      // 右滑 → 向左滚动（显示左侧内容）
+      targetScrollLeft = Math.max(0, currentScrollLeft - clientWidth); // 每次滚动一个可视宽度
+    } else {
+      // 左滑 → 向右滚动（显示右侧内容）
+      targetScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + clientWidth);
     }
+
+    // 执行平滑滚动
+    scrollContainer.scrollTo({
+      left: targetScrollLeft,
+      behavior: 'smooth',
+    });
 
     // 重置状态
     isSwiping = false;
   }
 
-  // 3. 监听触摸/鼠标开始事件（兼容移动端+桌面端）
-  scrollContainer.addEventListener('touchstart', handleStart);
-
-  // 4. 监听触摸/鼠标移动事件
-  scrollContainer.addEventListener('touchmove', (e) => {
-    if (!isSwiping) return;
-
-    const currentX = e.touches[0].clientX;
-    const currentY = e.touches[0].clientY;
-    const deltaX = Math.abs(currentX - startX);
-    const deltaY = Math.abs(currentY - startY);
-    // 在移动过程中判断滑动方向
-    if (!isHorizontalSwipe) {
-      if (deltaX > deltaY && deltaX > 10) {
-        isHorizontalSwipe = true; // 确定为横向滑动
-      }
-    }
-    // 只有当明显是横向滑动时，才阻止默认行为
-    if (isHorizontalSwipe) {
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  // 5. 监听触摸/鼠标结束事件
-  scrollContainer.addEventListener('touchend', handleEnd);
+  // 3. 绑定事件（passive: false 确保可以阻止默认行为）
+  scrollContainer.addEventListener('touchstart', handleStart, { passive: true });
+  scrollContainer.addEventListener('touchmove', handleMove, { passive: false });
+  scrollContainer.addEventListener('touchend', handleEnd, { passive: true });
+  // 兼容触摸取消场景（比如滑动中离开屏幕）
+  scrollContainer.addEventListener('touchcancel', handleEnd, { passive: true });
 }
 
 // 比较弹窗详细信息
@@ -358,7 +350,16 @@ export function createComparePopup() {
     document.body.style.overflow = 'auto';
     document.querySelector('.compare-popup-wrapper').style.display = 'none';
     // document.querySelector('.popup-scroll-box').scrollTop = 0
+    // 无动画重置滚动条到顶部（保证下次打开直接到顶）
+    // popupScrollBoxEl.scrollTo({
+    //   top: 0,
+    //   left: 0, // 同时重置横向滚动
+    //   behavior: 'auto' // 立即滚动，无平滑动画
+    // });
+    // // 移除吸顶样式（避免下次打开时残留）
+    // compareProductNameBoxEl.classList.remove('sticky-active');
   });
+
   // popup title
   comparePopupTitBoxEl.className = 'compare-popup-tit-box';
   const comparePopupTitEl = document.createElement('div');
