@@ -407,7 +407,9 @@
   inset: 0;
   background: var(--grey-alpha-grey-60, rgb(20 20 20 / 60%));
   z-index: 100000;
-  display: none;
+
+  /* display: none; */
+  visibility: hidden;
 
   .compare-popup-container {
     position: absolute;
