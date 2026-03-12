@@ -1,8 +1,40 @@
 .calltoaction-banner-wrapper {
-    width: 100%;
+    max-width: unset !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 .calltoaction-banner {
-    width: min(calc(467/var(--breakpoint-pc)), 467px);
-    height: auto;
+    width: 100%;
+    height: min(calc(400/var(--breakpoint-pc) * 100vw), 400px);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: var(--size-80) var(--size-160);
+    position: relative;
+
+    &.white-font {
+        color: white;
+    }
+
+    &.black-font {
+        color: black;
+    }
+
+    p {
+        padding: 0;
+        margin: 0;
+    }
+
+    .banner-title {
+        font-weight: var(--fontweight-medium);
+        font-size: var(--size-46);
+    }
+
+    .banner-container {
+        /* margin: auto 0; */
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 }
