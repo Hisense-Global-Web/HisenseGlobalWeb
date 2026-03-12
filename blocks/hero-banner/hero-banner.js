@@ -147,7 +147,6 @@ function bindEvents(block) {
       let startY;
 
       slide.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // 阻止默认滚动行为
         stopAutoPlay(); // 停止自动播放
         touchStartTime = Date.now();
         startX = e.touches[0].clientX;
@@ -160,11 +159,17 @@ function bindEvents(block) {
 
       // 触摸移动
       slide.addEventListener('touchmove', (e) => {
-        e.preventDefault(); // 阻止默认滚动行为
         const currentX = e.touches[0].clientX;
-        // 如果水平移动超过10px，认为是滑动
-        if (Math.abs(currentX - startX) > 80) {
+        const currentY = e.touches[0].clientY;
+        const diffX = currentX - startX;
+        const diffY = currentY - startY;
+        // only prevent default if horizontal swipe dominates
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
+          e.preventDefault();
           isScrolling = true;
+        } else {
+          // vertical movement or small horizontal movement, allow page scroll
+          isScrolling = false;
         }
       }, { passive: false });
 
