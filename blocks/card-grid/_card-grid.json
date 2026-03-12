@@ -11,6 +11,7 @@
               "name": "Card Grid",
               "model": "card-grid",
               "filter": "card-grid",
+              "classes": "left",
               "key-value": true
             }
           }
@@ -38,7 +39,26 @@
   "models": [
     {
       "id": "card-grid",
-      "fields": []
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "value": "",
+          "label": "Grid Variant",
+          "description": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Center",
+              "value": "center"
+            },
+            {
+              "name": "Left(Default)",
+              "value": "left"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "feature-items",

@@ -214,7 +214,6 @@ function comparePopupScroll() {
 
   // 计算元素产品名称相对于滚动容器的内部偏移：当差值≤0时，元素B触顶
   const relativeTop = nameBoxElTop - scrollBoxTop;
-
   // 控制激活类名：触顶时添加边框，否则移除
   if (relativeTop <= 0) {
     nameBoxEl.classList.add('sticky-active');
@@ -223,105 +222,122 @@ function comparePopupScroll() {
   }
 }
 
-// mobile 端， popup 左滑、右滑只能滑动指定距离
+// // mobile 端， popup 左滑、右滑只能滑动指定距离
 // function mobilePopupTouchStartEnd() {
 //   // 1. 获取目标滚动容器
 //   const scrollContainer = document.querySelector('.popup-scroll-box');
-
+//   if (!scrollContainer) { // 增加容错：容器不存在时直接返回
+//     return;
+//   }
+//   // 设置水平滚动为隐藏，防止上下滑动时的左右闪动
+//   scrollContainer.style.overflowX = 'hidden';
 //   // 最小滑动距离（过滤误触，单位px）
-//   const MIN_SWIPE_DISTANCE = 30;
+//   const MIN_SWIPE_DISTANCE = 20;
+//   // 最小判断阈值（用于提前识别滑动方向）
+//   const MIN_DETECT_DISTANCE = 10;
 
 //   // 2. 定义变量存储滑动状态
 //   let startX = 0; // 滑动起点X坐标
-//   // let startY = 0; // 滑动起点Y坐标
+//   let startY = 0; // 滑动起点Y坐标
 //   let isSwiping = false; // 是否正在滑动
+//   let deltaX = 0; // 缓存X轴偏移量
+//   let deltaY = 0; // 缓存Y轴偏移量
+//   let hasProcessedSwipe = false; // flag to ensure swipe is processed only once
 
 //   /**
 //    * 处理滑动开始事件
 //    * @param {Event} e - 事件对象
 //    */
 //   function handleStart(e) {
-//     // 阻止默认行为（避免页面滚动干扰）
-//     e.preventDefault();
-//     // 获取起点坐标（兼容touch和mouse事件）
-//     const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-//     // const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+//     // 只处理单指触摸
+//     if (e.touches && e.touches.length > 1) return;
 
+//     const touch = e.touches[0];
 //     // 初始化状态
-//     startX = clientX;
-//     // startY = clientY;
+//     startX = touch.clientX;
+//     startY = touch.clientY;
 //     isSwiping = true;
+//     deltaX = 0;
+//     deltaY = 0;
+//     hasProcessedSwipe = false; // reset flag on touch start
 //   }
 
 //   /**
-//    * 处理滑动移动事件（仅标记状态，不做滚动）
-//    * @param {Event} e - 事件对象
+//    * 处理滑动移动事件（实时计算偏移量）
 //    */
-//   // function handleMove(e) {
-//   //   if (!isSwiping) return;
-//   //   e.preventDefault(); // 阻止默认行为
-//   // }
+//   function handleMove(e) {
+//     if (!isSwiping || e.touches.length > 1) return;
+
+//     const touch = e.touches[0];
+//     // 实时计算偏移量
+//     deltaX = touch.clientX - startX;
+//     deltaY = touch.clientY - startY;
+
+//     // 判断是否为横向滑动：横向偏移 > 纵向偏移 且 超过最小阈值
+//     const isHorizontal = Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > MIN_DETECT_DISTANCE;
+
+//     // 横向滑动时阻止默认行为（避免页面整体滚动）
+//     if (isHorizontal) {
+//       e.preventDefault();
+//     }
+//   }
 
 //   /**
 //    * 处理滑动结束事件（核心：判断方向+执行滚动）
 //    * @param {Event} e - 事件对象
 //    */
-//   function handleEnd(e) {
+//   function handleEnd() {
 //     if (!isSwiping) return;
+//     isSwiping = false;
 
-//     // 获取终点坐标
-//     const clientX = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX;
-//     // const clientY = e.type === 'touchend' ? e.changedTouches[0].clientY : e.clientY;
+//     // only process once per gesture
+//     if (hasProcessedSwipe) return;
 
-//     // 计算滑动偏移量
-//     const deltaX = clientX - startX; // X轴偏移（正值=右滑，负值=左滑）
-//     // const deltaY = clientY - startY; // Y轴偏移
-
-//     // 过滤无效滑动：横向滑动距离需大于纵向，且超过最小距离
-//     // if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE || Math.abs(deltaX) < Math.abs(deltaY)) {
-//     if (Math.abs(deltaX) < MIN_SWIPE_DISTANCE) {
-//       isSwiping = false;
+//     // 过滤无效滑动：仅处理横向且超过最小距离的滑动，且忽略垂直分量较大的情况
+//     const isEffectiveSwipe = Math.abs(deltaX) >= MIN_SWIPE_DISTANCE && Math.abs(deltaX) > Math.abs(deltaY);
+//     if (!isEffectiveSwipe) {
 //       return;
 //     }
 
-//     // 6. 判断滑动方向并执行滚动
-//     const currentScrollLeft = scrollContainer.scrollLeft; // 当前滚动距离
+//     // 标记已处理，防止重复滑动
+//     hasProcessedSwipe = true;
+
+//     // 临时允许水平滚动以执行滚动
+//     scrollContainer.style.overflowX = 'auto';
+//     // 计算滚动容器的核心参数
+//     const { clientWidth } = scrollContainer; // 可视宽度
+//     const { scrollWidth } = scrollContainer; // 总宽度
+//     const maxScrollLeft = Math.max(0, scrollWidth - clientWidth); // 最大滚动距离（避免负数）
+//     const currentScrollLeft = scrollContainer.scrollLeft; // 当前滚动位置
+
 //     let targetScrollLeft = currentScrollLeft;
-//     const availableScrollWidth = scrollContainer.scrollWidth;
-//     const windowW = scrollContainer.clientWidth;
-//     const SCROLL_DISTANCE = availableScrollWidth - windowW; // 每次滚动可流动距离
+//     // 判断滑动方向并计算目标滚动位置（滑到底）
 //     if (deltaX > 0) {
-//       // 右滑：向左滚动（显示左侧内容）
-//       // 配置项：每次滑动的滚动距离（可自定义）
-//       targetScrollLeft = Math.max(0, currentScrollLeft - SCROLL_DISTANCE);
+//       // 右滑 → 向左滚动，滑到最左边（0）
+//       targetScrollLeft = 0;
 //     } else {
-//       // 左滑：向右滚动（显示右侧内容）
-//       const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-//       targetScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + SCROLL_DISTANCE);
+//       // 左滑 → 向右滚动，滑到最右边（maxScrollLeft）
+//       targetScrollLeft = maxScrollLeft;
 //     }
 
-//     // 执行滚动（支持平滑滚动）
+//     // 执行平滑滚动
 //     scrollContainer.scrollTo({
 //       left: targetScrollLeft,
-//       behavior: 'smooth', // 平滑动画，移除则瞬间滚动
+//       behavior: 'smooth',
 //     });
 
-//     // 重置状态
-//     isSwiping = false;
+//     // 滚动完成后重新隐藏水平滚动
+//     setTimeout(() => {
+//       scrollContainer.style.overflowX = 'hidden';
+//     }, 300); // 匹配smooth动画时间
 //   }
 
-//   // 3. 监听触摸/鼠标开始事件（兼容移动端+桌面端）
-//   scrollContainer.addEventListener('touchstart', handleStart);
-//   scrollContainer.addEventListener('mousedown', handleStart);
-
-//   // 4. 监听触摸/鼠标移动事件
-//   // scrollContainer.addEventListener('touchmove', handleMove);
-//   // scrollContainer.addEventListener('mousemove', handleMove);
-
-//   // 5. 监听触摸/鼠标结束事件
-//   scrollContainer.addEventListener('touchend', handleEnd);
-//   scrollContainer.addEventListener('mouseup', handleEnd);
-//   scrollContainer.addEventListener('mouseleave', handleEnd); // 鼠标离开容器也结束
+//   // 3. 绑定事件（passive: false 确保可以阻止默认行为）
+//   scrollContainer.addEventListener('touchstart', handleStart, { passive: true });
+//   scrollContainer.addEventListener('touchmove', handleMove, { passive: false });
+//   scrollContainer.addEventListener('touchend', handleEnd, { passive: true });
+//   // 兼容触摸取消场景（比如滑动中离开屏幕）
+//   scrollContainer.addEventListener('touchcancel', handleEnd, { passive: true });
 // }
 
 // 比较弹窗详细信息
@@ -342,12 +358,7 @@ export function createComparePopup() {
   closeIcon.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
   closeIcon.alt = 'Close';
   popupCloseBtn.append(closeIcon);
-  // popup close click
-  popupCloseBtn.addEventListener('click', () => {
-    document.body.style.overflow = 'auto';
-    document.querySelector('.compare-popup-wrapper').style.display = 'none';
-    // document.querySelector('.popup-scroll-box').scrollTop = 0
-  });
+
   // popup title
   comparePopupTitBoxEl.className = 'compare-popup-tit-box';
   const comparePopupTitEl = document.createElement('div');
@@ -360,6 +371,20 @@ export function createComparePopup() {
   // popup compare product name
   const compareProductNameBoxEl = document.createElement('div');
   compareProductNameBoxEl.className = 'product-name-box';
+
+  // popup close click
+  popupCloseBtn.addEventListener('click', () => {
+    document.body.style.overflow = 'auto';
+    // document.querySelector('.compare-popup-wrapper').style.display = 'none';
+    document.querySelector('.compare-popup-wrapper').style.visibility = 'hidden';
+    // 无动画重置滚动条到顶部（保证下次打开直接到顶）
+    popupScrollBoxEl.scrollTop = 0;
+    compareProductNameBoxEl.classList.remove('sticky-active');
+    // 左滑也需要重置
+    if (popupScrollBoxEl.scrollLeft > 0) {
+      popupScrollBoxEl.scrollLeft = 0;
+    }
+  });
 
   // 对比商品详情信息
   const productMainInfoBoxEl = document.createElement('div');

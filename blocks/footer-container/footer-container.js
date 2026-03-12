@@ -1,3 +1,5 @@
+import { processPath } from '../../utils/carousel-common.js';
+
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 const REGION = '/hisense/region-selection.json';
@@ -375,7 +377,7 @@ export default async function decorate(block) {
 
           const a = document.createElement('a');
           a.className = 'footer-nav-column-link';
-          a.href = itemData.link;
+          a.href = processPath(itemData.link);
           a.textContent = itemData.text;
           li.appendChild(a);
 
@@ -411,7 +413,7 @@ export default async function decorate(block) {
       data.legalLinks.links.forEach((linkData) => {
         const a = document.createElement('a');
         a.className = 'footer-legal-link';
-        a.href = linkData.link;
+        a.href = processPath(linkData.link);
         a.textContent = linkData.text;
         legalLinksDiv.appendChild(a);
       });

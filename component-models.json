@@ -859,6 +859,12 @@
         "name": "article-location",
         "label": "Location",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "article-author",
+        "label": "Author",
+        "valueType": "string"
       }
     ]
   },
@@ -1053,7 +1059,26 @@
   },
   {
     "id": "card-grid",
-    "fields": []
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Grid Variant",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Center",
+            "value": "center"
+          },
+          {
+            "name": "Left(Default)",
+            "value": "left"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "feature-items",
@@ -1227,6 +1252,7 @@
         "label": "Card options",
         "description": "",
         "valueType": "string",
+        "value": "center-style",
         "options": [
           {
             "name": "Cover Style",
@@ -3148,6 +3174,7 @@
         "component": "select",
         "name": "mainContent",
         "label": "Section Content Type",
+        "description": "This field defines carousel content. Please switching between Image and Video resets existing data.",
         "options": [
           {
             "name": "Image",
@@ -4376,13 +4403,6 @@
   {
     "id": "search-box-quick-link-item",
     "fields": [
-      {
-        "component": "aem-content",
-        "name": "button_link",
-        "label": "Button Link",
-        "valueType": "string",
-        "value": ""
-      },
       {
         "component": "text",
         "name": "link_text",

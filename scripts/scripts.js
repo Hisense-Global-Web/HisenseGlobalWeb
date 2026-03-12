@@ -1,3 +1,4 @@
+import getDynamicHeaderHeight from '../utils/dynamic-computed-header-height.js';
 import {
   loadHeader,
   loadFooter,
@@ -208,6 +209,9 @@ async function loadRemoteErrorPage(main) {
 
     main.replaceChildren(...fragmentSections);
     main.classList.remove('error');
+    // handle not found exception-page block
+    const exceptionPageBlock = main.querySelector('.exception-page');
+    getDynamicHeaderHeight(exceptionPageBlock);
     return true;
   } catch (error) {
     // eslint-disable-next-line no-console
