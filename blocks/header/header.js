@@ -364,14 +364,13 @@ function buildDropdown(data) {
   linksWrap.className = 'dropdown-links';
   data.links.forEach((link) => {
     const div = document.createElement('div');
-    if (link.href && link.href !== '#') {
-      const a = document.createElement('a');
-      a.href = processPath(link.href);
-      a.textContent = link.text;
-      div.append(a);
-    } else {
-      div.textContent = link.text;
-    }
+    const a = link.href && link.href !== '#' ? document.createElement('a') : document.createElement('div');
+    a.href = processPath(link.href);
+    a.textContent = link.text;
+    div.append(a);
+    div.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
     linksWrap.append(div);
   });
 
@@ -432,6 +431,10 @@ function buildSupportDropdown(mainEl) {
         e.stopPropagation();
         window.location.href = processPath(href);
       });
+    } else {
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
     }
     supportRouteGroupEl.append(link);
   });
@@ -468,6 +471,10 @@ function buildSupportDropdown(mainEl) {
             e.stopPropagation();
             window.location.href = processPath(href);
           });
+        } else {
+          link.addEventListener('click', (e) => {
+            e.stopPropagation();
+          });
         }
         supportProductListGroupEl.append(link);
       } else {
@@ -490,14 +497,13 @@ function buildSupportDropdown(mainEl) {
       const title = item.children[2].textContent.trim() || '';
       const href = item.children[3].textContent.trim() || '#';
       const div = document.createElement('div');
-      if (href && href !== '#') {
-        const a = document.createElement('a');
-        a.href = processPath(href);
-        a.textContent = title;
-        div.append(a);
-      } else {
-        div.textContent = title;
-      }
+      const a = href && href !== '#' ? document.createElement('a') : document.createElement('div');
+      a.href = processPath(href);
+      a.textContent = title;
+      div.append(a);
+      div.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
       linksWrap.append(div);
     });
   }
