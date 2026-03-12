@@ -302,15 +302,14 @@ function mobilePopupTouchStartEnd() {
     let targetScrollLeft = currentScrollLeft;
     // 判断滑动方向并计算目标滚动位置
     if (deltaX > 0) {
-      document.querySelector('.compare-popup-close').style.background = 'green';
-      // 右滑 → 向左滚动（显示左侧内容）
-      targetScrollLeft = Math.max(0, currentScrollLeft - clientWidth); // 每次滚动一个可视宽度
+      // 右滑 → 滚动到最左侧
+      targetScrollLeft = 0;
       const xVal = document.createElement('div');
-      xVal.textContent = `x轴：${deltaX}; scrollLeft: ${targetScrollLeft}`;
+      xVal.textContent = `x轴：${deltaX}; scrollLeft: ${targetScrollLeft}; 有效滑动：${isEffectiveSwipe}`;
       document.querySelector('.popup-scroll-box').prepend(xVal);
     } else {
-      // 左滑 → 向右滚动（显示右侧内容）
-      targetScrollLeft = Math.min(maxScrollLeft, currentScrollLeft + clientWidth);
+      // 左滑 → 滚动到最右侧
+      targetScrollLeft = maxScrollLeft;
     }
 
     // 执行平滑滚动
