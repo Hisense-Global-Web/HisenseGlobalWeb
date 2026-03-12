@@ -64,13 +64,6 @@
       "id": "search-box-quick-link-item",
       "fields": [
         {
-          "component": "aem-content",
-          "name": "button_link",
-          "label": "Button Link",
-          "valueType": "string",
-          "value": ""
-        },
-        {
           "component": "text",
           "name": "link_text",
           "label": "Link Text",

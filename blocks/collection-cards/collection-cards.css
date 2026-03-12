@@ -59,11 +59,11 @@
   }
 }
 
-.touch-start img {
+.collection-cards-wrapper .touch-start img {
    transform: scale(1.1);
 }
 
-.touch-end img {
+.collection-cards-wrapper .touch-end img {
    transform: scale(1);
 }
 

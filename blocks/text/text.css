@@ -38,7 +38,8 @@
 .text-container.dark .text-wrapper,
 .text-container.gray-00 .text-wrapper,
 .text-container.gray-90 .text-wrapper,
-.text-container.gray-95 .text-wrapper
+.text-container.gray-95 .text-wrapper,
+.text-container.gradient-gray .text-wrapper
  {
   p:first-child {
     color: var(--color-hisense-teal);

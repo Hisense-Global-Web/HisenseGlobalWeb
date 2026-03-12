@@ -49,6 +49,12 @@
           "name": "article-location",
           "label": "Location",
           "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "article-author",
+          "label": "Author",
+          "valueType": "string"
         }
       ]
     }

@@ -3,6 +3,8 @@ import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default async function decorate(block) {
+  const MateSpaceEl = document.createElement('div');
+  MateSpaceEl.classList.add('mate-space');
   const MateEl = document.createElement('div');
   const lineEl = document.createElement('div');
   lineEl.className = 'mate-line';
@@ -38,7 +40,16 @@ export default async function decorate(block) {
       addressEl.textContent = address;
       child.replaceChildren(iconEl, addressEl);
       MateEl.appendChild(child);
+    } else if (type === 'article-author') {
+      child.setAttribute('class', type);
+      child.firstElementChild.remove();
+      MateSpaceEl.appendChild(child);
     }
   });
-  block.appendChild(MateEl);
+  if (window.location.pathname.indexOf('blog') !== -1) {
+    MateSpaceEl.appendChild(MateEl);
+    block.appendChild(MateSpaceEl);
+  } else {
+    block.appendChild(MateEl);
+  }
 }

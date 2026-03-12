@@ -197,6 +197,7 @@
             font-size: var(--size-14);
             color: var(--color-primary-grey-70);
             gap: var(--size-12);
+            margin-top: auto;
 
             @media (width < 860px) {
               flex-wrap: wrap;

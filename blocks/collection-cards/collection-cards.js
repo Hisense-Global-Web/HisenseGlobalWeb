@@ -5,7 +5,7 @@ export default function decorate(block) {
   /* change to ul, li */
   const viewportWidth = window.innerWidth;
   const ul = document.createElement('ul');
-  [...block.children].forEach((row) => {
+  [...block.children].forEach((row, i) => {
     const li = document.createElement('li');
     li.classList.add('card-item');
     moveInstrumentation(row, li);
@@ -51,7 +51,7 @@ export default function decorate(block) {
         }
       });
     }
-    ul.append(li);
+    if (i < 4) ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => {
     const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
