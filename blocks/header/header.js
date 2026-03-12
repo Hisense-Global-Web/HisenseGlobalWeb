@@ -6,7 +6,7 @@ const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 function parseLogo(root) {
   const logoImg = root.querySelector('.navigation-logo-wrapper img');
-  const logoHref = root.querySelector('.navigation-logo-wrapper a')?.href || '/';
+  const logoHref = root.querySelector('.navigation-logo-wrapper a')?.href || '';
   return {
     src: logoImg?.src || '',
     href: processPath(logoHref),
@@ -16,7 +16,7 @@ function parseLogo(root) {
 
 function parseNavItems(root) {
   return Array.from(root.querySelectorAll('.navigation-item-wrapper')).map((wrapper) => {
-    const pList = wrapper.querySelectorAll('p');
+    const pList = wrapper.querySelectorAll('.navigation-item>div');
     const title = pList[1]?.textContent?.trim() || '';
     const href = pList[0]?.textContent?.trim() || '#';
     return { title, href: processPath(href) };
@@ -698,7 +698,7 @@ export default async function decorate(block) {
   const logoEl = document.createElement('div');
   logoEl.className = 'nav-logo';
   if (logo.src) {
-    const a = document.createElement('a');
+    const a = logo.href ? document.createElement('a') : document.createElement('div');
     a.href = logo.href;
     const img = document.createElement('img');
     img.src = logo.src;
