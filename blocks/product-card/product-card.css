@@ -727,7 +727,8 @@
       .popup-scroll-box {
         max-height: calc(90vh - var(--size-72));
         -webkit-overflow-scrolling: touch;  /* iOS 流畅滚动 */
-        overflow-x: hidden;
+        overflow-x: auto;
+        touch-action: pan-y;
       }
 
       .compare-popup-tit-box {
