@@ -3168,6 +3168,7 @@
         "component": "select",
         "name": "mainContent",
         "label": "Section Content Type",
+        "description": "This field defines carousel content. Please switching between Image and Video resets existing data.",
         "options": [
           {
             "name": "Image",

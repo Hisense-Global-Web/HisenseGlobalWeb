@@ -5,6 +5,8 @@ import { isUniversalEditor } from '../../utils/ue-helper.js';
 
 let heroBannerTimer;
 let heroBannerInterval;
+// flag to indicate user is currently interacting with the carousel
+let userInteracting = false;
 let isInitializing = true; // 初始化锁
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -115,6 +117,7 @@ function autoPlay(block) {
   // 清除可能存在的旧定时器，避免叠加
   if (heroBannerInterval) clearInterval(heroBannerInterval);
   heroBannerInterval = setInterval(() => {
+    if (userInteracting) return; // skip while user is manipulating slides
     const currentIndex = parseInt(block.dataset.slideIndex, 10) || 0;
     const nextIndex = currentIndex + 1;
     showSlide(block, nextIndex);
@@ -132,6 +135,7 @@ function observeMouse(block) {
 function bindEvents(block) {
   const slideIndicators = block.querySelector('.hero-banner-item-indicators');
   if (!slideIndicators) return;
+  let autoPlayRestartTimer = null;
   const slideObserver = new IntersectionObserver((entries) => {
     if (isInitializing) return;
     entries.forEach((entry) => {
@@ -147,8 +151,8 @@ function bindEvents(block) {
       let startY;
 
       slide.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // 阻止默认滚动行为
-        stopAutoPlay(); // 停止自动播放
+        // indicate user started interacting; autoplay callback will skip slides
+        userInteracting = true;
         touchStartTime = Date.now();
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
@@ -160,11 +164,17 @@ function bindEvents(block) {
 
       // 触摸移动
       slide.addEventListener('touchmove', (e) => {
-        e.preventDefault(); // 阻止默认滚动行为
         const currentX = e.touches[0].clientX;
-        // 如果水平移动超过10px，认为是滑动
-        if (Math.abs(currentX - startX) > 80) {
+        const currentY = e.touches[0].clientY;
+        const diffX = currentX - startX;
+        const diffY = currentY - startY;
+        // only prevent default if horizontal swipe dominates
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
+          e.preventDefault();
           isScrolling = true;
+        } else {
+          // vertical movement or small horizontal movement, allow page scroll
+          isScrolling = false;
         }
       }, { passive: false });
 
@@ -202,6 +212,12 @@ function bindEvents(block) {
               await showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
             }
             autoPlay(block); // 开始自动播放
+            // schedule interaction flag reset after user stops swiping
+            if (autoPlayRestartTimer) clearTimeout(autoPlayRestartTimer);
+            autoPlayRestartTimer = setTimeout(() => {
+              userInteracting = false;
+              autoPlayRestartTimer = null;
+            }, 2000);
           }
         }
       });
