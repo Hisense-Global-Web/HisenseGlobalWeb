@@ -231,7 +231,7 @@ function mobilePopupTouchStartEnd() {
   }
 
   // 最小滑动距离（过滤误触，单位px）
-  const MIN_SWIPE_DISTANCE = 80;
+  const MIN_SWIPE_DISTANCE = 20;
   // 最小判断阈值（用于提前识别滑动方向）
   const MIN_DETECT_DISTANCE = 10;
 
@@ -286,8 +286,8 @@ function mobilePopupTouchStartEnd() {
   function handleEnd() {
     if (!isSwiping) return;
 
-    // 过滤无效滑动：仅处理横向且超过最小距离的滑动
-    const isEffectiveSwipe = Math.abs(deltaX) >= MIN_SWIPE_DISTANCE && Math.abs(deltaX) > Math.abs(deltaY);
+    // 过滤无效滑动：仅处理横向且超过最小距离的滑动，且纵向偏移较小（避免倾斜滑动误触发）
+    const isEffectiveSwipe = Math.abs(deltaX) >= MIN_SWIPE_DISTANCE && Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaY) < 20;
     if (!isEffectiveSwipe) {
       isSwiping = false;
       return;
@@ -302,11 +302,11 @@ function mobilePopupTouchStartEnd() {
     let targetScrollLeft = currentScrollLeft;
     // 判断滑动方向并计算目标滚动位置
     if (deltaX > 0) {
-      document.querySelector('.compare-popup-close').style.background = 'red';
+      // 右滑 → 向左滚动（显示左侧内容）
+      document.querySelector('.compare-popup-close').style.background = 'green';
       const xVal = document.createElement('div');
       xVal.textContent = `x轴：${deltaX}`;
       document.querySelector('.popup-scroll-box').prepend(xVal);
-      // 右滑 → 向左滚动（显示左侧内容）
       targetScrollLeft = Math.max(0, currentScrollLeft - clientWidth); // 每次滚动一个可视宽度
     } else {
       // 左滑 → 向右滚动（显示右侧内容）
