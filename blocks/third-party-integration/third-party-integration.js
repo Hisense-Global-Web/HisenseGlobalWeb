@@ -62,6 +62,7 @@ export default async function decorate(block) {
           options.async = true;
           options.defer = true;
         }
+
         loadScript(path, { ...options, type: 'text/javascript' });
       }
     });
@@ -77,13 +78,16 @@ export default async function decorate(block) {
   }
 
   // Inject iframe divs
+  const iframeEle = document.createElement('div');
+  let isIframe = false;
   if (blockData.externalElement) {
     blockData.externalElement.forEach((iframeDiv) => {
       if (isIframeDiv(iframeDiv)) {
+        isIframe = true;
         // Create a temporary div to parse and append the iframe
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = iframeDiv.trim();
-        block.appendChild(tempDiv.firstElementChild);
+        const tempEle = document.createElement('div');
+        tempEle.innerHTML = iframeDiv.trim();
+        iframeEle.appendChild(tempEle.firstElementChild);
       }
     });
   }
@@ -97,7 +101,13 @@ export default async function decorate(block) {
   <meta name="ps-country" content="${country}"/>
   <meta name="ps-language" content="${language}"/>`;
 
-  // author empty handle
+  // handle iframe integration
+  if (isIframe) {
+    block.replaceChildren(iframeEle);
+    return;
+  }
+
+  // handle default content
   const isEditing = await isUniversalEditorAsync();
   if (isEditing) {
     const wrapper = document.createElement('div');
@@ -105,5 +115,6 @@ export default async function decorate(block) {
     block.replaceChildren(wrapper);
     return;
   }
+
   block.innerHTML = '';
 }
