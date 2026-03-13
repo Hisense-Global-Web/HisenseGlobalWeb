@@ -13,7 +13,10 @@ function isExternalJs(url) {
     };
   } catch (error) {
     // Invalid URL
-    return false;
+    return {
+      isJsPath: false,
+      hasParams: false,
+    };
   }
 }
 
