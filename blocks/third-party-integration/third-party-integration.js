@@ -48,7 +48,7 @@ export default async function decorate(block) {
   const div = block.querySelectorAll(':scope > div');
   const blockData = {
     externalJsPaths: div[0]?.textContent.split(',').map((path) => path.trim()),
-    externalElement: [
+    externalScripts: [
       div[1]?.textContent,
       div[2]?.textContent,
       div[3]?.textContent,
@@ -72,8 +72,8 @@ export default async function decorate(block) {
   }
 
   // Inject inline scripts
-  if (blockData.externalElement) {
-    blockData.externalElement.forEach((script) => {
+  if (blockData.externalScripts) {
+    blockData.externalScripts.forEach((script) => {
       if (isInlineScript(script)) {
         injectInlineScript(script);
       }
@@ -83,8 +83,8 @@ export default async function decorate(block) {
   // Inject iframe divs
   const iframeEle = document.createElement('div');
   let isIframe = false;
-  if (blockData.externalElement) {
-    blockData.externalElement.forEach((iframeDiv) => {
+  if (blockData.externalScripts) {
+    blockData.externalScripts.forEach((iframeDiv) => {
       if (isIframeDiv(iframeDiv)) {
         isIframe = true;
         // Create a temporary div to parse and append the iframe
