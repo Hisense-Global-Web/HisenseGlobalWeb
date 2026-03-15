@@ -77,54 +77,86 @@ function parseCompany(root) {
   });
 }
 
+function buildSearchTagParams(tagsText) {
+  return String(tagsText || '')
+    .split(',')
+    .map((tag) => {
+      const parts = tag.trim().split('/');
+      if (parts.length >= 2) {
+        const key = parts[parts.length - 2];
+        const value = parts[parts.length - 1];
+        return `${key}=${value}`;
+      }
+      return '';
+    })
+    .filter(Boolean)
+    .join('&');
+}
+
+function appendSearchTagsToHref(href, tagsText) {
+  if (!href || href === '#') return href;
+
+  const tagParams = buildSearchTagParams(tagsText);
+  if (!tagParams) return href;
+
+  const separator = href.includes('?') ? '&' : '?';
+  return `${href}${separator}${tagParams}`;
+}
+
+function getSupportSubMenuLinkData(item) {
+  const title = item.children[2]?.textContent?.trim() || '';
+  const linkCell = item.children[3];
+  const rawHref = linkCell?.querySelector('a')?.getAttribute('href') || linkCell?.textContent?.trim() || '#';
+  const searchTags = item.children[4]?.textContent?.trim() || '';
+
+  return {
+    title,
+    href: processPath(appendSearchTagsToHref(rawHref, searchTags)),
+  };
+}
+
+function getSubMenuLinkData(item) {
+  const directChildren = Array.from(item.children);
+
+  const imageCell = directChildren.find((child) => child.matches?.('[data-aue-prop="image"]'))
+    || directChildren.find((child) => child.querySelector('picture, img'));
+  const linkCell = directChildren.find((child) => child.matches?.('[data-aue-prop="link"]'))
+    || directChildren.find((child) => child.querySelector('a'));
+  const searchTagsCell = directChildren.find((child) => child.matches?.('[data-aue-prop="searchTags"]'))
+    || directChildren.find((child) => child.textContent.trim().startsWith('hisense:'));
+
+  const textCells = directChildren.filter((child) => child !== imageCell
+    && child !== linkCell
+    && child !== searchTagsCell
+    && child.textContent.trim());
+
+  const altCell = directChildren.find((child) => child.matches?.('[data-aue-prop="alt"]'))
+    || textCells[0];
+  const titleCell = directChildren.find((child) => child.matches?.('[data-aue-prop="title"]'))
+    || textCells.find((child) => child !== altCell)
+    || textCells[1]
+    || textCells[0];
+
+  const rawHref = linkCell?.querySelector('a')?.getAttribute('href')
+    || linkCell?.textContent?.trim()
+    || '#';
+  const searchTags = searchTagsCell?.textContent?.trim() || '';
+
+  return {
+    img: imageCell?.querySelector('img')?.src || '',
+    altText: altCell?.textContent?.trim() || '',
+    text: titleCell?.textContent?.trim() || '',
+    href: processPath(appendSearchTagsToHref(rawHref, searchTags)),
+  };
+}
+
 function parseDropdownProducts(col) {
   if (!col) return [];
 
   const subMenuLinkItems = Array.from(col.querySelectorAll('.sub-menu-link'));
 
   if (subMenuLinkItems.length) {
-    return subMenuLinkItems.map((item) => {
-      const img = item.querySelector('img')?.src || '';
-      let href = item.querySelector('a')?.href || '#';
-      const directChildren = Array.from(item.children);
-      let text = '';
-      let altText = '';
-      if (directChildren[1]) {
-        altText = directChildren[1].textContent.trim();
-      }
-      if (directChildren[2]) {
-        text = directChildren[2].textContent.trim();
-      } else {
-        text = item.textContent.trim();
-      }
-
-      // 检查是否有一个元素作为标签配置
-      if (directChildren[3] && directChildren[3].textContent.trim()) {
-        const tagsText = directChildren[3].textContent.trim();
-        const tagParams = tagsText.split(',')
-          .map((tag) => {
-            // 取最后两节并替换 / 为 =，type/xxxx -> type=xxxx 链接参数
-            const parts = tag.trim().split('/');
-            if (parts.length >= 2) {
-              const key = parts[parts.length - 2];
-              const value = parts[parts.length - 1];
-              return `${key}=${value}`;
-            }
-            return '';
-          })
-          .filter((param) => param)
-          .join('&');
-
-        if (href !== '#' && tagParams) {
-          const separator = href.includes('?') ? '&' : '?';
-          href = `${href}${separator}${tagParams}`;
-        }
-      }
-
-      return {
-        img, text, href: processPath(href), altText,
-      };
-    });
+    return subMenuLinkItems.map((item) => getSubMenuLinkData(item));
   }
 
   const products = [];
@@ -152,25 +184,7 @@ function parseDropdownProducts(col) {
     // 检查是否有一个元素作为标签配置
     if (groupElements[4] && groupElements[4].textContent.trim()) {
       const tagsText = groupElements[4].textContent.trim();
-      const tagParams = tagsText.split(',')
-        .map((tag) => {
-          // 取最后两节并替换 / 为 =，type/xxxx -> type=xxxx 链接参数
-          const parts = tag.trim().split('/');
-          if (parts.length >= 2) {
-            const key = parts[parts.length - 2];
-            const value = parts[parts.length - 1];
-            return `${key}=${value}`;
-          }
-          return '';
-        })
-        .filter((param) => param)
-        .join('&');
-
-      // 如果有基础链接且有标签参数，则添加查询参数
-      if (href !== '#' && tagParams) {
-        const separator = href.includes('?') ? '&' : '?';
-        href = `${href}${separator}${tagParams}`;
-      }
+      href = appendSearchTagsToHref(href, tagsText);
     }
 
     products.push({
@@ -185,27 +199,37 @@ function parseDropdownLinks(col) {
   const subMenuLinkItems = Array.from(col.querySelectorAll('.sub-menu-link'));
 
   if (subMenuLinkItems.length) {
-    return subMenuLinkItems.map((item) => {
-      const textElement = item.querySelector('div:nth-child(3) > div');
-      const text = textElement ? textElement.textContent.trim() : '';
-
-      const linkElement = item.querySelector('.button-container a.button');
-      const href = linkElement ? linkElement.getAttribute('href') : '';
-
-      return {
-        text,
-        href: processPath(href),
-      };
-    }).filter((item) => item.text);
+    return subMenuLinkItems
+      .map((item) => getSubMenuLinkData(item))
+      .filter((item) => item.text);
   }
 
   const results = [];
   const items = Array.from(col.querySelectorAll('p'));
-  for (let i = 0; i < items.length; i += 2) {
-    const text = items[i]?.textContent.trim();
-    const href = items[i + 1]?.textContent.trim() || '#';
-    results.push({ text, href: processPath(href) });
-  }
+  items.forEach((item, index) => {
+    const anchor = item.querySelector('a');
+    if (!anchor) return;
+
+    const rawHref = anchor.getAttribute('href') || item.textContent.trim() || '#';
+    const titleText = items[index - 1]?.textContent.trim() || '';
+    const altCandidate = items[index - 2];
+    const altText = altCandidate
+      && !altCandidate.querySelector('a')
+      && !altCandidate.querySelector('picture')
+      && !altCandidate.textContent.trim().startsWith('hisense:')
+      ? altCandidate.textContent.trim()
+      : '';
+    const nextText = items[index + 1]?.textContent.trim() || '';
+    const href = appendSearchTagsToHref(rawHref, nextText.startsWith('hisense:') ? nextText : '');
+
+    if (titleText) {
+      results.push({
+        text: titleText,
+        href: processPath(href),
+        altText,
+      });
+    }
+  });
   return results;
 }
 
@@ -216,13 +240,10 @@ function parseDropdownBtns(col) {
   const subMenuLinks = col.querySelectorAll('.sub-menu-link');
   if (subMenuLinks.length > 0) {
     subMenuLinks.forEach((subMenuLink) => {
-      const altText = subMenuLink.children[1]?.textContent.trim() ?? '';
-      const text = subMenuLink.children[2]?.textContent.trim() ?? '';
-      const linkElement = subMenuLink.querySelector('a');
-      const href = linkElement ? linkElement.getAttribute('href') : '';
+      const { altText, text, href } = getSubMenuLinkData(subMenuLink);
 
       if (text) {
-        results.push({ text, href: processPath(href), altText });
+        results.push({ text, href, altText });
       }
     });
     return results;
@@ -237,25 +258,9 @@ function parseDropdownBtns(col) {
     } else if (currentText.startsWith('hisense:')) {
       // 如果当前行是 hisense: 开头视为上一个 item 的标签，附加查询参数
       const tagsText = currentText;
-      const tagParams = tagsText.split(',')
-        .map((tag) => {
-          const parts = tag.trim().split('/');
-          if (parts.length >= 2) {
-            const key = parts[parts.length - 2];
-            const value = parts[parts.length - 1];
-            return `${key}=${value}`;
-          }
-          return '';
-        })
-        .filter((param) => param)
-        .join('&');
-
       if (results.length > 0) {
         const prev = results[results.length - 1];
-        if (prev.href && prev.href !== '#' && tagParams) {
-          const separator = prev.href.includes('?') ? '&' : '?';
-          prev.href = `${prev.href}${separator}${tagParams}`;
-        }
+        prev.href = appendSearchTagsToHref(prev.href, tagsText);
       }
       i += 1;
     } else {
@@ -280,24 +285,8 @@ function parseDropdownBtns(col) {
         const maybeTag = paragraphs[i + 2]?.textContent.trim();
         if (maybeTag && maybeTag.startsWith('hisense:')) {
           const tagsText = maybeTag;
-          const tagParams = tagsText.split(',')
-            .map((tag) => {
-              const parts = tag.trim().split('/');
-              if (parts.length >= 2) {
-                const key = parts[parts.length - 2];
-                const value = parts[parts.length - 1];
-                return `${key}=${value}`;
-              }
-              return '';
-            })
-            .filter((param) => param)
-            .join('&');
-
-          if (href !== '#' && tagParams) {
-            const separator = href.includes('?') ? '&' : '?';
-            const last = results[results.length - 1];
-            last.href = `${last.href}${separator}${tagParams}`;
-          }
+          const last = results[results.length - 1];
+          last.href = appendSearchTagsToHref(last.href, tagsText);
           i += 3;
         } else {
           i += 2;
@@ -460,8 +449,7 @@ function buildSupportDropdown(mainEl) {
         const supportProductListGroupEl = supportProductListEl.querySelector(`.support-product-order-${i}`);
         const link = document.createElement('div');
         link.className = 'nav-link';
-        const title = item.children[2].textContent.trim() || '';
-        const href = item.children[3].textContent.trim() || '#';
+        const { title, href } = getSupportSubMenuLinkData(item);
         const span1 = document.createElement('span');
         span1.textContent = title;
         link.append(span1);
@@ -494,8 +482,7 @@ function buildSupportDropdown(mainEl) {
   const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
   if (supportMenuLinksList) {
     [...supportMenuLinksList.children].forEach((item) => {
-      const title = item.children[2].textContent.trim() || '';
-      const href = item.children[3].textContent.trim() || '#';
+      const { title, href } = getSupportSubMenuLinkData(item);
       const div = document.createElement('div');
       const a = href && href !== '#' ? document.createElement('a') : document.createElement('div');
       a.href = processPath(href);
@@ -1048,8 +1035,7 @@ export default async function decorate(block) {
           const supportProductItemEl = supportProductEl.querySelector('.mobile-link-second-list');
           const link = document.createElement('div');
           link.className = 'mobile-product-item';
-          const title = item.children[2].textContent.trim() || '';
-          const href = item.children[3].textContent.trim() || '#';
+          const { title, href } = getSupportSubMenuLinkData(item);
           const span1 = document.createElement('span');
           span1.textContent = title;
           link.append(span1);
@@ -1095,8 +1081,7 @@ export default async function decorate(block) {
     const supportMenuLinksList = supportEl.querySelector('.support-navigation-menu-links-wrapper .support-navigation-menu-links');
     if (supportMenuLinksList) {
       [...supportMenuLinksList.children].forEach((item) => {
-        const title = item.children[2].textContent.trim() || '';
-        const href = item.children[3].textContent.trim() || '#';
+        const { title, href } = getSupportSubMenuLinkData(item);
         const div = document.createElement('div');
         div.className = 'mobile-product-item';
         if (href && href !== '#') {
