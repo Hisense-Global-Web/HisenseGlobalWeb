@@ -21,8 +21,9 @@ export default function decorate(block) {
   block.append(textArea);
   const btn = block.querySelector('.btnlink');
   const btnText = block.querySelector('.btntext');
-  btn.querySelector('a').innerText = btnText.innerText.trim();
-  btnText.remove();
+  btn.querySelector('a')?.innerText = btnText.innerText.trim();
+  btn.querySelector('a')?.title = btnText.innerText.trim();
+  btnText?.remove();
   block.append(btn);
 
   getDynamicHeaderHeight(block);

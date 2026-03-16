@@ -9,6 +9,7 @@ export default function decorate(block) {
   button.classList.add('button-container');
   if (button.querySelector('a')) button.querySelector('a').textContent = button.firstElementChild?.lastElementChild?.textContent;
   button.querySelector('a')?.classList.add(`bg-${button.firstElementChild?.firstElementChild?.textContent}`);
+  button.querySelector('a')?.title = button.querySelector('a')?.textContent;
   button.firstElementChild?.firstElementChild?.remove();
   button.firstElementChild?.lastElementChild?.remove();
 

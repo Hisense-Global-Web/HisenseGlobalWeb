@@ -28,11 +28,11 @@ export default async function decorate(block) {
                 break;
             default:
                 child.className = 'banner-btn';
-                child.querySelector('a').textContent = child.querySelector('.button-container').nextElementSibling?.textContent.trim();
-                console.log(child);
+                const actionLink = child.querySelector('a');
+                actionLink?.textContent = child.querySelector('.button-container')?.nextElementSibling?.textContent.trim();
+                actionLink?.title = actionLink.textContent;
                 containerDiv.append(child);
                 child.querySelector('.button-container').nextElementSibling?.remove();
-                
 
         }
     })

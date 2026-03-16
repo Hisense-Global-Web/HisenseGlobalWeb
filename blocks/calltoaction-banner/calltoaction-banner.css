@@ -24,7 +24,7 @@
         font-size: var(--size-46);
         line-height: 120%;
         text-transform: capitalize;
-        width: min(calc(467/var(--breakpoint-pc)* 100vw), 467px);
+        width: min(calc(470/var(--breakpoint-pc)* 100vw), 470px);
     }
 
     .banner-container {
@@ -95,7 +95,6 @@
                 text-align: center;
                 font-size: var(--size-24);
                 text-transform: capitalize;
-                padding: 0 var(--size-10);
             }
 
             .button-container {
