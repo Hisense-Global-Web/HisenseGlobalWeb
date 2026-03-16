@@ -24,7 +24,10 @@
         font-size: var(--size-46);
         line-height: 120%;
         text-transform: capitalize;
-        width: min(calc(470/var(--breakpoint-pc)* 100vw), 470px);
+        width: min(calc(467/var(--breakpoint-pc)* 100vw), 467px);
+        word-break: break-word;
+        hyphens: auto;
+        letter-spacing: -0.02em;
     }
 
     .banner-container {
