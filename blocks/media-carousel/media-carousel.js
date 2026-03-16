@@ -240,8 +240,11 @@ export default async function decorate(block) {
   let className;
 
   const mediaCarouselContainer = createElement('div', 'media-carousel-viewport');
-  const mediaCarouselBlocks = createElement('ul', 'media-carousel-track');
   const titleBox = createElement('div', 'carousel-title-box');
+  const mediaCarouselBlocks = createElement('ul', 'media-carousel-track');
+  mediaCarouselContainer.prepend(mediaCarouselBlocks);
+  block.appendChild(titleBox);
+  block.appendChild(mediaCarouselContainer);
 
   const [eyebrow, title, ...mediaItem] = block.children;
   if (!eyebrow.innerHTML) eyebrow.className = 'no-subtitle';
@@ -279,13 +282,9 @@ export default async function decorate(block) {
     }
     mediaBlock.append(...item.children);
     mediaCarouselBlocks.append(mediaBlock);
-    item.remove();
+    // item.remove();
   });
-
-  mediaCarouselContainer.appendChild(mediaCarouselBlocks);
   block.classList.add(className);
-  block.appendChild(titleBox);
-  block.appendChild(mediaCarouselContainer);
 
   if (mediaCarouselBlocks.children) {
     const buttonContainer = createElement('div', 'media-carousel-pagination');
