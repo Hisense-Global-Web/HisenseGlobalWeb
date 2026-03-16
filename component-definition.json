@@ -1559,7 +1559,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Media Carousel Item",
-                  "model": "media-carouselItem"
+                  "model": "media-carouselItem",
+                  "mainContent": "image"
                 }
               }
             }

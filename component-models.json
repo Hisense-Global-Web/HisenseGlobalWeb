@@ -3169,28 +3169,27 @@
         "value": "",
         "label": "Title",
         "valueType": "string"
-      },
-      {
-        "component": "select",
-        "name": "mainContent",
-        "label": "Section Content Type",
-        "description": "This field defines carousel content. Please switching between Image and Video resets existing data.",
-        "options": [
-          {
-            "name": "Image",
-            "value": "Image"
-          },
-          {
-            "name": "video",
-            "value": "video"
-          }
-        ]
       }
     ]
   },
   {
     "id": "media-carouselItem",
     "fields": [
+      {
+        "component": "select",
+        "name": "mainContent",
+        "label": "Section Content Type",
+        "options": [
+          {
+            "name": "Image(Default)",
+            "value": "image"
+          },
+          {
+            "name": "Video",
+            "value": "video"
+          }
+        ]
+      },
       {
         "component": "reference",
         "valueType": "string",
