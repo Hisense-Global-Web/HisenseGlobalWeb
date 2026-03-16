@@ -346,7 +346,11 @@ function createWarrantyItem(warrantyItem, country) {
 
   const warrantyInfo = Array.isArray(warrantyItem?.warrantyInfo) ? warrantyItem.warrantyInfo : [];
   if (warrantyInfo.length > 0) {
-    item.appendChild(createDescriptionList(warrantyInfo, false));
+    item.appendChild(createDescriptionList(
+      warrantyInfo,
+      true,
+      toAbsoluteUrl('/resources/warranty-check.svg'),
+    ));
   }
 
   if (warrantyItem?.warrantyInfoNotes) {
