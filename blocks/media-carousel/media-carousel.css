@@ -19,8 +19,12 @@
   .carousel-title-box {
     display: flex;
     flex-direction: column;
-    height: var(--size-80);
+    height: auto;
     gap: var(--spacing-3xs);
+
+    div.no-subtitle {
+      display: none;
+    }
 
     &.only-title {
       height: auto;

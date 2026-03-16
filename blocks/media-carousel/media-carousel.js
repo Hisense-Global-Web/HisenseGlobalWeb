@@ -246,43 +246,44 @@ export default async function decorate(block) {
 
   const [eyebrow, title, ...mediaItems] = block.children;
   if (!eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
-  if (!title.textContent.trim()) title.className = 'no-title';
-  if (!eyebrow.textContent.trim() && title.textContent.trim()) title.className = 'only-title';
+  if (!title.textContent.trim() && !title.textContent.trim()) titleBox.className = 'no-title';
+  if (!eyebrow.textContent.trim() && title.textContent.trim()) titleBox.className = 'only-title';
   
   titleBox.appendChild(eyebrow);
   titleBox.append(title);
 
-  // mediaItems.forEach((item, idx) => {
+  mediaItems.forEach((item, idx) => {
     
-  //   const mediaBlock = document.createElement('li');
-  //   mediaBlock.classList.add('item');
-  //   mediaBlock.dataset.slideIndex = idx;
+    const mediaBlock = document.createElement('li');
+    mediaBlock.classList.add('media-item');
+    item.className = 'item';
+    mediaBlock.dataset.slideIndex = idx;
 
-  //   const [typeDom, mediaContent, textContent, videoCover ] = item.children;
-  //   const contentType = typeDom.textContent.trim();
-  //   if(className && !className.includes(contentType)) className = className + '-' + contentType;
-  //   else className = contentType;
+    const [typeDom, mediaContent, textContent, videoCover ] = item.children;
+    const contentType = typeDom.textContent.trim();
+    if(className && !className.includes(contentType)) className = className + '-' + contentType;
+    else className = contentType;
 
-  //   // typeDom.remove();
-  //   if(mediaContent.innerHTML) {
-  //     if(mediaContent.querySelector('a')) {
-  //       let singleVideo;
-  //       singleVideo = createVideo(item, idx);
-  //       mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
-  //       mediaContent.classList.add('media-video');
-  //     } else {
-  //       mediaContent.classList.add('media-picture');
-  //     }
-  //     // videoCover.remove();
-  //   }
+    typeDom.remove();
+    if(mediaContent.innerHTML) {
+      if(mediaContent.querySelector('a')) {
+        let singleVideo;
+        singleVideo = createVideo(item, idx);
+        mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
+        mediaContent.classList.add('media-video');
+      } else {
+        mediaContent.classList.add('media-picture');
+      }
+      videoCover.remove();
+    }
 
-  //   if(textContent.textContent.trim()) {
-  //     textContent.classList.add('text-content');
-  //   }
-  //   mediaBlock.append(...item.children);
-  //   mediaCarouselBlocks.append(mediaBlock);
-  //   // item.remove();
-  // });
+    if(textContent.textContent.trim()) {
+      textContent.classList.add('text-content');
+    }
+    mediaBlock.append(item);
+    mediaCarouselBlocks.append(mediaBlock);
+  });
+
   block.classList.add(className);
   block.appendChild(titleBox);
   block.appendChild(mediaCarouselContainer);
