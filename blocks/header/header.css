@@ -773,6 +773,7 @@
   font-weight: 500;
   width: calc(100% - 900px);
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .dropdown-links a {
