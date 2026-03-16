@@ -306,7 +306,7 @@
     background: transparent;
   }
 
-  .media-picture {
+  .media-picture, .media-video {
     width: 100%;
     height: min(calc(368/var(--breakpoint-pc)*100vw), 368px);
     border-radius: var(--radius-pc-xl);
@@ -378,12 +378,12 @@
     align-items: center;
     gap: var(--spacing-pc-md);
     padding: 0;
-    height: auto;
+    height: min(calc(600/var(--breakpoint-pc)*100vw), 600px);
     width: min(calc(800/var(--breakpoint-pc)*100vw), 800px);
     background: transparent;
     position: relative;
 
-    .video-div-box {
+    .media-video, .media-picture {
       height: min(calc(452/var(--breakpoint-pc)*100vw), 452px);
       width: 100%;
     }
