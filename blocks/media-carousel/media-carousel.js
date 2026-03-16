@@ -237,59 +237,53 @@ export default async function decorate(block) {
   carouselId += 1;
   block.setAttribute('id', `media-carousel-${carouselId}`);
   block.dataset.slideIndex = 0;
-  const contentType = block.children[2].innerHTML.includes('video') ? 'video' : 'Image';
+  let className;
+
   const mediaCarouselContainer = createElement('div', 'media-carousel-viewport');
   const mediaCarouselBlocks = createElement('ul', 'media-carousel-track');
   const titleBox = createElement('div', 'carousel-title-box');
-  [...block.children].forEach((child, idx) => {
-    // except subtitle and title
-    if (idx <= 2) {
-      if (idx !== 2) {
-        titleBox.appendChild(child);
-      }
-      else child.remove();
-      return;
-    }
+
+  const [eyebrow, title, ...mediaItem] = block.children;
+  if (!eyebrow.innerHTML) eyebrow.className = 'no-subtitle';
+  if (!title.innerHTML) title.className = 'no-title';
+  if (!eyebrow.innerHTML && title.innerHTML) title.className = 'only-title';
+  
+  titleBox.appendChild(eyebrow);
+  titleBox.append(title);
+  mediaItem.forEach((item, idx) => {
+    
     const mediaBlock = document.createElement('li');
-    child.classList.add('item');
-    mediaBlock.dataset.slideIndex = idx - 3;
-    if (contentType === 'video') {
-      block.classList.add('video-media-carousel-block');
-      let singleVideo;
-      if (block.classList.contains('bottom-center-style')) {
-        child.classList.add('video-center-type');
-        singleVideo = createVideo(child, idx);
+    mediaBlock.classList.add('item');
+    mediaBlock.dataset.slideIndex = idx;
+
+    const [typeDom, mediaContent, textContent, videoCover ] = item.children;
+    const contentType = typeDom.textContent.trim();
+    if(className && !className.includes(contentType)) className = className + '-' + contentType;
+    else className = contentType;
+
+    typeDom.remove();
+    if(mediaContent.innerHTML) {
+      if(mediaContent.querySelector('a')) {
+        let singleVideo;
+        singleVideo = createVideo(item, idx);
+        mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
+        mediaContent.classList.add('media-video');
       } else {
-        singleVideo = createVideo(child, idx);
-        child.classList.add('video-only');
+        mediaContent.classList.add('media-picture');
       }
-      if (child.querySelector('picture')) {
-        child.querySelector('picture').closest('div').classList.add('video-play');
-        child.querySelector('picture').closest('div').remove();
-      }
-      if (singleVideo && child.firstElementChild.querySelector('a')) child.replaceChild(singleVideo, child.firstElementChild);
-      child.lastElementChild?.classList.add('item-content');
-    } else {
-      [...child.children].forEach((item) => {
-        if (item.querySelector('picture')) {
-          item.querySelector('picture').closest('div').classList.add('item-picture');
-        } else if (item.querySelector('.button-container')) {
-          item.querySelector('.button-container').closest('div').classList.add('item-cta');
-        } else {
-          item.classList.add('item-content');
-        }
-        if (!item.innerHTML) item.remove();
-      });
+      videoCover.remove();
     }
-    mediaBlock.appendChild(child);
-    mediaCarouselBlocks.appendChild(mediaBlock);
+
+    if(textContent.innerHTML) {
+      textContent.classList.add('text-content');
+    }
+    mediaBlock.append(...item.children);
+    mediaCarouselBlocks.append(mediaBlock);
+    item.remove();
   });
+
   mediaCarouselContainer.appendChild(mediaCarouselBlocks);
-  if (titleBox.firstElementChild.textContent.trim() === '') {
-    // If the first child is empty, the title font-size should be smaller
-    titleBox.lastElementChild.classList.add('no-subtitle');
-    titleBox.classList.add('only-title');
-  }
+  block.classList.add(className);
   block.appendChild(titleBox);
   block.appendChild(mediaCarouselContainer);
 
