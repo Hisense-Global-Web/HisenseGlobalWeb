@@ -14,7 +14,7 @@ export default async function decorate(block) {
 
   [...block.children].forEach((child, index) => {
     switch (index) {
-      case 0:
+      case 0: {
         child.className = 'banner-img';
         const [pcImg, mobileImg] = child.querySelectorAll('img');
         block.dataset.pcImg = pcImg.src;
@@ -22,17 +22,19 @@ export default async function decorate(block) {
         updateBackgroundImage(); // 初始设置
         child.remove();
         break;
+      }
       case 1:
         child.className = 'banner-title';
         containerDiv.append(child);
         break;
-      default:
+      default: {
         child.className = 'banner-btn';
         const actionLink = child.querySelector('a');
         actionLink.textContent = child.querySelector('.button-container')?.nextElementSibling?.textContent.trim();
         actionLink.title = actionLink.textContent;
         containerDiv.append(child);
         child.querySelector('.button-container')?.nextElementSibling?.remove();
+      }
     }
   });
 
