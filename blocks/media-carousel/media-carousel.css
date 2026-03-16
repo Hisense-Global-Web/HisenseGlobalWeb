@@ -213,8 +213,7 @@
     background: linear-gradient(180deg, rgb(0 0 0 / 0%) 30.44%, rgb(0 0 0 / 20%) 100%);
   }
   
-  .item-content,
-  .item-cta {
+  .text-content {
     height: 53.23529412%;
     width: 100%;
     position: absolute;
@@ -254,11 +253,13 @@
     width: min(calc(630/var(--breakpoint-pc)*100vw), 630px);
     height: min(calc(368/var(--breakpoint-pc)*100vw), 368px);
     overflow: hidden;
+  }
+
+  .media-picture {
     background-color: var(--color-hisense-black);
   }
 
-  .item-content,
-  .item-cta {
+  .text-content {
     position: absolute;
     left: 0;
     top: 0;
@@ -305,32 +306,7 @@
     background: transparent;
   }
 
-  .video-div-box {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-
-    video {
-      border-radius: var(--radius-pc-xl);
-      overflow: hidden;
-      object-fit: cover;
-      height: 100%;
-      width: 100%;
-    }
-
-    img {
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      object-fit: cover;
-    }
-  }
-
-  .item-picture {
+  .media-picture {
     width: 100%;
     height: min(calc(368/var(--breakpoint-pc)*100vw), 368px);
     border-radius: var(--radius-pc-xl);
@@ -338,8 +314,7 @@
     object-fit: cover;
   }
 
-  .item-content,
-  .item-cta {
+  .text-content {
     text-align: left;
     padding-left: var(--size-12);
 
@@ -364,14 +339,13 @@
     position: relative;
   }
 
-  .item-picture {
+  .media-picture {
     border-radius: var(--radius-pc-xl);
     overflow: hidden;
     object-fit: cover;
   }
 
-  .item-content,
-  .item-cta {
+  .text-content {
     position: absolute;
     bottom: 0;
     height: min(calc(120/var(--breakpoint-pc)*100vw), 120px);
@@ -412,26 +386,9 @@
     .video-div-box {
       height: min(calc(452/var(--breakpoint-pc)*100vw), 452px);
       width: 100%;
-
-      video {
-        border-radius: var(--radius-pc-xl);
-        overflow: hidden;
-        object-fit: cover;
-        height: 100%;
-        width: 100%;
-      }
-
-      img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-      }
     }
 
-    .item-content,
-    .item-cta {
+    .text-content {
       width: min(calc(600/var(--breakpoint-pc)*100vw), 600px);
       text-align: center;
       display: flex;
