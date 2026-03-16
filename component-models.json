@@ -979,6 +979,74 @@
     ]
   },
   {
+    "id": "calltoaction-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "background_pc",
+        "label": "Background Image For PC",
+        "required": true,
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "background_mobile",
+        "label": "Background Image For Mobile",
+        "required": true,
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string",
+        "value": "",
+        "placeholder": "this is title"
+      },
+      {
+        "component": "select",
+        "name": "classes_fontColor",
+        "value": "",
+        "label": "Font Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "black-font",
+            "value": "black-font"
+          },
+          {
+            "name": "white-font(default)",
+            "value": "white-font"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "label": "",
+        "name": "container_cta",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "aem-content",
+            "name": "cta_icon",
+            "label": "CTA",
+            "valueType": "string",
+            "value": "/"
+          },
+          {
+            "component": "text",
+            "name": "cta_iconLabel",
+            "label": "CTA Label",
+            "valueType": "string",
+            "value": "label text"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "card-carousel",
     "fields": [
       {
@@ -3370,13 +3438,6 @@
         "name": "darkIcon",
         "label": "Dark Icon",
         "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "text",
-        "label": "Text",
-        "value": ""
       },
       {
         "component": "aem-content",

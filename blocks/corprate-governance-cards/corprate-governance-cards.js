@@ -20,6 +20,7 @@ export default function decorate(block) {
     linkDiv?.querySelectorAll('a').forEach((button) => {
       button.closest('div').classList.add('link-div');
       button.textContent = button.nextElementSibling?.textContent || button.parentElement.nextElementSibling.textContent;
+      button.title = button.textContent;
       button.nextElementSibling?.remove();
       button.parentElement?.nextElementSibling?.remove();
     });
