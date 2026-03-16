@@ -348,6 +348,8 @@ export default function decorate(block) {
       document.body.style.overflow = 'hidden';
       // 比较商品信息详细数据
       const compareDetailInfo = aggregateData(compareDataArr);
+      // 每次点击 compare 按钮，重新渲染比较商品信息 popup
+      createComparePopup();
       // render compare popup detail data
       renderCompareDetailData(compareDetailInfo, 'property-box-id');
       // document.querySelector('.compare-popup-wrapper').style.display = 'block';
@@ -1106,8 +1108,6 @@ export default function decorate(block) {
       applyUrlFilters();
       // 初始化询问比较固定栏
       fixedBottomCompareBar();
-      // 比较商品信息 popup
-      createComparePopup();
     })
     .catch(() => {
       const items = (mockData && mockData.data) || [];
@@ -1123,8 +1123,6 @@ export default function decorate(block) {
       applyUrlFilters();
       // 初始化询问比较固定栏
       fixedBottomCompareBar();
-      // 比较商品信息 popup
-      createComparePopup();
     });
   /* eslint-disable-next-line no-underscore-dangle */
   window.renderItems = renderItems;
