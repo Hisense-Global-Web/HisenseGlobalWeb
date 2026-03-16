@@ -243,48 +243,49 @@ export default async function decorate(block) {
   const titleBox = createElement('div', 'carousel-title-box');
   const mediaCarouselBlocks = createElement('ul', 'media-carousel-track');
   mediaCarouselContainer.prepend(mediaCarouselBlocks);
-  block.appendChild(titleBox);
-  block.appendChild(mediaCarouselContainer);
 
-  const [eyebrow, title, ...mediaItem] = block.children;
-  if (!eyebrow.innerHTML) eyebrow.className = 'no-subtitle';
-  if (!title.innerHTML) title.className = 'no-title';
-  if (!eyebrow.innerHTML && title.innerHTML) title.className = 'only-title';
+  const [eyebrow, title, ...mediaItems] = block.children;
+  if (!eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
+  if (!title.textContent.trim()) title.className = 'no-title';
+  if (!eyebrow.textContent.trim() && title.textContent.trim()) title.className = 'only-title';
   
   titleBox.appendChild(eyebrow);
   titleBox.append(title);
-  mediaItem.forEach((item, idx) => {
+
+  // mediaItems.forEach((item, idx) => {
     
-    const mediaBlock = document.createElement('li');
-    mediaBlock.classList.add('item');
-    mediaBlock.dataset.slideIndex = idx;
+  //   const mediaBlock = document.createElement('li');
+  //   mediaBlock.classList.add('item');
+  //   mediaBlock.dataset.slideIndex = idx;
 
-    const [typeDom, mediaContent, textContent, videoCover ] = item.children;
-    const contentType = typeDom.textContent.trim();
-    if(className && !className.includes(contentType)) className = className + '-' + contentType;
-    else className = contentType;
+  //   const [typeDom, mediaContent, textContent, videoCover ] = item.children;
+  //   const contentType = typeDom.textContent.trim();
+  //   if(className && !className.includes(contentType)) className = className + '-' + contentType;
+  //   else className = contentType;
 
-    // typeDom.remove();
-    if(mediaContent.innerHTML) {
-      if(mediaContent.querySelector('a')) {
-        let singleVideo;
-        singleVideo = createVideo(item, idx);
-        mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
-        mediaContent.classList.add('media-video');
-      } else {
-        mediaContent.classList.add('media-picture');
-      }
-      // videoCover.remove();
-    }
+  //   // typeDom.remove();
+  //   if(mediaContent.innerHTML) {
+  //     if(mediaContent.querySelector('a')) {
+  //       let singleVideo;
+  //       singleVideo = createVideo(item, idx);
+  //       mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
+  //       mediaContent.classList.add('media-video');
+  //     } else {
+  //       mediaContent.classList.add('media-picture');
+  //     }
+  //     // videoCover.remove();
+  //   }
 
-    if(textContent.innerHTML) {
-      textContent.classList.add('text-content');
-    }
-    mediaBlock.append(...item.children);
-    mediaCarouselBlocks.append(mediaBlock);
-    // item.remove();
-  });
+  //   if(textContent.textContent.trim()) {
+  //     textContent.classList.add('text-content');
+  //   }
+  //   mediaBlock.append(...item.children);
+  //   mediaCarouselBlocks.append(mediaBlock);
+  //   // item.remove();
+  // });
   block.classList.add(className);
+  block.appendChild(titleBox);
+  block.appendChild(mediaCarouselContainer);
 
   if (mediaCarouselBlocks.children) {
     const buttonContainer = createElement('div', 'media-carousel-pagination');
