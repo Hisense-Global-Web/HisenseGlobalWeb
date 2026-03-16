@@ -71,10 +71,12 @@
 
     &.black-font {
         color: black;
+
         .button-container .button {
             border-color: var(--color-hisense-black);
             color: var(--color-hisense-black);
         }
+
         .button-container .button:hover {
             background-color: var(--color-primary-grey-70);
             border-color: var(--color-primary-grey-70);
@@ -103,6 +105,7 @@
 
             .button-container {
                 margin: auto;
+
                 .button {
                     text-align: center;
                     display: flex;
