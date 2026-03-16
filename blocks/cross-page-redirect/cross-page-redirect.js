@@ -7,8 +7,12 @@ export default function decorate(block) {
   bodyCopy.classList.add('text');
   block.prepend(textContainer);
   button.classList.add('button-container');
-  if (button.querySelector('a')) button.querySelector('a').textContent = button.firstElementChild?.lastElementChild?.textContent;
-  button.querySelector('a')?.classList.add(`bg-${button.firstElementChild?.firstElementChild?.textContent}`);
+  const btn = button.querySelector('a');
+  if (btn) {
+    btn.textContent = button.firstElementChild?.lastElementChild?.textContent;
+    btn.title = btn.textContent;
+    btn.classList.add(`bg-${button.firstElementChild?.firstElementChild?.textContent}`);
+  }
   button.firstElementChild?.firstElementChild?.remove();
   button.firstElementChild?.lastElementChild?.remove();
 

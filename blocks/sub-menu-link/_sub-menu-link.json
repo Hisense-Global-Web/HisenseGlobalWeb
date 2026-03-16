@@ -33,6 +33,7 @@
           "valueType": "string",
           "name": "alt",
           "label": "Alt Text",
+          "required": true,
           "value": ""
         },
         {
@@ -40,12 +41,14 @@
           "valueType": "string",
           "name": "title",
           "label": "Title",
+          "required": true,
           "value": ""
         },
         {
           "component": "aem-content",
           "name": "link",
-          "label": "Link"
+          "label": "Link",
+          "required": true
         },
         {
           "component": "aem-tag",

@@ -120,6 +120,22 @@ async function fetchFaqTags() {
   }
 }
 
+function normalizeFaqTags(value) {
+  if (Array.isArray(value)) {
+    return value.map((item) => String(item || '').trim()).filter(Boolean);
+  }
+
+  if (typeof value === 'string') {
+    return value.split(',').map((item) => item.trim()).filter(Boolean);
+  }
+
+  return [];
+}
+
+function getFaqTagKey(tag) {
+  return String(tag || '').split('/').pop();
+}
+
 // 渲染FAQ标签页
 function renderFaqTabs(faqData, tags, allTabLabel, showTabCount) {
   const tabsEl = document.createElement('div');
@@ -129,13 +145,11 @@ function renderFaqTabs(faqData, tags, allTabLabel, showTabCount) {
   const allTags = new Set();
 
   faqData.forEach((faq) => {
-    if (Array.isArray(faq.tags)) {
-      faq.tags.forEach((tag) => {
-        const tagKey = tag.split('/').pop();
-        allTags.add(tagKey);
-        tagCounts[tagKey] = (tagCounts[tagKey] || 0) + 1;
-      });
-    }
+    normalizeFaqTags(faq.tags).forEach((tag) => {
+      const tagKey = getFaqTagKey(tag);
+      allTags.add(tagKey);
+      tagCounts[tagKey] = (tagCounts[tagKey] || 0) + 1;
+    });
   });
 
   const allTab = document.createElement('div');
@@ -194,22 +208,41 @@ function renderFaqSummary(container, config, faqData, tags) {
 }
 
 // 创建单个FAQ卡片
-function createFaqCard(faqItem, index) {
+function getFaqTagText(faqItem, tags = {}) {
+  const faqTags = normalizeFaqTags(faqItem?.tags);
+
+  if (faqTags.length === 0) {
+    return faqItem?.productCategory || '';
+  }
+
+  const resolvedTags = faqTags
+    .map((tag) => {
+      const tagKey = getFaqTagKey(tag);
+      return tags[tagKey] || tagKey;
+    })
+    .filter(Boolean);
+
+  return [...new Set(resolvedTags)].join(', ') || faqItem?.productCategory || '';
+}
+
+function createFaqCard(faqItem, index, tags) {
   const segments = window.location.pathname.split('/').filter(Boolean);
   const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+  const faqTags = normalizeFaqTags(faqItem.tags);
   const card = document.createElement('div');
   card.className = index === 0 ? 'faq-card' : 'faq-card hide';
-  card.dataset.tags = Array.isArray(faqItem.tags) ? faqItem.tags.join(',') : '';
+  card.dataset.tags = faqTags.join(',');
 
   const title = document.createElement('div');
   title.className = 'faq-title';
 
   const titleContent = document.createElement('div');
+  const faqTagText = getFaqTagText(faqItem, tags);
 
-  if (faqItem.productCategory) {
+  if (faqTagText) {
     const categoryDiv = document.createElement('div');
     categoryDiv.className = 'title-content';
-    categoryDiv.textContent = faqItem.productCategory;
+    categoryDiv.textContent = faqTagText;
     titleContent.appendChild(categoryDiv);
   }
 
@@ -383,7 +416,7 @@ function buildMobilePaginationControls(container, state, onLoadMore, config) {
 }
 
 // 渲染FAQ列表
-function renderFaqList(faqData, container, state, onPageChange, onLoadMore, config) {
+function renderFaqList(faqData, container, state, onPageChange, onLoadMore, config, tags) {
   if (!container) return;
 
   const faqGrid = container.querySelector('.faq-grid');
@@ -400,7 +433,7 @@ function renderFaqList(faqData, container, state, onPageChange, onLoadMore, conf
   }
 
   faqData.forEach((faqItem, index) => {
-    const card = createFaqCard(faqItem, index);
+    const card = createFaqCard(faqItem, index, tags);
     faqGrid.appendChild(card);
   });
 
@@ -439,10 +472,8 @@ function initTabSwitching(block, allFaqData, state, renderCallback) {
 
       if (selectedTag !== 'all') {
         filteredData = allFaqData.filter((faq) => {
-          if (Array.isArray(faq.tags)) {
-            return faq.tags.some((tag) => tag.endsWith(selectedTag));
-          }
-          return false;
+          const faqTags = normalizeFaqTags(faq.tags);
+          return faqTags.some((tag) => getFaqTagKey(tag) === selectedTag);
         });
       }
 
@@ -636,6 +667,7 @@ export default async function decorate(block) {
         (newPage) => renderPage(data, newPage),
         () => renderPage(data, state.currentPage + 1),
         fullConfig,
+        tags,
       );
     };
 
@@ -650,7 +682,7 @@ export default async function decorate(block) {
 
       if (newData.length > 0) {
         newData.forEach((faqItem, index) => {
-          const card = createFaqCard(faqItem, currentCount + index);
+          const card = createFaqCard(faqItem, currentCount + index, tags);
           gridEl.appendChild(card);
         });
 
@@ -675,6 +707,7 @@ export default async function decorate(block) {
       (newPage) => renderPage(filteredFaqData, newPage),
       loadMore,
       fullConfig,
+      tags,
     );
 
     initTabSwitching(block, filteredFaqData, state, (filteredData) => {
@@ -687,7 +720,7 @@ export default async function decorate(block) {
 
       const initialData = filteredData.slice(0, state.pageSize);
       initialData.forEach((faqItem, index) => {
-        const card = createFaqCard(faqItem, index);
+        const card = createFaqCard(faqItem, index, tags);
         gridEl.appendChild(card);
       });
 
