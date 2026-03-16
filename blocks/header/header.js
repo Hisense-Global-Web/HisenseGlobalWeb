@@ -652,9 +652,13 @@ export default async function decorate(block) {
   const isSupportPage = window.location.pathname.includes('support');
   if (isCompanyPage) {
     navigation.classList.add('is-company');
+    if (window.innerWidth >= 1180 && !window.location.pathname.includes('about-us')) {
+      document.documentElement.style.setProperty('--nav-height', '166px');
+    }
   }
   if (isSupportPage) {
     navigation.classList.add('is-support');
+    document.documentElement.style.setProperty('--nav-height', '100px');
   }
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
