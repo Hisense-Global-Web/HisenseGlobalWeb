@@ -47,6 +47,7 @@
 
   &.is-company {
     transition: none;
+    background: var(--color-primary-grey-10);
 
     .nav-container {
       background: var(--color-primary-grey-10);
