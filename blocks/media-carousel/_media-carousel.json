@@ -46,7 +46,7 @@
           "valueType": "string",
           "options": [
             {
-              "name": "default",
+              "name": "default(no text)",
               "value": ""
             },
             {

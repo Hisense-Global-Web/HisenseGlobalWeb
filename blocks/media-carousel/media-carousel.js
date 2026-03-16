@@ -246,7 +246,7 @@ export default async function decorate(block) {
 
   const [eyebrow, title, ...mediaItems] = block.children;
   if (!eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
-  if (!title.textContent.trim() && !title.textContent.trim()) titleBox.className = 'no-title';
+  if (!title.textContent.trim() && !title.textContent.trim()) block.classList.add('no-title');
   if (!eyebrow.textContent.trim() && title.textContent.trim()) titleBox.className = 'only-title';
   
   titleBox.appendChild(eyebrow);
