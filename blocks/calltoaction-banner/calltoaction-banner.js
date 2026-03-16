@@ -29,8 +29,8 @@ export default async function decorate(block) {
             default:
                 child.className = 'banner-btn';
                 const actionLink = child.querySelector('a');
-                actionLink?.textContent = child.querySelector('.button-container')?.nextElementSibling?.textContent.trim();
-                actionLink?.title = actionLink.textContent;
+                actionLink.textContent = child.querySelector('.button-container')?.nextElementSibling?.textContent.trim();
+                actionLink.title = actionLink.textContent;
                 containerDiv.append(child);
                 child.querySelector('.button-container').nextElementSibling?.remove();
 
