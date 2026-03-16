@@ -250,52 +250,34 @@ function parseDropdownBtns(col) {
   }
 
   const paragraphs = Array.from(col.querySelectorAll('p'));
-  let i = 0;
-  while (i < paragraphs.length) {
-    const currentText = paragraphs[i]?.textContent.trim();
-    if (!currentText) {
-      i += 1;
-    } else if (currentText.startsWith('hisense:')) {
-      // 如果当前行是 hisense: 开头视为上一个 item 的标签，附加查询参数
-      const tagsText = currentText;
-      if (results.length > 0) {
-        const prev = results[results.length - 1];
-        prev.href = appendSearchTagsToHref(prev.href, tagsText);
-      }
-      i += 1;
-    } else {
-      // 如果不是hisense 行，视为文本。接下来的div通常是链接容器
-      const text = currentText;
-      let href = '#';
-      const hrefParagraph = paragraphs[i + 1];
-      if (hrefParagraph) {
-        const anchor = hrefParagraph.querySelector && hrefParagraph.querySelector('a');
-        if (anchor) {
-          href = anchor.getAttribute('href') || '#';
-        } else {
-          const maybeHrefText = hrefParagraph.textContent.trim();
-          href = maybeHrefText || '#';
-        }
-      }
-
-      results.push({ text, href: processPath(href) });
-
-      // 如果 href 之后还有一行，并且那一行是 hisense 标签，那么把标签作为当前 item 的参数
-      if (i + 2 < paragraphs.length) {
-        const maybeTag = paragraphs[i + 2]?.textContent.trim();
-        if (maybeTag && maybeTag.startsWith('hisense:')) {
-          const tagsText = maybeTag;
-          const last = results[results.length - 1];
-          last.href = appendSearchTagsToHref(last.href, tagsText);
-          i += 3;
-        } else {
-          i += 2;
-        }
-      } else {
-        i += 2;
-      }
+  paragraphs.forEach((paragraph, index) => {
+    const anchor = paragraph.querySelector('a');
+    if (!anchor) {
+      return;
     }
-  }
+
+    const rawHref = anchor.getAttribute('href') || '#';
+    const titleText = paragraphs[index - 1]?.textContent.trim() || '';
+    const previousParagraph = paragraphs[index - 2];
+    const previousText = previousParagraph?.textContent.trim() || '';
+    const nextText = paragraphs[index + 1]?.textContent.trim() || '';
+    const altText = previousText
+      && !previousText.startsWith('hisense:')
+      && !previousParagraph?.querySelector('a')
+      && !previousParagraph?.querySelector('picture')
+      ? previousText
+      : '';
+
+    if (!titleText || titleText.startsWith('hisense:')) {
+      return;
+    }
+
+    results.push({
+      text: titleText,
+      href: processPath(appendSearchTagsToHref(rawHref, nextText.startsWith('hisense:') ? nextText : '')),
+      altText,
+    });
+  });
 
   return results;
 }
