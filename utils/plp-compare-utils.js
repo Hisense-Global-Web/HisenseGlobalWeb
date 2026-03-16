@@ -377,13 +377,8 @@ export function createComparePopup() {
     document.body.style.overflow = 'auto';
     // document.querySelector('.compare-popup-wrapper').style.display = 'none';
     document.querySelector('.compare-popup-wrapper').style.visibility = 'hidden';
-    // 无动画重置滚动条到顶部（保证下次打开直接到顶）
-    popupScrollBoxEl.scrollTop = 0;
-    compareProductNameBoxEl.classList.remove('sticky-active');
-    // 左滑也需要重置
-    if (popupScrollBoxEl.scrollLeft > 0) {
-      popupScrollBoxEl.scrollLeft = 0;
-    }
+    // 销毁compare popup dom 结构
+    document.querySelector('.compare-popup-wrapper').remove();
   });
 
   // 对比商品详情信息

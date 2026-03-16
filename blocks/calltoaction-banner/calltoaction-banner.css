@@ -1,0 +1,124 @@
+.calltoaction-banner-wrapper {
+    max-width: unset !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.calltoaction-banner {
+    width: 100%;
+    height: min(calc(400/var(--breakpoint-pc) * 100vw), 400px);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: var(--size-80) 0;
+    position: relative;
+    color: white;
+
+    p {
+        padding: 0;
+        margin: 0;
+    }
+
+    .banner-title {
+        font-weight: var(--fontweight-medium);
+        font-size: var(--size-46);
+        line-height: 120%;
+        text-transform: capitalize;
+        width: min(calc(467/var(--breakpoint-pc)* 100vw), 467px);
+        hyphens: auto;
+        letter-spacing: -0.02em;
+    }
+
+    .banner-container {
+        margin: auto;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-24);
+    }
+
+    .button-container {
+      font-size: var(--body-font-size-l);
+      font-weight: var(--fontweight-medium);
+      width: fit-content;
+
+      .button {
+        width: auto;
+        display: block;
+        padding: var(--spacing-4xs) var(--spacing-pc-md);
+        line-height: var(--size-42);
+        font-size: var(--fontsize-body2);
+        text-align: center;
+        background-color: transparent;
+        border: 1px solid white;
+        color: white;
+        margin: 0;
+        box-sizing: border-box;
+        font-weight: var(--fontweight-medium);
+      }
+
+      .button:hover {
+        background-color: var(--color-primary-grey-10);
+        border-color: var(--color-primary-grey-10);
+        color: var(--color-primary-grey-100);
+      }
+    }
+
+    &.black-font {
+        color: black;
+
+        .button-container .button {
+            border-color: var(--color-hisense-black);
+            color: var(--color-hisense-black);
+        }
+
+        .button-container .button:hover {
+            background-color: var(--color-primary-grey-70);
+            border-color: var(--color-primary-grey-70);
+            color: var(--color-primary-grey-10);
+        }
+    }
+}
+
+@media (width < 860px) {
+    .calltoaction-banner {
+        height: calc(438/var(--breakpoint-mobile)* 100vw);
+        padding: var(--size-48) var(--size-24);
+        
+        .banner-container {
+            gap: var(--size-20);
+            position: static;
+            transform: none;
+            padding: 0;
+
+            .banner-title {
+                width: 100%;
+                text-align: center;
+                font-size: var(--size-24);
+                text-transform: capitalize;
+            }
+
+            .button-container {
+                margin: auto;
+
+                .button {
+                    text-align: center;
+                    display: flex;
+                    height: var(--size-40);
+                    padding: var(--spacing-4xs, 4px) var(--spacing-s2, 20px);
+                    justify-content: center;
+                    align-items: center;
+                    gap: var(--spacing-3xs, 8px);
+                    font-size: var(--fontsize-body2, 14px);
+                    font-weight: var(--fontweight-medium);
+                    line-height: 140%; /* 19.6px */
+                    letter-spacing: 0;
+                }
+            }
+        }
+    }
+}

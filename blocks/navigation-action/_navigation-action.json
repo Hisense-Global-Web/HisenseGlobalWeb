@@ -36,13 +36,6 @@
           "multi": false
         },
         {
-          "component": "text",
-          "valueType": "string",
-          "name": "text",
-          "label": "Text",
-          "value": ""
-        },
-        {
           "component": "aem-content",
           "name": "link",
           "label": "Link"

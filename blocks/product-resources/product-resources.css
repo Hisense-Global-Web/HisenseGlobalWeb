@@ -352,10 +352,6 @@
   gap: var(--spacing-4xs, 4px);
   margin-bottom: var(--spacing-md, 32px);
   flex: auto;
-
-  @media (width>=860px) {
-    display: none;
-  }
 }
 
 .product-resources .tab-content-ul .item-description:empty {
@@ -405,6 +401,10 @@
 }
 
 /* firmware tab */
+.product-resources .tab-content[type="documentation"] .item-description {
+  display: none;
+}
+
 .product-resources .tab-content[type="firmware"] .item-cta-icon {
   display: none !important;
 }
@@ -446,4 +446,38 @@
   .item-title {
   flex: none;
   margin-bottom: var(--spacing-s2, 20px);
+}
+
+.product-resources .tab-content[type="warranty"] .item-description {
+  gap: var(--spacing-2xs, 12px);
+  margin-bottom: var(--spacing-md, 32px);
+}
+
+.product-resources .tab-content[type="warranty"] .item-description li {
+  align-items: flex-start;
+  gap: var(--spacing-3xs, 8px);
+}
+
+.product-resources .tab-content[type="warranty"] .item-description-icon {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin-top: 1px;
+}
+
+.product-resources .tab-content[type="warranty"] .item-description-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 26px;
+  color: var(--color-primary-grey-70, #333);
+  font-size: var(--size-18, 18px);
+  font-weight: 400;
+  line-height: 144%;
+
+  @media (width < 860px) {
+    font-size: var(--size-16, 16px);
+    min-height: 24px;
+  }
 }
