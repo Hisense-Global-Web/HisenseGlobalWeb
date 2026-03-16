@@ -264,7 +264,7 @@ export default async function decorate(block) {
     if(className && !className.includes(contentType)) className = className + '-' + contentType;
     else className = contentType;
 
-    typeDom.remove();
+    // typeDom.remove();
     if(mediaContent.innerHTML) {
       if(mediaContent.querySelector('a')) {
         let singleVideo;
@@ -274,7 +274,7 @@ export default async function decorate(block) {
       } else {
         mediaContent.classList.add('media-picture');
       }
-      videoCover.remove();
+      // videoCover.remove();
     }
 
     if(textContent.innerHTML) {
