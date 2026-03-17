@@ -45,8 +45,9 @@ function bindEvent(block, type = 'normal') {
   }
 
   const playSoloVideo = (index) => {
+    const idKey = cards[index].querySelector('video')?.id;
     videos.forEach((v, i) => {
-      if (i === index) {
+      if (idKey === v.id) {
         v.parentElement.classList.add('is-playing');
         v.muted = true; // 确保视频静音
         v.playsInline = true;
@@ -57,6 +58,8 @@ function bindEvent(block, type = 'normal') {
         v.setAttribute('playsinline', 'true');
         v.setAttribute('muted', 'true');
         v.setAttribute('autoplay', 'true');
+        v['disablePictureInPicture'] = true; // disablePictureInPicture的属性改为true 禁用画中画
+        v['controlslist'] = 'nodownload noremoteplayback'; // 隐藏下载按钮
         v.play().catch(() => {}); // 捕获浏览器静音播放策略错误
         v.nextElementSibling.style.display = 'none'; // 隐藏封面图
       } else {
@@ -91,13 +94,14 @@ function bindEvent(block, type = 'normal') {
 
     // 自动播放逻辑：计算当前最靠左的索引
     // 最后一次点击时，Math.abs(currentX) 会等于 maxTranslate
-    let activeIndex = Math.round(Math.abs(currentX) / step);
-
+    let activeIndex = currentIndex;
+    
     // 如果已经滑动到底部（对齐了最后一个），强制播放最后一个
     if (Math.abs(currentX) >= maxTranslate - 10) {
       activeIndex = CONFIG.totalItems - 1;
     }
-    if (block.classList.contains('video-media-carousel-block')) {
+    
+    if (block.querySelector('.media-video') && block.dataset.currentIndex === cards[activeIndex].closest('li').dataset.slideIndex) {
       playSoloVideo(activeIndex);
     }
   };
@@ -145,10 +149,13 @@ function bindEvent(block, type = 'normal') {
   // 初始化
   updateState();
   // 监听手机端video的视口变化，进入视口开始自动播放
-  if (block.classList.contains('video-media-carousel-block') && window.innerWidth < 860) {
+  if (block.classList.contains('video')
+    || block.classList.contains('image-video')
+    || block.classList.contains('video-image')
+    && window.innerWidth < 860) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && block.dataset.currentIndex === entry.target.closest('li').dataset.slideIndex) {
           const video = entry.target;
           playSoloVideo(parseInt(video.closest('li').dataset.slideIndex, 10));
         }
@@ -195,6 +202,7 @@ function createVideo(child, idx) {
   video.controls = true;
   video.preload = 'metadata';
   video.loop = true;
+  video.disablePictureInPicture="true";
   const source = document.createElement('source');
   source.src = videourl; // 替换为你的视频
   source.type = 'video/mp4';
@@ -208,6 +216,7 @@ function createVideo(child, idx) {
   video.setAttribute('playsinline', 'true');
   video.setAttribute('muted', 'true');
   video.setAttribute('autoplay', 'true');
+  video.setAttribute('controlslist', 'nodownload nofullscreen noremoteplayback noplaybackrate');
   video.appendChild(source);
   videoDivDom.appendChild(video);
   videoDivDom.appendChild(img);
@@ -247,7 +256,7 @@ export default async function decorate(block) {
   const [eyebrow, title, ...mediaItems] = block.children;
   if (!eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
   if (!title.textContent.trim() && !title.textContent.trim()) block.classList.add('no-title');
-  if (!eyebrow.textContent.trim() && title.textContent.trim()) titleBox.className = 'only-title';
+  if (!eyebrow.textContent.trim() && title.textContent.trim()) titleBox.classList.add('only-title');
   
   titleBox.appendChild(eyebrow);
   titleBox.append(title);
@@ -261,8 +270,11 @@ export default async function decorate(block) {
 
     const [typeDom, mediaContent, textContent, videoCover ] = item.children;
     const contentType = typeDom.textContent.trim();
-    if(className && !className.includes(contentType)) className = className + '-' + contentType;
-    else className = contentType;
+
+    if(!className) className = contentType;
+    if(className && !className.includes(contentType)){
+      className = className + '-' + contentType;
+    };
 
     typeDom.remove();
     if(mediaContent.innerHTML) {
@@ -283,7 +295,7 @@ export default async function decorate(block) {
     mediaBlock.append(item);
     mediaCarouselBlocks.append(mediaBlock);
   });
-
+  
   block.classList.add(className);
   block.appendChild(titleBox);
   block.appendChild(mediaCarouselContainer);
