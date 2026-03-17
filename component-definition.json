@@ -1979,11 +1979,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Price Slider",
-                  "model": "price-slider",
-                  "modelFields": [
-                    "title",
-                    "tags"
-                  ]
+                  "model": "price-slider"
                 }
               }
             }

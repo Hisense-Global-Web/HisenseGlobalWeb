@@ -3864,13 +3864,6 @@
         "required": true
       },
       {
-        "component": "boolean",
-        "valueType": "boolean",
-        "name": "extend-group",
-        "label": "Extend group",
-        "value": true
-      },
-      {
         "component": "text",
         "valueType": "string",
         "name": "currency-symbol",

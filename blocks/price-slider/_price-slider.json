@@ -9,11 +9,7 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Price Slider",
-              "model": "price-slider",
-              "modelFields": [
-                "title",
-                "tags"
-              ]
+              "model": "price-slider"
             }
           }
         }
@@ -31,13 +27,6 @@
           "label": "Filter Title",
           "value": "Your Budget",
           "required": true
-        },
-        {
-          "component": "boolean",
-          "valueType": "boolean",
-          "name": "extend-group",
-          "label": "Extend group",
-          "value": true
         },
         {
           "component": "text",
