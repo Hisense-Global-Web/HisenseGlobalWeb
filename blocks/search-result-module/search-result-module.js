@@ -158,6 +158,40 @@ function filterItems(items, keyword, type) {
   });
 }
 
+const SORT_TEXT_COLLATOR = new Intl.Collator(undefined, {
+  numeric: true,
+  sensitivity: 'base',
+});
+
+function getItemSortDateValue(item, type) {
+  const value = type === 'product'
+    ? item.productLaunchDate
+    : (item.date || item['published-date']);
+  const time = Date.parse(value);
+  return Number.isNaN(time) ? 0 : time;
+}
+
+function getItemSortTextValue(item, type) {
+  if (type === 'product') {
+    return item.title || item.series || item.sku || item.overseasModel || '';
+  }
+  return item.title || item.subtitle || item.path || '';
+}
+
+// 一级按日期倒序；日期相同则按标题 Z-A / 9-0 倒序
+function sortItems(items, type) {
+  return [...items].sort((a, b) => {
+    const dateDiff = getItemSortDateValue(b, type) - getItemSortDateValue(a, type);
+    if (dateDiff !== 0) return dateDiff;
+
+    const textDiff = SORT_TEXT_COLLATOR.compare(
+      getItemSortTextValue(b, type),
+      getItemSortTextValue(a, type),
+    );
+    return textDiff;
+  });
+}
+
 // 创建产品卡片
 function createProductCard(item) {
   const card = document.createElement('a');
@@ -513,7 +547,7 @@ export default async function decorate(block) {
       const rawData = await resp.json();
 
       const allItems = extractDataList(rawData, dataSource);
-      const filteredItems = filterItems(allItems, keyword, type);
+      const filteredItems = sortItems(filterItems(allItems, keyword, type), type);
 
       return {
         title: item.title,
