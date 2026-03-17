@@ -579,6 +579,35 @@ export default function decorate(block) {
           extraFields.appendChild(fld);
         }
       });
+
+      const priceGroupDiv = document.createElement('div');
+      priceGroupDiv.className = 'plp-product-price-group';
+      priceGroupDiv.style.display = 'none';
+      const unitEl = document.createElement('span');
+      unitEl.textContent = item.unit || '$';
+      const priceDiv = document.createElement('div');
+      priceDiv.className = 'plp-product-price';
+      const currentPriceEl = document.createElement('div');
+      currentPriceEl.className = 'plp-product-current-price';
+      const currentPriceValue = document.createElement('span');
+      currentPriceValue.textContent = '10000';
+      currentPriceEl.append(unitEl.cloneNode(true), currentPriceValue);
+      const originalPriceEl = document.createElement('div');
+      originalPriceEl.className = 'plp-product-original-price';
+      const originalPriceValue = document.createElement('span');
+      originalPriceValue.textContent = '11000';
+      originalPriceValue.append(unitEl.cloneNode(true), originalPriceValue);
+      priceDiv.append(currentPriceEl, originalPriceEl);
+
+      const discountsDiv = document.createElement('div');
+      discountsDiv.className = 'plp-product-discounts';
+      const discountsTitle = document.createElement('span');
+      discountsTitle.textContent = 'Save';
+      const discountsValue = document.createElement('span');
+      discountsValue.textContent = '1000';
+      discountsDiv.append(discountsTitle, unitEl.cloneNode(true), discountsValue);
+      priceGroupDiv.append(priceDiv, discountsDiv);
+
       // color 区块（可点击，默认选中第一个尺寸，切换显示对应 variant 信息
       const colorsDiv = document.createElement('div');
       colorsDiv.className = 'plp-product-colors';
@@ -867,7 +896,7 @@ export default function decorate(block) {
       if (showDiv) {
         card.append(showDiv);
       }
-      card.append(extraFields, productBtnGroupEl, compareEl);
+      card.append(priceGroupDiv, extraFields, productBtnGroupEl, compareEl);
       productsGrid.append(card);
 
       updateCardWithVariant(selectedVariant);
