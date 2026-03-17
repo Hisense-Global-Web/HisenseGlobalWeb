@@ -146,17 +146,38 @@ function bindEvent(block, type = 'normal') {
   if (isUniversalEditor()) return;
   // 初始化
   updateState();
-  // 监听手机端video的视口变化，进入视口开始自动播放
-  if (block.querySelector('.media-video') && window.innerWidth < 860) {
-    const videoObserver = new IntersectionObserver((entries) => {
+  // 监听视频所在位置并执行自动播放
+  if (block.querySelector('.media-video')) {
+    // 监听block的视口变化，控制视频播放/暂停
+    const blockObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const video = entry.target;
-          playSoloVideo(parseInt(video.closest('li').dataset.slideIndex, 10));
+          // 监听手机端video的视口变化，进入视口开始自动播放---手机是scroll模式，不更新currentIndex
+          if (window.innerWidth < 860) {
+            const videoObserver = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  const video = entry.target;
+                  playSoloVideo(parseInt(video.closest('li').dataset.slideIndex, 10));
+                }
+              });
+            }, { threshold: 0.8 });
+            cards.forEach((v) => videoObserver.observe(v));
+          } else {
+            // block进入视口，播放当前位置的视频          
+            playSoloVideo(currentIndex);
+          }
+        } else {
+          // block离开视口，暂停所有视频
+          block.querySelectorAll('video').forEach((video) => {
+            video.pause();
+            video.parentElement.classList.remove('is-playing');
+          });
         }
       });
-    }, { threshold: 0.8 });
-    cards.forEach((v) => videoObserver.observe(v));
+    }, { threshold: 1 }); // 100%可见时触发
+    
+    blockObserver.observe(block);
   }
   if (type === 'resize') return;
   let lastWidth = window.innerWidth;
@@ -303,17 +324,6 @@ export default async function decorate(block) {
   }
   whenElementReady('.media-carousel', () => {
     block.dataset.currentIndex = 0;
-    const blockObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && entry.intersectionRatio === 1) { 
-          bindEvent(block);
-        } else {
-          block.querySelectorAll('video').forEach((v)=>{
-            v.pause();
-          })
-        }
-      });
-    }, { threshold: 1 });
-    blockObserver.observe(block)
+    bindEvent(block);
   });
 }
