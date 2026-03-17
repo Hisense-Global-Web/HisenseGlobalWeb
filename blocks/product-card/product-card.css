@@ -135,6 +135,38 @@
   background-clip: content-box;
 }
 
+.plp-product-price-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  .plp-product-price {
+    display: flex;
+    gap: var(--size-8);
+    
+    .plp-product-current-price {
+      font-size: var(--fontsize-title2);
+      line-height: 1.2;
+      font-weight: var(--fontweight-medium);
+      color: var(--color-primary-grey-100);
+    }
+    
+    .plp-product-original-price {
+      font-size: var(--fontsize-caption2);
+      line-height: 1.5;
+      font-weight: var(--fontweight-book);
+      color: var(--color-primary-grey-50);
+    }
+  }
+  
+  .plp-product-discounts {
+    font-size: var(--fontsize-caption2);
+    line-height: 1.5;
+    font-weight: var(--fontweight-book);
+    color: var(--color-primary-green-60);
+  }
+}
+
 .product-card .plp-product-btn {
   padding: 0 var(--size-16);
   border: 1px solid var(--color-primary-grey-70);
