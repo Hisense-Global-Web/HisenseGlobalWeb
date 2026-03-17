@@ -598,7 +598,7 @@ export default function decorate(block) {
       originalPriceEl.className = 'plp-product-original-price';
       const originalPriceValue = document.createElement('span');
       originalPriceValue.textContent = '11000';
-      originalPriceValue.append(unitEl.cloneNode(true), originalPriceValue);
+      originalPriceEl.append(unitEl.cloneNode(true), originalPriceValue);
       priceDiv.append(currentPriceEl, originalPriceEl);
 
       const discountsDiv = document.createElement('div');
