@@ -139,10 +139,12 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  margin-top: var(--size-16);
 
   .plp-product-price {
     display: flex;
     gap: var(--size-8);
+    align-items: baseline;
     
     .plp-product-current-price {
       font-size: var(--fontsize-title2);
@@ -164,6 +166,10 @@
     line-height: 1.5;
     font-weight: var(--fontweight-book);
     color: var(--color-primary-green-60);
+    
+    span:first-child {
+      margin-right: var(--size-3);
+    }
   }
 }
 
