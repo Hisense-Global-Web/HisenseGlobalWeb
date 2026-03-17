@@ -369,7 +369,6 @@ footer footer {
 }
 
 .footer-nav-column-item {
-  height: var(--size-18);
   margin-bottom: var(--size-8);
   display: flex;
 

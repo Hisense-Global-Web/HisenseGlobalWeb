@@ -147,6 +147,22 @@ function extractLogoData(container) {
   return logoData;
 }
 
+function buildSearchTagParams(tagsText) {
+  return String(tagsText || '')
+    .split(',')
+    .map((tag) => {
+      const parts = tag.trim().split('/');
+      if (parts.length >= 2) {
+        const key = parts[parts.length - 2];
+        const value = parts[parts.length - 1];
+        return `${key}=${value}`;
+      }
+      return '';
+    })
+    .filter(Boolean)
+    .join('&');
+}
+
 function extractNavColumnsData(container) {
   const navColumns = [];
 
@@ -189,7 +205,10 @@ function extractNavColumnsData(container) {
         const linkDiv = childDivs[1];
         const link = linkDiv.querySelector('a');
         if (link) {
-          itemData.link = link.href || link.getAttribute('href') || '#';
+          itemData.link = link.getAttribute('href') || '#';
+        }
+        if (childDivs.length > 2 && itemData.link !== '#' && itemData.link?.indexOf('?') === -1) {
+          itemData.link += `?${buildSearchTagParams(childDivs[2].textContent.trim())}`;
         }
       }
 
