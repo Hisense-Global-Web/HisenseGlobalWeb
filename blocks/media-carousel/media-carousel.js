@@ -218,7 +218,9 @@ function createVideo(child, idx) {
   video.controls = true;
   video.preload = 'metadata';
   video.loop = true;
-  video.disablePictureInPicture="true";
+  video.disablePictureInPicture = true;
+  video.setAttribute('disablepictureinpicture', '');
+  video.setAttribute('disableremoteplayback', '');
   const source = document.createElement('source');
   source.src = videourl; // 替换为你的视频
   source.type = 'video/mp4';

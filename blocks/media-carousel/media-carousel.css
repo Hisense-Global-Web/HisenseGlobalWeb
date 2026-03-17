@@ -427,26 +427,72 @@
 .media-carousel-pagination.show {
   display: flex;
 }
-/* 进度条 */
-video::-webkit-media-controls-timeline {
-    display: none;
-}
-/* 全屏 */
-video::-webkit-media-controls-fullscreen-button {
-    display: none;
+/* 仅保留播放、进度条和音量（仅作用于当前组件的视频） */
+
+/* WebKit（Chrome、Safari、Opera） */
+.media-video video::-webkit-media-controls-fullscreen-button,
+.media-video video::-webkit-media-controls-picture-in-picture-button,
+.media-video video::-webkit-media-controls-download-button,
+.media-video video::-webkit-media-controls-overlay-play-button,
+.media-video video::-webkit-media-controls-seek-back-button,
+.media-video video::-webkit-media-controls-seek-forward-button,
+.media-video video::-webkit-media-controls-toggle-closed-captions-button,
+.media-video video::-webkit-media-controls-overflow-button,
+.media-video video::-webkit-media-controls-menu-button,
+.media-video video::-webkit-media-controls-mute-button,ß
+.media-video video::-webkit-media-controls-current-time-display,
+.media-video video::-webkit-media-controls-rewind-button,
+.media-video video::-webkit-media-controls-return-to-realtime-button,
+.media-video video::-webkit-media-controls-toggle-closed-captions-button,
+.media-video video::-internal-media-controls-overflow-button,
+.media-video video::-webkit-media-controls-time-remaining-display {
+  display: none !important;
 }
 
-/* 观看的当前时间 */
-video::-webkit-media-controls-current-time-display{
-    display: none;           
-}
-/* 剩余时间 */
-video::-webkit-media-controls-time-remaining-display {
-    display: none;           
+/* Firefox */
+.media-video video::-moz-media-controls-fullscreen-button,
+.media-video video::-moz-media-controls-overflow-button,
+.media-video video::-moz-media-controls-cast-button,
+.media-video video::-moz-media-controls-playback-rate-button,
+.media-video video::-moz-media-controls-picture-in-picture-button,
+.media-video video::-moz-media-controls-toggle-closed-captions-button,
+.media-video video::-moz-media-controls-current-time-display,
+.media-video video::-moz-media-controls-time-remaining-display,
+.media-video video::-moz-media-controls-seek-back-button,
+.media-video video::-moz-media-controls-seek-forward-button {
+  display: none !important;
 }
 
-video::-webkit-file-upload-button {
-  display: none;
+/* Edge/IE */
+.media-video video::-ms-media-controls-fullscreen-button,
+.media-video video::-ms-media-controls-download-button,
+.media-video video::-ms-media-controls-overlay-play-button,
+.media-video video::-ms-media-controls-seek-back-button,
+.media-video video::-ms-media-controls-seek-forward-button {
+  display: none !important;
+}
+
+/* 隐藏快退、快进、全屏/画中画切换和倍速按钮 */
+video::-webkit-media-controls-rewind-button,
+video::-webkit-media-controls-seek-back-button,
+video::-webkit-media-controls-seek-forward-button,
+video::-webkit-media-controls-fullscreen-button,
+video::-webkit-media-controls-picture-in-picture-button,
+video::-webkit-media-controls-return-to-realtime-button {
+    display: none !important;
+}
+
+video::-webkit-media-controls-panel > *:not(
+    [class*="play"], 
+    [class*="timeline"], 
+    [class*="volume"]
+) {
+    display: none !important;
+}
+
+video {
+  /* 强制重置 Safari 的默认外观 */
+  -webkit-appearance: none !important;
 }
 
 @media (width < 860px) {
