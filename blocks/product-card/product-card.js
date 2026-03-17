@@ -524,14 +524,17 @@ export default function decorate(block) {
       titleDiv.innerHTML = `<div class="product-card-tag">${tagTitle}</div>`;
 
       const fav = document.createElement('div');
-      fav.className = 'plp-favorite';
+      fav.className = 'plp-favorite selected';
       fav.style.display = 'none';
       const likeEmpty = document.createElement('img');
-      likeEmpty.src = `/content/dam/hisense/${country}/common-icons/icon-carousel/like-empty.svg`;
+      likeEmpty.className = 'plp-like-empty';
+      likeEmpty.src = `/content/dam/hisense/${country}/common-icons/like-empty.svg`;
       fav.appendChild(likeEmpty);
       const like = document.createElement('img');
-      like.src = `/content/dam/hisense/${country}/common-icons/icon-carousel/like.svg`;
+      like.className = 'plp-like';
+      like.src = `/content/dam/hisense/${country}/common-icons/like.svg`;
       fav.appendChild(like);
+      titleDiv.append(fav);
 
       const imgDiv = document.createElement('div');
       imgDiv.className = 'plp-product-img';

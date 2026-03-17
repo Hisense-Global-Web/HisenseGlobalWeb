@@ -48,6 +48,26 @@
   .product-card-tag:empty {
     display: none;
   }
+  
+  .plp-favorite {
+    &.selected {
+      .plp-like-empty {
+        display: none;
+      }
+    }
+    
+    &:not(.selected) {
+      .plp-like {
+        display: none;
+      }
+    }
+    
+    img {
+      display: block;
+      width: var(--size-24);
+      height: var(--size-24);
+    }
+  }
 }
 
 .plp-product-img {
