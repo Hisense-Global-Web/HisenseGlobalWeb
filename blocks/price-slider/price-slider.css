@@ -1,0 +1,17 @@
+.plp-filter-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0 var(--size-16);
+  font-size: var(--size-14);
+  color: var(--color-primary-grey-70);
+  line-height: 1.5;
+}
+
+.plp-filter-title span {
+  font-weight: var(--fontweight-medium);
+  font-size: var(--size-14);
+  color: var(--color-primary-grey-100);
+}

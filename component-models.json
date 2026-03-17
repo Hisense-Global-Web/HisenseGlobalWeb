@@ -3853,6 +3853,50 @@
     ]
   },
   {
+    "id": "price-slider",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "filter-title",
+        "label": "Filter Title",
+        "value": "Your Budget",
+        "required": true
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "extend-group",
+        "label": "Extend group",
+        "value": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "currency-symbol",
+        "label": "Currency Symbol",
+        "value": "$",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "min-rangeLabel",
+        "label": "Range Label 1",
+        "value": "Min price",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "max-rangeLabel",
+        "label": "Range Label 2",
+        "value": "Max price",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "product-card",
     "fields": [
       {
