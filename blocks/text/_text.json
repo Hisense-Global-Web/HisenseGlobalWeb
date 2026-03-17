@@ -42,7 +42,6 @@
         {
           "component": "multiselect",
           "name": "classes",
-          "value": ["text-align-center"],
           "label": "Description Alignment Class Name Options",
           "valueType": "array",
           "options": [

@@ -14,6 +14,7 @@ export default async function decorate(block) {
 
   if (isEditorMode) {
     const multiNoneEl = document.querySelector('.HpsDkq_spectrum-Tags-container--empty [aria-label="Description Alignment Class Name Options"]');
+    console.log(multiNoneEl, 'multiNoneEl');
     if (multiNoneEl) {
       multiNoneEl.style.display = 'none';
     }
