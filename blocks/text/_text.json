@@ -45,9 +45,6 @@
           "value": ["text-align-center"],
           "label": "Description Alignment Class Name Options",
           "valueType": "array",
-          "placeholder": "Select classes...",
-          "allowEmpty": true,
-          "emptyText": "",
           "options": [
             {
               "name": "Default",
