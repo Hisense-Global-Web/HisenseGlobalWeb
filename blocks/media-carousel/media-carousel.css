@@ -271,10 +271,16 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     gap: var(--spacing-sm);
     padding: var(--spacing-pc-xl-2) 0 var(--spacing-pc-xl-2) var(--spacing-lg);
     color: white;
+
+    /* 兼容AEM UE */
+    div[data-aue-prop] {
+      width: 100%;
+      height: 100%;
+    }
 
     h1, h2, h3, h4, h5, h6, p:first-child {
       font-weight: var(--fontweight-medium);
@@ -517,7 +523,7 @@ video::-webkit-file-upload-button {
         font-size: var(--fontsize-title3);
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
       }
 
       h1, h2, h3, h4, h5, h6 {

@@ -58,8 +58,6 @@ function bindEvent(block, type = 'normal') {
         v.setAttribute('playsinline', 'true');
         v.setAttribute('muted', 'true');
         v.setAttribute('autoplay', 'true');
-        v['disablePictureInPicture'] = true; // disablePictureInPicture的属性改为true 禁用画中画
-        v['controlslist'] = 'nodownload noremoteplayback'; // 隐藏下载按钮
         v.play().catch(() => {}); // 捕获浏览器静音播放策略错误
         v.nextElementSibling.style.display = 'none'; // 隐藏封面图
       } else {
@@ -100,8 +98,8 @@ function bindEvent(block, type = 'normal') {
     if (Math.abs(currentX) >= maxTranslate - 10) {
       activeIndex = CONFIG.totalItems - 1;
     }
-    
-    if (block.querySelector('.media-video') && block.dataset.currentIndex === cards[activeIndex].closest('li').dataset.slideIndex) {
+
+    if (block.querySelector('.media-video')) {
       playSoloVideo(activeIndex);
     }
   };
@@ -149,13 +147,10 @@ function bindEvent(block, type = 'normal') {
   // 初始化
   updateState();
   // 监听手机端video的视口变化，进入视口开始自动播放
-  if (block.classList.contains('video')
-    || block.classList.contains('image-video')
-    || block.classList.contains('video-image')
-    && window.innerWidth < 860) {
+  if (block.querySelector('.media-video') && window.innerWidth < 860) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && block.dataset.currentIndex === entry.target.closest('li').dataset.slideIndex) {
+        if (entry.isIntersecting) {
           const video = entry.target;
           playSoloVideo(parseInt(video.closest('li').dataset.slideIndex, 10));
         }
@@ -268,7 +263,7 @@ export default async function decorate(block) {
     item.className = 'item';
     mediaBlock.dataset.slideIndex = idx;
 
-    const [typeDom, mediaContent, textContent, videoCover ] = item.children;
+    const [typeDom, mediaContent, textContentDom, videoCover ] = item.children;
     const contentType = typeDom.textContent.trim();
 
     if(!className) className = contentType;
@@ -289,8 +284,8 @@ export default async function decorate(block) {
       videoCover.remove();
     }
 
-    if(textContent.textContent.trim()) {
-      textContent.classList.add('text-content');
+    if(textContentDom.textContent.trim()) {
+      textContentDom.classList.add('text-content');
     }
     mediaBlock.append(item);
     mediaCarouselBlocks.append(mediaBlock);
@@ -308,6 +303,17 @@ export default async function decorate(block) {
   }
   whenElementReady('.media-carousel', () => {
     block.dataset.currentIndex = 0;
-    bindEvent(block);
+    const blockObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio === 1) { 
+          bindEvent(block);
+        } else {
+          block.querySelectorAll('video').forEach((v)=>{
+            v.pause();
+          })
+        }
+      });
+    }, { threshold: 1 });
+    blockObserver.observe(block)
   });
 }
