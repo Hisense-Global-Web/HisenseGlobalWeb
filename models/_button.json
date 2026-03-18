@@ -37,16 +37,6 @@
         },
         {
           "component": "select",
-          "name": "linkPosition",
-          "label": "Position",
-          "options": [
-            { "name": "Left(Default)", "value": "left" },
-            { "name": "Center",  "value": "center" },
-            { "name": "Right", "value": "right"}
-          ]
-        },
-        {
-          "component": "select",
           "name": "linkType",
           "label": "Type",
           "options": [
