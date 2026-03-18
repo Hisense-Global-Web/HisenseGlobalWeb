@@ -1,3 +1,3 @@
-export default function decorate(block) {
-  block.classList.add('price-slider');
+export default function decorate() {
+  // 相关代码逻辑在product-filter.js中
 }
