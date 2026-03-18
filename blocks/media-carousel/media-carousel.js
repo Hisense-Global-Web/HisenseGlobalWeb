@@ -307,7 +307,9 @@ export default async function decorate(block) {
       if (textContentDom.querySelector('.button-container')) {
         const textDom = document.createElement('div');
         textDom.className = 'text-area';
-        [...textContentDom.children].forEach(text=> {
+        // handle difference between author constructure and published
+        const childrens = textContentDom.children.length > 1 ? textContentDom.children : textContentDom.firstElementChild.children;
+        [...childrens].forEach(text=> {
           if(!text.querySelector('a')) {
             textDom.appendChild(text);
           }
