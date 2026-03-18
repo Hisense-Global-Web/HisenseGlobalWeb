@@ -314,16 +314,12 @@ export default async function decorate(block) {
   // }
 
   const cart = document.createElement('button');
-  cart.className = 'pdp-buy-btn';
+  cart.className = 'pdp-cart-btn';
   cart.textContent = 'Add to Cart';
   cart.style.display = 'none';
-  // const cartLink = (product && (product.whereToBuyLink || product.productDetailPageLink)) || '';
-  // if (buyLink) {
-  //   buy.addEventListener('click', () => { window.location.href = cartLink; });
-  // }
   const btnGroup = document.createElement('div');
   btnGroup.className = 'pdp-btn-group';
-  btnGroup.append(buy, cart);
+  btnGroup.append(cart, buy);
 
   const linkGroupEl = document.createElement('div');
   linkGroupEl.className = 'pdp-btn-link-group';
