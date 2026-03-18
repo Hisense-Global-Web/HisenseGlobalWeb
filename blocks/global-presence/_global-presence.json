@@ -63,6 +63,12 @@
           "name": "image",
           "label": "Image",
           "multi": false
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableAnimation",
+          "label": "  animation"
         }
       ]
     },
