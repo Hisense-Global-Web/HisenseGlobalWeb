@@ -267,7 +267,7 @@ export default function decorate(block) {
       if (cells.length < 2) return;
 
       const titleText = cells[0].textContent.trim();
-      const tagsCsv = cells[1].children[0].textContent.trim();
+      const tagsCsv = cells[1]?.children[0]?.textContent?.trim?.();
       if (!titleText || !tagsCsv) return;
 
       const tagType = cells[1].children[1]?.textContent?.trim() || 'checkbox';
