@@ -218,13 +218,9 @@ function createVideo(child, idx) {
   video.controls = true;
   video.preload = 'metadata';
   video.loop = true;
-  video.disablePictureInPicture = true;
-  video.setAttribute('disablepictureinpicture', '');
-  video.setAttribute('disableremoteplayback', '');
   const source = document.createElement('source');
-  source.src = videourl; // 替换为你的视频
+  source.src = videourl;
   source.type = 'video/mp4';
-  // 添加备用文本
   video.innerHTML = '';
   video.muted = true;
   video.playsInline = true;
@@ -234,7 +230,6 @@ function createVideo(child, idx) {
   video.setAttribute('playsinline', 'true');
   video.setAttribute('muted', 'true');
   video.setAttribute('autoplay', 'true');
-  video.setAttribute('controlslist', 'nodownload nofullscreen noremoteplayback noplaybackrate');
   video.appendChild(source);
   videoDivDom.appendChild(video);
   videoDivDom.appendChild(img);
@@ -309,6 +304,16 @@ export default async function decorate(block) {
 
     if(textContentDom.textContent.trim()) {
       textContentDom.classList.add('text-content');
+      if (textContentDom.querySelector('.button-container')) {
+        const textDom = document.createElement('div');
+        textDom.className = 'text-area';
+        [...textContentDom.children].forEach(text=> {
+          if(!text.querySelector('a')) {
+            textDom.appendChild(text);
+          }
+        });
+        textContentDom.prepend(textDom);
+      }
     }
     mediaBlock.append(item);
     mediaCarouselBlocks.append(mediaBlock);
