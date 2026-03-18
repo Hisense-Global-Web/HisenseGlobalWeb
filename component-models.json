@@ -3892,7 +3892,7 @@
         "valueType": "string",
         "name": "price-slider",
         "label": "Price Slider",
-        "value": "price-slider",
+        "value": "priceSliderItem",
         "readonly": true,
         "hidden": true,
         "description": "A flag for price-slider."
