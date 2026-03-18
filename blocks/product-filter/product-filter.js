@@ -3,6 +3,153 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+
+// 格式化货币函数
+const formatCurrency = (num, currencySymbol) => `${currencySymbol} ${parseInt(num, 10).toLocaleString()}`;
+
+// 绑定事件
+const bindPriceSlider = (minPrice, maxPrice, currencySymbol, elements) => {
+  const {
+    minLabel, maxLabel, fillBar, minInput, maxInput,
+  } = elements;
+
+  const rangeDiff = maxPrice - minPrice;
+  // 更新滑块区域
+  function updateSlider() {
+    let minVal = parseInt(minInput.value, 10);
+    let maxVal = parseInt(maxInput.value, 10);
+
+    // 逻辑限制：左侧不能超过右侧
+    if (minVal > maxVal) {
+      // 如果正在拖动的是 minInput，把它拉回到 maxVal
+      if (document.activeElement === minInput) {
+        minInput.value = maxVal;
+        minVal = maxVal;
+      } else {
+        // 如果正在拖动的是 maxInput，把它推到 minVal
+        maxInput.value = minVal;
+        maxVal = minVal;
+      }
+    }
+
+    // 计算百分比位置 (0 到 100)
+    // 公式：(当前值 - 最小值) / 总差值 * 100
+    const minPercent = ((minVal - minPrice) / rangeDiff) * 100;
+    const maxPercent = ((maxVal - minPrice) / rangeDiff) * 100;
+
+    // 更新中间青色条的样式
+    fillBar.style.left = `${minPercent}%`;
+    fillBar.style.width = `${(maxPercent - minPercent)}%`;
+
+    // 更新顶部价格标签的位置和文字
+    minLabel.style.left = `${minPercent}%`;
+    minLabel.textContent = formatCurrency(minVal, currencySymbol);
+
+    maxLabel.style.left = `${maxPercent}%`;
+    maxLabel.textContent = formatCurrency(maxVal, currencySymbol);
+  }
+
+  // 绑定事件监听
+  minInput.addEventListener('input', updateSlider);
+  maxInput.addEventListener('input', updateSlider);
+
+  // 初始化运行一次
+  updateSlider();
+};
+
+// 构建price slider item.
+const generatePriceSlider = (rowEl) => {
+  // TODO: 此处需要拿到最大值和最小值
+  const MOCK_MIN_PRICE = 500.23;
+  const MOCK_MAX_PRICE = 4000.56;
+  const minPrice = Math.floor(MOCK_MIN_PRICE);
+  const maxPrice = Math.ceil(MOCK_MAX_PRICE);
+  const priceSliderWrapper = document.createElement('div');
+  priceSliderWrapper.className = 'price-slider-wrapper';
+  // eslint-disable-next-line no-unused-vars
+  const [titleEl, currencySymbolEl, minLabelEl, maxLabelEl] = [...rowEl.children];
+  const currencySymbol = currencySymbolEl?.querySelector('p')?.textContent ?? '$';
+  const minLabel = minLabelEl?.querySelector('p')?.textContent ?? '';
+  const maxLabel = maxLabelEl?.querySelector('p')?.textContent ?? '';
+  const minPriceSymbol = formatCurrency(minPrice, currencySymbol);
+  const maxPriceSymbol = formatCurrency(maxPrice, currencySymbol);
+
+  // 顶部price tags
+  const priceTagsEl = document.createElement('div');
+  priceTagsEl.className = 'price-tags';
+  const minPriceTagEl = document.createElement('div');
+  minPriceTagEl.setAttribute('id', 'min-price-label');
+  minPriceTagEl.textContent = minPriceSymbol;
+  minPriceTagEl.className = 'price-tag min-price-tag';
+  const maxPriceTagEl = document.createElement('div');
+  maxPriceTagEl.setAttribute('id', 'max-price-label');
+  maxPriceTagEl.textContent = maxPriceSymbol;
+  maxPriceTagEl.className = 'price-tag max-price-tag';
+  priceTagsEl.appendChild(minPriceTagEl);
+  priceTagsEl.appendChild(maxPriceTagEl);
+  priceSliderWrapper.appendChild(priceTagsEl);
+
+  // 中间滑动区域
+  const sliderTrackEl = document.createElement('div');
+  sliderTrackEl.className = 'slider-track';
+  const sliderFillEl = document.createElement('div');
+  sliderFillEl.setAttribute('id', 'slider-fill');
+  sliderFillEl.className = 'slider-fill';
+  const minInputEl = document.createElement('input');
+  Object.assign(minInputEl, {
+    id: 'min-input',
+    type: 'range',
+    min: minPrice,
+    max: maxPrice,
+    step: 1,
+  });
+  minInputEl.value = minPrice;
+  const maxInputEl = document.createElement('input');
+  Object.assign(maxInputEl, {
+    id: 'max-input',
+    type: 'range',
+    min: minPrice,
+    max: maxPrice,
+    step: 1,
+  });
+  maxInputEl.value = maxPrice;
+  sliderTrackEl.appendChild(sliderFillEl);
+  sliderTrackEl.appendChild(minInputEl);
+  sliderTrackEl.appendChild(maxInputEl);
+  priceSliderWrapper.appendChild(sliderTrackEl);
+
+  // 底部文案
+  const limitsEl = document.createElement('div');
+  limitsEl.className = 'limits';
+  const minPriceWrapperEl = document.createElement('div');
+  const minPriceLabelEl = document.createElement('div');
+  minPriceLabelEl.textContent = minLabel;
+  minPriceLabelEl.className = 'label';
+  const minPriceValueEl = document.createElement('div');
+  minPriceValueEl.classList = 'value';
+  minPriceValueEl.textContent = minPriceSymbol;
+  minPriceWrapperEl.appendChild(minPriceLabelEl);
+  minPriceWrapperEl.appendChild(minPriceValueEl);
+
+  const maxPriceWrapperEl = document.createElement('div');
+  const maxPriceLabelEl = document.createElement('div');
+  maxPriceLabelEl.textContent = maxLabel;
+  maxPriceLabelEl.className = 'label';
+  const maxPriceValueEl = document.createElement('div');
+  maxPriceValueEl.classList = 'value';
+  maxPriceValueEl.textContent = maxPriceSymbol;
+  maxPriceWrapperEl.appendChild(maxPriceLabelEl);
+  maxPriceWrapperEl.appendChild(maxPriceValueEl);
+
+  limitsEl.appendChild(minPriceWrapperEl);
+  limitsEl.appendChild(maxPriceWrapperEl);
+  priceSliderWrapper.appendChild(limitsEl);
+  bindPriceSlider(minPrice, maxPrice, currencySymbol, {
+    minLabel: minPriceTagEl, maxLabel: maxPriceTagEl, fillBar: sliderFillEl, minInput: minInputEl, maxInput: maxInputEl,
+  });
+  return priceSliderWrapper;
+};
+
 /**
  * Get tags endpoint URL with GraphQL base URL
  */
@@ -262,6 +409,17 @@ export default function decorate(block) {
     }
 
     rows.forEach((row, index) => {
+      const rowPEl = row.querySelectorAll('p');
+
+      // 判断是否是price slider item.
+      let isPriceSlider = false;
+      for (let i = 0; i < rowPEl.length; i += 1) {
+        if (rowPEl[i].textContent === 'priceSliderItem') {
+          isPriceSlider = true;
+          break;
+        }
+      }
+
       const resource = row.getAttribute('data-aue-resource') || null;
       const cells = [...row.children];
       if (cells.length < 2) return;
@@ -299,66 +457,70 @@ export default function decorate(block) {
       const list = document.createElement('ul');
       list.className = `plp-filter-list plp-tag-${tagType}-group`;
 
-      // /content/dam/hisense/${country}/common-icons/icon-carousel/radio-empty.svg
+      if (isPriceSlider) {
+        const priceSliderWrapper = generatePriceSlider(row);
+        group.append(title, priceSliderWrapper);
+      } else {
+        // /content/dam/hisense/${country}/common-icons/icon-carousel/radio-empty.svg
 
-      // /content/dam/hisense/${country}/common-icons/icon-carousel/radio.svg
+        // /content/dam/hisense/${country}/common-icons/icon-carousel/radio.svg
 
-      const tags = tagsCsv.split(',').map((t) => t.trim()).filter(Boolean);
-      tags.forEach((tagPath) => {
-        const li = document.createElement('li');
-        li.className = 'plp-filter-item';
+        const tags = tagsCsv.split(',').map((t) => t.trim()).filter(Boolean);
+        tags.forEach((tagPath) => {
+          const li = document.createElement('li');
+          li.className = 'plp-filter-item';
 
-        const input = document.createElement('input');
-        input.type = tagType;
-        input.value = tagPath;
-        if (tagPath === 'hisense:product/tv/connectlife-enabled/no') {
-          input.setAttribute('checked', 'checked');
-        }
-        input.name = `plp-filter-${titleText}`;
-        input.setAttribute('data-option-value', tagPath);
-        input.id = `plp-filter-${tagCounter}`;
-        tagCounter += 1;
+          const input = document.createElement('input');
+          input.type = tagType;
+          input.value = tagPath;
+          if (tagPath === 'hisense:product/tv/connectlife-enabled/no') {
+            input.setAttribute('checked', 'checked');
+          }
+          input.name = `plp-filter-${titleText}`;
+          input.setAttribute('data-option-value', tagPath);
+          input.id = `plp-filter-${tagCounter}`;
+          tagCounter += 1;
 
-        const InputIcon = document.createElement('span');
-        InputIcon.className = 'input-icon';
-        InputIcon.innerHTML = tagType === 'radio'
-          ? `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/radio-empty.svg" alt="" />
+          const InputIcon = document.createElement('span');
+          InputIcon.className = 'input-icon';
+          InputIcon.innerHTML = tagType === 'radio'
+            ? `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/radio-empty.svg" alt="" />
           <img class="icon-checked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/radio.svg" alt="" />`
-          : `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
+            : `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
           <img class="icon-checked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox.svg" alt="" />`;
 
-        const label = document.createElement('label');
-        label.htmlFor = input.id;
-        const parts = tagPath.split('/');
-        const lastPart = (parts[parts.length - 1] || tagPath).trim();
-        const matchedTitle = titlesMap[lastPart];
-        const labelSpan = document.createElement('span');
-        labelSpan.textContent = (matchedTitle && String(matchedTitle).trim()) ? matchedTitle : lastPart.replace(/\b\w(.+)?\b/g, (match, rest) => match[0].toUpperCase() + (rest || ''));
+          const label = document.createElement('label');
+          label.htmlFor = input.id;
+          const parts = tagPath.split('/');
+          const lastPart = (parts[parts.length - 1] || tagPath).trim();
+          const matchedTitle = titlesMap[lastPart];
+          const labelSpan = document.createElement('span');
+          labelSpan.textContent = (matchedTitle && String(matchedTitle).trim()) ? matchedTitle : lastPart.replace(/\b\w(.+)?\b/g, (match, rest) => match[0].toUpperCase() + (rest || ''));
 
-        label.append(InputIcon, labelSpan);
-        li.append(input, label);
-        list.append(li);
+          label.append(InputIcon, labelSpan);
+          li.append(input, label);
+          list.append(li);
 
-        input.addEventListener('change', () => {
-          const labelText = label.textContent || lastPart;
-          if (input.checked) {
-            // 如果是 radio 类型，需要处理单选互斥逻辑
-            if (tagType === 'radio' && input.name) {
-              // 先移除同组的所有其他 active filter（通过 data-filter-name）
-              removeSameGroupFilterTags(input.name, tagPath);
+          input.addEventListener('change', () => {
+            const labelText = label.textContent || lastPart;
+            if (input.checked) {
+              // 如果是 radio 类型，需要处理单选互斥逻辑
+              if (tagType === 'radio' && input.name) {
+                // 先移除同组的所有其他 active filter（通过 data-filter-name）
+                removeSameGroupFilterTags(input.name, tagPath);
+              }
+              addActiveFilterIfMissing(tagPath, labelText, input.id, input.name);
+            } else {
+              // 如果取消选中，移除对应的 active filter
+              removeActiveFilter(tagPath);
             }
-            addActiveFilterIfMissing(tagPath, labelText, input.id, input.name);
-          } else {
-            // 如果取消选中，移除对应的 active filter
-            removeActiveFilter(tagPath);
-          }
-          if (window && typeof window.applyPlpFilters === 'function') {
-            window.applyPlpFilters();
-          }
+            if (window && typeof window.applyPlpFilters === 'function') {
+              window.applyPlpFilters();
+            }
+          });
         });
-      });
-
-      group.append(title, list);
+        group.append(title, list);
+      }
       fragment.append(group);
     });
 
