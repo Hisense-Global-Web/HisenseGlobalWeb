@@ -48,6 +48,29 @@
   .product-card-tag:empty {
     display: none;
   }
+  
+  .plp-favorite {
+    margin-left: auto;
+    cursor: pointer;
+    
+    &.selected {
+      .plp-like-empty {
+        display: none;
+      }
+    }
+    
+    &:not(.selected) {
+      .plp-like {
+        display: none;
+      }
+    }
+    
+    img {
+      display: block;
+      width: var(--size-24);
+      height: var(--size-24);
+    }
+  }
 }
 
 .plp-product-img {
@@ -135,6 +158,44 @@
   background-clip: content-box;
 }
 
+.plp-product-price-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: var(--size-16);
+
+  .plp-product-price {
+    display: flex;
+    gap: var(--size-8);
+    align-items: baseline;
+    
+    .plp-product-current-price {
+      font-size: var(--fontsize-title2);
+      line-height: 1.2;
+      font-weight: var(--fontweight-medium);
+      color: var(--color-primary-grey-100);
+    }
+    
+    .plp-product-original-price {
+      font-size: var(--fontsize-caption2);
+      line-height: 1.5;
+      font-weight: var(--fontweight-book);
+      color: var(--color-primary-grey-50);
+    }
+  }
+  
+  .plp-product-discounts {
+    font-size: var(--fontsize-caption2);
+    line-height: 1.5;
+    font-weight: var(--fontweight-book);
+    color: var(--color-primary-green-60);
+    
+    span:first-child {
+      margin-right: var(--size-3);
+    }
+  }
+}
+
 .product-card .plp-product-btn {
   padding: 0 var(--size-16);
   border: 1px solid var(--color-primary-grey-70);
@@ -155,6 +216,7 @@
   text-transform: capitalize;
 }
 
+.product-card .plp-add-to-cart-btn.ps-widget[ps-sku],
 .product-card .plp-where-to-buy-btn.ps-widget[ps-sku] {
   padding: 0 var(--size-16);
   border: 1px solid var(--color-primary-grey-70);
@@ -176,7 +238,9 @@
   display: none;
 }
 
-.product-card .plp-product-btn:hover, .product-card .plp-where-to-buy-btn.ps-widget[ps-sku]:hover {
+.product-card .plp-product-btn:hover,
+.product-card .plp-add-to-cart-btn.ps-widget[ps-sku]:hover,
+.product-card .plp-where-to-buy-btn.ps-widget[ps-sku]:hover {
   background-color: var(--color-primary-grey-70);
   border-color: var(--color-primary-grey-70);
   color: #fff;
@@ -202,7 +266,8 @@
   margin-top: auto;
 }
 
-.product-card .plp-where-to-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku{
+.product-card .plp-add-to-cart-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku,
+.product-card .plp-where-to-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku {
   display:  none !important;
 }
 

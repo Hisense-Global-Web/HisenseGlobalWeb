@@ -35,11 +35,11 @@
           "required": true
         },
         {
-          "component": "reference",
+          "component": "aem-tag",
           "valueType": "string",
-          "name": "icon",
-          "label": "Link Icon",
-          "multi": false
+          "name": "searchTags",
+          "label": "Search Tags",
+          "rootPath": "/content/cq:tags/hisense/product"
         }
       ]
     }

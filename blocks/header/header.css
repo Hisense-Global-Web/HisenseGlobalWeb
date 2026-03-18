@@ -47,6 +47,7 @@
 
   &.is-company {
     transition: none;
+    background: var(--color-primary-grey-10);
 
     .nav-container {
       background: var(--color-primary-grey-10);
@@ -772,6 +773,7 @@
   font-weight: 500;
   width: calc(100% - 900px);
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .dropdown-links a {

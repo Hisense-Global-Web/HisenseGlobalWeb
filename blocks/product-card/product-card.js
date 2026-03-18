@@ -348,6 +348,8 @@ export default function decorate(block) {
       document.body.style.overflow = 'hidden';
       // 比较商品信息详细数据
       const compareDetailInfo = aggregateData(compareDataArr);
+      // 每次点击 compare 按钮，重新渲染比较商品信息 popup
+      createComparePopup();
       // render compare popup detail data
       renderCompareDetailData(compareDetailInfo, 'property-box-id');
       // document.querySelector('.compare-popup-wrapper').style.display = 'block';
@@ -521,6 +523,22 @@ export default function decorate(block) {
       tagTitle = lastSlashIndex > -1 ? targetStr.slice(lastSlashIndex + 1) : targetStr;
       titleDiv.innerHTML = `<div class="product-card-tag">${tagTitle}</div>`;
 
+      const fav = document.createElement('div');
+      fav.className = 'plp-favorite selected';
+      fav.style.display = 'none';
+      const likeEmpty = document.createElement('img');
+      likeEmpty.className = 'plp-like-empty';
+      likeEmpty.src = `/content/dam/hisense/${country}/common-icons/like-empty.svg`;
+      fav.appendChild(likeEmpty);
+      const like = document.createElement('img');
+      like.className = 'plp-like';
+      like.src = `/content/dam/hisense/${country}/common-icons/like.svg`;
+      fav.appendChild(like);
+      fav.addEventListener('click', (e) => {
+        e.currentTarget.classList.toggle('selected');
+      });
+      titleDiv.append(fav);
+
       const imgDiv = document.createElement('div');
       imgDiv.className = 'plp-product-img';
       const imgPath = (() => {
@@ -579,6 +597,35 @@ export default function decorate(block) {
           extraFields.appendChild(fld);
         }
       });
+
+      const priceGroupDiv = document.createElement('div');
+      priceGroupDiv.className = 'plp-product-price-group';
+      priceGroupDiv.style.display = 'none';
+      const unitEl = document.createElement('span');
+      unitEl.textContent = item.unit || '$';
+      const priceDiv = document.createElement('div');
+      priceDiv.className = 'plp-product-price';
+      const currentPriceEl = document.createElement('div');
+      currentPriceEl.className = 'plp-product-current-price';
+      const currentPriceValue = document.createElement('span');
+      currentPriceValue.textContent = '10000';
+      currentPriceEl.append(unitEl.cloneNode(true), currentPriceValue);
+      const originalPriceEl = document.createElement('div');
+      originalPriceEl.className = 'plp-product-original-price';
+      const originalPriceValue = document.createElement('span');
+      originalPriceValue.textContent = '11000';
+      originalPriceEl.append(unitEl.cloneNode(true), originalPriceValue);
+      priceDiv.append(currentPriceEl, originalPriceEl);
+
+      const discountsDiv = document.createElement('div');
+      discountsDiv.className = 'plp-product-discounts';
+      const discountsTitle = document.createElement('span');
+      discountsTitle.textContent = 'Save';
+      const discountsValue = document.createElement('span');
+      discountsValue.textContent = '1000';
+      discountsDiv.append(discountsTitle, unitEl.cloneNode(true), discountsValue);
+      priceGroupDiv.append(priceDiv, discountsDiv);
+
       // color 区块（可点击，默认选中第一个尺寸，切换显示对应 variant 信息
       const colorsDiv = document.createElement('div');
       colorsDiv.className = 'plp-product-colors';
@@ -613,6 +660,9 @@ export default function decorate(block) {
       productBtnGroupEl.className = 'plp-product-btn-group';
 
       // where to by
+      const addToCartBtnEl = document.createElement('div');
+      addToCartBtnEl.className = ' plp-add-to-cart-btn ps-widget';
+
       const whereToBuyBtnEl = document.createElement('div');
       whereToBuyBtnEl.className = ' plp-where-to-buy-btn ps-widget';
 
@@ -688,6 +738,10 @@ export default function decorate(block) {
             extraFields.appendChild(fld);
           }
         });
+
+        // 为 add to cart 按钮设置商品对应属性
+        addToCartBtnEl.setAttribute('ps-button-label', 'add to cart');
+        addToCartBtnEl.setAttribute('ps-sku', variant.sku || group.sku || '');
 
         // 为 where to buy 按钮设置商品对应属性
         whereToBuyBtnEl.setAttribute('ps-button-label', 'where to buy');
@@ -862,12 +916,13 @@ export default function decorate(block) {
 
       // 将where to buy 按钮追加在按钮组dom 中
       productBtnGroupEl.prepend(whereToBuyBtnEl);
+      productBtnGroupEl.prepend(addToCartBtnEl);
 
       card.append(titleDiv, imgDiv, seriesDiv, nameDiv);
       if (showDiv) {
         card.append(showDiv);
       }
-      card.append(extraFields, productBtnGroupEl, compareEl);
+      card.append(priceGroupDiv, extraFields, productBtnGroupEl, compareEl);
       productsGrid.append(card);
 
       updateCardWithVariant(selectedVariant);
@@ -1106,8 +1161,6 @@ export default function decorate(block) {
       applyUrlFilters();
       // 初始化询问比较固定栏
       fixedBottomCompareBar();
-      // 比较商品信息 popup
-      createComparePopup();
     })
     .catch(() => {
       const items = (mockData && mockData.data) || [];
@@ -1123,8 +1176,6 @@ export default function decorate(block) {
       applyUrlFilters();
       // 初始化询问比较固定栏
       fixedBottomCompareBar();
-      // 比较商品信息 popup
-      createComparePopup();
     });
   /* eslint-disable-next-line no-underscore-dangle */
   window.renderItems = renderItems;

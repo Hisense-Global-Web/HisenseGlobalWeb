@@ -26,21 +26,16 @@
           "valueType": "string",
           "name": "icon",
           "label": "Icon",
-          "multi": false
+          "multi": false,
+          "required": true
         },
         {
           "component": "reference",
           "valueType": "string",
           "name": "darkIcon",
           "label": "Dark Icon",
-          "multi": false
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "text",
-          "label": "Text",
-          "value": ""
+          "multi": false,
+          "required": true
         },
         {
           "component": "aem-content",
