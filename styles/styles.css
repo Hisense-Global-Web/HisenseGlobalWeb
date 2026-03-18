@@ -786,7 +786,7 @@ a.button:active {
 }
 
 a.button[disabled] {
-	color: var(--color-primary-grey-40) !important;
+  opacity: 0.4;
 	cursor: unset;
   pointer-events: none;
 }
@@ -825,6 +825,11 @@ a.button.primary:active {
     align-items: center;
     gap: var(--size-8);
     border-radius: var(--size-100);
+
+    @media (width < 860px) {
+      height: var(--size-40);
+      padding: var(--size-4) var(--size-20);
+    }
   }
 }
 
