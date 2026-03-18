@@ -828,7 +828,10 @@ a.button.primary:active {
   }
 }
 
-.section.light {
+.section.light,
+.section.grey,
+.section.green-10,
+.section.green {
   .default-content-wrapper {
     a.button.secondary:hover {
       color: var(--background-color);
@@ -842,7 +845,10 @@ a.button.primary:active {
   }
 }
 
-.section.dark {
+.section.dark,
+.section.gray-90,
+.section.gray-95,
+.section.gradient-gray {
   .default-content-wrapper {
     a.button.secondary:hover,
     a.button.secondary:active {
