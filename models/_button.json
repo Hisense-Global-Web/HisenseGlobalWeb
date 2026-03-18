@@ -46,11 +46,11 @@
             },
             {
               "name": "hisense-green",
-              "value": "hisense-green"
+              "value": "primary"
             },
             {
               "name": "transparent",
-              "value": "transparent"
+              "value": "secondary"
             }
           ]
         }
