@@ -46,7 +46,7 @@ function bindEvent(block, type = 'normal') {
 
   const playSoloVideo = (index) => {
     const idKey = cards[index].querySelector('video')?.id;
-    videos.forEach((v, i) => {
+    videos.forEach((v) => {
       if (idKey === v.id) {
         v.parentElement.classList.add('is-playing');
         v.muted = true; // 确保视频静音
@@ -93,7 +93,7 @@ function bindEvent(block, type = 'normal') {
     // 自动播放逻辑：计算当前最靠左的索引
     // 最后一次点击时，Math.abs(currentX) 会等于 maxTranslate
     let activeIndex = currentIndex;
-    
+
     // 如果已经滑动到底部（对齐了最后一个），强制播放最后一个
     if (Math.abs(currentX) >= maxTranslate - 10) {
       activeIndex = CONFIG.totalItems - 1;
@@ -154,17 +154,17 @@ function bindEvent(block, type = 'normal') {
         if (entry.isIntersecting) {
           // 监听手机端video的视口变化，进入视口开始自动播放---手机是scroll模式，不更新currentIndex
           if (window.innerWidth < 860) {
-            const videoObserver = new IntersectionObserver((entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  const video = entry.target;
+            const videoObserver = new IntersectionObserver((e) => {
+              e.forEach((ent) => {
+                if (ent.isIntersecting) {
+                  const video = ent.target;
                   playSoloVideo(parseInt(video.closest('li').dataset.slideIndex, 10));
                 }
               });
             }, { threshold: 0.8 });
             cards.forEach((v) => videoObserver.observe(v));
           } else {
-            // block进入视口，播放当前位置的视频          
+            // block进入视口，播放当前位置的视频
             playSoloVideo(currentIndex);
           }
         } else {
@@ -176,7 +176,7 @@ function bindEvent(block, type = 'normal') {
         }
       });
     }, { threshold: 1 }); // 100%可见时触发
-    
+
     blockObserver.observe(block);
   }
   if (type === 'resize') return;
@@ -270,30 +270,28 @@ export default async function decorate(block) {
   if (!eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
   if (!title.textContent.trim() && !title.textContent.trim()) block.classList.add('no-title');
   if (!eyebrow.textContent.trim() && title.textContent.trim()) titleBox.classList.add('only-title');
-  
+
   titleBox.appendChild(eyebrow);
   titleBox.append(title);
 
   mediaItems.forEach((item, idx) => {
-    
     const mediaBlock = document.createElement('li');
     mediaBlock.classList.add('media-item');
     item.className = 'item';
     mediaBlock.dataset.slideIndex = idx;
 
-    const [typeDom, mediaContent, textContentDom, videoCover ] = item.children;
+    const [typeDom, mediaContent, textContentDom, videoCover] = item.children;
     const contentType = typeDom.textContent.trim();
 
-    if(!className) className = contentType;
-    if(className && !className.includes(contentType)){
-      className = className + '-' + contentType;
-    };
+    if (!className) className = contentType;
+    if (className && !className.includes(contentType)) {
+      className = `${className}-${contentType}`;
+    }
 
     typeDom.remove();
-    if(mediaContent.innerHTML) {
-      if(mediaContent.querySelector('a')) {
-        let singleVideo;
-        singleVideo = createVideo(item, idx);
+    if (mediaContent.innerHTML) {
+      if (mediaContent.querySelector('a')) {
+        const singleVideo = createVideo(item, idx);
         mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
         mediaContent.classList.add('media-video');
       } else {
@@ -302,15 +300,15 @@ export default async function decorate(block) {
       videoCover.remove();
     }
 
-    if(textContentDom.textContent.trim()) {
+    if (textContentDom.textContent.trim()) {
       textContentDom.classList.add('text-content');
       if (textContentDom.querySelector('.button-container')) {
         const textDom = document.createElement('div');
         textDom.className = 'text-area';
         // handle difference between author constructure and published
         const childrens = textContentDom.children.length > 1 ? textContentDom.children : textContentDom.firstElementChild.children;
-        [...childrens].forEach(text=> {
-          if(!text.querySelector('a')) {
+        [...childrens].forEach((text) => {
+          if (!text.querySelector('a')) {
             textDom.appendChild(text);
           }
         });
@@ -320,7 +318,7 @@ export default async function decorate(block) {
     mediaBlock.append(item);
     mediaCarouselBlocks.append(mediaBlock);
   });
-  
+
   block.classList.add(className);
   block.appendChild(titleBox);
   block.appendChild(mediaCarouselContainer);
