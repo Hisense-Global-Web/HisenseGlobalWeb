@@ -3199,7 +3199,7 @@
         "valueType": "string",
         "options": [
           {
-            "name": "default",
+            "name": "default(no text)",
             "value": ""
           },
           {
@@ -3211,7 +3211,7 @@
             "value": "left-bottom-style"
           },
           {
-            "name": "image-top_text-left-bottom",
+            "name": "media-top_text-left-bottom",
             "value": "bottom-left-style"
           },
           {
@@ -3219,7 +3219,7 @@
             "value": "center-style"
           },
           {
-            "name": "video-top_text-center",
+            "name": "media-top_text-center",
             "value": "bottom-center-style"
           }
         ]
@@ -3237,28 +3237,27 @@
         "value": "",
         "label": "Title",
         "valueType": "string"
-      },
-      {
-        "component": "select",
-        "name": "mainContent",
-        "label": "Section Content Type",
-        "description": "This field defines carousel content. Please switching between Image and Video resets existing data.",
-        "options": [
-          {
-            "name": "Image",
-            "value": "Image"
-          },
-          {
-            "name": "video",
-            "value": "video"
-          }
-        ]
       }
     ]
   },
   {
     "id": "media-carouselItem",
     "fields": [
+      {
+        "component": "select",
+        "name": "mainContent",
+        "label": "Section Content Type",
+        "options": [
+          {
+            "name": "Image(Default)",
+            "value": "image"
+          },
+          {
+            "name": "Video",
+            "value": "video"
+          }
+        ]
+      },
       {
         "component": "reference",
         "valueType": "string",
