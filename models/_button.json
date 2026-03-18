@@ -8,7 +8,8 @@
           "page": {
             "resourceType": "core/franklin/components/button/v1/button",
             "template": {
-              "model": "button"
+              "model": "button",
+              "linkPosition": "left"
             }
           }
         }
@@ -35,28 +36,31 @@
           "label": "Title"
         },
         {
-          "component": "multiselect",
-          "name": "property",
-          "label": "Multiselect field",
-          "valueType": "string",
-          "required": true,
-          "maxSize": 2,
+          "component": "select",
+          "name": "linkPosition",
+          "label": "Position",
+          "options": [
+            { "name": "Left(Default)", "value": "left" },
+            { "name": "Center",  "value": "center" },
+            { "name": "Right", "value": "right"}
+          ]
+        },
+        {
+          "component": "select",
+          "name": "linkType",
+          "label": "Type",
           "options": [
             {
-              "name": "Position",
-              "children": [
-                { "name": "Left", "value": "left" },
-                { "name": "Center",  "value": "center" },
-                { "name": "Right", "value": "right"}
-              ]
+              "name": "default",
+              "value": ""
             },
             {
-              "name": "Type",
-              "children": [
-                { "name": "default", "value": "" },
-                { "name": "Hisense-Green", "value": "hisense-green" },
-                { "name": "Transparent", "value": "transparent" }
-              ]
+              "name": "hisense-green",
+              "value": "hisense-green"
+            },
+            {
+              "name": "transparent",
+              "value": "transparent"
             }
           ]
         }

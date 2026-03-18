@@ -38,7 +38,8 @@
               "page": {
                 "resourceType": "core/franklin/components/button/v1/button",
                 "template": {
-                  "model": "button"
+                  "model": "button",
+                  "linkPosition": "left"
                 }
               }
             }

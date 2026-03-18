@@ -172,46 +172,40 @@
         "label": "Title"
       },
       {
-        "component": "multiselect",
-        "name": "property",
-        "label": "Multiselect field",
-        "valueType": "string",
-        "required": true,
-        "maxSize": 2,
+        "component": "select",
+        "name": "linkPosition",
+        "label": "Position",
         "options": [
           {
-            "name": "Position",
-            "children": [
-              {
-                "name": "Left",
-                "value": "left"
-              },
-              {
-                "name": "Center",
-                "value": "center"
-              },
-              {
-                "name": "Right",
-                "value": "right"
-              }
-            ]
+            "name": "Left(Default)",
+            "value": "left"
           },
           {
-            "name": "Type",
-            "children": [
-              {
-                "name": "default",
-                "value": ""
-              },
-              {
-                "name": "Hisense-Green",
-                "value": "hisense-green"
-              },
-              {
-                "name": "Transparent",
-                "value": "transparent"
-              }
-            ]
+            "name": "Center",
+            "value": "center"
+          },
+          {
+            "name": "Right",
+            "value": "right"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "label": "Type",
+        "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
+          {
+            "name": "hisense-green",
+            "value": "hisense-green"
+          },
+          {
+            "name": "transparent",
+            "value": "transparent"
           }
         ]
       }
