@@ -52,13 +52,13 @@ main .section.product-gallery-container.product-section-container .product-secti
 }
 
 .pdp-favorite {
-  margin-bottom: var(--size-20);
+  margin-bottom: var(--size-12);
   cursor: pointer;
 }
 
 .pdp-favorite img {
-  height: var(--size-18);
-  width: var(--size-18);
+  height: var(--size-24);
+  width: var(--size-24);
 }
 
 .pdp-series {
@@ -96,11 +96,10 @@ main .section.product-gallery-container.product-section-container .product-secti
 }
 
 .pdp-price {
-  margin-top: var(--size-24);
+  margin-bottom: var(--size-40);
   font-size: var(--size-24);
   line-height: 1.2;
   font-weight: var(--fontweight-medium);
-  order: 7;
 }
 
 .pdp-sizes {
@@ -108,7 +107,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   justify-content: flex-start;
   gap: var(--size-8);
   margin-top: var(--size-8);
-  margin-bottom: var(--size-28);
+  margin-bottom: var(--size-24);
 }
 
 .pdp-size {

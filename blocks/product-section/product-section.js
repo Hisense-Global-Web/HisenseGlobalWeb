@@ -385,13 +385,13 @@ export default async function decorate(block) {
   if (!fields.includes('position')) {
     specsBtn.classList.add('hide');
   }
-  info.append(fav, series, title, ratingWrapper, price);
+  info.append(fav, series, title, ratingWrapper);
   if (hasColorValue) {
     info.append(colorsWrapper);
   } else if (hasSizeValue) {
     info.append(sizesWrapper);
   }
-  info.append(badges, btnGroup, linkGroupEl, badgesMobileGroup);
+  info.append(badges, price, btnGroup, linkGroupEl, badgesMobileGroup);
 
   block.replaceChildren(info);
 
