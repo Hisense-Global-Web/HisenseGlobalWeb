@@ -153,6 +153,34 @@ function filterFaqs(items, keyword) {
   });
 }
 
+const SORT_TEXT_COLLATOR = new Intl.Collator(undefined, {
+  numeric: true,
+  sensitivity: 'base',
+});
+
+function getProductSortDateValue(item) {
+  const time = Date.parse(item.productLaunchDate);
+  return Number.isNaN(time) ? 0 : time;
+}
+
+function getProductSortTextValue(item) {
+  return item.title || item.series || item.sku || item.overseasModel || '';
+}
+
+// 一级按日期倒序；日期相同则按标题 Z-A / 9-0 倒序
+function sortProducts(items) {
+  return [...items].sort((a, b) => {
+    const dateDiff = getProductSortDateValue(b) - getProductSortDateValue(a);
+    if (dateDiff !== 0) return dateDiff;
+
+    const textDiff = SORT_TEXT_COLLATOR.compare(
+      getProductSortTextValue(b),
+      getProductSortTextValue(a),
+    );
+    return textDiff;
+  });
+}
+
 function buildConfiguredProductCardLink(configuredLink, sku, category) {
   if (!configuredLink) return '';
 
@@ -519,7 +547,7 @@ export default async function decorate(block) {
 
       if (resolvedType === 'product') {
         allItems = extractProductList(rawData);
-        filteredItems = filterProducts(allItems, keyword);
+        filteredItems = sortProducts(filterProducts(allItems, keyword));
       } else if (resolvedType === 'faq') {
         allItems = extractFaqList(rawData);
         filteredItems = filterFaqs(allItems, keyword);

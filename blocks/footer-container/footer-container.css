@@ -307,7 +307,7 @@ footer footer {
 .footer-nav {
   display: grid;
 	grid-template-columns: repeat(5, 1fr);
-	gap: var(--size-30);
+	gap: min(calc(92.5 / var(--breakpoint-pc) * 100vw), 92.5px);;
 	margin-bottom: var(--size-28);
   z-index: 11;
 
@@ -437,6 +437,9 @@ footer footer {
     line-height: 1.2;
     gap: var(--size-8);
     color: var(--color-hisense-black);
+    order: 1;
+    width: 100%;
+    flex-shrink: 0;
     
     * {
       box-sizing: border-box;
@@ -457,7 +460,6 @@ footer footer {
     
     .footer-lan-list {
       height: var(--size-18);
-      margin-left: auto;
       display: flex;
       gap: var(--size-10);
       color: var(--color-primary-grey-50);
@@ -503,8 +505,9 @@ footer footer {
 .footer-legal-links {
   display: flex;
 	justify-content: space-between;
-	gap: var(--size-20) var(--size-56);
+	gap: var(--size-20) var(--size-32);
 	flex-wrap: wrap;
+  order: 2;
 
   @media (width < 860px) {
     gap: var(--size-24) var(--size-56);
@@ -517,7 +520,7 @@ footer footer {
 	font-size: var(--size-12);
 	text-decoration: none;
   font-weight: var(--fontweight-book);
-  white-space: nowrap;
+  width: min(calc(200 / var(--breakpoint-pc) * 100vw), 200px);
 
 	@media (width < 860px) {
 		width: 100%;
@@ -530,7 +533,7 @@ footer footer {
   font-weight: var(--fontweight-book);
   flex-shrink: 0;
   order: 3;
-  width: 100%;
+  /*width: 100%;*/
 
   @media (width < 860px) {
     order: 3;
