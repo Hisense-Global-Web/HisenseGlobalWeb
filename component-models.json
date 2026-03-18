@@ -3886,6 +3886,16 @@
         "label": "Range Label 2",
         "value": "Max price",
         "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "price-slider",
+        "label": "Price Slider",
+        "value": "price-slider",
+        "readonly": true,
+        "hidden": true,
+        "description": "A flag for price-slider."
       }
     ]
   },
