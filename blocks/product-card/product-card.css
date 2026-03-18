@@ -50,6 +50,9 @@
   }
   
   .plp-favorite {
+    margin-left: auto;
+    cursor: pointer;
+    
     &.selected {
       .plp-like-empty {
         display: none;

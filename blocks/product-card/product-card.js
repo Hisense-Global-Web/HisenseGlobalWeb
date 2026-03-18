@@ -534,6 +534,9 @@ export default function decorate(block) {
       like.className = 'plp-like';
       like.src = `/content/dam/hisense/${country}/common-icons/like.svg`;
       fav.appendChild(like);
+      fav.addEventListener('click', (e) => {
+        e.currentTarget.classList.toggle('selected');
+      });
       titleDiv.append(fav);
 
       const imgDiv = document.createElement('div');

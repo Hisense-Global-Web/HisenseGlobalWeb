@@ -139,6 +139,9 @@ export default async function decorate(block) {
   const like = document.createElement('img');
   like.src = `/content/dam/hisense/${country}/common-icons/like.svg`;
   fav.appendChild(like);
+  fav.addEventListener('click', (e) => {
+    e.currentTarget.classList.toggle('selected');
+  });
 
   const series = document.createElement('div');
   series.className = 'pdp-series';
