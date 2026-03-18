@@ -703,8 +703,8 @@ ol,
 ul,
 pre,
 blockquote {
-	margin-top: 0.8em;
-	margin-bottom: 0.25em;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 code,
@@ -789,7 +789,6 @@ a.button.secondary,
 button.secondary {
 	background-color: unset;
 	border: 2px solid currentcolor;
-	color: var(--text-color);
 }
 
 main img {
@@ -906,7 +905,7 @@ main {
 		color: var(--text-dark);
 	}
 
-  .section.soft-green {
+  .section.green-10 {
     background: var(--color-primary-green-10, #EDFCFB);
     color: var(--text-dark);
   }
