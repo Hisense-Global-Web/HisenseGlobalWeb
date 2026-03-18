@@ -524,14 +524,20 @@ export default function decorate(block) {
       titleDiv.innerHTML = `<div class="product-card-tag">${tagTitle}</div>`;
 
       const fav = document.createElement('div');
-      fav.className = 'plp-favorite';
+      fav.className = 'plp-favorite selected';
       fav.style.display = 'none';
       const likeEmpty = document.createElement('img');
-      likeEmpty.src = `/content/dam/hisense/${country}/common-icons/icon-carousel/like-empty.svg`;
+      likeEmpty.className = 'plp-like-empty';
+      likeEmpty.src = `/content/dam/hisense/${country}/common-icons/like-empty.svg`;
       fav.appendChild(likeEmpty);
       const like = document.createElement('img');
-      like.src = `/content/dam/hisense/${country}/common-icons/icon-carousel/like.svg`;
+      like.className = 'plp-like';
+      like.src = `/content/dam/hisense/${country}/common-icons/like.svg`;
       fav.appendChild(like);
+      fav.addEventListener('click', (e) => {
+        e.currentTarget.classList.toggle('selected');
+      });
+      titleDiv.append(fav);
 
       const imgDiv = document.createElement('div');
       imgDiv.className = 'plp-product-img';
@@ -654,6 +660,9 @@ export default function decorate(block) {
       productBtnGroupEl.className = 'plp-product-btn-group';
 
       // where to by
+      const addToCartBtnEl = document.createElement('div');
+      addToCartBtnEl.className = ' plp-add-to-cart-btn ps-widget';
+
       const whereToBuyBtnEl = document.createElement('div');
       whereToBuyBtnEl.className = ' plp-where-to-buy-btn ps-widget';
 
@@ -729,6 +738,10 @@ export default function decorate(block) {
             extraFields.appendChild(fld);
           }
         });
+
+        // 为 add to cart 按钮设置商品对应属性
+        addToCartBtnEl.setAttribute('ps-button-label', 'add to cart');
+        addToCartBtnEl.setAttribute('ps-sku', variant.sku || group.sku || '');
 
         // 为 where to buy 按钮设置商品对应属性
         whereToBuyBtnEl.setAttribute('ps-button-label', 'where to buy');
@@ -903,6 +916,7 @@ export default function decorate(block) {
 
       // 将where to buy 按钮追加在按钮组dom 中
       productBtnGroupEl.prepend(whereToBuyBtnEl);
+      productBtnGroupEl.prepend(addToCartBtnEl);
 
       card.append(titleDiv, imgDiv, seriesDiv, nameDiv);
       if (showDiv) {
