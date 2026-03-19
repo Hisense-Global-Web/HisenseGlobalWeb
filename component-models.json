@@ -3700,6 +3700,14 @@
         "name": "section_title",
         "label": "Section Title",
         "multi": false
+      },
+      {
+        "component": "number",
+        "name": "number_columns",
+        "label": "Number of columns in one row.",
+        "valueType": "number",
+        "value": 3,
+        "description": "Number of columns displayed per row."
       }
     ]
   },
@@ -3718,14 +3726,6 @@
         "name": "text",
         "label": "Image Text",
         "valueType": "string"
-      },
-      {
-        "component": "number",
-        "name": "number_columns",
-        "label": "Number of columns in one row.",
-        "valueType": "number",
-        "value": 3,
-        "description": "Number of columns displayed per row."
       }
     ]
   },
