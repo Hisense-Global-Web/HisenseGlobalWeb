@@ -3283,6 +3283,14 @@
         "valueType": "string",
         "name": "img",
         "label": "Img Snapshot For Video",
+        "condition": {
+          "===": [
+            {
+              "var": "mainContent"
+            },
+            "video"
+          ]
+        },
         "multi": false
       }
     ]
