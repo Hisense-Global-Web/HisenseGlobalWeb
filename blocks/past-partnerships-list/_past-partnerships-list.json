@@ -63,7 +63,7 @@
         },
         {
           "component": "number",
-          "name": "text",
+          "name": "number_columns",
           "label": "Number of columns in one row.",
           "valueType": "number",
           "value": 3,
