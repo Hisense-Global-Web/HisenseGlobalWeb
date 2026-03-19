@@ -68,7 +68,7 @@
           "component": "boolean",
           "valueType": "boolean",
           "name": "enableAnimation",
-          "label": "  animation"
+          "label": "Enable animation"
         }
       ]
     },
@@ -79,7 +79,7 @@
           "component": "text",
           "valueType": "string",
           "name": "stats_number",
-          "label": "Number",
+          "label": "Value",
           "value": "",
           "required": true
         },
@@ -87,7 +87,7 @@
           "component": "text",
           "valueType": "string",
           "name": "stats_text",
-          "label": "Label Text",
+          "label": "Label",
           "value": "",
           "required": true
         }
