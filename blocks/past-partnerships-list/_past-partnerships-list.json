@@ -31,10 +31,9 @@
         }
       }
     }
-    
   ],
   "models": [
-     {
+    {
       "id": "past-partnerships-list",
       "fields": [
         {
@@ -49,18 +48,26 @@
     {
       "id": "past-partnerships-list-item",
       "fields": [
-         {
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",
           "label": "Image",
           "multi": false
         },
-         {
+        {
           "component": "text",
           "name": "text",
           "label": "Image Text",
           "valueType": "string"
+        },
+        {
+          "component": "number",
+          "name": "text",
+          "label": "Number of columns in one row.",
+          "valueType": "number",
+          "value": 3,
+          "description": "Number of columns displayed per row."
         }
       ]
     }

@@ -3718,6 +3718,14 @@
         "name": "text",
         "label": "Image Text",
         "valueType": "string"
+      },
+      {
+        "component": "number",
+        "name": "text",
+        "label": "Number of columns in one row.",
+        "valueType": "number",
+        "value": 3,
+        "description": "Number of columns displayed per row."
       }
     ]
   },
