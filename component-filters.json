@@ -117,6 +117,7 @@
       "quick-action-card",
       "category-support-card",
       "additional-support-card",
+      "special-capitalize-text-list",
       "tech-information",
       "past-partnerships-list",
       "partnerships-section-title",
@@ -478,6 +479,12 @@
     "id": "social-media-list",
     "components": [
       "social-media-list-item"
+    ]
+  },
+  {
+    "id": "special-capitalize-text-list",
+    "components": [
+      "special-capitalize-text-list-item"
     ]
   },
   {
