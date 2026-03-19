@@ -754,8 +754,8 @@ button {
 	display: inline-block;
 	max-width: 100%;
 	margin: 12px 0;
-	border: 2px solid transparent;
-	border-radius: 2.4em;
+	border: 1px solid transparent;
+	border-radius: var(--size-100);
 	padding: 0.5em 1.2em;
 	font-family: var(--font-family);
 	font-style: normal;
