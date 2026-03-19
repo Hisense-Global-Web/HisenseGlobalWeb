@@ -46,24 +46,21 @@
           "valueType": "string",
           "name": "title",
           "value": "",
-          "label": "Title",
-          "required": true
+          "label": "Title"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "value",
           "value": "",
-          "label": "Value",
-          "required": true
+          "label": "Value"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "text",
           "value": "",
-          "label": "Text",
-          "required": true
+          "label": "Text"
         }
       ]
     }
