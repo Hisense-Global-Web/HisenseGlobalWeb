@@ -71,6 +71,7 @@ export default function decorate(block) {
       }
       items.append(matrixItem);
     });
+    // add line
     [...items.children].forEach((item) => {
       if (item !== [...items.children][items.children.length - 1]) {
         const line = document.createElement('span');

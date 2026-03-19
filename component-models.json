@@ -5102,7 +5102,7 @@
         "label": "",
         "name": "label-tag",
         "valueType": "string",
-        "value": "highlights-label",
+        "value": "highlights-text",
         "hidden": true,
         "readOnly": true
       },
