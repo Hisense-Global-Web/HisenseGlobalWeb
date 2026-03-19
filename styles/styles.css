@@ -703,8 +703,8 @@ ol,
 ul,
 pre,
 blockquote {
-	margin-top: 0.8em;
-	margin-bottom: 0.25em;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 code,
@@ -754,17 +754,18 @@ button {
 	display: inline-block;
 	max-width: 100%;
 	margin: 12px 0;
-	border: 2px solid transparent;
-	border-radius: 2.4em;
+	border: 1px solid transparent;
+	border-radius: var(--size-100);
 	padding: 0.5em 1.2em;
 	font-family: var(--font-family);
+  font-size: var(--size-14);
 	font-style: normal;
 	font-weight: normal;
 	line-height: 1.25;
 	text-align: center;
 	text-decoration: none;
-	background-color: var(--link-color);
-	color: var(--background-color);
+	background-color: var(--color-primary-green-60);
+	color: var(--color-primary-grey-10);
 	cursor: pointer;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -775,21 +776,103 @@ a.button:hover,
 a.button:focus,
 button:hover,
 button:focus {
-	background-color: var(--link-hover-color);
+	background-color: var(--color-primary-green-50);
+  color: var(--color-primary-grey-10);
 	cursor: pointer;
 }
 
-button:disabled,
-button:disabled:hover {
-	background-color: var(--light-color);
+a.button:active {
+  color: var(--white-alpha-80);
+  background-color: var(--color-primary-green-70);
+}
+
+a.button[disabled] {
+  opacity: 0.4;
 	cursor: unset;
+  pointer-events: none;
 }
 
 a.button.secondary,
 button.secondary {
 	background-color: unset;
-	border: 2px solid currentcolor;
-	color: var(--text-color);
+	border: 1px solid currentcolor;
+  color: unset;
+}
+
+a.button.primary {
+  background-color: var(--color-hisense-black);
+  color: var(--color-primary-grey-10);
+}
+
+a.button.primary:hover {
+  color: var(--color-primary-grey-10);
+  background-color: var(--color-primary-grey-70);
+}
+
+a.button.primary:active {
+  color: var(--white-alpha-80);
+  background-color: var(--color-hisense-black);
+}
+
+.default-content-wrapper {
+  .button-container .button{
+    width: fit-content;
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: flex;
+    height: var(--size-50);
+    padding: var(--size-4) var(--size-32);
+    justify-content: center;
+    align-items: center;
+    gap: var(--size-8);
+    border-radius: var(--size-100);
+
+    @media (width < 860px) {
+      height: var(--size-40);
+      padding: var(--size-4) var(--size-20);
+    }
+  }
+}
+
+.section.light,
+.section.grey,
+.section.green-10,
+.section.green {
+  .default-content-wrapper {
+    a.button.secondary:hover {
+      color: var(--background-color);
+      background-color: var(--color-primary-grey-70);
+    }
+
+    a.button.secondary:active {
+      color: var(--white-alpha-80);
+      background-color: var(--color-hisense-black);
+    }
+  }
+}
+
+.section.dark,
+.section.gray-90,
+.section.gray-95,
+.section.gradient-gray {
+  .default-content-wrapper {
+    a.button.secondary:hover,
+    a.button.secondary:active {
+      color: var(--color-hisense-black);
+      background-color: var(--color-primary-grey-10);
+    }
+
+    a.button.primary {
+      color: var(--color-hisense-black);
+      background-color: var(--color-primary-grey-10);
+    }
+
+    a.button.primary:hover,
+    a.button.primary:active {
+      color: var(--color-hisense-black);
+      background-color: var(--white-alpha-90);
+    }
+  }
 }
 
 main img {
@@ -906,7 +989,7 @@ main {
 		color: var(--text-dark);
 	}
 
-  .section.soft-green {
+  .section.green-10 {
     background: var(--color-primary-green-10, #EDFCFB);
     color: var(--text-dark);
   }

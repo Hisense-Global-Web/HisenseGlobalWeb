@@ -181,11 +181,11 @@
             "value": ""
           },
           {
-            "name": "primary",
+            "name": "theme-contrast",
             "value": "primary"
           },
           {
-            "name": "secondary",
+            "name": "transparent",
             "value": "secondary"
           }
         ]
@@ -237,8 +237,8 @@
             "value": "gradient-gray"
           },
           {
-            "name": "Soft Green(green-10)",
-            "value": "soft-green"
+            "name": "Green 10",
+            "value": "green-10"
           },
           {
             "name": "Green",
