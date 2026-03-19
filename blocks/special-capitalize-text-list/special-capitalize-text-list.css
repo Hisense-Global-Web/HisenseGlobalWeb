@@ -1,4 +1,43 @@
 .special-capitalize-text-list {
   display: grid;
+  gap: var(--spacing-sm, 24px);
   grid-template-columns: repeat(3, 1fr);
+
+  @media (width<860px) {
+    gap: var(--spacing-s, 18px);
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .list-item-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-pc-md, 32px);
+    border-radius: var(--size-20, 20px);
+    background-color: var(--color-primary-grey-20, #f7f7f7);
+
+    @media (width<860px) {
+      border-radius: var(--size-16, 16px);
+    }
+
+    .title-wrapper {
+      color: var(--color-primary-grey-100, #000);
+      text-align: center;
+      font-size: var(--fontsize-body1, 16px);
+      font-style: normal;
+      font-weight: var(--fontweight-medium, 500);
+      line-height: 150%;
+
+      @media (width<860px) {
+        font-size: var(--fontsize-title2, 20px);
+      }
+
+      .capitalize-letter {
+        color: var(--color-primary-green-50, #009f9c);
+        font-size: var(--fontsize-title1, 24px);
+        font-style: normal;
+        line-height: 120%;
+      }
+    }
+  }
 }
