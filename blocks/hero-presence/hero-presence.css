@@ -5,7 +5,14 @@
   height: 100vh;
 
 	/* company header height */
-	padding-top: 66px;
+  --company-header-height: 56px;
+
+  @media (width >= 1180px) {
+    --company-header-height: 66px;
+  }
+
+	padding-top: var(--company-header-height);
+  margin-top: calc(-1 * var(--company-header-height));
 
   &.animated {
     .hero-presence-video {
