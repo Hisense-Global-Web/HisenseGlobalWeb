@@ -1,5 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { isMobileWindow } from "../../scripts/device.js";
 
 const DEFAULT_PAGE_SIZE = 12;
 const CONFIG_KEYS = new Set([
@@ -624,13 +625,34 @@ export default async function decorate(block) {
     tabContent.dataset.tabIndex = String(index);
     if (index === activeTabIndex) tabContent.classList.add('active');
 
+    const filterGroup = document.createElement('div');
+    filterGroup.className = 'filter-group';
+    const sortBox = document.createElement('div');
+    sortBox.className = 'support-sort-box';
+    console.log(block.parentNode.parentNode);
+    if (block.parentNode.parentNode) {
+      sortBox.append(block.parentNode.parentNode.querySelector('.plp-filters-bar').cloneNode(true));
+
+      const sort = sortBox.querySelector('.plp-sort');
+      sort.addEventListener('click', (e) => {
+        // sortBox.classList.toggle('show');
+        // 为排序移动端添加样式
+        if (isMobileWindow()) {
+          e.preventDefault();
+        } else {
+          sortBox.classList.toggle('show');
+        }
+      });
+    }
+
     const resultsNum = document.createElement('div');
     resultsNum.className = 'results-num';
     const numSpan = document.createElement('span');
     numSpan.textContent = String(tabData.filteredItems.length);
     resultsNum.appendChild(numSpan);
     resultsNum.appendChild(document.createTextNode(' Results'));
-    tabContent.appendChild(resultsNum);
+    filterGroup.append(resultsNum, sortBox);
+    tabContent.appendChild(filterGroup);
 
     if (tabData.filteredItems.length === 0 && keyword) {
       tabContent.appendChild(renderNoResult(keyword, tabData.title, config));
