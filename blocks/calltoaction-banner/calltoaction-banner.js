@@ -30,7 +30,7 @@ export default async function decorate(block) {
       default: {
         child.className = 'banner-btn';
         const actionLink = child.querySelector('a');
-        if(actionLink) {
+        if (actionLink) {
           actionLink.textContent = child.querySelector('.button-container')?.nextElementSibling?.textContent.trim();
           actionLink.title = actionLink.textContent;
           child.querySelector('.button-container')?.nextElementSibling?.remove();
