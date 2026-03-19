@@ -1,6 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { isMobileWindow } from "../../scripts/device.js";
+import { isMobileWindow } from '../../scripts/device.js';
 
 const DEFAULT_PAGE_SIZE = 12;
 const CONFIG_KEYS = new Set([
@@ -28,6 +28,27 @@ function simpleHash(str) {
   }
   return Math.abs(h).toString(36);
 }
+
+const getPropertyByKey = (item, propKey) => {
+  if (!item || !propKey) return undefined;
+  if (Object.prototype.hasOwnProperty.call(item, propKey)) return item[propKey];
+  const parts = propKey.includes('.') ? propKey.split('.') : propKey.split('_');
+  return parts.reduce((acc, p) => (acc && acc[p] !== undefined ? acc[p] : undefined), item);
+};
+
+const normalizeValueForSort = (value, sortProperty) => {
+  if (value === null || value === undefined) return null;
+  if (typeof value === 'number') return value;
+  if (typeof value === 'string' && /\d{4}-\d{2}-\d{2}T/.test(value)) {
+    const parsed = Date.parse(value);
+    return Number.isNaN(parsed) ? String(value).toLowerCase() : parsed;
+  }
+  if (typeof value === 'string' && sortProperty.toLowerCase().includes('size')) {
+    const m = value.match(/(\d+(\.\d+)?)/);
+    if (m) return parseFloat(m[1]);
+  }
+  return String(value).toLowerCase();
+};
 
 // author 产品接口走 /bin/hisense/productList.json?path=路径，FAQ 走 GraphQL
 function getEndpointUrl(endpointPath, type) {
@@ -641,6 +662,56 @@ export default async function decorate(block) {
           e.preventDefault();
         } else {
           sortBox.classList.toggle('show');
+        }
+      });
+      const sortOptions = sortBox.querySelector('.plp-sort-options');
+      sortOptions.querySelectorAll('.plp-sort-option').forEach((option) => {
+        option.addEventListener('click', () => {
+          if (option.classList.contains('selected')) {
+            sortBox.classList.remove('show');
+            return;
+          }
+
+          sortOptions.querySelectorAll('.plp-sort-option').forEach((opt) => {
+            opt.classList.remove('selected');
+          });
+          option.classList.add('selected');
+
+          const prefix = 'Sort:';
+          const splitText = option.textContent.split(':')[0].trim();
+          const sortSpan = sortBox.querySelector('.plp-sort span');
+          sortSpan.textContent = `${prefix} ${splitText}`;
+          sortBox.classList.remove('show');
+          try {
+            const sortKey = (option.dataset && Object.prototype.hasOwnProperty.call(option.dataset, 'value'))
+              ? option.dataset.value
+              : (option.getAttribute && option.getAttribute('data-value'));
+            const sortArray = (arr, sortProperty, ascending = false) => [...arr].sort((a, b) => {
+              const valA = normalizeValueForSort(a[sortProperty], sortProperty);
+              const valB = normalizeValueForSort(b[sortProperty], sortProperty);
+              if (valA === null && valB === null) return 0;
+              if (valA === null) return 1;
+              if (valB === null) return -1;
+              if (typeof valA === 'number' && typeof valB === 'number') {
+                return ascending ? valA - valB : valB - valA;
+              }
+
+              return ascending
+                ? valA.localeCompare(valB, 'en', { sensitivity: 'base', caseFirst: 'upper' })
+                : valB.localeCompare(valA, 'en', { sensitivity: 'base', caseFirst: 'upper' });
+            });
+            const arr = sortArray(tabData.filteredItems, sortKey);
+            tabData.filteredItems = JSON.parse(JSON.stringify(arr));
+            // eslint-disable-next-line no-use-before-define
+            renderTabContent(index);
+          } catch (e) { /* empty */ }
+        });
+      });
+
+      // 点击关闭下拉
+      document.addEventListener('click', (e) => {
+        if (!sortBox.contains(e.target)) {
+          sortBox.classList.remove('show');
         }
       });
     }
