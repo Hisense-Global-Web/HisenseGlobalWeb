@@ -1972,6 +1972,22 @@
           }
         },
         {
+          "title": "Price Slider",
+          "id": "price-slider",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Price Slider",
+                  "model": "price-slider",
+                  "classes": "price-slider-wrapper"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Product Card",
           "id": "product-card",
           "plugins": {
