@@ -4697,6 +4697,26 @@
     ]
   },
   {
+    "id": "special-capitalize-text-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "item_headline",
+        "label": "Initial letter in capital letters",
+        "description": "Which initial letter needs to be capitalized",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "strategic-card-items",
     "fields": []
   },
