@@ -23,7 +23,7 @@
     {
       "id":"stats-grid",
       "components":[
-        "sustainability-dashboard-achievement-matrix"
+        "achievement-matrix"
       ]
     }
   ]

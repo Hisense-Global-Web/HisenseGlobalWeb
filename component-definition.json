@@ -2752,15 +2752,31 @@
           }
         },
         {
-          "title": "Sustainability Dashboard Achievement Matrix",
-          "id": "sustainability-dashboard-achievement-matrix",
+          "title": "Achievement Matrix",
+          "id": "achievement-matrix",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Sustainability Dashboard Achievement Matrix",
-                  "model": "sustainability-dashboard-achievement-matrix",
+                  "name": "Achievement Matrix",
+                  "model": "achievement-matrix",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Achievement Highlights",
+          "id": "achievement-highlights",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Achievement Highlights",
+                  "model": "achievement-highlights",
                   "key-value": true
                 }
               }

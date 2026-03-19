@@ -490,7 +490,7 @@
   {
     "id": "stats-grid",
     "components": [
-      "sustainability-dashboard-achievement-matrix"
+      "achievement-matrix"
     ]
   },
   {
@@ -534,7 +534,8 @@
   {
     "id": "sustainability-dashboard-achievement",
     "components": [
-      "sustainability-dashboard-achievement-matrix"
+      "achievement-matrix",
+      "achievement-highlights"
     ]
   },
   {
