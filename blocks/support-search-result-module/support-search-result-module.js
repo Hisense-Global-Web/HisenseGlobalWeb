@@ -1,6 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { isMobileWindow } from '../../scripts/device.js';
 
 const DEFAULT_PAGE_SIZE = 12;
 const CONFIG_KEYS = new Set([
@@ -28,13 +27,6 @@ function simpleHash(str) {
   }
   return Math.abs(h).toString(36);
 }
-
-const getPropertyByKey = (item, propKey) => {
-  if (!item || !propKey) return undefined;
-  if (Object.prototype.hasOwnProperty.call(item, propKey)) return item[propKey];
-  const parts = propKey.includes('.') ? propKey.split('.') : propKey.split('_');
-  return parts.reduce((acc, p) => (acc && acc[p] !== undefined ? acc[p] : undefined), item);
-};
 
 const normalizeValueForSort = (value, sortProperty) => {
   if (value === null || value === undefined) return null;
@@ -654,7 +646,7 @@ export default async function decorate(block) {
       sortBox.append(block.parentNode.parentNode.querySelector('.plp-filters-bar').cloneNode(true));
 
       const sort = sortBox.querySelector('.plp-sort');
-      sort.addEventListener('click', (e) => {
+      sort.addEventListener('click', () => {
         sortBox.classList.toggle('show');
         // 为排序移动端添加样式
         // if (isMobileWindow()) {
