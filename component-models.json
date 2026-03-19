@@ -3571,6 +3571,23 @@
     "fields": [
       {
         "component": "select",
+        "name": "page-header-style",
+        "label": "Page Header Style",
+        "valueType": "string",
+        "value": "align-center",
+        "options": [
+          {
+            "name": "Text Align Center(default)",
+            "value": "align-center"
+          },
+          {
+            "name": "Text Align Left",
+            "value": "align-left"
+          }
+        ]
+      },
+      {
+        "component": "select",
         "name": "title-style",
         "label": "Title Style",
         "valueType": "string",
