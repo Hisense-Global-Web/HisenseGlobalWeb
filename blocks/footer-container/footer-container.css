@@ -419,10 +419,10 @@ footer footer {
 .footer-bottom .footer-legals {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
 	flex-wrap: wrap;
-	gap: var(--size-12) var(--size-30);
+	gap: var(--size-12) var(--size-66);
 
   @media (width < 860px) {
     gap: var(--size-30);
@@ -437,8 +437,7 @@ footer footer {
     line-height: 1.2;
     gap: var(--size-8);
     color: var(--color-hisense-black);
-    order: 1;
-    width: 100%;
+    order: 2;
     flex-shrink: 0;
     
     * {
@@ -504,10 +503,11 @@ footer footer {
 /* stylelint-disable-next-line no-descending-specificity */
 .footer-legal-links {
   display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	gap: var(--size-20) var(--size-32);
 	flex-wrap: wrap;
-  order: 2;
+  order: 1;
+  width: 100%;
 
   @media (width < 860px) {
     gap: var(--size-24) var(--size-56);
@@ -520,7 +520,7 @@ footer footer {
 	font-size: var(--size-12);
 	text-decoration: none;
   font-weight: var(--fontweight-book);
-  width: min(calc(200 / var(--breakpoint-pc) * 100vw), 200px);
+  width: min(calc(234 / var(--breakpoint-pc) * 100vw), 234px);
 
 	@media (width < 860px) {
 		width: 100%;
