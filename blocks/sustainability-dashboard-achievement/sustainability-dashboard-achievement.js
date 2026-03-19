@@ -45,10 +45,10 @@ export default function decorate(block) {
     block.querySelectorAll('.highlights-block-item').forEach((highlightsItem) => {
       highlightsItem.lastElementChild.className = highlightsItem.firstElementChild.textContent.trim();
       if (highlightsItem.lastElementChild.className) highlightsItem.firstElementChild.remove();
-    })
+    });
   }
   // handle child component--achievement-matrix
-  if(block.querySelector('.matrix-block-item')) {
+  if (block.querySelector('.matrix-block-item')) {
     const items = document.createElement('div');
     items.className = 'matrix-block-items';
     block.querySelectorAll('.matrix-block-item').forEach((matrixItem) => {
@@ -80,6 +80,7 @@ export default function decorate(block) {
     });
     textArea.appendChild(items);
   }
+  if (!btnDiv.textContent.trim()) return;
   whenElementReady('.sustainability-dashboard-achievement', () => {
     bindEvent(block);
   });
