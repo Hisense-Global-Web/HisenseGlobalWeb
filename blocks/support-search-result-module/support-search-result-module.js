@@ -650,19 +650,18 @@ export default async function decorate(block) {
     filterGroup.className = 'filter-group';
     const sortBox = document.createElement('div');
     sortBox.className = 'support-sort-box';
-    console.log(block.parentNode.parentNode);
-    if (block.parentNode.parentNode) {
+    if (block.parentNode.parentNode && tabData.type === 'product') {
       sortBox.append(block.parentNode.parentNode.querySelector('.plp-filters-bar').cloneNode(true));
 
       const sort = sortBox.querySelector('.plp-sort');
       sort.addEventListener('click', (e) => {
-        // sortBox.classList.toggle('show');
+        sortBox.classList.toggle('show');
         // 为排序移动端添加样式
-        if (isMobileWindow()) {
-          e.preventDefault();
-        } else {
-          sortBox.classList.toggle('show');
-        }
+        // if (isMobileWindow()) {
+        //   e.preventDefault();
+        // } else {
+        //   sortBox.classList.toggle('show');
+        // }
       });
       const sortOptions = sortBox.querySelector('.plp-sort-options');
       sortOptions.querySelectorAll('.plp-sort-option').forEach((option) => {

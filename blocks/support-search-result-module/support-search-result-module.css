@@ -66,6 +66,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--size-32);
+    height: var(--size-40);
     
     @media (width < 860px) {
       margin-bottom: var(--size-24);
@@ -91,6 +92,10 @@
         width: min(calc(184 / var(--breakpoint-pc) * 100vw), 184px);
         height: var(--size-40);
         flex-shrink: 0;
+        
+        @media (width < 860px) {
+          width: calc(203 / var(--breakpoint-mobile) * 100vw)
+        }
 
         .plp-sort {
           width: 100%;
