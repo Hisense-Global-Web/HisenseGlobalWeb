@@ -533,7 +533,8 @@ footer footer {
   font-weight: var(--fontweight-book);
   flex-shrink: 0;
   order: 3;
-  /*width: 100%;*/
+
+  /* width: 100%; */
 
   @media (width < 860px) {
     order: 3;
