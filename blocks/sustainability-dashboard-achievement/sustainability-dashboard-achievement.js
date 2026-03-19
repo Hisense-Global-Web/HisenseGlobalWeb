@@ -42,9 +42,13 @@ export default function decorate(block) {
   block.appendChild(textContainer);
   // handle child component--achievement-highlights
   if (block.querySelector('.highlights-block-item')) {
-    block.querySelectorAll('.highlights-block-item').forEach((highlightsItem) => {
+    block.querySelectorAll('.highlights-block-item').forEach((highlightsItem, h) => {
       highlightsItem.lastElementChild.className = highlightsItem.firstElementChild.textContent.trim();
       if (highlightsItem.lastElementChild.className) highlightsItem.firstElementChild.remove();
+
+      if (h === 0) {
+        highlightsItem.classList.add('mt-32');
+      }
     });
   }
   // handle child component--achievement-matrix

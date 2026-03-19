@@ -82,10 +82,9 @@
 
       .matrix-block-items {
         display: flex;
-        flex-direction: row;
+        flex-flow: row wrap;
         align-items: flex-start;
         gap: var(--size-32);
-        flex-wrap: wrap;
 
         .matrix-block-item {
           display: flex;
@@ -118,6 +117,12 @@
       }
 
       .highlights-block-item {
+        margin-top: var(--size-16);
+        
+        &.mt-32 {
+          margin-top: var(--size-32);
+        }
+
         .highlights-text {
           display: flex;
           padding: var(--size-20) var(--size-24);
@@ -131,14 +136,6 @@
           font-weight: var(--fontweight-medium);
           line-height: 150%; /* 24px */
         }
-      }
-
-      .highlights-block-item {
-        margin-top: var(--size-32);
-      }
-
-      .highlights-block-item + .highlights-block-item {
-        margin-top: var(--size-16);
       }
     }
 
