@@ -232,7 +232,7 @@ function createVideo(child, idx) {
   video.setAttribute('autoplay', 'true');
   video.appendChild(source);
   videoDivDom.appendChild(video);
-  videoDivDom.appendChild(img);
+  if (img) videoDivDom.appendChild(img);
   return videoDivDom;
 }
 function createScrollButton(direction) {
