@@ -2111,6 +2111,14 @@
         "component": "text",
         "name": "title_name",
         "label": "Feature Title",
+        "description": "Highlight Data",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title_unit",
+        "label": "Feature Title Unit",
+        "description": "Highlight Data's Unit",
         "valueType": "string"
       },
       {
@@ -3330,7 +3338,15 @@
         "component": "reference",
         "valueType": "string",
         "name": "img",
-        "label": "Img Snapshot For Video",
+        "label": "Img Snapshot For Video Loading",
+        "condition": {
+          "===": [
+            {
+              "var": "mainContent"
+            },
+            "video"
+          ]
+        },
         "multi": false
       }
     ]

@@ -59,7 +59,7 @@ function bindEvent(block, type = 'normal') {
         v.setAttribute('muted', 'true');
         v.setAttribute('autoplay', 'true');
         v.play().catch(() => {}); // 捕获浏览器静音播放策略错误
-        v.nextElementSibling.style.display = 'none'; // 隐藏封面图
+        if (v.nextElementSibling) v.nextElementSibling.style.display = 'none'; // 隐藏封面图
       } else {
         v.pause();
         v.parentElement.classList.remove('is-playing');
@@ -232,7 +232,7 @@ function createVideo(child, idx) {
   video.setAttribute('autoplay', 'true');
   video.appendChild(source);
   videoDivDom.appendChild(video);
-  videoDivDom.appendChild(img);
+  if (img) videoDivDom.appendChild(img);
   return videoDivDom;
 }
 function createScrollButton(direction) {
