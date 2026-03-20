@@ -20,7 +20,7 @@ export default function decorate(block) {
   btnDiv.className = 'btn-cta';
   const titleArea = document.createElement('div');
   titleArea.className = 'title-area';
-  textArea.appendChild(titleArea);
+  textArea.append(titleArea);
 
   [...block.children].forEach((child) => {
     if (Object.keys(config).includes(child.firstElementChild?.textContent.trim().toLowerCase())) {
@@ -29,17 +29,17 @@ export default function decorate(block) {
     }
     if (!child.classList.contains('image')) {
       if (!child.className.includes('btn')) {
-        titleArea.appendChild(child);
+        titleArea.append(child);
       } else if (child.className.includes('btn')) {
-        btnDiv.appendChild(child);
+        btnDiv.append(child);
       } else {
-        textContainer.appendChild(child);
+        textContainer.append(child);
       }
     }
   });
-  textContainer.appendChild(textArea);
-  if (btnDiv.textContent.trim()) textContainer.appendChild(btnDiv);
-  block.appendChild(textContainer);
+  textContainer.append(textArea);
+  if (btnDiv.textContent.trim()) textContainer.append(btnDiv);
+  block.append(textContainer);
   // handle child component--achievement-highlights
   if (block.querySelector('.highlights-block-item')) {
     block.querySelectorAll('.highlights-block-item').forEach((highlightsItem, h) => {
