@@ -21,20 +21,47 @@ export default function decorate(block) {
   const titleArea = document.createElement('div');
   titleArea.className = 'title-area';
   textArea.appendChild(titleArea);
-  const items = document.createElement('div');
-  items.className = 'matrix-block-items';
+
   [...block.children].forEach((child) => {
     if (Object.keys(config).includes(child.firstElementChild?.textContent.trim().toLowerCase())) {
       child.classList.add(child.firstElementChild?.textContent.trim());
       child.firstElementChild.remove();
     }
-    if (child.classList.contains('matrix-block-item')) {
+    if (!child.classList.contains('image')) {
+      if (!child.className.includes('btn')) {
+        titleArea.appendChild(child);
+      } else if (child.className.includes('btn')) {
+        btnDiv.appendChild(child);
+      } else {
+        textContainer.appendChild(child);
+      }
+    }
+  });
+  textContainer.appendChild(textArea);
+  if (btnDiv.textContent.trim()) textContainer.appendChild(btnDiv);
+  block.appendChild(textContainer);
+  // handle child component--achievement-highlights
+  if (block.querySelector('.highlights-block-item')) {
+    block.querySelectorAll('.highlights-block-item').forEach((highlightsItem, h) => {
+      highlightsItem.lastElementChild.className = highlightsItem.firstElementChild.textContent.trim();
+      if (highlightsItem.lastElementChild.className) highlightsItem.firstElementChild.remove();
+
+      if (h === 0) {
+        highlightsItem.classList.add('mt-32');
+      }
+    });
+  }
+  // handle child component--achievement-matrix
+  if (block.querySelector('.matrix-block-item')) {
+    const items = document.createElement('div');
+    items.className = 'matrix-block-items';
+    block.querySelectorAll('.matrix-block-item').forEach((matrixItem) => {
       const label = ['matrix-label', 'matrix-value'];
-      // blockItem 最少两个节点，最多4个节点
-      const blockItem = Array.from(child.children);
-      for (let i = 0; i < blockItem.length; i += 2) {
-        const labelDiv = blockItem[i];
-        const valueDiv = blockItem[i + 1];
+      // matrixItem 最少两个节点，最多4个节点
+      const matrixItems = Array.from(matrixItem.children);
+      for (let i = 0; i < matrixItems.length; i += 2) {
+        const labelDiv = matrixItems[i];
+        const valueDiv = matrixItems[i + 1];
 
         // 获取标签内容，比如 "matrix-label" 或 "matrix-value"
         const labelText = labelDiv?.querySelector('p')?.textContent.trim();
@@ -46,30 +73,19 @@ export default function decorate(block) {
           labelDiv.remove();
         }
       }
-    }
-    if (!child.classList.contains('image')) {
-      if (!child.className.includes('btn')) {
-        if (child.className !== 'matrix-block-item') {
-          titleArea.appendChild(child);
-        } else items.appendChild(child);
-      } else if (child.className.includes('btn')) {
-        btnDiv.appendChild(child);
-      } else {
-        textContainer.appendChild(child);
+      items.append(matrixItem);
+    });
+    // add line
+    [...items.children].forEach((item) => {
+      if (item !== [...items.children][items.children.length - 1]) {
+        const line = document.createElement('span');
+        line.className = 'line';
+        item.after(line);
       }
-    }
-  });
-  [...items.children].forEach((item) => {
-    if (item !== [...items.children][items.children.length - 1]) {
-      const line = document.createElement('span');
-      line.className = 'line';
-      item.after(line);
-    }
-  });
-  textArea.appendChild(items);
-  textContainer.appendChild(textArea);
-  textContainer.appendChild(btnDiv);
-  block.appendChild(textContainer);
+    });
+    textArea.appendChild(items);
+  }
+  if (!btnDiv.textContent.trim()) return;
   whenElementReady('.sustainability-dashboard-achievement', () => {
     bindEvent(block);
   });

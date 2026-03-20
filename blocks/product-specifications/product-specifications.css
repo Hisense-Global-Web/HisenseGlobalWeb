@@ -2,7 +2,7 @@
 .product-specifications #specifications {
 	@media (width < 860px) {
 		font-size: var(--size-18);
-		color: var(--color-hisense-teal);
+    color: var(--color-primary-green-50, #009E9B);
 		text-transform: uppercase;
 	}
 }

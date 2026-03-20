@@ -20,15 +20,31 @@
       }
     },
     {
-      "title": "Sustainability Dashboard Achievement Matrix",
-      "id": "sustainability-dashboard-achievement-matrix",
+      "title": "Achievement Matrix",
+      "id": "achievement-matrix",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Sustainability Dashboard Achievement Matrix",
-              "model": "sustainability-dashboard-achievement-matrix",
+              "name": "Achievement Matrix",
+              "model": "achievement-matrix",
+              "key-value": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Achievement Highlights",
+      "id": "achievement-highlights",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Achievement Highlights",
+              "model": "achievement-highlights",
               "key-value": true
             }
           }
@@ -114,7 +130,7 @@
       ]
     },
     {
-      "id": "sustainability-dashboard-achievement-matrix",
+      "id": "achievement-matrix",
       "fields": [
         {
           "component": "text",
@@ -156,13 +172,43 @@
           "valueType": "string"
         }
       ]
+    },
+    {
+      "id": "achievement-highlights",
+      "fields": [
+        {
+          "component": "text",
+          "label": "",
+          "name": "block-item2",
+          "valueType":"string",
+          "value": "highlights-block-item",
+          "hidden": true,
+          "readOnly": true
+        },
+        {
+          "component": "text",
+          "label": "",
+          "name": "label-tag",
+          "valueType":"string",
+          "value": "highlights-text",
+          "hidden": true,
+          "readOnly": true
+        },
+        {
+          "component": "text",
+          "name": "highlights-text",
+          "label": "Highlights Text",
+          "valueType": "string"
+        }
+      ]
     }
   ],
   "filters": [
     {
       "id": "sustainability-dashboard-achievement",
       "components": [
-        "sustainability-dashboard-achievement-matrix"
+        "achievement-matrix",
+        "achievement-highlights"
       ]
     }
   ]
