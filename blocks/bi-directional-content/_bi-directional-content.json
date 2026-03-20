@@ -96,27 +96,27 @@
         },
         {
           "component": "text",
-          "name": "buy-text",
+          "name": "buy_text",
           "label": "Buy Now Button Text",
           "valueType": "string",
           "value": ""
         },
         {
           "component": "aem-content",
-          "name": "buy-link",
+          "name": "buy_link",
           "label": "Buy Now Button Link",
           "valueType": "string",
           "value": ""
         },
         {
           "component": "reference",
-          "name": "download-icon",
+          "name": "download_icon",
           "label": "Download Icon",
           "valueType": "string"
         },
         {
           "component": "aem-content",
-          "name": "download-link",
+          "name": "download_link",
           "label": "Download Link",
           "valueType": "string"
         }
