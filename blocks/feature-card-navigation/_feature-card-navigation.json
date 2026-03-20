@@ -55,7 +55,7 @@
          {
           "component": "text",
           "name": "title_name_unit",
-          "label": "Feature Title (Unit)",
+          "label": "Feature Title Unit",
           "description": "Highlight Data's Unit",
           "valueType": "string"
         },

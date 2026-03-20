@@ -90,13 +90,18 @@
       .card-box {
         width: calc(50% - var(--size-9));
         aspect-ratio: 168 / 160;
-        border-right: none;
+        
+        /* border-right: none; */
         background: var(--color-primary-green-10);
         border-radius: var(--size-16);
         overflow: hidden;
         padding: var(--size-24) var(--size-18);
         display: flex;
         flex-direction: column;
+
+        &::after {
+          width: 0;
+        }
 
         .card-image-box {
           width: var(--size-40);
@@ -107,6 +112,10 @@
         .card-title {
           font-size: var(--size-20);
           line-height: var(--size-26);
+
+          .title-unit {
+            font-size: var(--size-14);
+          }
         }
 
         .card-description {
