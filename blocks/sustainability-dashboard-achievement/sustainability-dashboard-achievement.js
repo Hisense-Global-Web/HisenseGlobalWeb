@@ -24,7 +24,7 @@ export default function decorate(block) {
 
   [...block.children].forEach((child) => {
     if (Object.keys(config).includes(child.firstElementChild?.textContent.trim().toLowerCase())) {
-      child.classList.add(child.firstElementChild?.textContent.trim());
+      child.className = child.firstElementChild?.textContent.trim();
       child.firstElementChild.remove();
     }
     if (!child.classList.contains('image')) {
