@@ -374,7 +374,6 @@ footer footer {
 
   @media (width < 860px) {
     margin-bottom: var(--size-13);
-    height: var(--size-21);
 
     &:last-child {
       margin-bottom: 0;
@@ -387,7 +386,7 @@ footer footer {
   font-weight: var(--fontweight-book);
   color: var(--color-primary-grey-70);
   text-decoration: none;
-  line-height: 1.5;
+  line-height: 1.3;
 
   @media (width < 860px) {
     font-size: var(--size-16);
