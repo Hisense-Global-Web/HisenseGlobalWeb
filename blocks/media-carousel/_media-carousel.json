@@ -117,7 +117,7 @@
           "name": "text",
           "value": "",
           "label": "Text Content",
-          "condition": { "!=": [{ "var": "classes" }, ""] },
+          "condition": { "!!": [{ "var": "classes" }] },
           "valueType": "string"
         },
         {

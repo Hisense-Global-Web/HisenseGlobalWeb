@@ -3285,11 +3285,10 @@
         "value": "",
         "label": "Text Content",
         "condition": {
-          "!=": [
+          "!!": [
             {
               "var": "classes"
-            },
-            ""
+            }
           ]
         },
         "valueType": "string"
