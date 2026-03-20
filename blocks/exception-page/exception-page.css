@@ -55,7 +55,7 @@
             gap: var(--size-8);
             border-radius: 100px;
             background: var(--color-primary-green-60, #008482);
-            color: var(--color-primary-gray-10, #FFF);
+            color: var(--color-primary-grey-10, #FFF);
             text-align: center;
              font-size: var(--size-14);
             font-weight: var(--fontweight-medium);

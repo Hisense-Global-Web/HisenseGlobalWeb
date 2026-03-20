@@ -4804,6 +4804,13 @@
       },
       {
         "component": "text",
+        "name": "description",
+        "value": "",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "name": "btn_label",
         "label": "Button Label",
         "valueType": "string",

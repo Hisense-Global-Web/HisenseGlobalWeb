@@ -7,19 +7,23 @@
     display: flex;
     align-items: center;
     gap: var(--size-24, 24px);
+
+    &.small-gap {
+      gap: var(--size-16, 16px);
+    }
   }
 
   .strategic-card-item {
     display: flex;
     flex: 1;
-    width: min(calc(204/var(--breakpoint-pc)*100vw),204px);
+    width: min(calc(173/var(--breakpoint-pc)*100vw),173px);
     height: stretch;
     padding: var(--size-24) var(--size-24) var(--size-32) var(--size-24);
     flex-direction: column;
     align-items: center;
-    justify-content: left;
-    gap: var(--size-32);
-    border-radius: var(--radius-lg, 20px);
+    justify-content: flex-start;
+    gap: var(--size-12);
+    border-radius: var(--radius-pc-xl, 20px);
     background: var(--color-primary-green-10, #EDFCFB);
     backdrop-filter: blur(calc(var(--szie-40) / 2));
 
@@ -36,8 +40,7 @@
     }
 
     .card-text {
-      flex: 1;
-      color: var(--color-primary-gray-90);
+      color: var(--color-primary-grey-90);
       text-align: center;
       font-size: var(--size-16);
       font-weight: var(--fontweight-medium);
@@ -54,7 +57,18 @@
     }
   }
 
+  .card-description {
+    font-size: var(--size-14);
+    font-weight: var(--fontweight-book);
+    line-height: 150%;
+    text-align: center;
+    color: var(--color-primary-grey-70);
+    margin-top: var(--size-12);
+  }
+
   .card-btn {
+    margin-top: var(--size-12);
+
     .btn-label {
       display: inline-block;
       padding: 0 var(--size-16);
@@ -64,7 +78,7 @@
       color: #fff;
       font-size: var(--size-14);
       font-weight: var(--fontweight-medium);
-      border-radius: var(--size-25);
+      border-radius: var(--size-100);
       text-align: center;
       cursor: pointer;
 
@@ -102,16 +116,12 @@
     }
 
     .strategic-card-item {
-      display: flex;
       flex: none;
       width: calc(240/var(--breakpoint-mobile)*100vw);
       padding: var(--size-24) var(--size-24) var(--size-32) var(--size-24);
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       flex-shrink: 0;
       gap: var(--size-32);
-      aspect-ratio: 240/295;
+      border-radius: var(--radius-xl, 16px);
 
       .card-icon {
         width: var(--size-80);
@@ -132,6 +142,10 @@
         &::first-letter {
           font-size: var(--size-24);
         }
+      }
+
+      .card-description,.card-btn {
+        margin-top: 0;
       }
 
       .btn-cta {
