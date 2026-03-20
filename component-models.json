@@ -3290,7 +3290,7 @@
         "component": "reference",
         "valueType": "string",
         "name": "img",
-        "label": "Img Snapshot For Video",
+        "label": "Img Snapshot For Video Loading",
         "condition": {
           "===": [
             {
