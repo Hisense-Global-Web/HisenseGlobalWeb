@@ -1,4 +1,5 @@
 import { loadFragment } from '../fragment/fragment.js';
+import { refreshHybrisAuthStatus, startHybrisLogin } from '../../scripts/hybris-bff.js';
 import { getFragmentPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 
@@ -608,6 +609,23 @@ const handleChangeNavPosition = (navigation) => {
   }
 };
 
+const handleAccountActionClick = async (event) => {
+  event.stopPropagation();
+
+  try {
+    const status = await refreshHybrisAuthStatus({ force: true });
+    if (status?.authenticated && status.myAccountUrl) {
+      window.location.href = status.myAccountUrl;
+      return;
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn('Failed to resolve Hybris auth status', error);
+  }
+
+  startHybrisLogin(window.location.href);
+};
+
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -891,12 +909,8 @@ export default async function decorate(block) {
         btn.addEventListener('click', toggleSearchBoxPopup);
         btn.addEventListener('mouseenter', checkSearchBoxPopup);
         btn.addEventListener('mouseleave', hideSearchBoxPopup);
-      } else if (action.href && action.href !== '#') {
-        btn.dataset.href = action.href;
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          window.location.href = action.href;
-        });
+      } else {
+        btn.addEventListener('click', handleAccountActionClick);
       }
       actionsEl.append(btn);
       return;
