@@ -186,7 +186,7 @@
     padding: var(--size-4) var(--size-32);
     border-radius: var(--size-100);
     height: var(--size-50);
-    color: var(--Greyscale-Gray-10, #fff);
+    color: var(--color-primary-grey-10, #fff);
     text-align: center;
     font-size: var(--fontsize-body2, 14px);
     font-style: normal;
