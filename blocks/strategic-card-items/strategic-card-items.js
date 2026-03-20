@@ -15,15 +15,18 @@ function bindEvent(block) {
 export default function decorate(block) {
   const containerDiv = document.createElement('div');
   containerDiv.classList.add('card-container');
+  if (block.children.length > 5) containerDiv.classList.add('small-gap');
   [...block.children].forEach((child) => {
     child.className = 'strategic-card-item';
     if (!child.children.length) return;
-    const [iconDiv, textDiv, btnDiv] = child.children;
+    const [iconDiv, textDiv, bodyCopy, btnDiv] = child.children;
     iconDiv.className = 'card-icon';
     textDiv.className = 'card-text';
+    bodyCopy.className = 'card-description';
     btnDiv.className = 'card-btn';
-    if (btnDiv && !btnDiv.textContent.trim()) {
-      btnDiv.style.display = 'none';
+    if (!bodyCopy.textContent.trim()) bodyCopy.remove();
+    if (!btnDiv.textContent.trim()) {
+      btnDiv.remove();
     } else {
       const [label, popupId] = btnDiv.children;
       label.className = 'btn-label';
@@ -32,6 +35,7 @@ export default function decorate(block) {
     containerDiv.append(child);
   });
   block.replaceChildren(containerDiv);
+  if (!block.querySelector('.btn-label')) return;
   whenElementReady('.strategic-card-items', () => {
     bindEvent(block);
   });
