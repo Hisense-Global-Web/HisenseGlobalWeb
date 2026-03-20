@@ -23,10 +23,10 @@ export default function decorate(block) {
   textArea.append(titleArea);
 
   [...block.children].forEach((child) => {
-    if (Object.keys(config).includes(child.firstElementChild?.textContent.trim().toLowerCase())) {
-      child.className = child.firstElementChild?.textContent.trim();
-      child.firstElementChild.remove();
-    }
+    // if (Object.keys(config).includes(child.firstElementChild?.textContent.trim().toLowerCase())) {
+    //   child.className = child.firstElementChild?.textContent.trim();
+    //   child.firstElementChild.remove();
+    // }
     if (!child.classList.contains('image')) {
       if (!child.className.includes('btn')) {
         titleArea.append(child);
