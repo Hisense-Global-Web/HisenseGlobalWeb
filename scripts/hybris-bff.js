@@ -53,18 +53,50 @@ function resolveHybrisBffBaseUrl() {
   return trimTrailingSlash(getEnvironmentHybrisBffBaseUrl());
 }
 
-function redirectToHybrisLogin(returnUrl = (typeof window !== 'undefined' ? window.location.href : '/')) {
+function resolveHybrisReturnUrl(returnUrl = (typeof window !== 'undefined' ? window.location.href : '/')) {
+  if (typeof window === 'undefined') {
+    return returnUrl || '/';
+  }
+
+  const currentPageUrl = String(window.location.href || '').trim();
+  if (!currentPageUrl) {
+    return returnUrl || '/';
+  }
+
+  try {
+    return new URL(currentPageUrl).toString();
+  } catch (error) {
+    return currentPageUrl;
+  }
+}
+
+function buildHybrisLoginUrl(returnUrl = (typeof window !== 'undefined' ? window.location.href : '/'), loginUrl = '') {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const { country, language } = getLocaleFromPath();
+  const nextLoginUrl = loginUrl
+    ? new URL(loginUrl, window.location.href)
+    : new URL(`${trimTrailingSlash(resolveHybrisBffBaseUrl())}/auth/login`);
+  nextLoginUrl.searchParams.set('country', country || 'us');
+  nextLoginUrl.searchParams.set('language', language || 'en');
+  nextLoginUrl.searchParams.set('returnUrl', resolveHybrisReturnUrl(returnUrl));
+
+  return nextLoginUrl;
+}
+
+function redirectToHybrisLogin(returnUrl = (typeof window !== 'undefined' ? window.location.href : '/'), loginUrl = '') {
   if (typeof window === 'undefined') {
     return;
   }
 
-  const { country, language } = getLocaleFromPath();
-  const loginUrl = new URL(`${trimTrailingSlash(resolveHybrisBffBaseUrl())}/auth/login`);
-  loginUrl.searchParams.set('country', country || 'us');
-  loginUrl.searchParams.set('language', language || 'en');
-  loginUrl.searchParams.set('returnUrl', returnUrl);
+  const nextLoginUrl = buildHybrisLoginUrl(returnUrl, loginUrl);
+  if (!nextLoginUrl) {
+    return;
+  }
 
-  window.location.assign(loginUrl.toString());
+  window.location.assign(nextLoginUrl.toString());
 }
 
 function resetAuthState() {
@@ -186,7 +218,7 @@ function updateTokenFromResponse(response) {
 function handleAuthFailure(error, shouldRedirect, fallbackReturnUrl) {
   if (shouldRedirect && typeof window !== 'undefined') {
     if (error.loginUrl) {
-      window.location.assign(error.loginUrl);
+      redirectToHybrisLogin(fallbackReturnUrl, error.loginUrl);
     } else {
       redirectToHybrisLogin(fallbackReturnUrl);
     }
