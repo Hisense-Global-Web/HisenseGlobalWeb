@@ -32,8 +32,8 @@
       &::after {
         content: '';
         position: absolute;
-        top: var(--size-24);
-        bottom: var(--size-24);
+        top: var(--size-28);
+        bottom: var(--size-28);
         right: 0;
         width: 1px;
         background-color: var(--green60-alpha-50);
