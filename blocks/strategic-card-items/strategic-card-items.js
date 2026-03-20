@@ -24,8 +24,9 @@ export default function decorate(block) {
     textDiv.className = 'card-text';
     bodyCopy.className = 'card-description';
     btnDiv.className = 'card-btn';
-    if (btnDiv && !btnDiv.textContent.trim()) {
-      btnDiv.style.display = 'none';
+    if (!bodyCopy.textContent.trim()) bodyCopy.remove();
+    if (!btnDiv.textContent.trim()) {
+      btnDiv.remove();
     } else {
       const [label, popupId] = btnDiv.children;
       label.className = 'btn-label';
