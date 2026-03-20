@@ -3285,7 +3285,7 @@
         "value": "",
         "label": "Text Content",
         "condition": {
-          "!!": [
+          "log": [
             {
               "var": "classes"
             }
