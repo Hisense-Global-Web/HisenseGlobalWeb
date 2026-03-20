@@ -12,13 +12,13 @@
   .strategic-card-item {
     display: flex;
     flex: 1;
-    width: min(calc(204/var(--breakpoint-pc)*100vw),204px);
+    width: min(calc(173/var(--breakpoint-pc)*100vw),173px);
     height: stretch;
     padding: var(--size-24) var(--size-24) var(--size-32) var(--size-24);
     flex-direction: column;
     align-items: center;
     justify-content: left;
-    gap: var(--size-32);
+    gap: var(--size-24);
     border-radius: var(--radius-lg, 20px);
     background: var(--color-primary-green-10, #EDFCFB);
     backdrop-filter: blur(calc(var(--szie-40) / 2));
@@ -37,7 +37,7 @@
 
     .card-text {
       flex: 1;
-      color: var(--color-primary-gray-90);
+      color: var(--color-primary-grey-90);
       text-align: center;
       font-size: var(--size-16);
       font-weight: var(--fontweight-medium);
@@ -52,6 +52,14 @@
         font-size: var(--size-24);
       }
     }
+  }
+
+  .card-description {
+    font-size: var(--size-14);
+    font-weight: var(--fontweight-book);
+    line-height: 150%;
+    text-align: center;
+    color: var(--color-primary-grey-70);
   }
 
   .card-btn {
