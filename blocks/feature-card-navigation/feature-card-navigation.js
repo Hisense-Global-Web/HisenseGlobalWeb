@@ -12,6 +12,7 @@ export default async function decorate(block) {
           break;
         case 1:
           column.className = 'card-title';
+          if(column.children.length === 2) column.lastElementChild.className = 'title-unit';
           break;
         default:
           column.className = 'card-description';
