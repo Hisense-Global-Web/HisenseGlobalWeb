@@ -3284,13 +3284,6 @@
         "name": "text",
         "value": "",
         "label": "Text Content",
-        "condition": {
-          "log": [
-            {
-              "var": "classes"
-            }
-          ]
-        },
         "valueType": "string"
       },
       {
