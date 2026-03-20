@@ -3769,6 +3769,7 @@
         "label": "Mobile: Items per row",
         "description": "For Mobile: When selected 'Tiled display', Items will show in one row.",
         "valueType": "string",
+        "value": "tiled",
         "options": [
           {
             "name": "Tiled display",
