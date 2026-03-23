@@ -609,12 +609,46 @@ const handleChangeNavPosition = (navigation) => {
   }
 };
 
+const setHeaderActionLoadingState = (element, isLoading) => {
+  if (!element) {
+    return;
+  }
+
+  element.dataset.loading = isLoading ? 'true' : 'false';
+  element.classList.toggle('is-loading', isLoading);
+  if (isLoading) {
+    element.setAttribute('aria-busy', 'true');
+  } else {
+    element.removeAttribute('aria-busy');
+  }
+};
+
+const scheduleHeaderActionLoadingReset = (element, delay = 1500) => {
+  if (!element) {
+    return;
+  }
+
+  window.setTimeout(() => {
+    if (!document.body.contains(element) || document.visibilityState === 'hidden') {
+      return;
+    }
+    setHeaderActionLoadingState(element, false);
+  }, delay);
+};
+
 const handleAccountActionClick = async (event) => {
   event.stopPropagation();
+  const actionButton = event.currentTarget;
+  if (actionButton?.dataset.loading === 'true') {
+    return;
+  }
+
+  setHeaderActionLoadingState(actionButton, true);
 
   try {
     const status = await refreshHybrisAuthStatus({ force: true });
     if (status?.authenticated && status.myAccountUrl) {
+      scheduleHeaderActionLoadingReset(actionButton);
       window.location.href = status.myAccountUrl;
       return;
     }
@@ -623,7 +657,13 @@ const handleAccountActionClick = async (event) => {
     console.warn('Failed to resolve Hybris auth status', error);
   }
 
-  startHybrisLogin(window.location.href);
+  try {
+    scheduleHeaderActionLoadingReset(actionButton);
+    startHybrisLogin(window.location.href);
+  } catch (error) {
+    setHeaderActionLoadingState(actionButton, false);
+    throw error;
+  }
 };
 
 /**
@@ -910,6 +950,7 @@ export default async function decorate(block) {
         btn.addEventListener('mouseenter', checkSearchBoxPopup);
         btn.addEventListener('mouseleave', hideSearchBoxPopup);
       } else {
+        btn.dataset.loading = 'false';
         btn.addEventListener('click', handleAccountActionClick);
       }
       actionsEl.append(btn);

@@ -169,6 +169,13 @@
   }
 }
 
+#navigation.scroll-active .nav-action-btn.is-loading::after,
+#navigation:not(.header-dark-mode) .nav-action-btn.is-loading::after,
+#navigation:has(.nav-container:hover, .search-box-outer:hover) .nav-action-btn.is-loading::after {
+  border-color: rgb(20 20 20 / 18%);
+  border-top-color: var(--color-primary-grey-100);
+}
+
 #navigation .nav-second {
   height: 66px;
   display: flex;
@@ -491,10 +498,34 @@
   align-items: center;
 }
 
+.nav-action-btn.is-loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+.nav-action-btn.is-loading::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  margin-top: -7px;
+  border: 2px solid rgb(255 255 255 / 30%);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: hybris-header-spin 0.75s linear infinite;
+}
+
 .nav-action-btn img {
   position: absolute;
   transition: opacity 0s 0.36s;
   animation-fill-mode: forwards;
+}
+
+.nav-action-btn.is-loading img {
+  opacity: 0.2 !important;
 }
 
 .nav-action-btn.mobile-menu-icon {
@@ -512,6 +543,12 @@
 
 .nav-action-btn:not(:last-child) {
   margin-right: 4px;
+}
+
+@keyframes hybris-header-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 #navigation:has(.nav-container:hover, .search-box-outer:hover) .nav-link,

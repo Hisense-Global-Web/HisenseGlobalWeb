@@ -29,6 +29,33 @@ let wishlistLoaded = false;
 let wishlistRequestVersion = 0;
 let wishlistPrimaryCartCode = '';
 
+function setControlLoadingState(element, isLoading) {
+  if (!element) {
+    return;
+  }
+
+  element.dataset.loading = isLoading ? 'true' : 'false';
+  element.classList.toggle('is-loading', isLoading);
+  if (isLoading) {
+    element.setAttribute('aria-busy', 'true');
+  } else {
+    element.removeAttribute('aria-busy');
+  }
+}
+
+function scheduleControlLoadingReset(element, delay = 1500) {
+  if (!element) {
+    return;
+  }
+
+  window.setTimeout(() => {
+    if (!document.body.contains(element) || document.visibilityState === 'hidden') {
+      return;
+    }
+    setControlLoadingState(element, false);
+  }, delay);
+}
+
 function normalizeWishlistKey(value) {
   return String(value || '').trim();
 }
@@ -1008,7 +1035,7 @@ export default function decorate(block) {
 
       const fav = document.createElement('div');
       fav.className = 'plp-favorite plp-favorite-pending';
-      fav.dataset.loading = 'false';
+      setControlLoadingState(fav, false);
       const likeEmpty = document.createElement('img');
       likeEmpty.className = 'plp-like-empty';
       likeEmpty.src = `/content/dam/hisense/${country}/common-icons/like-empty.svg`;
@@ -1304,10 +1331,13 @@ export default function decorate(block) {
           return;
         }
 
-        favoriteEl.dataset.loading = 'true';
+        let deferLoadingReset = false;
+        setControlLoadingState(favoriteEl, true);
         try {
           const authState = await authReadyPromise;
           if (!authState.authenticated) {
+            deferLoadingReset = true;
+            scheduleControlLoadingReset(favoriteEl);
             startHybrisLogin(window.location.href);
             return;
           }
@@ -1360,7 +1390,9 @@ export default function decorate(block) {
           console.warn(`Failed to toggle wishlist item for ${productCode}`, error);
           await ensureWishlistLoaded(true).catch(() => wishlistEntriesByCode);
         } finally {
-          favoriteEl.dataset.loading = 'false';
+          if (!deferLoadingReset) {
+            setControlLoadingState(favoriteEl, false);
+          }
         }
 
         await refreshFavoriteState(productCode);
@@ -1375,13 +1407,15 @@ export default function decorate(block) {
           return;
         }
 
-        addToCartTarget.dataset.loading = 'true';
+        let deferLoadingReset = false;
+        setControlLoadingState(addToCartTarget, true);
         const originalText = addToCartTarget.textContent;
-        addToCartTarget.textContent = 'Adding...';
 
         try {
           const authState = await authReadyPromise;
           if (!authState.authenticated) {
+            deferLoadingReset = true;
+            scheduleControlLoadingReset(addToCartTarget);
             startHybrisLogin(window.location.href);
             return;
           }
@@ -1397,7 +1431,9 @@ export default function decorate(block) {
           addToCartTarget.textContent = originalText;
           return;
         } finally {
-          addToCartTarget.dataset.loading = 'false';
+          if (!deferLoadingReset) {
+            setControlLoadingState(addToCartTarget, false);
+          }
         }
 
         window.setTimeout(() => {
@@ -1464,8 +1500,8 @@ export default function decorate(block) {
         addToCartBtnEl.dataset.productCode = variantProductCode || '';
         fav.dataset.productCode = variantProductCode || '';
         addToCartBtnEl.textContent = 'Add to Cart';
-        addToCartBtnEl.dataset.loading = 'false';
-        fav.dataset.loading = 'false';
+        setControlLoadingState(addToCartBtnEl, false);
+        setControlLoadingState(fav, false);
         if (wishlistLoaded) {
           syncWishlistFavoriteElements();
         }
