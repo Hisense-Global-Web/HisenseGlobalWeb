@@ -58,8 +58,8 @@ function parseActions(root) {
     let enableSearchBox = false;
     // 判断Enable Search Box
     const navigationActionEl = wrapper.querySelector('.navigation-action');
-    if (navigationActionEl?.children?.length === 5) {
-      const strEnableSearchBox = navigationActionEl?.children[4].querySelector('p').textContent;
+    if (navigationActionEl?.children?.length === 4) {
+      const strEnableSearchBox = navigationActionEl?.children[3].querySelector('p').textContent;
       enableSearchBox = strEnableSearchBox.toLowerCase() === 'true';
     }
     return {
