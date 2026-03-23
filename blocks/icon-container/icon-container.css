@@ -94,6 +94,13 @@
     }
 }
 
+.huge-icon .icon-container-item .icon-image img {
+  height: var(--size-120);
+  @media (width < 860px) {
+    height: var(--size-60);
+  }
+}
+
 .large-icon .icon-container-box{
     margin: calc(-1 * min(48.71777vw,190px)) 0 min(48.71777vw,190px);
     position: relative;

@@ -2977,6 +2977,10 @@
           {
             "name": "Icon-Overlay_bottom",
             "value": "customize-bottom"
+          },
+          {
+            "name": "Display on the left side.",
+            "value": "display-left"
           }
         ]
       }
