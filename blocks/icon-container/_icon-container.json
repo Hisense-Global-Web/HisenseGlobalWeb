@@ -35,7 +35,7 @@
     }
   ],
   "models": [
-     {
+    {
       "id": "icon-container",
       "fields": [
         {
@@ -43,38 +43,42 @@
           "name": "classes",
           "label": "Content Position",
           "options": [
-              {
-                  "name": "Only Text",
-                  "value": "text-center"
-              },
-              {
-                  "name": "Only Icon",
-                  "value": "large-icon"
-              },
-              {
-                  "name": "Margin-top",
-                  "value": "top-space"
-              },
-              {
-                  "name": "Margin-bottom",
-                  "value": "bottom-space"
-              },
-               {
-                  "name": "Icon and Text",
-                  "value": "fixed-width"
-              },
-               {
-                  "name": "Icon and Label",
-                  "value": "small-icon"
-              },
-              {
-                  "name": "Icon-Overlay_left",
-                  "value": "customize-feature-banner"
-              },
-              {
-                  "name": "Icon-Overlay_bottom",
-                  "value": "customize-bottom"
-              }
+            {
+              "name": "Only Text",
+              "value": "text-center"
+            },
+            {
+              "name": "Only Icon",
+              "value": "large-icon"
+            },
+            {
+              "name": "Only Huge Icon(120px)",
+              "value": "huge-icon"
+            },
+            {
+              "name": "Margin-top",
+              "value": "top-space"
+            },
+            {
+              "name": "Margin-bottom",
+              "value": "bottom-space"
+            },
+            {
+              "name": "Icon and Text",
+              "value": "fixed-width"
+            },
+            {
+              "name": "Icon and Label",
+              "value": "small-icon"
+            },
+            {
+              "name": "Icon-Overlay_left",
+              "value": "customize-feature-banner"
+            },
+            {
+              "name": "Icon-Overlay_bottom",
+              "value": "customize-bottom"
+            }
           ]
         }
       ]
@@ -103,7 +107,6 @@
           "label": "Sub Title",
           "valueType": "string"
         }
-       
       ]
     }
   ],

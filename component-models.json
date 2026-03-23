@@ -2951,6 +2951,10 @@
             "value": "large-icon"
           },
           {
+            "name": "Only Huge Icon(120px)",
+            "value": "huge-icon"
+          },
+          {
             "name": "Margin-top",
             "value": "top-space"
           },
@@ -3188,7 +3192,7 @@
         ]
       },
       {
-        "component": "aem-content",
+        "component": "reference",
         "name": "button_CTALink",
         "label": "CTA Link",
         "valueType": "string"
