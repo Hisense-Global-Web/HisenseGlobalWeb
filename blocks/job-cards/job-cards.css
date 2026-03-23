@@ -1,1 +1,22 @@
  /* css */
+ .job-cards-box {
+   flex: 1;
+   
+   .job-cards-list {
+     display: grid;
+     grid-template-columns: repeat(1, 1fr);
+     gap: var(--size-48);
+     
+     .job-item-card {
+       display: flex;
+       flex-direction: column;
+       background: #fff;
+       border-radius:var(--size-20);
+       padding: var(--size-20);
+     }
+   }
+ }
+ 
+ .plp-compare-bar {
+   display: none;
+ }
