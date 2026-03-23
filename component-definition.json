@@ -2761,7 +2761,7 @@
                 "template": {
                   "name": "Achievement Matrix",
                   "model": "achievement-matrix",
-                  "key-value": true
+                  "block-item": "matrix-block-item"
                 }
               }
             }
@@ -2777,7 +2777,7 @@
                 "template": {
                   "name": "Achievement Highlights",
                   "model": "achievement-highlights",
-                  "key-value": true
+                  "block-item2": "highlights-block-item"
                 }
               }
             }

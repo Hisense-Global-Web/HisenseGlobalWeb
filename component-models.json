@@ -5140,7 +5140,7 @@
         "label": "",
         "name": "block-item",
         "valueType": "string",
-        "value": "matrix-block-item",
+        "value": "",
         "hidden": true,
         "readOnly": true
       },
@@ -5184,7 +5184,7 @@
         "label": "",
         "name": "block-item2",
         "valueType": "string",
-        "value": "highlights-block-item",
+        "value": "",
         "hidden": true,
         "readOnly": true
       },
