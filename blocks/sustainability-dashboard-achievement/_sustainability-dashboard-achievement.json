@@ -29,7 +29,9 @@
             "template": {
               "name": "Achievement Matrix",
               "model": "achievement-matrix",
-              "block-item": "matrix-block-item"
+              "block-item": "matrix-block-item",
+              "label-tag": "matrix-label",
+              "label-value": "matrix-value"
             }
           }
         }
@@ -151,9 +153,8 @@
           "label": "",
           "name": "label-tag",
           "valueType":"string",
-          "value": "matrix-label",
-          "hidden": true,
-          "readOnly": true
+          "value": "",
+          "hidden": true
         },
         {
           "component": "text",
@@ -166,9 +167,8 @@
           "label": "",
           "name": "label-value",
           "valueType":"string",
-          "value": "matrix-value",
-          "hidden": true,
-          "readOnly": true
+          "value": "",
+          "hidden": true
         },
         {
           "component": "text",

@@ -27,6 +27,8 @@ export default function decorate(block) {
       child.className = child.firstElementChild?.textContent.trim();
       child.firstElementChild.remove();
     }
+    console.log(child);
+    
     // child.className = child.firstElementChild?.textContent.trim();
     // child.firstElementChild.style.display = 'none';
     if (!child.classList.contains('image')) {
@@ -44,14 +46,7 @@ export default function decorate(block) {
   block.append(textContainer);
   // handle child component--achievement-highlights
   if (block.querySelector('.highlights-block-item')) {
-    block.querySelectorAll('.highlights-block-item').forEach((highlightsItem, h) => {
-      highlightsItem.lastElementChild.className = highlightsItem.firstElementChild.textContent.trim();
-      if (highlightsItem.lastElementChild.className) highlightsItem.firstElementChild.remove();
-
-      if (h === 0) {
-        highlightsItem.classList.add('mt-32');
-      }
-    });
+    block.querySelectorAll('.highlights-block-item')[0].classList.add('mt-32');
   }
   // handle child component--achievement-matrix
   if (block.querySelector('.matrix-block-item')) {

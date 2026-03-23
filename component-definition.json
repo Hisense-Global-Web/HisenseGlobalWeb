@@ -2761,7 +2761,9 @@
                 "template": {
                   "name": "Achievement Matrix",
                   "model": "achievement-matrix",
-                  "block-item": "matrix-block-item"
+                  "block-item": "matrix-block-item",
+                  "label-tag": "matrix-label",
+                  "label-value": "matrix-value"
                 }
               }
             }

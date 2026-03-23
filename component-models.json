@@ -5154,9 +5154,8 @@
         "label": "",
         "name": "label-tag",
         "valueType": "string",
-        "value": "matrix-label",
-        "hidden": true,
-        "readOnly": true
+        "value": "",
+        "hidden": true
       },
       {
         "component": "text",
@@ -5169,9 +5168,8 @@
         "label": "",
         "name": "label-value",
         "valueType": "string",
-        "value": "matrix-value",
-        "hidden": true,
-        "readOnly": true
+        "value": "",
+        "hidden": true
       },
       {
         "component": "text",
