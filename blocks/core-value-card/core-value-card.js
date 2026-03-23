@@ -17,9 +17,11 @@ export default function decorate(block) {
       const target = row.firstElementChild;
       if (target.querySelector('a')) {
         target.querySelector('a').classList.add(target.firstElementChild.textContent);
-        if (target.lastElementChild.textContent) target.querySelector('a').textContent = target.lastElementChild.textContent;
-        target.firstElementChild.remove();
-        target.lastElementChild.remove();
+        target.firstElementChild.remove();        
+        if (target.lastElementChild !== target.querySelector('.button-container')) {
+          target.querySelector('a').textContent = target.lastElementChild.textContent;
+          target.lastElementChild.remove();
+        }
         button.append(...row.firstElementChild.children);
       }
     } else {
