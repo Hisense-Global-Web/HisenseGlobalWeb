@@ -2982,6 +2982,10 @@
             "value": "large-icon"
           },
           {
+            "name": "Only Huge Icon(120px)",
+            "value": "huge-icon"
+          },
+          {
             "name": "Margin-top",
             "value": "top-space"
           },
@@ -3004,6 +3008,10 @@
           {
             "name": "Icon-Overlay_bottom",
             "value": "customize-bottom"
+          },
+          {
+            "name": "Display Left(Only Mobile)",
+            "value": "display-left-mobile"
           }
         ]
       }
@@ -3219,7 +3227,7 @@
         ]
       },
       {
-        "component": "aem-content",
+        "component": "reference",
         "name": "button_CTALink",
         "label": "CTA Link",
         "valueType": "string"
