@@ -17,7 +17,7 @@ export default function decorate(block) {
       const target = row.firstElementChild;
       if (target.querySelector('a')) {
         target.querySelector('a').classList.add(target.firstElementChild.textContent);
-        target.querySelector('a').textContent = target.lastElementChild.textContent;
+        if (target.lastElementChild.textContent) target.querySelector('a').textContent = target.lastElementChild.textContent;
         target.firstElementChild.remove();
         target.lastElementChild.remove();
         button.append(...row.firstElementChild.children);
