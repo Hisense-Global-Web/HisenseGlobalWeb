@@ -133,13 +133,18 @@
       "id": "achievement-matrix",
       "fields": [
         {
-          "component": "text",
+          "component": "select",
           "label": "",
           "name": "block-item",
           "valueType":"string",
           "value": "",
           "hidden": true,
-          "readOnly": true
+          "options": [
+            {
+              "name": "matrix-block-item",
+              "value": "matrix-block-item"
+            }
+          ]
         },
         {
           "component": "text",
@@ -177,13 +182,18 @@
       "id": "achievement-highlights",
       "fields": [
         {
-          "component": "text",
+          "component": "select",
           "label": "",
           "name": "block-item2",
           "valueType":"string",
           "value": "",
           "hidden": true,
-          "readOnly": true
+          "options": [
+            {
+              "name": "highlights-block-item",
+              "value": "highlights-block-item"
+            }
+          ]
         },
         {
           "component": "text",
