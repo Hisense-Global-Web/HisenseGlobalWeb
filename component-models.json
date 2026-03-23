@@ -1537,10 +1537,6 @@
         "options": [
           {
             "name": "Default",
-            "value": ""
-          },
-          {
-            "name": "transparent",
             "value": "transparent"
           },
           {
