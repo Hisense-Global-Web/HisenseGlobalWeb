@@ -52,6 +52,11 @@
   .plp-favorite {
     margin-left: auto;
     cursor: pointer;
+
+    &.plp-favorite-pending {
+      visibility: hidden;
+      pointer-events: none;
+    }
     
     &.selected {
       .plp-like-empty {
@@ -233,6 +238,11 @@
   font-family: var(--font-family);
   text-transform: capitalize;
   display: none;
+}
+
+.product-card .plp-add-to-cart-btn.plp-purchase-hidden,
+.product-card .plp-where-to-buy-btn.plp-purchase-hidden {
+  display: none !important;
 }
 
 .product-card .plp-product-btn:hover,

@@ -8,6 +8,7 @@ import {
   getHybrisProductCode,
   initializeHybrisAuth,
   removeHybrisWishlistItem,
+  scheduleHybrisTask,
   startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
 import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
@@ -26,10 +27,147 @@ const wishlistEntriesByCode = new Map();
 let wishlistLoadPromise = null;
 let wishlistLoaded = false;
 let wishlistRequestVersion = 0;
+let wishlistPrimaryCartCode = '';
+
+function normalizeWishlistKey(value) {
+  return String(value || '').trim();
+}
+
+function addWishlistKey(keys, value) {
+  const normalizedKey = normalizeWishlistKey(value);
+  if (normalizedKey) {
+    keys.add(normalizedKey);
+  }
+}
+
+function collectWishlistKeys(...sources) {
+  const keys = new Set();
+
+  sources.forEach((source) => {
+    if (!source) {
+      return;
+    }
+
+    if (typeof source === 'string') {
+      addWishlistKey(keys, source);
+      return;
+    }
+
+    addWishlistKey(keys, source.code);
+    addWishlistKey(keys, source.sku);
+    addWishlistKey(keys, source.productCode);
+    addWishlistKey(keys, source.materialNumber);
+    addWishlistKey(keys, source.overseasModel);
+
+    if (source.product) {
+      collectWishlistKeys(source.product).forEach((key) => keys.add(key));
+    }
+    if (source.item) {
+      collectWishlistKeys(source.item).forEach((key) => keys.add(key));
+    }
+    if (source.entry) {
+      collectWishlistKeys(source.entry).forEach((key) => keys.add(key));
+    }
+  });
+
+  return [...keys];
+}
+
+function getWishlistEntryByProductCode(productCode = '') {
+  const normalizedKey = normalizeWishlistKey(productCode);
+  if (!normalizedKey) {
+    return null;
+  }
+  return wishlistEntriesByCode.get(normalizedKey) || null;
+}
+
+function setWishlistEntry(entry, ...sources) {
+  collectWishlistKeys(entry, ...sources).forEach((key) => {
+    wishlistEntriesByCode.set(key, entry);
+  });
+}
+
+function deleteWishlistEntry(entry, ...sources) {
+  collectWishlistKeys(entry, ...sources).forEach((key) => {
+    wishlistEntriesByCode.delete(key);
+  });
+}
+
+function syncWishlistFavoriteElements() {
+  document.querySelectorAll('.plp-favorite[data-product-code]').forEach((favorite) => {
+    const productCode = favorite.getAttribute('data-product-code') || '';
+    favorite.classList.toggle('selected', Boolean(getWishlistEntryByProductCode(productCode)));
+  });
+}
+
+function isWishlistCart(cart) {
+  return Boolean(cart && String(cart.name || '').toLowerCase().includes('wishlist'));
+}
+
+function hasCartEntries(cart) {
+  return Boolean(cart && Array.isArray(cart.entries) && cart.entries.length > 0);
+}
+
+function getWishlistCarts(payload) {
+  if (!payload) {
+    return [];
+  }
+
+  if (Array.isArray(payload.carts)) {
+    const namedWishlistCarts = payload.carts.filter(isWishlistCart);
+    const namedWishlistCartsWithEntries = namedWishlistCarts.filter(hasCartEntries);
+    if (namedWishlistCartsWithEntries.length) {
+      return namedWishlistCartsWithEntries;
+    }
+
+    const cartsWithEntries = payload.carts.filter(hasCartEntries);
+    if (cartsWithEntries.length) {
+      return cartsWithEntries;
+    }
+
+    if (namedWishlistCarts.length) {
+      return namedWishlistCarts;
+    }
+
+    if (payload.carts.length === 1) {
+      return payload.carts;
+    }
+  }
+
+  if (Array.isArray(payload.entries)) {
+    return [payload];
+  }
+
+  return [];
+}
+
+function resolveWishlistCartCode(payload) {
+  const [wishlistCart] = getWishlistCarts(payload);
+  if (wishlistCart?.code) {
+    return wishlistCart.code;
+  }
+
+  if (Array.isArray(payload?.carts)) {
+    return payload.carts.find((cart) => Boolean(cart?.code))?.code || '';
+  }
+
+  return '';
+}
 
 function normalizeWishlistItems(payload) {
   if (!payload) {
     return [];
+  }
+
+  const wishlistCarts = getWishlistCarts(payload);
+  if (wishlistCarts.length) {
+    return wishlistCarts.flatMap((cart) => {
+      const entries = Array.isArray(cart.entries) ? cart.entries : [];
+      return entries.map((entry) => ({
+        ...entry,
+        cartCode: entry?.cartCode || cart.code || '',
+      }));
+    });
   }
 
   if (Array.isArray(payload)) {
@@ -51,7 +189,7 @@ function normalizeWishlistItems(payload) {
   return [];
 }
 
-function getWishlistEntryData(payload, fallbackCode = '') {
+function getWishlistEntryData(payload, fallbackCode = '', fallbackCartCode = '') {
   if (!payload) {
     return null;
   }
@@ -62,9 +200,15 @@ function getWishlistEntryData(payload, fallbackCode = '') {
     ?? candidate.item?.entryNumber
     ?? candidate.entry?.entryNumber
     ?? null;
+  const cartCode = candidate.cartCode
+    || candidate.item?.cartCode
+    || candidate.entry?.cartCode
+    || payload.cartCode
+    || fallbackCartCode
+    || '';
 
   if (code && entryNumber !== null && entryNumber !== undefined) {
-    return { code, entryNumber };
+    return { code, entryNumber, cartCode };
   }
 
   const wishlistItems = normalizeWishlistItems(payload);
@@ -75,17 +219,19 @@ function getWishlistEntryData(payload, fallbackCode = '') {
     return null;
   }
 
-  return getWishlistEntryData(matchedItem, fallbackCode);
+  return getWishlistEntryData(matchedItem, fallbackCode, fallbackCartCode || resolveWishlistCartCode(payload));
 }
 
 function syncWishlistEntries(payload) {
+  wishlistPrimaryCartCode = resolveWishlistCartCode(payload);
   wishlistEntriesByCode.clear();
   normalizeWishlistItems(payload).forEach((item) => {
-    const entry = getWishlistEntryData(item);
+    const entry = getWishlistEntryData(item, '', item?.cartCode || wishlistPrimaryCartCode);
     if (entry?.code) {
-      wishlistEntriesByCode.set(entry.code, entry);
+      setWishlistEntry(entry, item, item?.product);
     }
   });
+  syncWishlistFavoriteElements();
   return wishlistEntriesByCode;
 }
 
@@ -94,12 +240,48 @@ function bumpWishlistVersion() {
   return wishlistRequestVersion;
 }
 
+function notifyPlpProductsReady(items) {
+  document.dispatchEvent(new CustomEvent('hisense:plp-products-ready', {
+    detail: {
+      items: Array.isArray(items) ? items : [],
+    },
+  }));
+}
+
+function isPriceFilterActive() {
+  if (typeof window.getPlpPriceFilterState !== 'function') {
+    return false;
+  }
+
+  const state = window.getPlpPriceFilterState();
+  if (!state?.ready) {
+    return false;
+  }
+
+  return Number(state.selectedMin) > Number(state.min)
+    || Number(state.selectedMax) < Number(state.max);
+}
+
+function rebindPriceSpiderWidgets() {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  window.setTimeout(() => {
+    if (window.PriceSpider && typeof window.PriceSpider.rebind === 'function') {
+      window.PriceSpider.rebind();
+    }
+  }, 0);
+}
+
 async function ensureWishlistLoaded(force = false) {
   const authState = getCachedHybrisAuthState();
   if (!authState.authenticated) {
     bumpWishlistVersion();
+    wishlistPrimaryCartCode = '';
     wishlistEntriesByCode.clear();
     wishlistLoaded = false;
+    syncWishlistFavoriteElements();
     return wishlistEntriesByCode;
   }
 
@@ -254,6 +436,8 @@ function getPricingDetails(product, fallbackSource = null) {
   const pricing = product?.pricing || {};
   const fallbackPriceInfo = fallbackSource?.priceInfo || {};
   const fallbackCurrency = pricing.currency
+    || product?.price?.currencyIso
+    || product?.msrp?.currencyIso
     || fallbackPriceInfo.currency
     || fallbackPriceInfo.currencyIso
     || 'USD';
@@ -274,8 +458,8 @@ function getPricingDetails(product, fallbackSource = null) {
     fallbackCurrency,
   );
 
-  const sale = parsePriceValue(pricing.sale || pricing.price || pricing.current);
-  const msrp = parsePriceValue(pricing.msrp || pricing.original || pricing.list);
+  const sale = parsePriceValue(pricing.sale || pricing.price || pricing.current || product?.price);
+  const msrp = parsePriceValue(pricing.msrp || pricing.original || pricing.list || product?.msrp);
   let resolvedSale = sale;
   if (resolvedSale.value === null && !resolvedSale.formattedValue) {
     if (fallbackSale.value !== null || fallbackSale.formattedValue) {
@@ -300,14 +484,12 @@ function getPricingDetails(product, fallbackSource = null) {
 
 function hasInventory(product) {
   const stock = product?.stock || {};
-  const level = Number(stock.level);
-  const status = String(stock.status || '').toLowerCase();
+  const level = Number(stock.level ?? stock.stockLevel);
+  const status = String(stock.status || stock.stockLevelStatus || '').toLowerCase();
 
   return Boolean(
     (Number.isFinite(level) && level > 0)
-    || product?.available
-    || product?.purchasable
-    || ['instock', 'in_stock', 'available'].includes(status),
+    || ['instock', 'in_stock', 'available', 'lowstock', 'low_stock'].includes(status),
   );
 }
 function applyAggregatedSort(sortProperty, direction = -1) {
@@ -315,7 +497,7 @@ function applyAggregatedSort(sortProperty, direction = -1) {
     // 检查是否有已选中的 filter
     const hasActiveFilters = () => {
       const filterTags = document.querySelectorAll('.plp-filter-tag');
-      return filterTags && filterTags.length > 0;
+      return (filterTags && filterTags.length > 0) || isPriceFilterActive();
     };
 
     // 如果有筛选结果，就在筛选结果基础上排序，否则使用原始数据进行排序
@@ -713,7 +895,7 @@ export default function decorate(block) {
       if (filterTags && filterTags.length > 0) return true;
       // 检查是否有选中的 filter input
       const checkedInputs = document.querySelectorAll('.plp-filter-item input[data-option-value]:checked');
-      return checkedInputs && checkedInputs.length > 0;
+      return (checkedInputs && checkedInputs.length > 0) || isPriceFilterActive();
     };
 
     const sortAndApplyFilters = () => {
@@ -807,14 +989,7 @@ export default function decorate(block) {
       }
     });
 
-    const authReadyPromise = initializeHybrisAuth();
-    const wishlistPromise = authReadyPromise
-      .then(() => ensureWishlistLoaded())
-      .catch((error) => {
-        /* eslint-disable-next-line no-console */
-        console.warn('Failed to load wishlist', error);
-        return wishlistEntriesByCode;
-      });
+    const authReadyPromise = scheduleHybrisTask(() => initializeHybrisAuth());
 
     // 渲染当前页的产品卡片（追加模式）
     pagedGroupedArray.forEach((group) => {
@@ -832,7 +1007,8 @@ export default function decorate(block) {
       titleDiv.innerHTML = `<div class="product-card-tag">${tagTitle}</div>`;
 
       const fav = document.createElement('div');
-      fav.className = 'plp-favorite';
+      fav.className = 'plp-favorite plp-favorite-pending';
+      fav.dataset.loading = 'false';
       const likeEmpty = document.createElement('img');
       likeEmpty.className = 'plp-like-empty';
       likeEmpty.src = `/content/dam/hisense/${country}/common-icons/like-empty.svg`;
@@ -960,11 +1136,11 @@ export default function decorate(block) {
 
       // where to by
       const addToCartBtnEl = document.createElement('div');
-      addToCartBtnEl.className = 'plp-add-to-cart-btn';
+      addToCartBtnEl.className = 'plp-add-to-cart-btn plp-purchase-hidden';
       addToCartBtnEl.textContent = 'Add to Cart';
 
       const whereToBuyBtnEl = document.createElement('div');
-      whereToBuyBtnEl.className = ' plp-where-to-buy-btn ps-widget';
+      whereToBuyBtnEl.className = 'plp-where-to-buy-btn ps-widget plp-purchase-hidden';
 
       // create compare
       const compareEl = document.createElement('div');
@@ -989,6 +1165,8 @@ export default function decorate(block) {
       }
       const shouldShowPrice = true;
       let commerceRequestId = 0;
+      let wishlistStateReady = false;
+      let favoriteEnabled = false;
 
       const getVariantProductCode = (variant) => getHybrisProductCode(variant)
         || getHybrisProductCode(item)
@@ -996,19 +1174,48 @@ export default function decorate(block) {
 
       const updateFavoriteState = (productCode) => {
         fav.dataset.productCode = productCode || '';
-        fav.classList.toggle('selected', Boolean(productCode && wishlistEntriesByCode.has(productCode)));
+        fav.classList.toggle('selected', Boolean(getWishlistEntryByProductCode(fav.dataset.productCode)));
+        fav.classList.toggle('plp-favorite-pending', !(wishlistStateReady && productCode && favoriteEnabled));
+      };
+
+      const refreshFavoriteState = async (productCode, requestId) => {
+        wishlistStateReady = false;
+        updateFavoriteState(productCode);
+
+        try {
+          await authReadyPromise;
+          await ensureWishlistLoaded();
+        } catch (error) {
+          /* eslint-disable-next-line no-console */
+          console.warn(`Failed to load wishlist state for ${productCode}`, error);
+        } finally {
+          wishlistStateReady = true;
+          if ((requestId === undefined || requestId === commerceRequestId) && fav.dataset.productCode === productCode) {
+            updateFavoriteState(productCode);
+          }
+        }
+      };
+
+      const setPurchaseButtonVisibility = (button, visible) => {
+        button.classList.toggle('plp-purchase-hidden', !visible);
+        button.style.display = visible ? 'block' : 'none';
       };
 
       const hidePurchaseButtons = () => {
-        addToCartBtnEl.style.display = 'none';
-        whereToBuyBtnEl.style.display = 'none';
+        setPurchaseButtonVisibility(addToCartBtnEl, false);
+        setPurchaseButtonVisibility(whereToBuyBtnEl, false);
       };
 
       const updatePurchaseButtons = (showAddToCart) => {
         const addToCartCode = addToCartBtnEl.dataset.productCode || '';
-        const canShowAddToCart = Boolean(showAddToCart && addToCartCode);
-        addToCartBtnEl.style.display = canShowAddToCart ? 'block' : 'none';
-        whereToBuyBtnEl.style.display = canShowAddToCart ? 'none' : 'block';
+        if (!addToCartCode) {
+          hidePurchaseButtons();
+          return;
+        }
+
+        const canShowAddToCart = Boolean(showAddToCart);
+        setPurchaseButtonVisibility(addToCartBtnEl, canShowAddToCart);
+        setPurchaseButtonVisibility(whereToBuyBtnEl, !canShowAddToCart);
       };
 
       const updatePriceState = (commerceProduct, fallbackSource = null) => {
@@ -1054,7 +1261,7 @@ export default function decorate(block) {
         commerceRequestId = requestId;
 
         const productCode = getVariantProductCode(variant);
-        const shouldRevalidateAfterAuth = !getCachedHybrisAuthState().authenticated;
+        favoriteEnabled = false;
         updateFavoriteState(productCode);
         hidePurchaseButtons();
         updatePriceState(null, variant);
@@ -1063,11 +1270,7 @@ export default function decorate(block) {
           return;
         }
 
-        wishlistPromise.then(() => {
-          if (requestId === commerceRequestId && fav.dataset.productCode === productCode) {
-            updateFavoriteState(productCode);
-          }
-        });
+        refreshFavoriteState(productCode, requestId);
 
         try {
           const commerceProduct = await fetchHybrisProduct(productCode);
@@ -1075,51 +1278,33 @@ export default function decorate(block) {
             return;
           }
 
+          favoriteEnabled = hasInventory(commerceProduct);
           updatePriceState(commerceProduct, variant);
           updatePurchaseButtons(hasInventory(commerceProduct));
+          updateFavoriteState(productCode);
         } catch (error) {
           /* eslint-disable-next-line no-console */
           console.warn(`Failed to load commerce data for ${productCode}`, error);
           if (requestId !== commerceRequestId) {
             return;
           }
+          favoriteEnabled = false;
           updatePriceState(null, variant);
           updatePurchaseButtons(false);
+          updateFavoriteState(productCode);
         }
-
-        if (!shouldRevalidateAfterAuth) {
-          return;
-        }
-
-        authReadyPromise
-          .then((authState) => {
-            if (!authState?.authenticated) {
-              return null;
-            }
-            return fetchHybrisProduct(productCode, { force: true });
-          })
-          .then((commerceProduct) => {
-            if (!commerceProduct || requestId !== commerceRequestId || fav.dataset.productCode !== productCode) {
-              return;
-            }
-            updatePriceState(commerceProduct, variant);
-            updatePurchaseButtons(hasInventory(commerceProduct));
-          })
-          .catch((error) => {
-            /* eslint-disable-next-line no-console */
-            console.warn(`Failed to revalidate commerce data for ${productCode}`, error);
-          });
       };
 
       fav.addEventListener('click', async (event) => {
         event.stopPropagation();
 
-        const productCode = event.currentTarget.dataset.productCode || getVariantProductCode(selectedVariant);
-        if (!productCode || event.currentTarget.dataset.loading === 'true') {
+        const favoriteEl = event.currentTarget;
+        const productCode = favoriteEl.dataset.productCode || getVariantProductCode(selectedVariant);
+        if (!productCode || favoriteEl.dataset.loading === 'true') {
           return;
         }
 
-        event.currentTarget.dataset.loading = 'true';
+        favoriteEl.dataset.loading = 'true';
         try {
           const authState = await authReadyPromise;
           if (!authState.authenticated) {
@@ -1127,28 +1312,46 @@ export default function decorate(block) {
             return;
           }
 
-          const existingEntry = wishlistEntriesByCode.get(productCode);
+          const existingEntry = getWishlistEntryByProductCode(productCode);
           if (existingEntry?.entryNumber !== undefined && existingEntry?.entryNumber !== null) {
             bumpWishlistVersion();
             await removeHybrisWishlistItem(existingEntry.entryNumber, {
+              cartCode: existingEntry.cartCode || wishlistPrimaryCartCode,
               redirectOnAuthFailure: true,
               returnUrl: window.location.href,
             });
-            wishlistEntriesByCode.delete(productCode);
+            deleteWishlistEntry(existingEntry, productCode);
             wishlistLoaded = true;
+            syncWishlistFavoriteElements();
           } else {
+            let targetCartCode = existingEntry?.cartCode || wishlistPrimaryCartCode;
+            if (!targetCartCode) {
+              await ensureWishlistLoaded(true).catch(() => wishlistEntriesByCode);
+              targetCartCode = getWishlistEntryByProductCode(productCode)?.cartCode || wishlistPrimaryCartCode;
+            }
+            if (!targetCartCode) {
+              throw new Error('Wishlist cartCode is unavailable');
+            }
+
             bumpWishlistVersion();
             const addResponse = await addHybrisWishlistItem(productCode, 1, {
+              cartCode: targetCartCode,
               redirectOnAuthFailure: true,
               returnUrl: window.location.href,
             });
-            const nextEntry = getWishlistEntryData(addResponse, productCode);
+            const nextEntry = getWishlistEntryData(addResponse, productCode, targetCartCode);
             if (nextEntry?.code) {
-              wishlistEntriesByCode.set(nextEntry.code, nextEntry);
+              setWishlistEntry(nextEntry, productCode, addResponse, addResponse?.product, addResponse?.item, addResponse?.entry);
               wishlistLoaded = true;
+              syncWishlistFavoriteElements();
             } else {
-              wishlistEntriesByCode.set(productCode, { code: productCode, entryNumber: null });
+              setWishlistEntry({
+                code: productCode,
+                entryNumber: null,
+                cartCode: targetCartCode,
+              }, productCode);
               wishlistLoaded = true;
+              syncWishlistFavoriteElements();
               ensureWishlistLoaded(true).catch(() => wishlistEntriesByCode);
             }
           }
@@ -1157,23 +1360,24 @@ export default function decorate(block) {
           console.warn(`Failed to toggle wishlist item for ${productCode}`, error);
           await ensureWishlistLoaded(true).catch(() => wishlistEntriesByCode);
         } finally {
-          event.currentTarget.dataset.loading = 'false';
+          favoriteEl.dataset.loading = 'false';
         }
 
-        updateFavoriteState(productCode);
+        await refreshFavoriteState(productCode);
       });
 
       addToCartBtnEl.addEventListener('click', async (event) => {
         event.stopPropagation();
 
-        const productCode = event.currentTarget.dataset.productCode || getVariantProductCode(selectedVariant);
-        if (!productCode || event.currentTarget.dataset.loading === 'true') {
+        const addToCartTarget = event.currentTarget;
+        const productCode = addToCartTarget.dataset.productCode || getVariantProductCode(selectedVariant);
+        if (!productCode || addToCartTarget.dataset.loading === 'true') {
           return;
         }
 
-        event.currentTarget.dataset.loading = 'true';
-        const originalText = event.currentTarget.textContent;
-        event.currentTarget.textContent = 'Adding...';
+        addToCartTarget.dataset.loading = 'true';
+        const originalText = addToCartTarget.textContent;
+        addToCartTarget.textContent = 'Adding...';
 
         try {
           const authState = await authReadyPromise;
@@ -1186,25 +1390,25 @@ export default function decorate(block) {
             redirectOnAuthFailure: true,
             returnUrl: window.location.href,
           });
-          event.currentTarget.textContent = 'Added to Cart';
+          addToCartTarget.textContent = 'Added to Cart';
         } catch (error) {
           /* eslint-disable-next-line no-console */
           console.warn(`Failed to add cart item for ${productCode}`, error);
-          event.currentTarget.textContent = originalText;
+          addToCartTarget.textContent = originalText;
           return;
         } finally {
-          event.currentTarget.dataset.loading = 'false';
+          addToCartTarget.dataset.loading = 'false';
         }
 
         window.setTimeout(() => {
-          if (event.currentTarget.dataset.productCode === productCode) {
-            event.currentTarget.textContent = originalText;
+          if (addToCartTarget.dataset.productCode === productCode) {
+            addToCartTarget.textContent = originalText;
           }
         }, 1500);
       });
 
       // 用来更新卡片显示为指定变体
-      const updateCardWithVariant = async (variant) => {
+      const updateCardWithVariant = (variant) => {
         // image
         const variantImg = (() => {
           // 如果开关打开了，优先使用 description_shortDescription 属性作为图片链接
@@ -1258,9 +1462,13 @@ export default function decorate(block) {
         // 为 add to cart 按钮设置商品对应属性
         const variantProductCode = getVariantProductCode(variant);
         addToCartBtnEl.dataset.productCode = variantProductCode || '';
+        fav.dataset.productCode = variantProductCode || '';
         addToCartBtnEl.textContent = 'Add to Cart';
         addToCartBtnEl.dataset.loading = 'false';
         fav.dataset.loading = 'false';
+        if (wishlistLoaded) {
+          syncWishlistFavoriteElements();
+        }
 
         // 为 where to buy 按钮设置商品对应属性
         whereToBuyBtnEl.setAttribute('ps-button-label', 'where to buy');
@@ -1299,7 +1507,11 @@ export default function decorate(block) {
         // 3、为商品卡片 product-card 父元素设置 id 属性，方便当size 修改时，在比较商品数据源中拿到对应数据进行移除
         compareEl.closest('.product-card').setAttribute('data-compare-id', variant.sku || group.sku || '');
 
-        await refreshCommerceState(variant);
+        scheduleHybrisTask(() => refreshCommerceState(variant)).catch((error) => {
+          /* eslint-disable-next-line no-console */
+          console.warn('Failed to refresh commerce state', error);
+        });
+        rebindPriceSpiderWidgets();
       };
 
       // 创建尺寸节点并绑定事件
@@ -1598,6 +1810,7 @@ export default function decorate(block) {
 
     // 渲染第一页
     renderPagedItems();
+    rebindPriceSpiderWidgets();
     // 更新Load More显示状态
     updateLoadMoreVisibility();
   }
@@ -1671,6 +1884,7 @@ export default function decorate(block) {
       const items = transformTagStructureToProducts(data);
       // 缓存到全局，供过滤器使用
       window.productData = items;
+      notifyPlpProductsReady(items);
       if (window.renderPlpProducts) {
         window.renderPlpProducts(items);
       } else {
@@ -1686,6 +1900,7 @@ export default function decorate(block) {
     .catch(() => {
       const items = (mockData && mockData.data) || [];
       window.productData = items;
+      notifyPlpProductsReady(items);
       if (window.renderPlpProducts) {
         window.renderPlpProducts(items);
       } else {
@@ -1776,6 +1991,7 @@ window.applyPlpFilters = function applyPlpFilters() {
     window.isDefaultSortApplied = isDefaultSort;
 
     const allProducts = window.productData || [];
+    const priceFilterState = window.getPlpPriceFilterState ? window.getPlpPriceFilterState() : null;
 
     // 收集所有被选中的 filter group，同组内为 OR，不同组为 AND
     const filterGroups = [...document.querySelectorAll('.plp-filter-group')];
@@ -1804,11 +2020,24 @@ window.applyPlpFilters = function applyPlpFilters() {
       const itemTags = tagsRaw.map((t) => String(t).toLowerCase());
       if (!itemTags.length) return false;
 
-      return selectedByGroup.every((groupSelected) => groupSelected.some((selectedTag) => {
+      const matchesTagFilters = selectedByGroup.every((groupSelected) => groupSelected.some((selectedTag) => {
         const selectedLower = String(selectedTag).toLowerCase();
         // 完全匹配标签路径
         return itemTags.includes(selectedLower);
       }));
+
+      if (!matchesTagFilters) {
+        return false;
+      }
+
+      if (!priceFilterState?.ready || typeof window.getPlpItemResolvedPrice !== 'function') {
+        return true;
+      }
+
+      const itemPrice = Number(window.getPlpItemResolvedPrice(item));
+      const normalizedPrice = Number.isFinite(itemPrice) ? itemPrice : 0;
+      return normalizedPrice >= priceFilterState.selectedMin
+        && normalizedPrice <= priceFilterState.selectedMax;
     });
 
     // 保存筛选结果，用于后续排序

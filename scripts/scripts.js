@@ -13,7 +13,7 @@ import {
   loadCSS,
 } from './aem.js';
 import { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
-import { getHybrisBffBaseUrl, initializeHybrisAuth } from './hybris-bff.js';
+import { getHybrisBffBaseUrl, initializeHybrisAuth, scheduleHybrisTask } from './hybris-bff.js';
 import { getFragmentPath } from './locale-utils.js';
 
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
@@ -172,7 +172,10 @@ async function loadRemoteErrorPage(main) {
 async function loadEager(doc) {
   // Set global API variables first
   setGlobalApiVariables();
-  initializeHybrisAuth();
+  scheduleHybrisTask(() => initializeHybrisAuth()).catch((error) => {
+    // eslint-disable-next-line no-console
+    console.warn('Failed to initialize Hybris auth', error);
+  });
 
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();

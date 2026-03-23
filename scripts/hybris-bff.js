@@ -117,13 +117,8 @@ function setAuthState(nextState = {}) {
   return getCachedAuthState();
 }
 
-function clearProductCache() {
-  productCache.clear();
-}
-
 function clearSessionToken() {
   sessionToken = '';
-  clearProductCache();
   try {
     sessionStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
   } catch (error) {
@@ -135,10 +130,6 @@ function clearSessionToken() {
 function saveSessionToken(nextToken) {
   if (!nextToken) {
     return;
-  }
-
-  if (sessionToken !== nextToken) {
-    clearProductCache();
   }
 
   sessionToken = nextToken;
@@ -254,6 +245,24 @@ export function getHybrisProductCode(product = {}) {
 
 export function startHybrisLogin(returnUrl = (typeof window !== 'undefined' ? window.location.href : '/')) {
   redirectToHybrisLogin(returnUrl);
+}
+
+export function scheduleHybrisTask(task) {
+  return new Promise((resolve, reject) => {
+    const execute = () => {
+      Promise.resolve()
+        .then(task)
+        .then(resolve)
+        .catch(reject);
+    };
+
+    if (typeof window !== 'undefined' && typeof window.setTimeout === 'function') {
+      window.setTimeout(execute, 0);
+      return;
+    }
+
+    execute();
+  });
 }
 
 export async function exchangeHybrisCodeIfPresent() {
@@ -444,8 +453,7 @@ export async function fetchHybrisProduct(code, options = {}) {
   }
 
   ensureSessionTokenLoaded();
-  const authBucket = sessionToken ? 'auth' : 'anon';
-  const cacheKey = `${authBucket}:${normalizedCode}`;
+  const cacheKey = normalizedCode;
   if (!options.force && productCache.has(cacheKey)) {
     return productCache.get(cacheKey);
   }
@@ -503,11 +511,20 @@ export async function addHybrisCartItem(code, quantity = 1, options = {}) {
 }
 
 export async function addHybrisWishlistItem(code, quantity = 1, options = {}) {
+  const cartCode = String(options.cartCode || '').trim();
+  if (!cartCode) {
+    throw buildBffError('Wishlist cartCode is required', {
+      status: 0,
+      errorCode: 'INVALID_REQUEST',
+    });
+  }
+
   const { country, language } = buildRegionParams();
   return bffRequest('/wishlist/items', {
     method: 'POST',
     auth: 'required',
     body: {
+      cartCode,
       code,
       quantity,
     },
@@ -521,11 +538,20 @@ export async function addHybrisWishlistItem(code, quantity = 1, options = {}) {
 }
 
 export async function removeHybrisWishlistItem(entryNumber, options = {}) {
+  const cartCode = String(options.cartCode || '').trim();
+  if (!cartCode) {
+    throw buildBffError('Wishlist cartCode is required', {
+      status: 0,
+      errorCode: 'INVALID_REQUEST',
+    });
+  }
+
   const { country, language } = buildRegionParams();
   return bffRequest(`/wishlist/items/${encodeURIComponent(entryNumber)}`, {
     method: 'DELETE',
     auth: 'required',
     query: {
+      cartCode,
       country,
       language,
     },
