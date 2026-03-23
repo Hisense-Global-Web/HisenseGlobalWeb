@@ -840,7 +840,7 @@ a.button.primary:active {
 .section.green {
   .default-content-wrapper {
     a.button.secondary:hover {
-      color: var(--background-color);
+      color: var(--color-primary-grey-10);
       background-color: var(--color-primary-grey-70);
     }
 

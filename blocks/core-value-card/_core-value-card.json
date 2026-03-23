@@ -66,6 +66,37 @@
           "name": "subtitle",
           "label": "Sub Title",
           "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "cta_classes",
+          "value": "",
+          "label": "Button Background Color",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": "transparent"
+            },
+            {
+              "name": "hisense-black",
+              "value": "hisense-black"
+            }
+          ]
+        },
+        {
+          "component": "aem-content",
+          "name": "cta_link",
+          "label": "Button Link",
+          "valueType": "string",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "name": "cta_label",
+          "label": "Button Label",
+          "valueType": "string",
+          "value": ""
         }
       ]
     },

@@ -1,3 +1,7 @@
+.sustainability-dashboard-list-wrapper {
+  width: 100%;
+}
+
 .sustainability-dashboard-list {
   display: flex;
   align-items: flex-start;
