@@ -125,6 +125,16 @@
     }
 }
 
+.display-left-mobile .icon-container-box {
+  align-items: center;
+  justify-content: center;
+  
+  @media (width< 860px){
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+
 .fixed-width .icon-container-box{
     align-items: flex-start;
     flex-direction: column;

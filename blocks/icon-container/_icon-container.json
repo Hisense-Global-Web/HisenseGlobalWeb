@@ -80,8 +80,8 @@
               "value": "customize-bottom"
             },
             {
-              "name": "Display on the left side.",
-              "value": "display-left"
+              "name": "Display Left(Only Mobile)",
+              "value": "display-left-mobile"
             }
           ]
         }
