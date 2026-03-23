@@ -4362,6 +4362,25 @@
         "label": "Sort By Text",
         "value": "Sort By",
         "required": true
+      },
+      {
+        "component": "select",
+        "name": "type",
+        "label": "Display Type",
+        "options": [
+          {
+            "name": "Product",
+            "value": "product"
+          },
+          {
+            "name": "News",
+            "value": "news"
+          },
+          {
+            "name": "Blog",
+            "value": "blog"
+          }
+        ]
       }
     ]
   },
