@@ -88,6 +88,10 @@
     }
     
     .support-sort-box {
+      .plp-filters-left {
+        display: none;
+      }
+      
       .plp-sort-box {
         position: relative;
         width: min(calc(184 / var(--breakpoint-pc) * 100vw), 184px);

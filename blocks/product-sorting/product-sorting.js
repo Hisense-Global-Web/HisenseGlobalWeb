@@ -91,6 +91,8 @@ export default function decorate(block) {
         filterTags.push(buildFilterTag(row, resource, isEditMode));
         currentContext = 'title';
         resourceTitle = resource;
+      } else if (left === 'type') {
+        filtersBar.setAttribute('data-type', right);
       } else if (currentContext === 'sortBy') {
         const option = {
           label: left, value: right, resource, isDefaultSearch: false,

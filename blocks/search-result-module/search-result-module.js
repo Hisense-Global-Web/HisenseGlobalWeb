@@ -637,21 +637,26 @@ export default async function decorate(block) {
     filterGroup.className = 'filter-group';
     const sortBox = document.createElement('div');
     sortBox.className = 'support-sort-box';
-    if (block.parentNode.parentNode && tabData.type === 'product') {
-      sortBox.append(block.parentNode.parentNode.querySelector('.plp-filters-bar').cloneNode(true));
+    if (block.parentNode.parentNode) {
+      if (tabData.type === 'product') {
+        const bar = block.parentNode.parentNode.querySelector('.plp-filters-bar[data-type="product"]');
+        sortBox.append(bar?.cloneNode(true) || document.createElement('div'));
+      }
+      if (tabData.type === 'news') {
+        const bar = block.parentNode.parentNode.querySelector('.plp-filters-bar[data-type="news"]');
+        sortBox.append(bar?.cloneNode(true) || document.createElement('div'));
+      }
+      if (tabData.type === 'blog') {
+        const bar = block.parentNode.parentNode.querySelector('.plp-filters-bar[data-type="blog"]');
+        sortBox.append(bar?.cloneNode(true) || document.createElement('div'));
+      }
 
       const sort = sortBox.querySelector('.plp-sort');
-      sort.addEventListener('click', () => {
+      sort?.addEventListener('click', () => {
         sortBox.classList.toggle('show');
-        // 为排序移动端添加样式
-        // if (isMobileWindow()) {
-        //   e.preventDefault();
-        // } else {
-        //   sortBox.classList.toggle('show');
-        // }
       });
       const sortOptions = sortBox.querySelector('.plp-sort-options');
-      sortOptions.querySelectorAll('.plp-sort-option').forEach((option) => {
+      sortOptions?.querySelectorAll('.plp-sort-option').forEach((option) => {
         option.addEventListener('click', () => {
           if (option.classList.contains('selected')) {
             sortBox.classList.remove('show');
