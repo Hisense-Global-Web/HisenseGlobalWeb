@@ -15,11 +15,13 @@ export default function decorate(block) {
     } else if (i === 2) {
       // handle button
       const target = row.firstElementChild;
-      target.querySelector('a').classList.add(target.firstElementChild.textContent);
-      target.querySelector('a').textContent = target.lastElementChild.textContent;
-      target.firstElementChild.remove();
-      target.lastElementChild.remove();
-      button.append(...row.firstElementChild.children);
+      if (target.querySelector('a')) {
+        target.querySelector('a').classList.add(target.firstElementChild.textContent);
+        target.querySelector('a').textContent = target.lastElementChild.textContent;
+        target.firstElementChild.remove();
+        target.lastElementChild.remove();
+        button.append(...row.firstElementChild.children);
+      }
     } else {
       const li = document.createElement('li');
       li.classList.add('card-item');
