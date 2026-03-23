@@ -96,6 +96,7 @@
 
 .huge-icon .icon-container-item .icon-image img {
   height: var(--size-120);
+
   @media (width < 860px) {
     height: var(--size-60);
   }
@@ -127,11 +128,11 @@
 
 .display-left-mobile .icon-container-box {
   align-items: center;
-  justify-content: center;
+  justify-content: center !important;
   
-  @media (width< 860px){
+  @media (width < 860px){
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-start !important;
   }
 }
 
