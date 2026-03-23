@@ -7,10 +7,23 @@ export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
   const title = document.createElement('div');
+  const button = document.createElement('div');
   [...block.children].forEach((row, i) => {
     if (i <= 1) {
       title.className = 'title';
       title.append(...row.children);
+    } else if (i === 2) {
+      // handle button
+      const target = row.firstElementChild;
+      if (target.querySelector('a')) {
+        target.querySelector('a').classList.add(target.firstElementChild.textContent);
+        target.firstElementChild.remove();
+        if (target.lastElementChild !== target.querySelector('.button-container')) {
+          target.querySelector('a').textContent = target.lastElementChild.textContent;
+          target.lastElementChild.remove();
+        }
+        button.append(...row.firstElementChild.children);
+      }
     } else {
       const li = document.createElement('li');
       li.classList.add('card-item');
@@ -67,5 +80,5 @@ export default function decorate(block) {
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
   });
-  block.replaceChildren(title, ul);
+  block.replaceChildren(title, ul, button);
 }

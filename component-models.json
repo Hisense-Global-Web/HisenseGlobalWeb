@@ -1527,6 +1527,37 @@
         "name": "subtitle",
         "label": "Sub Title",
         "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "cta_classes",
+        "value": "",
+        "label": "Button Background Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "transparent"
+          },
+          {
+            "name": "hisense-black",
+            "value": "hisense-black"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "name": "cta_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "cta_label",
+        "label": "Button Label",
+        "valueType": "string",
+        "value": ""
       }
     ]
   },
@@ -2951,6 +2982,10 @@
             "value": "large-icon"
           },
           {
+            "name": "Only Huge Icon(120px)",
+            "value": "huge-icon"
+          },
+          {
             "name": "Margin-top",
             "value": "top-space"
           },
@@ -2973,6 +3008,10 @@
           {
             "name": "Icon-Overlay_bottom",
             "value": "customize-bottom"
+          },
+          {
+            "name": "Display Left(Only Mobile)",
+            "value": "display-left-mobile"
           }
         ]
       }
@@ -3188,7 +3227,7 @@
         ]
       },
       {
-        "component": "aem-content",
+        "component": "reference",
         "name": "button_CTALink",
         "label": "CTA Link",
         "valueType": "string"
@@ -4420,6 +4459,25 @@
         "label": "Sort By Text",
         "value": "Sort By",
         "required": true
+      },
+      {
+        "component": "select",
+        "name": "type",
+        "label": "Display Type",
+        "options": [
+          {
+            "name": "Product",
+            "value": "product"
+          },
+          {
+            "name": "News",
+            "value": "news"
+          },
+          {
+            "name": "Blog",
+            "value": "blog"
+          }
+        ]
       }
     ]
   },
@@ -5253,22 +5311,26 @@
     "id": "achievement-matrix",
     "fields": [
       {
-        "component": "text",
+        "component": "select",
         "label": "",
         "name": "block-item",
         "valueType": "string",
-        "value": "matrix-block-item",
+        "value": "",
         "hidden": true,
-        "readOnly": true
+        "options": [
+          {
+            "name": "matrix-block-item",
+            "value": "matrix-block-item"
+          }
+        ]
       },
       {
         "component": "text",
         "label": "",
         "name": "label-tag",
         "valueType": "string",
-        "value": "matrix-label",
-        "hidden": true,
-        "readOnly": true
+        "value": "",
+        "hidden": true
       },
       {
         "component": "text",
@@ -5281,9 +5343,8 @@
         "label": "",
         "name": "label-value",
         "valueType": "string",
-        "value": "matrix-value",
-        "hidden": true,
-        "readOnly": true
+        "value": "",
+        "hidden": true
       },
       {
         "component": "text",
@@ -5297,22 +5358,18 @@
     "id": "achievement-highlights",
     "fields": [
       {
-        "component": "text",
+        "component": "select",
         "label": "",
         "name": "block-item2",
         "valueType": "string",
-        "value": "highlights-block-item",
+        "value": "",
         "hidden": true,
-        "readOnly": true
-      },
-      {
-        "component": "text",
-        "label": "",
-        "name": "label-tag",
-        "valueType": "string",
-        "value": "highlights-text",
-        "hidden": true,
-        "readOnly": true
+        "options": [
+          {
+            "name": "highlights-block-item",
+            "value": "highlights-block-item"
+          }
+        ]
       },
       {
         "component": "text",
