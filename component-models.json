@@ -5200,15 +5200,6 @@
       },
       {
         "component": "text",
-        "label": "",
-        "name": "label-tag",
-        "valueType": "string",
-        "value": "highlights-text",
-        "hidden": true,
-        "readOnly": true
-      },
-      {
-        "component": "text",
         "name": "highlights-text",
         "label": "Highlights Text",
         "valueType": "string"
