@@ -5195,22 +5195,26 @@
     "id": "achievement-matrix",
     "fields": [
       {
-        "component": "text",
+        "component": "select",
         "label": "",
         "name": "block-item",
         "valueType": "string",
-        "value": "matrix-block-item",
+        "value": "",
         "hidden": true,
-        "readOnly": true
+        "options": [
+          {
+            "name": "matrix-block-item",
+            "value": "matrix-block-item"
+          }
+        ]
       },
       {
         "component": "text",
         "label": "",
         "name": "label-tag",
         "valueType": "string",
-        "value": "matrix-label",
-        "hidden": true,
-        "readOnly": true
+        "value": "",
+        "hidden": true
       },
       {
         "component": "text",
@@ -5223,9 +5227,8 @@
         "label": "",
         "name": "label-value",
         "valueType": "string",
-        "value": "matrix-value",
-        "hidden": true,
-        "readOnly": true
+        "value": "",
+        "hidden": true
       },
       {
         "component": "text",
@@ -5239,22 +5242,18 @@
     "id": "achievement-highlights",
     "fields": [
       {
-        "component": "text",
+        "component": "select",
         "label": "",
         "name": "block-item2",
         "valueType": "string",
-        "value": "highlights-block-item",
+        "value": "",
         "hidden": true,
-        "readOnly": true
-      },
-      {
-        "component": "text",
-        "label": "",
-        "name": "label-tag",
-        "valueType": "string",
-        "value": "highlights-text",
-        "hidden": true,
-        "readOnly": true
+        "options": [
+          {
+            "name": "highlights-block-item",
+            "value": "highlights-block-item"
+          }
+        ]
       },
       {
         "component": "text",
