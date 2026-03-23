@@ -72,11 +72,14 @@
           margin-bottom: var(--size-16);
         }
 
-        .text {
+        /* 受text组件影响--重置margin等 */
+        .text p{
           color: var(--color-primary-grey-70, #333);
           font-size: var(--fontsize-body1, 16px);
           font-weight: var(--fontweight-book);
           line-height: 150%; /* 24px */
+          text-align: left;
+          margin: 0;
         }
       }
 

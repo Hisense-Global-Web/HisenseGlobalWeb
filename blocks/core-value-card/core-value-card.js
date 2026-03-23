@@ -12,7 +12,7 @@ export default function decorate(block) {
     if (i <= 1) {
       title.className = 'title';
       title.append(...row.children);
-    } else if (i == 2 ) {
+    } else if (i === 2) {
       // handle button
       const target = row.firstElementChild;
       target.querySelector('a').classList.add(target.firstElementChild.textContent);
