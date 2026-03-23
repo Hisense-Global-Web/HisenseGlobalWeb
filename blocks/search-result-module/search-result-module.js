@@ -640,15 +640,15 @@ export default async function decorate(block) {
     if (block.parentNode.parentNode) {
       if (tabData.type === 'product') {
         const bar = block.parentNode.parentNode.querySelector('.plp-filters-bar[data-type="product"]');
-        sortBox.append(bar?.cloneNode(true) || '');
+        sortBox.append(bar?.cloneNode(true) || document.createElement('div'));
       }
       if (tabData.type === 'news') {
         const bar = block.parentNode.parentNode.querySelector('.plp-filters-bar[data-type="news"]');
-        sortBox.append(bar?.cloneNode(true) || '');
+        sortBox.append(bar?.cloneNode(true) || document.createElement('div'));
       }
       if (tabData.type === 'blog') {
         const bar = block.parentNode.parentNode.querySelector('.plp-filters-bar[data-type="blog"]');
-        sortBox.append(bar?.cloneNode(true) || '');
+        sortBox.append(bar?.cloneNode(true) || document.createElement('div'));
       }
 
       const sort = sortBox.querySelector('.plp-sort');
