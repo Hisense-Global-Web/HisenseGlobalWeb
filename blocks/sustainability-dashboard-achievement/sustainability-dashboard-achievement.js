@@ -27,6 +27,8 @@ export default function decorate(block) {
     //   child.className = child.firstElementChild?.textContent.trim();
     //   child.firstElementChild.remove();
     // }
+    child.className = child.firstElementChild?.textContent.trim();
+    child.firstElementChild.remove();
     if (!child.classList.contains('image')) {
       if (!child.className.includes('btn')) {
         titleArea.append(child);
