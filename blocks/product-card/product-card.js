@@ -1161,6 +1161,18 @@ export default function decorate(block) {
       const productBtnGroupEl = document.createElement('div');
       productBtnGroupEl.className = 'plp-product-btn-group';
 
+      const divEl = document.createElement('div');
+      divEl.addEventListener('click', () => {
+        console.log('clicked');
+        // TODO: document修改popup的值；然后点开
+        const mask = document.querySelector('#product-card-mask');
+        mask.style.display = 'block';
+        const popup = document.querySelector('#product-card-popup');
+        popup.style.display = 'block';
+      });
+      divEl.textContent = '123';
+      productBtnGroupEl.append(divEl);
+
       // where to by
       const addToCartBtnEl = document.createElement('div');
       addToCartBtnEl.className = 'plp-add-to-cart-btn plp-purchase-hidden';
@@ -1951,6 +1963,100 @@ export default function decorate(block) {
     });
   /* eslint-disable-next-line no-underscore-dangle */
   window.renderItems = renderItems;
+
+  const popup = document.createElement('div');
+  popup.id = 'product-card-popup';
+  const closeImg = document.createElement('img');
+  closeImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+  closeImg.className = 'close-icon';
+  popup.append(closeImg);
+
+  const popupTitle = document.createElement('div');
+  popupTitle.className = 'popup-title';
+  popupTitle.textContent = 'Item added to your cart';
+
+  const popupList = document.createElement('div');
+  popupList.className = 'popup-list';
+  const img = document.createElement('img');
+  img.src = '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png';
+
+  const popupInfo = document.createElement('div');
+  popupInfo.className = 'popup-info';
+
+  const popupInfoTitle = document.createElement('div');
+  popupInfoTitle.className = 'popup-info-title';
+  const popupInfoTitleSpan = document.createElement('span');
+  popupInfoTitleSpan.textContent = '55U8K 55" ULED 4K Smart TV';
+  const deleteIcon = document.createElement('img');
+  deleteIcon.src = `/content/dam/hisense/${country}/common-icons/delete.svg`;
+  deleteIcon.className = 'delete-icon';
+  popupInfoTitle.append(popupInfoTitleSpan, deleteIcon);
+
+  const popupInfoModel = document.createElement('div');
+  popupInfoModel.className = 'popup-info-model';
+  const modelLine = document.createElement('div');
+  const popupInfoModelSpan = document.createElement('span');
+  popupInfoModelSpan.textContent = 'Model:';
+  const popupInfoModelValueSpan = document.createElement('span');
+  popupInfoModelValueSpan.className = 'model-value';
+  popupInfoModelValueSpan.textContent = '55U8K';
+  const stockLine = document.createElement('div');
+  stockLine.textContent = 'In Stock';
+
+  modelLine.append(popupInfoModelSpan, popupInfoModelValueSpan);
+  popupInfoModel.append(modelLine, stockLine);
+
+  const popupInfoPrice = document.createElement('div');
+  popupInfoPrice.className = 'popup-info-price';
+  const priceSpan = document.createElement('span');
+  priceSpan.className = 'price-value';
+  priceSpan.textContent = '$999';
+  const countChangeEl = document.createElement('div');
+  countChangeEl.className = 'count-change';
+  const qtySpan = document.createElement('span');
+  qtySpan.className = 'qty-span';
+  qtySpan.textContent = 'Qty:';
+  const btnMinus = document.createElement('div');
+  btnMinus.textContent = '-';
+  const btnPlus = document.createElement('div');
+  btnPlus.textContent = '+';
+  const inputEl = document.createElement('input');
+  inputEl.className = 'qty-input';
+  
+  countChangeEl.append(qtySpan, btnMinus, inputEl, btnPlus);
+
+  popupInfoPrice.append(priceSpan, countChangeEl);
+  popupInfo.append(popupInfoTitle, popupInfoModel, popupInfoPrice);
+  popupList.append(img, popupInfo);
+
+  const popupLine = document.createElement('div');
+  popupLine.className = 'popup-line';
+
+  const totalEl = document.createElement('div');
+  totalEl.className = 'total';
+  const totalSpan = document.createElement('div');
+  totalSpan.className = 'total-span';
+  totalSpan.innerHTML = 'Cart total (<span class="total-num">1</span> item)';
+  const totalPriceSpan = document.createElement('span');
+  totalPriceSpan.className = 'price-value';
+  totalPriceSpan.textContent = '$999';
+  totalEl.append(totalSpan, totalPriceSpan);
+
+  const btnGroup = document.createElement('div');
+  btnGroup.className = 'btn-group';
+  const viewCartBtn = document.createElement('button');
+  viewCartBtn.className = 'view-cart-btn';
+  viewCartBtn.textContent = 'View cart';
+  const checkoutBtn = document.createElement('button');
+  checkoutBtn.className = 'checkout-btn';
+  checkoutBtn.textContent = 'Proceed to checkout';
+  btnGroup.append(viewCartBtn, checkoutBtn);
+
+  popup.append(popupTitle, popupList, popupLine, totalEl, btnGroup);
+  const mask = document.createElement('div');
+  mask.id = 'product-card-mask';
+  const body = document.querySelector('body');
+  body.append(popup, mask);
 }
 
 // 是否使用 description_shortDescription 作为图片链接，默认使用
