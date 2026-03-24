@@ -3405,7 +3405,34 @@
       {
         "component": "aem-content",
         "name": "button_link",
-        "label": "Button Link"
+        "label": "Button Link",
+        "condition": {
+          "or": [
+            {
+              "===": [
+                {
+                  "var": "classes"
+                },
+                "left-style"
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "classes"
+                },
+                "left-bottom-style"
+              ]
+            },
+            {
+              "log": [
+                {
+                  "var": "media-carousel"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "text",

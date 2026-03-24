@@ -112,7 +112,7 @@
           "label": "Image or Video",
           "multi": false
         },
-                {
+        {
           "component": "reference",
           "valueType": "string",
           "name": "img",
@@ -144,7 +144,14 @@
         {
           "component": "aem-content",
           "name": "button_link",
-          "label": "Button Link"
+          "label": "Button Link",
+          "condition": {
+            "or" : [
+              {"===":[{"var": "classes"}, "left-style"]},
+              {"===":[{"var": "classes"}, "left-bottom-style"]},
+              {"log": [{"var": "media-carousel"}]}
+            ]
+          }
         },
         {
           "component": "text",
