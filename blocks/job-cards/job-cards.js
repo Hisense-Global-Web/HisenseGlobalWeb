@@ -577,36 +577,10 @@ export default function decorate(block) {
   };
 
   function renderItems(items) {
+    console.log(items);
     // 重置分页状态
     currentPage = 1;
     productsGrid.innerHTML = ''; // 清空现有内容
-
-    // 处理所有产品数据的 productDetailPageLink
-    items.forEach((item) => {
-      if (item.productDetailPageLink && typeof item.productDetailPageLink === 'string') {
-        const { hostname, pathname } = window.location;
-        if (hostname.includes('hisense.com') && pathname.startsWith('/us')) {
-          item.productDetailPageLink = item.productDetailPageLink.replace('/us/en', '/us');
-        }
-      }
-      if (!Array.isArray(item.tags)) {
-        item.tags = [];
-      }
-      // 显示colorName时，确保color属性都不能为空
-      if (item.colorName != null && item.color == null) {
-        item.color = item.colorName;
-      }
-      // 补全ConnectLife Enabled没有配置的情况
-      const TAG_YES = 'hisense:product/tv/connectlife-enabled/yes';
-      const TAG_NO = 'hisense:product/tv/connectlife-enabled/no';
-      const hasYesTag = item.tags.includes(TAG_YES);
-      const hasNoTag = item.tags.includes(TAG_NO);
-
-      // 如果两个标签都不包含，就插入NO标签
-      if (!hasYesTag && !hasNoTag) {
-        item.tags.push(TAG_NO);
-      }
-    });
 
     // 按 factoryModel 聚合
     const groups = {};
@@ -758,21 +732,7 @@ export default function decorate(block) {
       // 初始化询问比较固定栏
       fixedBottomCompareBar();
     })
-    .catch(() => {
-      const items = (mockData && mockData.data) || [];
-      window.productData = items;
-      if (window.renderPlpProducts) {
-        window.renderPlpProducts(items);
-      } else {
-        renderItems(items);
-      }
-      // 页面初始化查询用默认排序
-      applyDefaultSort();
-      // 检查URL参数并应用筛选
-      applyUrlFilters();
-      // 初始化询问比较固定栏
-      fixedBottomCompareBar();
-    });
+    .catch(() => {});
   /* eslint-disable-next-line no-underscore-dangle */
   window.renderItems = renderItems;
 }
