@@ -3227,7 +3227,7 @@
         ]
       },
       {
-        "component": "aem-content",
+        "component": "reference",
         "name": "button_CTALink",
         "label": "CTA Link",
         "valueType": "string"
