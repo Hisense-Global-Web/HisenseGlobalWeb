@@ -301,23 +301,23 @@ export default async function decorate(block) {
     }
 
     const textContent = document.createElement('div');
-    textContent.className = "text-content";
+    textContent.className = 'text-content';
     const textArea = document.createElement('div');
-    textArea.className = "text-area";
+    textArea.className = 'text-area';
     let btnDom;
 
     textContentDom.forEach((textDom, ti) => {
       switch (ti) {
         case 0:
-          textDom.className = "subtitle";
+          textDom.className = 'subtitle';
           textArea.append(textDom);
           break;
         case 1:
-          textDom.className = "title";
+          textDom.className = 'title';
           textArea.append(textDom);
           break;
         case 2:
-          textDom.className = "body-text";
+          textDom.className = 'body-text';
           textArea.append(textDom);
           break;
         default:
@@ -327,7 +327,7 @@ export default async function decorate(block) {
             textDom.querySelector('.button-container').nextElementSibling.remove();
           }
           btnDom = textDom;
-          btnDom.className = "btn-div";
+          btnDom.className = 'btn-div';
           break;
       }
     });
