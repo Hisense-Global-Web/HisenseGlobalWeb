@@ -44,6 +44,12 @@
           "multi": false
         },
         {
+          "component": "text",
+          "valueType": "string",
+          "name": "section_subtitle",
+          "label": "Section Subtitle"
+        },
+        {
           "component": "number",
           "name": "pc_numberColumns",
           "label": "PC: Items per row",
