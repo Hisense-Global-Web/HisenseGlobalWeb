@@ -112,20 +112,44 @@
           "label": "Image or Video",
           "multi": false
         },
-        {
-          "component": "richtext",
-          "name": "text",
-          "value": "",
-          "label": "Text Content",
-          "valueType": "string"
-        },
-        {
+                {
           "component": "reference",
           "valueType": "string",
           "name": "img",
           "label": "Img Snapshot For Video Loading",
           "condition": { "===": [{ "var": "mainContent" }, "video"] },
           "multi": false
+        },
+        {
+          "component": "text",
+          "name": "subtitle",
+          "value": "",
+          "label": "Subtitle",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "value": "",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "body",
+          "value": "",
+          "label": "Body Text",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "component": "text",
+          "name": "button_label",
+          "label": "Button Label"
         }
       ]
     }
