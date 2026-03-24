@@ -156,7 +156,10 @@
           "component": "text",
           "name": "button_label",
           "label": "Button Label",
-          "condition":{"log": [{"var": "block_classes"}]}
+          "condition":{ "some": [
+            ["left-style", "left-bottom-style"],
+            { "parentValue": { "var": "block_classes" } }
+          ]}
         }
       ]
     }
