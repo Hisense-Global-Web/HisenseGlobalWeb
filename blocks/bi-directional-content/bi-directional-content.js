@@ -95,7 +95,7 @@ export default function decorate(block) {
   [...block.children].forEach((row, i) => {
     if (i < 1) {
       // title有值则加载
-      if (title.children?.length) {
+      if (row.children?.length) {
         title.classList = 'title';
         title.append(...row.children);
       }
