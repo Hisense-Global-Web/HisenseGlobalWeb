@@ -125,7 +125,8 @@
   align-items: center; 
   gap: var(--size-8);
   margin:var(--size-24) 0 0;
-  display: none;
+  visibility:hidden;
+  display: flex;
 
   @media (width >= 860px) {
     font-size: var(--size-24);
@@ -136,7 +137,8 @@
 
 
 .industry-categories .active .card-body {
-    display: flex;
+   visibility: visible;
+   
 }
 
 
