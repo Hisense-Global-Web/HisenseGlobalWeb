@@ -168,6 +168,7 @@
   gap: var(--size-8);
   border-radius: var(--size-100);
   margin-top: var(--size-80);
+  font-weight: var(--fontweight-medium);
 
   &.transparent {
     background-color: transparent;

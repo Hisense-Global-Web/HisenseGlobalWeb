@@ -826,6 +826,7 @@ a.button.primary:active {
     align-items: center;
     gap: var(--size-8);
     border-radius: var(--size-100);
+    font-weight: var(--fontweight-medium);
 
     @media (width < 860px) {
       height: var(--size-40);
