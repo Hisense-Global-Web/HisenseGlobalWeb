@@ -55,7 +55,7 @@ const generateTextArea = (itemEl, textAreaStyleEl, buyNowEl, downloadEl) => {
       iconEl.className = 'download';
       let btnLink = '';
       let isImg = false;
-      if (linkEl.querySelector('img')) {
+      if (linkEl?.querySelector('img')) {
         btnLink = linkEl.querySelector('img').src;
         isImg = true;
       } else {
