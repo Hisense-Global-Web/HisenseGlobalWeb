@@ -165,7 +165,6 @@
 }
 
 .industry-categories .card-title{
-  display: none;
   z-index: 99;
   position: relative;
   color: var(--color-primary-grey-10);

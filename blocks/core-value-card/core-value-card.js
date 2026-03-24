@@ -36,7 +36,11 @@ export default function decorate(block) {
           div.className = 'card-image';
           div.setAttribute('data-card-index', index);
           const arrow = document.createElement('img');
-          arrow.classList.add('arrow', 'hide');
+          if (index === 0) {
+            arrow.classList.add('arrow');
+          } else {
+            arrow.classList.add('arrow', 'hide');
+          }
           arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-white-up.svg`;
           arrow.setAttribute('data-target-index', index);
           arrow.addEventListener('click', (e) => {
