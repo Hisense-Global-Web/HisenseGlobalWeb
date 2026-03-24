@@ -688,7 +688,7 @@
   background-color: white;
   border-radius: var(--size-20);
   z-index: 10000;
-  /*display: none;*/
+  display: none;
   padding: var(--size-80);
   box-sizing: border-box;
   
