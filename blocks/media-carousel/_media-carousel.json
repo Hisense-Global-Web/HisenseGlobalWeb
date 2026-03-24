@@ -149,7 +149,7 @@
             "or" : [
               {"===":[{"var": "classes"}, "left-style"]},
               {"===":[{"var": "classes"}, "left-bottom-style"]},
-              {"log": [{"var": "media-carousel"}]}
+              {"log": [{"var": "Media Carousel"}]}
             ]
           }
         },
