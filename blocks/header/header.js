@@ -953,6 +953,12 @@ export default async function decorate(block) {
         btn.dataset.loading = 'false';
         btn.addEventListener('click', handleAccountActionClick);
       }
+
+      // TODO: 是否为购物车，购物车的数量
+      const countSpan = document.createElement('span');
+      countSpan.className = 'count-span';
+      countSpan.textContent = '3';
+      btn.append(countSpan);
       actionsEl.append(btn);
       return;
     }
