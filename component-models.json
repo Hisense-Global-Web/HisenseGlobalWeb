@@ -3432,11 +3432,7 @@
         "name": "button_label",
         "label": "Button Label",
         "condition": {
-          "some": [
-            [
-              "left-style",
-              "left-bottom-style"
-            ],
+          "log": [
             {
               "parentValue": {
                 "var": "block_classes"
