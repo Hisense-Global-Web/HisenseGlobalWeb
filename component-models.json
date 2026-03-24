@@ -3293,7 +3293,7 @@
     "fields": [
       {
         "component": "select",
-        "name": "block_classes",
+        "name": "classes",
         "value": "",
         "label": "Text Position",
         "description": "",
@@ -3405,41 +3405,12 @@
       {
         "component": "aem-content",
         "name": "button_link",
-        "label": "Button Link",
-        "condition": {
-          "or": [
-            {
-              "===": [
-                {
-                  "var": "block_classes"
-                },
-                "left-style"
-              ]
-            },
-            {
-              "===": [
-                {
-                  "var": "block_classes"
-                },
-                "left-bottom-style"
-              ]
-            }
-          ]
-        }
+        "label": "Button Link"
       },
       {
         "component": "text",
         "name": "button_label",
-        "label": "Button Label",
-        "condition": {
-          "log": [
-            {
-              "parentValue": {
-                "var": "block_classes"
-              }
-            }
-          ]
-        }
+        "label": "Button Label"
       }
     ]
   },
