@@ -5,10 +5,12 @@ export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
   const title = document.createElement('div');
-  const [titleEl, pcColumnsEl, mobileColumnsEl, ...rows] = [...block.children];
-  title.className = 'title';
+  const [titleStyleEl, titleEl, pcColumnsEl, mobileColumnsEl, ...rows] = [...block.children];
+  const titleStyle = titleStyleEl?.querySelector?.('p')?.textContent ?? 'normal';
+  title.classList.add('title', titleStyle);
   title.append(titleEl);
 
+  titleStyleEl?.remove();
   pcColumnsEl?.remove();
   mobileColumnsEl?.remove();
   if (rows?.length) {

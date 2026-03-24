@@ -1,3 +1,7 @@
+.special-capitalize-text-list-wrapper {
+  width: 100%;
+}
+
 .special-capitalize-text-list {
   display: grid;
   gap: var(--spacing-sm, 24px);
