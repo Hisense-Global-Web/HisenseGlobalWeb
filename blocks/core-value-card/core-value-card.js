@@ -36,7 +36,7 @@ export default function decorate(block) {
           div.className = 'card-image';
           div.setAttribute('data-card-index', index);
           const arrow = document.createElement('img');
-          if (index === 0) {
+          if (i === 3) {
             arrow.classList.add('arrow');
           } else {
             arrow.classList.add('arrow', 'hide');
