@@ -10,6 +10,7 @@ export default function decorate(block) {
   title.classList.add('title', titleStyle);
   title.append(titleEl);
 
+  titleStyleEl?.remove();
   pcColumnsEl?.remove();
   mobileColumnsEl?.remove();
   if (rows?.length) {
