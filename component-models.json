@@ -3293,7 +3293,7 @@
     "fields": [
       {
         "component": "select",
-        "name": "classes",
+        "name": "classes_text",
         "value": "",
         "label": "Text Position",
         "description": "",
@@ -3423,13 +3423,6 @@
                 },
                 "left-bottom-style"
               ]
-            },
-            {
-              "log": [
-                {
-                  "var": "Media Carousel"
-                }
-              ]
             }
           ]
         }
@@ -3441,7 +3434,7 @@
         "condition": {
           "log": [
             {
-              "var": "media-carousel"
+              "var": "classes_text"
             }
           ]
         }

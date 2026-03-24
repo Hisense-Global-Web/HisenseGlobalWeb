@@ -39,7 +39,7 @@
       "fields": [
         {
           "component": "select",
-          "name": "classes",
+          "name": "classes_text",
           "value": "",
           "label": "Text Position",
           "description": "",
@@ -148,8 +148,7 @@
           "condition": {
             "or" : [
               {"===":[{"var": "classes"}, "left-style"]},
-              {"===":[{"var": "classes"}, "left-bottom-style"]},
-              {"log": [{"var": "Media Carousel"}]}
+              {"===":[{"var": "classes"}, "left-bottom-style"]}
             ]
           }
         },
@@ -157,7 +156,7 @@
           "component": "text",
           "name": "button_label",
           "label": "Button Label",
-          "condition":{"log": [{"var": "media-carousel"}]}
+          "condition":{"log": [{"var": "classes_text"}]}
         }
       ]
     }
