@@ -49,6 +49,27 @@
           ]
         },
         {
+          "component": "reference",
+          "name": "department-icon",
+          "label": "Department Icon",
+          "valueType": "string",
+          "condition": {
+            "some": [
+              {
+                "var": "fields"
+              },
+              {
+                "===": [
+                  {
+                    "var": ""
+                  },
+                  "department"
+                ]
+              }
+            ]
+          }
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "loadMoreTextContent",

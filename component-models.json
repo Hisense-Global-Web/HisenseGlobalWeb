@@ -3227,7 +3227,7 @@
         ]
       },
       {
-        "component": "reference",
+        "component": "aem-content",
         "name": "button_CTALink",
         "label": "CTA Link",
         "valueType": "string"
@@ -3274,6 +3274,27 @@
             "value": "salary-range"
           }
         ]
+      },
+      {
+        "component": "reference",
+        "name": "department-icon",
+        "label": "Department Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "department"
+              ]
+            }
+          ]
+        }
       },
       {
         "component": "text",
