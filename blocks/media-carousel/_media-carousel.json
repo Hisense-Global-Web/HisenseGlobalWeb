@@ -157,7 +157,7 @@
           "component": "text",
           "name": "button_label",
           "label": "Button Label",
-          "condition":{"log": [{"var": "Media Carousel"}]}
+          "condition":{"log": [{"var": "media-carousel"}]}
         }
       ]
     }

@@ -3441,7 +3441,7 @@
         "condition": {
           "log": [
             {
-              "var": "Media Carousel"
+              "var": "media-carousel"
             }
           ]
         }
