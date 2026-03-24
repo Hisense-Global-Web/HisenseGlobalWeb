@@ -3293,7 +3293,7 @@
     "fields": [
       {
         "component": "select",
-        "name": "classes_text",
+        "name": "block_classes",
         "value": "",
         "label": "Text Position",
         "description": "",
@@ -3411,7 +3411,7 @@
             {
               "===": [
                 {
-                  "var": "classes"
+                  "var": "block_classes"
                 },
                 "left-style"
               ]
@@ -3419,7 +3419,7 @@
             {
               "===": [
                 {
-                  "var": "classes"
+                  "var": "block_classes"
                 },
                 "left-bottom-style"
               ]
@@ -3434,7 +3434,7 @@
         "condition": {
           "log": [
             {
-              "var": "classes_text"
+              "var": "block_classes"
             }
           ]
         }
