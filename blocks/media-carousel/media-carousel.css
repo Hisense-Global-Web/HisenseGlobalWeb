@@ -500,11 +500,6 @@
         scroll-snap-align: start;
         scroll-snap-stop: always;
         border-radius: var(--size-16) !important;
-
-        .item {
-          width: calc(330/ var(--breakpoint-mobile) * 100vw);
-          height: calc(186/ var(--breakpoint-mobile) * 100vw);
-        }
       }
 
       .button-container a {
@@ -514,6 +509,11 @@
 
     img {
       display: block;
+    }
+
+    .item {
+      width: calc(330/ var(--breakpoint-mobile) * 100vw);
+      height: calc(186/ var(--breakpoint-mobile) * 100vw);
     }
   }
 
