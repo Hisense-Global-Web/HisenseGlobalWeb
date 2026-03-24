@@ -155,6 +155,10 @@ export default function decorate(block) {
   let loadMoreTextContent = null;
   let loadMoreLink = null;
   let noResultMessage = null;
+  let departmentIcon = '';
+  let locationIcon = '';
+  let experienceIcon = '';
+  let salaryRangeIcon = '';
 
   rows.forEach((row, index) => {
     const resource = row.getAttribute && row.getAttribute('data-aue-resource');
@@ -177,18 +181,26 @@ export default function decorate(block) {
         fieldsResource = resource;
       }
     } else if (index === 2) {
+      departmentIcon = row.querySelector('img')?.src;
+    } else if (index === 3) {
+      locationIcon = row.querySelector('img')?.src;
+    } else if (index === 4) {
+      experienceIcon = row.querySelector('img')?.src;
+    } else if (index === 5) {
+      salaryRangeIcon = row.querySelector('img')?.src;
+    } else if (index === 6) {
       // 第三行：loadMoreTextContent
       if (text) {
         loadMoreTextContent = text;
       }
-    } else if (index === 3) {
+    } else if (index === 7) {
       // 第四行：loadMoreLink
       if (anchor) {
         loadMoreLink = anchor.getAttribute('href') || anchor.textContent.trim();
       } else if (text) {
         loadMoreLink = text;
       }
-    } else if (index === 4) {
+    } else if (index === 8) {
       // 第五行：noResultMessage
       if (text) {
         noResultMessage = row.innerHTML;
@@ -284,52 +296,6 @@ export default function decorate(block) {
 
   if (!graphqlUrl) return;
 
-  /**
-   * 比较 ----- start
-   */
-
-  // 移除底部固定栏中，对比数据dom集合中对应 li 元素
-  function removeCompareLiUtil(removeProductSku) {
-    const activeCompareLiAll = document.querySelectorAll('.active-compare');
-    // 移除比较数据集合中的对应 li
-    activeCompareLiAll.forEach((compareLiItem) => {
-      if (compareLiItem.dataset.compareId === removeProductSku) {
-        compareLiItem.remove();
-        appendCompareProductUtil();
-      }
-    });
-  }
-
-  // 隐藏 compare bar 底部固定栏
-  function hideCompareBar() {
-    if (compareDataArr.length < 2) {
-      document.querySelector('.plp-compare-bar').classList.remove('compare-bar-show');
-    }
-  }
-
-  /**
-   * 切换属性时，比较数据要做对应的清空
-   * @param {*} changeElement 当前切换的 dom 元素
-   */
-  function changeCardSelectedProperty(changeElement) {
-    // 切换该商品size 时，要把之前比较数据中已经添加的该商品的尺寸属性清空
-    const originCompareSku = changeElement.closest('.job-item-card').getAttribute('data-compare-id');
-    // 1、过滤比较商品数据源
-    compareDataArr = compareDataArr.filter((comDataItem) => comDataItem.sku !== originCompareSku);
-    // 2、取消商品 card 上【Compare】按钮选中状态
-    const compareCheckedAllEl = document.querySelectorAll('.compare-checked');
-    compareCheckedAllEl.forEach((comCheckedItem) => {
-      const cardCheckedSku = comCheckedItem.getAttribute('data-compare-id');
-      if (cardCheckedSku === originCompareSku) {
-        comCheckedItem.classList.remove('compare-checked');
-      }
-    });
-    // 3、移动询问固定栏中对应商品的LI 元素
-    removeCompareLiUtil(originCompareSku);
-    // 4、底部固定比较栏在对比数据小于2条时，不展示
-    hideCompareBar();
-  }
-
   // 页面底部固定栏，比较商品固定栏
   function fixedBottomCompareBar() {
     const compareBarEl = document.createElement('div');
@@ -387,21 +353,6 @@ export default function decorate(block) {
     document.body.appendChild(compareBarEl);
     // 为询问固定栏，初始化追加三个li 元素
     createCompareLiEl(compareLiAppendType.initCompareLi);
-  }
-
-  /**
-   * 比较 ----- end
-   */
-
-  function extractImageFromShortDescription(item) {
-    if (!item || !item.description_shortDescription || !item.description_shortDescription.html) {
-      return null;
-    }
-
-    const { html } = item.description_shortDescription;
-    // 从 <p> 标签中提取文本内容
-    const match = html.match(/<p>([^<]+)<\/p>/);
-    return match ? match[1].trim() : null;
   }
 
   function applyDefaultSort() {
@@ -512,418 +463,65 @@ export default function decorate(block) {
       const card = document.createElement('div');
       card.className = 'job-item-card';
 
-      const titleDiv = document.createElement('div');
-      titleDiv.className = 'job-item-card-title';
-      let tagTitle = '';
-      const badgeList = group.representative.badge || [];
-      const targetStr = badgeList[0] || '';
-      const lastSlashIndex = targetStr.lastIndexOf('/');
-      tagTitle = lastSlashIndex > -1 ? targetStr.slice(lastSlashIndex + 1) : targetStr;
-      titleDiv.innerHTML = `<div class="job-item-card-tag">${tagTitle}</div>`;
+      const jobInfoGroupEl = document.createElement('div');
+      jobInfoGroupEl.className = 'job-info-group';
+      console.log(item, group);
 
-      const fav = document.createElement('div');
-      fav.className = 'plp-favorite selected';
-      fav.style.display = 'none';
-      const likeEmpty = document.createElement('img');
-      likeEmpty.className = 'plp-like-empty';
-      likeEmpty.src = `/content/dam/hisense/${country}/common-icons/like-empty.svg`;
-      fav.appendChild(likeEmpty);
-      const like = document.createElement('img');
-      like.className = 'plp-like';
-      like.src = `/content/dam/hisense/${country}/common-icons/like.svg`;
-      fav.appendChild(like);
-      fav.addEventListener('click', (e) => {
-        e.currentTarget.classList.toggle('selected');
-      });
-      titleDiv.append(fav);
+      const jobTitleEl = document.createElement('div');
+      jobTitleEl.className = 'job-title-group';
+      const titleSpanEl = document.createElement('span');
+      titleSpanEl.className = 'job-title';
+      titleSpanEl.textContent = 'Senior Software Engineer';
+      const jobTimeTypeEl = document.createElement('span');
+      jobTimeTypeEl.className = 'job-time-type';
+      jobTimeTypeEl.textContent = 'Full-time';
 
-      const imgDiv = document.createElement('div');
-      imgDiv.className = 'plp-product-img';
-      const imgPath = (() => {
-        // 如果开关打开了，优先使用 description_shortDescription 属性作为图片链接
-        if (window.useShortDescriptionAsImage) {
-          return extractImageFromShortDescription(item);
-        }
-        // 否则走默认逻辑
-        if (!item || !item.mediaGallery_image) return null;
-        const pKey = Object.keys(item.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
-        return pKey ? item.mediaGallery_image[pKey] : null;
-      })();
-      if (imgPath) {
-        const img = document.createElement('img');
-        img.src = imgPath;
-        imgDiv.appendChild(img);
-      }
+      jobTitleEl.append(titleSpanEl, jobTitleEl);
 
-      const seriesDiv = document.createElement('div');
-      seriesDiv.className = 'plp-product-series';
-      if (fields.includes('series') && item.series) seriesDiv.textContent = item.series;
+      const jobDetailEl = document.createElement('div');
+      jobDetailEl.className = 'job-detail';
+      const departmentEl = document.createElement('div');
+      departmentEl.className = 'job-info-item';
+      const img1 = document.createElement('img');
+      img1.src = departmentIcon;
+      const span1 = document.createElement('span');
+      span1.textContent = 'Engineering';
+      departmentEl.append(img1, span1);
+      const locationEl = document.createElement('div');
+      locationEl.className = 'job-info-item';
+      const img2 = document.createElement('img');
+      img2.src = locationIcon;
+      const span2 = document.createElement('span');
+      span2.textContent = 'Suwanee,GA';
+      departmentEl.append(img2, span2);
+      const experienceEl = document.createElement('div');
+      experienceEl.className = 'job-info-item';
+      const img3 = document.createElement('img');
+      img3.src = experienceIcon;
+      const span3 = document.createElement('span');
+      span3.textContent = '5+ years';
+      departmentEl.append(img3, span3);
+      const salaryRangeEl = document.createElement('div');
+      salaryRangeEl.className = 'job-info-item';
+      const img4 = document.createElement('img');
+      img4.src = salaryRangeIcon;
+      const span4 = document.createElement('span');
+      span4.textContent = '$120k-$160k';
+      departmentEl.append(img4, span4);
 
-      const nameDiv = document.createElement('div');
-      nameDiv.className = 'plp-product-name';
-      if (fields.includes('title')) {
-        const metaTitle = (() => {
-          if (!item) return null;
-          const metaKey = Object.keys(item).find((k) => k.toLowerCase().includes('metadata'));
-          const meta = metaKey ? item[metaKey] : null;
-          if (meta && Array.isArray(meta.stringMetadata)) {
-            const found = meta.stringMetadata.find((x) => x.name === 'title');
-            return found ? found.value : null;
-          }
-          return null;
-        })();
-        const fullTitle = item.title || metaTitle || group.factoryModel || '';
-        nameDiv.textContent = fullTitle;
-        // 添加完整的title作为tooltip
-        nameDiv.title = fullTitle;
-      }
+      jobDetailEl.append(departmentEl, locationEl, experienceEl, salaryRangeEl);
 
-      const extraFields = document.createElement('div');
-      extraFields.className = 'plp-product-extra';
-      fields.forEach((f) => {
-        if (['title', 'series', 'mediaGallery_image'].includes(f)) return;
-        const keyParts = f.includes('.') ? f.split('.') : f.split('_');
-        const value = keyParts.reduce(
-          (acc, k) => (acc && acc[k] !== undefined ? acc[k] : null),
-          item,
-        );
-        if (value !== null && value !== undefined) {
-          const fld = document.createElement('div');
-          const safeClass = `plp-product-field-${f.replace(/[^a-z0-9_-]/gi, '')}`;
-          fld.className = `plp-product-field ${safeClass}`;
-          fld.textContent = value;
-          extraFields.appendChild(fld);
-        }
-      });
+      const jobDateEl = document.createElement('div');
+      jobDateEl.className = 'job-date';
+      jobDateEl.textContent = 'Posted: 2 days ago';
 
-      const priceGroupDiv = document.createElement('div');
-      priceGroupDiv.className = 'plp-product-price-group';
-      priceGroupDiv.style.display = 'none';
-      const unitEl = document.createElement('span');
-      unitEl.textContent = item.unit || '$';
-      const priceDiv = document.createElement('div');
-      priceDiv.className = 'plp-product-price';
-      const currentPriceEl = document.createElement('div');
-      currentPriceEl.className = 'plp-product-current-price';
-      const currentPriceValue = document.createElement('span');
-      currentPriceValue.textContent = '10000';
-      currentPriceEl.append(unitEl.cloneNode(true), currentPriceValue);
-      const originalPriceEl = document.createElement('div');
-      originalPriceEl.className = 'plp-product-original-price';
-      const originalPriceValue = document.createElement('span');
-      originalPriceValue.textContent = '11000';
-      originalPriceEl.append(unitEl.cloneNode(true), originalPriceValue);
-      priceDiv.append(currentPriceEl, originalPriceEl);
+      jobInfoGroupEl.append(jobTitleEl, jobDetailEl, jobDateEl);
 
-      const discountsDiv = document.createElement('div');
-      discountsDiv.className = 'plp-product-discounts';
-      const discountsTitle = document.createElement('span');
-      discountsTitle.textContent = 'Save';
-      const discountsValue = document.createElement('span');
-      discountsValue.textContent = '1000';
-      discountsDiv.append(discountsTitle, unitEl.cloneNode(true), discountsValue);
-      priceGroupDiv.append(priceDiv, discountsDiv);
-
-      // color 区块（可点击，默认选中第一个尺寸，切换显示对应 variant 信息
-      const colorsDiv = document.createElement('div');
-      colorsDiv.className = 'plp-product-colors';
-
-      const colorToVariant = new Map();
-      group.variants.forEach((v) => {
-        const s = v.colorRGB;
-        if (!colorToVariant.has(s)) colorToVariant.set(s, v);
-      });
-
-      // sizes 区块（可点击，默认选中第一个尺寸，切换显示对应 variant 信息
-      const sizesDiv = document.createElement('div');
-      sizesDiv.className = 'plp-product-sizes';
-
-      // 构建 size -> variant 的映射
-      const sizeToVariant = new Map();
-      group.variants.forEach((v) => {
-        // eslint-disable-next-line no-use-before-define
-        const s = extractSize(v);
-        if (s && !sizeToVariant.has(s)) sizeToVariant.set(s, v);
-      });
-      const sizesArray = (Array.isArray(group.sizes) && group.sizes.length)
-        ? group.sizes
-        : Array.from(sizeToVariant.keys()).filter(Boolean);
-      const hasSizeValue = sizesArray.length > 0;
-      // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
-      let [selectedSize] = sizesArray;
-      let selectedVariant = selectedSize ? (sizeToVariant.get(selectedSize) || item) : item;
-
-      // create product button group
-      const productBtnGroupEl = document.createElement('div');
-      productBtnGroupEl.className = 'plp-product-btn-group';
-
-      // where to by
-      const addToCartBtnEl = document.createElement('div');
-      addToCartBtnEl.className = ' plp-add-to-cart-btn ps-widget';
-
-      const whereToBuyBtnEl = document.createElement('div');
-      whereToBuyBtnEl.className = ' plp-where-to-buy-btn ps-widget';
-
-      // create compare
-      const compareEl = document.createElement('div');
-      compareEl.className = 'plp-product-compare';
-      const compareIcon = document.createElement('span');
-      compareIcon.className = 'plp-product-compare-icon';
-      compareIcon.innerHTML = `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
-        <img class="icon-checked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox.svg" alt="" />`;
-      const labelSpan = document.createElement('span');
-      labelSpan.textContent = 'Compare';
-      compareEl.append(compareIcon, labelSpan);
-
-      const colorsArray = (Array.isArray(group.colors) && group.colors.length)
-        ? group.colors
-        : Array.from(colorToVariant.keys());
-      const hasColorValue = colorsArray.some((x) => x && x !== undefined);
-      const shouldUseColorSelection = !hasSizeValue && hasColorValue && colorsArray.length > 0;
-      // 如果用了默认排序，默认选中最大尺寸，其他排序选中第一个尺寸
-      let [selectedColor] = colorsArray;
-      if (shouldUseColorSelection) {
-        selectedVariant = selectedColor ? (colorToVariant.get(selectedColor) || item) : selectedVariant;
-      }
-      // 用来更新卡片显示为指定变体
-      const updateCardWithVariant = (variant) => {
-        // image
-        const variantImg = (() => {
-          // 如果开关打开了，优先使用 description_shortDescription 属性作为图片链接
-          if (window.useShortDescriptionAsImage) {
-            return extractImageFromShortDescription(variant);
-          }
-          // 否则走默认逻辑
-          const imgPKey = variant && variant.mediaGallery_image && Object.keys(variant.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
-          return imgPKey ? variant.mediaGallery_image[imgPKey] : null;
-        })();
-
-        const updateImg = imgDiv.querySelector('img');
-        if (variantImg && updateImg) {
-          updateImg.src = variantImg;
-        } else if (updateImg) {
-          updateImg.src = '';
-        }
-        // series
-        if (fields.includes('series') && variant.series) seriesDiv.textContent = variant.series;
-        // title/name
-        const metaKey = variant && Object.keys(variant).find((k) => k.toLowerCase().includes('metadata'));
-        let variantMetaTitle = null;
-        if (metaKey) {
-          const meta = variant[metaKey];
-          if (meta && Array.isArray(meta.stringMetadata)) {
-            const found = meta.stringMetadata.find((x) => x.name === 'title');
-            variantMetaTitle = found ? found.value : null;
-          }
-        }
-        if (fields.includes('title')) {
-          nameDiv.textContent = variant.title || variantMetaTitle || group.factoryModel || '';
-        }
-        // extra fields
-        extraFields.innerHTML = '';
-        fields.forEach((f) => {
-          if (['title', 'series', 'mediaGallery_image'].includes(f)) return;
-          const keyParts = f.includes('.') ? f.split('.') : f.split('_');
-          const value = keyParts.reduce(
-            (acc, k) => (acc && acc[k] !== undefined ? acc[k] : null),
-            variant,
-          );
-          if (value !== null && value !== undefined) {
-            const fld = document.createElement('div');
-            const safeClass = `plp-product-field-${f.replace(/[^a-z0-9_-]/gi, '')}`;
-            fld.className = `plp-product-field ${safeClass}`;
-            fld.textContent = value;
-            extraFields.appendChild(fld);
-          }
-        });
-
-        // 为 add to cart 按钮设置商品对应属性
-        addToCartBtnEl.setAttribute('ps-button-label', 'add to cart');
-        addToCartBtnEl.setAttribute('ps-sku', variant.sku || group.sku || '');
-
-        // 为 where to buy 按钮设置商品对应属性
-        whereToBuyBtnEl.setAttribute('ps-button-label', 'where to buy');
-        whereToBuyBtnEl.setAttribute('ps-sku', variant.sku || group.sku || '');
-
-        // productDetailPageLink - 先检查当前产品尺寸是否有productDetailPageLink链接，如果没有，才使用共享链接
-        const productDetailPageLink = variant.productDetailPageLink || group.sharedProductDetailPageLink || '#';
-        if (productDetailPageLink && productDetailPageLink !== '#') {
-          let link = card.querySelector && card.querySelector('.plp-product-btn');
-          if (!link) {
-            link = document.createElement('a');
-            link.className = 'plp-product-btn';
-            link.target = '_blank';
-            // card.append(link);
-            productBtnGroupEl.append(link);
-          }
-          link.href = productDetailPageLink;
-          link.textContent = 'Learn more';
-        } else {
-          const existingLink = card.querySelector && card.querySelector('.plp-product-btn');
-          if (existingLink) existingLink.remove();
-        }
-
-        // 为比较数据准备对应的属性值
-        // 1、为商品卡片中的【Compare】按钮设置 id 属性
-        compareEl.setAttribute('data-compare-id', variant.sku || group.sku || '');
-
-        // 2、为商品卡片中的【Compare】按钮设置当前选中的属性（如： size 或 color）
-        let curSelectedProperty = selectedSize || variant.size || group.size || '';
-        // 只有在没有 size 时，才回退使用 color
-        if (shouldUseColorSelection) {
-          curSelectedProperty = selectedColor || variant.colorRGB || group.colorRGB || '';
-        }
-        compareEl.setAttribute('data-selected-property', curSelectedProperty);
-
-        // 3、为商品卡片 job-item-card 父元素设置 id 属性，方便当size 修改时，在比较商品数据源中拿到对应数据进行移除
-        compareEl.closest('.job-item-card').setAttribute('data-compare-id', variant.sku || group.sku || '');
-      };
-
-      // 创建尺寸节点并绑定事件
-      sizesArray.forEach((s) => {
-        const sp = document.createElement('span');
-        sp.className = 'plp-product-size';
-        sp.textContent = s;
-        if (s === selectedSize) sp.classList.add('selected');
-        sp.addEventListener('click', () => {
-          if (selectedSize === s) return;
-          // 更新选中样式
-          const prev = sizesDiv.querySelector('.plp-product-size.selected');
-          if (prev) prev.classList.remove('selected');
-          sp.classList.add('selected');
-          selectedSize = s;
-          selectedVariant = sizeToVariant.get(s) || item;
-
-          // size 切换时，需要清空对应的比较数据
-          changeCardSelectedProperty(sp);
-
-          updateCardWithVariant(selectedVariant);
-        });
-        sizesDiv.appendChild(sp);
-      });
-
-      // 为商品card 中的 【Compare】按钮添加点击事件
-      compareEl.addEventListener('click', (compareE) => {
-        compareE.stopPropagation();
-        // 最多只能比较3个产品
-        if (compareDataArr.length > 2 && !compareEl.classList.contains('compare-checked')) {
-          return;
-        }
-        // card 中的 【Compare】 btn 是否添加 选中类
-        compareEl.classList.toggle('compare-checked');
-        // 当前商品选中属性
-        const curCardSelectedProperty = compareE.currentTarget.getAttribute('data-selected-property') ?? '';
-        // 当前商品选中属性，对应的数据源（也是比较商品的数据来源）
-        let cardSelectedVariant = sizeToVariant.get(curCardSelectedProperty) || selectedVariant || item;
-        // 只有在没有 size 时，才回退使用 color
-        if (shouldUseColorSelection) {
-          cardSelectedVariant = colorToVariant.get(curCardSelectedProperty) || selectedVariant || item;
-        }
-
-        const isAdded = compareEl.classList.contains('compare-checked');
-        if (isAdded) {
-          // 1、新增比较数据
-          compareDataArr.push(cardSelectedVariant);
-          const compareBarAllLi = document.querySelectorAll('.plp-compare-card-item');
-          // 2、只有选择了2个产品时，才展示页面询问固定栏
-          if (compareDataArr.length === 2) {
-            document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
-            // 底部 compare bar 出现时且为移动端时，为footer 添加 padding-bottom
-            if (isMobileWindow()) {
-              const footerWrapper = document.querySelector('.footer-wrapper');
-              footerWrapper.style.paddingBottom = `${(274 / 390) * window.innerWidth}px`;
-            }
-          }
-          // 3、为底部固定栏中的对应li 设置已选择产品的图片、产品名称
-          compareBarAllLi.forEach((curLi, index) => {
-            if (index === compareDataArr.length - 1) {
-              setCompareProductImgTit(curLi, cardSelectedVariant);
-            }
-          });
-
-          // 4、为底部固定比较栏中的对应商品的删除按钮添加点击事件
-          const comparBarUlEl = document.querySelector('.plp-compare-cards');
-          comparBarUlEl.addEventListener('click', (e) => {
-            const { target } = e;
-            // 只处理点击元素是删除按钮
-            if (!target.parentNode.classList.contains('plp-compare-card-close')) return;
-            // 获取按钮所在的 li (parentNode 因为按钮直接放在li内)
-            const parentLi = target.closest('.plp-compare-card-item');
-            if (!parentLi) return;
-            // 获取 li 上存储的产品 id
-            const delCompareId = parentLi.dataset.compareId;
-            if (!delCompareId) return;
-            // filter 数据源
-            compareDataArr = compareDataArr.filter((v) => v.sku !== delCompareId);
-            // 移除比较数据dom集合中的对应 li
-            removeCompareLiUtil(delCompareId);
-            // 取消产品 card 中 【Compare】 button 选中态
-            const cardCompareBtnAll = document.querySelectorAll('.compare-checked');
-            cardCompareBtnAll.forEach((compareBtnItem) => {
-              if (compareBtnItem.dataset.compareId === delCompareId) {
-                compareBtnItem.classList.remove('compare-checked');
-              }
-            });
-            // 隐藏底部固定比较栏
-            hideCompareBar();
-          });
-        } else {
-          // 取消商品 card 【Compare】按钮的选中态，重新过滤比较数据集合
-          compareDataArr = compareDataArr.filter((v) => v.sku !== cardSelectedVariant.sku);
-          // 移除比较数据集合中的对应 li
-          removeCompareLiUtil(cardSelectedVariant.sku);
-          // 隐藏底部固定比较栏
-          hideCompareBar();
-        }
-      });
-
-      // 创建color节点并绑定事件
-      colorsArray?.forEach((s) => {
-        const sp = document.createElement('span');
-        sp.classList.add('plp-product-color');
-        sp.style.backgroundColor = s;
-        if (s && (s.toLowerCase() === '#fff'
-            || s.toLowerCase() === '#ffffff'
-            || s.toLowerCase() === 'white'
-            || s.toLowerCase() === 'rgb(255, 255, 255)')) {
-          sp.style.border = '1px solid #cfcfcf';
-        }
-        if (s === selectedColor) sp.classList.add('selected');
-        sp.addEventListener('click', () => {
-          if (selectedColor === s) return;
-          // 更新选中样式
-          const prev = colorsDiv.querySelector('.plp-product-color.selected');
-          if (prev) prev.classList.remove('selected');
-          sp.classList.add('selected');
-          selectedColor = s;
-          selectedVariant = colorToVariant.get(s) || item;
-          // color 属性 change 时，需要清空对应的比较数据
-          changeCardSelectedProperty(sp);
-          updateCardWithVariant(selectedVariant);
-        });
-        colorsDiv.appendChild(sp);
-      });
-      // 如果 size 和 color 同时存在，优先显示 size
-      let showDiv = null;
-      if (hasSizeValue) {
-        showDiv = sizesDiv;
-      } else if (shouldUseColorSelection) {
-        showDiv = colorsDiv;
-      }
-      // card.append(titleDiv, imgDiv, seriesDiv, nameDiv, showDiv, extraFields);
-
-      // 将where to buy 按钮追加在按钮组dom 中
-      productBtnGroupEl.prepend(whereToBuyBtnEl);
-      productBtnGroupEl.prepend(addToCartBtnEl);
-
-      card.append(titleDiv, imgDiv, seriesDiv, nameDiv);
-      if (showDiv) {
-        card.append(showDiv);
-      }
-      card.append(priceGroupDiv, extraFields, productBtnGroupEl, compareEl);
+      const detailBtnEl = document.createElement('div');
+      detailBtnEl.className = 'detail-btn';
+      detailBtnEl.textContent = 'See details';
+      card.append(jobInfoGroupEl, detailBtnEl);
       productsGrid.append(card);
-
-      updateCardWithVariant(selectedVariant);
     });
 
     // 更新结果计数，显示聚合后的产品卡数量
