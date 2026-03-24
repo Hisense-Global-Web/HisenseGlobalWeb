@@ -3804,11 +3804,34 @@
     "id": "past-partnerships-list",
     "fields": [
       {
+        "component": "select",
+        "name": "title_style",
+        "label": "Title Style",
+        "valueType": "string",
+        "value": "normal",
+        "options": [
+          {
+            "name": "Normal",
+            "value": "normal"
+          },
+          {
+            "name": "Large",
+            "value": "large"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "section_title",
         "label": "Section Title",
         "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "section_subtitle",
+        "label": "Section Subtitle"
       },
       {
         "component": "number",

@@ -55,7 +55,7 @@ const generateTextArea = (itemEl, textAreaStyleEl, buyNowEl, downloadEl) => {
       iconEl.className = 'download';
       let btnLink = '';
       let isImg = false;
-      if (linkEl.querySelector('img')) {
+      if (linkEl?.querySelector('img')) {
         btnLink = linkEl.querySelector('img').src;
         isImg = true;
       } else {
@@ -95,7 +95,7 @@ export default function decorate(block) {
   [...block.children].forEach((row, i) => {
     if (i < 1) {
       // title有值则加载
-      if (title.children?.length) {
+      if (row.children?.length) {
         title.classList = 'title';
         title.append(...row.children);
       }
