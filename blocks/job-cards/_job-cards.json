@@ -70,6 +70,69 @@
           }
         },
         {
+          "component": "reference",
+          "name": "location-icon",
+          "label": "Location Icon",
+          "valueType": "string",
+          "condition": {
+            "some": [
+              {
+                "var": "fields"
+              },
+              {
+                "===": [
+                  {
+                    "var": ""
+                  },
+                  "location"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "name": "experience-icon",
+          "label": "Experience Icon",
+          "valueType": "string",
+          "condition": {
+            "some": [
+              {
+                "var": "fields"
+              },
+              {
+                "===": [
+                  {
+                    "var": ""
+                  },
+                  "experience"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "name": "salary-range-icon",
+          "label": "Salary Range Icon",
+          "valueType": "string",
+          "condition": {
+            "some": [
+              {
+                "var": "fields"
+              },
+              {
+                "===": [
+                  {
+                    "var": ""
+                  },
+                  "salary-range"
+                ]
+              }
+            ]
+          }
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "loadMoreTextContent",
