@@ -3852,7 +3852,6 @@
         "name": "title_style",
         "label": "Title Style",
         "valueType": "string",
-        "value": "normal",
         "options": [
           {
             "name": "Normal",
@@ -3868,8 +3867,7 @@
         "component": "text",
         "valueType": "string",
         "name": "section_title",
-        "label": "Section Title",
-        "multi": false
+        "label": "Section Title"
       },
       {
         "component": "text",
@@ -3882,16 +3880,14 @@
         "name": "pc_numberColumns",
         "label": "PC: Items per row",
         "valueType": "number",
-        "value": 3,
         "description": "For PC: Number of columns displayed per row."
       },
       {
         "component": "select",
-        "name": "button_color",
+        "name": "mobile_numberColumns",
         "label": "Mobile: Items per row",
         "description": "For Mobile: When selected 'Tiled display', Items will show in one row.",
         "valueType": "string",
-        "value": "tiled",
         "options": [
           {
             "name": "Tiled display",
