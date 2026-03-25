@@ -959,6 +959,47 @@ export default async function decorate(block) {
       countSpan.className = 'count-span';
       countSpan.textContent = '3';
       btn.append(countSpan);
+
+      // TODO: 是否为person
+      const personEl = document.createElement('div');
+      personEl.className = 'person-drawer';
+      const userEl = document.createElement('div');
+      userEl.className = 'user-group';
+      const portrait = document.createElement('img');
+      portrait.className = 'portrait';
+      portrait.src = 'https://picsum.photos/40/40?random=1';
+      const nameEl = document.createElement('div');
+      nameEl.className = 'person-name';
+      nameEl.textContent = 'John';
+      userEl.append(portrait, nameEl);
+
+      const myItems = document.createElement('div');
+      myItems.className = 'my-items-group';
+
+      const myProducts = document.createElement('div');
+      myProducts.className = 'my-item';
+      const myProductsSpan = document.createElement('span');
+      myProductsSpan.className = 'my-product-title';
+      myProductsSpan.textContent = 'My Products';
+      const myProductsCountSpan = document.createElement('span');
+      myProductsCountSpan.className = 'my-count-span';
+      myProductsCountSpan.textContent = '3';
+      myProducts.append(myProductsSpan, myProductsCountSpan);
+      myItems.append(myProducts.cloneNode(true), myProducts.cloneNode(true), myProducts.cloneNode(true), myProducts.cloneNode(true), myProducts.cloneNode(true));
+      const logoutEl = document.createElement('div');
+      logoutEl.className = 'logout-group';
+      logoutEl.textContent = 'log out';
+      logoutEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log(111);
+      });
+
+      const divisionLine = document.createElement('div');
+      divisionLine.className = 'division-line';
+
+      personEl.append(userEl, divisionLine.cloneNode(true), myItems, divisionLine.cloneNode(true), logoutEl);
+      btn.append(personEl);
+
       actionsEl.append(btn);
       return;
     }
@@ -1183,4 +1224,37 @@ export default async function decorate(block) {
 
   block.textContent = '';
   block.append(navigation);
+
+  const popup = document.createElement('div');
+  popup.id = 'logout-popup';
+  const popupCloseImg = document.createElement('img');
+  popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+  popupCloseImg.className = 'close-icon';
+  
+  const logoutContext = document.createElement('div');
+  logoutContext.className = 'logout-context';
+  const logoutContextTitle = document.createElement('div');
+  logoutContextTitle.className = 'title';
+  logoutContextTitle.textContent = 'Are you sure you want to log out?';
+  const logoutContextSubtitle = document.createElement('div');
+  logoutContextSubtitle.className = 'subtitle';
+  logoutContextSubtitle.textContent = 'You\'ll need to sign in again to access your account, registered products, and orders.';
+  logoutContext.append(logoutContextTitle, logoutContextSubtitle);
+
+  const logoutBtnGroup = document.createElement('div');
+  logoutBtnGroup.className = 'logout-btn-group';
+  const cancelBtn = document.createElement('button');
+  cancelBtn.className = 'cancel-btn';
+  cancelBtn.textContent = 'Cancel';
+  const sureBtn = document.createElement('button');
+  sureBtn.className = 'sure-btn';
+  sureBtn.textContent = 'Log out';
+  logoutBtnGroup.append(cancelBtn, sureBtn);
+  
+  popup.append(popupCloseImg, logoutContext, logoutBtnGroup);
+  
+  const mask = document.createElement('div');
+  mask.id = 'logout-mask';
+  const body = document.querySelector('body');
+  body.append(popup, mask);
 }
