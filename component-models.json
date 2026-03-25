@@ -968,7 +968,8 @@
         "component": "text",
         "name": "text_title",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "value": " "
       },
       {
         "component": "text",
