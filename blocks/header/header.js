@@ -1240,7 +1240,7 @@ export default async function decorate(block) {
     const cancelBtnPopup = document.querySelector('#logout-popup');
     cancelBtnPopup.style.display = '';
   });
-  
+
   const logoutContext = document.createElement('div');
   logoutContext.className = 'logout-context';
   const logoutContextTitle = document.createElement('div');
@@ -1271,7 +1271,7 @@ export default async function decorate(block) {
   logoutBtnGroup.append(cancelBtn, sureBtn);
 
   popup.append(popupCloseImg, logoutContext, logoutBtnGroup);
-  
+
   const mask = document.createElement('div');
   mask.id = 'logout-mask';
   const body = document.querySelector('body');

@@ -2030,7 +2030,7 @@ export default function decorate(block) {
   btnPlus.textContent = '+';
   const inputEl = document.createElement('input');
   inputEl.className = 'qty-input';
-  
+
   countChangeEl.append(qtySpan, btnMinus, inputEl, btnPlus);
 
   popupInfoPrice.append(priceSpan, countChangeEl.cloneNode(true));
@@ -2039,7 +2039,7 @@ export default function decorate(block) {
 
   const popupLine = document.createElement('div');
   popupLine.className = 'popup-line';
-  
+
   const mobileCountEl = document.createElement('div');
   mobileCountEl.className = 'mobile-count-group';
   mobileCountEl.append(countChangeEl.cloneNode(true), deleteIcon.cloneNode(true));
