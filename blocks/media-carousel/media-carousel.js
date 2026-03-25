@@ -28,7 +28,8 @@ function bindEvent(block, type = 'normal') {
     containerWidth: maxWidth,
     totalItems: cards.length,
   };
-  if (cards.length * getSlideWidth(block) - gap >= maxWidth) {
+
+  if (cards.length * getSlideWidth(block) - gap >= maxWidth && window.innerWidth >= 860) {
     block.querySelector('.media-carousel-pagination').classList.add('show');
   }
 
