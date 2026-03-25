@@ -1163,13 +1163,17 @@ export default function decorate(block) {
 
       const divEl = document.createElement('div');
       divEl.addEventListener('click', () => {
-        console.log('clicked');
-        // TODO: document修改popup的值；然后点开
         const mask = document.querySelector('#product-card-mask');
         mask.style.display = 'block';
         const popup = document.querySelector('#product-card-popup');
+        popup.querySelector('.popup-product-title').textContent = '55U8K 55" ULED 4K Smart TV';
+        popup.querySelector('.model-value').textContent = '55U8K';
+        popup.querySelector('.popup-info-price .price-value').textContent = '$999';
+        popup.querySelector('.total .price-value').textContent = '$999';
+        popup.querySelector('.total-num').textContent = '1';
         popup.style.display = 'block';
       });
+      // TODO: 变更到指定button上
       divEl.textContent = '123';
       productBtnGroupEl.append(divEl);
 
@@ -1987,7 +1991,6 @@ export default function decorate(block) {
   popupInfoTitle.className = 'popup-info-title';
   const popupInfoTitleSpan = document.createElement('span');
   popupInfoTitleSpan.className = 'popup-product-title';
-  popupInfoTitleSpan.textContent = '55U8K 55" ULED 4K Smart TV';
   const deleteIcon = document.createElement('img');
   deleteIcon.src = `/content/dam/hisense/${country}/common-icons/delete.svg`;
   deleteIcon.className = 'delete-icon';
@@ -2000,7 +2003,6 @@ export default function decorate(block) {
   popupInfoModelSpan.textContent = 'Model:';
   const popupInfoModelValueSpan = document.createElement('span');
   popupInfoModelValueSpan.className = 'model-value';
-  popupInfoModelValueSpan.textContent = '55U8K';
   const stockLine = document.createElement('div');
   stockLine.className = 'stock-line';
   const stockImg = document.createElement('img');
@@ -2017,7 +2019,6 @@ export default function decorate(block) {
   popupInfoPrice.className = 'popup-info-price';
   const priceSpan = document.createElement('span');
   priceSpan.className = 'price-value';
-  priceSpan.textContent = '$999';
   const countChangeEl = document.createElement('div');
   countChangeEl.className = 'count-change';
   const qtySpan = document.createElement('span');
@@ -2050,7 +2051,6 @@ export default function decorate(block) {
   totalSpan.innerHTML = 'Cart total (<span class="total-num">1</span> item)';
   const totalPriceSpan = document.createElement('span');
   totalPriceSpan.className = 'price-value';
-  totalPriceSpan.textContent = '$999';
   totalEl.append(totalSpan, totalPriceSpan);
 
   const btnGroup = document.createElement('div');
