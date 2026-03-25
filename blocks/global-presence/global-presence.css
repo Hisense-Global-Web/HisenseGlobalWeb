@@ -132,7 +132,7 @@
 
 		@media (width >= 860px) {
 			border-radius: var(--border-radius-l);
-			padding: var(--size-68) var(--size-60);
+			padding: 0;
 		}
 	}
 }

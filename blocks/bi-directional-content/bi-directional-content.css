@@ -24,7 +24,7 @@
   }
 }
 
-.bi-directional-content-wrapper .title div p:first-child {
+.bi-directional-content-wrapper .title > div:first-child {
   font-size: var(--fontsize-pc-h4);
   margin-top: var(--fontsize-pc-h4);
   font-weight: var(--fontweight-medium);
@@ -35,7 +35,7 @@
   }
 }
 
-.bi-directional-content-wrapper .title div p:nth-child(2) {
+.bi-directional-content-wrapper .title > div:nth-child(2) {
   font-size: var(--fontsize-pc-h4);
 
   @media (width < 860px) {
