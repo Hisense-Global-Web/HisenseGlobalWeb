@@ -24,9 +24,6 @@
    @media (width < 860px) {
     font-size: var(--size-30);
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    word-break: break-all;
     width: calc(100% - 74px);
     text-align: left;
   }

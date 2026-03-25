@@ -217,7 +217,7 @@
             "value": "light"
           },
           {
-            "name": "Dark",
+            "name": "Black",
             "value": "dark"
           },
           {
@@ -233,15 +233,31 @@
             "value": "gray-90"
           },
           {
-            "name": "Gradient Gray",
+            "name": "Gradient-Dark",
             "value": "gradient-gray"
+          },
+          {
+            "name": "Gradient-Light",
+            "value": "gradient-light"
+          },
+          {
+            "name": "Gradient-Cold Light",
+            "value": "gradient-cold-light"
+          },
+          {
+            "name": "Gradient-Warm Light",
+            "value": "gradient-warm-light"
+          },
+          {
+            "name": "Gradient-Warm Dark",
+            "value": "gradient-warm-dark"
           },
           {
             "name": "Green 10",
             "value": "green-10"
           },
           {
-            "name": "Green",
+            "name": "Green15",
             "value": "green"
           }
         ]
@@ -968,7 +984,8 @@
         "component": "text",
         "name": "text_title",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",

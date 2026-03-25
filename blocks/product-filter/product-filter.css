@@ -292,6 +292,15 @@
       padding: 0;
       width: 100%;
     }
+
+    .plp-filter-group {
+      padding: var(--size-12) 0;
+      margin-top: var(--size-16);
+    }
+
+    .plp-filter-title span {
+      font-size: var(--size-16);
+    }
   }
 
   .mobile-filter-show {
