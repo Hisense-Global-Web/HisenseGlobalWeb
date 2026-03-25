@@ -1233,6 +1233,13 @@ export default async function decorate(block) {
   const popupCloseImg = document.createElement('img');
   popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
   popupCloseImg.className = 'close-icon';
+  popupCloseImg.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const mask = document.querySelector('#logout-mask');
+    mask.style.display = '';
+    const cancelBtnPopup = document.querySelector('#logout-popup');
+    cancelBtnPopup.style.display = '';
+  });
   
   const logoutContext = document.createElement('div');
   logoutContext.className = 'logout-context';

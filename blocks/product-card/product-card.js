@@ -1172,7 +1172,7 @@ export default function decorate(block) {
         popup.querySelector('.model-value').textContent = '55U8K';
         popup.querySelector('.popup-info-price .price-value').textContent = '$999';
         popup.querySelector('.total .price-value').textContent = '$999';
-        popup.querySelector('.total-num').textContent = '1';
+        popup.querySelector('.total-num').textContent = '0';
         popup.style.display = 'block';
       });
 
@@ -1967,6 +1967,12 @@ export default function decorate(block) {
   const closeImg = document.createElement('img');
   closeImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
   closeImg.className = 'close-icon';
+  closeImg.addEventListener('click', () => {
+    const mask = document.querySelector('#product-card-mask');
+    mask.style.display = '';
+    const closePopup = document.querySelector('#product-card-popup');
+    closePopup.style.display = '';
+  });
   popup.append(closeImg);
 
   const popupTitle = document.createElement('div');
