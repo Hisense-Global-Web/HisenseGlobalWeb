@@ -167,11 +167,12 @@
   aspect-ratio: 1;
   gap: var(--spacing-xs);
 
+
   @media (width >= 860px) {
     gap: var(--size-16);
     width: 100%;
-    height:min(24.26111vw, 358px);
-    padding: var(--spacing-lg) var(--spacing-md)  var(--spacing-md);
+    height:min(24.86111vw, 358px);
+    padding: var(--spacing-lg) var(--size-32) var(--size-32);
   }
 }
 
