@@ -969,7 +969,7 @@
         "name": "text_title",
         "label": "Title",
         "valueType": "string",
-        "value": " "
+        "required": true
       },
       {
         "component": "text",
