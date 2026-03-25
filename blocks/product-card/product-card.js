@@ -1160,9 +1160,11 @@ export default function decorate(block) {
       // create product button group
       const productBtnGroupEl = document.createElement('div');
       productBtnGroupEl.className = 'plp-product-btn-group';
-
-      const divEl = document.createElement('div');
-      divEl.addEventListener('click', () => {
+      // where to by
+      const addToCartBtnEl = document.createElement('div');
+      addToCartBtnEl.className = 'plp-add-to-cart-btn plp-purchase-hidden';
+      addToCartBtnEl.textContent = 'Add to Cart';
+      addToCartBtnEl.addEventListener('click', () => {
         const mask = document.querySelector('#product-card-mask');
         mask.style.display = 'block';
         const popup = document.querySelector('#product-card-popup');
@@ -1173,14 +1175,6 @@ export default function decorate(block) {
         popup.querySelector('.total-num').textContent = '1';
         popup.style.display = 'block';
       });
-      // TODO: 变更到指定button上
-      divEl.textContent = '123';
-      productBtnGroupEl.append(divEl);
-
-      // where to by
-      const addToCartBtnEl = document.createElement('div');
-      addToCartBtnEl.className = 'plp-add-to-cart-btn plp-purchase-hidden';
-      addToCartBtnEl.textContent = 'Add to Cart';
 
       const whereToBuyBtnEl = document.createElement('div');
       whereToBuyBtnEl.className = 'plp-where-to-buy-btn ps-widget plp-purchase-hidden';
