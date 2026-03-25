@@ -991,7 +991,10 @@ export default async function decorate(block) {
       logoutEl.textContent = 'log out';
       logoutEl.addEventListener('click', (e) => {
         e.stopPropagation();
-        console.log(111);
+        const mask = document.querySelector('#logout-mask');
+        mask.style.display = 'block';
+        const popup = document.querySelector('#logout-popup');
+        popup.style.display = 'block';
       });
 
       const divisionLine = document.createElement('div');
@@ -1246,11 +1249,20 @@ export default async function decorate(block) {
   const cancelBtn = document.createElement('button');
   cancelBtn.className = 'cancel-btn';
   cancelBtn.textContent = 'Cancel';
+  cancelBtn.addEventListener('click', () => {
+    const mask = document.querySelector('#logout-mask');
+    mask.style.display = '';
+    const cancelBtnPopup = document.querySelector('#logout-popup');
+    cancelBtnPopup.style.display = '';
+  });
   const sureBtn = document.createElement('button');
   sureBtn.className = 'sure-btn';
   sureBtn.textContent = 'Log out';
+  sureBtn.addEventListener('click', () => {
+    console.log('logout');
+  });
   logoutBtnGroup.append(cancelBtn, sureBtn);
-  
+
   popup.append(popupCloseImg, logoutContext, logoutBtnGroup);
   
   const mask = document.createElement('div');

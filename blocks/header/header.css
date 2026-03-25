@@ -1410,7 +1410,7 @@
   background-color: white;
   border-radius: var(--size-20);
   z-index: 10000;
-  /*display: none;*/
+  display: none;
   padding: var(--size-80) var(--size-120);
   box-sizing: border-box;
 
@@ -1449,6 +1449,7 @@
       line-height: 1.6;
       color: var(--color-primary-grey-70);
       font-weight: var(--fontweight-book);
+      text-align: center;
     }
   }
 
@@ -1482,6 +1483,19 @@
 
       @media (width < 860px) {
         width: calc(115 / var(--breakpoint-mobile) * 100vw);;
+      }
+
+      &:hover {
+        background-color: var(--color-primary-grey-70);
+        border-color: var(--color-primary-grey-70);
+        color: #fff;
+      }
+
+      &:active {
+        background-color: #000;
+        border-color: #000;
+        color: var(--white-alpha-80);
+        text-decoration: none;
       }
     }
 

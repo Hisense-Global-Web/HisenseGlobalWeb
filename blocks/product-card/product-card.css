@@ -910,6 +910,15 @@
       @media (width < 860px) {
         width: calc(115 / var(--breakpoint-mobile) * 100vw);;
       }
+      
+      &:hover {
+        background-color: var(--color-primary-green-50);
+      }
+
+      &:active {
+        background-color: var(--color-primary-green-70);
+        color: rgb(255 255 255 / 80%);
+      }
     }
     
     .checkout-btn {
