@@ -1986,11 +1986,12 @@ export default function decorate(block) {
   const popupInfoTitle = document.createElement('div');
   popupInfoTitle.className = 'popup-info-title';
   const popupInfoTitleSpan = document.createElement('span');
+  popupInfoTitleSpan.className = 'popup-product-title';
   popupInfoTitleSpan.textContent = '55U8K 55" ULED 4K Smart TV';
   const deleteIcon = document.createElement('img');
   deleteIcon.src = `/content/dam/hisense/${country}/common-icons/delete.svg`;
   deleteIcon.className = 'delete-icon';
-  popupInfoTitle.append(popupInfoTitleSpan, deleteIcon);
+  popupInfoTitle.append(popupInfoTitleSpan, deleteIcon.cloneNode(true));
 
   const popupInfoModel = document.createElement('div');
   popupInfoModel.className = 'popup-info-model';
@@ -2001,7 +2002,13 @@ export default function decorate(block) {
   popupInfoModelValueSpan.className = 'model-value';
   popupInfoModelValueSpan.textContent = '55U8K';
   const stockLine = document.createElement('div');
-  stockLine.textContent = 'In Stock';
+  stockLine.className = 'stock-line';
+  const stockImg = document.createElement('img');
+  stockImg.className = 'stock-img';
+  stockImg.src = `/content/dam/hisense/${country}/common-icons/correct.svg`;
+  const stockSpan = document.createElement('span');
+  stockSpan.textContent = 'In Stock';
+  stockLine.append(stockImg, stockSpan);
 
   modelLine.append(popupInfoModelSpan, popupInfoModelValueSpan);
   popupInfoModel.append(modelLine, stockLine);
@@ -2025,12 +2032,16 @@ export default function decorate(block) {
   
   countChangeEl.append(qtySpan, btnMinus, inputEl, btnPlus);
 
-  popupInfoPrice.append(priceSpan, countChangeEl);
+  popupInfoPrice.append(priceSpan, countChangeEl.cloneNode(true));
   popupInfo.append(popupInfoTitle, popupInfoModel, popupInfoPrice);
   popupList.append(img, popupInfo);
 
   const popupLine = document.createElement('div');
   popupLine.className = 'popup-line';
+  
+  const mobileCountEl = document.createElement('div');
+  mobileCountEl.className = 'mobile-count-group';
+  mobileCountEl.append(countChangeEl.cloneNode(true), deleteIcon.cloneNode(true));
 
   const totalEl = document.createElement('div');
   totalEl.className = 'total';
@@ -2052,7 +2063,7 @@ export default function decorate(block) {
   checkoutBtn.textContent = 'Proceed to checkout';
   btnGroup.append(viewCartBtn, checkoutBtn);
 
-  popup.append(popupTitle, popupList, popupLine, totalEl, btnGroup);
+  popup.append(popupTitle, popupList, popupLine, mobileCountEl, totalEl, btnGroup);
   const mask = document.createElement('div');
   mask.id = 'product-card-mask';
   const body = document.querySelector('body');
