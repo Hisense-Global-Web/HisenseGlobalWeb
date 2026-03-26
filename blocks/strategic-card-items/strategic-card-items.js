@@ -25,12 +25,12 @@ export default function decorate(block) {
     bodyCopy.className = 'card-description';
     btnDiv.className = 'card-btn';
     if (!bodyCopy.textContent.trim()) bodyCopy.remove();
-    if (!btnDiv.textContent.trim()) {
-      btnDiv.remove();
-    } else {
+    if ( btnDiv.children.length === 2) {
       const [label, popupId] = btnDiv.children;
       label.className = 'btn-label';
       popupId.className = 'btn-popup-id';
+    } else {
+      btnDiv.style.display = "none";
     }
     containerDiv.append(child);
   });
