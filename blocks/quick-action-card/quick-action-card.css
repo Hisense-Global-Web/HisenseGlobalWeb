@@ -1,10 +1,10 @@
 .quick-action-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--spacing-sm);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--spacing-sm, 24px) var(--spacing-m, 32px);
 
   @media (width < 860px) {
+    display: flex;
     flex-direction: column;
     gap: var(--spacing-s, 18px);
   }
@@ -16,15 +16,17 @@
     align-items: center;
     padding: var(--spacing-xl, 48px) var(--spacing-m, 32px);
     background-color: var(--color-primary-green-50);
-    width: min(calc(357 / var(--breakpoint-pc) * 100vw), 357px);
-    height: min(calc(256 / var(--breakpoint-pc) * 100vw), 256px);
+
+    /* width: min(calc(357 / var(--breakpoint-pc) * 100vw), 357px);
+    height: min(calc(256 / var(--breakpoint-pc) * 100vw), 256px); */
     border-radius: var(--border-radius-l, 20px);
 
     @media (width < 860px) {
       cursor: default;
       padding: var(--spacing-lg, 40px) var(--spacing-sm, 24px);
-      width: calc(354 / var(--breakpoint-mobile) * 100vw);
-      height: calc(264 / var(--breakpoint-mobile) * 100vw);
+
+      /* width: calc(354 / var(--breakpoint-mobile) * 100vw);
+      height: calc(264 / var(--breakpoint-mobile) * 100vw); */
       border-radius: var(--radius-xl, 16px);
     }
   }
