@@ -31,9 +31,10 @@ export default async function decorate(block) {
         child.className = 'banner-btn';
         const actionLink = child.querySelector('a');
         if (actionLink) {
-          actionLink.textContent = child.querySelector('.button-container')?.nextElementSibling?.textContent.trim();
+          actionLink.textContent = actionLink.parentElement.nextElementSibling?.textContent.trim();
           actionLink.title = actionLink.textContent;
-          child.querySelector('.button-container')?.nextElementSibling?.remove();
+          actionLink.parentElement.nextElementSibling?.remove();
+          if (!actionLink.parentElement.className) actionLink.parentElement.className = 'button-container';
         }
         if (child.textContent.trim()) containerDiv.append(child);
         else child.remove();
