@@ -2,6 +2,9 @@ import { getHybrisBffBaseUrl as getEnvironmentHybrisBffBaseUrl } from './environ
 import { getLocaleFromPath } from './locale-utils.js';
 
 const HYBRIS_SESSION_TOKEN_KEY = 'hybrisSessionToken';
+const HYBRIS_AUTH_STATE_KEY = 'hybrisAuthState';
+const HYBRIS_AUTH_BROADCAST_KEY = 'hybrisAuthBroadcast';
+const HYBRIS_AUTH_BROADCAST_LOGOUT = 'logout';
 
 const DEFAULT_AUTH_STATE = {
   authenticated: false,
@@ -22,6 +25,112 @@ function trimTrailingSlash(value) {
   return String(value || '').replace(/\/+$/, '');
 }
 
+function broadcastHybrisAuthEvent(type) {
+  if (typeof window === 'undefined' || !type) {
+    return;
+  }
+
+  try {
+    const payload = JSON.stringify({
+      type,
+      timestamp: Date.now(),
+    });
+    localStorage.setItem(HYBRIS_AUTH_BROADCAST_KEY, payload);
+    localStorage.removeItem(HYBRIS_AUTH_BROADCAST_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+}
+
+function normalizeExpiresAt(value) {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value > 0 && value < 1e12 ? value * 1000 : value;
+  }
+
+  const normalizedValue = String(value || '').trim();
+  if (!normalizedValue) {
+    return 0;
+  }
+
+  if (/^\d+$/.test(normalizedValue)) {
+    const numericValue = Number(normalizedValue);
+    return numericValue > 0 && numericValue < 1e12 ? numericValue * 1000 : numericValue;
+  }
+
+  const parsedValue = Date.parse(normalizedValue);
+  return Number.isNaN(parsedValue) ? 0 : parsedValue;
+}
+
+function normalizeAuthState(nextState = {}) {
+  return {
+    ...DEFAULT_AUTH_STATE,
+    ...nextState,
+    authenticated: Boolean(nextState.authenticated),
+    myAccountUrl: String(nextState.myAccountUrl || ''),
+    expiresAt: normalizeExpiresAt(nextState.expiresAt),
+  };
+}
+
+function hasUsableAuthState(state = authState) {
+  const normalizedState = normalizeAuthState(state);
+  return Boolean(
+    normalizedState.authenticated
+      && normalizedState.myAccountUrl
+      && normalizedState.expiresAt
+      && normalizedState.expiresAt > Date.now(),
+  );
+}
+
+function clearStoredAuthState() {
+  try {
+    sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+}
+
+function readStoredAuthState() {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  try {
+    const rawValue = sessionStorage.getItem(HYBRIS_AUTH_STATE_KEY);
+    if (!rawValue) {
+      return null;
+    }
+
+    const parsedState = normalizeAuthState(JSON.parse(rawValue));
+    if (!hasUsableAuthState(parsedState)) {
+      sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+      return null;
+    }
+
+    return parsedState;
+  } catch (error) {
+    clearStoredAuthState();
+    return null;
+  }
+}
+
+function persistAuthState(nextState = {}) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  const normalizedState = normalizeAuthState(nextState);
+
+  try {
+    if (hasUsableAuthState(normalizedState)) {
+      sessionStorage.setItem(HYBRIS_AUTH_STATE_KEY, JSON.stringify(normalizedState));
+    } else {
+      sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+    }
+  } catch (error) {
+    // ignore storage failures
+  }
+}
+
 function readSessionToken() {
   try {
     return sessionStorage.getItem(HYBRIS_SESSION_TOKEN_KEY) || '';
@@ -37,6 +146,17 @@ function syncWindowAuthState() {
 }
 
 function getCachedAuthState() {
+  if (!hasUsableAuthState(authState)) {
+    const storedState = readStoredAuthState();
+    if (storedState) {
+      authState = storedState;
+      syncWindowAuthState();
+    } else if (authState.authenticated || authState.expiresAt || authState.myAccountUrl) {
+      authState = { ...DEFAULT_AUTH_STATE };
+      syncWindowAuthState();
+    }
+  }
+
   return { ...authState };
 }
 
@@ -102,19 +222,27 @@ function redirectToHybrisLogin(returnUrl = (typeof window !== 'undefined' ? wind
 function resetAuthState() {
   authState = { ...DEFAULT_AUTH_STATE };
   authStatusPromise = null;
+  authInitializationPromise = null;
+  clearStoredAuthState();
   syncWindowAuthState();
   return getCachedAuthState();
 }
 
 function setAuthState(nextState = {}) {
-  authState = {
-    ...DEFAULT_AUTH_STATE,
-    ...nextState,
-    authenticated: Boolean(nextState.authenticated),
-  };
+  authState = normalizeAuthState(nextState);
   authStatusPromise = null;
+  persistAuthState(authState);
   syncWindowAuthState();
   return getCachedAuthState();
+}
+
+function setGuestCartPresence(present) {
+  authState = {
+    ...getCachedAuthState(),
+    guestCartCodePresent: Boolean(present),
+  };
+  syncWindowAuthState();
+  return { ...authState };
 }
 
 function clearSessionToken() {
@@ -378,16 +506,32 @@ export async function bffRequest(path, options = {}) {
   return json?.data;
 }
 
+export async function logoutHybris(options = {}) {
+  const returnUrl = resolveHybrisReturnUrl(options.returnUrl);
+  const logoutState = await bffRequest('/auth/logout', {
+    method: 'POST',
+    auth: 'optional',
+    body: {
+      returnUrl,
+    },
+  });
+
+  clearSessionToken();
+  broadcastHybrisAuthEvent(HYBRIS_AUTH_BROADCAST_LOGOUT);
+  return logoutState;
+}
+
 export async function refreshHybrisAuthStatus(options = {}) {
   const { force = false } = options;
 
   ensureSessionTokenLoaded();
+  const cachedState = getCachedAuthState();
   if (!sessionToken) {
     return resetAuthState();
   }
 
-  if (!force && authState.authenticated && authState.expiresAt) {
-    return getCachedHybrisAuthState();
+  if (!force && hasUsableAuthState(cachedState)) {
+    return cachedState;
   }
 
   if (!force && authStatusPromise) {
@@ -432,6 +576,11 @@ export function initializeHybrisAuth(options = {}) {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.warn('Hybris auth exchange failed', error);
+    }
+
+    const cachedState = getCachedHybrisAuthState();
+    if (hasUsableAuthState(cachedState)) {
+      return cachedState;
     }
 
     try {
@@ -492,11 +641,112 @@ export async function fetchHybrisWishlist(options = {}) {
   }
 }
 
-export async function addHybrisCartItem(code, quantity = 1, options = {}) {
-  const { country, language } = buildRegionParams();
-  return bffRequest('/cart/items', {
+async function fetchHybrisGuestCart(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  return bffRequest('/guest-cart', {
+    auth: 'none',
+    query: {
+      country,
+      language,
+    },
+  });
+}
+
+async function createHybrisGuestCart(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const cart = await bffRequest('/guest-cart', {
     method: 'POST',
-    auth: 'required',
+    auth: 'none',
+    body: {},
+    query: {
+      country,
+      language,
+    },
+  });
+  setGuestCartPresence(true);
+  return cart;
+}
+
+async function ensureHybrisGuestCart(options = {}) {
+  try {
+    const cart = await fetchHybrisGuestCart(options);
+    if (cart) {
+      setGuestCartPresence(true);
+      return cart;
+    }
+  } catch (error) {
+    if (error.status !== 404 && error.errorCode !== 'GUEST_CART_NOT_FOUND') {
+      throw error;
+    }
+  }
+
+  return createHybrisGuestCart(options);
+}
+
+export async function fetchHybrisCart(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const authenticated = typeof options.authenticated === 'boolean'
+    ? options.authenticated
+    : isHybrisAuthenticated();
+
+  if (authenticated) {
+    return bffRequest('/cart', {
+      auth: 'required',
+      query: {
+        country,
+        language,
+      },
+      redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+      returnUrl: options.returnUrl,
+    });
+  }
+
+  try {
+    const cart = await bffRequest('/guest-cart', {
+      auth: 'none',
+      query: {
+        country,
+        language,
+      },
+    });
+    setGuestCartPresence(Boolean(cart));
+    return cart;
+  } catch (error) {
+    if (error.status === 404 || error.errorCode === 'GUEST_CART_NOT_FOUND') {
+      setGuestCartPresence(false);
+      return null;
+    }
+    throw error;
+  }
+}
+
+export async function addHybrisCartItem(code, quantity = 1, options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const authenticated = typeof options.authenticated === 'boolean'
+    ? options.authenticated
+    : isHybrisAuthenticated();
+
+  if (authenticated) {
+    return bffRequest('/cart/items', {
+      method: 'POST',
+      auth: 'required',
+      body: {
+        code,
+        quantity,
+      },
+      query: {
+        country,
+        language,
+      },
+      redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+      returnUrl: options.returnUrl,
+    });
+  }
+
+  await ensureHybrisGuestCart(options);
+  const cartItem = await bffRequest('/guest-cart/items', {
+    method: 'POST',
+    auth: 'none',
     body: {
       code,
       quantity,
@@ -505,7 +755,75 @@ export async function addHybrisCartItem(code, quantity = 1, options = {}) {
       country,
       language,
     },
-    redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+  });
+  setGuestCartPresence(true);
+  return cartItem;
+}
+
+export async function updateHybrisCartItem(entryNumber, quantity, options = {}) {
+  const normalizedEntryNumber = Number(entryNumber);
+  if (!Number.isInteger(normalizedEntryNumber) || normalizedEntryNumber < 0) {
+    throw buildBffError('Cart entryNumber must be a non-negative integer', {
+      status: 0,
+      errorCode: 'INVALID_REQUEST',
+    });
+  }
+
+  if (!Number.isInteger(quantity) || quantity <= 0) {
+    throw buildBffError('Cart quantity must be a positive integer', {
+      status: 0,
+      errorCode: 'INVALID_REQUEST',
+    });
+  }
+
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const authenticated = typeof options.authenticated === 'boolean'
+    ? options.authenticated
+    : isHybrisAuthenticated();
+  const path = authenticated
+    ? `/cart/items/${encodeURIComponent(normalizedEntryNumber)}`
+    : `/guest-cart/items/${encodeURIComponent(normalizedEntryNumber)}`;
+
+  return bffRequest(path, {
+    method: 'PUT',
+    auth: authenticated ? 'required' : 'none',
+    body: {
+      quantity,
+    },
+    query: {
+      country,
+      language,
+    },
+    redirectOnAuthFailure: authenticated && options.redirectOnAuthFailure === true,
+    returnUrl: options.returnUrl,
+  });
+}
+
+export async function removeHybrisCartItem(entryNumber, options = {}) {
+  const normalizedEntryNumber = Number(entryNumber);
+  if (!Number.isInteger(normalizedEntryNumber) || normalizedEntryNumber < 0) {
+    throw buildBffError('Cart entryNumber must be a non-negative integer', {
+      status: 0,
+      errorCode: 'INVALID_REQUEST',
+    });
+  }
+
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const authenticated = typeof options.authenticated === 'boolean'
+    ? options.authenticated
+    : isHybrisAuthenticated();
+  const path = authenticated
+    ? `/cart/items/${encodeURIComponent(normalizedEntryNumber)}`
+    : `/guest-cart/items/${encodeURIComponent(normalizedEntryNumber)}`;
+
+  return bffRequest(path, {
+    method: 'DELETE',
+    auth: authenticated ? 'required' : 'none',
+    query: {
+      country,
+      language,
+    },
+    redirectOnAuthFailure: authenticated && options.redirectOnAuthFailure === true,
     returnUrl: options.returnUrl,
   });
 }
@@ -560,5 +878,26 @@ export async function removeHybrisWishlistItem(entryNumber, options = {}) {
   });
 }
 
+function handleHybrisAuthBroadcast(event) {
+  if (event?.key !== HYBRIS_AUTH_BROADCAST_KEY || !event.newValue || typeof window === 'undefined') {
+    return;
+  }
+
+  try {
+    const payload = JSON.parse(event.newValue);
+    if (payload?.type !== HYBRIS_AUTH_BROADCAST_LOGOUT) {
+      return;
+    }
+  } catch (error) {
+    return;
+  }
+
+  clearSessionToken();
+  window.location.reload();
+}
+
 sessionToken = readSessionToken();
 syncWindowAuthState();
+if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+  window.addEventListener('storage', handleHybrisAuthBroadcast);
+}

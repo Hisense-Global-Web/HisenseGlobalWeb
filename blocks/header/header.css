@@ -526,7 +526,7 @@
     justify-content: center;
   }
   
-  &:hover {
+  &.is-authenticated:hover {
     .person-drawer {
       display: flex;
     }
@@ -542,7 +542,12 @@
     border-radius: var(--size-20);
     top: calc(100px - 14px);
     right: 0;
+    z-index: 2;
     box-shadow: 4px 16px 36px 0 #0000001A;
+
+    &[hidden] {
+      display: none !important;
+    }
 
     .user-group {
       display: flex;
@@ -555,8 +560,17 @@
       .portrait {
         width: var(--size-40);
         height: var(--size-40);
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: inherit;
+        border-radius: 50%;
+        background: var(--color-primary-grey-20);
+        color: var(--color-primary-grey-70);
+        font-size: 14px;
+        font-weight: var(--fontweight-medium);
+        line-height: 1;
+        text-transform: uppercase;
       }
       
       .person-name {
@@ -578,8 +592,16 @@
         display: flex;
         align-items: center;
         width: 100%;
-        justify-content: space-between;
+        justify-content: flex-start;
         height: var(--size-48);
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+          .my-product-title {
+            color: var(--color-hisense-black);
+          }
+        }
         
         .my-product-title {
           color: var(--color-primary-grey-70);
@@ -611,6 +633,7 @@
       margin-top: var(--size-12);
       display: flex;
       align-items: center;
+      cursor: pointer;
       color: var(--color-primary-grey-70);
       font-size: var(--fontsize-body2);
       line-height: 1.5;

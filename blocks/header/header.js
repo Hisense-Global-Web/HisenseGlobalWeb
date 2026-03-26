@@ -1,10 +1,147 @@
 import { loadFragment } from '../fragment/fragment.js';
-import { refreshHybrisAuthStatus, startHybrisLogin } from '../../scripts/hybris-bff.js';
+import {
+  getCachedHybrisAuthState,
+  initializeHybrisAuth,
+  logoutHybris,
+  refreshHybrisAuthStatus,
+  startHybrisLogin,
+} from '../../scripts/hybris-bff.js';
 import { getFragmentPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const HYBRIS_ACCOUNT_MENU_ITEMS = [
+  { label: 'Account Home', suffix: '' },
+  { label: 'Orders', suffix: '/orders' },
+  { label: 'Wishlist', suffix: '/wishlist' },
+  { label: 'Address', suffix: '/address-book' },
+  { label: 'Coupons', suffix: '/coupons' },
+];
+
+function hasValidHybrisAccountState(authState = {}) {
+  return Boolean(
+    authState?.authenticated
+      && authState?.myAccountUrl
+      && Number(authState?.expiresAt) > Date.now(),
+  );
+}
+
+function splitMyAccountUrl(myAccountUrl) {
+  if (!myAccountUrl || typeof window === 'undefined') {
+    return null;
+  }
+
+  try {
+    const parsedUrl = new URL(myAccountUrl, window.location.origin);
+    return {
+      domain: parsedUrl.origin,
+      uri: parsedUrl.pathname === '/' ? '' : parsedUrl.pathname.replace(/\/+$/, ''),
+    };
+  } catch (error) {
+    return null;
+  }
+}
+
+function buildAccountMenuLinks(myAccountUrl) {
+  const urlParts = splitMyAccountUrl(myAccountUrl);
+  if (!urlParts) {
+    return [];
+  }
+
+  return HYBRIS_ACCOUNT_MENU_ITEMS.map(({ label, suffix }) => ({
+    label,
+    href: `${urlParts.domain}${urlParts.uri}${suffix}`,
+  }));
+}
+
+function buildAccountMenuItem({ label, href }) {
+  const link = document.createElement('a');
+  link.className = 'my-item';
+  link.href = href;
+  link.addEventListener('click', (event) => {
+    event.stopPropagation();
+  });
+
+  const titleEl = document.createElement('span');
+  titleEl.className = 'my-product-title';
+  titleEl.textContent = label;
+  link.append(titleEl);
+
+  return link;
+}
+
+function setLogoutModalVisible(isVisible) {
+  const mask = document.querySelector('#logout-mask');
+  if (mask) {
+    mask.style.display = isVisible ? 'block' : '';
+  }
+
+  const popup = document.querySelector('#logout-popup');
+  if (popup) {
+    popup.style.display = isVisible ? 'block' : '';
+  }
+}
+
+function createAccountDrawer() {
+  const personEl = document.createElement('div');
+  personEl.className = 'person-drawer';
+  personEl.hidden = true;
+  personEl.setAttribute('aria-hidden', 'true');
+
+  const userEl = document.createElement('div');
+  userEl.className = 'user-group';
+  const portrait = document.createElement('div');
+  portrait.className = 'portrait';
+  portrait.textContent = 'A';
+  portrait.setAttribute('aria-hidden', 'true');
+
+  const nameEl = document.createElement('div');
+  nameEl.className = 'person-name';
+  nameEl.textContent = 'My Account';
+  userEl.append(portrait, nameEl);
+
+  const myItems = document.createElement('div');
+  myItems.className = 'my-items-group';
+
+  const logoutEl = document.createElement('div');
+  logoutEl.className = 'logout-group';
+  logoutEl.textContent = 'Log out';
+  logoutEl.addEventListener('click', (event) => {
+    event.stopPropagation();
+    setLogoutModalVisible(true);
+  });
+
+  const divisionLine = document.createElement('div');
+  divisionLine.className = 'division-line';
+
+  personEl.append(userEl, divisionLine.cloneNode(true), myItems, divisionLine.cloneNode(true), logoutEl);
+
+  return {
+    personEl,
+    myItems,
+  };
+}
+
+function applyAccountActionState(actionButton, drawerRefs, authState = {}) {
+  const shouldShowDrawer = hasValidHybrisAccountState(authState);
+  const menuLinks = shouldShowDrawer ? buildAccountMenuLinks(authState.myAccountUrl) : [];
+  const isAuthenticated = Boolean(shouldShowDrawer && menuLinks.length);
+
+  actionButton.classList.toggle('is-authenticated', isAuthenticated);
+  actionButton.dataset.authenticated = isAuthenticated ? 'true' : 'false';
+
+  drawerRefs.personEl.hidden = !isAuthenticated;
+  drawerRefs.personEl.setAttribute('aria-hidden', isAuthenticated ? 'false' : 'true');
+
+  if (!isAuthenticated) {
+    drawerRefs.myItems.replaceChildren();
+    return;
+  }
+
+  drawerRefs.myItems.replaceChildren(...menuLinks.map(buildAccountMenuItem));
+}
+
 function parseLogo(root) {
   const logoImg = root.querySelector('.navigation-logo-wrapper img');
   const logoHref = root.querySelector('.navigation-logo-wrapper a')?.href || '';
@@ -645,6 +782,13 @@ const handleAccountActionClick = async (event) => {
 
   setHeaderActionLoadingState(actionButton, true);
 
+  const cachedStatus = getCachedHybrisAuthState();
+  if (hasValidHybrisAccountState(cachedStatus)) {
+    scheduleHeaderActionLoadingReset(actionButton);
+    window.location.href = cachedStatus.myAccountUrl;
+    return;
+  }
+
   try {
     const status = await refreshHybrisAuthStatus({ force: true });
     if (status?.authenticated && status.myAccountUrl) {
@@ -680,6 +824,7 @@ export default async function decorate(block) {
   const actions = parseActions(fragment);
   const dropdowns = parseDropdowns(fragment);
   const company = parseCompany(fragment);
+  const accountActionButtons = [];
 
   // 构建新的导航DOM
   const navigation = document.createElement('div');
@@ -952,56 +1097,13 @@ export default async function decorate(block) {
       } else {
         btn.dataset.loading = 'false';
         btn.addEventListener('click', handleAccountActionClick);
+        const drawerRefs = createAccountDrawer();
+        btn.append(drawerRefs.personEl);
+        accountActionButtons.push({
+          actionButton: btn,
+          drawerRefs,
+        });
       }
-
-      // TODO: 是否为购物车，购物车的数量
-      const countSpan = document.createElement('span');
-      countSpan.className = 'count-span';
-      countSpan.textContent = '3';
-      btn.append(countSpan);
-
-      // TODO: 是否为person
-      const personEl = document.createElement('div');
-      personEl.className = 'person-drawer';
-      const userEl = document.createElement('div');
-      userEl.className = 'user-group';
-      const portrait = document.createElement('img');
-      portrait.className = 'portrait';
-      portrait.src = 'https://picsum.photos/40/40?random=1';
-      const nameEl = document.createElement('div');
-      nameEl.className = 'person-name';
-      nameEl.textContent = 'John';
-      userEl.append(portrait, nameEl);
-
-      const myItems = document.createElement('div');
-      myItems.className = 'my-items-group';
-
-      const myProducts = document.createElement('div');
-      myProducts.className = 'my-item';
-      const myProductsSpan = document.createElement('span');
-      myProductsSpan.className = 'my-product-title';
-      myProductsSpan.textContent = 'My Products';
-      const myProductsCountSpan = document.createElement('span');
-      myProductsCountSpan.className = 'my-count-span';
-      myProductsCountSpan.textContent = '3';
-      myProducts.append(myProductsSpan, myProductsCountSpan);
-      myItems.append(myProducts.cloneNode(true), myProducts.cloneNode(true), myProducts.cloneNode(true), myProducts.cloneNode(true), myProducts.cloneNode(true));
-      const logoutEl = document.createElement('div');
-      logoutEl.className = 'logout-group';
-      logoutEl.textContent = 'log out';
-      logoutEl.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const mask = document.querySelector('#logout-mask');
-        mask.style.display = 'block';
-        const popup = document.querySelector('#logout-popup');
-        popup.style.display = 'block';
-      });
-
-      const divisionLine = document.createElement('div');
-      divisionLine.className = 'division-line';
-
-      personEl.append(userEl, divisionLine.cloneNode(true), myItems, divisionLine.cloneNode(true), logoutEl);
-      btn.append(personEl);
 
       actionsEl.append(btn);
       return;
@@ -1018,6 +1120,23 @@ export default async function decorate(block) {
     }
     actionsEl.append(link);
   });
+
+  if (accountActionButtons.length) {
+    const syncAccountActionButtons = (authState = {}) => {
+      accountActionButtons.forEach(({ actionButton, drawerRefs }) => {
+        applyAccountActionState(actionButton, drawerRefs, authState);
+      });
+    };
+
+    syncAccountActionButtons(getCachedHybrisAuthState());
+    initializeHybrisAuth()
+      .then((authState) => {
+        syncAccountActionButtons(authState);
+      })
+      .catch(() => {
+        syncAccountActionButtons(getCachedHybrisAuthState());
+      });
+  }
 
   // 物理添加手机端菜单按钮
   const btn = document.createElement('div');
@@ -1235,10 +1354,7 @@ export default async function decorate(block) {
   popupCloseImg.className = 'close-icon';
   popupCloseImg.addEventListener('click', (e) => {
     e.stopPropagation();
-    const mask = document.querySelector('#logout-mask');
-    mask.style.display = '';
-    const cancelBtnPopup = document.querySelector('#logout-popup');
-    cancelBtnPopup.style.display = '';
+    setLogoutModalVisible(false);
   });
 
   const logoutContext = document.createElement('div');
@@ -1257,16 +1373,30 @@ export default async function decorate(block) {
   cancelBtn.className = 'cancel-btn';
   cancelBtn.textContent = 'Cancel';
   cancelBtn.addEventListener('click', () => {
-    const mask = document.querySelector('#logout-mask');
-    mask.style.display = '';
-    const cancelBtnPopup = document.querySelector('#logout-popup');
-    cancelBtnPopup.style.display = '';
+    setLogoutModalVisible(false);
   });
   const sureBtn = document.createElement('button');
   sureBtn.className = 'sure-btn';
   sureBtn.textContent = 'Log out';
-  sureBtn.addEventListener('click', () => {
-    console.log('logout');
+  sureBtn.dataset.loading = 'false';
+  sureBtn.addEventListener('click', async () => {
+    if (sureBtn.dataset.loading === 'true') {
+      return;
+    }
+
+    sureBtn.dataset.loading = 'true';
+    sureBtn.disabled = true;
+
+    try {
+      await logoutHybris({ returnUrl: window.location.href });
+      setLogoutModalVisible(false);
+      window.location.reload();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn('Failed to log out of Hybris', error);
+      sureBtn.dataset.loading = 'false';
+      sureBtn.disabled = false;
+    }
   });
   logoutBtnGroup.append(cancelBtn, sureBtn);
 

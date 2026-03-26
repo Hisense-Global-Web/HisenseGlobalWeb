@@ -2,14 +2,17 @@ import { isMobileWindow } from '../../scripts/device.js';
 import {
   addHybrisCartItem,
   addHybrisWishlistItem,
+  fetchHybrisCart,
   fetchHybrisProduct,
   fetchHybrisWishlist,
   getCachedHybrisAuthState,
   getHybrisProductCode,
   initializeHybrisAuth,
+  removeHybrisCartItem,
   removeHybrisWishlistItem,
   scheduleHybrisTask,
   startHybrisLogin,
+  updateHybrisCartItem,
 } from '../../scripts/hybris-bff.js';
 import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
 import {
@@ -794,6 +797,8 @@ export default function decorate(block) {
 
   if (!graphqlUrl) return;
 
+  const authReadyPromise = scheduleHybrisTask(() => initializeHybrisAuth());
+
   /**
    * 比较 ----- start
    */
@@ -914,6 +919,553 @@ export default function decorate(block) {
     return match ? match[1].trim() : null;
   }
 
+  function getVariantImageUrl(variant) {
+    if (!variant) {
+      return '';
+    }
+
+    if (window.useShortDescriptionAsImage) {
+      return extractImageFromShortDescription(variant) || '';
+    }
+
+    const imageKey = variant.mediaGallery_image
+      && Object.keys(variant.mediaGallery_image).find((key) => key.toLowerCase().includes('_path'));
+    return imageKey ? variant.mediaGallery_image[imageKey] : '';
+  }
+
+  function getProductDisplayTitle(product, fallbackTitle = '') {
+    if (!product) {
+      return fallbackTitle || '';
+    }
+
+    const metadataKey = Object.keys(product).find((key) => key.toLowerCase().includes('metadata'));
+    let metadataTitle = '';
+    if (metadataKey) {
+      const metadata = product[metadataKey];
+      if (metadata && Array.isArray(metadata.stringMetadata)) {
+        metadataTitle = metadata.stringMetadata.find((entry) => entry.name === 'title')?.value || '';
+      }
+    }
+
+    return product.name
+      || product.title
+      || metadataTitle
+      || product.factoryModel
+      || product.series
+      || product.sku
+      || fallbackTitle
+      || '';
+  }
+
+  function normalizeCartEntries(cart) {
+    if (!cart) {
+      return [];
+    }
+
+    if (Array.isArray(cart.entries)) {
+      return cart.entries;
+    }
+
+    if (Array.isArray(cart.items)) {
+      return cart.items;
+    }
+
+    if (Array.isArray(cart.carts)) {
+      return cart.carts.flatMap((childCart) => normalizeCartEntries(childCart));
+    }
+
+    if (cart.entry) {
+      return normalizeCartEntries(cart.entry);
+    }
+
+    if (cart.item) {
+      return normalizeCartEntries(cart.item);
+    }
+
+    if (cart.product) {
+      return [cart];
+    }
+
+    return [];
+  }
+
+  function getCartEntryQuantity(entry) {
+    const quantity = Number(entry?.quantity ?? entry?.entry?.quantity ?? entry?.item?.quantity);
+    return Number.isFinite(quantity) && quantity > 0 ? quantity : 0;
+  }
+
+  function getCartEntryNumber(entry) {
+    const entryNumber = Number(entry?.entryNumber ?? entry?.entry?.entryNumber ?? entry?.item?.entryNumber);
+    return Number.isInteger(entryNumber) && entryNumber >= 0 ? entryNumber : null;
+  }
+
+  function getCartTotalUnitCount(cart) {
+    const totalUnitCount = Number(cart?.totalUnitCount);
+    if (Number.isFinite(totalUnitCount) && totalUnitCount > 0) {
+      return totalUnitCount;
+    }
+
+    const totalQuantity = normalizeCartEntries(cart)
+      .reduce((total, entry) => total + getCartEntryQuantity(entry), 0);
+    if (totalQuantity > 0) {
+      return totalQuantity;
+    }
+
+    const totalItems = Number(cart?.totalItems);
+    return Number.isFinite(totalItems) && totalItems > 0 ? totalItems : 0;
+  }
+
+  function getCartTotalPrice(cart) {
+    return parsePriceValue(cart?.totalPriceWithTax || cart?.totalPrice || cart?.subTotal);
+  }
+
+  function getPopupTotalPriceText(cart, entry, unitPrice, fallbackCurrency = 'USD') {
+    const cartTotalPrice = getCartTotalPrice(cart);
+    if (cartTotalPrice.formattedValue || cartTotalPrice.value !== null) {
+      return getPriceDisplayText(cartTotalPrice, fallbackCurrency);
+    }
+
+    const entryTotalPrice = parsePriceValue(entry?.totalPrice);
+    if (entryTotalPrice.formattedValue || entryTotalPrice.value !== null) {
+      return getPriceDisplayText(entryTotalPrice, fallbackCurrency);
+    }
+
+    const quantity = getCartEntryQuantity(entry);
+    if (quantity > 0 && unitPrice?.value !== null) {
+      return getPriceDisplayText({
+        value: unitPrice.value * quantity,
+        currencyIso: unitPrice.currencyIso || fallbackCurrency,
+      }, fallbackCurrency);
+    }
+
+    return '--';
+  }
+
+  function findCartEntryByProductCode(cart, productCode) {
+    const normalizedProductCode = String(productCode || '').trim();
+    if (!normalizedProductCode) {
+      return null;
+    }
+
+    return normalizeCartEntries(cart)
+      .find((entry) => getHybrisProductCode(entry?.product || entry) === normalizedProductCode) || null;
+  }
+
+  function getPopupEntryFallback(payload, productCode) {
+    if (!payload) {
+      return null;
+    }
+
+    return findCartEntryByProductCode(payload, productCode)
+      || payload.entry
+      || payload.item
+      || (payload.product ? payload : null);
+  }
+
+  function getPopupEntryPrice(entry, fallbackSource = null) {
+    const basePrice = parsePriceValue(entry?.basePrice || entry?.product?.price || entry?.price);
+    if (basePrice.formattedValue || basePrice.value !== null) {
+      return basePrice;
+    }
+
+    const totalPrice = parsePriceValue(entry?.totalPrice);
+    const quantity = getCartEntryQuantity(entry);
+    if (totalPrice.value !== null && quantity > 0) {
+      return {
+        value: totalPrice.value / quantity,
+        formattedValue: '',
+        currencyIso: totalPrice.currencyIso || 'USD',
+      };
+    }
+
+    const { sale, msrp, currency } = getPricingDetails(fallbackSource, fallbackSource);
+    if (sale.formattedValue || sale.value !== null) {
+      return sale;
+    }
+
+    return {
+      ...msrp,
+      currencyIso: msrp.currencyIso || currency,
+    };
+  }
+
+  function resolvePopupImageUrl(entry, fallbackVariant = null, fallbackRepresentative = null) {
+    const entryImages = Array.isArray(entry?.product?.images) ? entry.product.images : [];
+    const entryImage = entryImages.find((image) => image?.url) || entryImages[0];
+
+    return entryImage?.url
+      || getVariantImageUrl(fallbackVariant)
+      || getVariantImageUrl(fallbackRepresentative)
+      || '';
+  }
+
+  const popupState = {
+    productCode: '',
+    authenticated: false,
+    cart: null,
+    entry: null,
+    variant: null,
+    representative: null,
+    message: 'Item added to your cart',
+    processing: false,
+  };
+
+  const cartCacheState = {
+    cart: null,
+    hydrated: false,
+    loadPromise: null,
+  };
+
+  const popupElements = {
+    popup: null,
+    mask: null,
+    title: null,
+    image: null,
+    productTitle: null,
+    modelValue: null,
+    stockLine: null,
+    stockText: null,
+    unitPrice: null,
+    totalLabel: null,
+    totalPrice: null,
+    countControls: [],
+    deleteIcons: [],
+    viewCartBtn: null,
+    checkoutBtn: null,
+  };
+
+  function setProductCardPopupVisibility(visible) {
+    if (!popupElements.popup || !popupElements.mask) {
+      return;
+    }
+
+    popupElements.popup.style.display = visible ? 'block' : '';
+    popupElements.mask.style.display = visible ? 'block' : '';
+  }
+
+  function closeProductCardPopup() {
+    setProductCardPopupVisibility(false);
+  }
+
+  function setCachedProductCardCart(cart) {
+    cartCacheState.cart = cart || null;
+    cartCacheState.hydrated = true;
+    return cartCacheState.cart;
+  }
+
+  function renderProductCardPopup() {
+    if (!popupElements.popup) {
+      return;
+    }
+
+    const fallbackProduct = popupState.variant || popupState.representative || {};
+    const { entry } = popupState;
+    const entryProduct = entry?.product || {};
+    const fallbackCurrency = entry?.basePrice?.currencyIso
+      || entry?.totalPrice?.currencyIso
+      || popupState.cart?.totalPrice?.currencyIso
+      || popupState.cart?.subTotal?.currencyIso
+      || 'USD';
+    const unitPrice = getPopupEntryPrice(entry, fallbackProduct);
+    const quantity = getCartEntryQuantity(entry);
+    const entryNumber = getCartEntryNumber(entry);
+    const canAdjustExistingEntry = entryNumber !== null && quantity > 0;
+    const totalUnitCount = getCartTotalUnitCount(popupState.cart) || quantity;
+    const itemLabel = totalUnitCount === 1 ? 'item' : 'items';
+    const productTitle = getProductDisplayTitle(
+      entryProduct,
+      getProductDisplayTitle(fallbackProduct, popupState.productCode),
+    );
+    const modelValue = entryProduct.code || popupState.productCode || getHybrisProductCode(fallbackProduct);
+    const imageUrl = resolvePopupImageUrl(entry, popupState.variant, popupState.representative);
+    const stockSource = entryProduct?.stock ? entryProduct : fallbackProduct;
+    const hasStockInfo = Boolean(stockSource?.stock);
+
+    popupElements.title.textContent = popupState.processing ? 'Updating your cart' : popupState.message;
+    popupElements.productTitle.textContent = productTitle || popupState.productCode || '';
+    popupElements.modelValue.textContent = modelValue || '--';
+    popupElements.unitPrice.textContent = getPriceDisplayText(unitPrice, fallbackCurrency) || '--';
+    popupElements.totalLabel.innerHTML = `Cart total (<span class="total-num">${totalUnitCount || 0}</span> ${itemLabel})`;
+    popupElements.totalPrice.textContent = getPopupTotalPriceText(
+      popupState.cart,
+      entry,
+      unitPrice,
+      fallbackCurrency,
+    );
+
+    if (imageUrl) {
+      popupElements.image.src = imageUrl;
+      popupElements.image.alt = productTitle || modelValue || 'Product image';
+    } else {
+      popupElements.image.removeAttribute('src');
+      popupElements.image.alt = '';
+    }
+
+    popupElements.stockLine.style.display = hasStockInfo ? 'flex' : 'none';
+    popupElements.stockLine.classList.remove('is-unavailable');
+    if (hasStockInfo) {
+      const inStock = hasInventory(stockSource);
+      popupElements.stockText.textContent = inStock ? 'In Stock' : 'Out of stock';
+      popupElements.stockLine.classList.toggle('is-unavailable', !inStock);
+    }
+
+    popupElements.countControls.forEach(({ input, minusBtn, plusBtn }) => {
+      input.value = String(quantity || 0);
+      input.readOnly = true;
+      input.setAttribute('readonly', 'readonly');
+      input.setAttribute('inputmode', 'none');
+      input.setAttribute('aria-label', 'Quantity');
+      minusBtn.disabled = popupState.processing || !canAdjustExistingEntry || quantity <= 1;
+      plusBtn.disabled = popupState.processing || !popupState.productCode;
+    });
+
+    popupElements.deleteIcons.forEach((icon) => {
+      const disabled = popupState.processing || !canAdjustExistingEntry;
+      icon.classList.toggle('is-disabled', disabled);
+      icon.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+      icon.setAttribute('title', disabled
+        ? 'Delete is available after this item is in the cart'
+        : 'Remove item from cart');
+    });
+
+    if (popupElements.viewCartBtn) {
+      popupElements.viewCartBtn.disabled = true;
+      popupElements.viewCartBtn.title = 'View cart will be connected later';
+    }
+
+    if (popupElements.checkoutBtn) {
+      popupElements.checkoutBtn.disabled = true;
+      popupElements.checkoutBtn.title = 'Proceed to checkout will be connected later';
+    }
+  }
+
+  async function refreshProductCardPopupCart() {
+    popupState.authenticated = Boolean(getCachedHybrisAuthState().authenticated);
+    popupState.cart = await fetchHybrisCart({
+      authenticated: popupState.authenticated,
+      redirectOnAuthFailure: true,
+      returnUrl: window.location.href,
+    });
+    setCachedProductCardCart(popupState.cart);
+    popupState.entry = findCartEntryByProductCode(popupState.cart, popupState.productCode) || popupState.entry;
+    return popupState.cart;
+  }
+
+  async function preloadProductCardCart(options = {}) {
+    const { force = false } = options;
+    if (!force && cartCacheState.hydrated) {
+      return cartCacheState.cart;
+    }
+
+    if (!force && cartCacheState.loadPromise) {
+      return cartCacheState.loadPromise;
+    }
+
+    cartCacheState.loadPromise = (async () => {
+      let authenticated = Boolean(getCachedHybrisAuthState().authenticated);
+
+      try {
+        const authState = await authReadyPromise;
+        authenticated = Boolean(authState?.authenticated);
+      } catch (authError) {
+        /* eslint-disable-next-line no-console */
+        console.warn('Failed to resolve Hybris auth state before cart preload', authError);
+      }
+
+      try {
+        const cart = await fetchHybrisCart({
+          authenticated,
+          redirectOnAuthFailure: false,
+          returnUrl: window.location.href,
+        });
+        return setCachedProductCardCart(cart);
+      } catch (error) {
+        /* eslint-disable-next-line no-console */
+        console.warn('Failed to preload product card cart', error);
+        return setCachedProductCardCart(null);
+      } finally {
+        cartCacheState.loadPromise = null;
+      }
+    })();
+
+    return cartCacheState.loadPromise;
+  }
+
+  function getPreloadedProductCardCart() {
+    if (cartCacheState.loadPromise) {
+      return cartCacheState.loadPromise;
+    }
+
+    return Promise.resolve(cartCacheState.cart);
+  }
+
+  async function openProductCardPopup(options = {}) {
+    const existingCart = options.cart !== undefined ? options.cart : cartCacheState.cart;
+    popupState.productCode = String(options.productCode || '').trim();
+    popupState.authenticated = Boolean(options.authenticated);
+    popupState.variant = options.variant || null;
+    popupState.representative = options.representative || null;
+    popupState.cart = existingCart || null;
+    popupState.entry = findCartEntryByProductCode(popupState.cart, popupState.productCode)
+      || getPopupEntryFallback(options.fallbackEntry, popupState.productCode);
+    popupState.message = options.message || 'Add item to your cart';
+    popupState.processing = false;
+
+    renderProductCardPopup();
+    setProductCardPopupVisibility(true);
+  }
+
+  async function increaseProductCardPopupQuantity() {
+    if (!popupState.productCode || popupState.processing) {
+      return;
+    }
+
+    const previousMessage = popupState.message;
+    const previousQuantity = getCartEntryQuantity(popupState.entry);
+    popupState.processing = true;
+    renderProductCardPopup();
+
+    try {
+      try {
+        const authState = await initializeHybrisAuth();
+        popupState.authenticated = Boolean(authState?.authenticated);
+      } catch (authError) {
+        /* eslint-disable-next-line no-console */
+        console.warn('Failed to resolve Hybris auth state before popup add to cart', authError);
+      }
+
+      await addHybrisCartItem(popupState.productCode, 1, {
+        authenticated: popupState.authenticated,
+        redirectOnAuthFailure: true,
+        returnUrl: window.location.href,
+      });
+      await refreshProductCardPopupCart();
+      popupState.message = previousQuantity > 0 ? 'Cart updated' : 'Item added to your cart';
+    } catch (error) {
+      /* eslint-disable-next-line no-console */
+      console.warn(`Failed to increase cart quantity for ${popupState.productCode}`, error);
+      popupState.message = previousMessage;
+    } finally {
+      popupState.processing = false;
+      renderProductCardPopup();
+    }
+  }
+
+  async function decreaseProductCardPopupQuantity() {
+    const entryNumber = getCartEntryNumber(popupState.entry);
+    const currentQuantity = getCartEntryQuantity(popupState.entry);
+    if (popupState.processing || entryNumber === null || currentQuantity <= 1) {
+      return;
+    }
+
+    popupState.processing = true;
+    renderProductCardPopup();
+
+    try {
+      try {
+        const authState = await initializeHybrisAuth();
+        popupState.authenticated = Boolean(authState?.authenticated);
+      } catch (authError) {
+        /* eslint-disable-next-line no-console */
+        console.warn('Failed to resolve Hybris auth state before popup cart decrease', authError);
+      }
+
+      await updateHybrisCartItem(entryNumber, currentQuantity - 1, {
+        authenticated: popupState.authenticated,
+        redirectOnAuthFailure: true,
+        returnUrl: window.location.href,
+      });
+      await refreshProductCardPopupCart();
+      popupState.message = 'Cart updated';
+    } catch (error) {
+      /* eslint-disable-next-line no-console */
+      console.warn(`Failed to decrease cart quantity for ${popupState.productCode}`, error);
+    } finally {
+      popupState.processing = false;
+      renderProductCardPopup();
+    }
+  }
+
+  async function removeProductCardPopupItem() {
+    const entryNumber = getCartEntryNumber(popupState.entry);
+    if (popupState.processing || entryNumber === null) {
+      return;
+    }
+
+    popupState.processing = true;
+    renderProductCardPopup();
+
+    try {
+      try {
+        const authState = await initializeHybrisAuth();
+        popupState.authenticated = Boolean(authState?.authenticated);
+      } catch (authError) {
+        /* eslint-disable-next-line no-console */
+        console.warn('Failed to resolve Hybris auth state before popup cart delete', authError);
+      }
+
+      await removeHybrisCartItem(entryNumber, {
+        authenticated: popupState.authenticated,
+        redirectOnAuthFailure: true,
+        returnUrl: window.location.href,
+      });
+      await refreshProductCardPopupCart();
+      popupState.entry = findCartEntryByProductCode(popupState.cart, popupState.productCode) || null;
+      popupState.message = 'Item removed from your cart';
+    } catch (error) {
+      /* eslint-disable-next-line no-console */
+      console.warn(`Failed to remove cart item for ${popupState.productCode}`, error);
+    } finally {
+      popupState.processing = false;
+      renderProductCardPopup();
+    }
+  }
+
+  function createPopupQuantityControl() {
+    const countChangeEl = document.createElement('div');
+    countChangeEl.className = 'count-change';
+
+    const qtySpan = document.createElement('span');
+    qtySpan.className = 'qty-span';
+    qtySpan.textContent = 'Qty:';
+
+    const btnMinus = document.createElement('button');
+    btnMinus.type = 'button';
+    btnMinus.className = 'qty-action qty-decrease';
+    btnMinus.textContent = '-';
+    btnMinus.disabled = true;
+
+    const inputEl = document.createElement('input');
+    inputEl.className = 'qty-input';
+    inputEl.type = 'text';
+    inputEl.value = '0';
+    inputEl.readOnly = true;
+    inputEl.tabIndex = -1;
+    inputEl.inputMode = 'none';
+
+    const btnPlus = document.createElement('button');
+    btnPlus.type = 'button';
+    btnPlus.className = 'qty-action qty-increase';
+    btnPlus.textContent = '+';
+
+    countChangeEl.append(qtySpan, btnMinus, inputEl, btnPlus);
+    return countChangeEl;
+  }
+
+  function createPopupDeleteIcon() {
+    const deleteIcon = document.createElement('img');
+    deleteIcon.src = `/content/dam/hisense/${country}/common-icons/delete.svg`;
+    deleteIcon.className = 'delete-icon is-disabled';
+    deleteIcon.alt = '';
+    deleteIcon.setAttribute('aria-disabled', 'true');
+    return deleteIcon;
+  }
+
+  scheduleHybrisTask(() => preloadProductCardCart()).catch((error) => {
+    /* eslint-disable-next-line no-console */
+    console.warn('Failed to schedule product card cart preload', error);
+  });
+
   function applyDefaultSort() {
     // 检查是否有已选中的 filter（通过 plp-filter-tag 或选中的 input）
     const hasActiveFilters = () => {
@@ -1015,8 +1567,6 @@ export default function decorate(block) {
         }
       }
     });
-
-    const authReadyPromise = scheduleHybrisTask(() => initializeHybrisAuth());
 
     // 渲染当前页的产品卡片（追加模式）
     pagedGroupedArray.forEach((group) => {
@@ -1164,17 +1714,6 @@ export default function decorate(block) {
       const addToCartBtnEl = document.createElement('div');
       addToCartBtnEl.className = 'plp-add-to-cart-btn plp-purchase-hidden';
       addToCartBtnEl.textContent = 'Add to Cart';
-      addToCartBtnEl.addEventListener('click', () => {
-        const mask = document.querySelector('#product-card-mask');
-        mask.style.display = 'block';
-        const popup = document.querySelector('#product-card-popup');
-        popup.querySelector('.popup-product-title').textContent = '55U8K 55" ULED 4K Smart TV';
-        popup.querySelector('.model-value').textContent = '55U8K';
-        popup.querySelector('.popup-info-price .price-value').textContent = '$999';
-        popup.querySelector('.total .price-value').textContent = '$999';
-        popup.querySelector('.total-num').textContent = '0';
-        popup.style.display = 'block';
-      });
 
       const whereToBuyBtnEl = document.createElement('div');
       whereToBuyBtnEl.className = 'plp-where-to-buy-btn ps-widget plp-purchase-hidden';
@@ -1417,54 +1956,26 @@ export default function decorate(block) {
           return;
         }
 
-        let deferLoadingReset = false;
-        setControlLoadingState(addToCartTarget, true);
-        const originalText = addToCartTarget.textContent;
-
-        try {
-          const authState = await authReadyPromise;
-          if (!authState.authenticated) {
-            deferLoadingReset = true;
-            scheduleControlLoadingReset(addToCartTarget);
-            startHybrisLogin(window.location.href);
-            return;
-          }
-
-          await addHybrisCartItem(productCode, 1, {
-            redirectOnAuthFailure: true,
-            returnUrl: window.location.href,
+        getPreloadedProductCardCart()
+          .catch(() => null)
+          .then((cachedCart) => openProductCardPopup({
+            productCode,
+            authenticated: Boolean(getCachedHybrisAuthState().authenticated),
+            variant: selectedVariant,
+            representative: group.representative,
+            cart: cachedCart,
+            message: 'Add item to your cart',
+          }))
+          .catch((popupError) => {
+            /* eslint-disable-next-line no-console */
+            console.warn(`Failed to open cart popup for ${productCode}`, popupError);
           });
-          addToCartTarget.textContent = 'Added to Cart';
-        } catch (error) {
-          /* eslint-disable-next-line no-console */
-          console.warn(`Failed to add cart item for ${productCode}`, error);
-          addToCartTarget.textContent = originalText;
-          return;
-        } finally {
-          if (!deferLoadingReset) {
-            setControlLoadingState(addToCartTarget, false);
-          }
-        }
-
-        window.setTimeout(() => {
-          if (addToCartTarget.dataset.productCode === productCode) {
-            addToCartTarget.textContent = originalText;
-          }
-        }, 1500);
       });
 
       // 用来更新卡片显示为指定变体
       const updateCardWithVariant = (variant) => {
         // image
-        const variantImg = (() => {
-          // 如果开关打开了，优先使用 description_shortDescription 属性作为图片链接
-          if (window.useShortDescriptionAsImage) {
-            return extractImageFromShortDescription(variant);
-          }
-          // 否则走默认逻辑
-          const imgPKey = variant && variant.mediaGallery_image && Object.keys(variant.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
-          return imgPKey ? variant.mediaGallery_image[imgPKey] : null;
-        })();
+        const variantImg = getVariantImageUrl(variant);
 
         const updateImg = imgDiv.querySelector('img');
         if (variantImg && updateImg) {
@@ -1475,17 +1986,8 @@ export default function decorate(block) {
         // series
         if (fields.includes('series') && variant.series) seriesDiv.textContent = variant.series;
         // title/name
-        const metaKey = variant && Object.keys(variant).find((k) => k.toLowerCase().includes('metadata'));
-        let variantMetaTitle = null;
-        if (metaKey) {
-          const meta = variant[metaKey];
-          if (meta && Array.isArray(meta.stringMetadata)) {
-            const found = meta.stringMetadata.find((x) => x.name === 'title');
-            variantMetaTitle = found ? found.value : null;
-          }
-        }
         if (fields.includes('title')) {
-          nameDiv.textContent = variant.title || variantMetaTitle || group.factoryModel || '';
+          nameDiv.textContent = getProductDisplayTitle(variant, group.factoryModel || '');
         }
         // extra fields
         extraFields.innerHTML = '';
@@ -1962,17 +2464,16 @@ export default function decorate(block) {
   /* eslint-disable-next-line no-underscore-dangle */
   window.renderItems = renderItems;
 
+  document.querySelector('#product-card-popup')?.remove();
+  document.querySelector('#product-card-mask')?.remove();
+
   const popup = document.createElement('div');
   popup.id = 'product-card-popup';
   const closeImg = document.createElement('img');
   closeImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
   closeImg.className = 'close-icon';
-  closeImg.addEventListener('click', () => {
-    const mask = document.querySelector('#product-card-mask');
-    mask.style.display = '';
-    const closePopup = document.querySelector('#product-card-popup');
-    closePopup.style.display = '';
-  });
+  closeImg.alt = 'Close';
+  closeImg.addEventListener('click', closeProductCardPopup);
   popup.append(closeImg);
 
   const popupTitle = document.createElement('div');
@@ -1982,7 +2483,7 @@ export default function decorate(block) {
   const popupList = document.createElement('div');
   popupList.className = 'popup-list';
   const img = document.createElement('img');
-  img.src = '/content/dam/hisense/us/products/televisions/u8-serises/key-visual/u8.png';
+  img.className = 'popup-product-image';
 
   const popupInfo = document.createElement('div');
   popupInfo.className = 'popup-info';
@@ -1991,10 +2492,8 @@ export default function decorate(block) {
   popupInfoTitle.className = 'popup-info-title';
   const popupInfoTitleSpan = document.createElement('span');
   popupInfoTitleSpan.className = 'popup-product-title';
-  const deleteIcon = document.createElement('img');
-  deleteIcon.src = `/content/dam/hisense/${country}/common-icons/delete.svg`;
-  deleteIcon.className = 'delete-icon';
-  popupInfoTitle.append(popupInfoTitleSpan, deleteIcon.cloneNode(true));
+  const desktopDeleteIcon = createPopupDeleteIcon();
+  popupInfoTitle.append(popupInfoTitleSpan, desktopDeleteIcon);
 
   const popupInfoModel = document.createElement('div');
   popupInfoModel.className = 'popup-info-model';
@@ -2008,6 +2507,7 @@ export default function decorate(block) {
   const stockImg = document.createElement('img');
   stockImg.className = 'stock-img';
   stockImg.src = `/content/dam/hisense/${country}/common-icons/correct.svg`;
+  stockImg.alt = '';
   const stockSpan = document.createElement('span');
   stockSpan.textContent = 'In Stock';
   stockLine.append(stockImg, stockSpan);
@@ -2019,21 +2519,9 @@ export default function decorate(block) {
   popupInfoPrice.className = 'popup-info-price';
   const priceSpan = document.createElement('span');
   priceSpan.className = 'price-value';
-  const countChangeEl = document.createElement('div');
-  countChangeEl.className = 'count-change';
-  const qtySpan = document.createElement('span');
-  qtySpan.className = 'qty-span';
-  qtySpan.textContent = 'Qty:';
-  const btnMinus = document.createElement('div');
-  btnMinus.textContent = '-';
-  const btnPlus = document.createElement('div');
-  btnPlus.textContent = '+';
-  const inputEl = document.createElement('input');
-  inputEl.className = 'qty-input';
+  const desktopCountChangeEl = createPopupQuantityControl();
 
-  countChangeEl.append(qtySpan, btnMinus, inputEl, btnPlus);
-
-  popupInfoPrice.append(priceSpan, countChangeEl.cloneNode(true));
+  popupInfoPrice.append(priceSpan, desktopCountChangeEl);
   popupInfo.append(popupInfoTitle, popupInfoModel, popupInfoPrice);
   popupList.append(img, popupInfo);
 
@@ -2042,7 +2530,9 @@ export default function decorate(block) {
 
   const mobileCountEl = document.createElement('div');
   mobileCountEl.className = 'mobile-count-group';
-  mobileCountEl.append(countChangeEl.cloneNode(true), deleteIcon.cloneNode(true));
+  const mobileCountChangeEl = createPopupQuantityControl();
+  const mobileDeleteIcon = createPopupDeleteIcon();
+  mobileCountEl.append(mobileCountChangeEl, mobileDeleteIcon);
 
   const totalEl = document.createElement('div');
   totalEl.className = 'total';
@@ -2056,9 +2546,11 @@ export default function decorate(block) {
   const btnGroup = document.createElement('div');
   btnGroup.className = 'btn-group';
   const viewCartBtn = document.createElement('button');
+  viewCartBtn.type = 'button';
   viewCartBtn.className = 'view-cart-btn';
   viewCartBtn.textContent = 'View cart';
   const checkoutBtn = document.createElement('button');
+  checkoutBtn.type = 'button';
   checkoutBtn.className = 'checkout-btn';
   checkoutBtn.textContent = 'Proceed to checkout';
   btnGroup.append(viewCartBtn, checkoutBtn);
@@ -2066,8 +2558,67 @@ export default function decorate(block) {
   popup.append(popupTitle, popupList, popupLine, mobileCountEl, totalEl, btnGroup);
   const mask = document.createElement('div');
   mask.id = 'product-card-mask';
-  const body = document.querySelector('body');
-  body.append(popup, mask);
+  mask.addEventListener('click', closeProductCardPopup);
+
+  popupElements.popup = popup;
+  popupElements.mask = mask;
+  popupElements.title = popupTitle;
+  popupElements.image = img;
+  popupElements.productTitle = popupInfoTitleSpan;
+  popupElements.modelValue = popupInfoModelValueSpan;
+  popupElements.stockLine = stockLine;
+  popupElements.stockText = stockSpan;
+  popupElements.unitPrice = priceSpan;
+  popupElements.totalLabel = totalSpan;
+  popupElements.totalPrice = totalPriceSpan;
+  popupElements.deleteIcons = [desktopDeleteIcon, mobileDeleteIcon];
+  popupElements.viewCartBtn = viewCartBtn;
+  popupElements.checkoutBtn = checkoutBtn;
+  popupElements.countControls = [desktopCountChangeEl, mobileCountChangeEl].map((control) => ({
+    root: control,
+    minusBtn: control.querySelector('.qty-decrease'),
+    input: control.querySelector('.qty-input'),
+    plusBtn: control.querySelector('.qty-increase'),
+  }));
+
+  popupElements.countControls.forEach(({ minusBtn, input, plusBtn }) => {
+    minusBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      decreaseProductCardPopupQuantity().catch((error) => {
+        /* eslint-disable-next-line no-console */
+        console.warn('Failed to handle popup quantity decrease', error);
+      });
+    });
+    plusBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      increaseProductCardPopupQuantity().catch((error) => {
+        /* eslint-disable-next-line no-console */
+        console.warn('Failed to handle popup quantity increase', error);
+      });
+    });
+    ['beforeinput', 'keydown', 'paste'].forEach((eventName) => {
+      input.addEventListener(eventName, (event) => {
+        event.preventDefault();
+      });
+    });
+  });
+
+  popupElements.deleteIcons.forEach((icon) => {
+    icon.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (icon.classList.contains('is-disabled')) {
+        return;
+      }
+      removeProductCardPopupItem().catch((error) => {
+        /* eslint-disable-next-line no-console */
+        console.warn('Failed to handle popup cart item deletion', error);
+      });
+    });
+  });
+
+  renderProductCardPopup();
+  document.body.append(popup, mask);
 }
 
 // 是否使用 description_shortDescription 作为图片链接，默认使用
