@@ -11,6 +11,7 @@
   color: var(--color-primary-green-50);
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
+  line-height: 120%;
 
   @media (width < 860px) {
     font-size: var(--size-18);
