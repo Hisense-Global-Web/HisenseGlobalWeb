@@ -440,6 +440,12 @@
     ]
   },
   {
+    "id": "project-brief-card",
+    "components": [
+      "project-brief-card-item"
+    ]
+  },
+  {
     "id": "quick-action-card",
     "components": [
       "quick-action-card-item"
