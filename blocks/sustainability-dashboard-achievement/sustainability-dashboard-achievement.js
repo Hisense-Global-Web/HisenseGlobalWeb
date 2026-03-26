@@ -44,7 +44,7 @@ export default function decorate(block) {
   if (block.querySelector('.highlights-block-item')) {
     const items = document.createElement('div');
     items.className = 'highlights-block-items';
-    block.querySelectorAll('.highlights-block-item').forEach((highlightsItem, h) => {
+    block.querySelectorAll('.highlights-block-item').forEach((highlightsItem) => {
       highlightsItem.lastElementChild.className = highlightsItem.firstElementChild.textContent.trim();
       if (highlightsItem.lastElementChild.className) highlightsItem.firstElementChild.remove();
       items.append(highlightsItem);
@@ -85,7 +85,7 @@ export default function decorate(block) {
     });
     textArea.appendChild(items);
   }
-  if([...titleArea.children].length === 1) titleArea.classList.add('fix-margin');
+  if ([...titleArea.children].length === 1) titleArea.classList.add('fix-margin');
   if (!btnDiv.textContent.trim()) return;
   whenElementReady('.sustainability-dashboard-achievement', () => {
     bindEvent(block);
