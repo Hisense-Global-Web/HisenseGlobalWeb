@@ -61,8 +61,14 @@
       "fields": [
         {
           "component": "reference",
-          "name": "item-icon",
-          "label": "Item Icon",
+          "name": "item-Image",
+          "label": "Item Image",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "info_title",
+          "label": "Info",
           "valueType": "string"
         },
         {
@@ -75,6 +81,12 @@
           "component": "text",
           "name": "text_text",
           "label": "Text",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "location_text",
+          "label": "Location",
           "valueType": "string"
         }
        

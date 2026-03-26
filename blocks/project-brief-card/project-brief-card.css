@@ -2,9 +2,10 @@
   width: 100%;
 
   .project-brief-card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-m, 32px);
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--size-48) var(--spacing-m, 32px);
 
     @media (width < 860px) {
       gap: var(--spacing-s, 18px);
@@ -12,13 +13,7 @@
 
     .info-list-card {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: var(--spacing-m, 32px);
-      align-self: stretch;
-      border-radius: var(--radius-pc-xl, 20px);
-      border: 1px solid var(--color-primary-grey-30, #e0e0e0);
-      background: var(--color-primary-grey-10, #fff);
+      flex-direction: column;
       gap: var(--spacing-xs, 16px);
 
       @media (width < 860px) {
@@ -28,10 +23,10 @@
         gap: var(--spacing-2xs, 12px);
       }
 
-      .document-icon {
+      .document-icon{
         flex-shrink: 0;
-        width: var(--size-40);
-        height: var(--size-40);
+        width: 100%;
+        height: 234px;
       }
 
       .title-container {
@@ -39,6 +34,9 @@
 
         @media (width<860px) {
           max-width: calc(188 / var(--breakpoint-mobile) * 100vw);
+        }
+        .card-info{
+
         }
 
         .card-title {
@@ -80,6 +78,10 @@
             font-size: var(--spacing-2xs, 12px);
             max-width: calc(188 / var(--breakpoint-mobile) * 100vw);
           }
+        }
+
+        .card-location{
+
         }
       }
 
@@ -345,6 +347,10 @@
         cursor: pointer;
       }
     }
+  }
+
+  .info-list-pagination {
+      grid-column: 1 / -1; 
   }
 
   .project-brief-card p {

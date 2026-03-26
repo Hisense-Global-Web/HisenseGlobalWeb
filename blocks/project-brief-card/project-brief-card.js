@@ -123,15 +123,22 @@ const generateCard = (info) => {
   const [documentIconEl, titleContainerEl] = info?.children ?? [];
 
   // card 左侧: icon
-  documentIconEl?.classList?.add?.('document-icon');
+  documentIconEl?.classList?.add?.('card-image');
 
   titleContainerEl?.classList?.add?.('title-container');
-  const [titleEl, textEl] = titleContainerEl?.children ?? [];
+  const [infoEL, titleEl, textEl, locationEl] = titleContainerEl?.children ?? [];
+  if (infoEL) {
+    textEl.classList.add('card-info');
+  }
   if (titleEl) {
     titleEl.classList.add('card-title');
   }
   if (textEl) {
     textEl.classList.add('card-text');
+  }
+
+  if (locationEl) {
+    textEl.classList.add('card-location');
   }
 };
 
