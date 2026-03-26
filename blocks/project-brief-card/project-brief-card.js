@@ -1,10 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
-import { handleCommonDownloadClick } from '../../utils/download.js';
 
-const EModuleType = Object.freeze({
-  download: 'download',
-  navigate: 'navigate',
-});
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
@@ -123,83 +118,7 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
   );
 }
 
-const generateRightButton = (moduleType, info) => {
-  const isDownload = moduleType === EModuleType.download;
-  const buttonContainerEl = info?.children?.[2] ?? document.createElement('div');
-  buttonContainerEl.classList.add('operate-button-container');
-  let pcIconEl; let btnTextEl; let btnColorEl; let btnLinkEl; let mobileIconEl;
-  // 需要判断 PCIcon不存在的情况
-  if (buttonContainerEl?.children?.[0]?.querySelector?.('img')) {
-    pcIconEl = buttonContainerEl?.children?.[0];
-    btnTextEl = buttonContainerEl?.children?.[1];
-    btnColorEl = buttonContainerEl?.children?.[2];
-    btnLinkEl = buttonContainerEl?.children?.[3];
-    mobileIconEl = buttonContainerEl?.children?.[4];
-  } else {
-    btnTextEl = buttonContainerEl?.children?.[0];
-    btnColorEl = buttonContainerEl?.children?.[1];
-    btnLinkEl = buttonContainerEl?.children?.[2];
-    mobileIconEl = buttonContainerEl?.children?.[3];
-  }
-
-  const btnBgColor = btnColorEl?.textContent?.trim();
-  btnColorEl?.remove();
-  let btnLink = '';
-  let isImg = false;
-  if (btnLinkEl.querySelector('img')) {
-    btnLink = btnLinkEl.querySelector('img').src;
-    isImg = true;
-  } else {
-    btnLink = btnLinkEl?.querySelector('a')?.href;
-  }
-  btnLinkEl?.remove();
-
-  // PC端的按钮
-  const buttonPCContainer = document.createElement('div');
-  buttonPCContainer.className = 'download-button';
-  if (btnBgColor) {
-    buttonPCContainer.classList.add(btnBgColor);
-  }
-  if (pcIconEl) {
-    buttonPCContainer.appendChild(pcIconEl);
-  }
-  if (btnTextEl) {
-    buttonPCContainer.appendChild(btnTextEl);
-  }
-  buttonContainerEl.appendChild(buttonPCContainer);
-
-  // Mobile端的Download按钮
-  if (mobileIconEl) {
-    mobileIconEl.className = 'download-button-mobile';
-  }
-
-  const handleDownload = () => {
-    if (isDownload) {
-      if (isImg) {
-        const link = document.createElement('a');
-        link.href = btnLink;
-        const noParamsUrl = btnLink?.split('?')?.[0] ?? '';
-        link.download = noParamsUrl.substring(btnLink.lastIndexOf('/') + 1);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        handleCommonDownloadClick(btnLink);
-      }
-    } else {
-      window.location.href = btnLink;
-    }
-  };
-
-  if (btnLink) {
-    buttonContainerEl.classList.remove('disabled');
-    buttonContainerEl.addEventListener('click', handleDownload);
-  } else {
-    buttonContainerEl.classList.add('disabled');
-  }
-};
-
-const generateCard = (moduleType, isEditMode, info) => {
+const generateCard = (info) => {
   info?.classList?.add?.('info-list-card');
   const [documentIconEl, titleContainerEl] = info?.children ?? [];
 
@@ -214,7 +133,6 @@ const generateCard = (moduleType, isEditMode, info) => {
   if (textEl) {
     textEl.classList.add('card-text');
   }
-  generateRightButton(moduleType, info);
 };
 
 /**
@@ -223,18 +141,17 @@ const generateCard = (moduleType, isEditMode, info) => {
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   const config = readBlockConfig(block);
-  const moduleType = config['module-type'] ?? '';
   const pageSize = config['page-size'] * 1 ?? 10;
   const paginatedBtnText = config['paginated-btn-text'] ?? '';
   const infoListContainer = block;
-  const [moduleTypeEl, pageSizeEl, noResultEl, ...infoList] = [...block.children];
+  const [pageSizeEl, noResultEl, ...infoList] = [...block.children];
   const noResultCloneEl = noResultEl?.cloneNode?.(true);
-  moduleTypeEl?.remove?.();
+
   pageSizeEl?.remove?.();
   noResultEl?.remove?.();
 
   infoList?.forEach((info) => {
-    generateCard(moduleType, isEditMode, info);
+    generateCard(info);
   });
 
   // Author页面,不添加分页器
