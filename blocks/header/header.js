@@ -816,7 +816,7 @@ const handleAccountActionClick = async (event) => {
  */
 export default async function decorate(block) {
   const navPath = getFragmentPath('nav');
-  const fragment = await loadFragment(navPath);
+  const fragment = await loadFragment(navPath, { loadSections: false });
   // 解析原始DOM
   const logo = parseLogo(fragment);
   const navItems = parseNavItems(fragment);

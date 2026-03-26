@@ -5,6 +5,7 @@ const HYBRIS_SESSION_TOKEN_KEY = 'hybrisSessionToken';
 const HYBRIS_AUTH_STATE_KEY = 'hybrisAuthState';
 const HYBRIS_AUTH_BROADCAST_KEY = 'hybrisAuthBroadcast';
 const HYBRIS_AUTH_BROADCAST_LOGOUT = 'logout';
+const HYBRIS_GUEST_CART_IDENTIFIER_KEY = 'hybrisGuestCartIdentifier';
 
 const DEFAULT_AUTH_STATE = {
   authenticated: false,
@@ -20,6 +21,7 @@ let authState = { ...DEFAULT_AUTH_STATE };
 let authStatusPromise = null;
 let authInitializationPromise = null;
 const productCache = new Map();
+let guestCartIdentifier = '';
 
 function trimTrailingSlash(value) {
   return String(value || '').replace(/\/+$/, '');
@@ -89,6 +91,15 @@ function clearStoredAuthState() {
   }
 }
 
+function clearStoredGuestCartIdentifier() {
+  guestCartIdentifier = '';
+  try {
+    sessionStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+}
+
 function readStoredAuthState() {
   if (typeof window === 'undefined') {
     return null;
@@ -113,6 +124,18 @@ function readStoredAuthState() {
   }
 }
 
+function readStoredGuestCartIdentifier() {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  try {
+    return String(sessionStorage.getItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY) || '').trim();
+  } catch (error) {
+    return '';
+  }
+}
+
 function persistAuthState(nextState = {}) {
   if (typeof window === 'undefined') {
     return;
@@ -129,6 +152,56 @@ function persistAuthState(nextState = {}) {
   } catch (error) {
     // ignore storage failures
   }
+}
+
+function persistGuestCartIdentifier(nextIdentifier) {
+  guestCartIdentifier = String(nextIdentifier || '').trim();
+  if (typeof window === 'undefined') {
+    return guestCartIdentifier;
+  }
+
+  try {
+    if (guestCartIdentifier) {
+      sessionStorage.setItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY, guestCartIdentifier);
+    } else {
+      sessionStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+    }
+  } catch (error) {
+    // ignore storage failures
+  }
+
+  return guestCartIdentifier;
+}
+
+function ensureGuestCartIdentifierLoaded() {
+  if (!guestCartIdentifier) {
+    guestCartIdentifier = readStoredGuestCartIdentifier();
+  }
+  return guestCartIdentifier;
+}
+
+function resolveGuestCartIdentifier(cart = {}) {
+  return String(
+    cart?.cartGuid
+      || cart?.guid
+      || cart?.cartCode
+      || cart?.code
+      || '',
+  ).trim();
+}
+
+function syncGuestCartIdentifierFromCart(cart = null) {
+  const nextIdentifier = resolveGuestCartIdentifier(cart);
+  if (nextIdentifier) {
+    persistGuestCartIdentifier(nextIdentifier);
+    return nextIdentifier;
+  }
+
+  if (cart === null) {
+    clearStoredGuestCartIdentifier();
+  }
+
+  return '';
 }
 
 function readSessionToken() {
@@ -317,6 +390,21 @@ function buildBffUrl(path, query = {}) {
   });
 
   return url.toString();
+}
+
+function buildGuestCartQuery(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const query = {
+    country,
+    language,
+  };
+  const cartIdentifier = String(
+    options.cartIdentifier !== undefined ? options.cartIdentifier : ensureGuestCartIdentifierLoaded(),
+  ).trim();
+  if (cartIdentifier) {
+    query.cartIdentifier = cartIdentifier;
+  }
+  return query;
 }
 
 async function parseJsonSafely(response) {
@@ -642,27 +730,27 @@ export async function fetchHybrisWishlist(options = {}) {
 }
 
 async function fetchHybrisGuestCart(options = {}) {
-  const { country, language } = buildRegionParams(options.country, options.language);
-  return bffRequest('/guest-cart', {
+  const cart = await bffRequest('/guest-cart', {
     auth: 'none',
-    query: {
-      country,
-      language,
-    },
+    query: buildGuestCartQuery(options),
   });
+  if (cart) {
+    syncGuestCartIdentifierFromCart(cart);
+  }
+  return cart;
 }
 
 async function createHybrisGuestCart(options = {}) {
-  const { country, language } = buildRegionParams(options.country, options.language);
   const cart = await bffRequest('/guest-cart', {
     method: 'POST',
     auth: 'none',
     body: {},
-    query: {
-      country,
-      language,
-    },
+    query: buildGuestCartQuery({
+      ...options,
+      cartIdentifier: '',
+    }),
   });
+  syncGuestCartIdentifierFromCart(cart);
   setGuestCartPresence(true);
   return cart;
 }
@@ -704,15 +792,18 @@ export async function fetchHybrisCart(options = {}) {
   try {
     const cart = await bffRequest('/guest-cart', {
       auth: 'none',
-      query: {
-        country,
-        language,
-      },
+      query: buildGuestCartQuery(options),
     });
+    if (cart) {
+      syncGuestCartIdentifierFromCart(cart);
+    } else {
+      clearStoredGuestCartIdentifier();
+    }
     setGuestCartPresence(Boolean(cart));
     return cart;
   } catch (error) {
     if (error.status === 404 || error.errorCode === 'GUEST_CART_NOT_FOUND') {
+      clearStoredGuestCartIdentifier();
       setGuestCartPresence(false);
       return null;
     }
@@ -751,10 +842,7 @@ export async function addHybrisCartItem(code, quantity = 1, options = {}) {
       code,
       quantity,
     },
-    query: {
-      country,
-      language,
-    },
+    query: buildGuestCartQuery(options),
   });
   setGuestCartPresence(true);
   return cartItem;
@@ -790,10 +878,12 @@ export async function updateHybrisCartItem(entryNumber, quantity, options = {}) 
     body: {
       quantity,
     },
-    query: {
-      country,
-      language,
-    },
+    query: authenticated
+      ? {
+        country,
+        language,
+      }
+      : buildGuestCartQuery(options),
     redirectOnAuthFailure: authenticated && options.redirectOnAuthFailure === true,
     returnUrl: options.returnUrl,
   });
@@ -819,10 +909,12 @@ export async function removeHybrisCartItem(entryNumber, options = {}) {
   return bffRequest(path, {
     method: 'DELETE',
     auth: authenticated ? 'required' : 'none',
-    query: {
-      country,
-      language,
-    },
+    query: authenticated
+      ? {
+        country,
+        language,
+      }
+      : buildGuestCartQuery(options),
     redirectOnAuthFailure: authenticated && options.redirectOnAuthFailure === true,
     returnUrl: options.returnUrl,
   });
