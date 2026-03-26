@@ -78,7 +78,8 @@
         "popup-title",
         "popup-key-stats",
         "popup-image",
-        "stats-grid"
+        "stats-grid",
+        "experience-fragment"
       ]
     }
   ]
