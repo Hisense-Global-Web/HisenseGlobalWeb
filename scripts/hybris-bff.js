@@ -729,6 +729,45 @@ export async function fetchHybrisWishlist(options = {}) {
   }
 }
 
+export async function fetchHybrisOrders(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  return bffRequest('/orders', {
+    auth: 'required',
+    query: {
+      country,
+      language,
+    },
+    redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+    returnUrl: options.returnUrl,
+  });
+}
+
+export async function fetchHybrisCoupons(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  return bffRequest('/coupons', {
+    auth: 'required',
+    query: {
+      country,
+      language,
+    },
+    redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+    returnUrl: options.returnUrl,
+  });
+}
+
+export async function fetchHybrisAddresses(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  return bffRequest('/addresses', {
+    auth: 'required',
+    query: {
+      country,
+      language,
+    },
+    redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+    returnUrl: options.returnUrl,
+  });
+}
+
 async function fetchHybrisGuestCart(options = {}) {
   const cart = await bffRequest('/guest-cart', {
     auth: 'none',

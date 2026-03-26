@@ -83,6 +83,120 @@ function setLogoutModalVisible(isVisible) {
   }
 }
 
+async function handleLogoutConfirmClick(sureBtn) {
+  if (!sureBtn || sureBtn.dataset.loading === 'true') {
+    return;
+  }
+
+  sureBtn.dataset.loading = 'true';
+  sureBtn.disabled = true;
+
+  try {
+    await logoutHybris({ returnUrl: window.location.href });
+    setLogoutModalVisible(false);
+    window.location.reload();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn('Failed to log out of Hybris', error);
+    sureBtn.dataset.loading = 'false';
+    sureBtn.disabled = false;
+  }
+}
+
+function bindLogoutModalControls(popup, mask) {
+  if (!popup) {
+    return;
+  }
+
+  const popupCloseImg = popup.querySelector('.close-icon');
+  if (popupCloseImg && popupCloseImg.dataset.bound !== 'true') {
+    popupCloseImg.dataset.bound = 'true';
+    popupCloseImg.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setLogoutModalVisible(false);
+    });
+  }
+
+  const cancelBtn = popup.querySelector('.cancel-btn');
+  if (cancelBtn && cancelBtn.dataset.bound !== 'true') {
+    cancelBtn.dataset.bound = 'true';
+    cancelBtn.addEventListener('click', () => {
+      setLogoutModalVisible(false);
+    });
+  }
+
+  const sureBtn = popup.querySelector('.sure-btn');
+  if (sureBtn) {
+    sureBtn.dataset.loading = sureBtn.dataset.loading || 'false';
+
+    if (sureBtn.dataset.bound !== 'true') {
+      sureBtn.dataset.bound = 'true';
+      sureBtn.addEventListener('click', () => {
+        handleLogoutConfirmClick(sureBtn);
+      });
+    }
+  }
+
+  if (mask && mask.dataset.bound !== 'true') {
+    mask.dataset.bound = 'true';
+    mask.addEventListener('click', () => {
+      setLogoutModalVisible(false);
+    });
+  }
+}
+
+function ensureLogoutModal() {
+  const { body } = document;
+  if (!body) {
+    return;
+  }
+
+  let popup = document.querySelector('#logout-popup');
+  if (!popup) {
+    popup = document.createElement('div');
+    popup.id = 'logout-popup';
+
+    const popupCloseImg = document.createElement('img');
+    popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+    popupCloseImg.className = 'close-icon';
+
+    const logoutContext = document.createElement('div');
+    logoutContext.className = 'logout-context';
+    const logoutContextTitle = document.createElement('div');
+    logoutContextTitle.className = 'title';
+    logoutContextTitle.textContent = 'Are you sure you want to log out?';
+    const logoutContextSubtitle = document.createElement('div');
+    logoutContextSubtitle.className = 'subtitle';
+    logoutContextSubtitle.textContent = 'You\'ll need to sign in again to access your account, registered products, and orders.';
+    logoutContext.append(logoutContextTitle, logoutContextSubtitle);
+
+    const logoutBtnGroup = document.createElement('div');
+    logoutBtnGroup.className = 'logout-btn-group';
+    const cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.className = 'cancel-btn';
+    cancelBtn.textContent = 'Cancel';
+
+    const sureBtn = document.createElement('button');
+    sureBtn.type = 'button';
+    sureBtn.className = 'sure-btn';
+    sureBtn.textContent = 'Log out';
+    logoutBtnGroup.append(cancelBtn, sureBtn);
+
+    popup.append(popupCloseImg, logoutContext, logoutBtnGroup);
+    body.append(popup);
+  }
+
+  let mask = document.querySelector('#logout-mask');
+  if (!mask) {
+    mask = document.createElement('div');
+    mask.id = 'logout-mask';
+    body.append(mask);
+  }
+
+  bindLogoutModalControls(popup, mask);
+}
+
 function createAccountDrawer() {
   const personEl = document.createElement('div');
   personEl.className = 'person-drawer';
@@ -1346,64 +1460,5 @@ export default async function decorate(block) {
 
   block.textContent = '';
   block.append(navigation);
-
-  const popup = document.createElement('div');
-  popup.id = 'logout-popup';
-  const popupCloseImg = document.createElement('img');
-  popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
-  popupCloseImg.className = 'close-icon';
-  popupCloseImg.addEventListener('click', (e) => {
-    e.stopPropagation();
-    setLogoutModalVisible(false);
-  });
-
-  const logoutContext = document.createElement('div');
-  logoutContext.className = 'logout-context';
-  const logoutContextTitle = document.createElement('div');
-  logoutContextTitle.className = 'title';
-  logoutContextTitle.textContent = 'Are you sure you want to log out?';
-  const logoutContextSubtitle = document.createElement('div');
-  logoutContextSubtitle.className = 'subtitle';
-  logoutContextSubtitle.textContent = 'You\'ll need to sign in again to access your account, registered products, and orders.';
-  logoutContext.append(logoutContextTitle, logoutContextSubtitle);
-
-  const logoutBtnGroup = document.createElement('div');
-  logoutBtnGroup.className = 'logout-btn-group';
-  const cancelBtn = document.createElement('button');
-  cancelBtn.className = 'cancel-btn';
-  cancelBtn.textContent = 'Cancel';
-  cancelBtn.addEventListener('click', () => {
-    setLogoutModalVisible(false);
-  });
-  const sureBtn = document.createElement('button');
-  sureBtn.className = 'sure-btn';
-  sureBtn.textContent = 'Log out';
-  sureBtn.dataset.loading = 'false';
-  sureBtn.addEventListener('click', async () => {
-    if (sureBtn.dataset.loading === 'true') {
-      return;
-    }
-
-    sureBtn.dataset.loading = 'true';
-    sureBtn.disabled = true;
-
-    try {
-      await logoutHybris({ returnUrl: window.location.href });
-      setLogoutModalVisible(false);
-      window.location.reload();
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.warn('Failed to log out of Hybris', error);
-      sureBtn.dataset.loading = 'false';
-      sureBtn.disabled = false;
-    }
-  });
-  logoutBtnGroup.append(cancelBtn, sureBtn);
-
-  popup.append(popupCloseImg, logoutContext, logoutBtnGroup);
-
-  const mask = document.createElement('div');
-  mask.id = 'logout-mask';
-  const body = document.querySelector('body');
-  body.append(popup, mask);
+  ensureLogoutModal();
 }
