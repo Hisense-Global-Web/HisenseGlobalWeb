@@ -227,7 +227,18 @@
   }
 }
 
-.download > picture {
+.download p {
+  margin: 0 !important;
+  width: var(--size-50);
+  height: var(--size-50);
+
+  @media (width<860px) {
+    width: var(--size-40);
+    height: var(--size-40);
+  }
+}
+
+.download picture {
   width: var(--size-50);
   height: var(--size-50);
 
