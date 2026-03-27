@@ -2,6 +2,7 @@ import { isMobileWindow } from '../../scripts/device.js';
 import {
   addHybrisCartItem,
   addHybrisWishlistItem,
+  buildHybrisCartPageUrl,
   fetchHybrisCart,
   fetchHybrisProduct,
   fetchHybrisWishlist,
@@ -26,6 +27,9 @@ import {
 } from '../../utils/plp-compare-utils.js';
 
 const { country } = getLocaleFromPath();
+const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com';
+const STOREFRONT_CART_URL = `${STOREFRONT_BASE_URL}/cart`;
+const STOREFRONT_CHECKOUT_URL = new URL('/checkout/delivery-address', STOREFRONT_BASE_URL).toString();
 const wishlistEntriesByCode = new Map();
 let wishlistLoadPromise = null;
 let wishlistLoaded = false;
@@ -1229,14 +1233,29 @@ export default function decorate(block) {
     });
 
     if (popupElements.viewCartBtn) {
-      popupElements.viewCartBtn.disabled = true;
-      popupElements.viewCartBtn.title = 'View cart will be connected later';
+      popupElements.viewCartBtn.disabled = false;
+      popupElements.viewCartBtn.removeAttribute('title');
     }
 
     if (popupElements.checkoutBtn) {
-      popupElements.checkoutBtn.disabled = true;
-      popupElements.checkoutBtn.title = 'Proceed to checkout will be connected later';
+      const showCheckout = Boolean(popupState.authenticated);
+      popupElements.checkoutBtn.hidden = !showCheckout;
+      popupElements.checkoutBtn.disabled = !showCheckout;
+      if (showCheckout) {
+        popupElements.checkoutBtn.removeAttribute('title');
+      } else {
+        popupElements.checkoutBtn.title = 'Proceed to checkout is available after sign in';
+      }
     }
+  }
+
+  function navigateFromProductCardPopup(url) {
+    if (!url) {
+      return;
+    }
+
+    closeProductCardPopup();
+    window.location.assign(url);
   }
 
   async function refreshProductCardPopupCart() {
@@ -2615,6 +2634,21 @@ export default function decorate(block) {
         console.warn('Failed to handle popup cart item deletion', error);
       });
     });
+  });
+
+  viewCartBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    navigateFromProductCardPopup(buildHybrisCartPageUrl(STOREFRONT_CART_URL, {
+      authenticated: popupState.authenticated,
+    }));
+  });
+
+  checkoutBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (!popupState.authenticated) {
+      return;
+    }
+    navigateFromProductCardPopup(STOREFRONT_CHECKOUT_URL);
   });
 
   renderProductCardPopup();

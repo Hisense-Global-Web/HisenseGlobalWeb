@@ -6,6 +6,7 @@ const HYBRIS_AUTH_STATE_KEY = 'hybrisAuthState';
 const HYBRIS_AUTH_BROADCAST_KEY = 'hybrisAuthBroadcast';
 const HYBRIS_AUTH_BROADCAST_LOGOUT = 'logout';
 const HYBRIS_GUEST_CART_IDENTIFIER_KEY = 'hybrisGuestCartIdentifier';
+export const HYBRIS_DATA_EVENT_NAME = 'hisense:hybris-data';
 
 const DEFAULT_AUTH_STATE = {
   authenticated: false,
@@ -22,6 +23,20 @@ let authStatusPromise = null;
 let authInitializationPromise = null;
 const productCache = new Map();
 let guestCartIdentifier = '';
+
+function emitHybrisDataEvent(type, data = null) {
+  if (typeof window === 'undefined' || !type) {
+    return;
+  }
+
+  window.dispatchEvent(new CustomEvent(HYBRIS_DATA_EVENT_NAME, {
+    detail: {
+      type,
+      data,
+      timestamp: Date.now(),
+    },
+  }));
+}
 
 function trimTrailingSlash(value) {
   return String(value || '').replace(/\/+$/, '');
@@ -442,6 +457,39 @@ export function getCachedHybrisAuthState() {
   return getCachedAuthState();
 }
 
+export function getHybrisGuestCartIdentifier() {
+  return ensureGuestCartIdentifierLoaded();
+}
+
+export function buildHybrisCartPageUrl(baseUrl = '/cart', options = {}) {
+  const {
+    authenticated = getCachedAuthState().authenticated,
+    guestCartIdentifier: nextGuestCartIdentifier = ensureGuestCartIdentifierLoaded(),
+  } = options;
+  const normalizedBaseUrl = String(baseUrl || '').trim() || '/cart';
+
+  if (typeof window === 'undefined') {
+    return normalizedBaseUrl;
+  }
+
+  try {
+    const cartUrl = new URL(normalizedBaseUrl, window.location.origin);
+    cartUrl.searchParams.delete('guid');
+    cartUrl.searchParams.delete('cartIdentifier');
+
+    if (!authenticated) {
+      const guestGuid = String(nextGuestCartIdentifier || '').trim();
+      if (guestGuid) {
+        cartUrl.searchParams.set('guid', guestGuid);
+      }
+    }
+
+    return cartUrl.toString();
+  } catch (error) {
+    return normalizedBaseUrl;
+  }
+}
+
 export function getHybrisSessionToken() {
   return ensureSessionTokenLoaded();
 }
@@ -712,7 +760,7 @@ export async function fetchHybrisProduct(code, options = {}) {
 export async function fetchHybrisWishlist(options = {}) {
   const { country, language } = buildRegionParams();
   try {
-    return await bffRequest('/wishlist', {
+    const wishlist = await bffRequest('/wishlist', {
       auth: 'required',
       query: {
         country,
@@ -721,8 +769,11 @@ export async function fetchHybrisWishlist(options = {}) {
       redirectOnAuthFailure: options.redirectOnAuthFailure === true,
       returnUrl: options.returnUrl,
     });
+    emitHybrisDataEvent('wishlist', wishlist);
+    return wishlist;
   } catch (error) {
     if (error.status === 404 || error.errorCode === 'WISHLIST_NOT_FOUND') {
+      emitHybrisDataEvent('wishlist', null);
       return null;
     }
     throw error;
@@ -731,7 +782,7 @@ export async function fetchHybrisWishlist(options = {}) {
 
 export async function fetchHybrisOrders(options = {}) {
   const { country, language } = buildRegionParams(options.country, options.language);
-  return bffRequest('/orders', {
+  const orders = await bffRequest('/orders', {
     auth: 'required',
     query: {
       country,
@@ -740,11 +791,13 @@ export async function fetchHybrisOrders(options = {}) {
     redirectOnAuthFailure: options.redirectOnAuthFailure === true,
     returnUrl: options.returnUrl,
   });
+  emitHybrisDataEvent('orders', orders);
+  return orders;
 }
 
 export async function fetchHybrisCoupons(options = {}) {
   const { country, language } = buildRegionParams(options.country, options.language);
-  return bffRequest('/coupons', {
+  const coupons = await bffRequest('/coupons', {
     auth: 'required',
     query: {
       country,
@@ -753,6 +806,8 @@ export async function fetchHybrisCoupons(options = {}) {
     redirectOnAuthFailure: options.redirectOnAuthFailure === true,
     returnUrl: options.returnUrl,
   });
+  emitHybrisDataEvent('coupons', coupons);
+  return coupons;
 }
 
 export async function fetchHybrisAddresses(options = {}) {
@@ -817,7 +872,7 @@ export async function fetchHybrisCart(options = {}) {
     : isHybrisAuthenticated();
 
   if (authenticated) {
-    return bffRequest('/cart', {
+    const cart = await bffRequest('/cart', {
       auth: 'required',
       query: {
         country,
@@ -826,6 +881,8 @@ export async function fetchHybrisCart(options = {}) {
       redirectOnAuthFailure: options.redirectOnAuthFailure === true,
       returnUrl: options.returnUrl,
     });
+    emitHybrisDataEvent('cart', cart);
+    return cart;
   }
 
   try {
@@ -839,11 +896,13 @@ export async function fetchHybrisCart(options = {}) {
       clearStoredGuestCartIdentifier();
     }
     setGuestCartPresence(Boolean(cart));
+    emitHybrisDataEvent('cart', cart);
     return cart;
   } catch (error) {
     if (error.status === 404 || error.errorCode === 'GUEST_CART_NOT_FOUND') {
       clearStoredGuestCartIdentifier();
       setGuestCartPresence(false);
+      emitHybrisDataEvent('cart', null);
       return null;
     }
     throw error;
@@ -969,7 +1028,7 @@ export async function addHybrisWishlistItem(code, quantity = 1, options = {}) {
   }
 
   const { country, language } = buildRegionParams();
-  return bffRequest('/wishlist/items', {
+  const wishlistItem = await bffRequest('/wishlist/items', {
     method: 'POST',
     auth: 'required',
     body: {
@@ -984,6 +1043,8 @@ export async function addHybrisWishlistItem(code, quantity = 1, options = {}) {
     redirectOnAuthFailure: options.redirectOnAuthFailure === true,
     returnUrl: options.returnUrl,
   });
+  emitHybrisDataEvent('wishlist-mutated', wishlistItem);
+  return wishlistItem;
 }
 
 export async function removeHybrisWishlistItem(entryNumber, options = {}) {
@@ -996,7 +1057,7 @@ export async function removeHybrisWishlistItem(entryNumber, options = {}) {
   }
 
   const { country, language } = buildRegionParams();
-  return bffRequest(`/wishlist/items/${encodeURIComponent(entryNumber)}`, {
+  const removalResult = await bffRequest(`/wishlist/items/${encodeURIComponent(entryNumber)}`, {
     method: 'DELETE',
     auth: 'required',
     query: {
@@ -1007,6 +1068,8 @@ export async function removeHybrisWishlistItem(entryNumber, options = {}) {
     redirectOnAuthFailure: options.redirectOnAuthFailure === true,
     returnUrl: options.returnUrl,
   });
+  emitHybrisDataEvent('wishlist-mutated', removalResult);
+  return removalResult;
 }
 
 function handleHybrisAuthBroadcast(event) {

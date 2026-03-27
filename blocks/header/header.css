@@ -612,6 +612,8 @@
 
         .my-count-span {
           position: inherit;
+          margin-left: auto;
+          flex-shrink: 0;
           width: 24px;
           height: 24px;
           border-radius: 50%;
@@ -1538,6 +1540,8 @@
       align-self: flex-start;
       text-align: center;
       margin: 0;
+      position: relative;
+      transition: opacity 0.2s ease;
 
       @media (width < 860px) {
         width: calc(193 / var(--breakpoint-mobile) * 100vw);;
@@ -1554,6 +1558,27 @@
         border-color: #000;
         color: var(--white-alpha-80);
         text-decoration: none;
+      }
+
+      &[data-loading="true"] {
+        color: transparent;
+        cursor: wait;
+        pointer-events: none;
+      }
+
+      &[data-loading="true"]::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 16px;
+        height: 16px;
+        margin-left: -8px;
+        margin-top: -8px;
+        border: 2px solid rgb(20 20 20 / 18%);
+        border-top-color: var(--color-primary-grey-100);
+        border-radius: 50%;
+        animation: hybris-header-spin 0.75s linear infinite;
       }
     }
   }

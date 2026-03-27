@@ -1,5 +1,14 @@
 import { loadFragment } from '../fragment/fragment.js';
 import {
+  loadBlock,
+} from '../../scripts/aem.js';
+import {
+  buildHybrisCartPageUrl,
+  HYBRIS_DATA_EVENT_NAME,
+  fetchHybrisCart,
+  fetchHybrisCoupons,
+  fetchHybrisOrders,
+  fetchHybrisWishlist,
   getCachedHybrisAuthState,
   initializeHybrisAuth,
   logoutHybris,
@@ -13,15 +22,26 @@ const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 const HYBRIS_ACCOUNT_MENU_ITEMS = [
   { label: 'Account Home', suffix: '' },
-  { label: 'Orders', suffix: '/orders' },
+  { label: 'Orders', suffix: '/orders', showZeroCount: true },
   { label: 'Wishlist', suffix: '/wishlist' },
   { label: 'Address', suffix: '/address-book' },
-  { label: 'Coupons', suffix: '/coupons' },
+  { label: 'Coupons', suffix: '/coupons', showZeroCount: true },
 ];
 const NAVIGATION_ACTION_TYPES = {
   SEARCH_BOX: 'search-box',
   SHOPPING_CART: 'shopping-cart',
   ACCOUNT: 'account',
+};
+const DEFAULT_COMMERCE_COUNTS = {
+  cart: 0,
+  orders: 0,
+  wishlist: 0,
+  coupons: 0,
+};
+const ACCOUNT_COUNT_KEY_BY_LABEL = {
+  Orders: 'orders',
+  Wishlist: 'wishlist',
+  Coupons: 'coupons',
 };
 
 function hasValidHybrisAccountState(authState = {}) {
@@ -29,6 +49,83 @@ function hasValidHybrisAccountState(authState = {}) {
     authState?.authenticated
       && authState?.myAccountUrl
       && Number(authState?.expiresAt) > Date.now(),
+  );
+}
+
+function normalizeCount(value) {
+  const numericValue = Number(value);
+  if (!Number.isFinite(numericValue) || numericValue <= 0) {
+    return 0;
+  }
+  return Math.floor(numericValue);
+}
+
+function formatCountBadge(value, options = {}) {
+  const { showZero = false } = options;
+  const normalizedValue = normalizeCount(value);
+  if (!normalizedValue && !showZero) {
+    return '';
+  }
+  return normalizedValue > 99 ? '99+' : String(normalizedValue);
+}
+
+function getEntriesCount(entries = []) {
+  if (!Array.isArray(entries) || !entries.length) {
+    return 0;
+  }
+
+  return entries.reduce((sum, entry) => sum + normalizeCount(entry?.quantity), 0);
+}
+
+function getCartCount(cart = {}) {
+  const entriesCount = getEntriesCount(cart?.entries);
+  if (entriesCount > 0) {
+    return entriesCount;
+  }
+
+  return normalizeCount(
+    cart?.totalUnitCount
+      ?? cart?.totalItems
+      ?? cart?.totalItemCount
+      ?? cart?.itemCount
+      ?? cart?.quantity,
+  );
+}
+
+function getWishlistCount(wishlist = {}) {
+  const carts = Array.isArray(wishlist?.carts) ? wishlist.carts : [];
+  if (carts.length) {
+    return carts.reduce((sum, cart) => sum + getCartCount(cart), 0);
+  }
+
+  return getCartCount(wishlist);
+}
+
+function getOrdersCount(orders = {}) {
+  const ordersList = Array.isArray(orders?.orders) ? orders.orders : [];
+  if (ordersList.length) {
+    return ordersList.length;
+  }
+
+  return normalizeCount(
+    orders?.pagination?.totalResults
+      ?? orders?.totalResults
+      ?? orders?.totalCount
+      ?? orders?.count,
+  );
+}
+
+function getCouponsCount(coupons = {}) {
+  const couponList = Array.isArray(coupons?.coupons) ? coupons.coupons : [];
+  if (couponList.length) {
+    return couponList.length;
+  }
+
+  return normalizeCount(
+    coupons?.pagination?.totalResults
+      ?? coupons?.totalResults
+      ?? coupons?.totalCount
+      ?? coupons?.count,
   );
 }
 
@@ -48,19 +145,29 @@ function splitMyAccountUrl(myAccountUrl) {
   }
 }
 
-function buildAccountMenuLinks(myAccountUrl) {
+function buildAccountMenuLinks(myAccountUrl, commerceCounts = DEFAULT_COMMERCE_COUNTS) {
   const urlParts = splitMyAccountUrl(myAccountUrl);
   if (!urlParts) {
     return [];
   }
 
-  return HYBRIS_ACCOUNT_MENU_ITEMS.map(({ label, suffix }) => ({
-    label,
-    href: `${urlParts.domain}${urlParts.uri}${suffix}`,
-  }));
+  return HYBRIS_ACCOUNT_MENU_ITEMS.map(({ label, suffix, showZeroCount = false }) => {
+    const countKey = ACCOUNT_COUNT_KEY_BY_LABEL[label];
+    return {
+      label,
+      href: `${urlParts.domain}${urlParts.uri}${suffix}`,
+      count: countKey ? normalizeCount(commerceCounts?.[countKey]) : 0,
+      showZeroCount,
+    };
+  });
 }
 
-function buildAccountMenuItem({ label, href }) {
+function buildAccountMenuItem({
+  label,
+  href,
+  count = 0,
+  showZeroCount = false,
+}) {
   const link = document.createElement('a');
   link.className = 'my-item';
   link.href = href;
@@ -73,7 +180,38 @@ function buildAccountMenuItem({ label, href }) {
   titleEl.textContent = label;
   link.append(titleEl);
 
+  const countText = formatCountBadge(count, { showZero: showZeroCount });
+  if (countText) {
+    const countEl = document.createElement('span');
+    countEl.className = 'my-count-span';
+    countEl.textContent = countText;
+    link.append(countEl);
+  }
+
   return link;
+}
+
+function resolveShoppingCartBaseUrl(actionHref = '') {
+  const normalizedHref = String(actionHref || '').trim();
+  if (typeof window === 'undefined') {
+    return normalizedHref || '/cart';
+  }
+
+  try {
+    const cartUrl = new URL(normalizedHref || '/cart', window.location.origin);
+    cartUrl.pathname = '/cart';
+    cartUrl.search = '';
+    cartUrl.hash = '';
+    return cartUrl.toString();
+  } catch (error) {
+    return '/cart';
+  }
+}
+
+function buildShoppingCartActionUrl(actionHref = '', authState = getCachedHybrisAuthState()) {
+  return buildHybrisCartPageUrl(resolveShoppingCartBaseUrl(actionHref), {
+    authenticated: hasValidHybrisAccountState(authState),
+  });
 }
 
 function normalizeNavigationActionType(iconTypeValue = '', enableSearchBox = false) {
@@ -106,13 +244,23 @@ function setLogoutModalVisible(isVisible) {
   }
 }
 
+function setLogoutButtonLoadingState(sureBtn, isLoading) {
+  if (!sureBtn) {
+    return;
+  }
+
+  sureBtn.dataset.loading = isLoading ? 'true' : 'false';
+  sureBtn.disabled = isLoading;
+  sureBtn.classList.toggle('is-loading', isLoading);
+  sureBtn.setAttribute('aria-busy', isLoading ? 'true' : 'false');
+}
+
 async function handleLogoutConfirmClick(sureBtn) {
   if (!sureBtn || sureBtn.dataset.loading === 'true') {
     return;
   }
 
-  sureBtn.dataset.loading = 'true';
-  sureBtn.disabled = true;
+  setLogoutButtonLoadingState(sureBtn, true);
 
   try {
     await logoutHybris({ returnUrl: window.location.href });
@@ -121,8 +269,7 @@ async function handleLogoutConfirmClick(sureBtn) {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.warn('Failed to log out of Hybris', error);
-    sureBtn.dataset.loading = 'false';
-    sureBtn.disabled = false;
+    setLogoutButtonLoadingState(sureBtn, false);
   }
 }
 
@@ -150,7 +297,9 @@ function bindLogoutModalControls(popup, mask) {
 
   const sureBtn = popup.querySelector('.sure-btn');
   if (sureBtn) {
-    sureBtn.dataset.loading = sureBtn.dataset.loading || 'false';
+    if (!sureBtn.dataset.loading) {
+      setLogoutButtonLoadingState(sureBtn, false);
+    }
 
     if (sureBtn.dataset.bound !== 'true') {
       sureBtn.dataset.bound = 'true';
@@ -260,9 +409,9 @@ function createAccountDrawer() {
   };
 }
 
-function applyAccountActionState(actionButton, drawerRefs, authState = {}) {
+function applyAccountActionState(actionButton, drawerRefs, authState = {}, commerceCounts = DEFAULT_COMMERCE_COUNTS) {
   const shouldShowDrawer = hasValidHybrisAccountState(authState);
-  const menuLinks = shouldShowDrawer ? buildAccountMenuLinks(authState.myAccountUrl) : [];
+  const menuLinks = shouldShowDrawer ? buildAccountMenuLinks(authState.myAccountUrl, commerceCounts) : [];
   const isAuthenticated = Boolean(shouldShowDrawer && menuLinks.length);
 
   actionButton.classList.toggle('is-authenticated', isAuthenticated);
@@ -277,6 +426,28 @@ function applyAccountActionState(actionButton, drawerRefs, authState = {}) {
   }
 
   drawerRefs.myItems.replaceChildren(...menuLinks.map(buildAccountMenuItem));
+}
+
+function applyCartActionState(actionButton, count = 0) {
+  if (!actionButton) {
+    return;
+  }
+
+  const countText = formatCountBadge(count);
+  let countEl = actionButton.querySelector(':scope > .count-span');
+
+  if (!countText) {
+    countEl?.remove();
+    return;
+  }
+
+  if (!countEl) {
+    countEl = document.createElement('span');
+    countEl.className = 'count-span';
+    actionButton.append(countEl);
+  }
+
+  countEl.textContent = countText;
 }
 
 function parseLogo(root) {
@@ -303,6 +474,17 @@ function parseNavLinks(root) {
     const href = wrapper.querySelector('a')?.href || '#';
     return { title, href: processPath(href) };
   });
+}
+
+async function prepareHeaderFragment(fragment) {
+  const searchSection = fragment?.querySelector('.search-box-container.section');
+  const searchBlock = searchSection?.querySelector('.search-box.block');
+
+  if (searchBlock) {
+    await loadBlock(searchBlock);
+    searchSection.dataset.sectionStatus = 'loaded';
+    searchSection.style.display = null;
+  }
 }
 
 function fixImageUrl(originalSrc) {
@@ -962,6 +1144,7 @@ const handleAccountActionClick = async (event) => {
 export default async function decorate(block) {
   const navPath = getFragmentPath('nav');
   const fragment = await loadFragment(navPath, { loadSections: false });
+  await prepareHeaderFragment(fragment);
   // 解析原始DOM
   const logo = parseLogo(fragment);
   const navItems = parseNavItems(fragment);
@@ -970,6 +1153,97 @@ export default async function decorate(block) {
   const dropdowns = parseDropdowns(fragment);
   const company = parseCompany(fragment);
   const accountActionButtons = [];
+  const cartActionButtons = [];
+  let commerceCounts = { ...DEFAULT_COMMERCE_COUNTS };
+  let commerceCountsRequestId = 0;
+
+  const syncCartActionButtons = () => {
+    cartActionButtons.forEach((actionButton) => {
+      applyCartActionState(actionButton, commerceCounts.cart);
+    });
+  };
+
+  const syncAccountActionButtons = (authState = {}) => {
+    accountActionButtons.forEach(({ actionButton, drawerRefs }) => {
+      applyAccountActionState(actionButton, drawerRefs, authState, commerceCounts);
+    });
+  };
+
+  const syncHeaderCommerceUi = (authState = getCachedHybrisAuthState()) => {
+    syncCartActionButtons();
+    syncAccountActionButtons(authState);
+  };
+
+  const refreshHeaderCommerceCounts = async (authState = getCachedHybrisAuthState()) => {
+    const requestId = commerceCountsRequestId + 1;
+    commerceCountsRequestId = requestId;
+    const authenticated = hasValidHybrisAccountState(authState);
+    const [cartResult, wishlistResult, ordersResult, couponsResult] = await Promise.allSettled([
+      fetchHybrisCart({ authenticated }),
+      authenticated ? fetchHybrisWishlist() : Promise.resolve(null),
+      authenticated ? fetchHybrisOrders() : Promise.resolve(null),
+      authenticated ? fetchHybrisCoupons() : Promise.resolve(null),
+    ]);
+
+    if (requestId !== commerceCountsRequestId) {
+      return;
+    }
+
+    commerceCounts = {
+      cart: cartResult.status === 'fulfilled' ? getCartCount(cartResult.value) : 0,
+      wishlist: wishlistResult.status === 'fulfilled' ? getWishlistCount(wishlistResult.value) : 0,
+      orders: ordersResult.status === 'fulfilled' ? getOrdersCount(ordersResult.value) : 0,
+      coupons: couponsResult.status === 'fulfilled' ? getCouponsCount(couponsResult.value) : 0,
+    };
+
+    syncHeaderCommerceUi(authState);
+  };
+
+  const handleHybrisDataEvent = (event) => {
+    const type = event?.detail?.type;
+    const data = event?.detail?.data;
+    const authState = getCachedHybrisAuthState();
+
+    if (type === 'cart') {
+      commerceCounts = {
+        ...commerceCounts,
+        cart: getCartCount(data),
+      };
+      syncCartActionButtons();
+      return;
+    }
+
+    if (type === 'wishlist') {
+      commerceCounts = {
+        ...commerceCounts,
+        wishlist: getWishlistCount(data),
+      };
+      syncAccountActionButtons(authState);
+      return;
+    }
+
+    if (type === 'orders') {
+      commerceCounts = {
+        ...commerceCounts,
+        orders: getOrdersCount(data),
+      };
+      syncAccountActionButtons(authState);
+      return;
+    }
+
+    if (type === 'coupons') {
+      commerceCounts = {
+        ...commerceCounts,
+        coupons: getCouponsCount(data),
+      };
+      syncAccountActionButtons(authState);
+      return;
+    }
+
+    if (type === 'wishlist-mutated' && hasValidHybrisAccountState(authState)) {
+      fetchHybrisWishlist().catch(() => {});
+    }
+  };
 
   // 构建新的导航DOM
   const navigation = document.createElement('div');
@@ -1250,6 +1524,13 @@ export default async function decorate(block) {
           actionButton: btn,
           drawerRefs,
         });
+      } else if (action.iconType === NAVIGATION_ACTION_TYPES.SHOPPING_CART) {
+        btn.dataset.href = resolveShoppingCartBaseUrl(action.href);
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          window.location.href = buildShoppingCartActionUrl(action.href);
+        });
+        cartActionButtons.push(btn);
       } else if (action.href && action.href !== '#') {
         btn.dataset.href = action.href;
         btn.addEventListener('click', (e) => {
@@ -1274,21 +1555,28 @@ export default async function decorate(block) {
     actionsEl.append(link);
   });
 
-  if (accountActionButtons.length) {
-    const syncAccountActionButtons = (authState = {}) => {
-      accountActionButtons.forEach(({ actionButton, drawerRefs }) => {
-        applyAccountActionState(actionButton, drawerRefs, authState);
-      });
-    };
+  if (accountActionButtons.length || cartActionButtons.length) {
+    if (block.hybrisDataListener) {
+      window.removeEventListener(HYBRIS_DATA_EVENT_NAME, block.hybrisDataListener);
+    }
+    block.hybrisDataListener = handleHybrisDataEvent;
+    window.addEventListener(HYBRIS_DATA_EVENT_NAME, handleHybrisDataEvent);
 
-    syncAccountActionButtons(getCachedHybrisAuthState());
+    const cachedAuthState = getCachedHybrisAuthState();
+    syncHeaderCommerceUi(cachedAuthState);
+    refreshHeaderCommerceCounts(cachedAuthState).catch(() => {});
+
     initializeHybrisAuth()
       .then((authState) => {
-        syncAccountActionButtons(authState);
+        syncHeaderCommerceUi(authState);
+        return refreshHeaderCommerceCounts(authState);
       })
       .catch(() => {
-        syncAccountActionButtons(getCachedHybrisAuthState());
-      });
+        const nextAuthState = getCachedHybrisAuthState();
+        syncHeaderCommerceUi(nextAuthState);
+        return refreshHeaderCommerceCounts(nextAuthState);
+      })
+      .catch(() => {});
   }
 
   // 物理添加手机端菜单按钮
