@@ -1,7 +1,5 @@
 .page-header-wrapper {
-  @media (width >= 860px) {
-    padding: 0 !important;
-  }
+  width: 100%;
 }
 
 .text-green-50 {
