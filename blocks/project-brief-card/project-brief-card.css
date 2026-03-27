@@ -35,10 +35,27 @@
         @media (width<860px) {
           max-width: calc(188 / var(--breakpoint-mobile) * 100vw);
         }
+       
         .card-info{
+            display: flex;
+            align-items: center;
+            gap: var(--size-8);
+            line-height: var(--size-22);
+            color: var(--color-primary-grey-70);
 
-        }
+            @media (width < 860px) {
+              font-size: var(--size-14);
+              line-height: 1.4;
+            }
 
+            .meta-icon {
+              width: var(--size-16);
+              height: var(--size-16);
+              flex-shrink: 0;
+              display: block;
+              object-fit: contain;
+            }
+          }
         .card-title {
           color: var(--color-primary-grey-70, #333);
           font-size: var(--fontsize-body1, 16px);

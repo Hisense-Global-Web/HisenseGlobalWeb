@@ -128,7 +128,7 @@ const generateCard = (info) => {
   titleContainerEl?.classList?.add?.('title-container');
   const [infoEL, titleEl, textEl, locationEl] = titleContainerEl?.children ?? [];
   if (infoEL) {
-    textEl.classList.add('card-info');
+    infoEL.classList.add('card-info');
   }
   if (titleEl) {
     titleEl.classList.add('card-title');
@@ -136,9 +136,14 @@ const generateCard = (info) => {
   if (textEl) {
     textEl.classList.add('card-text');
   }
-
   if (locationEl) {
-    textEl.classList.add('card-location');
+    locationEl.classList.add('card-location');
+    locationEl.classList.add('meta-item');
+    const iconImg = document.createElement('img');
+    iconImg.src = '/resources/location-icon.svg';
+    iconImg.alt = '';
+    iconImg.classList.add('meta-icon');
+    locationEl.appendChild(iconImg);
   }
 };
 

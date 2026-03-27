@@ -67,7 +67,7 @@
         },
          {
           "component": "text",
-          "name": "info_title",
+          "name": "title_info",
           "label": "Info",
           "valueType": "string"
         },
@@ -85,7 +85,7 @@
         },
          {
           "component": "text",
-          "name": "location_text",
+          "name": "text_location",
           "label": "Location",
           "valueType": "string"
         }
