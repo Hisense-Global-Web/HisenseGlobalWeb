@@ -518,6 +518,20 @@
       },
       {
         "component": "select",
+        "name": "style_announcement",
+        "value": "popup-announcement",
+        "label": "Popup Announcement classes options",
+        "valueType": "string",
+        "hidden": true,
+        "options": [
+          {
+            "name": "Popup Announcement",
+            "value": "popup-announcement"
+          }
+        ]
+      },
+      {
+        "component": "select",
         "name": "style_popupVisibility",
         "label": "Popup visibility options",
         "value": "",

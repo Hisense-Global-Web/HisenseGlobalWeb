@@ -100,7 +100,6 @@
                   "name": "Announcement",
                   "model": "announcement",
                   "filter": "announcement",
-                  "classes": "h-popup-module-wrapper",
                   "style_theme": "light",
                   "style_popupVisibility": ""
                 }

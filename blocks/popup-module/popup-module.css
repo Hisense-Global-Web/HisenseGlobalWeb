@@ -80,6 +80,17 @@ main .section.popup-module-container {
       max-height: none;
     }
   }
+
+  &.dark {
+    .popup-container, p {
+      color: var(--color-primary-grey-10);
+      background-color: var(--color-hisense-black);
+
+      .popup-content-container::-webkit-scrollbar, .popup-content-container::-webkit-scrollbar-track {
+        background-color: var(--color-hisense-black);
+      }
+    }
+  }
 }
 
 @media (width < 860px) {

@@ -159,7 +159,6 @@
   {
     "id": "announcement",
     "components": [
-      "popup-title",
       "page-header",
       "legal-content"
     ]
