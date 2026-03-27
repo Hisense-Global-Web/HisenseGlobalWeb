@@ -157,7 +157,7 @@
     ]
   },
   {
-    "id": "popup-module",
+    "id": "announcement",
     "components": [
       "popup-title",
       "legal-content"
