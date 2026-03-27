@@ -31,26 +31,23 @@
         }
       }
     }
-    
   ],
   "models": [
-      {
+    {
       "id": "bi-directional-content",
       "fields": [
-       
-         {
+        {
           "component": "text",
           "name": "title_title",
           "label": "Title",
           "valueType": "string"
         },
-         {
+        {
           "component": "text",
           "name": "title_content",
           "label": "Content",
           "valueType": "string"
         }
-        
       ]
     },
     {
@@ -63,19 +60,67 @@
           "label": "Image",
           "multi": false
         },
-         {
+        {
           "component": "text",
           "name": "text_title",
           "label": "Title",
-          "valueType": "string"
+          "valueType": "string",
+          "required": true
         },
-         {
+        {
           "component": "text",
           "name": "text_content",
           "label": "Content",
           "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "item-style",
+          "label": "Text Area Style",
+          "valueType": "string",
+          "value": "green20",
+          "description": "Set the background and text color of the text area.",
+          "options": [
+            {
+              "name": "Green 20(Default)",
+              "value": "green20"
+            },
+            {
+              "name": "Transparent Dark",
+              "value": "transparentDark"
+            },
+            {
+              "name": "Transparent Light",
+              "value": "transparentLight"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "buy_text",
+          "label": "Buy Now Button Text",
+          "valueType": "string",
+          "value": ""
+        },
+        {
+          "component": "aem-content",
+          "name": "buy_link",
+          "label": "Buy Now Button Link",
+          "valueType": "string",
+          "value": ""
+        },
+        {
+          "component": "reference",
+          "name": "download_icon",
+          "label": "Download Icon",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "download_link",
+          "label": "Download Link",
+          "valueType": "string"
         }
-        
       ]
     }
   ],

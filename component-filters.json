@@ -117,6 +117,7 @@
       "quick-action-card",
       "category-support-card",
       "additional-support-card",
+      "special-capitalize-text-list",
       "tech-information",
       "past-partnerships-list",
       "partnerships-section-title",
@@ -422,7 +423,8 @@
   {
     "id": "product-filter",
     "components": [
-      "product-filter-item"
+      "product-filter-item",
+      "price-slider"
     ]
   },
   {
@@ -480,9 +482,15 @@
     ]
   },
   {
+    "id": "special-capitalize-text-list",
+    "components": [
+      "special-capitalize-text-list-item"
+    ]
+  },
+  {
     "id": "stats-grid",
     "components": [
-      "sustainability-dashboard-achievement-matrix"
+      "achievement-matrix"
     ]
   },
   {
@@ -526,7 +534,8 @@
   {
     "id": "sustainability-dashboard-achievement",
     "components": [
-      "sustainability-dashboard-achievement-matrix"
+      "achievement-matrix",
+      "achievement-highlights"
     ]
   },
   {

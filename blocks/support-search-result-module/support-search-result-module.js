@@ -28,6 +28,20 @@ function simpleHash(str) {
   return Math.abs(h).toString(36);
 }
 
+const normalizeValueForSort = (value, sortProperty) => {
+  if (value === null || value === undefined) return null;
+  if (typeof value === 'number') return value;
+  if (typeof value === 'string' && /\d{4}-\d{2}-\d{2}T/.test(value)) {
+    const parsed = Date.parse(value);
+    return Number.isNaN(parsed) ? String(value).toLowerCase() : parsed;
+  }
+  if (typeof value === 'string' && sortProperty.toLowerCase().includes('size')) {
+    const m = value.match(/(\d+(\.\d+)?)/);
+    if (m) return parseFloat(m[1]);
+  }
+  return String(value).toLowerCase();
+};
+
 // author 产品接口走 /bin/hisense/productList.json?path=路径，FAQ 走 GraphQL
 function getEndpointUrl(endpointPath, type) {
   let path = endpointPath;
@@ -150,6 +164,34 @@ function filterFaqs(items, keyword) {
     ];
     if (item.answer && item.answer.html) fields.push(item.answer.html);
     return fields.some((f) => f && String(f).toLowerCase().includes(kw));
+  });
+}
+
+const SORT_TEXT_COLLATOR = new Intl.Collator(undefined, {
+  numeric: true,
+  sensitivity: 'base',
+});
+
+function getProductSortDateValue(item) {
+  const time = Date.parse(item.productLaunchDate);
+  return Number.isNaN(time) ? 0 : time;
+}
+
+function getProductSortTextValue(item) {
+  return item.title || item.series || item.sku || item.overseasModel || '';
+}
+
+// 一级按日期倒序；日期相同则按标题 Z-A / 9-0 倒序
+function sortProducts(items) {
+  return [...items].sort((a, b) => {
+    const dateDiff = getProductSortDateValue(b) - getProductSortDateValue(a);
+    if (dateDiff !== 0) return dateDiff;
+
+    const textDiff = SORT_TEXT_COLLATOR.compare(
+      getProductSortTextValue(b),
+      getProductSortTextValue(a),
+    );
+    return textDiff;
   });
 }
 
@@ -519,7 +561,7 @@ export default async function decorate(block) {
 
       if (resolvedType === 'product') {
         allItems = extractProductList(rawData);
-        filteredItems = filterProducts(allItems, keyword);
+        filteredItems = sortProducts(filterProducts(allItems, keyword));
       } else if (resolvedType === 'faq') {
         allItems = extractFaqList(rawData);
         filteredItems = filterFaqs(allItems, keyword);
@@ -596,13 +638,83 @@ export default async function decorate(block) {
     tabContent.dataset.tabIndex = String(index);
     if (index === activeTabIndex) tabContent.classList.add('active');
 
+    const filterGroup = document.createElement('div');
+    filterGroup.className = 'filter-group';
+    const sortBox = document.createElement('div');
+    sortBox.className = 'support-sort-box';
+    if (block.parentNode.parentNode && tabData.type === 'product') {
+      sortBox.append(block.parentNode.parentNode.querySelector('.plp-filters-bar').cloneNode(true));
+
+      const sort = sortBox.querySelector('.plp-sort');
+      sort.addEventListener('click', () => {
+        sortBox.classList.toggle('show');
+        // 为排序移动端添加样式
+        // if (isMobileWindow()) {
+        //   e.preventDefault();
+        // } else {
+        //   sortBox.classList.toggle('show');
+        // }
+      });
+      const sortOptions = sortBox.querySelector('.plp-sort-options');
+      sortOptions.querySelectorAll('.plp-sort-option').forEach((option) => {
+        option.addEventListener('click', () => {
+          if (option.classList.contains('selected')) {
+            sortBox.classList.remove('show');
+            return;
+          }
+
+          sortOptions.querySelectorAll('.plp-sort-option').forEach((opt) => {
+            opt.classList.remove('selected');
+          });
+          option.classList.add('selected');
+
+          const prefix = 'Sort:';
+          const splitText = option.textContent.split(':')[0].trim();
+          const sortSpan = sortBox.querySelector('.plp-sort span');
+          sortSpan.textContent = `${prefix} ${splitText}`;
+          sortBox.classList.remove('show');
+          try {
+            const sortKey = (option.dataset && Object.prototype.hasOwnProperty.call(option.dataset, 'value'))
+              ? option.dataset.value
+              : (option.getAttribute && option.getAttribute('data-value'));
+            const sortArray = (arr, sortProperty, ascending = false) => [...arr].sort((a, b) => {
+              const valA = normalizeValueForSort(a[sortProperty], sortProperty);
+              const valB = normalizeValueForSort(b[sortProperty], sortProperty);
+              if (valA === null && valB === null) return 0;
+              if (valA === null) return 1;
+              if (valB === null) return -1;
+              if (typeof valA === 'number' && typeof valB === 'number') {
+                return ascending ? valA - valB : valB - valA;
+              }
+
+              return ascending
+                ? valA.localeCompare(valB, 'en', { sensitivity: 'base', caseFirst: 'upper' })
+                : valB.localeCompare(valA, 'en', { sensitivity: 'base', caseFirst: 'upper' });
+            });
+            const arr = sortArray(tabData.filteredItems, sortKey);
+            tabData.filteredItems = JSON.parse(JSON.stringify(arr));
+            // eslint-disable-next-line no-use-before-define
+            renderTabContent(index);
+          } catch (e) { /* empty */ }
+        });
+      });
+
+      // 点击关闭下拉
+      document.addEventListener('click', (e) => {
+        if (!sortBox.contains(e.target)) {
+          sortBox.classList.remove('show');
+        }
+      });
+    }
+
     const resultsNum = document.createElement('div');
     resultsNum.className = 'results-num';
     const numSpan = document.createElement('span');
     numSpan.textContent = String(tabData.filteredItems.length);
     resultsNum.appendChild(numSpan);
     resultsNum.appendChild(document.createTextNode(' Results'));
-    tabContent.appendChild(resultsNum);
+    filterGroup.append(resultsNum, sortBox);
+    tabContent.appendChild(filterGroup);
 
     if (tabData.filteredItems.length === 0 && keyword) {
       tabContent.appendChild(renderNoResult(keyword, tabData.title, config));

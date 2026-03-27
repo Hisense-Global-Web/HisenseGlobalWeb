@@ -36,6 +36,7 @@
 
     p {
       margin: 0;
+      font-weight: var(--fontweight-medium, 500);
     }
 
     img {

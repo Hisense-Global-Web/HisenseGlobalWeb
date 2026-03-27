@@ -1,7 +1,7 @@
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 
-const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const { country, language } = getLocaleFromPath();
 const REGION = '/hisense/region-selection.json';
 
 // 简单哈希函数，用于缓存破坏
@@ -25,6 +25,110 @@ async function fetchRegionData(url) {
   }
   return null;
 }
+
+function normalizeLanguages(languages) {
+  if (languages && typeof languages === 'object' && !Array.isArray(languages)) {
+    return languages;
+  }
+
+  if (!Array.isArray(languages)) {
+    return {};
+  }
+
+  return languages.reduce((accumulator, entry) => {
+    const code = String(entry?.code || '').trim();
+    if (!code) {
+      return accumulator;
+    }
+
+    accumulator[code] = String(entry?.name || code).trim();
+    return accumulator;
+  }, {});
+}
+
+function resolveRegionCountryData(regionData) {
+  const directCountry = regionData?.country;
+  if (directCountry) {
+    const languages = normalizeLanguages(directCountry.languages);
+    const languageKeys = Object.keys(languages);
+    const selectedLanguage = directCountry.selectedLanguage
+      || (languageKeys.includes(language) ? language : '')
+      || directCountry.defaultLanguage
+      || languageKeys[0]
+      || language;
+
+    return {
+      code: String(directCountry.code || country).trim(),
+      name: String(directCountry.name || country.toUpperCase()).trim(),
+      languages,
+      selectedLanguage,
+    };
+  }
+
+  const regions = Array.isArray(regionData?.regions) ? regionData.regions : [];
+  const countryEntry = regions
+    .flatMap((region) => (Array.isArray(region?.countries) ? region.countries : []))
+    .find((entry) => String(entry?.code || '').toLowerCase() === country);
+
+  if (!countryEntry) {
+    return null;
+  }
+
+  const languages = normalizeLanguages(countryEntry.languages);
+  const languageKeys = Object.keys(languages);
+  const selectedLanguage = (languageKeys.includes(language) ? language : '')
+    || countryEntry.defaultLanguage
+    || languageKeys[0]
+    || language;
+
+  return {
+    code: String(countryEntry.code || country).trim(),
+    name: String(countryEntry.name || country.toUpperCase()).trim(),
+    languages,
+    selectedLanguage,
+  };
+}
+
+function buildLocalizedFooterPath(pathname = window.location.pathname) {
+  const rawPath = String(pathname || '').trim();
+  const pathSegments = rawPath.split('/').filter(Boolean);
+
+  if (!pathSegments.length) {
+    return `/${country}/${language}`;
+  }
+
+  const isContentPath = pathSegments[0] === 'content';
+  if (isContentPath) {
+    const normalizedSegments = [...pathSegments];
+    normalizedSegments[2] = country;
+    normalizedSegments[3] = language;
+    return `/${normalizedSegments.filter(Boolean).join('/')}`;
+  }
+
+  if (pathSegments[0] !== country) {
+    return `/${country}/${language}${rawPath.startsWith('/') ? rawPath : `/${rawPath}`}`;
+  }
+
+  const normalizedSegments = [...pathSegments];
+  if (normalizedSegments[1] !== language) {
+    normalizedSegments.splice(1, 0, language);
+  }
+
+  return `/${normalizedSegments.join('/')}`;
+}
+
+function buildLocalizedPathForLanguage(nextLanguage) {
+  const normalizedSegments = buildLocalizedFooterPath().split('/').filter(Boolean);
+  const isContentPath = normalizedSegments[0] === 'content';
+  const languageIndex = isContentPath ? 3 : 1;
+  normalizedSegments[languageIndex] = nextLanguage;
+  return `/${normalizedSegments.join('/')}${window.location.search}`;
+}
+
+function buildRegionSelectionPath(selectedLanguage) {
+  return `/${country}/${selectedLanguage}/select-your-region`;
+}
+
 function isInternalLink(href) {
   if (!href || href === '#' || href === '/') {
     return true;
@@ -147,6 +251,22 @@ function extractLogoData(container) {
   return logoData;
 }
 
+function buildSearchTagParams(tagsText) {
+  return String(tagsText || '')
+    .split(',')
+    .map((tag) => {
+      const parts = tag.trim().split('/');
+      if (parts.length >= 2) {
+        const key = parts[parts.length - 2];
+        const value = parts[parts.length - 1];
+        return `${key}=${value}`;
+      }
+      return '';
+    })
+    .filter(Boolean)
+    .join('&');
+}
+
 function extractNavColumnsData(container) {
   const navColumns = [];
 
@@ -189,7 +309,10 @@ function extractNavColumnsData(container) {
         const linkDiv = childDivs[1];
         const link = linkDiv.querySelector('a');
         if (link) {
-          itemData.link = link.href || link.getAttribute('href') || '#';
+          itemData.link = link.getAttribute('href') || '#';
+        }
+        if (childDivs.length > 2 && itemData.link !== '#' && itemData.link?.indexOf('?') === -1) {
+          itemData.link += `?${buildSearchTagParams(childDivs[2].textContent.trim())}`;
         }
       }
 
@@ -210,7 +333,6 @@ function extractLegalLinksData(container) {
   const legalLinksData = {
     links: [],
     copyright: '',
-    regionLink: '',
   };
 
   const legalLinksBlock = container.querySelector('.footer-legal-links');
@@ -223,10 +345,6 @@ function extractLegalLinksData(container) {
   legalItemRows.forEach((row, index) => {
     if (index === 0) {
       legalLinksData.copyright = row.textContent.trim();
-      return;
-    }
-    if (index === 1) {
-      legalLinksData.regionLink = row.textContent.trim();
       return;
     }
 
@@ -433,16 +551,23 @@ export default async function decorate(block) {
       const isEditMode = block.hasAttribute('data-aue-resource');
       const fiveMinutesMs = 5 * 60 * 1000;
       const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
-      return `${baseUrl}${isEditMode ? '/bin' : '/api'}${REGION}?path=${window.location.pathname}&_t=${cacheBuster}`;
+      const localizedPath = buildLocalizedFooterPath(window.location.pathname);
+      return `${baseUrl}${isEditMode ? '/bin' : '/api'}${REGION}?path=${localizedPath}&_t=${cacheBuster}`;
     };
 
     const regionData = await fetchRegionData(getRegionUrl());
+    const selectedCountry = resolveRegionCountryData(regionData);
     const generateLanguageItems = (languages, selectedLang) => {
       let languageItems = '';
-      const langKeys = Object.keys(languages);
-      languageItems += `<div class="footer-lan-item active" data-lang="${selectedLang}">${languages[selectedLang]}</div>`;
+      const langKeys = Object.keys(languages || {});
+      if (!langKeys.length) {
+        return languageItems;
+      }
+
+      const activeLanguage = (selectedLang && languages[selectedLang]) ? selectedLang : langKeys[0];
+      languageItems += `<div class="footer-lan-item active" data-lang="${activeLanguage}">${languages[activeLanguage]}</div>`;
       langKeys.forEach((langKey) => {
-        if (langKey === selectedLang) return;
+        if (langKey === activeLanguage) return;
         languageItems += '<div class="footer-lan-line"></div>';
         languageItems += `<div class="footer-lan-item" data-lang="${langKey}">${languages[langKey]}</div>`;
       });
@@ -452,35 +577,32 @@ export default async function decorate(block) {
 
     const lanGroup = document.createElement('div');
     lanGroup.className = 'footer-lan-group';
-    lanGroup.innerHTML = regionData ? `
+    lanGroup.innerHTML = selectedCountry ? `
   <img class="region-icon" src="/content/dam/hisense/${country}/common-icons/global.svg" alt="" />
-  <div class="footer-lan-com">${regionData.country.name}</div>
+  <div class="footer-lan-com">${selectedCountry.name}</div>
   <div class="footer-lan-list">
-    ${generateLanguageItems(regionData.country.languages, regionData.country.selectedLanguage)}
+    ${generateLanguageItems(selectedCountry.languages, selectedCountry.selectedLanguage)}
   </div>` : '';
     const regionIcon = lanGroup.querySelector('.region-icon');
     if (regionIcon) {
       regionIcon.addEventListener('click', () => {
-        window.location.href = `/${country}/${regionData.country.selectedLanguage}/select-your-region`;
+        window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
       });
     }
     const lanComEl = lanGroup.querySelector('.footer-lan-com');
     if (lanComEl) {
       lanComEl.addEventListener('click', () => {
-        window.location.href = `/${country}/${regionData.country.selectedLanguage}/select-your-region`;
+        window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
       });
     }
     const langItems = lanGroup.querySelectorAll('.footer-lan-item');
     langItems.forEach((item) => {
       item.addEventListener('click', (e) => {
         if (e.currentTarget.classList.contains('active')) {
-          window.location.href = `/${country}/${regionData.country.selectedLanguage}/select-your-region`;
+          window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
           return;
         }
-        const languageIndex = segments[0] === 'content' ? 3 : 1;
-        segments[languageIndex] = e.currentTarget.getAttribute('data-lang');
-        const newPathname = `/${segments.join('/')}`;
-        window.location.href = `${newPathname}${window.location.search}`;
+        window.location.href = buildLocalizedPathForLanguage(e.currentTarget.getAttribute('data-lang'));
       });
     });
 

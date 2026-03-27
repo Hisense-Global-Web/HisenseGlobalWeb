@@ -89,10 +89,9 @@
     {
       "id": "product-filter",
       "components": [
-        "product-filter-item"
+        "product-filter-item",
+        "price-slider"
       ]
     }
   ]
 }
-
-

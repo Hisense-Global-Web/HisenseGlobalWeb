@@ -12,7 +12,11 @@ import {
   loadSections,
   loadCSS,
 } from './aem.js';
+import { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
+import { getHybrisBffBaseUrl, initializeHybrisAuth, scheduleHybrisTask } from './hybris-bff.js';
 import { getFragmentPath } from './locale-utils.js';
+
+export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -103,72 +107,13 @@ export function decorateMain(main) {
 }
 
 /**
- * Get GraphQL API base URL based on current hostname
- */
-export function getGraphQLBaseUrl() {
-  const { hostname } = window.location;
-
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return 'https://publish-p174152-e1855821.adobeaemcloud.com/';
-  }
-
-  // Author environment - use same origin
-  if (hostname.includes('author-')) {
-    return '';
-  }
-
-  // Publish environment - use same origin
-  if (hostname.includes('publish-')) {
-    return '';
-  }
-
-  // Dev environment
-  if (hostname.includes('hisense-dev')) {
-    return 'https://publish-p174152-e1855821.adobeaemcloud.com';
-  }
-
-  // Stage environment
-  if (hostname.includes('hisense-stage')) {
-    return 'https://publish-p174152-e1855674.adobeaemcloud.com';
-  }
-
-  // Production environment
-  if (hostname.includes('hisense.com') || hostname.includes('hisenseglobalweb')) {
-    return 'https://publish-p174152-e1855954.adobeaemcloud.com';
-  }
-
-  // Default fallback for localhost or unknown environments
-  return '';
-}
-
-/**
- * Get EDS base URL based hostname
- */
-function getEdsBaseUrl() {
-  const { hostname } = window.location;
-
-  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('e1855821')) {
-    return 'https://development--hisense-dev--hisense-global-web.aem.page';
-  }
-
-  if (hostname.includes('e1855674')) {
-    return 'https://stage--hisense-stage--hisense-global-web.aem.page';
-  }
-
-  if (hostname.includes('e1855954')) {
-    return 'https://main--hisenseglobalweb--hisense-global-web.aem.live';
-  }
-
-  return window.location.origin;
-}
-
-/**
  * Set global variables for API endpoints
  */
 function setGlobalApiVariables() {
   const gqlBaseUrl = getGraphQLBaseUrl();
   window.GRAPHQL_BASE_URL = gqlBaseUrl;
   window.EDS_BASE_URL = getEdsBaseUrl();
+  window.HYBRIS_BFF_BASE_URL = getHybrisBffBaseUrl();
 }
 
 async function loadRemoteErrorPage(main) {
@@ -227,6 +172,10 @@ async function loadRemoteErrorPage(main) {
 async function loadEager(doc) {
   // Set global API variables first
   setGlobalApiVariables();
+  scheduleHybrisTask(() => initializeHybrisAuth()).catch((error) => {
+    // eslint-disable-next-line no-console
+    console.warn('Failed to initialize Hybris auth', error);
+  });
 
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();

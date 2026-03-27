@@ -134,11 +134,14 @@ export default async function decorate(block) {
   const fav = document.createElement('div');
   fav.className = 'pdp-favorite';
   const likeEmpty = document.createElement('img');
-  likeEmpty.src = `/content/dam/hisense/${country}/common-icons/icon-carousel/like-empty.svg`;
+  likeEmpty.src = `/content/dam/hisense/${country}/common-icons/like-empty.svg`;
   fav.appendChild(likeEmpty);
   const like = document.createElement('img');
-  like.src = `/content/dam/hisense/${country}/common-icons/icon-carousel/like.svg`;
+  like.src = `/content/dam/hisense/${country}/common-icons/like.svg`;
   fav.appendChild(like);
+  fav.addEventListener('click', (e) => {
+    e.currentTarget.classList.toggle('selected');
+  });
 
   const series = document.createElement('div');
   series.className = 'pdp-series';
@@ -314,16 +317,12 @@ export default async function decorate(block) {
   // }
 
   const cart = document.createElement('button');
-  cart.className = 'pdp-buy-btn';
+  cart.className = 'pdp-cart-btn';
   cart.textContent = 'Add to Cart';
   cart.style.display = 'none';
-  // const cartLink = (product && (product.whereToBuyLink || product.productDetailPageLink)) || '';
-  // if (buyLink) {
-  //   buy.addEventListener('click', () => { window.location.href = cartLink; });
-  // }
   const btnGroup = document.createElement('div');
   btnGroup.className = 'pdp-btn-group';
-  btnGroup.append(buy, cart);
+  btnGroup.append(cart, buy);
 
   const linkGroupEl = document.createElement('div');
   linkGroupEl.className = 'pdp-btn-link-group';
@@ -385,13 +384,13 @@ export default async function decorate(block) {
   if (!fields.includes('position')) {
     specsBtn.classList.add('hide');
   }
-  info.append(fav, series, title, ratingWrapper, price);
+  info.append(fav, series, title, ratingWrapper);
   if (hasColorValue) {
     info.append(colorsWrapper);
   } else if (hasSizeValue) {
     info.append(sizesWrapper);
   }
-  info.append(badges, btnGroup, linkGroupEl, badgesMobileGroup);
+  info.append(badges, price, btnGroup, linkGroupEl, badgesMobileGroup);
 
   block.replaceChildren(info);
 

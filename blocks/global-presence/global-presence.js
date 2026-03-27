@@ -1,7 +1,6 @@
 import { createElement, debounce } from '../../utils/dom-helper.js';
 import { loadScrollTrigger } from '../../utils/animation-helper.js';
 import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
-import { loadScript } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
   // ========== CONSTRUCT DOM [START] ========== //
@@ -38,6 +37,8 @@ export default async function decorate(block) {
 
   container.remove();
 
+  const animationEnabled = block.querySelector('div:nth-child(2)')?.textContent?.trim() === 'true';
+
   const statsList = createElement('ul', 'global-presence-stats-list');
   [...block.children].forEach((row) => {
     if (row.classList.length !== 0) {
@@ -58,7 +59,7 @@ export default async function decorate(block) {
           const finalNumberEle = createElement('div', isNumber ? 'number-char final-number-char' : '');
           const extraNumberEle = createElement('div', 'number-char');
           finalNumberEle.textContent = char;
-          if (isNumber && numberValue > 0) {
+          if (animationEnabled && isNumber && numberValue > 0) {
             wrapper.classList.add('animate');
             // eslint-disable-next-line no-plusplus
             for (let i = 0; i < numberValue; i++) {
@@ -69,7 +70,7 @@ export default async function decorate(block) {
             extraNumberEle.textContent = (numberValue + 1).toString();
           }
           wrapper.appendChild(finalNumberEle);
-          wrapper.appendChild(extraNumberEle);
+          if (animationEnabled) wrapper.appendChild(extraNumberEle);
           animatedItem.appendChild(wrapper);
         });
       firstItem.replaceWith(animatedItem);
@@ -88,6 +89,10 @@ export default async function decorate(block) {
   block.appendChild(contentContainer);
   // ========== CONSTRUCT DOM [END] ========== //
 
+  if (!animationEnabled) {
+    return;
+  }
+
   const isEditing = await isUniversalEditorAsync();
   if (isEditing) {
     return;
@@ -97,14 +102,6 @@ export default async function decorate(block) {
   const scrollTriggerLoaded = await loadScrollTrigger();
   if (!scrollTriggerLoaded) {
     return;
-  }
-
-  if (!window.SplitText) {
-    try {
-      await loadScript('https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/SplitText.min.js');
-    } catch (error) {
-      return;
-    }
   }
 
   const { gsap } = window;

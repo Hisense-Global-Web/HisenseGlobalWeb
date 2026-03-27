@@ -24,9 +24,6 @@
    @media (width < 860px) {
     font-size: var(--size-30);
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    word-break: break-all;
     width: calc(100% - 74px);
     text-align: left;
   }
@@ -153,6 +150,48 @@
 .card-item:has(.arrow.hide) .card-body div:nth-child(2) {
   @media (width < 860px) {
    display: none;
+  }
+}
+
+.core-value-card .button-container a{
+  width: fit-content;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  height: var(--size-50);
+  padding: var(--size-4) var(--size-32);
+  justify-content: center;
+  align-items: center;
+  gap: var(--size-8);
+  border-radius: var(--size-100);
+  margin-top: var(--size-80);
+  font-weight: var(--fontweight-medium);
+
+  &.transparent {
+    background-color: transparent;
+    border-color: var(--color-hisense-black);
+    color: var(--color-hisense-black);
+  }
+
+  &.transparent:hover {
+    color: var(--color-primary-grey-10);
+    background-color: var(--color-primary-grey-70);
+  }
+
+  &.hisense-black {
+    background-color: var(--color-hisense-black);
+    color: var(--color-primary-grey-10);
+  }
+
+  &.hisense-black:hover {
+    color: var(--background-color);
+    background-color: var(--color-primary-grey-70);
+  }
+
+  @media (width < 860px) {
+    height: var(--size-40);
+    padding: var(--size-4) var(--size-20);
+    margin-top: var(--size-32);
   }
 }
 
