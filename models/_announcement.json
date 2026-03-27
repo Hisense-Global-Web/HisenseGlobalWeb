@@ -12,6 +12,7 @@
               "model": "announcement",
               "filter": "announcement",
               "style_theme": "light",
+              "style_announcement": "popup-announcement",
               "style_popupVisibility": ""
             }
           }
@@ -40,7 +41,7 @@
         {
           "component": "select",
           "name": "style_announcement",
-          "value": "popup-announcement",
+          "value": "",
           "label": "Popup Announcement classes options",
           "valueType": "string",
           "hidden": true,

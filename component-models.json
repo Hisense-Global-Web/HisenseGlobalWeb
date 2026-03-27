@@ -519,7 +519,7 @@
       {
         "component": "select",
         "name": "style_announcement",
-        "value": "popup-announcement",
+        "value": "",
         "label": "Popup Announcement classes options",
         "valueType": "string",
         "hidden": true,
