@@ -18,6 +18,11 @@ const HYBRIS_ACCOUNT_MENU_ITEMS = [
   { label: 'Address', suffix: '/address-book' },
   { label: 'Coupons', suffix: '/coupons' },
 ];
+const NAVIGATION_ACTION_TYPES = {
+  SEARCH_BOX: 'search-box',
+  SHOPPING_CART: 'shopping-cart',
+  ACCOUNT: 'account',
+};
 
 function hasValidHybrisAccountState(authState = {}) {
   return Boolean(
@@ -69,6 +74,24 @@ function buildAccountMenuItem({ label, href }) {
   link.append(titleEl);
 
   return link;
+}
+
+function normalizeNavigationActionType(iconTypeValue = '', enableSearchBox = false) {
+  const normalizedType = String(iconTypeValue || '').trim().toLowerCase();
+
+  if (normalizedType === 'search box' || normalizedType === NAVIGATION_ACTION_TYPES.SEARCH_BOX) {
+    return NAVIGATION_ACTION_TYPES.SEARCH_BOX;
+  }
+
+  if (normalizedType === 'shopping cart' || normalizedType === NAVIGATION_ACTION_TYPES.SHOPPING_CART) {
+    return NAVIGATION_ACTION_TYPES.SHOPPING_CART;
+  }
+
+  if (normalizedType === NAVIGATION_ACTION_TYPES.ACCOUNT) {
+    return NAVIGATION_ACTION_TYPES.ACCOUNT;
+  }
+
+  return enableSearchBox ? NAVIGATION_ACTION_TYPES.SEARCH_BOX : NAVIGATION_ACTION_TYPES.ACCOUNT;
 }
 
 function setLogoutModalVisible(isVisible) {
@@ -307,15 +330,23 @@ function parseActions(root) {
     }
     const img = fixImageUrl(lightSrc);
     const darkImg = fixImageUrl(darkSrc);
-    let enableSearchBox = false;
-    // 判断Enable Search Box
     const navigationActionEl = wrapper.querySelector('.navigation-action');
-    if (navigationActionEl?.children?.length === 5) {
-      const strEnableSearchBox = navigationActionEl?.children[4].querySelector('p').textContent;
-      enableSearchBox = strEnableSearchBox.toLowerCase() === 'true';
-    }
+    const actionFields = Array.from(navigationActionEl?.children || []);
+    const rawFourthField = actionFields[3]?.textContent?.trim() || '';
+    const rawFifthField = actionFields[4]?.textContent?.trim() || '';
+    const isLegacyEnableSearchField = rawFourthField.toLowerCase() === 'true' || rawFourthField.toLowerCase() === 'false';
+    const rawIconType = isLegacyEnableSearchField ? '' : rawFourthField;
+    const rawEnableSearch = isLegacyEnableSearchField ? rawFourthField : rawFifthField;
+    const enableSearchBox = rawEnableSearch.toLowerCase() === 'true';
+    const iconType = normalizeNavigationActionType(rawIconType, enableSearchBox);
+
     return {
-      title, href: processPath(href), img, darkImg, enableSearchBox,
+      title,
+      href: processPath(href),
+      img,
+      darkImg,
+      enableSearchBox,
+      iconType,
     };
   });
 }
@@ -1193,6 +1224,7 @@ export default async function decorate(block) {
     if (action.img) {
       const btn = document.createElement('div');
       btn.className = 'nav-action-btn';
+      btn.dataset.actionType = action.iconType || '';
       const img = document.createElement('img');
       img.src = action.img;
       img.className = 'light-img';
@@ -1204,11 +1236,12 @@ export default async function decorate(block) {
       imgDark.alt = action.title || 'action';
       imgDark.className = 'dark-img';
       btn.append(imgDark);
-      if (action.enableSearchBox) {
+
+      if (action.iconType === NAVIGATION_ACTION_TYPES.SEARCH_BOX) {
         btn.addEventListener('click', toggleSearchBoxPopup);
         btn.addEventListener('mouseenter', checkSearchBoxPopup);
         btn.addEventListener('mouseleave', hideSearchBoxPopup);
-      } else {
+      } else if (action.iconType === NAVIGATION_ACTION_TYPES.ACCOUNT) {
         btn.dataset.loading = 'false';
         btn.addEventListener('click', handleAccountActionClick);
         const drawerRefs = createAccountDrawer();
@@ -1216,6 +1249,12 @@ export default async function decorate(block) {
         accountActionButtons.push({
           actionButton: btn,
           drawerRefs,
+        });
+      } else if (action.href && action.href !== '#') {
+        btn.dataset.href = action.href;
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          window.location.href = action.href;
         });
       }
 
