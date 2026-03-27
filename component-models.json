@@ -3599,6 +3599,27 @@
         "label": "Link"
       },
       {
+        "component": "select",
+        "name": "icon-type",
+        "label": "Icon Type",
+        "valueType": "string",
+        "value": "account",
+        "options": [
+          {
+            "name": "Search Box",
+            "value": "search-box"
+          },
+          {
+            "name": "Shopping Cart",
+            "value": "shopping-cart"
+          },
+          {
+            "name": "Account",
+            "value": "account"
+          }
+        ]
+      },
+      {
         "component": "boolean",
         "name": "enable-search",
         "label": "Enable Search Box",
@@ -3852,7 +3873,6 @@
         "name": "title_style",
         "label": "Title Style",
         "valueType": "string",
-        "value": "normal",
         "options": [
           {
             "name": "Normal",
@@ -3868,8 +3888,7 @@
         "component": "text",
         "valueType": "string",
         "name": "section_title",
-        "label": "Section Title",
-        "multi": false
+        "label": "Section Title"
       },
       {
         "component": "text",
@@ -3882,16 +3901,14 @@
         "name": "pc_numberColumns",
         "label": "PC: Items per row",
         "valueType": "number",
-        "value": 3,
         "description": "For PC: Number of columns displayed per row."
       },
       {
         "component": "select",
-        "name": "button_color",
+        "name": "mobile_numberColumns",
         "label": "Mobile: Items per row",
         "description": "For Mobile: When selected 'Tiled display', Items will show in one row.",
         "valueType": "string",
-        "value": "tiled",
         "options": [
           {
             "name": "Tiled display",
@@ -4574,6 +4591,18 @@
         "name": "text_location",
         "label": "Location",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "quick-action-card",
+    "fields": [
+      {
+        "component": "number",
+        "name": "pc_numberColumns",
+        "label": "PC: Items per row",
+        "valueType": "number",
+        "description": "For PC: Number of columns displayed per row."
       }
     ]
   },

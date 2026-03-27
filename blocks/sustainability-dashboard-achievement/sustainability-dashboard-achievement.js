@@ -42,14 +42,14 @@ export default function decorate(block) {
   block.append(textContainer);
   // handle child component--achievement-highlights
   if (block.querySelector('.highlights-block-item')) {
-    block.querySelectorAll('.highlights-block-item').forEach((highlightsItem, h) => {
+    const items = document.createElement('div');
+    items.className = 'highlights-block-items';
+    block.querySelectorAll('.highlights-block-item').forEach((highlightsItem) => {
       highlightsItem.lastElementChild.className = highlightsItem.firstElementChild.textContent.trim();
       if (highlightsItem.lastElementChild.className) highlightsItem.firstElementChild.remove();
-
-      if (h === 0) {
-        highlightsItem.classList.add('mt-32');
-      }
+      items.append(highlightsItem);
     });
+    textArea.appendChild(items);
   }
   // handle child component--achievement-matrix
   if (block.querySelector('.matrix-block-item')) {
@@ -85,6 +85,7 @@ export default function decorate(block) {
     });
     textArea.appendChild(items);
   }
+  if ([...titleArea.children].length === 1) titleArea.classList.add('fix-margin');
   if (!btnDiv.textContent.trim()) return;
   whenElementReady('.sustainability-dashboard-achievement', () => {
     bindEvent(block);

@@ -81,6 +81,12 @@
           text-align: left;
           margin: 0;
         }
+
+        &.fix-margin {
+          > div {
+            margin: 0;
+          }
+        }
       }
 
       .matrix-block-items {
@@ -119,22 +125,21 @@
         }
       }
 
-      .highlights-block-item {
-        margin-top: var(--size-16);
+      .highlights-block-items {
         display: flex;
-        padding: var(--size-20) var(--size-24);
         flex-direction: column;
         align-items: flex-start;
-        align-self: stretch;
-        border-radius: var(--size-16);
-        background: var(--color-primary-grey-20, #F7F7F7);
-        color: var(--color-primary-green-60, #008482);
-        font-size: var(--fontsize-body1, 16px);
-        font-weight: var(--fontweight-medium);
-        line-height: 150%; /* 24px */
-        
-        &.mt-32 {
-          margin-top: var(--size-32);
+        gap: var(--size-16);
+
+        .highlights-block-item {
+          padding: var(--size-20) var(--size-24);
+          align-self: stretch;
+          border-radius: var(--size-16);
+          background: var(--color-primary-grey-20, #F7F7F7);
+          color: var(--color-primary-green-60, #008482);
+          font-size: var(--fontsize-body1, 16px);
+          font-weight: var(--fontweight-medium);
+          line-height: 150%; /* 24px */
         }
       }
     }
@@ -188,7 +193,7 @@
     flex-direction: column !important;
     min-height: calc(564/var(--breakpoint-mobile)* 100vw);
     border-radius: var(--size-16);
-    gap: var(--size-48);
+    gap: var(--size-32);
     height: auto;
     
     .image {
@@ -203,7 +208,7 @@
     }
 
     .text-content {
-      gap: var(--size-48) !important;
+      gap: var(--size-32) !important;
       padding: 0 var(--size-24) var(--size-48) !important;
 
       p {
@@ -214,7 +219,7 @@
       }
 
       .text-area {
-        gap: var(--size-48);
+        gap: var(--size-32);
 
         .title-area .title {
           color: var(--color-primary-green-60, #008482);
@@ -262,7 +267,7 @@
           }
         }
 
-        .highlights-block-item {
+        .highlights-block-items .highlights-block-item {
           padding: var(--size-16) var(--size-20);
           border-radius: var(--size-12);
           font-size: var(--size-14);

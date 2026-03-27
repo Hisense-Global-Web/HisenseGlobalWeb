@@ -1847,7 +1847,10 @@
                 "template": {
                   "name": "Past Partnerships List",
                   "model": "past-partnerships-list",
-                  "filter": "past-partnerships-list"
+                  "filter": "past-partnerships-list",
+                  "title_style": "normal",
+                  "pc_numberColumns": 3,
+                  "mobile_numberColumns": "tiled"
                 }
               }
             }
@@ -2228,7 +2231,8 @@
                   "name": "Quick Action Card",
                   "model": "quick-action-card",
                   "classes": "quick-action-card",
-                  "filter": "quick-action-card"
+                  "filter": "quick-action-card",
+                  "pc_numberColumns": 4
                 }
               }
             }
