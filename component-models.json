@@ -4519,6 +4519,18 @@
     "fields": []
   },
   {
+    "id": "quick-action-card",
+    "fields": [
+      {
+        "component": "number",
+        "name": "pc_numberColumns",
+        "label": "PC: Items per row",
+        "valueType": "number",
+        "description": "For PC: Number of columns displayed per row."
+      }
+    ]
+  },
+  {
     "id": "quick-action-card-item",
     "fields": [
       {

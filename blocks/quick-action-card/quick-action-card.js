@@ -4,7 +4,9 @@ function cardClickHandler(link) {
 
 export default function decorate(block) {
   try {
-    const elementItems = [...block.children];
+    const [pcColumnEl, ...elementItems] = [...block.children];
+    const pcColumn = pcColumnEl?.querySelector?.('p')?.textContent ?? 4;
+    pcColumnEl?.remove();
     elementItems.forEach((element) => {
       element.classList.add('quick-action-card-item');
       // icon
@@ -48,6 +50,20 @@ export default function decorate(block) {
       // 监听媒体查询变化
       mediaQuery.addEventListener('change', handleMediaChange);
     });
+
+    const meidaCardQuery = window.matchMedia('(min-width: 860px)');
+
+    const handleCardMediaChange = (e) => {
+      if (e.matches) {
+        // PC
+        block.style.cssText = `grid-template-columns: repeat(${pcColumn}, 1fr)`;
+      } else {
+        // Mobile
+        block.style.cssText = '';
+      }
+    };
+
+    handleCardMediaChange(meidaCardQuery);
   } catch (error) {
     /* eslint-disable-next-line no-console */
     console.error('Quick Action block decoration error:', error);

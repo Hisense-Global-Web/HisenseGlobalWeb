@@ -2198,7 +2198,8 @@
                   "name": "Quick Action Card",
                   "model": "quick-action-card",
                   "classes": "quick-action-card",
-                  "filter": "quick-action-card"
+                  "filter": "quick-action-card",
+                  "pc_numberColumns": 4
                 }
               }
             }
