@@ -1,69 +1,247 @@
+import { fetchHybrisProduct, getHybrisProductCode, scheduleHybrisTask } from '../../scripts/hybris-bff.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
+const PLP_PRODUCTS_READY_EVENT = 'hisense:plp-products-ready';
+const PRICE_FILTER_STATE_KEY = '__hisensePlpPriceFilterState';
+const PRODUCT_PRICE_CACHE_KEY = '__hisensePlpProductPriceCache';
+const PRODUCT_PRICE_PROMISE_CACHE_KEY = '__hisensePlpProductPricePromiseCache';
+const PRICE_DATASET_SIGNATURE_KEY = '__hisensePlpPriceDatasetSignature';
+const PRICE_REQUEST_CONCURRENCY = 6;
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
-// 格式化货币函数
-const formatCurrency = (num, currencySymbol) => `${currencySymbol} ${parseInt(num, 10).toLocaleString()}`;
+function ensurePriceFilterState(currencySymbol = '$') {
+  const currentState = window[PRICE_FILTER_STATE_KEY] || {};
+  const nextState = {
+    min: Number.isFinite(currentState.min) ? currentState.min : 0,
+    max: Number.isFinite(currentState.max) ? currentState.max : 0,
+    selectedMin: Number.isFinite(currentState.selectedMin) ? currentState.selectedMin : 0,
+    selectedMax: Number.isFinite(currentState.selectedMax) ? currentState.selectedMax : 0,
+    ready: currentState.ready === true,
+    currencySymbol: currentState.currencySymbol || currencySymbol,
+  };
+  window[PRICE_FILTER_STATE_KEY] = nextState;
+  return nextState;
+}
 
-// 绑定事件
-const bindPriceSlider = (minPrice, maxPrice, currencySymbol, elements) => {
-  const {
-    minLabel, maxLabel, fillBar, minInput, maxInput,
-  } = elements;
+function getProductPriceCache() {
+  if (!window[PRODUCT_PRICE_CACHE_KEY]) {
+    window[PRODUCT_PRICE_CACHE_KEY] = {};
+  }
+  return window[PRODUCT_PRICE_CACHE_KEY];
+}
 
-  const rangeDiff = maxPrice - minPrice;
-  // 更新滑块区域
-  function updateSlider() {
-    let minVal = parseInt(minInput.value, 10);
-    let maxVal = parseInt(maxInput.value, 10);
+function getProductPricePromiseCache() {
+  if (!window[PRODUCT_PRICE_PROMISE_CACHE_KEY]) {
+    window[PRODUCT_PRICE_PROMISE_CACHE_KEY] = {};
+  }
+  return window[PRODUCT_PRICE_PROMISE_CACHE_KEY];
+}
 
-    // 逻辑限制：左侧不能超过右侧
-    if (minVal > maxVal) {
-      // 如果正在拖动的是 minInput，把它拉回到 maxVal
-      if (document.activeElement === minInput) {
-        minInput.value = maxVal;
-        minVal = maxVal;
-      } else {
-        // 如果正在拖动的是 maxInput，把它推到 minVal
-        maxInput.value = minVal;
-        maxVal = minVal;
-      }
-    }
+function getPriceDatasetSignature(items = []) {
+  return [...new Set(
+    items
+      .map((item) => getHybrisProductCode(item))
+      .filter(Boolean),
+  )]
+    .sort()
+    .join('|');
+}
 
-    // 计算百分比位置 (0 到 100)
-    // 公式：(当前值 - 最小值) / 总差值 * 100
-    const minPercent = ((minVal - minPrice) / rangeDiff) * 100;
-    const maxPercent = ((maxVal - minPrice) / rangeDiff) * 100;
+function clampPriceValue(value, minPrice, maxPrice) {
+  if (!Number.isFinite(value)) {
+    return minPrice;
+  }
+  return Math.min(maxPrice, Math.max(minPrice, value));
+}
 
-    // 更新中间青色条的样式
-    fillBar.style.left = `${minPercent}%`;
-    fillBar.style.width = `${(maxPercent - minPercent)}%`;
+function syncPriceFilterState(partialState = {}, currencySymbol = '$') {
+  const state = ensurePriceFilterState(currencySymbol);
+  Object.assign(state, partialState);
 
-    // 更新顶部价格标签的位置和文字
-    minLabel.style.left = `${minPercent}%`;
-    minLabel.textContent = formatCurrency(minVal, currencySymbol);
-
-    maxLabel.style.left = `${maxPercent}%`;
-    maxLabel.textContent = formatCurrency(maxVal, currencySymbol);
+  state.min = Number.isFinite(state.min) ? state.min : 0;
+  state.max = Number.isFinite(state.max) ? state.max : state.min;
+  if (state.max < state.min) {
+    state.max = state.min;
   }
 
-  // 绑定事件监听
-  minInput.addEventListener('input', updateSlider);
-  maxInput.addEventListener('input', updateSlider);
+  state.selectedMin = clampPriceValue(state.selectedMin, state.min, state.max);
+  state.selectedMax = clampPriceValue(state.selectedMax, state.min, state.max);
 
-  // 初始化运行一次
-  updateSlider();
+  if (state.selectedMin > state.selectedMax) {
+    if (document.activeElement && document.activeElement.id === 'max-input') {
+      state.selectedMin = state.selectedMax;
+    } else {
+      state.selectedMax = state.selectedMin;
+    }
+  }
+
+  window[PRICE_FILTER_STATE_KEY] = state;
+  return state;
+}
+
+window.getPlpPriceFilterState = function getPlpPriceFilterState() {
+  return ensurePriceFilterState();
 };
+
+function formatCurrency(num, currencySymbol) {
+  const safeValue = Number.isFinite(Number(num)) ? Math.trunc(Number(num)) : 0;
+  return `${currencySymbol} ${safeValue.toLocaleString()}`;
+}
+
+function parseNumericPriceValue(price) {
+  if (price === null || price === undefined || price === '') {
+    return null;
+  }
+
+  if (typeof price === 'number') {
+    return Number.isFinite(price) ? price : null;
+  }
+
+  if (typeof price === 'string') {
+    const normalized = Number(price.replace(/[^\d.-]/g, ''));
+    return Number.isFinite(normalized) ? normalized : null;
+  }
+
+  if (typeof price === 'object') {
+    return parseNumericPriceValue(
+      price.value
+      ?? price.formattedValue
+      ?? price.sale
+      ?? price.price
+      ?? price.current
+      ?? price.specialprice
+      ?? price.regularprice,
+    );
+  }
+
+  return null;
+}
+
+function resolveProductPriceValue(product, fallbackItem = null) {
+  const candidates = [
+    product?.pricing?.sale,
+    product?.pricing?.price,
+    product?.pricing?.current,
+    product?.price,
+    product?.pricing?.msrp,
+    product?.msrp,
+    fallbackItem?.priceInfo?.specialprice,
+    fallbackItem?.priceInfo?.regularprice,
+    fallbackItem?.priceInfo_specialprice,
+    fallbackItem?.priceInfo_regularPrice,
+    fallbackItem?.price,
+  ];
+
+  for (let i = 0; i < candidates.length; i += 1) {
+    const value = parseNumericPriceValue(candidates[i]);
+    if (Number.isFinite(value)) {
+      return value;
+    }
+  }
+
+  return null;
+}
+
+function getResolvedItemPrice(item) {
+  const cache = getProductPriceCache();
+  const code = getHybrisProductCode(item);
+  const hasCachedPrice = Boolean(code)
+    && Object.prototype.hasOwnProperty.call(cache, code);
+
+  if (hasCachedPrice) {
+    const cachedPrice = cache[code];
+    return {
+      value: Number.isFinite(cachedPrice) ? cachedPrice : 0,
+      missing: !Number.isFinite(cachedPrice),
+    };
+  }
+
+  const fallbackPrice = resolveProductPriceValue(null, item);
+  return {
+    value: Number.isFinite(fallbackPrice) ? fallbackPrice : 0,
+    missing: !Number.isFinite(fallbackPrice),
+  };
+}
+
+window.getPlpItemResolvedPrice = function getPlpItemResolvedPrice(item) {
+  return getResolvedItemPrice(item).value;
+};
+
+function getPriceBounds(items = []) {
+  const priceDetails = items.map((item) => getResolvedItemPrice(item));
+  const numericPrices = priceDetails.filter((detail) => !detail.missing).map((detail) => detail.value);
+  const hasMissingPrice = priceDetails.some((detail) => detail.missing);
+  let minPrice = 0;
+  if (!hasMissingPrice && numericPrices.length) {
+    minPrice = Math.floor(Math.min(...numericPrices));
+  }
+  const maxPrice = numericPrices.length ? Math.ceil(Math.max(...numericPrices)) : 0;
+
+  return {
+    minPrice,
+    maxPrice: Math.max(maxPrice, minPrice),
+  };
+}
+
+async function runConcurrentTasks(items, task, concurrency = PRICE_REQUEST_CONCURRENCY) {
+  const queue = Array.isArray(items) ? items.slice() : [];
+  const runWorker = async () => {
+    const currentItem = queue.shift();
+    if (!currentItem) {
+      return;
+    }
+
+    await task(currentItem);
+    await runWorker();
+  };
+  const workers = Array.from({ length: Math.min(concurrency, queue.length) }, () => runWorker());
+
+  await Promise.all(workers);
+}
+
+async function loadHybrisPrices(items = []) {
+  const itemsByCode = new Map();
+  items.forEach((item) => {
+    const code = getHybrisProductCode(item);
+    if (code && !itemsByCode.has(code)) {
+      itemsByCode.set(code, item);
+    }
+  });
+
+  const cache = getProductPriceCache();
+  const promiseCache = getProductPricePromiseCache();
+  const codes = [...itemsByCode.keys()];
+  await runConcurrentTasks(codes, async (code) => {
+    if (Object.prototype.hasOwnProperty.call(cache, code)) {
+      return;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(promiseCache, code)) {
+      await promiseCache[code];
+      return;
+    }
+
+    const fallbackItem = itemsByCode.get(code);
+    promiseCache[code] = (async () => {
+      try {
+        const product = await fetchHybrisProduct(code);
+        const resolvedPrice = resolveProductPriceValue(product, fallbackItem);
+        cache[code] = Number.isFinite(resolvedPrice) ? resolvedPrice : null;
+      } catch (error) {
+        cache[code] = null;
+      } finally {
+        delete promiseCache[code];
+      }
+    })();
+
+    await promiseCache[code];
+  });
+}
 
 // 构建price slider item.
 const generatePriceSlider = (rowEl) => {
-  // TODO: 此处需要拿到最大值和最小值
-  const MOCK_MIN_PRICE = 500.23;
-  const MOCK_MAX_PRICE = 4000.56;
-  const minPrice = Math.floor(MOCK_MIN_PRICE);
-  const maxPrice = Math.ceil(MOCK_MAX_PRICE);
   const priceSliderWrapper = document.createElement('div');
   priceSliderWrapper.className = 'price-slider-wrapper';
   // eslint-disable-next-line no-unused-vars
@@ -71,6 +249,16 @@ const generatePriceSlider = (rowEl) => {
   const currencySymbol = currencySymbolEl?.querySelector('p')?.textContent ?? '$';
   const minLabel = minLabelEl?.querySelector('p')?.textContent ?? '';
   const maxLabel = maxLabelEl?.querySelector('p')?.textContent ?? '';
+  const initialState = syncPriceFilterState({
+    min: 0,
+    max: 0,
+    selectedMin: 0,
+    selectedMax: 0,
+    ready: false,
+    currencySymbol,
+  }, currencySymbol);
+  const minPrice = initialState.min;
+  const maxPrice = initialState.max;
   const minPriceSymbol = formatCurrency(minPrice, currencySymbol);
   const maxPriceSymbol = formatCurrency(maxPrice, currencySymbol);
 
@@ -144,10 +332,69 @@ const generatePriceSlider = (rowEl) => {
   limitsEl.appendChild(minPriceWrapperEl);
   limitsEl.appendChild(maxPriceWrapperEl);
   priceSliderWrapper.appendChild(limitsEl);
-  bindPriceSlider(minPrice, maxPrice, currencySymbol, {
-    minLabel: minPriceTagEl, maxLabel: maxPriceTagEl, fillBar: sliderFillEl, minInput: minInputEl, maxInput: maxInputEl,
-  });
-  return priceSliderWrapper;
+
+  const updateSlider = (shouldApplyFilter = false) => {
+    const nextState = syncPriceFilterState({
+      selectedMin: parseInt(minInputEl.value, 10),
+      selectedMax: parseInt(maxInputEl.value, 10),
+      currencySymbol,
+    }, currencySymbol);
+
+    minInputEl.value = nextState.selectedMin;
+    maxInputEl.value = nextState.selectedMax;
+
+    const rangeDiff = Math.max(nextState.max - nextState.min, 1);
+    const minPercent = ((nextState.selectedMin - nextState.min) / rangeDiff) * 100;
+    const maxPercent = ((nextState.selectedMax - nextState.min) / rangeDiff) * 100;
+
+    sliderFillEl.style.left = `${minPercent}%`;
+    sliderFillEl.style.width = `${(maxPercent - minPercent)}%`;
+
+    minPriceTagEl.style.left = `${minPercent}%`;
+    minPriceTagEl.textContent = formatCurrency(nextState.selectedMin, currencySymbol);
+    maxPriceTagEl.style.left = `${maxPercent}%`;
+    maxPriceTagEl.textContent = formatCurrency(nextState.selectedMax, currencySymbol);
+
+    minPriceValueEl.textContent = formatCurrency(nextState.selectedMin, currencySymbol);
+    maxPriceValueEl.textContent = formatCurrency(nextState.selectedMax, currencySymbol);
+
+    if (shouldApplyFilter && typeof window.applyPlpFilters === 'function') {
+      window.applyPlpFilters();
+    }
+  };
+
+  const updateRange = (nextMinPrice, nextMaxPrice) => {
+    const nextState = syncPriceFilterState({
+      min: nextMinPrice,
+      max: nextMaxPrice,
+      selectedMin: ensurePriceFilterState(currencySymbol).ready ? ensurePriceFilterState(currencySymbol).selectedMin : nextMinPrice,
+      selectedMax: ensurePriceFilterState(currencySymbol).ready ? ensurePriceFilterState(currencySymbol).selectedMax : nextMaxPrice,
+      ready: true,
+      currencySymbol,
+    }, currencySymbol);
+
+    minInputEl.min = nextState.min;
+    minInputEl.max = nextState.max;
+    maxInputEl.min = nextState.min;
+    maxInputEl.max = nextState.max;
+    minInputEl.value = nextState.selectedMin;
+    maxInputEl.value = nextState.selectedMax;
+    updateSlider(false);
+  };
+
+  const commitSliderFilter = () => updateSlider(true);
+
+  minInputEl.addEventListener('input', () => updateSlider(false));
+  maxInputEl.addEventListener('input', () => updateSlider(false));
+  minInputEl.addEventListener('change', commitSliderFilter);
+  maxInputEl.addEventListener('change', commitSliderFilter);
+  updateSlider(false);
+
+  return {
+    element: priceSliderWrapper,
+    currencySymbol,
+    updateRange,
+  };
 };
 
 /**
@@ -165,6 +412,49 @@ export default function decorate(block) {
   const rows = [...block.children];
   const fragment = document.createDocumentFragment();
   let tagCounter = 0;
+  let priceSliderController = null;
+  let priceLoadVersion = 0;
+
+  const refreshPriceSlider = (items = []) => {
+    if (!priceSliderController || !Array.isArray(items) || !items.length) {
+      return;
+    }
+
+    const datasetSignature = getPriceDatasetSignature(items);
+    if (datasetSignature && window[PRICE_DATASET_SIGNATURE_KEY] === datasetSignature) {
+      const { minPrice, maxPrice } = getPriceBounds(items);
+      priceSliderController.updateRange(minPrice, maxPrice);
+      if (typeof window.applyPlpFilters === 'function') {
+        window.applyPlpFilters();
+      }
+      return;
+    }
+
+    const requestVersion = priceLoadVersion + 1;
+    priceLoadVersion = requestVersion;
+    scheduleHybrisTask(async () => {
+      await loadHybrisPrices(items);
+      if (requestVersion !== priceLoadVersion || !priceSliderController) {
+        return;
+      }
+
+      window[PRICE_DATASET_SIGNATURE_KEY] = datasetSignature;
+      const { minPrice, maxPrice } = getPriceBounds(items);
+      priceSliderController.updateRange(minPrice, maxPrice);
+
+      if (typeof window.applyPlpFilters === 'function') {
+        window.applyPlpFilters();
+      }
+    }).catch((error) => {
+      /* eslint-disable-next-line no-console */
+      console.warn('Failed to refresh PLP price slider', error);
+    });
+  };
+
+  document.addEventListener(PLP_PRODUCTS_READY_EVENT, (event) => {
+    const items = Array.isArray(event.detail?.items) ? event.detail.items : (window.productData || []);
+    refreshPriceSlider(items);
+  });
 
   // 从 block 配置中读取 tagsEndpoint，如果没有配置则使用默认值
   const tagsEndpointRow = rows.find((row) => {
@@ -458,8 +748,8 @@ export default function decorate(block) {
       list.className = `plp-filter-list plp-tag-${tagType}-group`;
 
       if (isPriceSlider) {
-        const priceSliderWrapper = generatePriceSlider(row);
-        group.append(title, priceSliderWrapper);
+        priceSliderController = generatePriceSlider(row);
+        group.append(title, priceSliderController.element);
       } else {
         // /content/dam/hisense/${country}/common-icons/icon-carousel/radio-empty.svg
 
@@ -581,6 +871,10 @@ export default function decorate(block) {
       closeBtn.append(closeImg);
       titleBoxEl.append(mobileProdctTagTit, closeBtn);
       filterTagEl.prepend(titleBoxEl);
+    }
+
+    if (Array.isArray(window.productData) && window.productData.length) {
+      refreshPriceSlider(window.productData);
     }
   }
 

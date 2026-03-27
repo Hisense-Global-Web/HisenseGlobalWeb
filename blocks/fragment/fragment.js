@@ -18,7 +18,8 @@ import {
  * @param {string} path The path to the fragment
  * @returns {HTMLElement} The root element of the fragment
  */
-export async function loadFragment(path) {
+export async function loadFragment(path, options = {}) {
+  const { loadSections: shouldLoadSections = true } = options;
   if (path && path.startsWith('/')) {
     // eslint-disable-next-line no-param-reassign
     path = path.replace(/(\.plain)?\.html/, '');
@@ -37,7 +38,9 @@ export async function loadFragment(path) {
       resetAttributeBase('source', 'srcset');
 
       decorateMain(main);
-      await loadSections(main);
+      if (shouldLoadSections) {
+        await loadSections(main);
+      }
       return main;
     }
   }
