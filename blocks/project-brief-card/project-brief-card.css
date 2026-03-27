@@ -34,33 +34,32 @@
         .card-info{
             display: flex;
             align-items: center;
-            line-height: var(--size-22);
-            color: var(--color-primary-grey-70);
+            line-height: 1.5;
+            color: var(--color-primary-green-60);
+            font-size: var(--size-14);
+            font-weight: var(--fontweight-book);
 
             @media (width < 860px) {
-              font-size: var(--size-14);
               line-height: 1.4;
             }
           }
-          
+
         .card-title {
-          color: var(--color-primary-grey-70, #333);
-          font-size: var(--fontsize-body1, 16px);
+          color: var(--color-primary-grey-100);
+          font-size: var(--fontsize-title2, 20px);
           font-style: normal;
           font-weight: var(--fontweight-medium, 500);
-          line-height: 1.5;
+          line-height: 1.2;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
 
           @media (width<860px) {
-            font-size: var(--size-14, 14px);
             line-height: 1.4;
             overflow: unset;
             white-space: normal;
             overflow-wrap: break-word;
             text-overflow: unset;
-            max-width: calc(188 / var(--breakpoint-mobile) * 100vw);
           }
         }
 
@@ -70,8 +69,6 @@
           font-style: normal;
           line-height: 150%;
           overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
           font-weight: var(--fontweight-book, 400);
 
           @media (width<860px) {
@@ -80,7 +77,6 @@
             text-overflow: unset;
             overflow-wrap: break-word;
             font-size: var(--spacing-2xs, 12px);
-            max-width: calc(188 / var(--breakpoint-mobile) * 100vw);
           }
         }
 
@@ -94,6 +90,7 @@
           line-height: 1.5;
           color: var(--color-primary-grey-50);
           justify-content: start;
+          margin-top: var(--spacing-xs, 16px);;
 
           .meta-icon {
             width: var(--size-16);
