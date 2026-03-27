@@ -4,6 +4,7 @@
     "components": [
       "section",
       "popup-module",
+      "announcement",
       "navigation",
       "company-page-navigation",
       "support-navigation",
@@ -152,8 +153,14 @@
       "popup-title",
       "popup-key-stats",
       "popup-image",
-      "stats-grid",
-      "experience-fragment"
+      "stats-grid"
+    ]
+  },
+  {
+    "id": "popup-module",
+    "components": [
+      "popup-title",
+      "legal-content"
     ]
   },
   {

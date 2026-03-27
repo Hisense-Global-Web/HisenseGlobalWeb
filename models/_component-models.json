@@ -18,6 +18,9 @@
     "...": "./_popup-module.json#/models"
   },
   {
+    "...": "./_announcement.json#/models"
+  },
+  {
     "...": "../blocks/*/_*.json#/models"
   }
 ]

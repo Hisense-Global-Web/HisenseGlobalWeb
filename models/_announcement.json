@@ -1,17 +1,18 @@
 {
   "definitions": [
     {
-      "title": "Popup Module",
-      "id": "popup-module",
+      "title": "Announcement",
+      "id": "announcement",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
-              "name": "Popup Module",
-              "model": "popup-module",
-              "filter": "popup-module",
+              "name": "Announcement",
+              "model": "announcement",
+              "filter": "announcement",
               "classes": "h-popup-module-wrapper",
+              "style_theme": "light",
               "style_popupVisibility": ""
             }
           }
@@ -21,7 +22,7 @@
   ],
   "models": [
     {
-      "id": "popup-module",
+      "id": "announcement",
       "fields": [
         {
           "component": "select",
@@ -29,6 +30,7 @@
           "value": "popup-module-container",
           "label": "Popup module classes options",
           "valueType": "string",
+          "hidden": true,
           "options": [
             {
               "name": "Popup Module Container",
@@ -60,10 +62,19 @@
           "description": "The label shown for this section in the Content Tree"
         },
         {
-          "component": "text",
-          "name": "id",
-          "label": "Section ID",
-          "description": "Enter a unique ID."
+          "component": "select",
+          "name": "style_theme",
+          "label": "Theme",
+          "options": [
+            {
+              "name": "Light(default)",
+              "value": "light"
+            },
+            {
+              "name": "Dark",
+              "value": "dark"
+            }
+          ]
         }
       ]
     }
@@ -72,13 +83,8 @@
     {
       "id": "popup-module",
       "components": [
-        "sustainability-dashboard-list",
-        "popup-text",
-        "popup-quote",
         "popup-title",
-        "popup-key-stats",
-        "popup-image",
-        "stats-grid"
+        "legal-content"
       ]
     }
   ]

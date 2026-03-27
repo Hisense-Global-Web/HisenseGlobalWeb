@@ -500,6 +500,63 @@
     ]
   },
   {
+    "id": "announcement",
+    "fields": [
+      {
+        "component": "select",
+        "name": "style_popup",
+        "value": "popup-module-container",
+        "label": "Popup module classes options",
+        "valueType": "string",
+        "hidden": true,
+        "options": [
+          {
+            "name": "Popup Module Container",
+            "value": "popup-module-container"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_popupVisibility",
+        "label": "Popup visibility options",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Popup Show",
+            "value": "popup-show"
+          },
+          {
+            "name": "Popup Hide",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "select",
+        "name": "style_theme",
+        "label": "Theme",
+        "options": [
+          {
+            "name": "Light(default)",
+            "value": "light"
+          },
+          {
+            "name": "Dark",
+            "value": "dark"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "about-hisense-module-title",
     "fields": [
       {
@@ -2019,21 +2076,6 @@
         "value": "",
         "label": "Button Link",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "experience-fragment",
-    "fields": [
-      {
-        "component": "aem-experience-fragment",
-        "valueType": "string",
-        "name": "experience-fragment",
-        "label": "experience-fragment",
-        "variationName": "experienceFragmentVariation",
-        "validation": {
-          "rootPath": "/content/experience-fragments"
-        }
       }
     ]
   },

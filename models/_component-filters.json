@@ -4,6 +4,7 @@
     "components": [
       "section",
       "popup-module",
+      "announcement",
       "navigation",
       "company-page-navigation",
       "support-navigation",
@@ -16,6 +17,9 @@
   },
   {
     "...": "./_popup-module.json#/filters"
+  },
+  {
+    "...": "./_announcement.json#/filters"
   },
   {
     "...": "../blocks/*/_*.json#/filters"

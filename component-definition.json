@@ -88,6 +88,25 @@
               }
             }
           }
+        },
+        {
+          "title": "Announcement",
+          "id": "announcement",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Announcement",
+                  "model": "announcement",
+                  "filter": "announcement",
+                  "classes": "h-popup-module-wrapper",
+                  "style_theme": "light",
+                  "style_popupVisibility": ""
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -913,21 +932,6 @@
                   "model": "exception-page",
                   "key-value": true,
                   "classes": "error-information"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Experience Fragment",
-          "id": "experience-fragment",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Experience Fragment",
-                  "model": "experience-fragment"
                 }
               }
             }
