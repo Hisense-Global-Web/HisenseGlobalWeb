@@ -4553,7 +4553,7 @@
       },
       {
         "component": "text",
-        "name": "title_info",
+        "name": "text_info",
         "label": "Info",
         "valueType": "string"
       },
