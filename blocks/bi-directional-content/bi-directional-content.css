@@ -24,7 +24,7 @@
   }
 }
 
-.bi-directional-content-wrapper .title  >div p:first-child {
+.bi-directional-content-wrapper .title > div p:first-child {
   font-size: var(--fontsize-pc-h4);
   margin-top: var(--fontsize-pc-h4);
   font-weight: var(--fontweight-medium);
@@ -35,7 +35,7 @@
   }
 }
 
-.bi-directional-content-wrapper .title  >div p:nth-child(2) {
+.bi-directional-content-wrapper .title > div p:nth-child(2) {
   font-size: var(--fontsize-pc-h4);
 
   @media (width < 860px) {
@@ -109,9 +109,11 @@
 .bi-directional-content .card-body p:nth-child(2) {
   font-weight: var(--fontweight-book);
   font-size: var(--fontsize-body1);
+  line-height: 1.5;
 
   @media (width < 860px) {
     font-size: var(--size-16);
+    line-height: 1.3;
   }
 }
 
@@ -201,6 +203,16 @@
     }
   }
 
+  @media (hover: hover) {
+    .buy-now:hover {
+      background-color: var(--color-primary-green-50, #009f9c);
+    }
+
+    .buy-now:active {
+      background-color: var(--color-primary-green-70, #005a5c);
+    }
+  }
+
   .download {
     display: flex;
     align-items: center;
@@ -213,9 +225,14 @@
       height: var(--size-40);
     }
   }
+}
 
-  .download picture {
-    width: var(--size-50);
-    height: var(--size-50);
+.download > picture {
+  width: var(--size-50);
+  height: var(--size-50);
+
+  @media (width<860px) {
+    width: var(--size-40);
+    height: var(--size-40);
   }
 }
