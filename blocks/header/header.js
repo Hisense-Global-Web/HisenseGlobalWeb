@@ -95,7 +95,8 @@ function getCartCount(cart = {}) {
 function getWishlistCount(wishlist = {}) {
   const carts = Array.isArray(wishlist?.carts) ? wishlist.carts : [];
   if (carts.length) {
-    return carts.reduce((sum, cart) => sum + getCartCount(cart), 0);
+    const wishlistCarts = carts.filter((cart) => Boolean(cart && String(cart.name || '').toLowerCase().includes('wishlist')));
+    return wishlistCarts.reduce((sum, cart) => sum + getCartCount(cart), 0);
   }
 
   return getCartCount(wishlist);

@@ -138,37 +138,16 @@ function isWishlistCart(cart) {
   return Boolean(cart && String(cart.name || '').toLowerCase().includes('wishlist'));
 }
 
-function hasCartEntries(cart) {
-  return Boolean(cart && Array.isArray(cart.entries) && cart.entries.length > 0);
-}
-
 function getWishlistCarts(payload) {
   if (!payload) {
     return [];
   }
 
   if (Array.isArray(payload.carts)) {
-    const namedWishlistCarts = payload.carts.filter(isWishlistCart);
-    const namedWishlistCartsWithEntries = namedWishlistCarts.filter(hasCartEntries);
-    if (namedWishlistCartsWithEntries.length) {
-      return namedWishlistCartsWithEntries;
-    }
-
-    const cartsWithEntries = payload.carts.filter(hasCartEntries);
-    if (cartsWithEntries.length) {
-      return cartsWithEntries;
-    }
-
-    if (namedWishlistCarts.length) {
-      return namedWishlistCarts;
-    }
-
-    if (payload.carts.length === 1) {
-      return payload.carts;
-    }
+    return payload.carts.filter(isWishlistCart);
   }
 
-  if (Array.isArray(payload.entries)) {
+  if (Array.isArray(payload.entries) && isWishlistCart(payload)) {
     return [payload];
   }
 
@@ -181,11 +160,11 @@ function resolveWishlistCartCode(payload) {
     return wishlistCart.code;
   }
 
-  if (Array.isArray(payload?.carts)) {
-    return payload.carts.find((cart) => Boolean(cart?.code))?.code || '';
+  if (isWishlistCart(payload) && payload?.code) {
+    return payload.code;
   }
 
-  return '';
+  return String(payload?.cartCode || '').trim();
 }
 
 function normalizeWishlistItems(payload) {
@@ -213,7 +192,13 @@ function normalizeWishlistItems(payload) {
   }
 
   if (Array.isArray(payload.entries)) {
-    return payload.entries;
+    if (!isWishlistCart(payload)) {
+      return [];
+    }
+    return payload.entries.map((entry) => ({
+      ...entry,
+      cartCode: entry?.cartCode || payload.code || payload.cartCode || '',
+    }));
   }
 
   if (payload.wishlist) {
