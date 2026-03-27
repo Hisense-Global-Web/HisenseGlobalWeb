@@ -94,7 +94,7 @@
   overflow: hidden;
   cursor: pointer;
   transition: all 0.5s ease;
-  padding: var(--size-40) var(--size-16) var(--size-24);
+  padding: var(--size-32) var(--size-16);
   color: var(--color-primary-grey-10);
   width: min(12.0833333vw, 174px);
 
@@ -131,6 +131,7 @@
 }
 
 .industry-categories .card-body {
+  
   flex-direction: column;
   justify-content: start;
   align-items: center; 
@@ -138,18 +139,21 @@
   margin:var(--size-24) 0 0;
   visibility:hidden;
   display: flex;
+  width: 76.923vw;
 
   @media (width >= 860px) {
     font-size: var(--size-24);
      gap: var(--size-12);
-     margin:var(--size-48) 0 var(--size-44);
+     margin:var(--size-48) 0 0;
+     width: min(25vw, 369px);
   }
 }
 
 
 .industry-categories .active .card-body {
    visibility: visible;
-   
+   width: 100% ;
+   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
