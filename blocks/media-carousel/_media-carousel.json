@@ -113,18 +113,46 @@
           "multi": false
         },
         {
-          "component": "richtext",
-          "name": "text",
-          "value": "",
-          "label": "Text Content",
-          "valueType": "string"
-        },
-        {
           "component": "reference",
           "valueType": "string",
           "name": "img",
-          "label": "Img Snapshot For Video",
+          "label": "Img Snapshot For Video Loading",
+          "condition": { "===": [{ "var": "mainContent" }, "video"] },
           "multi": false
+        },
+        {
+          "component": "text",
+          "name": "subtitle",
+          "value": "",
+          "label": "Subtitle",
+          "valueType": "string",
+          "description": "Noted: this subtitle only for overlay_text-left-bottom option."
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "value": "",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "body",
+          "value": "",
+          "label": "Body Text",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "button_link",
+          "label": "Button Link",
+          "description": "Noted that only two options(overlay_text-left and overlay_text-left-bottom) support the configration button."
+        },
+        {
+          "component": "text",
+          "name": "button_label",
+          "label": "Button Label",
+          "description": "Noted that only two options(overlay_text-left and overlay_text-left-bottom) support the configration button."
         }
       ]
     }

@@ -333,7 +333,6 @@ function extractLegalLinksData(container) {
   const legalLinksData = {
     links: [],
     copyright: '',
-    regionLink: '',
   };
 
   const legalLinksBlock = container.querySelector('.footer-legal-links');
@@ -346,10 +345,6 @@ function extractLegalLinksData(container) {
   legalItemRows.forEach((row, index) => {
     if (index === 0) {
       legalLinksData.copyright = row.textContent.trim();
-      return;
-    }
-    if (index === 1) {
-      legalLinksData.regionLink = row.textContent.trim();
       return;
     }
 

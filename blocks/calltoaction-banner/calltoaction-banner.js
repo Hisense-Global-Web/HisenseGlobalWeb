@@ -30,10 +30,14 @@ export default async function decorate(block) {
       default: {
         child.className = 'banner-btn';
         const actionLink = child.querySelector('a');
-        actionLink.textContent = child.querySelector('.button-container')?.nextElementSibling?.textContent.trim();
-        actionLink.title = actionLink.textContent;
-        containerDiv.append(child);
-        child.querySelector('.button-container')?.nextElementSibling?.remove();
+        if (actionLink) {
+          actionLink.textContent = actionLink.parentElement.nextElementSibling?.textContent.trim();
+          actionLink.title = actionLink.textContent;
+          actionLink.parentElement.nextElementSibling?.remove();
+          if (!actionLink.parentElement.className) actionLink.parentElement.className = 'button-container';
+        }
+        if (child.textContent.trim()) containerDiv.append(child);
+        else child.remove();
       }
     }
   });

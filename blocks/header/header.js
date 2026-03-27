@@ -522,7 +522,6 @@ function parseActions(root) {
     const rawEnableSearch = isLegacyEnableSearchField ? rawFourthField : rawFifthField;
     const enableSearchBox = rawEnableSearch.toLowerCase() === 'true';
     const iconType = normalizeNavigationActionType(rawIconType, enableSearchBox);
-
     return {
       title,
       href: processPath(href),

@@ -28,7 +28,8 @@ function bindEvent(block, type = 'normal') {
     containerWidth: maxWidth,
     totalItems: cards.length,
   };
-  if (cards.length * getSlideWidth(block) - gap >= maxWidth) {
+
+  if (cards.length * getSlideWidth(block) - gap >= maxWidth && window.innerWidth >= 860) {
     block.querySelector('.media-carousel-pagination').classList.add('show');
   }
 
@@ -59,7 +60,7 @@ function bindEvent(block, type = 'normal') {
         v.setAttribute('muted', 'true');
         v.setAttribute('autoplay', 'true');
         v.play().catch(() => {}); // 捕获浏览器静音播放策略错误
-        v.nextElementSibling.style.display = 'none'; // 隐藏封面图
+        if (v.nextElementSibling) v.nextElementSibling.style.display = 'none'; // 隐藏封面图
       } else {
         v.pause();
         v.parentElement.classList.remove('is-playing');
@@ -69,7 +70,7 @@ function bindEvent(block, type = 'normal') {
 
   // 更新状态与播放
   const updateState = () => {
-    if (Math.abs(currentX) > maxTranslate && type === 'resize') {
+    if (Math.abs(currentX) > Math.abs(maxTranslate) && type === 'resize') {
       currentX = -maxTranslate;
       if (block.classList.contains('bottom-center-style')) {
         const blockWidth = block.offsetWidth;
@@ -232,7 +233,7 @@ function createVideo(child, idx) {
   video.setAttribute('autoplay', 'true');
   video.appendChild(source);
   videoDivDom.appendChild(video);
-  videoDivDom.appendChild(img);
+  if (img) videoDivDom.appendChild(img);
   return videoDivDom;
 }
 function createScrollButton(direction) {
@@ -280,7 +281,7 @@ export default async function decorate(block) {
     item.className = 'item';
     mediaBlock.dataset.slideIndex = idx;
 
-    const [typeDom, mediaContent, textContentDom, videoCover] = item.children;
+    const [typeDom, mediaContent, videoCover, ...textContentDom] = item.children;
     const contentType = typeDom.textContent.trim();
 
     if (!className) className = contentType;
@@ -300,21 +301,39 @@ export default async function decorate(block) {
       videoCover.remove();
     }
 
-    if (textContentDom.textContent.trim()) {
-      textContentDom.classList.add('text-content');
-      if (textContentDom.querySelector('.button-container')) {
-        const textDom = document.createElement('div');
-        textDom.className = 'text-area';
-        // handle difference between author constructure and published
-        const childrens = textContentDom.children.length > 1 ? textContentDom.children : textContentDom.firstElementChild.children;
-        [...childrens].forEach((text) => {
-          if (!text.querySelector('a')) {
-            textDom.appendChild(text);
+    const textContent = document.createElement('div');
+    textContent.className = 'text-content';
+    const textArea = document.createElement('div');
+    textArea.className = 'text-area';
+    let btnDom;
+
+    textContentDom.forEach((textDom, ti) => {
+      switch (ti) {
+        case 0:
+          textDom.className = 'subtitle';
+          textArea.append(textDom);
+          break;
+        case 1:
+          textDom.className = 'title';
+          textArea.append(textDom);
+          break;
+        case 2:
+          textDom.className = 'body-text';
+          textArea.append(textDom);
+          break;
+        default:
+          // btn
+          if (textDom.querySelector('a') && textDom.querySelector('.button-container').nextElementSibling.textContent) {
+            textDom.querySelector('a').textContent = textDom.querySelector('.button-container').nextElementSibling.textContent;
+            textDom.querySelector('.button-container').nextElementSibling.remove();
           }
-        });
-        textContentDom.prepend(textDom);
+          btnDom = textDom;
+          btnDom.className = 'btn-div';
+          break;
       }
-    }
+    });
+    textContent.replaceChildren(textArea, btnDom);
+    item.append(textContent);
     mediaBlock.append(item);
     mediaCarouselBlocks.append(mediaBlock);
   });

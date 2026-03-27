@@ -181,11 +181,11 @@
             "value": ""
           },
           {
-            "name": "primary",
+            "name": "theme-contrast",
             "value": "primary"
           },
           {
-            "name": "secondary",
+            "name": "transparent",
             "value": "secondary"
           }
         ]
@@ -217,7 +217,7 @@
             "value": "light"
           },
           {
-            "name": "Dark",
+            "name": "Black",
             "value": "dark"
           },
           {
@@ -233,15 +233,31 @@
             "value": "gray-90"
           },
           {
-            "name": "Gradient Gray",
+            "name": "Gradient-Dark",
             "value": "gradient-gray"
           },
           {
-            "name": "Soft Green(green-10)",
-            "value": "soft-green"
+            "name": "Gradient-Light",
+            "value": "gradient-light"
           },
           {
-            "name": "Green",
+            "name": "Gradient-Cold Light",
+            "value": "gradient-cold-light"
+          },
+          {
+            "name": "Gradient-Warm Light",
+            "value": "gradient-warm-light"
+          },
+          {
+            "name": "Gradient-Warm Dark",
+            "value": "gradient-warm-dark"
+          },
+          {
+            "name": "Green 10",
+            "value": "green-10"
+          },
+          {
+            "name": "Green15",
             "value": "green"
           }
         ]
@@ -968,12 +984,61 @@
         "component": "text",
         "name": "text_title",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",
         "name": "text_content",
         "label": "Content",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "item-style",
+        "label": "Text Area Style",
+        "valueType": "string",
+        "value": "green20",
+        "description": "Set the background and text color of the text area.",
+        "options": [
+          {
+            "name": "Green 20(Default)",
+            "value": "green20"
+          },
+          {
+            "name": "Transparent Dark",
+            "value": "transparentDark"
+          },
+          {
+            "name": "Transparent Light",
+            "value": "transparentLight"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "buy_text",
+        "label": "Buy Now Button Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "buy_link",
+        "label": "Buy Now Button Link",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "name": "download_icon",
+        "label": "Download Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "download_link",
+        "label": "Download Link",
         "valueType": "string"
       }
     ]
@@ -1479,6 +1544,37 @@
         "name": "subtitle",
         "label": "Sub Title",
         "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "cta_classes",
+        "value": "",
+        "label": "Button Background Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "transparent"
+          },
+          {
+            "name": "hisense-black",
+            "value": "hisense-black"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "name": "cta_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "cta_label",
+        "label": "Button Label",
+        "valueType": "string",
+        "value": ""
       }
     ]
   },
@@ -2063,6 +2159,14 @@
         "component": "text",
         "name": "title_name",
         "label": "Feature Title",
+        "description": "Highlight Data",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title_unit",
+        "label": "Feature Title Unit",
+        "description": "Highlight Data's Unit",
         "valueType": "string"
       },
       {
@@ -2895,6 +2999,10 @@
             "value": "large-icon"
           },
           {
+            "name": "Only Huge Icon(120px)",
+            "value": "huge-icon"
+          },
+          {
             "name": "Margin-top",
             "value": "top-space"
           },
@@ -2917,6 +3025,10 @@
           {
             "name": "Icon-Overlay_bottom",
             "value": "customize-bottom"
+          },
+          {
+            "name": "Display Left(Only Mobile)",
+            "value": "display-left-mobile"
           }
         ]
       }
@@ -3272,18 +3384,53 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text Content",
-        "valueType": "string"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "img",
-        "label": "Img Snapshot For Video",
+        "label": "Img Snapshot For Video Loading",
+        "condition": {
+          "===": [
+            {
+              "var": "mainContent"
+            },
+            "video"
+          ]
+        },
         "multi": false
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string",
+        "description": "Noted: this subtitle only for overlay_text-left-bottom option."
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "body",
+        "value": "",
+        "label": "Body Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "description": "Noted that only two options(overlay_text-left and overlay_text-left-bottom) support the configration button."
+      },
+      {
+        "component": "text",
+        "name": "button_label",
+        "label": "Button Label",
+        "description": "Noted that only two options(overlay_text-left and overlay_text-left-bottom) support the configration button."
       }
     ]
   },
@@ -3598,6 +3745,23 @@
     "fields": [
       {
         "component": "select",
+        "name": "page-header-style",
+        "label": "Page Header Style",
+        "valueType": "string",
+        "value": "align-center",
+        "options": [
+          {
+            "name": "Text Align Center(default)",
+            "value": "align-center"
+          },
+          {
+            "name": "Text Align Left",
+            "value": "align-left"
+          }
+        ]
+      },
+      {
+        "component": "select",
         "name": "title-style",
         "label": "Title Style",
         "valueType": "string",
@@ -3705,11 +3869,72 @@
     "id": "past-partnerships-list",
     "fields": [
       {
+        "component": "select",
+        "name": "title_style",
+        "label": "Title Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Normal",
+            "value": "normal"
+          },
+          {
+            "name": "Large",
+            "value": "large"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "section_title",
-        "label": "Section Title",
-        "multi": false
+        "label": "Section Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "section_subtitle",
+        "label": "Section Subtitle"
+      },
+      {
+        "component": "number",
+        "name": "pc_numberColumns",
+        "label": "PC: Items per row",
+        "valueType": "number",
+        "description": "For PC: Number of columns displayed per row."
+      },
+      {
+        "component": "select",
+        "name": "mobile_numberColumns",
+        "label": "Mobile: Items per row",
+        "description": "For Mobile: When selected 'Tiled display', Items will show in one row.",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Tiled display",
+            "value": "tiled"
+          },
+          {
+            "name": "1",
+            "value": "1"
+          },
+          {
+            "name": "2",
+            "value": "2"
+          },
+          {
+            "name": "3",
+            "value": "3"
+          },
+          {
+            "name": "4",
+            "value": "4"
+          },
+          {
+            "name": "5",
+            "value": "5"
+          }
+        ]
       }
     ]
   },
@@ -4260,6 +4485,25 @@
         "label": "Sort By Text",
         "value": "Sort By",
         "required": true
+      },
+      {
+        "component": "select",
+        "name": "type",
+        "label": "Display Type",
+        "options": [
+          {
+            "name": "Product",
+            "value": "product"
+          },
+          {
+            "name": "News",
+            "value": "news"
+          },
+          {
+            "name": "Blog",
+            "value": "blog"
+          }
+        ]
       }
     ]
   },
@@ -4294,6 +4538,18 @@
   {
     "id": "product-spec",
     "fields": []
+  },
+  {
+    "id": "quick-action-card",
+    "fields": [
+      {
+        "component": "number",
+        "name": "pc_numberColumns",
+        "label": "PC: Items per row",
+        "valueType": "number",
+        "description": "For PC: Number of columns displayed per row."
+      }
+    ]
   },
   {
     "id": "quick-action-card-item",
@@ -4718,6 +4974,26 @@
     ]
   },
   {
+    "id": "special-capitalize-text-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "item_headline",
+        "label": "Initial letter in capital letters",
+        "description": "Which initial letter needs to be capitalized",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "strategic-card-items",
     "fields": []
   },
@@ -4737,6 +5013,13 @@
         "name": "title",
         "value": "",
         "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "value": "",
+        "label": "Description",
         "valueType": "string"
       },
       {
@@ -5063,25 +5346,29 @@
     ]
   },
   {
-    "id": "sustainability-dashboard-achievement-matrix",
+    "id": "achievement-matrix",
     "fields": [
       {
-        "component": "text",
+        "component": "select",
         "label": "",
         "name": "block-item",
         "valueType": "string",
-        "value": "matrix-block-item",
+        "value": "",
         "hidden": true,
-        "readOnly": true
+        "options": [
+          {
+            "name": "matrix-block-item",
+            "value": "matrix-block-item"
+          }
+        ]
       },
       {
         "component": "text",
         "label": "",
         "name": "label-tag",
         "valueType": "string",
-        "value": "matrix-label",
-        "hidden": true,
-        "readOnly": true
+        "value": "",
+        "hidden": true
       },
       {
         "component": "text",
@@ -5094,14 +5381,38 @@
         "label": "",
         "name": "label-value",
         "valueType": "string",
-        "value": "matrix-value",
-        "hidden": true,
-        "readOnly": true
+        "value": "",
+        "hidden": true
       },
       {
         "component": "text",
         "name": "matrix-value",
         "label": "Value",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "achievement-highlights",
+    "fields": [
+      {
+        "component": "select",
+        "label": "",
+        "name": "block-item2",
+        "valueType": "string",
+        "value": "",
+        "hidden": true,
+        "options": [
+          {
+            "name": "highlights-block-item",
+            "value": "highlights-block-item"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "highlights-text",
+        "label": "Highlights Text",
         "valueType": "string"
       }
     ]
@@ -5118,24 +5429,21 @@
         "valueType": "string",
         "name": "title",
         "value": "",
-        "label": "Title",
-        "required": true
+        "label": "Title"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "value",
         "value": "",
-        "label": "Value",
-        "required": true
+        "label": "Value"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "text",
         "value": "",
-        "label": "Text",
-        "required": true
+        "label": "Text"
       }
     ]
   },
