@@ -3599,6 +3599,27 @@
         "label": "Link"
       },
       {
+        "component": "select",
+        "name": "icon-type",
+        "label": "Icon Type",
+        "valueType": "string",
+        "value": "account",
+        "options": [
+          {
+            "name": "Search Box",
+            "value": "search-box"
+          },
+          {
+            "name": "Shopping Cart",
+            "value": "shopping-cart"
+          },
+          {
+            "name": "Account",
+            "value": "account"
+          }
+        ]
+      },
+      {
         "component": "boolean",
         "name": "enable-search",
         "label": "Enable Search Box",
@@ -4517,6 +4538,61 @@
   {
     "id": "product-spec",
     "fields": []
+  },
+  {
+    "id": "project-brief-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many items to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "no-result",
+        "label": "no result content",
+        "valueType": "string",
+        "value": "No items found.",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "project-brief-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-Image",
+        "label": "Item Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_info",
+        "label": "Info",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_location",
+        "label": "Location",
+        "valueType": "string"
+      }
+    ]
   },
   {
     "id": "quick-action-card",

@@ -43,6 +43,27 @@
           "label": "Link"
         },
         {
+          "component": "select",
+          "name": "icon-type",
+          "label": "Icon Type",
+          "valueType": "string",
+          "value": "account",
+          "options": [
+            {
+              "name": "Search Box",
+              "value": "search-box"
+            },
+            {
+              "name": "Shopping Cart",
+              "value": "shopping-cart"
+            },
+            {
+              "name": "Account",
+              "value": "account"
+            }
+          ]
+        },
+        {
           "component": "boolean",
           "name": "enable-search",
           "label": "Enable Search Box",

@@ -618,13 +618,18 @@ function decorateBlock(block) {
     block.classList.add('block');
     block.dataset.blockName = shortBlockName;
     block.dataset.blockStatus = 'initialized';
-    wrapTextNodes(block);
-    const blockWrapper = block.parentElement;
-    blockWrapper.classList.add(`${shortBlockName}-wrapper`);
-    const section = block.closest('.section');
-    if (section) section.classList.add(`${shortBlockName}-container`);
-    // eslint-disable-next-line no-use-before-define
-    decorateButtons(block);
+    try {
+      wrapTextNodes(block);
+      const blockWrapper = block.parentElement;
+      blockWrapper.classList.add(`${shortBlockName}-wrapper`);
+      const section = block.closest('.section');
+      if (section) section.classList.add(`${shortBlockName}-container`);
+      // eslint-disable-next-line no-use-before-define
+      decorateButtons(block);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(`failed to decorate block ${shortBlockName}`, error);
+    }
   }
 }
 
@@ -689,8 +694,13 @@ async function loadSection(section, loadCallback) {
 
     const blocks = [...section.querySelectorAll('div.block')];
     for (let i = 0; i < blocks.length; i += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      await loadBlock(blocks[i]);
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await loadBlock(blocks[i]);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(`failed to render block ${blocks[i]?.dataset?.blockName || blocks[i]?.classList?.[0] || 'unknown'}`, error);
+      }
     }
     if (loadCallback) await loadCallback(section);
     section.dataset.sectionStatus = 'loaded';
