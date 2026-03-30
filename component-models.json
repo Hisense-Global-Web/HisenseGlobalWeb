@@ -2505,6 +2505,35 @@
     ]
   },
   {
+    "id": "guide-list",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "document-icon",
+        "label": "Document Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "pc-downloadText",
+        "label": "PC: Download Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "pc-downladIcon",
+        "label": "PC: Download Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "mobile-downloadIcon",
+        "label": "Mobile: Download Icon",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "headline",
     "fields": [
       {

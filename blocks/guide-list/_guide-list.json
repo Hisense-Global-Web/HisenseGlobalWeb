@@ -1,0 +1,55 @@
+{
+  "definitions": [
+    {
+      "title": "Guide List",
+      "id": "guide-list",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Guide List",
+              "model": "guide-list",
+              "document-icon": "/content/dam/hisense/us/common-icons/document.svg",
+              "pc-downloadText": "Download",
+              "pc-downladIcon": "/content/dam/hisense/us/common-icons/download-white.svg",
+              "mobile-downloadIcon": "/content/dam/hisense/us/common-icons/download.svg"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "guide-list",
+      "fields": [
+        {
+          "component": "reference",
+          "name": "document-icon",
+          "label": "Document Icon",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "pc-downloadText",
+          "label": "PC: Download Text",
+          "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "name": "pc-downladIcon",
+          "label": "PC: Download Icon",
+          "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "name": "mobile-downloadIcon",
+          "label": "Mobile: Download Icon",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
