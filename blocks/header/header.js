@@ -38,6 +38,7 @@ const DEFAULT_COMMERCE_COUNTS = {
   wishlist: 0,
   coupons: 0,
 };
+const WISHLIST_CART_NAME_PREFIX = 'wishlist';
 const ACCOUNT_COUNT_KEY_BY_LABEL = {
   Orders: 'orders',
   Wishlist: 'wishlist',
@@ -95,7 +96,10 @@ function getCartCount(cart = {}) {
 function getWishlistCount(wishlist = {}) {
   const carts = Array.isArray(wishlist?.carts) ? wishlist.carts : [];
   if (carts.length) {
-    const wishlistCarts = carts.filter((cart) => Boolean(cart && String(cart.name || '').toLowerCase().includes('wishlist')));
+    const wishlistCarts = carts.filter((cart) => {
+      const normalizedName = String(cart?.name || '').trim().toLowerCase();
+      return Boolean(normalizedName && normalizedName.startsWith(WISHLIST_CART_NAME_PREFIX));
+    });
     return wishlistCarts.reduce((sum, cart) => sum + getCartCount(cart), 0);
   }
 
