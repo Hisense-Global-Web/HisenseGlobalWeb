@@ -1,66 +1,86 @@
 export default async function decorate(block) {
   console.log(block, 'block');
+  const tvObj = {
+    product_category: 'Television',
+    product_subcategory: 'Television',
+    warranty_info_icon: 'http://localhost:3000/us/en/support/media_1412a0c4…4418.svg?width=2000&format=webply&optimize=medium',
+    warranty_info_title: '2 Year Panel & Parts Warranty',
+    warranty_info: '1',
+    warranty_info_notes: '<ul><li>On-site service included for units 43" and above</li><li>Dead pixel policy: 3 or more bright/dead pixels qualifies for replacement</li><li>Original packaging recommended for service pickup</li></ul>',
+    warranty_info_additional: 'Exchange Only',
+  };
+  const audioObj = {
+    product_category: 'Audio',
+    product_subcategory: 'Audio',
+    warranty_info_icon: '🎵',
+    warranty_info_title: '18 Month Audio Warranty',
+    warranty_info: '2',
+    warranty_info_notes: '<p><strong>Warranty Terms:</strong></p><p>• Physical damage, water exposure, and unauthorized repairs void coverage<br>• Ear pads, batteries, and cables: 90-day limited coverage</p>',
+    warranty_info_additional: 'Exchange Only',
+  };
+  const laserObj = {
+    product_category: 'Laser home cinema',
+    product_subcategory: 'Laser home cinema',
+    warranty_info_icon: '🎥',
+    warranty_info_title: '3 Year Laser Projector Warranty',
+    warranty_info: '1',
+    warranty_info_notes: '<div style="background:#f9f9f9; padding:10px; border-radius:4px;"><strong>Included:</strong> Parts, labor, and firmware updates<br><strong>Not included:</strong> Remote control, HDMI cables, lens cleaning</div>',
+    warranty_info_additional: 'Exchange Only',
+  };
+  const appliancesObj = {
+    product_category: 'Appliances',
+    product_subcategory: 'Refrigerators',
+    warranty_info_icon: '❄️',
+    warranty_info_title: '2 Year Full + 8 Year Sealed System Warranty',
+    warranty_info: '3',
+    warranty_info_notes: '<ul><li><b>Years 1-2:</b> Parts, labor, and transportation included</li><li><b>Years 3-10:</b> Compressor, condenser, evaporator parts only</li><li>Professional installation required for warranty validity</li></ul>',
+    warranty_info_additional: 'Exchange Only',
+  };
+  const airObj = {
+    product_category: 'Air products',
+    product_subcategory: 'Air products',
+    warranty_info_icon: '💨',
+    warranty_info_title: '2 Year Air Purifier Warranty',
+    warranty_info: '3.',
+    warranty_info_notes: '<p><em>Filter replacements are not covered under warranty.</em></p><p>✔ HEPA filter: replace every 12 months<br>✔ Carbon pre-filter: replace every 6 months</p>',
+    warranty_info_additional: 'Exchange Only',
+  };
+  const commercialObj = {
+    product_category: 'Commercial',
+    product_subcategory: 'Commercial Display',
+    warranty_info_icon: '🖥️',
+    warranty_info_title: '3 Year Commercial Display Warranty',
+    warranty_info: '1',
+    warranty_info_notes: '<div style="border-left:3px solid #0073aa; padding-left:12px;"><strong>Commercial Use Conditions:</strong><ul><li>24/7 operation supported — warranty valid for continuous use</li></ul></div>',
+    warranty_info_additional: 'Exchange Only',
+  };
   const mockData = [
     {
-      product_category: 'Television',
-      product_subcategory: 'Television',
-      warranty_info_icon: 'http://localhost:3000/us/en/support/media_1412a0c4…4418.svg?width=2000&format=webply&optimize=medium',
-      warranty_info_title: '2 Year Panel & Parts Warranty',
-      warranty_info: '1',
-      warranty_info_notes: '<ul><li>On-site service included for units 43" and above</li><li>Dead pixel policy: 3 or more bright/dead pixels qualifies for replacement</li><li>Original packaging recommended for service pickup</li></ul>',
-      warranty_info_additional: 'Exchange Only',
-    },
-    {
-      product_category: 'Audio',
-      product_subcategory: 'Audio',
-      warranty_info_icon: '🎵',
-      warranty_info_title: '18 Month Audio Warranty',
-      warranty_info: '2',
-      warranty_info_notes: '<p><strong>Warranty Terms:</strong></p><p>• Physical damage, water exposure, and unauthorized repairs void coverage<br>• Ear pads, batteries, and cables: 90-day limited coverage</p>',
-      warranty_info_additional: 'Exchange Only',
-    },
-    {
-      product_category: 'Laser home cinema',
-      product_subcategory: 'Laser home cinema',
-      warranty_info_icon: '🎥',
-      warranty_info_title: '3 Year Laser Projector Warranty',
-      warranty_info: '1',
-      warranty_info_notes: '<div style="background:#f9f9f9; padding:10px; border-radius:4px;"><strong>Included:</strong> Parts, labor, and firmware updates<br><strong>Not included:</strong> Remote control, HDMI cables, lens cleaning</div>',
-      warranty_info_additional: 'Exchange Only',
-    },
-    {
-      product_category: 'Appliances',
-      product_subcategory: 'Refrigerators',
-      warranty_info_icon: '❄️',
-      warranty_info_title: '2 Year Full + 8 Year Sealed System Warranty',
-      warranty_info: '3',
-      warranty_info_notes: '<ul><li><b>Years 1-2:</b> Parts, labor, and transportation included</li><li><b>Years 3-10:</b> Compressor, condenser, evaporator parts only</li><li>Professional installation required for warranty validity</li></ul>',
-      warranty_info_additional: 'Exchange Only',
-    },
-    {
-      product_category: 'Air products',
-      product_subcategory: 'Air products',
-      warranty_info_icon: '💨',
-      warranty_info_title: '2 Year Air Purifier Warranty',
-      warranty_info: '3.',
-      warranty_info_notes: '<p><em>Filter replacements are not covered under warranty.</em></p><p>✔ HEPA filter: replace every 12 months<br>✔ Carbon pre-filter: replace every 6 months</p>',
-      warranty_info_additional: 'Exchange Only',
-    },
-    {
-      product_category: 'Commercial',
-      product_subcategory: 'Commercial Display',
-      warranty_info_icon: '🖥️',
-      warranty_info_title: '3 Year Commercial Display Warranty',
-      warranty_info: '1',
-      warranty_info_notes: '<div style="border-left:3px solid #0073aa; padding-left:12px;"><strong>Commercial Use Conditions:</strong><ul><li>24/7 operation supported — warranty valid for continuous use</li></ul></div>',
-      warranty_info_additional: 'Exchange Only',
-    },
-  ];
+      title: 'TV',
+      // warranty:[tvObj]
+      warranty: Array.from({ length: 9 }, () => tvObj),
+    }, {
+      title: 'Audio',
+      warranty: [audioObj],
+    }, {
+      title: 'Laser home cinema',
+      warranty: [laserObj],
+    }, {
+      title: 'Appliances',
+      warranty: Array.from({ length: 12 }, () => appliancesObj),
+    }, {
+      title: 'Air products',
+      warranty: [airObj],
+    }, {
+      title: 'Commercial',
+      warranty: [commercialObj],
+    }];
+
   const warrantyWrapper = document.createElement('div');
   warrantyWrapper.className = 'warranty-wrapper';
   // category tab 切换盒子
-  const warrantyCategoryDiv = document.createElement('ul');
-  warrantyCategoryDiv.className = 'warranty-category-box';
+  const warrantyCategoryTabs = document.createElement('ul');
+  warrantyCategoryTabs.className = 'warranty-category-box';
   // warranty cards 盒子
   const cardsBox = document.createElement('div');
   cardsBox.className = 'warranty-cards-box';
@@ -71,12 +91,22 @@ export default async function decorate(block) {
   let currentPage = 1; // 当前页码
   const loadMoreStep = 9; // 分布数量
   let loadMoreTextContent = null;
-  let allWarrantyData = []; // 存储所有聚合后的数据
+  let allCategoryTabLabel = null;
+  let originData = []; // 原始数据
+  let showWarrantyData = []; // 当前展示的数据
+  const allWarrantyData = []; // 存储所有聚合后的数据
   let allWarrantyCategory = []; // 所有 warranty category
 
   const rows = [...(block.children || [])];
   rows.forEach((row, index) => {
     if (index === 0) {
+      // 获取 warranty tab 文案
+      const tabText = row.textContent && row.textContent.trim();
+      if (tabText) {
+        // 假设文案格式为 "Warranty Tab: TV, Audio, Appliances"
+        allCategoryTabLabel = tabText;
+      }
+    } else if (index === 1) {
       // 获取 load more 文案
       const text = row.textContent && row.textContent.trim();
       if (text) {
@@ -90,8 +120,18 @@ export default async function decorate(block) {
   warrantyLoadMore.append(moreSpan);
 
   cardsBox.append(cardsGrid, warrantyLoadMore);
-  warrantyWrapper.append(warrantyCategoryDiv, cardsBox);
+  warrantyWrapper.append(warrantyCategoryTabs, cardsBox);
   block.replaceChildren(warrantyWrapper);
+
+  // 新增：更新Load More按钮显示状态
+  function updateLoadMoreVisibility() {
+    const totalPages = Math.ceil(showWarrantyData.length / loadMoreStep);
+    if (currentPage >= totalPages) {
+      warrantyLoadMore.style.display = 'none';
+    } else {
+      warrantyLoadMore.style.display = 'block';
+    }
+  }
 
   // 修改：Load More 点击逻辑
   warrantyLoadMore.addEventListener('click', () => {
@@ -103,26 +143,12 @@ export default async function decorate(block) {
     updateLoadMoreVisibility();
   });
 
-  // 渲染 category tab dom
-  function renderCategoryTab() {
-    // const categoryBox = document.createElement('div');
-    // categoryBox.className = 'warranty-category-box';
-    allWarrantyCategory.forEach((item, index) => {
-      const categoryItem = document.createElement('li');
-      categoryItem.className = 'category-item';
-      categoryItem.textContent = item;
-      categoryItem.setAttribute('data-category', item);
-      if (index === 0) {
-        categoryItem.classList.add('category-item-active');
-      }
-      warrantyCategoryDiv.append(categoryItem);
-    });
-    // warrantyCategory.append(categoryBox);
-  }
-
   // 渲染 warranty card item
   function renderWarrantyCards() {
-    allWarrantyData.forEach((item) => {
+    const start = (currentPage - 1) * loadMoreStep;
+    const end = start + loadMoreStep;
+    const renderAllData = showWarrantyData.slice(start, end);
+    renderAllData.forEach((item) => {
       const cardItem = document.createElement('div');
       cardItem.className = 'card-item';
       const cardTopBox = document.createElement('div');
@@ -170,21 +196,72 @@ export default async function decorate(block) {
     });
   }
 
+  // 切换 tab 逻辑
+  function switchTab(category) {
+    currentPage = 1; // 切换 tab 时重置页码
+    // 更新 active 样式
+    const categoryItems = document.querySelectorAll('.category-item');
+    categoryItems.forEach((item) => {
+      if (item.getAttribute('data-category') === category) {
+        item.classList.add('category-item-active');
+      } else {
+        item.classList.remove('category-item-active');
+      }
+    });
+    // 根据 category 过滤数据并渲染 card
+    if (category === allCategoryTabLabel) {
+      showWarrantyData = allWarrantyData;
+    } else {
+      showWarrantyData = [];
+      originData.forEach((item) => {
+        if (item.title === category) {
+          showWarrantyData.push(...item.warranty);
+        }
+      });
+    }
+    // 清空当前 card 列表
+    cardsGrid.innerHTML = '';
+    renderWarrantyCards();
+    updateLoadMoreVisibility();
+  }
+
+  // 渲染 category tab dom
+  function renderCategoryTab() {
+    allWarrantyCategory.forEach((item, index) => {
+      const categoryItem = document.createElement('li');
+      categoryItem.className = 'category-item';
+      categoryItem.textContent = item;
+      categoryItem.setAttribute('data-category', item);
+      if (index === 0) {
+        categoryItem.classList.add('category-item-active');
+      }
+      categoryItem.addEventListener('click', () => switchTab(categoryItem.getAttribute('data-category')));
+      warrantyCategoryTabs.append(categoryItem);
+    });
+  }
+
   // 处理原始数据
   function originDataUtils() {
-    allWarrantyData = JSON.parse(JSON.stringify(mockData));
+    originData = JSON.parse(JSON.stringify(mockData));
+    // 所有 warranty 数据整合到一个数组中，方便后续渲染和分页处理
+    originData.forEach((item) => {
+      if (item.warranty && item.warranty.length > 0) {
+        allWarrantyData.push(...item.warranty);
+        showWarrantyData.push(...item.warranty);
+      }
+    });
     // 过滤所有 category
-    allWarrantyCategory = allWarrantyData.map((item) => item.product_category);
-    const allCategoryTabLabel = 'All Warranties';
-    allWarrantyCategory = [allCategoryTabLabel, ...allWarrantyCategory];
-    console.log(allWarrantyCategory);
+    allWarrantyCategory = originData.map((item) => item.title);
+    // 如果有 all tab 文案，则添加到 category 列表首位
+    if (allCategoryTabLabel) {
+      allWarrantyCategory = [allCategoryTabLabel, ...allWarrantyCategory];
+    }
     // 渲染 category tab
     renderCategoryTab();
 
-    // 如返回warranty list 数据还需要其他处理，在这里进行数据整合
-    // allWarrantyData
     // 渲染 card list
     renderWarrantyCards();
+    updateLoadMoreVisibility();
   }
 
   function initRenderDom() {
@@ -192,27 +269,4 @@ export default async function decorate(block) {
   }
 
   initRenderDom();
-
-  // 新增：更新Load More按钮显示状态
-  function updateLoadMoreVisibility() {
-    const totalPages = Math.ceil(allWarrantyData.length / loadMoreStep);
-    if (currentPage >= totalPages) {
-      warrantyLoadMore.style.display = 'none';
-    } else {
-      warrantyLoadMore.style.display = 'block';
-    }
-  }
 }
-
-// fetch(getGraphQLUrl(graphqlUrl))
-//   .then((resp) => {
-//     if (!resp.ok) throw new Error('Network response not ok');
-//     return resp.json();
-//   })
-//   .then((data) => {
-
-//   })
-//   .catch(() => {
-//     const items = (mockData && mockData.data) || [];
-
-//   });
