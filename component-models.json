@@ -3329,6 +3329,65 @@
     ]
   },
   {
+    "id": "instructions",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "instructions-tab",
+    "fields": [
+      {
+        "component": "text",
+        "name": "hint",
+        "label": "Hint",
+        "valueType": "string",
+        "hidden": true
+      },
+      {
+        "component": "text",
+        "name": "tab_title",
+        "label": "Tab Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Tab Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "instructions-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "step_hint",
+        "label": "Step Hint",
+        "valueType": "string",
+        "hidden": true
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Step Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Step Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "job-list",
     "fields": []
   },

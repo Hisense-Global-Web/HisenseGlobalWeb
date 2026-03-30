@@ -141,7 +141,8 @@
       "legal-content",
       "exception-page",
       "accessories-feature",
-      "calltoaction-banner"
+      "calltoaction-banner",
+      "instructions"
     ]
   },
   {
@@ -375,6 +376,13 @@
     "id": "information-list-module",
     "components": [
       "information-list-module-item"
+    ]
+  },
+  {
+    "id": "instructions",
+    "components": [
+      "instructions-tab",
+      "instructions-item"
     ]
   },
   {

@@ -1,0 +1,3 @@
+.instructions {
+    min-height:calc(597/var(--breakpoint-pc) * 100vw);
+}
