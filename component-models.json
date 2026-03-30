@@ -2515,19 +2515,19 @@
       },
       {
         "component": "text",
-        "name": "pc-downloadText",
+        "name": "pc_downloadText",
         "label": "PC: Download Text",
         "valueType": "string"
       },
       {
         "component": "reference",
-        "name": "pc-downladIcon",
+        "name": "pc_downladIcon",
         "label": "PC: Download Icon",
         "valueType": "string"
       },
       {
         "component": "reference",
-        "name": "mobile-downloadIcon",
+        "name": "mobile_downloadIcon",
         "label": "Mobile: Download Icon",
         "valueType": "string"
       }

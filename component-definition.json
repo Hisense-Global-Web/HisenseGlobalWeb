@@ -1233,9 +1233,9 @@
                   "name": "Guide List",
                   "model": "guide-list",
                   "document-icon": "/content/dam/hisense/us/common-icons/document.svg",
-                  "pc-downloadText": "Download",
-                  "pc-downladIcon": "/content/dam/hisense/us/common-icons/download-white.svg",
-                  "mobile-downloadIcon": "/content/dam/hisense/us/common-icons/download.svg"
+                  "pc_downloadText": "Download",
+                  "pc_downladIcon": "/content/dam/hisense/us/common-icons/download-white.svg",
+                  "mobile_downloadIcon": "/content/dam/hisense/us/common-icons/download.svg"
                 }
               }
             }
