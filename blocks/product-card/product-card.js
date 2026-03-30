@@ -1919,6 +1919,9 @@ export default function decorate(block) {
               await ensureWishlistLoaded(true).catch(() => wishlistEntriesByCode);
               targetCartCode = getWishlistEntryByProductCode(productCode)?.cartCode || wishlistPrimaryCartCode;
             }
+            if (!targetCartCode) {
+              throw new Error('Wishlist cartCode is unavailable');
+            }
 
             bumpWishlistVersion();
             const addResponse = await addHybrisWishlistItem(productCode, 1, {
