@@ -103,7 +103,7 @@
 
   /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
   position: relative;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl, 16px);
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -113,6 +113,7 @@
   padding: var(--spacing-m, 32px) var(--size-28);
 
   @media (width < 860px) {
+    border-radius: var(--radius-lg, 12px);
     position: relative;
     height: 58.9743vw;
     transition: transform 0.3s;
