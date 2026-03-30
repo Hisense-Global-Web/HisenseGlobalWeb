@@ -446,17 +446,6 @@ export default function decorate(block) {
     const end = start + loadMoreStep;
     const pagedGroupedArray = allGroupedData.slice(start, end);
 
-    // 处理所有产品数据的 productDetailPageLink
-    pagedGroupedArray.forEach((group) => {
-      const item = group.representative;
-      if (item.productDetailPageLink && typeof item.productDetailPageLink === 'string') {
-        const { hostname, pathname } = window.location;
-        if (hostname.includes('hisense.com') && pathname.startsWith('/us')) {
-          item.productDetailPageLink = item.productDetailPageLink.replace('/us/en', '/us');
-        }
-      }
-    });
-
     // 渲染当前页的产品卡片（追加模式）
     pagedGroupedArray.forEach((group) => {
       const item = group.representative;
@@ -476,7 +465,7 @@ export default function decorate(block) {
       jobTimeTypeEl.className = 'job-time-type';
       jobTimeTypeEl.textContent = 'Full-time';
 
-      jobTitleEl.append(titleSpanEl, jobTitleEl);
+      jobTitleEl.append(titleSpanEl, jobTimeTypeEl);
 
       const jobDetailEl = document.createElement('div');
       jobDetailEl.className = 'job-detail';
@@ -559,7 +548,7 @@ export default function decorate(block) {
           cardWrapperEl.style.cssText = 'margin: auto !important;';
         } else {
           noResultEl.style.display = 'none';
-          productsGrid.style.display = 'grid';
+          productsGrid.style.display = 'flex';
           cardWrapperEl.style.cssText = '';
         }
       }
@@ -616,21 +605,6 @@ export default function decorate(block) {
       const g = groups[k];
       const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(b) - Number(a));
       const colors = Array.from(g.colors).filter(Boolean);
-      // 检查聚合产品是否有任意size有productDetailPageLink，有就共享这个链接
-      let sharedProductDetailPageLink = g.variants.find((variant) => variant && variant.productDetailPageLink)?.productDetailPageLink;
-
-      if (sharedProductDetailPageLink && sharedProductDetailPageLink.startsWith('/')) {
-        const currentUri = window.location.href;
-        const hasContentHisense = currentUri.includes('/content/hisense');
-        const wtbHasContentHisense = sharedProductDetailPageLink.includes('/content/hisense');
-
-        if (hasContentHisense && !wtbHasContentHisense) {
-          sharedProductDetailPageLink = `/content/hisense${sharedProductDetailPageLink}`;
-        } else if (!hasContentHisense && wtbHasContentHisense) {
-          sharedProductDetailPageLink = sharedProductDetailPageLink.replace('/content/hisense', '');
-        }
-        sharedProductDetailPageLink = sharedProductDetailPageLink.replace('.html', '');
-      }
 
       return {
         key: k,
@@ -638,7 +612,6 @@ export default function decorate(block) {
         representative: g.representative,
         variants: g.variants,
         sizes,
-        sharedProductDetailPageLink,
         colors,
       };
     });
@@ -650,8 +623,6 @@ export default function decorate(block) {
     // 更新Load More显示状态
     updateLoadMoreVisibility();
   }
-
-  const mockData = {};
 
   function simpleHash(str) {
     const s = String(str);
@@ -703,8 +674,8 @@ export default function decorate(block) {
       return tagData.data;
     }
 
-    if (tagData.data && tagData.data.productModelList && Array.isArray(tagData.data.productModelList.items)) {
-      return tagData.data.productModelList.items;
+    if (tagData.data && tagData.data.jobsList && Array.isArray(tagData.data.jobsList.items)) {
+      return tagData.data.jobsList.items;
     }
 
     return [];
