@@ -103,7 +103,7 @@
 
   /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
   position: relative;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl, 16px);
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -113,6 +113,7 @@
   padding: var(--spacing-m, 32px) var(--size-28);
 
   @media (width < 860px) {
+    border-radius: var(--radius-lg, 12px);
     position: relative;
     height: 58.9743vw;
     transition: transform 0.3s;
@@ -129,7 +130,6 @@
 }
 
 .past-partnerships-list .card-image {
-  background-color: var(--color-primary-grey-10);
   height: min(calc(179 / var(--breakpoint-pc) * 100vw), 179px);
   transition:
     transform 0.5s cubic-bezier(0.35, 0, 0.36, 1),
@@ -142,6 +142,19 @@
     width: auto;
     height: calc(130 / var(--breakpoint-mobile) * 100vw);
   }
+}
+
+.past-partnerships-list .image-shadow {
+  border-radius: var(--border-radius-m, 8px);
+  box-shadow: 0 4.758px 11.895px 0 rgb(0 0 0 / 4%);
+}
+
+.past-partnerships-list .white {
+  background-color: var(--color-primary-grey-10, #fff);
+}
+
+.past-partnerships-list .transparent {
+  background-color: transparent;
 }
 
 .past-partnerships-list > ul > li .card-image img {
@@ -164,7 +177,7 @@
   margin-top: var(--spacing-md);
   text-align: center;
   text-transform: capitalize;
-  
+
   @media (width < 860px) {
     color: var(--color-primary-grey-70);
     line-height: 140%;
