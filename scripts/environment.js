@@ -1,4 +1,4 @@
-const DEV_PUBLISH_ORIGIN = 'https://publish-p174152-e1855821.adobeaemcloud.com';
+const DEV_PUBLISH_ORIGIN = 'https://publish-p174152-e1909940.adobeaemcloud.com';
 const STAGE_PUBLISH_ORIGIN = 'https://publish-p174152-e1855674.adobeaemcloud.com';
 const PROD_PUBLISH_ORIGIN = 'https://publish-p174152-e1855954.adobeaemcloud.com';
 

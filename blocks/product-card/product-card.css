@@ -1009,6 +1009,10 @@
         border-color: var(--color-primary-grey-30);
         color: var(--color-primary-grey-50);
       }
+
+      &[hidden] {
+        display: none !important;
+      }
     }
   }
 }

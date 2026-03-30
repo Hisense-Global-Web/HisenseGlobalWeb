@@ -30,6 +30,7 @@ const { country } = getLocaleFromPath();
 const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com';
 const STOREFRONT_CART_URL = `${STOREFRONT_BASE_URL}/cart`;
 const STOREFRONT_CHECKOUT_URL = new URL('/checkout/delivery-address', STOREFRONT_BASE_URL).toString();
+const WISHLIST_CART_NAME_PREFIX = 'wishlist';
 const wishlistEntriesByCode = new Map();
 let wishlistLoadPromise = null;
 let wishlistLoaded = false;
@@ -135,7 +136,8 @@ function syncWishlistFavoriteElements() {
 }
 
 function isWishlistCart(cart) {
-  return Boolean(cart && String(cart.name || '').toLowerCase().includes('wishlist'));
+  const normalizedName = String(cart?.name || '').trim().toLowerCase();
+  return Boolean(normalizedName && normalizedName.startsWith(WISHLIST_CART_NAME_PREFIX));
 }
 
 function getWishlistCarts(payload) {
@@ -157,14 +159,18 @@ function getWishlistCarts(payload) {
 function resolveWishlistCartCode(payload) {
   const [wishlistCart] = getWishlistCarts(payload);
   if (wishlistCart?.code) {
-    return wishlistCart.code;
+    return String(wishlistCart.code).trim();
   }
 
   if (isWishlistCart(payload) && payload?.code) {
-    return payload.code;
+    return String(payload.code).trim();
   }
 
-  return String(payload?.cartCode || '').trim();
+  if (payload?.wishlist) {
+    return resolveWishlistCartCode(payload.wishlist);
+  }
+
+  return '';
 }
 
 function normalizeWishlistItems(payload) {
@@ -1226,6 +1232,7 @@ export default function decorate(block) {
       const showCheckout = Boolean(popupState.authenticated);
       popupElements.checkoutBtn.hidden = !showCheckout;
       popupElements.checkoutBtn.disabled = !showCheckout;
+      popupElements.checkoutBtn.style.display = showCheckout ? '' : 'none';
       if (showCheckout) {
         popupElements.checkoutBtn.removeAttribute('title');
       } else {
@@ -1912,9 +1919,6 @@ export default function decorate(block) {
               await ensureWishlistLoaded(true).catch(() => wishlistEntriesByCode);
               targetCartCode = getWishlistEntryByProductCode(productCode)?.cartCode || wishlistPrimaryCartCode;
             }
-            if (!targetCartCode) {
-              throw new Error('Wishlist cartCode is unavailable');
-            }
 
             bumpWishlistVersion();
             const addResponse = await addHybrisWishlistItem(productCode, 1, {
@@ -1922,6 +1926,10 @@ export default function decorate(block) {
               redirectOnAuthFailure: true,
               returnUrl: window.location.href,
             });
+            if (!targetCartCode) {
+              await ensureWishlistLoaded(true).catch(() => wishlistEntriesByCode);
+              targetCartCode = getWishlistEntryByProductCode(productCode)?.cartCode || wishlistPrimaryCartCode;
+            }
             const nextEntry = getWishlistEntryData(addResponse, productCode, targetCartCode);
             if (nextEntry?.code) {
               setWishlistEntry(nextEntry, productCode, addResponse, addResponse?.product, addResponse?.item, addResponse?.entry);
@@ -1960,20 +1968,25 @@ export default function decorate(block) {
           return;
         }
 
-        getPreloadedProductCardCart()
-          .catch(() => null)
-          .then((cachedCart) => openProductCardPopup({
+        setControlLoadingState(addToCartTarget, true);
+
+        try {
+          const cachedCart = await getPreloadedProductCardCart().catch(() => null);
+          await openProductCardPopup({
             productCode,
             authenticated: Boolean(getCachedHybrisAuthState().authenticated),
             variant: selectedVariant,
             representative: group.representative,
             cart: cachedCart,
             message: 'Add item to your cart',
-          }))
-          .catch((popupError) => {
-            /* eslint-disable-next-line no-console */
-            console.warn(`Failed to open cart popup for ${productCode}`, popupError);
           });
+          await increaseProductCardPopupQuantity();
+        } catch (popupError) {
+          /* eslint-disable-next-line no-console */
+          console.warn(`Failed to open cart popup for ${productCode}`, popupError);
+        } finally {
+          setControlLoadingState(addToCartTarget, false);
+        }
       });
 
       // 用来更新卡片显示为指定变体
@@ -2557,6 +2570,7 @@ export default function decorate(block) {
   checkoutBtn.type = 'button';
   checkoutBtn.className = 'checkout-btn';
   checkoutBtn.textContent = 'Proceed to checkout';
+  checkoutBtn.hidden = true;
   btnGroup.append(viewCartBtn, checkoutBtn);
 
   popup.append(popupTitle, popupList, popupLine, mobileCountEl, totalEl, btnGroup);
