@@ -535,15 +535,15 @@
   .person-drawer {
     display: none;
     position: absolute;
-    width: 236px;
-    padding: 24px 32px 16px;
+    padding: 34px 16px;
     flex-direction: column;
     background: var(--color-primary-grey-10);
     border-radius: var(--size-20);
     top: calc(100px - 14px);
     right: 0;
     z-index: 2;
-    box-shadow: 4px 16px 36px 0 #0000001A;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
+    font-family: HisenseAlfabet-Regular, sans-serif;
 
     &[hidden] {
       display: none !important;
@@ -584,18 +584,19 @@
     .my-items-group {
       display: flex;
       flex-direction: column;
-      gap: var(--size-4);
+      gap: var(--size-8);
       width: 100%;
-      margin: var(--size-12) 0;
+      margin: 0;
       
       .my-item {
         display: flex;
         align-items: center;
         width: 100%;
         justify-content: flex-start;
-        height: var(--size-48);
+        height: auto;
         text-decoration: none;
         color: inherit;
+        min-width: 200px;
 
         &:hover {
           .my-product-title {
@@ -604,10 +605,23 @@
         }
         
         .my-product-title {
-          color: var(--color-primary-grey-70);
-          font-size: var(--fontsize-body2);
-          line-height: 1.5;
-          font-weight: var(--fontweight-book);
+          line-height: 48px;
+          padding: 0 16px;
+          color: #333;
+          font-size: 14px;
+          font-weight: 400;
+          width: 100%;
+          border-radius: 20px;
+          
+          &:hover {
+            color: #000;
+            background-color: #EDFCFB;
+          }
+          
+          &.active {
+            background-color: #EDFCFB;
+            color: #005A5C;
+          }
         }
 
         .my-count-span {
@@ -631,15 +645,22 @@
     
     .logout-group {
       width: 100%;
-      height: var(--size-48);
+      line-height: var(--size-48);
       margin-top: var(--size-12);
       display: flex;
       align-items: center;
       cursor: pointer;
       color: var(--color-primary-grey-70);
-      font-size: var(--fontsize-body2);
-      line-height: 1.5;
-      font-weight: var(--fontweight-book);
+      font-size: 14px;
+      font-weight: 400;
+      padding: 0 16px;
+      box-sizing: border-box;
+      border-radius: 20px;
+      
+      &:hover {
+        color: #000;
+        background-color: #EDFCFB;
+      }
     }
     
     .division-line {
