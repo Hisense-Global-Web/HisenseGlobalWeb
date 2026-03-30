@@ -5,14 +5,18 @@ export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
   const title = document.createElement('div');
-  const [titleStyleEl, titleEl, pcColumnsEl, mobileColumnsEl, ...rows] = [...block.children];
+  const [titleStyleEl, titleEl, pcColumnsEl, mobileColumnsEl, imageBackgroundEl, enableImageShadow, ...rows] = [...block.children];
   const titleStyle = titleStyleEl?.querySelector?.('p')?.textContent ?? 'normal';
   title.classList.add('title', titleStyle);
   title.append(titleEl);
+  const imageBackground = imageBackgroundEl?.querySelector('p')?.textContent ?? 'white';
+  const enableImageShadowValue = enableImageShadow?.querySelector('p')?.textContent ?? 'false';
 
   titleStyleEl?.remove();
   pcColumnsEl?.remove();
   mobileColumnsEl?.remove();
+  imageBackgroundEl?.remove();
+  enableImageShadow?.remove();
   if (rows?.length) {
     rows.forEach((row) => {
       const li = document.createElement('li');
@@ -20,8 +24,12 @@ export default function decorate(block) {
       moveInstrumentation(row, li);
       while (row.firstElementChild) li.append(row.firstElementChild);
       [...li.children].forEach((div) => {
-        if (div.children.length === 1 && div.querySelector('picture')) div.className = 'card-image';
-        else div.className = 'card-body';
+        if (div.children.length === 1 && div.querySelector('picture')) {
+          div.classList.add('card-image', imageBackground);
+          if (enableImageShadowValue === 'true') {
+            div.classList.add('image-shadow');
+          }
+        } else div.className = 'card-body';
       });
       ul.append(li);
     });
