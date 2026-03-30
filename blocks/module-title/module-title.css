@@ -13,13 +13,14 @@
     color: var(--color-primary-green-50);
     line-height: var(--size-24);
     text-transform: uppercase;
+    padding-bottom: var(--size-8);
   }
 
   .subtitle-content {
     font-size: var(--size-34);
     font-weight: var(--fontweight-medium);
     color: var(--color-primary-grey-100);
-    margin-top: var(--size-8);
+    padding-bottom: var(--size-20);
     line-height: min(calc(40.8 / var(--breakpoint-pc) * 100vw), 40.8px);
     text-transform: capitalize;
   }
@@ -28,7 +29,6 @@
     font-size: var(--size-16);
     font-weight: var(--fontweight-book);
     color: var(--color-primary-grey-70);
-    margin-top: var(--size-20);
     line-height: var(--size-24);
   }
 
@@ -61,18 +61,18 @@
     .title-content {
       font-size: var(--size-18);
       line-height: calc(20.8 / var(--breakpoint-mobile) * 100vw);
+      padding-bottom: var(--size-12);
     }
 
     .subtitle-content {
       font-size: var(--size-30);
       line-height: var(--size-36);
-      margin-top: var(--size-12);
+      padding-bottom: var(--size-12);
     }
 
     .text-content {
       font-size: var(--size-14);
       line-height: calc(19.6 / var(--breakpoint-mobile) * 100vw);
-      margin-top: var(--size-12);
     }
   }
 }

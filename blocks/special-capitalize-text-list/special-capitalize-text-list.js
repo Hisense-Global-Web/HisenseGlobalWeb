@@ -5,7 +5,7 @@ export default function decorate(block) {
   if (rows?.length) {
     rows.forEach((row) => {
       const [titleEl, SpecialLetterEl] = row.children;
-      const capitalizeLetter = SpecialLetterEl.querySelector('p')?.textContent?.toUpperCase() ?? '';
+      const capitalizeLetter = SpecialLetterEl?.querySelector?.('p')?.textContent?.toUpperCase() ?? '';
       row.classList.add('list-item-wrapper');
       const titleText = titleEl?.querySelector('p')?.textContent ?? '';
       const titleTextList = titleText.trim().split(/\s+/) ?? [];
@@ -15,7 +15,7 @@ export default function decorate(block) {
         titleTextList.forEach((word, index) => {
           const commonWordEl = document.createElement('span');
           const isSpace = index !== titleTextList.length - 1;
-          if (capitalizeLetter) {
+          if (capitalizeLetter?.length) {
             if (word.toUpperCase().startsWith(capitalizeLetter)) {
               const capitalizeLetterEl = document.createElement('span');
               capitalizeLetterEl.className = 'capitalize-letter';

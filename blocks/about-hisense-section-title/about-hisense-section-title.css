@@ -45,9 +45,10 @@
   font-size: var(--size-14);
   line-height: 120%;
   color:var(--color-primary-grey-90);
+  font-weight: var(--fontweight-book);
   
    @media (width >= 860px) {
     margin-top: var(--spacing-xs);
-    font-size: var(--size-14);
+    font-size: var(--size-16);
   }
 }

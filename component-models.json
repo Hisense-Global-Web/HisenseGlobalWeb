@@ -217,7 +217,7 @@
             "value": "light"
           },
           {
-            "name": "Dark",
+            "name": "Black",
             "value": "dark"
           },
           {
@@ -233,15 +233,31 @@
             "value": "gray-90"
           },
           {
-            "name": "Gradient Gray",
+            "name": "Gradient-Dark",
             "value": "gradient-gray"
+          },
+          {
+            "name": "Gradient-Light",
+            "value": "gradient-light"
+          },
+          {
+            "name": "Gradient-Cold Light",
+            "value": "gradient-cold-light"
+          },
+          {
+            "name": "Gradient-Warm Light",
+            "value": "gradient-warm-light"
+          },
+          {
+            "name": "Gradient-Warm Dark",
+            "value": "gradient-warm-dark"
           },
           {
             "name": "Green 10",
             "value": "green-10"
           },
           {
-            "name": "Green",
+            "name": "Green15",
             "value": "green"
           }
         ]
@@ -968,7 +984,8 @@
         "component": "text",
         "name": "text_title",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",
@@ -3509,13 +3526,6 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text Content",
-        "valueType": "string"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "img",
@@ -3529,6 +3539,40 @@
           ]
         },
         "multi": false
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string",
+        "description": "Noted: this subtitle only for overlay_text-left-bottom option."
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "body",
+        "value": "",
+        "label": "Body Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "description": "Noted that only two options(overlay_text-left and overlay_text-left-bottom) support the configration button."
+      },
+      {
+        "component": "text",
+        "name": "button_label",
+        "label": "Button Label",
+        "description": "Noted that only two options(overlay_text-left and overlay_text-left-bottom) support the configration button."
       }
     ]
   },
@@ -3695,6 +3739,27 @@
         "component": "aem-content",
         "name": "link",
         "label": "Link"
+      },
+      {
+        "component": "select",
+        "name": "icon-type",
+        "label": "Icon Type",
+        "valueType": "string",
+        "value": "account",
+        "options": [
+          {
+            "name": "Search Box",
+            "value": "search-box"
+          },
+          {
+            "name": "Shopping Cart",
+            "value": "shopping-cart"
+          },
+          {
+            "name": "Account",
+            "value": "account"
+          }
+        ]
       },
       {
         "component": "boolean",
@@ -3946,27 +4011,46 @@
     "id": "past-partnerships-list",
     "fields": [
       {
+        "component": "select",
+        "name": "title_style",
+        "label": "Title Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Normal",
+            "value": "normal"
+          },
+          {
+            "name": "Large",
+            "value": "large"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "section_title",
-        "label": "Section Title",
-        "multi": false
+        "label": "Section Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "section_subtitle",
+        "label": "Section Subtitle"
       },
       {
         "component": "number",
         "name": "pc_numberColumns",
         "label": "PC: Items per row",
         "valueType": "number",
-        "value": 3,
         "description": "For PC: Number of columns displayed per row."
       },
       {
         "component": "select",
-        "name": "button_color",
+        "name": "mobile_numberColumns",
         "label": "Mobile: Items per row",
         "description": "For Mobile: When selected 'Tiled display', Items will show in one row.",
         "valueType": "string",
-        "value": "tiled",
         "options": [
           {
             "name": "Tiled display",
@@ -4596,6 +4680,73 @@
   {
     "id": "product-spec",
     "fields": []
+  },
+  {
+    "id": "project-brief-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many items to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "no-result",
+        "label": "no result content",
+        "valueType": "string",
+        "value": "No items found.",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "project-brief-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-Image",
+        "label": "Item Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_info",
+        "label": "Info",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_location",
+        "label": "Location",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "quick-action-card",
+    "fields": [
+      {
+        "component": "number",
+        "name": "pc_numberColumns",
+        "label": "PC: Items per row",
+        "valueType": "number",
+        "description": "For PC: Number of columns displayed per row."
+      }
+    ]
   },
   {
     "id": "quick-action-card-item",
