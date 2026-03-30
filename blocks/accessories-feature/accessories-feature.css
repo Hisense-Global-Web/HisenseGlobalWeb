@@ -18,7 +18,7 @@
 }
 
 .accessories-feature .title p:nth-child(2){
-  color: var(--color-primary-grey-70);
+  color: var(--color-primary-grey-80);
   font-family: var(--font-family);
   font-weight: var(--fontweight-light);
   font-size: var(--fontsize-body1);
@@ -102,7 +102,7 @@
 }
 
 .accessories-feature .card-body  p:nth-child(2){
-  color: var(--color-primary-grey-70);
+  color: var(--color-primary-grey-80);
   font-weight: var(--fontweight-light);
   font-family: var(--font-family);
   font-size: var(--fontsize-body1);
