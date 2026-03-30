@@ -1850,7 +1850,9 @@
                   "filter": "past-partnerships-list",
                   "title_style": "normal",
                   "pc_numberColumns": 3,
-                  "mobile_numberColumns": "tiled"
+                  "mobile_numberColumns": "tiled",
+                  "image_background": "white",
+                  "enable_ImageShadow": true
                 }
               }
             }

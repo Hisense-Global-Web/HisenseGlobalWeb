@@ -13,7 +13,9 @@
               "filter": "past-partnerships-list",
               "title_style": "normal",
               "pc_numberColumns": 3,
-              "mobile_numberColumns": "tiled"
+              "mobile_numberColumns": "tiled",
+              "image_background": "white",
+              "enable_ImageShadow": true
             }
           }
         }
@@ -106,6 +108,28 @@
               "value": "5"
             }
           ]
+        },
+        {
+          "component": "select",
+          "name": "image_background",
+          "label": "The background of the image",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "White",
+              "value": "white"
+            },
+            {
+              "name": "Transparent",
+              "value": "transparent"
+            }
+          ]
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enable_ImageShadow",
+          "label": "Enable Image Shadow"
         }
       ]
     },
