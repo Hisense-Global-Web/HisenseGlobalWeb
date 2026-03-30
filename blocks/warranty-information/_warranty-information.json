@@ -23,6 +23,13 @@
         {
           "component": "text",
           "valueType": "string",
+          "name": "warrantyTabLabel",
+          "label": "Warranty Tab Label",
+          "description": "Text content for warranty tab"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
           "name": "loadMoreTextContent",
           "label": "Load More Text Content",
           "description": "Text content for load more button"
