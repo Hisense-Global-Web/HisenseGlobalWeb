@@ -6,8 +6,6 @@ import {
   createComparePopup,
   createCompareLiEl,
   compareLiAppendType,
-  setCompareProductImgTit,
-  appendCompareProductUtil,
 } from '../../utils/plp-compare-utils.js';
 
 const { country } = getLocaleFromPath();
@@ -482,21 +480,21 @@ export default function decorate(block) {
       img2.src = locationIcon;
       const span2 = document.createElement('span');
       span2.textContent = 'Suwanee,GA';
-      departmentEl.append(img2, span2);
+      locationEl.append(img2, span2);
       const experienceEl = document.createElement('div');
       experienceEl.className = 'job-info-item';
       const img3 = document.createElement('img');
       img3.src = experienceIcon;
       const span3 = document.createElement('span');
       span3.textContent = '5+ years';
-      departmentEl.append(img3, span3);
+      experienceEl.append(img3, span3);
       const salaryRangeEl = document.createElement('div');
       salaryRangeEl.className = 'job-info-item';
       const img4 = document.createElement('img');
       img4.src = salaryRangeIcon;
       const span4 = document.createElement('span');
       span4.textContent = '$120k-$160k';
-      departmentEl.append(img4, span4);
+      salaryRangeEl.append(img4, span4);
 
       jobDetailEl.append(departmentEl, locationEl, experienceEl, salaryRangeEl);
 
