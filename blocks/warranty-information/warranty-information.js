@@ -1,5 +1,92 @@
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+
+const FIVE_MINUTES_MS = 5 * 60 * 1000;
+function getSupportEndpoint(country, language, factoryModel, category, sku) {
+  if (!country || !language || !factoryModel || !category) return '';
+  const params = new URLSearchParams({
+    country,
+    language,
+    factoryModel,
+    category,
+  });
+  if (sku) {
+    params.set('sku', sku);
+  }
+  return `/bin/hisense/support/document.json?${params.toString()}`;
+}
+
+function simpleHash(str) {
+  const s = String(str);
+  let h = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    h = (h * 31 + s.charCodeAt(i)) % 2147483647;
+  }
+  return Math.abs(h).toString(36);
+}
+
+function getCacheBustedUrl(url) {
+  if (!url) return '';
+  const cacheBuster = simpleHash(Math.floor(Date.now() / FIVE_MINUTES_MS));
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}_t=${cacheBuster}`;
+}
+
+function getBaseUrl() {
+  return window.GRAPHQL_BASE_URL || '';
+}
+
+function toAbsoluteUrl(path) {
+  if (!path) return '';
+  if (/^https?:\/\//i.test(path)) return path;
+
+  const shouldPrefixBaseUrl = ['/bin/', '/product/', '/content/dam/']
+    .some((prefix) => path.startsWith(prefix));
+  if (!shouldPrefixBaseUrl) return path;
+
+  const baseUrl = getBaseUrl();
+  if (!baseUrl) return path;
+  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
+async function fetchJson(path) {
+  if (!path) return null;
+
+  const url = getCacheBustedUrl(toAbsoluteUrl(path));
+  const response = await fetch(url, { credentials: 'same-origin' });
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+  return response.json();
+}
+
+// function normalizeSupportResponse(data) {
+//   return {
+//     documentationTitle: data?.documentationTitle || 'Documentation',
+//     documents: Array.isArray(data?.documents) ? data.documents : [],
+//     warrantyTitle: data?.warrantyTitle || 'Warranty',
+//     warranty: Array.isArray(data?.warranty) ? data.warranty : [],
+//   };
+// }
+
 export default async function decorate(block) {
-  console.log(block, 'block');
+  const { country, language } = getLocaleFromPath();
+  // let supportData = normalizeSupportResponse(null);
+  try {
+    const supportEndpoint = getSupportEndpoint(
+      country,
+      language,
+      'UXQUA',
+      'televisions',
+      '116UXQUA',
+    );
+    const supportResponse = await fetchJson(supportEndpoint);
+    console.log('Fetched support data:', supportResponse);
+    // supportData = normalizeSupportResponse(supportResponse);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('product-resources: failed to fetch support data', error);
+  }
+
   const tvObj = {
     product_category: 'Television',
     product_subcategory: 'Television',
