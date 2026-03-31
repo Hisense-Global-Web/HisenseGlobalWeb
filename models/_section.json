@@ -387,6 +387,7 @@
         "icon-card-container",
         "parters-container",
         "information-list-module",
+        "job-cards",
         "job-list",
         "quick-action-card",
         "category-support-card",
@@ -414,7 +415,8 @@
         "legal-content",
         "exception-page",
         "accessories-feature",
-        "calltoaction-banner"
+        "calltoaction-banner",
+        "project-brief-card"
       ]
     }
   ]

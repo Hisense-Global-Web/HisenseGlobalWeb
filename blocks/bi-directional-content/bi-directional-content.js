@@ -52,7 +52,8 @@ const generateTextArea = (itemEl, textAreaStyleEl, buyNowEl, downloadEl) => {
     // 构建download 按钮
     if (downloadEl?.children?.length) {
       const [iconEl, linkEl] = downloadEl.children;
-      iconEl.className = 'download';
+      const downloadWrapper = document.createElement('div');
+      downloadWrapper.className = 'download';
       let btnLink = '';
       let isImg = false;
       if (linkEl?.querySelector('img')) {
@@ -74,11 +75,9 @@ const generateTextArea = (itemEl, textAreaStyleEl, buyNowEl, downloadEl) => {
           handleCommonDownloadClick(btnLink);
         }
       };
-
-      iconEl.addEventListener('click', handleDownload);
-      bottomEl.appendChild(iconEl);
-      downloadEl.remove();
-    } else {
+      downloadWrapper.appendChild(iconEl);
+      downloadWrapper.addEventListener('click', handleDownload);
+      bottomEl.appendChild(downloadWrapper);
       downloadEl?.remove();
     }
     if (bottomEl?.children?.length) {
@@ -95,7 +94,7 @@ export default function decorate(block) {
   [...block.children].forEach((row, i) => {
     if (i < 1) {
       // title有值则加载
-      if (row.children?.length) {
+      if (row?.querySelectorAll('p')?.length) {
         title.classList = 'title';
         title.append(...row.children);
       }

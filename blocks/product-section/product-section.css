@@ -54,11 +54,40 @@ main .section.product-gallery-container.product-section-container .product-secti
 .pdp-favorite {
   margin-bottom: var(--size-12);
   cursor: pointer;
+  position: relative;
+  width: fit-content;
 }
 
 .pdp-favorite img {
+  display: block;
   height: var(--size-24);
   width: var(--size-24);
+}
+
+.pdp-favorite.selected .pdp-like-empty {
+  display: none;
+}
+
+.pdp-favorite:not(.selected) .pdp-like {
+  display: none;
+}
+
+.pdp-favorite.is-loading {
+  pointer-events: none;
+}
+
+.pdp-favorite.is-loading::after {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  margin-top: -7px;
+  border: 2px solid rgb(20 20 20 / 18%);
+  border-top-color: var(--color-primary-grey-100);
+  border-radius: 50%;
+  animation: hybris-button-spin 0.75s linear infinite;
 }
 
 .pdp-series {
@@ -243,6 +272,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   color: var(--color-primary-grey-10);
   background: var(--color-primary-green-60);
   border: 1px solid var(--color-primary-green-60);
+  position: relative;
   
   &:hover {
     background-color: var(--color-primary-green-50);
@@ -252,6 +282,26 @@ main .section.product-gallery-container.product-section-container .product-secti
     color: var(--white-alpha-80);
     background-color: var(--color-primary-green-70);
   }
+}
+
+.pdp-btn-group .pdp-cart-btn.is-loading {
+  cursor: wait;
+  color: transparent;
+  pointer-events: none;
+}
+
+.pdp-btn-group .pdp-cart-btn.is-loading::after {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  margin-top: -7px;
+  border: 2px solid rgb(255 255 255 / 30%);
+  border-top-color: var(--color-primary-grey-10);
+  border-radius: 50%;
+  animation: hybris-button-spin 0.75s linear infinite;
 }
 
 .pdp-btn-group .pdp-buy-btn.ps-widget[ps-sku]:hover {
@@ -269,6 +319,12 @@ main .section.product-gallery-container.product-section-container .product-secti
 
 .pdp-btn-group .pdp-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku{
   display:  none !important;
+}
+
+@keyframes hybris-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* .pdp-buy-btn:active, .pdp-buy-btn:focus {

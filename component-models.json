@@ -3258,6 +3258,148 @@
     ]
   },
   {
+    "id": "job-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "graphql",
+        "label": "GraphQL Endpoint",
+        "description": "GraphQL endpoint URL"
+      },
+      {
+        "component": "checkbox-group",
+        "valueType": "string[]",
+        "name": "fields",
+        "label": "Product Fields",
+        "multi": true,
+        "options": [
+          {
+            "name": "Department",
+            "value": "department"
+          },
+          {
+            "name": "Location",
+            "value": "location"
+          },
+          {
+            "name": "Experience",
+            "value": "experience"
+          },
+          {
+            "name": "Salary Range",
+            "value": "salary-range"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "name": "department-icon",
+        "label": "Department Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "department"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "location-icon",
+        "label": "Location Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "location"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "experience-icon",
+        "label": "Experience Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "experience"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "salary-range-icon",
+        "label": "Salary Range Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "salary-range"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreTextContent",
+        "label": "Load More Text Content",
+        "description": "Text content for load more button"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreLink",
+        "label": "Load More Link",
+        "description": "Link for load more button"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "noResultMessage",
+        "label": "No Result Message",
+        "description": "Text to display when no result search"
+      }
+    ]
+  },
+  {
     "id": "job-list",
     "fields": []
   },
@@ -3935,6 +4077,28 @@
             "value": "5"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "image_background",
+        "label": "The background of the image",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "White",
+            "value": "white"
+          },
+          {
+            "name": "Transparent",
+            "value": "transparent"
+          }
+        ]
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "enable_ImageShadow",
+        "label": "Enable Image Shadow"
       }
     ]
   },
@@ -4538,6 +4702,61 @@
   {
     "id": "product-spec",
     "fields": []
+  },
+  {
+    "id": "project-brief-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many items to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "no-result",
+        "label": "no result content",
+        "valueType": "string",
+        "value": "No items found.",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "project-brief-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "item-Image",
+        "label": "Item Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_info",
+        "label": "Info",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text_location",
+        "label": "Location",
+        "valueType": "string"
+      }
+    ]
   },
   {
     "id": "quick-action-card",
