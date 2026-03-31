@@ -27,6 +27,9 @@
         },
         {
           "...": "./_announcement.json#/definitions"
+        },
+        {
+          "...": "./_product-identifier-guide.json#/definitions"
         }
       ]
     },

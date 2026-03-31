@@ -571,6 +571,175 @@
     ]
   },
   {
+    "id": "product-identifier-guide",
+    "fields": [
+      {
+        "component": "select",
+        "name": "style_guide",
+        "value": "product-identifier-guide-container",
+        "label": "Product Identifier Guide classes",
+        "valueType": "string",
+        "hidden": true,
+        "options": [
+          {
+            "name": "product-identifier-guide-container",
+            "value": "product-identifier-guide-container"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string",
+        "description": "The label shown for this section on the page"
+      },
+      {
+        "component": "container",
+        "name": "test",
+        "label": "Multi Text",
+        "multi": true,
+        "fields": [
+          {
+            "component": "text",
+            "name": "category-tab",
+            "label": "Category Tab Name",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "category-description",
+            "label": "Product Category Description",
+            "valueType": "string"
+          },
+          {
+            "component": "container",
+            "name": "testA",
+            "label": "Multi Text",
+            "multi": true,
+            "fields": [
+              {
+                "component": "reference",
+                "name": "image",
+                "value": "",
+                "label": "Guide Image",
+                "valueType": "string"
+              },
+              {
+                "component": "text",
+                "name": "desc",
+                "value": "",
+                "label": "Image Description",
+                "valueType": "string"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_paddingTop",
+        "label": "Padding Top",
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Small (40px)",
+            "value": "pt-s"
+          },
+          {
+            "name": "Medium (60px)",
+            "value": "pt-m"
+          },
+          {
+            "name": "Large (80px)",
+            "value": "pt-l"
+          },
+          {
+            "name": "Extra Large (120px)",
+            "value": "pt-xl"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_paddingBottom",
+        "label": "Padding Bottom",
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Small (40px)",
+            "value": "pb-s"
+          },
+          {
+            "name": "Medium (60px)",
+            "value": "pb-m"
+          },
+          {
+            "name": "Large (80px)",
+            "value": "pb-l"
+          },
+          {
+            "name": "Extra Large (120px)",
+            "value": "pb-xl"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "product-category-tab",
+    "fields": [
+      {
+        "component": "text",
+        "name": "category-tab",
+        "label": "Category Tab Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "category-description",
+        "label": "Product Category Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "product-guide-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "step_hint",
+        "label": "Step Hint",
+        "valueType": "string",
+        "hidden": true
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Step Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Step Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "about-hisense-module-title",
     "fields": [
       {

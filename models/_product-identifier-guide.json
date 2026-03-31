@@ -81,6 +81,48 @@
           "description": "The label shown for this section on the page"
         },
         {
+          "component": "container",
+          "name": "test",
+          "label": "Multi Text",
+          "multi": true,
+          "fields": [
+            {
+              "component": "text",
+              "name": "category-tab",
+              "label": "Category Tab Name",
+              "valueType": "string"
+            },
+            {
+              "component": "text",
+              "name": "category-description",
+              "label": "Product Category Description",
+              "valueType": "string"
+            },
+            {
+              "component": "container",
+              "name": "testA",
+              "label": "Multi Text",
+              "multi": true,
+              "fields": [
+                {
+                  "component": "reference",
+                  "name": "image",
+                  "value": "",
+                  "label": "Guide Image",
+                  "valueType": "string"
+                },
+                {
+                  "component": "text",
+                  "name": "desc",
+                  "value": "",
+                  "label": "Image Description",
+                  "valueType": "string"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "component": "select",
           "name": "style_paddingTop",
           "label": "Padding Top",
@@ -180,10 +222,10 @@
   ],
   "filters": [
     {
-      "id": "instructions",
+      "id": "product-identifier-guide",
       "components": [
-        "instructions-tab",
-        "instructions-item"
+        "product-category-tab",
+        "product-guide-item"
       ]
     }
   ]

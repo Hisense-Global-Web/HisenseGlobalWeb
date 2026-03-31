@@ -5,6 +5,7 @@
       "section",
       "popup-module",
       "announcement",
+      "product-identifier-guide",
       "navigation",
       "company-page-navigation",
       "support-navigation",
@@ -20,6 +21,9 @@
   },
   {
     "...": "./_announcement.json#/filters"
+  },
+  {
+    "...": "./_product-identifier-guide.json#/filters"
   },
   {
     "...": "../blocks/*/_*.json#/filters"
