@@ -3336,6 +3336,28 @@
         "name": "title",
         "label": "Title",
         "valueType": "string"
+      },
+      {
+        "component": "container",
+        "name": "testA",
+        "label": "Multi Text",
+        "multi": true,
+        "fields": [
+          {
+            "component": "reference",
+            "name": "image",
+            "value": "",
+            "label": "Guide Image",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "desc",
+            "value": "",
+            "label": "Image Description",
+            "valueType": "string"
+          }
+        ]
       }
     ]
   },

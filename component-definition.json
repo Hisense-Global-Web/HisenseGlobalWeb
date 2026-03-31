@@ -1517,8 +1517,7 @@
                 "template": {
                   "name": "Instructions",
                   "model": "instructions",
-                  "filter": "instructions",
-                  "key-value": true
+                  "filter": "instructions"
                 }
               }
             }
