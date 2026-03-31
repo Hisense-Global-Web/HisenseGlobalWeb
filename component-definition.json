@@ -134,6 +134,7 @@
                 "template": {
                   "name": "Product Category Tab",
                   "model": "product-category-tab",
+                  "filter": "product-category-tab",
                   "key-value": true
                 }
               }
