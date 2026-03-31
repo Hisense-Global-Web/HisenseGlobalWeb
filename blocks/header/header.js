@@ -191,7 +191,7 @@ function buildAccountMenuItem({
     countEl.textContent = countText;
     titleEl.append(countEl);
   }
-  
+
   link.append(titleEl);
 
   return link;
