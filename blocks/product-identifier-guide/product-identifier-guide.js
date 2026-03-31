@@ -15,7 +15,7 @@ function getPrevTab(step) {
 export default function decorate(block) {
   const config = readBlockConfig(block);
   console.log(config);
-  
+
   // [...block.children].forEach((child) => {
   //   if (Object.keys(config).includes(child.firstElementChild?.textContent.trim().toLowerCase())) {
   //     child.className = child.firstElementChild?.textContent.trim();
@@ -47,7 +47,7 @@ export default function decorate(block) {
   //   const tabs = block.querySelectorAll('.tab');
   //   const tabContainers = document.createElement('div');
   //   tabContainers.className = 'tab-container';
-  
+
   //   block.appendChild(tabContainers);
   //   tabs.forEach((tab) => {
   //     const tabTitle = tab.firstElementChild.textContent.trim();
@@ -60,7 +60,7 @@ export default function decorate(block) {
   //       stepGroups.appendChild(step);
   //     });
   //     stepGroups.dataset.tab = tabTitle;
-  
+
   //     tabDescriptionContainer.appendChild(tab.lastElementChild);
   //     tabDescriptionContainer.dataset.tab = tabTitle;
   //     tabContainers.appendChild(tab);
