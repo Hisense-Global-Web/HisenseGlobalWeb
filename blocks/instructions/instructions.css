@@ -27,7 +27,7 @@
         padding: var(--size-8, 8px) 0;
         gap: var(--size-12, 12px);
         border-bottom: var(--size-3, 3px) solid transparent;
-        line-height: 1;
+        line-height: 120%;
         font-weight: var(--fontweight-book);
         color: var(--color-primary-grey-70);
     }
@@ -152,9 +152,13 @@
 
         .tab {
             font-size: var(--size-18, 18px);
-            line-height: 120%; /* 21px */
+            line-height: 130%; /* 21px */
             text-transform: capitalize;
             padding: var(--size-8) 0;
+
+            &.active {
+                line-height: 120%;
+            }
         }
     }
 
