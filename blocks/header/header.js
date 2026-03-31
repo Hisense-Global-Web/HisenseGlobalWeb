@@ -190,7 +190,7 @@ function buildAccountMenuItem({
     const countEl = document.createElement('span');
     countEl.className = 'my-count-span';
     countEl.textContent = countText;
-    link.append(countEl);
+    // link.append(countEl);
   }
 
   return link;
@@ -406,7 +406,7 @@ function createAccountDrawer() {
   const divisionLine = document.createElement('div');
   divisionLine.className = 'division-line';
 
-  personEl.append(userEl, divisionLine.cloneNode(true), myItems, divisionLine.cloneNode(true), logoutEl);
+  personEl.append(myItems, divisionLine.cloneNode(true), logoutEl);
 
   return {
     personEl,
