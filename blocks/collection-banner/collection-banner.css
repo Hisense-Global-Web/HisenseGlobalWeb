@@ -5,7 +5,7 @@
 }
 
 .block.collection-banner {
-  padding: min(calc(56 / var(--breakpoint-pc) * 100vw), 56px) min(calc(48 / var(--breakpoint-pc) * 100vw), 48px);
+  padding: var(--size-48);
   height: min(calc(440 / var(--breakpoint-pc) * 100vw), 440px);
   display: flex;
   align-items: center;
@@ -50,7 +50,7 @@
   h5,
   h6 {
     color: #fff;
-    width: min(calc(340 / var(--breakpoint-pc) * 100vw), 340px);
+    width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
     font-size: min(calc(40 / var(--breakpoint-pc) * 100vw), 40px);
     line-height: var(--size-48);
     font-weight: var(--fontweight-medium);
@@ -71,8 +71,8 @@
   h5+p,
   h6+p {
     color: #fff;
-    margin-top: min(calc(20 / var(--breakpoint-pc) * 100vw), 20px);
-    width: min(calc(340 / var(--breakpoint-pc) * 100vw), 340px);
+    margin-top: var(--size-16);
+    width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
     font-size: min(calc(16 / var(--breakpoint-pc) * 100vw), 16px);
     line-height: var(--size-24);
     font-weight: var(--fontweight-light);
@@ -245,8 +245,8 @@
     .pc-box-img {
       position: absolute;
       width: 100%;
-      height: calc(276 / var(--breakpoint-mobile) * 100vw);
-      padding: calc(30 / var(--breakpoint-mobile) * 100vw) calc(24 / var(--breakpoint-mobile) * 100vw) 0;
+      height: calc(288 / var(--breakpoint-mobile) * 100vw);
+      padding: var(--size-32) var(--size-24) 0;
 
       img {
         display: none;
