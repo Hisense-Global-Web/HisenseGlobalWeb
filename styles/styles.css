@@ -992,22 +992,22 @@ main {
 
   .section.gradient-light {
     background: linear-gradient(0deg, #EAEAEA 0%, #FFF 41.69%);
-    color: var(--text-dark);
+    color: var(--text-light);
   }
 
   .section.gradient-cold-light {
     background: linear-gradient(180deg, #EBF5FB 0%, #FFF 100%);
-    color: var(--text-dark);
+    color: var(--text-light);
   }
 
   .section.gradient-warm-light {
     background: linear-gradient(180deg, #F9F6F1 0%, #FFF 100%);
-    color: var(--text-dark);
+    color: var(--text-light);
   }
 
   .section.gradient-warm-dark {
     background: linear-gradient(180deg, #100B08 0%, #291D14 100%);
-    color: var(--text-light);
+    color: var(--text-dark);
   }
 
   .section.green-10 {
