@@ -3340,7 +3340,7 @@
     ]
   },
   {
-    "id": "instructions-tab",
+    "id": "instruction",
     "fields": [
       {
         "component": "text",
@@ -3351,8 +3351,8 @@
       },
       {
         "component": "text",
-        "name": "tab_title",
-        "label": "Tab Title",
+        "name": "title",
+        "label": "Tab Name",
         "valueType": "string"
       },
       {

@@ -18,15 +18,15 @@
       }
     },
     {
-      "title": "Instructions Tab",
-      "id": "instructions-tab",
+      "title": "Instruction",
+      "id": "instruction",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Instructions Tab",
-              "model": "instructions-tab",
+              "name": "Instruction",
+              "model": "instruction",
               "hint": "tab"
             }
           }
@@ -63,7 +63,7 @@
       ]
     },
     {
-      "id": "instructions-tab",
+      "id": "instruction",
       "fields": [
         {
           "component": "text",
@@ -74,8 +74,8 @@
         },
         {
           "component": "text",
-          "name": "tab_title",
-          "label": "Tab Title",
+          "name": "title",
+          "label": "Tab Name",
           "valueType": "string"
         },
         {
@@ -137,7 +137,7 @@
     {
       "id": "instructions",
       "components": [
-        "instructions-tab",
+        "instruction",
         "instructions-item"
       ]
     }

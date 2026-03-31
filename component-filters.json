@@ -381,7 +381,7 @@
   {
     "id": "instructions",
     "components": [
-      "instructions-tab",
+      "instruction",
       "instructions-item"
     ]
   },

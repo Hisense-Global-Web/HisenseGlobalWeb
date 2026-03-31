@@ -1525,15 +1525,15 @@
           }
         },
         {
-          "title": "Instructions Tab",
-          "id": "instructions-tab",
+          "title": "Instruction",
+          "id": "instruction",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Instructions Tab",
-                  "model": "instructions-tab",
+                  "name": "Instruction",
+                  "model": "instruction",
                   "hint": "tab"
                 }
               }
