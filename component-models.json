@@ -2540,13 +2540,13 @@
       },
       {
         "component": "reference",
-        "name": "mobile_downloadicon",
+        "name": "mobile-downloadicon",
         "label": "Mobile: Download Icon",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "mobile_nexttext",
+        "name": "mobile-ntexttext",
         "label": "Mobile: Next Page Text",
         "valueType": "string"
       }
