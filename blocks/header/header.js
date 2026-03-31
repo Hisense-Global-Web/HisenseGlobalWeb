@@ -183,15 +183,16 @@ function buildAccountMenuItem({
   const titleEl = document.createElement('span');
   titleEl.className = 'my-product-title';
   titleEl.textContent = label;
-  link.append(titleEl);
 
   const countText = formatCountBadge(count, { showZero: showZeroCount });
   if (countText) {
     const countEl = document.createElement('span');
     countEl.className = 'my-count-span';
     countEl.textContent = countText;
-    // link.append(countEl);
+    titleEl.append(countEl);
   }
+  
+  link.append(titleEl);
 
   return link;
 }
