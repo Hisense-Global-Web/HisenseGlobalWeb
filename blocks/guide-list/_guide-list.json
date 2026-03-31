@@ -10,12 +10,12 @@
             "template": {
               "name": "Guide List",
               "model": "guide-list",
-              "no_result": "No items found.",
-              "page_size": 10,
+              "no-result": "No items found.",
+              "page-size": 10,
               "document-icon": "/content/dam/hisense/us/common-icons/document.svg",
-              "pc_downloadtext": "Download",
-              "pc_downladicon": "/content/dam/hisense/us/common-icons/download-white.svg",
-              "mobile_downloadicon": "/content/dam/hisense/us/common-icons/download.svg"
+              "pc-downloadtext": "Download",
+              "pc-downladicon": "/content/dam/hisense/us/common-icons/download-white.svg",
+              "mobile-downloadicon": "/content/dam/hisense/us/common-icons/download.svg"
             }
           }
         }
@@ -28,14 +28,14 @@
       "fields": [
         {
           "component": "number",
-          "name": "page_size",
+          "name": "page-size",
           "label": "Items per page",
           "description": "How many items to show per page.",
           "valueType": "number"
         },
         {
           "component": "richtext",
-          "name": "no_result",
+          "name": "no-result",
           "label": "no result content",
           "valueType": "string"
         },
@@ -47,19 +47,19 @@
         },
         {
           "component": "text",
-          "name": "pc_downloadtext",
+          "name": "pc-downloadtext",
           "label": "PC: Download Text",
           "valueType": "string"
         },
         {
           "component": "reference",
-          "name": "pc_downladicon",
+          "name": "pc-downladicon",
           "label": "PC: Download Icon",
           "valueType": "string"
         },
         {
           "component": "reference",
-          "name": "mobile_downloadicon",
+          "name": "mobile-downloadicon",
           "label": "Mobile: Download Icon",
           "valueType": "string"
         }
