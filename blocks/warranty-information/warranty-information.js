@@ -274,9 +274,17 @@ export default async function decorate(block) {
     });
   }
 
+  // resetRenderHandler 用于切换 tab or 窗口大小变化 时重置页码、清空当前 card 列表并重新渲染
+  function resetRenderHandler() {
+    currentPage = 1; // 切换时重置页码
+    // 清空当前 card 列表
+    cardsGrid.innerHTML = '';
+    renderWarrantyCards(); // 重新渲染卡片
+    updateLoadMoreVisibility(); // 更新Load More显示状态
+  }
+
   // 切换 tab 逻辑
   function switchTab(category) {
-    currentPage = 1; // 切换 tab 时重置页码
     // 更新 active 样式
     const categoryItems = document.querySelectorAll('.category-item');
     categoryItems.forEach((item) => {
@@ -297,10 +305,7 @@ export default async function decorate(block) {
         }
       });
     }
-    // 清空当前 card 列表
-    cardsGrid.innerHTML = '';
-    renderWarrantyCards();
-    updateLoadMoreVisibility();
+    resetRenderHandler();
   }
 
   // 渲染 category tab dom
@@ -318,15 +323,6 @@ export default async function decorate(block) {
     });
   }
 
-  // 窗口 resize 处理函数
-  function resizeHandler() {
-    currentPage = 1; // 切换时重置页码
-    // 清空当前 card 列表
-    cardsGrid.innerHTML = '';
-    renderWarrantyCards(); // 重新渲染卡片
-    updateLoadMoreVisibility(); // 更新Load More显示状态
-  }
-
   // 获取动态 loadMoreStep 并设置监听窗口变化
   function getDynamicLoadMoreStep() {
     function loadMoreNum() {
@@ -336,7 +332,7 @@ export default async function decorate(block) {
       } else {
         loadMoreStep = 9; // 桌面显示9条
       }
-      resizeHandler();
+      resetRenderHandler();
     }
     loadMoreNum(); // 初始调用设置正确的 loadMoreStep
     window.addEventListener('resize', () => loadMoreNum());
@@ -345,13 +341,7 @@ export default async function decorate(block) {
   // 处理原始数据
   function originDataUtils() {
     originData = JSON.parse(JSON.stringify(resWarrantyData || []));
-    // 所有 warranty 数据整合到一个数组中，方便后续渲染和分页处理
-    originData.forEach((item) => {
-      if (item.warranty && item.warranty.length > 0) {
-        allWarrantyData.push(...item.warranty);
-        showWarrantyData.push(...item.warranty);
-      }
-    });
+
     // 过滤所有 category
     allWarrantyCategory = originData.map((item) => item.title);
     // 如果有 all tab 文案，则添加到 category 列表首位
@@ -361,9 +351,21 @@ export default async function decorate(block) {
     // 渲染 category tab
     renderCategoryTab();
 
+    // 所有 warranty 数据整合到一个数组中，方便后续渲染和分页处理
+    originData.forEach((item) => {
+      if (item.warranty && item.warranty.length > 0) {
+        allWarrantyData.push(...item.warranty);
+        if (allCategoryTabLabel) {
+          // 如果有 all tab 文案，默认展示 all tab 数据
+          showWarrantyData.push(...item.warranty);
+        } else if (item.title === allWarrantyCategory[0]) {
+          // 没有 all tab 文案，则默认展示第一个 category 的数据
+          showWarrantyData.push(...item.warranty);
+        }
+      }
+    });
+
     // 渲染 card list
-    // renderWarrantyCards();
-    // updateLoadMoreVisibility();
     // 获取动态 loadMoreStep 并设置监听窗口变化
     getDynamicLoadMoreStep();
   }

@@ -106,12 +106,13 @@
 
 @media (width < 860px) {
   .warranty-information {
+    padding: var(--size-80) 0;
+
     .warranty-category-box {
       width: 100%;
       overflow-x: auto;
 
        /* 隐藏滚动条 */ 
-      -ms-overflow-style: none;  /* IE和Edge */
       scrollbar-width: none;  /* Firefox */
       gap: var(--size-40);
 
@@ -147,6 +148,10 @@
           margin-top: var(--size-12);
         }
       }
+    }
+
+    .warranty-load-more {
+      margin-top: var(--size-32);
     }
   }
 }
