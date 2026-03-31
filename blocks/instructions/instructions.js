@@ -1,6 +1,6 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 
-function getPrevTab(step) {  
+function getPrevTab(step) {
   let prev = step.previousElementSibling;
   while (prev) {
     if (prev.classList.contains('tab')) {
@@ -44,7 +44,7 @@ export default function decorate(block) {
   tabContainers.className = 'tab-container';
 
   block.appendChild(tabContainers);
-  tabs.forEach((tab, index) => {
+  tabs.forEach((tab) => {
     const tabTitle = tab.firstElementChild.textContent.trim();
     const stepGroups = document.createElement('div');
     stepGroups.className = 'step-groups';
@@ -71,5 +71,4 @@ export default function decorate(block) {
     block.appendChild(tabDescriptionContainer);
     block.appendChild(stepGroups);
   });
-  
 }
