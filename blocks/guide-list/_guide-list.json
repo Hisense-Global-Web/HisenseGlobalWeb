@@ -13,7 +13,9 @@
               "document-icon": "/content/dam/hisense/us/common-icons/document.svg",
               "pc_downloadtext": "Download",
               "pc_downladicon": "/content/dam/hisense/us/common-icons/download-white.svg",
-              "mobile_downloadicon": "/content/dam/hisense/us/common-icons/download.svg"
+              "mobile_downloadicon": "/content/dam/hisense/us/common-icons/download.svg",
+              "no_result": "No items found.",
+              "page_size": 10
             }
           }
         }
@@ -46,6 +48,19 @@
           "component": "reference",
           "name": "mobile_downloadicon",
           "label": "Mobile: Download Icon",
+          "valueType": "string"
+        },
+        {
+          "component": "number",
+          "name": "page_size",
+          "label": "Items per page",
+          "description": "How many items to show per page.",
+          "valueType": "number"
+        },
+        {
+          "component": "richtext",
+          "name": "no_result",
+          "label": "no result content",
           "valueType": "string"
         }
       ]
