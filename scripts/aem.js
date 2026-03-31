@@ -741,8 +741,8 @@ async function decoratePopupModuleSection(section) {
 }
 
 async function decorateProductIdentifierGuideSection(section) {
-  const cssHref = `${window.hlx.codeBasePath}/blocks/instructions/instructions.css`;
-  const jsPath = `${window.hlx.codeBasePath}/blocks/instructions/instructions.js`;
+  const cssHref = `${window.hlx.codeBasePath}/blocks/product-identifier-guide/product-identifier-guide.css`;
+  const jsPath = `${window.hlx.codeBasePath}/blocks/product-identifier-guide/product-identifier-guide.js`;
   try {
     const cssLoaded = loadCSS(cssHref);
     const decorationComplete = (async () => {

@@ -657,47 +657,6 @@
     ]
   },
   {
-    "id": "product-category-tab",
-    "fields": [
-      {
-        "component": "text",
-        "name": "category-tab",
-        "label": "Category Tab Name",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "category-description",
-        "label": "Product Category Description",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "product-guide-item",
-    "fields": [
-      {
-        "component": "text",
-        "name": "step_hint",
-        "label": "Step Hint",
-        "valueType": "string",
-        "hidden": true
-      },
-      {
-        "component": "reference",
-        "name": "image",
-        "label": "Step Image",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "description",
-        "label": "Step Description",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "about-hisense-module-title",
     "fields": [
       {
@@ -3456,109 +3415,6 @@
     ]
   },
   {
-    "id": "instructions",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "container",
-        "name": "testA",
-        "label": "Multi Text",
-        "multi": true,
-        "fields": [
-          {
-            "component": "reference",
-            "name": "image",
-            "value": "",
-            "label": "Guide Image",
-            "valueType": "string"
-          },
-          {
-            "component": "text",
-            "name": "desc",
-            "value": "",
-            "label": "Image Description",
-            "valueType": "string"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "instruction",
-    "fields": [
-      {
-        "component": "text",
-        "name": "hint",
-        "label": "Hint",
-        "valueType": "string",
-        "hidden": true
-      },
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Tab Name",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "description",
-        "label": "Tab Description",
-        "valueType": "string"
-      },
-      {
-        "component": "container",
-        "name": "test",
-        "label": "Multi Text",
-        "multi": true,
-        "fields": [
-          {
-            "component": "reference",
-            "name": "image",
-            "value": "",
-            "label": "Guide Image",
-            "valueType": "string"
-          },
-          {
-            "component": "text",
-            "name": "desc",
-            "value": "",
-            "label": "Image Description",
-            "valueType": "string"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "instructions-item",
-    "fields": [
-      {
-        "component": "text",
-        "name": "step_hint",
-        "label": "Step Hint",
-        "valueType": "string",
-        "hidden": true
-      },
-      {
-        "component": "reference",
-        "name": "image",
-        "label": "Step Image",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "description",
-        "label": "Step Description",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "job-list",
     "fields": []
   },
@@ -4482,6 +4338,47 @@
         "name": "noResultMessage",
         "label": "No Result Message",
         "description": "Text to display when no result search"
+      }
+    ]
+  },
+  {
+    "id": "product-category-guide",
+    "fields": [
+      {
+        "component": "text",
+        "name": "category-tab",
+        "label": "Category Tab Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "category-description",
+        "label": "Product Category Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "product-guide-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "step_hint",
+        "label": "Step Hint",
+        "valueType": "string",
+        "hidden": true
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Step Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Step Description",
+        "valueType": "string"
       }
     ]
   },

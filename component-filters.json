@@ -142,8 +142,7 @@
       "legal-content",
       "exception-page",
       "accessories-feature",
-      "calltoaction-banner",
-      "instructions"
+      "calltoaction-banner"
     ]
   },
   {
@@ -169,12 +168,6 @@
     "id": "product-identifier-guide",
     "components": [
       "product-category-tab"
-    ]
-  },
-  {
-    "id": "product-category-tab",
-    "components": [
-      "product-guide-item"
     ]
   },
   {
@@ -392,13 +385,6 @@
     ]
   },
   {
-    "id": "instructions",
-    "components": [
-      "instruction",
-      "instructions-item"
-    ]
-  },
-  {
     "id": "key-features-card-container",
     "components": [
       "key-features-card-container-item"
@@ -447,6 +433,12 @@
     "id": "popup-key-stats",
     "components": [
       "tech-items"
+    ]
+  },
+  {
+    "id": "product-category-guide",
+    "components": [
+      "product-guide-item"
     ]
   },
   {
