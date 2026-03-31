@@ -2543,6 +2543,12 @@
         "name": "mobile_downloadicon",
         "label": "Mobile: Download Icon",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobile_nexttext",
+        "label": "Mobile: Next Page Text",
+        "valueType": "string"
       }
     ]
   },
