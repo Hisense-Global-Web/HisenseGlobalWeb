@@ -168,7 +168,12 @@
   {
     "id": "product-identifier-guide",
     "components": [
-      "product-category-tab",
+      "product-category-tab"
+    ]
+  },
+  {
+    "id": "product-category-tab",
+    "components": [
       "product-guide-item"
     ]
   },
