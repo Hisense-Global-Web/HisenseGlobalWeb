@@ -2508,6 +2508,19 @@
     "id": "guide-list",
     "fields": [
       {
+        "component": "number",
+        "name": "page_size",
+        "label": "Items per page",
+        "description": "How many items to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "no_result",
+        "label": "no result content",
+        "valueType": "string"
+      },
+      {
         "component": "reference",
         "name": "document-icon",
         "label": "Document Icon",
@@ -2529,19 +2542,6 @@
         "component": "reference",
         "name": "mobile_downloadicon",
         "label": "Mobile: Download Icon",
-        "valueType": "string"
-      },
-      {
-        "component": "number",
-        "name": "page_size",
-        "label": "Items per page",
-        "description": "How many items to show per page.",
-        "valueType": "number"
-      },
-      {
-        "component": "richtext",
-        "name": "no_result",
-        "label": "no result content",
         "valueType": "string"
       }
     ]
