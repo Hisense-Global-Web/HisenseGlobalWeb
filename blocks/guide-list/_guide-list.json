@@ -10,12 +10,12 @@
             "template": {
               "name": "Guide List",
               "model": "guide-list",
-              "no-result": "No items found.",
-              "page-size": 10,
-              "document-icon": "/content/dam/hisense/us/common-icons/document.svg",
-              "pc-downloadtext": "Download",
-              "pc-downladicon": "/content/dam/hisense/us/common-icons/download-white.svg",
-              "mobile-downloadicon": "/content/dam/hisense/us/common-icons/download.svg"
+              "no_result": "No items found.",
+              "page_size": 10,
+              "document_icon": "/content/dam/hisense/us/common-icons/document.svg",
+              "pc_downloadtext": "Download",
+              "pc_downladicon": "/content/dam/hisense/us/common-icons/download-white.svg",
+              "mobile_downloadicon": "/content/dam/hisense/us/common-icons/download.svg"
             }
           }
         }
@@ -28,38 +28,38 @@
       "fields": [
         {
           "component": "number",
-          "name": "page-size",
+          "name": "page_size",
           "label": "Items per page",
           "description": "How many items to show per page.",
           "valueType": "number"
         },
         {
           "component": "richtext",
-          "name": "no-result",
+          "name": "no_result",
           "label": "no result content",
           "valueType": "string"
         },
         {
           "component": "reference",
-          "name": "document-icon",
+          "name": "document_icon",
           "label": "Document Icon",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "pc-downloadtext",
+          "name": "pc_downloadtext",
           "label": "PC: Download Text",
           "valueType": "string"
         },
         {
           "component": "reference",
-          "name": "pc-downladicon",
+          "name": "pc_downladicon",
           "label": "PC: Download Icon",
           "valueType": "string"
         },
         {
           "component": "reference",
-          "name": "mobile-downloadicon",
+          "name": "mobile_downloadicon",
           "label": "Mobile: Download Icon",
           "valueType": "string"
         }
