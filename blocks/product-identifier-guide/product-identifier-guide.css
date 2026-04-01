@@ -1,7 +1,7 @@
-.instructions {
+.product-identifier-guide-container {
     min-height:calc(597/var(--breakpoint-pc) * 100vw);
 
-    .title {
+    .guide-title {
         color: var(--color-primary-grey-100);
         margin-bottom: var(--size-32);
         font-size: var(--size-40, 40px);
@@ -11,19 +11,19 @@
     }
 }
 
-.tab-container {
+.category-tabs {
     display: flex;
     flex-shrink: 0;
     gap: var(--size-48);
     align-items: center;
-    margin-bottom: var(--size-32);
+    margin-bottom: var(--size-32) !important;
 
-    .tab {
+    .category-tab {
         display: flex;
         flex-direction: row;
         align-items: center;
         cursor: pointer;
-        transition: border-bottom 0.3s ease;
+        transition: border-color 0.3s ease;
         padding: var(--size-8, 8px) 0;
         gap: var(--size-12, 12px);
         border-bottom: var(--size-3, 3px) solid transparent;
@@ -32,29 +32,47 @@
         color: var(--color-primary-grey-70);
     }
     
-    .tab.active {
-        border-bottom: var(--size-3, 3px) solid var(--color-primary-green-50, #009F9C);
+    .category-tab.active {
+        border-color: var(--color-primary-green-50, #009F9C);
         font-weight: var(--fontweight-medium);
         color: var(--color-primary-grey-100);
     }
 }
 
-
-.step-groups {
-    flex-direction: row;
-    gap: var(--size-32, 32px);
+.category-description {
+    width: 100%;
+    padding: var(--size-24, 24px) var(--size-30, 30px);
+    align-items: flex-start;
+    gap: var(--size-12, 12px);
+    border-radius: 10px;
+    background: var(--color-primary-grey-20, #F7F7F7);
+    margin-bottom: var(--size-32);
+    color: var(--color-primary-grey-60, #555);
+    font-size: var(--size-14, 14px);
+    font-weight: var(--fontweight-book);
+    line-height: 150%; /* 21px */
     display: none;
-    flex-wrap: wrap;
 
     &.active {
         display: flex;
     }
+}
+
+.guide-steps {
+    flex-direction: row;
+    gap: var(--size-32, 32px);
+    display: flex;
+    flex-wrap: wrap;
 
     .step {
-        display: flex;
+        display: none;
         flex-direction: column;
         gap: var(--size-16);
         flex: 1 0 0;
+
+        &.active {
+            display: flex;
+        }
 
         .step-image {
             display: block;
@@ -82,17 +100,23 @@
                 display: flex;
                 width: var(--size-32, 32px);
                 height: var(--size-32, 32px);
-                padding: var(--size-9, 9px) var(--size-16, 16px) var(--size-8, 8px) var(--size-16, 16px);
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 aspect-ratio: 1/1;
-                font-size: var(--size-20, 20px);
-                font-weight: var(--fontweight-medium);
-                line-height: 120%; /* 24px */
-                color: var(--color-primary-grey-10);
-                border-radius: 20.5px;
+                border-radius: 100%;
+                line-height: 1.21;
                 background: var(--color-primary-green-50, #009F9C);
+                
+                .step-number-text {
+                    font-size: var(--size-20, 20px);
+                    font-weight: var(--fontweight-medium);
+                    height: var(--size-20);
+                    letter-spacing: 0;
+                    margin: 0;
+                    padding: 0;
+                    color: var(--color-primary-grey-10);
+                }
             }
 
             .step-description {
@@ -106,37 +130,18 @@
     }
 }
 
-.tab-description {
-    width: 100%;
-    padding: var(--size-24, 24px) var(--size-30, 30px);
-    align-items: flex-start;
-    gap: var(--size-12, 12px);
-    border-radius: 10px;
-    background: var(--color-primary-grey-20, #F7F7F7);
-    margin-bottom: var(--size-32);
-    color: var(--color-primary-grey-60, #555);
-    font-size: var(--size-14, 14px);
-    font-weight: var(--fontweight-book);
-    line-height: 150%; /* 21px */
-    display: none;
-
-    &.active {
-        display: flex;
-    }
-}
-
 @media (width < 860px) {
-    .instructions {
+    .product-identifier-guide-container {
         min-height: auto;
 
-        .title {
+        .guide-title {
             font-size: var(--size-24, 24px);
             line-height: 120%; /* 29px */
             letter-spacing: 0;
         }
     }
 
-    .tab-container {
+    .category-tabs {
         gap: var(--size-40, 40px);
         overflow-x: auto;
         scroll-snap-type: x mandatory;
@@ -150,7 +155,7 @@
         margin: 0 calc(var(--common-padding) * -1) var(--size-32);
         padding: 0 var(--common-padding);
 
-        .tab {
+        .category-tab {
             font-size: var(--size-18, 18px);
             line-height: 130%; /* 21px */
             text-transform: capitalize;
@@ -162,7 +167,7 @@
         }
     }
 
-    .tab-description {
+    .category-description {
         line-height: 150%; /* 18px */
         padding: var(--size-20) var(--size-24);
         border-radius: var(--size-12);
@@ -173,7 +178,7 @@
         font-weight: var(--fontweight-book);
     }
 
-    .step-groups {
+    .guide-steps {
         flex-wrap: nowrap;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
