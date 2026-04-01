@@ -1,12 +1,16 @@
 .product-category-guide {
-  min-height: 500px;
+  min-height: var(--size-100);
+  margin-bottom: var(--size-32);
 
   .category-tab {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     padding: var(--size-8, 8px) 0;
-    border-bottom: var(--size-3, 3px) solid transparent;
     line-height: 120%;
     font-weight: var(--fontweight-book);
     color: var(--color-primary-grey-70);
+    margin-bottom: var(--size-32);
   }
 
   .category-description {
@@ -21,17 +25,13 @@
     font-size: var(--size-14, 14px);
     font-weight: var(--fontweight-book);
     line-height: 150%; /* 21px */
+    display: flex;
   }
 
   .step-groups {
-    flex-direction: row;
+    flex-flow: row wrap;
     gap: var(--size-32, 32px);
     display: flex;
-    flex-wrap: wrap;
-
-    &.active, &[data-aue-*] {
-      display: flex;
-    }
 
     .step {
       display: flex;
@@ -43,7 +43,6 @@
         display: block;
         width: 100%;
         height: calc(234/var(--breakpoint-pc) *100vw);
-        aspect-ratio: 85/78;
         border-radius: var(--size-20, 20px);
         overflow: hidden;
               
@@ -84,6 +83,36 @@
           font-size: var(--size-16, 16px);
           font-weight: var(--fontweight-medium);
           line-height: 150%; /* 24px */
+        }
+      }
+    }
+  }
+}
+
+@media (width < 860px) {
+  .product-category-guide {
+    .step-groups {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
+      scroll-behavior: smooth; /* 平滑滚动 */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE/Edge */
+      touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
+      overscroll-behavior-x: contain; /* 防止滚动链 */
+      grid-auto-flow: column;
+      margin: 0 calc(var(--common-padding) * -1);
+      padding: 0 var(--common-padding);
+      
+      .step {
+        .step-image {
+          width: calc(300 /var(--breakpoint-mobile) *100vw);
+          height: auto;
+        }
+
+        .text-content {
+          padding: 0 var(--size-16);
         }
       }
     }

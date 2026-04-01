@@ -1,5 +1,5 @@
 .product-identifier-guide-container {
-    min-height:calc(597/var(--breakpoint-pc) * 100vw);
+    min-height:calc(100/var(--breakpoint-pc) * 100vw);
 
     .guide-title {
         color: var(--color-primary-grey-100);
@@ -59,10 +59,9 @@
 }
 
 .guide-steps {
-    flex-direction: row;
+    flex-flow: row wrap;
     gap: var(--size-32, 32px);
     display: flex;
-    flex-wrap: wrap;
 
     .step {
         display: none;
@@ -78,7 +77,6 @@
             display: block;
             width: 100%;
             height: calc(234/var(--breakpoint-pc) *100vw);
-            aspect-ratio: 85/78;
             border-radius: var(--size-20, 20px);
             overflow: hidden;
             
@@ -195,7 +193,6 @@
         .step {
             .step-image {
                 width: calc(300 /var(--breakpoint-mobile) *100vw);
-                aspect-ratio: 85/49;
                 height: auto;
             }
 

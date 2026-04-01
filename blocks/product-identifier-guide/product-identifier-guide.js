@@ -18,7 +18,7 @@ export default function decorate(block) {
     if (c === 0) return;
     const childBlock = child.firstElementChild;
 
-    [...childBlock.children].forEach((grandChild, g) => {
+    [...childBlock.children].forEach((grandChild) => {
       grandChild.className = grandChild.firstElementChild?.textContent.trim();
       grandChild.firstElementChild.remove();
 
