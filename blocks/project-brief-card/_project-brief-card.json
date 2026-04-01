@@ -13,7 +13,7 @@
               "filter": "project-brief-card",
               "key-value": true,
               "page-size": "10",
-              "text_info":"info"
+              "text_info": "info"
             }
           }
         }
@@ -64,32 +64,37 @@
           "component": "reference",
           "name": "item-Image",
           "label": "Item Image",
-          "valueType": "string"
+          "valueType": "string",
+           "required": true
         },
          {
           "component": "text",
           "name": "text_info",
           "label": "Info",
-          "valueType": "string"
+          "valueType": "string",
+          "value":" "
         },
         {
           "component": "text",
           "name": "text_title",
           "label": "Title",
-          "valueType": "string"
+          "valueType": "string",
+           "value":" "
           
         },
         {
           "component": "text",
           "name": "text_text",
           "label": "Text",
-          "valueType": "string"
+          "valueType": "string",
+           "value":" "
         },
          {
           "component": "text",
           "name": "text_location",
           "label": "Location",
           "valueType": "string"
+          
         }
        
       ]
