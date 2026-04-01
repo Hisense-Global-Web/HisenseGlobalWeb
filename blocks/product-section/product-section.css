@@ -142,6 +142,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 .pdp-size {
   width: var(--size-32);
   height: var(--size-28);
+  line-height: var(--size-28);
   border: 1px solid var(--color-primary-grey-40);
   color: var(--color-primary-grey-50);
   border-radius: var(--size-6);
@@ -456,12 +457,13 @@ main .section.product-gallery-container.product-section-container .product-secti
   
   .pdp-btn-group {
     order: 7;
+    flex-direction: column;
 
     .pdp-buy-btn.ps-widget[ps-sku],
     .pdp-cart-btn {
       height: var(--size-60);
       border-radius: var(--size-100);
-      font-size: var(--size-16);
+      font-size: var(--size-18);
       line-height: 1.5;
       max-width: unset;
     }
