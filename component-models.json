@@ -660,8 +660,7 @@
         "component": "boolean",
         "name": "show_greencircle",
         "label": "Show Green Circle",
-        "valueType": "boolean",
-        "value": false
+        "valueType": "boolean"
       },
       {
         "component": "text",
@@ -687,7 +686,6 @@
       {
         "component": "select",
         "name": "button-display",
-        "value": "pc-and-mobile",
         "label": "Button Display Options",
         "valueType": "string",
         "options": [
@@ -726,7 +724,6 @@
       {
         "component": "select",
         "name": "button-style",
-        "value": "white",
         "label": "Button Style",
         "valueType": "string",
         "options": [

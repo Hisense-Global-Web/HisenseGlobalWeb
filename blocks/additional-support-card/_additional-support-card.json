@@ -26,7 +26,10 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Additional Support Card Item",
-              "model": "additional-support-card-item"
+              "model": "additional-support-card-item",
+              "show_greencircle": false,
+              "button-display": "pc-and-mobile",
+              "button-style": "white"
             }
           }
         }
@@ -62,8 +65,7 @@
           "component": "boolean",
           "name": "show_greencircle",
           "label": "Show Green Circle",
-          "valueType": "boolean",
-          "value": false
+          "valueType": "boolean"
         },
         {
           "component": "text",
@@ -89,7 +91,6 @@
         {
           "component": "select",
           "name": "button-display",
-          "value": "pc-and-mobile",
           "label": "Button Display Options",
           "valueType": "string",
           "options": [
@@ -128,7 +129,6 @@
         {
           "component": "select",
           "name": "button-style",
-          "value": "white",
           "label": "Button Style",
           "valueType": "string",
           "options": [

@@ -200,7 +200,10 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Additional Support Card Item",
-                  "model": "additional-support-card-item"
+                  "model": "additional-support-card-item",
+                  "show_greencircle": false,
+                  "button-display": "pc-and-mobile",
+                  "button-style": "white"
                 }
               }
             }
