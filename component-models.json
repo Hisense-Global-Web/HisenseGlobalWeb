@@ -4753,6 +4753,12 @@
       },
       {
         "component": "text",
+        "name": "subtext",
+        "label": "Sub Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "name": "location",
         "label": "Location",
         "valueType": "string"

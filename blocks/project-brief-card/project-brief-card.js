@@ -120,13 +120,13 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 
 const generateCard = (info) => {
   info?.classList?.add?.('info-list-card');
-  const [documentIconEl, titleContainerEl] = info?.children ?? [];
+  const [documentIconEl, infoEL, titleEl, textEl, subTextEl, locationEl] = info?.children ?? [];
+
+  const wrapper = document.createElement('div');
 
   // card 左侧: icon
   documentIconEl?.classList?.add?.('card-image');
 
-  titleContainerEl?.classList?.add?.('title-container');
-  const [infoEL, titleEl, textEl, locationEl] = titleContainerEl?.children ?? [];
   if (infoEL) {
     infoEL.classList.add('card-info');
   }
@@ -136,6 +136,10 @@ const generateCard = (info) => {
   if (textEl) {
     textEl.classList.add('card-text');
   }
+  if (subTextEl) {
+    subTextEl.classList.add('card-text');
+  }
+
   if (locationEl) {
     locationEl.classList.add('card-location');
     locationEl.classList.add('meta-item');
@@ -145,6 +149,9 @@ const generateCard = (info) => {
     iconImg.classList.add('meta-icon');
     locationEl.appendChild(iconImg);
   }
+  wrapper.append(infoEL, titleEl, textEl, subTextEl, locationEl);
+  wrapper.className = 'title-container';
+  info.replaceChildren(documentIconEl, wrapper);
 };
 
 /**

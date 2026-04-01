@@ -78,12 +78,17 @@
           "name": "title",
           "label": "Title",
           "valueType": "string"
-          
         },
         {
           "component": "text",
           "name": "text",
           "label": "Text",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "subtext",
+          "label": "Sub Text",
           "valueType": "string"
         },
          {
