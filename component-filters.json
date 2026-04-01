@@ -30,6 +30,7 @@
       "card-grid",
       "category-carousel",
       "category-support-card",
+      "collapse-list",
       "collection-banner",
       "collection-cards",
       "collection-title",
@@ -230,6 +231,12 @@
     "id": "category-support-card",
     "components": [
       "category-support-card-item"
+    ]
+  },
+  {
+    "id": "collapse-list",
+    "components": [
+      "collapse-item"
     ]
   },
   {
