@@ -2225,7 +2225,7 @@
                   "filter": "project-brief-card",
                   "key-value": true,
                   "page-size": "10",
-                  "text_info": "info"
+                  "info": "info"
                 }
               }
             }

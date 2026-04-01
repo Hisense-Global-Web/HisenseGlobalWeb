@@ -4735,28 +4735,25 @@
       },
       {
         "component": "text",
-        "name": "text_info",
+        "name": "info",
         "label": "Info",
-        "valueType": "string",
-        "value": " "
+        "valueType": "string"
       },
       {
         "component": "text",
-        "name": "text_title",
+        "name": "title",
         "label": "Title",
-        "valueType": "string",
-        "value": " "
+        "valueType": "string"
       },
       {
         "component": "text",
-        "name": "text_text",
+        "name": "text",
         "label": "Text",
-        "valueType": "string",
-        "value": " "
+        "valueType": "string"
       },
       {
         "component": "text",
-        "name": "text_location",
+        "name": "location",
         "label": "Location",
         "valueType": "string"
       }
