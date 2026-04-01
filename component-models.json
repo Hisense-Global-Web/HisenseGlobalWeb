@@ -500,6 +500,162 @@
     ]
   },
   {
+    "id": "announcement",
+    "fields": [
+      {
+        "component": "select",
+        "name": "style_popup",
+        "value": "popup-module-container",
+        "label": "Popup module classes options",
+        "valueType": "string",
+        "hidden": true,
+        "options": [
+          {
+            "name": "Popup Module Container",
+            "value": "popup-module-container"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_announcement",
+        "value": "",
+        "label": "Popup Announcement classes options",
+        "valueType": "string",
+        "hidden": true,
+        "options": [
+          {
+            "name": "Popup Announcement",
+            "value": "popup-announcement"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "style_popupVisibility",
+        "label": "Popup visibility options",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Popup Show",
+            "value": "popup-show"
+          },
+          {
+            "name": "Popup Hide",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "text",
+        "name": "id",
+        "label": "Section ID",
+        "description": "Enter a unique ID."
+      }
+    ]
+  },
+  {
+    "id": "product-identifier-guide",
+    "fields": [
+      {
+        "component": "select",
+        "name": "style_guide",
+        "value": "product-identifier-guide-container",
+        "label": "Product Identifier Guide classes",
+        "valueType": "string",
+        "hidden": true,
+        "options": [
+          {
+            "name": "product-identifier-guide-container",
+            "value": "product-identifier-guide-container"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string",
+        "description": "The label shown for this section on the page"
+      },
+      {
+        "component": "container",
+        "label": "Section Spacing",
+        "name": "container_padding",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "select",
+            "name": "style_paddingTop",
+            "label": "Padding Top",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Small (40px)",
+                "value": "pt-s"
+              },
+              {
+                "name": "Medium (60px)",
+                "value": "pt-m"
+              },
+              {
+                "name": "Large (80px)",
+                "value": "pt-l"
+              },
+              {
+                "name": "Extra Large (120px)",
+                "value": "pt-xl"
+              }
+            ]
+          },
+          {
+            "component": "select",
+            "name": "style_paddingBottom",
+            "label": "Padding Bottom",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Small (40px)",
+                "value": "pb-s"
+              },
+              {
+                "name": "Medium (60px)",
+                "value": "pb-m"
+              },
+              {
+                "name": "Large (80px)",
+                "value": "pb-l"
+              },
+              {
+                "name": "Extra Large (120px)",
+                "value": "pb-xl"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "about-hisense-module-title",
     "fields": [
       {
@@ -607,6 +763,27 @@
         "name": "text_subtitle",
         "label": "Sub Title",
         "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "adaptive-images",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image-for-mobile",
+        "label": "Image For Mobile",
+        "multi": false,
         "required": true
       }
     ]
@@ -2505,6 +2682,71 @@
     ]
   },
   {
+    "id": "gray-tips",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "guide-list",
+    "fields": [
+      {
+        "component": "number",
+        "name": "page_size",
+        "label": "Items per page",
+        "description": "How many items to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "no_result",
+        "label": "no result content",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "document_icon",
+        "label": "Document Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "pc_downloadtext",
+        "label": "PC: Download Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "pc_downladicon",
+        "label": "PC: Download Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "mobile-downloadicon",
+        "label": "Mobile: Download Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobile-nexttext",
+        "label": "Mobile: Next Page Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "headline",
     "fields": [
       {
@@ -3890,7 +4132,6 @@
         "name": "page-header-style",
         "label": "Page Header Style",
         "valueType": "string",
-        "value": "align-center",
         "options": [
           {
             "name": "Text Align Center(default)",
@@ -3907,7 +4148,6 @@
         "name": "title-style",
         "label": "Title Style",
         "valueType": "string",
-        "value": "text-green-50",
         "options": [
           {
             "name": "Green 50",
@@ -3922,14 +4162,12 @@
       {
         "component": "text",
         "name": "title",
-        "value": "",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "subtitle",
-        "value": "",
         "label": "Subtitle",
         "valueType": "string"
       }
@@ -4370,6 +4608,47 @@
     ]
   },
   {
+    "id": "product-category-guide",
+    "fields": [
+      {
+        "component": "text",
+        "name": "category-tab",
+        "label": "Category Tab Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "category-description",
+        "label": "Product Category Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "product-guide-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "step_hint",
+        "label": "Step Hint",
+        "valueType": "string",
+        "hidden": true
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Step Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Step Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "product-filter",
     "fields": []
   },
@@ -4730,29 +5009,36 @@
         "component": "reference",
         "name": "item-Image",
         "label": "Item Image",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",
-        "name": "text_info",
+        "name": "info",
         "label": "Info",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "text_title",
+        "name": "title",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "text_text",
+        "name": "text",
         "label": "Text",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "text_location",
+        "name": "subtext",
+        "label": "Sub Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "location",
         "label": "Location",
         "valueType": "string"
       }

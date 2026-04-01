@@ -68,8 +68,8 @@
           font-weight: var(--fontweight-medium, 500);
           line-height: 1.2;
           overflow: hidden;
-          white-space: nowrap;
           text-overflow: ellipsis;
+          word-break: break-all;
 
           @media (width<860px) {
             line-height: 1.3;

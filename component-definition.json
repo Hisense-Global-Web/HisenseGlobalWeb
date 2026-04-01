@@ -88,6 +88,40 @@
               }
             }
           }
+        },
+        {
+          "title": "Announcement",
+          "id": "announcement",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Announcement",
+                  "model": "announcement",
+                  "filter": "announcement",
+                  "style_announcement": "popup-announcement",
+                  "style_popupVisibility": ""
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Product Identifier Guide",
+          "id": "product-identifier-guide",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Product Identifier Guide",
+                  "model": "product-identifier-guide",
+                  "filter": "product-identifier-guide"
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -153,6 +187,22 @@
                 "template": {
                   "name": "Accessories Feature Item",
                   "model": "accessories-feature-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Adaptive Images",
+          "id": "adaptive-images",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Adaptive Images",
+                  "model": "adaptive-images",
+                  "filter": "adaptive-images"
                 }
               }
             }
@@ -1223,6 +1273,43 @@
           }
         },
         {
+          "title": "Gray Tips",
+          "id": "gray-tips",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Gray Tips",
+                  "model": "gray-tips"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Guide List",
+          "id": "guide-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Guide List",
+                  "model": "guide-list",
+                  "no_result": "No items found.",
+                  "page_size": 10,
+                  "document_icon": "/content/dam/hisense/us/common-icons/document.svg",
+                  "pc_downloadtext": "Download",
+                  "pc_downladicon": "/content/dam/hisense/us/common-icons/download-white.svg",
+                  "mobile-downloadicon": "/content/dam/hisense/us/common-icons/download.svg",
+                  "mobile-nexttext": "Load More"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Headline",
           "id": "headline",
           "plugins": {
@@ -1805,7 +1892,9 @@
                 "template": {
                   "name": "Page Header",
                   "model": "page-header",
-                  "classes": "page-header"
+                  "classes": "page-header",
+                  "page-header-style": "align-center",
+                  "title-style": "text-green-50"
                 }
               }
             }
@@ -2039,6 +2128,39 @@
           }
         },
         {
+          "title": "Product Category Guide",
+          "id": "product-category-guide",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Product Category Guide",
+                  "model": "product-category-guide",
+                  "filter": "product-category-guide",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Product Guide Item",
+          "id": "product-guide-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Product Guide Item",
+                  "model": "product-guide-item",
+                  "step_hint": "step"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Product Filter ",
           "id": "product-filter",
           "plugins": {
@@ -2224,7 +2346,8 @@
                   "model": "project-brief-card",
                   "filter": "project-brief-card",
                   "key-value": true,
-                  "page-size": "10"
+                  "page-size": "10",
+                  "info": "info"
                 }
               }
             }

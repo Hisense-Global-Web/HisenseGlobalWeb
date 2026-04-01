@@ -24,6 +24,12 @@
         },
         {
           "...": "./_popup-module.json#/definitions"
+        },
+        {
+          "...": "./_announcement.json#/definitions"
+        },
+        {
+          "...": "./_product-identifier-guide.json#/definitions"
         }
       ]
     },

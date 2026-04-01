@@ -192,6 +192,7 @@
   height: 66px;
   display: flex;
   justify-content: space-between;
+  gap: 48px;
   box-sizing: border-box;
   background: #fff;
   max-width: inherit;
