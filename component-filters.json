@@ -145,7 +145,8 @@
       "exception-page",
       "accessories-feature",
       "calltoaction-banner",
-      "project-brief-card"
+      "project-brief-card",
+      "after-sales"
     ]
   },
   {
@@ -174,6 +175,12 @@
     "id": "additional-support-card",
     "components": [
       "additional-support-card-item"
+    ]
+  },
+  {
+    "id": "after-sales",
+    "components": [
+      "after-sales-item"
     ]
   },
   {

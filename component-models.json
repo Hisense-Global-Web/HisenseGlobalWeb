@@ -719,6 +719,52 @@
     ]
   },
   {
+    "id": "after-sales",
+    "fields": [
+      {
+        "component": "text",
+        "name": "area",
+        "label": "Area",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "after-sales-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "info",
+        "label": "Info",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtext",
+        "label": "Sub Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "location",
+        "label": "Location",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "text-body-image",
     "classes": "text-body-image",
     "fields": [
