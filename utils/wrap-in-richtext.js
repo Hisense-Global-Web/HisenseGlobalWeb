@@ -37,6 +37,10 @@ export default function wrapInRichtext(element) {
         const wrapEl = document.createElement('br');
         element.insertAdjacentElement('afterend', wrapEl);
       }
+
+      if (element.textContent.trim() === '') {
+        element.remove();
+      }
     }
   } else {
     // recursively process children

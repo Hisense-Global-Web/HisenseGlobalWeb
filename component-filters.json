@@ -4,6 +4,8 @@
     "components": [
       "section",
       "popup-module",
+      "announcement",
+      "product-identifier-guide",
       "navigation",
       "company-page-navigation",
       "support-navigation",
@@ -158,6 +160,19 @@
       "popup-key-stats",
       "popup-image",
       "stats-grid"
+    ]
+  },
+  {
+    "id": "announcement",
+    "components": [
+      "page-header",
+      "legal-content"
+    ]
+  },
+  {
+    "id": "product-identifier-guide",
+    "components": [
+      "product-category-guide"
     ]
   },
   {
@@ -427,6 +442,12 @@
     "id": "popup-key-stats",
     "components": [
       "tech-items"
+    ]
+  },
+  {
+    "id": "product-category-guide",
+    "components": [
+      "product-guide-item"
     ]
   },
   {
