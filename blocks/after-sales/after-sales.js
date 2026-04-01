@@ -5,38 +5,12 @@
 
 const generateCard = (info) => {
   info?.classList?.add?.('info-list-card');
-  const [documentIconEl, infoEL, titleEl, textEl, subTextEl, locationEl] = info?.children ?? [];
+  // eslint-disable-next-line no-unsafe-optional-chaining
+  [...info?.children].forEach((item) =>{
+  
+  })
 
-  const wrapper = document.createElement('div');
 
-  // card 左侧: icon
-  documentIconEl?.classList?.add?.('card-image');
-
-  if (infoEL) {
-    infoEL.classList.add('card-info');
-  }
-  if (titleEl) {
-    titleEl.classList.add('card-title');
-  }
-  if (textEl) {
-    textEl.classList.add('card-text');
-  }
-  if (subTextEl) {
-    subTextEl.classList.add('card-text');
-  }
-
-  if (locationEl) {
-    locationEl.classList.add('card-location');
-    locationEl.classList.add('meta-item');
-    const iconImg = document.createElement('img');
-    iconImg.src = '/resources/location-icon.svg';
-    iconImg.alt = '';
-    iconImg.classList.add('meta-icon');
-    locationEl.appendChild(iconImg);
-  }
-  wrapper.append(infoEL, titleEl, textEl, subTextEl, locationEl);
-  wrapper.className = 'title-container';
-  info.replaceChildren(documentIconEl, wrapper);
 };
 
 /**
@@ -44,10 +18,9 @@ const generateCard = (info) => {
  */
 export default function decorate(block) {
   // const config = readBlockConfig(block);
-  const [pageSizeEl, noResultEl, ...infoList] = [...block.children];
-
-  pageSizeEl?.remove?.();
-  noResultEl?.remove?.();
+  const [area, ...infoList] = [...block.children];
+    console.log(area);
+    area?.parentNode?.parentNode?.setAttribute('data-tag', area.lastElementChild.textContent?.trim());
 
   infoList?.forEach((info) => {
     generateCard(info);
