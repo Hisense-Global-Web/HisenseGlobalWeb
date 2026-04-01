@@ -17,6 +17,7 @@
       "about-hisense-module-title",
       "about-hisense-section-title",
       "accessories-feature",
+      "adaptive-images",
       "addional-support-card",
       "article-body",
       "article-body-list",
@@ -162,6 +163,10 @@
     "components": [
       "accessories-feature-item"
     ]
+  },
+  {
+    "id": "adaptive-images",
+    "components": []
   },
   {
     "id": "additional-support-card",

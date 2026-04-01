@@ -612,6 +612,27 @@
     ]
   },
   {
+    "id": "adaptive-images",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image-for-mobile",
+        "label": "Image For Mobile",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "additional-support-card-item",
     "fields": [
       {
