@@ -4812,29 +4812,36 @@
         "component": "reference",
         "name": "item-Image",
         "label": "Item Image",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",
-        "name": "text_info",
+        "name": "info",
         "label": "Info",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "text_title",
+        "name": "title",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "text_text",
+        "name": "text",
         "label": "Text",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "text_location",
+        "name": "subtext",
+        "label": "Sub Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "location",
         "label": "Location",
         "valueType": "string"
       }
