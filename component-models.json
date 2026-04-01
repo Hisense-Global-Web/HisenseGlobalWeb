@@ -2505,6 +2505,23 @@
     ]
   },
   {
+    "id": "gray-tips",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "guide-list",
     "fields": [
       {
