@@ -657,6 +657,13 @@
         "valueType": "string"
       },
       {
+        "component": "boolean",
+        "name": "show_greencircle",
+        "label": "Show Green Circle",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
         "component": "text",
         "name": "time_workingHours",
         "value": "",
@@ -713,6 +720,23 @@
             "label": "Button Link",
             "valueType": "string",
             "value": ""
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "button-style",
+        "value": "white",
+        "label": "Button Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "White",
+            "value": "white"
+          },
+          {
+            "name": "Green 60",
+            "value": "green60"
           }
         ]
       }

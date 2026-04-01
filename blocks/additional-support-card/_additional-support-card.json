@@ -11,7 +11,6 @@
               "name": "Additional Support Card",
               "model": "additional-support-card",
               "classes": "additional-support-card",
-              "key-value": true,
               "filter": "additional-support-card"
             }
           }
@@ -27,8 +26,7 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Additional Support Card Item",
-              "model": "additional-support-card-item",
-              "key-value": true
+              "model": "additional-support-card-item"
             }
           }
         }
@@ -59,6 +57,13 @@
           "value": "",
           "label": "Subtitle",
           "valueType": "string"
+        },
+        {
+          "component": "boolean",
+          "name": "show_greencircle",
+          "label": "Show Green Circle",
+          "valueType": "boolean",
+          "value": false
         },
         {
           "component": "text",
@@ -117,6 +122,23 @@
               "label": "Button Link",
               "valueType": "string",
               "value": ""
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "button-style",
+          "value": "white",
+          "label": "Button Style",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "White",
+              "value": "white"
+            },
+            {
+              "name": "Green 60",
+              "value": "green60"
             }
           ]
         }

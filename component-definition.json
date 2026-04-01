@@ -185,7 +185,6 @@
                   "name": "Additional Support Card",
                   "model": "additional-support-card",
                   "classes": "additional-support-card",
-                  "key-value": true,
                   "filter": "additional-support-card"
                 }
               }
@@ -201,8 +200,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Additional Support Card Item",
-                  "model": "additional-support-card-item",
-                  "key-value": true
+                  "model": "additional-support-card-item"
                 }
               }
             }
