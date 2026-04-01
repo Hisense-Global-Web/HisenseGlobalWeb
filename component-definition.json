@@ -2346,8 +2346,7 @@
                   "model": "project-brief-card",
                   "filter": "project-brief-card",
                   "key-value": true,
-                  "page-size": "10",
-                  "info": "info"
+                  "page-size": "10"
                 }
               }
             }
