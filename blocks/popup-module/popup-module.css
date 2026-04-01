@@ -81,27 +81,6 @@ main .section.popup-module-container {
     }
   }
 
-  &.dark {
-    .popup-container, .legal-content p, ul, ol, li {
-      color: var(--color-primary-grey-10);
-      background-color: var(--color-hisense-black);
-
-      .popup-content-container::-webkit-scrollbar {
-        background-color: var(--color-hisense-black);
-      }
-      
-      .popup-content-container::-webkit-scrollbar-track {
-        background-color: var(--color-hisense-black);
-      }
-
-      .popup-content-container::-webkit-scrollbar-thumb {
-          background-color: #585858;  /* 滑块颜色 (深灰色或浅黑) */
-          border-radius: 100px;       /* 滑块圆角 */
-          border: 2px solid #000;  /* 在滑块周围加点边框，使其与轨道有区分 */
-      }
-    }
-  }
-
   &.popup-announcement {
     .popup-content-container {
       gap: var(--size-16);
@@ -139,7 +118,7 @@ main .section.popup-module-container {
       }
     }
 
-     &.popup-announcement {
+    &.popup-announcement {
       .popup-content-container {
         gap: var(--size-8);
       }

@@ -11,7 +11,6 @@
               "name": "Announcement",
               "model": "announcement",
               "filter": "announcement",
-              "style_theme": "light",
               "style_announcement": "popup-announcement",
               "style_popupVisibility": ""
             }
@@ -76,19 +75,10 @@
           "description": "The label shown for this section in the Content Tree"
         },
         {
-          "component": "select",
-          "name": "style_theme",
-          "label": "Theme",
-          "options": [
-            {
-              "name": "Light(default)",
-              "value": "light"
-            },
-            {
-              "name": "Dark",
-              "value": "dark"
-            }
-          ]
+          "component": "text",
+          "name": "id",
+          "label": "Section ID",
+          "description": "Enter a unique ID."
         }
       ]
     }

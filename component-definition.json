@@ -100,7 +100,6 @@
                   "name": "Announcement",
                   "model": "announcement",
                   "filter": "announcement",
-                  "style_theme": "light",
                   "style_announcement": "popup-announcement",
                   "style_popupVisibility": ""
                 }
