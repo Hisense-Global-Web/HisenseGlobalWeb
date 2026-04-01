@@ -19,7 +19,9 @@ export default function decorate(block) {
     const textContent = document.createElement('div');
     textContent.className = 'text-content';
     textContent.innerHTML = `
-    <div class="step-number">${index + 1}</div>`;
+    <div class="step-number">
+      <span class="step-number-text">${index + 1}</span>
+    </div>`;
     step.lastElementChild.classList.add('step-description');
     textContent.appendChild(step.lastElementChild);
     step.append(textContent);
