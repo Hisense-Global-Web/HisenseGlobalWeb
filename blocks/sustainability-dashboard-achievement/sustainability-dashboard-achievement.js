@@ -45,8 +45,6 @@ export default function decorate(block) {
     const items = document.createElement('div');
     items.className = 'highlights-block-items';
     block.querySelectorAll('.highlights-block-item').forEach((highlightsItem) => {
-      highlightsItem.lastElementChild.className = highlightsItem.firstElementChild.textContent.trim();
-      if (highlightsItem.lastElementChild.className) highlightsItem.firstElementChild.remove();
       items.append(highlightsItem);
     });
     textArea.appendChild(items);
