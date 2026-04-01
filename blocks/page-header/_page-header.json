@@ -10,7 +10,9 @@
             "template": {
               "name": "Page Header",
               "model": "page-header",
-              "classes": "page-header"
+              "classes": "page-header",
+              "page-header-style": "align-center",
+              "title-style": "text-green-50"
             }
           }
         }
@@ -26,7 +28,6 @@
           "name": "page-header-style",
           "label": "Page Header Style",
           "valueType": "string",
-          "value": "align-center",
           "options": [
             {
               "name": "Text Align Center(default)",
@@ -43,7 +44,6 @@
           "name": "title-style",
           "label": "Title Style",
           "valueType": "string",
-          "value": "text-green-50",
           "options": [
             {
               "name": "Green 50",
@@ -58,14 +58,12 @@
         {
           "component": "text",
           "name": "title",
-          "value": "",
           "label": "Title",
           "valueType": "string"
         },
         {
           "component": "text",
           "name": "subtitle",
-          "value": "",
           "label": "Subtitle",
           "valueType": "string"
         }
