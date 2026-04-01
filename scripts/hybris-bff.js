@@ -23,6 +23,7 @@ let authStatusPromise = null;
 let authInitializationPromise = null;
 const productCache = new Map();
 let guestCartIdentifier = '';
+let guestCartEnsurePromise = null;
 
 function emitHybrisDataEvent(type, data = null) {
   if (typeof window === 'undefined' || !type) {
@@ -100,6 +101,12 @@ function hasUsableAuthState(state = authState) {
 
 function clearStoredAuthState() {
   try {
+    localStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+
+  try {
     sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
   } catch (error) {
     // ignore storage failures
@@ -108,6 +115,12 @@ function clearStoredAuthState() {
 
 function clearStoredGuestCartIdentifier() {
   guestCartIdentifier = '';
+  try {
+    localStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+
   try {
     sessionStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
   } catch (error) {
@@ -121,21 +134,48 @@ function readStoredAuthState() {
   }
 
   try {
-    const rawValue = sessionStorage.getItem(HYBRIS_AUTH_STATE_KEY);
-    if (!rawValue) {
-      return null;
+    const rawSharedValue = localStorage.getItem(HYBRIS_AUTH_STATE_KEY);
+    if (!rawSharedValue) {
+      throw new Error('No shared auth state');
     }
 
-    const parsedState = normalizeAuthState(JSON.parse(rawValue));
+    const parsedState = normalizeAuthState(JSON.parse(rawSharedValue));
     if (!hasUsableAuthState(parsedState)) {
-      sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
-      return null;
+      localStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+      throw new Error('Shared auth state is not usable');
     }
 
     return parsedState;
   } catch (error) {
-    clearStoredAuthState();
-    return null;
+    try {
+      const rawLegacyValue = sessionStorage.getItem(HYBRIS_AUTH_STATE_KEY);
+      if (!rawLegacyValue) {
+        return null;
+      }
+
+      const parsedLegacyState = normalizeAuthState(JSON.parse(rawLegacyValue));
+      if (!hasUsableAuthState(parsedLegacyState)) {
+        sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+        return null;
+      }
+
+      try {
+        localStorage.setItem(HYBRIS_AUTH_STATE_KEY, JSON.stringify(parsedLegacyState));
+      } catch (storageError) {
+        // ignore storage failures
+      }
+
+      try {
+        sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+      } catch (sessionError) {
+        // ignore storage failures
+      }
+
+      return parsedLegacyState;
+    } catch (legacyError) {
+      clearStoredAuthState();
+      return null;
+    }
   }
 }
 
@@ -145,7 +185,33 @@ function readStoredGuestCartIdentifier() {
   }
 
   try {
-    return String(sessionStorage.getItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY) || '').trim();
+    const sharedIdentifier = String(localStorage.getItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY) || '').trim();
+    if (sharedIdentifier) {
+      return sharedIdentifier;
+    }
+  } catch (error) {
+    // ignore storage failures
+  }
+
+  try {
+    const legacyIdentifier = String(sessionStorage.getItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY) || '').trim();
+    if (!legacyIdentifier) {
+      return '';
+    }
+
+    guestCartIdentifier = legacyIdentifier;
+    try {
+      localStorage.setItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY, legacyIdentifier);
+    } catch (storageError) {
+      // ignore storage failures
+    }
+    try {
+      sessionStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+    } catch (sessionError) {
+      // ignore storage failures
+    }
+
+    return legacyIdentifier;
   } catch (error) {
     return '';
   }
@@ -160,10 +226,25 @@ function persistAuthState(nextState = {}) {
 
   try {
     if (hasUsableAuthState(normalizedState)) {
-      sessionStorage.setItem(HYBRIS_AUTH_STATE_KEY, JSON.stringify(normalizedState));
+      localStorage.setItem(HYBRIS_AUTH_STATE_KEY, JSON.stringify(normalizedState));
     } else {
-      sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+      localStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
     }
+  } catch (error) {
+    try {
+      if (hasUsableAuthState(normalizedState)) {
+        sessionStorage.setItem(HYBRIS_AUTH_STATE_KEY, JSON.stringify(normalizedState));
+      } else {
+        sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+      }
+    } catch (sessionError) {
+      // ignore storage failures
+    }
+    return;
+  }
+
+  try {
+    sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
   } catch (error) {
     // ignore storage failures
   }
@@ -177,10 +258,25 @@ function persistGuestCartIdentifier(nextIdentifier) {
 
   try {
     if (guestCartIdentifier) {
-      sessionStorage.setItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY, guestCartIdentifier);
+      localStorage.setItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY, guestCartIdentifier);
     } else {
-      sessionStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+      localStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
     }
+  } catch (error) {
+    try {
+      if (guestCartIdentifier) {
+        sessionStorage.setItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY, guestCartIdentifier);
+      } else {
+        sessionStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+      }
+    } catch (sessionError) {
+      // ignore storage failures
+    }
+    return guestCartIdentifier;
+  }
+
+  try {
+    sessionStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
   } catch (error) {
     // ignore storage failures
   }
@@ -221,7 +317,33 @@ function syncGuestCartIdentifierFromCart(cart = null) {
 
 function readSessionToken() {
   try {
-    return sessionStorage.getItem(HYBRIS_SESSION_TOKEN_KEY) || '';
+    const sharedToken = localStorage.getItem(HYBRIS_SESSION_TOKEN_KEY) || '';
+    if (sharedToken) {
+      return sharedToken;
+    }
+  } catch (error) {
+    // ignore storage failures
+  }
+
+  try {
+    const legacyToken = sessionStorage.getItem(HYBRIS_SESSION_TOKEN_KEY) || '';
+    if (!legacyToken) {
+      return '';
+    }
+
+    try {
+      localStorage.setItem(HYBRIS_SESSION_TOKEN_KEY, legacyToken);
+    } catch (storageError) {
+      // ignore storage failures
+    }
+
+    try {
+      sessionStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
+    } catch (sessionError) {
+      // ignore storage failures
+    }
+
+    return legacyToken;
   } catch (error) {
     return '';
   }
@@ -336,6 +458,12 @@ function setGuestCartPresence(present) {
 function clearSessionToken() {
   sessionToken = '';
   try {
+    localStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+
+  try {
     sessionStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
   } catch (error) {
     // ignore storage failures
@@ -350,7 +478,18 @@ function saveSessionToken(nextToken) {
 
   sessionToken = nextToken;
   try {
-    sessionStorage.setItem(HYBRIS_SESSION_TOKEN_KEY, nextToken);
+    localStorage.setItem(HYBRIS_SESSION_TOKEN_KEY, nextToken);
+  } catch (error) {
+    try {
+      sessionStorage.setItem(HYBRIS_SESSION_TOKEN_KEY, nextToken);
+    } catch (sessionError) {
+      // ignore storage failures
+    }
+    return;
+  }
+
+  try {
+    sessionStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
   } catch (error) {
     // ignore storage failures
   }
@@ -850,19 +989,31 @@ async function createHybrisGuestCart(options = {}) {
 }
 
 async function ensureHybrisGuestCart(options = {}) {
-  try {
-    const cart = await fetchHybrisGuestCart(options);
-    if (cart) {
-      setGuestCartPresence(true);
-      return cart;
-    }
-  } catch (error) {
-    if (error.status !== 404 && error.errorCode !== 'GUEST_CART_NOT_FOUND') {
-      throw error;
-    }
+  if (guestCartEnsurePromise) {
+    return guestCartEnsurePromise;
   }
 
-  return createHybrisGuestCart(options);
+  guestCartEnsurePromise = (async () => {
+    try {
+      const cart = await fetchHybrisGuestCart(options);
+      if (cart) {
+        setGuestCartPresence(true);
+        return cart;
+      }
+    } catch (error) {
+      if (error.status !== 404 && error.errorCode !== 'GUEST_CART_NOT_FOUND') {
+        throw error;
+      }
+    }
+
+    return createHybrisGuestCart(options);
+  })();
+
+  try {
+    return await guestCartEnsurePromise;
+  } finally {
+    guestCartEnsurePromise = null;
+  }
 }
 
 export async function fetchHybrisCart(options = {}) {
@@ -1020,22 +1171,18 @@ export async function removeHybrisCartItem(entryNumber, options = {}) {
 
 export async function addHybrisWishlistItem(code, quantity = 1, options = {}) {
   const cartCode = String(options.cartCode || '').trim();
-  if (!cartCode) {
-    throw buildBffError('Wishlist cartCode is required', {
-      status: 0,
-      errorCode: 'INVALID_REQUEST',
-    });
-  }
-
   const { country, language } = buildRegionParams();
+  const body = {
+    code,
+    quantity,
+  };
+  if (cartCode) {
+    body.cartCode = cartCode;
+  }
   const wishlistItem = await bffRequest('/wishlist/items', {
     method: 'POST',
     auth: 'required',
-    body: {
-      cartCode,
-      code,
-      quantity,
-    },
+    body,
     query: {
       country,
       language,
@@ -1049,22 +1196,18 @@ export async function addHybrisWishlistItem(code, quantity = 1, options = {}) {
 
 export async function removeHybrisWishlistItem(entryNumber, options = {}) {
   const cartCode = String(options.cartCode || '').trim();
-  if (!cartCode) {
-    throw buildBffError('Wishlist cartCode is required', {
-      status: 0,
-      errorCode: 'INVALID_REQUEST',
-    });
-  }
-
   const { country, language } = buildRegionParams();
+  const query = {
+    country,
+    language,
+  };
+  if (cartCode) {
+    query.cartCode = cartCode;
+  }
   const removalResult = await bffRequest(`/wishlist/items/${encodeURIComponent(entryNumber)}`, {
     method: 'DELETE',
     auth: 'required',
-    query: {
-      cartCode,
-      country,
-      language,
-    },
+    query,
     redirectOnAuthFailure: options.redirectOnAuthFailure === true,
     returnUrl: options.returnUrl,
   });
@@ -1090,8 +1233,51 @@ function handleHybrisAuthBroadcast(event) {
   window.location.reload();
 }
 
+function handleGuestCartIdentifierStorage(event) {
+  if (event?.key !== HYBRIS_GUEST_CART_IDENTIFIER_KEY || typeof window === 'undefined') {
+    return;
+  }
+
+  guestCartIdentifier = String(event.newValue || '').trim();
+  setGuestCartPresence(Boolean(guestCartIdentifier));
+}
+
+function handleSharedAuthStorage(event) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  if (event?.key === HYBRIS_SESSION_TOKEN_KEY) {
+    sessionToken = String(event.newValue || '').trim();
+    return;
+  }
+
+  if (event?.key !== HYBRIS_AUTH_STATE_KEY) {
+    return;
+  }
+
+  if (!event.newValue) {
+    authState = { ...DEFAULT_AUTH_STATE };
+    authStatusPromise = null;
+    authInitializationPromise = null;
+    syncWindowAuthState();
+    return;
+  }
+
+  try {
+    authState = normalizeAuthState(JSON.parse(event.newValue));
+    authStatusPromise = null;
+    authInitializationPromise = null;
+    syncWindowAuthState();
+  } catch (error) {
+    // ignore invalid storage payloads
+  }
+}
+
 sessionToken = readSessionToken();
 syncWindowAuthState();
 if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
   window.addEventListener('storage', handleHybrisAuthBroadcast);
+  window.addEventListener('storage', handleGuestCartIdentifierStorage);
+  window.addEventListener('storage', handleSharedAuthStorage);
 }

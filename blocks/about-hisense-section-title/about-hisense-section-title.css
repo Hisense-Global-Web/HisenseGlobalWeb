@@ -9,6 +9,10 @@
 
 .about-hisense-section-title-wrapper .center-style > div > div{
   text-align: center ;
+
+   @media (width < 860px) {
+     text-align: left;
+  }
 }
 
 .about-hisense-section-title-wrapper > div > div:first-child div p{
@@ -44,7 +48,7 @@
 .about-hisense-section-title-wrapper > div > div:nth-child(3) div p{
   font-size: var(--size-14);
   line-height: 120%;
-  color:var(--color-primary-grey-90);
+  color:var(--color-primary-grey-80);
   font-weight: var(--fontweight-book);
   
    @media (width >= 860px) {

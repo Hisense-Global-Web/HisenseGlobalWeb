@@ -38,6 +38,7 @@ const DEFAULT_COMMERCE_COUNTS = {
   wishlist: 0,
   coupons: 0,
 };
+const WISHLIST_CART_NAME_PREFIX = 'wishlist';
 const ACCOUNT_COUNT_KEY_BY_LABEL = {
   Orders: 'orders',
   Wishlist: 'wishlist',
@@ -95,7 +96,10 @@ function getCartCount(cart = {}) {
 function getWishlistCount(wishlist = {}) {
   const carts = Array.isArray(wishlist?.carts) ? wishlist.carts : [];
   if (carts.length) {
-    const wishlistCarts = carts.filter((cart) => Boolean(cart && String(cart.name || '').toLowerCase().includes('wishlist')));
+    const wishlistCarts = carts.filter((cart) => {
+      const normalizedName = String(cart?.name || '').trim().toLowerCase();
+      return Boolean(normalizedName && normalizedName.startsWith(WISHLIST_CART_NAME_PREFIX));
+    });
     return wishlistCarts.reduce((sum, cart) => sum + getCartCount(cart), 0);
   }
 
@@ -179,15 +183,16 @@ function buildAccountMenuItem({
   const titleEl = document.createElement('span');
   titleEl.className = 'my-product-title';
   titleEl.textContent = label;
-  link.append(titleEl);
 
   const countText = formatCountBadge(count, { showZero: showZeroCount });
   if (countText) {
     const countEl = document.createElement('span');
     countEl.className = 'my-count-span';
     countEl.textContent = countText;
-    link.append(countEl);
+    titleEl.append(countEl);
   }
+
+  link.append(titleEl);
 
   return link;
 }
@@ -402,7 +407,7 @@ function createAccountDrawer() {
   const divisionLine = document.createElement('div');
   divisionLine.className = 'division-line';
 
-  personEl.append(userEl, divisionLine.cloneNode(true), myItems, divisionLine.cloneNode(true), logoutEl);
+  personEl.append(myItems, divisionLine.cloneNode(true), logoutEl);
 
   return {
     personEl,

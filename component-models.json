@@ -612,6 +612,27 @@
     ]
   },
   {
+    "id": "adaptive-images",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image-for-mobile",
+        "label": "Image For Mobile",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "additional-support-card-item",
     "fields": [
       {
@@ -3319,6 +3340,148 @@
         "name": "button_iconMobile",
         "label": "Cta Icon For Mobile",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "job-cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "graphql",
+        "label": "GraphQL Endpoint",
+        "description": "GraphQL endpoint URL"
+      },
+      {
+        "component": "checkbox-group",
+        "valueType": "string[]",
+        "name": "fields",
+        "label": "Product Fields",
+        "multi": true,
+        "options": [
+          {
+            "name": "Department",
+            "value": "department"
+          },
+          {
+            "name": "Location",
+            "value": "location"
+          },
+          {
+            "name": "Experience",
+            "value": "experience"
+          },
+          {
+            "name": "Salary Range",
+            "value": "salary-range"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "name": "department-icon",
+        "label": "Department Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "department"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "location-icon",
+        "label": "Location Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "location"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "experience-icon",
+        "label": "Experience Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "experience"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "salary-range-icon",
+        "label": "Salary Range Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "salary-range"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreTextContent",
+        "label": "Load More Text Content",
+        "description": "Text content for load more button"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "loadMoreLink",
+        "label": "Load More Link",
+        "description": "Link for load more button"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "noResultMessage",
+        "label": "No Result Message",
+        "description": "Text to display when no result search"
       }
     ]
   },
