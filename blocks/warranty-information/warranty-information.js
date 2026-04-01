@@ -80,8 +80,7 @@ export default async function decorate(block) {
       'televisions',
       '116UXQUA',
     );
-    const warrantyResponse = await fetchJson(warrantyEndpoint);
-    console.log('Fetched warranty data:', warrantyResponse);
+    await fetchJson(warrantyEndpoint);
     const tvObj = {
       product_category: 'Television',
       product_subcategory: 'Television',
