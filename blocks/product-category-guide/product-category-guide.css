@@ -8,7 +8,8 @@
     align-items: center;
     padding: var(--size-8, 8px) 0;
     line-height: 120%;
-    font-weight: var(--fontweight-book);
+    font-weight: var(--fontweight-medium);
+    font-size: var(--size-20);
     color: var(--color-primary-grey-70);
     margin-bottom: var(--size-32);
   }
