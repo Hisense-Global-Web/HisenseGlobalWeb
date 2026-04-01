@@ -6,43 +6,43 @@ const MOCK_DATA = [{
     pdfUrl: 'https://author-p174152-e1855821.adobeaemcloud.com/ui#/aem/assetdetails.html/content/dam/hisense-dev/download/French Door news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 2news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 3news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 4news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 5news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 6news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 7news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 8news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 9news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 10news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 11news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 12news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 13news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/French Door 14news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   }],
 },
 {
@@ -51,43 +51,43 @@ const MOCK_DATA = [{
     pdfUrl: 'https://author-p174152-e1855821.adobeaemcloud.com/ui#/aem/assetdetails.html/content/dam/hisense-dev/download/Bottom Mount news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 1news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 3news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 4news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 5news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 6news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 7news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 8news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 9news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 10news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/0news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 11news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 12news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 13news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Bottom Mount 14news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   }],
 },
 {
@@ -96,43 +96,43 @@ const MOCK_DATA = [{
     pdfUrl: 'https://author-p174152-e1855821.adobeaemcloud.com/ui#/aem/assetdetails.html/content/dam/hisense-dev/download/Compact news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news1news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news2news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news3news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news4news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news5news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news6news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news7news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news8news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news9news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news10news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news11news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news12news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   },
   {
-    pdfUrl: '/content/dam/hisense-dev/download/Compact news13news.pdf',
+    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
   }],
 },
 {
@@ -189,7 +189,7 @@ function buildPaginationControls(container, state, onPageChange) {
   if (total <= limit) {
     return;
   }
-  const paginationEl = container.querySelector('.info-list-pagination');
+  const paginationEl = container.querySelector('.guide-list-pagination');
   if (!paginationEl) return;
 
   paginationEl.textContent = '';
@@ -334,8 +334,7 @@ export default function decorate(block) {
   let tabIndex = 0;
   const [pageSizeEl, noResultEl, documentIconEl, pcDownloadEl, mobileDownloadIconEl, mobileLoadMoreEl] = [...block.children];
   const pageSize = (pageSizeEl?.textContent ?? 10) * 1;
-  const noResult = noResultEl?.textContent?.trim() || 'No items found.';
-  console.log(noResult);
+  const noResultClone = noResultEl?.cloneNode?.(true);
   const documentIcon = documentIconEl?.querySelector('picture') || null;
   if (documentIcon) {
     documentIcon.className = 'document-icon';
@@ -350,6 +349,20 @@ export default function decorate(block) {
   pageSizeEl?.remove();
   noResultEl?.remove();
   mobileLoadMoreEl?.remove();
+
+  const getNoResultContent = () => {
+    const emptyEl = noResultClone?.children?.[0] ?? document.createElement('div');
+    emptyEl.className = 'guide-list-empty-container';
+    if (emptyEl) {
+      const [emptyTitleEl, emptyTextEl] = emptyEl?.children ?? [];
+      if (emptyTitleEl) emptyTitleEl.className = 'guide-list-empty-title';
+      if (emptyTextEl) emptyTextEl.className = 'guide-list-empty-text';
+    } else {
+      emptyEl.textContent = 'No items found.';
+      emptyEl.classList.add('guide-list-empty-title');
+    }
+    return emptyEl;
+  };
 
   const tabsWrapperEl = document.createElement('div');
   tabsWrapperEl.className = 'guide-tabs-wrapper';
@@ -377,11 +390,11 @@ export default function decorate(block) {
       if (data?.length) {
         // PC分页器
         const paginationEl = document.createElement('div');
-        paginationEl.className = 'info-list-pagination';
+        paginationEl.className = 'guide-list-pagination';
 
         // Mobile按钮
         const mobilePaginationEl = document.createElement('div');
-        mobilePaginationEl.className = 'info-list-pagination-mobile';
+        mobilePaginationEl.className = 'guide-list-pagination-mobile';
         const mobileBtn = document.createElement('button');
         mobileBtn.type = 'button';
         mobileBtn.classList.add('page-button');
@@ -389,7 +402,7 @@ export default function decorate(block) {
         mobilePaginationEl.appendChild(mobileBtn);
 
         const noPaginationEl = document.createElement('div');
-        noPaginationEl.className = 'info-list-no-pagination';
+        noPaginationEl.className = 'guide-list-no-pagination';
 
         tabGuideListEl.appendChild(paginationEl);
         tabGuideListEl.appendChild(mobilePaginationEl);
@@ -406,22 +419,6 @@ export default function decorate(block) {
           paginationEl.textContent = '';
           mobileBtn.style.display = 'none';
 
-          if (!totalItems) {
-            const emptyEl = noResultEl?.children?.[1] ?? document.createElement('div');
-            emptyEl.className = 'info-list-empty-container';
-            if (emptyEl) {
-              const [emptyTitleEl, emptyTextEl] = emptyEl?.children ?? [];
-              if (emptyTitleEl) emptyTitleEl.className = 'info-list-empty-title';
-              if (emptyTextEl) emptyTextEl.className = 'info-list-empty-text';
-
-              tabGuideListEl.appendChild(emptyEl);
-            } else {
-              emptyEl.textContent = 'No items found.';
-              emptyEl.classList.add('info-list-empty-title');
-            }
-            return;
-          }
-
           const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
           const safePage = Math.min(Math.max(page, 1), totalPages);
           const startIndex = (safePage - 1) * pageSize;
@@ -435,7 +432,6 @@ export default function decorate(block) {
               tabGuideListEl.insertBefore(guideEl, paginationEl);
             }
           });
-          // tabGuidListWrapperEl.appendChild(tabGuideListEl);
 
           const state = {
             total: totalItems,
@@ -461,11 +457,13 @@ export default function decorate(block) {
         };
         loadPage(1);
       } else {
-        // TODO: 无数据时的处理，目前先隐藏整个列表，后续根据设计调整
+        tabGuideListEl.appendChild(getNoResultContent());
       }
       tabsWrapperEl.appendChild(tabEl);
       tabGuidListWrapperEl.appendChild(tabGuideListEl);
     });
+  } else {
+    tabGuidListWrapperEl.appendChild(getNoResultContent());
   }
   documentIconEl?.remove();
   pcDownloadEl?.remove();

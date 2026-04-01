@@ -195,7 +195,7 @@
 }
 
 /* 分页 */
-.info-list-pagination {
+.guide-list-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -272,7 +272,7 @@
   }
 }
 
-.info-list-pagination-mobile {
+.guide-list-pagination-mobile {
   display: none;
 
   @media (width < 860px) {
@@ -294,7 +294,7 @@
   }
 }
 
-.info-list-no-pagination {
+.guide-list-no-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -315,5 +315,32 @@
     line-height: 1.5;
     font-weight: var(--fontweight-medium);
     cursor: pointer;
+  }
+}
+
+.guide-list-empty-container {
+  .guide-list-empty-title {
+    color: var(--color-primary-grey-100, #000);
+    text-align: center;
+    font-size: var(--fontsize-title1, 24px);
+    font-style: normal;
+    font-weight: var(--fontweight-medium, 500);
+    line-height: 120%;
+  }
+
+  .guide-list-empty-text {
+    margin-top: var(--spacing-xs, 16px);
+    color: var(--color-primary-grey-70, #333);
+    text-align: center;
+    font-size: var(--fontsize-body1, 16px);
+    font-style: normal;
+    line-height: 150%;
+    font-weight: var(--fontweight-book, 400);
+
+    @media (width < 860px) {
+      margin-top: var(--spacing-2xs, 12px);
+      font-size: var(--size-14, 14px);
+      letter-spacing: 0;
+    }
   }
 }

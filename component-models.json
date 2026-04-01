@@ -2546,7 +2546,7 @@
       },
       {
         "component": "text",
-        "name": "mobile-ntexttext",
+        "name": "mobile-nexttext",
         "label": "Mobile: Next Page Text",
         "valueType": "string"
       }
