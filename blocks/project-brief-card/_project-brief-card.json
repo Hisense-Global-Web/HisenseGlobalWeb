@@ -12,7 +12,8 @@
               "model": "project-brief-card",
               "filter": "project-brief-card",
               "key-value": true,
-              "page-size": "10"
+              "page-size": "10",
+              "text_info":"info"
             }
           }
         }
@@ -76,6 +77,7 @@
           "name": "text_title",
           "label": "Title",
           "valueType": "string"
+          
         },
         {
           "component": "text",
