@@ -6,11 +6,10 @@
 const generateCard = (info) => {
   info?.classList?.add?.('info-list-card');
   // eslint-disable-next-line no-unsafe-optional-chaining
-  [...info?.children].forEach((item) =>{
-  
-  })
-
-
+  const [tag, infoEL, title,text1,text2, location]= info?.children ?? [];
+  if (tag) {
+    tag?.parentNode?.parentNode?.setAttribute('data-item-tag', tag.lastElementChild.textContent?.trim())
+  }
 };
 
 /**
@@ -19,8 +18,7 @@ const generateCard = (info) => {
 export default function decorate(block) {
   // const config = readBlockConfig(block);
   const [area, ...infoList] = [...block.children];
-    console.log(area);
-    area?.parentNode?.parentNode?.setAttribute('data-tag', area.lastElementChild.textContent?.trim());
+  area?.parentNode?.parentNode?.setAttribute('data-tag', area.lastElementChild.textContent?.trim());
 
   infoList?.forEach((info) => {
     generateCard(info);

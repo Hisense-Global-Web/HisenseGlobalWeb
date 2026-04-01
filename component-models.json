@@ -734,6 +734,13 @@
     "fields": [
       {
         "component": "text",
+        "name": "tag",
+        "label": "Tag",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
         "name": "info",
         "label": "Info",
         "valueType": "string"
