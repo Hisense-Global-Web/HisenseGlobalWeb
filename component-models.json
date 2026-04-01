@@ -1337,6 +1337,15 @@
     "fields": [
       {
         "component": "text",
+        "name": "component_type",
+        "label": "",
+        "valueType": "string",
+        "value": "collapse-item",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "text",
         "name": "collapse-title",
         "label": "Collapse Title",
         "valueType": "string",
