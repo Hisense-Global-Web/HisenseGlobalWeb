@@ -1,1 +1,24 @@
 /* css */
+
+.adaptive-images {
+  img {
+    display: block;
+    width: 100%;
+  }
+  
+  .pc-image {
+    display: block;
+
+    @media (width < 860px) {
+      display: none;
+    }
+  }
+  
+  .mobile-image {
+    display: none;
+
+    @media (width < 860px) {
+      display: block;
+    }
+  }
+}
