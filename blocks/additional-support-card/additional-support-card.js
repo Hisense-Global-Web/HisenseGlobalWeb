@@ -3,15 +3,23 @@ export default function decorate(block) {
     const elementItems = [...block.children];
     elementItems.forEach((element) => {
       element.classList.add('additional-support-card-item');
-      const [icon, title, subtitle, timeContainer, phoneNumber, displayButton, buttonLink] = element.children;
+      const [icon, title, subtitle, showCircleEl, timeContainer, phoneNumber, displayButton, buttonLink, buttonStyleEl] = element.children;
       icon?.classList?.add('additional-support-card-item-icon');
       title?.classList?.add('additional-support-card-item-title');
       subtitle?.classList?.add('additional-support-card-item-subtitle');
+      const showCircle = showCircleEl?.querySelector('p')?.textContent?.toLowerCase() === 'true';
+      const buttonStyle = buttonStyleEl?.querySelector('p')?.textContent || 'white';
+
       timeContainer?.classList?.add('additional-support-card-item-time-container');
       const workingTime = timeContainer?.children[0];
       const responseTime = timeContainer?.children[1];
       workingTime?.classList?.add('working-time');
       responseTime?.classList?.add('response-time');
+      const circleEl = document.createElement('div');
+      if (showCircle) {
+        circleEl.classList.add('main-circle');
+        timeContainer.prepend(circleEl);
+      }
       phoneNumber?.children[0]?.classList?.add('phone-number');
       const phoneNumberText = phoneNumber?.children[0]?.textContent || null;
       const displayButtonValue = displayButton?.querySelector('p')?.innerHTML || '';
@@ -27,14 +35,11 @@ export default function decorate(block) {
       if (buttonALink) {
         buttonALink?.classList?.remove('button');
         buttonALink?.classList?.add('additional-support-card-item-link');
-        // Live Chart 可能需要第三方来实现，所以此处暂时注释掉
-        // if (index === 0) {
-        //   const circleDiv = document.createElement('div');
-        //   circleDiv.classList.add('main-circle');
-        //   timeDivContainer.insertBefore(circleDiv, workingTime);
-        //   workingTime?.classList?.add('main-working-time');
-        //   responseTime?.classList?.add('main-response-time');
-        // }
+        if (buttonStyle === 'white') {
+          buttonALink.classList.add('button-white');
+        } else if (buttonStyle === 'green60') {
+          buttonALink.classList.add('button-green60');
+        }
         const buttonText = buttonLink?.children?.[0] ?? '';
         buttonALink.textContent = buttonText?.textContent || '';
         if (buttonLink.querySelector('a')) {
@@ -49,6 +54,8 @@ export default function decorate(block) {
           }, true);
         }
       }
+      showCircleEl?.remove();
+      buttonStyleEl?.remove();
     });
   } catch (error) {
     /* eslint-disable-next-line no-console */
