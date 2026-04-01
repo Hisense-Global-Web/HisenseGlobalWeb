@@ -452,55 +452,65 @@ export default function decorate(block) {
 
       const jobInfoGroupEl = document.createElement('div');
       jobInfoGroupEl.className = 'job-info-group';
-      console.log(item, group);
 
       const jobTitleEl = document.createElement('div');
       jobTitleEl.className = 'job-title-group';
       const titleSpanEl = document.createElement('span');
       titleSpanEl.className = 'job-title';
-      titleSpanEl.textContent = 'Senior Software Engineer';
+      const rightIcon = document.createElement('img');
+      rightIcon.className = 'right-icon';
+      rightIcon.src = '/content/dam/hisense/us/common-icons/chevron-right.svg';
+      titleSpanEl.textContent = item.jobTitle;
+      titleSpanEl.append(rightIcon);
       const jobTimeTypeEl = document.createElement('span');
       jobTimeTypeEl.className = 'job-time-type';
-      jobTimeTypeEl.textContent = 'Full-time';
+      jobTimeTypeEl.textContent = item.jobType;
 
       jobTitleEl.append(titleSpanEl, jobTimeTypeEl);
 
       const jobDetailEl = document.createElement('div');
       jobDetailEl.className = 'job-detail';
       const departmentEl = document.createElement('div');
-      departmentEl.className = 'job-info-item';
+      const hasDepartment = fields?.includes('department');
+      departmentEl.className = `job-info-item ${hasDepartment ? '' : 'hidden'}`;
       const img1 = document.createElement('img');
       img1.src = departmentIcon;
       const span1 = document.createElement('span');
-      span1.textContent = 'Engineering';
+      span1.textContent = item.department;
       departmentEl.append(img1, span1);
       const locationEl = document.createElement('div');
-      locationEl.className = 'job-info-item';
+      const hasLocation = fields?.includes('location');
+      locationEl.className = `job-info-item ${hasLocation ? '' : 'hidden'}`;
       const img2 = document.createElement('img');
       img2.src = locationIcon;
       const span2 = document.createElement('span');
-      span2.textContent = 'Suwanee,GA';
+      span2.textContent = item.workLocation;
       locationEl.append(img2, span2);
       const experienceEl = document.createElement('div');
-      experienceEl.className = 'job-info-item';
+      const hasExperience = fields?.includes('experience');
+      experienceEl.className = `job-info-item ${hasExperience ? '' : 'hidden'}`;
       const img3 = document.createElement('img');
       img3.src = experienceIcon;
       const span3 = document.createElement('span');
-      span3.textContent = '5+ years';
+      span3.textContent = item.experienceRequirement;
       experienceEl.append(img3, span3);
       const salaryRangeEl = document.createElement('div');
-      salaryRangeEl.className = 'job-info-item';
+      const hasSalaryRange = fields?.includes('salary-range');
+      salaryRangeEl.className = `job-info-item ${hasSalaryRange ? '' : 'hidden'}`;
       const img4 = document.createElement('img');
       img4.src = salaryRangeIcon;
       const span4 = document.createElement('span');
-      span4.textContent = '$120k-$160k';
+      span4.textContent = item.salary;
       salaryRangeEl.append(img4, span4);
-
       jobDetailEl.append(departmentEl, locationEl, experienceEl, salaryRangeEl);
 
       const jobDateEl = document.createElement('div');
       jobDateEl.className = 'job-date';
-      jobDateEl.textContent = 'Posted: 2 days ago';
+      const postDate = new Date(item.jobPostedTime);
+      const now = new Date();
+      const diffTime = now - postDate;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      jobDateEl.textContent = `Posted: ${diffDays} days ago`;
 
       jobInfoGroupEl.append(jobTitleEl, jobDetailEl, jobDateEl);
 
@@ -564,7 +574,6 @@ export default function decorate(block) {
   };
 
   function renderItems(items) {
-    console.log(items);
     // 重置分页状态
     currentPage = 1;
     productsGrid.innerHTML = ''; // 清空现有内容

@@ -18,6 +18,12 @@
     "...": "./_popup-module.json#/models"
   },
   {
+    "...": "./_announcement.json#/models"
+  },
+  {
+    "...": "./_product-identifier-guide.json#/models"
+  },
+  {
     "...": "../blocks/*/_*.json#/models"
   }
 ]

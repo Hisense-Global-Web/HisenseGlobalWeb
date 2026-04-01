@@ -1,0 +1,95 @@
+{
+  "definitions": [
+    {
+      "title": "Announcement",
+      "id": "announcement",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "name": "Announcement",
+              "model": "announcement",
+              "filter": "announcement",
+              "style_announcement": "popup-announcement",
+              "style_popupVisibility": ""
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "announcement",
+      "fields": [
+        {
+          "component": "select",
+          "name": "style_popup",
+          "value": "popup-module-container",
+          "label": "Popup module classes options",
+          "valueType": "string",
+          "hidden": true,
+          "options": [
+            {
+              "name": "Popup Module Container",
+              "value": "popup-module-container"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "style_announcement",
+          "value": "",
+          "label": "Popup Announcement classes options",
+          "valueType": "string",
+          "hidden": true,
+          "options": [
+            {
+              "name": "Popup Announcement",
+              "value": "popup-announcement"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "style_popupVisibility",
+          "label": "Popup visibility options",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Popup Show",
+              "value": "popup-show"
+            },
+            {
+              "name": "Popup Hide",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "name",
+          "label": "Section Name",
+          "description": "The label shown for this section in the Content Tree"
+        },
+        {
+          "component": "text",
+          "name": "id",
+          "label": "Section ID",
+          "description": "Enter a unique ID."
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "announcement",
+      "components": [
+        "page-header",
+        "legal-content"
+      ]
+    }
+  ]
+}

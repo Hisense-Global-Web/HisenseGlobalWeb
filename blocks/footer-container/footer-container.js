@@ -314,6 +314,9 @@ function extractNavColumnsData(container) {
         if (childDivs.length > 2 && itemData.link !== '#' && itemData.link?.indexOf('?') === -1) {
           itemData.link += `?${buildSearchTagParams(childDivs[2].textContent.trim())}`;
         }
+        if (itemData.link && itemData.link.endsWith('?')) {
+          itemData.link = itemData.link.slice(0, -1);
+        }
       }
 
       if (itemData.text) {

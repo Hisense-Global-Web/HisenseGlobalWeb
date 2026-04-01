@@ -524,6 +524,16 @@ function getCleanLocationUrl() {
   return `${url.pathname}${url.search}${url.hash}`;
 }
 
+function getLocationUrlWithoutAction(currentUrl = (typeof window !== 'undefined' ? window.location.href : '/')) {
+  if (typeof window === 'undefined') {
+    return '/us/en';
+  }
+
+  const url = new URL(currentUrl, window.location.origin);
+  url.searchParams.delete('ac');
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
 function buildRegionParams(countryOverride, languageOverride) {
   const { country, language } = getLocaleFromPath();
   return {
@@ -794,6 +804,23 @@ export async function logoutHybris(options = {}) {
   clearSessionToken();
   broadcastHybrisAuthEvent(HYBRIS_AUTH_BROADCAST_LOGOUT);
   return logoutState;
+}
+
+export function consumeHybrisLogoutAction(currentUrl = (typeof window !== 'undefined' ? window.location.href : '/')) {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  const actionUrl = new URL(currentUrl, window.location.origin);
+  const action = String(actionUrl.searchParams.get('ac') || '').trim().toLowerCase();
+  if (action !== HYBRIS_AUTH_BROADCAST_LOGOUT) {
+    return false;
+  }
+
+  clearSessionToken();
+  broadcastHybrisAuthEvent(HYBRIS_AUTH_BROADCAST_LOGOUT);
+  window.history.replaceState({}, '', getLocationUrlWithoutAction(actionUrl.toString()));
+  return true;
 }
 
 export async function refreshHybrisAuthStatus(options = {}) {

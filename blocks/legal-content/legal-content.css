@@ -59,11 +59,11 @@
 
     /* 受reset-richtext.css样式污染 */
     ul li {
-      list-style: initial;
+      list-style: initial !important;
     }
 
     ol li{
-      list-style: auto;
+      list-style: auto !important;
     }
   }
 }
