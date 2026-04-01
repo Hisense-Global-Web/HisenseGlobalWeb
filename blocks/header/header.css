@@ -1463,7 +1463,7 @@
 
   @media (width < 860px) {
     width: calc(354 / var(--breakpoint-mobile) * 100vw);
-    padding: var(--size-72) var(--size-24) var(--size-32);
+    padding: var(--size-80) var(--size-24) var(--size-32);
   }
 
   .close-icon {
@@ -1484,6 +1484,10 @@
     align-items: center;
     gap: 24px;
 
+    @media (width < 860px) {
+      gap: var(--size-12);
+    }
+
     .title {
       font-size: var(--size-24);
       line-height: 1.2;
@@ -1497,6 +1501,10 @@
       color: var(--color-primary-grey-70);
       font-weight: var(--fontweight-book);
       text-align: center;
+
+      @media (width < 860px) {
+        font-size: var(--size-14);
+      }
     }
   }
 
@@ -1512,8 +1520,8 @@
     }
 
     .cancel-btn {
-      width: min(calc(211 / var(--breakpoint-pc) * 100vw), 211px);
-      padding: 0 var(--size-16);
+      width: min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
+      padding: 0 var(--size-32);
       border: 1px solid var(--color-hisense-black);
       border-radius: var(--size-50);
       background: var(--color-hisense-black);
@@ -1529,7 +1537,10 @@
       margin: 0;
 
       @media (width < 860px) {
-        width: calc(115 / var(--breakpoint-mobile) * 100vw);;
+        width: unset;
+        padding: 0 var(--size-24);
+        height: var(--size-40);
+        line-height: var(--size-40);
       }
 
       &:hover {
@@ -1547,8 +1558,8 @@
     }
 
     .sure-btn {
-      width: min(calc(209 / var(--breakpoint-pc) * 100vw), 209px);
-      padding: 0 var(--size-16);
+      width: min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
+      padding: 0 var(--size-32);
       border: 1px solid var(--color-primary-grey-70);
       border-radius: var(--size-50);
       background: transparent;
@@ -1566,7 +1577,10 @@
       transition: opacity 0.2s ease;
 
       @media (width < 860px) {
-        width: calc(193 / var(--breakpoint-mobile) * 100vw);;
+        width: unset;
+        padding: 0 var(--size-24);
+        height: var(--size-40);
+        line-height: var(--size-40);
       }
 
       &:hover {

@@ -684,7 +684,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
-  min-height: 595px;
   background-color: white;
   border-radius: var(--size-20);
   z-index: 10000;
@@ -726,6 +725,7 @@
   .popup-list {
     display: flex;
     gap: var(--size-24);
+    align-items: center;
     
     .popup-product-image {
       width: min(calc(188 / var(--breakpoint-pc) * 100vw), 188px);
@@ -806,6 +806,10 @@
         display: flex;
         align-items: center;
         height: var(--size-38);
+
+        @media (width < 860px) {
+          height: var(--size-22);
+        }
         
         .price-value {
           font-size: var(--fontsize-title2);
@@ -842,17 +846,18 @@
 
     .qty-span {
       margin-right: var(--size-12);
+      font-size: var(--size-14);
+      color: var(--color-primary-grey-70);
+      font-weight: var(--fontweight-book);
     }
 
     .qty-action {
       width: var(--size-40);
       height: var(--size-40);
-      border: 1px solid var(--color-primary-grey-30);
-      border-radius: var(--size-8);
       background: var(--color-primary-grey-10);
-      color: var(--color-primary-grey-100);
+      color: var(--color-primary-grey-70);
       cursor: pointer;
-      font-size: var(--fontsize-body1);
+      font-size: var(--size-24);
       line-height: 1;
       padding: 0;
       display: inline-flex;
@@ -879,6 +884,12 @@
       color: var(--color-primary-grey-100);
       pointer-events: none;
       user-select: none;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin: 0;
     }
   }
   
@@ -908,6 +919,10 @@
     justify-content: space-between;
     font-size: var(--fontsize-title2);
     line-height: 1.2;
+
+    @media (width < 860px) {
+      font-size: var(--size-18);
+    }
     
     .total-span {
       color: var(--color-primary-grey-70);
@@ -933,7 +948,7 @@
 
     .view-cart-btn {
       width: min(calc(211 / var(--breakpoint-pc) * 100vw), 211px);
-      padding: 0 var(--size-16);
+      padding: 0 var(--size-32);
       border: 1px solid var(--color-primary-green-60);
       border-radius: var(--size-50);
       background: var(--color-primary-green-60);
@@ -949,7 +964,8 @@
       margin: 0;
       
       @media (width < 860px) {
-        width: calc(115 / var(--breakpoint-mobile) * 100vw);;
+        width: calc(115 / var(--breakpoint-mobile) * 100vw);
+        padding: 0;
       }
       
       &:hover {

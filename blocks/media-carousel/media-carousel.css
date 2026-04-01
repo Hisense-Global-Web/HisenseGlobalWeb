@@ -586,7 +586,7 @@
           }
   
           .subtitle {
-            font-size: var(--size-16);
+            font-size: var(--size-14);
             font-weight: var(--fontweight-book);
             line-height: 130%;
           }
