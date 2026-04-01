@@ -1804,7 +1804,9 @@
                 "template": {
                   "name": "Page Header",
                   "model": "page-header",
-                  "classes": "page-header"
+                  "classes": "page-header",
+                  "page-header-style": "align-center",
+                  "title-style": "text-green-50"
                 }
               }
             }
