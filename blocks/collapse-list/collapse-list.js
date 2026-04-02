@@ -13,6 +13,8 @@ export default function decorate(block) {
     [...card.children].forEach((row, index) => {
       console.log(row, index);
       if (index === 0) {
+        row.style.display = 'none';
+      } else if (index === 1) {
         row.classList.add('collapse-title');
         const icon = document.createElement('img');
         icon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
@@ -26,14 +28,14 @@ export default function decorate(block) {
           }
         });
         row.appendChild(icon);
-      } else if (index === 1) {
-        row.classList.add('collapse-context');
       } else if (index === 2) {
+        row.classList.add('collapse-context');
+      } else if (index === 3) {
         if (row.textContent.trim() === 'true') {
           showButton = true;
         }
         row.remove();
-      } else if (index === 3) {
+      } else if (index === 4) {
         const btnEl = document.createElement('div');
         btnEl.classList.add('collapse-btn');
         if (showButton) {
