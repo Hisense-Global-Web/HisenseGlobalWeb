@@ -263,6 +263,10 @@
   text-transform: capitalize;
   display: none;
   position: relative;
+
+  &:empty {
+    display: none !important;
+  }
 }
 
 .product-card .plp-add-to-cart-btn.plp-purchase-hidden,
