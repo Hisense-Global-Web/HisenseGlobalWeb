@@ -1,10 +1,9 @@
-.store-information-card-wrapper {
-  width: 100%;
+.sic-wrapper {
+  
+  .store-information-card-wrapper {
+    width: 100%;
 
- 
-   
-
-    .list-card {
+    .store-information-card{
       display: flex;
       flex-direction: column;
       gap: var(--spacing-xs, 16px);
@@ -19,90 +18,41 @@
         padding: var(--size-32);
        
       }
-
-     
-      .title-container {
-        .card-info{
-            display: flex;
-            align-items: center;
-            line-height: 1.5;
-            color: var(--color-primary-green-60);
-             font-size: var(--fontsize-body2, 14px);
-            font-weight: var(--fontweight-medium);
-
-            @media (width < 860px) {
-               font-size: var(--size-12);
-              line-height: 1.4;
-            }
-          }
-
-        .card-title {
-          color: var(--color-primary-grey-100);
-          font-size: var(--fontsize-title2, 20px);
-          font-style: normal;
-          font-weight: var(--fontweight-medium, 500);
-          line-height: 1.2;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          word-break: break-all;
-
-          @media (width<860px) {
-            line-height: 1.3;
-            font-size: var(--size-16);
-          
-          }
-        }
-
-        .card-text {
-          color: var(--color-primary-grey-50, #747474);
-          font-size: var(--fontsize-body2, 14px);
-          font-style: normal;
-          line-height: 150%;
-          overflow: hidden;
-          font-weight: var(--fontweight-book, 400);
-        }
-
-        .card-location{
-          display: flex;
-          flex-direction: row-reverse;
-          align-items: center;
-          gap: var(--size-4);
-          position: relative;
-          font-size: var(--size-12);
-          line-height: 1.5;
-          color: var(--color-primary-grey-50);
-          justify-content: start;
-          margin-top: var(--spacing-xs, 16px);;
-
-          .meta-icon {
-            width: var(--size-16);
-            height: var(--size-16);
-            flex-shrink: 0;
-            display: block;
-            object-fit: contain;
-
-             @media (width<860px) {
-                display: none;
-            }
-          }
-        }
-    }
-
-    .store-information-card p {
-      margin: 0;
-    }
+   
   }
-
-  
-
-
     .list-card:not(:has(~ .list-card)) {
       border: none;
     }
   
 
 
+
+  }
+  .arrow.hide  {
+    transform: rotate(-180deg);
+      transition: transform 0.3s ease;
+  }
+  .block-wrapper{
+
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-m, 32px);
+    border-bottom: 1px solid var(--color-primary-grey-40, #bbb);
+
+    @media (width < 860px) {
+      gap: var(--spacing-s, 18px);
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .block-wrapper,.hide{
+    /* display: none; */
+  }
 }
-.store-information-card-container{
-  margin-top: 200px!important;
-}
+  .sic-wrapper:has(.arrow.hide) .block-wrapper {
+     display: none;
+  }
+ .store-information-card-container{
+    margin-top: 200px!important;
+  }
