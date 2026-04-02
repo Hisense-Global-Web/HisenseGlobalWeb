@@ -170,6 +170,10 @@ async function loadRemoteErrorPage(main) {
   }
 }
 
+function isGlobalPage() {
+  return window.location.pathname.includes('/global/') || window.location.hostname.includes('/config/');
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
@@ -187,7 +191,9 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    loadHeader(doc.querySelector('header'));
+    if (!isGlobalPage()) {
+      loadHeader(doc.querySelector('header'));
+    }
     const hasRemoteErrorPage = await loadRemoteErrorPage(main);
     if (!hasRemoteErrorPage) {
       decorateMain(main);
@@ -218,7 +224,9 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadFooter(doc.querySelector('footer'));
+  if (!isGlobalPage()) {
+    loadFooter(doc.querySelector('footer'));
+  }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
