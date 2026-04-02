@@ -192,6 +192,7 @@
   height: 66px;
   display: flex;
   justify-content: space-between;
+  gap: 48px;
   box-sizing: border-box;
   background: #fff;
   max-width: inherit;
@@ -535,15 +536,15 @@
   .person-drawer {
     display: none;
     position: absolute;
-    width: 236px;
-    padding: 24px 32px 16px;
+    padding: 34px 16px;
     flex-direction: column;
     background: var(--color-primary-grey-10);
     border-radius: var(--size-20);
     top: calc(100px - 14px);
     right: 0;
     z-index: 2;
-    box-shadow: 4px 16px 36px 0 #0000001A;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
+    font-family: HisenseAlfabet-Regular, sans-serif;
 
     &[hidden] {
       display: none !important;
@@ -584,18 +585,19 @@
     .my-items-group {
       display: flex;
       flex-direction: column;
-      gap: var(--size-4);
+      gap: var(--size-8);
       width: 100%;
-      margin: var(--size-12) 0;
+      margin: 0;
       
       .my-item {
         display: flex;
         align-items: center;
         width: 100%;
         justify-content: flex-start;
-        height: var(--size-48);
+        height: auto;
         text-decoration: none;
         color: inherit;
+        min-width: 200px;
 
         &:hover {
           .my-product-title {
@@ -604,10 +606,23 @@
         }
         
         .my-product-title {
-          color: var(--color-primary-grey-70);
-          font-size: var(--fontsize-body2);
-          line-height: 1.5;
-          font-weight: var(--fontweight-book);
+          line-height: 48px;
+          padding: 0 16px;
+          color: #333;
+          font-size: 14px;
+          font-weight: 400;
+          width: 100%;
+          border-radius: 20px;
+          
+          &:hover {
+            color: #000;
+            background-color: #EDFCFB;
+          }
+          
+          &.active {
+            background-color: #EDFCFB;
+            color: #005A5C;
+          }
         }
 
         .my-count-span {
@@ -631,15 +646,22 @@
     
     .logout-group {
       width: 100%;
-      height: var(--size-48);
+      line-height: var(--size-48);
       margin-top: var(--size-12);
       display: flex;
       align-items: center;
       cursor: pointer;
       color: var(--color-primary-grey-70);
-      font-size: var(--fontsize-body2);
-      line-height: 1.5;
-      font-weight: var(--fontweight-book);
+      font-size: 14px;
+      font-weight: 400;
+      padding: 0 16px;
+      box-sizing: border-box;
+      border-radius: 20px;
+      
+      &:hover {
+        color: #000;
+        background-color: #EDFCFB;
+      }
     }
     
     .division-line {
@@ -647,6 +669,7 @@
       height: 1px;
       background: var(--color-primary-grey-30);
       flex-shrink: 0;
+      margin-top: 12px;
     }
   }
 }
@@ -1441,7 +1464,7 @@
 
   @media (width < 860px) {
     width: calc(354 / var(--breakpoint-mobile) * 100vw);
-    padding: var(--size-72) var(--size-24) var(--size-32);
+    padding: var(--size-80) var(--size-24) var(--size-32);
   }
 
   .close-icon {
@@ -1462,6 +1485,10 @@
     align-items: center;
     gap: 24px;
 
+    @media (width < 860px) {
+      gap: var(--size-12);
+    }
+
     .title {
       font-size: var(--size-24);
       line-height: 1.2;
@@ -1475,6 +1502,10 @@
       color: var(--color-primary-grey-70);
       font-weight: var(--fontweight-book);
       text-align: center;
+
+      @media (width < 860px) {
+        font-size: var(--size-14);
+      }
     }
   }
 
@@ -1490,8 +1521,8 @@
     }
 
     .cancel-btn {
-      width: min(calc(211 / var(--breakpoint-pc) * 100vw), 211px);
-      padding: 0 var(--size-16);
+      width: min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
+      padding: 0 var(--size-32);
       border: 1px solid var(--color-hisense-black);
       border-radius: var(--size-50);
       background: var(--color-hisense-black);
@@ -1507,7 +1538,10 @@
       margin: 0;
 
       @media (width < 860px) {
-        width: calc(115 / var(--breakpoint-mobile) * 100vw);;
+        width: unset;
+        padding: 0 var(--size-24);
+        height: var(--size-40);
+        line-height: var(--size-40);
       }
 
       &:hover {
@@ -1525,8 +1559,8 @@
     }
 
     .sure-btn {
-      width: min(calc(209 / var(--breakpoint-pc) * 100vw), 209px);
-      padding: 0 var(--size-16);
+      width: min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
+      padding: 0 var(--size-32);
       border: 1px solid var(--color-primary-grey-70);
       border-radius: var(--size-50);
       background: transparent;
@@ -1544,7 +1578,10 @@
       transition: opacity 0.2s ease;
 
       @media (width < 860px) {
-        width: calc(193 / var(--breakpoint-mobile) * 100vw);;
+        width: unset;
+        padding: 0 var(--size-24);
+        height: var(--size-40);
+        line-height: var(--size-40);
       }
 
       &:hover {

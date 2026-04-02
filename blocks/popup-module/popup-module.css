@@ -80,6 +80,12 @@ main .section.popup-module-container {
       max-height: none;
     }
   }
+
+  &.popup-announcement {
+    .popup-content-container {
+      gap: var(--size-16);
+    }
+  }
 }
 
 @media (width < 860px) {
@@ -109,6 +115,12 @@ main .section.popup-module-container {
     &[data-aue-component="popup-module"] {
       .popup-content-container {
         max-height: none;
+      }
+    }
+
+    &.popup-announcement {
+      .popup-content-container {
+        gap: var(--size-8);
       }
     }
   }

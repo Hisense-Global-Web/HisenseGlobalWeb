@@ -1183,7 +1183,7 @@ export default async function decorate(block) {
     }
 
     const previousMessage = popupState.message;
-    const previousQuantity = getCartEntryQuantity(popupState.entry);
+    // const previousQuantity = getCartEntryQuantity(popupState.entry);
     popupState.processing = true;
     renderProductCardPopup();
 
@@ -1201,7 +1201,8 @@ export default async function decorate(block) {
         returnUrl: window.location.href,
       });
       await refreshProductCardPopupCart();
-      popupState.message = previousQuantity > 0 ? 'Cart updated' : 'Item added to your cart';
+      // popupState.message = previousQuantity > 0 ? 'Cart updated' : 'Item added to your cart';
+      popupState.message = 'Item added to your cart';
     } catch (error) {
       console.warn(`Failed to increase PDP cart quantity for ${popupState.productCode}`, error);
       popupState.message = previousMessage;
@@ -1235,7 +1236,8 @@ export default async function decorate(block) {
         returnUrl: window.location.href,
       });
       await refreshProductCardPopupCart();
-      popupState.message = 'Cart updated';
+      // popupState.message = 'Cart updated';
+      popupState.message = 'Item added to your cart';
     } catch (error) {
       console.warn(`Failed to decrease PDP cart quantity for ${popupState.productCode}`, error);
     } finally {

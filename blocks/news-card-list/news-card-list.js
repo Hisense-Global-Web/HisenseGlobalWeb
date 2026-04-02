@@ -513,6 +513,12 @@ export default async function decorate(block) {
       const maxPage = Math.ceil(state.total / state.limit);
       if (targetPage > maxPage) return;
       loadPage(targetPage);
+      const releasesEl = document.querySelector('.releases-container');
+      const topPos = releasesEl.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({
+        top: topPos,
+        behavior: 'smooth',
+      });
     }, isEditMode);
 
     // Mobile "load more": append next page items without clearing previous

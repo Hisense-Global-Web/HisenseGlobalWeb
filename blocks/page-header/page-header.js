@@ -10,7 +10,7 @@ export default function decorate(block) {
       titleEl.classList.add(titleStylePEl?.textContent);
     }
     titleEl.classList.add('page-header-title');
-    if (subtitleEl) {
+    if (subtitleEl.textContent.trim()) {
       subtitleEl?.classList.add('page-header-subtitle');
     }
     pageHeaderStyleEl.remove();

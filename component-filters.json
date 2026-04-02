@@ -4,6 +4,8 @@
     "components": [
       "section",
       "popup-module",
+      "announcement",
+      "product-identifier-guide",
       "navigation",
       "company-page-navigation",
       "support-navigation",
@@ -17,6 +19,7 @@
       "about-hisense-module-title",
       "about-hisense-section-title",
       "accessories-feature",
+      "adaptive-images",
       "addional-support-card",
       "article-body",
       "article-body-list",
@@ -89,6 +92,8 @@
       "region-page-title",
       "region-selection",
       "recall-info-list",
+      "gray-tips",
+      "guide-list",
       "related-news",
       "resource-list",
       "search-box",
@@ -113,6 +118,7 @@
       "icon-card-container",
       "parters-container",
       "information-list-module",
+      "job-cards",
       "job-list",
       "quick-action-card",
       "category-support-card",
@@ -158,10 +164,27 @@
     ]
   },
   {
+    "id": "announcement",
+    "components": [
+      "page-header",
+      "legal-content"
+    ]
+  },
+  {
+    "id": "product-identifier-guide",
+    "components": [
+      "product-category-guide"
+    ]
+  },
+  {
     "id": "accessories-feature",
     "components": [
       "accessories-feature-item"
     ]
+  },
+  {
+    "id": "adaptive-images",
+    "components": []
   },
   {
     "id": "additional-support-card",
@@ -420,6 +443,12 @@
     "id": "popup-key-stats",
     "components": [
       "tech-items"
+    ]
+  },
+  {
+    "id": "product-category-guide",
+    "components": [
+      "product-guide-item"
     ]
   },
   {
