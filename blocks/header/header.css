@@ -658,7 +658,7 @@
       }
     }
     
-    .logout-group {
+    .account-secondary-link {
       width: 100%;
       line-height: var(--size-48);
       display: flex;
@@ -670,11 +670,20 @@
       padding: 0 16px;
       box-sizing: border-box;
       border-radius: 12px;
+      text-decoration: none;
       
       &:hover {
         color: #000;
         background-color: #EDFCFB;
       }
+    }
+
+    .profile-group {
+      margin-top: var(--size-12);
+    }
+
+    .logout-group {
+      margin-top: 0;
     }
     
     .division-line {
