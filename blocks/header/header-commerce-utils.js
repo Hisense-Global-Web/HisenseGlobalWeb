@@ -56,6 +56,22 @@ export function getCouponsCount(coupons = {}) {
   return getPagedCollectionCount(coupons, 'coupons');
 }
 
+export function buildAccountProfileHref(myAccountUrl = '') {
+  if (typeof window === 'undefined') {
+    return '/my-account/update-profile';
+  }
+
+  try {
+    const parsedUrl = new URL(myAccountUrl || '/my-account', window.location.origin);
+    const normalizedPathname = parsedUrl.pathname === '/'
+      ? '/my-account'
+      : parsedUrl.pathname.replace(/\/+$/, '');
+    return `${parsedUrl.origin}${normalizedPathname}/update-profile`;
+  } catch (error) {
+    return '/my-account/update-profile';
+  }
+}
+
 export function buildAccountMenuItemChildren(doc, options = {}) {
   const {
     label = '',

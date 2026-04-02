@@ -18,6 +18,7 @@ import {
 import { getFragmentPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 import {
+  buildAccountProfileHref,
   buildAccountMenuItemChildren,
   getCouponsCount,
   getOrdersCount,
@@ -358,8 +359,18 @@ function createAccountDrawer() {
   const myItems = document.createElement('div');
   myItems.className = 'my-items-group';
 
+  const profileEl = document.createElement('a');
+  profileEl.className = 'account-secondary-link profile-group';
+  profileEl.textContent = 'Profile';
+  profileEl.href = '/my-account/update-profile';
+  profileEl.hidden = true;
+  profileEl.setAttribute('aria-hidden', 'true');
+  profileEl.addEventListener('click', (event) => {
+    event.stopPropagation();
+  });
+
   const logoutEl = document.createElement('div');
-  logoutEl.className = 'logout-group';
+  logoutEl.className = 'account-secondary-link logout-group';
   logoutEl.textContent = 'Log out';
   logoutEl.addEventListener('click', (event) => {
     event.stopPropagation();
@@ -369,11 +380,12 @@ function createAccountDrawer() {
   const divisionLine = document.createElement('div');
   divisionLine.className = 'division-line';
 
-  personEl.append(myItems, divisionLine.cloneNode(true), logoutEl);
+  personEl.append(myItems, divisionLine.cloneNode(true), profileEl, logoutEl);
 
   return {
     personEl,
     myItems,
+    profileEl,
   };
 }
 
@@ -387,6 +399,8 @@ function applyAccountActionState(actionButton, drawerRefs, authState = {}, comme
 
   drawerRefs.personEl.hidden = !isAuthenticated;
   drawerRefs.personEl.setAttribute('aria-hidden', isAuthenticated ? 'false' : 'true');
+  drawerRefs.profileEl.hidden = !isAuthenticated;
+  drawerRefs.profileEl.setAttribute('aria-hidden', isAuthenticated ? 'false' : 'true');
 
   if (!isAuthenticated) {
     drawerRefs.myItems.replaceChildren();
@@ -394,6 +408,7 @@ function applyAccountActionState(actionButton, drawerRefs, authState = {}, comme
   }
 
   drawerRefs.myItems.replaceChildren(...menuLinks.map(buildAccountMenuItem));
+  drawerRefs.profileEl.href = buildAccountProfileHref(authState.myAccountUrl);
 }
 
 function applyCartActionState(actionButton, count = 0) {
