@@ -203,7 +203,8 @@
                   "model": "additional-support-card-item",
                   "show_greencircle": false,
                   "button-display": "pc-and-mobile",
-                  "button-style": "white"
+                  "button-style": "white",
+                  "button-action": "pageRedirect"
                 }
               }
             }
