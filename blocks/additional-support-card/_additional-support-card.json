@@ -11,7 +11,8 @@
               "name": "Additional Support Card",
               "model": "additional-support-card",
               "classes": "additional-support-card",
-              "filter": "additional-support-card"
+              "filter": "additional-support-card",
+              "pc_numberColumns": 4
             }
           }
         }
@@ -27,11 +28,10 @@
             "template": {
               "name": "Additional Support Card Item",
               "model": "additional-support-card-item",
-              "show_greencircle": false,
+              "cirlce-style": "none",
               "button-display": "pc-and-mobile",
               "button-style": "white",
-              "button-action": "pageRedirect",
-              "cirlce-style": "none"
+              "button-action": "pageRedirect"
             }
           }
         }
@@ -39,6 +39,18 @@
     }
   ],
   "models": [
+    {
+      "id": "additional-support-card",
+      "fields": [
+        {
+          "component": "number",
+          "name": "pc_numberColumns",
+          "label": "PC: Items per row",
+          "valueType": "number",
+          "description": "For PC: Number of columns displayed per row."
+        }
+      ]
+    },
     {
       "id": "additional-support-card-item",
       "fields": [
