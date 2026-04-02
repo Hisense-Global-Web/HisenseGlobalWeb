@@ -715,6 +715,22 @@
         ]
       },
       {
+        "component": "select",
+        "name": "contact_circlestyle",
+        "label": "Contact Circle Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "None",
+            "value": "none"
+          },
+          {
+            "name": "Green 50",
+            "value": "green50"
+          }
+        ]
+      },
+      {
         "component": "text",
         "name": "contact_information",
         "value": "",

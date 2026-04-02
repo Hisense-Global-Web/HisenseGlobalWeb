@@ -30,7 +30,8 @@
               "show_greencircle": false,
               "button-display": "pc-and-mobile",
               "button-style": "white",
-              "button-action": "pageRedirect"
+              "button-action": "pageRedirect",
+              "cirlce-style": "none"
             }
           }
         }
@@ -117,6 +118,22 @@
               "value": "",
               "label": "Office Hours 7",
               "valueType": "string"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "contact_circlestyle",
+          "label": "Contact Circle Style",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "None",
+              "value": "none"
+            },
+            {
+              "name": "Green 50",
+              "value": "green50"
             }
           ]
         },

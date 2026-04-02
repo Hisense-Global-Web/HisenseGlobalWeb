@@ -204,7 +204,8 @@
                   "show_greencircle": false,
                   "button-display": "pc-and-mobile",
                   "button-style": "white",
-                  "button-action": "pageRedirect"
+                  "button-action": "pageRedirect",
+                  "cirlce-style": "none"
                 }
               }
             }
