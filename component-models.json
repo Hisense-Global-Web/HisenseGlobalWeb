@@ -661,7 +661,7 @@
         "name": "officehours-container",
         "label": "Office Hours Container",
         "valueType": "string",
-        "collapsible": true,
+        "collapsible": false,
         "fields": [
           {
             "component": "text",
