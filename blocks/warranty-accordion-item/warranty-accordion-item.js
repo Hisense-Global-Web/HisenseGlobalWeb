@@ -1,6 +1,4 @@
 export default function decorate(block) {
-  const segments = window.location.pathname.split('/').filter(Boolean);
-  const country = segments[segments[0] === 'content' ? 2 : 0] || '';
   const isEditMode = block.hasAttribute('data-aue-resource');
   if (isEditMode) {
     return;
@@ -9,18 +7,6 @@ export default function decorate(block) {
   [...block.children].forEach((row, index) => {
     if (index === 0) {
       row.classList.add('collapse-title');
-      const icon = document.createElement('img');
-      icon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
-      icon.alt = '';
-      icon.className = 'chevron';
-      icon.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const collapseCard = e.currentTarget.closest('.warranty-accordion');
-        if (collapseCard) {
-          collapseCard.classList.toggle('hide');
-        }
-      });
-      row.appendChild(icon);
     } else if (index === 1) {
       row.classList.add('collapse-context');
     } else if (index === 2) {

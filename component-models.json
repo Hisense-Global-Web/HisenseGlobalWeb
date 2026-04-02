@@ -6197,20 +6197,40 @@
     ]
   },
   {
-    "id": "warranty-accordion",
-    "classes": "warranty-accordion",
+    "id": "warning-note",
+    "classes": "warning-note",
+    "fields": [
+      {
+        "component": "text",
+        "name": "note-title",
+        "label": "Note Title",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "node-body-text",
+        "label": "Node Body Text",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "warranty-accordion-item",
+    "classes": "warranty-accordion-item",
     "fields": [
       {
         "component": "text",
         "name": "collapse-title",
-        "label": "Collapse Title",
+        "label": "Accordion Title",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "collapse-context",
-        "label": "Collapse Context",
+        "label": "Accordion Body Text",
         "valueType": "string",
         "value": ""
       },
@@ -6223,7 +6243,63 @@
       {
         "component": "text",
         "name": "button_text",
-        "label": "Button Text",
+        "label": "Button Label",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "should-button"
+            },
+            true
+          ]
+        },
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "should-button"
+            },
+            true
+          ]
+        },
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "warranty-accordion",
+    "classes": "warranty-accordion",
+    "fields": [
+      {
+        "component": "text",
+        "name": "collapse-title",
+        "label": "Title",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "collapse-context",
+        "label": "Body Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "boolean",
+        "name": "should-button",
+        "label": "Should Button?",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Button Label",
         "valueType": "string",
         "condition": {
           "===": [

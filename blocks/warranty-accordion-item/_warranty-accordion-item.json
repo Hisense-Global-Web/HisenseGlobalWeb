@@ -1,16 +1,16 @@
 {
   "definitions": [
     {
-      "title": "Warranty Accordion",
-      "id": "warranty-accordion",
+      "title": "Warranty Accordion Item",
+      "id": "warranty-accordion-item",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Warranty Accordion",
-              "model": "warranty-accordion",
-              "classes": "warranty-accordion"
+              "name": "Warranty Accordion Item",
+              "model": "warranty-accordion-item",
+              "classes": "warranty-accordion-item"
             }
           }
         }
@@ -19,20 +19,20 @@
   ],
   "models": [
     {
-      "id": "warranty-accordion",
-      "classes": "warranty-accordion",
+      "id": "warranty-accordion-item",
+      "classes": "warranty-accordion-item",
       "fields": [
         {
           "component" : "text",
           "name" : "collapse-title",
-          "label": "Title",
+          "label": "Accordion Title",
           "valueType" : "string",
           "value": ""
         },
         {
           "component": "richtext",
           "name": "collapse-context",
-          "label": "Body Text",
+          "label": "Accordion Body Text",
           "valueType": "string",
           "value": ""
         },

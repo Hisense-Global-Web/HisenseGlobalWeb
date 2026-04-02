@@ -419,7 +419,9 @@
         "accessories-feature",
         "calltoaction-banner",
         "project-brief-card",
-        "warranty-accordion"
+        "warning-note",
+        "warranty-accordion",
+        "warranty-accordion-item"
       ]
     }
   ]
