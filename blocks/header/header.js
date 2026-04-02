@@ -1499,7 +1499,28 @@ export default async function decorate(block) {
         btn.addEventListener('mouseleave', hideSearchBoxPopup);
       } else if (action.iconType === NAVIGATION_ACTION_TYPES.ACCOUNT) {
         btn.dataset.loading = 'false';
-        btn.addEventListener('click', handleAccountActionClick);
+        // btn.addEventListener('click', handleAccountActionClick);
+        const personMobileMask = document.createElement('div');// 移动端账号菜单遮罩层
+        personMobileMask.className = 'person-mobile-mask';
+        document.body.append(personMobileMask);
+        // 移动端账号按钮需要先判断登录状态，已登录则显示移动端菜单，未登录则走登录流程
+        btn.addEventListener('click', (e) => {
+          const isLoginFlag = btn.getAttribute('data-authenticated');
+          if (isLoginFlag === 'true' && window.innerWidth < 1180) {
+            // 手机端已登录状态点击头像，显示移动端菜单
+            const navigationDiv = document.getElementById('navigation');
+            if (navigationDiv) {
+              // 移动端账号菜单和主菜单是互斥的，打开一个需要关闭另一个，所以在这里直接物理添加移动端菜单的dom，点击时通过js控制显示隐藏
+              navigation.classList.remove('show-menu');
+              document.body.style.overflow = 'hidden';
+              navigationDiv.classList.toggle('show-account-mobile-menu');
+              personMobileMask.classList.toggle('show-person-mobile-mask');
+            }
+          } else {
+            // 移动端未登录状态点击头像；或者PC端点击头像，未走登录流程，已登录跳转hybrids账户中心
+            handleAccountActionClick(e);
+          }
+        });
         const drawerRefs = createAccountDrawer();
         btn.append(drawerRefs.personEl);
         accountActionButtons.push({
@@ -1579,6 +1600,10 @@ export default async function decorate(block) {
   imgDark.className = 'dark-img';
   btn.append(imgDark);
   btn.addEventListener('click', () => {
+    // 移动端点击三个横条显示菜单，先关闭账号菜单（如果打开的话），再打开主菜单
+    navigation.classList.remove('show-account-mobile-menu');
+    const personMobileMask = document.querySelector('.person-mobile-mask');
+    personMobileMask.classList.remove('show-person-mobile-mask');
     document.body.style.overflow = 'hidden';
     navigation.classList.add('show-menu');
   });

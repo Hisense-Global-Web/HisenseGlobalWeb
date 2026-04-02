@@ -10,7 +10,8 @@ const getUrlParams = (paramName) => {
 };
 
 const goToSearchResult = (target, searchLink, fulltext) => {
-  const url = `${searchLink}?fulltext=${encodeURIComponent(fulltext)}`;
+  const params = fulltext?.length ? `?fulltext=${encodeURIComponent(fulltext)}` : '';
+  const url = searchLink + params;
   if (target === '_blank') {
     window.open(url, '_blank', 'noopener');
   } else {
@@ -66,7 +67,7 @@ const getSearchInput = (block) => {
   });
 
   input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && input.value.trim()) {
+    if (e.key === 'Enter') {
       goToSearchResult(target, searchLink, input.value.trim());
     }
   });
