@@ -124,7 +124,7 @@
           "component": "text",
           "name": "contact_information",
           "value": "",
-          "label": "Contact Information",
+          "label": "Contact Information(Phone Number or Email)",
           "valueType": "string"
         },
         {
