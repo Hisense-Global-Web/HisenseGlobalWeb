@@ -25,6 +25,7 @@ import {
   setCompareProductImgTit,
   appendCompareProductUtil,
 } from '../../utils/plp-compare-utils.js';
+import shouldShowAddToCartButton from '../../scripts/commerce-ui-utils.js';
 
 const { country } = getLocaleFromPath();
 const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com';
@@ -1816,7 +1817,7 @@ export default function decorate(block) {
           discountsValue.textContent = '';
           originalPriceEl.style.display = 'none';
           discountsDiv.style.display = 'none';
-          return;
+          return false;
         }
 
         const { sale, msrp, currency } = getPricingDetails(commerceProduct, fallbackSource);
@@ -1841,6 +1842,7 @@ export default function decorate(block) {
         originalPriceEl.style.display = hasDiscount ? '' : 'none';
         discountsDiv.style.display = hasDiscount ? '' : 'none';
         priceGroupDiv.style.display = currentPriceParts.full ? 'flex' : 'none';
+        return Boolean(currentPriceParts.full);
       };
 
       const refreshCommerceState = async (variant) => {
@@ -1865,9 +1867,13 @@ export default function decorate(block) {
             return;
           }
 
-          favoriteEnabled = hasInventory(commerceProduct);
-          updatePriceState(commerceProduct, variant);
-          updatePurchaseButtons(hasInventory(commerceProduct));
+          const inventoryAvailable = hasInventory(commerceProduct);
+          const hasPrice = updatePriceState(commerceProduct, variant);
+          favoriteEnabled = inventoryAvailable;
+          updatePurchaseButtons(shouldShowAddToCartButton({
+            hasPrice,
+            hasInventory: inventoryAvailable,
+          }));
           updateFavoriteState(productCode);
         } catch (error) {
           /* eslint-disable-next-line no-console */
