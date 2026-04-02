@@ -24,7 +24,7 @@ import { getFragmentPath } from './locale-utils.js';
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
 /**
- * Moves all the attributes from a given elmenet to another given element.
+ * Moves all the attributes from a given element to another given element.
  * @param {Element} from the element to copy attributes from
  * @param {Element} to the element to copy attributes to
  */
@@ -71,7 +71,6 @@ async function loadFonts() {
 
 /**
  * Builds all synthetic blocks in a container element.
- * @param {Element} main The container element
  */
 function buildAutoBlocks() {
   try {
@@ -170,8 +169,24 @@ async function loadRemoteErrorPage(main) {
   }
 }
 
-function isGlobalPage() {
-  return window.location.pathname.includes('/global/') || window.location.hostname.includes('/config/');
+/**
+ * Checks if the current page is a config page based on the URL.
+ * @returns {boolean}
+ */
+function isConfigPage() {
+  return window.location.hostname.includes('/config/');
+}
+
+/**
+ * Checks if the current page is a nav page based on the URL.
+ * @returns {boolean}
+ */
+function isNavPage() {
+  return window.location.hostname.includes('/nav');
+}
+
+function isFooterPage() {
+  return window.location.hostname.includes('/footer');
 }
 
 /**
@@ -191,7 +206,7 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    if (!isGlobalPage()) {
+    if (!isConfigPage() || !isFooterPage()) {
       loadHeader(doc.querySelector('header'));
     }
     const hasRemoteErrorPage = await loadRemoteErrorPage(main);
@@ -224,7 +239,7 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  if (!isGlobalPage()) {
+  if (!isConfigPage() || !isNavPage()) {
     loadFooter(doc.querySelector('footer'));
   }
 
