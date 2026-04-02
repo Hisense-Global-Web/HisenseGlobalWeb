@@ -4129,7 +4129,7 @@
     "fields": [
       {
         "component": "select",
-        "name": "page-header-style",
+        "name": "page-headerstyle",
         "label": "Page Header Style",
         "valueType": "string",
         "options": [

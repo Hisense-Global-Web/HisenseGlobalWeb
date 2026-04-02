@@ -11,7 +11,7 @@
               "name": "Page Header",
               "model": "page-header",
               "classes": "page-header",
-              "page-header-style": "align-center",
+              "page-headerstyle": "align-center",
               "title-style": "text-green-50"
             }
           }
@@ -25,7 +25,7 @@
       "fields": [
         {
           "component": "select",
-          "name": "page-header-style",
+          "name": "page-headerstyle",
           "label": "Page Header Style",
           "valueType": "string",
           "options": [
