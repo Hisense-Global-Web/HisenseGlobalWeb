@@ -6,13 +6,10 @@ export default function decorate(block) {
     return;
   }
   [...block.children].forEach((card) => {
-    const type = card.firstElementChild?.textContent?.trim() || '';
     card.classList.add('collapse-card');
     let showButton = false;
     [...card.children].forEach((row, index) => {
       if (index === 0) {
-        row.style.display = 'none';
-      } else if (index === 1) {
         row.classList.add('collapse-title');
         const icon = document.createElement('img');
         icon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
@@ -25,17 +22,14 @@ export default function decorate(block) {
             collapseCard.classList.toggle('hide');
           }
         });
-        if (type === 'collapse-item') {
-          row.appendChild(icon);
-        }
-      } else if (index === 2) {
+      } else if (index === 1) {
         row.classList.add('collapse-context');
-      } else if (index === 3) {
+      } else if (index === 2) {
         if (row.textContent.trim() === 'true') {
           showButton = true;
         }
         row.remove();
-      } else if (index === 4) {
+      } else if (index === 3) {
         const btnEl = document.createElement('div');
         btnEl.classList.add('collapse-btn');
         if (showButton) {
