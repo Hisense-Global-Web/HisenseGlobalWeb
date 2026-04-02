@@ -5371,37 +5371,37 @@
       },
       {
         "component": "text",
-        "name": "state",
+        "name": "city",
         "label": "City Name",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "category",
+        "name": "store",
         "label": "Store Name",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "category",
+        "name": "info1",
         "label": "Store Info Label 1",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "category",
+        "name": "content1",
         "label": "Store Info Content 1",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "category",
+        "name": "info2",
         "label": "Store Info Label 2",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "category",
+        "name": "content2",
         "label": "Store Info Content 2",
         "valueType": "string"
       }
