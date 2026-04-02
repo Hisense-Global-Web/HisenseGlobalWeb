@@ -17,6 +17,13 @@ import {
 } from '../../scripts/hybris-bff.js';
 import { getFragmentPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
+import {
+  buildAccountMenuItemChildren,
+  getCouponsCount,
+  getOrdersCount,
+  hasValidHybrisAccountState,
+  shouldRefreshHeaderCommerceCountsAfterAuthInit,
+} from './header-commerce-utils.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -44,14 +51,6 @@ const ACCOUNT_COUNT_KEY_BY_LABEL = {
   Wishlist: 'wishlist',
   Coupons: 'coupons',
 };
-
-function hasValidHybrisAccountState(authState = {}) {
-  return Boolean(
-    authState?.authenticated
-      && authState?.myAccountUrl
-      && Number(authState?.expiresAt) > Date.now(),
-  );
-}
 
 function normalizeCount(value) {
   const numericValue = Number(value);
@@ -106,34 +105,6 @@ function getWishlistCount(wishlist = {}) {
   return getCartCount(wishlist);
 }
 
-function getOrdersCount(orders = {}) {
-  const ordersList = Array.isArray(orders?.orders) ? orders.orders : [];
-  if (ordersList.length) {
-    return ordersList.length;
-  }
-
-  return normalizeCount(
-    orders?.pagination?.totalResults
-      ?? orders?.totalResults
-      ?? orders?.totalCount
-      ?? orders?.count,
-  );
-}
-
-function getCouponsCount(coupons = {}) {
-  const couponList = Array.isArray(coupons?.coupons) ? coupons.coupons : [];
-  if (couponList.length) {
-    return couponList.length;
-  }
-
-  return normalizeCount(
-    coupons?.pagination?.totalResults
-      ?? coupons?.totalResults
-      ?? coupons?.totalCount
-      ?? coupons?.count,
-  );
-}
-
 function splitMyAccountUrl(myAccountUrl) {
   if (!myAccountUrl || typeof window === 'undefined') {
     return null;
@@ -179,20 +150,11 @@ function buildAccountMenuItem({
   link.addEventListener('click', (event) => {
     event.stopPropagation();
   });
-
-  const titleEl = document.createElement('span');
-  titleEl.className = 'my-product-title';
-  titleEl.textContent = label;
-
-  const countText = formatCountBadge(count, { showZero: showZeroCount });
-  if (countText) {
-    const countEl = document.createElement('span');
-    countEl.className = 'my-count-span';
-    countEl.textContent = countText;
-    titleEl.append(countEl);
-  }
-
-  link.append(titleEl);
+  link.append(...buildAccountMenuItemChildren(document, {
+    label,
+    count,
+    showZeroCount,
+  }));
 
   return link;
 }
@@ -1571,15 +1533,19 @@ export default async function decorate(block) {
     syncHeaderCommerceUi(cachedAuthState);
     refreshHeaderCommerceCounts(cachedAuthState).catch(() => {});
 
-    initializeHybrisAuth()
-      .then((authState) => {
-        syncHeaderCommerceUi(authState);
+    const syncAuthStateAndRefreshCountsIfNeeded = (authState) => {
+      syncHeaderCommerceUi(authState);
+      if (shouldRefreshHeaderCommerceCountsAfterAuthInit(cachedAuthState, authState)) {
         return refreshHeaderCommerceCounts(authState);
-      })
+      }
+      return Promise.resolve();
+    };
+
+    initializeHybrisAuth()
+      .then(syncAuthStateAndRefreshCountsIfNeeded)
       .catch(() => {
         const nextAuthState = getCachedHybrisAuthState();
-        syncHeaderCommerceUi(nextAuthState);
-        return refreshHeaderCommerceCounts(nextAuthState);
+        return syncAuthStateAndRefreshCountsIfNeeded(nextAuthState);
       })
       .catch(() => {});
   }
