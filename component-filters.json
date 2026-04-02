@@ -146,7 +146,8 @@
       "accessories-feature",
       "calltoaction-banner",
       "project-brief-card",
-      "after-sales"
+      "after-sales",
+      "store-information-card"
     ]
   },
   {
@@ -513,6 +514,12 @@
     "id": "stats-grid",
     "components": [
       "achievement-matrix"
+    ]
+  },
+  {
+    "id": "store-information-card",
+    "components": [
+      "store-information-card-item"
     ]
   },
   {

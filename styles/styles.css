@@ -1200,3 +1200,15 @@ main > .footer-container.section {
 	margin: 0;
 }
 
+.list-card-container{
+      padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-m, 32px);
+    border-bottom: 1px solid var(--color-primary-grey-40, #bbb);
+    
+    @media (width < 860px) {
+      gap: var(--spacing-s, 18px);
+      grid-template-columns: 1fr;
+    }
+  }

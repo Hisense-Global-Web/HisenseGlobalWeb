@@ -1,19 +1,8 @@
-.after-sales-wrapper {
+.store-information-card-wrapper {
   width: 100%;
 
-  .after-sales {
-    .list-card-container{
-       padding: 0;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--spacing-m, 32px);
-      border-bottom: 1px solid var(--color-primary-grey-40, #bbb);
-      
-      @media (width < 860px) {
-        gap: var(--spacing-s, 18px);
-        grid-template-columns: 1fr;
-      }
-    }
+ 
+   
 
     .list-card {
       display: flex;
@@ -99,7 +88,7 @@
         }
     }
 
-    .after-sales p {
+    .store-information-card p {
       margin: 0;
     }
   }
@@ -110,10 +99,10 @@
     .list-card:not(:has(~ .list-card)) {
       border: none;
     }
-  }
+  
 
 
 }
-.after-sales-container{
+.store-information-card-container{
   margin-top: 200px!important;
 }

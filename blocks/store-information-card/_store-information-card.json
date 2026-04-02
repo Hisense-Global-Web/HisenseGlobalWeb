@@ -1,0 +1,143 @@
+{
+  "definitions": [
+    {
+      "title": "Store Information Card",
+      "id": "store-information-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Store Information Card",
+              "model": "store-information-card",
+              "filter": "store-information-card"
+            
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Store Information Card Item",
+      "id": "store-information-card-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Store Information Card Item",
+              "model": "store-information-card-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "store-information-card",
+      "fields": [
+        {
+          "component": "text",
+          "name": "state",
+          "label": "State Tag",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "category",
+          "label": "Category Tag",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "state",
+          "label": "City Name",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "category",
+          "label": "Store Name",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "category",
+          "label": "Store Info Label 1",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "category",
+          "label": "Store Info Content 1",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "category",
+          "label": "Store Info Label 2",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "category",
+          "label": "Store Info Content 2",
+          "valueType": "string"
+        }
+      ]
+    },
+    {
+      "id": "store-information-card-item",
+      "fields": [
+         {
+          "component": "text",
+          "name": "tag",
+          "label": "Tag",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "info",
+          "label": "Info",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "text",
+          "label": "Text",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "subtext",
+          "label": "Sub Text",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "location",
+          "label": "Location",
+          "valueType": "string"
+          
+        }
+       
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "store-information-card",
+      "components": [
+        "store-information-card-item"
+      ]
+    }
+  ]
+}

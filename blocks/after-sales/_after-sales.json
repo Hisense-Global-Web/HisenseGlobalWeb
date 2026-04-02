@@ -10,8 +10,7 @@
             "template": {
               "name": "After Sales",
               "model": "after-sales",
-              "filter": "after-sales",
-              "key-value": true
+              "filter": "after-sales"
             
             }
           }

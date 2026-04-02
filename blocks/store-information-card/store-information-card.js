@@ -7,10 +7,8 @@ const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 const generateCard = (info) => {
   info?.classList?.add?.('list-card');
   // eslint-disable-next-line no-unsafe-optional-chaining
-  const [tag, infoEL, titleEL, textEL, text2, location]= info?.children ?? [];
-  if (tag) {
-    tag?.parentNode?.setAttribute('data-item-tag', tag.firstElementChild.textContent?.trim());
-  }
+  const [ infoEL, titleEL, textEL, text2, location]= info?.children ?? [];
+
   if (infoEL) infoEL.classList = 'card-info';
   if (titleEL) titleEL.classList = 'card-title';
   if (textEL) textEL.classList = 'card-text';
@@ -21,16 +19,17 @@ const generateCard = (info) => {
  */
 export default function decorate(block) {
   // const config = readBlockConfig(block);
-  const [area, ...infoList] = [...block.children];
-  area?.parentNode?.parentNode?.setAttribute('data-tag', area.firstElementChild.textContent?.trim());
-  area.className = 'card-name'
+  const [stage, category, ...infoList] = [...block.children];
+  stage?.parentNode?.parentNode?.setAttribute('data-tag', stage.firstElementChild.textContent?.trim());
+  category.parentNode?.parentNode?.setAttribute('data-item-tag', stage.firstElementChild.textContent?.trim());
+  stage.className = 'card-name';
   const arrow = document.createElement('img');
   arrow.classList.add('arrow');
   arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   arrow.addEventListener('click', (e) => {
     e.stopPropagation();
-    console.log('e',e)
-     e?.target?.parentNode?.classList.toggle('hide');
+    console.log('e', e);
+    e?.target?.parentNode?.classList.toggle('hide');
     // const targetIndex = e.target.getAttribute('data-target-index');
     // const allCards = document.querySelectorAll('.card-image');
     // const targetCard = allCards[targetIndex];
@@ -43,14 +42,14 @@ export default function decorate(block) {
     //   }
     // }
   });
-  area.append(arrow);
+  stage.append(arrow);
   const wrapper = document.createElement('div');
   wrapper.className = 'list-card-container';
   infoList?.forEach((info) => {
     generateCard(info);
     wrapper.append(info);
   });
-  block.replaceChildren(area, wrapper);
+  block.replaceChildren(stage, wrapper);
   block.classList.add('loaded');
 }
 

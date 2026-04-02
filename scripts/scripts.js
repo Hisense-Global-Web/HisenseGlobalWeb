@@ -323,11 +323,109 @@ function transHorizontalSection(className) {
     }
   }
 }
+
+function storeInformationSelect() {
+  const el = document.querySelectorAll('.after-sales-container');
+   const selectDiv = document.createElement('div');
+  // 2. 创建第一个下拉框 id="selectTag"
+  const selectTag = document.createElement('select');
+  selectTag.id = 'selectTag';
+  // 3. 创建第二个下拉框 id="selectItemTag"
+  const selectItemTag = document.createElement('select');
+  selectItemTag.id = 'selectItemTag';
+  // 4. 创建确认按钮
+  const confirmBtn = document.createElement('button');
+  confirmBtn.id = 'confirmBtn';
+  confirmBtn.textContent = '确认筛选';
+  // 5. 把元素依次放进 div 里
+  selectDiv.appendChild(selectTag);
+  selectDiv.appendChild(selectItemTag);
+  selectDiv.appendChild(confirmBtn);
+  if (el.length > 0) {
+    el[0].prepend(selectDiv);
+  }
+ 
+    const aList = document.querySelectorAll('.after-sales-wrapper');
+    console.log('aList',aList)
+    const tagSet = new Set();
+
+    aList.forEach(a => {
+      const tag = a.getAttribute('data-tag');
+      if (tag) tagSet.add(tag);
+    });
+
+    // 2. 渲染第一个下拉框
+    selectTag.innerHTML = '<option value="">全部tag</option>';
+    tagSet.forEach(tag => {
+      selectTag.innerHTML += `<option value="${tag}">${tag}</option>`;
+    });
+    
+      // 4. 渲染第二个下拉框（根据选中的tag筛选）
+    function renderItemTags(selectedTag) {
+      selectItemTag.innerHTML = '<option value="">全部item</option>';
+      const itemSet = new Set();
+
+      aList.forEach(a => {
+        const tag = a.getAttribute('data-tag');
+        if (selectedTag && tag !== selectedTag) return;
+
+        // 找到当前 .a 下的所有 .b
+        a.querySelectorAll('.list-card').forEach(b => {
+          const itemTag = b.getAttribute('data-item-tag');
+          if (itemTag) itemSet.add(itemTag);
+        });
+      });
+
+      itemSet.forEach(item => {
+        selectItemTag.innerHTML += `<option value="${item}">${item}</option>`;
+      });
+    }
+    // 3. 第一个select变化 → 刷新第二个select（联动）
+    selectTag.addEventListener('change', function () {
+      renderItemTags(this.value);
+    });
+
+
+    // 5. 确认按钮 → 筛选显示/隐藏
+    confirmBtn.addEventListener('click', () => {
+      const t = selectTag.value;
+      const it = selectItemTag.value;
+
+      aList.forEach(a => {
+        const { tag } = a.dataset;
+
+        // 1. 先判断tag是否匹配
+        if (t && tag !== t) {
+          a.style.display = 'none';
+          return;
+        }
+
+        // 2. 判断item是否匹配
+        const bItems = a.querySelectorAll('.list-card');
+        let hasMatch = false;
+
+        bItems.forEach((b) => {
+          const { itemTag } = b.dataset;
+          const show = !it || itemTag === it;
+          b.style.display = show ? 'block' : 'none';
+          if (show) hasMatch = true;
+        });
+
+        // 3. 子元素都不匹配 → 隐藏整个 .a
+        a.style.display = hasMatch || !it ? 'block' : 'none';
+      });
+    });
+
+    // 初始化渲染第二个下拉框
+    renderItemTags('');
+  
+}
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
   transHorizontalSection('.honors-awards-wrapper');
+  storeInformationSelect();
 
   // Update US site links after page load is complete
   if (document.readyState === 'complete') {
