@@ -16,6 +16,10 @@
   padding: var(--size-32) var(--size-32) var(--size-40);
   gap: var(--size-20);
 
+  @media (width < 860px) {
+    padding: var(--size-24) var(--size-24) var(--size-32);
+  }
+
   .collapse-title {
     display: flex;
     align-items: flex-start;
@@ -25,23 +29,8 @@
     font-size: var(--fontsize-title2);
     font-weight: var(--fontweight-medium);
 
-    > div:first-child {
-      flex: 1;
-    }
-
-    img.chevron {
-      transition: transform .36s cubic-bezier(0, 0.18, 0.07, 1), -webkit-transform .36s cubic-bezier(0, 0.18, 0.07, 1);
-      width: var(--size-24);
-      height: var(--size-24);
-      flex-shrink: 0;
-      margin-left: var(--size-16);
-      cursor: pointer;
-
-      @media (width < 860px) {
-        width: var(--size-20);
-        height: var(--size-20);
-        margin-left: var(--size-12);
-      }
+    @media (width < 860px) {
+      font-size: var(--size-18);
     }
   }
 
@@ -54,6 +43,11 @@
     padding-right: var(--size-80);
     transition: max-height .36s ease-in-out;
     color: var(--color-primary-grey-70);
+
+    @media (width < 860px) {
+      font-size: var(--size-14);
+      line-height: 1.5;
+    }
 
     ol {
       padding-left: var(--size-16);
@@ -80,6 +74,10 @@
       line-height: 1.5;
       font-weight: var(--fontweight-medium);
       cursor: pointer;
+
+      @media (width < 860px) {
+        margin-top: var(--size-30);
+      }
 
       &:hover {
         background-color: var(--color-primary-green-50);

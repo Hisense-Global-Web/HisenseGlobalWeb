@@ -15,6 +15,10 @@
   background: var(--color-primary-grey-10);
   padding: var(--size-32) var(--size-32) var(--size-40);
   gap: var(--size-20);
+  
+  @media (width < 860px) {
+    padding: var(--size-24) var(--size-24) var(--size-32);
+  }
 
   .collapse-title {
     display: flex;
@@ -24,6 +28,10 @@
     line-height: 1.2;
     font-size: var(--fontsize-title2);
     font-weight: var(--fontweight-medium);
+    
+    @media (width < 860px) {
+      font-size: var(--size-18);
+    }
 
     > div:first-child {
       flex: 1;
@@ -54,6 +62,11 @@
     padding-right: var(--size-80);
     transition: max-height .36s ease-in-out;
     color: var(--color-primary-grey-70);
+    
+    @media (width < 860px) {
+      font-size: var(--size-14);
+      line-height: 1.5;
+    }
 
     ol {
       padding-left: var(--size-16);
@@ -80,6 +93,10 @@
       line-height: 1.5;
       font-weight: var(--fontweight-medium);
       cursor: pointer;
+      
+      @media (width < 860px) {
+        margin-top: var(--size-30);
+      }
 
       &:hover {
         background-color: var(--color-primary-green-50);
