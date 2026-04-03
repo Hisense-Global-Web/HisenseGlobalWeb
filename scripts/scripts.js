@@ -12,7 +12,7 @@ import {
   loadSections,
   loadCSS,
 } from './aem.js';
-import { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
+import { getEdsBaseUrl, getGraphQLBaseUrl, getLocationPart } from './environment.js';
 import {
   consumeHybrisLogoutAction,
   getHybrisBffBaseUrl,
@@ -171,6 +171,26 @@ async function loadRemoteErrorPage(main) {
 }
 
 /**
+ * Checks if the current page is a config page based on the URL.
+ * @returns {boolean}
+ */
+export function isConfigPage() {
+  return getLocationPart('pathname').includes('/config/');
+}
+
+/**
+ * Checks if the current page is a nav page based on the URL.
+ * @returns {boolean}
+ */
+export function isNavPage() {
+  return /\/nav(\.html)?$/.test(getLocationPart('pathname'));
+}
+
+export function isFooterPage() {
+  return /footer(\.html)?$/.test(getLocationPart('pathname'));
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
@@ -187,7 +207,11 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    loadHeader(doc.querySelector('header'));
+    if (isConfigPage() || isFooterPage()) {
+      // to nothing
+    } else {
+      loadHeader(doc.querySelector('header'));
+    }
     const hasRemoteErrorPage = await loadRemoteErrorPage(main);
     if (!hasRemoteErrorPage) {
       decorateMain(main);
@@ -218,7 +242,11 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadFooter(doc.querySelector('footer'));
+  if (isConfigPage() || isNavPage()) {
+    // to nothing
+  } else {
+    loadFooter(doc.querySelector('footer'));
+  }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
