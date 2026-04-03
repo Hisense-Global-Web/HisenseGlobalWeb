@@ -10,6 +10,7 @@ const EStartStr = Object.freeze({
 });
 
 const setStartStr = (link, startStr) => {
+  if (!link?.trim()?.length) return '';
   if (link?.startsWith(startStr)) {
     return link;
   }
@@ -51,7 +52,7 @@ export default function decorate(block) {
       if (contactInofEl) {
         contactInofEl.classList.add('contact-info');
       }
-      const contactInfoText = contactInofEl?.querySelector('p')?.textContent || null;
+      const contactInfoText = contactInofEl?.textContent || null;
       const topEl = document.createElement('div');
       topEl.className = 'top';
       topEl.appendChild(iconEl);
@@ -71,8 +72,14 @@ export default function decorate(block) {
         buttonLinkEl?.classList?.add('button-hidden');
       }
       let buttonALink = buttonLinkEl?.querySelector('a');
-      if (!buttonALink) {
-        buttonALink = buttonLinkEl?.querySelector('p');
+      let buttonLinkText = buttonALink?.href || '';
+      if (!buttonALink && buttonLinkEl?.querySelector('p')) {
+        const [btnTextEl, btnLinkEl] = buttonLinkEl.children;
+        buttonALink = btnTextEl;
+        if (btnLinkEl) {
+          buttonLinkText = btnLinkEl.textContent || '';
+          btnLinkEl.remove();
+        }
       }
       if (buttonALink) {
         buttonALink?.classList?.remove('button');
@@ -89,16 +96,15 @@ export default function decorate(block) {
         }
 
         buttonALink.addEventListener('click', () => {
-          // 页面直接跳转
-          if (buttonAction === EButtonAction.pageRedirect) {
-            window.location = buttonALink;
-          } else if (buttonAction === EButtonAction.sendEmail) {
-            const link = contactInfoText?.trim()?.length > 0 ? setStartStr(contactInfoText.trim(), EStartStr.mailTo) : setStartStr(buttonALink.trim(), EStartStr.mailTo);
+          if (buttonAction === EButtonAction.sendEmail) {
+            const link = contactInfoText?.trim()?.length > 0 ? setStartStr(contactInfoText.trim(), EStartStr.mailTo) : setStartStr(buttonLinkText, EStartStr.mailTo);
+            if (!link?.length) return;
             const emailLink = document.createElement('a');
             emailLink.href = link;
             emailLink.click();
           } else if (buttonAction === EButtonAction.phoneCall) {
-            const link = contactInfoText?.trim()?.length > 0 ? setStartStr(contactInfoText.trim(), EStartStr.tel) : setStartStr(buttonALink.trim(), EStartStr.tel);
+            const link = contactInfoText?.trim()?.length > 0 ? setStartStr(contactInfoText.trim(), EStartStr.tel) : setStartStr(buttonLinkText, EStartStr.tel);
+            if (!link?.length) return;
             const phoneLink = document.createElement('a');
             phoneLink.href = link;
             phoneLink.click();
