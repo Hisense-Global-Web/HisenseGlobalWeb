@@ -219,8 +219,8 @@
                   "name": "Additional Support Card",
                   "model": "additional-support-card",
                   "classes": "additional-support-card",
-                  "key-value": true,
-                  "filter": "additional-support-card"
+                  "filter": "additional-support-card",
+                  "pc_numberColumns": 4
                 }
               }
             }
@@ -236,7 +236,10 @@
                 "template": {
                   "name": "Additional Support Card Item",
                   "model": "additional-support-card-item",
-                  "key-value": true
+                  "cirlce-style": "none",
+                  "button-display": "pc-and-mobile",
+                  "button-style": "white",
+                  "button-action": "pageRedirect"
                 }
               }
             }
