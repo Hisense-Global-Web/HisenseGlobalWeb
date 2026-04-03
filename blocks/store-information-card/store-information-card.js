@@ -1,8 +1,3 @@
-/* eslint-disable func-names */
-// import { readBlockConfig } from '../../scripts/aem.js';
-
-
-
 const generateCard = (info) => {
   info?.classList?.add?.('list-card');
   // // eslint-disable-next-line no-unsafe-optional-chaining
@@ -20,7 +15,6 @@ export default function decorate(block) {
   stage.className = 'card-name';
   stage?.remove?.();
   category?.remove?.();
-  
   const wrapper = document.createElement('div');
   wrapper.className = 'list-card-container';
   infoList?.forEach((info) => {
@@ -30,4 +24,3 @@ export default function decorate(block) {
   block.replaceChildren(stage, wrapper);
   block.classList.add('loaded');
 }
-

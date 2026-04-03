@@ -146,7 +146,6 @@
       "accessories-feature",
       "calltoaction-banner",
       "project-brief-card",
-      "after-sales",
       "store-information-card"
     ]
   },
@@ -176,12 +175,6 @@
     "id": "additional-support-card",
     "components": [
       "additional-support-card-item"
-    ]
-  },
-  {
-    "id": "after-sales",
-    "components": [
-      "after-sales-item"
     ]
   },
   {
