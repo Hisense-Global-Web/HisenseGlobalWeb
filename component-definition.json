@@ -2719,6 +2719,38 @@
           }
         },
         {
+          "title": "Store Information Card",
+          "id": "store-information-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Store Information Card",
+                  "model": "store-information-card",
+                  "filter": "store-information-card",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Store Information Card Items",
+          "id": "store-information-card-items",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Store Information Card Items",
+                  "model": "store-information-card-items"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Strategic Card Items",
           "id": "strategic-card-items",
           "plugins": {

@@ -25,7 +25,7 @@ import {
   setCompareProductImgTit,
   appendCompareProductUtil,
 } from '../../utils/plp-compare-utils.js';
-import shouldShowAddToCartButton from '../../scripts/commerce-ui-utils.js';
+import shouldShowAddToCartButton, { resolvePopupQuantityDisplayState } from '../../scripts/commerce-ui-utils.js';
 
 const { country } = getLocaleFromPath();
 const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com';
@@ -1104,6 +1104,8 @@ export default function decorate(block) {
     representative: null,
     message: 'Item added to your cart',
     processing: false,
+    quantityLoading: false,
+    pendingQuantityAction: '',
   };
 
   const cartCacheState = {
@@ -1149,6 +1151,12 @@ export default function decorate(block) {
     return cartCacheState.cart;
   }
 
+  function setPopupQuantityLoadingState(action = '') {
+    const normalizedAction = String(action || '').trim().toLowerCase();
+    popupState.pendingQuantityAction = normalizedAction;
+    popupState.quantityLoading = ['increase', 'decrease'].includes(normalizedAction);
+  }
+
   function renderProductCardPopup() {
     if (!popupElements.popup) {
       return;
@@ -1168,6 +1176,11 @@ export default function decorate(block) {
     const canAdjustExistingEntry = entryNumber !== null && quantity > 0;
     const totalUnitCount = getCartTotalUnitCount(popupState.cart) || quantity;
     const itemLabel = totalUnitCount === 1 ? 'item' : 'items';
+    const quantityDisplayState = resolvePopupQuantityDisplayState({
+      quantity,
+      quantityLoading: popupState.quantityLoading,
+      pendingQuantityAction: popupState.pendingQuantityAction,
+    });
     const productTitle = getProductDisplayTitle(
       entryProduct,
       getProductDisplayTitle(fallbackProduct, popupState.productCode),
@@ -1205,18 +1218,34 @@ export default function decorate(block) {
       popupElements.stockLine.classList.toggle('is-unavailable', !inStock);
     }
 
-    popupElements.countControls.forEach(({ input, minusBtn, plusBtn }) => {
-      input.value = String(quantity || 0);
+    popupElements.countControls.forEach(({
+      inputShell,
+      input,
+      minusBtn,
+      plusBtn,
+    }) => {
+      inputShell?.classList.toggle('is-loading', quantityDisplayState.showLoading);
+      input.value = quantityDisplayState.value;
       input.readOnly = true;
       input.setAttribute('readonly', 'readonly');
       input.setAttribute('inputmode', 'none');
       input.setAttribute('aria-label', 'Quantity');
-      minusBtn.disabled = popupState.processing || !canAdjustExistingEntry || quantity <= 1;
-      plusBtn.disabled = popupState.processing || !popupState.productCode;
+      if (quantityDisplayState.showLoading) {
+        input.setAttribute('aria-busy', 'true');
+      } else {
+        input.removeAttribute('aria-busy');
+      }
+      minusBtn.disabled = popupState.processing
+        || quantityDisplayState.showLoading
+        || !canAdjustExistingEntry
+        || quantity <= 1;
+      plusBtn.disabled = popupState.processing
+        || quantityDisplayState.showLoading
+        || !popupState.productCode;
     });
 
     popupElements.deleteIcons.forEach((icon) => {
-      const disabled = popupState.processing || !canAdjustExistingEntry;
+      const disabled = popupState.processing || quantityDisplayState.showLoading || !canAdjustExistingEntry;
       icon.classList.toggle('is-disabled', disabled);
       icon.setAttribute('aria-disabled', disabled ? 'true' : 'false');
       icon.setAttribute('title', disabled
@@ -1322,6 +1351,7 @@ export default function decorate(block) {
       || getPopupEntryFallback(options.fallbackEntry, popupState.productCode);
     popupState.message = options.message || 'Add item to your cart';
     popupState.processing = false;
+    setPopupQuantityLoadingState(options.pendingQuantityAction);
 
     renderProductCardPopup();
     setProductCardPopupVisibility(true);
@@ -1334,6 +1364,7 @@ export default function decorate(block) {
 
     const previousMessage = popupState.message;
     const previousQuantity = getCartEntryQuantity(popupState.entry);
+    setPopupQuantityLoadingState('increase');
     popupState.processing = true;
     renderProductCardPopup();
 
@@ -1359,6 +1390,7 @@ export default function decorate(block) {
       popupState.message = previousMessage;
     } finally {
       popupState.processing = false;
+      setPopupQuantityLoadingState('');
       renderProductCardPopup();
     }
   }
@@ -1370,6 +1402,7 @@ export default function decorate(block) {
       return;
     }
 
+    setPopupQuantityLoadingState('decrease');
     popupState.processing = true;
     renderProductCardPopup();
 
@@ -1394,6 +1427,7 @@ export default function decorate(block) {
       console.warn(`Failed to decrease cart quantity for ${popupState.productCode}`, error);
     } finally {
       popupState.processing = false;
+      setPopupQuantityLoadingState('');
       renderProductCardPopup();
     }
   }
@@ -1404,6 +1438,7 @@ export default function decorate(block) {
       return;
     }
 
+    setPopupQuantityLoadingState('remove');
     popupState.processing = true;
     renderProductCardPopup();
 
@@ -1429,6 +1464,7 @@ export default function decorate(block) {
       console.warn(`Failed to remove cart item for ${popupState.productCode}`, error);
     } finally {
       popupState.processing = false;
+      setPopupQuantityLoadingState('');
       renderProductCardPopup();
     }
   }
@@ -1455,12 +1491,16 @@ export default function decorate(block) {
     inputEl.tabIndex = -1;
     inputEl.inputMode = 'none';
 
+    const inputShell = document.createElement('span');
+    inputShell.className = 'qty-input-shell';
+    inputShell.append(inputEl);
+
     const btnPlus = document.createElement('button');
     btnPlus.type = 'button';
     btnPlus.className = 'qty-action qty-increase';
     btnPlus.textContent = '+';
 
-    countChangeEl.append(qtySpan, btnMinus, inputEl, btnPlus);
+    countChangeEl.append(qtySpan, btnMinus, inputShell, btnPlus);
     return countChangeEl;
   }
 
@@ -1988,6 +2028,7 @@ export default function decorate(block) {
             representative: group.representative,
             cart: cachedCart,
             message: 'Add item to your cart',
+            pendingQuantityAction: 'increase',
           });
           await increaseProductCardPopupQuantity();
         } catch (popupError) {
@@ -2604,6 +2645,7 @@ export default function decorate(block) {
   popupElements.countControls = [desktopCountChangeEl, mobileCountChangeEl].map((control) => ({
     root: control,
     minusBtn: control.querySelector('.qty-decrease'),
+    inputShell: control.querySelector('.qty-input-shell'),
     input: control.querySelector('.qty-input'),
     plusBtn: control.querySelector('.qty-increase'),
   }));
