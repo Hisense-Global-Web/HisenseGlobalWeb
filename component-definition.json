@@ -1893,7 +1893,7 @@
                   "name": "Page Header",
                   "model": "page-header",
                   "classes": "page-header",
-                  "page-header-style": "align-center",
+                  "page-headerstyle": "align-center",
                   "title-style": "text-green-50"
                 }
               }

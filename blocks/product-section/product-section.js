@@ -15,6 +15,7 @@ import {
   updateHybrisCartItem,
 } from '../../scripts/hybris-bff.js';
 import { loadCSS } from '../../scripts/aem.js';
+import shouldShowAddToCartButton from '../../scripts/commerce-ui-utils.js';
 import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 
@@ -1547,12 +1548,16 @@ export default async function decorate(block) {
 
     try {
       const commerceProduct = await fetchHybrisProduct(currentProductCode);
-      applyHybrisPriceDisplay(commerceProduct);
+      const hasPrice = Boolean(applyHybrisPriceDisplay(commerceProduct));
       const inventoryAvailable = hasInventory(commerceProduct);
-      setCartButtonVisibility(inventoryAvailable);
+      const canShowAddToCart = shouldShowAddToCartButton({
+        hasPrice,
+        hasInventory: inventoryAvailable,
+      });
+      setCartButtonVisibility(canShowAddToCart);
       setFavoriteVisibility(inventoryAvailable);
 
-      if (!inventoryAvailable) {
+      if (!canShowAddToCart) {
         clearWishlistState();
         return;
       }

@@ -193,6 +193,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   margin-top: var(--size-16);
+  margin-bottom: var(--size-16);
 
   .plp-product-current-price {
     margin: 0;
