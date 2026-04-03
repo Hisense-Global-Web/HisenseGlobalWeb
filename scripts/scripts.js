@@ -19,10 +19,10 @@ import {
   initializeHybrisAuth,
   scheduleHybrisTask,
 } from './hybris-bff.js';
-import { getFragmentPath } from './locale-utils.js';
-import { getLocaleFromPath } from '../../scripts/locale-utils.js';
-export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
+import { getFragmentPath, getLocaleFromPath } from './locale-utils.js';
 import { isUniversalEditor } from '../utils/ue-helper.js';
+
+export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -335,7 +335,7 @@ async function loadAnnouncementPopup() {
   if (isUniversalEditor()) {
     return false;
   }
-  
+
   const { country } = getLocaleFromPath();
   const announcementActiveCountries = ['mx'];
 
@@ -343,10 +343,10 @@ async function loadAnnouncementPopup() {
     return false;
   }
 
-  const popupUrl = getFragmentPath(`config/announcement`);
+  const popupUrl = getFragmentPath('config/announcement');
   try {
     const resp = await fetch(`${popupUrl}.plain.html`);
-    
+
     if (!resp.ok) {
       return false;
     }
@@ -365,7 +365,7 @@ async function loadAnnouncementPopup() {
 
     decorateMain(fragmentMain);
     await loadSections(fragmentMain);
-    
+
     const fragmentSections = [...fragmentMain.children];
     const anncEl = fragmentMain.querySelector('.popup-announcement');
 
@@ -396,7 +396,7 @@ async function loadAnnouncementPopup() {
       currentAnnc.classList.remove('popup-show');
       document.body.style.overflow = 'auto';
     }
-    
+
     return true;
   } catch (error) {
     // eslint-disable-next-line no-console
