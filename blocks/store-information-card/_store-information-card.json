@@ -10,7 +10,8 @@
             "template": {
               "name": "Store Information Card",
               "model": "store-information-card",
-              "filter": "store-information-card"
+              "filter": "store-information-card",
+              "key-value": true
             
             }
           }
