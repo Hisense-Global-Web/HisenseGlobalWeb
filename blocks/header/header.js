@@ -15,7 +15,7 @@ import {
   refreshHybrisAuthStatus,
   startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
-import { getFragmentPath } from '../../scripts/locale-utils.js';
+import { getFragmentPath, isNavPage } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 import {
   buildAccountProfileHref,
@@ -27,7 +27,6 @@ import {
 } from './header-commerce-utils.js';
 
 import { isAuthorHostname } from '../../scripts/environment.js';
-import { isNavPage } from '../../scripts/scripts.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
