@@ -20,7 +20,7 @@ import {
   scheduleHybrisTask,
 } from './hybris-bff.js';
 import { getFragmentPath } from './locale-utils.js';
-
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
 /**
@@ -329,7 +329,68 @@ function transHorizontalSection(className) {
     }
   }
 }
+
+async function loadAnnouncementPopup() {
+  const { country } = getLocaleFromPath();
+  const announcementActiveCountries = ['mx'];
+
+  if (!announcementActiveCountries.includes(country)) {
+    return false;
+  }
+
+  const popupUrl = getFragmentPath(`config/announcement`);
+  try {
+    const resp = await fetch(`${popupUrl}.plain.html`);
+    
+    if (!resp.ok) {
+      return false;
+    }
+
+    const fragmentMain = document.createElement('main');
+    fragmentMain.innerHTML = await resp.text();
+
+    const resetAttributeBase = (tag, attr) => {
+      fragmentMain.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
+        elem[attr] = new URL(elem.getAttribute(attr), new URL(errorPath, window.location)).href;
+      });
+    };
+
+    resetAttributeBase('img', 'src');
+    resetAttributeBase('source', 'srcset');
+
+    decorateMain(fragmentMain);
+    await loadSections(fragmentMain);
+    
+    const fragmentSections = [...fragmentMain.children];
+    const hasAnnouncementPage = fragmentMain.querySelector('.popup-announcement');
+
+    if (!hasAnnouncementPage || !fragmentSections.length) {
+      return false;
+    }
+    document.querySelector('main').appendChild(...fragmentSections);
+    const announcementPopup = document.querySelector('.popup-announcement');
+
+    if (announcementPopup.classList.contains('popup-show')) {
+      announcementPopup.classList.remove('popup-show');
+    }
+    // check local storage to decide whether show the announcement popup, only show it when the version is different from the version user closed last time
+    const announcementVersion = announcementPopup.getAttribute('data-version') || '';
+    const closedVersion = localStorage.getItem('announcementClosedVersion') || '';
+    if (announcementVersion && announcementVersion !== closedVersion) {
+      announcementPopup.classList.add('popup-show');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    return true;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.debug(`failed to load remote error page from ${popupUrl}`, error);
+    return false;
+  }
+}
+
 async function loadPage() {
+  loadAnnouncementPopup()
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
