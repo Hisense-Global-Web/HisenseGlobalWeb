@@ -22,6 +22,7 @@ import {
 import { getFragmentPath } from './locale-utils.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
+import { isUniversalEditor } from '../utils/ue-helper.js';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -331,6 +332,10 @@ function transHorizontalSection(className) {
 }
 
 async function loadAnnouncementPopup() {
+  if (isUniversalEditor()) {
+    return false;
+  }
+  
   const { country } = getLocaleFromPath();
   const announcementActiveCountries = ['mx'];
 
