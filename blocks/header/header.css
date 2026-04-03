@@ -189,7 +189,7 @@
 }
 
 #navigation .nav-second {
-  height: 66px;
+  height: 79px;
   display: flex;
   justify-content: space-between;
   gap: 48px;
@@ -210,7 +210,6 @@
     font-weight: var(--fontweight-medium);
     line-height: 1.5;
     height: 22px;
-    margin-top: 10px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
@@ -226,13 +225,12 @@
   }
 
   .company-group {
-    height: 50px;
     display: flex;
     gap: 48px;
     color: var(--color-primary-grey-70);
 
     .company-item {
-      padding: 4px 0;
+      padding: 0 0 4px;
       font-size: 14px;
       font-weight: var(--fontweight-book);
       text-transform: capitalize;
@@ -240,7 +238,9 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      justify-content: center;
+      justify-content: flex-start;
+      align-self: baseline;
+      flex-shrink: 0;
 
       &.current {
         border-bottom: 2px solid var(--color-hisense-black);
@@ -288,7 +288,7 @@
 }
 
 #navigation:not(.is-support) .nav-second:not(.hidden) + .mobile-menu {
-  margin-top: -66px;
+  margin-top: -79px;
 
   @media (width < 1180px) {
     position: relative;
@@ -1268,7 +1268,7 @@
     padding: 0 24px;
     overflow: hidden;
     overscroll-behavior: contain;
-    margin-top: 66px;
+    margin-top: 79px;
     box-sizing: border-box;
     background: var(--color-primary-grey-10);
     transition: height 0.36s ease-in-out;
