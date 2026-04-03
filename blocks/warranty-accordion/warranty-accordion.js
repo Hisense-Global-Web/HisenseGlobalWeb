@@ -1,4 +1,4 @@
-import { processPath } from "../../utils/carousel-common.js";
+import { processPath } from '../../utils/carousel-common.js';
 
 export default function decorate(block) {
   const segments = window.location.pathname.split('/').filter(Boolean);

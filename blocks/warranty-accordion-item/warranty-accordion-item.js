@@ -1,4 +1,4 @@
-import { processPath } from "../../utils/carousel-common.js";
+import { processPath } from '../../utils/carousel-common.js';
 
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
