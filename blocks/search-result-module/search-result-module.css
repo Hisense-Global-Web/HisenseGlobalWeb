@@ -21,14 +21,16 @@
 
     @media (width < 860px) {
       gap: var(--size-32);
-      height: var(--size-32);
-      margin-bottom: var(--size-16);
+      margin-bottom: var(--size-32);
+      overflow: hidden;
+      overflow-x: auto;
+      scrollbar-width: none; /* Firefox */
     }
 
     .tab-item {
-      padding-top: var(--size-8);
+      padding: var(--size-8) 0;
       font-size: var(--fontsize-title2);
-      font-weight: var(--fontweight-medium);
+      font-weight: var(--fontweight-book);
       color: var(--color-primary-grey-70);
       height: var(--size-40);
       border-bottom: 3px solid transparent;
@@ -38,7 +40,6 @@
 
       @media (width < 860px) {
         font-size: var(--fontsize-title3);
-        height: var(--size-32);
       }
 
       span {
@@ -48,6 +49,7 @@
       &.select {
         color: var(--color-hisense-black);
         border-bottom: 3px solid var(--color-primary-green-50);
+        font-weight: var(--fontweight-medium);
       }
 
       &.empty {
@@ -69,7 +71,7 @@
     height: var(--size-40);
 
     @media (width < 860px) {
-      margin-bottom: var(--size-24);
+      margin-bottom: var(--size-32);
     }
     
     /* Results Count */
@@ -82,8 +84,7 @@
       gap: var(--size-3);
   
       @media (width < 860px) {
-        font-size: var(--fontsize-body2);
-        margin-bottom: var(--size-24);
+        font-size: var(--size-16);
       }
     }
     
@@ -196,7 +197,7 @@
     gap: var(--size-24);
 
     @media (width < 860px) {
-      gap: var(--size-16);
+      gap: var(--size-14);
     }
 
     .product-card {
@@ -207,16 +208,17 @@
       background: #fff;
       display: flex;
       flex-direction: column;
-      gap: var(--size-8);
+      gap: var(--size-16);
       border: 1px solid var(--color-primary-grey-30);
       text-decoration: none;
       color: inherit;
       transition: box-shadow 0.2s ease;
 
       @media (width < 860px) {
-        width: calc(50% - var(--size-8));
+        width: calc(50% - var(--size-7));
         padding: var(--size-12) var(--size-12) var(--size-16);
         border-radius: var(--radius-lg);
+        gap: var(--size-8);
       }
 
       &:hover {
@@ -256,7 +258,7 @@
     gap: var(--size-24);
 
     @media (width < 860px) {
-      gap: var(--size-16);
+      gap: var(--size-18);
     }
   }
 
@@ -271,8 +273,8 @@
     transition: box-shadow 0.2s ease;
 
     @media (width < 860px) {
-      padding: var(--size-24) var(--size-20) var(--size-32);
-      border-radius: var(--radius-lg);
+      padding: var(--size-24);
+      border-radius: var(--size-16);
       gap: var(--size-16);
     }
 
@@ -286,8 +288,8 @@
       flex-shrink: 0;
 
       @media (width < 860px) {
-        width: var(--size-80);
-        height: var(--size-52);
+        width: var(--size-110);
+        height: var(--size-110);
       }
 
       picture {
@@ -300,7 +302,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: var(--radius-md);
       }
     }
 
@@ -324,12 +325,10 @@
     font-size: var(--fontsize-body2);
     font-weight: var(--fontweight-medium);
     height: 22px;
-    margin-bottom: var(--size-4);
 
     @media (width < 860px) {
       font-size: var(--fontsize-body3);
       height: auto;
-      margin-bottom: var(--size-2);
     }
   }
 
@@ -589,10 +588,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: var(--size-40);
-      padding: 0 var(--size-32);
-      border-radius: var(--radius-xxl);
-      border: 1px solid var(--color-primary-grey-70);
+      height: var(--size-20);
+      padding: 0;
+      border-radius: 0;
+      border-bottom: 1px solid var(--color-primary-grey-70);
       background-color: transparent;
       color: var(--color-hisense-black);
       font-size: var(--fontsize-body2);
