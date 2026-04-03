@@ -12,14 +12,19 @@ import {
   loadSections,
   loadCSS,
 } from './aem.js';
-import { getEdsBaseUrl, getGraphQLBaseUrl, getLocationPart } from './environment.js';
+import { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 import {
   consumeHybrisLogoutAction,
   getHybrisBffBaseUrl,
   initializeHybrisAuth,
   scheduleHybrisTask,
 } from './hybris-bff.js';
-import { getFragmentPath } from './locale-utils.js';
+import {
+  getFragmentPath,
+  isConfigPage,
+  isFooterPage,
+  isNavPage,
+} from './locale-utils.js';
 
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
@@ -168,26 +173,6 @@ async function loadRemoteErrorPage(main) {
     console.debug(`failed to load remote error page from ${errorPath}`, error);
     return false;
   }
-}
-
-/**
- * Checks if the current page is a config page based on the URL.
- * @returns {boolean}
- */
-export function isConfigPage() {
-  return getLocationPart('pathname').includes('/config/');
-}
-
-/**
- * Checks if the current page is a nav page based on the URL.
- * @returns {boolean}
- */
-export function isNavPage() {
-  return /\/nav(\.html)?$/.test(getLocationPart('pathname'));
-}
-
-export function isFooterPage() {
-  return /footer(\.html)?$/.test(getLocationPart('pathname'));
 }
 
 /**
@@ -357,6 +342,7 @@ function transHorizontalSection(className) {
     }
   }
 }
+
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
