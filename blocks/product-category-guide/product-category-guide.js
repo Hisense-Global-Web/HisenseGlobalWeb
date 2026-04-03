@@ -11,7 +11,7 @@ export default function decorate(block) {
   });
 
   // Add class to step based on previous tab
-  if(block.querySelector('.step')) {
+  if (block.querySelector('.step')) {
     const steps = block.querySelectorAll('.step');
     const stepGroups = document.createElement('div');
     stepGroups.className = 'step-groups';
@@ -28,7 +28,7 @@ export default function decorate(block) {
       step.append(textContent);
       stepGroups.appendChild(step);
     });
-  
+
     block.appendChild(stepGroups);
   }
 

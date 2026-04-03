@@ -3,7 +3,7 @@ import { isUniversalEditor } from '../../utils/ue-helper.js';
 export default function decorate(block) {
   // add title and avoid duplication of title in editor
   let titleDom = block.querySelector('.guide-title');
-  if (!titleDom){
+  if (!titleDom) {
     titleDom = document.createElement('div');
     titleDom.className = 'guide-title';
     titleDom.innerHTML = block.dataset.title || '';
