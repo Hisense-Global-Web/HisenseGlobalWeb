@@ -85,10 +85,12 @@
           "name": "version",
           "label": "Announcement Version",
           "placeholder": "1.0",
-          "regExp": "^\\d+\\.\\d+$",
+          "description": "Enter the version of the announcement.",
           "valueFormat": "regexp",
-          "validationMessage": "Version must be in the format 'X.Y' where X and Y are numbers.",
-          "description": "Enter the version of the announcement."
+          "validation": {
+            "regExp": "^\\d+\\.\\d+$",
+            "customErrorMsg": "Version must be in the format 'X.Y' where X and Y are numbers."
+          }
         }
       ]
     }

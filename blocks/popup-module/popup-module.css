@@ -75,7 +75,8 @@ main .section.popup-module-container {
     }
   }
 
-  &[data-aue-component="popup-module"] {
+  &[data-aue-component="popup-module"],
+  &[data-aue-component="announcement"] {
     .popup-content-container {
       max-height: none;
     }
@@ -112,7 +113,8 @@ main .section.popup-module-container {
       }
     }
 
-    &[data-aue-component="popup-module"] {
+    &[data-aue-component="popup-module"],
+    &[data-aue-component="announcement"] {
       .popup-content-container {
         max-height: none;
       }
