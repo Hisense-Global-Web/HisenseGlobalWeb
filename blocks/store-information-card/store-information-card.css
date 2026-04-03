@@ -1,33 +1,27 @@
 .sic-wrapper {
-  .store-information-card-wrapper {
-    width: 100%;
+  padding: var(--spacing-lg) 0 var(--size-32) !important;
+  border-bottom: 1px solid var(--color-primary-green-50);
 
-    .store-information-card{
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-xs, 16px);
-      border-radius: var(--size-20);
-      border-radius: 20px;
-      background: linear-gradient(0deg, var(--color-primary-grey-20, #F7F7F7) 0%, var(--color-primary-grey-20, #F7F7F7) 100%), #FFF;
-      padding: var(--size-32);
-
-      @media (width < 860px) {
-        flex-direction: row;
-        gap: var(--size-24);
-        padding: var(--size-32);
-       
-      }
-   
+  @media (width < 860px) {
+      padding: var(--size-32) 0 var(--size-16) !important;
   }
+  
+  .sic-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--size-32);
+    color:  var(--color-primary-grey-100);
+    font-size: var(--fontsize-title1);
+    font-weight: var(--fontweight-medium);
+    line-height: 1.2;
 
-  .list-card:not(:has(~ .list-card)) {
-    border: none;
-  }
-  }
-
-  .arrow.hide  {
-    transform: rotate(-180deg);
-      transition: transform 0.3s ease;
+     @media (width < 860px) {
+      margin-bottom: var(--size-16);
+      color:  var(--color-primary-grey-90);
+      font-size: var(--size-16);
+      line-height: 1.3;
+     }
   }
 
   .block-wrapper{
@@ -35,12 +29,100 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-m, 32px);
-    border-bottom: 1px solid var(--color-primary-grey-40, #bbb);
+    
 
     @media (width < 860px) {
-      gap: var(--spacing-s, 18px);
-      grid-template-columns: 1fr;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
+      scroll-behavior: smooth; /* 平滑滚动 */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE/Edge */
+      touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
+      overscroll-behavior-x: contain; /* 防止滚动链 */
+      grid-auto-flow: column;
+      gap: var(--fontsize-body1);
+      
     }
+  }
+
+  .store-information-card-wrapper {
+    width: 100%;
+
+    .store-information-card{
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--size-20);
+      background: linear-gradient(0deg, var(--color-primary-grey-20, #F7F7F7) 0%, var(--color-primary-grey-20, #F7F7F7) 100%), #FFF;
+      padding: var(--size-32);
+
+      @media (width < 860px) {
+        padding: var(--size-24);
+         position: relative;
+          width: 70.7vw !important;
+          height: 70.7vw;
+          aspect-ratio: 1;
+          transition: transform 0.3s;
+          pointer-events: auto; /* 允许事件穿透到容器 */
+
+          /* -webkit-user-select: none; */
+          user-select: none;
+      }
+      
+      .city{
+        font-size: var(--fontsize-body1);
+        color:var(--color-primary-green-50);
+        font-weight: var(--fontweight-medium);
+        line-height: 1.5;
+      }
+
+      .store{
+        font-size: var(--fontsize-title2);
+        color:var(--color-primary-grey-100);
+        font-weight: var(--fontweight-medium);
+        line-height: 1.2;
+        margin-bottom: var(--size-8);
+      }
+      
+      .info1, .info2, .info3{
+        font-size: var(--fontsize-body2);
+        color:var(--color-primary-grey-60);
+        font-weight: var(--fontweight-book);
+        line-height: 1.2;
+        margin-top: var(--size-16);
+      }
+
+      .content1, .content2{
+        font-size: var(--fontsize-body1);
+        color:var(--color-primary-grey-100);
+        font-weight: var(--fontweight-book);
+        line-height: 1.5;
+      }
+
+      .sever-item > div{
+        display: flex;
+        align-items: center;
+        font-size: var(--fontsize-body1);
+        color:var(--color-primary-grey-100);
+        font-weight: var(--fontweight-book);
+        line-height: 1.5;
+        gap: var(--size-8);
+
+        img{
+          width: var(--size-28);
+          height: var(--size-28);
+        }
+      }
+  }
+
+  /* .list-card:not(:has(~ .list-card)) {
+    border: none;
+    } */
+  }
+
+  .arrow.hide  {
+    transform: rotate(-180deg);
+      transition: transform 0.3s ease;
   }
 }
 
