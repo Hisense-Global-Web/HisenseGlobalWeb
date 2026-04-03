@@ -601,38 +601,6 @@
           }
         },
         {
-          "title": "Collapse List",
-          "id": "collapse-list",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Collapse List",
-                  "filter": "collapse-list",
-                  "classes": "collapse-list"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "collapse",
-          "id": "collapse-item",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "collapse",
-                  "model": "collapse-item",
-                  "itemType": "image"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Collection Banner",
           "id": "collection-banner",
           "plugins": {

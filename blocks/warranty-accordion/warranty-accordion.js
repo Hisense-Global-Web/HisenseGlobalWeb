@@ -1,3 +1,5 @@
+import { processPath } from "../../utils/carousel-common.js";
+
 export default function decorate(block) {
   const segments = window.location.pathname.split('/').filter(Boolean);
   const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -32,9 +34,10 @@ export default function decorate(block) {
       const btnEl = document.createElement('div');
       btnEl.classList.add('collapse-btn');
       if (showButton) {
-        btnEl.textContent = row.children[0].textContent;
+        btnEl.textContent = row.querySelectorAll('p')[0].textContent;
         btnEl.addEventListener('click', () => {
-          window.location.href = row.children[1].querySelector('a').href;
+          const originalHref = row.querySelectorAll('p')[1].querySelector('a').href;
+          window.location.href = processPath(originalHref);
         });
       } else {
         btnEl.classList.add('hide');

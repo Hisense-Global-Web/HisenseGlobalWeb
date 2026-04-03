@@ -1,3 +1,5 @@
+import { processPath } from "../../utils/carousel-common.js";
+
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   if (isEditMode) {
@@ -18,9 +20,10 @@ export default function decorate(block) {
       const btnEl = document.createElement('div');
       btnEl.classList.add('collapse-btn');
       if (showButton) {
-        btnEl.textContent = row.children[0].textContent;
+        btnEl.textContent = row.querySelectorAll('p')[0].textContent;
         btnEl.addEventListener('click', () => {
-          window.location.href = row.children[1].querySelector('a').href;
+          const originalHref = row.querySelectorAll('p')[1].querySelector('a').href;
+          window.location.href = processPath(originalHref);
         });
       } else {
         btnEl.classList.add('hide');
