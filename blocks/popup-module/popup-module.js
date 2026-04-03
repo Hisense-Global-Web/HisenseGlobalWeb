@@ -53,7 +53,7 @@ export default function decorate(block) {
     });
   } else {
     // 编辑模式下，判断 popup 内容高度是否超过视口高度，超过则设置 main 元素高度为 popup 内容高度，避免内容被遮挡无法查看
-    const popupHeight = block.querySelector('.popup-content-container').offsetHeight;
+    const popupHeight = block.querySelector('.popup-container').offsetHeight;
     const viewportHeight = window.innerHeight;
     if (popupHeight > viewportHeight) {
       document.querySelector('main').style.height = `${popupHeight}px`;
