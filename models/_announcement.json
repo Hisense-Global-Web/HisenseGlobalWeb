@@ -79,6 +79,16 @@
           "name": "id",
           "label": "Section ID",
           "description": "Enter a unique ID."
+        },
+        {
+          "component": "text",
+          "name": "version",
+          "label": "Announcement Version",
+          "placeholder": "1.0",
+          "regExp": "^\\d+\\.\\d+$",
+          "valueFormat": "regexp",
+          "validationMessage": "Version must be in the format 'X.Y' where X and Y are numbers.",
+          "description": "Enter the version of the announcement."
         }
       ]
     }
