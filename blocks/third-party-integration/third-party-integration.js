@@ -132,6 +132,8 @@ function buildBlockData(block) {
 }
 
 function buildIframeContent(blockData) {
+  const { language } = getPageLocale();
+
   const iframeEle = document.createElement('div');
   let isIframe = false;
 
@@ -140,7 +142,7 @@ function buildIframeContent(blockData) {
       if (isIframeDiv(iframeDiv)) {
         isIframe = true;
         const tempEle = document.createElement('div');
-        tempEle.innerHTML = iframeDiv.trim();
+        tempEle.innerHTML = iframeDiv.trim().replaceAll('#lang#', language);
         iframeEle.appendChild(tempEle.firstElementChild);
       }
     });
