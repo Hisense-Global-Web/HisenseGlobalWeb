@@ -26,6 +26,9 @@ import {
   shouldRefreshHeaderCommerceCountsAfterAuthInit,
 } from './header-commerce-utils.js';
 
+import { isAuthorHostname } from '../../scripts/environment.js';
+import { isNavPage } from '../../scripts/scripts.js';
+
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 const HYBRIS_ACCOUNT_MENU_ITEMS = [
@@ -1124,6 +1127,13 @@ const handleAccountActionClick = async (event) => {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  // clean nav page content in eds side
+  if (!isAuthorHostname() && isNavPage()) {
+    document.head.remove();
+    document.body.remove();
+    return;
+  }
+
   const navPath = getFragmentPath('nav');
   const fragment = await loadFragment(navPath, { loadSections: false });
   await prepareHeaderFragment(fragment);
