@@ -419,7 +419,10 @@
         "exception-page",
         "accessories-feature",
         "calltoaction-banner",
-        "project-brief-card"
+        "project-brief-card",
+        "warning-note",
+        "warranty-accordion",
+        "warranty-accordion-item"
       ]
     }
   ]
