@@ -445,8 +445,7 @@ export default function decorate(block) {
     const pagedGroupedArray = allGroupedData.slice(start, end);
 
     // 渲染当前页的产品卡片（追加模式）
-    pagedGroupedArray.forEach((group) => {
-      const item = group.representative;
+    pagedGroupedArray.forEach((item) => {
       const card = document.createElement('div');
       card.className = 'job-item-card';
 
@@ -566,63 +565,12 @@ export default function decorate(block) {
     }
   }
 
-  // 包含多个相同 factoryModel 的不同尺寸
-  const extractSize = (item) => {
-    if (!item) return null;
-    if (item.size) return String(item.size).replace(/["\s]/g, '');
-    return null;
-  };
-
   function renderItems(items) {
     // 重置分页状态
     currentPage = 1;
     productsGrid.innerHTML = ''; // 清空现有内容
 
-    // 按 factoryModel 聚合
-    const groups = {};
-    items.forEach((it) => {
-      const key = it.factoryModel || it.spu || it.overseasModel;
-      if (!groups[key]) {
-        groups[key] = {
-          factoryModel: it.factoryModel || null,
-          representative: it,
-          variants: [],
-          sizes: new Set(),
-          colors: new Set(),
-        };
-      }
-      groups[key].variants.push(it);
-      // 如果开关打开了，优先使用 description_shortDescription 属性作为图片链接
-      if (window.useShortDescriptionAsImage) {
-        if (!groups[key].representative.description_shortDescription
-            && it.description_shortDescription) {
-          groups[key].representative = it;
-        }
-      } else if (!groups[key].representative.mediaGallery_image && it.mediaGallery_image) {
-        // 否则走默认逻辑
-        groups[key].representative = it;
-      }
-      const sz = extractSize(it);
-      if (sz) groups[key].sizes.add(sz);
-      const color = it?.colorRGB;
-      if (color) groups[key].colors.add(color);
-    });
-
-    allGroupedData = Object.keys(groups).map((k) => {
-      const g = groups[k];
-      const sizes = Array.from(g.sizes).filter(Boolean).sort((a, b) => Number(b) - Number(a));
-      const colors = Array.from(g.colors).filter(Boolean);
-
-      return {
-        key: k,
-        factoryModel: g.factoryModel,
-        representative: g.representative,
-        variants: g.variants,
-        sizes,
-        colors,
-      };
-    });
-
+    allGroupedData = items;
     productsGrid.setAttribute('data-group-length', allGroupedData.length);
 
     // 渲染第一页
