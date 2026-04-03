@@ -11,21 +11,26 @@ export default function decorate(block) {
   });
 
   // Add class to step based on previous tab
-  const steps = block.querySelectorAll('.step');
-  const stepGroups = document.createElement('div');
-  stepGroups.className = 'step-groups';
-  steps.forEach((step, index) => {
-    step.firstElementChild.classList.add('step-image');
-    const textContent = document.createElement('div');
-    textContent.className = 'text-content';
-    textContent.innerHTML = `
-    <div class="step-number">${index + 1}</div>`;
-    step.lastElementChild.classList.add('step-description');
-    textContent.appendChild(step.lastElementChild);
-    step.append(textContent);
-    stepGroups.appendChild(step);
-  });
+  if (block.querySelector('.step')) {
+    const steps = block.querySelectorAll('.step');
+    const stepGroups = document.createElement('div');
+    stepGroups.className = 'step-groups';
+    steps.forEach((step, index) => {
+      step.firstElementChild.classList.add('step-image');
+      const textContent = document.createElement('div');
+      textContent.className = 'text-content';
+      textContent.innerHTML = `
+      <div class="step-number">
+        <span class="step-number-text">${index + 1}</span>
+      </div>`;
+      step.lastElementChild.classList.add('step-description');
+      textContent.appendChild(step.lastElementChild);
+      step.append(textContent);
+      stepGroups.appendChild(step);
+    });
 
-  block.dataset.tab = block.querySelector('.category-tab')?.firstElementChild.textContent.trim() || '';
-  block.appendChild(stepGroups);
+    block.appendChild(stepGroups);
+  }
+
+  // block.dataset.tab = block.querySelector('.category-tab')?.firstElementChild.textContent.trim() || '';
 }
