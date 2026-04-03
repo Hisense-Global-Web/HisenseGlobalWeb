@@ -23,7 +23,7 @@ const toAbsoluteUrl = (path) => {
   if (!path) return '';
   if (/^https?:\/\//i.test(path)) return path;
 
-  const shouldPrefixBaseUrl = ['/bin/', '/product/', '/content/dam/']
+  const shouldPrefixBaseUrl = ['/bin/', '/document/']
     .some((prefix) => path.startsWith(prefix));
   if (!shouldPrefixBaseUrl) return path;
 
@@ -50,7 +50,7 @@ const fetchJson = async (path) => {
   return response.json();
 };
 
-const getProductEndpoint = () => {
+const getGuideListEndpoint = () => {
   if (!country) return '';
 
   if (isAemEnvironment()) {
@@ -61,8 +61,8 @@ const getProductEndpoint = () => {
 
 const getGuidesData = async () => {
   try {
-    const data = await fetchJson(getProductEndpoint());
-    return data?.guides ?? [];
+    const data = await fetchJson(getGuideListEndpoint());
+    return data ?? [];
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Failed to fetch guides data:', error);
