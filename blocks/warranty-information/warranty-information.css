@@ -1,0 +1,168 @@
+.warranty-information {
+  background: #fff;
+  padding: var(--size-40) 0 var(--size-120);
+
+  .warranty-category-box {
+    display: flex;
+    gap: var(--size-48);
+    height: var(--size-40);
+    margin-bottom: var(--size-32);
+    padding: 0;
+    
+    .category-item {
+      flex-shrink: 0;
+      font-size: var(--size-20);
+      font-weight: var(--fontweight-book);
+      color: var(--color-primary-grey-70);
+      line-height: var(--size-24);
+      padding: var(--size-8) 0;
+      cursor: pointer;
+      margin: 0;
+      list-style: none;
+
+      &.category-item-active {
+        font-family: var(--fontweight-medium);
+        color: var(--color-primary-grey-100);
+        border-bottom: 3px solid var(--color-primary-green-50);
+      }
+    }
+  }
+
+  .warranty-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 一行展示3个，等宽分布 */
+    gap: var(--size-32) var(--size-24);
+    
+    .card-item {
+      padding: var(--size-32);
+      background-color: var(--color-primary-green-10);
+      border-radius: var(--size-20);
+
+      /* aspect-ratio: 357 / 357; */
+
+      .card-top-box {
+        display: flex;
+        justify-content: space-between;
+        height: var(--size-101);
+      }
+
+      .top-left {
+        color: var(--color-primary-green-50);
+        font-weight: var(--fontweight-medium);
+
+        .card-num {
+          font-size: var(--size-64);
+          line-height: calc(76.8 / var(--breakpoint-pc) * 100vw);
+        }
+
+        .card-unit {
+          font-size: var(--size-24);
+        }
+
+      }
+
+      .card-icon-box {
+        display: inline-block;
+        width: var(--size-80);
+        height: var(--size-80);
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .exchange-div {
+        font-size: var(--size-16);
+        font-weight: var(--fontweight-book);
+        color: var(--color-primary-green-60);
+        line-height: var(--size-24);
+      }
+
+      .card-title {
+        font-size: var(--size-20);
+        font-weight: var(--fontweight-medium);
+        line-height: var(--size-24);
+        color: var(--color-primary-grey-100);
+        margin-top: var(--size-56);
+      }
+
+      .card-notes {
+        font-size: var(--size-16);
+        color: var(--color-primary-grey-70);
+        margin-top: var(--size-16);
+      }
+    }
+  }
+
+  .warranty-load-more  {
+    text-align: center;
+    margin-top: var(--size-48);
+
+    span {
+      font-size: var(--size-12);
+      line-height: var(--size-18);
+      font-weight: var(--fontweight-medium);
+      color: var(--color-primary-grey-100);
+      border-bottom: 1px solid var(--color-primary-grey-100);
+      cursor: pointer;
+    }
+  }
+}
+
+@media (width < 860px) {
+  .warranty-information {
+    padding: var(--size-80) 0;
+
+    .warranty-category-box {
+      width: 100%;
+      overflow-x: auto;
+
+       /* 隐藏滚动条 */ 
+      scrollbar-width: none;  /* Firefox */
+      gap: var(--size-40);
+
+      .category-item {
+        font-size: var(--size-18);
+        line-height: calc(23.4 / var(--breakpoint-mobile) * 100vw);
+      }
+    }
+
+    .warranty-cards {
+      grid-template-columns: repeat(1, 1fr); /* 一行展示1个，等宽分布 */
+      gap: var(--size-18);
+
+      .card-item {
+        padding: var(--size-24) var(--size-24) var(--size-32);
+
+        .card-top-box {
+          height: var(--size-98);
+        }
+
+        .top-left {
+          .card-num {
+            line-height: calc(76.8 / var(--breakpoint-mobile) * 100vw);
+          }
+        }
+
+        .exchange-div {
+          line-height: calc(20.8 / var(--breakpoint-mobile) * 100vw);;
+        }
+
+        .card-title {
+          margin-top: var(--size-40);
+          line-height: var(--size-26);
+        }
+
+        .card-notes {
+          margin-top: var(--size-12);
+        }
+      }
+    }
+
+    .warranty-load-more {
+      margin-top: var(--size-32);
+    }
+  }
+}
