@@ -24,6 +24,7 @@ function createScrollButton(direction) {
 }
 
 function buildTab(itemElement, index) {
+  console.log(itemElement);
   const li = document.createElement('li');
   li.className = 'product-filter-item';
   li['data-index'] = index;
@@ -32,6 +33,11 @@ function buildTab(itemElement, index) {
   const cells = [...itemElement.children];
 
   const imageCell = cells.find((cell) => cell.querySelector('picture')) || cells[0];
+  const videoHref = itemElement.querySelector('a')?.href;
+  if (videoHref) {
+    console.log(videoHref);
+    li.dataset.videoHref = videoHref;
+  }
 
   const textCells = cells.filter((cell) => {
     const text = cell.textContent.trim();
@@ -66,10 +72,31 @@ function buildTab(itemElement, index) {
     moveInstrumentation(textCell, textSpan);
   }
   li.addEventListener('click', (e) => {
+    console.log(e.currentTarget.dataset.videoHref);
+    const mainVideoImg = document.querySelector('.pdp-main-img');
+    const videoUrl = e.currentTarget.dataset.videoHref;
+    if (videoUrl) {
+      const video = document.createElement('video');
+      video.classList.add('autoplay-video');
+      video.setAttribute('data-video-autoplay', 'true');
+      video.controls = true;
+      video.width = 640;
+      video.preload = 'auto';
+      video.playsInline = true;
+      video.muted = true; // iPhone 要求静音才能自动播放
+      const source = document.createElement('source');
+      source.src = videoUrl;
+      source.type = 'video/mp4';
+      video.innerHTML = '';
+      video.appendChild(source);
+      mainVideoImg.replaceChildren(video);
+      return;
+    }
     const imgUrl = e.target?.src;
-    const mainImg = document.querySelector('.pdp-main-img img');
-    if (mainImg) {
-      mainImg.src = imgUrl;
+    if (mainVideoImg) {
+      const img = document.createElement('img');
+      img.src = imgUrl;
+      mainVideoImg.replaceChildren(img);
     }
   });
 

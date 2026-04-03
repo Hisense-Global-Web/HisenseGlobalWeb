@@ -23,8 +23,11 @@
   /* width: 640px; */
 
   /* height: 360px; */
+  min-height: 360px;
   margin-bottom: var(--size-30);
   position: relative;
+  display: flex;
+  align-items: center;
 
   @media (width < 860px) {
     display: none;
