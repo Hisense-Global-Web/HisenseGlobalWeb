@@ -83,8 +83,8 @@ main .section.popup-module-container {
   }
 
   &.popup-announcement {
-    .popup-content-container {
-      gap: var(--size-16);
+    .popup-container .popup-content-container {
+      gap: var(--size-24);
     }
   }
 }
@@ -121,8 +121,8 @@ main .section.popup-module-container {
     }
 
     &.popup-announcement {
-      .popup-content-container {
-        gap: var(--size-8);
+      .popup-container .popup-content-container {
+        gap: var(--size-20);
       }
     }
   }

@@ -351,7 +351,7 @@ async function loadAnnouncementPopup() {
 
     const resetAttributeBase = (tag, attr) => {
       fragmentMain.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
-        elem[attr] = new URL(elem.getAttribute(attr), new URL(errorPath, window.location)).href;
+        elem[attr] = new URL(elem.getAttribute(attr), new URL(popupUrl, window.location)).href;
       });
     };
 
@@ -381,16 +381,15 @@ async function loadAnnouncementPopup() {
     }
 
     const currentAnnc = document.querySelector('.popup-announcement');
-    // at first load the announcement popup in hidden state
-    if (currentAnnc.classList.contains('popup-show')) {
-      currentAnnc.classList.remove('popup-show');
-    }
-    // second check local storage to decide whether show the announcement popup, only show it when the version is different from the version user closed last time
+    // check local storage to decide whether show the announcement popup, only show it when the version is different from the version user closed last time
     const announcementVersion = currentAnnc.getAttribute('data-version') || '';
     const closedVersion = localStorage.getItem('announcementClosedVersion') || '';
     if (announcementVersion && announcementVersion !== closedVersion) {
       currentAnnc.classList.add('popup-show');
       document.body.style.overflow = 'hidden';
+    } else {
+      currentAnnc.classList.remove('popup-show');
+      document.body.style.overflow = 'auto';
     }
     
     return true;
