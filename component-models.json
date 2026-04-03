@@ -3697,7 +3697,7 @@
         "value": "",
         "label": "Text",
         "valueType": "string",
-        "description": "Select H5 as a paragraph title"
+        "description": "Select H5 as a paragraph title, and use '/n' to set a blank line between different paragraphs."
       }
     ]
   },
