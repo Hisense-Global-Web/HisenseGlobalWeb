@@ -512,7 +512,7 @@
   {
     "id": "store-information-card",
     "components": [
-      "store-information-card-item"
+      "store-information-card-items"
     ]
   },
   {

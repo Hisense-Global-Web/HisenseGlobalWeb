@@ -5351,47 +5351,28 @@
         "name": "content2",
         "label": "Store Info Content 2",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "info3",
+        "label": "Store Info Label 3",
+        "valueType": "string"
       }
     ]
   },
   {
-    "id": "store-information-card-item",
+    "id": "store-information-card-items",
     "fields": [
       {
-        "component": "text",
-        "name": "tag",
-        "label": "Tag",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "text",
-        "name": "info",
-        "label": "Info",
+        "component": "reference",
+        "name": "service_icon",
+        "label": "Service Icon",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "title",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "text",
-        "label": "Text",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "subtext",
-        "label": "Sub Text",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "location",
-        "label": "Location",
+        "name": "service_category",
+        "label": "Service Category",
         "valueType": "string"
       }
     ]
