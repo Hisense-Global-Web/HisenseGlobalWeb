@@ -1,12 +1,14 @@
 .additional-support-card {
   display: grid;
-  gap: var(--spacing-sm, 24px) var(--spacing-xl, 48px);
+  gap: var(--spacing-xl, 48px) var(--spacing-sm, 24px);
   grid-template-columns: repeat(4, 1fr);
+  align-items: stretch;
 
   @media (width<860px) {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-s, 18px);
+    align-items: stretch;
   }
 
   .additional-support-card-item {

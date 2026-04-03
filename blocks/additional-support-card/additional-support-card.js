@@ -107,15 +107,6 @@ export default function decorate(block) {
       bottomEl.className = 'bottom';
       bottomEl.appendChild(buttonLinkEl);
       element.appendChild(bottomEl);
-
-      // 计算最大高度并设置所有卡片项的高度一致，确保在不同内容长度时卡片高度统一
-      setTimeout(() => {
-        const cardItems = block.querySelectorAll('.additional-support-card-item');
-        const maxHeight = Math.max(...Array.from(cardItems).map((item) => item.offsetHeight));
-        cardItems.forEach((item) => {
-          item.style.height = `${maxHeight}px`;
-        });
-      }, 500);
     });
   } catch (error) {
     /* eslint-disable-next-line no-console */
