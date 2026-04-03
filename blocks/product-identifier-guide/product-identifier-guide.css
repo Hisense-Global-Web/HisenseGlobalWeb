@@ -29,6 +29,7 @@
         border-bottom: var(--size-3, 3px) solid transparent;
         line-height: 120%;
         font-weight: var(--fontweight-book);
+        font-size: var(--size-20);
         color: var(--color-primary-grey-70);
     }
     

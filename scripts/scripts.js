@@ -19,7 +19,12 @@ import {
   initializeHybrisAuth,
   scheduleHybrisTask,
 } from './hybris-bff.js';
-import { getFragmentPath } from './locale-utils.js';
+import {
+  getFragmentPath,
+  isConfigPage,
+  isFooterPage,
+  isNavPage,
+} from './locale-utils.js';
 
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
@@ -187,7 +192,11 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    loadHeader(doc.querySelector('header'));
+    if (isConfigPage() || isFooterPage()) {
+      // to nothing
+    } else {
+      loadHeader(doc.querySelector('header'));
+    }
     const hasRemoteErrorPage = await loadRemoteErrorPage(main);
     if (!hasRemoteErrorPage) {
       decorateMain(main);
@@ -218,7 +227,11 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadFooter(doc.querySelector('footer'));
+  if (isConfigPage() || isNavPage()) {
+    // to nothing
+  } else {
+    loadFooter(doc.querySelector('footer'));
+  }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
@@ -329,6 +342,7 @@ function transHorizontalSection(className) {
     }
   }
 }
+
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);

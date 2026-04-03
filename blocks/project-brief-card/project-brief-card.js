@@ -188,7 +188,7 @@ export default function decorate(block) {
   const mobileBtn = document.createElement('button');
   mobileBtn.type = 'button';
   mobileBtn.classList.add('page-button');
-  mobileBtn.textContent = 'Load more';
+  mobileBtn.textContent = 'Discover more';
   mobilePaginationEl.appendChild(mobileBtn);
 
   const noPaginationEl = document.createElement('div');

@@ -15,7 +15,7 @@ import {
   refreshHybrisAuthStatus,
   startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
-import { getFragmentPath } from '../../scripts/locale-utils.js';
+import { getFragmentPath, isNavPage } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 import {
   buildAccountProfileHref,
@@ -25,6 +25,8 @@ import {
   hasValidHybrisAccountState,
   shouldRefreshHeaderCommerceCountsAfterAuthInit,
 } from './header-commerce-utils.js';
+
+import { isAuthorHostname } from '../../scripts/environment.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -1124,6 +1126,13 @@ const handleAccountActionClick = async (event) => {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  // clean nav page content in eds side
+  if (!isAuthorHostname() && isNavPage()) {
+    document.head.remove();
+    document.body.remove();
+    return;
+  }
+
   const navPath = getFragmentPath('nav');
   const fragment = await loadFragment(navPath, { loadSections: false });
   await prepareHeaderFragment(fragment);
@@ -1239,7 +1248,7 @@ export default async function decorate(block) {
   if (isCompanyPage) {
     navigation.classList.add('is-company');
     if (window.innerWidth >= 1180 && !window.location.pathname.includes('about-us')) {
-      document.documentElement.style.setProperty('--nav-height', '166px');
+      document.documentElement.style.setProperty('--nav-height', '179px');
     }
   }
   if (isSupportPage) {
