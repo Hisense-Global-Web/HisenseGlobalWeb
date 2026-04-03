@@ -18,11 +18,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-height: min(calc(328 / var(--breakpoint-pc) * 100vw), 328px);
 
     @media (width < 860px) {
       border-radius: var(--radius-xl, 16px);
       padding: var(--spacing-sm, 24px) var(--spacing-sm, 24px)
         var(--spacing-m, 32px) var(--spacing-sm, 24px);
+      min-height: calc(295 / var(--breakpoint-mobile) * 100vw);
     }
 
     .top {
@@ -123,17 +125,6 @@
           display: flex;
           align-items: center;
           gap: var(--spacing-3xs, 8px);
-
-          .circle {
-            width: var(--size-10, 10px);
-            height: var(--size-10, 10px);
-            aspect-ratio: 1/1;
-            border-radius: var(--size-10, 10px);
-          }
-
-          .green50 {
-            background: var(--color-primary-green-50, #009f9c);
-          }
 
           .contact-info {
             display: flex;

@@ -4,6 +4,18 @@ const EButtonAction = Object.freeze({
   sendEmail: 'sendEmail',
 });
 
+const EStartStr = Object.freeze({
+  mailTo: 'mailto:',
+  tel: 'tel:',
+});
+
+const setStartStr = (link, startStr) => {
+  if (link?.startsWith(startStr)) {
+    return link;
+  }
+  return `${startStr}${link}`;
+};
+
 export default function decorate(block) {
   try {
     const [columnNumberEl, ...elementItems] = [...block.children];
@@ -35,18 +47,11 @@ export default function decorate(block) {
 
       timeContainerEl?.classList?.add('time-container');
       contactInfoContainerEl?.classList?.add('contact-info-container');
-      const [circleStyleEl, phoneNumberEl] = contactInfoContainerEl?.children ?? [];
-      const circleStyle = circleStyleEl?.textContent || 'none';
-      if (circleStyle === 'none') {
-        circleStyleEl?.remove();
-      } else {
-        circleStyleEl.classList.add('circle', circleStyle);
-        circleStyleEl.textContent = '';
+      const contactInofEl = contactInfoContainerEl?.querySelector('p');
+      if (contactInofEl) {
+        contactInofEl.classList.add('contact-info');
       }
-      if (phoneNumberEl) {
-        phoneNumberEl.classList.add('contact-info');
-      }
-      const contactInfoText = contactInfoContainerEl?.children[0]?.textContent || null;
+      const contactInfoText = contactInofEl?.querySelector('p')?.textContent || null;
       const topEl = document.createElement('div');
       topEl.className = 'top';
       topEl.appendChild(iconEl);
@@ -88,12 +93,14 @@ export default function decorate(block) {
           if (buttonAction === EButtonAction.pageRedirect) {
             window.location = buttonALink;
           } else if (buttonAction === EButtonAction.sendEmail) {
+            const link = contactInfoText?.trim()?.length > 0 ? setStartStr(contactInfoText.trim(), EStartStr.mailTo) : setStartStr(buttonALink.trim(), EStartStr.mailTo);
             const emailLink = document.createElement('a');
-            emailLink.href = `mailto:${contactInfoText}`;
+            emailLink.href = link;
             emailLink.click();
           } else if (buttonAction === EButtonAction.phoneCall) {
+            const link = contactInfoText?.trim()?.length > 0 ? setStartStr(contactInfoText.trim(), EStartStr.tel) : setStartStr(buttonALink.trim(), EStartStr.tel);
             const phoneLink = document.createElement('a');
-            phoneLink.href = `tel:${contactInfoText}`;
+            phoneLink.href = link;
             phoneLink.click();
           }
         }, true);
