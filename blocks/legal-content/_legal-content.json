@@ -10,7 +10,8 @@
             "template": {
               "name": "Legal Content",
               "model": "legal-content",
-              "classes": "legal-content"
+              "classes": "legal-content",
+              "text": "Example: <h5> Set A Blank Line </h5> <p> the first paragraph </p><p> /n </p> <p> the second paragraph </p>"
             }
           }
         }
