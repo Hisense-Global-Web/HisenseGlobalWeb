@@ -367,7 +367,19 @@ async function loadAnnouncementPopup() {
     if (!hasAnnouncementPage || !fragmentSections.length) {
       return false;
     }
-    document.querySelector('main').appendChild(...fragmentSections);
+
+    if (document.querySelector('.popup-announcement')) {
+      // check version of the existing announcement popup, if it's different from the new one, replace it with the new one, otherwise keep the existing one to avoid showing the same announcement popup repeatedly when user close it
+      const existingAnnouncementPopup = document.querySelector('.popup-announcement');
+      const existingVersion = existingAnnouncementPopup.getAttribute('data-version') || '';
+      const newVersion = hasAnnouncementPage.getAttribute('data-version') || '';
+      if (existingVersion !== newVersion) {
+        existingAnnouncementPopup.replaceWith(hasAnnouncementPage);
+      }
+    } else {
+      document.querySelector('main').appendChild(...fragmentSections);
+    }
+
     const announcementPopup = document.querySelector('.popup-announcement');
 
     if (announcementPopup.classList.contains('popup-show')) {
@@ -390,7 +402,7 @@ async function loadAnnouncementPopup() {
 }
 
 async function loadPage() {
-  loadAnnouncementPopup()
+  loadAnnouncementPopup();
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
