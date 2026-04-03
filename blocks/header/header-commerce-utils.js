@@ -1,3 +1,26 @@
+const HYBRIS_ACCOUNT_MENU_ITEMS = [
+  { label: 'Account Home', suffix: '' },
+  { label: 'Orders', suffix: '/orders' },
+  { label: 'Wishlist', suffix: '/wishlist' },
+  { label: 'Address', suffix: '/address-book' },
+  { label: 'Coupons', suffix: '/coupons' },
+];
+
+const ACCOUNT_COUNT_KEY_BY_LABEL = {
+  Orders: 'orders',
+  Wishlist: 'wishlist',
+  Address: 'addresses',
+  Coupons: 'coupons',
+};
+
+export const DEFAULT_HEADER_COMMERCE_COUNTS = {
+  cart: 0,
+  orders: 0,
+  wishlist: 0,
+  addresses: 0,
+  coupons: 0,
+};
+
 export function hasValidHybrisAccountState(authState = {}) {
   return Boolean(
     authState?.authenticated
@@ -56,6 +79,32 @@ export function getCouponsCount(coupons = {}) {
   return getPagedCollectionCount(coupons, 'coupons');
 }
 
+export function getAddressesCount(addresses = {}) {
+  let addressList = [];
+  if (Array.isArray(addresses?.data?.addresses)) {
+    addressList = addresses.data.addresses;
+  } else if (Array.isArray(addresses?.addresses)) {
+    addressList = addresses.addresses;
+  }
+  return addressList.length;
+}
+
+function splitMyAccountUrl(myAccountUrl) {
+  if (!myAccountUrl || typeof window === 'undefined') {
+    return null;
+  }
+
+  try {
+    const parsedUrl = new URL(myAccountUrl, window.location.origin);
+    return {
+      domain: parsedUrl.origin,
+      uri: parsedUrl.pathname === '/' ? '' : parsedUrl.pathname.replace(/\/+$/, ''),
+    };
+  } catch (error) {
+    return null;
+  }
+}
+
 export function buildAccountProfileHref(myAccountUrl = '') {
   if (typeof window === 'undefined') {
     return '/my-account/update-profile';
@@ -70,6 +119,26 @@ export function buildAccountProfileHref(myAccountUrl = '') {
   } catch (error) {
     return '/my-account/update-profile';
   }
+}
+
+export function buildAccountMenuLinks(
+  myAccountUrl,
+  commerceCounts = DEFAULT_HEADER_COMMERCE_COUNTS,
+) {
+  const urlParts = splitMyAccountUrl(myAccountUrl);
+  if (!urlParts) {
+    return [];
+  }
+
+  return HYBRIS_ACCOUNT_MENU_ITEMS.map(({ label, suffix, showZeroCount = false }) => {
+    const countKey = ACCOUNT_COUNT_KEY_BY_LABEL[label];
+    return {
+      label,
+      href: `${urlParts.domain}${urlParts.uri}${suffix}`,
+      count: countKey ? normalizeCount(commerceCounts?.[countKey]) : 0,
+      showZeroCount,
+    };
+  });
 }
 
 export function buildAccountMenuItemChildren(doc, options = {}) {
