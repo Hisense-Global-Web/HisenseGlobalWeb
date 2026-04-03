@@ -1,190 +1,76 @@
 import { handleCommonDownloadClick } from '../../utils/download.js';
 
-const MOCK_DATA = [{
-  folder: 'French Door',
-  data: [{
-    pdfUrl: 'https://author-p174152-e1855821.adobeaemcloud.com/ui#/aem/assetdetails.html/content/dam/hisense-dev/download/French Door news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  }],
-},
-{
-  folder: 'Bottom Mount',
-  data: [{
-    pdfUrl: 'https://author-p174152-e1855821.adobeaemcloud.com/ui#/aem/assetdetails.html/content/dam/hisense-dev/download/Bottom Mount news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/0news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  }],
-},
-{
-  folder: 'Compact',
-  data: [{
-    pdfUrl: 'https://author-p174152-e1855821.adobeaemcloud.com/ui#/aem/assetdetails.html/content/dam/hisense-dev/download/Compact news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  }],
-},
-{
-  folder: 'Freezers',
-  data: [{
-    pdfUrl: 'https://author-p174152-e1855821.adobeaemcloud.com/ui#/aem/assetdetails.html/content/dam/hisense-dev/download/Freezers news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  },
-  {
-    pdfUrl: '/content/dam/hisense-dev/download/news.pdf',
-  }],
-}];
-
+const FIVE_MINUTES_MS = 5 * 60 * 1000;
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
-function buildPaginationControls(container, state, onPageChange) {
+const isAemEnvironment = () => {
+  const hostname = window.location.hostname || '';
+  return hostname.includes('author') || hostname.includes('publish');
+};
+const getBaseUrl = () => window.GRAPHQL_BASE_URL || '';
+
+const simpleHash = (str) => {
+  const s = String(str);
+  let h = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    h = (h * 31 + s.charCodeAt(i)) % 2147483647;
+  }
+  return Math.abs(h).toString(36);
+};
+
+const toAbsoluteUrl = (path) => {
+  if (!path) return '';
+  if (/^https?:\/\//i.test(path)) return path;
+
+  const shouldPrefixBaseUrl = ['/bin/', '/product/', '/content/dam/']
+    .some((prefix) => path.startsWith(prefix));
+  if (!shouldPrefixBaseUrl) return path;
+
+  const baseUrl = getBaseUrl();
+  if (!baseUrl) return path;
+  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+};
+
+const getCacheBustedUrl = (url) => {
+  if (!url) return '';
+  const cacheBuster = simpleHash(Math.floor(Date.now() / FIVE_MINUTES_MS));
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}_t=${cacheBuster}`;
+};
+
+const fetchJson = async (path) => {
+  if (!path) return null;
+
+  const url = getCacheBustedUrl(toAbsoluteUrl(path));
+  const response = await fetch(url, { credentials: 'same-origin' });
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+  return response.json();
+};
+
+const getProductEndpoint = () => {
+  if (!country) return '';
+
+  if (isAemEnvironment()) {
+    return `/bin/hisense/document/guide.json?country=${country}`;
+  }
+  return `/document/guide/${country}.json`;
+};
+
+const getGuidesData = async () => {
+  try {
+    const data = await fetchJson(getProductEndpoint());
+    return data?.guides ?? [];
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to fetch guides data:', error);
+    return [];
+  }
+};
+
+const buildPaginationControls = (container, state, onPageChange) => {
   const { total, limit, offset } = state;
   if (total <= limit) {
     return;
@@ -297,14 +183,14 @@ function buildPaginationControls(container, state, onPageChange) {
   paginationEl.appendChild(
     createPaginationButton('next', currentPage + 1, currentPage === totalPages),
   );
-}
+};
 
 const generateGuid = (commonInfo, guideInfo) => {
   const { documentIcon, pcDownloadButton, mobileDownloadIcon } = commonInfo;
   const pcDownloadButtonCopy = pcDownloadButton?.cloneNode(true);
   const mobileDownloadIconCopy = mobileDownloadIcon?.cloneNode(true);
 
-  const { pdfUrl } = guideInfo ?? {};
+  const { path } = guideInfo ?? {};
   const guideWrapperEl = document.createElement('div');
   guideWrapperEl.className = 'tab-guide';
   const leftEl = document.createElement('div');
@@ -312,17 +198,17 @@ const generateGuid = (commonInfo, guideInfo) => {
   if (documentIcon) {
     leftEl.appendChild(documentIcon.cloneNode(true));
   }
-  if (pdfUrl) {
-    const noParamsUrl = pdfUrl?.split('?')?.[0] ?? '';
-    const fileName = noParamsUrl.substring(pdfUrl.lastIndexOf('/') + 1);
+  if (path) {
+    const noParamsUrl = path?.split('?')?.[0] ?? '';
+    const fileName = noParamsUrl.substring(path.lastIndexOf('/') + 1);
     const title = fileName.substring(0, fileName.lastIndexOf('.'));
     const titleEl = document.createElement('div');
     titleEl.className = 'guide-title';
     titleEl.textContent = title;
     leftEl.appendChild(titleEl);
     guideWrapperEl.appendChild(leftEl);
-    pcDownloadButtonCopy.addEventListener('click', () => handleCommonDownloadClick(pdfUrl));
-    mobileDownloadIconCopy.addEventListener('click', () => handleCommonDownloadClick(pdfUrl));
+    pcDownloadButtonCopy.addEventListener('click', () => handleCommonDownloadClick(path));
+    mobileDownloadIconCopy.addEventListener('click', () => handleCommonDownloadClick(path));
     guideWrapperEl.appendChild(pcDownloadButtonCopy);
     guideWrapperEl.appendChild(mobileDownloadIconCopy);
   }
@@ -330,7 +216,7 @@ const generateGuid = (commonInfo, guideInfo) => {
   return guideWrapperEl;
 };
 
-export default function decorate(block) {
+export default async function decorate(block) {
   let tabIndex = 0;
   const [pageSizeEl, noResultEl, documentIconEl, pcDownloadEl, mobileDownloadIconEl, mobileLoadMoreEl] = [...block.children];
   const pageSize = (pageSizeEl?.textContent ?? 10) * 1;
@@ -345,7 +231,7 @@ export default function decorate(block) {
   }
   const mobileDownloadIcon = mobileDownloadIconEl?.querySelector('picture') || null;
   mobileDownloadIcon.className = 'download-button-mobile';
-  const loadMoreText = mobileLoadMoreEl?.querySelector('p').textContent?.trim() || 'Load more';
+  const loadMoreText = mobileLoadMoreEl?.querySelector?.('p')?.textContent?.trim() || 'Load more';
   pageSizeEl?.remove();
   noResultEl?.remove();
   mobileLoadMoreEl?.remove();
@@ -367,10 +253,11 @@ export default function decorate(block) {
   const tabsWrapperEl = document.createElement('div');
   tabsWrapperEl.className = 'guide-tabs-wrapper';
   const tabGuidListWrapperEl = document.createElement('div');
-  if (MOCK_DATA?.length) {
-    MOCK_DATA.forEach((item, index) => {
+  const guidesData = await getGuidesData();
+  if (guidesData?.length) {
+    guidesData.forEach((item, index) => {
       const isCurrentTab = index === tabIndex;
-      const { folder, data } = item;
+      const { title, document: data } = item;
       const tabEl = document.createElement('div');
       tabEl.className = 'tab';
       if (isCurrentTab) {
@@ -378,7 +265,7 @@ export default function decorate(block) {
       }
       const tabTitleEl = document.createElement('div');
       tabTitleEl.className = 'tab-title';
-      tabTitleEl.textContent = folder;
+      tabTitleEl.textContent = title;
       tabEl.appendChild(tabTitleEl);
 
       const tabGuideListEl = document.createElement('div');
