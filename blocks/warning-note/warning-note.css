@@ -1,44 +1,35 @@
 /* css */
 
-.collapse-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-24);
-}
-
-.warranty-accordion-item {
+.warning-note {
   width: 100%;
   display: flex;
   flex-direction: column;
   border-radius: var(--size-20);
-  border: 1px solid var(--color-primary-grey-30);
-  background: var(--color-primary-grey-10);
-  padding: var(--size-32) var(--size-32) var(--size-40);
-  gap: var(--size-20);
+  background: #FFF8E5;
+  padding: var(--size-24) var(--size-30);
+  gap: var(--size-8);
 
   @media (width < 860px) {
-    padding: var(--size-24) var(--size-24) var(--size-32);
+    padding: var(--size-20) var(--size-24);
   }
 
-  .collapse-title {
+  .note-title {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    color: var(--color-hisense-black);
-    line-height: 1.2;
-    font-size: var(--fontsize-title2);
+    color: #A26311;
+    line-height: 1.5;
+    font-size: var(--fontsize-body2);
     font-weight: var(--fontweight-medium);
-
-    @media (width < 860px) {
-      font-size: var(--size-18);
-    }
   }
 
-  .collapse-context {
-    font-size: var(--fontsize-body1);
-    line-height: 1.6;
-    padding-right: var(--size-80);
-    color: var(--color-primary-grey-70);
+  .note-context {
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    font-size: var(--fontsize-body2);
+    line-height: 1.5;
+    color: #A26311;
 
     @media (width < 860px) {
       font-size: var(--size-14);
