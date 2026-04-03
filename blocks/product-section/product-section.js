@@ -15,7 +15,10 @@ import {
   updateHybrisCartItem,
 } from '../../scripts/hybris-bff.js';
 import { loadCSS } from '../../scripts/aem.js';
-import shouldShowAddToCartButton from '../../scripts/commerce-ui-utils.js';
+import shouldShowAddToCartButton, {
+  resolvePopupQuantityDisplayState,
+  shouldShowPdpFavoriteButton,
+} from '../../scripts/commerce-ui-utils.js';
 import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 
@@ -910,6 +913,8 @@ export default async function decorate(block) {
     representative: null,
     message: 'Item added to your cart',
     processing: false,
+    quantityLoading: false,
+    pendingQuantityAction: '',
   };
   const cartCacheState = {
     cart: null,
@@ -1005,6 +1010,12 @@ export default async function decorate(block) {
     return cartCacheState.cart;
   }
 
+  function setPopupQuantityLoadingState(action = '') {
+    const normalizedAction = String(action || '').trim().toLowerCase();
+    popupState.pendingQuantityAction = normalizedAction;
+    popupState.quantityLoading = ['increase', 'decrease'].includes(normalizedAction);
+  }
+
   function renderProductCardPopup() {
     if (!popupElements.popup) {
       return;
@@ -1024,6 +1035,11 @@ export default async function decorate(block) {
     const canAdjustExistingEntry = entryNumber !== null && quantity > 0;
     const totalUnitCount = getCartTotalUnitCount(popupState.cart) || quantity;
     const itemLabel = totalUnitCount === 1 ? 'item' : 'items';
+    const quantityDisplayState = resolvePopupQuantityDisplayState({
+      quantity,
+      quantityLoading: popupState.quantityLoading,
+      pendingQuantityAction: popupState.pendingQuantityAction,
+    });
     const productTitle = getProductDisplayTitle(
       entryProduct,
       getProductDisplayTitle(fallbackProduct, popupState.productCode),
@@ -1061,18 +1077,34 @@ export default async function decorate(block) {
       popupElements.stockLine.classList.toggle('is-unavailable', !inStock);
     }
 
-    popupElements.countControls.forEach(({ input, minusBtn, plusBtn }) => {
-      input.value = String(quantity || 0);
+    popupElements.countControls.forEach(({
+      inputShell,
+      input,
+      minusBtn,
+      plusBtn,
+    }) => {
+      inputShell?.classList.toggle('is-loading', quantityDisplayState.showLoading);
+      input.value = quantityDisplayState.value;
       input.readOnly = true;
       input.setAttribute('readonly', 'readonly');
       input.setAttribute('inputmode', 'none');
       input.setAttribute('aria-label', 'Quantity');
-      minusBtn.disabled = popupState.processing || !canAdjustExistingEntry || quantity <= 1;
-      plusBtn.disabled = popupState.processing || !popupState.productCode;
+      if (quantityDisplayState.showLoading) {
+        input.setAttribute('aria-busy', 'true');
+      } else {
+        input.removeAttribute('aria-busy');
+      }
+      minusBtn.disabled = popupState.processing
+        || quantityDisplayState.showLoading
+        || !canAdjustExistingEntry
+        || quantity <= 1;
+      plusBtn.disabled = popupState.processing
+        || quantityDisplayState.showLoading
+        || !popupState.productCode;
     });
 
     popupElements.deleteIcons.forEach((icon) => {
-      const disabled = popupState.processing || !canAdjustExistingEntry;
+      const disabled = popupState.processing || quantityDisplayState.showLoading || !canAdjustExistingEntry;
       icon.classList.toggle('is-disabled', disabled);
       icon.setAttribute('aria-disabled', disabled ? 'true' : 'false');
       icon.setAttribute('title', disabled
@@ -1173,6 +1205,7 @@ export default async function decorate(block) {
       || getPopupEntryFallback(options.fallbackEntry, popupState.productCode);
     popupState.message = options.message || 'Add item to your cart';
     popupState.processing = false;
+    setPopupQuantityLoadingState(options.pendingQuantityAction);
 
     renderProductCardPopup();
     setProductCardPopupVisibility(true);
@@ -1185,6 +1218,7 @@ export default async function decorate(block) {
 
     const previousMessage = popupState.message;
     // const previousQuantity = getCartEntryQuantity(popupState.entry);
+    setPopupQuantityLoadingState('increase');
     popupState.processing = true;
     renderProductCardPopup();
 
@@ -1209,6 +1243,7 @@ export default async function decorate(block) {
       popupState.message = previousMessage;
     } finally {
       popupState.processing = false;
+      setPopupQuantityLoadingState('');
       renderProductCardPopup();
     }
   }
@@ -1220,6 +1255,7 @@ export default async function decorate(block) {
       return;
     }
 
+    setPopupQuantityLoadingState('decrease');
     popupState.processing = true;
     renderProductCardPopup();
 
@@ -1243,6 +1279,7 @@ export default async function decorate(block) {
       console.warn(`Failed to decrease PDP cart quantity for ${popupState.productCode}`, error);
     } finally {
       popupState.processing = false;
+      setPopupQuantityLoadingState('');
       renderProductCardPopup();
     }
   }
@@ -1253,6 +1290,7 @@ export default async function decorate(block) {
       return;
     }
 
+    setPopupQuantityLoadingState('remove');
     popupState.processing = true;
     renderProductCardPopup();
 
@@ -1276,6 +1314,7 @@ export default async function decorate(block) {
       console.warn(`Failed to remove PDP cart item for ${popupState.productCode}`, error);
     } finally {
       popupState.processing = false;
+      setPopupQuantityLoadingState('');
       renderProductCardPopup();
     }
   }
@@ -1302,12 +1341,16 @@ export default async function decorate(block) {
     inputEl.tabIndex = -1;
     inputEl.inputMode = 'none';
 
+    const inputShell = document.createElement('span');
+    inputShell.className = 'qty-input-shell';
+    inputShell.append(inputEl);
+
     const btnPlus = document.createElement('button');
     btnPlus.type = 'button';
     btnPlus.className = 'qty-action qty-increase';
     btnPlus.textContent = '+';
 
-    countChangeEl.append(qtySpan, btnMinus, inputEl, btnPlus);
+    countChangeEl.append(qtySpan, btnMinus, inputShell, btnPlus);
     return countChangeEl;
   }
 
@@ -1440,6 +1483,7 @@ export default async function decorate(block) {
     popupElements.countControls = [desktopCountChangeEl, mobileCountChangeEl].map((control) => ({
       root: control,
       minusBtn: control.querySelector('.qty-decrease'),
+      inputShell: control.querySelector('.qty-input-shell'),
       input: control.querySelector('.qty-input'),
       plusBtn: control.querySelector('.qty-increase'),
     }));
@@ -1546,28 +1590,37 @@ export default async function decorate(block) {
       return;
     }
 
+    let inventoryAvailable = false;
+    let canShowAddToCart = false;
+
     try {
       const commerceProduct = await fetchHybrisProduct(currentProductCode);
       const hasPrice = Boolean(applyHybrisPriceDisplay(commerceProduct));
-      const inventoryAvailable = hasInventory(commerceProduct);
-      const canShowAddToCart = shouldShowAddToCartButton({
+      inventoryAvailable = hasInventory(commerceProduct);
+      const authenticated = Boolean(getCachedHybrisAuthState().authenticated);
+      canShowAddToCart = shouldShowAddToCartButton({
         hasPrice,
         hasInventory: inventoryAvailable,
       });
       setCartButtonVisibility(canShowAddToCart);
-      setFavoriteVisibility(inventoryAvailable);
+      setFavoriteVisibility(shouldShowPdpFavoriteButton({
+        authenticated,
+        hasInventory: inventoryAvailable,
+      }));
 
-      if (!canShowAddToCart) {
+      if (!inventoryAvailable) {
         clearWishlistState();
         return;
       }
 
-      ensureProductCardPopupElements().catch((popupError) => {
-        console.warn('Failed to initialize PDP cart popup elements', popupError);
-      });
-      preloadProductCardCart().catch((cartError) => {
-        console.warn('Failed to preload PDP cart after inventory check', cartError);
-      });
+      if (canShowAddToCart) {
+        ensureProductCardPopupElements().catch((popupError) => {
+          console.warn('Failed to initialize PDP cart popup elements', popupError);
+        });
+        preloadProductCardCart().catch((cartError) => {
+          console.warn('Failed to preload PDP cart after inventory check', cartError);
+        });
+      }
     } catch (error) {
       console.warn(`Failed to load PDP commerce data for ${currentProductCode}`, error);
       setCartButtonVisibility(false);
@@ -1578,10 +1631,15 @@ export default async function decorate(block) {
     }
 
     try {
-      await initializeHybrisAuth();
+      const authState = await initializeHybrisAuth();
+      setFavoriteVisibility(shouldShowPdpFavoriteButton({
+        authenticated: Boolean(authState?.authenticated),
+        hasInventory: inventoryAvailable,
+      }));
       await ensureWishlistLoaded();
     } catch (error) {
       console.warn(`Failed to initialize PDP wishlist state for ${currentProductCode}`, error);
+      setFavoriteVisibility(false);
       clearWishlistState();
     }
   }
@@ -1662,6 +1720,7 @@ export default async function decorate(block) {
         representative: product,
         variant: product,
         message: 'Add item to your cart',
+        pendingQuantityAction: 'increase',
       });
       await increaseProductCardPopupQuantity();
     } catch (error) {
