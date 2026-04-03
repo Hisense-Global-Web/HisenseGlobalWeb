@@ -38,9 +38,12 @@
       background-color: var(--color-primary-green-10);
       border-radius: var(--size-20);
 
+      /* aspect-ratio: 357 / 357; */
+
       .card-top-box {
         display: flex;
         justify-content: space-between;
+        height: var(--size-101);
       }
 
       .top-left {
@@ -49,8 +52,6 @@
 
         .card-num {
           font-size: var(--size-64);
-
-          /* font-weight: var(--fontweight-medium); */
           line-height: calc(76.8 / var(--breakpoint-pc) * 100vw);
         }
 
@@ -64,6 +65,12 @@
         display: inline-block;
         width: var(--size-80);
         height: var(--size-80);
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
       }
 
       .exchange-div {
@@ -128,6 +135,10 @@
 
       .card-item {
         padding: var(--size-24) var(--size-24) var(--size-32);
+
+        .card-top-box {
+          height: var(--size-98);
+        }
 
         .top-left {
           .card-num {

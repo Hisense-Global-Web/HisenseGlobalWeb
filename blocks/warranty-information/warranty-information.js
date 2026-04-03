@@ -1,18 +1,14 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
-function getWarrantyEndpoint(country, language, factoryModel, category, sku) {
-  if (!country || !language || !factoryModel || !category) return '';
+// const FIVE_MINUTES_MS = 5000;
+function getWarrantyEndpoint(country, language) {
+  if (!country || !language) return '';
   const params = new URLSearchParams({
     country,
     language,
-    factoryModel,
-    category,
   });
-  if (sku) {
-    params.set('sku', sku);
-  }
-  return `/bin/hisense/support/document.json?${params.toString()}`;
+  return `/bin/hisense/warranty?${params.toString()}`;
 }
 
 function simpleHash(str) {
@@ -70,93 +66,90 @@ async function fetchJson(path) {
 
 export default async function decorate(block) {
   const { country, language } = getLocaleFromPath();
-  // let supportData = normalizeSupportResponse(null);
   let resWarrantyData = [];
   try {
     const warrantyEndpoint = getWarrantyEndpoint(
       country,
       language,
-      'UXQUA',
-      'televisions',
-      '116UXQUA',
     );
     const warrantyResponse = await fetchJson(warrantyEndpoint);
     console.log('Fetched warranty data:', warrantyResponse);
-    const tvObj = {
-      product_category: 'Television',
-      product_subcategory: 'Television',
-      warranty_info_icon: 'http://localhost:3000/us/en/support/media_1412a0c4…4418.svg?width=2000&format=webply&optimize=medium',
-      warranty_info_title: '2 Year Panel & Parts Warranty',
-      warranty_info: '1',
-      warranty_info_notes: '<ul><li>On-site service included for units 43" and above</li><li>Dead pixel policy: 3 or more bright/dead pixels qualifies for replacement</li><li>Original packaging recommended for service pickup</li></ul>',
-      warranty_info_additional: 'Exchange Only',
-    };
-    const audioObj = {
-      product_category: 'Audio',
-      product_subcategory: 'Audio',
-      warranty_info_icon: '🎵',
-      warranty_info_title: '18 Month Audio Warranty',
-      warranty_info: '2',
-      warranty_info_notes: '<p><strong>Warranty Terms:</strong></p><p>• Physical damage, water exposure, and unauthorized repairs void coverage<br>• Ear pads, batteries, and cables: 90-day limited coverage</p>',
-      warranty_info_additional: 'Exchange Only',
-    };
-    const laserObj = {
-      product_category: 'Laser home cinema',
-      product_subcategory: 'Laser home cinema',
-      warranty_info_icon: '🎥',
-      warranty_info_title: '3 Year Laser Projector Warranty',
-      warranty_info: '1',
-      warranty_info_notes: '<div style="background:#f9f9f9; padding:10px; border-radius:4px;"><strong>Included:</strong> Parts, labor, and firmware updates<br><strong>Not included:</strong> Remote control, HDMI cables, lens cleaning</div>',
-      warranty_info_additional: 'Exchange Only',
-    };
-    const appliancesObj = {
-      product_category: 'Appliances',
-      product_subcategory: 'Refrigerators',
-      warranty_info_icon: '❄️',
-      warranty_info_title: '2 Year Full + 8 Year Sealed System Warranty',
-      warranty_info: '3',
-      warranty_info_notes: '<ul><li><b>Years 1-2:</b> Parts, labor, and transportation included</li><li><b>Years 3-10:</b> Compressor, condenser, evaporator parts only</li><li>Professional installation required for warranty validity</li></ul>',
-      warranty_info_additional: 'Exchange Only',
-    };
-    const airObj = {
-      product_category: 'Air products',
-      product_subcategory: 'Air products',
-      warranty_info_icon: '💨',
-      warranty_info_title: '2 Year Air Purifier Warranty',
-      warranty_info: '3.',
-      warranty_info_notes: '<p><em>Filter replacements are not covered under warranty.</em></p><p>✔ HEPA filter: replace every 12 months<br>✔ Carbon pre-filter: replace every 6 months</p>',
-      warranty_info_additional: 'Exchange Only',
-    };
-    const commercialObj = {
-      product_category: 'Commercial',
-      product_subcategory: 'Commercial Display',
-      warranty_info_icon: '🖥️',
-      warranty_info_title: '3 Year Commercial Display Warranty',
-      warranty_info: '1',
-      warranty_info_notes: '<div style="border-left:3px solid #0073aa; padding-left:12px;"><strong>Commercial Use Conditions:</strong><ul><li>24/7 operation supported — warranty valid for continuous use</li></ul></div>',
-      warranty_info_additional: 'Exchange Only',
-    };
-    resWarrantyData = [
-      {
-        title: 'TV',
-        // warranty:[tvObj]
-        warranty: Array.from({ length: 9 }, () => tvObj),
-      }, {
-        title: 'Audio',
-        warranty: [audioObj],
-      }, {
-        title: 'Laser home cinema',
-        warranty: [laserObj],
-      }, {
-        title: 'Appliances',
-        warranty: Array.from({ length: 12 }, () => appliancesObj),
-      }, {
-        title: 'Air products',
-        warranty: [airObj],
-      }, {
-        title: 'Commercial',
-        warranty: [commercialObj],
-      }];
+    resWarrantyData = warrantyResponse?.data || [];
+    // const tvObj = {
+    //   product_category: 'Television',
+    //   product_subcategory: 'Television',
+    //   warranty_info_icon: 'http://localhost:3000/us/en/support/media_1412a0c4…4418.svg?width=2000&format=webply&optimize=medium',
+    //   warranty_info_title: '2 Year Panel & Parts Warranty',
+    //   warranty_info: '1',
+    //   warranty_info_notes: '<ul><li>On-site service included for units 43" and above</li><li>Dead pixel policy: 3 or more bright/dead pixels qualifies for replacement</li><li>Original packaging recommended for service pickup</li></ul>',
+    //   warranty_info_additional: 'Exchange Only',
+    // };
+    // const audioObj = {
+    //   product_category: 'Audio',
+    //   product_subcategory: 'Audio',
+    //   warranty_info_icon: '🎵',
+    //   warranty_info_title: '18 Month Audio Warranty',
+    //   warranty_info: '2',
+    //   warranty_info_notes: '<p><strong>Warranty Terms:</strong></p><p>• Physical damage, water exposure, and unauthorized repairs void coverage<br>• Ear pads, batteries, and cables: 90-day limited coverage</p>',
+    //   warranty_info_additional: 'Exchange Only',
+    // };
+    // const laserObj = {
+    //   product_category: 'Laser home cinema',
+    //   product_subcategory: 'Laser home cinema',
+    //   warranty_info_icon: '🎥',
+    //   warranty_info_title: '3 Year Laser Projector Warranty',
+    //   warranty_info: '1',
+    //   warranty_info_notes: '<div style="background:#f9f9f9; padding:10px; border-radius:4px;"><strong>Included:</strong> Parts, labor, and firmware updates<br><strong>Not included:</strong> Remote control, HDMI cables, lens cleaning</div>',
+    //   warranty_info_additional: 'Exchange Only',
+    // };
+    // const appliancesObj = {
+    //   product_category: 'Appliances',
+    //   product_subcategory: 'Refrigerators',
+    //   warranty_info_icon: '❄️',
+    //   warranty_info_title: '2 Year Full + 8 Year Sealed System Warranty',
+    //   warranty_info: '3',
+    //   warranty_info_notes: '<ul><li><b>Years 1-2:</b> Parts, labor, and transportation included</li><li><b>Years 3-10:</b> Compressor, condenser, evaporator parts only</li><li>Professional installation required for warranty validity</li></ul>',
+    //   warranty_info_additional: 'Exchange Only',
+    // };
+    // const airObj = {
+    //   product_category: 'Air products',
+    //   product_subcategory: 'Air products',
+    //   warranty_info_icon: '💨',
+    //   warranty_info_title: '2 Year Air Purifier Warranty',
+    //   warranty_info: '3.',
+    //   warranty_info_notes: '<p><em>Filter replacements are not covered under warranty.</em></p><p>✔ HEPA filter: replace every 12 months<br>✔ Carbon pre-filter: replace every 6 months</p>',
+    //   warranty_info_additional: 'Exchange Only',
+    // };
+    // const commercialObj = {
+    //   product_category: 'Commercial',
+    //   product_subcategory: 'Commercial Display',
+    //   warranty_info_icon: '🖥️',
+    //   warranty_info_title: '3 Year Commercial Display Warranty',
+    //   warranty_info: '1',
+    //   warranty_info_notes: '<div style="border-left:3px solid #0073aa; padding-left:12px;"><strong>Commercial Use Conditions:</strong><ul><li>24/7 operation supported — warranty valid for continuous use</li></ul></div>',
+    //   warranty_info_additional: 'Exchange Only',
+    // };
+    // resWarrantyData = [
+    //   {
+    //     title: 'TV',
+    //     // warranty:[tvObj]
+    //     warranty: Array.from({ length: 9 }, () => tvObj),
+    //   }, {
+    //     title: 'Audio',
+    //     warranty: [audioObj],
+    //   }, {
+    //     title: 'Laser home cinema',
+    //     warranty: [laserObj],
+    //   }, {
+    //     title: 'Appliances',
+    //     warranty: Array.from({ length: 12 }, () => appliancesObj),
+    //   }, {
+    //     title: 'Air products',
+    //     warranty: [airObj],
+    //   }, {
+    //     title: 'Commercial',
+    //     warranty: [commercialObj],
+    //   }];
     // supportData = normalizeSupportResponse(supportResponse);
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -238,16 +231,16 @@ export default async function decorate(block) {
       topLeft.className = 'top-left';
       const numSpan = document.createElement('span');
       numSpan.className = 'card-num';
-      numSpan.textContent = item.warranty_info;
+      numSpan.textContent = item.warrantyYearNumber;
       const unitSpan = document.createElement('span');
       unitSpan.className = 'card-unit';
-      unitSpan.textContent = item.warranty_info_unit || 'Year';
+      unitSpan.textContent = item.warrantyYearLabel || '';
       topLeft.append(numSpan, unitSpan);
 
       // card tips
       const exchangeDiv = document.createElement('div');
       exchangeDiv.className = 'exchange-div';
-      exchangeDiv.textContent = item.warranty_info_additional;
+      exchangeDiv.textContent = item.warrantyInfoAdditional;
 
       topLeftBox.append(topLeft, exchangeDiv);
 
@@ -255,7 +248,7 @@ export default async function decorate(block) {
       const cardIconBox = document.createElement('div');
       cardIconBox.className = 'card-icon-box';
       const cardIcon = document.createElement('img');
-      cardIcon.src = item.warranty_info_icon;
+      cardIcon.src = item.warrantyInfoIcon || '';
       cardIconBox.append(cardIcon);
 
       cardTopBox.append(topLeftBox, cardIconBox);
@@ -263,11 +256,11 @@ export default async function decorate(block) {
       // card title
       const cardTitle = document.createElement('div');
       cardTitle.className = 'card-title';
-      cardTitle.textContent = item.product_subcategory;
+      cardTitle.textContent = item.productSubcategory;
       // card notes
       const cardNotes = document.createElement('div');
       cardNotes.className = 'card-notes';
-      cardNotes.innerHTML = item.warranty_info_notes;
+      cardNotes.innerHTML = item.warrantyInfoNotes;
 
       cardItem.append(cardTopBox, cardTitle, cardNotes);
       cardsGrid.append(cardItem);
