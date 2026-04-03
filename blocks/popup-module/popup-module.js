@@ -14,18 +14,13 @@ export default function decorate(block) {
   // close popup
   closeDivEl.addEventListener('click', (e) => {
     if (e.target.closest('.popup-announcement')) {
-      const announcementPopup = document.querySelector('.popup-announcement');
-      if (announcementPopup) {
-        announcementPopup.classList.remove('popup-show');
-      }
       // set a local storage and check the version to avoid showing the same announcement popup repeatedly when user close it, only show it again when the popup content has been updated with a new version
       const announcementVersion = block.getAttribute('data-version') || '';
       localStorage.setItem('announcementClosedVersion', announcementVersion);
-    } else {
-      document.querySelectorAll('.popup-module-container').forEach((popupItem) => {
-        popupItem.classList.remove('popup-show');
-      });
     }
+    document.querySelectorAll('.popup-module-container').forEach((popupItem) => {
+      popupItem.classList.remove('popup-show');
+    });
     document.body.style.overflow = 'auto';
   });
 

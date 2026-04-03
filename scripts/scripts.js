@@ -362,34 +362,34 @@ async function loadAnnouncementPopup() {
     await loadSections(fragmentMain);
     
     const fragmentSections = [...fragmentMain.children];
-    const hasAnnouncementPage = fragmentMain.querySelector('.popup-announcement');
+    const anncEl = fragmentMain.querySelector('.popup-announcement');
 
-    if (!hasAnnouncementPage || !fragmentSections.length) {
+    if (!anncEl || !fragmentSections.length) {
       return false;
     }
 
     if (document.querySelector('.popup-announcement')) {
       // check version of the existing announcement popup, if it's different from the new one, replace it with the new one, otherwise keep the existing one to avoid showing the same announcement popup repeatedly when user close it
-      const existingAnnouncementPopup = document.querySelector('.popup-announcement');
-      const existingVersion = existingAnnouncementPopup.getAttribute('data-version') || '';
-      const newVersion = hasAnnouncementPage.getAttribute('data-version') || '';
+      const prevAnnc = document.querySelector('.popup-announcement');
+      const existingVersion = prevAnnc.getAttribute('data-version') || '';
+      const newVersion = anncEl.getAttribute('data-version') || '';
       if (existingVersion !== newVersion) {
-        existingAnnouncementPopup.replaceWith(hasAnnouncementPage);
+        prevAnnc.replaceWith(anncEl);
       }
     } else {
       document.querySelector('main').appendChild(...fragmentSections);
     }
 
-    const announcementPopup = document.querySelector('.popup-announcement');
-
-    if (announcementPopup.classList.contains('popup-show')) {
-      announcementPopup.classList.remove('popup-show');
+    const currentAnnc = document.querySelector('.popup-announcement');
+    // at first load the announcement popup in hidden state
+    if (currentAnnc.classList.contains('popup-show')) {
+      currentAnnc.classList.remove('popup-show');
     }
-    // check local storage to decide whether show the announcement popup, only show it when the version is different from the version user closed last time
-    const announcementVersion = announcementPopup.getAttribute('data-version') || '';
+    // second check local storage to decide whether show the announcement popup, only show it when the version is different from the version user closed last time
+    const announcementVersion = currentAnnc.getAttribute('data-version') || '';
     const closedVersion = localStorage.getItem('announcementClosedVersion') || '';
     if (announcementVersion && announcementVersion !== closedVersion) {
-      announcementPopup.classList.add('popup-show');
+      currentAnnc.classList.add('popup-show');
       document.body.style.overflow = 'hidden';
     }
     
