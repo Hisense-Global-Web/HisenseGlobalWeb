@@ -85,12 +85,14 @@ p {
   .hero-banner-content {
     position: absolute;
     top: 50%;
-    left: calc(50% - min(var(--container-max-width), 90vw) / 2);
+    left: calc(50% - min(var(--container-max-width), 95vw) / 2);
     transform: translate(0, -50%);
+    height: min(calc(452/ var(--breakpoint-pc) *100vw), 452px);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: min(var(--size-48), 48px);
+    justify-content: space-between;
+    gap: var(--size-48);
   }
 
   .hero-banner-item-content {
@@ -103,6 +105,8 @@ p {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
+    height: min(calc(354/ var(--breakpoint-pc) *100vw), 354px);
     gap: var(--spacing-3xs);
   }
 
@@ -113,14 +117,23 @@ p {
     margin-top: 0 ;
   }
 
-  .hero-banner-item-content h1, h2, h3, h4, h5, h6 {
+  .hero-banner-item-content h1,
+  .hero-banner-item-content h2,
+  .hero-banner-item-content h3,
+  .hero-banner-item-content h4,
+  .hero-banner-item-content h5,
+  .hero-banner-item-content h6,
+  .hero-banner-item-content p {
     margin: 0;
     font-size: var(--fontsize-pc-h1);
+    font-weight: var(--fontweight-medium);
     line-height: 120%;
   }
 
   .hero-banner-item-content.icon-svg {
     width: min(calc(327/var(--breakpoint-pc)*100vw), 327px);
+    height: 100%;
+    justify-content: center;
 
     picture {
       inset: 0;
@@ -131,6 +144,7 @@ p {
       display: block;
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
   }
 
@@ -145,15 +159,17 @@ p {
   .hero-banner-item-cta {
     display: inline-block;
 
-    .button-container {
+    p {
       font-size: var(--body-font-size-l);
       font-weight: var(--fontweight-medium);
       text-align: center;
       margin: 0 auto;
+      line-height: 0;
+      padding: 0;
 
-      .button {
+      a {
         width: auto;
-        display: block;
+        display: inline-block;
         padding: var(--spacing-4xs) var(--spacing-pc-md);
         line-height: var(--size-42);
         font-size: var(--fontsize-body2);
@@ -164,33 +180,31 @@ p {
         margin: 0;
       }
 
-      .button.hisense-green {
+      a.hisense-green {
         background-color: var(--color-primary-green-60) !important;
-        border-color: var(--color-primary-green-60) !important;
+        border: none !important;
         color: var(--color-primary-grey-10) !important;
       }
 
-      .button.hisense-black {
+      a.hisense-black {
         background-color: var(--color-hisense-black);
-        border-color: var(--color-hisense-black);
+        border: none;
         color: var(--color-primary-grey-10);
       }
 
-      .button:hover {
+      a:hover {
         background-color: var(--color-primary-grey-70);
         border-color: var(--color-primary-grey-70);
         color: var(--color-primary-grey-10);
       }
 
-      .button.hisense-green:hover {
+      a.hisense-green:hover {
         background-color: var(--color-primary-green-40) !important;
-        border-color: var(--color-primary-green-40) !important;
         color: var(--color-primary-grey-10) !important;
       }
 
-      .button.hisense-black:hover {
+      a.hisense-black:hover {
         background-color: var(--color-primary-grey-70);
-        border-color: var(--color-primary-grey-70);
         color: var(--color-primary-grey-10);
       }
     }
@@ -251,8 +265,8 @@ p {
       color: var(--background-light);
     }
 
-    .button-container {
-      .button {
+    .hero-banner-item-cta p {
+      a {
         color: var(--background-light);
         border-color: var(--background-light);
 
@@ -290,19 +304,16 @@ p {
 
 .hero-banner-item-indicators {
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: var(--size-24);
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--size-16);
   margin: 0;
   padding: 0;
-  height: var(--size-60);
   width: 100%;
   list-style: none;
+  line-height: 0;
 
   button {
     width: var(--size-8);
@@ -337,11 +348,11 @@ p {
 }
 
 .hero-banner-navigation-buttons {
+  width: 100%;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: var(--size-30);
-  right: var(--size-30);
+  padding: 0 var(--size-32);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -377,7 +388,12 @@ p {
     .hero-banner-item {
       .hero-banner-content {
         height: auto;
+        width: 100%;
         left: calc(50% - min(var(--container-max-width), 100vw) / 2);
+
+        .text-content {
+          height: auto;
+        }
       }
 
       .hero-banner-item-image {
@@ -413,7 +429,6 @@ p {
     }
 
     picture > img {
-      object-position: center 35% !important;
       pointer-events: none;
       display: block;
       width: 100%;
@@ -424,42 +439,41 @@ p {
       .hero-banner-content {
         width: 100%;
         top: auto;
+        bottom: var(--size-44);
         transform: none;
         font-weight: var(--fontweight-medium);
-        bottom: var(--size-36);
         left: calc(50% - min(var(--container-max-width), 100vw) / 2);
-        gap: var(--size-30);
-        padding: var(--spacing-2xs) var(--size-18);
-
-        .hero-banner-cta-container {
-          gap: var(--size-16);
-        }
+        gap: var(--size-18);
+        padding: 0 var(--size-24);
+        height: calc(270/var(--breakpoint-mobile) * 100vw);
+        justify-content: flex-start;
 
         .hero-banner-item-content {
-          max-height: calc(192/var(--breakpoint-mobile)*100vw);
+          h1,h2,h3,h4,h5,h6,p {
+            font-size: var(--size-34);
+          }
         }
 
         .text-content {
-          gap: var(--size-4);
+          gap: var(--size-8);
+          height: calc(212/var(--breakpoint-mobile)* 100vw);
+          justify-content: flex-start;
         }
 
         .teal-text {
           width: 100%;
-          font-size: min(var(--fontsize-title2), 3.125vh);
+          font-size: var(--size-20);
           line-height: 1.3;
         }
 
-        h1,h2,h3,h4,h5,h6 {
-          font-size: var(--size-40);
-        }
-
-        .button {
-          font-size: min(var(--fontsize-body2), 2.1875vh);
+        a {
+          font-size: var(--fontsize-body2);
           font-weight: var(--fontweight-medium);
+          height: var(--size-40);
           box-sizing: border-box;
-          line-height: min(var(--size-30), 4.6875vh);
+          line-height: var(--size-32);
           text-align: center;
-          padding: min(var(--size-4), 0.625vh) min(var(--size-24), 3.75vh);
+          padding: var(--size-4) var(--size-24);
         }
       }
 
@@ -492,24 +506,27 @@ p {
   }
 
   .hero-banner-item .video-play-icon {
-    width: var(--size-36);
-    height: var(--size-36);
-    border-radius: var(--size-36);
+    width: var(--size-24);
+    height: var(--size-24);
+    border-radius: 100%;
     right: var(--size-24);
-    bottom: var(--size-48);
+    bottom: var(--size-52);
     left: auto;
+    backdrop-filter: blur(calc(var(--size-20) / 2));
   }
 
   .hero-banner.only-picture .hero-banner-items-container{
     max-height: 100dvh !important;
     aspect-ratio: 390/480;
 
-    .hero-banner-content {
-      height: calc(203/var(--breakpoint-mobile)*100vw) !important;
+    .hero-banner-item .hero-banner-content {
       line-height: 1.2;
+      left: 0;
       bottom: 0;
-      padding: var(--size-40) var(--size-24);
+      padding:  0 var(--size-24) var(--size-32);
       font-size: var(--size-34);
+      text-transform: capitalize;
+      letter-spacing: 0;
 
       .hero-banner-item-content {
         gap: 0;
@@ -518,10 +535,6 @@ p {
           font-size: var(--size-34);
           line-height: 1.2;
         }
-      }
-
-      .teal-text {
-        display: none;
       }
     }
 
@@ -534,6 +547,8 @@ p {
   .hero-banner .hero-banner-item-indicators {
     height: var(--size-36);
     gap: var(--size-8);
+    bottom: 0;
+    align-items: center;
 
     button {
       height: var(--size-6);

@@ -147,8 +147,12 @@
       "exception-page",
       "accessories-feature",
       "calltoaction-banner",
-      "warranty-information",
-      "project-brief-card"
+      "project-brief-card",
+      "store-information-card",
+      "warning-note",
+      "warranty-accordion",
+      "warranty-accordion-item",
+      "warranty-information"
     ]
   },
   {
@@ -528,6 +532,12 @@
     "id": "stats-grid",
     "components": [
       "achievement-matrix"
+    ]
+  },
+  {
+    "id": "store-information-card",
+    "components": [
+      "store-information-card-items"
     ]
   },
   {

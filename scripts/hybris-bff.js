@@ -978,7 +978,7 @@ export async function fetchHybrisCoupons(options = {}) {
 
 export async function fetchHybrisAddresses(options = {}) {
   const { country, language } = buildRegionParams(options.country, options.language);
-  return bffRequest('/addresses', {
+  const addresses = await bffRequest('/addresses', {
     auth: 'required',
     query: {
       country,
@@ -987,6 +987,8 @@ export async function fetchHybrisAddresses(options = {}) {
     redirectOnAuthFailure: options.redirectOnAuthFailure === true,
     returnUrl: options.returnUrl,
   });
+  emitHybrisDataEvent('addresses', addresses);
+  return addresses;
 }
 
 async function fetchHybrisGuestCart(options = {}) {

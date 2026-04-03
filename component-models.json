@@ -789,6 +789,18 @@
     ]
   },
   {
+    "id": "additional-support-card",
+    "fields": [
+      {
+        "component": "number",
+        "name": "pc_numberColumns",
+        "label": "PC: Items per row",
+        "valueType": "number",
+        "description": "For PC: Number of columns displayed per row."
+      }
+    ]
+  },
+  {
     "id": "additional-support-card-item",
     "fields": [
       {
@@ -813,30 +825,123 @@
         "valueType": "string"
       },
       {
+        "component": "container",
+        "name": "officehours-container",
+        "label": "Office Hours Container",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "name": "office_hours1",
+            "value": "",
+            "label": "Office Hours 1",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "office_hours2",
+            "value": "",
+            "label": "Office Hours 2",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "office_hours3",
+            "value": "",
+            "label": "Office Hours 3",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "office_hours4",
+            "value": "",
+            "label": "Office Hours 4",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "office_hours5",
+            "value": "",
+            "label": "Office Hours 5",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "office_hours6",
+            "value": "",
+            "label": "Office Hours 6",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "office_hours7",
+            "value": "",
+            "label": "Office Hours 7",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
         "component": "text",
-        "name": "time_workingHours",
+        "name": "contact_information",
         "value": "",
-        "label": "Working Hours",
+        "label": "Contact Information(Phone Number or Email)",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "time_responseTime",
-        "value": "",
-        "label": "Response Time",
-        "valueType": "string"
+        "name": "button_text",
+        "label": "Button Text",
+        "valueType": "string",
+        "value": ""
       },
       {
-        "component": "text",
-        "name": "support_phone",
-        "value": "",
-        "label": "Support Phone Number",
-        "valueType": "string"
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "button-style",
+        "label": "Button Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "White",
+            "value": "white"
+          },
+          {
+            "name": "Green 60",
+            "value": "green60"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "button-action",
+        "label": "Button Action",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Page Redirect",
+            "value": "pageRedirect"
+          },
+          {
+            "name": "Phone Call",
+            "value": "phoneCall"
+          },
+          {
+            "name": "Send Email",
+            "value": "sendEmail"
+          }
+        ]
       },
       {
         "component": "select",
         "name": "button-display",
-        "value": "pc-and-mobile",
         "label": "Button Display Options",
         "valueType": "string",
         "options": [
@@ -847,28 +952,6 @@
           {
             "name": "Only displayed on Mobile",
             "value": "mobile-only"
-          }
-        ]
-      },
-      {
-        "component": "container",
-        "label": "",
-        "name": "container_cta",
-        "valueType": "string",
-        "fields": [
-          {
-            "component": "text",
-            "name": "button_text",
-            "label": "Button Text",
-            "valueType": "string",
-            "value": ""
-          },
-          {
-            "component": "aem-content",
-            "name": "button_link",
-            "label": "Button Link",
-            "valueType": "string",
-            "value": ""
           }
         ]
       }
@@ -5499,6 +5582,82 @@
     ]
   },
   {
+    "id": "store-information-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "state",
+        "label": "State Tag",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "category",
+        "label": "Category Tag",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "city",
+        "label": "City Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "store",
+        "label": "Store Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "info1",
+        "label": "Store Info Label 1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content1",
+        "label": "Store Info Content 1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "info2",
+        "label": "Store Info Label 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content2",
+        "label": "Store Info Content 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "info3",
+        "label": "Store Info Label 3",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "store-information-card-items",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "service_icon",
+        "label": "Service Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "service_category",
+        "label": "Service Category",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "strategic-card-items",
     "fields": []
   },
@@ -6393,6 +6552,138 @@
         "value": "Description",
         "label": "description",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "warning-note",
+    "classes": "warning-note",
+    "fields": [
+      {
+        "component": "text",
+        "name": "note-title",
+        "label": "Note Title",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "node-body-text",
+        "label": "Node Body Text",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "warranty-accordion-item",
+    "classes": "warranty-accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "collapse-title",
+        "label": "Accordion Title",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "collapse-context",
+        "label": "Accordion Body Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "boolean",
+        "name": "should-button",
+        "label": "Should Button?",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Button Label",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "should-button"
+            },
+            true
+          ]
+        },
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "should-button"
+            },
+            true
+          ]
+        },
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "warranty-accordion",
+    "classes": "warranty-accordion",
+    "fields": [
+      {
+        "component": "text",
+        "name": "collapse-title",
+        "label": "Title",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "collapse-context",
+        "label": "Body Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "boolean",
+        "name": "should-button",
+        "label": "Should Button?",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Button Label",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "should-button"
+            },
+            true
+          ]
+        },
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "should-button"
+            },
+            true
+          ]
+        },
+        "value": ""
       }
     ]
   },

@@ -96,14 +96,14 @@ function showSlide(block, targetLogicalIndex, init = false) {
         behavior: 'instant', // 瞬间跳转，用户无感知
       });
       if (slides[jumpIndex].querySelector('video') && slides[jumpIndex].querySelector('.video-play-icon').classList.contains('is-paused')) {
-        slides[jumpIndex].querySelector('.video-play-icon').click();
+        slides[jumpIndex].querySelector('.video-play-icon > img').click();
       }
     }, 800);
   } else if (targetSlide.querySelector('video')
     && targetSlide.querySelector('.video-play-icon').classList.contains('is-paused')
   ) {
     // 5. if slide contains video, auto play the video
-    targetSlide.querySelector('.video-play-icon').click();
+    targetSlide.querySelector('.video-play-icon > img').click();
   }
   isInitializing = false; // 触发完后解锁初始化
 }
@@ -352,7 +352,7 @@ function createSlide(block, row, slideIndex) {
       case 2:
         // colorful text div
         column.classList.add('teal-text');
-        textContent.append(column);
+        if (column.textContent.trim()) textContent.append(column);
         break;
       case 3:
         // richtext div
@@ -387,7 +387,7 @@ function createSlide(block, row, slideIndex) {
       buttonDiv.append(column);
     } else slide.append(column);
   });
-  div.append(buttonDiv);
+  if (buttonDiv.children.length > 0) div.append(buttonDiv);
   slide.append(div);
   return slide;
 }
