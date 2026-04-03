@@ -1,61 +1,112 @@
+const EButtonAction = Object.freeze({
+  pageRedirect: 'pageRedirect',
+  phoneCall: 'phoneCall',
+  sendEmail: 'sendEmail',
+});
+
 export default function decorate(block) {
   try {
-    const elementItems = [...block.children];
+    const [columnNumberEl, ...elementItems] = [...block.children];
+    const pcColumn = columnNumberEl?.querySelector?.('p')?.textContent || '4';
+    columnNumberEl?.remove();
+
+    const meidaCardQuery = window.matchMedia('(min-width: 860px)');
+
+    const handleCardMediaChange = (e) => {
+      if (e.matches) {
+        // PC
+        block.style.cssText = `grid-template-columns: repeat(${pcColumn}, 1fr)`;
+      } else {
+        // Mobile
+        block.style.cssText = '';
+      }
+    };
+
+    handleCardMediaChange(meidaCardQuery);
+
     elementItems.forEach((element) => {
       element.classList.add('additional-support-card-item');
-      const [icon, title, subtitle, showCircleEl, timeContainer, phoneNumber, displayButton, buttonLink, buttonStyleEl] = element.children;
-      icon?.classList?.add('additional-support-card-item-icon');
-      title?.classList?.add('additional-support-card-item-title');
-      subtitle?.classList?.add('additional-support-card-item-subtitle');
-      const showCircle = showCircleEl?.querySelector('p')?.textContent?.toLowerCase() === 'true';
+      const [iconEl, titleEl, subtitleEl, timeContainerEl, contactInfoContainerEl, buttonLinkEl, buttonStyleEl, buttonActionEl, displayButtonEl] = element.children;
+      iconEl?.classList?.add('icon');
+      titleEl?.classList?.add('title');
+      subtitleEl?.classList?.add('subtitle');
       const buttonStyle = buttonStyleEl?.querySelector('p')?.textContent || 'white';
+      const buttonAction = buttonActionEl?.querySelector('p')?.textContent || EButtonAction.pageRedirect;
 
-      timeContainer?.classList?.add('additional-support-card-item-time-container');
-      const workingTime = timeContainer?.children[0];
-      const responseTime = timeContainer?.children[1];
-      workingTime?.classList?.add('working-time');
-      responseTime?.classList?.add('response-time');
-      const circleEl = document.createElement('div');
-      if (showCircle) {
-        circleEl.classList.add('main-circle');
-        timeContainer.prepend(circleEl);
+      timeContainerEl?.classList?.add('time-container');
+      contactInfoContainerEl?.classList?.add('contact-info-container');
+      const [circleStyleEl, phoneNumberEl] = contactInfoContainerEl?.children ?? [];
+      const circleStyle = circleStyleEl?.textContent || 'none';
+      if (circleStyle === 'none') {
+        circleStyleEl?.remove();
+      } else {
+        circleStyleEl.classList.add('circle', circleStyle);
+        circleStyleEl.textContent = '';
       }
-      phoneNumber?.children[0]?.classList?.add('phone-number');
-      const phoneNumberText = phoneNumber?.children[0]?.textContent || null;
-      const displayButtonValue = displayButton?.querySelector('p')?.innerHTML || '';
-      displayButton.style.display = 'none';
+      if (phoneNumberEl) {
+        phoneNumberEl.classList.add('contact-info');
+      }
+      const contactInfoText = contactInfoContainerEl?.children[0]?.textContent || null;
+      const topEl = document.createElement('div');
+      topEl.className = 'top';
+      topEl.appendChild(iconEl);
+      const titleContainer = document.createElement('div');
+      titleContainer.className = 'title-container';
+      titleContainer.appendChild(titleEl);
+      titleContainer.appendChild(subtitleEl);
+      topEl.appendChild(titleContainer);
+      const timePhoneContainer = document.createElement('div');
+      timePhoneContainer.className = 'time-phone-container';
+      timePhoneContainer.appendChild(timeContainerEl);
+      timePhoneContainer.appendChild(contactInfoContainerEl);
+      topEl.appendChild(timePhoneContainer);
+
+      const displayButtonValue = displayButtonEl?.querySelector('p')?.innerHTML || '';
       if (displayButtonValue === 'mobile-only') {
-        buttonLink?.classList?.add('button-hidden');
-        phoneNumber?.classList?.add('phone-number-hidden');
+        buttonLinkEl?.classList?.add('button-hidden');
       }
-      let buttonALink = buttonLink?.querySelector('a');
+      let buttonALink = buttonLinkEl?.querySelector('a');
       if (!buttonALink) {
-        buttonALink = buttonLink?.querySelector('p');
+        buttonALink = buttonLinkEl?.querySelector('p');
       }
       if (buttonALink) {
         buttonALink?.classList?.remove('button');
-        buttonALink?.classList?.add('additional-support-card-item-link');
+        buttonALink?.classList?.add('link');
         if (buttonStyle === 'white') {
           buttonALink.classList.add('button-white');
         } else if (buttonStyle === 'green60') {
           buttonALink.classList.add('button-green60');
         }
-        const buttonText = buttonLink?.children?.[0] ?? '';
+        const buttonText = buttonLinkEl?.children?.[0] ?? '';
         buttonALink.textContent = buttonText?.textContent || '';
-        if (buttonLink.querySelector('a')) {
+        if (buttonLinkEl.querySelector('a')) {
           buttonText?.remove();
         }
 
-        if (phoneNumberText) {
-          buttonALink.addEventListener('click', () => {
-            const link = document.createElement('a');
-            link.href = `tel:${phoneNumberText}`;
-            link.click();
-          }, true);
-        }
+        buttonALink.addEventListener('click', () => {
+          // 页面直接跳转
+          if (buttonAction === EButtonAction.pageRedirect) {
+            window.location = buttonALink;
+          } else if (buttonAction === EButtonAction.sendEmail) {
+            const emailLink = document.createElement('a');
+            emailLink.href = `mailto:${contactInfoText}`;
+            emailLink.click();
+          } else if (buttonAction === EButtonAction.phoneCall) {
+            const phoneLink = document.createElement('a');
+            phoneLink.href = `tel:${contactInfoText}`;
+            phoneLink.click();
+          }
+        }, true);
       }
-      showCircleEl?.remove();
+
       buttonStyleEl?.remove();
+      buttonActionEl?.remove();
+      displayButtonEl?.remove();
+      element.prepend(topEl);
+      const bottomEl = document.createElement('div');
+      bottomEl.className = 'bottom';
+      bottomEl.appendChild(buttonLinkEl);
+      element.appendChild(bottomEl);
 
       // 计算最大高度并设置所有卡片项的高度一致，确保在不同内容长度时卡片高度统一
       setTimeout(() => {
@@ -64,7 +115,7 @@ export default function decorate(block) {
         cardItems.forEach((item) => {
           item.style.height = `${maxHeight}px`;
         });
-      }, 50);
+      }, 500);
     });
   } catch (error) {
     /* eslint-disable-next-line no-console */
