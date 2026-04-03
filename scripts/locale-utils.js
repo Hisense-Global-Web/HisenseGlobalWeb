@@ -1,3 +1,5 @@
+import { getLocationPart } from './environment.js';
+
 /**
  * hisense.com/us 没有 en 这一级目录，US 站点统一默认语言为 en（不从 path 取语言）。
  */
@@ -65,4 +67,28 @@ export function localizeProductApiPath(path) {
   const localizedUrl = `${localizedPath}${search}${hash}`;
 
   return isAbsoluteUrl ? `${url.origin}${localizedUrl}` : localizedUrl;
+}
+
+/**
+ * Checks if the current page is a config page based on the URL.
+ * @returns {boolean}
+ */
+export function isConfigPage() {
+  return getLocationPart('pathname').includes('/config/');
+}
+
+/**
+ * Checks if the current page is a nav page based on the URL.
+ * @returns {boolean}
+ */
+export function isNavPage() {
+  return /\/nav(\.html)?$/.test(getLocationPart('pathname'));
+}
+
+/**
+ * Checks if the current page is a footer page based on the URL.
+ * @returns {boolean}
+ */
+export function isFooterPage() {
+  return /footer(\.html)?$/.test(getLocationPart('pathname'));
 }

@@ -88,6 +88,40 @@
               }
             }
           }
+        },
+        {
+          "title": "Announcement",
+          "id": "announcement",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Announcement",
+                  "model": "announcement",
+                  "filter": "announcement",
+                  "style_announcement": "popup-announcement",
+                  "style_popupVisibility": ""
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Product Identifier Guide",
+          "id": "product-identifier-guide",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Product Identifier Guide",
+                  "model": "product-identifier-guide",
+                  "filter": "product-identifier-guide"
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -185,8 +219,8 @@
                   "name": "Additional Support Card",
                   "model": "additional-support-card",
                   "classes": "additional-support-card",
-                  "key-value": true,
-                  "filter": "additional-support-card"
+                  "filter": "additional-support-card",
+                  "pc_numberColumns": 4
                 }
               }
             }
@@ -202,7 +236,10 @@
                 "template": {
                   "name": "Additional Support Card Item",
                   "model": "additional-support-card-item",
-                  "key-value": true
+                  "cirlce-style": "none",
+                  "button-display": "pc-and-mobile",
+                  "button-style": "white",
+                  "button-action": "pageRedirect"
                 }
               }
             }
@@ -1859,7 +1896,7 @@
                   "name": "Page Header",
                   "model": "page-header",
                   "classes": "page-header",
-                  "page-header-style": "align-center",
+                  "page-headerstyle": "align-center",
                   "title-style": "text-green-50"
                 }
               }
@@ -2094,6 +2131,39 @@
           }
         },
         {
+          "title": "Product Category Guide",
+          "id": "product-category-guide",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Product Category Guide",
+                  "model": "product-category-guide",
+                  "filter": "product-category-guide",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Product Guide Item",
+          "id": "product-guide-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Product Guide Item",
+                  "model": "product-guide-item",
+                  "step_hint": "step"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Product Filter ",
           "id": "product-filter",
           "plugins": {
@@ -2279,8 +2349,7 @@
                   "model": "project-brief-card",
                   "filter": "project-brief-card",
                   "key-value": true,
-                  "page-size": "10",
-                  "info": "info"
+                  "page-size": "10"
                 }
               }
             }
@@ -3149,6 +3218,54 @@
                   "name": "Videoinfo",
                   "model": "videoinfo",
                   "classes": "videoinfo"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Warning Note",
+          "id": "warning-note",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Warning Note",
+                  "model": "warning-note",
+                  "classes": "warning-note"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Warranty Accordion Item",
+          "id": "warranty-accordion-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Warranty Accordion Item",
+                  "model": "warranty-accordion-item",
+                  "classes": "warranty-accordion-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Warranty Accordion",
+          "id": "warranty-accordion",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Warranty Accordion",
+                  "model": "warranty-accordion",
+                  "classes": "warranty-accordion"
                 }
               }
             }

@@ -4,6 +4,8 @@
     "components": [
       "section",
       "popup-module",
+      "announcement",
+      "product-identifier-guide",
       "navigation",
       "company-page-navigation",
       "support-navigation",
@@ -16,6 +18,12 @@
   },
   {
     "...": "./_popup-module.json#/filters"
+  },
+  {
+    "...": "./_announcement.json#/filters"
+  },
+  {
+    "...": "./_product-identifier-guide.json#/filters"
   },
   {
     "...": "../blocks/*/_*.json#/filters"

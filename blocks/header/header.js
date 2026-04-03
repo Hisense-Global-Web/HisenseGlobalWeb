@@ -15,8 +15,18 @@ import {
   refreshHybrisAuthStatus,
   startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
-import { getFragmentPath } from '../../scripts/locale-utils.js';
+import { getFragmentPath, isNavPage } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
+import {
+  buildAccountProfileHref,
+  buildAccountMenuItemChildren,
+  getCouponsCount,
+  getOrdersCount,
+  hasValidHybrisAccountState,
+  shouldRefreshHeaderCommerceCountsAfterAuthInit,
+} from './header-commerce-utils.js';
+
+import { isAuthorHostname } from '../../scripts/environment.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -44,14 +54,6 @@ const ACCOUNT_COUNT_KEY_BY_LABEL = {
   Wishlist: 'wishlist',
   Coupons: 'coupons',
 };
-
-function hasValidHybrisAccountState(authState = {}) {
-  return Boolean(
-    authState?.authenticated
-      && authState?.myAccountUrl
-      && Number(authState?.expiresAt) > Date.now(),
-  );
-}
 
 function normalizeCount(value) {
   const numericValue = Number(value);
@@ -106,34 +108,6 @@ function getWishlistCount(wishlist = {}) {
   return getCartCount(wishlist);
 }
 
-function getOrdersCount(orders = {}) {
-  const ordersList = Array.isArray(orders?.orders) ? orders.orders : [];
-  if (ordersList.length) {
-    return ordersList.length;
-  }
-
-  return normalizeCount(
-    orders?.pagination?.totalResults
-      ?? orders?.totalResults
-      ?? orders?.totalCount
-      ?? orders?.count,
-  );
-}
-
-function getCouponsCount(coupons = {}) {
-  const couponList = Array.isArray(coupons?.coupons) ? coupons.coupons : [];
-  if (couponList.length) {
-    return couponList.length;
-  }
-
-  return normalizeCount(
-    coupons?.pagination?.totalResults
-      ?? coupons?.totalResults
-      ?? coupons?.totalCount
-      ?? coupons?.count,
-  );
-}
-
 function splitMyAccountUrl(myAccountUrl) {
   if (!myAccountUrl || typeof window === 'undefined') {
     return null;
@@ -179,20 +153,11 @@ function buildAccountMenuItem({
   link.addEventListener('click', (event) => {
     event.stopPropagation();
   });
-
-  const titleEl = document.createElement('span');
-  titleEl.className = 'my-product-title';
-  titleEl.textContent = label;
-
-  const countText = formatCountBadge(count, { showZero: showZeroCount });
-  if (countText) {
-    const countEl = document.createElement('span');
-    countEl.className = 'my-count-span';
-    countEl.textContent = countText;
-    titleEl.append(countEl);
-  }
-
-  link.append(titleEl);
+  link.append(...buildAccountMenuItemChildren(document, {
+    label,
+    count,
+    showZeroCount,
+  }));
 
   return link;
 }
@@ -396,8 +361,18 @@ function createAccountDrawer() {
   const myItems = document.createElement('div');
   myItems.className = 'my-items-group';
 
+  const profileEl = document.createElement('a');
+  profileEl.className = 'account-secondary-link profile-group';
+  profileEl.textContent = 'Profile';
+  profileEl.href = '/my-account/update-profile';
+  profileEl.hidden = true;
+  profileEl.setAttribute('aria-hidden', 'true');
+  profileEl.addEventListener('click', (event) => {
+    event.stopPropagation();
+  });
+
   const logoutEl = document.createElement('div');
-  logoutEl.className = 'logout-group';
+  logoutEl.className = 'account-secondary-link logout-group';
   logoutEl.textContent = 'Log out';
   logoutEl.addEventListener('click', (event) => {
     event.stopPropagation();
@@ -407,11 +382,12 @@ function createAccountDrawer() {
   const divisionLine = document.createElement('div');
   divisionLine.className = 'division-line';
 
-  personEl.append(myItems, divisionLine.cloneNode(true), logoutEl);
+  personEl.append(myItems, divisionLine.cloneNode(true), profileEl, logoutEl);
 
   return {
     personEl,
     myItems,
+    profileEl,
   };
 }
 
@@ -425,6 +401,8 @@ function applyAccountActionState(actionButton, drawerRefs, authState = {}, comme
 
   drawerRefs.personEl.hidden = !isAuthenticated;
   drawerRefs.personEl.setAttribute('aria-hidden', isAuthenticated ? 'false' : 'true');
+  drawerRefs.profileEl.hidden = !isAuthenticated;
+  drawerRefs.profileEl.setAttribute('aria-hidden', isAuthenticated ? 'false' : 'true');
 
   if (!isAuthenticated) {
     drawerRefs.myItems.replaceChildren();
@@ -432,6 +410,7 @@ function applyAccountActionState(actionButton, drawerRefs, authState = {}, comme
   }
 
   drawerRefs.myItems.replaceChildren(...menuLinks.map(buildAccountMenuItem));
+  drawerRefs.profileEl.href = buildAccountProfileHref(authState.myAccountUrl);
 }
 
 function applyCartActionState(actionButton, count = 0) {
@@ -1147,6 +1126,13 @@ const handleAccountActionClick = async (event) => {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  // clean nav page content in eds side
+  if (!isAuthorHostname() && isNavPage()) {
+    document.head.remove();
+    document.body.remove();
+    return;
+  }
+
   const navPath = getFragmentPath('nav');
   const fragment = await loadFragment(navPath, { loadSections: false });
   await prepareHeaderFragment(fragment);
@@ -1262,7 +1248,7 @@ export default async function decorate(block) {
   if (isCompanyPage) {
     navigation.classList.add('is-company');
     if (window.innerWidth >= 1180 && !window.location.pathname.includes('about-us')) {
-      document.documentElement.style.setProperty('--nav-height', '166px');
+      document.documentElement.style.setProperty('--nav-height', '179px');
     }
   }
   if (isSupportPage) {
@@ -1522,7 +1508,28 @@ export default async function decorate(block) {
         btn.addEventListener('mouseleave', hideSearchBoxPopup);
       } else if (action.iconType === NAVIGATION_ACTION_TYPES.ACCOUNT) {
         btn.dataset.loading = 'false';
-        btn.addEventListener('click', handleAccountActionClick);
+        // btn.addEventListener('click', handleAccountActionClick);
+        const personMobileMask = document.createElement('div');// 移动端账号菜单遮罩层
+        personMobileMask.className = 'person-mobile-mask';
+        document.body.append(personMobileMask);
+        // 移动端账号按钮需要先判断登录状态，已登录则显示移动端菜单，未登录则走登录流程
+        btn.addEventListener('click', (e) => {
+          const isLoginFlag = btn.getAttribute('data-authenticated');
+          if (isLoginFlag === 'true' && window.innerWidth < 1180) {
+            // 手机端已登录状态点击头像，显示移动端菜单
+            const navigationDiv = document.getElementById('navigation');
+            if (navigationDiv) {
+              // 移动端账号菜单和主菜单是互斥的，打开一个需要关闭另一个，所以在这里直接物理添加移动端菜单的dom，点击时通过js控制显示隐藏
+              navigation.classList.remove('show-menu');
+              document.body.style.overflow = 'hidden';
+              navigationDiv.classList.toggle('show-account-mobile-menu');
+              personMobileMask.classList.toggle('show-person-mobile-mask');
+            }
+          } else {
+            // 移动端未登录状态点击头像；或者PC端点击头像，未走登录流程，已登录跳转hybrids账户中心
+            handleAccountActionClick(e);
+          }
+        });
         const drawerRefs = createAccountDrawer();
         btn.append(drawerRefs.personEl);
         accountActionButtons.push({
@@ -1571,15 +1578,19 @@ export default async function decorate(block) {
     syncHeaderCommerceUi(cachedAuthState);
     refreshHeaderCommerceCounts(cachedAuthState).catch(() => {});
 
-    initializeHybrisAuth()
-      .then((authState) => {
-        syncHeaderCommerceUi(authState);
+    const syncAuthStateAndRefreshCountsIfNeeded = (authState) => {
+      syncHeaderCommerceUi(authState);
+      if (shouldRefreshHeaderCommerceCountsAfterAuthInit(cachedAuthState, authState)) {
         return refreshHeaderCommerceCounts(authState);
-      })
+      }
+      return Promise.resolve();
+    };
+
+    initializeHybrisAuth()
+      .then(syncAuthStateAndRefreshCountsIfNeeded)
       .catch(() => {
         const nextAuthState = getCachedHybrisAuthState();
-        syncHeaderCommerceUi(nextAuthState);
-        return refreshHeaderCommerceCounts(nextAuthState);
+        return syncAuthStateAndRefreshCountsIfNeeded(nextAuthState);
       })
       .catch(() => {});
   }
@@ -1598,6 +1609,10 @@ export default async function decorate(block) {
   imgDark.className = 'dark-img';
   btn.append(imgDark);
   btn.addEventListener('click', () => {
+    // 移动端点击三个横条显示菜单，先关闭账号菜单（如果打开的话），再打开主菜单
+    navigation.classList.remove('show-account-mobile-menu');
+    const personMobileMask = document.querySelector('.person-mobile-mask');
+    personMobileMask.classList.remove('show-person-mobile-mask');
     document.body.style.overflow = 'hidden';
     navigation.classList.add('show-menu');
   });

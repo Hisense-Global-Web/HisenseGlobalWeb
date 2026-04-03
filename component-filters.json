@@ -4,6 +4,8 @@
     "components": [
       "section",
       "popup-module",
+      "announcement",
+      "product-identifier-guide",
       "navigation",
       "company-page-navigation",
       "support-navigation",
@@ -146,7 +148,10 @@
       "accessories-feature",
       "calltoaction-banner",
       "project-brief-card",
-      "store-information-card"
+      "store-information-card",
+      "warning-note",
+      "warranty-accordion",
+      "warranty-accordion-item"
     ]
   },
   {
@@ -159,6 +164,19 @@
       "popup-key-stats",
       "popup-image",
       "stats-grid"
+    ]
+  },
+  {
+    "id": "announcement",
+    "components": [
+      "page-header",
+      "legal-content"
+    ]
+  },
+  {
+    "id": "product-identifier-guide",
+    "components": [
+      "product-category-guide"
     ]
   },
   {
@@ -428,6 +446,12 @@
     "id": "popup-key-stats",
     "components": [
       "tech-items"
+    ]
+  },
+  {
+    "id": "product-category-guide",
+    "components": [
+      "product-guide-item"
     ]
   },
   {

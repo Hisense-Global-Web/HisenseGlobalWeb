@@ -10,7 +10,7 @@ function trimTrailingSlash(value) {
   return String(value || '').replace(/\/+$/, '');
 }
 
-function getLocationPart(key) {
+export function getLocationPart(key) {
   if (typeof window === 'undefined') {
     return '';
   }
@@ -18,30 +18,30 @@ function getLocationPart(key) {
   return window.location[key] || '';
 }
 
-function isLocalHostname(hostname) {
+export function isLocalHostname(hostname = getLocationPart('hostname')) {
   return hostname === 'localhost' || hostname === '127.0.0.1';
 }
 
-function isAuthorHostname(hostname) {
+export function isAuthorHostname(hostname = getLocationPart('hostname')) {
   return hostname.includes('author-');
 }
 
-function isPublishHostname(hostname) {
+function isPublishHostname(hostname = getLocationPart('hostname')) {
   return hostname.includes('publish-');
 }
 
-function isDevHostname(hostname) {
+function isDevHostname(hostname = getLocationPart('hostname')) {
   return isLocalHostname(hostname)
     || hostname.includes('hisense-dev')
     || hostname.includes('e1855821');
 }
 
-function isStageHostname(hostname) {
+function isStageHostname(hostname = getLocationPart('hostname')) {
   return hostname.includes('hisense-stage')
     || hostname.includes('e1855674');
 }
 
-function isProdHostname(hostname) {
+function isProdHostname(hostname = getLocationPart('hostname')) {
   return hostname.includes('hisense.com')
     || hostname.includes('hisenseglobalweb')
     || hostname.includes('e1855954');

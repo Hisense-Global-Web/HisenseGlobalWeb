@@ -750,6 +750,27 @@ async function decoratePopupModuleSection(section) {
   }
 }
 
+async function decorateProductIdentifierGuideSection(section) {
+  const cssHref = `${window.hlx.codeBasePath}/blocks/product-identifier-guide/product-identifier-guide.css`;
+  const jsPath = `${window.hlx.codeBasePath}/blocks/product-identifier-guide/product-identifier-guide.js`;
+  try {
+    const cssLoaded = loadCSS(cssHref);
+    const decorationComplete = (async () => {
+      try {
+        const mod = await import(jsPath);
+        if (mod && mod.default) await mod.default(section);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.debug('No module found for section product-identifier-guide', err);
+      }
+    })();
+    await Promise.all([cssLoaded, decorationComplete]);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.debug('Failed to decorate product-identifier-guide section', err);
+  }
+}
+
 /**
  * Loads all sections.
  * @param {Element} element The parent element of sections to load
@@ -769,6 +790,11 @@ async function loadSections(element) {
   const popupModuleSections = sections.filter((section) => section.classList.contains('popup-module-container'));
   if (popupModuleSections.length) {
     await Promise.all(popupModuleSections.map((s) => decoratePopupModuleSection(s)));
+  }
+  // load product identifier guide section
+  const productIdentifierGuideSections = sections.filter((section) => section.classList.contains('product-identifier-guide-container'));
+  if (productIdentifierGuideSections.length) {
+    await Promise.all(productIdentifierGuideSections.map((s) => decorateProductIdentifierGuideSection(s)));
   }
   for (let i = 0; i < sections.length; i += 1) {
     // eslint-disable-next-line no-await-in-loop
