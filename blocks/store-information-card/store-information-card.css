@@ -1,5 +1,4 @@
 .sic-wrapper {
-  
   .store-information-card-wrapper {
     width: 100%;
 
@@ -20,20 +19,18 @@
       }
    
   }
-    .list-card:not(:has(~ .list-card)) {
-      border: none;
-    }
-  
 
-
-
+  .list-card:not(:has(~ .list-card)) {
+    border: none;
   }
+  }
+
   .arrow.hide  {
     transform: rotate(-180deg);
       transition: transform 0.3s ease;
   }
-  .block-wrapper{
 
+  .block-wrapper{
     padding: 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -45,14 +42,12 @@
       grid-template-columns: 1fr;
     }
   }
-
-  .block-wrapper,.hide{
-    /* display: none; */
-  }
 }
-  .sic-wrapper:has(.arrow.hide) .block-wrapper {
-     display: none;
-  }
- .store-information-card-container{
-    margin-top: 200px!important;
-  }
+
+.sic-wrapper:has(.arrow.hide) .block-wrapper {
+  display: none;
+}
+
+.store-information-card-container{
+  margin-top: 200px!important;
+}
