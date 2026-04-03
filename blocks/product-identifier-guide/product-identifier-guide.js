@@ -1,10 +1,14 @@
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 
 export default function decorate(block) {
-  const titleDom = document.createElement('div');
-  titleDom.className = 'guide-title';
-  titleDom.innerHTML = block.dataset.title || '';
-  block.prepend(titleDom);
+  // add title and avoid duplication of title in editor
+  let titleDom = block.querySelector('.guide-title');
+  if (!titleDom){
+    titleDom = document.createElement('div');
+    titleDom.className = 'guide-title';
+    titleDom.innerHTML = block.dataset.title || '';
+    block.prepend(titleDom);
+  }
 
   if (isUniversalEditor()) return;
   const tabs = document.createElement('div');
@@ -43,7 +47,7 @@ export default function decorate(block) {
 
   tabElements.forEach((tab, ti) => {
     tab.addEventListener('click', () => {
-      const selectedTabNumber = ti + 1; // Assuming tab numbers start from 1
+      const selectedTabNumber = ti + 1; // Tab numbers start from 1
       // Update active tab
       tabElements.forEach((t) => {
         if (t === tab) {
@@ -60,40 +64,44 @@ export default function decorate(block) {
           desc.classList.remove('active');
         }
       });
-
-      stepElements.forEach((step) => {
-        if (step.dataset.tab === String(selectedTabNumber)) {
-          step.classList.add('active');
-        } else {
-          step.classList.remove('active');
-        }
-      });
+      // maybe no steps for this section, so check if stepElements exist before toggle class
+      if (stepElements.length) {
+        stepElements.forEach((step) => {
+          if (step.dataset.tab === String(selectedTabNumber)) {
+            step.classList.add('active');
+          } else {
+            step.classList.remove('active');
+          }
+        });
+      }
 
       if (window.innerWidth < 860) {
-        const activeStep = block.querySelector('.guide-steps > div.active');
-        if (activeStep) {
-          activeStep.scrollIntoView({ behavior: 'instant', inline: 'center' });
-        }
-
         const activeTab = block.querySelector('.category-tab.active');
         if (activeTab) {
           activeTab.scrollIntoView({ behavior: 'instant', inline: 'center' });
+        }
+
+        const activeStep = block.querySelector('.guide-steps > div.active');
+        if (activeStep) {
+          activeStep.scrollIntoView({ behavior: 'instant', inline: 'center' });
         }
       }
     });
   });
 
-  stepElements.forEach((step) => {
-    stepCounter[step.dataset.tab] = (stepCounter[step.dataset.tab] || 0) + 1;
-    step.firstElementChild.classList.add('step-image');
-    const textContent = document.createElement('div');
-    textContent.className = 'text-content';
-    textContent.innerHTML = `
-    <div class="step-number"><span class="step-number-text">${stepCounter[step.dataset.tab] || 1}</span></div>`;
-    step.lastElementChild.classList.add('step-description');
-    textContent.appendChild(step.lastElementChild);
-    step.append(textContent);
-  });
+  if (stepElements.length) {
+    stepElements.forEach((step) => {
+      stepCounter[step.dataset.tab] = (stepCounter[step.dataset.tab] || 0) + 1;
+      step.firstElementChild.classList.add('step-image');
+      const textContent = document.createElement('div');
+      textContent.className = 'text-content';
+      textContent.innerHTML = `
+      <div class="step-number"><span class="step-number-text">${stepCounter[step.dataset.tab] || 1}</span></div>`;
+      step.lastElementChild.classList.add('step-description');
+      textContent.appendChild(step.lastElementChild);
+      step.append(textContent);
+    });
+  }
 
   // Activate the first tab by default
   if (tabElements.length > 0) {
