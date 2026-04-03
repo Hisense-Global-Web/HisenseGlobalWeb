@@ -56,7 +56,7 @@ export default function decorate(block) {
     const popupHeight = block.querySelector('.popup-container').offsetHeight;
     const viewportHeight = window.innerHeight;
     if (popupHeight > viewportHeight) {
-      document.querySelector('main').style.height = `${popupHeight}px`;
+      document.body.style.height = `${popupHeight}px`;
     }
   }
 }
