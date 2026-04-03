@@ -5582,6 +5582,82 @@
     ]
   },
   {
+    "id": "store-information-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "state",
+        "label": "State Tag",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "category",
+        "label": "Category Tag",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "city",
+        "label": "City Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "store",
+        "label": "Store Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "info1",
+        "label": "Store Info Label 1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content1",
+        "label": "Store Info Content 1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "info2",
+        "label": "Store Info Label 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content2",
+        "label": "Store Info Content 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "info3",
+        "label": "Store Info Label 3",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "store-information-card-items",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "service_icon",
+        "label": "Service Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "service_category",
+        "label": "Service Category",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "strategic-card-items",
     "fields": []
   },
