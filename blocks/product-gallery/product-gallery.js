@@ -72,7 +72,6 @@ function buildTab(itemElement, index) {
     moveInstrumentation(textCell, textSpan);
   }
   li.addEventListener('click', (e) => {
-    console.log(e.currentTarget.dataset.videoHref);
     const mainVideoImg = document.querySelector('.pdp-main-img');
     const videoUrl = e.currentTarget.dataset.videoHref;
     if (videoUrl) {
