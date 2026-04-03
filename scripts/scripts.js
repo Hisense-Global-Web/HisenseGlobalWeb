@@ -206,7 +206,9 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    if (!isConfigPage() || !isFooterPage()) {
+    if (isConfigPage() || isFooterPage()) {
+      // to nothing
+    } else {
       loadHeader(doc.querySelector('header'));
     }
     const hasRemoteErrorPage = await loadRemoteErrorPage(main);
@@ -239,7 +241,9 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  if (!isConfigPage() || !isNavPage()) {
+  if (isConfigPage() || isNavPage()) {
+    // to nothing
+  } else {
     loadFooter(doc.querySelector('footer'));
   }
 
