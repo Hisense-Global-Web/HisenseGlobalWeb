@@ -1,14 +1,22 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
-// const FIVE_MINUTES_MS = 5000;
+function isAemEnvironment() {
+  const hostname = window.location.hostname || '';
+  return hostname.includes('author') || hostname.includes('publish');
+}
+
 function getWarrantyEndpoint(country, language) {
   if (!country || !language) return '';
   const params = new URLSearchParams({
     country,
     language,
   });
-  return `/bin/hisense/warranty?${params.toString()}`;
+  if (isAemEnvironment()) {
+    return `/bin/hisense/warranty?${params.toString()}`;
+  }
+
+  return `/warranty/${country}/${language}.json`;
 }
 
 function simpleHash(str) {
@@ -35,7 +43,7 @@ function toAbsoluteUrl(path) {
   if (!path) return '';
   if (/^https?:\/\//i.test(path)) return path;
 
-  const shouldPrefixBaseUrl = ['/bin/', '/product/', '/content/dam/']
+  const shouldPrefixBaseUrl = ['/bin/', '/warranty/']
     .some((prefix) => path.startsWith(prefix));
   if (!shouldPrefixBaseUrl) return path;
 
@@ -55,15 +63,6 @@ async function fetchJson(path) {
   return response.json();
 }
 
-// function normalizeSupportResponse(data) {
-//   return {
-//     documentationTitle: data?.documentationTitle || 'Documentation',
-//     documents: Array.isArray(data?.documents) ? data.documents : [],
-//     warrantyTitle: data?.warrantyTitle || 'Warranty',
-//     warranty: Array.isArray(data?.warranty) ? data.warranty : [],
-//   };
-// }
-
 export default async function decorate(block) {
   const { country, language } = getLocaleFromPath();
   let resWarrantyData = [];
@@ -73,84 +72,7 @@ export default async function decorate(block) {
       language,
     );
     const warrantyResponse = await fetchJson(warrantyEndpoint);
-    console.log('Fetched warranty data:', warrantyResponse);
     resWarrantyData = warrantyResponse?.data || [];
-    // const tvObj = {
-    //   product_category: 'Television',
-    //   product_subcategory: 'Television',
-    //   warranty_info_icon: 'http://localhost:3000/us/en/support/media_1412a0c4…4418.svg?width=2000&format=webply&optimize=medium',
-    //   warranty_info_title: '2 Year Panel & Parts Warranty',
-    //   warranty_info: '1',
-    //   warranty_info_notes: '<ul><li>On-site service included for units 43" and above</li><li>Dead pixel policy: 3 or more bright/dead pixels qualifies for replacement</li><li>Original packaging recommended for service pickup</li></ul>',
-    //   warranty_info_additional: 'Exchange Only',
-    // };
-    // const audioObj = {
-    //   product_category: 'Audio',
-    //   product_subcategory: 'Audio',
-    //   warranty_info_icon: '🎵',
-    //   warranty_info_title: '18 Month Audio Warranty',
-    //   warranty_info: '2',
-    //   warranty_info_notes: '<p><strong>Warranty Terms:</strong></p><p>• Physical damage, water exposure, and unauthorized repairs void coverage<br>• Ear pads, batteries, and cables: 90-day limited coverage</p>',
-    //   warranty_info_additional: 'Exchange Only',
-    // };
-    // const laserObj = {
-    //   product_category: 'Laser home cinema',
-    //   product_subcategory: 'Laser home cinema',
-    //   warranty_info_icon: '🎥',
-    //   warranty_info_title: '3 Year Laser Projector Warranty',
-    //   warranty_info: '1',
-    //   warranty_info_notes: '<div style="background:#f9f9f9; padding:10px; border-radius:4px;"><strong>Included:</strong> Parts, labor, and firmware updates<br><strong>Not included:</strong> Remote control, HDMI cables, lens cleaning</div>',
-    //   warranty_info_additional: 'Exchange Only',
-    // };
-    // const appliancesObj = {
-    //   product_category: 'Appliances',
-    //   product_subcategory: 'Refrigerators',
-    //   warranty_info_icon: '❄️',
-    //   warranty_info_title: '2 Year Full + 8 Year Sealed System Warranty',
-    //   warranty_info: '3',
-    //   warranty_info_notes: '<ul><li><b>Years 1-2:</b> Parts, labor, and transportation included</li><li><b>Years 3-10:</b> Compressor, condenser, evaporator parts only</li><li>Professional installation required for warranty validity</li></ul>',
-    //   warranty_info_additional: 'Exchange Only',
-    // };
-    // const airObj = {
-    //   product_category: 'Air products',
-    //   product_subcategory: 'Air products',
-    //   warranty_info_icon: '💨',
-    //   warranty_info_title: '2 Year Air Purifier Warranty',
-    //   warranty_info: '3.',
-    //   warranty_info_notes: '<p><em>Filter replacements are not covered under warranty.</em></p><p>✔ HEPA filter: replace every 12 months<br>✔ Carbon pre-filter: replace every 6 months</p>',
-    //   warranty_info_additional: 'Exchange Only',
-    // };
-    // const commercialObj = {
-    //   product_category: 'Commercial',
-    //   product_subcategory: 'Commercial Display',
-    //   warranty_info_icon: '🖥️',
-    //   warranty_info_title: '3 Year Commercial Display Warranty',
-    //   warranty_info: '1',
-    //   warranty_info_notes: '<div style="border-left:3px solid #0073aa; padding-left:12px;"><strong>Commercial Use Conditions:</strong><ul><li>24/7 operation supported — warranty valid for continuous use</li></ul></div>',
-    //   warranty_info_additional: 'Exchange Only',
-    // };
-    // resWarrantyData = [
-    //   {
-    //     title: 'TV',
-    //     // warranty:[tvObj]
-    //     warranty: Array.from({ length: 9 }, () => tvObj),
-    //   }, {
-    //     title: 'Audio',
-    //     warranty: [audioObj],
-    //   }, {
-    //     title: 'Laser home cinema',
-    //     warranty: [laserObj],
-    //   }, {
-    //     title: 'Appliances',
-    //     warranty: Array.from({ length: 12 }, () => appliancesObj),
-    //   }, {
-    //     title: 'Air products',
-    //     warranty: [airObj],
-    //   }, {
-    //     title: 'Commercial',
-    //     warranty: [commercialObj],
-    //   }];
-    // supportData = normalizeSupportResponse(supportResponse);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('product-resources: failed to fetch warranty data', error);
@@ -331,12 +253,52 @@ export default async function decorate(block) {
     window.addEventListener('resize', () => loadMoreNum());
   }
 
+  // 过滤无效 warranty 数据的函数
+  function filterValidWarrantyData(data) {
+    return data.map((item) => {
+      if (!item.warranty || !Array.isArray(item.warranty)) {
+        return { ...item, warranty: [] };
+      }
+
+      // 过滤有效的 warranty 数据
+      const validWarranty = item.warranty.filter((warrantyItem) => {
+        // eslint-disable-next-line no-underscore-dangle
+        if (!warrantyItem._path) return false;
+
+        // 删除最后一个 '/' 之后的所有内容
+        // eslint-disable-next-line no-underscore-dangle
+        const lastSlashIndex = warrantyItem._path.lastIndexOf('/');
+        // eslint-disable-next-line no-underscore-dangle
+        let processedPath = warrantyItem._path;
+        if (lastSlashIndex !== -1) {
+          // eslint-disable-next-line no-underscore-dangle
+          processedPath = warrantyItem._path.substring(0, lastSlashIndex);
+        }
+
+        // 检查处理后的路径是否以 '/warranty' 结尾
+        // 如果是，则为无效数据（返回 false 过滤掉）
+        if (processedPath.endsWith('/warranty')) {
+          return false; // 无效数据
+        }
+
+        return true; // 有效数据
+      });
+
+      return {
+        ...item,
+        warranty: validWarranty,
+      };
+    }).filter((item) => item.warranty.length > 0); // 只保留至少有一条有效 warranty 数据的对象
+  }
+
   // 处理原始数据
   function originDataUtils() {
     originData = JSON.parse(JSON.stringify(resWarrantyData || []));
+    // 过滤有效数据
+    const validDataArr = filterValidWarrantyData(originData);
 
     // 过滤所有 category
-    allWarrantyCategory = originData.map((item) => item.title);
+    allWarrantyCategory = validDataArr.map((item) => item.title);
     // 如果有 all tab 文案，则添加到 category 列表首位
     if (allCategoryTabLabel) {
       allWarrantyCategory = [allCategoryTabLabel, ...allWarrantyCategory];
@@ -345,7 +307,7 @@ export default async function decorate(block) {
     renderCategoryTab();
 
     // 所有 warranty 数据整合到一个数组中，方便后续渲染和分页处理
-    originData.forEach((item) => {
+    validDataArr.forEach((item) => {
       if (item.warranty && item.warranty.length > 0) {
         allWarrantyData.push(...item.warranty);
         if (allCategoryTabLabel) {
