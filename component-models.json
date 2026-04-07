@@ -565,6 +565,7 @@
         "label": "Announcement Version",
         "placeholder": "1.0",
         "description": "Enter the version of the announcement.",
+        "required": true,
         "valueFormat": "regexp",
         "validation": {
           "regExp": "^\\d+\\.\\d+$",
