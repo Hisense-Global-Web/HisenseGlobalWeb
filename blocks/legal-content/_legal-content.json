@@ -10,8 +10,7 @@
             "template": {
               "name": "Legal Content",
               "model": "legal-content",
-              "classes": "legal-content",
-              "text": "Example: <h5> Set A Blank Line </h5> <p> the first paragraph </p><p> /n </p> <p> the second paragraph </p>"
+              "classes": "legal-content"
             }
           }
         }
@@ -28,7 +27,7 @@
           "value": "",
           "label": "Text",
           "valueType": "string",
-          "description": "Select H5 as a paragraph title, and use '/n' to set a blank line between different paragraphs. <br>Don't edit the text in the preview, please edit the text in the right side content panel, otherwise all blank lines will be lost when saving."
+          "description": "Select H5 as a paragraph title, and use '/n' to set a blank line between different paragraphs. Don't edit the text in the preview, please edit the text in the right side content panel, otherwise all blank lines will be lost when saving."
         }
       ]
     }

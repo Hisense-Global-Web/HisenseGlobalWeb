@@ -25,7 +25,7 @@ import {
   isConfigPage,
   isFooterPage,
   isNavPage,
-  getLocaleFromPath
+  getLocaleFromPath,
 } from './locale-utils.js';
 
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
