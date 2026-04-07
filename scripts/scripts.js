@@ -545,9 +545,9 @@ function storeInformationSelect() {
   renderItemTags('');
 }
 async function loadPage() {
-  // loadAnnouncementPopup();
   await loadEager(document);
   await loadLazy(document);
+  loadAnnouncementPopup();
   loadDelayed();
   transHorizontalSection('.honors-awards-wrapper');
   storeInformationSelect();
