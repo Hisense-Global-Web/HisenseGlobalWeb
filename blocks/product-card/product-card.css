@@ -211,7 +211,8 @@
   }
   
   .plp-product-discounts {
-    margin-left: auto;
+    width: 100%;
+    flex-shrink: 0;
     font-size: var(--fontsize-caption2);
     line-height: 1.5;
     font-weight: var(--fontweight-book);
