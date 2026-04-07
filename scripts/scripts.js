@@ -19,11 +19,13 @@ import {
   initializeHybrisAuth,
   scheduleHybrisTask,
 } from './hybris-bff.js';
+import { isUniversalEditor } from '../utils/ue-helper.js';
 import {
   getFragmentPath,
   isConfigPage,
   isFooterPage,
   isNavPage,
+  getLocaleFromPath,
 } from './locale-utils.js';
 
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
@@ -343,6 +345,80 @@ function transHorizontalSection(className) {
   }
 }
 
+async function loadAnnouncementPopup() {
+  if (isUniversalEditor()) {
+    return false;
+  }
+
+  const { country } = getLocaleFromPath();
+  const announcementActiveCountries = ['mx'];
+
+  if (!announcementActiveCountries.includes(country)) {
+    return false;
+  }
+
+  const popupUrl = getFragmentPath('config/announcement');
+  try {
+    const resp = await fetch(`${popupUrl}.plain.html`);
+
+    if (!resp.ok) {
+      return false;
+    }
+
+    const fragmentMain = document.createElement('main');
+    fragmentMain.innerHTML = await resp.text();
+
+    const resetAttributeBase = (tag, attr) => {
+      fragmentMain.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
+        elem[attr] = new URL(elem.getAttribute(attr), new URL(popupUrl, window.location)).href;
+      });
+    };
+
+    resetAttributeBase('img', 'src');
+    resetAttributeBase('source', 'srcset');
+
+    decorateMain(fragmentMain);
+    await loadSections(fragmentMain);
+
+    const fragmentSections = [...fragmentMain.children];
+    const anncEl = fragmentMain.querySelector('.popup-announcement');
+
+    if (!anncEl || !fragmentSections.length) {
+      return false;
+    }
+
+    if (document.querySelector('.popup-announcement')) {
+      // check version of the existing announcement popup, if it's different from the new one, replace it with the new one, otherwise keep the existing one to avoid showing the same announcement popup repeatedly when user close it
+      const prevAnnc = document.querySelector('.popup-announcement');
+      const existingVersion = prevAnnc.getAttribute('data-version') || '';
+      const newVersion = anncEl.getAttribute('data-version') || '';
+      if (existingVersion !== newVersion) {
+        prevAnnc.replaceWith(anncEl);
+      }
+    } else {
+      document.querySelector('main').appendChild(...fragmentSections);
+    }
+
+    const currentAnnc = document.querySelector('.popup-announcement');
+    // check local storage to decide whether show the announcement popup, only show it when the version is different from the version user closed last time
+    const announcementVersion = currentAnnc.getAttribute('data-version') || '';
+    const closedVersion = localStorage.getItem('announcementClosedVersion') || '';
+    if (announcementVersion && announcementVersion !== closedVersion) {
+      currentAnnc.classList.add('popup-show');
+      document.body.style.overflow = 'hidden';
+    } else {
+      currentAnnc.classList.remove('popup-show');
+      document.body.style.overflow = 'auto';
+    }
+
+    return true;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.debug(`failed to load remote error page from ${popupUrl}`, error);
+    return false;
+  }
+}
+
 function storeInformationSelect() {
   const el = document.querySelectorAll('.store-information-card-container');
   const selectDiv = document.createElement('div');
@@ -471,6 +547,7 @@ function storeInformationSelect() {
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
+  loadAnnouncementPopup();
   loadDelayed();
   transHorizontalSection('.honors-awards-wrapper');
   storeInformationSelect();

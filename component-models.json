@@ -558,6 +558,19 @@
         "name": "id",
         "label": "Section ID",
         "description": "Enter a unique ID."
+      },
+      {
+        "component": "text",
+        "name": "version",
+        "label": "Announcement Version",
+        "placeholder": "1.0",
+        "description": "Enter the version of the announcement.",
+        "required": true,
+        "valueFormat": "regexp",
+        "validation": {
+          "regExp": "^\\d+\\.\\d+$",
+          "customErrorMsg": "Version must be in the format 'X.Y' where X and Y are numbers."
+        }
       }
     ]
   },
@@ -3768,7 +3781,7 @@
         "value": "",
         "label": "Text",
         "valueType": "string",
-        "description": "Select H5 as a paragraph title"
+        "description": "Select H5 as a paragraph title, and use '/n' to set a blank line between different paragraphs. Don't edit the text in the preview, please edit the text in the right side content panel, otherwise all blank lines will be lost when saving."
       }
     ]
   },
