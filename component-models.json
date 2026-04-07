@@ -4821,7 +4821,7 @@
         "multi": true,
         "options": [
           {
-            "name": "Favorite",
+            "name": "Wishlist",
             "value": "favorite"
           },
           {
@@ -4837,7 +4837,7 @@
             "value": "rating"
           },
           {
-            "name": "Buttons",
+            "name": "Size",
             "value": "buttons"
           },
           {
@@ -4849,7 +4849,7 @@
             "value": "awards"
           },
           {
-            "name": "Position",
+            "name": "Spec",
             "value": "position"
           },
           {
