@@ -1155,6 +1155,12 @@ export default async function decorate(block) {
     const data = event?.detail?.data;
     const authState = getCachedHybrisAuthState();
 
+    if (type === 'auth') {
+      syncHeaderCommerceUi(authState);
+      refreshHeaderCommerceCounts(authState).catch(() => {});
+      return;
+    }
+
     if (type === 'cart') {
       commerceCounts = {
         ...commerceCounts,
