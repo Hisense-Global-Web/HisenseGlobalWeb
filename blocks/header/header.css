@@ -671,15 +671,21 @@
       box-sizing: border-box;
       border-radius: 12px;
       text-decoration: none;
+
+      @media (width < 1180px) {
+        padding: 0;
+        line-height: var(--size-21);
+        margin-bottom: var(--size-24);
+
+        &:last-child {
+          margin-bottom: 0; 
+        }
+      }
       
       &:hover {
         color: #000;
         background-color: #EDFCFB;
       }
-    }
-
-    .profile-group {
-      margin-top: var(--size-12);
     }
 
     .logout-group {

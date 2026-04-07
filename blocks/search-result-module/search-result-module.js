@@ -668,7 +668,7 @@ export default async function decorate(block) {
           });
           option.classList.add('selected');
 
-          const prefix = 'Sort:';
+          const prefix = 'SORT:';
           const splitText = option.textContent.split(':')[0].trim();
           const sortSpan = sortBox.querySelector('.plp-sort span');
           sortSpan.textContent = `${prefix} ${splitText}`;

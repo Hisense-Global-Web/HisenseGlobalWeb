@@ -13,7 +13,7 @@
        display: flex;
        background: #fff;
        border-radius:var(--size-20);
-       padding: var(--size-34) var(--size-32);
+       padding: var(--size-32);
        border: 1px solid var(--color-primary-grey-30);
        align-items: center;
        justify-content: space-between;
@@ -78,7 +78,7 @@
              border-radius: var(--size-100);
              min-width: var(--size-64);
              color: var(--color-primary-green-70);
-             font-size: var(--fontsize-caption2);
+             font-size: var(--size-10);
              line-height: 1.5;
              font-weight: var(--fontweight-medium);
            }
@@ -102,6 +102,11 @@
              font-weight: var(--fontweight-book);
              color: var(--color-primary-grey-70);
 
+             span {
+              position: relative;
+              top: var(--size-2);
+             }
+
              &.hidden {
                display: none;
              }
@@ -109,6 +114,10 @@
              @media (width < 860px) {
                flex: 1 1 calc(50% - var(--size-6));
                gap: var(--size-12);
+
+               span {
+                top: var(--size-1);
+               }
              }
              
              img {
