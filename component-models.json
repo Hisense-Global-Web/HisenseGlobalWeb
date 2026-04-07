@@ -5658,6 +5658,29 @@
     ]
   },
   {
+    "id": "store-locator",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Locator Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "dropdown",
+        "label": "Locator Dropdown List",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button",
+        "label": "Locator Search Button Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "strategic-card-items",
     "fields": []
   },

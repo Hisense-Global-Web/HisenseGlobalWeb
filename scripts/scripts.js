@@ -346,10 +346,9 @@ function transHorizontalSection(className) {
 function storeInformationSelect() {
   const el = document.querySelectorAll('.store-information-card-container');
   const selectDiv = document.createElement('div');
-  // 2. 创建第一个下拉框 id="selectTag"
+  selectDiv.className = 'selectContainer';
   const selectTag = document.createElement('select');
   selectTag.id = 'selectTag';
-  // 3. 创建第二个下拉框 id="selectItemTag"
   const selectItemTag = document.createElement('select');
   selectItemTag.id = 'selectItemTag';
   // 4. 创建确认按钮

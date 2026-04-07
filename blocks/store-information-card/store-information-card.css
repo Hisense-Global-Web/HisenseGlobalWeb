@@ -5,7 +5,7 @@
   @media (width < 860px) {
       padding: var(--size-32) 0 var(--size-16) !important;
   }
-  
+
   .sic-title{
     display: flex;
     justify-content: space-between;
@@ -107,11 +107,16 @@
         font-weight: var(--fontweight-book);
         line-height: 1.5;
         gap: var(--size-8);
+        margin-top: var(--spacing-3xs);
 
         img{
           width: var(--size-28);
           height: var(--size-28);
         }
+      }
+
+     .info3 + .sever-item > div{
+        margin-top: var(--spacing-4xs);
       }
   }
 
@@ -122,7 +127,7 @@
 
   .arrow.hide  {
     transform: rotate(-180deg);
-      transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
   }
 }
 
@@ -132,4 +137,42 @@
 
 .store-information-card-container{
   margin-top: 200px!important;
+  
+  .selectContainer{
+    padding:var( --medium) var(--large);
+    background: var(--color-primary-green-10);
+    display: flex;
+    align-items: center;
+
+    select {
+      padding:0 var(--spacing-s);
+      border-radius: var(--size-12);
+      border: 1px solid var(--color-primary-grey-40);
+      width: min(27.1527778vw, 391px);
+      height: var(--size-50);
+      margin-right: var(--size-32);
+      appearance: none;
+      background-image: url('/content/dam/hisense/us/common-icons/chevron-up.svg');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 14px;
+      cursor: pointer;
+
+      option {
+          background: white;
+          height: var(--size-30);
+          line-height: var(--size-30);
+          border-radius: var(--size-30);
+          color: var(--color-primary-grey-50);
+          padding-left: 10px;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          font-weight: 400;
+          
+      }
+    }
+  }
+  
 }
+
