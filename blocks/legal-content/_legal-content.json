@@ -28,7 +28,7 @@
           "value": "",
           "label": "Text",
           "valueType": "string",
-          "description": "Select H5 as a paragraph title, and use '/n' to set a blank line between different paragraphs."
+          "description": "Select H5 as a paragraph title, and use '/n' to set a blank line between different paragraphs. <br>Don't edit the text in the preview, please edit the text in the right side content panel, otherwise all blank lines will be lost when saving."
         }
       ]
     }
