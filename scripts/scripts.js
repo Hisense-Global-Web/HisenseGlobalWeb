@@ -545,7 +545,7 @@ function storeInformationSelect() {
   renderItemTags('');
 }
 async function loadPage() {
-  loadAnnouncementPopup();
+  // loadAnnouncementPopup();
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
