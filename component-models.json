@@ -3722,13 +3722,6 @@
         "description": "Text content for load more button"
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "loadMoreLink",
-        "label": "Load More Link",
-        "description": "Link for load more button"
-      },
-      {
         "component": "richtext",
         "valueType": "string",
         "name": "noResultMessage",
@@ -4917,7 +4910,7 @@
         "multi": true,
         "options": [
           {
-            "name": "Favorite",
+            "name": "Wishlist",
             "value": "favorite"
           },
           {
@@ -4933,7 +4926,7 @@
             "value": "rating"
           },
           {
-            "name": "Buttons",
+            "name": "Size",
             "value": "buttons"
           },
           {
@@ -4945,7 +4938,7 @@
             "value": "awards"
           },
           {
-            "name": "Position",
+            "name": "Spec",
             "value": "position"
           },
           {
