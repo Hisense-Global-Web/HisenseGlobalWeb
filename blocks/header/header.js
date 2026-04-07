@@ -5,6 +5,7 @@ import {
 import {
   buildHybrisCartPageUrl,
   HYBRIS_DATA_EVENT_NAME,
+  fetchHybrisAddresses,
   fetchHybrisCart,
   fetchHybrisCoupons,
   fetchHybrisOrders,
@@ -15,43 +16,30 @@ import {
   refreshHybrisAuthStatus,
   startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
-import { getFragmentPath } from '../../scripts/locale-utils.js';
+import { getFragmentPath, isNavPage } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 import {
+  buildAccountMenuLinks,
   buildAccountProfileHref,
   buildAccountMenuItemChildren,
+  DEFAULT_HEADER_COMMERCE_COUNTS,
+  getAddressesCount,
   getCouponsCount,
   getOrdersCount,
   hasValidHybrisAccountState,
   shouldRefreshHeaderCommerceCountsAfterAuthInit,
 } from './header-commerce-utils.js';
 
+import { isAuthorHostname } from '../../scripts/environment.js';
+
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
-const HYBRIS_ACCOUNT_MENU_ITEMS = [
-  { label: 'Account Home', suffix: '' },
-  { label: 'Orders', suffix: '/orders', showZeroCount: true },
-  { label: 'Wishlist', suffix: '/wishlist' },
-  { label: 'Address', suffix: '/address-book' },
-  { label: 'Coupons', suffix: '/coupons', showZeroCount: true },
-];
 const NAVIGATION_ACTION_TYPES = {
   SEARCH_BOX: 'search-box',
   SHOPPING_CART: 'shopping-cart',
   ACCOUNT: 'account',
 };
-const DEFAULT_COMMERCE_COUNTS = {
-  cart: 0,
-  orders: 0,
-  wishlist: 0,
-  coupons: 0,
-};
 const WISHLIST_CART_NAME_PREFIX = 'wishlist';
-const ACCOUNT_COUNT_KEY_BY_LABEL = {
-  Orders: 'orders',
-  Wishlist: 'wishlist',
-  Coupons: 'coupons',
-};
 
 function normalizeCount(value) {
   const numericValue = Number(value);
@@ -104,39 +92,6 @@ function getWishlistCount(wishlist = {}) {
   }
 
   return getCartCount(wishlist);
-}
-
-function splitMyAccountUrl(myAccountUrl) {
-  if (!myAccountUrl || typeof window === 'undefined') {
-    return null;
-  }
-
-  try {
-    const parsedUrl = new URL(myAccountUrl, window.location.origin);
-    return {
-      domain: parsedUrl.origin,
-      uri: parsedUrl.pathname === '/' ? '' : parsedUrl.pathname.replace(/\/+$/, ''),
-    };
-  } catch (error) {
-    return null;
-  }
-}
-
-function buildAccountMenuLinks(myAccountUrl, commerceCounts = DEFAULT_COMMERCE_COUNTS) {
-  const urlParts = splitMyAccountUrl(myAccountUrl);
-  if (!urlParts) {
-    return [];
-  }
-
-  return HYBRIS_ACCOUNT_MENU_ITEMS.map(({ label, suffix, showZeroCount = false }) => {
-    const countKey = ACCOUNT_COUNT_KEY_BY_LABEL[label];
-    return {
-      label,
-      href: `${urlParts.domain}${urlParts.uri}${suffix}`,
-      count: countKey ? normalizeCount(commerceCounts?.[countKey]) : 0,
-      showZeroCount,
-    };
-  });
 }
 
 function buildAccountMenuItem({
@@ -389,7 +344,12 @@ function createAccountDrawer() {
   };
 }
 
-function applyAccountActionState(actionButton, drawerRefs, authState = {}, commerceCounts = DEFAULT_COMMERCE_COUNTS) {
+function applyAccountActionState(
+  actionButton,
+  drawerRefs,
+  authState = {},
+  commerceCounts = DEFAULT_HEADER_COMMERCE_COUNTS,
+) {
   const shouldShowDrawer = hasValidHybrisAccountState(authState);
   const menuLinks = shouldShowDrawer ? buildAccountMenuLinks(authState.myAccountUrl, commerceCounts) : [];
   const isAuthenticated = Boolean(shouldShowDrawer && menuLinks.length);
@@ -1124,6 +1084,13 @@ const handleAccountActionClick = async (event) => {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  // clean nav page content in eds side
+  if (!isAuthorHostname() && isNavPage()) {
+    document.head.remove();
+    document.body.remove();
+    return;
+  }
+
   const navPath = getFragmentPath('nav');
   const fragment = await loadFragment(navPath, { loadSections: false });
   await prepareHeaderFragment(fragment);
@@ -1136,7 +1103,7 @@ export default async function decorate(block) {
   const company = parseCompany(fragment);
   const accountActionButtons = [];
   const cartActionButtons = [];
-  let commerceCounts = { ...DEFAULT_COMMERCE_COUNTS };
+  let commerceCounts = { ...DEFAULT_HEADER_COMMERCE_COUNTS };
   let commerceCountsRequestId = 0;
 
   const syncCartActionButtons = () => {
@@ -1160,10 +1127,11 @@ export default async function decorate(block) {
     const requestId = commerceCountsRequestId + 1;
     commerceCountsRequestId = requestId;
     const authenticated = hasValidHybrisAccountState(authState);
-    const [cartResult, wishlistResult, ordersResult, couponsResult] = await Promise.allSettled([
+    const [cartResult, wishlistResult, ordersResult, addressesResult, couponsResult] = await Promise.allSettled([
       fetchHybrisCart({ authenticated }),
       authenticated ? fetchHybrisWishlist() : Promise.resolve(null),
       authenticated ? fetchHybrisOrders() : Promise.resolve(null),
+      authenticated ? fetchHybrisAddresses() : Promise.resolve(null),
       authenticated ? fetchHybrisCoupons() : Promise.resolve(null),
     ]);
 
@@ -1175,6 +1143,7 @@ export default async function decorate(block) {
       cart: cartResult.status === 'fulfilled' ? getCartCount(cartResult.value) : 0,
       wishlist: wishlistResult.status === 'fulfilled' ? getWishlistCount(wishlistResult.value) : 0,
       orders: ordersResult.status === 'fulfilled' ? getOrdersCount(ordersResult.value) : 0,
+      addresses: addressesResult.status === 'fulfilled' ? getAddressesCount(addressesResult.value) : 0,
       coupons: couponsResult.status === 'fulfilled' ? getCouponsCount(couponsResult.value) : 0,
     };
 
@@ -1208,6 +1177,15 @@ export default async function decorate(block) {
       commerceCounts = {
         ...commerceCounts,
         orders: getOrdersCount(data),
+      };
+      syncAccountActionButtons(authState);
+      return;
+    }
+
+    if (type === 'addresses') {
+      commerceCounts = {
+        ...commerceCounts,
+        addresses: getAddressesCount(data),
       };
       syncAccountActionButtons(authState);
       return;
