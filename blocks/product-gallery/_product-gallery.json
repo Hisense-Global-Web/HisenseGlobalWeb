@@ -58,7 +58,8 @@
     {
       "id": "product-gallery",
       "components": [
-        "product-gallery-item"
+        "product-gallery-item",
+        "video"
       ]
     }
   ]
