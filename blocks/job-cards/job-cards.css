@@ -17,6 +17,7 @@
        border: 1px solid var(--color-primary-grey-30);
        align-items: center;
        justify-content: space-between;
+       gap: var(--size-80);
 
        @media (width < 860px) {
          border: none;
@@ -173,6 +174,22 @@
          }
        }
      }
+   }
+
+   .plp-load-more {
+     margin-top: var(--size-20);
+     text-align: center;
+     cursor: pointer;
+     
+     @media (width < 860px) {
+       margin-top: var(--size-16);
+     }
+   }
+
+   .plp-load-more span {
+     font-size: var(--size-12);
+     font-weight: 400;
+     border-bottom: 1px solid rgb(0 0 0 / 100%);
    }
  }
  
