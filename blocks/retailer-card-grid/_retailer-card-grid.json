@@ -1,0 +1,82 @@
+{
+  "definitions": [
+    {
+      "title": "Retailer Card Grid",
+      "id": "retailer-card-grid",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Retailer Card Grid",
+              "model": "retailer-card-grid",
+              "filter": "retailer-card-grid",
+              "key-value": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Retailer Card Items",
+      "id": "retailer-card-items",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Retailer Card Items",
+              "model": "retailer-card-items",
+              "classes": "retailer-card-items"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "retailer-card-grid",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "retailer_title",
+          "label": "Title"
+        }
+      ]
+    },
+    {
+      "id": "retailer-card-items",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "retailer_image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "aem-content",
+          "name": "retailer_ctaPrimary",
+          "label": "Button Link",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "retailer_ctaPrimaryText",
+          "label": "Button Label",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "retailer-card-grid",
+      "components": [
+        "retailer-card-items"
+      ]
+    }
+  ]
+}

@@ -499,6 +499,12 @@
     ]
   },
   {
+    "id": "retailer-card-grid",
+    "components": [
+      "retailer-card-items"
+    ]
+  },
+  {
     "id": "search-box-navigation",
     "components": [
       "search-box"
