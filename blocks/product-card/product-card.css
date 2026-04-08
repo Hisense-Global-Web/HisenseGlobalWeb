@@ -437,6 +437,12 @@
     line-height: var(--size-40);
     font-weight: var(--fontweight-medium);
     cursor: pointer;
+
+    &.compare-disabled {
+      cursor:auto;
+      background: var(--color-primary-grey-40);
+      color: var(--white-alpha-80);
+    }
   }
 
   .plp-compare-card-plus-box {
