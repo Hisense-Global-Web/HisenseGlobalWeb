@@ -629,7 +629,7 @@ export default async function decorate(block) {
 
   tabDataMap.forEach((tabData, index) => {
     const tabContent = document.createElement('div');
-    tabContent.className = 'tab-content';
+    tabContent.className = `tab-content ${tabData.type}`;
     tabContent.dataset.tabIndex = String(index);
     if (index === activeTabIndex) tabContent.classList.add('active');
 
