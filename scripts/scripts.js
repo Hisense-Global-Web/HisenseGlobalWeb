@@ -31,7 +31,7 @@ import {
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
 /**
- * Moves all the attributes from a given elmenet to another given element.
+ * Moves all the attributes from a given element to another given element.
  * @param {Element} from the element to copy attributes from
  * @param {Element} to the element to copy attributes to
  */
@@ -78,7 +78,6 @@ async function loadFonts() {
 
 /**
  * Builds all synthetic blocks in a container element.
- * @param {Element} main The container element
  */
 function buildAutoBlocks() {
   try {
@@ -175,6 +174,26 @@ async function loadRemoteErrorPage(main) {
     console.debug(`failed to load remote error page from ${errorPath}`, error);
     return false;
   }
+}
+
+/**
+ * Checks if the current page is a config page based on the URL.
+ * @returns {boolean}
+ */
+function isConfigPage() {
+  return window.location.hostname.includes('/config/');
+}
+
+/**
+ * Checks if the current page is a nav page based on the URL.
+ * @returns {boolean}
+ */
+function isNavPage() {
+  return window.location.hostname.includes('/nav');
+}
+
+function isFooterPage() {
+  return window.location.hostname.includes('/footer');
 }
 
 /**
