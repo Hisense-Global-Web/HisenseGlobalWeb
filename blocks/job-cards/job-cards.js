@@ -550,10 +550,18 @@ export default function decorate(block) {
     currentPage = 1;
     productsGrid.innerHTML = ''; // 清空现有内容
 
-    allGroupedData = items.filter((item) => {
+    const filteredList = items.filter((item) => {
       const today = new Date().toISOString().split('T')[0]; // 获取今天日期：YYYY-MM-DD
       return item.jobPostedTime <= today; // 时间字符串直接比较即可
     });
+
+    const sortedByTime = [...filteredList].sort((a, b) => new Date(b.jobPostedTime) - new Date(a.jobPostedTime));
+    const latestItem = sortedByTime[0];
+    const restItems = sortedByTime.slice(1);
+    const restSorted = restItems.sort((a, b) => a.jobTitle.localeCompare(b.jobTitle, 'zh-CN', { sensitivity: 'base' }));
+
+    allGroupedData = [latestItem, ...restSorted];
+
     productsGrid.setAttribute('data-group-length', allGroupedData.length);
 
     // 渲染第一页
