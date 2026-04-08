@@ -97,12 +97,17 @@
   transition: all 0.5s ease;
   padding: var(--size-32) var(--size-16);
   color: var(--color-primary-grey-10);
-  width: min(10vw, 144px);
+  width: min(12.85714vw, 144px);
 
   @media (width < 860px) {
     width: 33.8461vw;
     padding: var(--size-24) var(--size-12);
     border-radius: var(--size-12);
+  }
+  
+   @media (width >= 1440px) {
+     width: min(10vw, 144px);
+    
   }
 }
 
@@ -124,12 +129,18 @@
 
 .industry-categories .active {
   box-shadow: 0 8px 20px rgb(0 0 0 / 10%);
-  width: min(22.222222vw, 320px);
+  width: min(27.118644vw, 320px);
+ 
 
    @media (width < 860px) {
-    width: calc(76.923vw - var(--size-48));
+     width: calc(76.923vw - var(--size-48));
      padding: var(--size-24)!important;
   }
+  
+   @media (width >= 1440px) {
+     width: min(22.222222vw, 320px);
+  }
+  
  }
  
 .industry-categories .card-body {
@@ -146,8 +157,13 @@
     font-size: var(--size-24);
      gap: var(--size-12);
      margin:var(--size-48) 0 0;
+     width: min(27.118644vw, 320px);
+  }
+
+   @media (width >= 1440px) {
      width: min(22.222222vw, 320px);
   }
+  
 }
 
 
