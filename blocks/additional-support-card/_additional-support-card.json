@@ -153,15 +153,7 @@
           "component": "text",
           "name": "button_text",
           "label": "Button Text",
-          "valueType": "string",
-          "condition": {
-            "===": [
-              {
-                "var": "button-action"
-              },
-              "pageRedirect"
-            ]
-          }
+          "valueType": "string"
         },
         {
           "component": "aem-content",
