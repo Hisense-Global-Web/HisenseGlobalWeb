@@ -345,20 +345,24 @@ function transHorizontalSection(className) {
 
 function storeInformationSelect() {
   const el = document.querySelectorAll('.store-information-card-container');
-  const selectDiv = document.createElement('div');
-  selectDiv.className = 'selectContainer';
+  const selectDiv = document.querySelectorAll('.store-locator')[0];
+  selectDiv.classList.add('selectContainer');
+  const [selectTagDiv, selectItemTagDiv, buttonDiv] = [...selectDiv.children];
+
   const selectTag = document.createElement('select');
   selectTag.id = 'selectTag';
+  const selectTagTitle = document.createElement('div');
+  selectTagTitle.innerHTML = selectTagDiv?.lastElementChild.textContent?.trim()
   const selectItemTag = document.createElement('select');
   selectItemTag.id = 'selectItemTag';
-  // 4. 创建确认按钮
+  const selectItemTagTitle = document.createElement('div');
+  selectItemTagTitle.innerHTML = selectItemTagDiv?.lastElementChild.textContent?.trim()
   const confirmBtn = document.createElement('button');
   confirmBtn.id = 'confirmBtn';
-  confirmBtn.textContent = '确认筛选';
-  // 5. 把元素依次放进 div 里
-  selectDiv.appendChild(selectTag);
-  selectDiv.appendChild(selectItemTag);
-  selectDiv.appendChild(confirmBtn);
+  confirmBtn.textContent = buttonDiv.lastElementChild.textContent?.trim();
+  selectTagDiv.replaceChildren(selectTagTitle, selectTag);
+  selectItemTagDiv.replaceChildren(selectItemTagTitle, selectItemTag);
+  buttonDiv.replaceChildren(confirmBtn);
   if (el.length > 0) {
     el[0].prepend(selectDiv);
   }
@@ -409,12 +413,12 @@ function storeInformationSelect() {
     const tag = a.getAttribute('data-tag');
     if (tag) tagSet.add(tag);
   });
-  selectTag.innerHTML = '<option value="">All</option>';
+  selectTag.innerHTML = `<option value="">All</option>`;
   tagSet.forEach((tag) => {
     selectTag.innerHTML += `<option value="${tag}">${tag}</option>`;
   });
   function renderItemTags(selectedTag) {
-    selectItemTag.innerHTML = '<option value="">全部item</option>';
+    selectItemTag.innerHTML = `<option value="">All</option>`;;
     const itemSet = new Set();
 
     aList.forEach((a) => {
