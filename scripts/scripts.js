@@ -22,9 +22,6 @@ import {
 import { isUniversalEditor } from '../utils/ue-helper.js';
 import {
   getFragmentPath,
-  isConfigPage,
-  isFooterPage,
-  isNavPage,
   getLocaleFromPath,
 } from './locale-utils.js';
 
