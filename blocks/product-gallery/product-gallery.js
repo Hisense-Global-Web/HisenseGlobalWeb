@@ -104,6 +104,10 @@ function buildTab(itemElement, index) {
       source.type = 'video/mp4';
       video.innerHTML = '';
       video.appendChild(source);
+      video.addEventListener('canplay', () => {
+        video.play().catch(() => {});
+      });
+
       mainVideoImg.replaceChildren(video);
       return;
     }
