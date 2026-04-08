@@ -131,14 +131,23 @@
             align-items: center;
             font-size: var(--fontsize-body2, 14px);
             font-weight: var(--fontweight-medium, 500);
-            height: var(--size-21, 21px);
             color: var(--color-primary-grey-70, #333);
             line-height: 1.5;
+            word-break: break-word;
 
             @media (width<860px) {
-              height: var(--size-20, 20px);
               line-height: 1.4;
             }
+          }
+
+          .contact-info a {
+            color: var(--color-primary-grey-70, #333);
+            text-decoration-line: underline;
+            text-decoration-style: solid;
+            text-decoration-skip-ink: auto;
+            text-decoration-thickness: auto;
+            text-underline-offset: auto;
+            text-underline-position: from-font;
           }
         }
       }
