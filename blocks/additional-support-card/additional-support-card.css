@@ -133,7 +133,7 @@
             font-weight: var(--fontweight-medium, 500);
             color: var(--color-primary-grey-70, #333);
             line-height: 1.5;
-            word-break: break-word;
+            word-break: break-all;
 
             @media (width<860px) {
               line-height: 1.4;
