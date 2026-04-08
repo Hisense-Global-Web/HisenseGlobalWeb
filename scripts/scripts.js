@@ -212,6 +212,7 @@ async function loadEager(doc) {
   if (main) {
     if (isConfigPage() || isFooterPage()) {
       // to nothing
+      document.documentElement.style.setProperty('--nav-height', '100px');
     } else {
       loadHeader(doc.querySelector('header'));
     }
@@ -247,6 +248,7 @@ async function loadLazy(doc) {
 
   if (isConfigPage() || isNavPage()) {
     // to do nothing
+    document.documentElement.style.setProperty('--nav-height', '100px');
   } else {
     loadFooter(doc.querySelector('footer'));
   }
