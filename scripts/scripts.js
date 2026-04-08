@@ -178,7 +178,7 @@ async function loadRemoteErrorPage(main) {
  * @returns {boolean}
  */
 function isConfigPage() {
-  return window.location.hostname.includes('/config/');
+  return window.location.pathname.includes('/config/');
 }
 
 /**
@@ -186,11 +186,11 @@ function isConfigPage() {
  * @returns {boolean}
  */
 function isNavPage() {
-  return window.location.hostname.includes('/nav');
+  return window.location.pathname.includes('/nav');
 }
 
 function isFooterPage() {
-  return window.location.hostname.includes('/footer');
+  return window.location.pathname.includes('/footer');
 }
 
 /**
@@ -212,6 +212,7 @@ async function loadEager(doc) {
   if (main) {
     if (isConfigPage() || isFooterPage()) {
       // to nothing
+      document.documentElement.style.setProperty('--nav-height', '100px');
     } else {
       loadHeader(doc.querySelector('header'));
     }
@@ -247,6 +248,7 @@ async function loadLazy(doc) {
 
   if (isConfigPage() || isNavPage()) {
     // to do nothing
+    document.documentElement.style.setProperty('--nav-height', '100px');
   } else {
     loadFooter(doc.querySelector('footer'));
   }
