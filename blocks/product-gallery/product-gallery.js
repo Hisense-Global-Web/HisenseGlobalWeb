@@ -49,6 +49,22 @@ function buildTab(itemElement, index) {
   imgBox.className = 'product-filter-img-box';
   if (imageCell) {
     const picture = imageCell.querySelector('picture');
+    if (videoHref) {
+      const videoM = document.createElement('video');
+      videoM.classList.add('autoplay-video');
+      videoM.setAttribute('data-video-autoplay', 'true');
+      videoM.controls = true;
+      videoM.width = 640;
+      videoM.preload = 'auto';
+      videoM.playsInline = true;
+      videoM.muted = true; // iPhone 要求静音才能自动播放
+      const source = document.createElement('source');
+      source.src = videoHref;
+      source.type = 'video/mp4';
+      videoM.innerHTML = '';
+      videoM.appendChild(source);
+      imgBox.replaceChildren(videoM);
+    }
     if (picture) {
       const imgWrapper = document.createElement('div');
       imgWrapper.className = 'product-filter-img';
@@ -171,6 +187,11 @@ function updateActiveDot() {
     if (isActive) {
       dots.forEach((d) => d.classList.remove('active'));
       dots[index].classList.add('active');
+
+      if (item.dataset.videoHref) {
+        const v = item.querySelector('video');
+        v.play().catch(() => {});
+      }
     }
   });
 }
