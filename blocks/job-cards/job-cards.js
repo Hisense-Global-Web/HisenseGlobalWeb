@@ -550,7 +550,10 @@ export default function decorate(block) {
     currentPage = 1;
     productsGrid.innerHTML = ''; // 清空现有内容
 
-    allGroupedData = items;
+    allGroupedData = items.filter((item) => {
+      const today = new Date().toISOString().split('T')[0]; // 获取今天日期：YYYY-MM-DD
+      return item.jobPostedTime <= today; // 时间字符串直接比较即可
+    });
     productsGrid.setAttribute('data-group-length', allGroupedData.length);
 
     // 渲染第一页
