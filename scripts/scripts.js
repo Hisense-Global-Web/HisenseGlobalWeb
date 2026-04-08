@@ -246,7 +246,7 @@ async function loadLazy(doc) {
   if (hash && element) element.scrollIntoView();
 
   if (isConfigPage() || isNavPage()) {
-    // to nothing
+    // to do nothing
   } else {
     loadFooter(doc.querySelector('footer'));
   }
