@@ -178,7 +178,7 @@ async function loadRemoteErrorPage(main) {
  * @returns {boolean}
  */
 function isConfigPage() {
-  return window.location.hostname.includes('/config/');
+  return window.location.pathname.includes('/config/');
 }
 
 /**
@@ -186,11 +186,11 @@ function isConfigPage() {
  * @returns {boolean}
  */
 function isNavPage() {
-  return window.location.hostname.includes('/nav');
+  return window.location.pathname.includes('/nav');
 }
 
 function isFooterPage() {
-  return window.location.hostname.includes('/footer');
+  return window.location.pathname.includes('/footer');
 }
 
 /**
