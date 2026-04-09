@@ -2535,7 +2535,8 @@
                 "template": {
                   "name": "Retailer Card Grid",
                   "model": "retailer-card-grid",
-                  "filter": "retailer-card-grid"
+                  "filter": "retailer-card-grid",
+                  "key-value": true
                 }
               }
             }

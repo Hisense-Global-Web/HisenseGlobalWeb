@@ -5376,19 +5376,19 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "retailer_image",
+        "name": "item_image",
         "label": "Image",
         "multi": false
       },
       {
         "component": "aem-content",
-        "name": "retailer_ctaPrimary",
+        "name": "item_ctaPrimary",
         "label": "Button Link",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "retailer_ctaPrimaryText",
+        "name": "item_ctaPrimaryText",
         "label": "Button Label",
         "valueType": "string"
       }
