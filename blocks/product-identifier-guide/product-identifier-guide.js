@@ -91,6 +91,7 @@ export default function decorate(block) {
 
   if (stepElements.length) {
     stepElements.forEach((step) => {
+      if (!step.textContent.trim()) return;
       stepCounter[step.dataset.tab] = (stepCounter[step.dataset.tab] || 0) + 1;
       step.firstElementChild.classList.add('step-image');
       const textContent = document.createElement('div');
