@@ -5208,6 +5208,31 @@
     ]
   },
   {
+    "id": "recall-text-info-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string",
+        "rte": {
+          "toolbar": {
+            "list": [
+              "bullet_list",
+              "ordered_list"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
     "id": "region-page-title",
     "fields": [
       {
