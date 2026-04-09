@@ -151,12 +151,6 @@
           }
         }
       }
-
-      .button-hidden {
-        @media (width >=860px) {
-          display: none;
-        }
-      }
     }
 
     .link {
@@ -176,6 +170,12 @@
       @media (width<860px) {
         width: 100%;
         height: calc(40 / var(--breakpoint-mobile) * 100vw);
+      }
+    }
+
+    .button-hidden {
+      @media (width>=860px) {
+        display: none;
       }
     }
 

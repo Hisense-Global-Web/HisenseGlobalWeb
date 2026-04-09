@@ -845,43 +845,50 @@
             "component": "text",
             "name": "office_hours1",
             "label": "Office Hours 1",
-            "valueType": "string"
+            "valueType": "string",
+            "value": ""
           },
           {
             "component": "text",
             "name": "office_hours2",
             "label": "Office Hours 2",
-            "valueType": "string"
+            "valueType": "string",
+            "value": ""
           },
           {
             "component": "text",
             "name": "office_hours3",
             "label": "Office Hours 3",
-            "valueType": "string"
+            "valueType": "string",
+            "value": ""
           },
           {
             "component": "text",
             "name": "office_hours4",
             "label": "Office Hours 4",
-            "valueType": "string"
+            "valueType": "string",
+            "value": ""
           },
           {
             "component": "text",
             "name": "office_hours5",
             "label": "Office Hours 5",
-            "valueType": "string"
+            "valueType": "string",
+            "value": ""
           },
           {
             "component": "text",
             "name": "office_hours6",
             "label": "Office Hours 6",
-            "valueType": "string"
+            "valueType": "string",
+            "value": ""
           },
           {
             "component": "text",
             "name": "office_hours7",
             "label": "Office Hours 7",
-            "valueType": "string"
+            "valueType": "string",
+            "value": ""
           }
         ]
       },
