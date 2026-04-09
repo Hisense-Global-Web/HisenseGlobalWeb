@@ -1312,6 +1312,36 @@
     ]
   },
   {
+    "id": "brand-matrix-items",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "gradient-val",
+        "label": "Background",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Gradient",
+            "value": "gradient-val"
+          },
+          {
+            "name": "Transparent",
+            "value": "transparent-val"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "brand-img",
+        "label": "Image",
+        "multi": false
+      }
+    ]
+  },
+  {
     "id": "calltoaction-banner",
     "fields": [
       {
