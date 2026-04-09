@@ -66,13 +66,11 @@ export default function decorate(block) {
       card.appendChild(contentEl);
     }
 
-    // Content (rich text with H2-H6 headings)
-    if (textContent) {
-      const contentEl = document.createElement('div');
-      contentEl.className = 'resource-content';
-      contentEl.innerHTML = textContent;
-      card.appendChild(contentEl);
-    }
+    // Content (rich text with H2-H6 headings)--此模块是flex:1占位
+    const contentEl = document.createElement('div');
+    contentEl.className = 'resource-content';
+    contentEl.innerHTML = textContent;
+    card.appendChild(contentEl);
 
     // Subscribe form (only for subscribe type)
     if (cardType === 'subscribe') {
