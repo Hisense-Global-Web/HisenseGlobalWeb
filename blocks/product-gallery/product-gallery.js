@@ -24,7 +24,6 @@ function createScrollButton(direction) {
 }
 
 function buildTab(itemElement, index) {
-  console.log(itemElement);
   const li = document.createElement('li');
   li.className = 'product-filter-item';
   li['data-index'] = index;
@@ -35,7 +34,6 @@ function buildTab(itemElement, index) {
   const imageCell = cells.find((cell) => cell.querySelector('picture')) || cells[0];
   const videoHref = itemElement.querySelector('a')?.href;
   if (videoHref) {
-    console.log(videoHref);
     li.dataset.videoHref = videoHref;
   }
 
