@@ -818,7 +818,7 @@
     "fields": [
       {
         "component": "reference",
-        "name": "image",
+        "name": "svg-icon",
         "label": "SVG icon",
         "valueType": "string"
       },
