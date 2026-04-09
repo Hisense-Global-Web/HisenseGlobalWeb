@@ -28,6 +28,7 @@ import {
   getOrdersCount,
   hasValidHybrisAccountState,
   shouldRefreshHeaderCommerceCountsAfterAuthInit,
+  shouldRefreshHeaderCommerceCountsAfterAuthEvent,
 } from './header-commerce-utils.js';
 
 import { isAuthorHostname } from '../../scripts/environment.js';
@@ -1105,6 +1106,7 @@ export default async function decorate(block) {
   const cartActionButtons = [];
   let commerceCounts = { ...DEFAULT_HEADER_COMMERCE_COUNTS };
   let commerceCountsRequestId = 0;
+  let syncedHeaderAuthState = getCachedHybrisAuthState();
 
   const syncCartActionButtons = () => {
     cartActionButtons.forEach((actionButton) => {
@@ -1156,8 +1158,15 @@ export default async function decorate(block) {
     const authState = getCachedHybrisAuthState();
 
     if (type === 'auth') {
+      const shouldRefreshCounts = shouldRefreshHeaderCommerceCountsAfterAuthEvent(
+        syncedHeaderAuthState,
+        authState,
+      );
+      syncedHeaderAuthState = authState;
       syncHeaderCommerceUi(authState);
-      refreshHeaderCommerceCounts(authState).catch(() => {});
+      if (shouldRefreshCounts) {
+        refreshHeaderCommerceCounts(authState).catch(() => {});
+      }
       return;
     }
 
@@ -1549,13 +1558,17 @@ export default async function decorate(block) {
     block.hybrisDataListener = handleHybrisDataEvent;
     window.addEventListener(HYBRIS_DATA_EVENT_NAME, handleHybrisDataEvent);
 
-    const cachedAuthState = getCachedHybrisAuthState();
-    syncHeaderCommerceUi(cachedAuthState);
-    refreshHeaderCommerceCounts(cachedAuthState).catch(() => {});
+    syncHeaderCommerceUi(syncedHeaderAuthState);
+    refreshHeaderCommerceCounts(syncedHeaderAuthState).catch(() => {});
 
     const syncAuthStateAndRefreshCountsIfNeeded = (authState) => {
+      const shouldRefreshCounts = shouldRefreshHeaderCommerceCountsAfterAuthInit(
+        syncedHeaderAuthState,
+        authState,
+      );
+      syncedHeaderAuthState = authState;
       syncHeaderCommerceUi(authState);
-      if (shouldRefreshHeaderCommerceCountsAfterAuthInit(cachedAuthState, authState)) {
+      if (shouldRefreshCounts) {
         return refreshHeaderCommerceCounts(authState);
       }
       return Promise.resolve();

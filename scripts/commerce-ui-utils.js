@@ -7,13 +7,32 @@ export default function shouldShowAddToCartButton(options = {}) {
   return Boolean(hasPrice && hasInventory);
 }
 
-export function shouldShowPdpFavoriteButton(options = {}) {
+export function shouldShowHybrisFavoriteButton(options = {}) {
   const {
     authenticated = false,
     hasInventory = false,
   } = options;
 
   return Boolean(authenticated && hasInventory);
+}
+
+export function shouldShowPdpFavoriteButton(options = {}) {
+  return shouldShowHybrisFavoriteButton(options);
+}
+
+export function shouldShowPlpFavoriteButton(options = {}) {
+  return shouldShowHybrisFavoriteButton(options);
+}
+
+export function resolveProductCardTagLabel(product = {}) {
+  const badgeList = Array.isArray(product?.badge) ? product.badge : [];
+  const targetBadge = String(badgeList[0] || '').trim();
+  if (!targetBadge) {
+    return '';
+  }
+
+  const lastSlashIndex = targetBadge.lastIndexOf('/');
+  return lastSlashIndex > -1 ? targetBadge.slice(lastSlashIndex + 1) : targetBadge;
 }
 
 export function resolvePopupQuantityDisplayState(options = {}) {
