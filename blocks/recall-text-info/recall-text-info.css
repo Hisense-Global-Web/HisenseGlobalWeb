@@ -1,3 +1,38 @@
 .recall-text-info-wrapper {
   width: 100%;
+
+  .recall-text-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl, 48px);
+
+    .recall-text-info-item {
+      display: flex;
+      padding: var(--spacing-xl, 48px) var(--spacing-lg, 40px);
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-xs, 16px);
+      flex: 1 0 0;
+      align-self: stretch;
+      border-radius: var(--radius-pc-xl, 20px);
+      background: var(--color-primary-green-10, #edfcfb);
+
+      .title {
+        color: var(--color-primary-grey-100, #000);
+        font-size: var(--fontsize-pc-h3, 34px);
+        font-style: normal;
+        font-weight: var(--fontweight-medium, 500);
+        line-height: 120%;
+        text-transform: capitalize;
+      }
+
+      .content {
+        color: var(--color-primary-grey-70, #333);
+        font-size: var(--fontsize-body1, 16px);
+        font-style: normal;
+        font-weight: var(--fontweight-book, 400);
+        line-height: 150%;
+      }
+    }
+  }
 }

@@ -43,18 +43,10 @@
           "valueType": "string"
         },
         {
-          "component": "richtext",
+          "component": "textarea",
           "name": "content",
           "label": "Content",
-          "valueType": "string",
-          "rte": {
-            "toolbar": {
-              "list": [
-                "bullet_list",
-                "ordered_list"
-              ]
-            }
-          }
+          "valueType": "string"
         }
       ]
     }
