@@ -32,6 +32,10 @@
   @media (width < 860px) {
     display: none;
   }
+  
+  video {
+    height: min(calc(360 / var(--breakpoint-pc) * 100vw), 360px);
+  }
 }
 
 .pdp-specs-btn img {
@@ -106,6 +110,14 @@
   -ms-overflow-style: none;
   margin: 0 0 var(--size-24);
   padding: 0;
+  
+  video {
+    height: min(calc(360 / var(--breakpoint-pc) * 100vw), 360px);
+    
+    @media (width < 860px) {
+      height: min(calc(220 / var(--breakpoint-mobile) * 100vw), 220px);
+    }
+  }
 }
 
 .pdp-media .product-filters::-webkit-scrollbar {
