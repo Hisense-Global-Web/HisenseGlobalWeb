@@ -164,10 +164,24 @@ export function buildAccountMenuItemChildren(doc, options = {}) {
   return children;
 }
 
-export function shouldRefreshHeaderCommerceCountsAfterAuthInit(
+function shouldRefreshHeaderCommerceCountsForAuthStateChange(
   previousAuthState = {},
   nextAuthState = {},
 ) {
   return hasValidHybrisAccountState(previousAuthState)
     !== hasValidHybrisAccountState(nextAuthState);
+}
+
+export function shouldRefreshHeaderCommerceCountsAfterAuthInit(
+  previousAuthState = {},
+  nextAuthState = {},
+) {
+  return shouldRefreshHeaderCommerceCountsForAuthStateChange(previousAuthState, nextAuthState);
+}
+
+export function shouldRefreshHeaderCommerceCountsAfterAuthEvent(
+  previousAuthState = {},
+  nextAuthState = {},
+) {
+  return shouldRefreshHeaderCommerceCountsForAuthStateChange(previousAuthState, nextAuthState);
 }

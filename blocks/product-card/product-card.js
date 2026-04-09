@@ -25,7 +25,11 @@ import {
   setCompareProductImgTit,
   appendCompareProductUtil,
 } from '../../utils/plp-compare-utils.js';
-import shouldShowAddToCartButton, { resolvePopupQuantityDisplayState } from '../../scripts/commerce-ui-utils.js';
+import shouldShowAddToCartButton, {
+  resolveProductCardTagLabel,
+  resolvePopupQuantityDisplayState,
+  shouldShowPlpFavoriteButton,
+} from '../../scripts/commerce-ui-utils.js';
 
 const { country } = getLocaleFromPath();
 const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com';
@@ -1636,12 +1640,9 @@ export default function decorate(block) {
 
       const titleDiv = document.createElement('div');
       titleDiv.className = 'product-card-title';
-      let tagTitle = '';
-      const badgeList = group.representative.badge || [];
-      const targetStr = badgeList[0] || '';
-      const lastSlashIndex = targetStr.lastIndexOf('/');
-      tagTitle = lastSlashIndex > -1 ? targetStr.slice(lastSlashIndex + 1) : targetStr;
-      titleDiv.innerHTML = `<div class="product-card-tag">${tagTitle}</div>`;
+      const productCardTag = document.createElement('div');
+      productCardTag.className = 'product-card-tag';
+      titleDiv.append(productCardTag);
 
       const fav = document.createElement('div');
       fav.className = 'plp-favorite plp-favorite-pending';
@@ -1803,15 +1804,24 @@ export default function decorate(block) {
       let commerceRequestId = 0;
       let wishlistStateReady = false;
       let favoriteEnabled = false;
+      let favoriteAuthenticated = Boolean(getCachedHybrisAuthState().authenticated);
 
       const getVariantProductCode = (variant) => getHybrisProductCode(variant)
         || getHybrisProductCode(item)
         || getHybrisProductCode(group.representative);
 
       const updateFavoriteState = (productCode) => {
+        const canShowFavorite = Boolean(productCode) && shouldShowPlpFavoriteButton({
+          authenticated: favoriteAuthenticated,
+          hasInventory: favoriteEnabled,
+        });
         fav.dataset.productCode = productCode || '';
-        fav.classList.toggle('selected', Boolean(getWishlistEntryByProductCode(fav.dataset.productCode)));
-        fav.classList.toggle('plp-favorite-pending', !(wishlistStateReady && productCode && favoriteEnabled));
+        fav.hidden = !canShowFavorite;
+        fav.classList.toggle(
+          'selected',
+          canShowFavorite && Boolean(getWishlistEntryByProductCode(fav.dataset.productCode)),
+        );
+        fav.classList.toggle('plp-favorite-pending', canShowFavorite && !wishlistStateReady);
       };
 
       const refreshFavoriteState = async (productCode, requestId) => {
@@ -1819,8 +1829,11 @@ export default function decorate(block) {
         updateFavoriteState(productCode);
 
         try {
-          await authReadyPromise;
-          await ensureWishlistLoaded();
+          const authState = await authReadyPromise;
+          favoriteAuthenticated = Boolean(authState?.authenticated);
+          if (favoriteAuthenticated) {
+            await ensureWishlistLoaded();
+          }
         } catch (error) {
           /* eslint-disable-next-line no-console */
           console.warn(`Failed to load wishlist state for ${productCode}`, error);
@@ -2049,6 +2062,8 @@ export default function decorate(block) {
 
       // 用来更新卡片显示为指定变体
       const updateCardWithVariant = (variant) => {
+        productCardTag.textContent = resolveProductCardTagLabel(variant);
+
         // image
         const variantImg = getVariantImageUrl(variant);
 
