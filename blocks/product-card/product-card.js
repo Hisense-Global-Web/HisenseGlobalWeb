@@ -25,7 +25,11 @@ import {
   setCompareProductImgTit,
   appendCompareProductUtil,
 } from '../../utils/plp-compare-utils.js';
-import shouldShowAddToCartButton, { resolvePopupQuantityDisplayState } from '../../scripts/commerce-ui-utils.js';
+import shouldShowAddToCartButton, {
+  resolveProductCardTagLabel,
+  resolvePopupQuantityDisplayState,
+  shouldShowPlpFavoriteButton,
+} from '../../scripts/commerce-ui-utils.js';
 
 const { country } = getLocaleFromPath();
 const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com';
@@ -809,11 +813,15 @@ export default function decorate(block) {
         appendCompareProductUtil();
       }
     });
+    // 如果选中的比较数据只有一条了，要禁用 compare 按钮
+    if (compareDataArr.length === 1) {
+      document.querySelector('.plp-compare-btn').classList.add('compare-disabled');
+    }
   }
 
   // 隐藏 compare bar 底部固定栏
   function hideCompareBar() {
-    if (compareDataArr.length < 2) {
+    if (compareDataArr.length < 1) {
       document.querySelector('.plp-compare-bar').classList.remove('compare-bar-show');
     }
   }
@@ -854,6 +862,10 @@ export default function decorate(block) {
     compareBtnEl.textContent = 'Compare';
     // 显示对比详细信息弹窗
     compareBtnEl.addEventListener('click', () => {
+      // 对比数据小于2条时，不展示对比弹窗
+      if (compareDataArr.length === 1) {
+        return;
+      }
       document.body.style.overflow = 'hidden';
       // 比较商品信息详细数据
       const compareDetailInfo = aggregateData(compareDataArr);
@@ -1628,12 +1640,9 @@ export default function decorate(block) {
 
       const titleDiv = document.createElement('div');
       titleDiv.className = 'product-card-title';
-      let tagTitle = '';
-      const badgeList = group.representative.badge || [];
-      const targetStr = badgeList[0] || '';
-      const lastSlashIndex = targetStr.lastIndexOf('/');
-      tagTitle = lastSlashIndex > -1 ? targetStr.slice(lastSlashIndex + 1) : targetStr;
-      titleDiv.innerHTML = `<div class="product-card-tag">${tagTitle}</div>`;
+      const productCardTag = document.createElement('div');
+      productCardTag.className = 'product-card-tag';
+      titleDiv.append(productCardTag);
 
       const fav = document.createElement('div');
       fav.className = 'plp-favorite plp-favorite-pending';
@@ -1795,15 +1804,24 @@ export default function decorate(block) {
       let commerceRequestId = 0;
       let wishlistStateReady = false;
       let favoriteEnabled = false;
+      let favoriteAuthenticated = Boolean(getCachedHybrisAuthState().authenticated);
 
       const getVariantProductCode = (variant) => getHybrisProductCode(variant)
         || getHybrisProductCode(item)
         || getHybrisProductCode(group.representative);
 
       const updateFavoriteState = (productCode) => {
+        const canShowFavorite = Boolean(productCode) && shouldShowPlpFavoriteButton({
+          authenticated: favoriteAuthenticated,
+          hasInventory: favoriteEnabled,
+        });
         fav.dataset.productCode = productCode || '';
-        fav.classList.toggle('selected', Boolean(getWishlistEntryByProductCode(fav.dataset.productCode)));
-        fav.classList.toggle('plp-favorite-pending', !(wishlistStateReady && productCode && favoriteEnabled));
+        fav.hidden = !canShowFavorite;
+        fav.classList.toggle(
+          'selected',
+          canShowFavorite && Boolean(getWishlistEntryByProductCode(fav.dataset.productCode)),
+        );
+        fav.classList.toggle('plp-favorite-pending', canShowFavorite && !wishlistStateReady);
       };
 
       const refreshFavoriteState = async (productCode, requestId) => {
@@ -1811,8 +1829,11 @@ export default function decorate(block) {
         updateFavoriteState(productCode);
 
         try {
-          await authReadyPromise;
-          await ensureWishlistLoaded();
+          const authState = await authReadyPromise;
+          favoriteAuthenticated = Boolean(authState?.authenticated);
+          if (favoriteAuthenticated) {
+            await ensureWishlistLoaded();
+          }
         } catch (error) {
           /* eslint-disable-next-line no-console */
           console.warn(`Failed to load wishlist state for ${productCode}`, error);
@@ -2041,6 +2062,8 @@ export default function decorate(block) {
 
       // 用来更新卡片显示为指定变体
       const updateCardWithVariant = (variant) => {
+        productCardTag.textContent = resolveProductCardTagLabel(variant);
+
         // image
         const variantImg = getVariantImageUrl(variant);
 
@@ -2175,15 +2198,19 @@ export default function decorate(block) {
           // 1、新增比较数据
           compareDataArr.push(cardSelectedVariant);
           const compareBarAllLi = document.querySelectorAll('.plp-compare-card-item');
-          // 2、只有选择了2个产品时，才展示页面询问固定栏
-          if (compareDataArr.length === 2) {
+          // 2、选择1个产品时，就展示页面询问固定栏，但compare按钮不可点击；选择2-3个产品时，compare按钮可点击
+          if (compareDataArr.length && compareDataArr.length === 1) {
             document.querySelector('.plp-compare-bar').classList.add('compare-bar-show');
+            document.querySelector('.plp-compare-btn').classList.add('compare-disabled');
             // 底部 compare bar 出现时且为移动端时，为footer 添加 padding-bottom
             if (isMobileWindow()) {
               const footerWrapper = document.querySelector('.footer-wrapper');
               footerWrapper.style.paddingBottom = `${(274 / 390) * window.innerWidth}px`;
             }
+          } else {
+            document.querySelector('.plp-compare-btn').classList.remove('compare-disabled');
           }
+
           // 3、为底部固定栏中的对应li 设置已选择产品的图片、产品名称
           compareBarAllLi.forEach((curLi, index) => {
             if (index === compareDataArr.length - 1) {

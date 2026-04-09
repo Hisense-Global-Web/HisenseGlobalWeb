@@ -1,3 +1,4 @@
+import { currencySymbolMap } from '../../utils/currency.js';
 import { fetchHybrisProduct, getHybrisProductCode, scheduleHybrisTask } from '../../scripts/hybris-bff.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
@@ -8,10 +9,11 @@ const PRODUCT_PRICE_CACHE_KEY = '__hisensePlpProductPriceCache';
 const PRODUCT_PRICE_PROMISE_CACHE_KEY = '__hisensePlpProductPricePromiseCache';
 const PRICE_DATASET_SIGNATURE_KEY = '__hisensePlpPriceDatasetSignature';
 const PRICE_REQUEST_CONCURRENCY = 6;
+let CURRENCY_SYMBOL = '$';
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
-function ensurePriceFilterState(currencySymbol = '$') {
+function ensurePriceFilterState() {
   const currentState = window[PRICE_FILTER_STATE_KEY] || {};
   const nextState = {
     min: Number.isFinite(currentState.min) ? currentState.min : 0,
@@ -19,7 +21,7 @@ function ensurePriceFilterState(currencySymbol = '$') {
     selectedMin: Number.isFinite(currentState.selectedMin) ? currentState.selectedMin : 0,
     selectedMax: Number.isFinite(currentState.selectedMax) ? currentState.selectedMax : 0,
     ready: currentState.ready === true,
-    currencySymbol: currentState.currencySymbol || currencySymbol,
+    currencySymbol: currentState?.currencySymbol ?? CURRENCY_SYMBOL,
   };
   window[PRICE_FILTER_STATE_KEY] = nextState;
   return nextState;
@@ -56,8 +58,8 @@ function clampPriceValue(value, minPrice, maxPrice) {
   return Math.min(maxPrice, Math.max(minPrice, value));
 }
 
-function syncPriceFilterState(partialState = {}, currencySymbol = '$') {
-  const state = ensurePriceFilterState(currencySymbol);
+function syncPriceFilterState(partialState = {}) {
+  const state = ensurePriceFilterState();
   Object.assign(state, partialState);
 
   state.min = Number.isFinite(state.min) ? state.min : 0;
@@ -76,7 +78,6 @@ function syncPriceFilterState(partialState = {}, currencySymbol = '$') {
       state.selectedMax = state.selectedMin;
     }
   }
-
   window[PRICE_FILTER_STATE_KEY] = state;
   return state;
 }
@@ -85,9 +86,9 @@ window.getPlpPriceFilterState = function getPlpPriceFilterState() {
   return ensurePriceFilterState();
 };
 
-function formatCurrency(num, currencySymbol) {
+function formatCurrency(num) {
   const safeValue = Number.isFinite(Number(num)) ? Math.trunc(Number(num)) : 0;
-  return `${currencySymbol} ${safeValue.toLocaleString()}`;
+  return `${CURRENCY_SYMBOL} ${safeValue.toLocaleString()}`;
 }
 
 function parseNumericPriceValue(price) {
@@ -227,6 +228,9 @@ async function loadHybrisPrices(items = []) {
     promiseCache[code] = (async () => {
       try {
         const product = await fetchHybrisProduct(code);
+        if (product?.price?.currencyIso) {
+          CURRENCY_SYMBOL = currencySymbolMap.get(product.price.currencyIso)?.uiSymbol || CURRENCY_SYMBOL;
+        }
         const resolvedPrice = resolveProductPriceValue(product, fallbackItem);
         cache[code] = Number.isFinite(resolvedPrice) ? resolvedPrice : null;
       } catch (error) {
@@ -245,8 +249,7 @@ const generatePriceSlider = (rowEl) => {
   const priceSliderWrapper = document.createElement('div');
   priceSliderWrapper.className = 'price-slider-wrapper';
   // eslint-disable-next-line no-unused-vars
-  const [titleEl, currencySymbolEl, minLabelEl, maxLabelEl] = [...rowEl.children];
-  const currencySymbol = currencySymbolEl?.querySelector('p')?.textContent ?? '$';
+  const [titleEl, minLabelEl, maxLabelEl] = [...rowEl.children];
   const minLabel = minLabelEl?.querySelector('p')?.textContent ?? '';
   const maxLabel = maxLabelEl?.querySelector('p')?.textContent ?? '';
   const initialState = syncPriceFilterState({
@@ -255,12 +258,12 @@ const generatePriceSlider = (rowEl) => {
     selectedMin: 0,
     selectedMax: 0,
     ready: false,
-    currencySymbol,
-  }, currencySymbol);
+    currencySymbol: CURRENCY_SYMBOL,
+  });
   const minPrice = initialState.min;
   const maxPrice = initialState.max;
-  const minPriceSymbol = formatCurrency(minPrice, currencySymbol);
-  const maxPriceSymbol = formatCurrency(maxPrice, currencySymbol);
+  const minPriceSymbol = formatCurrency(minPrice, CURRENCY_SYMBOL);
+  const maxPriceSymbol = formatCurrency(maxPrice, CURRENCY_SYMBOL);
 
   // 顶部price tags
   const priceTagsEl = document.createElement('div');
@@ -337,8 +340,7 @@ const generatePriceSlider = (rowEl) => {
     const nextState = syncPriceFilterState({
       selectedMin: parseInt(minInputEl.value, 10),
       selectedMax: parseInt(maxInputEl.value, 10),
-      currencySymbol,
-    }, currencySymbol);
+    });
 
     minInputEl.value = nextState.selectedMin;
     maxInputEl.value = nextState.selectedMax;
@@ -351,13 +353,12 @@ const generatePriceSlider = (rowEl) => {
     sliderFillEl.style.width = `${(maxPercent - minPercent)}%`;
 
     minPriceTagEl.style.left = `${minPercent}%`;
-    minPriceTagEl.textContent = formatCurrency(nextState.selectedMin, currencySymbol);
+    minPriceTagEl.textContent = formatCurrency(nextState.selectedMin, nextState.currencySymbol);
     maxPriceTagEl.style.left = `${maxPercent}%`;
-    maxPriceTagEl.textContent = formatCurrency(nextState.selectedMax, currencySymbol);
+    maxPriceTagEl.textContent = formatCurrency(nextState.selectedMax, nextState.currencySymbol);
 
-    minPriceValueEl.textContent = formatCurrency(nextState.selectedMin, currencySymbol);
-    maxPriceValueEl.textContent = formatCurrency(nextState.selectedMax, currencySymbol);
-
+    minPriceValueEl.textContent = formatCurrency(nextState.min, nextState.currencySymbol);
+    maxPriceValueEl.textContent = formatCurrency(nextState.max, nextState.currencySymbol);
     if (shouldApplyFilter && typeof window.applyPlpFilters === 'function') {
       window.applyPlpFilters();
     }
@@ -367,11 +368,11 @@ const generatePriceSlider = (rowEl) => {
     const nextState = syncPriceFilterState({
       min: nextMinPrice,
       max: nextMaxPrice,
-      selectedMin: ensurePriceFilterState(currencySymbol).ready ? ensurePriceFilterState(currencySymbol).selectedMin : nextMinPrice,
-      selectedMax: ensurePriceFilterState(currencySymbol).ready ? ensurePriceFilterState(currencySymbol).selectedMax : nextMaxPrice,
+      selectedMin: ensurePriceFilterState().ready ? ensurePriceFilterState().selectedMin : nextMinPrice,
+      selectedMax: ensurePriceFilterState().ready ? ensurePriceFilterState().selectedMax : nextMaxPrice,
       ready: true,
-      currencySymbol,
-    }, currencySymbol);
+      currencySymbol: ensurePriceFilterState().ready ? ensurePriceFilterState().currencySymbol : CURRENCY_SYMBOL,
+    });
 
     minInputEl.min = nextState.min;
     minInputEl.max = nextState.max;
@@ -392,7 +393,6 @@ const generatePriceSlider = (rowEl) => {
 
   return {
     element: priceSliderWrapper,
-    currencySymbol,
     updateRange,
   };
 };

@@ -7,6 +7,7 @@ const HYBRIS_AUTH_BROADCAST_KEY = 'hybrisAuthBroadcast';
 const HYBRIS_AUTH_BROADCAST_LOGOUT = 'logout';
 const HYBRIS_GUEST_CART_IDENTIFIER_KEY = 'hybrisGuestCartIdentifier';
 const HYBRIS_AUTH_REVALIDATE_INTERVAL_MILLIS = 60 * 1000;
+const HYBRIS_PRODUCT_CACHE_BUST_INTERVAL_MILLIS = 5 * 60 * 1000;
 export const HYBRIS_DATA_EVENT_NAME = 'hisense:hybris-data';
 
 const DEFAULT_AUTH_STATE = {
@@ -24,6 +25,8 @@ let authStatusPromise = null;
 let authInitializationPromise = null;
 let authStateValidatedAt = 0;
 const productCache = new Map();
+const productRequestCache = new Map();
+let productCacheBucket = '';
 let guestCartIdentifier = '';
 let guestCartEnsurePromise = null;
 
@@ -563,6 +566,20 @@ function buildRegionParams(countryOverride, languageOverride) {
   };
 }
 
+function getHybrisProductCacheBustBucket(now = Date.now()) {
+  return String(Math.floor(now / HYBRIS_PRODUCT_CACHE_BUST_INTERVAL_MILLIS));
+}
+
+function syncHybrisProductCaches(now = Date.now()) {
+  const nextBucket = getHybrisProductCacheBustBucket(now);
+  if (productCacheBucket !== nextBucket) {
+    productCache.clear();
+    productRequestCache.clear();
+    productCacheBucket = nextBucket;
+  }
+  return nextBucket;
+}
+
 function buildBffUrl(path, query = {}) {
   const base = trimTrailingSlash(resolveHybrisBffBaseUrl());
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
@@ -941,23 +958,39 @@ export async function fetchHybrisProduct(code, options = {}) {
   }
 
   ensureSessionTokenLoaded();
-  const cacheKey = normalizedCode;
+  const cacheBucket = syncHybrisProductCaches();
+  const cacheKey = `${normalizedCode}:${cacheBucket}`;
   if (!options.force && productCache.has(cacheKey)) {
     return productCache.get(cacheKey);
   }
 
+  if (!options.force && productRequestCache.has(cacheKey)) {
+    return productRequestCache.get(cacheKey);
+  }
+
   const { country, language } = buildRegionParams();
-  const product = await bffRequest('/product', {
+  const productRequest = bffRequest('/product', {
     auth: 'optional',
     query: {
       country,
       language,
       code: normalizedCode,
+      _t: cacheBucket,
     },
-  });
+  })
+    .then((product) => {
+      productCache.set(cacheKey, product);
+      return product;
+    })
+    .finally(() => {
+      productRequestCache.delete(cacheKey);
+    });
 
-  productCache.set(cacheKey, product);
-  return product;
+  if (!options.force) {
+    productRequestCache.set(cacheKey, productRequest);
+  }
+
+  return productRequest;
 }
 
 export async function fetchHybrisWishlist(options = {}) {

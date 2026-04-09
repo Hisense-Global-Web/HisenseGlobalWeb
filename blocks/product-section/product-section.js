@@ -661,23 +661,6 @@ export default async function decorate(block) {
   title.className = 'pdp-title';
   title.textContent = (product && product.title) ? product.title : '';
 
-  const ratingWrapper = document.createElement('div');
-  ratingWrapper.classList.add('rating-wrapper');
-
-  for (let i = 1; i <= 5; i += 1) {
-    const starImg = document.createElement('img');
-    starImg.classList.add('rating-star');
-    starImg.src = i <= Math.floor(product.score)
-      ? `/content/dam/hisense/${country}/common-icons/icon-carousel/star-02.svg`
-      : `/content/dam/hisense/${country}/common-icons/icon-carousel/star-01.svg`;
-    starImg.alt = i <= product.score ? '满星' : '空白星';
-    ratingWrapper.appendChild(starImg);
-  }
-  const ratingText = document.createElement('span');
-  ratingText.classList.add('rating-text');
-  ratingText.textContent = `${product.score} (${product.totalRatings} Ratings)`;
-  ratingWrapper.appendChild(ratingText);
-
   const price = document.createElement('div');
   price.className = 'pdp-price';
   price.textContent = '';
@@ -877,9 +860,6 @@ export default async function decorate(block) {
   if (!fields.includes('series')) {
     series.classList.add('hide');
   }
-  if (!fields.includes('rating')) {
-    ratingWrapper.classList.add('hide');
-  }
   setElementHidden(buy, !showBuyButton);
   setElementHidden(price, true);
   if (!fields.includes('awards')) {
@@ -888,7 +868,7 @@ export default async function decorate(block) {
   if (!fields.includes('position')) {
     specsBtn.classList.add('hide');
   }
-  info.append(fav, series, title, ratingWrapper);
+  info.append(fav, series, title);
   if (hasColorValue) {
     info.append(colorsWrapper);
   } else if (hasSizeValue) {

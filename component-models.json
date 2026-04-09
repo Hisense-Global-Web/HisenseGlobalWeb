@@ -818,22 +818,19 @@
     "fields": [
       {
         "component": "reference",
-        "name": "image",
-        "value": "",
+        "name": "svg-icon",
         "label": "SVG icon",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "title",
-        "value": "",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "subtitle",
-        "value": "",
         "label": "Subtitle",
         "valueType": "string"
       },
@@ -847,49 +844,42 @@
           {
             "component": "text",
             "name": "office_hours1",
-            "value": "",
             "label": "Office Hours 1",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours2",
-            "value": "",
             "label": "Office Hours 2",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours3",
-            "value": "",
             "label": "Office Hours 3",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours4",
-            "value": "",
             "label": "Office Hours 4",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours5",
-            "value": "",
             "label": "Office Hours 5",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours6",
-            "value": "",
             "label": "Office Hours 6",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours7",
-            "value": "",
             "label": "Office Hours 7",
             "valueType": "string"
           }
@@ -898,39 +888,8 @@
       {
         "component": "text",
         "name": "contact_information",
-        "value": "",
         "label": "Contact Information(Phone Number or Email)",
         "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "button_text",
-        "label": "Button Text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "button_link",
-        "label": "Button Link",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "select",
-        "name": "button-style",
-        "label": "Button Style",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "White",
-            "value": "white"
-          },
-          {
-            "name": "Green 60",
-            "value": "green60"
-          }
-        ]
       },
       {
         "component": "select",
@@ -949,6 +908,42 @@
           {
             "name": "Send Email",
             "value": "sendEmail"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "button-action"
+            },
+            "pageRedirect"
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "name": "button-style",
+        "label": "Button Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "White",
+            "value": "white"
+          },
+          {
+            "name": "Green 60",
+            "value": "green60"
           }
         ]
       },
@@ -2817,15 +2812,15 @@
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "pc_downloadtext",
-        "label": "PC: Download Text",
-        "valueType": "string"
-      },
-      {
         "component": "reference",
         "name": "pc_downladicon",
         "label": "PC: Download Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "pc_downloadtext",
+        "label": "PC: Download Text",
         "valueType": "string"
       },
       {
@@ -4596,14 +4591,6 @@
         "name": "filter-title",
         "label": "Filter Title",
         "value": "Your Budget",
-        "required": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "currency-symbol",
-        "label": "Currency Symbol",
-        "value": "$",
         "required": true
       },
       {
