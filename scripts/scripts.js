@@ -21,6 +21,9 @@ import {
 } from './hybris-bff.js';
 import { isUniversalEditor } from '../utils/ue-helper.js';
 import {
+  isConfigPage,
+  isNavPage,
+  isFooterPage,
   getFragmentPath,
   getLocaleFromPath,
 } from './locale-utils.js';
@@ -171,26 +174,6 @@ async function loadRemoteErrorPage(main) {
     console.debug(`failed to load remote error page from ${errorPath}`, error);
     return false;
   }
-}
-
-/**
- * Checks if the current page is a config page based on the URL.
- * @returns {boolean}
- */
-function isConfigPage() {
-  return window.location.pathname.includes('/config/');
-}
-
-/**
- * Checks if the current page is a nav page based on the URL.
- * @returns {boolean}
- */
-function isNavPage() {
-  return window.location.pathname.includes('/nav');
-}
-
-function isFooterPage() {
-  return window.location.pathname.includes('/footer');
 }
 
 /**
