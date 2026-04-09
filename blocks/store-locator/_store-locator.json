@@ -11,8 +11,8 @@
               "name": "Store Locator",
               "model": "store-locator",
               "filter": "store-locator",
-              "key-value": true
-            
+              "placeholder1": "All",
+              "placeholder2": "All"
             }
           }
         }
@@ -25,20 +25,32 @@
       "fields": [
         {
           "component": "text",
-          "name": "label",
-          "label": "Locator Label",
+          "name": "label1",
+          "label": "Locator Label 1",
           "valueType": "string"
         },
          {
           "component": "text",
-          "name": "dropdown",
-          "label": "Locator Dropdown List",
+          "name": "placeholder1",
+          "label": "Locator Placeholder 1",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "label2",
+          "label": "Locator Label 2",
+          "valueType": "string"
+        },
+         {
+          "component": "text",
+          "name": "placeholder2",
+          "label": "Locator Placeholder 2",
           "valueType": "string"
         },
         {
           "component": "text",
           "name": "button",
-          "label": "Locator Search Button Label",
+          "label": "Button Copy",
           "valueType": "string"
         }
       ]

@@ -2761,7 +2761,8 @@
                   "name": "Store Locator",
                   "model": "store-locator",
                   "filter": "store-locator",
-                  "key-value": true
+                  "placeholder1": "All",
+                  "placeholder2": "All"
                 }
               }
             }
