@@ -2812,15 +2812,15 @@
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "pc_downloadtext",
-        "label": "PC: Download Text",
-        "valueType": "string"
-      },
-      {
         "component": "reference",
         "name": "pc_downladicon",
         "label": "PC: Download Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "pc_downloadtext",
+        "label": "PC: Download Text",
         "valueType": "string"
       },
       {
