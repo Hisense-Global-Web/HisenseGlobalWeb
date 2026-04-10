@@ -1434,7 +1434,7 @@
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Subtitle",
+        "label": "Eyebrow",
         "valueType": "string"
       },
       {
@@ -3115,7 +3115,7 @@
             "component": "text",
             "name": "special_text",
             "value": "",
-            "label": "Colorful Text(teal)",
+            "label": "Eyebrow",
             "valueType": "string"
           },
           {
@@ -3844,7 +3844,7 @@
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Colorful Text",
+        "label": "Eyebrow",
         "valueType": "string"
       },
       {
@@ -4008,7 +4008,7 @@
       {
         "component": "text",
         "name": "text_body",
-        "label": "Text",
+        "label": "Sub Title",
         "valueType": "string",
         "value": "",
         "placeholder": "this is text content"
@@ -4056,12 +4056,12 @@
         "component": "text",
         "valueType": "string",
         "name": "title-content",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "name": "subtitle-content",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       },
       {
@@ -4542,13 +4542,13 @@
         "component": "text",
         "valueType": "string",
         "name": "p-title",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "p-subtitle",
-        "label": "SubTitle"
+        "label": "Title"
       },
       {
         "component": "text",
@@ -6004,13 +6004,13 @@
         "component": "text",
         "valueType": "string",
         "name": "title",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "subtitle",
-        "label": "SubTitle"
+        "label": "Title"
       },
       {
         "component": "text",
@@ -6358,13 +6358,13 @@
         "component": "text",
         "valueType": "string",
         "name": "info_title",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "info_subtitle",
-        "label": "SubTitle"
+        "label": "Title"
       },
       {
         "component": "text",
