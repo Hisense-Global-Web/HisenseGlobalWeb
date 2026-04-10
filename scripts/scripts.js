@@ -21,17 +21,17 @@ import {
 } from './hybris-bff.js';
 import { isUniversalEditor } from '../utils/ue-helper.js';
 import {
-  getFragmentPath,
   isConfigPage,
-  isFooterPage,
   isNavPage,
+  isFooterPage,
+  getFragmentPath,
   getLocaleFromPath,
 } from './locale-utils.js';
 
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
 /**
- * Moves all the attributes from a given elmenet to another given element.
+ * Moves all the attributes from a given element to another given element.
  * @param {Element} from the element to copy attributes from
  * @param {Element} to the element to copy attributes to
  */
@@ -78,7 +78,6 @@ async function loadFonts() {
 
 /**
  * Builds all synthetic blocks in a container element.
- * @param {Element} main The container element
  */
 function buildAutoBlocks() {
   try {
@@ -196,6 +195,7 @@ async function loadEager(doc) {
   if (main) {
     if (isConfigPage() || isFooterPage()) {
       // to nothing
+      document.documentElement.style.setProperty('--nav-height', '100px');
     } else {
       loadHeader(doc.querySelector('header'));
     }
@@ -230,7 +230,8 @@ async function loadLazy(doc) {
   if (hash && element) element.scrollIntoView();
 
   if (isConfigPage() || isNavPage()) {
-    // to nothing
+    // to do nothing
+    document.documentElement.style.setProperty('--nav-height', '100px');
   } else {
     loadFooter(doc.querySelector('footer'));
   }

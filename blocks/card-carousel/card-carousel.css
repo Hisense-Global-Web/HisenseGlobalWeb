@@ -24,6 +24,7 @@
 
 .card-carousel-title-box > div:nth-child(1) {
   color: var(--color-primary-green-50);
+  text-transform: uppercase;
   font-size: var(--fontsize-title2);
 }
 
@@ -32,6 +33,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  text-transform: capitalize;
 }
 
 .card-carousel-viewport {
@@ -165,6 +167,7 @@
     .item-cta.show {
       display: block;
       width: fit-content;
+      font-size: var(--fontsize-body3);
 
       a {
         display: block;

@@ -287,8 +287,8 @@
   transition: all 0.36s ease-in-out;
 }
 
-#navigation:not(.is-support) .nav-second:not(.hidden) + .mobile-menu {
-  margin-top: -79px;
+#navigation .nav-second:not(.hidden) + .mobile-menu {
+  margin-top: -56px;
 
   @media (width < 1180px) {
     position: relative;
@@ -1164,7 +1164,7 @@
 
 #navigation.is-support.show-menu .mobile-menu {
   @media (width < 1180px) {
-    display: none;
+    display: flex;
   }
 }
 
@@ -1375,6 +1375,7 @@
   #navigation.is-support {
     .mobile-second-menu.support {
       padding: 0 40px !important;
+      margin-top: 56px;
     }
 
     .support-product {

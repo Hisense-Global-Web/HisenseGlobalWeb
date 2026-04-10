@@ -629,7 +629,7 @@ export default async function decorate(block) {
 
   tabDataMap.forEach((tabData, index) => {
     const tabContent = document.createElement('div');
-    tabContent.className = 'tab-content';
+    tabContent.className = `tab-content ${tabData.type}`;
     tabContent.dataset.tabIndex = String(index);
     if (index === activeTabIndex) tabContent.classList.add('active');
 
@@ -684,10 +684,10 @@ export default async function decorate(block) {
               if (valA === null) return 1;
               if (valB === null) return -1;
               if (typeof valA === 'number' && typeof valB === 'number') {
-                return ascending ? valA - valB : valB - valA;
+                return ascending || sortProperty === 'title' ? valA - valB : valB - valA;
               }
 
-              return ascending
+              return ascending || sortProperty === 'title'
                 ? valA.localeCompare(valB, 'en', { sensitivity: 'base', caseFirst: 'upper' })
                 : valB.localeCompare(valA, 'en', { sensitivity: 'base', caseFirst: 'upper' });
             });

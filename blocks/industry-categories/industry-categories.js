@@ -48,7 +48,7 @@ export default function decorate(block) {
       let columns = '';
       // eslint-disable-next-line no-shadow, no-plusplus
       for (let i = 0; i < allCards.length; i++) {
-        columns += (i === activeIndex ? calculateWidth('25vw', '360px') : calculateWidth('12.0833333vw', '174px'));
+        columns += (i === activeIndex ? calculateWidth('22.222222vw', '320px') : calculateWidth('10vw', '144px'));
       }
       // 应用新的列宽
       container.style.gridTemplateColumns = columns;

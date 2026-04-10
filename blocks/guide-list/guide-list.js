@@ -207,10 +207,14 @@ const generateGuid = (commonInfo, guideInfo) => {
     titleEl.textContent = title;
     leftEl.appendChild(titleEl);
     guideWrapperEl.appendChild(leftEl);
-    pcDownloadButtonCopy.addEventListener('click', () => handleCommonDownloadClick(path));
-    mobileDownloadIconCopy.addEventListener('click', () => handleCommonDownloadClick(path));
-    guideWrapperEl.appendChild(pcDownloadButtonCopy);
-    guideWrapperEl.appendChild(mobileDownloadIconCopy);
+    if (pcDownloadButtonCopy) {
+      pcDownloadButtonCopy?.addEventListener('click', () => handleCommonDownloadClick(path));
+      guideWrapperEl.appendChild(pcDownloadButtonCopy);
+    }
+    if (mobileDownloadIconCopy) {
+      mobileDownloadIconCopy.addEventListener('click', () => handleCommonDownloadClick(path));
+      guideWrapperEl.appendChild(mobileDownloadIconCopy);
+    }
   }
 
   return guideWrapperEl;
@@ -230,7 +234,9 @@ export default async function decorate(block) {
     pcDownloadButton.classList.add('download-button', 'green-60');
   }
   const mobileDownloadIcon = mobileDownloadIconEl?.querySelector('picture') || null;
-  mobileDownloadIcon.className = 'download-button-mobile';
+  if (mobileDownloadIcon) {
+    mobileDownloadIcon.className = 'download-button-mobile';
+  }
   const loadMoreText = mobileLoadMoreEl?.querySelector?.('p')?.textContent?.trim() || 'Load more';
   pageSizeEl?.remove();
   noResultEl?.remove();

@@ -236,7 +236,19 @@
                 "template": {
                   "name": "Additional Support Card Item",
                   "model": "additional-support-card-item",
-                  "cirlce-style": "none",
+                  "svg-icon": "",
+                  "title": "",
+                  "subtitle": "",
+                  "office_hours1": "",
+                  "office_hours2": "",
+                  "office_hours3": "",
+                  "office_hours4": "",
+                  "office_hours5": "",
+                  "office_hours6": "",
+                  "office_hours7": "",
+                  "contact_information": "",
+                  "button_text": "",
+                  "button_link": "",
                   "button-display": "pc-and-mobile",
                   "button-style": "white",
                   "button-action": "pageRedirect"
@@ -484,6 +496,37 @@
                 "template": {
                   "name": "Bi Directional Content Item",
                   "model": "bi-directional-content-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Brand Matrix",
+          "id": "brand-matrix",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Brand Matrix",
+                  "model": "brand-matrix",
+                  "filter": "brand-matrix"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Brand Matrix Items",
+          "id": "brand-matrix-items",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Brand Matrix Items",
+                  "model": "brand-matrix-items"
                 }
               }
             }

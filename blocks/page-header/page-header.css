@@ -36,7 +36,15 @@
 }
 
 .align-center {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.align-center p {
+  @media (width>=860px) {
+    max-width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+  }
 }
 
 .align-left {
