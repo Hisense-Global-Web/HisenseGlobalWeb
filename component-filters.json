@@ -152,7 +152,8 @@
       "warning-note",
       "warranty-accordion",
       "warranty-accordion-item",
-      "warranty-information"
+      "warranty-information",
+      "brand-matrix"
     ]
   },
   {
@@ -228,6 +229,12 @@
     "id": "bi-directional-content",
     "components": [
       "bi-directional-content-item"
+    ]
+  },
+  {
+    "id": "brand-matrix",
+    "components": [
+      "brand-matrix-items"
     ]
   },
   {

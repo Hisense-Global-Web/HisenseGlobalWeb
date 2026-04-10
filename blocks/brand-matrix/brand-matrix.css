@@ -1,0 +1,58 @@
+.brand-matrix {
+  .brand-matrix-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* 整体居中 */
+    gap: var(--size-40) var(--size-30);
+
+    .brand-matrix-item {
+      flex-shrink: 0;
+      width: min(calc(200 / var(--breakpoint-pc) * 100vw), 200px); /* 固定宽度 */
+      height: var(--size-150); /* 固定高度 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--size-20); /* 圆角可选 */
+      padding: var(--size-30) var(--size-55);
+
+      &.gradient-val {
+        background: linear-gradient(180deg, #EBFAFA 0%, #F7FCFC 100%), rgb(255 255 255 / 0%);
+      }
+
+      &.transparent-val {
+        background: transparent;
+      }
+
+      .brand-logo {
+        width: var(--size-90);
+        height: var(--size-90);
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain; /* 保持图片比例 */
+        }
+      }
+    }
+  }
+}
+
+@media (width < 860px) {
+  .brand-matrix {
+    .brand-matrix-container {
+      gap: var(--size-18) var(--size-12);
+
+      .brand-matrix-item {
+        width: var(--size-110);
+        height: var(--size-80);
+        padding: var(--size-10) var(--size-25);
+        border-radius: var(--size-12);
+
+        .brand-logo {
+          width: var(--size-60);
+          height: var(--size-60);
+        }
+      }
+    }
+  }
+}

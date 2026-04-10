@@ -502,6 +502,37 @@
           }
         },
         {
+          "title": "Brand Matrix",
+          "id": "brand-matrix",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Brand Matrix",
+                  "model": "brand-matrix",
+                  "filter": "brand-matrix"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Brand Matrix Items",
+          "id": "brand-matrix-items",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Brand Matrix Items",
+                  "model": "brand-matrix-items"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "CallToAction Banner",
           "id": "calltoaction-banner",
           "plugins": {
