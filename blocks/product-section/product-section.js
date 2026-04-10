@@ -860,6 +860,12 @@ export default async function decorate(block) {
   if (!fields.includes('series')) {
     series.classList.add('hide');
   }
+  if (!fields.includes('buttons')) {
+    series.classList.add('hide');
+  }
+  if (!fields.includes('priceInfo_regularPrice')) {
+    series.classList.add('hide');
+  }
   setElementHidden(buy, !showBuyButton);
   setElementHidden(price, true);
   if (!fields.includes('awards')) {
