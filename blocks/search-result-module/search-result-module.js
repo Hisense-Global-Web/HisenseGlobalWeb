@@ -52,6 +52,76 @@ const normalizeValueForSort = (value, sortProperty) => {
   return String(value).toLowerCase();
 };
 
+const compareStringsCustom = (a, b, isTitle = false) => {
+  const strA = String(a);
+  const strB = String(b);
+
+  const len = Math.max(strA.length, strB.length);
+
+  for (let i = 0; i < len; i += 1) {
+    const charA = strA[i];
+    const charB = strB[i];
+
+    if (charA === undefined) return -1;
+    if (charB === undefined) return 1;
+
+    const isDigitA = /\d/.test(charA);
+    const isDigitB = /\d/.test(charB);
+
+    const isLetterA = /[a-zA-Z]/.test(charA);
+    const isLetterB = /[a-zA-Z]/.test(charB);
+
+    // 第一优先级：字母 > 数字
+    if (isLetterA && isDigitB) return -1;
+    if (isDigitA && isLetterB) return 1;
+
+    // 数字 vs 数字：9 → 0
+    if (isDigitA && isDigitB) {
+      if (charA !== charB) {
+        return charB - charA;
+      }
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    // 字母 vs 字母
+    if (isLetterA && isLetterB) {
+      const lowerA = charA.toLowerCase();
+      const lowerB = charB.toLowerCase();
+
+      // 第一层：字母顺序
+      if (lowerA !== lowerB) {
+        if (isTitle) {
+          // A → Z
+          return lowerA < lowerB ? -1 : 1;
+        }
+        // Z → A
+        return lowerA > lowerB ? -1 : 1;
+      }
+
+      // 第二层：大小写（大写优先）
+      if (charA !== charB) {
+        const isUpperA = charA === charA.toUpperCase();
+        const isUpperB = charB === charB.toUpperCase();
+
+        if (isUpperA !== isUpperB) {
+          return isUpperA ? -1 : 1;
+        }
+      }
+
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    // 其他字符（兜底）
+    if (charA !== charB) {
+      return charA.localeCompare(charB);
+    }
+  }
+
+  return 0;
+};
+
 function getTagRoot(tagData) {
   if (!tagData) return null;
   if (Array.isArray(tagData.data) && tagData.data.length > 0) return tagData.data[0];
@@ -684,12 +754,15 @@ export default async function decorate(block) {
               if (valA === null) return 1;
               if (valB === null) return -1;
               if (typeof valA === 'number' && typeof valB === 'number') {
-                return ascending || sortProperty === 'title' ? valA - valB : valB - valA;
+                return ascending ? valA - valB : valB - valA;
               }
 
-              return ascending || sortProperty === 'title'
-                ? valA.localeCompare(valB, 'en', { sensitivity: 'base', caseFirst: 'upper' })
-                : valB.localeCompare(valA, 'en', { sensitivity: 'base', caseFirst: 'upper' });
+              // 字符串自定义排序
+              return compareStringsCustom(
+                valA,
+                valB,
+                sortProperty === 'title',
+              );
             });
             const arr = sortArray(tabData.filteredItems, sortKey);
             tabData.filteredItems = JSON.parse(JSON.stringify(arr));
