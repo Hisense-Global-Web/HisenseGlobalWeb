@@ -1764,6 +1764,17 @@
     ]
   },
   {
+    "id": "column",
+    "title": "Sub Module",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "sub-menu-link"
+    ]
+  },
+  {
     "id": "company-page-navigation",
     "fields": []
   },

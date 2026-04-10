@@ -54,6 +54,17 @@
           "label": "Rows"
         }
       ]
+    },
+    {
+      "id": "column",
+      "title": "Sub Module",
+      "components": [
+        "text",
+        "image",
+        "button",
+        "title",
+        "sub-menu-link"
+      ]
     }
   ],
   "filters": [
@@ -62,17 +73,6 @@
       "components": [
         "column"
       ]
-    },
-        {
-          "id": "column",
-          "title": "Sub Module",
-          "components": [
-            "text",
-            "image",
-            "button",
-            "title",
-            "sub-menu-link"
-          ]
-        }
+    }
   ]
 }
