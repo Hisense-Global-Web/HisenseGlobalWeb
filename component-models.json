@@ -1745,7 +1745,7 @@
         "component": "richtext",
         "name": "subtitle",
         "value": "",
-        "label": "Sub Title",
+        "label": "Eyebrow",
         "valueType": "string"
       }
     ]
@@ -1834,13 +1834,13 @@
         "component": "text",
         "valueType": "string",
         "name": "title",
-        "label": "Title",
+        "label": "Eyebrow",
         "multi": false
       },
       {
         "component": "text",
         "name": "subtitle",
-        "label": "Sub Title",
+        "label": "Title",
         "valueType": "string"
       },
       {
@@ -2693,7 +2693,7 @@
         "component": "text",
         "valueType": "string",
         "name": "container_overline",
-        "label": "Overline",
+        "label": "Eyebrow",
         "value": "",
         "required": true
       },
@@ -5611,13 +5611,8 @@
         "component": "text",
         "name": "state",
         "label": "State Tag",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "category",
-        "label": "Category Tag",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",
@@ -5664,18 +5659,54 @@
     ]
   },
   {
-    "id": "store-information-card-items",
+    "id": "service-items",
     "fields": [
+      {
+        "component": "text",
+        "name": "service_category",
+        "label": "Service Category",
+        "valueType": "string",
+        "required": true
+      },
       {
         "component": "reference",
         "name": "service_icon",
         "label": "Service Icon",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "store-locator",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label1",
+        "label": "Locator Label 1",
+        "valueType": "string"
       },
       {
         "component": "text",
-        "name": "service_category",
-        "label": "Service Category",
+        "name": "placeholder1",
+        "label": "Locator Placeholder 1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "label2",
+        "label": "Locator Label 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "placeholder2",
+        "label": "Locator Placeholder 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button",
+        "label": "Button Copy",
         "valueType": "string"
       }
     ]
