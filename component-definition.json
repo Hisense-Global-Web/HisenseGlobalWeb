@@ -358,14 +358,14 @@
           }
         },
         {
-          "title": "Article List Item",
+          "title": "Key Facts",
           "id": "article-body-list-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Article List Item",
+                  "name": "Key Facts",
                   "model": "article-body-list-item"
                 }
               }
