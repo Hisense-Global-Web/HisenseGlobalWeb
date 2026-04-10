@@ -308,6 +308,9 @@
         align-items: center;
 
         .page-button {
+          padding: 0;
+          margin: 0;
+          height: var(--size-20, 20px);
           background-color: transparent;
           color: var(--color-primary-grey-70, #333);
           text-align: center;
