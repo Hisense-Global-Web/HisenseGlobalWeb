@@ -208,6 +208,7 @@
     line-height: 1.5;
     font-weight: var(--fontweight-book);
     color: var(--color-primary-grey-50);
+    text-decoration: line-through;
   }
   
   .plp-product-discounts {
