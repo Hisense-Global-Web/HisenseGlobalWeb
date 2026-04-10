@@ -42,13 +42,8 @@
           "component": "text",
           "name": "state",
           "label": "State Tag",
-          "valueType": "string"
-        },
-         {
-          "component": "text",
-          "name": "category",
-          "label": "Category Tag",
-          "valueType": "string"
+          "valueType": "string",
+          "required": true
         },
         {
           "component": "text",
@@ -97,15 +92,16 @@
       "id": "store-information-card-items",
       "fields": [
          {
-          "component": "reference",
-          "name": "service_icon",
-          "label": "Service Icon",
-          "valueType": "string"
-        },
-         {
           "component": "text",
           "name": "service_category",
           "label": "Service Category",
+          "valueType": "string",
+           "required": true
+        },
+        {
+          "component": "reference",
+          "name": "service_icon",
+          "label": "Service Icon",
           "valueType": "string"
         }
        
