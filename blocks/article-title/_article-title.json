@@ -27,12 +27,12 @@
           "component": "text",
           "valueType": "string",
           "name": "title-content",
-          "label": "Title"
+          "label": "Eyebrow"
         },
         {
           "component": "text",
           "name": "subtitle-content",
-          "label": "Subtitle",
+          "label": "Title",
           "valueType": "string"
         },
         {

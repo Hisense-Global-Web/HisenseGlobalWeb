@@ -17,7 +17,6 @@
     },
     {
       "title": "Key Facts",
-      
       "id": "article-body-list-item",
       "plugins": {
         "xwalk": {
@@ -40,14 +39,14 @@
           "component": "text",
           "valueType": "string",
           "name": "list_title",
-          "label": "List Title",
+          "label": "Label",
           "required": true
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "item_headline",
-          "label": "Item Headline",
+          "label": "Value Text",
           "required": true
         }
       ]

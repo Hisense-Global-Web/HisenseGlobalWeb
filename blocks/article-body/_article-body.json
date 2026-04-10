@@ -145,7 +145,7 @@
         {
           "component": "text",
           "name": "headline",
-          "label": "Headline",
+          "label": "Title",
           "value": ""
         }
       ]

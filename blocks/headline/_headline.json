@@ -74,7 +74,7 @@
           "component": "text",
           "valueType": "string",
           "name": "subtitle",
-          "label": "Subtitle",
+          "label": "Title",
           "condition": { "===": [{ "var": "data-source" }, "fill"] }
         },
         {
