@@ -248,6 +248,10 @@ main .section.product-gallery-container.product-section-container .product-secti
   display: flex;
   gap: var(--size-16);
   margin-bottom: var(--size-16);
+
+  @media (width < 860px) {
+    margin-bottom: 0;
+  }
 }
 
 .pdp-btn-group .pdp-buy-btn.ps-widget[ps-sku],
@@ -417,6 +421,7 @@ main .section.product-gallery-container.product-section-container .product-secti
     padding: 0 var(--size-12);
     display: flex;
     gap: var(--size-16);
+    margin-top: var(--size-24);
 
 
     .pdp-badges-mobile {
@@ -466,6 +471,7 @@ main .section.product-gallery-container.product-section-container .product-secti
       font-size: var(--size-18);
       line-height: 1.5;
       max-width: unset;
+      padding: 0 var(--size-30);
     }
   }
   
