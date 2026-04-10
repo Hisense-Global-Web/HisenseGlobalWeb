@@ -1011,7 +1011,7 @@
       {
         "component": "text",
         "name": "headline",
-        "label": "Headline",
+        "label": "Title",
         "value": ""
       }
     ]
@@ -1102,14 +1102,14 @@
         "component": "text",
         "valueType": "string",
         "name": "list_title",
-        "label": "List Title",
+        "label": "Label",
         "required": true
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "item_headline",
-        "label": "Item Headline",
+        "label": "Value Text",
         "required": true
       }
     ]
@@ -1121,12 +1121,12 @@
         "component": "text",
         "valueType": "string",
         "name": "title-content",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "name": "subtitle-content",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       },
       {
@@ -2932,7 +2932,7 @@
         "component": "text",
         "valueType": "string",
         "name": "subtitle",
-        "label": "Subtitle",
+        "label": "Title",
         "condition": {
           "===": [
             {

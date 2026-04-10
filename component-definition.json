@@ -274,14 +274,14 @@
           }
         },
         {
-          "title": "Text Body Image",
+          "title": "Article Body Image",
           "id": "text-body-image",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Text Body Image",
+                  "name": "Article Body Image",
                   "model": "text-body-image",
                   "itemType": "image"
                 }
@@ -290,14 +290,14 @@
           }
         },
         {
-          "title": "Text Body Headline",
+          "title": "Article Section Title",
           "id": "text-body-headline",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Text Body Headline",
+                  "name": "Article Section Title",
                   "model": "text-body-headline",
                   "itemType": "headline"
                 }
@@ -306,14 +306,14 @@
           }
         },
         {
-          "title": "Text Body Content",
+          "title": "Article Body Text",
           "id": "text-body-content",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Text Body Content",
+                  "name": "Article Body Text",
                   "model": "text-body-content",
                   "itemType": "content",
                   "data-item-type": "content"
@@ -370,14 +370,14 @@
           }
         },
         {
-          "title": "Article List Item",
+          "title": "Key Facts",
           "id": "article-body-list-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Article List Item",
+                  "name": "Key Facts",
                   "model": "article-body-list-item"
                 }
               }
@@ -385,7 +385,7 @@
           }
         },
         {
-          "title": "Article",
+          "title": "Article Title",
           "id": "article-title",
           "plugins": {
             "xwalk": {
@@ -1356,14 +1356,14 @@
           }
         },
         {
-          "title": "Headline",
+          "title": "Top News Story",
           "id": "headline",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Headline",
+                  "name": "Top News Story",
                   "model": "headline",
                   "key-value": true,
                   "data-source": "fill",
