@@ -1,13 +1,38 @@
 import { isMobileWindow } from './device.js';
 
+export function resolveStoreInformationSelectNodes(root = document) {
+  const selectDiv = root?.querySelectorAll?.('.store-locator')?.[0] || null;
+  if (!selectDiv || !selectDiv.children || selectDiv.children.length < 5) {
+    return null;
+  }
+
+  const [label1, placeholder1, label2, placeholder2, buttonDiv] = [...selectDiv.children];
+  return {
+    selectDiv,
+    label1,
+    placeholder1,
+    label2,
+    placeholder2,
+    buttonDiv,
+  };
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export function storeInformationSelect() {
   const el = document.querySelectorAll('.store-information-card-container');
-  const selectDiv = document.querySelectorAll('.store-locator')[0];
-  if (selectDiv) {
-    selectDiv.classList.add('select-container');
+  const nodes = resolveStoreInformationSelectNodes(document);
+  if (!nodes) {
+    return;
   }
-  const [label1, placeholder1, label2, placeholder2, buttonDiv] = [...selectDiv.children];
+  const {
+    selectDiv,
+    label1,
+    placeholder1,
+    label2,
+    placeholder2,
+    buttonDiv,
+  } = nodes;
+  selectDiv.classList.add('select-container');
   const selectTagTitle = document.createElement('div');
   selectTagTitle.className = 'select-tag-title';
   selectTagTitle.innerHTML = label1?.firstElementChild.textContent?.trim();
