@@ -17,7 +17,11 @@ export function shouldShowHybrisFavoriteButton(options = {}) {
 }
 
 export function shouldShowPdpFavoriteButton(options = {}) {
-  return shouldShowHybrisFavoriteButton(options);
+  const {
+    hasInventory = false,
+  } = options;
+
+  return Boolean(hasInventory);
 }
 
 export function shouldShowPlpFavoriteButton(options = {}) {
