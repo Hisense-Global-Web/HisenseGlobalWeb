@@ -1166,14 +1166,14 @@
         "component": "text",
         "name": "title",
         "value": "",
-        "label": "Title",
+        "label": "Eyebrow",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       }
     ]
@@ -1286,14 +1286,14 @@
       {
         "component": "text",
         "name": "buy_text",
-        "label": "Buy Now Button Text",
+        "label": "Button Text",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "aem-content",
         "name": "buy_link",
-        "label": "Buy Now Button Link",
+        "label": "Button Link",
         "valueType": "string",
         "value": ""
       },
@@ -4834,14 +4834,14 @@
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "title",
         "value": "",
-        "label": "Title",
+        "label": "Eyebrow",
         "valueType": "string"
       }
     ]
