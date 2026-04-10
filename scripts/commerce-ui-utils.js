@@ -21,7 +21,11 @@ export function shouldShowPdpFavoriteButton(options = {}) {
 }
 
 export function shouldShowPlpFavoriteButton(options = {}) {
-  return shouldShowHybrisFavoriteButton(options);
+  const {
+    hasInventory = false,
+  } = options;
+
+  return Boolean(hasInventory);
 }
 
 export function resolveProductCardTagLabel(product = {}) {

@@ -1,5 +1,6 @@
 .page-header-wrapper {
   width: 100%;
+  padding: 0 !important;
 }
 
 .text-green-50 {

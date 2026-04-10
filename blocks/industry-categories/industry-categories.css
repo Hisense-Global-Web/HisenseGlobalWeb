@@ -133,7 +133,7 @@
  
 
    @media (width < 860px) {
-     width: calc(76.923vw - var(--size-48));
+     width: calc(76.923vw);
      padding: var(--size-24)!important;
   }
   

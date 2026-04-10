@@ -4947,10 +4947,6 @@
             "value": "buttons"
           },
           {
-            "name": "PriceInfo RegularPrice",
-            "value": "priceInfo_regularPrice"
-          },
-          {
             "name": "Awards",
             "value": "awards"
           },
@@ -5308,7 +5304,7 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "richtext",
         "name": "subtitle",
         "label": "SubTitle",
         "valueType": "string"
