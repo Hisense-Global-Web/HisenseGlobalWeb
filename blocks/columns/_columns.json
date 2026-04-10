@@ -1,7 +1,7 @@
 {
   "definitions": [
     {
-      "title": "Sub Module Columns",
+      "title": "Columns",
       "id": "columns",
       "plugins": {
         "xwalk": {
@@ -65,7 +65,6 @@
     },
         {
           "id": "column",
-          "title": "Sub Module",
           "components": [
             "text",
             "image",
