@@ -1,14 +1,14 @@
 {
   "definitions": [
     {
-      "title": "Headline",
+      "title": "Top News Story",
       "id": "headline",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Headline",
+              "name": "Top News Story",
               "model": "headline",
               "key-value": true,
               "data-source": "fill",
@@ -74,7 +74,7 @@
           "component": "text",
           "valueType": "string",
           "name": "subtitle",
-          "label": "Subtitle",
+          "label": "Title",
           "condition": { "===": [{ "var": "data-source" }, "fill"] }
         },
         {

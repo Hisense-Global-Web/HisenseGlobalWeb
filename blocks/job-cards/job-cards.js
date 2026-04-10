@@ -151,7 +151,6 @@ export default function decorate(block) {
   let fields = [];
   let fieldsResource = null;
   let loadMoreTextContent = null;
-  let loadMoreLink = null;
   let noResultMessage = null;
   let departmentIcon = '';
   let locationIcon = '';
@@ -190,15 +189,10 @@ export default function decorate(block) {
       // 第三行：loadMoreTextContent
       if (text) {
         loadMoreTextContent = text;
+      } else {
+        loadMoreTextContent = 'Load More';
       }
     } else if (index === 7) {
-      // 第四行：loadMoreLink
-      if (anchor) {
-        loadMoreLink = anchor.getAttribute('href') || anchor.textContent.trim();
-      } else if (text) {
-        loadMoreLink = text;
-      }
-    } else if (index === 8) {
       // 第五行：noResultMessage
       if (text) {
         noResultMessage = row.innerHTML;
@@ -216,10 +210,9 @@ export default function decorate(block) {
   productsGrid.className = 'job-cards-list';
   const productsLoadMore = document.createElement('div');
   productsLoadMore.className = 'plp-load-more';
-  // const loadMoreUrl = loadMoreLink || '#';
   // 新增：分页相关状态
   let currentPage = 1;
-  const loadMoreStep = 27;
+  const loadMoreStep = 10;
   let allGroupedData = []; // 存储所有聚合后的产品数据
   let compareDataArr = []; // 存储比较的产品数据
 
@@ -234,7 +227,7 @@ export default function decorate(block) {
   });
 
   const span = document.createElement('span');
-  span.textContent = loadMoreTextContent || 'Load more';
+  span.textContent = loadMoreTextContent || 'Load More';
 
   const productsNoResult = document.createElement('div');
   productsNoResult.className = 'job-cards-no-result';
@@ -273,19 +266,6 @@ export default function decorate(block) {
     if (fieldsResource) fieldsInner.setAttribute('data-aue-resource', fieldsResource);
     fieldsRow.appendChild(fieldsInner);
     topWrapper.appendChild(fieldsRow);
-
-    const loadMoreLinkRow = document.createElement('div');
-    const loadMoreLinkInner = document.createElement('div');
-    const loadMoreLinkP = document.createElement('p');
-    const loadMoreLinkA = document.createElement('a');
-    loadMoreLinkA.href = loadMoreLink || '#';
-    loadMoreLinkA.title = loadMoreLink || '';
-    loadMoreLinkA.textContent = loadMoreLink || '';
-    loadMoreLinkA.className = 'button';
-    loadMoreLinkP.appendChild(loadMoreLinkA);
-    loadMoreLinkInner.appendChild(loadMoreLinkP);
-    loadMoreLinkRow.appendChild(loadMoreLinkInner);
-    topWrapper.appendChild(loadMoreLinkRow);
 
     block.replaceChildren(topWrapper, productsBox);
   } else {
@@ -570,7 +550,18 @@ export default function decorate(block) {
     currentPage = 1;
     productsGrid.innerHTML = ''; // 清空现有内容
 
-    allGroupedData = items;
+    const filteredList = items.filter((item) => {
+      const today = new Date().toISOString().split('T')[0]; // 获取今天日期：YYYY-MM-DD
+      return item.jobPostedTime <= today; // 时间字符串直接比较即可
+    });
+
+    const sortedByTime = [...filteredList].sort((a, b) => new Date(b.jobPostedTime) - new Date(a.jobPostedTime));
+    const latestItem = sortedByTime[0];
+    const restItems = sortedByTime.slice(1);
+    const restSorted = restItems.sort((a, b) => a.jobTitle.localeCompare(b.jobTitle, 'zh-CN', { sensitivity: 'base' }));
+
+    allGroupedData = [latestItem, ...restSorted];
+
     productsGrid.setAttribute('data-group-length', allGroupedData.length);
 
     // 渲染第一页

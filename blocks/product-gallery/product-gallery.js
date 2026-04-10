@@ -32,6 +32,10 @@ function buildTab(itemElement, index) {
   const cells = [...itemElement.children];
 
   const imageCell = cells.find((cell) => cell.querySelector('picture')) || cells[0];
+  const videoHref = itemElement.querySelector('a')?.href;
+  if (videoHref) {
+    li.dataset.videoHref = videoHref;
+  }
 
   const textCells = cells.filter((cell) => {
     const text = cell.textContent.trim();
@@ -43,6 +47,22 @@ function buildTab(itemElement, index) {
   imgBox.className = 'product-filter-img-box';
   if (imageCell) {
     const picture = imageCell.querySelector('picture');
+    if (videoHref) {
+      const videoM = document.createElement('video');
+      videoM.classList.add('autoplay-video');
+      videoM.setAttribute('data-video-autoplay', 'true');
+      videoM.controls = true;
+      videoM.width = 640;
+      videoM.preload = 'auto';
+      videoM.playsInline = true;
+      videoM.muted = true; // iPhone 要求静音才能自动播放
+      const source = document.createElement('source');
+      source.src = videoHref;
+      source.type = 'video/mp4';
+      videoM.innerHTML = '';
+      videoM.appendChild(source);
+      imgBox.replaceChildren(videoM);
+    }
     if (picture) {
       const imgWrapper = document.createElement('div');
       imgWrapper.className = 'product-filter-img';
@@ -66,10 +86,34 @@ function buildTab(itemElement, index) {
     moveInstrumentation(textCell, textSpan);
   }
   li.addEventListener('click', (e) => {
+    const mainVideoImg = document.querySelector('.pdp-main-img');
+    const videoUrl = e.currentTarget.dataset.videoHref;
+    if (videoUrl) {
+      const video = document.createElement('video');
+      video.classList.add('autoplay-video');
+      video.setAttribute('data-video-autoplay', 'true');
+      video.controls = true;
+      video.width = 640;
+      video.preload = 'auto';
+      video.playsInline = true;
+      video.muted = true; // iPhone 要求静音才能自动播放
+      const source = document.createElement('source');
+      source.src = videoUrl;
+      source.type = 'video/mp4';
+      video.innerHTML = '';
+      video.appendChild(source);
+      video.addEventListener('canplay', () => {
+        video.play().catch(() => {});
+      });
+
+      mainVideoImg.replaceChildren(video);
+      return;
+    }
     const imgUrl = e.target?.src;
-    const mainImg = document.querySelector('.pdp-main-img img');
-    if (mainImg) {
-      mainImg.src = imgUrl;
+    if (mainVideoImg) {
+      const img = document.createElement('img');
+      img.src = imgUrl;
+      mainVideoImg.replaceChildren(img);
     }
   });
 
@@ -145,6 +189,11 @@ function updateActiveDot() {
     if (isActive) {
       dots.forEach((d) => d.classList.remove('active'));
       dots[index].classList.add('active');
+
+      if (item.dataset.videoHref) {
+        const v = item.querySelector('video');
+        v.play().catch(() => {});
+      }
     }
   });
 }

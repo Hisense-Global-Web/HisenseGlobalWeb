@@ -558,6 +558,19 @@
         "name": "id",
         "label": "Section ID",
         "description": "Enter a unique ID."
+      },
+      {
+        "component": "text",
+        "name": "version",
+        "label": "Announcement Version",
+        "placeholder": "1.0",
+        "description": "Enter the version of the announcement.",
+        "required": true,
+        "valueFormat": "regexp",
+        "validation": {
+          "regExp": "^\\d+\\.\\d+$",
+          "customErrorMsg": "Version must be in the format 'X.Y' where X and Y are numbers."
+        }
       }
     ]
   },
@@ -805,22 +818,19 @@
     "fields": [
       {
         "component": "reference",
-        "name": "image",
-        "value": "",
+        "name": "svg-icon",
         "label": "SVG icon",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "title",
-        "value": "",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "subtitle",
-        "value": "",
         "label": "Subtitle",
         "valueType": "string"
       },
@@ -834,49 +844,42 @@
           {
             "component": "text",
             "name": "office_hours1",
-            "value": "",
             "label": "Office Hours 1",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours2",
-            "value": "",
             "label": "Office Hours 2",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours3",
-            "value": "",
             "label": "Office Hours 3",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours4",
-            "value": "",
             "label": "Office Hours 4",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours5",
-            "value": "",
             "label": "Office Hours 5",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours6",
-            "value": "",
             "label": "Office Hours 6",
             "valueType": "string"
           },
           {
             "component": "text",
             "name": "office_hours7",
-            "value": "",
             "label": "Office Hours 7",
             "valueType": "string"
           }
@@ -885,39 +888,8 @@
       {
         "component": "text",
         "name": "contact_information",
-        "value": "",
         "label": "Contact Information(Phone Number or Email)",
         "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "button_text",
-        "label": "Button Text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "button_link",
-        "label": "Button Link",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "select",
-        "name": "button-style",
-        "label": "Button Style",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "White",
-            "value": "white"
-          },
-          {
-            "name": "Green 60",
-            "value": "green60"
-          }
-        ]
       },
       {
         "component": "select",
@@ -936,6 +908,42 @@
           {
             "name": "Send Email",
             "value": "sendEmail"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "button-action"
+            },
+            "pageRedirect"
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "name": "button-style",
+        "label": "Button Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "White",
+            "value": "white"
+          },
+          {
+            "name": "Green 60",
+            "value": "green60"
           }
         ]
       },
@@ -1003,7 +1011,7 @@
       {
         "component": "text",
         "name": "headline",
-        "label": "Headline",
+        "label": "Title",
         "value": ""
       }
     ]
@@ -1094,14 +1102,14 @@
         "component": "text",
         "valueType": "string",
         "name": "list_title",
-        "label": "List Title",
+        "label": "Label",
         "required": true
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "item_headline",
-        "label": "Item Headline",
+        "label": "Value Text",
         "required": true
       }
     ]
@@ -1113,12 +1121,12 @@
         "component": "text",
         "valueType": "string",
         "name": "title-content",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "name": "subtitle-content",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       },
       {
@@ -1158,14 +1166,14 @@
         "component": "text",
         "name": "title",
         "value": "",
-        "label": "Title",
+        "label": "Eyebrow",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       }
     ]
@@ -1278,14 +1286,14 @@
       {
         "component": "text",
         "name": "buy_text",
-        "label": "Buy Now Button Text",
+        "label": "Button Text",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "aem-content",
         "name": "buy_link",
-        "label": "Buy Now Button Link",
+        "label": "Button Link",
         "valueType": "string",
         "value": ""
       },
@@ -1300,6 +1308,36 @@
         "name": "download_link",
         "label": "Download Link",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "brand-matrix-items",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "gradient-val",
+        "label": "Background",
+        "description": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Gradient",
+            "value": "gradient-val"
+          },
+          {
+            "name": "Transparent",
+            "value": "transparent-val"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "brand-img",
+        "label": "Image",
+        "multi": false
       }
     ]
   },
@@ -1396,7 +1434,7 @@
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Subtitle",
+        "label": "Eyebrow",
         "valueType": "string"
       },
       {
@@ -2804,15 +2842,15 @@
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "pc_downloadtext",
-        "label": "PC: Download Text",
-        "valueType": "string"
-      },
-      {
         "component": "reference",
         "name": "pc_downladicon",
         "label": "PC: Download Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "pc_downloadtext",
+        "label": "PC: Download Text",
         "valueType": "string"
       },
       {
@@ -2894,7 +2932,7 @@
         "component": "text",
         "valueType": "string",
         "name": "subtitle",
-        "label": "Subtitle",
+        "label": "Title",
         "condition": {
           "===": [
             {
@@ -3077,7 +3115,7 @@
             "component": "text",
             "name": "special_text",
             "value": "",
-            "label": "Colorful Text(teal)",
+            "label": "Eyebrow",
             "valueType": "string"
           },
           {
@@ -3709,13 +3747,6 @@
         "description": "Text content for load more button"
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "loadMoreLink",
-        "label": "Load More Link",
-        "description": "Link for load more button"
-      },
-      {
         "component": "richtext",
         "valueType": "string",
         "name": "noResultMessage",
@@ -3768,7 +3799,7 @@
         "value": "",
         "label": "Text",
         "valueType": "string",
-        "description": "Select H5 as a paragraph title"
+        "description": "Select H5 as a paragraph title, and use '/n' to set a blank line between different paragraphs. Don't edit the text in the preview, please edit the text in the right side content panel, otherwise all blank lines will be lost when saving."
       }
     ]
   },
@@ -3813,7 +3844,7 @@
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Colorful Text",
+        "label": "Eyebrow",
         "valueType": "string"
       },
       {
@@ -3977,7 +4008,7 @@
       {
         "component": "text",
         "name": "text_body",
-        "label": "Text",
+        "label": "Sub Title",
         "valueType": "string",
         "value": "",
         "placeholder": "this is text content"
@@ -4025,12 +4056,12 @@
         "component": "text",
         "valueType": "string",
         "name": "title-content",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "name": "subtitle-content",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       },
       {
@@ -4511,13 +4542,13 @@
         "component": "text",
         "valueType": "string",
         "name": "p-title",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "p-subtitle",
-        "label": "SubTitle"
+        "label": "Title"
       },
       {
         "component": "text",
@@ -4590,14 +4621,6 @@
         "name": "filter-title",
         "label": "Filter Title",
         "value": "Your Budget",
-        "required": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "currency-symbol",
-        "label": "Currency Symbol",
-        "value": "$",
         "required": true
       },
       {
@@ -4811,14 +4834,14 @@
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "title",
         "value": "",
-        "label": "Title",
+        "label": "Eyebrow",
         "valueType": "string"
       }
     ]
@@ -4904,7 +4927,7 @@
         "multi": true,
         "options": [
           {
-            "name": "Favorite",
+            "name": "Wishlist",
             "value": "favorite"
           },
           {
@@ -4920,7 +4943,7 @@
             "value": "rating"
           },
           {
-            "name": "Buttons",
+            "name": "Size",
             "value": "buttons"
           },
           {
@@ -4932,7 +4955,7 @@
             "value": "awards"
           },
           {
-            "name": "Position",
+            "name": "Spec",
             "value": "position"
           },
           {
@@ -6012,13 +6035,13 @@
         "component": "text",
         "valueType": "string",
         "name": "title",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "subtitle",
-        "label": "SubTitle"
+        "label": "Title"
       },
       {
         "component": "text",
@@ -6366,13 +6389,13 @@
         "component": "text",
         "valueType": "string",
         "name": "info_title",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "info_subtitle",
-        "label": "SubTitle"
+        "label": "Title"
       },
       {
         "component": "text",

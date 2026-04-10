@@ -153,7 +153,8 @@
       "warranty-accordion",
       "warranty-accordion-item",
       "warranty-information",
-      "store-locator"
+      "store-locator",
+      "brand-matrix"
     ]
   },
   {
@@ -229,6 +230,12 @@
     "id": "bi-directional-content",
     "components": [
       "bi-directional-content-item"
+    ]
+  },
+  {
+    "id": "brand-matrix",
+    "components": [
+      "brand-matrix-items"
     ]
   },
   {
@@ -466,7 +473,8 @@
   {
     "id": "product-gallery",
     "components": [
-      "product-gallery-item"
+      "product-gallery-item",
+      "video"
     ]
   },
   {

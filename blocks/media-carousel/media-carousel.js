@@ -323,9 +323,9 @@ export default async function decorate(block) {
           break;
         default:
           // btn
-          if (textDom.querySelector('a') && textDom.querySelector('.button-container').nextElementSibling.textContent) {
-            textDom.querySelector('a').textContent = textDom.querySelector('.button-container').nextElementSibling.textContent;
-            textDom.querySelector('.button-container').nextElementSibling.remove();
+          if (textDom.querySelector('a') && textDom.querySelector('a').parentElement.nextElementSibling.textContent) {
+            textDom.querySelector('a').textContent = textDom.querySelector('a').parentElement.nextElementSibling.textContent;
+            textDom.querySelector('a').parentElement.nextElementSibling.remove();
           }
           btnDom = textDom;
           btnDom.className = 'btn-div';

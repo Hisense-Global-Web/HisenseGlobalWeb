@@ -1,0 +1,75 @@
+{
+  "definitions": [
+    {
+      "title": "Brand Matrix",
+      "id": "brand-matrix",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Brand Matrix",
+              "model": "brand-matrix",
+              "filter": "brand-matrix"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Brand Matrix Items",
+      "id": "brand-matrix-items",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Brand Matrix Items",
+              "model": "brand-matrix-items"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "brand-matrix-items",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "value": "gradient-val",
+          "label": "Background",
+          "description": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Gradient",
+              "value": "gradient-val"
+            },
+            {
+              "name": "Transparent",
+              "value": "transparent-val"
+            }
+          ]
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "brand-img",
+          "label": "Image",
+          "multi": false
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "brand-matrix",
+      "components": [
+        "brand-matrix-items"
+      ]
+    }
+  ]
+}

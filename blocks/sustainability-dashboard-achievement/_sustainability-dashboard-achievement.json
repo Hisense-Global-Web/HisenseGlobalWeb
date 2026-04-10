@@ -103,13 +103,13 @@
           "component": "text",
           "valueType": "string",
           "name": "title",
-          "label": "Title"
+          "label": "Eyebrow"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "subtitle",
-          "label": "SubTitle"
+          "label": "Title"
         },
         {
           "component": "text",

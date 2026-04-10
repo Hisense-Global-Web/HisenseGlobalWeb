@@ -6,6 +6,8 @@ const HYBRIS_AUTH_STATE_KEY = 'hybrisAuthState';
 const HYBRIS_AUTH_BROADCAST_KEY = 'hybrisAuthBroadcast';
 const HYBRIS_AUTH_BROADCAST_LOGOUT = 'logout';
 const HYBRIS_GUEST_CART_IDENTIFIER_KEY = 'hybrisGuestCartIdentifier';
+const HYBRIS_AUTH_REVALIDATE_INTERVAL_MILLIS = 60 * 1000;
+const HYBRIS_PRODUCT_CACHE_BUST_INTERVAL_MILLIS = 5 * 60 * 1000;
 export const HYBRIS_DATA_EVENT_NAME = 'hisense:hybris-data';
 
 const DEFAULT_AUTH_STATE = {
@@ -21,7 +23,10 @@ let sessionToken = '';
 let authState = { ...DEFAULT_AUTH_STATE };
 let authStatusPromise = null;
 let authInitializationPromise = null;
+let authStateValidatedAt = 0;
 const productCache = new Map();
+const productRequestCache = new Map();
+let productCacheBucket = '';
 let guestCartIdentifier = '';
 let guestCartEnsurePromise = null;
 
@@ -97,6 +102,18 @@ function hasUsableAuthState(state = authState) {
       && normalizedState.expiresAt
       && normalizedState.expiresAt > Date.now(),
   );
+}
+
+function hasFreshValidatedAuthState(state = authState) {
+  return Boolean(
+    authStateValidatedAt
+      && (Date.now() - authStateValidatedAt) < HYBRIS_AUTH_REVALIDATE_INTERVAL_MILLIS
+      && hasUsableAuthState(state),
+  );
+}
+
+function emitHybrisAuthStateEvent(nextState = authState) {
+  emitHybrisDataEvent('auth', normalizeAuthState(nextState));
 }
 
 function clearStoredAuthState() {
@@ -433,17 +450,24 @@ function resetAuthState() {
   authState = { ...DEFAULT_AUTH_STATE };
   authStatusPromise = null;
   authInitializationPromise = null;
+  authStateValidatedAt = 0;
   clearStoredAuthState();
   syncWindowAuthState();
-  return getCachedAuthState();
+  const cachedState = getCachedAuthState();
+  emitHybrisAuthStateEvent();
+  return cachedState;
 }
 
-function setAuthState(nextState = {}) {
+function setAuthState(nextState = {}, options = {}) {
+  const { validated = false } = options;
   authState = normalizeAuthState(nextState);
   authStatusPromise = null;
+  authStateValidatedAt = validated ? Date.now() : 0;
   persistAuthState(authState);
   syncWindowAuthState();
-  return getCachedAuthState();
+  const cachedState = getCachedAuthState();
+  emitHybrisAuthStateEvent();
+  return cachedState;
 }
 
 function setGuestCartPresence(present) {
@@ -540,6 +564,20 @@ function buildRegionParams(countryOverride, languageOverride) {
     country: countryOverride || country || 'us',
     language: languageOverride || language || 'en',
   };
+}
+
+function getHybrisProductCacheBustBucket(now = Date.now()) {
+  return String(Math.floor(now / HYBRIS_PRODUCT_CACHE_BUST_INTERVAL_MILLIS));
+}
+
+function syncHybrisProductCaches(now = Date.now()) {
+  const nextBucket = getHybrisProductCacheBustBucket(now);
+  if (productCacheBucket !== nextBucket) {
+    productCache.clear();
+    productRequestCache.clear();
+    productCacheBucket = nextBucket;
+  }
+  return nextBucket;
 }
 
 function buildBffUrl(path, query = {}) {
@@ -715,7 +753,7 @@ export async function exchangeHybrisCodeIfPresent() {
   const exchanged = json?.data || null;
   saveSessionToken(exchanged?.sessionToken);
   if (exchanged?.authenticated) {
-    setAuthState(exchanged);
+    setAuthState(exchanged, { validated: true });
   }
 
   const cleanUrl = exchanged?.returnUrl || getCleanLocationUrl();
@@ -832,12 +870,12 @@ export async function refreshHybrisAuthStatus(options = {}) {
     return resetAuthState();
   }
 
-  if (!force && hasUsableAuthState(cachedState)) {
-    return cachedState;
+  if (authStatusPromise) {
+    return authStatusPromise;
   }
 
-  if (!force && authStatusPromise) {
-    return authStatusPromise;
+  if (!force && hasFreshValidatedAuthState(cachedState)) {
+    return cachedState;
   }
 
   const { country, language } = buildRegionParams();
@@ -849,7 +887,15 @@ export async function refreshHybrisAuthStatus(options = {}) {
       language,
     },
   })
-    .then((status) => setAuthState(status))
+    .then((status) => {
+      const normalizedStatus = normalizeAuthState(status);
+      if (!normalizedStatus.authenticated) {
+        clearSessionToken();
+        return getCachedAuthState();
+      }
+
+      return setAuthState(normalizedStatus, { validated: true });
+    })
     .catch((error) => {
       if (error.errorCode === 'AUTH_REQUIRED' || error.status === 401) {
         return resetAuthState();
@@ -872,16 +918,24 @@ export function initializeHybrisAuth(options = {}) {
 
   authInitializationPromise = (async () => {
     ensureSessionTokenLoaded();
+    let exchangedAuthState = null;
 
     try {
-      await exchangeHybrisCodeIfPresent();
+      exchangedAuthState = await exchangeHybrisCodeIfPresent();
     } catch (error) {
       // eslint-disable-next-line no-console
       console.warn('Hybris auth exchange failed', error);
     }
 
+    if (exchangedAuthState?.authenticated) {
+      return getCachedHybrisAuthState();
+    }
+
     const cachedState = getCachedHybrisAuthState();
-    if (hasUsableAuthState(cachedState)) {
+    if (!sessionToken) {
+      if (cachedState.authenticated) {
+        return resetAuthState();
+      }
       return cachedState;
     }
 
@@ -904,23 +958,39 @@ export async function fetchHybrisProduct(code, options = {}) {
   }
 
   ensureSessionTokenLoaded();
-  const cacheKey = normalizedCode;
+  const cacheBucket = syncHybrisProductCaches();
+  const cacheKey = `${normalizedCode}:${cacheBucket}`;
   if (!options.force && productCache.has(cacheKey)) {
     return productCache.get(cacheKey);
   }
 
+  if (!options.force && productRequestCache.has(cacheKey)) {
+    return productRequestCache.get(cacheKey);
+  }
+
   const { country, language } = buildRegionParams();
-  const product = await bffRequest('/product', {
+  const productRequest = bffRequest('/product', {
     auth: 'optional',
     query: {
       country,
       language,
       code: normalizedCode,
+      _t: cacheBucket,
     },
-  });
+  })
+    .then((product) => {
+      productCache.set(cacheKey, product);
+      return product;
+    })
+    .finally(() => {
+      productRequestCache.delete(cacheKey);
+    });
 
-  productCache.set(cacheKey, product);
-  return product;
+  if (!options.force) {
+    productRequestCache.set(cacheKey, productRequest);
+  }
+
+  return productRequest;
 }
 
 export async function fetchHybrisWishlist(options = {}) {
@@ -1278,6 +1348,9 @@ function handleSharedAuthStorage(event) {
 
   if (event?.key === HYBRIS_SESSION_TOKEN_KEY) {
     sessionToken = String(event.newValue || '').trim();
+    if (!sessionToken) {
+      authStateValidatedAt = 0;
+    }
     return;
   }
 
@@ -1289,7 +1362,9 @@ function handleSharedAuthStorage(event) {
     authState = { ...DEFAULT_AUTH_STATE };
     authStatusPromise = null;
     authInitializationPromise = null;
+    authStateValidatedAt = 0;
     syncWindowAuthState();
+    emitHybrisAuthStateEvent();
     return;
   }
 
@@ -1297,10 +1372,40 @@ function handleSharedAuthStorage(event) {
     authState = normalizeAuthState(JSON.parse(event.newValue));
     authStatusPromise = null;
     authInitializationPromise = null;
+    authStateValidatedAt = 0;
     syncWindowAuthState();
+    emitHybrisAuthStateEvent();
   } catch (error) {
     // ignore invalid storage payloads
   }
+}
+
+function revalidateHybrisAuthOnResume() {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  ensureSessionTokenLoaded();
+  if (!sessionToken || hasFreshValidatedAuthState(getCachedAuthState())) {
+    return;
+  }
+
+  refreshHybrisAuthStatus({ force: true }).catch((error) => {
+    // eslint-disable-next-line no-console
+    console.warn('Hybris auth resume check failed', error);
+  });
+}
+
+function handleHybrisWindowFocus() {
+  revalidateHybrisAuthOnResume();
+}
+
+function handleHybrisDocumentVisibilityChange() {
+  if (typeof document === 'undefined' || document.visibilityState !== 'visible') {
+    return;
+  }
+
+  revalidateHybrisAuthOnResume();
 }
 
 sessionToken = readSessionToken();
@@ -1309,4 +1414,9 @@ if (typeof window !== 'undefined' && typeof window.addEventListener === 'functio
   window.addEventListener('storage', handleHybrisAuthBroadcast);
   window.addEventListener('storage', handleGuestCartIdentifierStorage);
   window.addEventListener('storage', handleSharedAuthStorage);
+  window.addEventListener('focus', handleHybrisWindowFocus);
+}
+
+if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+  document.addEventListener('visibilitychange', handleHybrisDocumentVisibilityChange);
 }

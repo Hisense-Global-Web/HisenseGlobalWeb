@@ -287,8 +287,8 @@
   transition: all 0.36s ease-in-out;
 }
 
-#navigation:not(.is-support) .nav-second:not(.hidden) + .mobile-menu {
-  margin-top: -79px;
+#navigation .nav-second:not(.hidden) + .mobile-menu {
+  margin-top: -56px;
 
   @media (width < 1180px) {
     position: relative;
@@ -671,15 +671,21 @@
       box-sizing: border-box;
       border-radius: 12px;
       text-decoration: none;
+
+      @media (width < 1180px) {
+        padding: 0;
+        line-height: var(--size-21);
+        margin-bottom: var(--size-24);
+
+        &:last-child {
+          margin-bottom: 0; 
+        }
+      }
       
       &:hover {
         color: #000;
         background-color: #EDFCFB;
       }
-    }
-
-    .profile-group {
-      margin-top: var(--size-12);
     }
 
     .logout-group {
@@ -1044,7 +1050,6 @@
   .mobile-link
   .mobile-link-second-list
   .mobile-product-item {
-  height: 24px;
   line-height: 1.2;
   font-size: 20px;
 
@@ -1159,7 +1164,7 @@
 
 #navigation.is-support.show-menu .mobile-menu {
   @media (width < 1180px) {
-    display: none;
+    display: flex;
   }
 }
 
@@ -1370,6 +1375,7 @@
   #navigation.is-support {
     .mobile-second-menu.support {
       padding: 0 40px !important;
+      margin-top: 56px;
     }
 
     .support-product {
@@ -1418,7 +1424,6 @@
         padding-right: 12px;
 
         .mobile-product-item {
-          height: 21px;
           line-height: 1.3;
           font-size: 16px;
           font-weight: var(--fontweight-book);
@@ -1438,7 +1443,6 @@
       margin-bottom: 32px;
 
       .mobile-product-item {
-        height: 21px;
         line-height: 1.3;
         font-size: 16px;
         font-weight: var(--fontweight-book);
