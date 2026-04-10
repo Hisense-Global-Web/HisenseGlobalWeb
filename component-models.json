@@ -6358,13 +6358,13 @@
         "component": "text",
         "valueType": "string",
         "name": "info_title",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "info_subtitle",
-        "label": "SubTitle"
+        "label": "Title"
       },
       {
         "component": "text",
