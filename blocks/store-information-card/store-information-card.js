@@ -1,6 +1,7 @@
 export default function decorate(block) {
   // const config = readBlockConfig(block);
   const [stage, ...infoList] = [...block.children];
+  stage?.parentNode?.parentNode?.setAttribute('data-tag', stage.lastElementChild.textContent?.trim());
   // const wrapper = document.createElement('div');
   // wrapper.className = 'list-card-container';
   const cates = [];
@@ -11,12 +12,14 @@ export default function decorate(block) {
     } else {
       info.className = 'sever-item';
       const [cate, img] = [...info.firstElementChild.children];
-      img.className = 'serve-icon';
+      // img?.className = 'serve-icon';
+      if (img) {
+        img.className = 'serve-icon';
+      }
       cates.push(cate?.textContent);
     }
   });
   const uniqueArr = [...new Set(cates)];
-  stage?.parentNode?.parentNode?.setAttribute('data-tag', stage.lastElementChild.textContent?.trim());
   stage.parentNode?.parentNode?.setAttribute('data-item-tag', uniqueArr.join(','));
   stage?.remove?.();
   // block.replaceChildren(wrapper);

@@ -40,7 +40,7 @@
           "component": "text",
           "valueType": "string",
           "name": "container_overline",
-          "label": "Overline",
+          "label": "Eyebrow",
           "value": "",
           "required": true
         },

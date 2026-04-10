@@ -1707,7 +1707,7 @@
         "component": "richtext",
         "name": "subtitle",
         "value": "",
-        "label": "Sub Title",
+        "label": "Eyebrow",
         "valueType": "string"
       }
     ]
@@ -1796,13 +1796,13 @@
         "component": "text",
         "valueType": "string",
         "name": "title",
-        "label": "Title",
+        "label": "Eyebrow",
         "multi": false
       },
       {
         "component": "text",
         "name": "subtitle",
-        "label": "Sub Title",
+        "label": "Title",
         "valueType": "string"
       },
       {
@@ -2655,7 +2655,7 @@
         "component": "text",
         "valueType": "string",
         "name": "container_overline",
-        "label": "Overline",
+        "label": "Eyebrow",
         "value": "",
         "required": true
       },
@@ -5636,7 +5636,7 @@
     ]
   },
   {
-    "id": "store-information-card-items",
+    "id": "service-items",
     "fields": [
       {
         "component": "text",

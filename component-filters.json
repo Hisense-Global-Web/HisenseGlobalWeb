@@ -538,7 +538,7 @@
   {
     "id": "store-information-card",
     "components": [
-      "store-information-card-items"
+      "service-items"
     ]
   },
   {

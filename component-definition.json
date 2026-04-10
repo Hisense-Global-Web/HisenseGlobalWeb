@@ -2736,15 +2736,15 @@
           }
         },
         {
-          "title": "Store Information Card Items",
-          "id": "store-information-card-items",
+          "title": "Service Items",
+          "id": "service-items",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Store Information Card Items",
-                  "model": "store-information-card-items"
+                  "name": "Service Items",
+                  "model": "service-items"
                 }
               }
             }
