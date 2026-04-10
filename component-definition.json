@@ -373,7 +373,7 @@
           }
         },
         {
-          "title": "Article",
+          "title": "Article Title",
           "id": "article-title",
           "plugins": {
             "xwalk": {
