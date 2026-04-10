@@ -11,8 +11,8 @@
               "name": "Tech Information",
               "model": "tech-information",
               "filter": "tech-information",
-              "info_title": "This is the title",
-              "info_subtitle": "This is the subtitle",
+              "info_title": "This is the eyebrow",
+              "info_subtitle": "This is the title",
               "info_text": "This is the text.",
               "btn_ctaLabel": "Learn More"
             }
