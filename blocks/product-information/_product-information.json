@@ -32,19 +32,18 @@
           "component": "text",
           "name": "subtitle",
           "value": "",
-          "label": "Subtitle",
+          "label": "Title",
           "valueType": "string"
         },
         {
           "component": "text",
           "name": "title",
           "value": "",
-          "label": "Title",
+          "label": "Eyebrow",
           "valueType": "string"
         }
       ]
     }
   ],
-  "filters": [
-  ]
+  "filters": []
 }
