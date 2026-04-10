@@ -1,14 +1,14 @@
 {
   "definitions": [
     {
-      "title": "Authorized Reseller Badge",
+      "title": "Authorized Retailer Badge",
       "id": "authorized-reseller-badge",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Authorized Reseller Badge",
+              "name": "Authorized Retailer Badge",
               "model": "authorized-reseller-badge",
               "classes": "authorized-reseller-badge",
               "key-value": true,
@@ -50,14 +50,14 @@
           "component": "text",
           "name": "title",
           "value": "",
-          "label": "Title",
+          "label": "Eyebrow",
           "valueType": "string"
         },
         {
           "component": "text",
           "name": "subtitle",
           "value": "",
-          "label": "Subtitle",
+          "label": "Title",
           "valueType": "string"
         }
       ]

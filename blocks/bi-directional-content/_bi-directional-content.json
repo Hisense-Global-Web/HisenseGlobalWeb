@@ -98,14 +98,14 @@
         {
           "component": "text",
           "name": "buy_text",
-          "label": "Buy Now Button Text",
+          "label": "Button Text",
           "valueType": "string",
           "value": ""
         },
         {
           "component": "aem-content",
           "name": "buy_link",
-          "label": "Buy Now Button Link",
+          "label": "Button Link",
           "valueType": "string",
           "value": ""
         },
