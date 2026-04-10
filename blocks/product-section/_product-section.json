@@ -46,7 +46,6 @@
             { "name": "Series", "value": "series" },
             { "name": "Rating", "value": "rating" },
             { "name": "Size", "value": "buttons" },
-            { "name": "PriceInfo RegularPrice", "value": "priceInfo_regularPrice" },
             { "name": "Awards", "value": "awards" },
             { "name": "Spec", "value": "position" },
             { "name": "Faq", "value": "faq" }

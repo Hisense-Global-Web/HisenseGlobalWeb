@@ -189,7 +189,7 @@
 
 .plp-product-price-group {
   display: flex;
-  gap: var(--size-8);
+  gap: var(--size-4);
   flex-wrap: wrap;
   align-items: baseline;
   margin-top: var(--size-16);
@@ -204,16 +204,17 @@
   }
 
   .plp-product-original-price {
-    font-size: var(--fontsize-caption2);
+    font-size: var(--size-10);
     line-height: 1.5;
     font-weight: var(--fontweight-book);
     color: var(--color-primary-grey-50);
+    text-decoration: line-through;
   }
   
   .plp-product-discounts {
     width: 100%;
     flex-shrink: 0;
-    font-size: var(--fontsize-caption2);
+    font-size: var(--size-10);
     line-height: 1.5;
     font-weight: var(--fontweight-book);
     color: var(--color-primary-green-60);
@@ -978,6 +979,7 @@
     @media (width < 860px) {
       width: calc(100% + calc(2 * var(--size-7)));
       margin: var(--size-20) calc(-1 * var(--size-7)) 0;
+      gap: var(--size-12);
     }
 
     .view-cart-btn {

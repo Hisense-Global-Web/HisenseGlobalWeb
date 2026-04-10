@@ -1077,10 +1077,10 @@ main {
 	}
 
   .section.pl-4xl-pc {
-    padding-left: min(calc(336 / var(--breakpoint-pc) * 100vw), 336px);
+    padding-left: min(calc(320 / var(--breakpoint-pc) * 100vw), 320px);
 
     @media (width > 1440px) {
-      padding-left: calc((100vw - 800px) / 2);
+      padding-left: calc((100% - 800px) / 2);
     }
 
     @media (width<860px) {
@@ -1089,10 +1089,10 @@ main {
   }
 
   .section.pr-4xl-pc {
-    padding-right: min(calc(336 / var(--breakpoint-pc) * 100vw), 336px);
+    padding-right: min(calc(320 / var(--breakpoint-pc) * 100vw), 320px);
 
     @media (width > 1440px) {
-      padding-right: calc((100vw - 800px) / 2);
+      padding-right: calc((100% - 800px) / 2);
     }
 
     @media (width<860px) {

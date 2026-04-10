@@ -19,15 +19,15 @@
       }
     },
     {
-      "title": "Store Information Card Items",
-      "id": "store-information-card-items",
+      "title": "Service Items",
+      "id": "service-items",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Store Information Card Items",
-              "model": "store-information-card-items"
+              "name": "Service Items",
+              "model": "service-items"
             }
           }
         }
@@ -42,13 +42,8 @@
           "component": "text",
           "name": "state",
           "label": "State Tag",
-          "valueType": "string"
-        },
-         {
-          "component": "text",
-          "name": "category",
-          "label": "Category Tag",
-          "valueType": "string"
+          "valueType": "string",
+          "required": true
         },
         {
           "component": "text",
@@ -94,18 +89,19 @@
       ]
     },
     {
-      "id": "store-information-card-items",
+      "id": "service-items",
       "fields": [
-         {
-          "component": "reference",
-          "name": "service_icon",
-          "label": "Service Icon",
-          "valueType": "string"
-        },
          {
           "component": "text",
           "name": "service_category",
           "label": "Service Category",
+          "valueType": "string",
+           "required": true
+        },
+        {
+          "component": "reference",
+          "name": "service_icon",
+          "label": "Service Icon",
           "valueType": "string"
         }
        
@@ -116,7 +112,7 @@
     {
       "id": "store-information-card",
       "components": [
-        "store-information-card-items"
+        "service-items"
       ]
     }
   ]

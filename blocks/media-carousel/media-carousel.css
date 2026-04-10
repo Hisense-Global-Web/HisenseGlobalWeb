@@ -242,6 +242,21 @@
     p.button-container {
       justify-self: flex-end;
     }
+
+    .btn-div a {
+      text-align: center;
+      background-color: transparent;
+      margin: 0;
+      padding: 0;
+      border: none;
+      border-bottom: 1px solid #fff;
+      font-weight: var(--fontweight-medium);
+      font-size: var(--size-12);
+      line-height: 150%;
+      border-radius: 0;
+      text-decoration: none;
+      color: var(--color-primary-grey-10);
+    }
   }
 }
 

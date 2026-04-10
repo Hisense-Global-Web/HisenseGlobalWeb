@@ -58,7 +58,7 @@
           "component": "text",
           "name": "subtitle",
           "value": "",
-          "label": "Subtitle",
+          "label": "Eyebrow",
           "valueType": "string"
         },
         {

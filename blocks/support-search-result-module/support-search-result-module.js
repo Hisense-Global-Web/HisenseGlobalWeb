@@ -1,5 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import cloneSupportSearchSortBar from './support-search-result-module-utils.js';
 
 const DEFAULT_PAGE_SIZE = 12;
 const CONFIG_KEYS = new Set([
@@ -642,8 +643,12 @@ export default async function decorate(block) {
     filterGroup.className = 'filter-group';
     const sortBox = document.createElement('div');
     sortBox.className = 'support-sort-box';
-    if (block.parentNode.parentNode && tabData.type === 'product') {
-      sortBox.append(block.parentNode.parentNode.querySelector('.plp-filters-bar').cloneNode(true));
+    const sourceSortBar = cloneSupportSearchSortBar({
+      sourceRoot: block.parentNode?.parentNode || null,
+      type: tabData.type,
+    });
+    if (sourceSortBar) {
+      sortBox.append(sourceSortBar);
 
       const sort = sortBox.querySelector('.plp-sort');
       sort.addEventListener('click', () => {

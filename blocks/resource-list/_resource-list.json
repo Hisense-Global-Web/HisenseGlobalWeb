@@ -66,7 +66,7 @@
           "valueType": "string"
         },
         {
-          "component": "text",
+          "component": "richtext",
           "name": "subtitle",
           "label": "SubTitle",
           "valueType": "string"

@@ -76,6 +76,10 @@
     }
   }
 
+  @media (width >= 1180px) {
+    height: 100px;
+  }
+
   .nav-container {
     display: flex;
     align-items: center;
@@ -1273,7 +1277,7 @@
     padding: 0 24px;
     overflow: hidden;
     overscroll-behavior: contain;
-    margin-top: 79px;
+    margin-top: 56px;
     box-sizing: border-box;
     background: var(--color-primary-grey-10);
     transition: height 0.36s ease-in-out;

@@ -22,7 +22,7 @@ export default function decorate(block) {
     const iconCell = cells[0];
     const title = cells[1]?.textContent.trim() || '';
     const description = cells[2]?.textContent.trim() || '';
-    const subTitle = cells[3]?.textContent.trim() || '';
+    const subTitle = cells[3]?.innerHTML || '';
     const textContent = cells[4]?.innerHTML || '';
     const buttonText = cells[5]?.textContent.trim() || '';
     const buttonLink = cells[6]?.querySelector('a')?.href || '';

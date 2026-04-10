@@ -23,6 +23,8 @@ export default function decorate(block) {
     const childBlock = child.firstElementChild;
 
     [...childBlock.children].forEach((grandChild) => {
+      if (!grandChild.textContent.trim()) return;
+      // handle key-value pair for div with class name as key and value as content, and remove the key from content
       grandChild.className = grandChild.firstElementChild?.textContent.trim();
       grandChild.firstElementChild.remove();
 
@@ -91,6 +93,7 @@ export default function decorate(block) {
 
   if (stepElements.length) {
     stepElements.forEach((step) => {
+      if (!step.textContent.trim()) return;
       stepCounter[step.dataset.tab] = (stepCounter[step.dataset.tab] || 0) + 1;
       step.firstElementChild.classList.add('step-image');
       const textContent = document.createElement('div');

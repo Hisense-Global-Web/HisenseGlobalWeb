@@ -33,7 +33,7 @@
           "component": "richtext",
           "name": "subtitle",
           "value": "",
-          "label": "Sub Title",
+          "label": "Eyebrow",
           "valueType": "string"
         }
       ]
