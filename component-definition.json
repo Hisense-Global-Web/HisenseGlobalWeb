@@ -704,7 +704,7 @@
           }
         },
         {
-          "title": "Columns",
+          "title": "Sub Module Columns",
           "id": "columns",
           "plugins": {
             "xwalk": {
