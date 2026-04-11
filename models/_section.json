@@ -48,7 +48,7 @@
               "value": "light"
             },
             {
-              "name": "Dark",
+              "name": "Black",
               "value": "dark"
             },
             {
@@ -64,15 +64,31 @@
               "value": "gray-90"
             },
             {
-              "name": "Gradient Gray",
+              "name": "Gradient-Dark",
               "value": "gradient-gray"
             },
             {
-              "name": "Soft Green(green-10)",
-              "value": "soft-green"
+              "name": "Gradient-Light",
+              "value": "gradient-light"
             },
             {
-              "name": "Green",
+              "name": "Gradient-Cold Light",
+              "value": "gradient-cold-light"
+            },
+            {
+              "name": "Gradient-Warm Light",
+              "value": "gradient-warm-light"
+            },
+            {
+              "name": "Gradient-Warm Dark",
+              "value": "gradient-warm-dark"
+            },
+            {
+              "name": "Green 10",
+              "value": "green-10"
+            },
+            {
+              "name": "Green15",
               "value": "green"
             }
           ]
@@ -275,6 +291,7 @@
         "about-hisense-module-title",
         "about-hisense-section-title",
         "accessories-feature",
+        "adaptive-images",
         "addional-support-card",
         "article-body",
         "article-body-list",
@@ -347,6 +364,8 @@
         "region-page-title",
         "region-selection",
         "recall-info-list",
+        "gray-tips",
+        "guide-list",
         "related-news",
         "resource-list",
         "search-box",
@@ -371,10 +390,12 @@
         "icon-card-container",
         "parters-container",
         "information-list-module",
+        "job-cards",
         "job-list",
         "quick-action-card",
         "category-support-card",
         "additional-support-card",
+        "special-capitalize-text-list",
         "tech-information",
         "past-partnerships-list",
         "partnerships-section-title",
@@ -397,7 +418,15 @@
         "legal-content",
         "exception-page",
         "accessories-feature",
-        "calltoaction-banner"
+        "calltoaction-banner",
+        "project-brief-card",
+        "store-information-card",
+        "warning-note",
+        "warranty-accordion",
+        "warranty-accordion-item",
+        "warranty-information",
+        "store-locator",
+        "brand-matrix"
       ]
     }
   ]

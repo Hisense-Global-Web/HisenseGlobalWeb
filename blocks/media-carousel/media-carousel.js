@@ -28,7 +28,8 @@ function bindEvent(block, type = 'normal') {
     containerWidth: maxWidth,
     totalItems: cards.length,
   };
-  if (cards.length * getSlideWidth(block) - gap >= maxWidth) {
+
+  if (cards.length * getSlideWidth(block) - gap >= maxWidth && window.innerWidth >= 860) {
     block.querySelector('.media-carousel-pagination').classList.add('show');
   }
 
@@ -45,8 +46,9 @@ function bindEvent(block, type = 'normal') {
   }
 
   const playSoloVideo = (index) => {
-    videos.forEach((v, i) => {
-      if (i === index) {
+    const idKey = cards[index].querySelector('video')?.id;
+    videos.forEach((v) => {
+      if (idKey === v.id) {
         v.parentElement.classList.add('is-playing');
         v.muted = true; // 确保视频静音
         v.playsInline = true;
@@ -58,7 +60,7 @@ function bindEvent(block, type = 'normal') {
         v.setAttribute('muted', 'true');
         v.setAttribute('autoplay', 'true');
         v.play().catch(() => {}); // 捕获浏览器静音播放策略错误
-        v.nextElementSibling.style.display = 'none'; // 隐藏封面图
+        if (v.nextElementSibling) v.nextElementSibling.style.display = 'none'; // 隐藏封面图
       } else {
         v.pause();
         v.parentElement.classList.remove('is-playing');
@@ -68,7 +70,7 @@ function bindEvent(block, type = 'normal') {
 
   // 更新状态与播放
   const updateState = () => {
-    if (Math.abs(currentX) > maxTranslate && type === 'resize') {
+    if (Math.abs(currentX) > Math.abs(maxTranslate) && type === 'resize') {
       currentX = -maxTranslate;
       if (block.classList.contains('bottom-center-style')) {
         const blockWidth = block.offsetWidth;
@@ -91,13 +93,14 @@ function bindEvent(block, type = 'normal') {
 
     // 自动播放逻辑：计算当前最靠左的索引
     // 最后一次点击时，Math.abs(currentX) 会等于 maxTranslate
-    let activeIndex = Math.round(Math.abs(currentX) / step);
+    let activeIndex = currentIndex;
 
     // 如果已经滑动到底部（对齐了最后一个），强制播放最后一个
     if (Math.abs(currentX) >= maxTranslate - 10) {
       activeIndex = CONFIG.totalItems - 1;
     }
-    if (block.classList.contains('video-media-carousel-block')) {
+
+    if (block.querySelector('.media-video')) {
       playSoloVideo(activeIndex);
     }
   };
@@ -144,17 +147,38 @@ function bindEvent(block, type = 'normal') {
   if (isUniversalEditor()) return;
   // 初始化
   updateState();
-  // 监听手机端video的视口变化，进入视口开始自动播放
-  if (block.classList.contains('video-media-carousel-block') && window.innerWidth < 860) {
-    const videoObserver = new IntersectionObserver((entries) => {
+  // 监听视频所在位置并执行自动播放
+  if (block.querySelector('.media-video')) {
+    // 监听block的视口变化，控制视频播放/暂停
+    const blockObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const video = entry.target;
-          playSoloVideo(parseInt(video.closest('li').dataset.slideIndex, 10));
+          // 监听手机端video的视口变化，进入视口开始自动播放---手机是scroll模式，不更新currentIndex
+          if (window.innerWidth < 860) {
+            const videoObserver = new IntersectionObserver((e) => {
+              e.forEach((ent) => {
+                if (ent.isIntersecting) {
+                  const video = ent.target;
+                  playSoloVideo(parseInt(video.closest('li').dataset.slideIndex, 10));
+                }
+              });
+            }, { threshold: 0.8 });
+            cards.forEach((v) => videoObserver.observe(v));
+          } else {
+            // block进入视口，播放当前位置的视频
+            playSoloVideo(currentIndex);
+          }
+        } else {
+          // block离开视口，暂停所有视频
+          block.querySelectorAll('video').forEach((video) => {
+            video.pause();
+            video.parentElement.classList.remove('is-playing');
+          });
         }
       });
-    }, { threshold: 0.8 });
-    cards.forEach((v) => videoObserver.observe(v));
+    }, { threshold: 1 }); // 100%可见时触发
+
+    blockObserver.observe(block);
   }
   if (type === 'resize') return;
   let lastWidth = window.innerWidth;
@@ -196,9 +220,8 @@ function createVideo(child, idx) {
   video.preload = 'metadata';
   video.loop = true;
   const source = document.createElement('source');
-  source.src = videourl; // 替换为你的视频
+  source.src = videourl;
   source.type = 'video/mp4';
-  // 添加备用文本
   video.innerHTML = '';
   video.muted = true;
   video.playsInline = true;
@@ -210,7 +233,7 @@ function createVideo(child, idx) {
   video.setAttribute('autoplay', 'true');
   video.appendChild(source);
   videoDivDom.appendChild(video);
-  videoDivDom.appendChild(img);
+  if (img) videoDivDom.appendChild(img);
   return videoDivDom;
 }
 function createScrollButton(direction) {
@@ -237,59 +260,85 @@ export default async function decorate(block) {
   carouselId += 1;
   block.setAttribute('id', `media-carousel-${carouselId}`);
   block.dataset.slideIndex = 0;
-  const contentType = block.children[2].innerHTML.includes('video') ? 'video' : 'Image';
+  let className;
+
   const mediaCarouselContainer = createElement('div', 'media-carousel-viewport');
-  const mediaCarouselBlocks = createElement('ul', 'media-carousel-track');
   const titleBox = createElement('div', 'carousel-title-box');
-  [...block.children].forEach((child, idx) => {
-    // except subtitle and title
-    if (idx <= 2) {
-      if (idx !== 2) {
-        titleBox.appendChild(child);
-      }
-      else child.remove();
-      return;
-    }
+  const mediaCarouselBlocks = createElement('ul', 'media-carousel-track');
+  mediaCarouselContainer.prepend(mediaCarouselBlocks);
+
+  const [eyebrow, title, ...mediaItems] = block.children;
+  if (!eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
+  if (!title.textContent.trim() && !title.textContent.trim()) block.classList.add('no-title');
+  if (!eyebrow.textContent.trim() && title.textContent.trim()) titleBox.classList.add('only-title');
+
+  titleBox.appendChild(eyebrow);
+  titleBox.append(title);
+
+  mediaItems.forEach((item, idx) => {
     const mediaBlock = document.createElement('li');
-    child.classList.add('item');
-    mediaBlock.dataset.slideIndex = idx - 3;
-    if (contentType === 'video') {
-      block.classList.add('video-media-carousel-block');
-      let singleVideo;
-      if (block.classList.contains('bottom-center-style')) {
-        child.classList.add('video-center-type');
-        singleVideo = createVideo(child, idx);
-      } else {
-        singleVideo = createVideo(child, idx);
-        child.classList.add('video-only');
-      }
-      if (child.querySelector('picture')) {
-        child.querySelector('picture').closest('div').classList.add('video-play');
-        child.querySelector('picture').closest('div').remove();
-      }
-      if (singleVideo && child.firstElementChild.querySelector('a')) child.replaceChild(singleVideo, child.firstElementChild);
-      child.lastElementChild?.classList.add('item-content');
-    } else {
-      [...child.children].forEach((item) => {
-        if (item.querySelector('picture')) {
-          item.querySelector('picture').closest('div').classList.add('item-picture');
-        } else if (item.querySelector('.button-container')) {
-          item.querySelector('.button-container').closest('div').classList.add('item-cta');
-        } else {
-          item.classList.add('item-content');
-        }
-        if (!item.innerHTML) item.remove();
-      });
+    mediaBlock.classList.add('media-item');
+    item.className = 'item';
+    mediaBlock.dataset.slideIndex = idx;
+
+    const [typeDom, mediaContent, videoCover, ...textContentDom] = item.children;
+    const contentType = typeDom.textContent.trim();
+
+    if (!className) className = contentType;
+    if (className && !className.includes(contentType)) {
+      className = `${className}-${contentType}`;
     }
-    mediaBlock.appendChild(child);
-    mediaCarouselBlocks.appendChild(mediaBlock);
+
+    typeDom.remove();
+    if (mediaContent.innerHTML) {
+      if (mediaContent.querySelector('a')) {
+        const singleVideo = createVideo(item, idx);
+        mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
+        mediaContent.classList.add('media-video');
+      } else {
+        mediaContent.classList.add('media-picture');
+      }
+      videoCover.remove();
+    }
+
+    const textContent = document.createElement('div');
+    textContent.className = 'text-content';
+    const textArea = document.createElement('div');
+    textArea.className = 'text-area';
+    let btnDom;
+
+    textContentDom.forEach((textDom, ti) => {
+      switch (ti) {
+        case 0:
+          textDom.className = 'subtitle';
+          textArea.append(textDom);
+          break;
+        case 1:
+          textDom.className = 'title';
+          textArea.append(textDom);
+          break;
+        case 2:
+          textDom.className = 'body-text';
+          textArea.append(textDom);
+          break;
+        default:
+          // btn
+          if (textDom.querySelector('a') && textDom.querySelector('a').parentElement.nextElementSibling.textContent) {
+            textDom.querySelector('a').textContent = textDom.querySelector('a').parentElement.nextElementSibling.textContent;
+            textDom.querySelector('a').parentElement.nextElementSibling.remove();
+          }
+          btnDom = textDom;
+          btnDom.className = 'btn-div';
+          break;
+      }
+    });
+    textContent.replaceChildren(textArea, btnDom);
+    item.append(textContent);
+    mediaBlock.append(item);
+    mediaCarouselBlocks.append(mediaBlock);
   });
-  mediaCarouselContainer.appendChild(mediaCarouselBlocks);
-  if (titleBox.firstElementChild.textContent.trim() === '') {
-    // If the first child is empty, the title font-size should be smaller
-    titleBox.lastElementChild.classList.add('no-subtitle');
-    titleBox.classList.add('only-title');
-  }
+
+  block.classList.add(className);
   block.appendChild(titleBox);
   block.appendChild(mediaCarouselContainer);
 

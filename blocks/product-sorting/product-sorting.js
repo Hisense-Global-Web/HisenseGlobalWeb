@@ -1,9 +1,26 @@
 import { isMobileWindow } from '../../scripts/device.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import {
+  collectProductSortingAueAttributes,
+  splitProductSortingAueAttributes,
+} from './product-sorting-utils.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
-function buildFilterTag(row, resource, isEditMode) {
+function mergeProductSortingAueAttributes(...elements) {
+  return elements.reduce((attributes, element) => ({
+    ...attributes,
+    ...collectProductSortingAueAttributes(element),
+  }), {});
+}
+
+function applyProductSortingAueAttributes(target, attributes = {}) {
+  Object.entries(attributes).forEach(([name, value]) => {
+    target.setAttribute(name, value);
+  });
+}
+
+function buildFilterTag(row) {
   const tag = document.createElement('div');
   tag.className = 'plp-filter-tag';
   moveInstrumentation(row, tag);
@@ -26,9 +43,6 @@ function buildFilterTag(row, resource, isEditMode) {
   closeBtn.setAttribute('aria-label', 'Remove filter');
 
   tag.append(span, closeBtn);
-  if (isEditMode && resource) {
-    tag.setAttribute('data-aue-resource', resource);
-  }
   return tag;
 }
 
@@ -63,10 +77,9 @@ export default function decorate(block) {
   const sortOptionsList = [];
   let currentContext = null;
 
-  let resourceResults = null;
-  let resourceReset = null;
-  let resourceSortBy = null;
-  let resourceTitle = null;
+  let resultsInstrumentation = {};
+  let resetInstrumentation = {};
+  let sortByInstrumentation = {};
 
   rows.forEach((row) => {
     const resource = row.getAttribute('data-aue-resource') || null;
@@ -78,22 +91,33 @@ export default function decorate(block) {
       if (left === 'results') {
         resultsText = right;
         currentContext = 'results';
-        resourceResults = resource;
+        resultsInstrumentation = splitProductSortingAueAttributes(
+          mergeProductSortingAueAttributes(row, cells[1]),
+        ).attributes;
       } else if (left === 'reset') {
         resetText = right;
         currentContext = 'reset';
-        resourceReset = resource;
+        resetInstrumentation = splitProductSortingAueAttributes(
+          mergeProductSortingAueAttributes(row, cells[1]),
+        ).attributes;
       } else if (left === 'sortBy') {
         sortBy = right;
         currentContext = 'sortBy';
-        resourceSortBy = resource;
+        sortByInstrumentation = splitProductSortingAueAttributes(
+          mergeProductSortingAueAttributes(row, cells[1]),
+        ).attributes;
       } else if (left === 'title') {
-        filterTags.push(buildFilterTag(row, resource, isEditMode));
+        filterTags.push(buildFilterTag(row));
         currentContext = 'title';
-        resourceTitle = resource;
+      } else if (left === 'type') {
+        filtersBar.setAttribute('data-type', right);
       } else if (currentContext === 'sortBy') {
+        const optionAuthoring = splitProductSortingAueAttributes(
+          collectProductSortingAueAttributes(row),
+          { transferResource: true },
+        );
         const option = {
-          label: left, value: right, resource, isDefaultSearch: false,
+          label: left, value: right, resource: optionAuthoring.resource || resource, isDefaultSearch: false,
         };
 
         if (cells.length >= 3) {
@@ -101,24 +125,19 @@ export default function decorate(block) {
           option.isDefaultSearch = isDefaultText === 'true';
         }
 
-        // 获取所有以 data-aue 开头的属性
-        const dataAueAttributes = {};
-        Array.from(row.attributes).forEach((attr) => {
-          if (attr.name.startsWith('data-aue-')) {
-            dataAueAttributes[attr.name] = attr.value;
-          }
-        });
-        option.dataAueAttributes = dataAueAttributes;
+        option.dataAueAttributes = optionAuthoring.attributes;
         sortOptionsList.push(option);
       } else {
-        const option = { label: 'No data', value: 'No data', resource };
-        const dataAueAttributes = {};
-        Array.from(row.attributes).forEach((attr) => {
-          if (attr.name.startsWith('data-aue-')) {
-            dataAueAttributes[attr.name] = attr.value;
-          }
-        });
-        option.dataAueAttributes = dataAueAttributes;
+        const optionAuthoring = splitProductSortingAueAttributes(
+          collectProductSortingAueAttributes(row),
+          { transferResource: true },
+        );
+        const option = {
+          label: 'No data',
+          value: 'No data',
+          resource: optionAuthoring.resource || resource,
+        };
+        option.dataAueAttributes = optionAuthoring.attributes;
         sortOptionsList.push(option);
       }
     }
@@ -127,11 +146,11 @@ export default function decorate(block) {
   // 结果数量显示
   const resultsBox = document.createElement('div');
   resultsBox.className = 'plp-results-box';
-  if (isEditMode && resourceResults) {
-    resultsBox.setAttribute('data-aue-resource', resourceResults);
-  }
   const results = document.createElement('div');
   results.className = 'plp-results';
+  if (isEditMode) {
+    applyProductSortingAueAttributes(results, resultsInstrumentation);
+  }
   // 保留一个隐藏的占位 span，用于后续更新数字
   const placeholderMatch = resultsText.match(/\{[^}]*\}/);
   if (placeholderMatch) {
@@ -161,9 +180,6 @@ export default function decorate(block) {
   // 筛选标签容器
   const activeFilters = document.createElement('div');
   activeFilters.className = 'plp-active-filters';
-  if (isEditMode && resourceTitle) {
-    activeFilters.setAttribute('data-aue-resource', resourceTitle);
-  }
   filterTags.forEach((tag) => {
     activeFilters.append(tag);
   });
@@ -174,8 +190,8 @@ export default function decorate(block) {
   resetFilters.textContent = resetText;
   resetFilters.setAttribute('role', 'button');
   resetFilters.setAttribute('tabindex', '0');
-  if (isEditMode && resourceReset) {
-    resetFilters.setAttribute('data-aue-resource', resourceReset);
+  if (isEditMode) {
+    applyProductSortingAueAttributes(resetFilters, resetInstrumentation);
   }
   resetFilters.addEventListener('click', () => {
     const activeContainer = document.querySelector('.plp-active-filters');
@@ -227,14 +243,14 @@ export default function decorate(block) {
   // 排序下拉
   const sortBox = document.createElement('div');
   sortBox.className = 'plp-sort-box';
-  if (isEditMode && resourceSortBy) {
-    sortBox.setAttribute('data-aue-resource', resourceSortBy);
-  }
   if (isEditMode) {
     sortBox.className = 'plp-sort-box show';
   }
   const sort = document.createElement('div');
   sort.className = 'plp-sort';
+  if (isEditMode) {
+    applyProductSortingAueAttributes(sort, sortByInstrumentation);
+  }
   const sortSpan = document.createElement('span');
   // label comes from configuration (sortBy)
   sortSpan.textContent = sortBy;

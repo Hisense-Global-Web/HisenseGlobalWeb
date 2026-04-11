@@ -39,10 +39,14 @@
   .authorized-reseller-badge-header-text {
     width: calc(100% - var(--size-100, 100px) - var(--spacing-sm, 24px));
     flex: auto;
+
+    @media (width < 860px) {
+      width: 100%;
+    }
   }
 
   .authorized-reseller-badge-header-title {
-    color: var(--color-primary-green-50, #009F9C);
+    color: var(--color-primary-green-50, #009f9c);
     font-size: var(--size-title2, 20px);
     font-weight: 400;
     text-transform: uppercase;
@@ -51,12 +55,13 @@
     p {
       margin: 0;
       line-height: 120%;
+      white-space: pre-wrap;
     }
 
     @media (width < 860px) {
       color: var(--color-primary-green-60, #008482);
       text-align: center;
-      font-size: var( --size-16, 16px);
+      font-size: var(--size-16, 16px);
     }
   }
 
@@ -66,15 +71,11 @@
     font-weight: 400;
     line-height: 120%;
     text-transform: capitalize;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
 
     p {
       margin: 0;
       line-height: 120%;
+      white-space: pre-wrap;
     }
 
     @media (width < 860px) {
@@ -96,12 +97,12 @@
   }
 
   .authorized-reseller-badge-item {
-    width: calc(100% / 3 - var(--spacing-sm, 24px) *2 / 3);
+    width: calc(100% / 3 - var(--spacing-sm, 24px) * 2 / 3);
     height: min(calc(255 / var(--breakpoint-pc) * 100vw), 255px);
     padding: var(--spacing-m, 32px);
     text-align: center;
     border-radius: var(--border-radius-l, 20px);
-    background: var(--background-grey, #F7F7F7);
+    background: var(--background-grey, #f7f7f7);
 
     p {
       margin: 0;
@@ -110,7 +111,7 @@
 
     @media (width < 860px) {
       padding: var(--spacing-lg, 40px) var(--spacing-sm, 24px);
-      border-radius: var(--radius-xl, 16px);  
+      border-radius: var(--radius-xl, 16px);
       width: 100%;
       height: auto;
 

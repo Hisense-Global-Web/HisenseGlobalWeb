@@ -1,0 +1,1422 @@
+import { getHybrisBffBaseUrl as getEnvironmentHybrisBffBaseUrl } from './environment.js';
+import { getLocaleFromPath } from './locale-utils.js';
+
+const HYBRIS_SESSION_TOKEN_KEY = 'hybrisSessionToken';
+const HYBRIS_AUTH_STATE_KEY = 'hybrisAuthState';
+const HYBRIS_AUTH_BROADCAST_KEY = 'hybrisAuthBroadcast';
+const HYBRIS_AUTH_BROADCAST_LOGOUT = 'logout';
+const HYBRIS_GUEST_CART_IDENTIFIER_KEY = 'hybrisGuestCartIdentifier';
+const HYBRIS_AUTH_REVALIDATE_INTERVAL_MILLIS = 60 * 1000;
+const HYBRIS_PRODUCT_CACHE_BUST_INTERVAL_MILLIS = 5 * 60 * 1000;
+export const HYBRIS_DATA_EVENT_NAME = 'hisense:hybris-data';
+
+const DEFAULT_AUTH_STATE = {
+  authenticated: false,
+  country: '',
+  language: '',
+  myAccountUrl: '',
+  expiresAt: 0,
+  guestCartCodePresent: false,
+};
+
+let sessionToken = '';
+let authState = { ...DEFAULT_AUTH_STATE };
+let authStatusPromise = null;
+let authInitializationPromise = null;
+let authStateValidatedAt = 0;
+const productCache = new Map();
+const productRequestCache = new Map();
+let productCacheBucket = '';
+let guestCartIdentifier = '';
+let guestCartEnsurePromise = null;
+
+function emitHybrisDataEvent(type, data = null) {
+  if (typeof window === 'undefined' || !type) {
+    return;
+  }
+
+  window.dispatchEvent(new CustomEvent(HYBRIS_DATA_EVENT_NAME, {
+    detail: {
+      type,
+      data,
+      timestamp: Date.now(),
+    },
+  }));
+}
+
+function trimTrailingSlash(value) {
+  return String(value || '').replace(/\/+$/, '');
+}
+
+function broadcastHybrisAuthEvent(type) {
+  if (typeof window === 'undefined' || !type) {
+    return;
+  }
+
+  try {
+    const payload = JSON.stringify({
+      type,
+      timestamp: Date.now(),
+    });
+    localStorage.setItem(HYBRIS_AUTH_BROADCAST_KEY, payload);
+    localStorage.removeItem(HYBRIS_AUTH_BROADCAST_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+}
+
+function normalizeExpiresAt(value) {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value > 0 && value < 1e12 ? value * 1000 : value;
+  }
+
+  const normalizedValue = String(value || '').trim();
+  if (!normalizedValue) {
+    return 0;
+  }
+
+  if (/^\d+$/.test(normalizedValue)) {
+    const numericValue = Number(normalizedValue);
+    return numericValue > 0 && numericValue < 1e12 ? numericValue * 1000 : numericValue;
+  }
+
+  const parsedValue = Date.parse(normalizedValue);
+  return Number.isNaN(parsedValue) ? 0 : parsedValue;
+}
+
+function normalizeAuthState(nextState = {}) {
+  return {
+    ...DEFAULT_AUTH_STATE,
+    ...nextState,
+    authenticated: Boolean(nextState.authenticated),
+    myAccountUrl: String(nextState.myAccountUrl || ''),
+    expiresAt: normalizeExpiresAt(nextState.expiresAt),
+  };
+}
+
+function hasUsableAuthState(state = authState) {
+  const normalizedState = normalizeAuthState(state);
+  return Boolean(
+    normalizedState.authenticated
+      && normalizedState.myAccountUrl
+      && normalizedState.expiresAt
+      && normalizedState.expiresAt > Date.now(),
+  );
+}
+
+function hasFreshValidatedAuthState(state = authState) {
+  return Boolean(
+    authStateValidatedAt
+      && (Date.now() - authStateValidatedAt) < HYBRIS_AUTH_REVALIDATE_INTERVAL_MILLIS
+      && hasUsableAuthState(state),
+  );
+}
+
+function emitHybrisAuthStateEvent(nextState = authState) {
+  emitHybrisDataEvent('auth', normalizeAuthState(nextState));
+}
+
+function clearStoredAuthState() {
+  try {
+    localStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+
+  try {
+    sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+}
+
+function clearStoredGuestCartIdentifier() {
+  guestCartIdentifier = '';
+  try {
+    localStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+
+  try {
+    sessionStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+}
+
+function readStoredAuthState() {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  try {
+    const rawSharedValue = localStorage.getItem(HYBRIS_AUTH_STATE_KEY);
+    if (!rawSharedValue) {
+      throw new Error('No shared auth state');
+    }
+
+    const parsedState = normalizeAuthState(JSON.parse(rawSharedValue));
+    if (!hasUsableAuthState(parsedState)) {
+      localStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+      throw new Error('Shared auth state is not usable');
+    }
+
+    return parsedState;
+  } catch (error) {
+    try {
+      const rawLegacyValue = sessionStorage.getItem(HYBRIS_AUTH_STATE_KEY);
+      if (!rawLegacyValue) {
+        return null;
+      }
+
+      const parsedLegacyState = normalizeAuthState(JSON.parse(rawLegacyValue));
+      if (!hasUsableAuthState(parsedLegacyState)) {
+        sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+        return null;
+      }
+
+      try {
+        localStorage.setItem(HYBRIS_AUTH_STATE_KEY, JSON.stringify(parsedLegacyState));
+      } catch (storageError) {
+        // ignore storage failures
+      }
+
+      try {
+        sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+      } catch (sessionError) {
+        // ignore storage failures
+      }
+
+      return parsedLegacyState;
+    } catch (legacyError) {
+      clearStoredAuthState();
+      return null;
+    }
+  }
+}
+
+function readStoredGuestCartIdentifier() {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  try {
+    const sharedIdentifier = String(localStorage.getItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY) || '').trim();
+    if (sharedIdentifier) {
+      return sharedIdentifier;
+    }
+  } catch (error) {
+    // ignore storage failures
+  }
+
+  try {
+    const legacyIdentifier = String(sessionStorage.getItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY) || '').trim();
+    if (!legacyIdentifier) {
+      return '';
+    }
+
+    guestCartIdentifier = legacyIdentifier;
+    try {
+      localStorage.setItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY, legacyIdentifier);
+    } catch (storageError) {
+      // ignore storage failures
+    }
+    try {
+      sessionStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+    } catch (sessionError) {
+      // ignore storage failures
+    }
+
+    return legacyIdentifier;
+  } catch (error) {
+    return '';
+  }
+}
+
+function persistAuthState(nextState = {}) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  const normalizedState = normalizeAuthState(nextState);
+
+  try {
+    if (hasUsableAuthState(normalizedState)) {
+      localStorage.setItem(HYBRIS_AUTH_STATE_KEY, JSON.stringify(normalizedState));
+    } else {
+      localStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+    }
+  } catch (error) {
+    try {
+      if (hasUsableAuthState(normalizedState)) {
+        sessionStorage.setItem(HYBRIS_AUTH_STATE_KEY, JSON.stringify(normalizedState));
+      } else {
+        sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+      }
+    } catch (sessionError) {
+      // ignore storage failures
+    }
+    return;
+  }
+
+  try {
+    sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+}
+
+function persistGuestCartIdentifier(nextIdentifier) {
+  guestCartIdentifier = String(nextIdentifier || '').trim();
+  if (typeof window === 'undefined') {
+    return guestCartIdentifier;
+  }
+
+  try {
+    if (guestCartIdentifier) {
+      localStorage.setItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY, guestCartIdentifier);
+    } else {
+      localStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+    }
+  } catch (error) {
+    try {
+      if (guestCartIdentifier) {
+        sessionStorage.setItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY, guestCartIdentifier);
+      } else {
+        sessionStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+      }
+    } catch (sessionError) {
+      // ignore storage failures
+    }
+    return guestCartIdentifier;
+  }
+
+  try {
+    sessionStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+
+  return guestCartIdentifier;
+}
+
+function ensureGuestCartIdentifierLoaded() {
+  if (!guestCartIdentifier) {
+    guestCartIdentifier = readStoredGuestCartIdentifier();
+  }
+  return guestCartIdentifier;
+}
+
+function resolveGuestCartIdentifier(cart = {}) {
+  return String(
+    cart?.cartGuid
+      || cart?.guid
+      || cart?.cartCode
+      || cart?.code
+      || '',
+  ).trim();
+}
+
+function syncGuestCartIdentifierFromCart(cart = null) {
+  const nextIdentifier = resolveGuestCartIdentifier(cart);
+  if (nextIdentifier) {
+    persistGuestCartIdentifier(nextIdentifier);
+    return nextIdentifier;
+  }
+
+  if (cart === null) {
+    clearStoredGuestCartIdentifier();
+  }
+
+  return '';
+}
+
+function readSessionToken() {
+  try {
+    const sharedToken = localStorage.getItem(HYBRIS_SESSION_TOKEN_KEY) || '';
+    if (sharedToken) {
+      return sharedToken;
+    }
+  } catch (error) {
+    // ignore storage failures
+  }
+
+  try {
+    const legacyToken = sessionStorage.getItem(HYBRIS_SESSION_TOKEN_KEY) || '';
+    if (!legacyToken) {
+      return '';
+    }
+
+    try {
+      localStorage.setItem(HYBRIS_SESSION_TOKEN_KEY, legacyToken);
+    } catch (storageError) {
+      // ignore storage failures
+    }
+
+    try {
+      sessionStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
+    } catch (sessionError) {
+      // ignore storage failures
+    }
+
+    return legacyToken;
+  } catch (error) {
+    return '';
+  }
+}
+
+function syncWindowAuthState() {
+  if (typeof window !== 'undefined') {
+    window.HYBRIS_AUTH_STATE = { ...authState };
+  }
+}
+
+function getCachedAuthState() {
+  if (!hasUsableAuthState(authState)) {
+    const storedState = readStoredAuthState();
+    if (storedState) {
+      authState = storedState;
+      syncWindowAuthState();
+    } else if (authState.authenticated || authState.expiresAt || authState.myAccountUrl) {
+      authState = { ...DEFAULT_AUTH_STATE };
+      syncWindowAuthState();
+    }
+  }
+
+  return { ...authState };
+}
+
+function resolveHybrisBffBaseUrl() {
+  if (typeof window === 'undefined') {
+    return '/api/hybris';
+  }
+
+  const configuredBase = trimTrailingSlash(window.HYBRIS_BFF_BASE_URL);
+  if (configuredBase) {
+    return configuredBase;
+  }
+
+  return trimTrailingSlash(getEnvironmentHybrisBffBaseUrl());
+}
+
+function resolveHybrisReturnUrl(returnUrl = (typeof window !== 'undefined' ? window.location.href : '/')) {
+  if (typeof window === 'undefined') {
+    return returnUrl || '/';
+  }
+
+  const currentPageUrl = String(window.location.href || '').trim();
+  if (!currentPageUrl) {
+    return returnUrl || '/';
+  }
+
+  try {
+    return new URL(currentPageUrl).toString();
+  } catch (error) {
+    return currentPageUrl;
+  }
+}
+
+function buildHybrisLoginUrl(returnUrl = (typeof window !== 'undefined' ? window.location.href : '/'), loginUrl = '') {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const { country, language } = getLocaleFromPath();
+  const nextLoginUrl = loginUrl
+    ? new URL(loginUrl, window.location.href)
+    : new URL(`${trimTrailingSlash(resolveHybrisBffBaseUrl())}/auth/login`);
+  nextLoginUrl.searchParams.set('country', country || 'us');
+  nextLoginUrl.searchParams.set('language', language || 'en');
+  nextLoginUrl.searchParams.set('returnUrl', resolveHybrisReturnUrl(returnUrl));
+
+  return nextLoginUrl;
+}
+
+function redirectToHybrisLogin(returnUrl = (typeof window !== 'undefined' ? window.location.href : '/'), loginUrl = '') {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  const nextLoginUrl = buildHybrisLoginUrl(returnUrl, loginUrl);
+  if (!nextLoginUrl) {
+    return;
+  }
+
+  window.location.assign(nextLoginUrl.toString());
+}
+
+function resetAuthState() {
+  authState = { ...DEFAULT_AUTH_STATE };
+  authStatusPromise = null;
+  authInitializationPromise = null;
+  authStateValidatedAt = 0;
+  clearStoredAuthState();
+  syncWindowAuthState();
+  const cachedState = getCachedAuthState();
+  emitHybrisAuthStateEvent();
+  return cachedState;
+}
+
+function setAuthState(nextState = {}, options = {}) {
+  const { validated = false } = options;
+  authState = normalizeAuthState(nextState);
+  authStatusPromise = null;
+  authStateValidatedAt = validated ? Date.now() : 0;
+  persistAuthState(authState);
+  syncWindowAuthState();
+  const cachedState = getCachedAuthState();
+  emitHybrisAuthStateEvent();
+  return cachedState;
+}
+
+function setGuestCartPresence(present) {
+  authState = {
+    ...getCachedAuthState(),
+    guestCartCodePresent: Boolean(present),
+  };
+  syncWindowAuthState();
+  return { ...authState };
+}
+
+function clearSessionToken() {
+  sessionToken = '';
+  try {
+    localStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+
+  try {
+    sessionStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+  resetAuthState();
+}
+
+function saveSessionToken(nextToken) {
+  if (!nextToken) {
+    return;
+  }
+
+  sessionToken = nextToken;
+  try {
+    localStorage.setItem(HYBRIS_SESSION_TOKEN_KEY, nextToken);
+  } catch (error) {
+    try {
+      sessionStorage.setItem(HYBRIS_SESSION_TOKEN_KEY, nextToken);
+    } catch (sessionError) {
+      // ignore storage failures
+    }
+    return;
+  }
+
+  try {
+    sessionStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
+  } catch (error) {
+    // ignore storage failures
+  }
+}
+
+function ensureSessionTokenLoaded() {
+  if (!sessionToken) {
+    sessionToken = readSessionToken();
+  }
+  return sessionToken;
+}
+
+function buildBffError(message, options = {}) {
+  const error = new Error(message);
+  error.status = options.status || 0;
+  error.errorCode = options.errorCode || '';
+  error.loginUrl = options.loginUrl || '';
+  error.payload = options.payload;
+  return error;
+}
+
+function getCleanLocationUrl() {
+  if (typeof window === 'undefined') {
+    return '/';
+  }
+
+  const url = new URL(window.location.href);
+  ['code', 'lt', 'state', 'error', 'error_description'].forEach((key) => {
+    url.searchParams.delete(key);
+  });
+
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+function getLocationUrlWithoutAction(currentUrl = (typeof window !== 'undefined' ? window.location.href : '/')) {
+  if (typeof window === 'undefined') {
+    return '/us/en';
+  }
+
+  const url = new URL(currentUrl, window.location.origin);
+  url.searchParams.delete('ac');
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+function buildRegionParams(countryOverride, languageOverride) {
+  const { country, language } = getLocaleFromPath();
+  return {
+    country: countryOverride || country || 'us',
+    language: languageOverride || language || 'en',
+  };
+}
+
+function getHybrisProductCacheBustBucket(now = Date.now()) {
+  return String(Math.floor(now / HYBRIS_PRODUCT_CACHE_BUST_INTERVAL_MILLIS));
+}
+
+function syncHybrisProductCaches(now = Date.now()) {
+  const nextBucket = getHybrisProductCacheBustBucket(now);
+  if (productCacheBucket !== nextBucket) {
+    productCache.clear();
+    productRequestCache.clear();
+    productCacheBucket = nextBucket;
+  }
+  return nextBucket;
+}
+
+function buildBffUrl(path, query = {}) {
+  const base = trimTrailingSlash(resolveHybrisBffBaseUrl());
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  const url = new URL(`${base}${normalizedPath}`);
+
+  Object.entries(query).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      url.searchParams.set(key, value);
+    }
+  });
+
+  return url.toString();
+}
+
+function buildGuestCartQuery(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const query = {
+    country,
+    language,
+  };
+  const cartIdentifier = String(
+    options.cartIdentifier !== undefined ? options.cartIdentifier : ensureGuestCartIdentifierLoaded(),
+  ).trim();
+  if (cartIdentifier) {
+    query.cartIdentifier = cartIdentifier;
+  }
+  return query;
+}
+
+async function parseJsonSafely(response) {
+  try {
+    return await response.json();
+  } catch (error) {
+    return null;
+  }
+}
+
+function updateTokenFromResponse(response) {
+  const rotated = response.headers.get('X-Hybris-Session-Token');
+  if (rotated) {
+    saveSessionToken(rotated);
+  }
+}
+
+function handleAuthFailure(error, shouldRedirect, fallbackReturnUrl) {
+  if (shouldRedirect && typeof window !== 'undefined') {
+    if (error.loginUrl) {
+      redirectToHybrisLogin(fallbackReturnUrl, error.loginUrl);
+    } else {
+      redirectToHybrisLogin(fallbackReturnUrl);
+    }
+  }
+
+  throw error;
+}
+
+export function getHybrisBffBaseUrl() {
+  return resolveHybrisBffBaseUrl();
+}
+
+export function getCachedHybrisAuthState() {
+  return getCachedAuthState();
+}
+
+export function getHybrisGuestCartIdentifier() {
+  return ensureGuestCartIdentifierLoaded();
+}
+
+export function buildHybrisCartPageUrl(baseUrl = '/cart', options = {}) {
+  const {
+    authenticated = getCachedAuthState().authenticated,
+    guestCartIdentifier: nextGuestCartIdentifier = ensureGuestCartIdentifierLoaded(),
+  } = options;
+  const normalizedBaseUrl = String(baseUrl || '').trim() || '/cart';
+
+  if (typeof window === 'undefined') {
+    return normalizedBaseUrl;
+  }
+
+  try {
+    const cartUrl = new URL(normalizedBaseUrl, window.location.origin);
+    cartUrl.searchParams.delete('guid');
+    cartUrl.searchParams.delete('cartIdentifier');
+
+    if (!authenticated) {
+      const guestGuid = String(nextGuestCartIdentifier || '').trim();
+      if (guestGuid) {
+        cartUrl.searchParams.set('guid', guestGuid);
+      }
+    }
+
+    return cartUrl.toString();
+  } catch (error) {
+    return normalizedBaseUrl;
+  }
+}
+
+export function getHybrisSessionToken() {
+  return ensureSessionTokenLoaded();
+}
+
+export function isHybrisAuthenticated() {
+  return Boolean(getCachedHybrisAuthState().authenticated && ensureSessionTokenLoaded());
+}
+
+export function getHybrisProductCode(product = {}) {
+  return product.code
+    || product.sku
+    || product.productCode
+    || product.materialNumber
+    || product.overseasModel
+    || '';
+}
+
+export function startHybrisLogin(returnUrl = (typeof window !== 'undefined' ? window.location.href : '/')) {
+  redirectToHybrisLogin(returnUrl);
+}
+
+export function scheduleHybrisTask(task) {
+  return new Promise((resolve, reject) => {
+    const execute = () => {
+      Promise.resolve()
+        .then(task)
+        .then(resolve)
+        .catch(reject);
+    };
+
+    if (typeof window !== 'undefined' && typeof window.setTimeout === 'function') {
+      window.setTimeout(execute, 0);
+      return;
+    }
+
+    execute();
+  });
+}
+
+export async function exchangeHybrisCodeIfPresent() {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const url = new URL(window.location.href);
+  const code = url.searchParams.get('code');
+  const lt = url.searchParams.get('lt');
+
+  if (!code || !lt) {
+    return null;
+  }
+
+  const response = await fetch(buildBffUrl('/auth/exchange'), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ code, lt }),
+  });
+
+  const json = await parseJsonSafely(response);
+  updateTokenFromResponse(response);
+
+  if (!response.ok || json?.success === false) {
+    clearSessionToken();
+    throw buildBffError(json?.message || 'Auth exchange failed', {
+      status: response.status,
+      errorCode: json?.errorCode,
+      loginUrl: json?.loginUrl,
+      payload: json,
+    });
+  }
+
+  const exchanged = json?.data || null;
+  saveSessionToken(exchanged?.sessionToken);
+  if (exchanged?.authenticated) {
+    setAuthState(exchanged, { validated: true });
+  }
+
+  const cleanUrl = exchanged?.returnUrl || getCleanLocationUrl();
+  window.history.replaceState({}, '', cleanUrl);
+
+  return exchanged;
+}
+
+export async function bffRequest(path, options = {}) {
+  const {
+    method = 'GET',
+    body,
+    headers,
+    auth = 'optional',
+    redirectOnAuthFailure = false,
+    returnUrl,
+    query,
+    retryOptionalAuth = true,
+  } = options;
+
+  const token = ensureSessionTokenLoaded();
+  const requestHeaders = new Headers(headers || {});
+  const shouldSendJson = body !== undefined && body !== null;
+
+  if (shouldSendJson && !requestHeaders.has('Content-Type')) {
+    requestHeaders.set('Content-Type', 'application/json');
+  }
+
+  if (auth !== 'none' && token) {
+    requestHeaders.set('Authorization', `Bearer ${token}`);
+  }
+
+  const response = await fetch(buildBffUrl(path, query), {
+    method,
+    headers: requestHeaders,
+    body: shouldSendJson && typeof body !== 'string' ? JSON.stringify(body) : body,
+  });
+
+  const json = await parseJsonSafely(response);
+  updateTokenFromResponse(response);
+
+  if (response.status === 401 || json?.errorCode === 'AUTH_REQUIRED') {
+    const hadToken = Boolean(token);
+    clearSessionToken();
+
+    if (auth === 'optional' && hadToken && retryOptionalAuth) {
+      return bffRequest(path, {
+        ...options,
+        auth: 'none',
+        retryOptionalAuth: false,
+      });
+    }
+
+    const authError = buildBffError(json?.message || 'Authentication required', {
+      status: response.status,
+      errorCode: json?.errorCode || 'AUTH_REQUIRED',
+      loginUrl: json?.loginUrl,
+      payload: json,
+    });
+
+    return handleAuthFailure(authError, redirectOnAuthFailure, returnUrl);
+  }
+
+  if (!response.ok || json?.success === false) {
+    throw buildBffError(json?.message || `BFF request failed: ${response.status}`, {
+      status: response.status,
+      errorCode: json?.errorCode,
+      loginUrl: json?.loginUrl,
+      payload: json,
+    });
+  }
+
+  return json?.data;
+}
+
+export async function logoutHybris(options = {}) {
+  const returnUrl = resolveHybrisReturnUrl(options.returnUrl);
+  const logoutState = await bffRequest('/auth/logout', {
+    method: 'POST',
+    auth: 'optional',
+    body: {
+      returnUrl,
+    },
+  });
+
+  clearSessionToken();
+  broadcastHybrisAuthEvent(HYBRIS_AUTH_BROADCAST_LOGOUT);
+  return logoutState;
+}
+
+export function consumeHybrisLogoutAction(currentUrl = (typeof window !== 'undefined' ? window.location.href : '/')) {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  const actionUrl = new URL(currentUrl, window.location.origin);
+  const action = String(actionUrl.searchParams.get('ac') || '').trim().toLowerCase();
+  if (action !== HYBRIS_AUTH_BROADCAST_LOGOUT) {
+    return false;
+  }
+
+  clearSessionToken();
+  broadcastHybrisAuthEvent(HYBRIS_AUTH_BROADCAST_LOGOUT);
+  window.history.replaceState({}, '', getLocationUrlWithoutAction(actionUrl.toString()));
+  return true;
+}
+
+export async function refreshHybrisAuthStatus(options = {}) {
+  const { force = false } = options;
+
+  ensureSessionTokenLoaded();
+  const cachedState = getCachedAuthState();
+  if (!sessionToken) {
+    return resetAuthState();
+  }
+
+  if (authStatusPromise) {
+    return authStatusPromise;
+  }
+
+  if (!force && hasFreshValidatedAuthState(cachedState)) {
+    return cachedState;
+  }
+
+  const { country, language } = buildRegionParams();
+
+  authStatusPromise = bffRequest('/auth/status', {
+    auth: 'optional',
+    query: {
+      country,
+      language,
+    },
+  })
+    .then((status) => {
+      const normalizedStatus = normalizeAuthState(status);
+      if (!normalizedStatus.authenticated) {
+        clearSessionToken();
+        return getCachedAuthState();
+      }
+
+      return setAuthState(normalizedStatus, { validated: true });
+    })
+    .catch((error) => {
+      if (error.errorCode === 'AUTH_REQUIRED' || error.status === 401) {
+        return resetAuthState();
+      }
+      throw error;
+    })
+    .finally(() => {
+      authStatusPromise = null;
+    });
+
+  return authStatusPromise;
+}
+
+export function initializeHybrisAuth(options = {}) {
+  const { force = false } = options;
+
+  if (!force && authInitializationPromise) {
+    return authInitializationPromise;
+  }
+
+  authInitializationPromise = (async () => {
+    ensureSessionTokenLoaded();
+    let exchangedAuthState = null;
+
+    try {
+      exchangedAuthState = await exchangeHybrisCodeIfPresent();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn('Hybris auth exchange failed', error);
+    }
+
+    if (exchangedAuthState?.authenticated) {
+      return getCachedHybrisAuthState();
+    }
+
+    const cachedState = getCachedHybrisAuthState();
+    if (!sessionToken) {
+      if (cachedState.authenticated) {
+        return resetAuthState();
+      }
+      return cachedState;
+    }
+
+    try {
+      return await refreshHybrisAuthStatus({ force: true });
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn('Hybris auth status check failed', error);
+      return getCachedHybrisAuthState();
+    }
+  })();
+
+  return authInitializationPromise;
+}
+
+export async function fetchHybrisProduct(code, options = {}) {
+  const normalizedCode = String(code || '').trim();
+  if (!normalizedCode) {
+    return null;
+  }
+
+  ensureSessionTokenLoaded();
+  const cacheBucket = syncHybrisProductCaches();
+  const cacheKey = `${normalizedCode}:${cacheBucket}`;
+  if (!options.force && productCache.has(cacheKey)) {
+    return productCache.get(cacheKey);
+  }
+
+  if (!options.force && productRequestCache.has(cacheKey)) {
+    return productRequestCache.get(cacheKey);
+  }
+
+  const { country, language } = buildRegionParams();
+  const productRequest = bffRequest('/product', {
+    auth: 'optional',
+    query: {
+      country,
+      language,
+      code: normalizedCode,
+      _t: cacheBucket,
+    },
+  })
+    .then((product) => {
+      productCache.set(cacheKey, product);
+      return product;
+    })
+    .finally(() => {
+      productRequestCache.delete(cacheKey);
+    });
+
+  if (!options.force) {
+    productRequestCache.set(cacheKey, productRequest);
+  }
+
+  return productRequest;
+}
+
+export async function fetchHybrisWishlist(options = {}) {
+  const { country, language } = buildRegionParams();
+  try {
+    const wishlist = await bffRequest('/wishlist', {
+      auth: 'required',
+      query: {
+        country,
+        language,
+      },
+      redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+      returnUrl: options.returnUrl,
+    });
+    emitHybrisDataEvent('wishlist', wishlist);
+    return wishlist;
+  } catch (error) {
+    if (error.status === 404 || error.errorCode === 'WISHLIST_NOT_FOUND') {
+      emitHybrisDataEvent('wishlist', null);
+      return null;
+    }
+    throw error;
+  }
+}
+
+export async function fetchHybrisOrders(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const orders = await bffRequest('/orders', {
+    auth: 'required',
+    query: {
+      country,
+      language,
+    },
+    redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+    returnUrl: options.returnUrl,
+  });
+  emitHybrisDataEvent('orders', orders);
+  return orders;
+}
+
+export async function fetchHybrisCoupons(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const coupons = await bffRequest('/coupons', {
+    auth: 'required',
+    query: {
+      country,
+      language,
+    },
+    redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+    returnUrl: options.returnUrl,
+  });
+  emitHybrisDataEvent('coupons', coupons);
+  return coupons;
+}
+
+export async function fetchHybrisAddresses(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const addresses = await bffRequest('/addresses', {
+    auth: 'required',
+    query: {
+      country,
+      language,
+    },
+    redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+    returnUrl: options.returnUrl,
+  });
+  emitHybrisDataEvent('addresses', addresses);
+  return addresses;
+}
+
+async function fetchHybrisGuestCart(options = {}) {
+  const cart = await bffRequest('/guest-cart', {
+    auth: 'none',
+    query: buildGuestCartQuery(options),
+  });
+  if (cart) {
+    syncGuestCartIdentifierFromCart(cart);
+  }
+  return cart;
+}
+
+async function createHybrisGuestCart(options = {}) {
+  const cart = await bffRequest('/guest-cart', {
+    method: 'POST',
+    auth: 'none',
+    body: {},
+    query: buildGuestCartQuery({
+      ...options,
+      cartIdentifier: '',
+    }),
+  });
+  syncGuestCartIdentifierFromCart(cart);
+  setGuestCartPresence(true);
+  return cart;
+}
+
+async function ensureHybrisGuestCart(options = {}) {
+  if (guestCartEnsurePromise) {
+    return guestCartEnsurePromise;
+  }
+
+  guestCartEnsurePromise = (async () => {
+    try {
+      const cart = await fetchHybrisGuestCart(options);
+      if (cart) {
+        setGuestCartPresence(true);
+        return cart;
+      }
+    } catch (error) {
+      if (error.status !== 404 && error.errorCode !== 'GUEST_CART_NOT_FOUND') {
+        throw error;
+      }
+    }
+
+    return createHybrisGuestCart(options);
+  })();
+
+  try {
+    return await guestCartEnsurePromise;
+  } finally {
+    guestCartEnsurePromise = null;
+  }
+}
+
+export async function fetchHybrisCart(options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const authenticated = typeof options.authenticated === 'boolean'
+    ? options.authenticated
+    : isHybrisAuthenticated();
+
+  if (authenticated) {
+    const cart = await bffRequest('/cart', {
+      auth: 'required',
+      query: {
+        country,
+        language,
+      },
+      redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+      returnUrl: options.returnUrl,
+    });
+    emitHybrisDataEvent('cart', cart);
+    return cart;
+  }
+
+  try {
+    const cart = await bffRequest('/guest-cart', {
+      auth: 'none',
+      query: buildGuestCartQuery(options),
+    });
+    if (cart) {
+      syncGuestCartIdentifierFromCart(cart);
+    } else {
+      clearStoredGuestCartIdentifier();
+    }
+    setGuestCartPresence(Boolean(cart));
+    emitHybrisDataEvent('cart', cart);
+    return cart;
+  } catch (error) {
+    if (error.status === 404 || error.errorCode === 'GUEST_CART_NOT_FOUND') {
+      clearStoredGuestCartIdentifier();
+      setGuestCartPresence(false);
+      emitHybrisDataEvent('cart', null);
+      return null;
+    }
+    throw error;
+  }
+}
+
+export async function addHybrisCartItem(code, quantity = 1, options = {}) {
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const authenticated = typeof options.authenticated === 'boolean'
+    ? options.authenticated
+    : isHybrisAuthenticated();
+
+  if (authenticated) {
+    return bffRequest('/cart/items', {
+      method: 'POST',
+      auth: 'required',
+      body: {
+        code,
+        quantity,
+      },
+      query: {
+        country,
+        language,
+      },
+      redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+      returnUrl: options.returnUrl,
+    });
+  }
+
+  await ensureHybrisGuestCart(options);
+  const cartItem = await bffRequest('/guest-cart/items', {
+    method: 'POST',
+    auth: 'none',
+    body: {
+      code,
+      quantity,
+    },
+    query: buildGuestCartQuery(options),
+  });
+  setGuestCartPresence(true);
+  return cartItem;
+}
+
+export async function updateHybrisCartItem(entryNumber, quantity, options = {}) {
+  const normalizedEntryNumber = Number(entryNumber);
+  if (!Number.isInteger(normalizedEntryNumber) || normalizedEntryNumber < 0) {
+    throw buildBffError('Cart entryNumber must be a non-negative integer', {
+      status: 0,
+      errorCode: 'INVALID_REQUEST',
+    });
+  }
+
+  if (!Number.isInteger(quantity) || quantity <= 0) {
+    throw buildBffError('Cart quantity must be a positive integer', {
+      status: 0,
+      errorCode: 'INVALID_REQUEST',
+    });
+  }
+
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const authenticated = typeof options.authenticated === 'boolean'
+    ? options.authenticated
+    : isHybrisAuthenticated();
+  const path = authenticated
+    ? `/cart/items/${encodeURIComponent(normalizedEntryNumber)}`
+    : `/guest-cart/items/${encodeURIComponent(normalizedEntryNumber)}`;
+
+  return bffRequest(path, {
+    method: 'PUT',
+    auth: authenticated ? 'required' : 'none',
+    body: {
+      quantity,
+    },
+    query: authenticated
+      ? {
+        country,
+        language,
+      }
+      : buildGuestCartQuery(options),
+    redirectOnAuthFailure: authenticated && options.redirectOnAuthFailure === true,
+    returnUrl: options.returnUrl,
+  });
+}
+
+export async function removeHybrisCartItem(entryNumber, options = {}) {
+  const normalizedEntryNumber = Number(entryNumber);
+  if (!Number.isInteger(normalizedEntryNumber) || normalizedEntryNumber < 0) {
+    throw buildBffError('Cart entryNumber must be a non-negative integer', {
+      status: 0,
+      errorCode: 'INVALID_REQUEST',
+    });
+  }
+
+  const { country, language } = buildRegionParams(options.country, options.language);
+  const authenticated = typeof options.authenticated === 'boolean'
+    ? options.authenticated
+    : isHybrisAuthenticated();
+  const path = authenticated
+    ? `/cart/items/${encodeURIComponent(normalizedEntryNumber)}`
+    : `/guest-cart/items/${encodeURIComponent(normalizedEntryNumber)}`;
+
+  return bffRequest(path, {
+    method: 'DELETE',
+    auth: authenticated ? 'required' : 'none',
+    query: authenticated
+      ? {
+        country,
+        language,
+      }
+      : buildGuestCartQuery(options),
+    redirectOnAuthFailure: authenticated && options.redirectOnAuthFailure === true,
+    returnUrl: options.returnUrl,
+  });
+}
+
+export async function addHybrisWishlistItem(code, quantity = 1, options = {}) {
+  const cartCode = String(options.cartCode || '').trim();
+  const { country, language } = buildRegionParams();
+  const body = {
+    code,
+    quantity,
+  };
+  if (cartCode) {
+    body.cartCode = cartCode;
+  }
+  const wishlistItem = await bffRequest('/wishlist/items', {
+    method: 'POST',
+    auth: 'required',
+    body,
+    query: {
+      country,
+      language,
+    },
+    redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+    returnUrl: options.returnUrl,
+  });
+  emitHybrisDataEvent('wishlist-mutated', wishlistItem);
+  return wishlistItem;
+}
+
+export async function removeHybrisWishlistItem(entryNumber, options = {}) {
+  const cartCode = String(options.cartCode || '').trim();
+  const { country, language } = buildRegionParams();
+  const query = {
+    country,
+    language,
+  };
+  if (cartCode) {
+    query.cartCode = cartCode;
+  }
+  const removalResult = await bffRequest(`/wishlist/items/${encodeURIComponent(entryNumber)}`, {
+    method: 'DELETE',
+    auth: 'required',
+    query,
+    redirectOnAuthFailure: options.redirectOnAuthFailure === true,
+    returnUrl: options.returnUrl,
+  });
+  emitHybrisDataEvent('wishlist-mutated', removalResult);
+  return removalResult;
+}
+
+function handleHybrisAuthBroadcast(event) {
+  if (event?.key !== HYBRIS_AUTH_BROADCAST_KEY || !event.newValue || typeof window === 'undefined') {
+    return;
+  }
+
+  try {
+    const payload = JSON.parse(event.newValue);
+    if (payload?.type !== HYBRIS_AUTH_BROADCAST_LOGOUT) {
+      return;
+    }
+  } catch (error) {
+    return;
+  }
+
+  clearSessionToken();
+  window.location.reload();
+}
+
+function handleGuestCartIdentifierStorage(event) {
+  if (event?.key !== HYBRIS_GUEST_CART_IDENTIFIER_KEY || typeof window === 'undefined') {
+    return;
+  }
+
+  guestCartIdentifier = String(event.newValue || '').trim();
+  setGuestCartPresence(Boolean(guestCartIdentifier));
+}
+
+function handleSharedAuthStorage(event) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  if (event?.key === HYBRIS_SESSION_TOKEN_KEY) {
+    sessionToken = String(event.newValue || '').trim();
+    if (!sessionToken) {
+      authStateValidatedAt = 0;
+    }
+    return;
+  }
+
+  if (event?.key !== HYBRIS_AUTH_STATE_KEY) {
+    return;
+  }
+
+  if (!event.newValue) {
+    authState = { ...DEFAULT_AUTH_STATE };
+    authStatusPromise = null;
+    authInitializationPromise = null;
+    authStateValidatedAt = 0;
+    syncWindowAuthState();
+    emitHybrisAuthStateEvent();
+    return;
+  }
+
+  try {
+    authState = normalizeAuthState(JSON.parse(event.newValue));
+    authStatusPromise = null;
+    authInitializationPromise = null;
+    authStateValidatedAt = 0;
+    syncWindowAuthState();
+    emitHybrisAuthStateEvent();
+  } catch (error) {
+    // ignore invalid storage payloads
+  }
+}
+
+function revalidateHybrisAuthOnResume() {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  ensureSessionTokenLoaded();
+  if (!sessionToken || hasFreshValidatedAuthState(getCachedAuthState())) {
+    return;
+  }
+
+  refreshHybrisAuthStatus({ force: true }).catch((error) => {
+    // eslint-disable-next-line no-console
+    console.warn('Hybris auth resume check failed', error);
+  });
+}
+
+function handleHybrisWindowFocus() {
+  revalidateHybrisAuthOnResume();
+}
+
+function handleHybrisDocumentVisibilityChange() {
+  if (typeof document === 'undefined' || document.visibilityState !== 'visible') {
+    return;
+  }
+
+  revalidateHybrisAuthOnResume();
+}
+
+sessionToken = readSessionToken();
+syncWindowAuthState();
+if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+  window.addEventListener('storage', handleHybrisAuthBroadcast);
+  window.addEventListener('storage', handleGuestCartIdentifierStorage);
+  window.addEventListener('storage', handleSharedAuthStorage);
+  window.addEventListener('focus', handleHybrisWindowFocus);
+}
+
+if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+  document.addEventListener('visibilitychange', handleHybrisDocumentVisibilityChange);
+}

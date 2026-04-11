@@ -94,6 +94,14 @@
     }
 }
 
+.huge-icon .icon-container-item .icon-image img {
+  height: var(--size-120);
+
+  @media (width < 860px) {
+    height: var(--size-60);
+  }
+}
+
 .large-icon .icon-container-box{
     margin: calc(-1 * min(48.71777vw,190px)) 0 min(48.71777vw,190px);
     position: relative;
@@ -116,6 +124,16 @@
    @media (width >= 860px) {
          height: var(--size-24);
     }
+}
+
+.display-left-mobile .icon-container-box {
+  align-items: center;
+  justify-content: center !important;
+  
+  @media (width < 860px){
+    align-items: center;
+    justify-content: flex-start !important;
+  }
 }
 
 .fixed-width .icon-container-box{

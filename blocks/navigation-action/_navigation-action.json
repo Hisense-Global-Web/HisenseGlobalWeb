@@ -26,19 +26,42 @@
           "valueType": "string",
           "name": "icon",
           "label": "Icon",
-          "multi": false
+          "multi": false,
+          "required": true
         },
         {
           "component": "reference",
           "valueType": "string",
           "name": "darkIcon",
           "label": "Dark Icon",
-          "multi": false
+          "multi": false,
+          "required": true
         },
         {
           "component": "aem-content",
           "name": "link",
           "label": "Link"
+        },
+        {
+          "component": "select",
+          "name": "icon-type",
+          "label": "Icon Type",
+          "valueType": "string",
+          "value": "account",
+          "options": [
+            {
+              "name": "Search Box",
+              "value": "search-box"
+            },
+            {
+              "name": "Shopping Cart",
+              "value": "shopping-cart"
+            },
+            {
+              "name": "Account",
+              "value": "account"
+            }
+          ]
         },
         {
           "component": "boolean",

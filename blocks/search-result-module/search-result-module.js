@@ -38,6 +38,90 @@ async function fetchTagData() {
   return null;
 }
 
+const normalizeValueForSort = (value, sortProperty) => {
+  if (value === null || value === undefined) return null;
+  if (typeof value === 'number') return value;
+  if (typeof value === 'string' && /\d{4}-\d{2}-\d{2}T/.test(value)) {
+    const parsed = Date.parse(value);
+    return Number.isNaN(parsed) ? String(value).toLowerCase() : parsed;
+  }
+  if (typeof value === 'string' && sortProperty.toLowerCase().includes('size')) {
+    const m = value.match(/(\d+(\.\d+)?)/);
+    if (m) return parseFloat(m[1]);
+  }
+  return String(value).toLowerCase();
+};
+
+const compareStringsCustom = (a, b, isTitle = false) => {
+  const strA = String(a);
+  const strB = String(b);
+
+  const len = Math.max(strA.length, strB.length);
+
+  for (let i = 0; i < len; i += 1) {
+    const charA = strA[i];
+    const charB = strB[i];
+
+    if (charA === undefined) return -1;
+    if (charB === undefined) return 1;
+
+    const isDigitA = /\d/.test(charA);
+    const isDigitB = /\d/.test(charB);
+
+    const isLetterA = /[a-zA-Z]/.test(charA);
+    const isLetterB = /[a-zA-Z]/.test(charB);
+
+    // 第一优先级：字母 > 数字
+    if (isLetterA && isDigitB) return -1;
+    if (isDigitA && isLetterB) return 1;
+
+    // 数字 vs 数字：9 → 0
+    if (isDigitA && isDigitB) {
+      if (charA !== charB) {
+        return charB - charA;
+      }
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    // 字母 vs 字母
+    if (isLetterA && isLetterB) {
+      const lowerA = charA.toLowerCase();
+      const lowerB = charB.toLowerCase();
+
+      // 第一层：字母顺序
+      if (lowerA !== lowerB) {
+        if (isTitle) {
+          // A → Z
+          return lowerA < lowerB ? -1 : 1;
+        }
+        // Z → A
+        return lowerA > lowerB ? -1 : 1;
+      }
+
+      // 第二层：大小写（大写优先）
+      if (charA !== charB) {
+        const isUpperA = charA === charA.toUpperCase();
+        const isUpperB = charB === charB.toUpperCase();
+
+        if (isUpperA !== isUpperB) {
+          return isUpperA ? -1 : 1;
+        }
+      }
+
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    // 其他字符（兜底）
+    if (charA !== charB) {
+      return charA.localeCompare(charB);
+    }
+  }
+
+  return 0;
+};
+
 function getTagRoot(tagData) {
   if (!tagData) return null;
   if (Array.isArray(tagData.data) && tagData.data.length > 0) return tagData.data[0];
@@ -155,6 +239,40 @@ function filterItems(items, keyword, type) {
       fields.push(item.title, item.description, item.subtitle, item.keywords);
     }
     return fields.some((f) => f && String(f).toLowerCase().includes(kw));
+  });
+}
+
+const SORT_TEXT_COLLATOR = new Intl.Collator(undefined, {
+  numeric: true,
+  sensitivity: 'base',
+});
+
+function getItemSortDateValue(item, type) {
+  const value = type === 'product'
+    ? item.productLaunchDate
+    : (item.date || item['published-date']);
+  const time = Date.parse(value);
+  return Number.isNaN(time) ? 0 : time;
+}
+
+function getItemSortTextValue(item, type) {
+  if (type === 'product') {
+    return item.title || item.series || item.sku || item.overseasModel || '';
+  }
+  return item.title || item.subtitle || item.path || '';
+}
+
+// 一级按日期倒序；日期相同则按标题 Z-A / 9-0 倒序
+function sortItems(items, type) {
+  return [...items].sort((a, b) => {
+    const dateDiff = getItemSortDateValue(b, type) - getItemSortDateValue(a, type);
+    if (dateDiff !== 0) return dateDiff;
+
+    const textDiff = SORT_TEXT_COLLATOR.compare(
+      getItemSortTextValue(b, type),
+      getItemSortTextValue(a, type),
+    );
+    return textDiff;
   });
 }
 
@@ -513,7 +631,7 @@ export default async function decorate(block) {
       const rawData = await resp.json();
 
       const allItems = extractDataList(rawData, dataSource);
-      const filteredItems = filterItems(allItems, keyword, type);
+      const filteredItems = sortItems(filterItems(allItems, keyword, type), type);
 
       return {
         title: item.title,
@@ -581,9 +699,86 @@ export default async function decorate(block) {
 
   tabDataMap.forEach((tabData, index) => {
     const tabContent = document.createElement('div');
-    tabContent.className = 'tab-content';
+    tabContent.className = `tab-content ${tabData.type}`;
     tabContent.dataset.tabIndex = String(index);
     if (index === activeTabIndex) tabContent.classList.add('active');
+
+    const filterGroup = document.createElement('div');
+    filterGroup.className = 'filter-group';
+    const sortBox = document.createElement('div');
+    sortBox.className = 'support-sort-box';
+    if (block.parentNode.parentNode) {
+      if (tabData.type === 'product') {
+        const bar = block.parentNode.parentNode.querySelector('.plp-filters-bar[data-type="product"]');
+        sortBox.append(bar?.cloneNode(true) || document.createElement('div'));
+      }
+      if (tabData.type === 'news') {
+        const bar = block.parentNode.parentNode.querySelector('.plp-filters-bar[data-type="news"]');
+        sortBox.append(bar?.cloneNode(true) || document.createElement('div'));
+      }
+      if (tabData.type === 'blog') {
+        const bar = block.parentNode.parentNode.querySelector('.plp-filters-bar[data-type="blog"]');
+        sortBox.append(bar?.cloneNode(true) || document.createElement('div'));
+      }
+
+      const sort = sortBox.querySelector('.plp-sort');
+      sort?.addEventListener('click', () => {
+        sortBox.classList.toggle('show');
+      });
+      const sortOptions = sortBox.querySelector('.plp-sort-options');
+      sortOptions?.querySelectorAll('.plp-sort-option').forEach((option) => {
+        option.addEventListener('click', () => {
+          if (option.classList.contains('selected')) {
+            sortBox.classList.remove('show');
+            return;
+          }
+
+          sortOptions.querySelectorAll('.plp-sort-option').forEach((opt) => {
+            opt.classList.remove('selected');
+          });
+          option.classList.add('selected');
+
+          const prefix = 'SORT:';
+          const splitText = option.textContent.split(':')[0].trim();
+          const sortSpan = sortBox.querySelector('.plp-sort span');
+          sortSpan.textContent = `${prefix} ${splitText}`;
+          sortBox.classList.remove('show');
+          try {
+            const sortKey = (option.dataset && Object.prototype.hasOwnProperty.call(option.dataset, 'value'))
+              ? option.dataset.value
+              : (option.getAttribute && option.getAttribute('data-value'));
+            const sortArray = (arr, sortProperty, ascending = false) => [...arr].sort((a, b) => {
+              const valA = normalizeValueForSort(a[sortProperty], sortProperty);
+              const valB = normalizeValueForSort(b[sortProperty], sortProperty);
+              if (valA === null && valB === null) return 0;
+              if (valA === null) return 1;
+              if (valB === null) return -1;
+              if (typeof valA === 'number' && typeof valB === 'number') {
+                return ascending ? valA - valB : valB - valA;
+              }
+
+              // 字符串自定义排序
+              return compareStringsCustom(
+                valA,
+                valB,
+                sortProperty === 'title',
+              );
+            });
+            const arr = sortArray(tabData.filteredItems, sortKey);
+            tabData.filteredItems = JSON.parse(JSON.stringify(arr));
+            // eslint-disable-next-line no-use-before-define
+            renderTabContent(index);
+          } catch (e) { /* empty */ }
+        });
+      });
+
+      // 点击关闭下拉
+      document.addEventListener('click', (e) => {
+        if (!sortBox.contains(e.target)) {
+          sortBox.classList.remove('show');
+        }
+      });
+    }
 
     const resultsNum = document.createElement('div');
     resultsNum.className = 'results-num';
@@ -591,7 +786,8 @@ export default async function decorate(block) {
     numSpan.textContent = String(tabData.filteredItems.length);
     resultsNum.appendChild(numSpan);
     resultsNum.appendChild(document.createTextNode(' Results'));
-    tabContent.appendChild(resultsNum);
+    filterGroup.append(resultsNum, sortBox);
+    tabContent.appendChild(filterGroup);
 
     if (tabData.filteredItems.length === 0 && keyword) {
       tabContent.appendChild(renderNoResult(keyword, tabData.title, config));

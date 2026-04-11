@@ -1,7 +1,6 @@
 .page-header-wrapper {
-  @media (width >= 860px) {
-    padding: 0 !important;
-  }
+  width: 100%;
+  padding: 0 !important;
 }
 
 .text-green-50 {
@@ -13,7 +12,6 @@
 }
 
 .page-header-title {
-  text-align: center;
   font-size: var(--fontsize-pc-h1, 46px);
   font-weight: var(--fontweight-medium, 500);
   line-height: 1.2;
@@ -27,7 +25,6 @@
 .page-header-subtitle {
   margin-top: var(--spacing-sm, 24px);
   color: var(--color-primary-grey-70, #333);
-  text-align: center;
   font-size: var(--font-size-normal, 24px);
   font-weight: var(--fontweight-medium, 500);
   line-height: 1.2;
@@ -37,6 +34,22 @@
     font-size: var(--size-16, 16px);
     line-height: 1.3;
   }
+}
+
+.align-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.align-center p {
+  @media (width>=860px) {
+    max-width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
+  }
+}
+
+.align-left {
+  text-align: left;
 }
 
 .page-header p {

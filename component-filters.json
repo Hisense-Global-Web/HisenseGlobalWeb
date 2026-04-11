@@ -4,6 +4,8 @@
     "components": [
       "section",
       "popup-module",
+      "announcement",
+      "product-identifier-guide",
       "navigation",
       "company-page-navigation",
       "support-navigation",
@@ -17,6 +19,7 @@
       "about-hisense-module-title",
       "about-hisense-section-title",
       "accessories-feature",
+      "adaptive-images",
       "addional-support-card",
       "article-body",
       "article-body-list",
@@ -89,6 +92,8 @@
       "region-page-title",
       "region-selection",
       "recall-info-list",
+      "gray-tips",
+      "guide-list",
       "related-news",
       "resource-list",
       "search-box",
@@ -113,10 +118,12 @@
       "icon-card-container",
       "parters-container",
       "information-list-module",
+      "job-cards",
       "job-list",
       "quick-action-card",
       "category-support-card",
       "additional-support-card",
+      "special-capitalize-text-list",
       "tech-information",
       "past-partnerships-list",
       "partnerships-section-title",
@@ -139,7 +146,15 @@
       "legal-content",
       "exception-page",
       "accessories-feature",
-      "calltoaction-banner"
+      "calltoaction-banner",
+      "project-brief-card",
+      "store-information-card",
+      "warning-note",
+      "warranty-accordion",
+      "warranty-accordion-item",
+      "warranty-information",
+      "store-locator",
+      "brand-matrix"
     ]
   },
   {
@@ -155,10 +170,27 @@
     ]
   },
   {
+    "id": "announcement",
+    "components": [
+      "page-header",
+      "legal-content"
+    ]
+  },
+  {
+    "id": "product-identifier-guide",
+    "components": [
+      "product-category-guide"
+    ]
+  },
+  {
     "id": "accessories-feature",
     "components": [
       "accessories-feature-item"
     ]
+  },
+  {
+    "id": "adaptive-images",
+    "components": []
   },
   {
     "id": "additional-support-card",
@@ -198,6 +230,12 @@
     "id": "bi-directional-content",
     "components": [
       "bi-directional-content-item"
+    ]
+  },
+  {
+    "id": "brand-matrix",
+    "components": [
+      "brand-matrix-items"
     ]
   },
   {
@@ -420,21 +458,35 @@
     ]
   },
   {
+    "id": "product-category-guide",
+    "components": [
+      "product-guide-item"
+    ]
+  },
+  {
     "id": "product-filter",
     "components": [
-      "product-filter-item"
+      "product-filter-item",
+      "price-slider"
     ]
   },
   {
     "id": "product-gallery",
     "components": [
-      "product-gallery-item"
+      "product-gallery-item",
+      "video"
     ]
   },
   {
     "id": "product-sorting",
     "components": [
       "plp-product-sort"
+    ]
+  },
+  {
+    "id": "project-brief-card",
+    "components": [
+      "project-brief-card-item"
     ]
   },
   {
@@ -480,9 +532,21 @@
     ]
   },
   {
+    "id": "special-capitalize-text-list",
+    "components": [
+      "special-capitalize-text-list-item"
+    ]
+  },
+  {
     "id": "stats-grid",
     "components": [
-      "sustainability-dashboard-achievement-matrix"
+      "achievement-matrix"
+    ]
+  },
+  {
+    "id": "store-information-card",
+    "components": [
+      "service-items"
     ]
   },
   {
@@ -526,7 +590,8 @@
   {
     "id": "sustainability-dashboard-achievement",
     "components": [
-      "sustainability-dashboard-achievement-matrix"
+      "achievement-matrix",
+      "achievement-highlights"
     ]
   },
   {

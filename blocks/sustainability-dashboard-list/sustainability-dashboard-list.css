@@ -1,7 +1,11 @@
+.sustainability-dashboard-list-wrapper {
+  width: 100%;
+}
+
 .sustainability-dashboard-list {
   display: flex;
   align-items: flex-start;
-  gap: var(--size-32);
+  gap: var(--size-48);
   width: 100%;
   height: auto;
   min-height: min(calc(104/var(--breakpoint-pc)*100vw), 104px);

@@ -1,6 +1,8 @@
 import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
 import { loadScript } from '../../scripts/aem.js';
 
+const injectedInlineScripts = new Set();
+
 // Functions
 function isExternalJs(url) {
   try {
@@ -29,8 +31,13 @@ function isIframeDiv(text) {
 }
 
 function injectInlineScript(scriptTag) {
+  const normalizedScript = scriptTag.trim();
+  if (!normalizedScript || injectedInlineScripts.has(normalizedScript)) {
+    return;
+  }
+
   const temp = document.createElement('div');
-  temp.innerHTML = scriptTag.trim();
+  temp.innerHTML = normalizedScript;
   const script = temp.querySelector('script');
   if (script) {
     const newScript = document.createElement('script');
@@ -40,21 +47,43 @@ function injectInlineScript(scriptTag) {
       newScript.textContent = script.textContent;
     }
     document.head.appendChild(newScript);
+    injectedInlineScripts.add(normalizedScript);
   }
 }
 
-export default async function decorate(block) {
-  // Build block data
-  const div = block.querySelectorAll(':scope > div');
-  const blockData = {
-    externalJsPaths: div[0]?.textContent.split(',').map((path) => path.trim()),
-    externalScripts: [
-      div[1]?.textContent,
-      div[2]?.textContent,
-      div[3]?.textContent,
-    ],
-  };
+function getPageLocale() {
+  const segments = window.location.pathname.split('/').filter(Boolean);
+  const baseIndex = segments[0] === 'content' ? 2 : 0;
 
+  return {
+    country: segments[baseIndex] || '',
+    language: segments[baseIndex + 1] || 'en',
+  };
+}
+
+function upsertHeadMeta(name, content) {
+  if (!name || !content) {
+    return;
+  }
+
+  let meta = document.head.querySelector(`meta[name="${name}"]`);
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.setAttribute('name', name);
+    document.head.appendChild(meta);
+  }
+
+  meta.setAttribute('content', content);
+}
+
+function applyPriceSpiderMetaTags() {
+  const { country, language } = getPageLocale();
+  upsertHeadMeta('ps-key', '6998-659da0480715a3000dcb7a24');
+  upsertHeadMeta('ps-country', country);
+  upsertHeadMeta('ps-language', language);
+}
+
+function loadThirdPartyAssets(blockData) {
   // Load external JS files
   if (blockData.externalJsPaths) {
     blockData.externalJsPaths.forEach((path) => {
@@ -79,30 +108,55 @@ export default async function decorate(block) {
       }
     });
   }
+}
 
-  // Inject iframe divs
+function scheduleThirdPartyAssets(blockData) {
+  window.requestAnimationFrame(() => {
+    window.setTimeout(() => {
+      loadThirdPartyAssets(blockData);
+    }, 0);
+  });
+}
+
+function buildBlockData(block) {
+  const div = block.querySelectorAll(':scope > div');
+
+  return {
+    externalJsPaths: div[0]?.textContent.split(',').map((path) => path.trim()).filter(Boolean),
+    externalScripts: [
+      div[1]?.textContent,
+      div[2]?.textContent,
+      div[3]?.textContent,
+    ].filter(Boolean),
+  };
+}
+
+function buildIframeContent(blockData) {
+  const { language } = getPageLocale();
+
   const iframeEle = document.createElement('div');
   let isIframe = false;
+
   if (blockData.externalScripts) {
     blockData.externalScripts.forEach((iframeDiv) => {
       if (isIframeDiv(iframeDiv)) {
         isIframe = true;
-        // Create a temporary div to parse and append the iframe
         const tempEle = document.createElement('div');
-        tempEle.innerHTML = iframeDiv.trim();
+        tempEle.innerHTML = iframeDiv.trim().replaceAll('#lang#', language);
         iframeEle.appendChild(tempEle.firstElementChild);
       }
     });
   }
 
-  // price spider meta tags
-  const pageNames = window.location.pathname.split('/');
-  const country = pageNames[0].length === 2 ? pageNames[0] : '';
-  const language = pageNames.length > 2 && pageNames[1].length === 2 ? pageNames[1] : 'en';
-  document.head.innerHTML += `
-  <meta name="ps-key" content="6998-659da0480715a3000dcb7a24"/>
-  <meta name="ps-country" content="${country}"/>
-  <meta name="ps-language" content="${language}"/>`;
+  return {
+    isIframe,
+    iframeEle,
+  };
+}
+
+export default async function decorate(block) {
+  const blockData = buildBlockData(block);
+  const { isIframe, iframeEle } = buildIframeContent(blockData);
 
   // handle iframe integration
   if (isIframe) {
@@ -119,5 +173,7 @@ export default async function decorate(block) {
     return;
   }
 
-  block.innerHTML = '';
+  applyPriceSpiderMetaTags();
+  block.replaceChildren();
+  scheduleThirdPartyAssets(blockData);
 }

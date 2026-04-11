@@ -10,7 +10,9 @@
             "template": {
               "name": "Page Header",
               "model": "page-header",
-              "classes": "page-header"
+              "classes": "page-header",
+              "page-headerstyle": "align-center",
+              "title-style": "text-green-50"
             }
           }
         }
@@ -23,10 +25,25 @@
       "fields": [
         {
           "component": "select",
+          "name": "page-headerstyle",
+          "label": "Page Header Style",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Text Align Center(default)",
+              "value": "align-center"
+            },
+            {
+              "name": "Text Align Left",
+              "value": "align-left"
+            }
+          ]
+        },
+        {
+          "component": "select",
           "name": "title-style",
           "label": "Title Style",
           "valueType": "string",
-          "value": "text-green-50",
           "options": [
             {
               "name": "Green 50",
@@ -41,14 +58,12 @@
         {
           "component": "text",
           "name": "title",
-          "value": "",
           "label": "Title",
           "valueType": "string"
         },
         {
           "component": "text",
           "name": "subtitle",
-          "value": "",
           "label": "Subtitle",
           "valueType": "string"
         }

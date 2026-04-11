@@ -7,10 +7,23 @@ export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
   const title = document.createElement('div');
+  const button = document.createElement('div');
   [...block.children].forEach((row, i) => {
     if (i <= 1) {
       title.className = 'title';
       title.append(...row.children);
+    } else if (i === 2) {
+      // handle button
+      const target = row.firstElementChild;
+      if (target.querySelector('a')) {
+        target.querySelector('a').classList.add(target.firstElementChild.textContent);
+        target.firstElementChild.remove();
+        if (target.lastElementChild !== target.querySelector('.button-container')) {
+          target.querySelector('a').textContent = target.lastElementChild.textContent;
+          target.lastElementChild.remove();
+        }
+        button.append(...row.firstElementChild.children);
+      }
     } else {
       const li = document.createElement('li');
       li.classList.add('card-item');
@@ -23,7 +36,11 @@ export default function decorate(block) {
           div.className = 'card-image';
           div.setAttribute('data-card-index', index);
           const arrow = document.createElement('img');
-          arrow.classList.add('arrow', 'hide');
+          if (i === 3) {
+            arrow.classList.add('arrow');
+          } else {
+            arrow.classList.add('arrow', 'hide');
+          }
           arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-white-up.svg`;
           arrow.setAttribute('data-target-index', index);
           arrow.addEventListener('click', (e) => {
@@ -67,5 +84,5 @@ export default function decorate(block) {
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
   });
-  block.replaceChildren(title, ul);
+  block.replaceChildren(title, ul, button);
 }

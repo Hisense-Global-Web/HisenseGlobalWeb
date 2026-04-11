@@ -12,10 +12,28 @@ import {
   loadSections,
   loadCSS,
 } from './aem.js';
-import { getFragmentPath } from './locale-utils.js';
+import { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
+import {
+  consumeHybrisLogoutAction,
+  getHybrisBffBaseUrl,
+  initializeHybrisAuth,
+  scheduleHybrisTask,
+} from './hybris-bff.js';
+import { isUniversalEditor } from '../utils/ue-helper.js';
+import {
+  isConfigPage,
+  isNavPage,
+  isFooterPage,
+  getFragmentPath,
+  getLocaleFromPath,
+} from './locale-utils.js';
+
+import { storeInformationSelect } from './store-information-select.js';
+
+export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
 /**
- * Moves all the attributes from a given elmenet to another given element.
+ * Moves all the attributes from a given element to another given element.
  * @param {Element} from the element to copy attributes from
  * @param {Element} to the element to copy attributes to
  */
@@ -62,7 +80,6 @@ async function loadFonts() {
 
 /**
  * Builds all synthetic blocks in a container element.
- * @param {Element} main The container element
  */
 function buildAutoBlocks() {
   try {
@@ -103,72 +120,13 @@ export function decorateMain(main) {
 }
 
 /**
- * Get GraphQL API base URL based on current hostname
- */
-export function getGraphQLBaseUrl() {
-  const { hostname } = window.location;
-
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return 'https://publish-p174152-e1855821.adobeaemcloud.com/';
-  }
-
-  // Author environment - use same origin
-  if (hostname.includes('author-')) {
-    return '';
-  }
-
-  // Publish environment - use same origin
-  if (hostname.includes('publish-')) {
-    return '';
-  }
-
-  // Dev environment
-  if (hostname.includes('hisense-dev')) {
-    return 'https://publish-p174152-e1855821.adobeaemcloud.com';
-  }
-
-  // Stage environment
-  if (hostname.includes('hisense-stage')) {
-    return 'https://publish-p174152-e1855674.adobeaemcloud.com';
-  }
-
-  // Production environment
-  if (hostname.includes('hisense.com') || hostname.includes('hisenseglobalweb')) {
-    return 'https://publish-p174152-e1855954.adobeaemcloud.com';
-  }
-
-  // Default fallback for localhost or unknown environments
-  return '';
-}
-
-/**
- * Get EDS base URL based hostname
- */
-function getEdsBaseUrl() {
-  const { hostname } = window.location;
-
-  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('e1855821')) {
-    return 'https://development--hisense-dev--hisense-global-web.aem.page';
-  }
-
-  if (hostname.includes('e1855674')) {
-    return 'https://stage--hisense-stage--hisense-global-web.aem.page';
-  }
-
-  if (hostname.includes('e1855954')) {
-    return 'https://main--hisenseglobalweb--hisense-global-web.aem.live';
-  }
-
-  return window.location.origin;
-}
-
-/**
  * Set global variables for API endpoints
  */
 function setGlobalApiVariables() {
   const gqlBaseUrl = getGraphQLBaseUrl();
   window.GRAPHQL_BASE_URL = gqlBaseUrl;
   window.EDS_BASE_URL = getEdsBaseUrl();
+  window.HYBRIS_BFF_BASE_URL = getHybrisBffBaseUrl();
 }
 
 async function loadRemoteErrorPage(main) {
@@ -227,12 +185,22 @@ async function loadRemoteErrorPage(main) {
 async function loadEager(doc) {
   // Set global API variables first
   setGlobalApiVariables();
+  consumeHybrisLogoutAction();
+  scheduleHybrisTask(() => initializeHybrisAuth()).catch((error) => {
+    // eslint-disable-next-line no-console
+    console.warn('Failed to initialize Hybris auth', error);
+  });
 
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    loadHeader(doc.querySelector('header'));
+    if (isConfigPage() || isFooterPage()) {
+      // to nothing
+      document.documentElement.style.setProperty('--nav-height', '100px');
+    } else {
+      loadHeader(doc.querySelector('header'));
+    }
     const hasRemoteErrorPage = await loadRemoteErrorPage(main);
     if (!hasRemoteErrorPage) {
       decorateMain(main);
@@ -263,7 +231,12 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadFooter(doc.querySelector('footer'));
+  if (isConfigPage() || isNavPage()) {
+    // to do nothing
+    document.documentElement.style.setProperty('--nav-height', '100px');
+  } else {
+    loadFooter(doc.querySelector('footer'));
+  }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
@@ -365,20 +338,95 @@ function transHorizontalSection(className) {
       wrapper.appendChild(el.cloneNode(true));
     });
 
-    // 用 wrapper 替换所有 .b 元素
     bElements[0].replaceWith(wrapper);
 
-    // 删除剩余的 .b 元素
     for (let i = 1; i < bElements.length; i += 1) {
       bElements[i].remove();
     }
   }
 }
+
+async function loadAnnouncementPopup() {
+  if (isUniversalEditor()) {
+    return false;
+  }
+
+  const { country } = getLocaleFromPath();
+  const announcementActiveCountries = ['mx'];
+
+  if (!announcementActiveCountries.includes(country)) {
+    return false;
+  }
+
+  const popupUrl = getFragmentPath('config/announcement');
+  try {
+    const resp = await fetch(`${popupUrl}.plain.html`);
+
+    if (!resp.ok) {
+      return false;
+    }
+
+    const fragmentMain = document.createElement('main');
+    fragmentMain.innerHTML = await resp.text();
+
+    const resetAttributeBase = (tag, attr) => {
+      fragmentMain.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
+        elem[attr] = new URL(elem.getAttribute(attr), new URL(popupUrl, window.location)).href;
+      });
+    };
+
+    resetAttributeBase('img', 'src');
+    resetAttributeBase('source', 'srcset');
+
+    decorateMain(fragmentMain);
+    await loadSections(fragmentMain);
+
+    const fragmentSections = [...fragmentMain.children];
+    const anncEl = fragmentMain.querySelector('.popup-announcement');
+
+    if (!anncEl || !fragmentSections.length) {
+      return false;
+    }
+
+    if (document.querySelector('.popup-announcement')) {
+      // check version of the existing announcement popup, if it's different from the new one, replace it with the new one, otherwise keep the existing one to avoid showing the same announcement popup repeatedly when user close it
+      const prevAnnc = document.querySelector('.popup-announcement');
+      const existingVersion = prevAnnc.getAttribute('data-version') || '';
+      const newVersion = anncEl.getAttribute('data-version') || '';
+      if (existingVersion !== newVersion) {
+        prevAnnc.replaceWith(anncEl);
+      }
+    } else {
+      document.querySelector('main').appendChild(...fragmentSections);
+    }
+
+    const currentAnnc = document.querySelector('.popup-announcement');
+    // check local storage to decide whether show the announcement popup, only show it when the version is different from the version user closed last time
+    const announcementVersion = currentAnnc.getAttribute('data-version') || '';
+    const closedVersion = localStorage.getItem('announcementClosedVersion') || '';
+    if (announcementVersion && announcementVersion !== closedVersion) {
+      currentAnnc.classList.add('popup-show');
+      document.body.style.overflow = 'hidden';
+    } else {
+      currentAnnc.classList.remove('popup-show');
+      document.body.style.overflow = 'auto';
+    }
+
+    return true;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.debug(`failed to load remote error page from ${popupUrl}`, error);
+    return false;
+  }
+}
+
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
+  loadAnnouncementPopup();
   loadDelayed();
   transHorizontalSection('.honors-awards-wrapper');
+  storeInformationSelect();
 
   // Update US site links after page load is complete
   if (document.readyState === 'complete') {

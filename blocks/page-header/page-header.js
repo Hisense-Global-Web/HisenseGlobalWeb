@@ -2,15 +2,18 @@ import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.j
 
 export default function decorate(block) {
   try {
-    const [titleStyleEl, titleEl, subtitleEl] = [...block.children];
+    const [pageHeaderStyleEl, titleStyleEl, titleEl, subtitleEl] = [...block.children];
+    const pageHeaderStyle = pageHeaderStyleEl.querySelector('p')?.textContent ?? 'align-center';
+    block.classList.add(pageHeaderStyle);
     const titleStylePEl = titleStyleEl?.querySelector?.('p') ?? null;
     if (titleStylePEl) {
       titleEl.classList.add(titleStylePEl?.textContent);
     }
     titleEl.classList.add('page-header-title');
-    if (subtitleEl) {
+    if (subtitleEl.textContent.trim()) {
       subtitleEl?.classList.add('page-header-subtitle');
     }
+    pageHeaderStyleEl.remove();
     titleStyleEl?.remove();
   } catch (error) {
     /* eslint-disable-next-line no-console */

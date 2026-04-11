@@ -44,11 +44,11 @@
               "value": ""
             },
             {
-              "name": "primary",
+              "name": "theme-contrast",
               "value": "primary"
             },
             {
-              "name": "secondary",
+              "name": "transparent",
               "value": "secondary"
             }
           ]

@@ -41,14 +41,13 @@
           "label": "Product Introduction",
           "multi": true,
           "options": [
-            { "name": "Favorite", "value": "favorite" },
+            { "name": "Wishlist", "value": "favorite" },
             { "name": "Title", "value": "title" },
             { "name": "Series", "value": "series" },
             { "name": "Rating", "value": "rating" },
-            { "name": "Buttons", "value": "buttons" },
-            { "name": "PriceInfo RegularPrice", "value": "priceInfo_regularPrice" },
+            { "name": "Size", "value": "buttons" },
             { "name": "Awards", "value": "awards" },
-            { "name": "Position", "value": "position" },
+            { "name": "Spec", "value": "position" },
             { "name": "Faq", "value": "faq" }
           ]
         },

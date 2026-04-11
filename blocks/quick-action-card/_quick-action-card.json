@@ -11,7 +11,8 @@
               "name": "Quick Action Card",
               "model": "quick-action-card",
               "classes": "quick-action-card",
-              "filter": "quick-action-card"
+              "filter": "quick-action-card",
+              "pc_numberColumns": 4
             }
           }
         }
@@ -35,6 +36,18 @@
     }
   ],
   "models": [
+    {
+      "id": "quick-action-card",
+      "fields": [
+        {
+          "component": "number",
+          "name": "pc_numberColumns",
+          "label": "PC: Items per row",
+          "valueType": "number",
+          "description": "For PC: Number of columns displayed per row."
+        }
+      ]
+    },
     {
       "id": "quick-action-card-item",
       "fields": [

@@ -20,16 +20,34 @@
       }
     },
     {
-      "title": "Sustainability Dashboard Achievement Matrix",
-      "id": "sustainability-dashboard-achievement-matrix",
+      "title": "Achievement Matrix",
+      "id": "achievement-matrix",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Sustainability Dashboard Achievement Matrix",
-              "model": "sustainability-dashboard-achievement-matrix",
-              "key-value": true
+              "name": "Achievement Matrix",
+              "model": "achievement-matrix",
+              "block-item": "matrix-block-item",
+              "label-tag": "matrix-label",
+              "label-value": "matrix-value"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Achievement Highlights",
+      "id": "achievement-highlights",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Achievement Highlights",
+              "model": "achievement-highlights",
+              "block-item2":"highlights-block-item"
             }
           }
         }
@@ -85,13 +103,13 @@
           "component": "text",
           "valueType": "string",
           "name": "title",
-          "label": "Title"
+          "label": "Eyebrow"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "subtitle",
-          "label": "SubTitle"
+          "label": "Title"
         },
         {
           "component": "text",
@@ -114,25 +132,29 @@
       ]
     },
     {
-      "id": "sustainability-dashboard-achievement-matrix",
+      "id": "achievement-matrix",
       "fields": [
         {
-          "component": "text",
+          "component": "select",
           "label": "",
           "name": "block-item",
           "valueType":"string",
-          "value": "matrix-block-item",
+          "value": "",
           "hidden": true,
-          "readOnly": true
+          "options": [
+            {
+              "name": "matrix-block-item",
+              "value": "matrix-block-item"
+            }
+          ]
         },
         {
           "component": "text",
           "label": "",
           "name": "label-tag",
           "valueType":"string",
-          "value": "matrix-label",
-          "hidden": true,
-          "readOnly": true
+          "value": "",
+          "hidden": true
         },
         {
           "component": "text",
@@ -145,14 +167,38 @@
           "label": "",
           "name": "label-value",
           "valueType":"string",
-          "value": "matrix-value",
-          "hidden": true,
-          "readOnly": true
+          "value": "",
+          "hidden": true
         },
         {
           "component": "text",
           "name": "matrix-value",
           "label": "Value",
+          "valueType": "string"
+        }
+      ]
+    },
+    {
+      "id": "achievement-highlights",
+      "fields": [
+        {
+          "component": "select",
+          "label": "",
+          "name": "block-item2",
+          "valueType":"string",
+          "value": "",
+          "hidden": true,
+          "options": [
+            {
+              "name": "highlights-block-item",
+              "value": "highlights-block-item"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "highlights-text",
+          "label": "Highlights Text",
           "valueType": "string"
         }
       ]
@@ -162,7 +208,8 @@
     {
       "id": "sustainability-dashboard-achievement",
       "components": [
-        "sustainability-dashboard-achievement-matrix"
+        "achievement-matrix",
+        "achievement-highlights"
       ]
     }
   ]

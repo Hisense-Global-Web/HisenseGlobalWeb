@@ -46,7 +46,7 @@
       font-weight: var(--fontweight-medium);
       width: fit-content;
 
-      .button {
+      a {
         width: auto;
         display: block;
         padding: var(--spacing-4xs) var(--spacing-pc-md);
@@ -59,9 +59,11 @@
         margin: 0;
         box-sizing: border-box;
         font-weight: var(--fontweight-medium);
+        border-radius: var(--size-100);
+        text-decoration: none;
       }
 
-      .button:hover {
+      a:hover {
         background-color: var(--color-primary-grey-10);
         border-color: var(--color-primary-grey-10);
         color: var(--color-primary-grey-100);
@@ -69,14 +71,14 @@
     }
 
     &.black-font {
-        color: black;
+        color: black !important;
 
-        .button-container .button {
+        .button-container a {
             border-color: var(--color-hisense-black);
             color: var(--color-hisense-black);
         }
 
-        .button-container .button:hover {
+        .button-container a:hover {
             background-color: var(--color-primary-grey-70);
             border-color: var(--color-primary-grey-70);
             color: var(--color-primary-grey-10);

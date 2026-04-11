@@ -1,3 +1,5 @@
+import { whenElementReady } from '../../utils/carousel-common.js';
+
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 export default function decorate(block) {
@@ -10,7 +12,12 @@ export default function decorate(block) {
   closeDivEl.append(closeImgEl);
 
   // close popup
-  closeDivEl.addEventListener('click', () => {
+  closeDivEl.addEventListener('click', (e) => {
+    if (e.target.closest('.popup-announcement')) {
+      // set a local storage and check the version to avoid showing the same announcement popup repeatedly when user close it, only show it again when the popup content has been updated with a new version
+      const announcementVersion = block.getAttribute('data-version') || '';
+      localStorage.setItem('announcementClosedVersion', announcementVersion);
+    }
     document.querySelectorAll('.popup-module-container').forEach((popupItem) => {
       popupItem.classList.remove('popup-show');
     });
@@ -51,5 +58,19 @@ export default function decorate(block) {
       popupItem.classList.remove('popup-show');
       document.body.style.overflow = 'auto';
     });
+  } else {
+    // 编辑模式下，判断 popup 内容高度是否超过视口高度，超过则设置 main 元素高度为 popup 内容高度，避免内容被遮挡无法查看
+    const adjustMainHeight = () => {
+      const popupContentHeight = block.querySelector('.popup-container').offsetHeight;
+      const viewportHeight = window.innerHeight;
+      const mainEl = document.querySelector('main');
+      if (popupContentHeight > viewportHeight) {
+        mainEl.style.height = `${popupContentHeight}px`;
+      }
+    };
+    whenElementReady('.popup-module-container', () => {
+      adjustMainHeight();
+    });
+    window.addEventListener('resize', adjustMainHeight);
   }
 }

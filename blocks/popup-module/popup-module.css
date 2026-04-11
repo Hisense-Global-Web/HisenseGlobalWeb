@@ -75,9 +75,16 @@ main .section.popup-module-container {
     }
   }
 
-  &[data-aue-component="popup-module"] {
+  &[data-aue-component="popup-module"],
+  &[data-aue-component="announcement"] {
     .popup-content-container {
       max-height: none;
+    }
+  }
+
+  &.popup-announcement {
+    .popup-container .popup-content-container {
+      gap: var(--size-24);
     }
   }
 }
@@ -106,9 +113,16 @@ main .section.popup-module-container {
       }
     }
 
-    &[data-aue-component="popup-module"] {
+    &[data-aue-component="popup-module"],
+    &[data-aue-component="announcement"] {
       .popup-content-container {
         max-height: none;
+      }
+    }
+
+    &.popup-announcement {
+      .popup-container .popup-content-container {
+        gap: var(--size-20);
       }
     }
   }
