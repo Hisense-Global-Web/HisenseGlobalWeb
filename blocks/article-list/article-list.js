@@ -1,12 +1,4 @@
 export default function decorate(block) {
-  // const isEditMode = block.hasAttribute('data-aue-resource');
-  // if (isEditMode) {
-  //   const TitleEl = document.createElement('div');
-  //   TitleEl.className = 'article-title-list-title';
-  //   TitleEl.textContent = 'Key Facts';
-  //   block.prepend(TitleEl);
-  //   return;
-  // }
   const TitleEl = document.createElement('div');
   TitleEl.className = 'article-title-list-title';
   TitleEl.textContent = 'Key Facts';
