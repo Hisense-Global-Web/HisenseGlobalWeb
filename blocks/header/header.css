@@ -1511,7 +1511,6 @@
   visibility: hidden;
 
   .search-box-outer {
-    margin-top: -24px;
     background-color: var(--color-primary-grey-10, #fff);
     display: flex;
     justify-content: center;
@@ -1545,6 +1544,14 @@
 
   @media (width<860px) {
     top: 0;
+  }
+}
+
+#navigation.is-support .search-box-popup, #navigation.is-company .search-box-popup {
+  top: 100px;
+
+  @media (width<860px) {
+    top: inherit;
   }
 }
 
