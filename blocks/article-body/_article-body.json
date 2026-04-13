@@ -18,14 +18,14 @@
     },
     {
       "title": "Article Body Image",
-      "id": "text-body-image",
+      "id": "article-body-image",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Article Body Image",
-              "model": "text-body-image",
+              "model": "article-body-image",
               "itemType": "image"
             }
           }
@@ -34,14 +34,14 @@
     },
     {
       "title": "Article Section Title",
-      "id": "text-body-headline",
+      "id": "article-body-title",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Article Section Title",
-              "model": "text-body-headline",
+              "model": "article-body-title",
               "itemType": "headline"
             }
           }
@@ -50,14 +50,14 @@
     },
     {
       "title": "Article Body Text",
-      "id": "text-body-content",
+      "id": "article-body-text",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Article Body Text",
-              "model": "text-body-content",
+              "model": "article-body-text",
               "itemType": "content",
               "data-item-type": "content"
             }
@@ -100,14 +100,14 @@
   ],
   "models": [
     {
-      "id": "text-body-image",
+      "id": "article-body-image",
       "classes": "text-body-image",
       "fields": [
         {
-          "component" : "text",
-          "name" : "component_type",
+          "component": "text",
+          "name": "component_type",
           "label": "",
-          "valueType" : "string",
+          "valueType": "string",
           "value": "image",
           "hidden": true,
           "readonly": true
@@ -130,14 +130,14 @@
       ]
     },
     {
-      "id": "text-body-headline",
+      "id": "article-body-title",
       "classes": "text-body-headline",
       "fields": [
         {
-          "component" : "text",
-          "name" : "component_type",
+          "component": "text",
+          "name": "component_type",
           "label": "",
-          "valueType" : "string",
+          "valueType": "string",
           "value": "headline",
           "hidden": true,
           "readonly": true
@@ -151,13 +151,13 @@
       ]
     },
     {
-      "id": "text-body-content",
+      "id": "article-body-text",
       "fields": [
         {
-          "component" : "text",
-          "name" : "component_type",
+          "component": "text",
+          "name": "component_type",
           "label": "",
-          "valueType" : "string",
+          "valueType": "string",
           "value": "content",
           "hidden": true,
           "readonly": true
@@ -174,10 +174,10 @@
       "id": "text-body-quote",
       "fields": [
         {
-          "component" : "text",
-          "name" : "component_type",
+          "component": "text",
+          "name": "component_type",
           "label": "",
-          "valueType" : "string",
+          "valueType": "string",
           "value": "quote",
           "hidden": true,
           "readonly": true
@@ -200,10 +200,10 @@
       "id": "text-body-side-by-side",
       "fields": [
         {
-          "component" : "text",
-          "name" : "component_type",
+          "component": "text",
+          "name": "component_type",
           "label": "",
-          "valueType" : "string",
+          "valueType": "string",
           "value": "flexend-side-by-side",
           "hidden": true,
           "readonly": true
@@ -234,13 +234,12 @@
     {
       "id": "article-body",
       "components": [
-        "text-body-image",
-        "text-body-headline",
-        "text-body-content",
+        "article-body-image",
+        "article-body-title",
+        "article-body-text",
         "text-body-quote",
         "text-body-side-by-side"
       ]
     }
   ]
 }
-

@@ -275,14 +275,14 @@
         },
         {
           "title": "Article Body Image",
-          "id": "text-body-image",
+          "id": "article-body-image",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Article Body Image",
-                  "model": "text-body-image",
+                  "model": "article-body-image",
                   "itemType": "image"
                 }
               }
@@ -291,14 +291,14 @@
         },
         {
           "title": "Article Section Title",
-          "id": "text-body-headline",
+          "id": "article-body-title",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Article Section Title",
-                  "model": "text-body-headline",
+                  "model": "article-body-title",
                   "itemType": "headline"
                 }
               }
@@ -307,14 +307,14 @@
         },
         {
           "title": "Article Body Text",
-          "id": "text-body-content",
+          "id": "article-body-text",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Article Body Text",
-                  "model": "text-body-content",
+                  "model": "article-body-text",
                   "itemType": "content",
                   "data-item-type": "content"
                 }
@@ -355,36 +355,6 @@
           }
         },
         {
-          "title": "Key Facts List",
-          "id": "article-body-list",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Key Facts List",
-                  "filter": "article-body-list"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Key Facts",
-          "id": "article-body-list-item",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Key Facts",
-                  "model": "article-body-list-item"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Article Title",
           "id": "article-title",
           "plugins": {
@@ -404,17 +374,17 @@
         },
         {
           "title": "Authorized Retailer Badge",
-          "id": "authorized-reseller-badge",
+          "id": "authorized-retailer-badge",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Authorized Retailer Badge",
-                  "model": "authorized-reseller-badge",
-                  "classes": "authorized-reseller-badge",
+                  "model": "authorized-retailer-badge",
+                  "classes": "authorized-retailer-badge",
                   "key-value": true,
-                  "filter": "authorized-reseller-badge"
+                  "filter": "authorized-retailer-badge"
                 }
               }
             }
@@ -422,14 +392,14 @@
         },
         {
           "title": "Badge item",
-          "id": "authorized-reseller-badge-item",
+          "id": "authorized-retailer-badge-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Badge item",
-                  "model": "authorized-reseller-badge-item",
+                  "model": "authorized-retailer-badge-item",
                   "key-value": true
                 }
               }
@@ -438,17 +408,17 @@
         },
         {
           "title": "Authorized Retailer List",
-          "id": "authorized-resellers-list",
+          "id": "authorized-retailer-list",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Authorized Retailer List",
-                  "model": "authorized-resellers-list",
-                  "classes": "authorized-resellers-list",
+                  "model": "authorized-retailer-list",
+                  "classes": "authorized-retailer-list",
                   "key-value": true,
-                  "filter": "authorized-resellers-list"
+                  "filter": "authorized-retailer-list"
                 }
               }
             }
@@ -456,14 +426,14 @@
         },
         {
           "title": "Authorized Retailer List item",
-          "id": "authorized-resellers-list-item",
+          "id": "authorized-retailer-list-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Authorized Retailer List item",
-                  "model": "authorized-resellers-list-item",
+                  "model": "authorized-retailer-list-item",
                   "key-value": true
                 }
               }
@@ -1356,33 +1326,6 @@
           }
         },
         {
-          "title": "Top News Story",
-          "id": "headline",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Top News Story",
-                  "model": "headline",
-                  "key-value": true,
-                  "data-source": "fill",
-                  "section-title": "Featured",
-                  "eyebrow": "PARTNERSHIPS & SPONSORSHIPS",
-                  "subtitle": "Hisense Accelerates ESG Strategy With AI-Driven Sustainability Milestones",
-                  "text": "QINGDAO, China, November 7, 2025 – Hisense, a leading brand in global consumer electronics and home appliances",
-                  "date": "Nov 7, 2025",
-                  "location": "Qingdao",
-                  "author": "Sarah Johnson",
-                  "cta-text": "Read now",
-                  "cta-link": "",
-                  "has-download": "true"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Hero Banner",
           "id": "hero-banner",
           "plugins": {
@@ -1655,6 +1598,36 @@
                   "name": "Job List",
                   "model": "job-list",
                   "classes": "job-list"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Key Facts List",
+          "id": "key-facts-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Key Facts List",
+                  "filter": "key-facts-list"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Key Facts",
+          "id": "key-facts",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Key Facts",
+                  "model": "key-facts"
                 }
               }
             }
@@ -3248,6 +3221,33 @@
                   "name": "Third Party Integration",
                   "model": "third-party-integration",
                   "classes": "third-party-integration"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Top News Story",
+          "id": "top-news-story",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Top News Story",
+                  "model": "top-news-story",
+                  "key-value": true,
+                  "data-source": "fill",
+                  "section-title": "Featured",
+                  "eyebrow": "PARTNERSHIPS & SPONSORSHIPS",
+                  "subtitle": "Hisense Accelerates ESG Strategy With AI-Driven Sustainability Milestones",
+                  "text": "QINGDAO, China, November 7, 2025 – Hisense, a leading brand in global consumer electronics and home appliances",
+                  "date": "Nov 7, 2025",
+                  "location": "Qingdao",
+                  "author": "Sarah Johnson",
+                  "cta-text": "Read now",
+                  "cta-link": "",
+                  "has-download": "true"
                 }
               }
             }

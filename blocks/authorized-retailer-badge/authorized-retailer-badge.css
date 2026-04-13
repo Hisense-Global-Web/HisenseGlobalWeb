@@ -1,5 +1,5 @@
 /* 页面部分样式 */
-.authorized-reseller-badge {
+.authorized-retailer-badge {
   padding: var(--spacing-lg) 0;
   display: flex;
   align-items: center;
@@ -10,13 +10,13 @@
     flex-direction: column;
   }
 
-  .authorized-reseller-badge-header-icon > div:first-child,
-  .authorized-reseller-badge-header-title > div:first-child,
-  .authorized-reseller-badge-header-subtitle > div:first-child {
+  .authorized-retailer-badge-header-icon > div:first-child,
+  .authorized-retailer-badge-header-title > div:first-child,
+  .authorized-retailer-badge-header-subtitle > div:first-child {
     display: none;
   }
 
-  .authorized-reseller-badge-header-icon {
+  .authorized-retailer-badge-header-icon {
     flex: none;
     width: var(--size-100, 100px);
     height: var(--size-100, 100px);
@@ -36,7 +36,7 @@
     }
   }
 
-  .authorized-reseller-badge-header-text {
+  .authorized-retailer-badge-header-text {
     width: calc(100% - var(--size-100, 100px) - var(--spacing-sm, 24px));
     flex: auto;
 
@@ -45,7 +45,7 @@
     }
   }
 
-  .authorized-reseller-badge-header-title {
+  .authorized-retailer-badge-header-title {
     color: var(--color-primary-green-50, #009f9c);
     font-size: var(--size-title2, 20px);
     font-weight: 400;
@@ -65,7 +65,7 @@
     }
   }
 
-  .authorized-reseller-badge-header-subtitle {
+  .authorized-retailer-badge-header-subtitle {
     color: var(--color-hisense-black, #000);
     font-size: var(--fontsize-h2, 34px);
     font-weight: 400;
@@ -85,7 +85,7 @@
     }
   }
 
-  .authorized-reseller-badge-list {
+  .authorized-retailer-badge-list {
     width: 100%;
     flex: 0 1 100%;
     margin-top: var(--spacing-m, 32px);
@@ -96,7 +96,7 @@
     gap: var(--spacing-sm, 24px);
   }
 
-  .authorized-reseller-badge-item {
+  .authorized-retailer-badge-item {
     width: calc(100% / 3 - var(--spacing-sm, 24px) * 2 / 3);
     height: min(calc(255 / var(--breakpoint-pc) * 100vw), 255px);
     padding: var(--spacing-m, 32px);
@@ -121,7 +121,7 @@
     }
   }
 
-  .authorized-reseller-badge-item-icon {
+  .authorized-retailer-badge-item-icon {
     height: min(calc(70 / var(--breakpoint-pc) * 100vw), 70px);
     display: flex;
     justify-content: center;
@@ -140,7 +140,7 @@
     }
   }
 
-  .authorized-reseller-badge-item-title {
+  .authorized-retailer-badge-item-title {
     color: var(--color-primary-grey-70, #333);
     text-align: center;
     font-size: var(--size-14, 14px);

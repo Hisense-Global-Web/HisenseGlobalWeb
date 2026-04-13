@@ -201,29 +201,23 @@
   {
     "id": "article-body",
     "components": [
-      "text-body-image",
-      "text-body-headline",
-      "text-body-content",
+      "article-body-image",
+      "article-body-title",
+      "article-body-text",
       "text-body-quote",
       "text-body-side-by-side"
     ]
   },
   {
-    "id": "article-body-list",
+    "id": "authorized-retailer-badge",
     "components": [
-      "article-body-list-item"
+      "authorized-retailer-badge-item"
     ]
   },
   {
-    "id": "authorized-reseller-badge",
+    "id": "authorized-retailer-list",
     "components": [
-      "authorized-reseller-badge-item"
-    ]
-  },
-  {
-    "id": "authorized-resellers-list",
-    "components": [
-      "authorized-resellers-list-item"
+      "authorized-retailer-list-item"
     ]
   },
   {
@@ -404,6 +398,12 @@
     "id": "information-list-module",
     "components": [
       "information-list-module-item"
+    ]
+  },
+  {
+    "id": "key-facts-list",
+    "components": [
+      "key-facts"
     ]
   },
   {
