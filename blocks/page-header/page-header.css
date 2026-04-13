@@ -1,4 +1,4 @@
-.page-header-wrapper {
+.page-header {
   width: 100%;
 
   @media (width>=860px) {
@@ -54,6 +54,10 @@
 
 .align-left {
   text-align: left;
+
+  @media (width>=860px) {
+    padding: inherit;
+  }
 }
 
 .page-header p {
