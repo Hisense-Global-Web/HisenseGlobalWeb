@@ -1015,7 +1015,7 @@
   gap: 24px;
   color: #747474;
   overflow: hidden;
-  max-height: 500px;
+  max-height: 570px;
   transition:
     max-height 0.36s ease-in-out,
     padding 0.36s ease-in-out;
@@ -1421,7 +1421,7 @@
         gap: 24px;
         color: #747474;
         overflow: hidden;
-        max-height: 500px;
+        max-height: 570px;
         transition:
           max-height 0.36s ease-in-out,
           padding 0.36s ease-in-out;
@@ -1511,7 +1511,6 @@
   visibility: hidden;
 
   .search-box-outer {
-    margin-top: -24px;
     background-color: var(--color-primary-grey-10, #fff);
     display: flex;
     justify-content: center;
@@ -1545,6 +1544,14 @@
 
   @media (width<860px) {
     top: 0;
+  }
+}
+
+#navigation.is-support .search-box-popup, #navigation.is-company .search-box-popup {
+  top: 100px;
+
+  @media (width<860px) {
+    top: inherit;
   }
 }
 
