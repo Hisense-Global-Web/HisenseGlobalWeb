@@ -1124,6 +1124,22 @@
           }
         },
         {
+          "title": "Fifa Banner",
+          "id": "fifa-banner",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Fifa Banner",
+                  "model": "fifa-banner",
+                  "classes": "fifa-banner-text"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Footer Container",
           "id": "footerContainer",
           "plugins": {

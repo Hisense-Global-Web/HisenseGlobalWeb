@@ -2512,6 +2512,109 @@
     ]
   },
   {
+    "id": "fifa-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "fifa_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "fifaMobile_image",
+        "label": "Mobile Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "top_title",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "top_subtitle",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "left_title",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "left_subtitle",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "left_ctaPrimary",
+        "label": "Primary CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "left_ctaPrimaryText",
+        "label": "Primary CTA Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "product_series",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "product_name",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "product_cta",
+        "label": "Product CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "product_ctaText",
+        "label": "Product CTA Label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "canvas_series",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "canvas_name",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "canvas_cta",
+        "label": "Canvas CTA",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "canvas_ctaText",
+        "label": "Canvas CTA Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "footerContainer",
     "fields": []
   },
