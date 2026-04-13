@@ -306,8 +306,9 @@ footer footer {
 
 .footer-nav {
   display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	gap: min(calc(92.5 / var(--breakpoint-pc) * 100vw), 92.5px);;
+	grid-template-columns: repeat(4, var(--size-150));
+  justify-content: space-between;
+  row-gap: var(--size-32);
 	margin-bottom: var(--size-28);
   z-index: 11;
 

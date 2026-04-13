@@ -1106,6 +1106,7 @@
   margin-top: 80px;
   display: flex;
   gap: 20px;
+  width: calc(100% - 220px);
 }
 
 .dropdown-btns .dropdown-btn {
@@ -1122,6 +1123,8 @@
   box-sizing: border-box;
   font-size: 12px;
   gap: 8px;
+  padding: 0 16px;
+  text-align: center;
   
   img {
     width: 28px;
