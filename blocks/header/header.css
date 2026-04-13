@@ -1015,7 +1015,7 @@
   gap: 24px;
   color: #747474;
   overflow: hidden;
-  max-height: 500px;
+  max-height: 570px;
   transition:
     max-height 0.36s ease-in-out,
     padding 0.36s ease-in-out;
@@ -1421,7 +1421,7 @@
         gap: 24px;
         color: #747474;
         overflow: hidden;
-        max-height: 500px;
+        max-height: 570px;
         transition:
           max-height 0.36s ease-in-out,
           padding 0.36s ease-in-out;
