@@ -1511,6 +1511,7 @@
   visibility: hidden;
 
   .search-box-outer {
+    margin-top: -24px;
     background-color: var(--color-primary-grey-10, #fff);
     display: flex;
     justify-content: center;
