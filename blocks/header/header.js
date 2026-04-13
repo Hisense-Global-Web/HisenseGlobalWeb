@@ -648,10 +648,14 @@ function parseDropdownBtns(col) {
   const subMenuLinks = col.querySelectorAll('.sub-menu-link');
   if (subMenuLinks.length > 0) {
     subMenuLinks.forEach((subMenuLink) => {
-      const { altText, text, href } = getSubMenuLinkData(subMenuLink);
+      const {
+        altText, text, href, img,
+      } = getSubMenuLinkData(subMenuLink);
 
       if (text) {
-        results.push({ text, href, altText });
+        results.push({
+          text, href, altText, img,
+        });
       }
     });
     return results;
@@ -667,6 +671,8 @@ function parseDropdownBtns(col) {
     const rawHref = anchor.getAttribute('href') || '#';
     const titleText = paragraphs[index - 1]?.textContent.trim() || '';
     const previousParagraph = paragraphs[index - 2];
+    const pictureElement = paragraphs[index - 3];
+    const imgElement = pictureElement?.querySelector('img');
     const previousText = previousParagraph?.textContent.trim() || '';
     const nextText = paragraphs[index + 1]?.textContent.trim() || '';
     const altText = previousText
@@ -681,6 +687,7 @@ function parseDropdownBtns(col) {
     }
 
     results.push({
+      img: imgElement?.src,
       text: titleText,
       href: processPath(appendSearchTagsToHref(rawHref, nextText.startsWith('hisense:') ? nextText : '')),
       altText,
@@ -760,7 +767,15 @@ function buildDropdown(data) {
   data.btns.forEach((btnData) => {
     const link = document.createElement('a');
     link.className = 'dropdown-btn';
-    link.textContent = btnData.text || '';
+    if (btnData.img) {
+      const img = document.createElement('img');
+      img.src = btnData.img;
+      img.alt = btnData.altText || '';
+      link.append(img);
+    }
+    const spanEl = document.createElement('span');
+    spanEl.textContent = btnData.text || '';
+    link.append(spanEl);
     link.href = btnData.href || '#';
     btnWrap.append(link);
   });
