@@ -1,3 +1,228 @@
 .fifa-banner {
   background: transparent;
+  position: relative;
+  border-radius: var(--size-20);
+  height: min(calc(606 / var(--breakpoint-pc) * 100vw), 606px);
+
+  .fifa-container {
+    width: 100%;
+    position: absolute;
+    z-index: inherit;
+
+    .fifa-pc-banner {
+      width: 100%;
+      height: 100%;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .fifa-mobile-banner {
+      display: none;
+    }
+  }
+
+  .fifa-content-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 2;
+    padding: var(--size-48) var(--size-56);
+    display: flex;
+    flex-direction: column;
+
+    .fifa-top-title {
+      text-align: center;
+      color: var(--color-primary-grey-10);
+      font-weight: var(--fontweight-medium);
+      margin-bottom: var(--size-26);
+
+      .top-title {
+        font-size: var(--size-40);
+        line-height: var(--size-48);
+        
+      }
+
+      .top-subtitle {
+        font-size: var(--size-24);
+        line-height: var(--size-36);
+      }
+    }
+
+    .fifa-text-box {
+      display: flex;
+      flex: 1;
+
+      .fifa-left-content {
+        width: 31%;
+        display: flex;
+        align-items: center;
+        color: var(--color-primary-grey-10);
+        margin-right: var(--size-24);
+
+        .left-title {
+          font-size: var(--size-30);
+          line-height: var(--size-45);
+          font-weight: var(--fontweight-medium);
+        }
+
+        .left-subtitle {
+          font-size: var(--size-16);
+          line-height: var(--size-24);
+          margin-top: var(--size-10);
+        }
+
+        .left-btn .button {
+          background-color: var(--color-primary-grey-10);
+          color: var(--color-primary-grey-100);
+          height: var(--size-50);
+          line-height: var(--size-50);
+          padding: 0 var(--size-32);
+          margin-top: var(--size-32);
+          margin-bottom: 0;
+
+          &:hover {
+            background-color: var(--white-alpha-90);
+          }
+        }
+      }
+
+      .product-container {
+        width: 69%;
+        display: flex;
+
+        .fifa-product-box {
+          display: flex;
+          align-items: end;
+          font-weight: var(--fontweight-medium);
+          color: var(--color-primary-grey-100);
+          width: 50%;
+          font-size: var(--size-16);
+          line-height: min(calc(19.2 / var(--breakpoint-pc) * 100vw), 19.2px);
+
+          .product-btn .button {
+            margin: 0;
+            background: transparent;
+            padding: 0;
+            font-size: var(--size-12);
+            font-weight: var(--fontweight-medium);
+            line-height: var(--size-18);
+            margin-top: var(--size-16);
+            color: var(--color-primary-grey-100);
+            border-bottom: 1px solid var(--color-primary-grey-100);
+            border-radius: 0;
+          }
+
+          &.fifa-tv-box {
+            margin-left: var(--size-36);
+            margin-right: var(--size-80);
+          }
+
+          &.fifa-canvas-box {
+            padding-left: var(--size-24);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (width < 860px) {
+  .fifa-banner {
+    height: calc(672 / var(--breakpoint-mobile) * 100vw);
+
+    .fifa-container {
+      .fifa-pc-banner {
+        display: none;
+      }
+
+      .fifa-mobile-banner {
+        display: block;
+
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .fifa-content-wrapper {
+      padding: var(--size-32) var(--size-24);
+
+      .fifa-top-title {
+        margin-bottom: 0;
+        text-align: left;
+
+        .top-title {
+          font-size: var(--size-30);
+          line-height: var(--size-36);
+          margin-bottom: var(--size-16);
+        }
+
+        .top-subtitle {
+          font-size: var(--size-14);
+          line-height: calc(19.6 / var(--breakpoint-mobile) * 100vw);
+        }
+      }
+
+      .fifa-text-box {
+        flex-direction: column-reverse;
+
+        .fifa-left-content {
+          width: 100%;
+          margin-right: 0;
+
+          .left-title {
+            font-size: var(--size-20);
+            line-height: var(--size-30);
+          }
+
+          .left-subtitle {
+            font-size: var(--size-14);
+            line-height: var(--size-21);
+            margin-top: var(--size-8);
+          }
+
+          .left-btn .button {
+            height: var(--size-40);
+            line-height: var(--size-40);
+            padding: 0 var(--size-20);
+            margin-top: var(--size-24);
+          }
+        }
+
+        .product-container {
+          width: 100%;
+          margin-bottom: var(--size-41);
+
+          .fifa-product-box {
+            font-size: var(--size-14);
+            line-height: calc(16.8 / var(--breakpoint-mobile) * 100vw);
+            white-space: nowrap;
+
+            .product-btn .button {
+              margin-top: var(--size-12);
+            }
+
+            &.fifa-tv-box {
+              margin: 0;
+              width: 55%;
+            }
+
+            &.fifa-canvas-box {
+              padding-left: var(--size-16);
+              width: 45%;
+            }
+          }
+        }
+      }
+    }
+  }
 }
