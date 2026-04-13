@@ -1,6 +1,5 @@
 /* 页面部分样式 */
-main .section.article-body-container .article-body-wrapper,
-main .section .article-body-wrapper {
+main .section.article-body-container .article-body-wrapper {
   display: flex;
   justify-content: center;
   margin-top: var(--size-48);

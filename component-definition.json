@@ -283,7 +283,8 @@
                 "template": {
                   "name": "Article Body Image",
                   "model": "article-body-image",
-                  "itemType": "image"
+                  "itemType": "image",
+                  "component_type": "image"
                 }
               }
             }
@@ -299,7 +300,8 @@
                 "template": {
                   "name": "Article Section Title",
                   "model": "article-body-title",
-                  "itemType": "headline"
+                  "itemType": "headline",
+                  "component_type": "headline"
                 }
               }
             }
@@ -316,7 +318,8 @@
                   "name": "Article Body Text",
                   "model": "article-body-text",
                   "itemType": "content",
-                  "data-item-type": "content"
+                  "data-item-type": "content",
+                  "component_type": "content"
                 }
               }
             }
@@ -332,7 +335,8 @@
                 "template": {
                   "name": "Text Body Quote",
                   "model": "text-body-quote",
-                  "itemType": "quote"
+                  "itemType": "quote",
+                  "component_type": "quote"
                 }
               }
             }
@@ -348,7 +352,8 @@
                 "template": {
                   "name": "Text and Image Side-by-Side",
                   "model": "text-body-side-by-side",
-                  "itemType": "side-by-side"
+                  "itemType": "side-by-side",
+                  "component_type": "flexend-side-by-side"
                 }
               }
             }

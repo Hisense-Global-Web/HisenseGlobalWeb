@@ -974,7 +974,6 @@
         "name": "component_type",
         "label": "",
         "valueType": "string",
-        "value": "image",
         "hidden": true,
         "readonly": true
       },
@@ -1004,7 +1003,6 @@
         "name": "component_type",
         "label": "",
         "valueType": "string",
-        "value": "headline",
         "hidden": true,
         "readonly": true
       },
@@ -1024,7 +1022,6 @@
         "name": "component_type",
         "label": "",
         "valueType": "string",
-        "value": "content",
         "hidden": true,
         "readonly": true
       },
@@ -1044,7 +1041,6 @@
         "name": "component_type",
         "label": "",
         "valueType": "string",
-        "value": "quote",
         "hidden": true,
         "readonly": true
       },
@@ -1070,7 +1066,6 @@
         "name": "component_type",
         "label": "",
         "valueType": "string",
-        "value": "flexend-side-by-side",
         "hidden": true,
         "readonly": true
       },
