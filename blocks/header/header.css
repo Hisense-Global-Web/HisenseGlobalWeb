@@ -1121,6 +1121,11 @@
   justify-content: center;
   box-sizing: border-box;
   font-size: 12px;
+  gap: 8px;
+  
+  img {
+    width: 28px;
+  }
 }
 
 .dropdown-btn:hover {
