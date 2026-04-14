@@ -534,7 +534,7 @@
                 "template": {
                   "name": "Campaign Image",
                   "model": "campaign-image",
-                  "decoration-image": "right"
+                  "text-align": "right"
                 }
               }
             }

@@ -10,7 +10,7 @@
             "template": {
               "name": "Campaign Image",
               "model": "campaign-image",
-              "decoration-image": "right"
+              "text-align": "right"
             }
           }
         }
@@ -70,14 +70,14 @@
         },
         {
           "component": "text",
-          "name": "button_text",
+          "name": "button-text",
           "label": "Butotn Text",
           "valueType": "string",
           "value": ""
         },
         {
           "component": "aem-content",
-          "name": "button_link",
+          "name": "button-link",
           "label": "Button Link",
           "valueType": "string",
           "value": ""
