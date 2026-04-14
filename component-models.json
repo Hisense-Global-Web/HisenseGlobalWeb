@@ -2488,25 +2488,6 @@
     ]
   },
   {
-    "id": "fifa-title",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Ttile",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "subtitle",
-        "value": "",
-        "label": "Subtitle",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "footerContainer",
     "fields": []
   },
@@ -4980,6 +4961,49 @@
         "component": "text",
         "name": "location",
         "label": "Location",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "promotional-text",
+    "fields": [
+      {
+        "component": "select",
+        "name": "font-color",
+        "label": "Font Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Green60",
+            "value": "green60"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "align-style",
+        "label": "Align",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Center",
+            "value": "center"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Ttile",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
         "valueType": "string"
       }
     ]
