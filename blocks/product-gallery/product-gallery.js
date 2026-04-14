@@ -110,7 +110,7 @@ function buildTab(itemElement, index) {
       return;
     }
     const imgUrl = e.target?.src;
-    const productElList = e.currentTarget.parentNode.querySelectorAll('.product-filter-item')
+    const productElList = e.currentTarget.parentNode.querySelectorAll('.product-filter-item');
     productElList.forEach((el) => {
       el.classList.remove('active');
     });
@@ -159,7 +159,7 @@ function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
   // 左箭头
   leftBtn.addEventListener('click', () => {
     // eslint-disable-next-line no-mixed-operators
-    const SCROLL_STEP = 130 * (window.innerWidth || 1440) / 1440; // 单个标签宽度 + 间隙
+    const SCROLL_STEP = 134 * (window.innerWidth || 1440) / 1440; // 单个标签宽度 + 间隙
     tabsList.scrollBy({
       left: -SCROLL_STEP,
       behavior: 'smooth',
@@ -170,7 +170,7 @@ function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
   // 右箭头
   rightBtn.addEventListener('click', () => {
     // eslint-disable-next-line no-mixed-operators
-    const SCROLL_STEP = 130 * (window.innerWidth || 1440) / 1440; // 单个标签宽度 + 间隙
+    const SCROLL_STEP = 134 * (window.innerWidth || 1440) / 1440; // 单个标签宽度 + 间隙
     tabsList.scrollBy({
       left: SCROLL_STEP,
       behavior: 'smooth',
