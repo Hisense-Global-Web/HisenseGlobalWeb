@@ -110,6 +110,11 @@ function buildTab(itemElement, index) {
       return;
     }
     const imgUrl = e.target?.src;
+    const productElList = e.currentTarget.parentNode.querySelectorAll('.product-filter-item')
+    productElList.forEach((el) => {
+      el.classList.remove('active');
+    });
+    e.currentTarget.classList.add('active');
     if (mainVideoImg) {
       const img = document.createElement('img');
       img.src = imgUrl;
