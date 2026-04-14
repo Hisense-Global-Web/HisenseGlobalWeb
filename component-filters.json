@@ -22,10 +22,10 @@
       "adaptive-images",
       "addional-support-card",
       "article-body",
-      "article-body-list",
+      "key-facts-list",
       "article-title",
-      "authorized-reseller-badge",
-      "authorized-resellers-list",
+      "authorized-retailer-badge",
+      "authorized-retailer-list",
       "bi-directional-content",
       "button",
       "card-carousel",
@@ -52,7 +52,7 @@
       "globalization-timeline",
       "gradient-text-image",
       "header",
-      "headline",
+      "top-news-story",
       "hero",
       "hero-banner",
       "hero-presence",
@@ -154,6 +154,7 @@
       "warranty-accordion-item",
       "warranty-information",
       "retailer-card-grid",
+      "store-locator",
       "brand-matrix"
     ]
   },
@@ -201,29 +202,23 @@
   {
     "id": "article-body",
     "components": [
-      "text-body-image",
-      "text-body-headline",
-      "text-body-content",
+      "article-body-image",
+      "article-body-title",
+      "article-body-text",
       "text-body-quote",
       "text-body-side-by-side"
     ]
   },
   {
-    "id": "article-body-list",
+    "id": "authorized-retailer-badge",
     "components": [
-      "article-body-list-item"
+      "authorized-retailer-badge-item"
     ]
   },
   {
-    "id": "authorized-reseller-badge",
+    "id": "authorized-retailer-list",
     "components": [
-      "authorized-reseller-badge-item"
-    ]
-  },
-  {
-    "id": "authorized-resellers-list",
-    "components": [
-      "authorized-resellers-list-item"
+      "authorized-retailer-list-item"
     ]
   },
   {
@@ -407,6 +402,12 @@
     ]
   },
   {
+    "id": "key-facts-list",
+    "components": [
+      "key-facts"
+    ]
+  },
+  {
     "id": "key-features-card-container",
     "components": [
       "key-features-card-container-item"
@@ -552,7 +553,7 @@
   {
     "id": "store-information-card",
     "components": [
-      "store-information-card-items"
+      "service-items"
     ]
   },
   {

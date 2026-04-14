@@ -966,7 +966,7 @@
     ]
   },
   {
-    "id": "text-body-image",
+    "id": "article-body-image",
     "classes": "text-body-image",
     "fields": [
       {
@@ -974,7 +974,6 @@
         "name": "component_type",
         "label": "",
         "valueType": "string",
-        "value": "image",
         "hidden": true,
         "readonly": true
       },
@@ -996,7 +995,7 @@
     ]
   },
   {
-    "id": "text-body-headline",
+    "id": "article-body-title",
     "classes": "text-body-headline",
     "fields": [
       {
@@ -1004,27 +1003,25 @@
         "name": "component_type",
         "label": "",
         "valueType": "string",
-        "value": "headline",
         "hidden": true,
         "readonly": true
       },
       {
         "component": "text",
         "name": "headline",
-        "label": "Headline",
+        "label": "Title",
         "value": ""
       }
     ]
   },
   {
-    "id": "text-body-content",
+    "id": "article-body-text",
     "fields": [
       {
         "component": "text",
         "name": "component_type",
         "label": "",
         "valueType": "string",
-        "value": "content",
         "hidden": true,
         "readonly": true
       },
@@ -1044,7 +1041,6 @@
         "name": "component_type",
         "label": "",
         "valueType": "string",
-        "value": "quote",
         "hidden": true,
         "readonly": true
       },
@@ -1070,7 +1066,6 @@
         "name": "component_type",
         "label": "",
         "valueType": "string",
-        "value": "flexend-side-by-side",
         "hidden": true,
         "readonly": true
       },
@@ -1096,37 +1091,18 @@
     ]
   },
   {
-    "id": "article-body-list-item",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "list_title",
-        "label": "List Title",
-        "required": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "item_headline",
-        "label": "Item Headline",
-        "required": true
-      }
-    ]
-  },
-  {
     "id": "article-title",
     "fields": [
       {
         "component": "text",
         "valueType": "string",
         "name": "title-content",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "name": "subtitle-content",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       },
       {
@@ -1153,7 +1129,7 @@
     ]
   },
   {
-    "id": "authorized-reseller-badge",
+    "id": "authorized-retailer-badge",
     "fields": [
       {
         "component": "reference",
@@ -1166,20 +1142,20 @@
         "component": "text",
         "name": "title",
         "value": "",
-        "label": "Title",
+        "label": "Eyebrow",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       }
     ]
   },
   {
-    "id": "authorized-reseller-badge-item",
+    "id": "authorized-retailer-badge-item",
     "fields": [
       {
         "component": "reference",
@@ -1198,7 +1174,7 @@
     ]
   },
   {
-    "id": "authorized-resellers-list",
+    "id": "authorized-retailer-list",
     "fields": [
       {
         "component": "text",
@@ -1210,7 +1186,7 @@
     ]
   },
   {
-    "id": "authorized-resellers-list-item",
+    "id": "authorized-retailer-list-item",
     "fields": [
       {
         "component": "reference",
@@ -1286,14 +1262,14 @@
       {
         "component": "text",
         "name": "buy_text",
-        "label": "Buy Now Button Text",
+        "label": "Button Text",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "aem-content",
         "name": "buy_link",
-        "label": "Buy Now Button Link",
+        "label": "Button Link",
         "valueType": "string",
         "value": ""
       },
@@ -1434,7 +1410,7 @@
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Subtitle",
+        "label": "Eyebrow",
         "valueType": "string"
       },
       {
@@ -1738,14 +1714,14 @@
         "component": "richtext",
         "name": "title",
         "value": "",
-        "label": "Title",
+        "label": "Eyebrow",
         "valueType": "string"
       },
       {
         "component": "richtext",
         "name": "subtitle",
         "value": "",
-        "label": "Sub Title",
+        "label": "Title",
         "valueType": "string"
       }
     ]
@@ -1834,13 +1810,13 @@
         "component": "text",
         "valueType": "string",
         "name": "title",
-        "label": "Title",
+        "label": "Eyebrow",
         "multi": false
       },
       {
         "component": "text",
         "name": "subtitle",
-        "label": "Sub Title",
+        "label": "Title",
         "valueType": "string"
       },
       {
@@ -2693,7 +2669,7 @@
         "component": "text",
         "valueType": "string",
         "name": "container_overline",
-        "label": "Overline",
+        "label": "Eyebrow",
         "value": "",
         "required": true
       },
@@ -2868,182 +2844,6 @@
     ]
   },
   {
-    "id": "headline",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "section-title",
-        "label": "Section Title",
-        "placeholder": "Featured"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "select",
-        "valueType": "string",
-        "name": "data-source",
-        "label": "Data Source",
-        "options": [
-          {
-            "name": "Fill",
-            "value": "fill"
-          },
-          {
-            "name": "Child Page",
-            "value": "child-page"
-          }
-        ]
-      },
-      {
-        "component": "aem-content",
-        "valueType": "string",
-        "name": "source-path",
-        "label": "Source Path",
-        "condition": {
-          "===": [
-            {
-              "var": "data-source"
-            },
-            "child-page"
-          ]
-        }
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "eyebrow",
-        "label": "Eyebrow",
-        "condition": {
-          "===": [
-            {
-              "var": "data-source"
-            },
-            "fill"
-          ]
-        }
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "subtitle",
-        "label": "Subtitle",
-        "condition": {
-          "===": [
-            {
-              "var": "data-source"
-            },
-            "fill"
-          ]
-        }
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "text",
-        "label": "Text",
-        "condition": {
-          "===": [
-            {
-              "var": "data-source"
-            },
-            "fill"
-          ]
-        }
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "date",
-        "label": "Date",
-        "condition": {
-          "===": [
-            {
-              "var": "data-source"
-            },
-            "fill"
-          ]
-        }
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "location",
-        "label": "Location",
-        "condition": {
-          "===": [
-            {
-              "var": "data-source"
-            },
-            "fill"
-          ]
-        }
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "author",
-        "label": "Author",
-        "condition": {
-          "===": [
-            {
-              "var": "data-source"
-            },
-            "fill"
-          ]
-        }
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "cta-text",
-        "label": "CTA Text",
-        "condition": {
-          "===": [
-            {
-              "var": "data-source"
-            },
-            "fill"
-          ]
-        }
-      },
-      {
-        "component": "aem-content",
-        "valueType": "string",
-        "name": "cta-link",
-        "label": "CTA Link",
-        "condition": {
-          "===": [
-            {
-              "var": "data-source"
-            },
-            "fill"
-          ]
-        }
-      },
-      {
-        "component": "checkbox",
-        "valueType": "boolean",
-        "name": "has-download",
-        "label": "Has Download",
-        "value": false,
-        "condition": {
-          "===": [
-            {
-              "var": "data-source"
-            },
-            "fill"
-          ]
-        }
-      }
-    ]
-  },
-  {
     "id": "hero-banner",
     "fields": [
       {
@@ -3115,7 +2915,7 @@
             "component": "text",
             "name": "special_text",
             "value": "",
-            "label": "Colorful Text(teal)",
+            "label": "Eyebrow",
             "valueType": "string"
           },
           {
@@ -3760,6 +3560,25 @@
     "fields": []
   },
   {
+    "id": "key-facts",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "list_title",
+        "label": "Label",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "item_headline",
+        "label": "Value Text",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "key-features-card-container",
     "fields": [
       {
@@ -3844,7 +3663,7 @@
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Colorful Text",
+        "label": "Eyebrow",
         "valueType": "string"
       },
       {
@@ -4008,7 +3827,7 @@
       {
         "component": "text",
         "name": "text_body",
-        "label": "Text",
+        "label": "Sub Title",
         "valueType": "string",
         "value": "",
         "placeholder": "this is text content"
@@ -4056,12 +3875,12 @@
         "component": "text",
         "valueType": "string",
         "name": "title-content",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "name": "subtitle-content",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       },
       {
@@ -4542,13 +4361,13 @@
         "component": "text",
         "valueType": "string",
         "name": "p-title",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "p-subtitle",
-        "label": "SubTitle"
+        "label": "Title"
       },
       {
         "component": "text",
@@ -4834,14 +4653,14 @@
         "component": "text",
         "name": "subtitle",
         "value": "",
-        "label": "Subtitle",
+        "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "title",
         "value": "",
-        "label": "Title",
+        "label": "Eyebrow",
         "valueType": "string"
       }
     ]
@@ -4945,10 +4764,6 @@
           {
             "name": "Size",
             "value": "buttons"
-          },
-          {
-            "name": "PriceInfo RegularPrice",
-            "value": "priceInfo_regularPrice"
           },
           {
             "name": "Awards",
@@ -5308,7 +5123,7 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "richtext",
         "name": "subtitle",
         "label": "SubTitle",
         "valueType": "string"
@@ -5646,13 +5461,8 @@
         "component": "text",
         "name": "state",
         "label": "State Tag",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "category",
-        "label": "Category Tag",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",
@@ -5699,18 +5509,54 @@
     ]
   },
   {
-    "id": "store-information-card-items",
+    "id": "service-items",
     "fields": [
+      {
+        "component": "text",
+        "name": "service_category",
+        "label": "Service Category",
+        "valueType": "string",
+        "required": true
+      },
       {
         "component": "reference",
         "name": "service_icon",
         "label": "Service Icon",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "store-locator",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label1",
+        "label": "Locator Label 1",
+        "valueType": "string"
       },
       {
         "component": "text",
-        "name": "service_category",
-        "label": "Service Category",
+        "name": "placeholder1",
+        "label": "Locator Placeholder 1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "label2",
+        "label": "Locator Label 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "placeholder2",
+        "label": "Locator Placeholder 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button",
+        "label": "Button Copy",
         "valueType": "string"
       }
     ]
@@ -6039,13 +5885,13 @@
         "component": "text",
         "valueType": "string",
         "name": "title",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "subtitle",
-        "label": "SubTitle"
+        "label": "Title"
       },
       {
         "component": "text",
@@ -6393,13 +6239,13 @@
         "component": "text",
         "valueType": "string",
         "name": "info_title",
-        "label": "Title"
+        "label": "Eyebrow"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "info_subtitle",
-        "label": "SubTitle"
+        "label": "Title"
       },
       {
         "component": "text",
@@ -6565,6 +6411,182 @@
         "valueType": "string",
         "name": "externalJsScript3",
         "label": "External script 3"
+      }
+    ]
+  },
+  {
+    "id": "top-news-story",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "section-title",
+        "label": "Section Title",
+        "placeholder": "Featured"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "data-source",
+        "label": "Data Source",
+        "options": [
+          {
+            "name": "Fill",
+            "value": "fill"
+          },
+          {
+            "name": "Child Page",
+            "value": "child-page"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "source-path",
+        "label": "Source Path",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "child-page"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subtitle",
+        "label": "Title",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "date",
+        "label": "Date",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "location",
+        "label": "Location",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "author",
+        "label": "Author",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta-text",
+        "label": "CTA Text",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "cta-link",
+        "label": "CTA Link",
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
+      },
+      {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "has-download",
+        "label": "Has Download",
+        "value": false,
+        "condition": {
+          "===": [
+            {
+              "var": "data-source"
+            },
+            "fill"
+          ]
+        }
       }
     ]
   },

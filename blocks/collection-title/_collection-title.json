@@ -10,13 +10,12 @@
             "template": {
               "name": "Collection Title",
               "model": "collection-title",
-               "classes": "collection-title"
+              "classes": "collection-title"
             }
           }
         }
       }
     }
-   
   ],
   "models": [
     {
@@ -26,20 +25,18 @@
           "component": "richtext",
           "name": "title",
           "value": "",
-          "label": "Title",
+          "label": "Eyebrow",
           "valueType": "string"
         },
         {
           "component": "richtext",
           "name": "subtitle",
           "value": "",
-          "label": "Sub Title",
+          "label": "Title",
           "valueType": "string"
         }
       ]
     }
   ],
-  "filters": [
-  
-  ]
+  "filters": []
 }

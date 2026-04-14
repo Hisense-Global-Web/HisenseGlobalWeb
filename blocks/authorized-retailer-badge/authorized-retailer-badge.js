@@ -6,24 +6,24 @@ export default function decorate(block) {
     const firstPElement = block.querySelector('p');
     if (firstPElement && firstPElement.textContent?.trim() !== 'image') {
       const emptyDiv = document.createElement('div');
-      emptyDiv.classList.add('authorized-reseller-badge-empty');
+      emptyDiv.classList.add('authorized-retailer-badge-empty');
       elementItems.unshift(emptyDiv);
     }
 
     const textContainer = document.createElement('div');
-    textContainer.classList.add('authorized-reseller-badge-header-text');
+    textContainer.classList.add('authorized-retailer-badge-header-text');
 
     const listContainer = document.createElement('div');
-    listContainer.classList.add('authorized-reseller-badge-list');
+    listContainer.classList.add('authorized-retailer-badge-list');
 
     elementItems.forEach((element, index) => {
       if (index === 0) {
-        element?.classList.add('authorized-reseller-badge-header-icon');
+        element?.classList.add('authorized-retailer-badge-header-icon');
       } else if (index === 1) {
-        element?.classList.add('authorized-reseller-badge-header-title');
+        element?.classList.add('authorized-retailer-badge-header-title');
         textContainer.appendChild(element);
       } else if (index === 2) {
-        element?.classList.add('authorized-reseller-badge-header-subtitle');
+        element?.classList.add('authorized-retailer-badge-header-subtitle');
         // 为 subtitle 下第二个 div 中的 p 标签添加 title 属性
         const divElements = element.querySelectorAll('div');
         if (divElements.length >= 2) {
@@ -36,10 +36,10 @@ export default function decorate(block) {
 
         textContainer.appendChild(element);
       } else {
-        element?.classList.add('authorized-reseller-badge-item');
+        element?.classList.add('authorized-retailer-badge-item');
         const [icon, title] = element.children;
-        icon?.classList?.add('authorized-reseller-badge-item-icon');
-        title?.classList?.add('authorized-reseller-badge-item-title');
+        icon?.classList?.add('authorized-retailer-badge-item-icon');
+        title?.classList?.add('authorized-retailer-badge-item-title');
 
         const pElement = title.querySelector('p');
         if (pElement) {
@@ -58,6 +58,6 @@ export default function decorate(block) {
     }
   } catch (error) {
     /* eslint-disable-next-line no-console */
-    console.error('Authorized Reseller Badge block decoration error:', error);
+    console.error('Authorized retailer Badge block decoration error:', error);
   }
 }

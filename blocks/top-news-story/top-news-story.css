@@ -1,6 +1,6 @@
 /* Headline Block Styles */
 
-.headline {
+.top-news-story {
   * {
     padding: 0;
     margin: 0;
@@ -14,7 +14,7 @@
       margin-bottom: var(--size-48);
       color: var(--color-hisense-black);
       line-height: 1.2;
-      
+
       @media (width < 860px) {
         font-size: var(--size-30);
         margin-bottom: var(--size-24);
@@ -30,7 +30,7 @@
       border-radius: var(--radius-pc-xl);
       height: 480px;
       overflow: hidden;
-      
+
       @media (width < 860px) {
         grid-template-columns: 1fr;
         height: auto;
@@ -56,7 +56,7 @@
         flex-direction: column;
         justify-content: space-between;
         padding: var(--size-48) var(--size-48) var(--size-48) 0;
-        
+
         @media (width < 860px) {
           padding: 0 var(--size-24) var(--size-48);
         }
@@ -68,7 +68,7 @@
           font-weight: var(--fontweight-medium);
           margin-bottom: var(--size-8);
           line-height: 1.5;
-          
+
           @media (width < 860px) {
             margin-bottom: var(--size-4);
             font-size: var(--size-16);
@@ -81,7 +81,7 @@
           font-weight: var(--fontweight-medium);
           line-height: 1.2;
           margin-bottom: var(--size-20);
-          
+
           @media (width < 860px) {
             font-size: var(--size-24);
             line-height: 1.2;
@@ -96,7 +96,7 @@
 
           /* flex: 1; */
           margin-bottom: var(--size-24);
-          
+
           @media (width < 860px) {
             font-size: var(--size-14);
             margin-bottom: var(--size-32);
@@ -109,12 +109,12 @@
           align-items: flex-start;
           font-size: var(--size-14);
           color: var(--color-primary-grey-70);
-          
+
           .meta-author {
             font-size: var(--fontsize-body2);
             line-height: 1.5;
             font-weight: var(--fontweight-medium);
-            
+
             @media (width < 860px) {
               font-size: var(--size-14);
               line-height: 1.4;
@@ -184,7 +184,7 @@
           align-items: center;
           gap: var(--size-16);
           margin-top: auto;
-          
+
           @media (width < 860px) {
             margin-top: var(--size-32);
           }
@@ -200,14 +200,14 @@
             line-height: 1.5;
             color: var(--color-primary-grey-10);
             font-weight: var(--fontweight-medium);
-            
+
             @media (width < 860px) {
               height: var(--size-40);
               font-size: var(--size-14);
               line-height: 1.4;
             }
           }
-          
+
           .icon-btn {
             width: var(--size-50);
             height: var(--size-50);
@@ -218,19 +218,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            
+
             @media (width < 860px) {
               width: var(--size-40);
               height: var(--size-40);
             }
-            
+
             img {
               width: var(--size-24);
               height: var(--size-24);
-              
+
               @media (width < 860px) {
-                width: min(calc(19.2 / var(--breakpoint-mobile) * 100vw), 19.2px);
-                height: min(calc(19.2 / var(--breakpoint-mobile) * 100vw), 19.2px);
+                width: min(
+                  calc(19.2 / var(--breakpoint-mobile) * 100vw),
+                  19.2px
+                );
+                height: min(
+                  calc(19.2 / var(--breakpoint-mobile) * 100vw),
+                  19.2px
+                );
               }
             }
           }

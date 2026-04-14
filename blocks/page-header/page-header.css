@@ -1,5 +1,9 @@
-.page-header-wrapper {
+.page-header {
   width: 100%;
+
+  @media (width>=860px) {
+    padding: 0 !important;
+  }
 }
 
 .text-green-50 {
@@ -39,6 +43,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .align-center p {
@@ -49,6 +54,10 @@
 
 .align-left {
   text-align: left;
+
+  @media (width>=860px) {
+    padding: inherit;
+  }
 }
 
 .page-header p {

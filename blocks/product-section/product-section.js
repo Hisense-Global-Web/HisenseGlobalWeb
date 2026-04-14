@@ -252,6 +252,29 @@ function getVariantImageUrl(variant) {
   return imageKey ? variant.mediaGallery_image[imageKey] : '';
 }
 
+function normalizeProductSectionIdentifiers(product) {
+  if (!product || typeof product !== 'object' || Array.isArray(product)) {
+    return product;
+  }
+
+  const normalizedProduct = { ...product };
+  ['sku', 'spu', 'erpcode', 'erpCode'].forEach((key) => {
+    if (typeof normalizedProduct[key] === 'string') {
+      normalizedProduct[key] = normalizedProduct[key].trim();
+    }
+  });
+
+  return normalizedProduct;
+}
+
+export function normalizeProductSectionProducts(products) {
+  if (!Array.isArray(products)) {
+    return [];
+  }
+
+  return products.map((product) => normalizeProductSectionIdentifiers(product));
+}
+
 function getProductDisplayTitle(product, fallbackTitle = '') {
   if (!product) {
     return fallbackTitle || '';
@@ -617,7 +640,7 @@ export default async function decorate(block) {
 
   let items = null;
   // 使用统一的数据转换函数处理 GraphQL 返回的各种格式
-  items = transformTagStructureToProducts(json);
+  items = normalizeProductSectionProducts(transformTagStructureToProducts(json));
 
   // 根据SKU找到对应的产品
   const currentProduct = items ? items.find((item) => item.sku === sku) : null;
@@ -862,6 +885,9 @@ export default async function decorate(block) {
   }
   setElementHidden(buy, !showBuyButton);
   setElementHidden(price, true);
+  if (!fields.includes('buttons')) {
+    sizesWrapper.classList.add('hide');
+  }
   if (!fields.includes('awards')) {
     badges.classList.add('hide');
   }
