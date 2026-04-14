@@ -534,7 +534,7 @@
                 "template": {
                   "name": "Campaign Bundle Banner",
                   "model": "campaign-bundle-banner",
-                  "filters": "campaign-bundle-banner"
+                  "filter": "campaign-bundle-banner"
                 }
               }
             }
