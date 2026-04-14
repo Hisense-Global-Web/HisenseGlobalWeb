@@ -1,5 +1,5 @@
 /* 页面部分样式 */
-.authorized-resellers-list {
+.authorized-retailer-list {
   .ar-our-title > div:first-child {
     display: none;
   }
@@ -50,19 +50,19 @@
       padding: 0;
       margin-bottom: var(--spacing-xs, 16px);
 
-        &:nth-child(2n + 1) {
-          justify-content: flex-start;
-        }
+      &:nth-child(2n + 1) {
+        justify-content: flex-start;
+      }
 
-        &:nth-child(2n) {
-          justify-content: flex-end;
-        }
+      &:nth-child(2n) {
+        justify-content: flex-end;
+      }
     }
   }
 
   .ar-our-item-logo {
     width: 100%;
-    
+
     picture,
     img {
       width: 100%;
