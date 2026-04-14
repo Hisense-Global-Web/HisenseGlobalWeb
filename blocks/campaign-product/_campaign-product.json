@@ -102,5 +102,12 @@
       ]
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id": "campaign-product",
+      "components": [
+        "campaign-product-list"
+      ]
+    }
+  ]
 }

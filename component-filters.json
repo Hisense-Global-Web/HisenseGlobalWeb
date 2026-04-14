@@ -234,6 +234,12 @@
     ]
   },
   {
+    "id": "campaign-product",
+    "components": [
+      "campaign-product-list"
+    ]
+  },
+  {
     "id": "card-carousel",
     "components": [
       "card-carouselItem"
