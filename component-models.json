@@ -2488,6 +2488,25 @@
     ]
   },
   {
+    "id": "fifa-title",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Ttile",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "footerContainer",
     "fields": []
   },
