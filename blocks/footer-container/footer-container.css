@@ -306,8 +306,9 @@ footer footer {
 
 .footer-nav {
   display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	gap: min(calc(92.5 / var(--breakpoint-pc) * 100vw), 92.5px);;
+	grid-template-columns: repeat(4, var(--size-150));
+  justify-content: space-between;
+  row-gap: var(--size-32);
 	margin-bottom: var(--size-28);
   z-index: 11;
 
@@ -399,7 +400,7 @@ footer footer {
 }
 
 .footer-bottom {
-	padding: var(--size-16) 0 var(--size-14);
+	padding: var(--size-24) 0 var(--size-32);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -420,7 +421,7 @@ footer footer {
   justify-content: flex-start;
   align-items: flex-start;
 	flex-wrap: wrap;
-	gap: var(--size-12) var(--size-66);
+	gap: var(--size-16) var(--size-66);
 
   @media (width < 860px) {
     gap: var(--size-30);

@@ -28,6 +28,6 @@ export default function decorate(block) {
     }
   } catch (error) {
     /* eslint-disable-next-line no-console */
-    console.error('Authorized Resellers List block decoration error:', error);
+    console.error('Authorized Retailer List block decoration error:', error);
   }
 }
