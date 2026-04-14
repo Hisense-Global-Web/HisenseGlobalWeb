@@ -1417,25 +1417,25 @@
       {
         "component": "text",
         "name": "left_title",
-        "label": "Text",
+        "label": "Bundle Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "left_subtitle",
-        "label": "Text",
+        "label": "Bundle Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
         "name": "left_ctaPrimary",
-        "label": "Primary CTA",
+        "label": "Bundle Button Link",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "left_ctaPrimaryText",
-        "label": "Primary CTA Label",
+        "label": "Bundle Button Text",
         "valueType": "string"
       }
     ]
