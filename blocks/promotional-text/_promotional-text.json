@@ -11,7 +11,7 @@
               "name": "Promotional Text ",
               "model": "promotional-text",
               "font-color": "green60",
-              "align-style": "center"
+              "align-style": "align-center"
             }
           }
         }
@@ -42,7 +42,7 @@
           "options": [
             {
               "name": "Center",
-              "value": "center"
+              "value": "align-center"
             }
           ]
         },

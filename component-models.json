@@ -4988,7 +4988,7 @@
         "options": [
           {
             "name": "Center",
-            "value": "center"
+            "value": "align-center"
           }
         ]
       },
