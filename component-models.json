@@ -1386,6 +1386,74 @@
     ]
   },
   {
+    "id": "campaign-product-list",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Category Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Category Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "graphql",
+        "label": "GraphQL Endpoint"
+      },
+      {
+        "component": "container",
+        "label": "Product List",
+        "name": "product-list",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sku1",
+            "label": "SKU",
+            "required": true
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sku2",
+            "label": "SKU",
+            "required": true
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sku3",
+            "label": "SKU",
+            "required": true
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sku4",
+            "label": "SKU",
+            "required": true
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sku5",
+            "label": "SKU",
+            "required": true
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "card-carousel",
     "fields": [
       {
