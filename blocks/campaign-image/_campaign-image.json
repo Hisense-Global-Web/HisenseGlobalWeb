@@ -31,7 +31,7 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "background-imageMobile",
+          "name": "background-imagemobile",
           "label": "Background Image for Mobile",
           "multi": false
         },
@@ -70,14 +70,14 @@
         },
         {
           "component": "text",
-          "name": "right_buttonText",
+          "name": "right_buttontext",
           "label": "Butotn Text",
           "valueType": "string",
           "value": ""
         },
         {
           "component": "aem-content",
-          "name": "right_buttonLink",
+          "name": "right_buttonlink",
           "label": "Button Link",
           "valueType": "string",
           "value": ""
