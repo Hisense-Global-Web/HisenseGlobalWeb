@@ -525,6 +525,22 @@
           }
         },
         {
+          "title": "Campaign Image",
+          "id": "campaign-image",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Campaign Image",
+                  "model": "campaign-image",
+                  "decoration-image": "right"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Card Carousel",
           "id": "card-carousel",
           "plugins": {
@@ -2392,14 +2408,14 @@
           }
         },
         {
-          "title": "Promotional Text ",
+          "title": "Promotional Text",
           "id": "promotional-text",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Promotional Text ",
+                  "name": "Promotional Text",
                   "model": "promotional-text",
                   "font-color": "green60",
                   "align-style": "align-center"
