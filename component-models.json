@@ -1423,28 +1423,28 @@
       },
       {
         "component": "text",
-        "name": "title",
+        "name": "right_title",
         "value": "",
         "label": "Ttile",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "text",
+        "name": "right_text",
         "value": "",
         "label": "Text",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "button-text",
+        "name": "right_buttonText",
         "label": "Butotn Text",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "aem-content",
-        "name": "button-link",
+        "name": "right_buttonLink",
         "label": "Button Link",
         "valueType": "string",
         "value": ""
