@@ -400,7 +400,7 @@ footer footer {
 }
 
 .footer-bottom {
-	padding: var(--size-16) 0 var(--size-14);
+	padding: var(--size-24) 0 var(--size-32);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -421,7 +421,7 @@ footer footer {
   justify-content: flex-start;
   align-items: flex-start;
 	flex-wrap: wrap;
-	gap: var(--size-12) var(--size-32);
+	gap: var(--size-16) var(--size-32);
 
   @media (width < 860px) {
     gap: var(--size-30);
