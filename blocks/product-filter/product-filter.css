@@ -15,10 +15,13 @@
 
 .plp-filter-list {
   list-style: none;
-  margin: var(--size-10) 0 0;
   padding: 0 0 0 var(--size-14);
   transition: max-height 0.36s ease-in-out;
   max-height: min(calc(200 / var(--breakpoint-pc) * 100vw), 200px);
+  
+  .plp-filter-item:first-child {
+    margin-top: var(--size-10);
+  }
 }
 
 .plp-filter-group.hide .plp-filter-list {
