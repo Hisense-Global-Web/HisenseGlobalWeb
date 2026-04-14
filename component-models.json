@@ -1425,29 +1425,25 @@
             "component": "text",
             "valueType": "string",
             "name": "sku2",
-            "label": "SKU",
-            "required": true
+            "label": "SKU"
           },
           {
             "component": "text",
             "valueType": "string",
             "name": "sku3",
-            "label": "SKU",
-            "required": true
+            "label": "SKU"
           },
           {
             "component": "text",
             "valueType": "string",
             "name": "sku4",
-            "label": "SKU",
-            "required": true
+            "label": "SKU"
           },
           {
             "component": "text",
             "valueType": "string",
             "name": "sku5",
-            "label": "SKU",
-            "required": true
+            "label": "SKU"
           }
         ]
       }
