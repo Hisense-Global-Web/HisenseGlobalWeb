@@ -94,7 +94,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--size-48);
+    gap: var(--size-40);
 
     @media (width>=860px) {
       padding: 0;
@@ -445,14 +445,13 @@ p {
     .hero-banner-item {
       .hero-banner-content {
         width: 100%;
-        top: auto;
-        bottom: var(--size-44);
+        bottom: var(--size-54);
         transform: none;
         font-weight: var(--fontweight-medium);
-        left: calc(50% - min(var(--container-max-width), 100vw) / 2);
+        left: 0;
         gap: var(--size-18);
         padding: 0 var(--size-24);
-        height: calc(270 / var(--breakpoint-mobile) * 100vw);
+        max-height: calc(272 / var(--breakpoint-mobile) * 100vw);
         justify-content: flex-start;
 
         .hero-banner-item-content {
@@ -463,14 +462,15 @@ p {
           h5,
           h6,
           p {
-            font-size: var(--size-34);
+            font-size: var(--fontsize-h3, 30px);
+            width: 100%;
           }
         }
 
         .text-content {
           gap: var(--size-8);
-          height: calc(212 / var(--breakpoint-mobile) * 100vw);
-          justify-content: flex-start;
+          height: calc(214 / var(--breakpoint-mobile) * 100vw);
+          justify-content: center;
         }
 
         .teal-text {
