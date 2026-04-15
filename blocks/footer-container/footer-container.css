@@ -421,7 +421,7 @@ footer footer {
   justify-content: flex-start;
   align-items: flex-start;
 	flex-wrap: wrap;
-	gap: var(--size-16) var(--size-66);
+	gap: var(--size-16) var(--size-32);
 
   @media (width < 860px) {
     gap: var(--size-30);
@@ -429,6 +429,7 @@ footer footer {
 
   .footer-lan-group {
     display: flex;
+    width: min(calc(234 / var(--breakpoint-pc) * 100vw), 234px);
     height: var(--size-20);
     align-items: center;
     font-weight: var(--fontweight-book);

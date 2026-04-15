@@ -1,4 +1,4 @@
-@import url('../../styles/reset-rich-text.css');
+@import url("../../styles/reset-rich-text.css");
 
 main > .section:first-of-type {
   margin: 0;
@@ -12,7 +12,7 @@ p {
 }
 
 .hero-banner-wrapper {
-  max-width: 2560px !important;
+  max-width: 1920px !important;
   padding: 0 !important;
 }
 
@@ -21,7 +21,7 @@ p {
   aspect-ratio: 1440/860;
   list-style: none;
   margin: 0;
-  max-width: 2560px !important;
+  max-width: 1920px !important;
 }
 
 .hero-banner {
@@ -85,14 +85,20 @@ p {
   .hero-banner-content {
     position: absolute;
     top: 50%;
-    left: calc(50% - min(var(--container-max-width), 95vw) / 2);
+    left: calc(
+      50% - min(calc(1120 / var(--breakpoint-pc) * 100vw), 1120px) / 2
+    );
     transform: translate(0, -50%);
-    height: min(calc(452/ var(--breakpoint-pc) *100vw), 452px);
+    max-height: min(calc(568 / var(--breakpoint-pc) * 100vw), 568px);
+    width: min(calc(1120 / var(--breakpoint-pc) * 100vw), 1120px);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--size-48);
+    gap: var(--size-40);
+
+    @media (width>=860px) {
+      padding: 0;
+    }
   }
 
   .hero-banner-item-content {
@@ -106,7 +112,6 @@ p {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    height: min(calc(354/ var(--breakpoint-pc) *100vw), 354px);
     gap: var(--spacing-3xs);
   }
 
@@ -114,7 +119,7 @@ p {
     color: var(--color-hisense-teal);
     font-weight: var(--fontweight-medium);
     font-size: var(--fontsize-title2);
-    margin-top: 0 ;
+    margin-top: 0;
   }
 
   .hero-banner-item-content h1,
@@ -125,13 +130,15 @@ p {
   .hero-banner-item-content h6,
   .hero-banner-item-content p {
     margin: 0;
-    font-size: var(--fontsize-pc-h1);
-    font-weight: var(--fontweight-medium);
+    width: min(calc(365 / var(--breakpoint-pc) * 100vw), 360px);
+    font-size: var(--fontsize-pc-h2, 40px);
+    font-weight: var(--fontweight-medium, 500);
     line-height: 120%;
+    text-transform: capitalize;
   }
 
   .hero-banner-item-content.icon-svg {
-    width: min(calc(327/var(--breakpoint-pc)*100vw), 327px);
+    width: min(calc(327 / var(--breakpoint-pc) * 100vw), 327px);
     height: 100%;
     justify-content: center;
 
@@ -213,7 +220,7 @@ p {
   .video-play-icon {
     position: absolute;
     bottom: var(--size-24);
-    left: min(calc(160/var(--breakpoint-pc)*100vw), 160px);
+    left: min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -383,7 +390,7 @@ p {
 
 .hero-banner.only-picture {
   .hero-banner-items-container {
-    max-height: min(calc(640/var(--breakpoint-pc)*100vw), 640px) !important;
+    max-height: min(calc(640 / var(--breakpoint-pc) * 100vw), 640px) !important;
 
     .hero-banner-item {
       .hero-banner-content {
@@ -417,15 +424,15 @@ p {
 }
 
 @media (width < 860px) {
-  .hero-banner  .hero-banner-items-container {
+  .hero-banner .hero-banner-items-container {
     /* overflow: scroll; */
     touch-action: pan-y;
     user-select: none;
     aspect-ratio: 390/640;
     max-height: 100dvh;
 
-    &::-webkit-scrollbar{
-      display:none
+    &::-webkit-scrollbar {
+      display: none;
     }
 
     picture > img {
@@ -438,26 +445,32 @@ p {
     .hero-banner-item {
       .hero-banner-content {
         width: 100%;
-        top: auto;
-        bottom: var(--size-44);
+        bottom: var(--size-54);
         transform: none;
         font-weight: var(--fontweight-medium);
-        left: calc(50% - min(var(--container-max-width), 100vw) / 2);
+        left: 0;
         gap: var(--size-18);
         padding: 0 var(--size-24);
-        height: calc(270/var(--breakpoint-mobile) * 100vw);
+        max-height: calc(272 / var(--breakpoint-mobile) * 100vw);
         justify-content: flex-start;
 
         .hero-banner-item-content {
-          h1,h2,h3,h4,h5,h6,p {
-            font-size: var(--size-34);
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6,
+          p {
+            font-size: var(--fontsize-h3, 30px);
+            width: 100%;
           }
         }
 
         .text-content {
           gap: var(--size-8);
-          height: calc(212/var(--breakpoint-mobile)* 100vw);
-          justify-content: flex-start;
+          height: calc(214 / var(--breakpoint-mobile) * 100vw);
+          justify-content: center;
         }
 
         .teal-text {
@@ -486,7 +499,7 @@ p {
         p:nth-child(1) {
           display: none;
         }
-        
+
         p:nth-child(2) {
           display: block;
         }
@@ -515,7 +528,7 @@ p {
     backdrop-filter: blur(calc(var(--size-20) / 2));
   }
 
-  .hero-banner.only-picture .hero-banner-items-container{
+  .hero-banner.only-picture .hero-banner-items-container {
     max-height: 100dvh !important;
     aspect-ratio: 390/480;
 
@@ -523,7 +536,7 @@ p {
       line-height: 1.2;
       left: 0;
       bottom: 0;
-      padding:  0 var(--size-24) var(--size-32);
+      padding: 0 var(--size-24) var(--size-32);
       font-size: var(--size-34);
       text-transform: capitalize;
       letter-spacing: 0;
@@ -531,7 +544,12 @@ p {
       .hero-banner-item-content {
         gap: 0;
 
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
           font-size: var(--size-34);
           line-height: 1.2;
         }
@@ -555,7 +573,7 @@ p {
       width: var(--size-6);
 
       &:disabled {
-        border-radius: calc(75/var(--breakpoint-mobile)*100vw);
+        border-radius: calc(75 / var(--breakpoint-mobile) * 100vw);
         width: var(--size-30);
       }
     }
