@@ -156,7 +156,6 @@ function updateButtons(tabsList, leftBtn, rightBtn) {
 }
 
 function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
-
   // 左箭头
   leftBtn.addEventListener('click', () => {
     const SCROLL_STEP = (134 * Math.min(window.innerWidth, 1440)) / 1440;
@@ -181,7 +180,6 @@ function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
 
   // ---------- 核心修复：resize 自动对齐校正 ----------
   window.addEventListener('resize', () => {
-
     // resize 后强制对齐到最近的 item，彻底解决位置偏移
     const firstItem = tabsList.querySelector('.product-filter-item');
     if (firstItem) {
