@@ -396,7 +396,9 @@ p {
       .hero-banner-content {
         height: auto;
         width: 100%;
-        left: calc(50% - min(var(--container-max-width), 100vw) / 2);
+        left: calc(
+          50% - min(calc(1120 / var(--breakpoint-pc) * 100vw), 1120px) / 2
+        );
 
         .text-content {
           height: auto;
