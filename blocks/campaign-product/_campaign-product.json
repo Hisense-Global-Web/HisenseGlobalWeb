@@ -48,13 +48,15 @@
           "component": "text",
           "name": "title",
           "label": "Category Text",
-          "valueType": "string"
+          "valueType": "string",
+          "required": true
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "graphql",
-          "label": "GraphQL Endpoint"
+          "label": "GraphQL Endpoint",
+          "required": true
         },
         {
           "component": "container",

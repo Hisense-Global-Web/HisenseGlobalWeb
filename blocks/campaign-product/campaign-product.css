@@ -1,1 +1,10 @@
 /* css */
+
+.campaign-product {
+  display: flex;
+  gap: var(--size-24);
+  
+  .campaign-category {
+    flex: 1;
+  }
+}
