@@ -152,34 +152,44 @@ function buildTabDot(itemElement, index) {
 
 function updateButtons(tabsList, leftBtn, rightBtn) {
   leftBtn.disabled = tabsList.scrollLeft <= 0;
-  rightBtn.disabled = tabsList.scrollLeft + tabsList.clientWidth >= tabsList.scrollWidth;
+  rightBtn.disabled = tabsList.scrollLeft + tabsList.clientWidth + 10 >= tabsList.scrollWidth;
 }
 
 function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
   // 左箭头
   leftBtn.addEventListener('click', () => {
-    // eslint-disable-next-line no-mixed-operators
-    const SCROLL_STEP = 134 * (window.innerWidth || 1440) / 1440; // 单个标签宽度 + 间隙
-    tabsList.scrollBy({
-      left: -SCROLL_STEP,
-      behavior: 'smooth',
-    });
-    setTimeout(() => updateButtons(tabsList, leftBtn, rightBtn), 300);
+    const SCROLL_STEP = (134 * Math.min(window.innerWidth, 1440)) / 1440;
+    tabsList.scrollBy({ left: -SCROLL_STEP, behavior: 'smooth' });
+    setTimeout(() => {
+      updateButtons(tabsList, leftBtn, rightBtn);
+    }, 300);
   });
 
   // 右箭头
   rightBtn.addEventListener('click', () => {
-    // eslint-disable-next-line no-mixed-operators
-    const SCROLL_STEP = 134 * (window.innerWidth || 1440) / 1440; // 单个标签宽度 + 间隙
-    tabsList.scrollBy({
-      left: SCROLL_STEP,
-      behavior: 'smooth',
-    });
-    setTimeout(() => updateButtons(tabsList, leftBtn, rightBtn), 300);
+    const SCROLL_STEP = (134 * Math.min(window.innerWidth, 1440)) / 1440;
+    tabsList.scrollBy({ left: SCROLL_STEP, behavior: 'smooth' });
+    setTimeout(() => {
+      updateButtons(tabsList, leftBtn, rightBtn);
+    }, 300);
   });
 
-  tabsList.addEventListener('scroll', () => updateButtons(tabsList, leftBtn, rightBtn));
-  window.addEventListener('resize', () => updateButtons(tabsList, leftBtn, rightBtn));
+  tabsList.addEventListener('scroll', () => {
+    updateButtons(tabsList, leftBtn, rightBtn);
+  });
+
+  // ---------- 核心修复：resize 自动对齐校正 ----------
+  window.addEventListener('resize', () => {
+    // resize 后强制对齐到最近的 item，彻底解决位置偏移
+    const firstItem = tabsList.querySelector('.product-filter-item');
+    if (firstItem) {
+      const itemWidth = firstItem.offsetWidth + 16; // 包含间距
+      const closestScroll = Math.round(tabsList.scrollLeft / itemWidth) * itemWidth;
+      tabsList.scrollTo({ left: closestScroll, behavior: 'instant' });
+    }
+
+    updateButtons(tabsList, leftBtn, rightBtn);
+  });
 
   updateButtons(tabsList, leftBtn, rightBtn);
 }
