@@ -92,3 +92,38 @@ export function isNavPage() {
 export function isFooterPage() {
   return /footer(\.html)?$/.test(getLocationPart('pathname'));
 }
+
+export function simpleHash(str) {
+  const s = String(str);
+  let h = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    h = (h * 31 + s.charCodeAt(i)) % 2147483647;
+  }
+  return Math.abs(h).toString(36);
+}
+/**
+ * Get GraphQL endpoint URL with base URL
+ */
+export function getGraphQLUrl(endpointPath) {
+  let path = localizeProductApiPath(endpointPath);
+  const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) ? window.location.hostname : '';
+  const isAemEnv = hostname.includes('author') || hostname.includes('publish');
+
+  if (isAemEnv && path && path.endsWith('.json')) {
+    let pathWithoutJson = path.replace(/\.json$/, '');
+    pathWithoutJson = pathWithoutJson.replace(/^\/product\/?/, '/') || '/';
+    path = `/bin/hisense/productList.json?path=${pathWithoutJson}`;
+  }
+
+  const baseUrl = window.GRAPHQL_BASE_URL || '';
+  let url;
+  if (path && (path.startsWith('http://') || path.startsWith('https://'))) {
+    url = path;
+  } else {
+    url = baseUrl ? `${baseUrl}${path}` : path;
+  }
+  const fiveMinutesMs = 5 * 60 * 1000;
+  const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
+  const sep = url.indexOf('?') >= 0 ? '&' : '?';
+  return `${url}${sep}_t=${cacheBuster}`;
+}

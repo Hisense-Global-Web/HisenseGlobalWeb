@@ -606,7 +606,7 @@ export default async function decorate(block) {
   }
 
   const url = getGraphQLUrl(endpoint);
-
+  console.log(url, endpoint);
   /**
    * 将新的 GraphQL 返回结构转换为可用的产品数组格式
    */
