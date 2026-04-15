@@ -114,6 +114,7 @@
         @media (width<860px) {
           height: var(--size-40);
           margin-top: var(--spacing-xs, 16px);
+          padding: var(--spacing-4xs, 4px) var(--spacing-sm, 24px);
           line-height: 140%;
         }
       }
