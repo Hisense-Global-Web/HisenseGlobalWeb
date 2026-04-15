@@ -6,5 +6,34 @@
   
   .campaign-category {
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-16);
+    height: var(--size-68);
+    border-radius: var(--size-16);
+    padding: 0 var(--size-16);
+    background-color: #C8EFEE;
+    
+    &.active {
+      background-color: #FFF;
+      
+      .category-title {
+        color: var(--color-primary-grey-100);
+      }
+    }
+    
+    .category-img img {
+      display: block;
+      width: var(--size-68);
+      height: var(--size-68);
+    }
+    
+    .category-title {
+      color: #008482;
+      font-size: var(--size-16);
+      line-height: 1.2;
+      font-weight: var(--fontweight-medium);
+    }
   }
 }
