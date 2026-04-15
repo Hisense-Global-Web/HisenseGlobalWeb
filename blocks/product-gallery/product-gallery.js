@@ -110,6 +110,11 @@ function buildTab(itemElement, index) {
       return;
     }
     const imgUrl = e.target?.src;
+    const productElList = e.currentTarget.parentNode.querySelectorAll('.product-filter-item');
+    productElList.forEach((el) => {
+      el.classList.remove('active');
+    });
+    e.currentTarget.classList.add('active');
     if (mainVideoImg) {
       const img = document.createElement('img');
       img.src = imgUrl;
@@ -147,34 +152,107 @@ function buildTabDot(itemElement, index) {
 
 function updateButtons(tabsList, leftBtn, rightBtn) {
   leftBtn.disabled = tabsList.scrollLeft <= 0;
-  rightBtn.disabled = tabsList.scrollLeft + tabsList.clientWidth >= tabsList.scrollWidth;
+  rightBtn.disabled = tabsList.scrollLeft + tabsList.clientWidth + 10 >= tabsList.scrollWidth;
+}
+
+// 防抖函数
+function debounce(func, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+// 计算并对齐到最近的item（手机端专用）
+function alignToWholeItemMobile(tabsList) {
+  const isMobile = window.innerWidth < 860;
+  if (!isMobile) return;
+
+  const firstItem = tabsList.querySelector('.product-filter-item');
+  if (!firstItem) return;
+
+  // 手机端item宽度是100vw，间距10px（从css中获取）
+  const itemWidth = window.innerWidth + 10; // 手机端每个item占满宽度
+  const currentScroll = tabsList.scrollLeft;
+  // 计算当前滚动位置相对于item宽度的比例
+  const scrollRatio = currentScroll % itemWidth;
+  const currentItemIndex = Math.floor(currentScroll / itemWidth);
+
+  let targetScroll;
+  // 超过50%则滚动到下一个item，否则回到当前item
+  if (scrollRatio > itemWidth * 0.5) {
+    targetScroll = (currentItemIndex + 1) * itemWidth;
+    // 边界判断：不超过最大滚动值
+    const maxScroll = tabsList.scrollWidth - tabsList.clientWidth;
+    targetScroll = Math.min(targetScroll, maxScroll);
+  } else {
+    targetScroll = currentItemIndex * itemWidth;
+  }
+
+  // 滚动到目标位置
+  tabsList.scrollTo({ left: targetScroll, behavior: 'smooth' });
+  // 更新按钮状态
+  const leftBtn = document.querySelector('.scroll-left');
+  const rightBtn = document.querySelector('.scroll-right');
+  if (leftBtn && rightBtn) {
+    updateButtons(tabsList, leftBtn, rightBtn);
+  }
 }
 
 function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
   // 左箭头
   leftBtn.addEventListener('click', () => {
-    // eslint-disable-next-line no-mixed-operators
-    const SCROLL_STEP = 130 * (window.innerWidth || 1440) / 1440; // 单个标签宽度 + 间隙
-    tabsList.scrollBy({
-      left: -SCROLL_STEP,
-      behavior: 'smooth',
-    });
-    setTimeout(() => updateButtons(tabsList, leftBtn, rightBtn), 300);
+    const SCROLL_STEP = (134 * Math.min(window.innerWidth, 1440)) / 1440;
+    tabsList.scrollBy({ left: -SCROLL_STEP, behavior: 'smooth' });
+    setTimeout(() => {
+      updateButtons(tabsList, leftBtn, rightBtn);
+    }, 300);
   });
 
   // 右箭头
   rightBtn.addEventListener('click', () => {
-    // eslint-disable-next-line no-mixed-operators
-    const SCROLL_STEP = 130 * (window.innerWidth || 1440) / 1440; // 单个标签宽度 + 间隙
-    tabsList.scrollBy({
-      left: SCROLL_STEP,
-      behavior: 'smooth',
-    });
-    setTimeout(() => updateButtons(tabsList, leftBtn, rightBtn), 300);
+    const SCROLL_STEP = (134 * Math.min(window.innerWidth, 1440)) / 1440;
+    tabsList.scrollBy({ left: SCROLL_STEP, behavior: 'smooth' });
+    setTimeout(() => {
+      updateButtons(tabsList, leftBtn, rightBtn);
+    }, 300);
   });
 
-  tabsList.addEventListener('scroll', () => updateButtons(tabsList, leftBtn, rightBtn));
-  window.addEventListener('resize', () => updateButtons(tabsList, leftBtn, rightBtn));
+  // 手机端滚动防抖处理（200ms延迟，确保滚动停止后触发）
+  const debounceAlignToItem = debounce(() => {
+    alignToWholeItemMobile(tabsList);
+  }, 200);
+
+  tabsList.addEventListener('scroll', () => {
+    updateButtons(tabsList, leftBtn, rightBtn);
+    // 手机端滚动停止后对齐
+    const isMobile = window.innerWidth < 860;
+    if (isMobile) {
+      debounceAlignToItem();
+    }
+  });
+
+  // ---------- 核心修复：resize 自动对齐校正 ----------
+  window.addEventListener('resize', () => {
+    const isMobile = window.innerWidth < 860;
+    const firstItem = tabsList.querySelector('.product-filter-item');
+    if (firstItem) {
+      if (isMobile) {
+        // 手机端item宽度为100vw
+        const itemWidth = window.innerWidth;
+        const closestScroll = Math.round(tabsList.scrollLeft / itemWidth) * itemWidth;
+        tabsList.scrollTo({ left: closestScroll, behavior: 'instant' });
+      } else {
+        // 桌面端原有逻辑
+        const itemWidth = firstItem.offsetWidth + 16; // 包含间距
+        const closestScroll = Math.round(tabsList.scrollLeft / itemWidth) * itemWidth;
+        tabsList.scrollTo({ left: closestScroll, behavior: 'instant' });
+      }
+    }
+
+    updateButtons(tabsList, leftBtn, rightBtn);
+  });
 
   updateButtons(tabsList, leftBtn, rightBtn);
 }

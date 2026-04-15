@@ -1173,7 +1173,7 @@
   }
 
   .plp-compare-bar {
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
     bottom: 0;
     left: 0;
@@ -1183,6 +1183,10 @@
     padding: var(--size-24) 18px var(--size-32) 18px;
     flex-direction: column;
     border-radius: 0;
+
+    .plp-compare-bar-close {
+      right: 18px;
+    }
 
     .plp-compare-cards {
       width: 100%;

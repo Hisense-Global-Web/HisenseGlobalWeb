@@ -154,7 +154,8 @@
       "warranty-accordion-item",
       "warranty-information",
       "store-locator",
-      "brand-matrix"
+      "brand-matrix",
+      "campaign-bundle-banner"
     ]
   },
   {
@@ -230,6 +231,12 @@
     "id": "brand-matrix",
     "components": [
       "brand-matrix-items"
+    ]
+  },
+  {
+    "id": "campaign-bundle-banner",
+    "components": [
+      "campaign-bundle-promo"
     ]
   },
   {
