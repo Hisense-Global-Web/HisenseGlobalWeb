@@ -203,7 +203,7 @@
   font-size: var(--size-20);
   line-height: 120%;
   font-weight: var(--fontweight-medium);
-  width: var(--size-142);
+  width: var(--size-120);
 
   @media (width < 860px) {
     margin: auto;
@@ -215,6 +215,7 @@
 
 .industry-categories .active .card-title{
   display: block;
+  width: var(--size-142);
 }
 
 .industry-categories  > ul > li .card-image {
