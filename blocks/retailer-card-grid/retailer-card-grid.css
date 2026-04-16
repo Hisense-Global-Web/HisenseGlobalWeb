@@ -13,7 +13,7 @@
     flex-wrap: wrap;
 
     .retailer-item {
-      flex: 0 0 calc(100% - var(--size-12)) / 3;
+      flex: 0 0 calc((100% - (3 - 1) * var(--size-24)) / 3);
       padding: var(--size-32) var(--size-16);
       border: 1px solid var(--color-primary-grey-30);
       border-radius: var(--size-20);
@@ -58,7 +58,7 @@
       gap: var(--size-24);
 
       .retailer-item {
-        flex: 0 0 calc(100% - var(--size-12)) / 2;
+        flex: 0 0 calc((100% - (2 - 1) * var(--size-24)) / 2);
 
         .retailer-logo {
           width: 100%;
