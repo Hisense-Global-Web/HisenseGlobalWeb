@@ -85,10 +85,12 @@ export default async function decorate(block) {
   contentContainer.appendChild(statsList);
 
   const contentPicture = block.querySelector('picture:not(.h-picture)');
-  contentPicture.classList.add('h-picture');
-  const contentImage = createElement('div', 'global-presence-image');
-  contentImage.appendChild(contentPicture);
-  contentContainer.appendChild(contentImage);
+  if (contentPicture) {
+    contentPicture.classList.add('h-picture');
+    const contentImage = createElement('div', 'global-presence-image');
+    contentImage.appendChild(contentPicture);
+    contentContainer.appendChild(contentImage);
+  }
 
   block.appendChild(contentContainer);
   // ========== CONSTRUCT DOM [END] ========== //
