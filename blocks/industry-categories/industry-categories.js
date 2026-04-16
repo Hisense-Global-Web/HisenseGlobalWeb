@@ -107,7 +107,7 @@ export default function decorate(block) {
     }
 
     li.onclick = function () {
-      // 移动端时添加添加事件
+      // 移动端时添加 click 事件
       if (!isMobileWindow()) return;
       liExpandFn(this);
     };
