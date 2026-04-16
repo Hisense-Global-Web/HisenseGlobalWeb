@@ -1,9 +1,10 @@
 import { getGraphQLUrl } from '../../scripts/locale-utils.js';
+
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 function createScrollButton(direction) {
-  const button = document.createElement('button');
+  const button = document.createElement('div');
   button.type = 'button';
   button.className = `scroll-btn scroll-${direction}`;
   button.setAttribute('aria-label', direction === 'left' ? 'Scroll left' : 'Scroll right');
@@ -21,6 +22,18 @@ function createScrollButton(direction) {
   imgClick.className = 'click-icon';
   button.appendChild(imgClick);
   return button;
+}
+
+// eslint-disable-next-line no-unused-vars
+function updatePositionBarLeft(currentIndex, dataListLength) {
+  const bar = document.querySelector('.data-position-bar');
+  if (bar) {
+    const totalWidth = 400;
+    const barWidth = 100;
+    const showItemCount = 4;
+    const maxMoveDistance = totalWidth - barWidth;
+    bar.style.left = `${(maxMoveDistance / Math.max((dataListLength - showItemCount), 1) || 0) * currentIndex}px`;
+  }
 }
 export default async function decorate(block) {
   const data = [];
@@ -77,7 +90,8 @@ export default async function decorate(block) {
     data.push(category);
   }
   const flatList = [];
-  data.forEach((series, sIndex) => {
+  // 这里mock一些数据
+  [...data, ...data, ...data, ...data, ...data].forEach((series, sIndex) => {
     series.products.forEach((p) => {
       flatList.push({
         ...p,
@@ -90,12 +104,81 @@ export default async function decorate(block) {
   const previewListEl = document.createElement('div');
   previewListEl.classList.add('preview-list');
   console.log(flatList);
+  flatList.forEach((item) => {
+    console.log(item);
+    const card = document.createElement('div');
+    card.className = 'product-card';
+
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'product-card-title';
+    const productCardTag = document.createElement('div');
+    productCardTag.className = 'product-card-tag';
+    titleDiv.append(productCardTag);
+
+    const fav = document.createElement('div');
+    fav.className = 'favorite favorite-pending';
+    // setControlLoadingState(fav, false);
+    const likeEmpty = document.createElement('img');
+    likeEmpty.className = 'like-empty';
+    likeEmpty.src = `/content/dam/hisense/${country}/common-icons/like-empty.svg`;
+    fav.appendChild(likeEmpty);
+    const like = document.createElement('img');
+    like.className = 'like';
+    like.src = `/content/dam/hisense/${country}/common-icons/like.svg`;
+    fav.appendChild(like);
+    titleDiv.append(fav);
+
+    const imgDiv = document.createElement('div');
+    imgDiv.className = 'plp-product-img';
+    const imgPath = (() => {
+      if (!item || !item.mediaGallery_image) return null;
+      const pKey = Object.keys(item.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
+      return pKey ? item.mediaGallery_image[pKey] : null;
+    })();
+    if (imgPath) {
+      const img = document.createElement('img');
+      img.src = imgPath;
+      imgDiv.appendChild(img);
+    }
+
+
+    const seriesDiv = document.createElement('div');
+    seriesDiv.className = 'plp-product-series';
+    if (item.series) seriesDiv.textContent = item.series;
+
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'plp-product-name';
+    const metaTitle = (() => {
+      if (!item) return null;
+      const metaKey = Object.keys(item).find((k) => k.toLowerCase().includes('metadata'));
+      const meta = metaKey ? item[metaKey] : null;
+      if (meta && Array.isArray(meta.stringMetadata)) {
+        const found = meta.stringMetadata.find((x) => x.name === 'title');
+        return found ? found.value : null;
+      }
+      return null;
+    })();
+    const fullTitle = item.title || metaTitle || '';
+    nameDiv.textContent = fullTitle;
+    nameDiv.title = fullTitle;
+    
+    card.append(titleDiv, imgDiv, seriesDiv, nameDiv);
+    previewListEl.appendChild(card);
+  });
 
   const ctrlGroupEl = document.createElement('div');
   ctrlGroupEl.classList.add('ctrl-group');
   const positionBarEl = document.createElement('div');
   positionBarEl.classList.add('position-bar');
-  
+  const dataPositionBarEl = document.createElement('div');
+  dataPositionBarEl.classList.add('data-position-bar');
+  positionBarEl.append(dataPositionBarEl);
+  const leftBtn = createScrollButton('left');
+  const rightBtn = createScrollButton('right');
+  const btnGroupEl = document.createElement('div');
+  btnGroupEl.classList.add('btn-group');
+  btnGroupEl.append(leftBtn, rightBtn);
+  ctrlGroupEl.append(positionBarEl, btnGroupEl);
   previewGroupEl.append(previewListEl, ctrlGroupEl);
   block.parentNode.append(previewGroupEl);
 }
