@@ -89,7 +89,7 @@
     .nav-links {
       display: flex;
       height: 100%;
-      padding-left: calc(75.5px - 12px);
+      padding-left: calc(58px - 12px);
 
       .nav-link {
         cursor: pointer;
@@ -101,7 +101,7 @@
         transition: color 0.1s cubic-bezier(0.1, 0, 0.95, 1) 0.4s;
 
         &:hover {
-          color: #333;
+          color: var(--color-primary-green-60) !important;
         }
       }
     }
@@ -116,6 +116,11 @@
         align-items: center;
         height: 100%;
         transition: color 0.1s cubic-bezier(0.1, 0, 0.95, 1) 0.4s;
+
+        &:hover {
+          color: var(--color-primary-green-60) !important;
+          font-weight: var(--fontweight-medium);
+        }
 
         > span {
           display: block;
@@ -193,15 +198,15 @@
 }
 
 #navigation .nav-second {
-  height: 79px;
+  height: 82px;
   display: flex;
   justify-content: space-between;
-  gap: 48px;
+  gap: 58px;
   box-sizing: border-box;
   background: #fff;
   max-width: inherit;
   color: var(--color-primary-grey-90);
-  padding: 0
+  padding: 16px
     calc(calc(100% - var(--container-max-width)) / 2 + var(--common-padding));
 
   &.hidden {
@@ -213,10 +218,12 @@
     font-size: 16px;
     font-weight: var(--fontweight-medium);
     line-height: 1.5;
+    width: 104px;
     height: 22px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 
     @media (width < 1180px) {
       height: 22px;
@@ -234,24 +241,37 @@
     color: var(--color-primary-grey-70);
 
     .company-item {
-      padding: 0 0 4px;
+      padding: 0 0 8px;
       font-size: 14px;
       font-weight: var(--fontweight-book);
       text-transform: capitalize;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
       justify-content: flex-start;
       align-self: baseline;
       flex-shrink: 0;
 
       &.current {
-        border-bottom: 2px solid var(--color-hisense-black);
+        border-bottom: 1px solid var(--color-hisense-black);
         color: var(--color-hisense-black);
+        font-weight: var(--fontweight-medium);
 
         * {
           color: var(--color-hisense-black);
+          font-weight: var(--fontweight-medium);
+        }
+      }
+      
+      &:hover {
+        color: var(--color-primary-green-60);
+        font-weight: var(--fontweight-medium);
+        border-bottom: 1px solid var(--color-primary-green-60);
+
+        * {
+          color: var(--color-primary-green-60);
+          font-weight: var(--fontweight-medium);
         }
       }
 
@@ -418,7 +438,11 @@
 
 .transparent-bold {
   opacity: 0;
-  font-weight: bold;
+  font-weight: bold !important;
+  
+  * {
+    font-weight: bold !important;
+  }
 }
 
 .absolute {
