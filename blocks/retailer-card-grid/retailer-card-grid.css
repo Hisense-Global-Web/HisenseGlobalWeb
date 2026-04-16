@@ -1,5 +1,71 @@
 .retailer-card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  .retailer-tit {
+    font-size: var(--size-34);
+    color: var(--color-primary-grey-100);
+    line-height: 120%;
+    font-weight: var(--fontweight-medium);
+    margin-bottom: var(--size-32);
+  }
+
+  .retailer-box {
+    display: flex;
+    gap: var(--size-32) var(--size-24);
+    flex-wrap: wrap;
+
+    .retailer-item {
+      flex: 0 0 calc(100% - var(--size-12)) / 3;
+      padding: var(--size-32) var(--size-16);
+      border: 1px solid var(--color-primary-grey-30);
+      border-radius: var(--size-20);
+      text-align: center;
+
+      .retailer-logo {
+        width: min(calc(220 / var(--breakpoint-pc) * 100vw), 220px);
+        height: var(--size-73);
+        margin: 0 auto var(--size-16);
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .retailer-btn {
+        height: var(--size-30);
+
+        .button {
+          padding: 0 var(--size-16);
+          height: 100%;
+          line-height: var(--size-30);
+          margin: 0;
+          font-size: var(--size-12);
+          font-weight: var(--fontweight-medium);
+        }
+      }
+    }
+  }
+}
+
+@media (width < 860px) {
+  .retailer-card-grid {
+    .retailer-tit {
+      font-size: var(--size-24);
+      line-height: 120%;
+    }
+
+    .retailer-box {
+      gap: var(--size-24);
+
+      .retailer-item {
+        flex: 0 0 calc(100% - var(--size-12)) / 2;
+
+        .retailer-logo {
+          width: 100%;
+          height: var(--size-43);
+          margin: 0 0 var(--size-16);
+        }
+      }
+    }
+  }
 }
