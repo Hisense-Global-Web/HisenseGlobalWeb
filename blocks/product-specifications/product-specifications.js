@@ -183,6 +183,14 @@ export default async function decorate(block) {
 
     wrapper.appendChild(container);
     block.replaceChildren(wrapper);
+
+    setTimeout(() => {
+      const allContents = block.querySelectorAll('.properties-content');
+      allContents.forEach((content) => {
+        const contentHeight = content.scrollHeight;
+        content.style.maxHeight = `${contentHeight}px`;
+      });
+    }, 200);
   } catch (error) {
     // 加载失败，显示错误信息
     const errorDiv = document.createElement('div');
