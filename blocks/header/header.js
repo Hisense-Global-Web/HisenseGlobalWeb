@@ -1614,8 +1614,10 @@ export default async function decorate(block) {
   btn.addEventListener('click', () => {
     // 移动端点击三个横条显示菜单，先关闭账号菜单（如果打开的话），再打开主菜单
     navigation.classList.remove('show-account-mobile-menu');
-    const personMobileMask = document.querySelector('.person-mobile-mask');
-    personMobileMask.classList.remove('show-person-mobile-mask');
+    try {
+      const personMobileMask = document.querySelector('.person-mobile-mask');
+      personMobileMask.classList.remove('show-person-mobile-mask');
+    } catch (e) { /* empty */ }
     document.body.style.overflow = 'hidden';
     navigation.classList.add('show-menu');
   });
