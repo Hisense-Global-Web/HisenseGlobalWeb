@@ -448,10 +448,10 @@
 
 .transparent-bold {
   opacity: 0;
-  font-weight: bold !important;
+  font-weight: var(--fontweight-medium) !important;
   
   * {
-    font-weight: bold !important;
+    font-weight: var(--fontweight-medium) !important;
   }
 }
 
