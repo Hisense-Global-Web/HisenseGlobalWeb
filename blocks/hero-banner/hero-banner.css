@@ -66,15 +66,9 @@ p {
     }
 
     picture > img {
-      display: block;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 50% 50%;
     }
 
     p:nth-child(2) {
@@ -130,7 +124,7 @@ p {
   .hero-banner-item-content h6,
   .hero-banner-item-content p {
     margin: 0;
-    width: min(calc(365 / var(--breakpoint-pc) * 100vw), 360px);
+    width: min(calc(360 / var(--breakpoint-pc) * 100vw), 360px);
     font-size: var(--fontsize-pc-h2, 40px);
     font-weight: var(--fontweight-medium, 500);
     line-height: 120%;
@@ -390,7 +384,11 @@ p {
 
 .hero-banner.only-picture {
   .hero-banner-items-container {
-    max-height: min(calc(640 / var(--breakpoint-pc) * 100vw), 640px) !important;
+    aspect-ratio: 9 / 4;
+
+    @media (width<860px) {
+      aspect-ratio: 39 / 48;
+    }
 
     .hero-banner-item {
       .hero-banner-content {
@@ -399,16 +397,6 @@ p {
         left: calc(
           50% - min(calc(1120 / var(--breakpoint-pc) * 100vw), 1120px) / 2
         );
-
-        .text-content {
-          height: auto;
-        }
-      }
-
-      .hero-banner-item-image {
-        picture > img {
-          object-position: 70% center;
-        }
       }
 
       .hero-banner-item-content {
@@ -416,6 +404,16 @@ p {
         flex-direction: column;
         align-items: flex-start;
         gap: var(--size-8);
+      }
+
+      .hero-banner-item-content h1,
+      .hero-banner-item-content h2,
+      .hero-banner-item-content h3,
+      .hero-banner-item-content h4,
+      .hero-banner-item-content h5,
+      .hero-banner-item-content h6,
+      .hero-banner-item-content p {
+        width: min(calc(422 / var(--breakpoint-pc) * 100vw), 422px);
       }
 
       .hero-banner-item-cta {
@@ -427,7 +425,6 @@ p {
 
 @media (width < 860px) {
   .hero-banner .hero-banner-items-container {
-    /* overflow: scroll; */
     touch-action: pan-y;
     user-select: none;
     aspect-ratio: 390/640;
@@ -531,8 +528,7 @@ p {
   }
 
   .hero-banner.only-picture .hero-banner-items-container {
-    max-height: 100dvh !important;
-    aspect-ratio: 390/480;
+    width: 100%;
 
     .hero-banner-item .hero-banner-content {
       line-height: 1.2;
@@ -543,23 +539,26 @@ p {
       text-transform: capitalize;
       letter-spacing: 0;
 
-      .hero-banner-item-content {
-        gap: 0;
+      .text-content {
+        justify-content: flex-end;
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-          font-size: var(--size-34);
-          line-height: 1.2;
+        .hero-banner-item-content {
+          gap: 0;
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-size: var(--size-34);
+            line-height: 1.2;
+          }
         }
       }
     }
 
     picture > img {
-      aspect-ratio: 390/640;
       object-fit: cover;
     }
   }
