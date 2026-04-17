@@ -170,7 +170,9 @@ function bindEvents(block) {
         const diffY = currentY - startY;
         // only prevent default if horizontal swipe dominates
         if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
-          e.preventDefault();
+          if (e.cancelable) {
+            e.preventDefault();
+          }
           isScrolling = true;
         } else {
           // vertical movement or small horizontal movement, allow page scroll

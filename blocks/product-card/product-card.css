@@ -52,7 +52,6 @@
   .plp-favorite {
     margin-left: auto;
     cursor: pointer;
-    position: relative;
 
     &.plp-favorite-pending {
       visibility: hidden;
@@ -265,7 +264,6 @@
   font-family: var(--font-family);
   text-transform: capitalize;
   display: none;
-  position: relative;
 }
 
 .product-card .plp-add-to-cart-btn.plp-purchase-hidden,
@@ -390,10 +388,12 @@
   font-weight: var(--fontweight-book);
   font-size: var(--fontsize-body1);
   color: var(--color-primary-grey-50);
+  line-height: 1.5;
 
   /* height: 100%; */
-  height: calc(428 / var(--breakpoint-mobile) * 100vw);
-  line-height: 1.5;
+  @media (width < 860px) {
+    height: calc(428 / var(--breakpoint-mobile) * 100vw);
+  }
   
   p {
     text-align: center;
