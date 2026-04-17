@@ -86,6 +86,10 @@ p {
             font-weight: var(--fontweight-medium);
             line-height: normal; /* 166.667% */
         }
+
+        .link-div {
+            margin-top: auto;
+        }
     }
 }
 
