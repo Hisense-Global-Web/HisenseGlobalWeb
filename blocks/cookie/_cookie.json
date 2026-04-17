@@ -24,8 +24,8 @@
         {
           "component": "richtext",
           "valueType": "string",
-          "name": "Cookie script",
-          "label": "cookieScript"
+          "name": "cookieScript",
+          "label": "Cookie script"
         }
       ]
     }
