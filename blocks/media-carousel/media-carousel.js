@@ -111,7 +111,7 @@ function bindEvent(block, type = 'normal') {
     if (remaining <= 0) return;
     // 如果剩余距离不足一个 step + 1，则直接滑动到底对齐
     currentIndex += 1;
-    if (remaining < (step + 1)) {
+    if (remaining < (2 * step + 1)) {
       currentX = -maxTranslate;
       if (block.classList.contains('bottom-center-style') && type === 'normal') {
         const { marginRight } = window.getComputedStyle(block.querySelector('.media-carousel-viewport'));
@@ -127,7 +127,7 @@ function bindEvent(block, type = 'normal') {
     if (currentX >= 0) return;
     currentIndex -= 1;
     // 往回走时，如果距离起点不足一个 step + 1，直接归零
-    if (Math.abs(currentX) < (step + 1)) {
+    if (Math.abs(currentX) < (2 * step + 1)) {
       currentX = 0;
     } else {
       currentX += step;

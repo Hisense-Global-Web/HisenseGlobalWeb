@@ -190,5 +190,6 @@
     color: var(--color-primary-grey-70);
     line-height: 140%;
     font-size: var(--size-14);
+    max-width: var(--size-124);
   }
 }

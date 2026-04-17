@@ -1247,7 +1247,7 @@ export default async function decorate(block) {
   if (isCompanyPage) {
     navigation.classList.add('is-company');
     if (window.innerWidth >= 1180 && !window.location.pathname.includes('about-us')) {
-      document.documentElement.style.setProperty('--nav-height', '179px');
+      document.documentElement.style.setProperty('--nav-height', '182px');
     }
   }
   if (isSupportPage) {
@@ -1263,7 +1263,7 @@ export default async function decorate(block) {
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     if (isCompanyPage || isSupportPage) {
-      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -84)}px`;
+      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -100)}px`;
       return;
     }
     if (isSupportPage) {
@@ -1313,7 +1313,13 @@ export default async function decorate(block) {
     const CompanyItemEl = document.createElement('div');
     const isCurrent = window.location.pathname.includes(item.href);
     CompanyItemEl.className = `company-item ${isCurrent ? 'current' : ''}`;
-    CompanyItemEl.innerHTML = item.title;
+    const span1 = document.createElement('span');
+    const span2 = document.createElement('span');
+    span1.innerHTML = item.title;
+    span2.innerHTML = item.title;
+    span1.className = 'absolute';
+    span2.className = 'transparent-bold';
+    CompanyItemEl.append(span1, span2);
     CompanyItemEl.dataset.href = item.href;
     CompanyItemEl.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1455,7 +1461,11 @@ export default async function decorate(block) {
     link.className = 'nav-section';
     const span1 = document.createElement('span');
     span1.textContent = action.title;
-    link.append(span1);
+    const span2 = document.createElement('span');
+    span2.textContent = action.title;
+    span1.className = 'absolute';
+    span2.className = 'transparent-bold';
+    link.append(span1, span2);
     const cloneLink = link.cloneNode(true);
     const mobileCloneLink = link.cloneNode(true);
     if (action.href && action.href !== '#') {
@@ -1614,8 +1624,10 @@ export default async function decorate(block) {
   btn.addEventListener('click', () => {
     // 移动端点击三个横条显示菜单，先关闭账号菜单（如果打开的话），再打开主菜单
     navigation.classList.remove('show-account-mobile-menu');
-    const personMobileMask = document.querySelector('.person-mobile-mask');
-    personMobileMask.classList.remove('show-person-mobile-mask');
+    try {
+      const personMobileMask = document.querySelector('.person-mobile-mask');
+      personMobileMask.classList.remove('show-person-mobile-mask');
+    } catch (e) { /* empty */ }
     document.body.style.overflow = 'hidden';
     navigation.classList.add('show-menu');
   });

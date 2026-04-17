@@ -1386,6 +1386,90 @@
     ]
   },
   {
+    "id": "campaign-bundle-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "fifa_image",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "fifaMobile_image",
+        "label": "Background Image For Mobile",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "top_title",
+        "label": "Banner Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "top_subtitle",
+        "label": "Banner Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "left_title",
+        "label": "Bundle Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "left_subtitle",
+        "label": "Bundle Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "left_ctaPrimary",
+        "label": "Bundle Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "left_ctaPrimaryText",
+        "label": "Bundle Button Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "campaign-bundle-promo",
+    "fields": [
+      {
+        "component": "text",
+        "name": "product_series",
+        "label": "Product Series",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "product_name",
+        "label": "Product Name",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "product_cta",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "product_ctaText",
+        "label": "Button Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "campaign-product-list",
     "fields": [
       {
