@@ -12,7 +12,7 @@ p {
     .g-container {
         height: auto;
         display: flex;
-        gap: var(--spacing-xl);
+        gap: var(--size-32);
     }
 
     .card-item {
@@ -93,7 +93,7 @@ p {
     .corprate-governance-cards {
         .g-container {
             display: flex;
-            gap: var(--spacing-2xs, 12px);
+            gap: var(--size-24);
             padding: 0 var(--common-padding);
             margin: 0 calc(-1 * var(--common-padding));
             overflow-x: scroll;
@@ -106,7 +106,7 @@ p {
         .card-item {
             flex: auto;
             width: calc(300/var(--breakpoint-mobile)* 100vw);
-            padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-m);
+            padding: var(--size-24);
             display: flex;
             flex-direction: column;
             justify-content: center;
