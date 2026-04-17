@@ -1,6 +1,5 @@
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
-const DEFAULT_EMPTY_MESSAGE = '';
 const DEFAULT_ERROR_MESSAGE = 'Unable to load product specifications';
 
 function createProductSpecificationsMessage(text, className = 'product-specifications-empty') {
