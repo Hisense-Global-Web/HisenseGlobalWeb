@@ -176,10 +176,10 @@
 
       .fifa-text-box {
         flex-direction: column-reverse;
-        padding-top: calc(180 / var(--breakpoint-mobile) * 100vw);
+        padding-top: calc(177 / var(--breakpoint-mobile) * 100vw);
 
-        @media (width >= 793px) {
-          padding-top: calc(220 / var(--breakpoint-mobile) * 100vw);
+        @media (width < 500px) {
+          padding-top: calc(160 / var(--breakpoint-mobile) * 100vw);
         }
 
         .fifa-left-content {

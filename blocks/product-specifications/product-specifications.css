@@ -1,4 +1,13 @@
 /* Product Specifications Styles */
+.product-specifications-empty,
+.product-specifications-error {
+  padding: var(--size-40);
+  border-radius: var(--border-radius-l);
+  background: var(--color-primary-grey-10, #fff);
+  color: var(--color-primary-grey-70, #666);
+  font-size: var(--fontsize-body1, 16px);
+}
+
 .product-specifications #specifications {
   @media (width < 860px) {
     font-size: var(--size-18);
@@ -36,7 +45,6 @@
 }
 
 .properties {
-  /* margin-top:var(--size-32); */
   color: var(--text-light);
   padding: var(--size-40);
   display: flex;
@@ -80,17 +88,12 @@
   }
 
   .properties-content {
-    padding-top: var(--size-32);
     display: flex;
     flex-wrap: wrap;
     gap: 24px 34px;
     width: 100%;
-
-    /* transition: max-height 0.36s ease-in-out; */
-    transition:
-      max-height 0.1s ease-in-out,
-      padding-top 0.1s ease-in-out;
-    max-height: min(calc(200 / var(--breakpoint-pc) * 100vw), 200px);
+    transition: max-height 0.36s ease-in-out;
+    max-height: min(calc(600 / var(--breakpoint-pc) * 100vw), 600px);
     overflow: hidden;
     clip-path: inset(0);
     contain: layout style;
@@ -109,6 +112,10 @@
     }
   }
 
+  .property:nth-child(-n + 3) {
+    margin-top: var(--size-32);
+  }
+
   .property-name {
     font-weight: 500;
     color: var(--color-hisense-grey-01);
@@ -123,7 +130,7 @@
 
 .properties:not(.expanded) {
   .properties-content {
-    max-height: 0;
+    max-height: 0 !important;
     margin: 0;
     overflow: hidden;
     padding-top: 0;

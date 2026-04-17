@@ -451,15 +451,20 @@ function parseActions(root) {
     const picList = wrapper.querySelectorAll('img');
     const lightSrc = picList[0]?.src || '';
     let darkSrc = '';
+    let hoverSrc = '';
     if (picList.length > 1) {
       darkSrc = picList[1]?.src || '';
     }
+    if (picList.length > 2) {
+      hoverSrc = picList[2]?.src || '';
+    }
     const img = fixImageUrl(lightSrc);
     const darkImg = fixImageUrl(darkSrc);
+    const hoverImg = fixImageUrl(hoverSrc);
     const navigationActionEl = wrapper.querySelector('.navigation-action');
     const actionFields = Array.from(navigationActionEl?.children || []);
-    const rawFourthField = actionFields[3]?.textContent?.trim() || '';
-    const rawFifthField = actionFields[4]?.textContent?.trim() || '';
+    const rawFourthField = actionFields[4]?.textContent?.trim() || '';
+    const rawFifthField = actionFields[5]?.textContent?.trim() || '';
     const isLegacyEnableSearchField = rawFourthField.toLowerCase() === 'true' || rawFourthField.toLowerCase() === 'false';
     const rawIconType = isLegacyEnableSearchField ? '' : rawFourthField;
     const rawEnableSearch = isLegacyEnableSearchField ? rawFourthField : rawFifthField;
@@ -470,6 +475,7 @@ function parseActions(root) {
       href: processPath(href),
       img,
       darkImg,
+      hoverImg,
       enableSearchBox,
       iconType,
     };
@@ -1510,6 +1516,12 @@ export default async function decorate(block) {
       imgDark.alt = action.title || 'action';
       imgDark.className = 'dark-img';
       btn.append(imgDark);
+      const imgHover = document.createElement('img');
+      // imgHover.src = convertToDarkSvgUrl(action.img);
+      imgHover.src = action.hoverImg || action.img;
+      imgHover.alt = action.title || 'action';
+      imgHover.className = 'hover-img';
+      btn.append(imgHover);
 
       if (action.iconType === NAVIGATION_ACTION_TYPES.SEARCH_BOX) {
         btn.addEventListener('click', toggleSearchBoxPopup);

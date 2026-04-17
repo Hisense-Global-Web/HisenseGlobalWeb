@@ -52,7 +52,6 @@
   .plp-favorite {
     margin-left: auto;
     cursor: pointer;
-    position: relative;
 
     &.plp-favorite-pending {
       visibility: hidden;
@@ -139,9 +138,6 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: var(--size-8);
-
-    /* margin-top: 8px; */
-    margin-bottom: var(--size-8);
 }
 
 .plp-product-size {
@@ -193,7 +189,6 @@
   flex-wrap: wrap;
   align-items: baseline;
   margin-top: var(--size-16);
-  margin-bottom: var(--size-16);
 
   .plp-product-current-price {
     margin: 0;
@@ -258,14 +253,13 @@
   height: var(--size-30);
   line-height: var(--size-30);
   text-decoration: none;
-  margin-top: auto;
   align-self: flex-start;
   text-align: center;
   width: 100%;
   font-family: var(--font-family);
   text-transform: capitalize;
   display: none;
-  position: relative;
+  margin-top: var(--size-16);
 }
 
 .product-card .plp-add-to-cart-btn.plp-purchase-hidden,
@@ -317,12 +311,16 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  gap: var(--size-14);
+  gap: var(--size-8);
   margin-top: auto;
 }
 
 .product-card .plp-where-to-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku {
   display:  none !important;
+}
+
+.product-card .plp-where-to-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku + .plp-product-btn {
+  margin-top: var(--size-16);
 }
 
 .product-card .plp-product-compare {
