@@ -1,5 +1,6 @@
-import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
 import { loadScript } from '../../scripts/aem.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const injectedInlineScripts = new Set();
 
@@ -51,16 +52,6 @@ function injectInlineScript(scriptTag) {
   }
 }
 
-function getPageLocale() {
-  const segments = window.location.pathname.split('/').filter(Boolean);
-  const baseIndex = segments[0] === 'content' ? 2 : 0;
-
-  return {
-    country: segments[baseIndex] || '',
-    language: segments[baseIndex + 1] || 'en',
-  };
-}
-
 function upsertHeadMeta(name, content) {
   if (!name || !content) {
     return;
@@ -77,7 +68,7 @@ function upsertHeadMeta(name, content) {
 }
 
 function applyPriceSpiderMetaTags() {
-  const { country, language } = getPageLocale();
+  const { country, language } = getLocaleFromPath();
   upsertHeadMeta('ps-key', '6998-659da0480715a3000dcb7a24');
   upsertHeadMeta('ps-country', country);
   upsertHeadMeta('ps-language', language);
@@ -110,14 +101,6 @@ function loadThirdPartyAssets(blockData) {
   }
 }
 
-function scheduleThirdPartyAssets(blockData) {
-  window.requestAnimationFrame(() => {
-    window.setTimeout(() => {
-      loadThirdPartyAssets(blockData);
-    }, 0);
-  });
-}
-
 function buildBlockData(block) {
   const div = block.querySelectorAll(':scope > div');
 
@@ -132,7 +115,7 @@ function buildBlockData(block) {
 }
 
 function buildIframeContent(blockData) {
-  const { language } = getPageLocale();
+  const { language } = getLocaleFromPath();
 
   const iframeEle = document.createElement('div');
   let isIframe = false;
@@ -154,7 +137,7 @@ function buildIframeContent(blockData) {
   };
 }
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const blockData = buildBlockData(block);
   const { isIframe, iframeEle } = buildIframeContent(blockData);
 
@@ -164,8 +147,12 @@ export default function decorate(block) {
     return;
   }
 
-  // handle default content
-  const isEditing = isUniversalEditor();
+  // handle others integration
+  applyPriceSpiderMetaTags();
+  loadThirdPartyAssets(blockData);
+
+  // handle default content in editing mode
+  const isEditing = await isUniversalEditorAsync();
   if (isEditing) {
     const wrapper = document.createElement('div');
     wrapper.innerText = 'Third Party Integration';
@@ -175,5 +162,4 @@ export default function decorate(block) {
 
   applyPriceSpiderMetaTags();
   block.replaceChildren();
-  scheduleThirdPartyAssets(blockData);
 }
