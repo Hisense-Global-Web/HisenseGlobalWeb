@@ -99,6 +99,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    flex: 1 1 0%;
   }
 
   .text-content {
@@ -129,6 +130,58 @@ p {
     font-weight: var(--fontweight-medium, 500);
     line-height: 120%;
     text-transform: capitalize;
+    min-height: 0;
+    overflow: hidden;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    /* autoprefixer: ignore next */
+    -webkit-box-orient: vertical;
+  }
+
+  .content-all h1,
+  .content-all h2,
+  .content-all h3,
+  .content-all h4,
+  .content-all h5,
+  .content-all h6,
+  .content-all p {
+    -webkit-line-clamp: 9;
+    line-clamp: 9;
+  }
+
+  .content-no-title h1,
+  .content-no-title h2,
+  .content-no-title h3,
+  .content-no-title h4,
+  .content-no-title h5,
+  .content-no-title h6,
+  .content-no-title p {
+    -webkit-line-clamp: 9;
+    line-clamp: 9;
+  }
+
+  .content-no-button h1,
+  .content-no-button h2,
+  .content-no-button h3,
+  .content-no-button h4,
+  .content-no-button h5,
+  .content-no-button h6,
+  .content-no-button p {
+    -webkit-line-clamp: 11;
+    line-clamp: 11;
+  }
+
+  .content-no-title-button h1,
+  .content-no-title-button h2,
+  .content-no-title-button h3,
+  .content-no-title-button h4,
+  .content-no-title-button h5,
+  .content-no-title-button h6,
+  .content-no-title-button p {
+    -webkit-line-clamp: 11;
+    line-clamp: 11;
   }
 
   .hero-banner-item-content.icon-svg {
@@ -155,6 +208,7 @@ p {
     align-items: center;
     justify-content: start;
     gap: var(--spacing-xs);
+    flex-shrink: 0;
   }
 
   .hero-banner-item-cta {
@@ -476,6 +530,7 @@ p {
           width: 100%;
           font-size: var(--size-20);
           line-height: 1.3;
+          flex-shrink: 0;
         }
 
         a {
