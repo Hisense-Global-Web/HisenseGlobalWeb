@@ -119,6 +119,13 @@ p {
     font-weight: var(--fontweight-medium);
     font-size: var(--fontsize-title2);
     margin-top: 0;
+    width: min(calc(360 / var(--breakpoint-pc) * 100vw), 360px);
+  }
+
+  .teal-text p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .hero-banner-item-content h1,
@@ -552,6 +559,7 @@ p {
           gap: var(--size-8);
           min-height: calc(214 / var(--breakpoint-mobile) * 100vw);
           justify-content: center;
+          width: 100%;
         }
 
         .teal-text {
