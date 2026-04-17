@@ -135,7 +135,7 @@ p {
     line-height: 120%;
     text-transform: capitalize;
     min-height: 0;
-    word-break: break-word;
+    overflow-wrap: break-word;
     overflow: hidden;
     display: -webkit-box;
 
