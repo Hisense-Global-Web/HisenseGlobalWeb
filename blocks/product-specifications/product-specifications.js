@@ -159,11 +159,22 @@ export default async function decorate(block) {
           propertiesBlock.appendChild(content);
           propertiesWrapper.appendChild(propertiesBlock);
           container.appendChild(propertiesWrapper);
+          const divideLineEl = document.createElement('div');
+          const divideLineInnerEl = document.createElement('div');
+          divideLineEl.appendChild(divideLineInnerEl);
+          divideLineEl.classList.add('divide-line');
+          if (globalIndex !== totalGroupCount - 1) {
+            container.appendChild(divideLineEl);
+          }
 
           // 添加点击事件
           headerButton.addEventListener('click', () => {
             propertiesBlock.classList.toggle('expanded');
           });
+
+          if (globalIndex === 0) {
+            propertiesBlock.classList.add('expanded');
+          }
 
           totalGroups += 1;
         }
@@ -172,6 +183,14 @@ export default async function decorate(block) {
 
     wrapper.appendChild(container);
     block.replaceChildren(wrapper);
+
+    setTimeout(() => {
+      const allContents = block.querySelectorAll('.properties-content');
+      allContents.forEach((content) => {
+        const contentHeight = content.scrollHeight;
+        content.style.maxHeight = `${contentHeight}px`;
+      });
+    }, 200);
   } catch (error) {
     // 加载失败，显示错误信息
     const errorDiv = document.createElement('div');
