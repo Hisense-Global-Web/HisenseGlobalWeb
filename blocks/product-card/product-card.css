@@ -52,7 +52,6 @@
   .plp-favorite {
     margin-left: auto;
     cursor: pointer;
-    position: relative;
 
     &.plp-favorite-pending {
       visibility: hidden;
@@ -265,7 +264,6 @@
   font-family: var(--font-family);
   text-transform: capitalize;
   display: none;
-  position: relative;
 }
 
 .product-card .plp-add-to-cart-btn.plp-purchase-hidden,
