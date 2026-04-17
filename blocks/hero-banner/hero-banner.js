@@ -470,7 +470,7 @@ export default async function decorate(block) {
   if (!block.querySelector('video')) return;
   const videos = block.querySelectorAll('.video-mode');
   videos.forEach((video) => {
-    video.querySelector('.video-play-icon').addEventListener('click', throttle((e) => {
+    video?.querySelector('.video-play-icon')?.addEventListener('click', throttle((e) => {
       if (e.target.parentElement.classList.contains('is-playing')) {
         e.target.parentElement.classList.remove('is-playing');
         e.target.parentElement.classList.add('is-paused');
