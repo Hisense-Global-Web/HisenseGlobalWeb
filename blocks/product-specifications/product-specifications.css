@@ -1,4 +1,13 @@
 /* Product Specifications Styles */
+.product-specifications-empty,
+.product-specifications-error {
+  padding: var(--size-40);
+  border-radius: var(--border-radius-l);
+  background: var(--color-primary-grey-10, #fff);
+  color: var(--color-primary-grey-70, #666);
+  font-size: var(--fontsize-body1, 16px);
+}
+
 .product-specifications #specifications {
   @media (width < 860px) {
     font-size: var(--size-18);

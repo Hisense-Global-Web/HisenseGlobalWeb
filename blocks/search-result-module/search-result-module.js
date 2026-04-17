@@ -222,6 +222,26 @@ function getSearchKeyword() {
   }
 }
 
+function shouldShowMobilePagination(state = {}) {
+  const {
+    total = 0,
+    pageSize = 0,
+    currentPage = 1,
+  } = state;
+
+  return Boolean(total && pageSize && currentPage * pageSize < total);
+}
+
+function syncMobilePaginationVisibility(mobilePaginationEl, state = {}) {
+  const visible = shouldShowMobilePagination(state);
+
+  if (mobilePaginationEl?.style) {
+    mobilePaginationEl.style.display = visible ? '' : 'none';
+  }
+
+  return visible;
+}
+
 // 按关键词过滤数据
 // product 匹配标题/系列/SKU
 // news/blog 匹配标题/描述/副标题
@@ -445,17 +465,16 @@ function buildMobilePaginationControls(mobileEl, state, onLoadMore, config) {
   if (!mobileEl) return;
   mobileEl.textContent = '';
 
+  if (!syncMobilePaginationVisibility(mobileEl, state)) {
+    return;
+  }
+
   const loadMoreBtn = document.createElement('button');
   loadMoreBtn.type = 'button';
   loadMoreBtn.classList.add('page-button');
   loadMoreBtn.textContent = config.loadmorelabel || 'Load More';
   loadMoreBtn.addEventListener('click', onLoadMore);
   mobileEl.appendChild(loadMoreBtn);
-
-  const { total, pageSize, currentPage } = state;
-  if (!total || !pageSize || currentPage * pageSize >= total) {
-    mobileEl.style.display = 'none';
-  }
 }
 
 // block 级配置 key，即使第二列是链接也只当 config 不入 items
@@ -894,10 +913,6 @@ export default async function decorate(block) {
         }
       }
     });
-    const mobilePaginationEl = document.querySelector('.search-pagination-mobile');
-    if (mobilePaginationEl.style.display === 'none') {
-      mobilePaginationEl.style.display = '';
-    }
   }
   // 初始化移动端状态
   tabDataMap.forEach((tabData) => {
