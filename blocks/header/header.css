@@ -102,6 +102,11 @@
 
         &:hover {
           color: var(--color-primary-green-60) !important;
+          font-weight: var(--fontweight-medium);
+          
+          .nav-dropdown {
+            cursor: auto;
+          }
         }
       }
     }
@@ -257,6 +262,10 @@
         border-bottom: 1px solid var(--color-hisense-black);
         color: var(--color-hisense-black);
         font-weight: var(--fontweight-medium);
+        
+        &:hover {
+          border-bottom: 1px solid var(--color-primary-green-60);
+        }
 
         * {
           color: var(--color-hisense-black);
@@ -267,7 +276,6 @@
       &:hover {
         color: var(--color-primary-green-60);
         font-weight: var(--fontweight-medium);
-        border-bottom: 1px solid var(--color-primary-green-60);
 
         * {
           color: var(--color-primary-green-60);
@@ -897,6 +905,7 @@
 }
 
 .nav-link:hover .nav-dropdown {
+  cursor: inherit;
   font-weight: 400;
 }
 
@@ -1002,6 +1011,10 @@
 .dropdown-product {
   width: 100px;
   text-align: center;
+  
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .dropdown-product-img {
