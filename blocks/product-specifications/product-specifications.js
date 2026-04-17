@@ -83,7 +83,6 @@ export default async function decorate(block) {
     const totalGroupCount = countSpecificationGroups(specHierarchy);
 
     if (!totalGroupCount) {
-      block.replaceChildren(createProductSpecificationsMessage(DEFAULT_EMPTY_MESSAGE));
       return;
     }
 
