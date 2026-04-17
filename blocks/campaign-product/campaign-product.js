@@ -129,7 +129,7 @@ export default async function decorate(block) {
     titleDiv.append(fav);
 
     const imgDiv = document.createElement('div');
-    imgDiv.className = 'plp-product-img';
+    imgDiv.className = 'product-img';
     const imgPath = (() => {
       if (!item || !item.mediaGallery_image) return null;
       const pKey = Object.keys(item.mediaGallery_image).find((k) => k.toLowerCase().includes('_path'));
@@ -143,11 +143,11 @@ export default async function decorate(block) {
 
 
     const seriesDiv = document.createElement('div');
-    seriesDiv.className = 'plp-product-series';
+    seriesDiv.className = 'product-series';
     if (item.series) seriesDiv.textContent = item.series;
 
     const nameDiv = document.createElement('div');
-    nameDiv.className = 'plp-product-name';
+    nameDiv.className = 'product-name';
     const metaTitle = (() => {
       if (!item) return null;
       const metaKey = Object.keys(item).find((k) => k.toLowerCase().includes('metadata'));
@@ -161,8 +161,35 @@ export default async function decorate(block) {
     const fullTitle = item.title || metaTitle || '';
     nameDiv.textContent = fullTitle;
     nameDiv.title = fullTitle;
+
+    const priceGroupDiv = document.createElement('div');
+    priceGroupDiv.className = 'product-price-group';
+    priceGroupDiv.style.display = 'none';
+    const currentPriceEl = document.createElement('h5');
+    currentPriceEl.className = 'product-current-price';
+    const currentPriceCurrency = document.createElement('span');
+    const currentPriceValue = document.createElement('span');
+    currentPriceEl.append(currentPriceCurrency, currentPriceValue);
+    const originalPriceEl = document.createElement('div');
+    originalPriceEl.className = 'product-original-price';
+    const originalPriceCurrency = document.createElement('span');
+    const originalPriceValue = document.createElement('span');
+    originalPriceEl.append(originalPriceCurrency, originalPriceValue);
     
-    card.append(titleDiv, imgDiv, seriesDiv, nameDiv);
+    const discountsDiv = document.createElement('div');
+    discountsDiv.className = 'product-discounts';
+    const discountsTitle = document.createElement('span');
+    discountsTitle.textContent = 'Save';
+    const discountsCurrency = document.createElement('span');
+    const discountsValue = document.createElement('span');
+    discountsDiv.append(discountsTitle, discountsCurrency, discountsValue);
+    priceGroupDiv.append(currentPriceEl, originalPriceEl, discountsDiv);
+
+    // create product button group
+    const productBtnGroupEl = document.createElement('div');
+    productBtnGroupEl.className = 'product-btn-group';
+    
+    card.append(titleDiv, imgDiv, seriesDiv, nameDiv, priceGroupDiv, productBtnGroupEl);
     previewListEl.appendChild(card);
   });
 
