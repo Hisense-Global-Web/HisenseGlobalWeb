@@ -1,4 +1,4 @@
-import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
+import { isUniversalEditor } from '../../utils/ue-helper.js';
 import { loadScript } from '../../scripts/aem.js';
 
 const injectedInlineScripts = new Set();
@@ -154,7 +154,7 @@ function buildIframeContent(blockData) {
   };
 }
 
-export default async function decorate(block) {
+export default function decorate(block) {
   const blockData = buildBlockData(block);
   const { isIframe, iframeEle } = buildIframeContent(blockData);
 
@@ -165,7 +165,7 @@ export default async function decorate(block) {
   }
 
   // handle default content
-  const isEditing = await isUniversalEditorAsync();
+  const isEditing = isUniversalEditor();
   if (isEditing) {
     const wrapper = document.createElement('div');
     wrapper.innerText = 'Third Party Integration';
