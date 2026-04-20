@@ -324,8 +324,20 @@ export default async function decorate(block) {
         default:
           // btn
           if (textDom.querySelector('a') && textDom.querySelector('a').parentElement.nextElementSibling.textContent) {
-            textDom.querySelector('a').textContent = textDom.querySelector('a').parentElement.nextElementSibling.textContent;
-            textDom.querySelector('a').parentElement.nextElementSibling.remove();
+            const aEl = textDom.querySelector('a');
+            aEl.textContent = aEl.parentElement.nextElementSibling.textContent;
+            aEl.parentElement.nextElementSibling.remove();
+            aEl.addEventListener('click', (e) => {
+              e.preventDefault(); // 阻止默认跳转
+              const target = document.querySelector(this.getAttribute('href'));
+
+              if (target) {
+                target.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                });
+              }
+            });
           }
           btnDom = textDom;
           btnDom.className = 'btn-div';
