@@ -465,21 +465,13 @@ function getPriceParts(price, fallbackCurrency = 'USD') {
 function getPricingDetails(product, fallbackSource = null) {
   const pricing = product?.pricing || {};
   const fallbackPriceInfo = fallbackSource?.priceInfo || {};
+  const emptyPrice = parsePriceValue(null);
   const fallbackCurrency = pricing.currency
     || product?.price?.currencyIso
     || product?.msrp?.currencyIso
     || fallbackPriceInfo.currency
     || fallbackPriceInfo.currencyIso
     || 'USD';
-
-  const fallbackSale = parseLoosePriceValue(
-    fallbackPriceInfo.specialprice
-      || fallbackPriceInfo.specialPrice
-      || fallbackSource?.priceInfo_specialprice
-      || fallbackSource?.specialPrice
-      || fallbackSource?.price,
-    fallbackCurrency,
-  );
   const fallbackMsrp = parseLoosePriceValue(
     fallbackPriceInfo.regularPrice
       || fallbackPriceInfo.regularprice
@@ -490,15 +482,12 @@ function getPricingDetails(product, fallbackSource = null) {
 
   const sale = parsePriceValue(pricing.sale || pricing.price || pricing.current || product?.price);
   const msrp = parsePriceValue(pricing.msrp || pricing.original || pricing.list || product?.msrp);
-  let resolvedSale = sale;
-  if (resolvedSale.value === null && !resolvedSale.formattedValue) {
-    if (fallbackSale.value !== null || fallbackSale.formattedValue) {
-      resolvedSale = fallbackSale;
-    } else {
-      resolvedSale = msrp;
-    }
+  const resolvedSale = sale;
+  const hasResolvedSale = resolvedSale.value !== null || Boolean(resolvedSale.formattedValue);
+  let resolvedMsrp = emptyPrice;
+  if (hasResolvedSale) {
+    resolvedMsrp = (msrp.value !== null || msrp.formattedValue) ? msrp : fallbackMsrp;
   }
-  const resolvedMsrp = (msrp.value !== null || msrp.formattedValue) ? msrp : fallbackMsrp;
   const currency = pricing.currency
     || resolvedSale.currencyIso
     || resolvedMsrp.currencyIso

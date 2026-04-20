@@ -29,6 +29,7 @@ import {
 } from './locale-utils.js';
 
 import { storeInformationSelect } from './store-information-select.js';
+import { injectCookieScript } from './integration-utils.js';
 
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
@@ -206,6 +207,7 @@ async function loadEager(doc) {
       decorateMain(main);
     }
     document.body.classList.add('appear');
+    await injectCookieScript();
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }
 
@@ -423,7 +425,7 @@ async function loadAnnouncementPopup() {
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
-  loadAnnouncementPopup();
+  await loadAnnouncementPopup();
   loadDelayed();
   transHorizontalSection('.honors-awards-wrapper');
   storeInformationSelect();

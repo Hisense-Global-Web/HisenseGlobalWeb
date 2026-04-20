@@ -1,10 +1,72 @@
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const DEFAULT_ERROR_MESSAGE = 'Unable to load product specifications';
+
+function createProductSpecificationsMessage(text, className = 'product-specifications-empty') {
+  const message = document.createElement('div');
+  message.className = className;
+  message.textContent = text;
+  return message;
+}
+
+function buildSpecificationHierarchy(product = {}) {
+  const specHierarchy = {};
+
+  for (let i = 1; i <= 20; i += 1) {
+    const labelKey = `specificationsGroup${i}Label`;
+    const attrKey = `specificationsGroup${i}Attribute`;
+
+    if (product[labelKey] && Array.isArray(product[attrKey])) {
+      const fullLabel = product[labelKey];
+      const attributes = product[attrKey]
+        .filter((attr) => typeof attr === 'string')
+        .map((attr) => attr.trim())
+        .filter((attr) => attr && attr.includes('::'));
+
+      if (attributes.length) {
+        let level1 = '';
+        let level2 = '';
+
+        if (fullLabel.includes('-')) {
+          const parts = fullLabel.split('-', 2);
+          level1 = parts[0].trim();
+          level2 = parts[1].trim();
+        } else {
+          level1 = fullLabel;
+        }
+
+        if (!level2) {
+          level2 = level1;
+          level1 = 'Specifications';
+        }
+
+        if (!specHierarchy[level1]) {
+          specHierarchy[level1] = {};
+        }
+        if (!specHierarchy[level1][level2]) {
+          specHierarchy[level1][level2] = [];
+        }
+
+        specHierarchy[level1][level2].push(...attributes);
+      }
+    }
+  }
+
+  return specHierarchy;
+}
+
+function countSpecificationGroups(specHierarchy = {}) {
+  return Object.values(specHierarchy).reduce(
+    (sum, level2Obj) => sum + Object.values(level2Obj).filter((attributes) => attributes.length > 0).length,
+    0,
+  );
+}
+
 export default async function decorate(block) {
   // 等待数据加载
   const waitForProductData = () => new Promise((resolve) => {
     const checkProduct = () => {
-      if (window.currentProduct && window.currentProduct.specificationsGroup1Label) {
+      if (window.currentProduct) {
         resolve(window.currentProduct);
       } else {
         setTimeout(checkProduct, 300);
@@ -16,6 +78,13 @@ export default async function decorate(block) {
   try {
     const product = await waitForProductData();
 
+    const specHierarchy = buildSpecificationHierarchy(product);
+    const totalGroupCount = countSpecificationGroups(specHierarchy);
+
+    if (!totalGroupCount) {
+      return;
+    }
+
     // 创建包装器容
     const wrapper = document.createElement('div');
     wrapper.className = 'product-specifications-wrapper';
@@ -26,49 +95,6 @@ export default async function decorate(block) {
     container.setAttribute('data-block-name', 'product-specifications');
     container.setAttribute('data-block-status', 'loaded');
 
-    // 解析spec数据,创建分层结构
-    const specHierarchy = {};
-
-    for (let i = 1; i <= 20; i += 1) {
-      const labelKey = `specificationsGroup${i}Label`;
-      const attrKey = `specificationsGroup${i}Attribute`;
-
-      if (product[labelKey] && product[attrKey] && Array.isArray(product[attrKey])) {
-        const fullLabel = product[labelKey];
-        const attributes = product[attrKey];
-
-        // 解析label，处理一级和二级
-        let level1 = ''; let
-          level2 = '';
-        if (fullLabel.includes('-')) {
-          const parts = fullLabel.split('-', 2);
-          level1 = parts[0].trim();
-          level2 = parts[1].trim();
-        } else {
-          level1 = fullLabel;
-        }
-
-        // 如果没有二级配置，则使用一级标题作为二级的标题
-        if (!level2) {
-          level2 = level1;
-          level1 = 'Specifications'; // 默认一级标题
-        }
-
-        if (!specHierarchy[level1]) {
-          specHierarchy[level1] = {};
-        }
-        if (!specHierarchy[level1][level2]) {
-          specHierarchy[level1][level2] = [];
-        }
-
-        attributes.forEach((attr) => {
-          if (attr && attr.trim()) {
-            specHierarchy[level1][level2].push(attr);
-          }
-        });
-      }
-    }
-
     // 创建properties结构
     let totalGroups = 0;
     const level1Keys = Object.keys(specHierarchy);
@@ -77,13 +103,15 @@ export default async function decorate(block) {
       // 创建一级分类标题
       const titleWrapper = document.createElement('div');
       titleWrapper.className = 'default-content-wrapper';
-      const title = document.createElement('h3');
+      const title = document.createElement('div');
       title.id = 'specifications';
       title.textContent = level1;
       titleWrapper.appendChild(title);
       container.appendChild(titleWrapper);
 
       const level2Groups = specHierarchy[level1];
+      const contentContainerEl = document.createElement('div');
+      contentContainerEl.className = 'content-container';
 
       Object.keys(level2Groups).forEach((level2) => {
         const attributes = level2Groups[level2];
@@ -97,7 +125,6 @@ export default async function decorate(block) {
 
           // 计算索引用于first和last
           const globalIndex = totalGroups;
-          const totalGroupCount = Object.values(specHierarchy).reduce((sum, level2Obj) => sum + Object.keys(level2Obj).filter((key) => level2Obj[key].length > 0).length, 0);
 
           // 添加全局first和last
           if (globalIndex === 0) {
@@ -111,7 +138,7 @@ export default async function decorate(block) {
           const headerButton = document.createElement('button');
           headerButton.className = 'properties-header';
 
-          const headerTitle = document.createElement('h3');
+          const headerTitle = document.createElement('div');
           headerTitle.className = 'properties-header-title';
           headerTitle.textContent = level2; // 二级标题
 
@@ -158,14 +185,14 @@ export default async function decorate(block) {
           propertiesBlock.appendChild(headerButton);
           propertiesBlock.appendChild(content);
           propertiesWrapper.appendChild(propertiesBlock);
-          container.appendChild(propertiesWrapper);
           const divideLineEl = document.createElement('div');
           const divideLineInnerEl = document.createElement('div');
           divideLineEl.appendChild(divideLineInnerEl);
           divideLineEl.classList.add('divide-line');
           if (globalIndex !== totalGroupCount - 1) {
-            container.appendChild(divideLineEl);
+            propertiesWrapper.appendChild(divideLineEl);
           }
+          contentContainerEl.appendChild(propertiesWrapper);
 
           // 添加点击事件
           headerButton.addEventListener('click', () => {
@@ -179,8 +206,8 @@ export default async function decorate(block) {
           totalGroups += 1;
         }
       });
+      container.appendChild(contentContainerEl);
     });
-
     wrapper.appendChild(container);
     block.replaceChildren(wrapper);
 
@@ -188,13 +215,14 @@ export default async function decorate(block) {
       const allContents = block.querySelectorAll('.properties-content');
       allContents.forEach((content) => {
         const contentHeight = content.scrollHeight;
-        content.style.maxHeight = `${contentHeight}px`;
+        content.style.maxHeight = `${contentHeight + 10}px`;
       });
     }, 200);
   } catch (error) {
     // 加载失败，显示错误信息
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = 'Unable to load product specifications';
-    block.replaceChildren(errorDiv);
+    block.replaceChildren(createProductSpecificationsMessage(
+      DEFAULT_ERROR_MESSAGE,
+      'product-specifications-error',
+    ));
   }
 }
