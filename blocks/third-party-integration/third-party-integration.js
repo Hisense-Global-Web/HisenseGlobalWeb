@@ -1,77 +1,22 @@
 import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
 import { loadScript } from '../../scripts/aem.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import {
+  applyPriceSpiderMetaTags,
+  sanitizeIframeSrcParams,
+  fillIframePlaceholders,
+  injectInlineScript,
+  isExternalJs,
+  isIframeDiv,
+  isInlineScript,
+} from '../../scripts/integration-utils.js';
 
-const injectedInlineScripts = new Set();
+function createIframeItem(iframeDiv, language) {
+  const tempEle = document.createElement('div');
+  tempEle.innerHTML = fillIframePlaceholders(iframeDiv, language);
+  sanitizeIframeSrcParams(tempEle);
 
-// Functions
-function isExternalJs(url) {
-  try {
-    const parsedUrl = new URL(url);
-    const { pathname, search } = parsedUrl;
-
-    return {
-      isJsPath: pathname.endsWith('.js'),
-      hasParams: search !== '',
-    };
-  } catch (error) {
-    // Invalid URL
-    return {
-      isJsPath: false,
-      hasParams: false,
-    };
-  }
-}
-
-function isInlineScript(text) {
-  return /^<script[\s\S]*?>[\s\S]*?<\/script>$/.test(text.trim());
-}
-
-function isIframeDiv(text) {
-  return /^<div[\s\S]*?>[\s\S]*?<iframe[\s\S]*?>[\s\S]*?<\/iframe>[\s\S]*?<\/div>$/i.test(text.trim());
-}
-
-function injectInlineScript(scriptTag) {
-  const normalizedScript = scriptTag.trim();
-  if (!normalizedScript || injectedInlineScripts.has(normalizedScript)) {
-    return;
-  }
-
-  const temp = document.createElement('div');
-  temp.innerHTML = normalizedScript;
-  const script = temp.querySelector('script');
-  if (script) {
-    const newScript = document.createElement('script');
-    if (script.src) {
-      newScript.src = script.src;
-    } else {
-      newScript.textContent = script.textContent;
-    }
-    document.head.appendChild(newScript);
-    injectedInlineScripts.add(normalizedScript);
-  }
-}
-
-function upsertHeadMeta(name, content) {
-  if (!name || !content) {
-    return;
-  }
-
-  let meta = document.head.querySelector(`meta[name="${name}"]`);
-  if (!meta) {
-    meta = document.createElement('meta');
-    meta.setAttribute('name', name);
-    document.head.appendChild(meta);
-  }
-
-  meta.setAttribute('content', content);
-}
-
-function applyPriceSpiderMetaTags() {
-  const { country, language } = getLocaleFromPath();
-  upsertHeadMeta('ps-key', '6998-659da0480715a3000dcb7a24');
-  upsertHeadMeta('ps-country', country);
-  upsertHeadMeta('ps-language', language);
+  return tempEle.firstElementChild;
 }
 
 function loadThirdPartyAssets(blockData) {
@@ -105,12 +50,11 @@ function buildBlockData(block) {
   const div = block.querySelectorAll(':scope > div');
 
   return {
-    externalJsPaths: div[0]?.textContent.split(',').map((path) => path.trim()).filter(Boolean),
-    externalScripts: [
-      div[1]?.textContent,
-      div[2]?.textContent,
-      div[3]?.textContent,
-    ].filter(Boolean),
+    externalJsPaths: div[0]?.textContent
+      .split(',')
+      .map((path) => path.trim())
+      .filter(Boolean),
+    externalScripts: [div[1]?.textContent, div[2]?.textContent, div[3]?.textContent].filter(Boolean),
   };
 }
 
@@ -124,9 +68,7 @@ function buildIframeContent(blockData) {
     blockData.externalScripts.forEach((iframeDiv) => {
       if (isIframeDiv(iframeDiv)) {
         isIframe = true;
-        const tempEle = document.createElement('div');
-        tempEle.innerHTML = iframeDiv.trim().replaceAll('#lang#', language);
-        iframeEle.appendChild(tempEle.firstElementChild);
+        iframeEle.appendChild(createIframeItem(iframeDiv, language));
       }
     });
   }
