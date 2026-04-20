@@ -231,6 +231,7 @@
                 font-size: var(--size-16, 16px);
                 line-height: 130%; /* 20.8px */
                 letter-spacing: 0;
+                height: var(--size-42);
               }
             }
 
