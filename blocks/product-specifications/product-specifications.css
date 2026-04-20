@@ -17,7 +17,7 @@
 }
 
 .default-content-wrapper div {
-  color: var(--Hisense-Black, #000);
+  color: var(--color-hisense-black, #000);
   font-size: var(--fontsize-pc-h3, 34px);
   font-style: normal;
   font-weight: var(--fontweight-medium, 500);
