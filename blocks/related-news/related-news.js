@@ -355,8 +355,9 @@ export default async function decorate(block) {
 
   // Filter by tags
   const filteredItems = filterByTags(allItems, filterTags);
-  const maxShowCard = 6;
-  const itemsToShow = filteredItems.slice(0, maxShowCard);
+  // const maxShowCard = 6;
+  // const itemsToShow = filteredItems.slice(0, maxShowCard);
+  const itemsToShow = filteredItems;
   if (!filteredItems.length) {
     // const emptyEl = document.createElement('div');
     // emptyEl.className = 'pr-empty';
