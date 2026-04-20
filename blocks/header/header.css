@@ -125,6 +125,10 @@
         &:hover {
           color: var(--color-primary-green-60) !important;
           font-weight: var(--fontweight-medium);
+          
+          .nav-dropdown {
+            cursor: default;
+          }
         }
 
         > span {
@@ -161,6 +165,24 @@
       .dark-img {
         opacity: 0;
       }
+      
+      .hover-img {
+        opacity: 0;
+      }
+      
+      &:hover {
+        .light-img {
+          opacity: 0;
+        }
+
+        .dark-img {
+          opacity: 0;
+        }
+        
+        .hover-img {
+          opacity: 1;
+        }
+      }
 
       .count-span {
         background: var(--color-primary-green-60);
@@ -185,6 +207,10 @@
   opacity: 0;
 }
 
+#navigation .nav-action-btn .hover-img {
+  opacity: 0;
+}
+
 #navigation.scroll-active .nav-actions .nav-action-btn {
   .dark-img {
     opacity: 0;
@@ -192,6 +218,24 @@
 
   .light-img {
     opacity: 1;
+  }
+  
+  .hover-img {
+    opacity: 0;
+  }
+
+  &:hover {
+    .light-img {
+      opacity: 0;
+    }
+
+    .dark-img {
+      opacity: 0;
+    }
+
+    .hover-img {
+      opacity: 1;
+    }
   }
 }
 
@@ -816,6 +860,24 @@
       opacity: 0;
     }
 
+    .hover-img {
+      opacity: 0;
+    }
+
+    &:hover {
+      .light-img {
+        opacity: 0;
+      }
+
+      .dark-img {
+        opacity: 0;
+      }
+
+      .hover-img {
+        opacity: 1;
+      }
+    }
+    
     .person-drawer {
       max-height: 800px;
       padding: 24px 40px 40px;
@@ -938,6 +1000,11 @@
             font-weight: var(--fontweight-book);
             line-height: 1.5;
 
+            &:hover {
+              cursor: pointer;
+              text-decoration: underline;
+            }
+
             span {
               display: block;
             }
@@ -972,6 +1039,11 @@
               font-size: var(--size-12);
               font-weight: var(--fontweight-book);
               line-height: 1.5;
+              
+              &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+              }
 
               span {
                 display: block;
@@ -1240,6 +1312,24 @@
     
     .dark-img {
       opacity: 0;
+    }
+    
+    .hover-img {
+      opacity: 0;
+    }
+
+    &:hover {
+      .light-img {
+        opacity: 0;
+      }
+
+      .dark-img {
+        opacity: 0;
+      }
+
+      .hover-img {
+        opacity: 1;
+      }
     }
   }
 

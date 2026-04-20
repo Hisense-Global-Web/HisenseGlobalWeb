@@ -314,6 +314,9 @@ function createSlide(block, row, slideIndex) {
   const slide = createElement('li', 'hero-banner-item');
   const div = createElement('div', 'hero-banner-content h-grid-container');
   moveInstrumentation(row, slide);
+  let titleExist = true;
+  let contentExist = true;
+  let buttonExist = true;
   const buttonDiv = createElement('div', 'hero-banner-cta-container');
   const textContent = createElement('div', 'text-content');
   slide.dataset.slideIndex = slideIndex;
@@ -354,12 +357,20 @@ function createSlide(block, row, slideIndex) {
       case 2:
         // colorful text div
         column.classList.add('teal-text');
-        if (column.textContent.trim()) textContent.append(column);
+        if (column.textContent.trim()) {
+          titleExist = true;
+          textContent.append(column);
+        } else {
+          titleExist = false;
+        }
         break;
       case 3:
         // richtext div
         column.setAttribute('class', 'hero-banner-item-content');
         textContent.append(column);
+        if (!column?.textContent?.trim?.()) {
+          contentExist = false;
+        }
         break;
       case 4:
         // icon-svg div
@@ -389,7 +400,25 @@ function createSlide(block, row, slideIndex) {
       buttonDiv.append(column);
     } else slide.append(column);
   });
-  if (buttonDiv.children.length > 0) div.append(buttonDiv);
+  if (buttonDiv.children.length > 0) {
+    buttonExist = true;
+    div.append(buttonDiv);
+  } else {
+    buttonExist = false;
+  }
+  if (contentExist) {
+    // hero-banner-item-content
+    const contentEl = textContent.querySelector('.hero-banner-item-content');
+    if (titleExist && buttonExist) {
+      contentEl.classList.add('content-all');
+    } else if (!titleExist && buttonExist) {
+      contentEl.classList.add('content-no-title');
+    } else if (titleExist && !buttonExist) {
+      contentEl.classList.add('content-no-button');
+    } else if (!titleExist && !buttonExist) {
+      contentEl.classList.add('content-no-title-button');
+    }
+  }
   slide.append(div);
   return slide;
 }
@@ -441,7 +470,7 @@ export default async function decorate(block) {
   if (!block.querySelector('video')) return;
   const videos = block.querySelectorAll('.video-mode');
   videos.forEach((video) => {
-    video.querySelector('.video-play-icon').addEventListener('click', throttle((e) => {
+    video?.querySelector('.video-play-icon')?.addEventListener('click', throttle((e) => {
       if (e.target.parentElement.classList.contains('is-playing')) {
         e.target.parentElement.classList.remove('is-playing');
         e.target.parentElement.classList.add('is-paused');

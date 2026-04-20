@@ -192,6 +192,7 @@ function getPriceDisplayText(price, fallbackCurrency = 'USD') {
 function getPricingDetails(product, fallbackSource = null) {
   const pricing = product?.pricing || {};
   const fallbackPriceInfo = fallbackSource?.priceInfo || {};
+  const emptyPrice = parsePriceValue(null);
   const fallbackCurrency = pricing.currency
     || product?.price?.currencyIso
     || product?.msrp?.currencyIso
@@ -199,16 +200,6 @@ function getPricingDetails(product, fallbackSource = null) {
     || fallbackPriceInfo.currency
     || fallbackPriceInfo.currencyIso
     || 'USD';
-
-  const fallbackSale = parseLoosePriceValue(
-    fallbackPriceInfo.specialprice
-      || fallbackPriceInfo.specialPrice
-      || fallbackSource?.priceInfo_bottomPrice
-      || fallbackSource?.priceInfo_specialprice
-      || fallbackSource?.specialPrice
-      || fallbackSource?.price,
-    fallbackCurrency,
-  );
   const fallbackMsrp = parseLoosePriceValue(
     fallbackPriceInfo.regularPrice
       || fallbackPriceInfo.regularprice
@@ -219,15 +210,12 @@ function getPricingDetails(product, fallbackSource = null) {
 
   const sale = parsePriceValue(pricing.sale || pricing.price || pricing.current || product?.price);
   const msrp = parsePriceValue(pricing.msrp || pricing.original || pricing.list || product?.msrp);
-  let resolvedSale = sale;
-  if (resolvedSale.value === null && !resolvedSale.formattedValue) {
-    if (fallbackSale.value !== null || fallbackSale.formattedValue) {
-      resolvedSale = fallbackSale;
-    } else {
-      resolvedSale = msrp;
-    }
+  const resolvedSale = sale;
+  const hasResolvedSale = resolvedSale.value !== null || Boolean(resolvedSale.formattedValue);
+  let resolvedMsrp = emptyPrice;
+  if (hasResolvedSale) {
+    resolvedMsrp = (msrp.value !== null || msrp.formattedValue) ? msrp : fallbackMsrp;
   }
-  const resolvedMsrp = (msrp.value !== null || msrp.formattedValue) ? msrp : fallbackMsrp;
   const currency = pricing.currency
     || resolvedSale.currencyIso
     || resolvedMsrp.currencyIso
@@ -273,6 +261,28 @@ export function normalizeProductSectionProducts(products) {
   }
 
   return products.map((product) => normalizeProductSectionIdentifiers(product));
+}
+
+export function hasRenderableProductSpecifications(product) {
+  if (!product || typeof product !== 'object') {
+    return false;
+  }
+
+  for (let i = 1; i <= 20; i += 1) {
+    const labelKey = `specificationsGroup${i}Label`;
+    const attrKey = `specificationsGroup${i}Attribute`;
+    const attributes = product[attrKey];
+
+    if (
+      product[labelKey]
+      && Array.isArray(attributes)
+      && attributes.some((attr) => typeof attr === 'string' && attr.trim().includes('::'))
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function getProductDisplayTitle(product, fallbackTitle = '') {
@@ -876,6 +886,7 @@ export default async function decorate(block) {
     });
   });
   linkGroupEl.appendChild(specsBtn);
+  const showSpecsControls = fields.includes('position') && hasRenderableProductSpecifications(product);
   setElementHidden(fav, !showFavoriteControl);
   if (!fields.includes('title')) {
     title.classList.add('hide');
@@ -891,9 +902,7 @@ export default async function decorate(block) {
   if (!fields.includes('awards')) {
     badges.classList.add('hide');
   }
-  if (!fields.includes('position')) {
-    specsBtn.classList.add('hide');
-  }
+  setElementHidden(specsBtn, !showSpecsControls);
   info.append(fav, series, title);
   if (hasColorValue) {
     info.append(colorsWrapper);
@@ -1793,7 +1802,7 @@ export default async function decorate(block) {
   const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');
   pdpNavMenu.append(overviewMobileBtn);
   let h = 61;
-  if (fields.includes('position')) {
+  if (showSpecsControls) {
     pdpNavMenu.append(specsMobileBtn);
     h += 45;
   }
