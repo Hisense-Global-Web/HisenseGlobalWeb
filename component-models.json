@@ -1674,13 +1674,12 @@
       {
         "component": "select",
         "name": "classes",
-        "value": "",
         "label": "Banner classes options",
         "valueType": "string",
         "options": [
           {
             "name": "Default",
-            "value": ""
+            "value": "default"
           },
           {
             "name": "text-color-black",
