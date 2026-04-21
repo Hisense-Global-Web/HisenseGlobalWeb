@@ -53,13 +53,13 @@
         },
         {
           "component": "text",
-          "name": "body_title",
+          "name": "title",
           "label": "Title",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "body_text",
+          "name": "body-text",
           "label": "Body Text",
           "valueType": "string"
         },
