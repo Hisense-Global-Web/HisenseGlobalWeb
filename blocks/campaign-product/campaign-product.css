@@ -1,4 +1,7 @@
 /* css */
+.campaign-product-container {
+  overflow: hidden;
+}
 
 .campaign-product {
   display: flex;
@@ -44,6 +47,7 @@
   .preview-list {
     display: flex;
     gap: var(--size-24);
+    transition: transform 0.5s ease-in-out;
     
     .product-card {
       width: min(calc(262 / var(--breakpoint-pc) * 100vw), 262px);
@@ -183,6 +187,7 @@
         height: 100%;
         background: var(--color-primary-grey-70);
         border-radius: var(--size-100);
+        transition: left 0.5s ease-in-out;
       }
     }
     
@@ -195,7 +200,28 @@
         cursor: pointer;
         
         .disabled-icon {
+          display: none;
           cursor: not-allowed;
+        }
+      }
+
+      &.leftest .scroll-btn.scroll-left {
+        .click-icon {
+          display: none;
+        }
+        
+        .disabled-icon {
+          display: block;
+        }
+      }
+
+      &.rightest .scroll-btn.scroll-right {
+        .click-icon {
+          display: none;
+        }
+        
+        .disabled-icon {
+          display: block;
         }
       }
     }

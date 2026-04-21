@@ -37,6 +37,12 @@ function updatePositionBarLeft(currentIndex, dataListLength) {
 }
 export default async function decorate(block) {
   const data = [];
+  let currentX = 0;
+  let currentIndex = 0;
+  const ITEM_WIDTH = 262 + 24;
+  let IS_LEFTEST = true;
+  let IS_RIGHTEST = false;
+
   // eslint-disable-next-line no-restricted-syntax
   for (const row of [...block.children]) {
     row.classList.add('campaign-category');
@@ -103,9 +109,7 @@ export default async function decorate(block) {
   previewGroupEl.classList.add('preview-group');
   const previewListEl = document.createElement('div');
   previewListEl.classList.add('preview-list');
-  console.log(flatList);
   flatList.forEach((item) => {
-    console.log(item);
     const card = document.createElement('div');
     card.className = 'product-card';
 
@@ -141,7 +145,6 @@ export default async function decorate(block) {
       imgDiv.appendChild(img);
     }
 
-
     const seriesDiv = document.createElement('div');
     seriesDiv.className = 'product-series';
     if (item.series) seriesDiv.textContent = item.series;
@@ -175,7 +178,7 @@ export default async function decorate(block) {
     const originalPriceCurrency = document.createElement('span');
     const originalPriceValue = document.createElement('span');
     originalPriceEl.append(originalPriceCurrency, originalPriceValue);
-    
+
     const discountsDiv = document.createElement('div');
     discountsDiv.className = 'product-discounts';
     const discountsTitle = document.createElement('span');
@@ -188,7 +191,7 @@ export default async function decorate(block) {
     // create product button group
     const productBtnGroupEl = document.createElement('div');
     productBtnGroupEl.className = 'product-btn-group';
-    
+
     card.append(titleDiv, imgDiv, seriesDiv, nameDiv, priceGroupDiv, productBtnGroupEl);
     previewListEl.appendChild(card);
   });
@@ -203,7 +206,35 @@ export default async function decorate(block) {
   const leftBtn = createScrollButton('left');
   const rightBtn = createScrollButton('right');
   const btnGroupEl = document.createElement('div');
-  btnGroupEl.classList.add('btn-group');
+  btnGroupEl.className = `btn-group ${IS_LEFTEST ? 'leftest' : ''} ${IS_RIGHTEST ? 'rightest' : ''}`;
+
+  leftBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentIndex <= 0) return;
+    IS_RIGHTEST = false;
+    currentIndex -= 1;
+    currentX = ITEM_WIDTH * currentIndex;
+    previewListEl.style.transform = `translateX(-${currentX}px)`;
+    if (currentIndex <= 0) {
+      IS_LEFTEST = true;
+    }
+    updatePositionBarLeft(currentIndex, flatList.length);
+    btnGroupEl.className = `btn-group ${IS_LEFTEST ? 'leftest' : ''} ${IS_RIGHTEST ? 'rightest' : ''}`;
+  });
+
+  rightBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentIndex + 4 >= flatList.length) return;
+    IS_LEFTEST = false;
+    currentIndex += 1;
+    currentX = ITEM_WIDTH * currentIndex;
+    previewListEl.style.transform = `translateX(-${currentX}px)`;
+    if (currentIndex + 4 >= flatList.length) {
+      IS_RIGHTEST = true;
+    }
+    updatePositionBarLeft(currentIndex, flatList.length);
+    btnGroupEl.className = `btn-group ${IS_LEFTEST ? 'leftest' : ''} ${IS_RIGHTEST ? 'rightest' : ''}`;
+  });
   btnGroupEl.append(leftBtn, rightBtn);
   ctrlGroupEl.append(positionBarEl, btnGroupEl);
   previewGroupEl.append(previewListEl, ctrlGroupEl);
