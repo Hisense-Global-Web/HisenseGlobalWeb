@@ -29,7 +29,7 @@ import {
 } from './locale-utils.js';
 
 import { storeInformationSelect } from './store-information-select.js';
-import { injectCookieScript } from './integration-utils.js';
+import { constants as IUConstants, injectExternalScript } from './integration-utils.js';
 
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
@@ -209,10 +209,13 @@ async function loadEager(doc) {
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
 
-    // load cookie script in non-UE mode
+    // inject cookie script in non-UE mode
     if (!isUniversalEditor()) {
-      await injectCookieScript();
+      await injectExternalScript(IUConstants.cookieSource, IUConstants.cookieClassName);
     }
+
+    // inject Data management (GA) script
+    await injectExternalScript(IUConstants.dataManagementSource, IUConstants.dataManagementClassName);
   }
 
   try {
