@@ -29,7 +29,7 @@ import {
 } from './locale-utils.js';
 
 import { storeInformationSelect } from './store-information-select.js';
-import { constants as IUConstants, injectExternalScript } from './integration-utils.js';
+import { injectExternalScript } from './integration-utils.js';
 
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
@@ -211,11 +211,11 @@ async function loadEager(doc) {
 
     // inject cookie script in non-UE mode
     if (!isUniversalEditor()) {
-      await injectExternalScript(IUConstants.cookieSource, IUConstants.cookieClassName);
+      await injectExternalScript('config/cookie');
     }
 
     // inject Data management (GA) script
-    await injectExternalScript(IUConstants.dataManagementSource, IUConstants.dataManagementClassName);
+    await injectExternalScript('config/data-management');
   }
 
   try {

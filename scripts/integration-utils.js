@@ -2,13 +2,6 @@ import { getFragmentPath, getLocaleFromPath } from './locale-utils.js';
 
 const sourceSuffix = '.plain.html';
 
-const constants = {
-  cookieSource: 'config/cookie',
-  cookieClassName: 'cookie',
-  dataManagementSource: 'config/data-management',
-  dataManagementClassName: 'data-management',
-};
-
 const formParams = {
   placeholder: {
     lang: '#lang#',
@@ -131,7 +124,7 @@ function sanitizeIframeSrcParams(container) {
   });
 }
 
-async function injectExternalScript(source, blockName) {
+async function injectExternalScript(source) {
   const fragmentPath = getFragmentPath(source);
   try {
     const resp = await fetch(`${fragmentPath}${sourceSuffix}`);
@@ -143,8 +136,8 @@ async function injectExternalScript(source, blockName) {
     }
 
     const dom = new DOMParser().parseFromString(await resp.text(), 'text/html');
-    const div = dom.querySelector(`.${blockName}`)?.querySelectorAll(':scope > div');
-    const externalScripts = [div[0]?.textContent, div[1]?.textContent, div[2]?.textContent].filter(Boolean);
+    const div = dom.querySelector('.third-party-integration')?.querySelectorAll(':scope > div');
+    const externalScripts = [div[1]?.textContent, div[2]?.textContent, div[3]?.textContent].filter(Boolean);
 
     const iframeEle = [];
     externalScripts.forEach((script) => {
@@ -169,7 +162,6 @@ async function injectExternalScript(source, blockName) {
 }
 
 export {
-  constants,
   upsertHeadMeta,
   applyPriceSpiderMetaTags,
   isExternalJs,
