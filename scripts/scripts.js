@@ -207,8 +207,12 @@ async function loadEager(doc) {
       decorateMain(main);
     }
     document.body.classList.add('appear');
-    await injectCookieScript();
     await loadSection(main.querySelector('.section'), waitForFirstImage);
+
+    // load cookie script in non-UE mode
+    if (!isUniversalEditor()) {
+      await injectCookieScript();
+    }
   }
 
   try {
