@@ -65,25 +65,25 @@
         },
         {
           "component": "aem-content",
-          "name": "collection_ctaGreen",
+          "name": "button_ctaGreen",
           "label": "Green CTA",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "collection_ctaGreenText",
+          "name": "button_ctaGreenText",
           "label": "Green CTA Label",
           "valueType": "string"
         },
         {
           "component": "aem-content",
-          "name": "collection_ctaPrimary",
+          "name": "button_ctaPrimary",
           "label": "Primary CTA",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "collection_ctaPrimaryText",
+          "name": "button_ctaPrimaryText",
           "label": "Primary CTA Label",
           "valueType": "string"
         }
