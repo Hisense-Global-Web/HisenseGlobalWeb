@@ -25,21 +25,21 @@
       "id": "collection-banner",
       "fields": [
         {
-            "component": "select",
-            "name": "classes",
-            "value": "",
-            "label": "Banner classes options",
-            "valueType": "string",
-            "options": [
-                {
-                    "name": "Default",
-                    "value": ""
-                },
-                {
-                    "name": "text-color-black",
-                    "value": "text-color-black"
-                }
-            ]
+          "component": "select",
+          "name": "classes",
+          "value": "",
+          "label": "Banner classes options",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "text-color-black",
+              "value": "text-color-black"
+            }
+          ]
         },
         {
           "component": "reference",
@@ -56,9 +56,15 @@
           "multi": false
         },
         {
-          "component": "richtext",
-          "name": "collection_text",
-          "label": "Text",
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "body-text",
+          "label": "Body Text",
           "valueType": "string"
         },
         {

@@ -1703,9 +1703,15 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "collection_text",
-        "label": "Text",
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "body-text",
+        "label": "Body Text",
         "valueType": "string"
       },
       {
