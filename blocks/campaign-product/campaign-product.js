@@ -24,7 +24,6 @@ function createScrollButton(direction) {
   return button;
 }
 
-// eslint-disable-next-line no-unused-vars
 function updatePositionBarLeft(currentIndex, dataListLength) {
   const bar = document.querySelector('.data-position-bar');
   if (bar) {
@@ -35,6 +34,26 @@ function updatePositionBarLeft(currentIndex, dataListLength) {
     bar.style.left = `${(maxMoveDistance / Math.max((dataListLength - showItemCount), 1) || 0) * currentIndex}px`;
   }
 }
+
+function scrollToIndex(targetIndex, flatList, previewListEl, btnGroupEl) {
+  const ITEM_WIDTH = 262 + 24;
+  // 边界处理：不能小于0，也不能超过最大可滚动索引
+  const maxIndex = Math.max(0, flatList.length - 4);
+  const finalIndex = Math.min(Math.max(0, targetIndex), maxIndex);
+
+  // 更新滚动状态
+  window.currentIndex = finalIndex;
+  window.currentX = ITEM_WIDTH * finalIndex;
+  window.IS_LEFTEST = finalIndex <= 0;
+  window.IS_RIGHTEST = finalIndex >= maxIndex;
+
+  // 更新预览列表位置
+  previewListEl.style.transform = `translateX(-${window.currentX}px)`;
+
+  // 更新按钮状态和位置条
+  updatePositionBarLeft(finalIndex, flatList.length);
+  btnGroupEl.className = `btn-group ${window.IS_LEFTEST ? 'leftest' : ''} ${window.IS_RIGHTEST ? 'rightest' : ''}`;
+}
 export default async function decorate(block) {
   const data = [];
   let currentX = 0;
@@ -42,16 +61,26 @@ export default async function decorate(block) {
   const ITEM_WIDTH = 262 + 24;
   let IS_LEFTEST = true;
   let IS_RIGHTEST = false;
+  const flatList = [];
 
   // eslint-disable-next-line no-restricted-syntax
-  for (const row of [...block.children]) {
+  const rows = [...block.children];
+  for (let i = 0; i < rows.length; i += 1) {
+    const row = rows[i];
     row.classList.add('campaign-category');
+    if (i === 0) row.classList.add('active');
     row.addEventListener('click', (e) => {
       const elList = e.currentTarget.parentNode.querySelectorAll('.campaign-category');
       elList.forEach((el) => {
         el.classList.remove('active');
       });
-      e.target.classList.add('active');
+      e.currentTarget.classList.add('active');
+      const sIndex = [...elList].indexOf(e.currentTarget);
+      const targetIndex = flatList.findIndex((item) => item.seriesIndex === sIndex);
+      if (targetIndex !== -1) {
+        // eslint-disable-next-line no-use-before-define
+        scrollToIndex(targetIndex, flatList, previewListEl, btnGroupEl);
+      }
     });
     const category = {
       name: '',
@@ -80,6 +109,7 @@ export default async function decorate(block) {
           // eslint-disable-next-line no-await-in-loop
           const respJson = await resp.json();
           itemAllList = respJson.data.productModelList.items;
+          console.log(itemAllList.map((item) => item.sku));
         } catch (err) {
           console.error('请求失败', err);
         }
@@ -95,9 +125,8 @@ export default async function decorate(block) {
     }
     data.push(category);
   }
-  const flatList = [];
-  // 这里mock一些数据
-  [...data, ...data, ...data, ...data, ...data].forEach((series, sIndex) => {
+
+  data.forEach((series, sIndex) => {
     series.products.forEach((p) => {
       flatList.push({
         ...p,

@@ -17,6 +17,7 @@
     border-radius: var(--size-16);
     padding: 0 var(--size-16);
     background-color: #C8EFEE;
+    cursor: pointer;
     
     &.active {
       background-color: #FFF;
