@@ -1703,13 +1703,13 @@
       },
       {
         "component": "text",
-        "name": "title",
+        "name": "body_title",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "body-text",
+        "name": "body_text",
         "label": "Body Text",
         "valueType": "string"
       },
