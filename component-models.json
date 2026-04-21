@@ -1871,17 +1871,6 @@
     ]
   },
   {
-    "id": "cookie",
-    "fields": [
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "cookieScript",
-        "label": "Cookie script"
-      }
-    ]
-  },
-  {
     "id": "core-value-card",
     "fields": [
       {

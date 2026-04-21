@@ -1,8 +1,7 @@
 import { getFragmentPath, getLocaleFromPath } from './locale-utils.js';
 
-const cookieSource = 'config/cookie';
 const sourceSuffix = '.plain.html';
-const cookieClassName = 'cookie';
+
 const formParams = {
   placeholder: {
     lang: '#lang#',
@@ -125,21 +124,36 @@ function sanitizeIframeSrcParams(container) {
   });
 }
 
-async function injectCookieScript() {
-  const cookiePage = getFragmentPath(cookieSource);
+async function injectExternalScript(source) {
+  const fragmentPath = getFragmentPath(source);
   try {
-    const resp = await fetch(`${cookiePage}${sourceSuffix}`);
+    const resp = await fetch(`${fragmentPath}${sourceSuffix}`);
 
     if (!resp.ok) {
       // eslint-disable-next-line no-console
-      console.debug(`Cookie page (${cookiePage}) is not found.`);
+      console.debug(`Source page (${fragmentPath}) is not found.`);
       return;
     }
 
     const dom = new DOMParser().parseFromString(await resp.text(), 'text/html');
-    const script = dom.querySelector(`.${cookieClassName}`).textContent.trim();
-    if (script && isInlineScript(script)) {
-      injectInlineScript(script);
+    const div = dom.querySelector('.third-party-integration')?.querySelectorAll(':scope > div');
+    const externalScripts = [div[1]?.textContent, div[2]?.textContent, div[3]?.textContent].filter(Boolean);
+
+    const iframeEle = [];
+    externalScripts.forEach((script) => {
+      if (script && isInlineScript(script)) {
+        injectInlineScript(script);
+      }
+
+      if (script && isIframeDiv(script)) {
+        const iframeItem = document.createElement('div');
+        iframeItem.innerHTML += script;
+        iframeEle.push(iframeItem.firstElementChild);
+      }
+    });
+
+    if (iframeEle.length > 0) {
+      document.body.appendChild(...iframeEle);
     }
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -156,5 +170,5 @@ export {
   injectInlineScript,
   sanitizeIframeSrcParams,
   fillIframePlaceholders,
-  injectCookieScript,
+  injectExternalScript,
 };
