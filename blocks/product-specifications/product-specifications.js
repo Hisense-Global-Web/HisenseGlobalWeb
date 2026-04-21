@@ -103,13 +103,15 @@ export default async function decorate(block) {
       // 创建一级分类标题
       const titleWrapper = document.createElement('div');
       titleWrapper.className = 'default-content-wrapper';
-      const title = document.createElement('h3');
+      const title = document.createElement('div');
       title.id = 'specifications';
       title.textContent = level1;
       titleWrapper.appendChild(title);
       container.appendChild(titleWrapper);
 
       const level2Groups = specHierarchy[level1];
+      const contentContainerEl = document.createElement('div');
+      contentContainerEl.className = 'content-container';
 
       Object.keys(level2Groups).forEach((level2) => {
         const attributes = level2Groups[level2];
@@ -136,7 +138,7 @@ export default async function decorate(block) {
           const headerButton = document.createElement('button');
           headerButton.className = 'properties-header';
 
-          const headerTitle = document.createElement('h3');
+          const headerTitle = document.createElement('div');
           headerTitle.className = 'properties-header-title';
           headerTitle.textContent = level2; // 二级标题
 
@@ -170,6 +172,7 @@ export default async function decorate(block) {
               propertyName.appendChild(nameP);
 
               const propertyValue = document.createElement('div');
+              propertyValue.className = 'property-value';
               const valueP = document.createElement('p');
               valueP.textContent = value;
               propertyValue.appendChild(valueP);
@@ -183,14 +186,14 @@ export default async function decorate(block) {
           propertiesBlock.appendChild(headerButton);
           propertiesBlock.appendChild(content);
           propertiesWrapper.appendChild(propertiesBlock);
-          container.appendChild(propertiesWrapper);
           const divideLineEl = document.createElement('div');
           const divideLineInnerEl = document.createElement('div');
           divideLineEl.appendChild(divideLineInnerEl);
           divideLineEl.classList.add('divide-line');
           if (globalIndex !== totalGroupCount - 1) {
-            container.appendChild(divideLineEl);
+            propertiesWrapper.appendChild(divideLineEl);
           }
+          contentContainerEl.appendChild(propertiesWrapper);
 
           // 添加点击事件
           headerButton.addEventListener('click', () => {
@@ -204,8 +207,8 @@ export default async function decorate(block) {
           totalGroups += 1;
         }
       });
+      container.appendChild(contentContainerEl);
     });
-
     wrapper.appendChild(container);
     block.replaceChildren(wrapper);
 
@@ -213,7 +216,7 @@ export default async function decorate(block) {
       const allContents = block.querySelectorAll('.properties-content');
       allContents.forEach((content) => {
         const contentHeight = content.scrollHeight;
-        content.style.maxHeight = `${contentHeight}px`;
+        content.style.maxHeight = `${contentHeight + 10}px`;
       });
     }, 200);
   } catch (error) {

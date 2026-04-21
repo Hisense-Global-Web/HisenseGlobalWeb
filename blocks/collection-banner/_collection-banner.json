@@ -10,10 +10,7 @@
             "template": {
               "name": "Collection Banner",
               "model": "collection-banner",
-              "classes": "collection-banner-text",
-              "collection_text": "<h5>Perfection, Any Content, Anytime</h5><p>From the first setup to everyday use.designed to feel effortless so you can focus on what really matters.</p>",
-              "collection_ctaPrimary": "/",
-              "collection_ctaPrimaryText": "Learn more"
+              "classes": "default"
             }
           }
         }
@@ -25,21 +22,20 @@
       "id": "collection-banner",
       "fields": [
         {
-            "component": "select",
-            "name": "classes",
-            "value": "",
-            "label": "Banner classes options",
-            "valueType": "string",
-            "options": [
-                {
-                    "name": "Default",
-                    "value": ""
-                },
-                {
-                    "name": "text-color-black",
-                    "value": "text-color-black"
-                }
-            ]
+          "component": "select",
+          "name": "classes",
+          "label": "Banner classes options",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": "default"
+            },
+            {
+              "name": "text-color-black",
+              "value": "text-color-black"
+            }
+          ]
         },
         {
           "component": "reference",
@@ -56,32 +52,38 @@
           "multi": false
         },
         {
-          "component": "richtext",
-          "name": "collection_text",
-          "label": "Text",
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "body-text",
+          "label": "Body Text",
           "valueType": "string"
         },
         {
           "component": "aem-content",
-          "name": "collection_ctaGreen",
+          "name": "button_ctaGreen",
           "label": "Green CTA",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "collection_ctaGreenText",
+          "name": "button_ctaGreenText",
           "label": "Green CTA Label",
           "valueType": "string"
         },
         {
           "component": "aem-content",
-          "name": "collection_ctaPrimary",
+          "name": "button_ctaPrimary",
           "label": "Primary CTA",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "collection_ctaPrimaryText",
+          "name": "button_ctaPrimaryText",
           "label": "Primary CTA Label",
           "valueType": "string"
         }
