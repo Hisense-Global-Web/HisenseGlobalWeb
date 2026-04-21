@@ -37,6 +37,7 @@ export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
  * Moves all the attributes from a given element to another given element.
  * @param {Element} from the element to copy attributes from
  * @param {Element} to the element to copy attributes to
+ * @param attributes the element attributes to move, if not provided, all attributes will be moved
  */
 export function moveAttributes(from, to, attributes) {
   if (!attributes) {
@@ -124,8 +125,7 @@ export function decorateMain(main) {
  * Set global variables for API endpoints
  */
 function setGlobalApiVariables() {
-  const gqlBaseUrl = getGraphQLBaseUrl();
-  window.GRAPHQL_BASE_URL = gqlBaseUrl;
+  window.GRAPHQL_BASE_URL = getGraphQLBaseUrl();
   window.EDS_BASE_URL = getEdsBaseUrl();
   window.HYBRIS_BFF_BASE_URL = getHybrisBffBaseUrl();
 }
