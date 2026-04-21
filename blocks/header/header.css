@@ -1441,6 +1441,8 @@
       color: var(--color-primary-grey-50);
       display: flex;
       gap: 8px;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent; /* 移动端点击时去除默认的高亮效果 */
 
       &.current {
         color: var(--color-primary-green-50);

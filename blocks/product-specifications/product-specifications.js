@@ -172,6 +172,7 @@ export default async function decorate(block) {
               propertyName.appendChild(nameP);
 
               const propertyValue = document.createElement('div');
+              propertyValue.className = 'property-value';
               const valueP = document.createElement('p');
               valueP.textContent = value;
               propertyValue.appendChild(valueP);

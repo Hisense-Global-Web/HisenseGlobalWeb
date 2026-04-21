@@ -108,7 +108,7 @@
   .properties-content {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px 34px;
+    gap: 32px 48px;
     width: 100%;
     transition: max-height 0.36s ease-in-out;
     max-height: min(calc(600 / var(--breakpoint-pc) * 100vw), 600px);
@@ -116,22 +116,26 @@
     clip-path: inset(0);
     contain: layout style;
     box-sizing: border-box;
+
+    @media (width < 860px) {
+      gap: 20px 34px;
+    }
   }
 
   .property {
-    width: calc(50% - (24px * 3 / 4));
+    width: calc(50% - (34px * 3 / 4));
     display: flex;
     flex-direction: column;
     row-gap: 4px;
     font-size: var(--fontsize-body3, 12px);
 
     @media (width >= 600px) {
-      width: calc(25% - (24px * 3 / 4));
+      width: calc(25% - (48px * 3 / 4));
     }
   }
 
   @media (width>=860px) {
-    .property:nth-child(-n + 3) {
+    .property:nth-child(-n + 4) {
       margin-top: var(--size-32);
     }
   }
@@ -143,8 +147,12 @@
   }
 
   .property-name {
-    font-weight: 500;
+    font-weight: 700;
     color: var(--color-hisense-grey-01);
+  }
+
+  .property-value {
+    font-weight: 400;
   }
 }
 
