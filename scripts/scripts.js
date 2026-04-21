@@ -29,6 +29,7 @@ import {
 } from './locale-utils.js';
 
 import { storeInformationSelect } from './store-information-select.js';
+import { injectExternalScript } from './integration-utils.js';
 
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
 
@@ -36,6 +37,7 @@ export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
  * Moves all the attributes from a given element to another given element.
  * @param {Element} from the element to copy attributes from
  * @param {Element} to the element to copy attributes to
+ * @param attributes the element attributes to move, if not provided, all attributes will be moved
  */
 export function moveAttributes(from, to, attributes) {
   if (!attributes) {
@@ -123,8 +125,7 @@ export function decorateMain(main) {
  * Set global variables for API endpoints
  */
 function setGlobalApiVariables() {
-  const gqlBaseUrl = getGraphQLBaseUrl();
-  window.GRAPHQL_BASE_URL = gqlBaseUrl;
+  window.GRAPHQL_BASE_URL = getGraphQLBaseUrl();
   window.EDS_BASE_URL = getEdsBaseUrl();
   window.HYBRIS_BFF_BASE_URL = getHybrisBffBaseUrl();
 }
@@ -207,6 +208,14 @@ async function loadEager(doc) {
     }
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
+
+    // inject cookie script in non-UE mode
+    if (!isUniversalEditor()) {
+      await injectExternalScript('config/cookie');
+    }
+
+    // inject Data management (GA) script
+    await injectExternalScript('config/data-management');
   }
 
   try {
@@ -423,7 +432,7 @@ async function loadAnnouncementPopup() {
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
-  loadAnnouncementPopup();
+  await loadAnnouncementPopup();
   loadDelayed();
   transHorizontalSection('.honors-awards-wrapper');
   storeInformationSelect();
