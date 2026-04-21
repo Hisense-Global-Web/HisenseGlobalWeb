@@ -75,10 +75,10 @@ function getCartCount(cart = {}) {
 
   return normalizeCount(
     cart?.totalUnitCount
-      ?? cart?.totalItems
-      ?? cart?.totalItemCount
-      ?? cart?.itemCount
-      ?? cart?.quantity,
+    ?? cart?.totalItems
+    ?? cart?.totalItemCount
+    ?? cart?.itemCount
+    ?? cart?.quantity,
   );
 }
 
@@ -972,9 +972,11 @@ const toggleSearchBoxPopup = (e) => {
   if ([...searchBoxPopupEl.classList].includes('show')) {
     setSearchBoxInput(inputWrapperEl);
     searchBoxPopupEl.classList.remove('show');
+    document.querySelector('main')?.classList?.remove('main-mobile');
   } else {
     setSearchBoxInput(inputWrapperEl);
     searchBoxPopupEl.classList.add('show');
+    document.querySelector('main')?.classList?.add('main-mobile');
   }
 };
 
@@ -988,6 +990,7 @@ const showSearchBoxPopup = (e) => {
     if (searchBoxPopupEl) {
       checkMobileSearchBox(inputWrapperEl);
       searchBoxPopupEl.classList.add('show');
+      document.querySelector('main')?.classList?.add('main-mobile');
     }
   }
 };
@@ -1008,6 +1011,7 @@ const hideSearchBoxPopup = (e) => {
     if (searchBoxPopupEl) {
       setSearchBoxInput(inputWrapperEl);
       searchBoxPopupEl.classList.remove('show');
+      document.querySelector('main')?.classList?.remove('main-mobile');
     }
   }, 200);
 };
@@ -1186,7 +1190,7 @@ export default async function decorate(block) {
       syncedHeaderAuthState = authState;
       syncHeaderCommerceUi(authState);
       if (shouldRefreshCounts) {
-        refreshHeaderCommerceCounts(authState).catch(() => {});
+        refreshHeaderCommerceCounts(authState).catch(() => { });
       }
       return;
     }
@@ -1237,7 +1241,7 @@ export default async function decorate(block) {
     }
 
     if (type === 'wishlist-mutated' && hasValidHybrisAccountState(authState)) {
-      fetchHybrisWishlist().catch(() => {});
+      fetchHybrisWishlist().catch(() => { });
     }
   };
 
@@ -1596,7 +1600,7 @@ export default async function decorate(block) {
     window.addEventListener(HYBRIS_DATA_EVENT_NAME, handleHybrisDataEvent);
 
     syncHeaderCommerceUi(syncedHeaderAuthState);
-    refreshHeaderCommerceCounts(syncedHeaderAuthState).catch(() => {});
+    refreshHeaderCommerceCounts(syncedHeaderAuthState).catch(() => { });
 
     const syncAuthStateAndRefreshCountsIfNeeded = (authState) => {
       const shouldRefreshCounts = shouldRefreshHeaderCommerceCountsAfterAuthInit(
@@ -1617,7 +1621,7 @@ export default async function decorate(block) {
         const nextAuthState = getCachedHybrisAuthState();
         return syncAuthStateAndRefreshCountsIfNeeded(nextAuthState);
       })
-      .catch(() => {});
+      .catch(() => { });
   }
 
   // 物理添加手机端菜单按钮
