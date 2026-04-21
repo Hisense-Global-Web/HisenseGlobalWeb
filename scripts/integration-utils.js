@@ -54,7 +54,8 @@ function isExternalJs(url) {
 }
 
 function isIframeDiv(text) {
-  return /^<div[\s\S]*?>[\s\S]*?<iframe[\s\S]*?>[\s\S]*?<\/iframe>[\s\S]*?<\/div>$/i.test(text.trim());
+  return /^<div[\s\S]*?>[\s\S]*?<iframe[\s\S]*?>[\s\S]*?<\/iframe>[\s\S]*?<\/div>$/i.test(text.trim())
+    || /^<noscript[\s\S]*?>[\s\S]*?<iframe[\s\S]*?>[\s\S]*?<\/iframe>[\s\S]*?<\/noscript>$/i.test(text.trim());
 }
 
 function isInlineScript(text) {
