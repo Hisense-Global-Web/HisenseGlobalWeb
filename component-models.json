@@ -1871,17 +1871,6 @@
     ]
   },
   {
-    "id": "cookie",
-    "fields": [
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "cookieScript",
-        "label": "Cookie script"
-      }
-    ]
-  },
-  {
     "id": "core-value-card",
     "fields": [
       {
@@ -2171,29 +2160,6 @@
         "name": "desc_text",
         "label": "Image Text",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "data-management",
-    "fields": [
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "externalJsScript1",
-        "label": "External script 1"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "externalJsScript2",
-        "label": "External script 2"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "externalJsScript3",
-        "label": "External script 3"
       }
     ]
   },
