@@ -83,15 +83,13 @@ export default async function decorate(block) {
   const blockData = buildBlockData(block);
   const { isIframe, iframeEle } = buildIframeContent(blockData);
 
-  // handle iframe integration
+  applyPriceSpiderMetaTags();
+  loadThirdPartyAssets(blockData);
+
   if (isIframe) {
     block.replaceChildren(iframeEle);
     return;
   }
-
-  // handle others integration
-  applyPriceSpiderMetaTags();
-  loadThirdPartyAssets(blockData);
 
   // handle default content in editing mode
   const isEditing = await isUniversalEditorAsync();
