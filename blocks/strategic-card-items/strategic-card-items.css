@@ -18,10 +18,10 @@
     flex: 1;
     width: min(calc(173/var(--breakpoint-pc)*100vw),173px);
     height: stretch;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
     padding: var(--size-24) var(--size-24) var(--size-32) var(--size-24);
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     gap: var(--size-12);
     border-radius: var(--radius-pc-xl, 20px);
     background: var(--color-primary-green-10, #EDFCFB);
@@ -40,7 +40,7 @@
     }
 
     .card-text {
-      flex: 1;
+      /* flex: 1; */
       color: var(--color-primary-grey-90);
       text-align: center;
       font-size: var(--size-16);
@@ -119,6 +119,7 @@
     .strategic-card-item {
       flex: none;
       width: calc(240/var(--breakpoint-mobile)*100vw);
+      height: -webkit-fill-available;
       padding: var(--size-24) var(--size-24) var(--size-32) var(--size-24);
       flex-shrink: 0;
       gap: var(--size-32);
