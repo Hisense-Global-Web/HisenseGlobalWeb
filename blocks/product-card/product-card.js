@@ -113,7 +113,7 @@ function collectWishlistKeys(...sources) {
   return [...keys];
 }
 
-export function getWishlistEntryByProductCode(productCode = '') {
+function getWishlistEntryByProductCode(productCode = '') {
   const normalizedKey = normalizeWishlistKey(productCode);
   if (!normalizedKey) {
     return null;
@@ -304,7 +304,7 @@ function rebindPriceSpiderWidgets() {
   }, 0);
 }
 
-export async function ensureWishlistLoaded(force = false) {
+async function ensureWishlistLoaded(force = false) {
   const authState = getCachedHybrisAuthState();
   if (!authState.authenticated) {
     bumpWishlistVersion();
@@ -512,7 +512,7 @@ function getPricingDetails(product, fallbackSource = null) {
   };
 }
 
-export function hasInventory(product) {
+function hasInventory(product) {
   const stock = product?.stock || {};
   const level = Number(stock.level ?? stock.stockLevel);
   const status = String(stock.status || stock.stockLevelStatus || '').toLowerCase();

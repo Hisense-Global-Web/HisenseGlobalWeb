@@ -128,7 +128,7 @@
           }
 
           &:not(.selected) {
-            .plp-like {
+            .like {
               display: none;
             }
           }

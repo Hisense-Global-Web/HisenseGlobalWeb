@@ -1,16 +1,469 @@
 import { getGraphQLUrl } from '../../scripts/locale-utils.js';
 import { resolveProductCardTagLabel, shouldShowPlpFavoriteButton } from '../../scripts/commerce-ui-utils.js';
 import {
-  fetchHybrisProduct,
+  addHybrisWishlistItem,
+  fetchHybrisProduct, fetchHybrisWishlist,
   getCachedHybrisAuthState,
   getHybrisProductCode,
-  initializeHybrisAuth,
-  scheduleHybrisTask,
+  initializeHybrisAuth, removeHybrisWishlistItem,
+  scheduleHybrisTask, startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
-import { ensureWishlistLoaded, getWishlistEntryByProductCode, hasInventory } from '../product-card/product-card.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const WISHLIST_CART_NAME_PREFIX = 'wishlist';
+const wishlistEntriesByCode = new Map();
+let wishlistLoadPromise = null;
+let wishlistLoaded = false;
+let wishlistRequestVersion = 0;
+let wishlistPrimaryCartCode = '';
+
+function setControlLoadingState(element, isLoading) {
+  if (!element) {
+    return;
+  }
+
+  element.dataset.loading = isLoading ? 'true' : 'false';
+  element.classList.toggle('is-loading', isLoading);
+  if (isLoading) {
+    element.setAttribute('aria-busy', 'true');
+  } else {
+    element.removeAttribute('aria-busy');
+  }
+}
+
+function scheduleControlLoadingReset(element, delay = 1500) {
+  if (!element) {
+    return;
+  }
+
+  window.setTimeout(() => {
+    if (!document.body.contains(element) || document.visibilityState === 'hidden') {
+      return;
+    }
+    setControlLoadingState(element, false);
+  }, delay);
+}
+
+function normalizeWishlistKey(value) {
+  return String(value || '').trim();
+}
+
+function addWishlistKey(keys, value) {
+  const normalizedKey = normalizeWishlistKey(value);
+  if (normalizedKey) {
+    keys.add(normalizedKey);
+  }
+}
+
+function collectWishlistKeys(...sources) {
+  const keys = new Set();
+
+  sources.forEach((source) => {
+    if (!source) {
+      return;
+    }
+
+    if (typeof source === 'string') {
+      addWishlistKey(keys, source);
+      return;
+    }
+
+    addWishlistKey(keys, source.code);
+    addWishlistKey(keys, source.sku);
+    addWishlistKey(keys, source.productCode);
+    addWishlistKey(keys, source.materialNumber);
+    addWishlistKey(keys, source.overseasModel);
+
+    if (source.product) {
+      collectWishlistKeys(source.product).forEach((key) => keys.add(key));
+    }
+    if (source.item) {
+      collectWishlistKeys(source.item).forEach((key) => keys.add(key));
+    }
+    if (source.entry) {
+      collectWishlistKeys(source.entry).forEach((key) => keys.add(key));
+    }
+  });
+
+  return [...keys];
+}
+
+function getWishlistEntryByProductCode(productCode = '') {
+  const normalizedKey = normalizeWishlistKey(productCode);
+  if (!normalizedKey) {
+    return null;
+  }
+  return wishlistEntriesByCode.get(normalizedKey) || null;
+}
+
+function setWishlistEntry(entry, ...sources) {
+  collectWishlistKeys(entry, ...sources).forEach((key) => {
+    wishlistEntriesByCode.set(key, entry);
+  });
+}
+
+function deleteWishlistEntry(entry, ...sources) {
+  collectWishlistKeys(entry, ...sources).forEach((key) => {
+    wishlistEntriesByCode.delete(key);
+  });
+}
+
+function syncWishlistFavoriteElements() {
+  document.querySelectorAll('.favorite[data-product-code]').forEach((favorite) => {
+    const productCode = favorite.getAttribute('data-product-code') || '';
+    favorite.classList.toggle('selected', Boolean(getWishlistEntryByProductCode(productCode)));
+  });
+}
+
+function isWishlistCart(cart) {
+  const normalizedName = String(cart?.name || '').trim().toLowerCase();
+  return Boolean(normalizedName && normalizedName.startsWith(WISHLIST_CART_NAME_PREFIX));
+}
+
+function getWishlistCarts(payload) {
+  if (!payload) {
+    return [];
+  }
+
+  if (Array.isArray(payload.carts)) {
+    return payload.carts.filter(isWishlistCart);
+  }
+
+  if (Array.isArray(payload.entries) && isWishlistCart(payload)) {
+    return [payload];
+  }
+
+  return [];
+}
+
+function resolveWishlistCartCode(payload) {
+  const [wishlistCart] = getWishlistCarts(payload);
+  if (wishlistCart?.code) {
+    return String(wishlistCart.code).trim();
+  }
+
+  if (isWishlistCart(payload) && payload?.code) {
+    return String(payload.code).trim();
+  }
+
+  if (payload?.wishlist) {
+    return resolveWishlistCartCode(payload.wishlist);
+  }
+
+  return '';
+}
+
+function normalizeWishlistItems(payload) {
+  if (!payload) {
+    return [];
+  }
+
+  const wishlistCarts = getWishlistCarts(payload);
+  if (wishlistCarts.length) {
+    return wishlistCarts.flatMap((cart) => {
+      const entries = Array.isArray(cart.entries) ? cart.entries : [];
+      return entries.map((entry) => ({
+        ...entry,
+        cartCode: entry?.cartCode || cart.code || '',
+      }));
+    });
+  }
+
+  if (Array.isArray(payload)) {
+    return payload;
+  }
+
+  if (Array.isArray(payload.items)) {
+    return payload.items;
+  }
+
+  if (Array.isArray(payload.entries)) {
+    if (!isWishlistCart(payload)) {
+      return [];
+    }
+    return payload.entries.map((entry) => ({
+      ...entry,
+      cartCode: entry?.cartCode || payload.code || payload.cartCode || '',
+    }));
+  }
+
+  if (payload.wishlist) {
+    return normalizeWishlistItems(payload.wishlist);
+  }
+
+  return [];
+}
+
+function getWishlistEntryData(payload, fallbackCode = '', fallbackCartCode = '') {
+  if (!payload) {
+    return null;
+  }
+
+  const candidate = payload.product ? payload : (payload.item || payload.entry || payload);
+  const code = getHybrisProductCode(candidate.product || candidate) || fallbackCode;
+  const entryNumber = candidate.entryNumber
+      ?? candidate.item?.entryNumber
+      ?? candidate.entry?.entryNumber
+      ?? null;
+  const cartCode = candidate.cartCode
+      || candidate.item?.cartCode
+      || candidate.entry?.cartCode
+      || payload.cartCode
+      || fallbackCartCode
+      || '';
+
+  if (code && entryNumber !== null && entryNumber !== undefined) {
+    return { code, entryNumber, cartCode };
+  }
+
+  const wishlistItems = normalizeWishlistItems(payload);
+  const matchedItem = wishlistItems.find((item) => getHybrisProductCode(item.product || item) === fallbackCode)
+      || wishlistItems[0];
+
+  if (!matchedItem) {
+    return null;
+  }
+
+  return getWishlistEntryData(matchedItem, fallbackCode, fallbackCartCode || resolveWishlistCartCode(payload));
+}
+
+function syncWishlistEntries(payload) {
+  wishlistPrimaryCartCode = resolveWishlistCartCode(payload);
+  wishlistEntriesByCode.clear();
+  normalizeWishlistItems(payload).forEach((item) => {
+    const entry = getWishlistEntryData(item, '', item?.cartCode || wishlistPrimaryCartCode);
+    if (entry?.code) {
+      setWishlistEntry(entry, item, item?.product);
+    }
+  });
+  syncWishlistFavoriteElements();
+  return wishlistEntriesByCode;
+}
+
+function bumpWishlistVersion() {
+  wishlistRequestVersion += 1;
+  return wishlistRequestVersion;
+}
+
+function ensureWishlistLoaded(force = false) {
+  const authState = getCachedHybrisAuthState();
+  if (!authState.authenticated) {
+    bumpWishlistVersion();
+    wishlistPrimaryCartCode = '';
+    wishlistEntriesByCode.clear();
+    wishlistLoaded = false;
+    syncWishlistFavoriteElements();
+    return wishlistEntriesByCode;
+  }
+
+  if (!force && wishlistLoaded) {
+    return wishlistEntriesByCode;
+  }
+
+  if (!force && wishlistLoadPromise) {
+    return wishlistLoadPromise;
+  }
+
+  const requestVersion = bumpWishlistVersion();
+  wishlistLoadPromise = fetchHybrisWishlist({
+    redirectOnAuthFailure: true,
+    returnUrl: window.location.href,
+  })
+    .then((payload) => {
+      if (requestVersion !== wishlistRequestVersion) {
+        return wishlistEntriesByCode;
+      }
+      syncWishlistEntries(payload);
+      wishlistLoaded = true;
+      return wishlistEntriesByCode;
+    })
+    .finally(() => {
+      wishlistLoadPromise = null;
+    });
+
+  return wishlistLoadPromise;
+}
+
+function parsePriceValue(price) {
+  if (!price) {
+    return {
+      value: null,
+      formattedValue: '',
+      currencyIso: '',
+    };
+  }
+
+  const numericValue = Number(price.value);
+  return {
+    value: Number.isFinite(numericValue) ? numericValue : null,
+    formattedValue: price.formattedValue || '',
+    currencyIso: price.currencyIso || price.currency || '',
+  };
+}
+
+function formatCurrencyValue(value, currencyIso = 'USD') {
+  if (!Number.isFinite(value)) {
+    return '';
+  }
+
+  try {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currencyIso || 'USD',
+    }).format(value);
+  } catch (error) {
+    return `${currencyIso || '$'} ${value}`;
+  }
+}
+
+function parseLoosePriceValue(price, fallbackCurrency = 'USD') {
+  if (price === null || price === undefined || price === '') {
+    return {
+      value: null,
+      formattedValue: '',
+      currencyIso: fallbackCurrency,
+    };
+  }
+
+  if (typeof price === 'number') {
+    return {
+      value: price,
+      formattedValue: formatCurrencyValue(price, fallbackCurrency),
+      currencyIso: fallbackCurrency,
+    };
+  }
+
+  if (typeof price === 'object') {
+    return parsePriceValue({
+      ...price,
+      currencyIso: price.currencyIso || price.currency || fallbackCurrency,
+    });
+  }
+
+  const text = String(price).trim();
+  const numericText = text.replace(/[^0-9.-]/g, '');
+  const numericValue = Number(numericText);
+
+  return {
+    value: Number.isFinite(numericValue) ? numericValue : null,
+    formattedValue: text,
+    currencyIso: fallbackCurrency,
+  };
+}
+
+function getPriceDisplayText(price, fallbackCurrency) {
+  if (!price) {
+    return '';
+  }
+
+  if (price.formattedValue) {
+    return price.formattedValue;
+  }
+
+  return formatCurrencyValue(price.value, price.currencyIso || fallbackCurrency || 'USD');
+}
+
+function getPriceParts(price, fallbackCurrency = 'USD') {
+  if (!price) {
+    return {
+      currency: '',
+      amount: '',
+      full: '',
+    };
+  }
+
+  if (price.value !== null && price.value !== undefined) {
+    try {
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: price.currencyIso || fallbackCurrency || 'USD',
+      });
+      const parts = formatter.formatToParts(price.value);
+      return {
+        currency: parts.filter((part) => part.type === 'currency').map((part) => part.value).join(''),
+        amount: parts
+          .filter((part) => part.type !== 'currency')
+          .map((part) => part.value)
+          .join('')
+          .trim(),
+        full: formatter.format(price.value),
+      };
+    } catch (error) {
+      // fall through to formatted string parsing
+    }
+  }
+
+  const full = getPriceDisplayText(price, fallbackCurrency);
+  const matched = full.match(/^([^0-9-]*)(.*)$/);
+
+  return {
+    currency: matched?.[1]?.trim() || '',
+    amount: matched?.[2]?.trim() || full,
+    full,
+  };
+}
+
+function getPricingDetails(product, fallbackSource = null) {
+  const pricing = product?.pricing || {};
+  const fallbackPriceInfo = fallbackSource?.priceInfo || {};
+  const fallbackCurrency = pricing.currency
+      || product?.price?.currencyIso
+      || product?.msrp?.currencyIso
+      || fallbackPriceInfo.currency
+      || fallbackPriceInfo.currencyIso
+      || 'USD';
+
+  const fallbackSale = parseLoosePriceValue(
+    fallbackPriceInfo.specialprice
+      || fallbackPriceInfo.specialPrice
+      || fallbackSource?.priceInfo_specialprice
+      || fallbackSource?.specialPrice
+      || fallbackSource?.price,
+    fallbackCurrency,
+  );
+  const fallbackMsrp = parseLoosePriceValue(
+    fallbackPriceInfo.regularPrice
+      || fallbackPriceInfo.regularprice
+      || fallbackSource?.priceInfo_regularPrice
+      || fallbackSource?.regularPrice,
+    fallbackCurrency,
+  );
+
+  const sale = parsePriceValue(pricing.sale || pricing.price || pricing.current || product?.price);
+  const msrp = parsePriceValue(pricing.msrp || pricing.original || pricing.list || product?.msrp);
+  let resolvedSale = sale;
+  if (resolvedSale.value === null && !resolvedSale.formattedValue) {
+    if (fallbackSale.value !== null || fallbackSale.formattedValue) {
+      resolvedSale = fallbackSale;
+    } else {
+      resolvedSale = msrp;
+    }
+  }
+  const resolvedMsrp = (msrp.value !== null || msrp.formattedValue) ? msrp : fallbackMsrp;
+  const currency = pricing.currency
+      || resolvedSale.currencyIso
+      || resolvedMsrp.currencyIso
+      || fallbackCurrency
+      || 'USD';
+
+  return {
+    sale: resolvedSale,
+    msrp: resolvedMsrp,
+    currency,
+  };
+}
+
+function hasInventory(product) {
+  const stock = product?.stock || {};
+  const level = Number(stock.level ?? stock.stockLevel);
+  const status = String(stock.status || stock.stockLevelStatus || '').toLowerCase();
+
+  return Boolean(
+    (Number.isFinite(level) && level > 0)
+      || ['instock', 'in_stock', 'available', 'lowstock', 'low_stock'].includes(status),
+  );
+}
 
 function createScrollButton(direction) {
   const button = document.createElement('div');
@@ -219,6 +672,8 @@ export default async function decorate(block) {
       const productCode = getVariantProductCode(variant);
       favoriteEnabled = false;
       updateFavoriteState(productCode);
+      // eslint-disable-next-line no-use-before-define
+      updatePriceState(null, variant);
 
       if (!productCode) {
         return;
@@ -231,9 +686,9 @@ export default async function decorate(block) {
         if (requestId !== commerceRequestId || fav.dataset.productCode !== productCode) {
           return;
         }
-
+        // eslint-disable-next-line no-use-before-define
+        updatePriceState(commerceProduct, variant);
         favoriteEnabled = hasInventory(commerceProduct);
-
         updateFavoriteState(productCode);
       } catch (error) {
         /* eslint-disable-next-line no-console */
@@ -310,6 +765,125 @@ export default async function decorate(block) {
     // create product button group
     const productBtnGroupEl = document.createElement('div');
     productBtnGroupEl.className = 'product-btn-group';
+
+    const updatePriceState = (commerceProduct, fallbackSource = null) => {
+      if (!shouldShowPrice || !commerceProduct) {
+        priceGroupDiv.style.display = 'none';
+        currentPriceCurrency.textContent = '';
+        currentPriceValue.textContent = '';
+        originalPriceCurrency.textContent = '';
+        originalPriceValue.textContent = '';
+        discountsCurrency.textContent = '';
+        discountsValue.textContent = '';
+        originalPriceEl.style.display = 'none';
+        discountsDiv.style.display = 'none';
+        return false;
+      }
+
+      const { sale, msrp, currency } = getPricingDetails(commerceProduct, fallbackSource);
+      const primaryPrice = (sale.formattedValue || sale.value !== null) ? sale : msrp;
+      const currentPriceParts = getPriceParts(primaryPrice, currency);
+      const originalPriceParts = getPriceParts(msrp, currency);
+      const hasDiscount = sale.value !== null && msrp.value !== null && msrp.value > sale.value;
+
+      const discountParts = hasDiscount
+        ? getPriceParts({
+          value: msrp.value - sale.value,
+          currencyIso: currency,
+        }, currency)
+        : { currency: '', amount: '', full: '' };
+      currentPriceCurrency.textContent = currentPriceParts.currency || '';
+      currentPriceValue.textContent = currentPriceParts.amount || currentPriceParts.full || '';
+      originalPriceCurrency.textContent = hasDiscount ? (originalPriceParts.currency || '') : '';
+      originalPriceValue.textContent = hasDiscount ? (originalPriceParts.amount || originalPriceParts.full || '') : '';
+      discountsCurrency.textContent = hasDiscount ? (discountParts.currency || '') : '';
+      discountsValue.textContent = hasDiscount ? (discountParts.amount || discountParts.full || '') : '';
+
+      originalPriceEl.style.display = hasDiscount ? '' : 'none';
+      discountsDiv.style.display = hasDiscount ? '' : 'none';
+      priceGroupDiv.style.display = currentPriceParts.full ? 'flex' : 'none';
+      return Boolean(currentPriceParts.full);
+    };
+
+    fav.addEventListener('click', async (event) => {
+      event.stopPropagation();
+
+      const favoriteEl = event.currentTarget;
+      const { productCode } = favoriteEl.dataset;
+      if (!productCode || favoriteEl.dataset.loading === 'true') {
+        return;
+      }
+
+      let deferLoadingReset = false;
+      setControlLoadingState(favoriteEl, true);
+      try {
+        const authState = await authReadyPromise;
+        if (!authState.authenticated) {
+          deferLoadingReset = true;
+          scheduleControlLoadingReset(favoriteEl);
+          startHybrisLogin(window.location.href);
+          return;
+        }
+
+        const existingEntry = getWishlistEntryByProductCode(productCode);
+        if (existingEntry?.entryNumber !== undefined && existingEntry?.entryNumber !== null) {
+          bumpWishlistVersion();
+          await removeHybrisWishlistItem(existingEntry.entryNumber, {
+            cartCode: existingEntry.cartCode || wishlistPrimaryCartCode,
+            redirectOnAuthFailure: true,
+            returnUrl: window.location.href,
+          });
+          deleteWishlistEntry(existingEntry, productCode);
+          wishlistLoaded = true;
+          syncWishlistFavoriteElements();
+        } else {
+          let targetCartCode = existingEntry?.cartCode || wishlistPrimaryCartCode;
+          if (!targetCartCode) {
+            await ensureWishlistLoaded(true).catch(() => wishlistEntriesByCode);
+            targetCartCode = getWishlistEntryByProductCode(productCode)?.cartCode || wishlistPrimaryCartCode;
+          }
+          if (!targetCartCode) {
+            throw new Error('Wishlist cartCode is unavailable');
+          }
+
+          bumpWishlistVersion();
+          const addResponse = await addHybrisWishlistItem(productCode, 1, {
+            cartCode: targetCartCode,
+            redirectOnAuthFailure: true,
+            returnUrl: window.location.href,
+          });
+          if (!targetCartCode) {
+            await ensureWishlistLoaded(true).catch(() => wishlistEntriesByCode);
+            targetCartCode = getWishlistEntryByProductCode(productCode)?.cartCode || wishlistPrimaryCartCode;
+          }
+          const nextEntry = getWishlistEntryData(addResponse, productCode, targetCartCode);
+          if (nextEntry?.code) {
+            setWishlistEntry(nextEntry, productCode, addResponse, addResponse?.product, addResponse?.item, addResponse?.entry);
+            wishlistLoaded = true;
+            syncWishlistFavoriteElements();
+          } else {
+            setWishlistEntry({
+              code: productCode,
+              entryNumber: null,
+              cartCode: targetCartCode,
+            }, productCode);
+            wishlistLoaded = true;
+            syncWishlistFavoriteElements();
+            ensureWishlistLoaded(true).catch(() => wishlistEntriesByCode);
+          }
+        }
+      } catch (error) {
+        /* eslint-disable-next-line no-console */
+        console.warn(`Failed to toggle wishlist item for ${productCode}`, error);
+        await ensureWishlistLoaded(true).catch(() => wishlistEntriesByCode);
+      } finally {
+        if (!deferLoadingReset) {
+          setControlLoadingState(favoriteEl, false);
+        }
+      }
+
+      await refreshFavoriteState(productCode);
+    });
 
     card.append(titleDiv, imgDiv, seriesDiv, nameDiv, priceGroupDiv, productBtnGroupEl);
     previewListEl.appendChild(card);
