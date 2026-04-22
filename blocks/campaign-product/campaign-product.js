@@ -1,4 +1,5 @@
 import { getGraphQLUrl } from '../../scripts/locale-utils.js';
+import { resolveProductCardTagLabel } from '../../scripts/commerce-ui-utils.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -109,7 +110,7 @@ export default async function decorate(block) {
           // eslint-disable-next-line no-await-in-loop
           const respJson = await resp.json();
           itemAllList = respJson.data.productModelList.items;
-          console.log(itemAllList.map((item) => item.sku));
+          // console.log(itemAllList.map((item) => item.badge));
         } catch (err) {
           console.error('请求失败', err);
         }
@@ -146,6 +147,7 @@ export default async function decorate(block) {
     titleDiv.className = 'product-card-title';
     const productCardTag = document.createElement('div');
     productCardTag.className = 'product-card-tag';
+    productCardTag.textContent = resolveProductCardTagLabel(item);
     titleDiv.append(productCardTag);
 
     const fav = document.createElement('div');
