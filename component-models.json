@@ -5295,6 +5295,41 @@
     ]
   },
   {
+    "id": "retailer-card-grid",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "retailer_title",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "retailer-card-items",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "item_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "item_ctaPrimary",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "item_ctaPrimaryText",
+        "label": "Button Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "search-box-navigation",
     "fields": []
   },
