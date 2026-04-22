@@ -1,4 +1,4 @@
-export function buildOptimizedPictureUrl(
+export default function buildOptimizedPictureUrl(
   src,
   currentLocationHref,
   {

@@ -1,4 +1,4 @@
-import { buildOptimizedPictureUrl } from './optimized-picture-url.js';
+import buildOptimizedPictureUrl from './optimized-picture-url.js';
 
 /*
  * Copyright 2025 Adobe. All rights reserved.
