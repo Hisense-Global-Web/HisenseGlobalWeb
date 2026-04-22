@@ -1674,13 +1674,12 @@
       {
         "component": "select",
         "name": "classes",
-        "value": "",
         "label": "Banner classes options",
         "valueType": "string",
         "options": [
           {
             "name": "Default",
-            "value": ""
+            "value": "default"
           },
           {
             "name": "text-color-black",
@@ -1703,32 +1702,38 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "collection_text",
-        "label": "Text",
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "body-text",
+        "label": "Body Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "collection_ctaGreen",
+        "name": "button_ctaGreen",
         "label": "Green CTA",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "collection_ctaGreenText",
+        "name": "button_ctaGreenText",
         "label": "Green CTA Label",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "collection_ctaPrimary",
+        "name": "button_ctaPrimary",
         "label": "Primary CTA",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "collection_ctaPrimaryText",
+        "name": "button_ctaPrimaryText",
         "label": "Primary CTA Label",
         "valueType": "string"
       }
@@ -1867,17 +1872,6 @@
         "name": "company-page-navigation-item-link",
         "label": "Link",
         "required": true
-      }
-    ]
-  },
-  {
-    "id": "cookie",
-    "fields": [
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "cookieScript",
-        "label": "Cookie script"
       }
     ]
   },
@@ -3843,6 +3837,12 @@
         "name": "button_label",
         "label": "Button Label",
         "description": "Noted that only two options(overlay_text-left and overlay_text-left-bottom) support the configration button."
+      },
+      {
+        "component": "boolean",
+        "name": "mask-layer",
+        "label": "Mask Layer",
+        "valueType": "boolean"
       }
     ]
   },

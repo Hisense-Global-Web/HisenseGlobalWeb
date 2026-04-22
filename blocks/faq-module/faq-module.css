@@ -109,6 +109,8 @@
       align-items: flex-start;
       justify-content: space-between;
       cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent; /* 移动端点击时去除默认的高亮效果 */
 
       > div:first-child {
         flex: 1;

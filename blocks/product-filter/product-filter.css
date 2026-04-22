@@ -333,6 +333,6 @@
   }
 
   .plp-filter-list {
-    max-height: calc(200 / var(--breakpoint-mobile) * 100vw);
+    max-height: calc(340 / var(--breakpoint-mobile) * 100vw);
   }
 }

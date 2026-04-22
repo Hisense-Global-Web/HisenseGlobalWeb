@@ -62,7 +62,7 @@ export function bindEvent(block, type = 'normal') {
   // 按钮点击事件
   nextBtn.addEventListener('click', () => {
     const remaining = maxTranslate - Math.abs(currentX);
-    if (remaining <= 0) return;
+    if (remaining <= 10) return;
     // 如果剩余距离不足一个 step + 1，则直接滑动到底对齐
     currentIndex += 1;
     if (remaining < (step + 1)) {
@@ -77,7 +77,7 @@ export function bindEvent(block, type = 'normal') {
     if (currentX >= 0) return;
     currentIndex -= 1;
     // 往回走时，如果距离起点不足一个 step，直接归零
-    if (Math.abs(currentX) < (step + 1)) {
+    if (Math.abs(currentX) < (step + 1) + 10) {
       currentX = 0;
     } else {
       currentX += step;
