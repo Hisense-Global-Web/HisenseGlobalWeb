@@ -3837,6 +3837,12 @@
         "name": "button_label",
         "label": "Button Label",
         "description": "Noted that only two options(overlay_text-left and overlay_text-left-bottom) support the configration button."
+      },
+      {
+        "component": "boolean",
+        "name": "mask-layer",
+        "label": "Mask Layer",
+        "valueType": "boolean"
       }
     ]
   },
