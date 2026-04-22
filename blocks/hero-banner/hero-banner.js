@@ -1,7 +1,9 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { createOptimizedPicture } from '../../scripts/aem.js';
 import { whenElementReady, throttle } from '../../utils/carousel-common.js';
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { isVideoMediaColumn, normalizeImageReferenceLinks } from './media-reference.js';
 
 let heroBannerTimer;
 let heroBannerInterval;
@@ -330,13 +332,14 @@ function createSlide(block, row, slideIndex) {
       case 0:
         // container-reference div
         column.classList.add('hero-banner-item-image');
+        normalizeImageReferenceLinks(column, createOptimizedPicture);
         // 处理image-theme联动nav
         if (column.lastElementChild?.innerHTML.length === 4) {
           theme = column.lastElementChild?.innerHTML || 'false';
           column.lastElementChild?.remove();
         } else theme = 'false';
         slide.classList.add(theme === 'true' ? 'dark' : 'light');
-        if (column.querySelector('a')) {
+        if (isVideoMediaColumn(column)) {
           // video mode
           column.classList.add('video-mode');
           videoElement = initVideo(column, 'desktop', theme === 'true' ? 'dark' : 'light');
