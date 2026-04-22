@@ -1,5 +1,13 @@
 import { getGraphQLUrl } from '../../scripts/locale-utils.js';
-import { resolveProductCardTagLabel } from '../../scripts/commerce-ui-utils.js';
+import { resolveProductCardTagLabel, shouldShowPlpFavoriteButton } from '../../scripts/commerce-ui-utils.js';
+import {
+  fetchHybrisProduct,
+  getCachedHybrisAuthState,
+  getHybrisProductCode,
+  initializeHybrisAuth,
+  scheduleHybrisTask,
+} from '../../scripts/hybris-bff.js';
+import { ensureWishlistLoaded, getWishlistEntryByProductCode, hasInventory } from '../product-card/product-card.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -63,6 +71,11 @@ export default async function decorate(block) {
   let IS_LEFTEST = true;
   let IS_RIGHTEST = false;
   const flatList = [];
+  const shouldShowPrice = true;
+  let commerceRequestId = 0;
+  let wishlistStateReady = false;
+  let favoriteEnabled = false;
+  let favoriteAuthenticated = Boolean(getCachedHybrisAuthState().authenticated);
 
   // eslint-disable-next-line no-restricted-syntax
   const rows = [...block.children];
@@ -161,6 +174,81 @@ export default async function decorate(block) {
     like.className = 'like';
     like.src = `/content/dam/hisense/${country}/common-icons/like.svg`;
     fav.appendChild(like);
+
+    const updateFavoriteState = (productCode) => {
+      const canShowFavorite = Boolean(productCode) && shouldShowPlpFavoriteButton({
+        authenticated: favoriteAuthenticated,
+        hasInventory: favoriteEnabled,
+      });
+      fav.dataset.productCode = productCode || '';
+      fav.hidden = !canShowFavorite;
+      fav.classList.toggle(
+        'selected',
+        canShowFavorite && Boolean(getWishlistEntryByProductCode(fav.dataset.productCode)),
+      );
+      fav.classList.toggle('favorite-pending', canShowFavorite && !wishlistStateReady);
+    };
+    const authReadyPromise = scheduleHybrisTask(() => initializeHybrisAuth());
+    const refreshFavoriteState = async (productCode, requestId) => {
+      wishlistStateReady = false;
+      updateFavoriteState(productCode);
+
+      try {
+        const authState = await authReadyPromise;
+        favoriteAuthenticated = Boolean(authState?.authenticated);
+        if (favoriteAuthenticated) {
+          await ensureWishlistLoaded();
+        }
+      } catch (error) {
+        /* eslint-disable-next-line no-console */
+        console.warn(`Failed to load wishlist state for ${productCode}`, error);
+      } finally {
+        wishlistStateReady = true;
+        if ((requestId === undefined || requestId === commerceRequestId) && fav.dataset.productCode === productCode) {
+          updateFavoriteState(productCode);
+        }
+      }
+    };
+    const getVariantProductCode = (variant) => getHybrisProductCode(variant)
+        || getHybrisProductCode(item);
+
+    const refreshCommerceState = async (variant) => {
+      const requestId = commerceRequestId + 1;
+      commerceRequestId = requestId;
+
+      const productCode = getVariantProductCode(variant);
+      favoriteEnabled = false;
+      updateFavoriteState(productCode);
+
+      if (!productCode) {
+        return;
+      }
+
+      await refreshFavoriteState(productCode, requestId);
+
+      try {
+        const commerceProduct = await fetchHybrisProduct(productCode);
+        if (requestId !== commerceRequestId || fav.dataset.productCode !== productCode) {
+          return;
+        }
+
+        favoriteEnabled = hasInventory(commerceProduct);
+
+        updateFavoriteState(productCode);
+      } catch (error) {
+        /* eslint-disable-next-line no-console */
+        console.warn(`Failed to load commerce data for ${productCode}`, error);
+        if (requestId !== commerceRequestId) {
+          return;
+        }
+        favoriteEnabled = false;
+        updateFavoriteState(productCode);
+      }
+    };
+    scheduleHybrisTask(() => refreshCommerceState(item)).catch((error) => {
+      /* eslint-disable-next-line no-console */
+      console.warn('Failed to refresh commerce state', error);
+    });
     titleDiv.append(fav);
 
     const imgDiv = document.createElement('div');
