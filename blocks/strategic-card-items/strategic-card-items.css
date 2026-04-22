@@ -109,6 +109,7 @@
       gap: var(--size-16);
       padding: 0 var(--common-padding);
       margin: 0 calc(-1 * var(--common-padding));
+      align-items: stretch;
       overflow-x: scroll;
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -119,11 +120,12 @@
     .strategic-card-item {
       flex: none;
       width: calc(240/var(--breakpoint-mobile)*100vw);
-      height: -webkit-fill-available;
       padding: var(--size-24) var(--size-24) var(--size-32) var(--size-24);
       flex-shrink: 0;
       gap: var(--size-32);
       border-radius: var(--radius-xl, 16px);
+      box-sizing: border-box;
+      height: auto;
 
       .card-icon {
         width: var(--size-80);
