@@ -765,6 +765,14 @@ export default async function decorate(block) {
     // create product button group
     const productBtnGroupEl = document.createElement('div');
     productBtnGroupEl.className = 'product-btn-group';
+    if (item.productDetailPageLink && item.productDetailPageLink !== '#') {
+      const link = document.createElement('a');
+      link.className = 'product-btn';
+      link.target = '_blank';
+      link.href = item.productDetailPageLink;
+      link.textContent = 'Learn more';
+      productBtnGroupEl.append(link);
+    }
 
     const updatePriceState = (commerceProduct, fallbackSource = null) => {
       if (!shouldShowPrice || !commerceProduct) {

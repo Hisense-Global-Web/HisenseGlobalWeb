@@ -205,10 +205,15 @@
             margin-right: var(--size-3);
           }
         }
+        
+        &[style*="display: none"] + .product-btn-group {
+          margin-top: auto;
+        }
       }
       
       .product-btn-group {
         display: flex;
+        justify-content: space-between;
         gap: var(--size-14);
         
         .product-btn {
@@ -228,6 +233,20 @@
           text-align: center;
           width: 100%;
           text-transform: capitalize;
+          
+          &:hover {
+            background-color: var(--color-primary-grey-70);
+            border-color: var(--color-primary-grey-70);
+            color: #fff;
+            text-decoration: none;
+          }
+
+          &:active {
+            background-color: #000;
+            border-color: #000;
+            color: var(--white-alpha-80);
+            text-decoration: none;
+          }
         }
       }
     }
