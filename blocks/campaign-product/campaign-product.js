@@ -765,6 +765,14 @@ export default async function decorate(block) {
     // create product button group
     const productBtnGroupEl = document.createElement('div');
     productBtnGroupEl.className = 'product-btn-group';
+    if (true) {
+      const link = document.createElement('a');
+      link.className = 'pre-order-btn';
+      link.target = '_blank';
+      link.href = 'https://www.hisense-usa.com/out-host-with-hisense#comp-mmy8bq41';
+      link.textContent = 'Pre-Order';
+      productBtnGroupEl.append(link);
+    }
     if (item.productDetailPageLink && item.productDetailPageLink !== '#') {
       const link = document.createElement('a');
       link.className = 'product-btn';

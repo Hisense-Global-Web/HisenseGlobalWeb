@@ -216,6 +216,25 @@
         justify-content: space-between;
         gap: var(--size-14);
         
+        .pre-order-btn {
+          padding: 0 var(--size-16);
+          border: 1px solid var(--color-primary-grey-70);
+          border-radius: var(--size-15);
+          background: var(--color-primary-grey-100);
+          color: var(--color-primary-grey-10);
+          cursor: pointer;
+          font-size: var(--size-12);
+          font-weight: var(--fontweight-medium);
+          height: var(--size-30);
+          line-height: var(--size-30);
+          text-decoration: none;
+          margin-top: auto;
+          align-self: flex-start;
+          text-align: center;
+          width: 100%;
+          text-transform: capitalize;
+        }
+        
         .product-btn {
           padding: 0 var(--size-16);
           border: 1px solid var(--color-primary-grey-70);
