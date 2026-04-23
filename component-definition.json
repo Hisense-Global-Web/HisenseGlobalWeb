@@ -534,7 +534,8 @@
                 "template": {
                   "name": "Campaign Host List",
                   "model": "campaign-host-list",
-                  "text-align": "right"
+                  "text-align": "right",
+                  "filter": "campaign-host-list-item"
                 }
               }
             }
