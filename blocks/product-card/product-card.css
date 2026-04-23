@@ -260,7 +260,6 @@
   font-family: var(--font-family);
   text-transform: capitalize;
   display: none;
-  margin-top: var(--size-16);
 }
 
 .product-card .plp-add-to-cart-btn.plp-purchase-hidden,
@@ -319,6 +318,14 @@
   flex-direction: column;
   gap: var(--size-8);
   margin-top: auto;
+
+  *:not([style*="display: none"]) {
+    margin-top: var(--size-16);
+    
+    &~ *:not([style*="display: none"]) {
+      margin-top: 0;
+    }
+  }
 }
 
 .product-card .plp-where-to-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku {
