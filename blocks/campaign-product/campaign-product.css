@@ -233,6 +233,13 @@
           text-align: center;
           width: 100%;
           text-transform: capitalize;
+          
+          &:hover {
+            background-color: var(--color-primary-grey-70);
+            border-color: var(--color-primary-grey-70);
+            color: #fff;
+            text-decoration: none;
+          }
         }
         
         .product-btn {
