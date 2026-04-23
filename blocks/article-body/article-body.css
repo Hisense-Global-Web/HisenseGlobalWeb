@@ -139,6 +139,16 @@ main .section.article-body-container .article-body-wrapper {
             font-weight: var(--fontweight-book);
             line-height: 1.6;
           }
+          
+          .button-container {
+            display: inline-block;
+          }
+          
+          a {
+            color: var(--color-primary-green-60);
+            background: inherit;
+            text-decoration: underline;
+          }
 
           @media (width < 860px) {
             font-size: var(--size-14);
