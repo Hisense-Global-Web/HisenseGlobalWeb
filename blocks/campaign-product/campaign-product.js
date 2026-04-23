@@ -490,7 +490,7 @@ function updatePositionBarLeft(currentIndex, dataListLength) {
   const bar = document.querySelector('.data-position-bar');
   if (bar) {
     const totalWidth = 400;
-    const barWidth = 100;
+    const barWidth = 1600 / dataListLength;
     const showItemCount = 4;
     const maxMoveDistance = totalWidth - barWidth;
     bar.style.left = `${(maxMoveDistance / Math.max((dataListLength - showItemCount), 1) || 0) * currentIndex}px`;
@@ -911,6 +911,7 @@ export default async function decorate(block) {
   positionBarEl.classList.add('position-bar');
   const dataPositionBarEl = document.createElement('div');
   dataPositionBarEl.classList.add('data-position-bar');
+  dataPositionBarEl.style.width = `${((1600 / flatList.length) * Math.min(window.innerWidth, 1440)) / 1440}px`;
   positionBarEl.append(dataPositionBarEl);
   const leftBtn = createScrollButton('left');
   const rightBtn = createScrollButton('right');
