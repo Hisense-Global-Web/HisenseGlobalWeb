@@ -200,6 +200,8 @@ export default async function decorate(block) {
           // markers: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
+          // 防止影响其他动画的关键配置
+          refreshPriority: 1,
         },
       });
 
