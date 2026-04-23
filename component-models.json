@@ -1386,6 +1386,147 @@
     ]
   },
   {
+    "id": "campaign-host-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Ttile",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "green_buttonicon",
+        "label": "Green Button Icon",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "green_buttontext",
+        "label": "Green Butotn Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "green_buttonlink",
+        "label": "Green Button Link",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "blue_buttonicon",
+        "label": "Blue Button Icon",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "blue_buttontext",
+        "label": "Blue Butotn Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "blue_buttonlink",
+        "label": "Blue Button Link",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "red_buttonicon",
+        "label": "Red Button Icon",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "red_buttontext",
+        "label": "Red Butotn Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "red_buttonlink",
+        "label": "Red Button Link",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-host-list-item",
+    "fields": [
+      {
+        "component": "select",
+        "name": "host_type",
+        "label": "Host Type",
+        "valueType": "string",
+        "required": true,
+        "options": [
+          {
+            "name": "Green",
+            "value": "green"
+          },
+          {
+            "name": "Blue",
+            "value": "blue"
+          },
+          {
+            "name": "Red",
+            "value": "red"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Ttile",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "product_image",
+        "label": "Product Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Butotn Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "campaign-image",
     "fields": [
       {
