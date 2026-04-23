@@ -253,10 +253,11 @@ main .section.product-gallery-container.product-section-container .product-secti
   gap: var(--size-16);
 
   :not([style*="display: none"]) {
-    margin-top: var(--size-40);
+    margin-top: var(--size-40) !important;
 
     @media (width < 860px) {
-      margin-top: var(--size-24);
+      gap: 0;
+      margin-top: var(--size-24) !important;
     }
   }
 }
