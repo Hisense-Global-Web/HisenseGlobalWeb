@@ -7,6 +7,63 @@ export default function shouldShowAddToCartButton(options = {}) {
   return Boolean(hasPrice && hasInventory);
 }
 
+export function resolveCommerceCallToAction(options = {}) {
+  const {
+    hasProductData = false,
+    hasPrice = false,
+    hasInventory = false,
+  } = options;
+
+  if (hasPrice && hasInventory) {
+    return 'addToCart';
+  }
+
+  if (!hasProductData || !hasPrice) {
+    return 'whereToBuy';
+  }
+
+  if (!hasInventory) {
+    return 'outOfStock';
+  }
+
+  return 'whereToBuy';
+}
+
+export function resolveCommerceButtonVisibility(callToAction = 'whereToBuy') {
+  const normalizedCallToAction = String(callToAction || 'whereToBuy');
+
+  if (normalizedCallToAction === 'addToCart') {
+    return {
+      showAddToCart: true,
+      showOutOfStock: false,
+      showWhereToBuy: false,
+    };
+  }
+
+  if (normalizedCallToAction === 'outOfStock') {
+    return {
+      showAddToCart: false,
+      showOutOfStock: true,
+      showWhereToBuy: true,
+    };
+  }
+
+  return {
+    showAddToCart: false,
+    showOutOfStock: false,
+    showWhereToBuy: true,
+  };
+}
+
+export function resolveWhereToBuyButtonPresentation() {
+  return {
+    text: '',
+    fallbackText: 'Where to buy',
+    usePriceSpiderWidget: true,
+    buttonLabel: 'where to buy',
+  };
+}
+
 export function shouldShowHybrisFavoriteButton(options = {}) {
   const {
     authenticated = false,
