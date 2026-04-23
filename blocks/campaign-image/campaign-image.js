@@ -1,33 +1,13 @@
 export default function decorate(block) {
-  const [bgPCEl, bgMobileEl, footballEl, alignEl, contentEl] = [...block.children] ?? [];
-  // const bgPCImage = bgPCEl?.querySelector?.('img')?.src;
-  // const bgMobileImage = bgMobileEl?.querySelector?.('img')?.src;
-  // bgPCEl?.remove();
-  // bgMobileEl?.remove();
+  const [bgPCEl, bgMobileEl, footballEl, leftCloseEl, rightContentEl] = [...block.children] ?? [];
   bgPCEl.classList.add('background-pc');
   bgMobileEl.classList.add('background-mobile');
-  // const meidaQuery = window.matchMedia('(min-width: 860px)');
-
-  // const handleMediaChange = (e) => {
-  //   if (e.matches) {
-  //     if (bgPCImage) { // PC
-  //       // block.style.backgroundImage = `url(${bgPCImage})`;
-  //     }
-  //   } else {
-  //     // eslint-disable-next-line no-lonely-if
-  //     if (bgMobileImage) { // Mobile
-  //       // block.style.backgroundImage = `url(${bgMobileImage})`;
-  //     }
-  //   }
-  // };
-
-  // handleMediaChange(meidaQuery);
-
-  const align = alignEl?.querySelector('p')?.textContent ?? 'right';
   footballEl?.classList?.add('football');
-  alignEl?.remove?.();
-  contentEl.classList.add('content', align);
-  const [titleEl, textEl, btnTextEl, btnLinkEl] = contentEl.children?.[0]?.children ?? [];
+  const contentWrapperEl = document.createElement('div');
+  contentWrapperEl.classList.add('content-wrapper');
+  leftCloseEl?.classList?.add('left-close');
+  rightContentEl.classList.add('right-content');
+  const [titleEl, textEl, btnTextEl, btnLinkEl] = rightContentEl.children?.[0]?.children ?? [];
   titleEl?.classList?.add('title');
   textEl?.classList?.add('text');
   btnTextEl?.classList?.add('button');
@@ -38,4 +18,8 @@ export default function decorate(block) {
       window.location.href = btnLink;
     });
   }
+
+  contentWrapperEl.appendChild(leftCloseEl);
+  contentWrapperEl.appendChild(rightContentEl);
+  block.appendChild(contentWrapperEl);
 }
