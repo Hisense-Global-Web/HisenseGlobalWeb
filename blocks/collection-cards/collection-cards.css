@@ -19,13 +19,13 @@
   gap: var(--fontsize-title1);
 
   @media (width < 860px) {
-		overflow-x: auto;
+		overflow: auto visible;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
     scroll-behavior: smooth; /* 平滑滚动 */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
-    touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
+    touch-action: pan-x pan-y pinch-zoom; /* 允许水平滑动和捏合缩放 */
     overscroll-behavior-x: contain; /* 防止滚动链 */
     grid-auto-flow: column;
     gap: var(--fontsize-body1);
@@ -82,6 +82,7 @@
   border-radius: var(--size-20);
   overflow: hidden;
   position: relative;
+  cursor: pointer;
 
     @media (width >= 860px) {
      width: 100%;
@@ -217,7 +218,7 @@
     font-size: var(--size-12);
     padding: 0 var(--spacing-xs);
     color: #fff !important;
-    background-color: var(--color-primary-green-50);
+    background-color: transparent;
     visibility: hidden;
     position: absolute;
     bottom: 0;
@@ -228,7 +229,7 @@
     transform: translateX(-50%);
     
     /* -webkit-transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s; */
-    transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s;
+    transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s, background-color linear .5s;
 }
 
 .center-style > ul > li .collection-cards-card-cta a.button:any-link:active,
@@ -242,6 +243,7 @@
     opacity: 1;
     visibility: visible;
     bottom: var(--spacing-lg);
+    background-color: var(--color-primary-green-50);
   }
 }
 

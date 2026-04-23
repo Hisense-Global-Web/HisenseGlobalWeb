@@ -75,10 +75,10 @@ function getCartCount(cart = {}) {
 
   return normalizeCount(
     cart?.totalUnitCount
-      ?? cart?.totalItems
-      ?? cart?.totalItemCount
-      ?? cart?.itemCount
-      ?? cart?.quantity,
+    ?? cart?.totalItems
+    ?? cart?.totalItemCount
+    ?? cart?.itemCount
+    ?? cart?.quantity,
   );
 }
 
@@ -451,15 +451,20 @@ function parseActions(root) {
     const picList = wrapper.querySelectorAll('img');
     const lightSrc = picList[0]?.src || '';
     let darkSrc = '';
+    let hoverSrc = '';
     if (picList.length > 1) {
       darkSrc = picList[1]?.src || '';
     }
+    if (picList.length > 2) {
+      hoverSrc = picList[2]?.src || '';
+    }
     const img = fixImageUrl(lightSrc);
     const darkImg = fixImageUrl(darkSrc);
+    const hoverImg = fixImageUrl(hoverSrc);
     const navigationActionEl = wrapper.querySelector('.navigation-action');
     const actionFields = Array.from(navigationActionEl?.children || []);
-    const rawFourthField = actionFields[3]?.textContent?.trim() || '';
-    const rawFifthField = actionFields[4]?.textContent?.trim() || '';
+    const rawFourthField = actionFields[4]?.textContent?.trim() || '';
+    const rawFifthField = actionFields[5]?.textContent?.trim() || '';
     const isLegacyEnableSearchField = rawFourthField.toLowerCase() === 'true' || rawFourthField.toLowerCase() === 'false';
     const rawIconType = isLegacyEnableSearchField ? '' : rawFourthField;
     const rawEnableSearch = isLegacyEnableSearchField ? rawFourthField : rawFifthField;
@@ -470,6 +475,7 @@ function parseActions(root) {
       href: processPath(href),
       img,
       darkImg,
+      hoverImg,
       enableSearchBox,
       iconType,
     };
@@ -966,9 +972,11 @@ const toggleSearchBoxPopup = (e) => {
   if ([...searchBoxPopupEl.classList].includes('show')) {
     setSearchBoxInput(inputWrapperEl);
     searchBoxPopupEl.classList.remove('show');
+    document.querySelector('main')?.classList?.remove('main-mobile');
   } else {
     setSearchBoxInput(inputWrapperEl);
     searchBoxPopupEl.classList.add('show');
+    document.querySelector('main')?.classList?.add('main-mobile');
   }
 };
 
@@ -982,6 +990,7 @@ const showSearchBoxPopup = (e) => {
     if (searchBoxPopupEl) {
       checkMobileSearchBox(inputWrapperEl);
       searchBoxPopupEl.classList.add('show');
+      document.querySelector('main')?.classList?.add('main-mobile');
     }
   }
 };
@@ -1002,6 +1011,7 @@ const hideSearchBoxPopup = (e) => {
     if (searchBoxPopupEl) {
       setSearchBoxInput(inputWrapperEl);
       searchBoxPopupEl.classList.remove('show');
+      document.querySelector('main')?.classList?.remove('main-mobile');
     }
   }, 200);
 };
@@ -1180,7 +1190,7 @@ export default async function decorate(block) {
       syncedHeaderAuthState = authState;
       syncHeaderCommerceUi(authState);
       if (shouldRefreshCounts) {
-        refreshHeaderCommerceCounts(authState).catch(() => {});
+        refreshHeaderCommerceCounts(authState).catch(() => { });
       }
       return;
     }
@@ -1231,7 +1241,7 @@ export default async function decorate(block) {
     }
 
     if (type === 'wishlist-mutated' && hasValidHybrisAccountState(authState)) {
-      fetchHybrisWishlist().catch(() => {});
+      fetchHybrisWishlist().catch(() => { });
     }
   };
 
@@ -1510,6 +1520,12 @@ export default async function decorate(block) {
       imgDark.alt = action.title || 'action';
       imgDark.className = 'dark-img';
       btn.append(imgDark);
+      const imgHover = document.createElement('img');
+      // imgHover.src = convertToDarkSvgUrl(action.img);
+      imgHover.src = action.hoverImg || action.img;
+      imgHover.alt = action.title || 'action';
+      imgHover.className = 'hover-img';
+      btn.append(imgHover);
 
       if (action.iconType === NAVIGATION_ACTION_TYPES.SEARCH_BOX) {
         btn.addEventListener('click', toggleSearchBoxPopup);
@@ -1584,7 +1600,7 @@ export default async function decorate(block) {
     window.addEventListener(HYBRIS_DATA_EVENT_NAME, handleHybrisDataEvent);
 
     syncHeaderCommerceUi(syncedHeaderAuthState);
-    refreshHeaderCommerceCounts(syncedHeaderAuthState).catch(() => {});
+    refreshHeaderCommerceCounts(syncedHeaderAuthState).catch(() => { });
 
     const syncAuthStateAndRefreshCountsIfNeeded = (authState) => {
       const shouldRefreshCounts = shouldRefreshHeaderCommerceCountsAfterAuthInit(
@@ -1605,7 +1621,7 @@ export default async function decorate(block) {
         const nextAuthState = getCachedHybrisAuthState();
         return syncAuthStateAndRefreshCountsIfNeeded(nextAuthState);
       })
-      .catch(() => {});
+      .catch(() => { });
   }
 
   // 物理添加手机端菜单按钮

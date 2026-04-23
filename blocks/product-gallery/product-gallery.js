@@ -308,6 +308,20 @@ export default function decorate(block) {
     }
     dots.append(dotLi);
   });
+  if (tabs) {
+    const videoList = tabs.querySelectorAll('video');
+    const imgList = tabs.querySelectorAll('img');
+    const firstImg = imgList[0];
+
+    firstImg.onload = () => {
+      if (videoList && videoList.length) {
+        const h = firstImg.offsetHeight;
+        videoList.forEach((video) => {
+          video.style.height = `${h}px`;
+        });
+      }
+    };
+  }
 
   tabs.addEventListener('scroll', updateActiveDot);
 

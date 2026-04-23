@@ -1,3 +1,5 @@
+import buildOptimizedPictureUrl from './optimized-picture-url.js';
+
 /*
  * Copyright 2025 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -330,7 +332,10 @@ function createOptimizedPicture(
     const source = document.createElement('source');
     if (br.media) source.setAttribute('media', br.media);
     source.setAttribute('type', 'image/webp');
-    source.setAttribute('srcset', `${pathname}?width=${br.width}&format=webply&optimize=medium`);
+    source.setAttribute('srcset', buildOptimizedPictureUrl(src, window.location.href, {
+      width: br.width,
+      format: 'webply',
+    }));
     picture.appendChild(source);
   });
 
@@ -339,14 +344,20 @@ function createOptimizedPicture(
     if (i < breakpoints.length - 1) {
       const source = document.createElement('source');
       if (br.media) source.setAttribute('media', br.media);
-      source.setAttribute('srcset', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
+      source.setAttribute('srcset', buildOptimizedPictureUrl(src, window.location.href, {
+        width: br.width,
+        format: ext,
+      }));
       picture.appendChild(source);
     } else {
       const img = document.createElement('img');
       img.setAttribute('loading', eager ? 'eager' : 'lazy');
       img.setAttribute('alt', alt);
       picture.appendChild(img);
-      img.setAttribute('src', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
+      img.setAttribute('src', buildOptimizedPictureUrl(src, window.location.href, {
+        width: br.width,
+        format: ext,
+      }));
     }
   });
 

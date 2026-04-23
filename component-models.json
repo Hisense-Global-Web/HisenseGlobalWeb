@@ -1740,13 +1740,12 @@
       {
         "component": "select",
         "name": "classes",
-        "value": "",
         "label": "Banner classes options",
         "valueType": "string",
         "options": [
           {
             "name": "Default",
-            "value": ""
+            "value": "default"
           },
           {
             "name": "text-color-black",
@@ -1769,32 +1768,38 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "collection_text",
-        "label": "Text",
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "body-text",
+        "label": "Body Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "collection_ctaGreen",
+        "name": "button_ctaGreen",
         "label": "Green CTA",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "collection_ctaGreenText",
+        "name": "button_ctaGreenText",
         "label": "Green CTA Label",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "collection_ctaPrimary",
+        "name": "button_ctaPrimary",
         "label": "Primary CTA",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "collection_ctaPrimaryText",
+        "name": "button_ctaPrimaryText",
         "label": "Primary CTA Label",
         "valueType": "string"
       }
@@ -3898,6 +3903,12 @@
         "name": "button_label",
         "label": "Button Label",
         "description": "Noted that only two options(overlay_text-left and overlay_text-left-bottom) support the configration button."
+      },
+      {
+        "component": "boolean",
+        "name": "mask-layer",
+        "label": "Mask Layer",
+        "valueType": "boolean"
       }
     ]
   },
@@ -4057,6 +4068,14 @@
         "valueType": "string",
         "name": "darkIcon",
         "label": "Dark Icon",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "hoverIcon",
+        "label": "hover Icon",
         "multi": false,
         "required": true
       },
@@ -5338,6 +5357,41 @@
             "value": "subscribe"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "retailer-card-grid",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "retailer_title",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "retailer-card-items",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "item_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "item_ctaPrimary",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "item_ctaPrimaryText",
+        "label": "Button Label",
+        "valueType": "string"
       }
     ]
   },
