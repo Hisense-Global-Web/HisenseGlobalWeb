@@ -1410,16 +1410,11 @@
         "multi": false
       },
       {
-        "component": "select",
-        "name": "text-align",
-        "label": "Text Align",
+        "component": "reference",
         "valueType": "string",
-        "options": [
-          {
-            "name": "Right",
-            "value": "right"
-          }
-        ]
+        "name": "left-image",
+        "label": "Left Image",
+        "multi": false
       },
       {
         "component": "text",
