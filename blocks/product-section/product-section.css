@@ -95,6 +95,11 @@ main .section.product-gallery-container.product-section-container .product-secti
   font-size: var(--fontsize-title2);
   font-weight: var(--fontweight-medium);
   line-height: 1.2;
+  margin-top: var(--size-12);
+}
+
+.hide ~ .pdp-series {
+  margin-top: 0;
 }
 
 .pdp-title {
@@ -125,7 +130,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 }
 
 .pdp-price {
-  margin-bottom: var(--size-40);
+  margin-top: var(--size-24);
   font-size: var(--size-24);
   line-height: 1.2;
   font-weight: var(--fontweight-medium);
@@ -135,8 +140,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   display: flex;
   justify-content: flex-start;
   gap: var(--size-8);
-  margin-top: var(--size-8);
-  margin-bottom: var(--size-24);
+  margin-top: var(--size-12);
 }
 
 .pdp-size {
@@ -186,7 +190,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 .pdp-badges {
   display: flex;
   gap: var(--size-8);
-  margin-bottom: var(--size-24); 
+  margin-top: var(--size-24); 
   
   &:empty {
     display: none;
@@ -247,11 +251,19 @@ main .section.product-gallery-container.product-section-container .product-secti
 .pdp-btn-group {
   display: flex;
   gap: var(--size-16);
-  margin-bottom: var(--size-16);
+  margin-top: var(--size-40);
 
   @media (width < 860px) {
-    margin-bottom: 0;
+    margin-top: var(--size-24);
   }
+}
+
+.pdp-btn-group[style*="height: 0"] {
+  margin-top: 0 !important;
+}
+
+.pdp-btn-group:not(:has(> *:not([style*="display: none"]))) {
+  margin-top: 0 !important;
 }
 
 .pdp-btn-group .pdp-buy-btn.ps-widget[ps-sku],
@@ -330,7 +342,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 
 .pdp-btn-group:has(.pdp-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku),
 .pdp-btn-group:has(.pdp-cart-btn.ps-disabled.ps-no-sku) {
-  margin-bottom: 0;
+  margin-top: 0;
 }
 
 .pdp-btn-group .pdp-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku{
@@ -352,6 +364,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 .pdp-btn-link-group {
   display: flex;
   gap: var(--size-24);
+  margin-top: var(--size-16);
 
   @media (width < 860px) {
     display: none;
@@ -411,6 +424,7 @@ main .section.product-gallery-container.product-section-container .product-secti
     order: 2;
     font-size: var(--size-20);
     line-height: 1.3;
+    margin-top: var(--size-8);
   }
 
   .pdp-title {
@@ -446,7 +460,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 
   .pdp-sizes{
     order: 6;
-    margin: var(--size-24) 0 var(--size-24);
+    margin: var(--size-24) 0 0;
     gap: var(--size-12);
     flex-wrap: wrap;
     
