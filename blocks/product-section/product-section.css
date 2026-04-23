@@ -251,19 +251,14 @@ main .section.product-gallery-container.product-section-container .product-secti
 .pdp-btn-group {
   display: flex;
   gap: var(--size-16);
-  margin-top: var(--size-40);
 
-  @media (width < 860px) {
-    margin-top: var(--size-24);
+  :not([style*="display: none"]) {
+    margin-top: var(--size-40);
+
+    @media (width < 860px) {
+      margin-top: var(--size-24);
+    }
   }
-}
-
-.pdp-btn-group[style*="height: 0"] {
-  margin-top: 0 !important;
-}
-
-.pdp-btn-group:not(:has(> *:not([style*="display: none"]))) {
-  margin-top: 0 !important;
 }
 
 .pdp-btn-group .pdp-buy-btn.ps-widget[ps-sku],
