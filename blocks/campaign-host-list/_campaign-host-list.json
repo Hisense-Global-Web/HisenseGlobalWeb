@@ -62,14 +62,6 @@
           "required": true
         },
         {
-          "component": "aem-content",
-          "name": "green_buttonlink",
-          "label": "Green Button Link",
-          "valueType": "string",
-          "value": "",
-          "required": true
-        },
-        {
           "component": "reference",
           "valueType": "string",
           "name": "blue_buttonicon",
@@ -86,14 +78,6 @@
           "required": true
         },
         {
-          "component": "aem-content",
-          "name": "blue_buttonlink",
-          "label": "Blue Button Link",
-          "valueType": "string",
-          "value": "",
-          "required": true
-        },
-        {
           "component": "reference",
           "valueType": "string",
           "name": "red_buttonicon",
@@ -105,14 +89,6 @@
           "component": "text",
           "name": "red_buttontext",
           "label": "Red Butotn Text",
-          "valueType": "string",
-          "value": "",
-          "required": true
-        },
-        {
-          "component": "aem-content",
-          "name": "red_buttonlink",
-          "label": "Red Button Link",
           "valueType": "string",
           "value": "",
           "required": true
