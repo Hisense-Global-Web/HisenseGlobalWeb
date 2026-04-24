@@ -3908,7 +3908,8 @@
         "component": "boolean",
         "name": "mask-layer",
         "label": "Mask Layer",
-        "valueType": "boolean"
+        "valueType": "boolean",
+        "hidden": true
       }
     ]
   },

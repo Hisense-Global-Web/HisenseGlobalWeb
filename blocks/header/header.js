@@ -796,6 +796,9 @@ function buildSupportDropdown(mainEl) {
   if (!supportEl) { return; }
   const dropdown = document.createElement('div');
   dropdown.className = 'nav-dropdown';
+  dropdown.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
   const content = document.createElement('div');
   content.className = 'dropdown-content h-grid-container';
 
