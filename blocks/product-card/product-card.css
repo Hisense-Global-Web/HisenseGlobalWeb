@@ -261,9 +261,9 @@
   text-transform: capitalize;
   display: none;
   
-  &[disabled] {
-    background: var(--green60-alpha-40);
-    border-color: var(--green60-alpha-40);
+  &.disabled {
+    background: var(--color-primary-grey-40);
+    border-color: var(--color-primary-grey-40);
     color: var(--white-alpha-80);
     cursor: not-allowed;
   }

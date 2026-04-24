@@ -1769,8 +1769,7 @@ export default function decorate(block) {
       addToCartBtnEl.textContent = 'Add to Cart';
 
       const outOfStockBtnEl = document.createElement('div');
-      outOfStockBtnEl.className = 'plp-out-of-stock-btn plp-purchase-hidden';
-      outOfStockBtnEl.disabled = true;
+      outOfStockBtnEl.className = 'plp-out-of-stock-btn disabled plp-purchase-hidden';
       outOfStockBtnEl.textContent = 'Out of stock';
 
       const whereToBuyBtnEl = document.createElement('div');
