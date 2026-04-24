@@ -4878,7 +4878,7 @@
             "value": "position"
           },
           {
-            "name": "Faq",
+            "name": "FAQ",
             "value": "faq"
           }
         ]
@@ -4886,7 +4886,7 @@
       {
         "component": "reference",
         "name": "faq-icon",
-        "label": "Faq Icon",
+        "label": "FAQ Icon",
         "valueType": "string",
         "condition": {
           "some": [
@@ -4908,7 +4908,7 @@
         "component": "aem-content",
         "valueType": "string",
         "name": "faq-link",
-        "label": "Faq Link",
+        "label": "FAQ Link",
         "condition": {
           "some": [
             {

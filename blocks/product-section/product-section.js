@@ -1859,7 +1859,7 @@ export default async function decorate(block) {
 
   const faqMobileBtn = document.createElement('div');
   faqMobileBtn.classList.add('pdp-nav-menu-item');
-  faqMobileBtn.textContent = 'Faq';
+  faqMobileBtn.textContent = 'FAQ';
   faqMobileBtn.addEventListener('click', () => {
     if (faqLink) window.location.href = faqLink;
   });
