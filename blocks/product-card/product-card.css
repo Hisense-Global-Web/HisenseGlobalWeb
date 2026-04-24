@@ -326,14 +326,16 @@
       margin-top: 0;
     }
   }
+
+  &:has(> :first-child.plp-purchase-hidden):has(> :nth-child(2).plp-purchase-hidden):has(> :nth-child(3).ps-disabled) {
+    & > :last-child {
+      margin-top: 16px;
+    }
+  }
 }
 
 .product-card .plp-where-to-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku {
   display:  none !important;
-}
-
-.product-card .plp-where-to-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku + .plp-product-btn {
-  margin-top: var(--size-16);
 }
 
 .product-card .plp-product-compare {
