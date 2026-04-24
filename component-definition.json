@@ -534,7 +534,7 @@
                 "template": {
                   "name": "Campaign Collection",
                   "model": "campaign-collection",
-                  "text-align": "right"
+                  "filter": "campaign-collection"
                 }
               }
             }
