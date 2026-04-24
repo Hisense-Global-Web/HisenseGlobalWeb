@@ -177,7 +177,7 @@
     }
 
     .background-green-active > div {
-      background-color: rgba(0, 210, 101, 0.25);
+      background-color: #00d26540;
     }
 
     .background-blue-dark {
@@ -189,7 +189,7 @@
     }
 
     .background-blue-active > div {
-      background-color: rgba(14, 0, 165, 0.75);
+      background-color: #0e00a5bf;
     }
 
     .background-red-dark {
@@ -201,7 +201,7 @@
     }
 
     .background-red-active > div {
-      background-color: rgba(255, 22, 46, 0.5);
+      background-color: #ff162e80;
     }
 
     .second-part {
@@ -333,7 +333,7 @@
             font-size: var(--fontsize-title1, 24px);
             font-style: normal;
             font-weight: var(--fontweight-medium, 500);
-            line-height: 1.2%;
+            line-height: 1.2;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
             -line-clamp: 2;
@@ -357,11 +357,16 @@
           }
 
           .product-image img {
-            width: calc(192 / var(--breakpoint-mobile) * 100vw);
-            height: calc(132 / var(--breakpoint-mobile) * 100vw);
+            width: min(calc(220 / var(--breakpoint-pc) * 100vw), 220px);
+            height: min(calc(178 / var(--breakpoint-pc) * 100vw), 178px);
             transition:
               transform 0.5s cubic-bezier(0.35, 0, 0.36, 1),
               -webkit-transform 0.5s cubic-bezier(0.35, 0, 0.36, 1);
+
+            @media (width<860px) {
+              width: calc(192 / var(--breakpoint-mobile) * 100vw);
+              height: calc(132 / var(--breakpoint-mobile) * 100vw);
+            }
           }
 
           .buy-now-button {

@@ -41,21 +41,23 @@ const getProductByHostType = (productList, hostType) => {
   return products;
 };
 
-const setProductByHostType = (productList, hostType) => {
+const setProductByHostType = (productList, hostType, isEditMode) => {
   productList.forEach((productEl) => {
     const productHost = productEl.getAttribute('data-host');
     if (productHost === hostType) {
       productEl.classList.remove('hide');
       productEl.classList.add(backgroundColorMap.get(hostType).light);
     } else {
-      productEl.classList.add('hide');
       productEl.classList.remove(backgroundColorMap.get(productHost)?.light);
+      if (!isEditMode) {
+        productEl.classList.add('hide');
+      }
     }
   });
 };
 
 // 获取campaign collection card和associated products
-const getItemListEl = (itemListEl) => {
+const getItemListEl = (itemListEl, isEditMode = false) => {
   const cards = [];
   const products = [];
   itemListEl.forEach((item) => {
@@ -72,7 +74,9 @@ const getItemListEl = (itemListEl) => {
     cards.forEach((card) => {
       const hostType = card.getAttribute('data-host');
       if (!getProductByHostType(products, hostType)?.length) {
-        card.classList.add('hide');
+        if (!isEditMode) {
+          card.classList.add('hide');
+        }
       }
     });
   }
@@ -93,6 +97,7 @@ const generateProduct = (productEl) => {
 };
 
 export default function decorate(block) {
+  const isEditMode = block.hasAttribute('data-aue-resource');
   const [bgPCEl, bgMobileEl, footballEl, leftCloseEl, rightContentEl, secondTitleEl, ...itemListEl] = [...block.children] ?? [];
   bgPCEl.classList.add('background-pc');
   bgMobileEl.classList.add('background-mobile');
@@ -145,7 +150,7 @@ export default function decorate(block) {
       host?.remove?.();
       return el;
     };
-    const { cards, products } = getItemListEl(itemListEl);
+    const { cards, products } = getItemListEl(itemListEl, isEditMode);
     if (cards?.length) {
       cards.forEach((card) => {
         const newCard = removeOtherAttributes(card);
@@ -165,7 +170,10 @@ export default function decorate(block) {
         if (host === currentHostType) {
           newProduct.classList.add(backgroundColorMap.get(host).light);
         } else {
-          newProduct.classList.add('hide');
+          // eslint-disable-next-line no-lonely-if
+          if (!isEditMode) {
+            newProduct.classList.add('hide');
+          }
         }
         bottomWrapperEl.appendChild(newProduct);
       });
@@ -190,40 +198,7 @@ export default function decorate(block) {
         btnEl.classList.add(backgroundColorMap.get(hostType).active);
         secondPartEl.className = `second-part ${backgroundColorMap.get(hostType).dark}`;
         const productList = bottomWrapperEl.querySelectorAll('.product-wrapper');
-        setProductByHostType(productList, hostType);
-        // if(productList?.length){
-        //   productList.forEach((productEl) => {
-
-        //   });
-        // }
-        // const productList = bottomWrapperEl.querySelectorAll('.product-wrapper');
-        // productList.forEach((productEl) => {
-        //   const productHost = productEl.getAttribute('data-host');
-        //   if (productHost === hostType) {
-        //     productEl.classList.remove('hide');
-        //     productEl.classList.add(backgroundColorMap.get(hostType).light);
-        //   } else {
-        //     productEl.classList.add('hide');
-        //     productEl.classList.remove(backgroundColorMap.get(productHost)?.light);
-        //   }
-        // });
-        // const target = e.target.closest('.button-wrapper');
-        // if (!target) return;
-        // const hostType = target.querySelectorAll('p')[1]?.textContent.trim().toLowerCase();
-        // if (!hostType || hostType === currentHostType) return;
-        // currentHostType = hostType;
-        // secondPartEl.className = `second-part ${backgroundColorMap.get(hostType).dark}`;
-        // const productList = bottomWrapperEl.querySelectorAll('.product-wrapper');
-        // productList.forEach((productEl) => {
-        //   const productHost = productEl.getAttribute('data-host');
-        //   if (productHost === hostType) {
-        //     productEl.classList.remove('hide');
-        //     productEl.classList.add(backgroundColorMap.get(hostType).light);
-        //   } else {
-        //     productEl.classList.add('hide');
-        //     productEl.classList.remove(backgroundColorMap.get(productHost)?.light);
-        //   }
-        // });
+        setProductByHostType(productList, hostType, isEditMode);
       });
     });
   }
