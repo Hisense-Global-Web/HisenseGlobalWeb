@@ -549,7 +549,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Campaign Collection Card",
-                  "model": "campaign-collection-card"
+                  "model": "campaign-collection-card",
+                  "item-type": "card"
                 }
               }
             }
@@ -565,6 +566,7 @@
                 "template": {
                   "name": "Associated Products",
                   "model": "associated-products",
+                  "item-type": "products",
                   "button_text": "Buy Now"
                 }
               }

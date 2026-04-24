@@ -25,7 +25,8 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Campaign Collection Card",
-              "model": "campaign-collection-card"
+              "model": "campaign-collection-card",
+              "item-type": "card"
             }
           }
         }
@@ -41,6 +42,7 @@
             "template": {
               "name": "Associated Products",
               "model": "associated-products",
+              "item-type": "products",
               "button_text": "Buy Now"
             }
           }
@@ -128,6 +130,15 @@
       "id": "campaign-collection-card",
       "fields": [
         {
+          "component": "text",
+          "name": "item-type",
+          "value": "",
+          "label": "Item Type",
+          "valueType": "string",
+          "hidden": true,
+          "readonly": true
+        },
+        {
           "component": "select",
           "name": "theme-color",
           "label": "Theme color",
@@ -169,6 +180,15 @@
     {
       "id": "associated-products",
       "fields": [
+        {
+          "component": "text",
+          "name": "item-type",
+          "value": "",
+          "label": "Item Type",
+          "valueType": "string",
+          "hidden": true,
+          "readonly": true
+        },
         {
           "component": "select",
           "name": "theme-color",
