@@ -1,6 +1,24 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
 
+export function decorateExceptionButton(block) {
+  const btn = block.querySelector('.btnlink');
+  const btnText = block.querySelector('.btntext');
+  const label = btnText?.innerText?.trim() || '';
+  const link = btn?.querySelector('a');
+
+  if (!label || !link) {
+    btn?.remove();
+    btnText?.remove();
+    return;
+  }
+
+  link.innerText = label;
+  link.title = label;
+  btnText.remove();
+  block.append(btn);
+}
+
 export default function decorate(block) {
   const config = readBlockConfig(block);
   // add className
@@ -19,12 +37,7 @@ export default function decorate(block) {
   const description = block.querySelector('.exceptiondescription');
   textArea.append(title, description);
   block.append(textArea);
-  const btn = block.querySelector('.btnlink');
-  const btnText = block.querySelector('.btntext');
-  btn.querySelector('a').innerText = btnText.innerText.trim();
-  btn.querySelector('a').title = btnText.innerText.trim();
-  btnText.remove();
-  block.append(btn);
+  decorateExceptionButton(block);
 
   getDynamicHeaderHeight(block);
 }

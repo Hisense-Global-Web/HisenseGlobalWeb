@@ -44,7 +44,7 @@ export function resolveCommerceButtonVisibility(callToAction = 'whereToBuy') {
     return {
       showAddToCart: false,
       showOutOfStock: true,
-      showWhereToBuy: true,
+      showWhereToBuy: false,
     };
   }
 
