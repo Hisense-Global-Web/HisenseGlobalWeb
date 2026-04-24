@@ -1494,19 +1494,19 @@
         ]
       },
       {
-        "component": "text",
-        "name": "button_text",
-        "label": "Text",
-        "valueType": "string",
-        "value": "",
-        "required": true
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "button_icon",
         "label": "Icon",
         "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Text",
+        "valueType": "string",
+        "value": "",
         "required": true
       }
     ]
