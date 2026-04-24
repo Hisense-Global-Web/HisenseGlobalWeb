@@ -337,24 +337,6 @@ function updateUSLinks() {
   }
 }
 
-function transHorizontalSection(className) {
-  const bElements = document.querySelectorAll(className);
-
-  if (bElements.length > 0) {
-    const wrapper = document.createElement('div');
-    wrapper.classList.add('horizontal-section');
-    bElements.forEach((el) => {
-      wrapper.appendChild(el.cloneNode(true));
-    });
-
-    bElements[0].replaceWith(wrapper);
-
-    for (let i = 1; i < bElements.length; i += 1) {
-      bElements[i].remove();
-    }
-  }
-}
-
 async function loadAnnouncementPopup() {
   if (isUniversalEditor()) {
     return false;
@@ -434,7 +416,6 @@ async function loadPage() {
   await loadLazy(document);
   await loadAnnouncementPopup();
   loadDelayed();
-  transHorizontalSection('.honors-awards-wrapper');
   storeInformationSelect();
 
   // Update US site links after page load is complete
