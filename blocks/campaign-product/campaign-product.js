@@ -8,6 +8,7 @@ import {
   initializeHybrisAuth, removeHybrisWishlistItem,
   scheduleHybrisTask, startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
+import { isMobileWindow } from '../../scripts/device.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -532,6 +533,12 @@ export default async function decorate(block) {
 
   // eslint-disable-next-line no-restricted-syntax
   const rows = [...block.children];
+  const mobileUlDiv = document.createElement('div');
+  mobileUlDiv.classList.add('campaign-product-ul');
+  rows.forEach((row) => {
+    mobileUlDiv.appendChild(row);
+  });
+  block.appendChild(mobileUlDiv);
   for (let i = 0; i < rows.length; i += 1) {
     const row = rows[i];
     row.classList.add('campaign-category');
@@ -542,6 +549,14 @@ export default async function decorate(block) {
         el.classList.remove('active');
       });
       e.currentTarget.classList.add('active');
+      if (isMobileWindow) {
+        const parentWrapper = e.currentTarget.closest('.campaign-product-wrapper');
+        if (parentWrapper) {
+          parentWrapper.className = parentWrapper.className.replace(/\bwrapper-series-index-\d+\b/g, '');
+          parentWrapper.classList.add(`wrapper-series-index-${i}`);
+        }
+        return;
+      }
       const sIndex = [...elList].indexOf(e.currentTarget);
       const targetIndex = flatList.findIndex((item) => item.seriesIndex === sIndex);
       if (targetIndex !== -1) {
@@ -607,7 +622,7 @@ export default async function decorate(block) {
   previewListEl.classList.add('preview-list');
   flatList.forEach((item) => {
     const card = document.createElement('div');
-    card.className = 'product-card';
+    card.className = `product-card series-index-${item.seriesIndex}`;
 
     const titleDiv = document.createElement('div');
     titleDiv.className = 'product-card-title';
@@ -949,4 +964,8 @@ export default async function decorate(block) {
   ctrlGroupEl.append(positionBarEl, btnGroupEl);
   previewGroupEl.append(previewListEl, ctrlGroupEl);
   block.parentNode.append(previewGroupEl);
+  const parentWrapper = block.closest('.campaign-product-wrapper');
+  if (parentWrapper) {
+    parentWrapper.classList.add('wrapper-series-index-0');
+  }
 }
