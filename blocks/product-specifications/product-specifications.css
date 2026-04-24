@@ -44,13 +44,14 @@
   @media (width < 860px) {
     background-color: var(--color-primary-grey-20, #f4f4f4);
     padding: 0;
+    gap: var(--size-24);
   }
 }
 
 .properties-wrapper {
   display: flex;
   flex-direction: column;
-  gap: var(--size-16);
+  gap: var(--size-32);
 }
 
 .divide-line {
@@ -149,10 +150,18 @@
   .property-name {
     font-weight: 700;
     color: var(--color-hisense-grey-01);
+
+    @media (width < 860px) {
+      font-weight: var(--fontweight-medium);
+    }
   }
 
   .property-value {
     font-weight: 400;
+
+    @media (width < 860px) {
+      font-weight: var(--fontweight-light);
+    }
   }
 }
 

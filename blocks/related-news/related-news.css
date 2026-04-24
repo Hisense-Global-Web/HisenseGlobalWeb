@@ -144,7 +144,6 @@
             font-weight: var(--fontweight-medium);
             line-height: 1.2;
             color: var(--color-hisense-black);
-            height: var(--size-48);
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
@@ -225,13 +224,9 @@
               }
 
               .news-subtitle {
-                overflow: hidden;
                 color: var(--color-hisense-black, #000);
-                text-overflow: ellipsis;
                 font-size: var(--size-16, 16px);
-                line-height: 130%; /* 20.8px */
-                letter-spacing: 0;
-                height: var(--size-42);
+                line-height: 130%;
               }
             }
 
