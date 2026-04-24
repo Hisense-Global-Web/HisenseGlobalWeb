@@ -1386,6 +1386,180 @@
     ]
   },
   {
+    "id": "campaign-collection",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "background-image",
+        "label": "Background Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "background-imagemobile",
+        "label": "Background Image for Mobile",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "decoration-image",
+        "label": "Decoration Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "left-image",
+        "label": "Key Visual Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "right_title",
+        "value": "",
+        "label": "First Module Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "right_text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "right_buttontext",
+        "label": "Butotn Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "right_buttonlink",
+        "label": "Button Link",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "second-moduletitle",
+        "value": "",
+        "label": "Second Module Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "campaign-collection-card",
+    "fields": [
+      {
+        "component": "select",
+        "name": "theme-color",
+        "label": "Theme color",
+        "valueType": "string",
+        "required": true,
+        "options": [
+          {
+            "name": "Green",
+            "value": "green"
+          },
+          {
+            "name": "Blue",
+            "value": "blue"
+          },
+          {
+            "name": "Red",
+            "value": "red"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "button_icon",
+        "label": "Icon",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "associated-products",
+    "fields": [
+      {
+        "component": "select",
+        "name": "theme-color",
+        "label": "Theme color",
+        "valueType": "string",
+        "required": true,
+        "options": [
+          {
+            "name": "Green",
+            "value": "green"
+          },
+          {
+            "name": "Blue",
+            "value": "blue"
+          },
+          {
+            "name": "Red",
+            "value": "red"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "campaign-host-list",
     "fields": [
       {
@@ -1496,67 +1670,6 @@
       {
         "component": "aem-content",
         "name": "button_link",
-        "label": "Button Link",
-        "valueType": "string",
-        "value": ""
-      }
-    ]
-  },
-  {
-    "id": "campaign-image",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "background-image",
-        "label": "Background Image",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "background-imagemobile",
-        "label": "Background Image for Mobile",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "decoration-image",
-        "label": "Decoration Image",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "left-image",
-        "label": "Left Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "right_title",
-        "value": "",
-        "label": "Ttile",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "right_text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "right_buttontext",
-        "label": "Butotn Text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "name": "right_buttonlink",
         "label": "Button Link",
         "valueType": "string",
         "value": ""

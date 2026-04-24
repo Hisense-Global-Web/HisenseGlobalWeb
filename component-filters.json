@@ -95,8 +95,7 @@
       "gray-tips",
       "guide-list",
       "promotional-text",
-      "campaign-image",
-      "campaign-host-list",
+      "campaign-collection",
       "related-news",
       "resource-list",
       "search-box",
@@ -233,6 +232,13 @@
     "id": "brand-matrix",
     "components": [
       "brand-matrix-items"
+    ]
+  },
+  {
+    "id": "campaign-collection",
+    "components": [
+      "campaign-collection-card",
+      "associated-products"
     ]
   },
   {

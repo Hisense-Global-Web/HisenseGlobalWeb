@@ -1,5 +1,7 @@
-.campaign-image-wrapper {
-  .campaign-image {
+.campaign-collection-wrapper {
+  line-height: 0;
+
+  .campaign-collection {
     position: relative;
     display: inline-block;
     width: 100%;
