@@ -24,11 +24,11 @@ export default function decorate(block) {
           if (children.length > 0) {
             const tit = document.createElement('div');
             const desc = document.createElement('div');
-            tit.append(children[0]);
 
             if (children.length > 1) {
               desc.append(children[children.length - 1]);
             }
+            tit.append(children[0]);
             div.replaceChildren(tit, desc);
           }
         }

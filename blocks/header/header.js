@@ -75,10 +75,10 @@ function getCartCount(cart = {}) {
 
   return normalizeCount(
     cart?.totalUnitCount
-      ?? cart?.totalItems
-      ?? cart?.totalItemCount
-      ?? cart?.itemCount
-      ?? cart?.quantity,
+    ?? cart?.totalItems
+    ?? cart?.totalItemCount
+    ?? cart?.itemCount
+    ?? cart?.quantity,
   );
 }
 
@@ -451,15 +451,20 @@ function parseActions(root) {
     const picList = wrapper.querySelectorAll('img');
     const lightSrc = picList[0]?.src || '';
     let darkSrc = '';
+    let hoverSrc = '';
     if (picList.length > 1) {
       darkSrc = picList[1]?.src || '';
     }
+    if (picList.length > 2) {
+      hoverSrc = picList[2]?.src || '';
+    }
     const img = fixImageUrl(lightSrc);
     const darkImg = fixImageUrl(darkSrc);
+    const hoverImg = fixImageUrl(hoverSrc);
     const navigationActionEl = wrapper.querySelector('.navigation-action');
     const actionFields = Array.from(navigationActionEl?.children || []);
-    const rawFourthField = actionFields[3]?.textContent?.trim() || '';
-    const rawFifthField = actionFields[4]?.textContent?.trim() || '';
+    const rawFourthField = actionFields[4]?.textContent?.trim() || '';
+    const rawFifthField = actionFields[5]?.textContent?.trim() || '';
     const isLegacyEnableSearchField = rawFourthField.toLowerCase() === 'true' || rawFourthField.toLowerCase() === 'false';
     const rawIconType = isLegacyEnableSearchField ? '' : rawFourthField;
     const rawEnableSearch = isLegacyEnableSearchField ? rawFourthField : rawFifthField;
@@ -470,6 +475,7 @@ function parseActions(root) {
       href: processPath(href),
       img,
       darkImg,
+      hoverImg,
       enableSearchBox,
       iconType,
     };
@@ -966,9 +972,11 @@ const toggleSearchBoxPopup = (e) => {
   if ([...searchBoxPopupEl.classList].includes('show')) {
     setSearchBoxInput(inputWrapperEl);
     searchBoxPopupEl.classList.remove('show');
+    document.querySelector('main')?.classList?.remove('main-mobile');
   } else {
     setSearchBoxInput(inputWrapperEl);
     searchBoxPopupEl.classList.add('show');
+    document.querySelector('main')?.classList?.add('main-mobile');
   }
 };
 
@@ -982,6 +990,7 @@ const showSearchBoxPopup = (e) => {
     if (searchBoxPopupEl) {
       checkMobileSearchBox(inputWrapperEl);
       searchBoxPopupEl.classList.add('show');
+      document.querySelector('main')?.classList?.add('main-mobile');
     }
   }
 };
@@ -1002,6 +1011,7 @@ const hideSearchBoxPopup = (e) => {
     if (searchBoxPopupEl) {
       setSearchBoxInput(inputWrapperEl);
       searchBoxPopupEl.classList.remove('show');
+      document.querySelector('main')?.classList?.remove('main-mobile');
     }
   }, 200);
 };
@@ -1180,7 +1190,7 @@ export default async function decorate(block) {
       syncedHeaderAuthState = authState;
       syncHeaderCommerceUi(authState);
       if (shouldRefreshCounts) {
-        refreshHeaderCommerceCounts(authState).catch(() => {});
+        refreshHeaderCommerceCounts(authState).catch(() => { });
       }
       return;
     }
@@ -1231,7 +1241,7 @@ export default async function decorate(block) {
     }
 
     if (type === 'wishlist-mutated' && hasValidHybrisAccountState(authState)) {
-      fetchHybrisWishlist().catch(() => {});
+      fetchHybrisWishlist().catch(() => { });
     }
   };
 
@@ -1247,7 +1257,7 @@ export default async function decorate(block) {
   if (isCompanyPage) {
     navigation.classList.add('is-company');
     if (window.innerWidth >= 1180 && !window.location.pathname.includes('about-us')) {
-      document.documentElement.style.setProperty('--nav-height', '179px');
+      document.documentElement.style.setProperty('--nav-height', '182px');
     }
   }
   if (isSupportPage) {
@@ -1263,7 +1273,7 @@ export default async function decorate(block) {
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     if (isCompanyPage || isSupportPage) {
-      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -84)}px`;
+      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -100)}px`;
       return;
     }
     if (isSupportPage) {
@@ -1313,7 +1323,13 @@ export default async function decorate(block) {
     const CompanyItemEl = document.createElement('div');
     const isCurrent = window.location.pathname.includes(item.href);
     CompanyItemEl.className = `company-item ${isCurrent ? 'current' : ''}`;
-    CompanyItemEl.innerHTML = item.title;
+    const span1 = document.createElement('span');
+    const span2 = document.createElement('span');
+    span1.innerHTML = item.title;
+    span2.innerHTML = item.title;
+    span1.className = 'absolute';
+    span2.className = 'transparent-bold';
+    CompanyItemEl.append(span1, span2);
     CompanyItemEl.dataset.href = item.href;
     CompanyItemEl.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1455,7 +1471,11 @@ export default async function decorate(block) {
     link.className = 'nav-section';
     const span1 = document.createElement('span');
     span1.textContent = action.title;
-    link.append(span1);
+    const span2 = document.createElement('span');
+    span2.textContent = action.title;
+    span1.className = 'absolute';
+    span2.className = 'transparent-bold';
+    link.append(span1, span2);
     const cloneLink = link.cloneNode(true);
     const mobileCloneLink = link.cloneNode(true);
     if (action.href && action.href !== '#') {
@@ -1500,6 +1520,12 @@ export default async function decorate(block) {
       imgDark.alt = action.title || 'action';
       imgDark.className = 'dark-img';
       btn.append(imgDark);
+      const imgHover = document.createElement('img');
+      // imgHover.src = convertToDarkSvgUrl(action.img);
+      imgHover.src = action.hoverImg || action.img;
+      imgHover.alt = action.title || 'action';
+      imgHover.className = 'hover-img';
+      btn.append(imgHover);
 
       if (action.iconType === NAVIGATION_ACTION_TYPES.SEARCH_BOX) {
         btn.addEventListener('click', toggleSearchBoxPopup);
@@ -1574,7 +1600,7 @@ export default async function decorate(block) {
     window.addEventListener(HYBRIS_DATA_EVENT_NAME, handleHybrisDataEvent);
 
     syncHeaderCommerceUi(syncedHeaderAuthState);
-    refreshHeaderCommerceCounts(syncedHeaderAuthState).catch(() => {});
+    refreshHeaderCommerceCounts(syncedHeaderAuthState).catch(() => { });
 
     const syncAuthStateAndRefreshCountsIfNeeded = (authState) => {
       const shouldRefreshCounts = shouldRefreshHeaderCommerceCountsAfterAuthInit(
@@ -1595,7 +1621,7 @@ export default async function decorate(block) {
         const nextAuthState = getCachedHybrisAuthState();
         return syncAuthStateAndRefreshCountsIfNeeded(nextAuthState);
       })
-      .catch(() => {});
+      .catch(() => { });
   }
 
   // 物理添加手机端菜单按钮
@@ -1614,8 +1640,10 @@ export default async function decorate(block) {
   btn.addEventListener('click', () => {
     // 移动端点击三个横条显示菜单，先关闭账号菜单（如果打开的话），再打开主菜单
     navigation.classList.remove('show-account-mobile-menu');
-    const personMobileMask = document.querySelector('.person-mobile-mask');
-    personMobileMask.classList.remove('show-person-mobile-mask');
+    try {
+      const personMobileMask = document.querySelector('.person-mobile-mask');
+      personMobileMask.classList.remove('show-person-mobile-mask');
+    } catch (e) { /* empty */ }
     document.body.style.overflow = 'hidden';
     navigation.classList.add('show-menu');
   });

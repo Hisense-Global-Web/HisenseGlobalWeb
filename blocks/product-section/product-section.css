@@ -7,7 +7,7 @@ main .section.product-gallery-container.product-section-container {
   padding: 100px 0 var(--size-100);
   margin: auto;
   box-sizing: border-box;
-  gap: var(--size-82);
+  gap: var(--size-80);
 }
 
 main .section.product-gallery-container.product-section-container .product-gallery-wrapper {
@@ -19,7 +19,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   flex: 1;
   padding: 0;
   margin: 0;
-  max-width: min(calc(480 / var(--breakpoint-pc) * 100vw), 480px);
+  max-width: min(calc(400 / var(--breakpoint-pc) * 100vw), 400px);
   display: flex;
   align-items: center;
   justify-content: center;

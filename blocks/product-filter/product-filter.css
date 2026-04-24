@@ -15,10 +15,13 @@
 
 .plp-filter-list {
   list-style: none;
-  margin: var(--size-10) 0 0;
   padding: 0 0 0 var(--size-14);
   transition: max-height 0.36s ease-in-out;
-  max-height: min(calc(200 / var(--breakpoint-pc) * 100vw), 200px);
+  max-height: min(calc(345 / var(--breakpoint-pc) * 100vw), 345px);
+
+  .plp-filter-item:first-child {
+    margin-top: var(--size-10);
+  }
 }
 
 .plp-filter-group.hide .plp-filter-list {
@@ -158,7 +161,6 @@
 .price-slider-wrapper {
   width: 100%;
   position: relative;
-  margin-top: var(--size-10, 10px);
   padding: 0 var(--size-16, 16px) 0 var(--size-16, 16px);
 
   /* 顶部价格标签 */
@@ -172,7 +174,7 @@
     font-size: var(--fontsize-body3, 12px);
     font-style: normal;
     line-height: normal;
-    margin: 0 var(--size-16, 16px) 0 var(--size-16, 16px);
+    margin: var(--size-10, 10px) var(--size-16, 16px) 0 var(--size-16, 16px);
 
     @media (width<860px) {
       font-size: var(--fontsize-body2, 14px);
@@ -331,6 +333,6 @@
   }
 
   .plp-filter-list {
-    max-height: calc(200 / var(--breakpoint-mobile) * 100vw);
+    max-height: calc(340 / var(--breakpoint-mobile) * 100vw);
   }
 }

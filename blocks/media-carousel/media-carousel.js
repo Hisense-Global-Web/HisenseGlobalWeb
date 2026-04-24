@@ -111,7 +111,7 @@ function bindEvent(block, type = 'normal') {
     if (remaining <= 0) return;
     // 如果剩余距离不足一个 step + 1，则直接滑动到底对齐
     currentIndex += 1;
-    if (remaining < (step + 1)) {
+    if (remaining < (2 * step + 1)) {
       currentX = -maxTranslate;
       if (block.classList.contains('bottom-center-style') && type === 'normal') {
         const { marginRight } = window.getComputedStyle(block.querySelector('.media-carousel-viewport'));
@@ -127,7 +127,7 @@ function bindEvent(block, type = 'normal') {
     if (currentX >= 0) return;
     currentIndex -= 1;
     // 往回走时，如果距离起点不足一个 step + 1，直接归零
-    if (Math.abs(currentX) < (step + 1)) {
+    if (Math.abs(currentX) < (2 * step + 1)) {
       currentX = 0;
     } else {
       currentX += step;
@@ -308,6 +308,7 @@ export default async function decorate(block) {
     let btnDom;
 
     textContentDom.forEach((textDom, ti) => {
+      const img = document.createElement('img');
       switch (ti) {
         case 0:
           textDom.className = 'subtitle';
@@ -321,11 +322,32 @@ export default async function decorate(block) {
           textDom.className = 'body-text';
           textArea.append(textDom);
           break;
+        case 4:
+          textDom.className = 'mask';
+          img.src = '/resources/highlight.svg';
+          if (textDom.textContent === 'true') {
+            textDom.replaceChildren(img);
+          } else {
+            textDom.style.display = 'none';
+          }
+          break;
         default:
           // btn
           if (textDom.querySelector('a') && textDom.querySelector('a').parentElement.nextElementSibling.textContent) {
-            textDom.querySelector('a').textContent = textDom.querySelector('a').parentElement.nextElementSibling.textContent;
-            textDom.querySelector('a').parentElement.nextElementSibling.remove();
+            const aEl = textDom.querySelector('a');
+            aEl.textContent = aEl.parentElement.nextElementSibling.textContent;
+            aEl.parentElement.nextElementSibling.remove();
+            aEl.addEventListener('click', (e) => {
+              e.preventDefault(); // 阻止默认跳转
+              const target = document.querySelector(e.currentTarget.getAttribute('href'));
+
+              if (target) {
+                target.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                });
+              }
+            });
           }
           btnDom = textDom;
           btnDom.className = 'btn-div';

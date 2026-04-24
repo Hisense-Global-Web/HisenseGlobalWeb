@@ -61,13 +61,13 @@
 
   @media (width < 860px) {
     width:unset;
-		overflow-x: auto;
+    overflow: auto visible;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
     scroll-behavior: smooth; /* 平滑滚动 */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
-    touch-action: pan-x pinch-zoom; /* 允许水平滑动和捏合缩放 */
+    touch-action: pan-x pan-y pinch-zoom; /* 允许水平滑动和捏合缩放 */
     overscroll-behavior-x: contain; /* 防止滚动链 */
     grid-auto-flow: column;
     gap: var(--spacing-xs);
@@ -203,7 +203,7 @@
   font-size: var(--size-20);
   line-height: 120%;
   font-weight: var(--fontweight-medium);
-  width: var(--size-142);
+  width: var(--size-120);
 
   @media (width < 860px) {
     margin: auto;
@@ -215,6 +215,7 @@
 
 .industry-categories .active .card-title{
   display: block;
+  width: var(--size-142);
 }
 
 .industry-categories  > ul > li .card-image {

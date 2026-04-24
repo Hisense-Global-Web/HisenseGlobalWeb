@@ -136,13 +136,17 @@
 .pdp-media .product-filter-item {
   width: var(--size-118);
   height: var(--size-74);
-  border: 1px solid rgb(102 102 102 / 100%);
+  border: 1px solid var(--color-primary-grey-40);
   border-radius: var(--size-8);
   flex-shrink: 0;
   list-style: none;
   box-sizing: border-box;
   overflow: hidden;
   cursor: pointer;
+  
+  &.active {
+    border-color: var(--color-primary-green-50);
+  }
 }
 
 .pdp-media .product-filter-item .product-filter-img-box,
@@ -180,6 +184,7 @@
   margin: 0;
   padding: 0;
   height: var(--size-54);
+  flex-shrink: 0;
 }
 
 .pdp-media .product-carousel .product-indicator {
@@ -190,6 +195,7 @@
   border-radius: 50%;
   background-color: var(--color-primary-grey-40);
   transition: background-color 0.2s;
+  flex-shrink: 0;
 
   &:hover {
     opacity: 1;

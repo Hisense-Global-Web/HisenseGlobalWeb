@@ -247,7 +247,7 @@ async function loadHybrisPrices(items = []) {
 // 构建price slider item.
 const generatePriceSlider = (rowEl) => {
   const priceSliderWrapper = document.createElement('div');
-  priceSliderWrapper.className = 'price-slider-wrapper';
+  priceSliderWrapper.classList.add('price-slider-wrapper', 'plp-filter-list');
   // eslint-disable-next-line no-unused-vars
   const [titleEl, minLabelEl, maxLabelEl] = [...rowEl.children];
   const minLabel = minLabelEl?.querySelector('p')?.textContent ?? '';

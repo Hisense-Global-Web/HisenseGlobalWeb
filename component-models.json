@@ -1386,6 +1386,90 @@
     ]
   },
   {
+    "id": "campaign-bundle-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "fifa_image",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "fifaMobile_image",
+        "label": "Background Image For Mobile",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "top_title",
+        "label": "Banner Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "top_subtitle",
+        "label": "Banner Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "left_title",
+        "label": "Bundle Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "left_subtitle",
+        "label": "Bundle Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "left_ctaPrimary",
+        "label": "Bundle Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "left_ctaPrimaryText",
+        "label": "Bundle Button Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "campaign-bundle-promo",
+    "fields": [
+      {
+        "component": "text",
+        "name": "product_series",
+        "label": "Product Series",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "product_name",
+        "label": "Product Name",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "product_cta",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "product_ctaText",
+        "label": "Button Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "campaign-collection",
     "fields": [
       {
@@ -1899,13 +1983,12 @@
       {
         "component": "select",
         "name": "classes",
-        "value": "",
         "label": "Banner classes options",
         "valueType": "string",
         "options": [
           {
             "name": "Default",
-            "value": ""
+            "value": "default"
           },
           {
             "name": "text-color-black",
@@ -1928,32 +2011,38 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "collection_text",
-        "label": "Text",
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "body-text",
+        "label": "Body Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "collection_ctaGreen",
+        "name": "button_ctaGreen",
         "label": "Green CTA",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "collection_ctaGreenText",
+        "name": "button_ctaGreenText",
         "label": "Green CTA Label",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "collection_ctaPrimary",
+        "name": "button_ctaPrimary",
         "label": "Primary CTA",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "collection_ctaPrimaryText",
+        "name": "button_ctaPrimaryText",
         "label": "Primary CTA Label",
         "valueType": "string"
       }
@@ -4057,6 +4146,12 @@
         "name": "button_label",
         "label": "Button Label",
         "description": "Noted that only two options(overlay_text-left and overlay_text-left-bottom) support the configration button."
+      },
+      {
+        "component": "boolean",
+        "name": "mask-layer",
+        "label": "Mask Layer",
+        "valueType": "boolean"
       }
     ]
   },
@@ -4216,6 +4311,14 @@
         "valueType": "string",
         "name": "darkIcon",
         "label": "Dark Icon",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "hoverIcon",
+        "label": "hover Icon",
         "multi": false,
         "required": true
       },
@@ -5540,6 +5643,41 @@
             "value": "subscribe"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "retailer-card-grid",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "retailer_title",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "retailer-card-items",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "item_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "item_ctaPrimary",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "item_ctaPrimaryText",
+        "label": "Button Label",
+        "valueType": "string"
       }
     ]
   },

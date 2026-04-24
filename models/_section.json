@@ -427,8 +427,10 @@
         "warranty-accordion",
         "warranty-accordion-item",
         "warranty-information",
+        "retailer-card-grid",
         "store-locator",
-        "brand-matrix"
+        "brand-matrix",
+        "campaign-bundle-banner"
       ]
     }
   ]

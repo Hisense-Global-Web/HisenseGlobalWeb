@@ -37,7 +37,11 @@ export default async function decorate(block) {
 
   container.remove();
 
-  const animationEnabled = block.querySelector('div:nth-child(2)')?.textContent?.trim() === 'true';
+  const animationEl = block.querySelector('div:nth-child(2)');
+  const animationEnabled = animationEl?.textContent?.trim() === 'true';
+  if (animationEl) {
+    animationEl.style.display = 'none';
+  }
 
   const statsList = createElement('ul', 'global-presence-stats-list');
   [...block.children].forEach((row) => {
@@ -81,10 +85,12 @@ export default async function decorate(block) {
   contentContainer.appendChild(statsList);
 
   const contentPicture = block.querySelector('picture:not(.h-picture)');
-  contentPicture.classList.add('h-picture');
-  const contentImage = createElement('div', 'global-presence-image');
-  contentImage.appendChild(contentPicture);
-  contentContainer.appendChild(contentImage);
+  if (contentPicture) {
+    contentPicture.classList.add('h-picture');
+    const contentImage = createElement('div', 'global-presence-image');
+    contentImage.appendChild(contentPicture);
+    contentContainer.appendChild(contentImage);
+  }
 
   block.appendChild(contentContainer);
   // ========== CONSTRUCT DOM [END] ========== //

@@ -8,7 +8,7 @@
   --company-header-height: 56px;
 
   @media (width >= 1180px) {
-    --company-header-height: 79px;
+    --company-header-height: 82px;
   }
 
 	padding-top: var(--company-header-height);

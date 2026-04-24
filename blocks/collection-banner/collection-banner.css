@@ -1,4 +1,4 @@
-@import url('../../styles/reset-rich-text.css');
+@import url("../../styles/reset-rich-text.css");
 
 .collection-banner-container .collection-banner-wrapper {
   width: 100%;
@@ -6,8 +6,8 @@
 
 .block.collection-banner {
   padding: var(--size-48);
-  height: min(calc(440 / var(--breakpoint-pc) * 100vw), 440px);
   display: flex;
+  height: min(calc(440 / var(--breakpoint-pc) * 100vw), 440px);
   align-items: center;
   border-radius: min(calc(20 / var(--breakpoint-pc) * 100vw), 20px);
   overflow: hidden;
@@ -18,7 +18,7 @@
   }
 
   &::after {
-    content: '';
+    content: "";
     box-sizing: border-box;
     width: 75%;
     height: 100%;
@@ -27,7 +27,7 @@
     top: 0;
     left: 0;
     background: linear-gradient(to right, rgb(0 0 0 / 60%), rgb(0 0 0 / 0%));
- }
+  }
 
   picture {
     position: absolute;
@@ -43,47 +43,54 @@
     height: 100%;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: #fff;
-    width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
-    font-size: min(calc(40 / var(--breakpoint-pc) * 100vw), 40px);
-    line-height: var(--size-48);
-    font-weight: var(--fontweight-medium);
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
-    overflow: hidden;
-    text-overflow: clip;
-    position: relative;
-    z-index: 6;
-    margin: 0;
-  }
+  .body-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-16);
 
-  h1+p,
-  h2+p,
-  h3+p,
-  h4+p,
-  h5+p,
-  h6+p {
-    color: #fff;
-    margin-top: var(--size-16);
-    width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
-    font-size: min(calc(16 / var(--breakpoint-pc) * 100vw), 16px);
-    line-height: var(--size-24);
-    font-weight: var(--fontweight-light);
-    position: relative;
-    z-index: 6;
-    margin-bottom: 0;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4; /* 限制显示4行 */
-    overflow: hidden;
-    text-overflow: ellipsis;
+    .title {
+      color: #fff;
+      width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
+      font-size: var(--fontsize-pc-h2, 40px);
+      line-height: 1.2;
+      font-weight: var(--fontweight-medium);
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: clip;
+      position: relative;
+      z-index: 6;
+      text-transform: capitalize;
+    }
+
+    .body-text {
+      color: #fff;
+      width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
+      font-size: var(--fontsize-body1, 16px);
+      line-height: 1.5;
+      font-weight: var(--fontweight-light);
+      position: relative;
+      z-index: 6;
+      margin-bottom: 0;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 10;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .body-text-line-clamp1 {
+      -webkit-line-clamp: 8;
+    }
+
+    .body-text-line-clamp2 {
+      -webkit-line-clamp: 3;
+    }
+
+    .body-text-line-clamp3 {
+      -webkit-line-clamp: 3;
+    }
   }
 
   .button-container {
@@ -105,11 +112,13 @@
       margin: 0;
       position: relative;
       z-index: 6;
-      transition-property: color, background-color, border-color, border-bottom-color;
+      transition-property:
+        color, background-color, border-color, border-bottom-color;
       transition-duration: 0.2s;
       transition-timing-function: cubic-bezier(0.33, 0, 0.3, 1);
 
-      &:hover, &:active {
+      &:hover,
+      &:active {
         background-color: #fff;
         color: #000;
       }
@@ -138,6 +147,9 @@
   h5,
   h6,
   p,
+  div,
+  .title,
+  .body-text,
   .button-container .button {
     color: #000;
   }
@@ -146,7 +158,8 @@
     .button {
       border: 1px solid #000;
 
-      &:hover, &:active {
+      &:hover,
+      &:active {
         background-color: #000;
         color: #fff;
       }
@@ -155,11 +168,22 @@
 }
 
 .collection-banner.block {
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-pc-md, 32px);
+  }
+
+  .body-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 16px);
+  }
+
   .cta-container {
     display: flex;
-    gap: min(calc(16 / var(--breakpoint-pc) * 100vw), 16px);
-    position: absolute;
-    bottom: min(calc(56 / var(--breakpoint-pc) * 100vw), 56px);
+    flex-direction: row;
+    gap: var(--spacing-xs, 16px);
 
     .green-btn {
       .button {
@@ -183,9 +207,10 @@
 
 @media (width < 860px) {
   .block.collection-banner {
+    aspect-ratio: 354 / 500;
+    padding: var(--medium, 32px) var(--spacing-s2, 20px);
     height: auto;
     min-height: unset;
-    padding: 0;
     align-items: self-start;
     border-radius: calc(16 / var(--breakpoint-mobile) * 100vw);
 
@@ -195,12 +220,12 @@
       background: linear-gradient(to bottom, rgb(0 0 0 / 60%), rgb(0 0 0 / 0%));
     }
 
-    h1+p,
-    h2+p,
-    h3+p,
-    h4+p,
-    h5+p,
-    h6+p {
+    h1 + p,
+    h2 + p,
+    h3 + p,
+    h4 + p,
+    h5 + p,
+    h6 + p {
       margin-top: calc(16 / var(--breakpoint-mobile) * 100vw);
       width: 100%;
       height: auto;
@@ -225,6 +250,40 @@
       line-height: var(--size-36);
     }
 
+    .content-container {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .body-container {
+      gap: var(--size-12);
+    }
+
+    .title {
+      width: 100% !important;
+      -webkit-line-clamp: 3 !important;
+      font-size: var(--size-30) !important;
+    }
+
+    .body-text {
+      width: 100% !important;
+      -webkit-line-clamp: 8 !important;
+      font-size: var(--size-14) !important;
+      line-height: 1.4 !important;
+    }
+
+    .body-text-line-clamp1 {
+      -webkit-line-clamp: 7 !important;
+    }
+
+    .body-text-line-clamp2 {
+      -webkit-line-clamp: 6 !important;
+    }
+
+    .body-text-line-clamp3 {
+      -webkit-line-clamp: 4 !important;
+    }
+
     .cta-container {
       gap: calc(16 / var(--breakpoint-mobile) * 100vw);
       bottom: 0;
@@ -243,21 +302,10 @@
     }
 
     .pc-box-img {
-      position: absolute;
-      width: 100%;
-      height: calc(288 / var(--breakpoint-mobile) * 100vw);
-      padding: var(--size-32) var(--size-24) 0;
-
-      img {
-        display: none;
-      }
+      display: none;
     }
 
     .mobile-box-img {
-      picture {
-        position: relative;
-      }
-
       img {
         display: block;
         height: auto;
