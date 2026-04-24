@@ -1770,6 +1770,7 @@ export default function decorate(block) {
 
       const outOfStockBtnEl = document.createElement('div');
       outOfStockBtnEl.className = 'plp-out-of-stock-btn plp-purchase-hidden';
+      outOfStockBtnEl.disabled = true;
       outOfStockBtnEl.textContent = 'Out of stock';
 
       const whereToBuyBtnEl = document.createElement('div');

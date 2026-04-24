@@ -298,6 +298,13 @@ main .section.product-gallery-container.product-section-container .product-secti
     color: var(--white-alpha-80);
     background-color: var(--color-primary-green-70);
   }
+  
+  &[disabled] {
+    background: var(--green60-alpha-40);
+    border-color: var(--green60-alpha-40);
+    color: var(--white-alpha-80);
+    cursor: not-allowed;
+  }
 }
 
 .pdp-btn-group .pdp-out-of-stock-btn {

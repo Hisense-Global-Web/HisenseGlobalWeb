@@ -260,6 +260,13 @@
   font-family: var(--font-family);
   text-transform: capitalize;
   display: none;
+  
+  &[disabled] {
+    background: var(--green60-alpha-40);
+    border-color: var(--green60-alpha-40);
+    color: var(--white-alpha-80);
+    cursor: not-allowed;
+  }
 }
 
 .product-card .plp-add-to-cart-btn.plp-purchase-hidden,
