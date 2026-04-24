@@ -375,7 +375,6 @@
             align-items: center;
             height: var(--size-40);
             padding: var(--spacing-4xs, 4px) var(--spacing-sm, 24px);
-            align-items: center;
             border-radius: var(--size-100, 100px);
             background-color: transparent;
             visibility: hidden;
