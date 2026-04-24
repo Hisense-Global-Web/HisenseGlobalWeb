@@ -325,6 +325,7 @@
   flex-direction: column;
   gap: var(--size-8);
   margin-top: auto;
+  padding-top: var(--size-16);
 }
 
 .product-card .plp-where-to-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku {
@@ -332,7 +333,7 @@
 }
 
 .product-card .plp-where-to-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku + .plp-product-btn {
-  /*margin-top: var(--size-16);*/
+  /* margin-top: var(--size-16); */
 }
 
 .product-card .plp-product-compare {

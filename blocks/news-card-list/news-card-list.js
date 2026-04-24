@@ -187,7 +187,7 @@ function buildCard(item) {
     metaGroupEl.appendChild(locationEl);
   }
 
-  if (downloadlink && downloadLink !== '/') {
+  if (downloadlink && downloadlink !== '/') {
     const downloadEl = document.createElement('div');
     downloadEl.classList.add('meta-item', 'meta-download');
     downloadEl.addEventListener('click', () => handleCommonDownloadClick(downloadlink));
