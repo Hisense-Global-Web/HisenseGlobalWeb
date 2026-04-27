@@ -54,7 +54,7 @@
       .featured-content {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         padding: var(--size-48) var(--size-48) var(--size-48) 0;
 
         @media (width < 860px) {
@@ -80,7 +80,12 @@
           font-size: var(--size-30);
           font-weight: var(--fontweight-medium);
           line-height: 1.2;
-          margin-bottom: var(--size-20);
+          margin-bottom: var(--size-16);
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          word-break: break-all;
 
           @media (width < 860px) {
             font-size: var(--size-24);
@@ -93,9 +98,12 @@
           line-height: 1.5;
           color: var(--color-primary-grey-70);
           font-weight: var(--fontweight-book);
-
-          /* flex: 1; */
-          margin-bottom: var(--size-24);
+          margin-bottom: auto;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          word-break: break-all;
 
           @media (width < 860px) {
             font-size: var(--size-14);
@@ -155,6 +163,7 @@
           font-size: var(--size-14);
           color: var(--color-primary-grey-70);
           gap: var(--size-12);
+          margin-top: var(--size-24);
 
           .meta-item {
             display: flex;
@@ -183,7 +192,7 @@
           display: flex;
           align-items: center;
           gap: var(--size-16);
-          margin-top: auto;
+          margin-top: var(--size-32);
 
           @media (width < 860px) {
             margin-top: var(--size-32);

@@ -308,6 +308,7 @@ export default async function decorate(block) {
     let btnDom;
 
     textContentDom.forEach((textDom, ti) => {
+      const img = document.createElement('img');
       switch (ti) {
         case 0:
           textDom.className = 'subtitle';
@@ -320,6 +321,15 @@ export default async function decorate(block) {
         case 2:
           textDom.className = 'body-text';
           textArea.append(textDom);
+          break;
+        case 4:
+          textDom.className = 'mask';
+          img.src = '/resources/highlight.svg';
+          if (textDom.textContent === 'true') {
+            textDom.replaceChildren(img);
+          } else {
+            textDom.style.display = 'none';
+          }
           break;
         default:
           // btn

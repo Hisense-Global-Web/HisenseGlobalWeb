@@ -95,6 +95,11 @@ main .section.product-gallery-container.product-section-container .product-secti
   font-size: var(--fontsize-title2);
   font-weight: var(--fontweight-medium);
   line-height: 1.2;
+  margin-top: var(--size-12);
+}
+
+.hide ~ .pdp-series {
+  margin-top: 0;
 }
 
 .pdp-title {
@@ -125,7 +130,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 }
 
 .pdp-price {
-  margin-bottom: var(--size-40);
+  margin-top: var(--size-24);
   font-size: var(--size-24);
   line-height: 1.2;
   font-weight: var(--fontweight-medium);
@@ -135,8 +140,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   display: flex;
   justify-content: flex-start;
   gap: var(--size-8);
-  margin-top: var(--size-8);
-  margin-bottom: var(--size-24);
+  margin-top: var(--size-12);
 }
 
 .pdp-size {
@@ -186,7 +190,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 .pdp-badges {
   display: flex;
   gap: var(--size-8);
-  margin-bottom: var(--size-24); 
+  margin-top: var(--size-24); 
   
   &:empty {
     display: none;
@@ -247,14 +251,11 @@ main .section.product-gallery-container.product-section-container .product-secti
 .pdp-btn-group {
   display: flex;
   gap: var(--size-16);
-  margin-bottom: var(--size-16);
-
-  @media (width < 860px) {
-    margin-bottom: 0;
-  }
+  padding-top: var(--size-40);
 }
 
 .pdp-btn-group .pdp-buy-btn.ps-widget[ps-sku],
+.pdp-btn-group .pdp-out-of-stock-btn,
 .pdp-btn-group .pdp-cart-btn{
   height: var(--size-50);
   padding: 0 var(--size-32);
@@ -272,12 +273,14 @@ main .section.product-gallery-container.product-section-container .product-secti
   text-transform: capitalize;
 }
 
-.pdp-btn-group .pdp-cart-btn {
+.pdp-btn-group .pdp-cart-btn,
+.pdp-btn-group .pdp-out-of-stock-btn {
   display: block;
   color: var(--color-primary-grey-10);
   background: var(--color-primary-green-60);
   border: 1px solid var(--color-primary-green-60);
   position: relative;
+  opacity: 1;
   
   &:hover {
     background-color: var(--color-primary-green-50);
@@ -287,6 +290,17 @@ main .section.product-gallery-container.product-section-container .product-secti
     color: var(--white-alpha-80);
     background-color: var(--color-primary-green-70);
   }
+  
+  &[disabled] {
+    background: var(--green60-alpha-40);
+    border-color: var(--green60-alpha-40);
+    color: var(--white-alpha-80);
+    cursor: not-allowed;
+  }
+}
+
+.pdp-btn-group .pdp-out-of-stock-btn {
+  cursor: default;
 }
 
 .pdp-btn-group .pdp-cart-btn.is-loading {
@@ -317,9 +331,13 @@ main .section.product-gallery-container.product-section-container .product-secti
   font-family: var(--font-family);
 }
 
+.pdp-btn-group .pdp-buy-btn.ps-widget[data-fallback-label]:empty::before {
+  content: attr(data-fallback-label);
+}
+
 .pdp-btn-group:has(.pdp-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku),
 .pdp-btn-group:has(.pdp-cart-btn.ps-disabled.ps-no-sku) {
-  margin-bottom: 0;
+  margin-top: 0;
 }
 
 .pdp-btn-group .pdp-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku{
@@ -341,6 +359,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 .pdp-btn-link-group {
   display: flex;
   gap: var(--size-24);
+  margin-top: var(--size-16);
 
   @media (width < 860px) {
     display: none;
@@ -400,6 +419,7 @@ main .section.product-gallery-container.product-section-container .product-secti
     order: 2;
     font-size: var(--size-20);
     line-height: 1.3;
+    margin-top: var(--size-8);
   }
 
   .pdp-title {
@@ -435,7 +455,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 
   .pdp-sizes{
     order: 6;
-    margin: var(--size-24) 0 var(--size-24);
+    margin: var(--size-24) 0 0;
     gap: var(--size-12);
     flex-wrap: wrap;
     
@@ -463,8 +483,10 @@ main .section.product-gallery-container.product-section-container .product-secti
   .pdp-btn-group {
     order: 7;
     flex-direction: column;
+    padding-top: var(--size-24);
 
     .pdp-buy-btn.ps-widget[ps-sku],
+    .pdp-out-of-stock-btn,
     .pdp-cart-btn {
       height: var(--size-60);
       border-radius: var(--size-100);

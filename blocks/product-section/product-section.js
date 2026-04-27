@@ -15,8 +15,11 @@ import {
   updateHybrisCartItem,
 } from '../../scripts/hybris-bff.js';
 import { loadCSS } from '../../scripts/aem.js';
-import shouldShowAddToCartButton, {
+import {
+  resolveCommerceButtonVisibility,
+  resolveCommerceCallToAction,
   resolvePopupQuantityDisplayState,
+  resolveWhereToBuyButtonPresentation,
   shouldShowPdpFavoriteButton,
 } from '../../scripts/commerce-ui-utils.js';
 import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
@@ -846,9 +849,14 @@ export default async function decorate(block) {
   cart.className = 'pdp-cart-btn';
   cart.textContent = 'Add to Cart';
   cart.style.display = 'none';
+  const outOfStockBtn = document.createElement('button');
+  outOfStockBtn.className = 'pdp-out-of-stock-btn';
+  outOfStockBtn.textContent = 'Out of stock';
+  outOfStockBtn.disabled = true;
+  outOfStockBtn.style.display = 'none';
   const btnGroup = document.createElement('div');
   btnGroup.className = 'pdp-btn-group';
-  btnGroup.append(cart, buy);
+  btnGroup.append(cart, outOfStockBtn, buy);
 
   const linkGroupEl = document.createElement('div');
   linkGroupEl.className = 'pdp-btn-link-group';
@@ -895,6 +903,7 @@ export default async function decorate(block) {
     series.classList.add('hide');
   }
   setElementHidden(buy, !showBuyButton);
+  buy.textContent = 'Where to buy';
   setElementHidden(price, true);
   if (!fields.includes('buttons')) {
     sizesWrapper.classList.add('hide');
@@ -968,12 +977,57 @@ export default async function decorate(block) {
 
   function syncButtonGroupVisibility() {
     const cartVisible = cart.style.display !== 'none';
+    const outOfStockVisible = outOfStockBtn.style.display !== 'none';
     const buyVisible = !buy.classList.contains('hide');
-    setElementHidden(btnGroup, !(cartVisible || buyVisible));
+    setElementHidden(btnGroup, !(cartVisible || outOfStockVisible || buyVisible));
   }
 
   function setCartButtonVisibility(visible) {
     cart.style.display = visible ? 'block' : 'none';
+    syncButtonGroupVisibility();
+  }
+
+  function setOutOfStockButtonVisibility(visible) {
+    outOfStockBtn.style.display = visible ? 'block' : 'none';
+    setElementHidden(outOfStockBtn, !visible);
+    syncButtonGroupVisibility();
+  }
+
+  function setBuyButtonState(state = 'whereToBuy', productCode = currentProductCode) {
+    const normalizedState = String(state || 'whereToBuy');
+    const normalizedProductCode = String(productCode || '').trim();
+    const visibility = resolveCommerceButtonVisibility(normalizedState);
+    const showOutOfStock = showBuyButton && visibility.showOutOfStock;
+    const showWhereToBuy = showBuyButton && visibility.showWhereToBuy;
+    const presentation = resolveWhereToBuyButtonPresentation(normalizedState);
+
+    buy.textContent = presentation.text;
+    buy.disabled = false;
+    buy.classList.toggle('ps-widget', presentation.usePriceSpiderWidget);
+    buy.style.pointerEvents = '';
+    buy.style.display = '';
+    buy.setAttribute('aria-label', presentation.fallbackText || '');
+
+    if (presentation.buttonLabel) {
+      buy.setAttribute('ps-button-label', presentation.buttonLabel);
+    } else {
+      buy.removeAttribute('ps-button-label');
+    }
+
+    if (presentation.fallbackText) {
+      buy.setAttribute('data-fallback-label', presentation.fallbackText);
+    } else {
+      buy.removeAttribute('data-fallback-label');
+    }
+
+    if (showWhereToBuy && normalizedProductCode && presentation.usePriceSpiderWidget) {
+      buy.setAttribute('ps-sku', normalizedProductCode);
+    } else {
+      buy.removeAttribute('ps-sku');
+    }
+
+    setOutOfStockButtonVisibility(showOutOfStock);
+    setElementHidden(buy, !showWhereToBuy);
     syncButtonGroupVisibility();
   }
 
@@ -1598,6 +1652,7 @@ export default async function decorate(block) {
   async function refreshPdpCommerceState() {
     if (!currentProductCode) {
       setCartButtonVisibility(false);
+      setBuyButtonState('whereToBuy', sku);
       setFavoriteVisibility(false);
       applyHybrisPriceDisplay(null);
       clearWishlistState();
@@ -1611,13 +1666,22 @@ export default async function decorate(block) {
     try {
       const commerceProduct = await fetchHybrisProduct(currentProductCode);
       const hasPrice = Boolean(applyHybrisPriceDisplay(commerceProduct));
+      const hasProductData = Boolean(
+        commerceProduct
+        && typeof commerceProduct === 'object'
+        && !Array.isArray(commerceProduct)
+        && Object.keys(commerceProduct).length,
+      );
       inventoryAvailable = hasInventory(commerceProduct);
       const authenticated = Boolean(getCachedHybrisAuthState().authenticated);
-      canShowAddToCart = shouldShowAddToCartButton({
+      const callToAction = resolveCommerceCallToAction({
+        hasProductData,
         hasPrice,
         hasInventory: inventoryAvailable,
       });
+      canShowAddToCart = callToAction === 'addToCart';
       setCartButtonVisibility(canShowAddToCart);
+      setBuyButtonState(callToAction, currentProductCode);
       setFavoriteVisibility(shouldShowPdpFavoriteButton({
         authenticated,
         hasInventory: inventoryAvailable,
@@ -1639,6 +1703,7 @@ export default async function decorate(block) {
     } catch (error) {
       console.warn(`Failed to load PDP commerce data for ${currentProductCode}`, error);
       setCartButtonVisibility(false);
+      setBuyButtonState('whereToBuy', currentProductCode || sku);
       setFavoriteVisibility(false);
       applyHybrisPriceDisplay(null);
       clearWishlistState();
@@ -1794,7 +1859,7 @@ export default async function decorate(block) {
 
   const faqMobileBtn = document.createElement('div');
   faqMobileBtn.classList.add('pdp-nav-menu-item');
-  faqMobileBtn.textContent = 'Faq';
+  faqMobileBtn.textContent = 'FAQ';
   faqMobileBtn.addEventListener('click', () => {
     if (faqLink) window.location.href = faqLink;
   });

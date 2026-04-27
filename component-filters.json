@@ -94,6 +94,8 @@
       "recall-info-list",
       "gray-tips",
       "guide-list",
+      "promotional-text",
+      "campaign-collection",
       "related-news",
       "resource-list",
       "search-box",
@@ -153,6 +155,7 @@
       "warranty-accordion",
       "warranty-accordion-item",
       "warranty-information",
+      "retailer-card-grid",
       "store-locator",
       "brand-matrix",
       "campaign-bundle-banner"
@@ -237,6 +240,19 @@
     "id": "campaign-bundle-banner",
     "components": [
       "campaign-bundle-promo"
+    ]
+  },
+  {
+    "id": "campaign-collection",
+    "components": [
+      "campaign-collection-card",
+      "associated-products"
+    ]
+  },
+  {
+    "id": "campaign-host-list",
+    "components": [
+      "campaign-host-list-item"
     ]
   },
   {
@@ -512,6 +528,12 @@
     "id": "resource-list",
     "components": [
       "resource-list-item"
+    ]
+  },
+  {
+    "id": "retailer-card-grid",
+    "components": [
+      "retailer-card-items"
     ]
   },
   {

@@ -1470,6 +1470,315 @@
     ]
   },
   {
+    "id": "campaign-collection",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "background-image",
+        "label": "Background Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "background-imagemobile",
+        "label": "Background Image for Mobile",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "decoration-image",
+        "label": "Decoration Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "left-image",
+        "label": "Key Visual Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "right_title",
+        "value": "",
+        "label": "First Module Title",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "right_text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "right_buttontext",
+        "label": "Butotn Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "right_buttonlink",
+        "label": "Button Link",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "second-moduletitle",
+        "value": "",
+        "label": "Second Module Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "campaign-collection-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "item-type",
+        "value": "",
+        "label": "Item Type",
+        "valueType": "string",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "select",
+        "name": "theme-color",
+        "label": "Theme color",
+        "valueType": "string",
+        "required": true,
+        "options": [
+          {
+            "name": "Green",
+            "value": "green"
+          },
+          {
+            "name": "Blue",
+            "value": "blue"
+          },
+          {
+            "name": "Red",
+            "value": "red"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "button_icon",
+        "label": "Icon",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "associated-products",
+    "fields": [
+      {
+        "component": "text",
+        "name": "item-type",
+        "value": "",
+        "label": "Item Type",
+        "valueType": "string",
+        "hidden": true,
+        "readonly": true
+      },
+      {
+        "component": "select",
+        "name": "theme-color",
+        "label": "Theme color",
+        "valueType": "string",
+        "required": true,
+        "options": [
+          {
+            "name": "Green",
+            "value": "green"
+          },
+          {
+            "name": "Blue",
+            "value": "blue"
+          },
+          {
+            "name": "Red",
+            "value": "red"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-host-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Ttile",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "green_buttonicon",
+        "label": "Green Button Icon",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "green_buttontext",
+        "label": "Green Butotn Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "blue_buttonicon",
+        "label": "Blue Button Icon",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "blue_buttontext",
+        "label": "Blue Butotn Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "red_buttonicon",
+        "label": "Red Button Icon",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "red_buttontext",
+        "label": "Red Butotn Text",
+        "valueType": "string",
+        "value": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-host-list-item",
+    "fields": [
+      {
+        "component": "select",
+        "name": "host_type",
+        "label": "Host Type",
+        "valueType": "string",
+        "required": true,
+        "options": [
+          {
+            "name": "Green",
+            "value": "green"
+          },
+          {
+            "name": "Blue",
+            "value": "blue"
+          },
+          {
+            "name": "Red",
+            "value": "red"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Ttile",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "product_image",
+        "label": "Product Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Butotn Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "card-carousel",
     "fields": [
       {
@@ -3837,6 +4146,13 @@
         "name": "button_label",
         "label": "Button Label",
         "description": "Noted that only two options(overlay_text-left and overlay_text-left-bottom) support the configration button."
+      },
+      {
+        "component": "boolean",
+        "name": "mask-layer",
+        "label": "Mask Layer",
+        "valueType": "boolean",
+        "hidden": true
       }
     ]
   },
@@ -4871,7 +5187,7 @@
             "value": "position"
           },
           {
-            "name": "Faq",
+            "name": "FAQ",
             "value": "faq"
           }
         ]
@@ -4879,7 +5195,7 @@
       {
         "component": "reference",
         "name": "faq-icon",
-        "label": "Faq Icon",
+        "label": "FAQ Icon",
         "valueType": "string",
         "condition": {
           "some": [
@@ -4901,7 +5217,7 @@
         "component": "aem-content",
         "valueType": "string",
         "name": "faq-link",
-        "label": "Faq Link",
+        "label": "FAQ Link",
         "condition": {
           "some": [
             {
@@ -5058,6 +5374,49 @@
         "component": "text",
         "name": "location",
         "label": "Location",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "promotional-text",
+    "fields": [
+      {
+        "component": "select",
+        "name": "font-color",
+        "label": "Font Color",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Green60",
+            "value": "green60"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "align-style",
+        "label": "Align",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Center",
+            "value": "align-center"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Ttile",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "value": "",
+        "label": "Subtitle",
         "valueType": "string"
       }
     ]
@@ -5285,6 +5644,41 @@
             "value": "subscribe"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "retailer-card-grid",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "retailer_title",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "retailer-card-items",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "item_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "aem-content",
+        "name": "item_ctaPrimary",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "item_ctaPrimaryText",
+        "label": "Button Label",
+        "valueType": "string"
       }
     ]
   },

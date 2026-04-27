@@ -25,9 +25,12 @@ import {
   setCompareProductImgTit,
   appendCompareProductUtil,
 } from '../../utils/plp-compare-utils.js';
-import shouldShowAddToCartButton, {
+import {
+  resolveCommerceButtonVisibility,
+  resolveCommerceCallToAction,
   resolveProductCardTagLabel,
   resolvePopupQuantityDisplayState,
+  resolveWhereToBuyButtonPresentation,
   shouldShowPlpFavoriteButton,
 } from '../../scripts/commerce-ui-utils.js';
 
@@ -1765,6 +1768,10 @@ export default function decorate(block) {
       addToCartBtnEl.className = 'plp-add-to-cart-btn plp-purchase-hidden';
       addToCartBtnEl.textContent = 'Add to Cart';
 
+      const outOfStockBtnEl = document.createElement('div');
+      outOfStockBtnEl.className = 'plp-out-of-stock-btn disabled plp-purchase-hidden';
+      outOfStockBtnEl.textContent = 'Out of stock';
+
       const whereToBuyBtnEl = document.createElement('div');
       whereToBuyBtnEl.className = 'plp-where-to-buy-btn ps-widget plp-purchase-hidden';
 
@@ -1841,19 +1848,57 @@ export default function decorate(block) {
 
       const hidePurchaseButtons = () => {
         setPurchaseButtonVisibility(addToCartBtnEl, false);
+        setPurchaseButtonVisibility(outOfStockBtnEl, false);
         setPurchaseButtonVisibility(whereToBuyBtnEl, false);
       };
 
-      const updatePurchaseButtons = (showAddToCart) => {
+      const setWhereToBuyButtonState = (state = 'whereToBuy', productCode = '') => {
+        const normalizedState = String(state || 'whereToBuy');
+        const normalizedProductCode = String(productCode || '').trim();
+        const presentation = resolveWhereToBuyButtonPresentation(normalizedState);
+        const visibility = resolveCommerceButtonVisibility(normalizedState);
+
+        whereToBuyBtnEl.textContent = presentation.text;
+        whereToBuyBtnEl.classList.toggle('ps-widget', presentation.usePriceSpiderWidget);
+        whereToBuyBtnEl.style.pointerEvents = '';
+        whereToBuyBtnEl.setAttribute('aria-label', presentation.fallbackText || '');
+
+        if (presentation.buttonLabel) {
+          whereToBuyBtnEl.setAttribute('ps-button-label', presentation.buttonLabel);
+        } else {
+          whereToBuyBtnEl.removeAttribute('ps-button-label');
+        }
+
+        if (presentation.fallbackText) {
+          whereToBuyBtnEl.setAttribute('data-fallback-label', presentation.fallbackText);
+        } else {
+          whereToBuyBtnEl.removeAttribute('data-fallback-label');
+        }
+
+        if (visibility.showWhereToBuy && normalizedProductCode && presentation.usePriceSpiderWidget) {
+          whereToBuyBtnEl.setAttribute('ps-sku', normalizedProductCode);
+        } else {
+          whereToBuyBtnEl.removeAttribute('ps-sku');
+        }
+      };
+
+      const updatePurchaseButtons = (state = 'whereToBuy') => {
         const addToCartCode = addToCartBtnEl.dataset.productCode || '';
         if (!addToCartCode) {
           hidePurchaseButtons();
           return;
         }
 
-        const canShowAddToCart = Boolean(showAddToCart);
-        setPurchaseButtonVisibility(addToCartBtnEl, canShowAddToCart);
-        setPurchaseButtonVisibility(whereToBuyBtnEl, !canShowAddToCart);
+        const normalizedState = String(state || 'whereToBuy');
+        const visibility = resolveCommerceButtonVisibility(normalizedState);
+        setWhereToBuyButtonState(normalizedState, addToCartCode);
+        setPurchaseButtonVisibility(addToCartBtnEl, visibility.showAddToCart);
+        setPurchaseButtonVisibility(outOfStockBtnEl, visibility.showOutOfStock);
+        setPurchaseButtonVisibility(whereToBuyBtnEl, visibility.showWhereToBuy);
+
+        if (visibility.showWhereToBuy) {
+          rebindPriceSpiderWidgets();
+        }
       };
 
       const updatePriceState = (commerceProduct, fallbackSource = null) => {
@@ -1919,8 +1964,15 @@ export default function decorate(block) {
 
           const inventoryAvailable = hasInventory(commerceProduct);
           const hasPrice = updatePriceState(commerceProduct, variant);
+          const hasProductData = Boolean(
+            commerceProduct
+            && typeof commerceProduct === 'object'
+            && !Array.isArray(commerceProduct)
+            && Object.keys(commerceProduct).length,
+          );
           favoriteEnabled = inventoryAvailable;
-          updatePurchaseButtons(shouldShowAddToCartButton({
+          updatePurchaseButtons(resolveCommerceCallToAction({
+            hasProductData,
             hasPrice,
             hasInventory: inventoryAvailable,
           }));
@@ -1933,7 +1985,7 @@ export default function decorate(block) {
           }
           favoriteEnabled = false;
           updatePriceState(null, variant);
-          updatePurchaseButtons(false);
+          updatePurchaseButtons('whereToBuy');
           updateFavoriteState(productCode);
         }
       };
@@ -2098,8 +2150,7 @@ export default function decorate(block) {
         }
 
         // 为 where to buy 按钮设置商品对应属性
-        whereToBuyBtnEl.setAttribute('ps-button-label', 'where to buy');
-        whereToBuyBtnEl.setAttribute('ps-sku', variantProductCode || '');
+        setWhereToBuyButtonState('whereToBuy', variantProductCode);
 
         // productDetailPageLink - 先检查当前产品尺寸是否有productDetailPageLink链接，如果没有，才使用共享链接
         const productDetailPageLink = variant.productDetailPageLink || group.sharedProductDetailPageLink || '#';
@@ -2138,7 +2189,6 @@ export default function decorate(block) {
           /* eslint-disable-next-line no-console */
           console.warn('Failed to refresh commerce state', error);
         });
-        rebindPriceSpiderWidgets();
       };
 
       // 创建尺寸节点并绑定事件
@@ -2280,6 +2330,7 @@ export default function decorate(block) {
 
       // 将where to buy 按钮追加在按钮组dom 中
       productBtnGroupEl.prepend(whereToBuyBtnEl);
+      productBtnGroupEl.prepend(outOfStockBtnEl);
       productBtnGroupEl.prepend(addToCartBtnEl);
 
       card.append(titleDiv, imgDiv, seriesDiv, nameDiv);

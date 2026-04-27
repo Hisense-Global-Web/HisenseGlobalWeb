@@ -259,7 +259,7 @@ export default async function decorate(block) {
       }
     }
 
-    if (data.downloadLink) {
+    if (data.downloadLink && data.downloadLink !== '/') {
       const button = document.createElement('button');
       button.classList.add('icon-btn');
       const iconImg = document.createElement('img');
