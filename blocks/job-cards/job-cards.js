@@ -496,6 +496,11 @@ export default function decorate(block) {
       const detailBtnEl = document.createElement('div');
       detailBtnEl.className = 'detail-btn';
       detailBtnEl.textContent = 'See details';
+      detailBtnEl.addEventListener('click', () => {
+        // eslint-disable-next-line no-underscore-dangle
+        const dePath = encodeURIComponent(item._path);
+        window.location.href = `/ca/en/find-your-next-career/job1?path=${dePath}`;
+      });
       card.append(jobInfoGroupEl, detailBtnEl);
       productsGrid.append(card);
     });
