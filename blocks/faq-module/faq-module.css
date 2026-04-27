@@ -140,6 +140,11 @@
         width: 100%;
         padding-top: var(--size-20);
 
+        a {
+          color: var(--color-primary-green-60);
+          text-decoration: underline;
+        }
+
         @media (width < 860px) {
           padding-top: var(--size-16);
         }

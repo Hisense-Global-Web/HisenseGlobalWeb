@@ -211,6 +211,7 @@
         "component": "select",
         "name": "style_theme",
         "label": "Section Theme",
+        "value": "light",
         "options": [
           {
             "name": "Light",
@@ -2348,13 +2349,6 @@
   {
     "id": "exception-page",
     "fields": [
-      {
-        "component": "reference",
-        "name": "exceptionicon",
-        "value": "",
-        "label": "Icon",
-        "valueType": "string"
-      },
       {
         "component": "text",
         "name": "exceptiontitle",
