@@ -94,6 +94,8 @@
       "recall-info-list",
       "gray-tips",
       "guide-list",
+      "promotional-text",
+      "campaign-collection",
       "related-news",
       "resource-list",
       "search-box",
@@ -238,6 +240,19 @@
     "id": "campaign-bundle-banner",
     "components": [
       "campaign-bundle-promo"
+    ]
+  },
+  {
+    "id": "campaign-collection",
+    "components": [
+      "campaign-collection-card",
+      "associated-products"
+    ]
+  },
+  {
+    "id": "campaign-host-list",
+    "components": [
+      "campaign-host-list-item"
     ]
   },
   {
