@@ -64,6 +64,22 @@ export function resolveWhereToBuyButtonPresentation() {
   };
 }
 
+export function resolvePriceSpiderWhereToBuyState(options = {}) {
+  const {
+    noSku = false,
+    ariaLabel = '',
+    buttonLabel = '',
+    fallbackText = 'Where to buy',
+  } = options;
+  const text = String(buttonLabel || fallbackText || '').trim();
+  const normalizedAriaLabel = String(ariaLabel || '').trim().toLowerCase();
+
+  return {
+    showWhereToBuy: !noSku && normalizedAriaLabel !== 'coming soon',
+    text,
+  };
+}
+
 export function shouldShowHybrisFavoriteButton(options = {}) {
   const {
     authenticated = false,

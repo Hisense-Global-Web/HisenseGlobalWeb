@@ -18,6 +18,7 @@ import { loadCSS } from '../../scripts/aem.js';
 import {
   resolveCommerceButtonVisibility,
   resolveCommerceCallToAction,
+  resolvePriceSpiderWhereToBuyState,
   resolvePopupQuantityDisplayState,
   resolveWhereToBuyButtonPresentation,
   shouldShowPdpFavoriteButton,
@@ -52,6 +53,18 @@ function setElementHidden(element, hidden) {
   }
 
   element.classList.toggle('hide', hidden);
+}
+
+function clearPriceSpiderButtonResult(button) {
+  if (!button) {
+    return;
+  }
+
+  [...button.classList].forEach((className) => {
+    if (className.startsWith('ps-') && className !== 'ps-widget') {
+      button.classList.remove(className);
+    }
+  });
 }
 
 function hasInventory(product) {
@@ -993,6 +1006,55 @@ export default async function decorate(block) {
     syncButtonGroupVisibility();
   }
 
+  function setBuyButtonRequestedVisibility(visible) {
+    buy.dataset.wtbRequestedVisible = visible ? 'true' : 'false';
+    setElementHidden(buy, !visible);
+    syncButtonGroupVisibility();
+  }
+
+  function syncBuyButtonFromPriceSpider() {
+    const requestedVisible = buy.dataset.wtbRequestedVisible === 'true';
+    const priceSpiderState = resolvePriceSpiderWhereToBuyState({
+      noSku: buy.classList.contains('ps-no-sku'),
+      ariaLabel: buy.getAttribute('aria-label'),
+      buttonLabel: buy.getAttribute('ps-button-label'),
+      fallbackText: buy.getAttribute('data-fallback-label') || 'Where to buy',
+    });
+    const shouldShowBuy = requestedVisible && priceSpiderState.showWhereToBuy;
+
+    if (priceSpiderState.text && buy.textContent.trim() !== priceSpiderState.text) {
+      buy.textContent = priceSpiderState.text;
+    }
+    if (
+      priceSpiderState.showWhereToBuy
+      && priceSpiderState.text
+      && buy.getAttribute('aria-label') !== priceSpiderState.text
+    ) {
+      buy.setAttribute('aria-label', priceSpiderState.text);
+    }
+
+    setElementHidden(buy, !shouldShowBuy);
+    syncButtonGroupVisibility();
+  }
+
+  function observeBuyButtonPriceSpiderState() {
+    if (typeof MutationObserver === 'undefined' || buy.dataset.priceSpiderObserverBound === 'true') {
+      return;
+    }
+
+    const observer = new MutationObserver(() => {
+      syncBuyButtonFromPriceSpider();
+    });
+    observer.observe(buy, {
+      attributes: true,
+      attributeFilter: ['aria-label', 'class', 'ps-button-label'],
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
+    buy.dataset.priceSpiderObserverBound = 'true';
+  }
+
   function setBuyButtonState(state = 'whereToBuy', productCode = currentProductCode) {
     const normalizedState = String(state || 'whereToBuy');
     const normalizedProductCode = String(productCode || '').trim();
@@ -1001,6 +1063,7 @@ export default async function decorate(block) {
     const showWhereToBuy = showBuyButton && visibility.showWhereToBuy;
     const presentation = resolveWhereToBuyButtonPresentation(normalizedState);
 
+    clearPriceSpiderButtonResult(buy);
     buy.textContent = presentation.text;
     buy.disabled = false;
     buy.classList.toggle('ps-widget', presentation.usePriceSpiderWidget);
@@ -1027,8 +1090,9 @@ export default async function decorate(block) {
     }
 
     setOutOfStockButtonVisibility(showOutOfStock);
-    setElementHidden(buy, !showWhereToBuy);
-    syncButtonGroupVisibility();
+    setBuyButtonRequestedVisibility(showWhereToBuy);
+    syncBuyButtonFromPriceSpider();
+    observeBuyButtonPriceSpiderState();
   }
 
   function setFavoriteVisibility(visible) {
