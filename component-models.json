@@ -3698,12 +3698,6 @@
         "name": "button_iconMobile",
         "label": "Cta Icon For Mobile",
         "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "mobile-nexttext",
-        "label": "Next Page Text For Mobile",
-        "valueType": "string"
       }
     ]
   },

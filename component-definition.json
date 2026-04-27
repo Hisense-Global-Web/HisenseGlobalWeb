@@ -1641,8 +1641,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Information List Module Item",
-                  "model": "information-list-module-item",
-                  "mobile-nexttext": "Load More"
+                  "model": "information-list-module-item"
                 }
               }
             }
