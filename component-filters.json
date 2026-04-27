@@ -94,6 +94,9 @@
       "recall-info-list",
       "gray-tips",
       "guide-list",
+      "recall-text-info",
+      "promotional-text",
+      "campaign-collection",
       "related-news",
       "resource-list",
       "search-box",
@@ -238,6 +241,13 @@
     "id": "campaign-bundle-banner",
     "components": [
       "campaign-bundle-promo"
+    ]
+  },
+  {
+    "id": "campaign-collection",
+    "components": [
+      "campaign-collection-card",
+      "associated-products"
     ]
   },
   {
@@ -507,6 +517,12 @@
     "id": "quick-link",
     "components": [
       "quick-link-item"
+    ]
+  },
+  {
+    "id": "recall-text-info",
+    "components": [
+      "recall-text-info-item"
     ]
   },
   {
