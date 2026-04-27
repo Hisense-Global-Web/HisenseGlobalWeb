@@ -499,7 +499,7 @@ export default function decorate(block) {
       detailBtnEl.addEventListener('click', () => {
         // eslint-disable-next-line no-underscore-dangle
         const dePath = encodeURIComponent(item._path);
-        window.location.href = `/ca/en/find-your-next-career/job1?path=${dePath}`;
+        window.location.href = `${window.location.pathname}/job-detail?path=${dePath}`;
       });
       card.append(jobInfoGroupEl, detailBtnEl);
       productsGrid.append(card);
