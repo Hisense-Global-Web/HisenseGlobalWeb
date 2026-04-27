@@ -73,6 +73,12 @@ main .section.article-body-container .article-body-wrapper {
       font-size: var(--fontsize-body1);
       font-weight: var(--fontweight-book);
       line-height: 1.6;
+
+      a {
+        color: var(--color-primary-green-60);
+        background: inherit;
+        text-decoration: underline;
+      }
     }
 
     .text-body-group-flexend {

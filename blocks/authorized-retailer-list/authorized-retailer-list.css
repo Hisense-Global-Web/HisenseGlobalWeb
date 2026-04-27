@@ -27,17 +27,19 @@
   .ar-our-group {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    gap: calc((100% - 4 * min(calc(200 / var(--breakpoint-pc) * 100vw), 200px)) / 3);
     align-items: center;
 
     @media (width < 860px) {
       flex-wrap: wrap;
+      gap: unset;
+      justify-content: space-between;
     }
   }
 
   .ar-our-item {
-    width: 200px;
-    height: 200px;
+    width: min(calc(200 / var(--breakpoint-pc) * 100vw), 200px);
+    height: min(calc(200 / var(--breakpoint-pc) * 100vw), 200px);
     padding: var(--spacing-3xs, 8px);
     margin-bottom: var(--spacing-xl, 48px);
     display: flex;

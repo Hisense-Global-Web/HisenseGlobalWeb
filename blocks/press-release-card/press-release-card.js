@@ -66,6 +66,44 @@ function filterByTags(items, filterTags) {
   });
 }
 
+export function normalizePressReleasePath(value) {
+  if (!value) return '';
+
+  const baseUrl = typeof window === 'undefined'
+    ? 'https://www.hisense.com'
+    : window.location.origin;
+  let pathname = String(value).trim();
+  if (!pathname) return '';
+
+  try {
+    pathname = new URL(pathname, baseUrl).pathname;
+  } catch (e) {
+    [pathname] = pathname.split(/[?#]/);
+  }
+
+  pathname = pathname
+    .replace(/\/+/g, '/')
+    .replace(/\/+$/, '')
+    .replace(/(?:\.plain)?\.html$/, '');
+
+  const segments = pathname.split('/').filter(Boolean);
+  if (segments[0] === 'content' && segments.length > 3) {
+    pathname = `/${segments.slice(2).join('/')}`;
+  }
+
+  return pathname || '/';
+}
+
+export function filterOutCurrentPage(items, currentPath) {
+  if (!Array.isArray(items)) return [];
+
+  const activeCurrentPath = currentPath || (typeof window === 'undefined' ? '' : window.location.pathname);
+  const currentPagePath = normalizePressReleasePath(activeCurrentPath);
+  if (!currentPagePath || currentPagePath === '/') return items;
+
+  return items.filter((item) => normalizePressReleasePath(item?.path) !== currentPagePath);
+}
+
 function buildCard(item) {
   const {
     path,
@@ -225,9 +263,10 @@ export default async function decorate(block) {
 
   const json = await fetchPressReleaseData(endpoint);
   const allItems = json ? normalizeNewsroomData(json) : [];
+  const itemsWithoutCurrentPage = filterOutCurrentPage(allItems);
 
   // Filter by tags
-  const filteredItems = filterByTags(allItems, filterTags);
+  const filteredItems = filterByTags(itemsWithoutCurrentPage, filterTags);
 
   const itemsToShow = filteredItems.slice(0, pageSize);
 

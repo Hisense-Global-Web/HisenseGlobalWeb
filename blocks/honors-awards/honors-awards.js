@@ -1,6 +1,35 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+function syncHorizontalSection(block) {
+  const section = block.closest('.section');
+  if (!section) return;
+
+  const wrappers = [...section.querySelectorAll('.honors-awards-wrapper')]
+    .filter((wrapper) => wrapper.closest('.section') === section);
+
+  if (!wrappers.length) return;
+
+  let horizontalSection = section.querySelector(':scope > .horizontal-section');
+  if (!horizontalSection) {
+    horizontalSection = document.createElement('div');
+    horizontalSection.className = 'horizontal-section';
+    wrappers[0].before(horizontalSection);
+  } else if (wrappers[0].parentElement !== horizontalSection) {
+    wrappers[0].before(horizontalSection);
+  }
+
+  wrappers.forEach((wrapper) => horizontalSection.append(wrapper));
+
+  [...section.querySelectorAll(':scope > .horizontal-section')]
+    .filter((group) => group !== horizontalSection)
+    .forEach((group) => {
+      [...group.querySelectorAll(':scope > .honors-awards-wrapper')]
+        .forEach((wrapper) => horizontalSection.append(wrapper));
+      group.remove();
+    });
+}
+
 export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('div');
@@ -41,4 +70,6 @@ export default function decorate(block) {
     img.closest('picture').replaceWith(optimizedPic);
   });
   block.replaceChildren(title, ul);
+  syncHorizontalSection(block);
+  block.classList.add('loaded');
 }

@@ -87,6 +87,7 @@ html {
   --white-alpha-20: rgb(255 255 255 / 20%);
   --white-alpha-10: rgb(255 255 255 / 10%);
   --green10-alpha-50: rgb(233 247 247 / 50%);
+  --green60-alpha-40: rgb(0 158 155 / 40%);
   --green60-alpha-50: rgb(0 158 155 / 50%);
 
   /* color system */
