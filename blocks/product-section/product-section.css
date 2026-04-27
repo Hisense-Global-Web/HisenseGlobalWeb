@@ -294,6 +294,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   &[disabled] {
     background: var(--green60-alpha-40);
     border-color: var(--green60-alpha-40);
+    background-clip: padding-box;
     color: var(--white-alpha-80);
     cursor: not-allowed;
   }
