@@ -620,7 +620,7 @@ export default async function decorate(block) {
   previewGroupEl.classList.add('preview-group');
   const previewListEl = document.createElement('div');
   previewListEl.classList.add('preview-list');
-  flatList.forEach((item) => {
+  flatList.forEach((item, index) => {
     const card = document.createElement('div');
     card.className = `product-card series-index-${item.seriesIndex}`;
 
@@ -780,7 +780,7 @@ export default async function decorate(block) {
     // create product button group
     const productBtnGroupEl = document.createElement('div');
     productBtnGroupEl.className = 'product-btn-group';
-    if (true) {
+    if (!index) {
       const link = document.createElement('a');
       link.className = 'pre-order-btn';
       link.target = '_blank';
