@@ -67,11 +67,11 @@ export default function decorate(block) {
     const bodyTextPEl = block.querySelector('.body-text');
     const titleLineCount = getTextLineCount(titleTextEl);
     if (titleLineCount === 1) {
-      bodyTextPEl.classList.add('body-text-line-clamp1');
+      bodyTextPEl?.classList?.add('body-text-line-clamp1');
     } else if (titleLineCount === 2) {
-      bodyTextPEl.classList.add('body-text-line-clamp2');
+      bodyTextPEl?.classList?.add('body-text-line-clamp2');
     } else {
-      bodyTextPEl.classList.add('body-text-line-clamp3');
+      bodyTextPEl?.classList?.add('body-text-line-clamp3');
     }
   }, 500);
 }

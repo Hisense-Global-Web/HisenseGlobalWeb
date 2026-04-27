@@ -171,7 +171,9 @@ export default function decorate(block) {
           newProduct.classList.add(backgroundColorMap.get(host).light);
         } else {
           // eslint-disable-next-line no-lonely-if
-          if (!isEditMode) {
+          if (isEditMode) {
+            newProduct.classList.add(backgroundColorMap.get(host).light);
+          } else {
             newProduct.classList.add('hide');
           }
         }
@@ -202,4 +204,26 @@ export default function decorate(block) {
       });
     });
   }
+
+  const handleCardClick = (e) => {
+    const cardLink = e.currentTarget.querySelector('a')?.href ?? null;
+    if (!cardLink) return;
+    window.location.href = cardLink;
+  };
+
+  const meidaCardQuery = window.matchMedia('(min-width: 860px)');
+
+  const handleCardMediaChange = (e) => {
+    const cardList = block.querySelectorAll('.product-wrapper');
+    [...cardList].forEach((card) => {
+      if (e.matches) { // PC
+        card.removeEventListener('click', handleCardClick);
+      } else { // Mobile
+        card.addEventListener('click', handleCardClick);
+      }
+    });
+  };
+
+  handleCardMediaChange(meidaCardQuery); // 初始调用一次
+  meidaCardQuery.addEventListener('change', handleCardMediaChange);
 }

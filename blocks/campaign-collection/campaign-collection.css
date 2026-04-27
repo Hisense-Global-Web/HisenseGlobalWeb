@@ -325,6 +325,10 @@
           position: relative;
           aspect-ratio: 1/1;
 
+          @media (width<860px) {
+            cursor: pointer;
+          }
+
           .product-title {
             display: flex;
             justify-content: center;
