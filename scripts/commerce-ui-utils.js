@@ -81,6 +81,7 @@ export function resolveCommerceButtonVisibility(callToAction = 'whereToBuy', opt
     if (normalizedCallToAction === 'addToCart') {
       return createCommerceButtonVisibility({
         showAddToCart: true,
+        showWhereToBuy: hasWhereToBuyIntegration,
         priceSpiderComingSoonMode: hasWhereToBuyIntegration ? 'showWhereToBuy' : 'hide',
       });
     }
