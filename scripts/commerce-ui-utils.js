@@ -49,6 +49,7 @@ export function resolveCommerceButtonVisibility(callToAction = 'whereToBuy', opt
   const normalizedCallToAction = String(callToAction || 'whereToBuy');
   const normalizedPageType = String(options.pageType || '').trim().toLowerCase();
   const hasHybrisData = Boolean(options.hasHybrisData ?? options.hasProductData);
+  const hasWhereToBuyIntegration = options.hasWhereToBuyIntegration !== false;
 
   if (normalizedPageType === 'plp') {
     if (hasHybrisData) {
@@ -72,29 +73,29 @@ export function resolveCommerceButtonVisibility(callToAction = 'whereToBuy', opt
   if (normalizedPageType === 'pdp') {
     if (!hasHybrisData) {
       return createCommerceButtonVisibility({
-        showWhereToBuy: true,
-        priceSpiderComingSoonMode: 'showWhereToBuy',
+        showWhereToBuy: hasWhereToBuyIntegration,
+        priceSpiderComingSoonMode: hasWhereToBuyIntegration ? 'showWhereToBuy' : 'hide',
       });
     }
 
     if (normalizedCallToAction === 'addToCart') {
       return createCommerceButtonVisibility({
         showAddToCart: true,
-        priceSpiderComingSoonMode: 'showWhereToBuy',
+        priceSpiderComingSoonMode: hasWhereToBuyIntegration ? 'showWhereToBuy' : 'hide',
       });
     }
 
     if (normalizedCallToAction === 'outOfStock') {
       return createCommerceButtonVisibility({
         showOutOfStock: true,
-        showWhereToBuy: true,
-        priceSpiderComingSoonMode: 'showWhereToBuy',
+        showWhereToBuy: hasWhereToBuyIntegration,
+        priceSpiderComingSoonMode: hasWhereToBuyIntegration ? 'showWhereToBuy' : 'hide',
       });
     }
 
     return createCommerceButtonVisibility({
-      showWhereToBuy: true,
-      priceSpiderComingSoonMode: 'showWhereToBuy',
+      showWhereToBuy: hasWhereToBuyIntegration,
+      priceSpiderComingSoonMode: hasWhereToBuyIntegration ? 'showWhereToBuy' : 'hide',
     });
   }
 
