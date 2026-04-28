@@ -5479,6 +5479,13 @@
         "valueType": "string"
       },
       {
+        "component": "reference",
+        "name": "button_icon",
+        "value": "",
+        "label": "Button Icon",
+        "valueType": "string"
+      },
+      {
         "component": "aem-content",
         "name": "button_link",
         "label": "Button Link",

@@ -2677,7 +2677,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Request Service Item",
-                  "model": "request-service-item"
+                  "model": "request-service-item",
+                  "button_icon": "/content/dam/hisense/us/common-icons/chevron-right.svg"
                 }
               }
             }
