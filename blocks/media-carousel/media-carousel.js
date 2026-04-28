@@ -290,7 +290,7 @@ export default async function decorate(block) {
     }
 
     typeDom.remove();
-    if (mediaContent.innerHTML) {
+    if (mediaContent?.innerHTML) {
       if (mediaContent.querySelector('a')) {
         const singleVideo = createVideo(item, idx);
         mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
