@@ -5458,6 +5458,35 @@
     ]
   },
   {
+    "id": "request-service-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "button_name",
+        "label": "Button Name",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "resource-list",
     "fields": []
   },
