@@ -29,30 +29,90 @@ export function resolveCommerceCallToAction(options = {}) {
   return 'whereToBuy';
 }
 
-export function resolveCommerceButtonVisibility(callToAction = 'whereToBuy') {
+function createCommerceButtonVisibility(options = {}) {
+  const {
+    showAddToCart = false,
+    showOutOfStock = false,
+    showWhereToBuy = false,
+    priceSpiderComingSoonMode = 'hide',
+  } = options;
+
+  return {
+    showAddToCart,
+    showOutOfStock,
+    showWhereToBuy,
+    priceSpiderComingSoonMode,
+  };
+}
+
+export function resolveCommerceButtonVisibility(callToAction = 'whereToBuy', options = {}) {
   const normalizedCallToAction = String(callToAction || 'whereToBuy');
+  const normalizedPageType = String(options.pageType || '').trim().toLowerCase();
+  const hasHybrisData = Boolean(options.hasHybrisData ?? options.hasProductData);
+
+  if (normalizedPageType === 'plp') {
+    if (hasHybrisData) {
+      if (normalizedCallToAction === 'addToCart') {
+        return createCommerceButtonVisibility({
+          showAddToCart: true,
+        });
+      }
+
+      return createCommerceButtonVisibility({
+        showOutOfStock: true,
+      });
+    }
+
+    return createCommerceButtonVisibility({
+      showWhereToBuy: true,
+      priceSpiderComingSoonMode: 'showComingSoon',
+    });
+  }
+
+  if (normalizedPageType === 'pdp') {
+    if (!hasHybrisData) {
+      return createCommerceButtonVisibility({
+        showWhereToBuy: true,
+        priceSpiderComingSoonMode: 'showWhereToBuy',
+      });
+    }
+
+    if (normalizedCallToAction === 'addToCart') {
+      return createCommerceButtonVisibility({
+        showAddToCart: true,
+        priceSpiderComingSoonMode: 'showWhereToBuy',
+      });
+    }
+
+    if (normalizedCallToAction === 'outOfStock') {
+      return createCommerceButtonVisibility({
+        showOutOfStock: true,
+        showWhereToBuy: true,
+        priceSpiderComingSoonMode: 'showWhereToBuy',
+      });
+    }
+
+    return createCommerceButtonVisibility({
+      showWhereToBuy: true,
+      priceSpiderComingSoonMode: 'showWhereToBuy',
+    });
+  }
 
   if (normalizedCallToAction === 'addToCart') {
-    return {
+    return createCommerceButtonVisibility({
       showAddToCart: true,
-      showOutOfStock: false,
-      showWhereToBuy: false,
-    };
+    });
   }
 
   if (normalizedCallToAction === 'outOfStock') {
-    return {
-      showAddToCart: false,
+    return createCommerceButtonVisibility({
       showOutOfStock: true,
-      showWhereToBuy: false,
-    };
+    });
   }
 
-  return {
-    showAddToCart: false,
-    showOutOfStock: false,
+  return createCommerceButtonVisibility({
     showWhereToBuy: true,
-  };
+  });
 }
 
 export function resolveWhereToBuyButtonPresentation() {
@@ -62,6 +122,51 @@ export function resolveWhereToBuyButtonPresentation() {
     usePriceSpiderWidget: true,
     buttonLabel: 'where to buy',
   };
+}
+
+export function resolvePriceSpiderWhereToBuyState(options = {}) {
+  const {
+    noSku = false,
+    ariaLabel = '',
+    buttonLabel = '',
+    fallbackText = 'Where to buy',
+    comingSoonMode = 'hide',
+  } = options;
+  const text = String(buttonLabel || fallbackText || '').trim();
+  const normalizedAriaLabel = String(ariaLabel || '').trim().toLowerCase();
+  const normalizedComingSoonMode = String(comingSoonMode || 'hide').trim();
+  const isComingSoon = normalizedAriaLabel === 'coming soon';
+  const state = {
+    showWhereToBuy: !noSku && !isComingSoon,
+    text,
+  };
+
+  if (!isComingSoon) {
+    if (normalizedComingSoonMode !== 'hide') {
+      state.isComingSoon = false;
+    }
+    return state;
+  }
+
+  if (normalizedComingSoonMode === 'showComingSoon') {
+    return {
+      showWhereToBuy: true,
+      text: 'Coming Soon',
+      isComingSoon: true,
+      forceVisible: true,
+    };
+  }
+
+  if (normalizedComingSoonMode === 'showWhereToBuy') {
+    return {
+      showWhereToBuy: true,
+      text,
+      isComingSoon: false,
+      forceVisible: true,
+    };
+  }
+
+  return state;
 }
 
 export function shouldShowHybrisFavoriteButton(options = {}) {
