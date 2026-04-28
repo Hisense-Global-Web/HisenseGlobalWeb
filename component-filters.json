@@ -94,6 +94,7 @@
       "recall-info-list",
       "gray-tips",
       "guide-list",
+      "recall-text-info",
       "promotional-text",
       "campaign-collection",
       "related-news",
@@ -121,6 +122,7 @@
       "parters-container",
       "information-list-module",
       "job-cards",
+      "job-detail",
       "job-list",
       "quick-action-card",
       "category-support-card",
@@ -247,12 +249,6 @@
     "components": [
       "campaign-collection-card",
       "associated-products"
-    ]
-  },
-  {
-    "id": "campaign-host-list",
-    "components": [
-      "campaign-host-list-item"
     ]
   },
   {
@@ -522,6 +518,12 @@
     "id": "quick-link",
     "components": [
       "quick-link-item"
+    ]
+  },
+  {
+    "id": "recall-text-info",
+    "components": [
+      "recall-text-info-item"
     ]
   },
   {

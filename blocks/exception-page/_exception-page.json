@@ -23,13 +23,6 @@
       "id": "exception-page",
       "fields": [
         {
-          "component": "reference",
-          "name": "exceptionicon",
-          "value": "",
-          "label": "Icon",
-          "valueType": "string"
-        },
-        {
           "component": "text",
           "name": "exceptiontitle",
           "value": "",
