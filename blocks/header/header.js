@@ -1706,7 +1706,7 @@ export default async function decorate(block) {
     const support = [...supportRouteBaseList.children].map((item) => {
       const title = item.children[0]?.textContent?.trim() || '';
       const href = item.children[1]?.textContent?.trim() || '#';
-      return { href, title };
+      return { href: processPath(href), title };
     });
 
     support.forEach((item) => {
