@@ -101,6 +101,7 @@
       "resource-list",
       "search-box",
       "search-result-module",
+      "sitemap",
       "support-module-title",
       "slide",
       "social-media-list",
@@ -554,6 +555,12 @@
     "id": "search-result-module",
     "components": [
       "search-result-item"
+    ]
+  },
+  {
+    "id": "sitemap",
+    "components": [
+      "sitemap-item"
     ]
   },
   {
