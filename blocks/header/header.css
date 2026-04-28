@@ -47,6 +47,7 @@
     top 0.5s cubic-bezier(0.35, 0, 0.36, 1),
     background-color 0s 0.36s;
   animation-fill-mode: forwards;
+  user-select: none;
 
   &.hidden {
     top: calc(-1 * var(--root-header-height));

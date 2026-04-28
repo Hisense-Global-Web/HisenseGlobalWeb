@@ -15,8 +15,12 @@ import {
   updateHybrisCartItem,
 } from '../../scripts/hybris-bff.js';
 import { loadCSS } from '../../scripts/aem.js';
-import shouldShowAddToCartButton, {
+import {
+  resolveCommerceButtonVisibility,
+  resolveCommerceCallToAction,
+  resolvePriceSpiderWhereToBuyState,
   resolvePopupQuantityDisplayState,
+  resolveWhereToBuyButtonPresentation,
   shouldShowPdpFavoriteButton,
 } from '../../scripts/commerce-ui-utils.js';
 import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
@@ -27,6 +31,7 @@ const WISHLIST_CART_NAME_PREFIX = 'wishlist';
 const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-p1-public.model-t.cc.commerce.ondemand.com';
 const STOREFRONT_CART_URL = `${STOREFRONT_BASE_URL}/cart`;
 const STOREFRONT_CHECKOUT_URL = new URL('/checkout/delivery-address', STOREFRONT_BASE_URL).toString();
+const PRICE_SPIDER_INTEGRATION_PATTERN = /pricespider|ps-widget/i;
 let productSectionPopupCssPromise = null;
 
 function setControlLoadingState(element, isLoading) {
@@ -49,6 +54,32 @@ function setElementHidden(element, hidden) {
   }
 
   element.classList.toggle('hide', hidden);
+}
+
+function clearPriceSpiderButtonResult(button) {
+  if (!button) {
+    return;
+  }
+
+  [...button.classList].forEach((className) => {
+    if (className.startsWith('ps-') && className !== 'ps-widget') {
+      button.classList.remove(className);
+    }
+  });
+}
+
+export function hasPdpWhereToBuyIntegration(doc = document) {
+  if (!doc || typeof doc.querySelector !== 'function') {
+    return false;
+  }
+
+  const script = doc.querySelector('script[src*="pricespider"], script[src*="PriceSpider"], script[src*="ps-widget"]');
+  if (script) {
+    return true;
+  }
+
+  const integrationBlock = doc.querySelector('.third-party-integration');
+  return PRICE_SPIDER_INTEGRATION_PATTERN.test(integrationBlock?.textContent || '');
 }
 
 function hasInventory(product) {
@@ -846,9 +877,14 @@ export default async function decorate(block) {
   cart.className = 'pdp-cart-btn';
   cart.textContent = 'Add to Cart';
   cart.style.display = 'none';
+  const outOfStockBtn = document.createElement('button');
+  outOfStockBtn.className = 'pdp-out-of-stock-btn';
+  outOfStockBtn.textContent = 'Out of stock';
+  outOfStockBtn.disabled = true;
+  outOfStockBtn.style.display = 'none';
   const btnGroup = document.createElement('div');
   btnGroup.className = 'pdp-btn-group';
-  btnGroup.append(cart, buy);
+  btnGroup.append(cart, outOfStockBtn, buy);
 
   const linkGroupEl = document.createElement('div');
   linkGroupEl.className = 'pdp-btn-link-group';
@@ -895,6 +931,7 @@ export default async function decorate(block) {
     series.classList.add('hide');
   }
   setElementHidden(buy, !showBuyButton);
+  buy.textContent = 'Where to buy';
   setElementHidden(price, true);
   if (!fields.includes('buttons')) {
     sizesWrapper.classList.add('hide');
@@ -968,13 +1005,124 @@ export default async function decorate(block) {
 
   function syncButtonGroupVisibility() {
     const cartVisible = cart.style.display !== 'none';
+    const outOfStockVisible = outOfStockBtn.style.display !== 'none';
     const buyVisible = !buy.classList.contains('hide');
-    setElementHidden(btnGroup, !(cartVisible || buyVisible));
+    setElementHidden(btnGroup, !(cartVisible || outOfStockVisible || buyVisible));
   }
 
   function setCartButtonVisibility(visible) {
     cart.style.display = visible ? 'block' : 'none';
     syncButtonGroupVisibility();
+  }
+
+  function setOutOfStockButtonVisibility(visible) {
+    outOfStockBtn.style.display = visible ? 'block' : 'none';
+    setElementHidden(outOfStockBtn, !visible);
+    syncButtonGroupVisibility();
+  }
+
+  function setBuyButtonRequestedVisibility(visible) {
+    buy.dataset.wtbRequestedVisible = visible ? 'true' : 'false';
+    setElementHidden(buy, !visible);
+    syncButtonGroupVisibility();
+  }
+
+  function syncBuyButtonFromPriceSpider() {
+    const requestedVisible = buy.dataset.wtbRequestedVisible === 'true';
+    const priceSpiderState = resolvePriceSpiderWhereToBuyState({
+      noSku: buy.classList.contains('ps-no-sku'),
+      ariaLabel: buy.getAttribute('aria-label'),
+      buttonLabel: buy.getAttribute('ps-button-label'),
+      fallbackText: buy.getAttribute('data-fallback-label') || 'Where to buy',
+      comingSoonMode: buy.dataset.priceSpiderComingSoonMode || 'hide',
+    });
+    const shouldShowBuy = requestedVisible && priceSpiderState.showWhereToBuy;
+    buy.dataset.priceSpiderForceVisible = priceSpiderState.forceVisible ? 'true' : 'false';
+
+    if (priceSpiderState.isComingSoon && priceSpiderState.text) {
+      buy.setAttribute('data-fallback-label', priceSpiderState.text);
+    } else if (buy.dataset.defaultFallbackLabel) {
+      buy.setAttribute('data-fallback-label', buy.dataset.defaultFallbackLabel);
+    }
+
+    if (priceSpiderState.text && buy.textContent.trim() !== priceSpiderState.text) {
+      buy.textContent = priceSpiderState.text;
+    }
+    if (
+      priceSpiderState.showWhereToBuy
+      && priceSpiderState.text
+      && buy.getAttribute('aria-label') !== priceSpiderState.text
+    ) {
+      buy.setAttribute('aria-label', priceSpiderState.text);
+    }
+
+    setElementHidden(buy, !shouldShowBuy);
+    syncButtonGroupVisibility();
+  }
+
+  function observeBuyButtonPriceSpiderState() {
+    if (typeof MutationObserver === 'undefined' || buy.dataset.priceSpiderObserverBound === 'true') {
+      return;
+    }
+
+    const observer = new MutationObserver(() => {
+      syncBuyButtonFromPriceSpider();
+    });
+    observer.observe(buy, {
+      attributes: true,
+      attributeFilter: ['aria-label', 'class', 'ps-button-label'],
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
+    buy.dataset.priceSpiderObserverBound = 'true';
+  }
+
+  function setBuyButtonState(state = 'whereToBuy', productCode = currentProductCode, options = {}) {
+    const normalizedState = String(state || 'whereToBuy');
+    const normalizedProductCode = String(productCode || '').trim();
+    const visibility = resolveCommerceButtonVisibility(normalizedState, {
+      pageType: 'pdp',
+      hasHybrisData: options.hasHybrisData,
+      hasWhereToBuyIntegration: options.hasWhereToBuyIntegration ?? hasPdpWhereToBuyIntegration(),
+    });
+    const showOutOfStock = showBuyButton && visibility.showOutOfStock;
+    const showWhereToBuy = showBuyButton && visibility.showWhereToBuy;
+    const presentation = resolveWhereToBuyButtonPresentation(normalizedState);
+
+    clearPriceSpiderButtonResult(buy);
+    buy.textContent = presentation.text;
+    buy.disabled = false;
+    buy.classList.toggle('ps-widget', presentation.usePriceSpiderWidget);
+    buy.style.pointerEvents = '';
+    buy.style.display = '';
+    buy.setAttribute('aria-label', presentation.fallbackText || '');
+    buy.dataset.priceSpiderComingSoonMode = visibility.priceSpiderComingSoonMode || 'hide';
+
+    if (presentation.buttonLabel) {
+      buy.setAttribute('ps-button-label', presentation.buttonLabel);
+    } else {
+      buy.removeAttribute('ps-button-label');
+    }
+
+    if (presentation.fallbackText) {
+      buy.setAttribute('data-fallback-label', presentation.fallbackText);
+      buy.dataset.defaultFallbackLabel = presentation.fallbackText;
+    } else {
+      buy.removeAttribute('data-fallback-label');
+      delete buy.dataset.defaultFallbackLabel;
+    }
+
+    if (showWhereToBuy && normalizedProductCode && presentation.usePriceSpiderWidget) {
+      buy.setAttribute('ps-sku', normalizedProductCode);
+    } else {
+      buy.removeAttribute('ps-sku');
+    }
+
+    setOutOfStockButtonVisibility(showOutOfStock);
+    setBuyButtonRequestedVisibility(showWhereToBuy);
+    syncBuyButtonFromPriceSpider();
+    observeBuyButtonPriceSpiderState();
   }
 
   function setFavoriteVisibility(visible) {
@@ -1598,6 +1746,9 @@ export default async function decorate(block) {
   async function refreshPdpCommerceState() {
     if (!currentProductCode) {
       setCartButtonVisibility(false);
+      setBuyButtonState('whereToBuy', sku, {
+        hasHybrisData: false,
+      });
       setFavoriteVisibility(false);
       applyHybrisPriceDisplay(null);
       clearWishlistState();
@@ -1611,13 +1762,24 @@ export default async function decorate(block) {
     try {
       const commerceProduct = await fetchHybrisProduct(currentProductCode);
       const hasPrice = Boolean(applyHybrisPriceDisplay(commerceProduct));
+      const hasProductData = Boolean(
+        commerceProduct
+        && typeof commerceProduct === 'object'
+        && !Array.isArray(commerceProduct)
+        && Object.keys(commerceProduct).length,
+      );
       inventoryAvailable = hasInventory(commerceProduct);
       const authenticated = Boolean(getCachedHybrisAuthState().authenticated);
-      canShowAddToCart = shouldShowAddToCartButton({
+      const callToAction = resolveCommerceCallToAction({
+        hasProductData,
         hasPrice,
         hasInventory: inventoryAvailable,
       });
+      canShowAddToCart = callToAction === 'addToCart';
       setCartButtonVisibility(canShowAddToCart);
+      setBuyButtonState(callToAction, currentProductCode, {
+        hasHybrisData: hasProductData,
+      });
       setFavoriteVisibility(shouldShowPdpFavoriteButton({
         authenticated,
         hasInventory: inventoryAvailable,
@@ -1639,6 +1801,9 @@ export default async function decorate(block) {
     } catch (error) {
       console.warn(`Failed to load PDP commerce data for ${currentProductCode}`, error);
       setCartButtonVisibility(false);
+      setBuyButtonState('whereToBuy', currentProductCode || sku, {
+        hasHybrisData: false,
+      });
       setFavoriteVisibility(false);
       applyHybrisPriceDisplay(null);
       clearWishlistState();
@@ -1794,7 +1959,7 @@ export default async function decorate(block) {
 
   const faqMobileBtn = document.createElement('div');
   faqMobileBtn.classList.add('pdp-nav-menu-item');
-  faqMobileBtn.textContent = 'Faq';
+  faqMobileBtn.textContent = 'FAQ';
   faqMobileBtn.addEventListener('click', () => {
     if (faqLink) window.location.href = faqLink;
   });

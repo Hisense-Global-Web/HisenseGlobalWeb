@@ -1,9 +1,15 @@
 
+.section.feature-navigation-container {
+  max-width: unset;
+}
+
 .feature-navigation-wrapper {
   width: 100%;
-  background-color: var(--color-primary-green-10);
-  border-radius: var(--radius-xl);
-  padding: 0 !important;
+
+  .feature-navigation {
+    background-color: var(--color-primary-green-10);
+    border-radius: var(--radius-xl);
+  }
 }
 
 .feature-navigation-wrapper p{

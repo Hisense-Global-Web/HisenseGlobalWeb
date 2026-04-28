@@ -25,9 +25,13 @@ import {
   setCompareProductImgTit,
   appendCompareProductUtil,
 } from '../../utils/plp-compare-utils.js';
-import shouldShowAddToCartButton, {
+import {
+  resolveCommerceButtonVisibility,
+  resolveCommerceCallToAction,
+  resolvePriceSpiderWhereToBuyState,
   resolveProductCardTagLabel,
   resolvePopupQuantityDisplayState,
+  resolveWhereToBuyButtonPresentation,
   shouldShowPlpFavoriteButton,
 } from '../../scripts/commerce-ui-utils.js';
 
@@ -302,6 +306,18 @@ function rebindPriceSpiderWidgets() {
       window.PriceSpider.rebind();
     }
   }, 0);
+}
+
+function clearPriceSpiderButtonResult(button) {
+  if (!button) {
+    return;
+  }
+
+  [...button.classList].forEach((className) => {
+    if (className.startsWith('ps-') && className !== 'ps-widget') {
+      button.classList.remove(className);
+    }
+  });
 }
 
 async function ensureWishlistLoaded(force = false) {
@@ -1765,6 +1781,10 @@ export default function decorate(block) {
       addToCartBtnEl.className = 'plp-add-to-cart-btn plp-purchase-hidden';
       addToCartBtnEl.textContent = 'Add to Cart';
 
+      const outOfStockBtnEl = document.createElement('div');
+      outOfStockBtnEl.className = 'plp-out-of-stock-btn disabled plp-purchase-hidden';
+      outOfStockBtnEl.textContent = 'Out of stock';
+
       const whereToBuyBtnEl = document.createElement('div');
       whereToBuyBtnEl.className = 'plp-where-to-buy-btn ps-widget plp-purchase-hidden';
 
@@ -1839,21 +1859,130 @@ export default function decorate(block) {
         button.style.display = visible ? 'block' : 'none';
       };
 
-      const hidePurchaseButtons = () => {
-        setPurchaseButtonVisibility(addToCartBtnEl, false);
-        setPurchaseButtonVisibility(whereToBuyBtnEl, false);
+      const setWhereToBuyPurchaseVisibility = (visible) => {
+        whereToBuyBtnEl.dataset.wtbRequestedVisible = visible ? 'true' : 'false';
+        setPurchaseButtonVisibility(whereToBuyBtnEl, visible);
       };
 
-      const updatePurchaseButtons = (showAddToCart) => {
+      const syncWhereToBuyButtonFromPriceSpider = () => {
+        const requestedVisible = whereToBuyBtnEl.dataset.wtbRequestedVisible === 'true';
+        const priceSpiderState = resolvePriceSpiderWhereToBuyState({
+          noSku: whereToBuyBtnEl.classList.contains('ps-no-sku'),
+          ariaLabel: whereToBuyBtnEl.getAttribute('aria-label'),
+          buttonLabel: whereToBuyBtnEl.getAttribute('ps-button-label'),
+          fallbackText: whereToBuyBtnEl.getAttribute('data-fallback-label') || 'Where to buy',
+          comingSoonMode: whereToBuyBtnEl.dataset.priceSpiderComingSoonMode || 'hide',
+        });
+        const shouldShowWhereToBuy = requestedVisible && priceSpiderState.showWhereToBuy;
+        whereToBuyBtnEl.dataset.priceSpiderForceVisible = priceSpiderState.forceVisible ? 'true' : 'false';
+
+        if (priceSpiderState.isComingSoon && priceSpiderState.text) {
+          whereToBuyBtnEl.setAttribute('data-fallback-label', priceSpiderState.text);
+        } else if (whereToBuyBtnEl.dataset.defaultFallbackLabel) {
+          whereToBuyBtnEl.setAttribute('data-fallback-label', whereToBuyBtnEl.dataset.defaultFallbackLabel);
+        }
+
+        if (priceSpiderState.text && whereToBuyBtnEl.textContent.trim() !== priceSpiderState.text) {
+          whereToBuyBtnEl.textContent = priceSpiderState.text;
+        }
+        if (
+          priceSpiderState.showWhereToBuy
+          && priceSpiderState.text
+          && whereToBuyBtnEl.getAttribute('aria-label') !== priceSpiderState.text
+        ) {
+          whereToBuyBtnEl.setAttribute('aria-label', priceSpiderState.text);
+        }
+
+        setPurchaseButtonVisibility(whereToBuyBtnEl, shouldShowWhereToBuy);
+      };
+
+      const observeWhereToBuyButtonPriceSpiderState = () => {
+        if (typeof MutationObserver === 'undefined' || whereToBuyBtnEl.dataset.priceSpiderObserverBound === 'true') {
+          return;
+        }
+
+        const observer = new MutationObserver(() => {
+          syncWhereToBuyButtonFromPriceSpider();
+        });
+        observer.observe(whereToBuyBtnEl, {
+          attributes: true,
+          attributeFilter: ['aria-label', 'class', 'ps-button-label'],
+          childList: true,
+          characterData: true,
+          subtree: true,
+        });
+        whereToBuyBtnEl.dataset.priceSpiderObserverBound = 'true';
+      };
+
+      const hidePurchaseButtons = () => {
+        setPurchaseButtonVisibility(addToCartBtnEl, false);
+        setPurchaseButtonVisibility(outOfStockBtnEl, false);
+        setWhereToBuyPurchaseVisibility(false);
+      };
+
+      const setWhereToBuyButtonState = (state = 'whereToBuy', productCode = '', options = {}) => {
+        const normalizedState = String(state || 'whereToBuy');
+        const normalizedProductCode = String(productCode || '').trim();
+        const presentation = resolveWhereToBuyButtonPresentation(normalizedState);
+        const visibility = options.visibility || resolveCommerceButtonVisibility(normalizedState, {
+          pageType: 'plp',
+          hasHybrisData: options.hasHybrisData,
+        });
+
+        clearPriceSpiderButtonResult(whereToBuyBtnEl);
+        whereToBuyBtnEl.textContent = presentation.text;
+        whereToBuyBtnEl.classList.toggle('ps-widget', presentation.usePriceSpiderWidget);
+        whereToBuyBtnEl.style.pointerEvents = '';
+        whereToBuyBtnEl.setAttribute('aria-label', presentation.fallbackText || '');
+        whereToBuyBtnEl.dataset.priceSpiderComingSoonMode = visibility.priceSpiderComingSoonMode || 'hide';
+
+        if (presentation.buttonLabel) {
+          whereToBuyBtnEl.setAttribute('ps-button-label', presentation.buttonLabel);
+        } else {
+          whereToBuyBtnEl.removeAttribute('ps-button-label');
+        }
+
+        if (presentation.fallbackText) {
+          whereToBuyBtnEl.setAttribute('data-fallback-label', presentation.fallbackText);
+          whereToBuyBtnEl.dataset.defaultFallbackLabel = presentation.fallbackText;
+        } else {
+          whereToBuyBtnEl.removeAttribute('data-fallback-label');
+          delete whereToBuyBtnEl.dataset.defaultFallbackLabel;
+        }
+
+        if (visibility.showWhereToBuy && normalizedProductCode && presentation.usePriceSpiderWidget) {
+          whereToBuyBtnEl.setAttribute('ps-sku', normalizedProductCode);
+        } else {
+          whereToBuyBtnEl.removeAttribute('ps-sku');
+        }
+        syncWhereToBuyButtonFromPriceSpider();
+        observeWhereToBuyButtonPriceSpiderState();
+      };
+
+      const updatePurchaseButtons = (state = 'whereToBuy', options = {}) => {
         const addToCartCode = addToCartBtnEl.dataset.productCode || '';
         if (!addToCartCode) {
           hidePurchaseButtons();
           return;
         }
 
-        const canShowAddToCart = Boolean(showAddToCart);
-        setPurchaseButtonVisibility(addToCartBtnEl, canShowAddToCart);
-        setPurchaseButtonVisibility(whereToBuyBtnEl, !canShowAddToCart);
+        const normalizedState = String(state || 'whereToBuy');
+        const visibility = resolveCommerceButtonVisibility(normalizedState, {
+          pageType: 'plp',
+          hasHybrisData: options.hasHybrisData,
+        });
+        setWhereToBuyButtonState(normalizedState, addToCartCode, {
+          visibility,
+          hasHybrisData: options.hasHybrisData,
+        });
+        setPurchaseButtonVisibility(addToCartBtnEl, visibility.showAddToCart);
+        setPurchaseButtonVisibility(outOfStockBtnEl, visibility.showOutOfStock);
+        setWhereToBuyPurchaseVisibility(visibility.showWhereToBuy);
+        syncWhereToBuyButtonFromPriceSpider();
+
+        if (visibility.showWhereToBuy) {
+          rebindPriceSpiderWidgets();
+        }
       };
 
       const updatePriceState = (commerceProduct, fallbackSource = null) => {
@@ -1919,11 +2048,20 @@ export default function decorate(block) {
 
           const inventoryAvailable = hasInventory(commerceProduct);
           const hasPrice = updatePriceState(commerceProduct, variant);
+          const hasProductData = Boolean(
+            commerceProduct
+            && typeof commerceProduct === 'object'
+            && !Array.isArray(commerceProduct)
+            && Object.keys(commerceProduct).length,
+          );
           favoriteEnabled = inventoryAvailable;
-          updatePurchaseButtons(shouldShowAddToCartButton({
+          updatePurchaseButtons(resolveCommerceCallToAction({
+            hasProductData,
             hasPrice,
             hasInventory: inventoryAvailable,
-          }));
+          }), {
+            hasHybrisData: hasProductData,
+          });
           updateFavoriteState(productCode);
         } catch (error) {
           /* eslint-disable-next-line no-console */
@@ -1933,7 +2071,9 @@ export default function decorate(block) {
           }
           favoriteEnabled = false;
           updatePriceState(null, variant);
-          updatePurchaseButtons(false);
+          updatePurchaseButtons('whereToBuy', {
+            hasHybrisData: false,
+          });
           updateFavoriteState(productCode);
         }
       };
@@ -2098,8 +2238,7 @@ export default function decorate(block) {
         }
 
         // 为 where to buy 按钮设置商品对应属性
-        whereToBuyBtnEl.setAttribute('ps-button-label', 'where to buy');
-        whereToBuyBtnEl.setAttribute('ps-sku', variantProductCode || '');
+        setWhereToBuyButtonState('whereToBuy', variantProductCode);
 
         // productDetailPageLink - 先检查当前产品尺寸是否有productDetailPageLink链接，如果没有，才使用共享链接
         const productDetailPageLink = variant.productDetailPageLink || group.sharedProductDetailPageLink || '#';
@@ -2138,7 +2277,6 @@ export default function decorate(block) {
           /* eslint-disable-next-line no-console */
           console.warn('Failed to refresh commerce state', error);
         });
-        rebindPriceSpiderWidgets();
       };
 
       // 创建尺寸节点并绑定事件
@@ -2280,6 +2418,7 @@ export default function decorate(block) {
 
       // 将where to buy 按钮追加在按钮组dom 中
       productBtnGroupEl.prepend(whereToBuyBtnEl);
+      productBtnGroupEl.prepend(outOfStockBtnEl);
       productBtnGroupEl.prepend(addToCartBtnEl);
 
       card.append(titleDiv, imgDiv, seriesDiv, nameDiv);

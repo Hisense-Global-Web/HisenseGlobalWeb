@@ -42,6 +42,7 @@
           "component": "select",
           "name": "style_theme",
           "label": "Section Theme",
+          "value": "light",
           "options": [
             {
               "name": "Light",
@@ -366,6 +367,9 @@
         "recall-info-list",
         "gray-tips",
         "guide-list",
+        "recall-text-info",
+        "promotional-text",
+        "campaign-collection",
         "related-news",
         "resource-list",
         "search-box",
@@ -391,6 +395,7 @@
         "parters-container",
         "information-list-module",
         "job-cards",
+        "job-detail",
         "job-list",
         "quick-action-card",
         "category-support-card",
@@ -425,6 +430,7 @@
         "warranty-accordion",
         "warranty-accordion-item",
         "warranty-information",
+        "retailer-card-grid",
         "store-locator",
         "brand-matrix",
         "campaign-bundle-banner"

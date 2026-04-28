@@ -50,16 +50,27 @@ export default function decorate(block) {
   if (buttonContainerEl) {
     const ctaContainerEl = document.createElement('div');
     ctaContainerEl.className = 'cta-container';
-    const [primaryBtnEl, secondaryBtnEl] = buttonContainerEl?.querySelectorAll('.button-container') ?? [];
+    const [primaryBtnEl, secondaryBtnEl] = buttonContainerEl.children?.[0]?.children ?? [];
     if (primaryBtnEl) {
-      ctaContainerEl.appendChild(primaryBtnEl);
+      if (primaryBtnEl?.classList.contains('button-container')) {
+        ctaContainerEl.appendChild(primaryBtnEl);
+      } else {
+        primaryBtnEl?.remove();
+      }
     }
     if (secondaryBtnEl) {
-      primaryBtnEl.classList.add('green-btn');
-      ctaContainerEl.appendChild(secondaryBtnEl);
+      if (secondaryBtnEl?.classList.contains('button-container')) {
+        primaryBtnEl.classList.add('green-btn');
+        ctaContainerEl.appendChild(secondaryBtnEl);
+      } else {
+        secondaryBtnEl?.remove();
+      }
     }
     conentContainerEl.appendChild(ctaContainerEl);
+  } else {
+    buttonContainerEl?.remove?.();
   }
+
   block.appendChild(conentContainerEl);
 
   setTimeout(() => {
@@ -67,11 +78,11 @@ export default function decorate(block) {
     const bodyTextPEl = block.querySelector('.body-text');
     const titleLineCount = getTextLineCount(titleTextEl);
     if (titleLineCount === 1) {
-      bodyTextPEl.classList.add('body-text-line-clamp1');
+      bodyTextPEl?.classList?.add('body-text-line-clamp1');
     } else if (titleLineCount === 2) {
-      bodyTextPEl.classList.add('body-text-line-clamp2');
+      bodyTextPEl?.classList?.add('body-text-line-clamp2');
     } else {
-      bodyTextPEl.classList.add('body-text-line-clamp3');
+      bodyTextPEl?.classList?.add('body-text-line-clamp3');
     }
   }, 500);
 }
