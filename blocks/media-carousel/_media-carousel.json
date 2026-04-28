@@ -160,16 +160,21 @@
           "label": "Mask Layer",
           "valueType": "boolean",
           "condition": {
-            "some": [
+            "or": [
               {
-                "var": "classes"
+                "===": [
+                  {
+                    "var": "$parent.classes"
+                  },
+                  "left-style"
+                ]
               },
               {
                 "===": [
                   {
-                    "var": ""
+                    "var": "$parent.classes"
                   },
-                  "overlay_text-left"
+                  "left-bottom-style"
                 ]
               }
             ]
