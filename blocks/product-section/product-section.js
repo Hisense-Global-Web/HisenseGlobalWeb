@@ -31,6 +31,7 @@ const WISHLIST_CART_NAME_PREFIX = 'wishlist';
 const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-p1-public.model-t.cc.commerce.ondemand.com';
 const STOREFRONT_CART_URL = `${STOREFRONT_BASE_URL}/cart`;
 const STOREFRONT_CHECKOUT_URL = new URL('/checkout/delivery-address', STOREFRONT_BASE_URL).toString();
+const PRICE_SPIDER_INTEGRATION_PATTERN = /pricespider|ps-widget/i;
 let productSectionPopupCssPromise = null;
 
 function setControlLoadingState(element, isLoading) {
@@ -65,6 +66,20 @@ function clearPriceSpiderButtonResult(button) {
       button.classList.remove(className);
     }
   });
+}
+
+export function hasPdpWhereToBuyIntegration(doc = document) {
+  if (!doc || typeof doc.querySelector !== 'function') {
+    return false;
+  }
+
+  const script = doc.querySelector('script[src*="pricespider"], script[src*="PriceSpider"], script[src*="ps-widget"]');
+  if (script) {
+    return true;
+  }
+
+  const integrationBlock = doc.querySelector('.third-party-integration');
+  return PRICE_SPIDER_INTEGRATION_PATTERN.test(integrationBlock?.textContent || '');
 }
 
 function hasInventory(product) {
@@ -1069,6 +1084,7 @@ export default async function decorate(block) {
     const visibility = resolveCommerceButtonVisibility(normalizedState, {
       pageType: 'pdp',
       hasHybrisData: options.hasHybrisData,
+      hasWhereToBuyIntegration: options.hasWhereToBuyIntegration ?? hasPdpWhereToBuyIntegration(),
     });
     const showOutOfStock = showBuyButton && visibility.showOutOfStock;
     const showWhereToBuy = showBuyButton && visibility.showWhereToBuy;
