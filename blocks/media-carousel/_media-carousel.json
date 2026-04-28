@@ -158,27 +158,7 @@
           "component": "boolean",
           "name": "mask-layer",
           "label": "Mask Layer",
-          "valueType": "boolean",
-          "condition": {
-            "or": [
-              {
-                "===": [
-                  {
-                    "var": "$parent.classes"
-                  },
-                  "left-style"
-                ]
-              },
-              {
-                "===": [
-                  {
-                    "var": "$parent.classes"
-                  },
-                  "left-bottom-style"
-                ]
-              }
-            ]
-          }
+          "valueType": "boolean"
         }
       ]
     }
