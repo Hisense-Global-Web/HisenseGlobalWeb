@@ -1019,8 +1019,16 @@ export default async function decorate(block) {
       ariaLabel: buy.getAttribute('aria-label'),
       buttonLabel: buy.getAttribute('ps-button-label'),
       fallbackText: buy.getAttribute('data-fallback-label') || 'Where to buy',
+      comingSoonMode: buy.dataset.priceSpiderComingSoonMode || 'hide',
     });
     const shouldShowBuy = requestedVisible && priceSpiderState.showWhereToBuy;
+    buy.dataset.priceSpiderForceVisible = priceSpiderState.forceVisible ? 'true' : 'false';
+
+    if (priceSpiderState.isComingSoon && priceSpiderState.text) {
+      buy.setAttribute('data-fallback-label', priceSpiderState.text);
+    } else if (buy.dataset.defaultFallbackLabel) {
+      buy.setAttribute('data-fallback-label', buy.dataset.defaultFallbackLabel);
+    }
 
     if (priceSpiderState.text && buy.textContent.trim() !== priceSpiderState.text) {
       buy.textContent = priceSpiderState.text;
@@ -1055,10 +1063,13 @@ export default async function decorate(block) {
     buy.dataset.priceSpiderObserverBound = 'true';
   }
 
-  function setBuyButtonState(state = 'whereToBuy', productCode = currentProductCode) {
+  function setBuyButtonState(state = 'whereToBuy', productCode = currentProductCode, options = {}) {
     const normalizedState = String(state || 'whereToBuy');
     const normalizedProductCode = String(productCode || '').trim();
-    const visibility = resolveCommerceButtonVisibility(normalizedState);
+    const visibility = resolveCommerceButtonVisibility(normalizedState, {
+      pageType: 'pdp',
+      hasHybrisData: options.hasHybrisData,
+    });
     const showOutOfStock = showBuyButton && visibility.showOutOfStock;
     const showWhereToBuy = showBuyButton && visibility.showWhereToBuy;
     const presentation = resolveWhereToBuyButtonPresentation(normalizedState);
@@ -1070,6 +1081,7 @@ export default async function decorate(block) {
     buy.style.pointerEvents = '';
     buy.style.display = '';
     buy.setAttribute('aria-label', presentation.fallbackText || '');
+    buy.dataset.priceSpiderComingSoonMode = visibility.priceSpiderComingSoonMode || 'hide';
 
     if (presentation.buttonLabel) {
       buy.setAttribute('ps-button-label', presentation.buttonLabel);
@@ -1079,8 +1091,10 @@ export default async function decorate(block) {
 
     if (presentation.fallbackText) {
       buy.setAttribute('data-fallback-label', presentation.fallbackText);
+      buy.dataset.defaultFallbackLabel = presentation.fallbackText;
     } else {
       buy.removeAttribute('data-fallback-label');
+      delete buy.dataset.defaultFallbackLabel;
     }
 
     if (showWhereToBuy && normalizedProductCode && presentation.usePriceSpiderWidget) {
@@ -1716,7 +1730,9 @@ export default async function decorate(block) {
   async function refreshPdpCommerceState() {
     if (!currentProductCode) {
       setCartButtonVisibility(false);
-      setBuyButtonState('whereToBuy', sku);
+      setBuyButtonState('whereToBuy', sku, {
+        hasHybrisData: false,
+      });
       setFavoriteVisibility(false);
       applyHybrisPriceDisplay(null);
       clearWishlistState();
@@ -1745,7 +1761,9 @@ export default async function decorate(block) {
       });
       canShowAddToCart = callToAction === 'addToCart';
       setCartButtonVisibility(canShowAddToCart);
-      setBuyButtonState(callToAction, currentProductCode);
+      setBuyButtonState(callToAction, currentProductCode, {
+        hasHybrisData: hasProductData,
+      });
       setFavoriteVisibility(shouldShowPdpFavoriteButton({
         authenticated,
         hasInventory: inventoryAvailable,
@@ -1767,7 +1785,9 @@ export default async function decorate(block) {
     } catch (error) {
       console.warn(`Failed to load PDP commerce data for ${currentProductCode}`, error);
       setCartButtonVisibility(false);
-      setBuyButtonState('whereToBuy', currentProductCode || sku);
+      setBuyButtonState('whereToBuy', currentProductCode || sku, {
+        hasHybrisData: false,
+      });
       setFavoriteVisibility(false);
       applyHybrisPriceDisplay(null);
       clearWishlistState();

@@ -1871,8 +1871,16 @@ export default function decorate(block) {
           ariaLabel: whereToBuyBtnEl.getAttribute('aria-label'),
           buttonLabel: whereToBuyBtnEl.getAttribute('ps-button-label'),
           fallbackText: whereToBuyBtnEl.getAttribute('data-fallback-label') || 'Where to buy',
+          comingSoonMode: whereToBuyBtnEl.dataset.priceSpiderComingSoonMode || 'hide',
         });
         const shouldShowWhereToBuy = requestedVisible && priceSpiderState.showWhereToBuy;
+        whereToBuyBtnEl.dataset.priceSpiderForceVisible = priceSpiderState.forceVisible ? 'true' : 'false';
+
+        if (priceSpiderState.isComingSoon && priceSpiderState.text) {
+          whereToBuyBtnEl.setAttribute('data-fallback-label', priceSpiderState.text);
+        } else if (whereToBuyBtnEl.dataset.defaultFallbackLabel) {
+          whereToBuyBtnEl.setAttribute('data-fallback-label', whereToBuyBtnEl.dataset.defaultFallbackLabel);
+        }
 
         if (priceSpiderState.text && whereToBuyBtnEl.textContent.trim() !== priceSpiderState.text) {
           whereToBuyBtnEl.textContent = priceSpiderState.text;
@@ -1912,17 +1920,21 @@ export default function decorate(block) {
         setWhereToBuyPurchaseVisibility(false);
       };
 
-      const setWhereToBuyButtonState = (state = 'whereToBuy', productCode = '') => {
+      const setWhereToBuyButtonState = (state = 'whereToBuy', productCode = '', options = {}) => {
         const normalizedState = String(state || 'whereToBuy');
         const normalizedProductCode = String(productCode || '').trim();
         const presentation = resolveWhereToBuyButtonPresentation(normalizedState);
-        const visibility = resolveCommerceButtonVisibility(normalizedState);
+        const visibility = options.visibility || resolveCommerceButtonVisibility(normalizedState, {
+          pageType: 'plp',
+          hasHybrisData: options.hasHybrisData,
+        });
 
         clearPriceSpiderButtonResult(whereToBuyBtnEl);
         whereToBuyBtnEl.textContent = presentation.text;
         whereToBuyBtnEl.classList.toggle('ps-widget', presentation.usePriceSpiderWidget);
         whereToBuyBtnEl.style.pointerEvents = '';
         whereToBuyBtnEl.setAttribute('aria-label', presentation.fallbackText || '');
+        whereToBuyBtnEl.dataset.priceSpiderComingSoonMode = visibility.priceSpiderComingSoonMode || 'hide';
 
         if (presentation.buttonLabel) {
           whereToBuyBtnEl.setAttribute('ps-button-label', presentation.buttonLabel);
@@ -1932,8 +1944,10 @@ export default function decorate(block) {
 
         if (presentation.fallbackText) {
           whereToBuyBtnEl.setAttribute('data-fallback-label', presentation.fallbackText);
+          whereToBuyBtnEl.dataset.defaultFallbackLabel = presentation.fallbackText;
         } else {
           whereToBuyBtnEl.removeAttribute('data-fallback-label');
+          delete whereToBuyBtnEl.dataset.defaultFallbackLabel;
         }
 
         if (visibility.showWhereToBuy && normalizedProductCode && presentation.usePriceSpiderWidget) {
@@ -1945,7 +1959,7 @@ export default function decorate(block) {
         observeWhereToBuyButtonPriceSpiderState();
       };
 
-      const updatePurchaseButtons = (state = 'whereToBuy') => {
+      const updatePurchaseButtons = (state = 'whereToBuy', options = {}) => {
         const addToCartCode = addToCartBtnEl.dataset.productCode || '';
         if (!addToCartCode) {
           hidePurchaseButtons();
@@ -1953,8 +1967,14 @@ export default function decorate(block) {
         }
 
         const normalizedState = String(state || 'whereToBuy');
-        const visibility = resolveCommerceButtonVisibility(normalizedState);
-        setWhereToBuyButtonState(normalizedState, addToCartCode);
+        const visibility = resolveCommerceButtonVisibility(normalizedState, {
+          pageType: 'plp',
+          hasHybrisData: options.hasHybrisData,
+        });
+        setWhereToBuyButtonState(normalizedState, addToCartCode, {
+          visibility,
+          hasHybrisData: options.hasHybrisData,
+        });
         setPurchaseButtonVisibility(addToCartBtnEl, visibility.showAddToCart);
         setPurchaseButtonVisibility(outOfStockBtnEl, visibility.showOutOfStock);
         setWhereToBuyPurchaseVisibility(visibility.showWhereToBuy);
@@ -2039,7 +2059,9 @@ export default function decorate(block) {
             hasProductData,
             hasPrice,
             hasInventory: inventoryAvailable,
-          }));
+          }), {
+            hasHybrisData: hasProductData,
+          });
           updateFavoriteState(productCode);
         } catch (error) {
           /* eslint-disable-next-line no-console */
@@ -2049,7 +2071,9 @@ export default function decorate(block) {
           }
           favoriteEnabled = false;
           updatePriceState(null, variant);
-          updatePurchaseButtons('whereToBuy');
+          updatePurchaseButtons('whereToBuy', {
+            hasHybrisData: false,
+          });
           updateFavoriteState(productCode);
         }
       };
