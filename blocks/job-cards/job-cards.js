@@ -482,7 +482,7 @@ export default function decorate(block) {
         // eslint-disable-next-line no-underscore-dangle
         const dePath = encodeURIComponent(item._path);
         window.location.href = `${window.location.pathname}/job-detail?path=${dePath}`;
-      })
+      });
       const jobTimeTypeEl = document.createElement('span');
       jobTimeTypeEl.className = 'job-time-type';
       jobTimeTypeEl.textContent = item.jobType;
