@@ -83,6 +83,12 @@ main .section.popup-module-container {
   }
 
   &.popup-announcement {
+    background: transparent;
+
+    .popup-container {
+      box-shadow: 0 4px 120px 0 rgb(0 0 0 / 15%);
+    }
+
     .popup-container .popup-content-container {
       gap: var(--size-24);
     }

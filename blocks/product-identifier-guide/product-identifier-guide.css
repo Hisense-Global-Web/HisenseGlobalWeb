@@ -68,7 +68,9 @@
         display: none;
         flex-direction: column;
         gap: var(--size-16);
-        flex: 1 0 0;
+        width: min(calc(256/var(--breakpoint-pc) *100vw), 256px);
+
+        /* flex: 1 0 0; */
 
         &.active {
             display: flex;
@@ -77,7 +79,7 @@
         .step-image {
             display: block;
             width: 100%;
-            height: calc(234/var(--breakpoint-pc) *100vw);
+            height: min(calc(234/var(--breakpoint-pc) *100vw), 234px);
             border-radius: var(--size-20, 20px);
             overflow: hidden;
             
@@ -192,9 +194,13 @@
         padding: 0 var(--common-padding);
         
         .step {
+            width: calc(300/var(--breakpoint-mobile) *100vw);
+
             .step-image {
                 width: calc(300 /var(--breakpoint-mobile) *100vw);
-                height: auto;
+                height: calc(272 /var(--breakpoint-mobile) *100vw);
+
+                /* height: auto; */
             }
 
             .text-content {

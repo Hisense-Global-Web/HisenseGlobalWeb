@@ -397,10 +397,10 @@ async function loadAnnouncementPopup() {
     const closedVersion = localStorage.getItem('announcementClosedVersion') || '';
     if (announcementVersion && announcementVersion !== closedVersion) {
       currentAnnc.classList.add('popup-show');
-      document.body.style.overflow = 'hidden';
+      // document.body.style.overflow = 'hidden';
     } else {
       currentAnnc.classList.remove('popup-show');
-      document.body.style.overflow = 'auto';
+      // document.body.style.overflow = 'auto';
     }
 
     return true;
