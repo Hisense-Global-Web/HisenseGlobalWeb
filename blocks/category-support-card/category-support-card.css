@@ -69,6 +69,13 @@
       height: calc(41 / var(--breakpoint-mobile) * 100vw);
     }
   }
+
+  .category-support-card-item-description p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-align: center;
+  }
 }
 
 .category-support-card p {

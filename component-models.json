@@ -5458,6 +5458,42 @@
     ]
   },
   {
+    "id": "request-service-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "text_title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "text_content",
+        "label": "Content",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "button_name",
+        "label": "Button Name",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "button_icon",
+        "value": "",
+        "label": "Button Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button-link",
+        "label": "Button Link",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "resource-list",
     "fields": []
   },
