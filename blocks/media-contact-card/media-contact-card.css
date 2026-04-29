@@ -109,6 +109,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
       .media-contact-card-group {
         display: flex;
         flex-direction: column;
+        justify-content: center;
         gap: var(--size-12);
         width: min(calc(257 / var(--breakpoint-pc) * 100vw), 257px);
         
