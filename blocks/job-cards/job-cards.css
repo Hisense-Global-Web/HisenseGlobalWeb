@@ -82,6 +82,10 @@
              font-size: var(--size-10);
              line-height: 1.5;
              font-weight: var(--fontweight-medium);
+
+             @media (width < 860px) {
+               border-radius: var(--size-16);
+             }
            }
          }
          
@@ -182,7 +186,7 @@
      cursor: pointer;
      
      @media (width < 860px) {
-       margin-top: var(--size-16);
+       margin-top: var(--size-48);
      }
    }
 
