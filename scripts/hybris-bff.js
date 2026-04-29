@@ -130,7 +130,7 @@ function clearStoredAuthState() {
   }
 }
 
-function clearStoredGuestCartIdentifier() {
+export function clearHybrisGuestCartIdentifier() {
   guestCartIdentifier = '';
   try {
     localStorage.removeItem(HYBRIS_GUEST_CART_IDENTIFIER_KEY);
@@ -310,7 +310,8 @@ function ensureGuestCartIdentifierLoaded() {
 
 function resolveGuestCartIdentifier(cart = {}) {
   return String(
-    cart?.cartGuid
+    cart?.cartIdentifier
+      || cart?.cartGuid
       || cart?.guid
       || cart?.cartCode
       || cart?.code
@@ -326,7 +327,7 @@ function syncGuestCartIdentifierFromCart(cart = null) {
   }
 
   if (cart === null) {
-    clearStoredGuestCartIdentifier();
+    clearHybrisGuestCartIdentifier();
   }
 
   return '';
@@ -753,6 +754,7 @@ export async function exchangeHybrisCodeIfPresent() {
   const exchanged = json?.data || null;
   saveSessionToken(exchanged?.sessionToken);
   if (exchanged?.authenticated) {
+    clearHybrisGuestCartIdentifier();
     setAuthState(exchanged, { validated: true });
   }
 
@@ -840,6 +842,7 @@ export async function logoutHybris(options = {}) {
   });
 
   clearSessionToken();
+  clearHybrisGuestCartIdentifier();
   broadcastHybrisAuthEvent(HYBRIS_AUTH_BROADCAST_LOGOUT);
   return logoutState;
 }
@@ -1143,14 +1146,14 @@ export async function fetchHybrisCart(options = {}) {
     if (cart) {
       syncGuestCartIdentifierFromCart(cart);
     } else {
-      clearStoredGuestCartIdentifier();
+      clearHybrisGuestCartIdentifier();
     }
     setGuestCartPresence(Boolean(cart));
     emitHybrisDataEvent('cart', cart);
     return cart;
   } catch (error) {
     if (error.status === 404 || error.errorCode === 'GUEST_CART_NOT_FOUND') {
-      clearStoredGuestCartIdentifier();
+      clearHybrisGuestCartIdentifier();
       setGuestCartPresence(false);
       emitHybrisDataEvent('cart', null);
       return null;
@@ -1192,6 +1195,7 @@ export async function addHybrisCartItem(code, quantity = 1, options = {}) {
     },
     query: buildGuestCartQuery(options),
   });
+  syncGuestCartIdentifierFromCart(cartItem);
   setGuestCartPresence(true);
   return cartItem;
 }
@@ -1329,6 +1333,7 @@ function handleHybrisAuthBroadcast(event) {
   }
 
   clearSessionToken();
+  clearHybrisGuestCartIdentifier();
   window.location.reload();
 }
 
