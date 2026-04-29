@@ -346,15 +346,8 @@ export default function decorate(block) {
   const span = document.createElement('span');
   span.textContent = loadMoreTextContent || 'Load More';
 
-  const productsNoResult = document.createElement('div');
-  productsNoResult.className = 'job-cards-no-result';
-  productsNoResult.innerHTML = noResultMessage || '<p>no result</p>';
-  productsNoResult.style.display = 'none';
-
   productsLoadMore.append(span);
   productsBox.append(productsGrid);
-  // productsBox.append(productsLoadMore);
-  // productsBox.append(productsNoResult);
 
   if (isEditMode) {
     const topWrapper = document.createElement('div');
@@ -485,6 +478,11 @@ export default function decorate(block) {
       rightIcon.src = '/content/dam/hisense/us/common-icons/chevron-right.svg';
       titleSpanEl.textContent = item.jobTitle;
       titleSpanEl.append(rightIcon);
+      titleSpanEl.addEventListener('click', () => {
+        // eslint-disable-next-line no-underscore-dangle
+        const dePath = encodeURIComponent(item._path);
+        window.location.href = `${window.location.pathname}/job-detail?path=${dePath}`;
+      });
       const jobTimeTypeEl = document.createElement('span');
       jobTimeTypeEl.className = 'job-time-type';
       jobTimeTypeEl.textContent = item.jobType;
@@ -674,22 +672,6 @@ export default function decorate(block) {
     return [];
   }
 
-  const noResultClone = document.createElement('div');
-
-  const getNoResultContent = () => {
-    const emptyEl = noResultClone?.children?.[0] ?? document.createElement('div');
-    emptyEl.className = 'job-list-empty-container';
-    if (emptyEl) {
-      const [emptyTitleEl, emptyTextEl] = emptyEl?.children ?? [];
-      if (emptyTitleEl) emptyTitleEl.className = 'job-list-empty-title';
-      if (emptyTextEl) emptyTextEl.className = 'job-list-empty-text';
-    } else {
-      emptyEl.textContent = 'No items found.';
-      emptyEl.classList.add('job-list-empty-title');
-    }
-    return emptyEl;
-  };
-
   const renderPage = () => {
     let paginationEl = null;
     let mobilePaginationEl = null;
@@ -721,6 +703,10 @@ export default function decorate(block) {
     } else {
       noPaginationEl = document.createElement('div');
       noPaginationEl.className = 'job-list-no-pagination';
+      noPaginationEl.innerHTML = noResultMessage || '<p>no result</p>';
+      if (window.productData?.length) {
+        noPaginationEl.style.display = 'none';
+      }
     }
 
     productsBox.appendChild(paginationEl);
@@ -771,12 +757,7 @@ export default function decorate(block) {
       window.productData = items;
       // 初始化询问比较固定栏
       fixedBottomCompareBar();
-      if (items?.length) {
-      // PC分页器
-        renderPage();
-      } else {
-        productsBox.appendChild(getNoResultContent());
-      }
+      renderPage();
     })
     .catch(() => {});
   window.addEventListener('resize', renderPage);

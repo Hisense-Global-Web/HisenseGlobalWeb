@@ -94,6 +94,7 @@
       "recall-info-list",
       "gray-tips",
       "guide-list",
+      "request-service",
       "recall-text-info",
       "promotional-text",
       "campaign-collection",
@@ -525,6 +526,12 @@
     "id": "recall-text-info",
     "components": [
       "recall-text-info-item"
+    ]
+  },
+  {
+    "id": "request-service",
+    "components": [
+      "request-service-item"
     ]
   },
   {
