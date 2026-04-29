@@ -142,6 +142,122 @@ function applyAggregatedSort(sortProperty, direction = -1) {
     console.warn('Aggregated sort error:', e);
   }
 }
+
+const buildPaginationControls = (container, state, onPageChange) => {
+  const { total, limit, offset } = state;
+  if (total <= limit) {
+    return;
+  }
+  const paginationEl = container.querySelector('.job-list-pagination');
+  if (!paginationEl) return;
+
+  paginationEl.textContent = '';
+
+  if (!total ?? !limit ?? (total <= limit)) {
+    return;
+  }
+
+  const currentPage = Math.floor(offset / limit) + 1;
+  const totalPages = Math.ceil(total / limit);
+
+  const createPaginationButton = (label, page, disabled = false, isActive = false) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.classList.add('page-button');
+
+    if (label === 'prev') {
+      const icon = document.createElement('img');
+      icon.src = `/content/dam/hisense/${country}/common-icons/left.svg`;
+      icon.className = 'page-arrow is-prev normal';
+      const disabledIcon = document.createElement('img');
+      disabledIcon.src = `/content/dam/hisense/${country}/common-icons/left-disabled.svg`;
+      disabledIcon.className = 'page-arrow is-prev disabled';
+      btn.setAttribute('aria-label', 'Previous page');
+      btn.append(icon, disabledIcon);
+    } else if (label === 'next') {
+      const icon = document.createElement('img');
+      icon.src = `/content/dam/hisense/${country}/common-icons/right.svg`;
+      icon.className = 'page-arrow is-next normal';
+      const disabledIcon = document.createElement('img');
+      disabledIcon.src = `/content/dam/hisense/${country}/common-icons/right-disabled.svg`;
+      disabledIcon.className = 'page-arrow is-next disabled';
+      btn.setAttribute('aria-label', 'Next page');
+      btn.append(icon, disabledIcon);
+    } else {
+      btn.textContent = label;
+    }
+
+    if (isActive) btn.classList.add('is-active');
+    if (disabled) {
+      btn.disabled = true;
+    } else {
+      btn.addEventListener('click', () => onPageChange(page));
+    }
+    return btn;
+  };
+
+  // Prev
+  paginationEl.appendChild(
+    createPaginationButton('prev', currentPage - 1, currentPage === 1),
+  );
+
+  const getVisiblePages = () => {
+    const pages = [];
+
+    if (totalPages <= 7) {
+      // 总页数少，直接显示所有页
+      for (let i = 1; i <= totalPages; i += 1) {
+        pages.push(i);
+      }
+    } else if (currentPage <= 4) {
+      // 当前页在前部
+      for (let i = 1; i <= 5; i += 1) {
+        pages.push(i);
+      }
+      pages.push('ellipsis');
+      pages.push(totalPages);
+    } else if (currentPage >= totalPages - 3) {
+      // 当前页在后部
+      pages.push(1);
+      pages.push('ellipsis');
+      for (let i = totalPages - 4; i <= totalPages; i += 1) {
+        pages.push(i);
+      }
+    } else {
+      // 当前页在中部
+      pages.push(1);
+      pages.push('ellipsis');
+      for (let i = currentPage - 1; i <= currentPage + 1; i += 1) {
+        pages.push(i);
+      }
+      pages.push('ellipsis');
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
+  const visiblePages = getVisiblePages();
+  visiblePages.forEach((page) => {
+    if (page === 'ellipsis') {
+      const ellipsis = document.createElement('div');
+      ellipsis.className = 'pagination-ellipsis';
+      const circle = document.createElement('div');
+      circle.className = 'pagination-ellipsis-circle';
+      ellipsis.append(circle, circle.cloneNode(), circle.cloneNode());
+      paginationEl.appendChild(ellipsis);
+    } else {
+      paginationEl.appendChild(
+        createPaginationButton(String(page), page, false, page === currentPage),
+      );
+    }
+  });
+
+  // Next
+  paginationEl.appendChild(
+    createPaginationButton('next', currentPage + 1, currentPage === totalPages),
+  );
+};
+
 export default function decorate(block) {
   const isEditMode = block && block.hasAttribute && block.hasAttribute('data-aue-resource');
 
@@ -213,6 +329,7 @@ export default function decorate(block) {
   // 新增：分页相关状态
   let currentPage = 1;
   const loadMoreStep = 10;
+  const pageSize = 10;
   let allGroupedData = []; // 存储所有聚合后的产品数据
   let compareDataArr = []; // 存储比较的产品数据
 
@@ -236,8 +353,8 @@ export default function decorate(block) {
 
   productsLoadMore.append(span);
   productsBox.append(productsGrid);
-  productsBox.append(productsLoadMore);
-  productsBox.append(productsNoResult);
+  // productsBox.append(productsLoadMore);
+  // productsBox.append(productsNoResult);
 
   if (isEditMode) {
     const topWrapper = document.createElement('div');
@@ -333,81 +450,6 @@ export default function decorate(block) {
     createCompareLiEl(compareLiAppendType.initCompareLi);
   }
 
-  function applyDefaultSort() {
-    // 检查是否有已选中的 filter（通过 plp-filter-tag 或选中的 input）
-    const hasActiveFilters = () => {
-      // 检查是否有 plp-filter-tag
-      const filterTags = document.querySelectorAll('.plp-filter-tag');
-      if (filterTags && filterTags.length > 0) return true;
-      // 检查是否有选中的 filter input
-      const checkedInputs = document.querySelectorAll('.plp-filter-item input[data-option-value]:checked');
-      return checkedInputs && checkedInputs.length > 0;
-    };
-
-    const sortAndApplyFilters = () => {
-      const selectedSortOption = document.querySelector('.plp-sort-option.selected');
-      if (selectedSortOption) {
-        const sortValue = selectedSortOption.dataset.value
-            || selectedSortOption.getAttribute('data-value')
-            || '';
-        if (sortValue && sortValue.trim()) {
-          if (window.applyPlpSort) {
-            window.applyPlpSort(sortValue);
-          } else {
-            applyAggregatedSort('size', -1);
-          }
-        } else {
-          applyAggregatedSort('size', -1);
-        }
-      } else {
-        applyAggregatedSort('size', -1);
-      }
-    };
-
-    if (hasActiveFilters()) {
-      // 如果有已选中的 filter，先应用筛选（筛选内部会处理排序）
-      if (window.applyPlpFilters) {
-        window.applyPlpFilters();
-      } else {
-        sortAndApplyFilters();
-      }
-    } else {
-      // 没有筛选条件，直接排序
-      sortAndApplyFilters();
-    }
-  }
-
-  function applyUrlFilters() {
-    try {
-      // 检查URL参数
-      const urlParams = new URLSearchParams(window.location.search);
-
-      // 遍历所有URL参数
-      urlParams.forEach((paramValue, paramName) => {
-        if (paramValue) {
-          // 直接使用参数名和值组合成筛选条目
-          const targetValue = `${paramName}/${paramValue}`;
-          const targetCheckbox = document.querySelector(`.plp-filter-item input[value$="${targetValue}"]`);
-          // const targetCheckbox = document.querySelector(`.product-filter-item[data-tag="${targetValue}"]`);
-
-          if (targetCheckbox) {
-            // 触发checkbox的点击事件
-            targetCheckbox.click();
-
-            // 展开对应的筛选组
-            const filterGroup = targetCheckbox.closest('.plp-filter-group');
-            if (filterGroup && filterGroup.classList.contains('hide')) {
-              filterGroup.classList.remove('hide');
-            }
-          }
-        }
-      });
-    } catch (e) {
-      /* eslint-disable-next-line no-console */
-      console.warn('URL filter error:', e);
-    }
-  }
-
   // 新增：更新Load More按钮显示状态
   function updateLoadMoreVisibility() {
     const totalPages = Math.ceil(allGroupedData.length / loadMoreStep);
@@ -419,8 +461,10 @@ export default function decorate(block) {
   }
 
   // 新增：渲染分页后的产品
-  function renderPagedItems() {
-    const start = (currentPage - 1) * loadMoreStep;
+  function renderPagedItems(start, type) {
+    if (type === 'PC') {
+      productsGrid.innerHTML = '';
+    }
     const end = start + loadMoreStep;
     const pagedGroupedArray = allGroupedData.slice(start, end);
 
@@ -550,11 +594,7 @@ export default function decorate(block) {
     }
   }
 
-  function renderItems(items) {
-    // 重置分页状态
-    currentPage = 1;
-    productsGrid.innerHTML = ''; // 清空现有内容
-
+  function filterList(items = []) {
     const filteredList = items.filter((item) => {
       const today = new Date().toISOString().split('T')[0]; // 获取今天日期：YYYY-MM-DD
       return item.jobPostedTime <= today; // 时间字符串直接比较即可
@@ -566,13 +606,7 @@ export default function decorate(block) {
     const restSorted = restItems.sort((a, b) => a.jobTitle.localeCompare(b.jobTitle, 'zh-CN', { sensitivity: 'base' }));
 
     allGroupedData = [latestItem, ...restSorted];
-
-    productsGrid.setAttribute('data-group-length', allGroupedData.length);
-
-    // 渲染第一页
-    renderPagedItems();
-    // 更新Load More显示状态
-    updateLoadMoreVisibility();
+    return allGroupedData;
   }
 
   function simpleHash(str) {
@@ -632,6 +666,22 @@ export default function decorate(block) {
     return [];
   }
 
+  const noResultClone = document.createElement('div');
+
+  const getNoResultContent = () => {
+    const emptyEl = noResultClone?.children?.[0] ?? document.createElement('div');
+    emptyEl.className = 'job-list-empty-container';
+    if (emptyEl) {
+      const [emptyTitleEl, emptyTextEl] = emptyEl?.children ?? [];
+      if (emptyTitleEl) emptyTitleEl.className = 'job-list-empty-title';
+      if (emptyTextEl) emptyTextEl.className = 'job-list-empty-text';
+    } else {
+      emptyEl.textContent = 'No items found.';
+      emptyEl.classList.add('job-list-empty-title');
+    }
+    return emptyEl;
+  };
+
   fetch(getGraphQLUrl(graphqlUrl))
     .then((resp) => {
       if (!resp.ok) throw new Error('Network response not ok');
@@ -639,35 +689,71 @@ export default function decorate(block) {
     })
     .then((data) => {
     // 转换新的标签结构为产品列表格式
-      const items = transformTagStructureToProducts(data);
+      const items = filterList(transformTagStructureToProducts(data));
       // 缓存到全局，供过滤器使用
       window.productData = items;
-      if (window.renderPlpProducts) {
-        window.renderPlpProducts(items);
-      } else {
-        renderItems(items);
-      }
-      // 页面初始化查询用默认排序
-      applyDefaultSort();
-      // 检查URL参数并应用筛选
-      applyUrlFilters();
       // 初始化询问比较固定栏
       fixedBottomCompareBar();
+      if (items?.length) {
+      // PC分页器
+        const paginationEl = document.createElement('div');
+        paginationEl.className = 'job-list-pagination';
+
+        // Mobile按钮
+        const mobilePaginationEl = document.createElement('div');
+        mobilePaginationEl.className = 'job-list-pagination-mobile';
+        const mobileBtn = document.createElement('button');
+        mobileBtn.type = 'button';
+        mobileBtn.classList.add('page-button');
+        mobileBtn.textContent = loadMoreTextContent || 'Load More';
+        mobilePaginationEl.appendChild(mobileBtn);
+
+        const noPaginationEl = document.createElement('div');
+        noPaginationEl.className = 'job-list-no-pagination';
+
+        productsBox.appendChild(paginationEl);
+        productsBox.appendChild(mobilePaginationEl);
+
+        const loadPage = (page, type = 'PC') => {
+          const totalItems = items?.length ?? 0;
+          const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+          const safePage = Math.min(Math.max(page, 1), totalPages);
+          const startIndex = (safePage - 1) * pageSize;
+          renderPagedItems(startIndex, type);
+          // const pageItems = type === 'PC' ? data.slice(startIndex, startIndex + pageSize) : data.slice(0, startIndex + pageSize);
+          const state = {
+            total: totalItems,
+            limit: pageSize,
+            offset: startIndex,
+          };
+
+          // 创建PC端的分页器
+          buildPaginationControls(productsBox, state, (targetPage) => {
+            if (targetPage < 1) return;
+            const maxPage = Math.ceil(state.total / state.limit);
+            if (targetPage > maxPage) return;
+            loadPage(targetPage);
+          });
+
+          // 给移动端的 Load More 按钮添加事件
+          if (page * pageSize < totalItems) {
+            mobileBtn.style.display = 'block';
+            mobileBtn.onclick = () => loadPage(safePage + 1, 'Mobile');
+          } else {
+            mobileBtn.style.display = 'none';
+          }
+        };
+        loadPage(1);
+      } else {
+        productsBox.appendChild(getNoResultContent());
+      }
     })
     .catch(() => {});
-  /* eslint-disable-next-line no-underscore-dangle */
-  window.renderItems = renderItems;
 }
 
 // 是否使用 description_shortDescription 作为图片链接，默认使用
 window.useShortDescriptionAsImage = false;
 
-// 暴露渲染和筛选接口到window全局，供 filter/tags 使用（在 renderItems 定义后）
-window.renderProductsInternal = function renderProductsInternalProxy(items) {
-  if (typeof window.renderItems === 'function') {
-    window.renderItems(items);
-  }
-};
 window.lastRenderedProducts = null;
 // 当前排序状态，用于筛选时判断是否需要默认选中最大尺寸
 window.currentSortKey = '';
