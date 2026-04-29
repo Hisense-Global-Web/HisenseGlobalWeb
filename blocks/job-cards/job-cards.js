@@ -595,18 +595,26 @@ export default function decorate(block) {
   }
 
   function filterList(items = []) {
-    const filteredList = items.filter((item) => {
-      const today = new Date().toISOString().split('T')[0]; // 获取今天日期：YYYY-MM-DD
-      return item.jobPostedTime <= today; // 时间字符串直接比较即可
+    const today = new Date().toISOString().split('T')[0];
+    const filteredList = items.filter((item) => item.jobPostedTime <= today);
+
+    const sortedList = [...filteredList].sort((a, b) => {
+      const timeA = new Date(a.jobPostedTime);
+      const timeB = new Date(b.jobPostedTime);
+      if (timeA > timeB) return -1;
+      if (timeA < timeB) return 1;
+
+      const titleCompare = a.jobTitle.localeCompare(b.jobTitle, 'zh-CN', {
+        sensitivity: 'base',
+        numeric: true,
+      });
+      if (titleCompare !== 0) return titleCompare;
+
+      // 第三优先级：时间+标题都相同 → salary 降序（9→0，高工资在前）
+      return b.salary - a.salary;
     });
-
-    const sortedByTime = [...filteredList].sort((a, b) => new Date(b.jobPostedTime) - new Date(a.jobPostedTime));
-    const latestItem = sortedByTime[0];
-    const restItems = sortedByTime.slice(1);
-    const restSorted = restItems.sort((a, b) => a.jobTitle.localeCompare(b.jobTitle, 'zh-CN', { sensitivity: 'base' }));
-
-    allGroupedData = [latestItem, ...restSorted];
-    return allGroupedData;
+    allGroupedData = sortedList;
+    return sortedList;
   }
 
   function simpleHash(str) {
@@ -682,6 +690,75 @@ export default function decorate(block) {
     return emptyEl;
   };
 
+  const renderPage = () => {
+    let paginationEl = null;
+    let mobilePaginationEl = null;
+    let noPaginationEl = null;
+    let mobileBtn = null;
+    if (document.querySelector('.job-list-pagination')) {
+      paginationEl = document.querySelector('.job-list-pagination');
+    } else {
+      paginationEl = document.createElement('div');
+      paginationEl.className = 'job-list-pagination';
+    }
+
+    if (document.querySelector('.job-list-pagination-mobile')) {
+      mobilePaginationEl = document.querySelector('.job-list-pagination-mobile');
+      mobileBtn = mobilePaginationEl.querySelector('.page-button');
+    } else {
+      // Mobile按钮
+      mobilePaginationEl = document.createElement('div');
+      mobilePaginationEl.className = 'job-list-pagination-mobile';
+      mobileBtn = document.createElement('button');
+      mobileBtn.type = 'button';
+      mobileBtn.classList.add('page-button');
+      mobileBtn.textContent = loadMoreTextContent || 'Load More';
+      mobilePaginationEl.appendChild(mobileBtn);
+    }
+
+    if (document.querySelector('.job-list-no-pagination')) {
+      noPaginationEl = document.querySelector('.job-list-no-pagination');
+    } else {
+      noPaginationEl = document.createElement('div');
+      noPaginationEl.className = 'job-list-no-pagination';
+    }
+
+    productsBox.appendChild(paginationEl);
+    productsBox.appendChild(mobilePaginationEl);
+    productsBox.appendChild(noPaginationEl);
+
+    const loadPage = (page, type = 'PC') => {
+      const totalItems = window.productData?.length ?? 0;
+      const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+      const safePage = Math.min(Math.max(page, 1), totalPages);
+      const startIndex = (safePage - 1) * pageSize;
+      renderPagedItems(startIndex, type);
+      // const pageItems = type === 'PC' ? data.slice(startIndex, startIndex + pageSize) : data.slice(0, startIndex + pageSize);
+      const state = {
+        total: totalItems,
+        limit: pageSize,
+        offset: startIndex,
+      };
+
+      // 创建PC端的分页器
+      buildPaginationControls(productsBox, state, (targetPage) => {
+        if (targetPage < 1) return;
+        const maxPage = Math.ceil(state.total / state.limit);
+        if (targetPage > maxPage) return;
+        loadPage(targetPage);
+      });
+
+      // 给移动端的 Load More 按钮添加事件
+      if (page * pageSize < totalItems) {
+        mobileBtn.style.display = 'block';
+        mobileBtn.onclick = () => loadPage(safePage + 1, 'Mobile');
+      } else {
+        mobileBtn.style.display = 'none';
+      }
+    };
+    loadPage(1);
+  };
+
   fetch(getGraphQLUrl(graphqlUrl))
     .then((resp) => {
       if (!resp.ok) throw new Error('Network response not ok');
@@ -696,59 +773,13 @@ export default function decorate(block) {
       fixedBottomCompareBar();
       if (items?.length) {
       // PC分页器
-        const paginationEl = document.createElement('div');
-        paginationEl.className = 'job-list-pagination';
-
-        // Mobile按钮
-        const mobilePaginationEl = document.createElement('div');
-        mobilePaginationEl.className = 'job-list-pagination-mobile';
-        const mobileBtn = document.createElement('button');
-        mobileBtn.type = 'button';
-        mobileBtn.classList.add('page-button');
-        mobileBtn.textContent = loadMoreTextContent || 'Load More';
-        mobilePaginationEl.appendChild(mobileBtn);
-
-        const noPaginationEl = document.createElement('div');
-        noPaginationEl.className = 'job-list-no-pagination';
-
-        productsBox.appendChild(paginationEl);
-        productsBox.appendChild(mobilePaginationEl);
-
-        const loadPage = (page, type = 'PC') => {
-          const totalItems = items?.length ?? 0;
-          const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
-          const safePage = Math.min(Math.max(page, 1), totalPages);
-          const startIndex = (safePage - 1) * pageSize;
-          renderPagedItems(startIndex, type);
-          // const pageItems = type === 'PC' ? data.slice(startIndex, startIndex + pageSize) : data.slice(0, startIndex + pageSize);
-          const state = {
-            total: totalItems,
-            limit: pageSize,
-            offset: startIndex,
-          };
-
-          // 创建PC端的分页器
-          buildPaginationControls(productsBox, state, (targetPage) => {
-            if (targetPage < 1) return;
-            const maxPage = Math.ceil(state.total / state.limit);
-            if (targetPage > maxPage) return;
-            loadPage(targetPage);
-          });
-
-          // 给移动端的 Load More 按钮添加事件
-          if (page * pageSize < totalItems) {
-            mobileBtn.style.display = 'block';
-            mobileBtn.onclick = () => loadPage(safePage + 1, 'Mobile');
-          } else {
-            mobileBtn.style.display = 'none';
-          }
-        };
-        loadPage(1);
+        renderPage();
       } else {
         productsBox.appendChild(getNoResultContent());
       }
     })
     .catch(() => {});
+  window.addEventListener('resize', renderPage);
 }
 
 // 是否使用 description_shortDescription 作为图片链接，默认使用
