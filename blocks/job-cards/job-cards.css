@@ -121,7 +121,7 @@
                gap: var(--size-12);
 
                span {
-                top: var(--size-1);
+                top: 1px;
                }
              }
              
@@ -209,6 +209,10 @@
    align-items: center;
    gap: var(--spacing-xs, 16px);
    margin-top: var(--spacing-m, 32px);
+   
+   &:empty {
+     margin-top: 0;
+   }
 
    @media (width < 860px) {
      display: none;
@@ -287,6 +291,7 @@
      display: flex;
      justify-content: center;
      align-items: center;
+     margin-top: var(--size-48);
 
      .page-button {
        padding: 0;
@@ -310,7 +315,22 @@
    justify-content: center;
    align-items: center;
    gap: var(--size-16);
-   margin-top: var(--size-48);
+   margin: var(--size-24) 0;
+   
+   p:first-child {
+     font-weight: var(--fontweight-medium, 500);
+     font-size: var(--fontsize-title1);
+     line-height: 1.2;
+     text-align: center;
+   }
+   
+   p:not(:first-child) {
+     margin-top: var(--size-16);
+     font-weight: var(--fontweight-book);
+     font-size: var(--fontsize-body1);
+     line-height: 1.5;
+     text-align: center;
+   }
 
    .page-button {
      display: flex;
