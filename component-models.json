@@ -5462,13 +5462,13 @@
     "fields": [
       {
         "component": "text",
-        "name": "title",
+        "name": "text_title",
         "label": "Title",
         "valueType": "string"
       },
       {
         "component": "richtext",
-        "name": "content",
+        "name": "text_content",
         "label": "Content",
         "value": ""
       },
@@ -5487,7 +5487,7 @@
       },
       {
         "component": "aem-content",
-        "name": "button_link",
+        "name": "button-link",
         "label": "Button Link",
         "valueType": "string"
       }
