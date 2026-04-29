@@ -121,7 +121,7 @@
                gap: var(--size-12);
 
                span {
-                top: var(--size-1);
+                top: 1px;
                }
              }
              
@@ -291,6 +291,7 @@
      display: flex;
      justify-content: center;
      align-items: center;
+     margin-top: var(--size-48);
 
      .page-button {
        padding: 0;
