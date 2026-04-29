@@ -478,6 +478,11 @@ export default function decorate(block) {
       rightIcon.src = '/content/dam/hisense/us/common-icons/chevron-right.svg';
       titleSpanEl.textContent = item.jobTitle;
       titleSpanEl.append(rightIcon);
+      titleSpanEl.addEventListener('click', () => {
+        // eslint-disable-next-line no-underscore-dangle
+        const dePath = encodeURIComponent(item._path);
+        window.location.href = `${window.location.pathname}/job-detail?path=${dePath}`;
+      })
       const jobTimeTypeEl = document.createElement('span');
       jobTimeTypeEl.className = 'job-time-type';
       jobTimeTypeEl.textContent = item.jobType;
