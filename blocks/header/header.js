@@ -10,6 +10,7 @@ import {
   fetchHybrisCoupons,
   fetchHybrisOrders,
   fetchHybrisWishlist,
+  clearHybrisGuestCartIdentifier,
   getCachedHybrisAuthState,
   initializeHybrisAuth,
   logoutHybris,
@@ -189,6 +190,7 @@ async function handleLogoutConfirmClick(sureBtn) {
 
   try {
     await logoutHybris({ returnUrl: window.location.href });
+    clearHybrisGuestCartIdentifier();
     setLogoutModalVisible(false);
     window.location.reload();
   } catch (error) {
