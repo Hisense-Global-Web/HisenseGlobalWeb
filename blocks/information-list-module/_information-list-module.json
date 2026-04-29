@@ -14,7 +14,7 @@
               "key-value": true,
               "module-type": "",
               "page-size": "10",
-              "mobile_loadmore": "Load More"
+              "mobile-loadmore": "Load More"
             }
           }
         }
@@ -74,7 +74,7 @@
         },
         {
           "component": "text",
-          "name": "mobile_loadmore",
+          "name": "mobile-loadmore",
           "label": "Load More Text For Mobile",
           "valueType": "string"
         }

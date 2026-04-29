@@ -3631,7 +3631,7 @@
       },
       {
         "component": "text",
-        "name": "mobile_loadmore",
+        "name": "mobile-loadmore",
         "label": "Load More Text For Mobile",
         "valueType": "string"
       }

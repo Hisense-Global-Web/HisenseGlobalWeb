@@ -1627,7 +1627,7 @@
                   "key-value": true,
                   "module-type": "",
                   "page-size": "10",
-                  "mobile_loadmore": "Load More"
+                  "mobile-loadmore": "Load More"
                 }
               }
             }
