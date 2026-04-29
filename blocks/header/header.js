@@ -1739,8 +1739,10 @@ export default async function decorate(block) {
           }
           const supportProductItemEl = supportProductEl.querySelector('.mobile-link-second-list');
           const link = document.createElement('div');
-          link.className = 'mobile-product-item';
+          // link.className = 'mobile-product-item';
           const { title, href } = getSupportSubMenuLinkData(item);
+          const isCurrent = window.location.pathname.includes(href) && !window.location.pathname.includes(`${href}/`);
+          link.className = `mobile-product-item ${isCurrent ? 'current' : ''}`;
           const span1 = document.createElement('span');
           span1.textContent = title;
           link.append(span1);
