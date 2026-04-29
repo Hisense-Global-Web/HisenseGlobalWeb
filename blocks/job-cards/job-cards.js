@@ -686,9 +686,9 @@ export default function decorate(block) {
     let paginationEl = null;
     let mobilePaginationEl = null;
     let noPaginationEl = null;
-    let mobileBtn = null
+    let mobileBtn = null;
     if (document.querySelector('.job-list-pagination')) {
-      paginationEl = document.querySelector('.job-list-pagination')
+      paginationEl = document.querySelector('.job-list-pagination');
     } else {
       paginationEl = document.createElement('div');
       paginationEl.className = 'job-list-pagination';
@@ -709,7 +709,7 @@ export default function decorate(block) {
     }
 
     if (document.querySelector('.job-list-no-pagination')) {
-      noPaginationEl = document.querySelector('.job-list-no-pagination')
+      noPaginationEl = document.querySelector('.job-list-no-pagination');
     } else {
       noPaginationEl = document.createElement('div');
       noPaginationEl.className = 'job-list-no-pagination';
