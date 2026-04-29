@@ -595,18 +595,26 @@ export default function decorate(block) {
   }
 
   function filterList(items = []) {
-    const filteredList = items.filter((item) => {
-      const today = new Date().toISOString().split('T')[0]; // 获取今天日期：YYYY-MM-DD
-      return item.jobPostedTime <= today; // 时间字符串直接比较即可
+    const today = new Date().toISOString().split('T')[0];
+    const filteredList = items.filter((item) => item.jobPostedTime <= today);
+
+    const sortedList = [...filteredList].sort((a, b) => {
+      const timeA = new Date(a.jobPostedTime);
+      const timeB = new Date(b.jobPostedTime);
+      if (timeA > timeB) return -1;
+      if (timeA < timeB) return 1;
+
+      const titleCompare = a.jobTitle.localeCompare(b.jobTitle, 'zh-CN', {
+        sensitivity: 'base',
+        numeric: true,
+      });
+      if (titleCompare !== 0) return titleCompare;
+
+      // 第三优先级：时间+标题都相同 → salary 降序（9→0，高工资在前）
+      return b.salary - a.salary;
     });
-
-    const sortedByTime = [...filteredList].sort((a, b) => new Date(b.jobPostedTime) - new Date(a.jobPostedTime));
-    const latestItem = sortedByTime[0];
-    const restItems = sortedByTime.slice(1);
-    const restSorted = restItems.sort((a, b) => a.jobTitle.localeCompare(b.jobTitle, 'zh-CN', { sensitivity: 'base' }));
-
-    allGroupedData = [latestItem, ...restSorted];
-    return allGroupedData;
+    allGroupedData = sortedList;
+    return sortedList;
   }
 
   function simpleHash(str) {
