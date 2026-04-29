@@ -137,7 +137,7 @@
     @media (width<860px) {
       margin: 0 var(--size-19);
       height: 1px;
-      width: 100%;
+      width: calc(100% - var(--size-38));
       background-color: var(--color-primary-green-50, #009f9c);
     }
   }
