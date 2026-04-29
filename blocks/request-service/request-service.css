@@ -103,7 +103,6 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          height: var(--size-16);
 
           @media (width<860px) {
             height: var(--size-20);
