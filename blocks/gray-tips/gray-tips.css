@@ -1,3 +1,10 @@
+.pl-4xl-pc .gray-tips-wrapper,
+.pr-4xl-pc .gray-tips-wrapper {
+  @media (width>=860px) {
+    padding: 0;
+  }
+}
+
 .gray-tips {
   width: 100%;
   display: flex;

@@ -5723,6 +5723,35 @@
     ]
   },
   {
+    "id": "sitemap",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sitemap-title",
+        "label": "Sitemap Title"
+      }
+    ]
+  },
+  {
+    "id": "sitemap-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Link Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "slide",
     "fields": [
       {

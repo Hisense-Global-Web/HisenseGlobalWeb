@@ -1706,12 +1706,12 @@ export default async function decorate(block) {
     const support = [...supportRouteBaseList.children].map((item) => {
       const title = item.children[0]?.textContent?.trim() || '';
       const href = item.children[1]?.textContent?.trim() || '#';
-      return { href, title };
+      return { href: processPath(href), title };
     });
 
     support.forEach((item) => {
       const mobileSecondMenuSupportItem = document.createElement('div');
-      const isCurrent = window.location.pathname.includes(item.href);
+      const isCurrent = window.location.pathname.includes(item.href) && !window.location.pathname.includes(`${item.href}/`);
       mobileSecondMenuSupportItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
       mobileSecondMenuSupportItem.innerHTML = item.title;
       mobileSecondMenuSupportItem.dataset.href = item.href;
