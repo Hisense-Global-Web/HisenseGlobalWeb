@@ -75,6 +75,7 @@
           }
         }
       }
+
       .title-wrapper ul,
       .title-wrapper ol {
         padding-left: var(--size-20);
@@ -84,7 +85,7 @@
         cursor: pointer;
         display: flex;
         gap: var(--spacing-4xs, 4px);
-        color: var(--Primary-Green-Green-60, #008482);
+        color: var(--color-primary-green-60, #008482);
         text-align: center;
         font-size: var(--fontsize-body3, 12px);
         font-style: normal;
