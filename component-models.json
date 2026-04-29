@@ -3628,6 +3628,12 @@
         "valueType": "string",
         "value": "No items found.",
         "required": true
+      },
+      {
+        "component": "text",
+        "name": "mobile-loadmore",
+        "label": "Load More Text For Mobile",
+        "valueType": "string"
       }
     ]
   },
