@@ -10,6 +10,7 @@ import {
   fetchHybrisCoupons,
   fetchHybrisOrders,
   fetchHybrisWishlist,
+  clearHybrisGuestCartIdentifier,
   getCachedHybrisAuthState,
   initializeHybrisAuth,
   logoutHybris,
@@ -189,6 +190,7 @@ async function handleLogoutConfirmClick(sureBtn) {
 
   try {
     await logoutHybris({ returnUrl: window.location.href });
+    clearHybrisGuestCartIdentifier();
     setLogoutModalVisible(false);
     window.location.reload();
   } catch (error) {
@@ -1706,12 +1708,12 @@ export default async function decorate(block) {
     const support = [...supportRouteBaseList.children].map((item) => {
       const title = item.children[0]?.textContent?.trim() || '';
       const href = item.children[1]?.textContent?.trim() || '#';
-      return { href, title };
+      return { href: processPath(href), title };
     });
 
     support.forEach((item) => {
       const mobileSecondMenuSupportItem = document.createElement('div');
-      const isCurrent = window.location.pathname.includes(item.href);
+      const isCurrent = window.location.pathname.includes(item.href) && !window.location.pathname.includes(`${item.href}/`);
       mobileSecondMenuSupportItem.className = `mobile-second-menu-item ${isCurrent ? 'current' : ''}`;
       mobileSecondMenuSupportItem.innerHTML = item.title;
       mobileSecondMenuSupportItem.dataset.href = item.href;
@@ -1739,8 +1741,10 @@ export default async function decorate(block) {
           }
           const supportProductItemEl = supportProductEl.querySelector('.mobile-link-second-list');
           const link = document.createElement('div');
-          link.className = 'mobile-product-item';
+          // link.className = 'mobile-product-item';
           const { title, href } = getSupportSubMenuLinkData(item);
+          const isCurrent = window.location.pathname.includes(href) && !window.location.pathname.includes(`${href}/`);
+          link.className = `mobile-product-item ${isCurrent ? 'current' : ''}`;
           const span1 = document.createElement('span');
           span1.textContent = title;
           link.append(span1);
