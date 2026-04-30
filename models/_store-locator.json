@@ -30,7 +30,6 @@
           "value": "store-locator-container",
           "label": "Store Locator classes",
           "valueType": "string",
-          "hidden": true,
           "options": [
             {
               "name": "store-locator-container",
