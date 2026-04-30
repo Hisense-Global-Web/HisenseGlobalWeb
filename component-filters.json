@@ -99,6 +99,7 @@
       "recall-text-info",
       "promotional-text",
       "campaign-collection",
+      "store-locator-card",
       "related-news",
       "resource-list",
       "search-box",
@@ -180,12 +181,6 @@
     "id": "store-locator",
     "components": [
       "store-locator-card"
-    ]
-  },
-  {
-    "id": "store-locator-card",
-    "components": [
-      "service-items"
     ]
   },
   {
@@ -597,6 +592,12 @@
     "id": "stats-grid",
     "components": [
       "achievement-matrix"
+    ]
+  },
+  {
+    "id": "store-locator-card",
+    "components": [
+      "service-items"
     ]
   },
   {
