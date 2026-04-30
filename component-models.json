@@ -4132,7 +4132,7 @@
       },
       {
         "component": "select",
-        "name": "classes_fontColor",
+        "name": "classes-fontColor",
         "value": "",
         "label": "Font Color",
         "valueType": "string",
