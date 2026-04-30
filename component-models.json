@@ -4121,7 +4121,6 @@
         "name": "text_title",
         "label": "Title",
         "valueType": "string",
-        "value": "",
         "placeholder": "this is title"
       },
       {
@@ -4129,7 +4128,6 @@
         "name": "text_body",
         "label": "Sub Title",
         "valueType": "string",
-        "value": "",
         "placeholder": "this is text content"
       },
       {
