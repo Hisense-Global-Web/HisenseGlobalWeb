@@ -3,10 +3,6 @@ import { processPath } from '../../utils/carousel-common.js';
 export default function decorate(block) {
   const segments = window.location.pathname.split('/').filter(Boolean);
   const country = segments[segments[0] === 'content' ? 2 : 0] || '';
-  const isEditMode = block.hasAttribute('data-aue-resource');
-  if (isEditMode) {
-    return;
-  }
   let showButton = false;
   [...block.children].forEach((row, index) => {
     if (index === 0) {
