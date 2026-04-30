@@ -182,6 +182,12 @@
 
   .job-rich-text {
     margin-top: var(--size-48);
+
+    a {
+      color: var(--color-primary-green-60);
+      background: inherit;
+      text-decoration: underline;
+    }
   }
 
   .key-facts-list {

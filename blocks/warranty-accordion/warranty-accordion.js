@@ -29,7 +29,7 @@ export default function decorate(block) {
       if (row.textContent.trim() === 'true') {
         showButton = true;
       }
-      row.remove();
+      row.style.display = 'none';
     } else if (index === 3) {
       const btnEl = document.createElement('div');
       btnEl.classList.add('collapse-btn');
