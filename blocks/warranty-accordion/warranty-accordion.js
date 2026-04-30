@@ -40,7 +40,7 @@ export default function decorate(block) {
       }
       const contextEl = block.querySelector('.collapse-context');
       contextEl.appendChild(btnEl);
-      row.remove();
+      row.style.display = 'none';
     }
   });
 }
