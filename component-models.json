@@ -504,6 +504,20 @@
     "id": "store-locator",
     "fields": [
       {
+        "component": "select",
+        "name": "style_storelocator",
+        "value": "store-locator-container",
+        "label": "Store Locator Classes",
+        "valueType": "string",
+        "hidden": true,
+        "options": [
+          {
+            "name": "store-locator-container",
+            "value": "store-locator-container"
+          }
+        ]
+      },
+      {
         "component": "text",
         "name": "label1",
         "label": "Locator Label 1",
@@ -544,20 +558,6 @@
   {
     "id": "store-locator-card",
     "fields": [
-      {
-        "component": "select",
-        "name": "style_guide",
-        "value": "store-locator-container",
-        "label": "Product Identifier Guide classes",
-        "valueType": "string",
-        "hidden": true,
-        "options": [
-          {
-            "name": "store-locator-container",
-            "value": "store-locator-container"
-          }
-        ]
-      },
       {
         "component": "text",
         "name": "state",
