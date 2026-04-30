@@ -102,7 +102,8 @@
                   "filter": "store-locator",
                   "placeholder1": "All",
                   "placeholder2": "All",
-                  "button": "Search"
+                  "button": "Search",
+                  "key-value": true
                 }
               }
             }
