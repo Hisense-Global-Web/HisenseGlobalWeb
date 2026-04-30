@@ -509,6 +509,8 @@
         "value": "store-locator-container",
         "label": "Store Locator classes",
         "valueType": "string",
+        "description": "The class name of Store Locator",
+        "hidden": true,
         "options": [
           {
             "name": "store-locator-container",
