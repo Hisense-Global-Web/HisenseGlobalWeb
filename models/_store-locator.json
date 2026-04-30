@@ -14,7 +14,7 @@
               "placeholder1": "All",
               "placeholder2": "All",
               "button": "Search",
-              "key-value": true
+              "style-storelocator": "store-locator-container"
             }
           }
         }
@@ -27,14 +27,13 @@
       "fields": [
         {
           "component": "select",
-          "name": "style_storelocator",
-          "value": "store-locator-container",
+          "name": "style-storelocator",
           "label": "Store Locator Classes",
           "valueType": "string",
           "hidden": true,
           "options": [
             {
-              "name": "store-locator-container",
+              "name": "Store Locator Container",
               "value": "store-locator-container"
             }
           ]
