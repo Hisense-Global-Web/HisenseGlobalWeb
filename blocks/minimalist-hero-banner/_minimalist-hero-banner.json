@@ -10,7 +10,6 @@
             "template": {
               "name": "Minimalist Hero Banner",
               "model": "minimalist-hero-banner",
-              "key-value": true,
               "classes":"minimalist-hero-banner",
               "classes_fontColor": "black-font",
               "text_title": "this is title",
