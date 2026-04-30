@@ -4112,7 +4112,7 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "background_image",
+        "name": "background-image",
         "label": "Background Image",
         "multi": false
       },

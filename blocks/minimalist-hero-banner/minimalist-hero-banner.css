@@ -72,7 +72,7 @@ main > .section:first-of-type {
     justify-content: center;
     align-items: center;
 
-    p:first-child {
+    .text-title {
       font-size: var(--fontsize-pc-h1);
       text-transform: capitalize;
 
@@ -83,7 +83,7 @@ main > .section:first-of-type {
       }
     }
 
-    p:last-child {
+    .text-body {
       font-size: var(--fontsize-title1);
 
       @media (width < 860px) {
