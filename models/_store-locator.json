@@ -13,8 +13,7 @@
               "filter": "store-locator",
               "placeholder1": "All",
               "placeholder2": "All",
-              "button": "Search",
-              "style-storelocator": "store-locator-container"
+              "button": "Search"
             }
           }
         }
@@ -27,13 +26,14 @@
       "fields": [
         {
           "component": "select",
-          "name": "style-storelocator",
-          "label": "Store Locator Classes",
+          "name": "style_store",
+          "value": "store-locator-container",
+          "label": "Store Locator classes",
           "valueType": "string",
           "hidden": true,
           "options": [
             {
-              "name": "Store Locator Container",
+              "name": "store-locator-container",
               "value": "store-locator-container"
             }
           ]

@@ -505,13 +505,14 @@
     "fields": [
       {
         "component": "select",
-        "name": "style-storelocator",
-        "label": "Store Locator Classes",
+        "name": "style_store",
+        "value": "store-locator-container",
+        "label": "Store Locator classes",
         "valueType": "string",
         "hidden": true,
         "options": [
           {
-            "name": "Store Locator Container",
+            "name": "store-locator-container",
             "value": "store-locator-container"
           }
         ]
