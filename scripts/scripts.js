@@ -28,7 +28,6 @@ import {
   getLocaleFromPath,
 } from './locale-utils.js';
 
-import { storeInformationSelect } from './store-information-select.js';
 import { injectExternalScript } from './integration-utils.js';
 
 export { getEdsBaseUrl, getGraphQLBaseUrl } from './environment.js';
@@ -416,7 +415,6 @@ async function loadPage() {
   await loadLazy(document);
   await loadAnnouncementPopup();
   loadDelayed();
-  storeInformationSelect();
 
   // Update US site links after page load is complete
   if (document.readyState === 'complete') {
