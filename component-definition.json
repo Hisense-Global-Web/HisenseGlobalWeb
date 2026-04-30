@@ -1857,7 +1857,7 @@
                   "name": "Minimalist Hero Banner",
                   "model": "minimalist-hero-banner",
                   "classes": "minimalist-hero-banner",
-                  "classes-fontColor": "black-font",
+                  "classes_fontColor": "black-font",
                   "text-title": "this is title",
                   "text-body": "this is subtitle",
                   "key-value": true

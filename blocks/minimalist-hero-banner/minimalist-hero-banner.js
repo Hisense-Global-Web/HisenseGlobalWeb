@@ -1,10 +1,12 @@
 import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
 import { readBlockConfig } from '../../scripts/aem.js';
+
 export default async function decorate(block) {
-  const textContainer = document.createElement('div');
+  // const textContainer = document.createElement('div');
   const config = readBlockConfig(block);
   console.log(config, 'config');
   [...block.children].forEach((child) => {
+    console.log(child, 'child');
     // if (child.querySelector('picture')) {
     //   // child.setAttribute('class', 'banner-image');
     //   // block.append(child);
@@ -30,7 +32,6 @@ export default async function decorate(block) {
     //   textContainer.append(child);
     //   textContainer.setAttribute('class', 'text-container h-grid-container');
     // }
-    
   });
   // block.append(textContainer);
 

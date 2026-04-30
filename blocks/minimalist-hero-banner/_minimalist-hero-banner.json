@@ -11,7 +11,7 @@
               "name": "Minimalist Hero Banner",
               "model": "minimalist-hero-banner",
               "classes":"minimalist-hero-banner",
-              "classes-fontColor": "black-font",
+              "classes_fontColor": "black-font",
               "text-title": "this is title",
               "text-body": "this is subtitle",
               "key-value": true
@@ -28,7 +28,7 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "background",
+          "name": "background-image",
           "label": "Background Image",
           "multi": false
         },
@@ -48,7 +48,7 @@
         },
         {
           "component": "select",
-          "name": "classes-fontColor",
+          "name": "classes_fontColor",
           "value": "",
           "label": "Font Color",
           "valueType": "string",

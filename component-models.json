@@ -4112,7 +4112,7 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "background",
+        "name": "background-image",
         "label": "Background Image",
         "multi": false
       },
@@ -4132,7 +4132,7 @@
       },
       {
         "component": "select",
-        "name": "classes-fontColor",
+        "name": "classes_fontColor",
         "value": "",
         "label": "Font Color",
         "valueType": "string",
