@@ -1630,10 +1630,10 @@ export default function decorate(block) {
     pagedGroupedArray.forEach((group) => {
       const item = group.representative;
       if (item.productDetailPageLink && typeof item.productDetailPageLink === 'string') {
-        // const { hostname, pathname } = window.location;
-        // if (hostname.includes('hisense.com') && pathname.startsWith('/us')) {
-        //   item.productDetailPageLink = item.productDetailPageLink.replace('/us/en', '/us');
-        // }
+        const { hostname, pathname } = window.location;
+        if (hostname.includes('hisense.com') && pathname.startsWith('/us')) {
+          item.productDetailPageLink = item.productDetailPageLink.replace('/us/en', '/us');
+        }
       }
     });
 
@@ -2491,10 +2491,10 @@ export default function decorate(block) {
     // 处理所有产品数据的 productDetailPageLink
     items.forEach((item) => {
       if (item.productDetailPageLink && typeof item.productDetailPageLink === 'string') {
-        // const { hostname, pathname } = window.location;
-        // if (hostname.includes('hisense.com') && pathname.startsWith('/us')) {
-        //   item.productDetailPageLink = item.productDetailPageLink.replace('/us/en', '/us');
-        // }
+        const { hostname, pathname } = window.location;
+        if (hostname.includes('hisense.com') && pathname.startsWith('/us')) {
+          item.productDetailPageLink = item.productDetailPageLink.replace('/us/en', '/us');
+        }
       }
       if (!Array.isArray(item.tags)) {
         item.tags = [];
