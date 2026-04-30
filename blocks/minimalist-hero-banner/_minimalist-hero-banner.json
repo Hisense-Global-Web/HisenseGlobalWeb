@@ -13,7 +13,8 @@
               "classes":"minimalist-hero-banner",
               "classes_fontColor": "black-font",
               "text_title": "this is title",
-              "text_body": "this is subtitle"
+              "text_body": "this is subtitle",
+              "key-value": true
             }
           }
         }
@@ -33,14 +34,14 @@
         },
         {
           "component": "text",
-          "name": "text_title",
+          "name": "text-title",
           "label": "Title",
           "valueType": "string",
           "placeholder": "this is title"
         },
         {
           "component": "text",
-          "name": "text_body",
+          "name": "text-body",
           "label": "Sub Title",
           "valueType": "string",
           "placeholder": "this is text content"
