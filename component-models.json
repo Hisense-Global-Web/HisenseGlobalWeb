@@ -4112,24 +4112,22 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "background_image",
+        "name": "background-image",
         "label": "Background Image",
         "multi": false
       },
       {
         "component": "text",
-        "name": "text_title",
+        "name": "text-title",
         "label": "Title",
         "valueType": "string",
-        "value": "",
         "placeholder": "this is title"
       },
       {
         "component": "text",
-        "name": "text_body",
+        "name": "text-body",
         "label": "Sub Title",
         "valueType": "string",
-        "value": "",
         "placeholder": "this is text content"
       },
       {

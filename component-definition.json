@@ -1858,8 +1858,9 @@
                   "model": "minimalist-hero-banner",
                   "classes": "minimalist-hero-banner",
                   "classes_fontColor": "black-font",
-                  "text_title": "this is title",
-                  "text_body": "this is subtitle"
+                  "text-title": "this is title",
+                  "text-body": "this is subtitle",
+                  "key-value": true
                 }
               }
             }

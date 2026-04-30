@@ -30,20 +30,27 @@
 
   .warranty-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 一行展示3个，等宽分布 */
-    gap: var(--size-32) var(--size-24);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--size-32);
     
     .card-item {
-      padding: var(--size-32);
+      padding: var(--size-24);
       background-color: var(--color-primary-green-10);
       border-radius: var(--size-20);
-
-      /* aspect-ratio: 357 / 357; */
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
 
       .card-top-box {
         display: flex;
         justify-content: space-between;
         height: var(--size-101);
+        gap: var(--size-8);
+      }
+
+      .top-left-box {
+        width: min(calc(216 / var(--breakpoint-pc) * 100vw), 216px);
       }
 
       .top-left {
@@ -52,7 +59,7 @@
 
         .card-num {
           font-size: var(--size-64);
-          line-height: calc(76.8 / var(--breakpoint-pc) * 100vw);
+          line-height: min(calc(76.8 / var(--breakpoint-pc) * 100vw), 76.8px);
         }
 
         .card-unit {
@@ -78,6 +85,9 @@
         font-weight: var(--fontweight-book);
         color: var(--color-primary-green-60);
         line-height: var(--size-24);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .card-title {
@@ -85,13 +95,18 @@
         font-weight: var(--fontweight-medium);
         line-height: var(--size-24);
         color: var(--color-primary-grey-100);
-        margin-top: var(--size-56);
+        margin-top: var(--size-48);
       }
 
       .card-notes {
         font-size: var(--size-16);
         color: var(--color-primary-grey-70);
         margin-top: var(--size-16);
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
@@ -134,10 +149,16 @@
       gap: var(--size-18);
 
       .card-item {
-        padding: var(--size-24) var(--size-24) var(--size-32);
+        padding: var(--size-24);
+        height: calc(312 / var(--breakpoint-mobile) * 100vw);
+        border-radius: var(--size-16);
 
         .card-top-box {
           height: var(--size-98);
+        }
+
+        .top-left-box {
+          width: calc(218 / var(--breakpoint-mobile) * 100vw);
         }
 
         .top-left {
@@ -151,7 +172,7 @@
         }
 
         .card-title {
-          margin-top: var(--size-40);
+          margin-top: var(--size-32);
           line-height: var(--size-26);
         }
 
