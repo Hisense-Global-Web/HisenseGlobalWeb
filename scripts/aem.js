@@ -826,7 +826,7 @@ async function loadSections(element) {
   // load store locator section
   const storeLocatorSections = sections.filter((section) => section.classList.contains('store-locator-container'));
   if (storeLocatorSections.length) {
-    await Promise.all(storeLocatorSections.map((s) => decoratePopupModuleSection(s)));
+    await Promise.all(storeLocatorSections.map((s) => decorateStoreLocatorSection(s)));
   }
   // load product identifier guide section
   const productIdentifierGuideSections = sections.filter((section) => section.classList.contains('product-identifier-guide-container'));
