@@ -501,6 +501,120 @@
     ]
   },
   {
+    "id": "store-locator",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label1",
+        "label": "Locator Label 1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "placeholder1",
+        "label": "Locator Placeholder 1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "label2",
+        "label": "Locator Label 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "placeholder2",
+        "label": "Locator Placeholder 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button",
+        "label": "Button Copy",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "No Result Message",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "store-locator-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "state",
+        "label": "State Tag",
+        "valueType": "string",
+        "description": "The same tags will be grouped together.",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "city_name",
+        "label": "City Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "city_store",
+        "label": "Store Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "info1_label1",
+        "label": "Store Info Label 1",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "info1_content1",
+        "label": "Store Info Content 1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "info2_label1",
+        "label": "Store Info Label 2",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "info2_content2",
+        "label": "Store Info Content 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "info3",
+        "label": "Store Info Label 3",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "service-items",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "service_icon",
+        "label": "Service Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "service_category",
+        "label": "Service Category",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "announcement",
     "fields": [
       {

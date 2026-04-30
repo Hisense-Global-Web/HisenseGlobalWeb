@@ -19,7 +19,7 @@ function sampleRUM(checkpoint, data) {
   try {
     window.hlx = window.hlx || {};
     if (!window.hlx.rum || !window.hlx.rum.collector) {
-      sampleRUM.enhance = () => {};
+      sampleRUM.enhance = () => { };
       const params = new URLSearchParams(window.location.search);
       const { currentScript } = document;
       const rate = params.get('rum')
@@ -761,6 +761,27 @@ async function decoratePopupModuleSection(section) {
   }
 }
 
+async function decorateStoreLocatorSection(section) {
+  const cssHref = `${window.hlx.codeBasePath}/blocks/store-locator/store-locator.css`;
+  const jsPath = `${window.hlx.codeBasePath}/blocks/store-locator/store-locator.js`;
+  try {
+    const cssLoaded = loadCSS(cssHref);
+    const decorationComplete = (async () => {
+      try {
+        const mod = await import(jsPath);
+        if (mod && mod.default) await mod.default(section);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.debug('No module found for section store-locator', err);
+      }
+    })();
+    await Promise.all([cssLoaded, decorationComplete]);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.debug('Failed to decorate store-locator section', err);
+  }
+}
+
 async function decorateProductIdentifierGuideSection(section) {
   const cssHref = `${window.hlx.codeBasePath}/blocks/product-identifier-guide/product-identifier-guide.css`;
   const jsPath = `${window.hlx.codeBasePath}/blocks/product-identifier-guide/product-identifier-guide.js`;
@@ -801,6 +822,11 @@ async function loadSections(element) {
   const popupModuleSections = sections.filter((section) => section.classList.contains('popup-module-container'));
   if (popupModuleSections.length) {
     await Promise.all(popupModuleSections.map((s) => decoratePopupModuleSection(s)));
+  }
+  // load store locator section
+  const storeLocatorSections = sections.filter((section) => section.classList.contains('store-locator-container'));
+  if (storeLocatorSections.length) {
+    await Promise.all(storeLocatorSections.map((s) => decoratePopupModuleSection(s)));
   }
   // load product identifier guide section
   const productIdentifierGuideSections = sections.filter((section) => section.classList.contains('product-identifier-guide-container'));

@@ -26,6 +26,9 @@
           "...": "./_popup-module.json#/definitions"
         },
         {
+          "...": "./_store-locator.json#/definitions"
+        },
+        {
           "...": "./_announcement.json#/definitions"
         },
         {

@@ -10,7 +10,8 @@
       "company-page-navigation",
       "support-navigation",
       "footerContainer",
-      "search-box-navigation"
+      "search-box-navigation",
+      "store-locator"
     ]
   },
   {
@@ -173,6 +174,18 @@
       "popup-key-stats",
       "popup-image",
       "stats-grid"
+    ]
+  },
+  {
+    "id": "store-locator",
+    "components": [
+      "store-locator-card"
+    ]
+  },
+  {
+    "id": "store-locator-card",
+    "components": [
+      "service-items"
     ]
   },
   {

@@ -10,7 +10,8 @@
       "company-page-navigation",
       "support-navigation",
       "footerContainer",
-      "search-box-navigation"
+      "search-box-navigation",
+      "store-locator"
     ]
   },
   {
@@ -18,6 +19,9 @@
   },
   {
     "...": "./_popup-module.json#/filters"
+  },
+  {
+    "...": "./_store-locator.json#/filters"
   },
   {
     "...": "./_announcement.json#/filters"
