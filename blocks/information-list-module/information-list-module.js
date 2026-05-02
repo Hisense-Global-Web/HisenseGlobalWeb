@@ -225,13 +225,15 @@ export default function decorate(block) {
   const config = readBlockConfig(block);
   const moduleType = config['module-type'] ?? '';
   const pageSize = config['page-size'] * 1 ?? 10;
+  const loadMoreText = config['mobile-loadmore'] ?? 'Load More';
   const paginatedBtnText = config['paginated-btn-text'] ?? '';
   const infoListContainer = block;
-  const [moduleTypeEl, pageSizeEl, noResultEl, ...infoList] = [...block.children];
+  const [moduleTypeEl, pageSizeEl, noResultEl, loadMoreEl, ...infoList] = [...block.children];
   const noResultCloneEl = noResultEl?.cloneNode?.(true);
   moduleTypeEl?.remove?.();
   pageSizeEl?.remove?.();
   noResultEl?.remove?.();
+  loadMoreEl?.remove?.();
 
   infoList?.forEach((info) => {
     generateCard(moduleType, isEditMode, info);
@@ -252,7 +254,7 @@ export default function decorate(block) {
   const mobileBtn = document.createElement('button');
   mobileBtn.type = 'button';
   mobileBtn.classList.add('page-button');
-  mobileBtn.textContent = 'Load more';
+  mobileBtn.textContent = loadMoreText;
   mobilePaginationEl.appendChild(mobileBtn);
 
   const noPaginationEl = document.createElement('div');

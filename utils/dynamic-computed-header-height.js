@@ -2,7 +2,8 @@ export default function getDynamicHeaderHeight(block) {
   // Check if block is the first .block element in main
   const main = document.querySelector('main');
   const firstBlock = main?.querySelector('.block');
-  if (block !== firstBlock) {
+  const isEditMode = block.hasAttribute('data-aue-resource');
+  if (!isEditMode && block !== firstBlock) {
     return;
   }
 

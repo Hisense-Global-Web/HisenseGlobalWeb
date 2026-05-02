@@ -94,6 +94,7 @@
       "recall-info-list",
       "gray-tips",
       "guide-list",
+      "request-service",
       "recall-text-info",
       "promotional-text",
       "campaign-collection",
@@ -101,6 +102,7 @@
       "resource-list",
       "search-box",
       "search-result-module",
+      "sitemap",
       "support-module-title",
       "slide",
       "social-media-list",
@@ -527,6 +529,12 @@
     ]
   },
   {
+    "id": "request-service",
+    "components": [
+      "request-service-item"
+    ]
+  },
+  {
     "id": "resource-list",
     "components": [
       "resource-list-item"
@@ -554,6 +562,12 @@
     "id": "search-result-module",
     "components": [
       "search-result-item"
+    ]
+  },
+  {
+    "id": "sitemap",
+    "components": [
+      "sitemap-item"
     ]
   },
   {
