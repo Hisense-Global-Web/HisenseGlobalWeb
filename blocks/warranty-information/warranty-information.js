@@ -93,6 +93,7 @@ export default async function decorate(block) {
   let currentPage = 1; // 当前页码
   let loadMoreStep = 9; // 分布数量
   let loadMoreTextContent = null;
+  let tipsTextContent = null;
   let allCategoryTabLabel = null;
   let originData = []; // 原始数据
   let showWarrantyData = []; // 当前展示的数据
@@ -114,6 +115,12 @@ export default async function decorate(block) {
       if (text) {
         loadMoreTextContent = text;
       }
+    } else if (index === 2) {
+      // 获取 tips 文案
+      const text = row.textContent && row.textContent.trim();
+      if (text) {
+        tipsTextContent = text;
+      }
     }
   });
 
@@ -121,7 +128,11 @@ export default async function decorate(block) {
   moreSpan.textContent = loadMoreTextContent || 'Load more';
   warrantyLoadMore.append(moreSpan);
 
-  cardsBox.append(cardsGrid, warrantyLoadMore);
+  const tipsEl = document.createElement('div');
+  tipsEl.className = 'warranty-tips';
+  tipsEl.textContent = tipsTextContent;
+
+  cardsBox.append(cardsGrid, tipsEl, warrantyLoadMore);
   warrantyWrapper.append(warrantyCategoryTabs, cardsBox);
   block.replaceChildren(warrantyWrapper);
 

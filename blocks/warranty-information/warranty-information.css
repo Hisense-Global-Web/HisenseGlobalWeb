@@ -136,6 +136,13 @@
     }
   }
 
+  .warranty-tips {
+    margin-top: var(--size-32);
+    font-size: var(--size-12);
+    line-height: var(--size-18);
+    color: var(--color-primary-grey-50);
+  }
+
   .warranty-load-more  {
     text-align: center;
     margin-top: var(--size-48);
@@ -193,7 +200,7 @@
         }
 
         .exchange-div {
-          line-height: calc(20.8 / var(--breakpoint-mobile) * 100vw);;
+          line-height: calc(20.8 / var(--breakpoint-mobile) * 100vw);
         }
 
         .card-content-box {
@@ -228,6 +235,13 @@
           }
         }
       }
+    }
+
+    .warranty-tips {
+      margin-top: var(--size-18);
+      font-size: var(--size-6);
+      line-height: 140%;
+      color: var(--color-primary-grey-50);
     }
 
     .warranty-load-more {
