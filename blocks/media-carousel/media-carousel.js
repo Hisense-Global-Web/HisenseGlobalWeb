@@ -266,7 +266,7 @@ export default async function decorate(block) {
   const titleBox = createElement('div', 'carousel-title-box');
   const mediaCarouselBlocks = createElement('ul', 'media-carousel-track');
   mediaCarouselContainer.prepend(mediaCarouselBlocks);
-
+  console.log(block)
   const [eyebrow, title, ...mediaItems] = block.children;
   if (!eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
   if (!title.textContent.trim() && !title.textContent.trim()) block.classList.add('no-title');

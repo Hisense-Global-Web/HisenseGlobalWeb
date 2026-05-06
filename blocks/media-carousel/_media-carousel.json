@@ -10,6 +10,7 @@
             "template": {
               "name": "Media Carousel",
               "model": "media-carousel",
+              "key-value": true,
               "filter": "media-carousel"
             }
           }
