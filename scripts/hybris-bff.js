@@ -434,6 +434,16 @@ function buildHybrisLoginUrl(returnUrl = (typeof window !== 'undefined' ? window
   return nextLoginUrl;
 }
 
+function buildHybrisLogoutUrl(returnUrl = (typeof window !== 'undefined' ? window.location.href : '/')) {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const nextLogoutUrl = new URL(`${trimTrailingSlash(resolveHybrisBffBaseUrl())}/auth/logout`);
+  nextLogoutUrl.searchParams.set('returnUrl', resolveHybrisReturnUrl(returnUrl));
+  return nextLogoutUrl;
+}
+
 function redirectToHybrisLogin(returnUrl = (typeof window !== 'undefined' ? window.location.href : '/'), loginUrl = '') {
   if (typeof window === 'undefined') {
     return;
@@ -831,20 +841,18 @@ export async function bffRequest(path, options = {}) {
   return json?.data;
 }
 
-export async function logoutHybris(options = {}) {
+export function logoutHybris(options = {}) {
   const returnUrl = resolveHybrisReturnUrl(options.returnUrl);
-  const logoutState = await bffRequest('/auth/logout', {
-    method: 'POST',
-    auth: 'optional',
-    body: {
-      returnUrl,
-    },
-  });
+  const nextLogoutUrl = buildHybrisLogoutUrl(returnUrl);
+  if (!nextLogoutUrl) {
+    return null;
+  }
 
   clearSessionToken();
   clearHybrisGuestCartIdentifier();
   broadcastHybrisAuthEvent(HYBRIS_AUTH_BROADCAST_LOGOUT);
-  return logoutState;
+  window.location.assign(nextLogoutUrl.toString());
+  return null;
 }
 
 export function consumeHybrisLogoutAction(currentUrl = (typeof window !== 'undefined' ? window.location.href : '/')) {
