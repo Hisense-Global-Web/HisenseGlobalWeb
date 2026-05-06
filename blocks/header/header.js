@@ -10,7 +10,6 @@ import {
   fetchHybrisCoupons,
   fetchHybrisOrders,
   fetchHybrisWishlist,
-  clearHybrisGuestCartIdentifier,
   getCachedHybrisAuthState,
   initializeHybrisAuth,
   logoutHybris,
@@ -181,7 +180,7 @@ function setLogoutButtonLoadingState(sureBtn, isLoading) {
   sureBtn.setAttribute('aria-busy', isLoading ? 'true' : 'false');
 }
 
-async function handleLogoutConfirmClick(sureBtn) {
+function handleLogoutConfirmClick(sureBtn) {
   if (!sureBtn || sureBtn.dataset.loading === 'true') {
     return;
   }
@@ -189,10 +188,7 @@ async function handleLogoutConfirmClick(sureBtn) {
   setLogoutButtonLoadingState(sureBtn, true);
 
   try {
-    await logoutHybris({ returnUrl: window.location.href });
-    clearHybrisGuestCartIdentifier();
-    setLogoutModalVisible(false);
-    window.location.reload();
+    logoutHybris({ returnUrl: window.location.href });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.warn('Failed to log out of Hybris', error);
