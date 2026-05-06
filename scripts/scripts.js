@@ -99,20 +99,20 @@ function buildAutoBlocks() {
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
-  if (window.location.hostname.includes('hisense.com') && window.location.pathname.includes('/us')) {
-    const links = main.querySelectorAll('a');
-    links.forEach((link) => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('/us/en')) {
-        link.setAttribute('href', href.replace('/us/en', '/us'));
-      }
-
-      const { textContent } = link;
-      if (textContent && textContent.startsWith('/us/en')) {
-        link.textContent = textContent.replace('/us/en', '/us');
-      }
-    });
-  }
+  // if (window.location.hostname.includes('hisense.com') && window.location.pathname.includes('/us')) {
+  //   const links = main.querySelectorAll('a');
+  //   links.forEach((link) => {
+  //     const href = link.getAttribute('href');
+  //     if (href && href.startsWith('/us/en')) {
+  //       link.setAttribute('href', href.replace('/us/en', '/us'));
+  //     }
+  //
+  //     const { textContent } = link;
+  //     if (textContent && textContent.startsWith('/us/en')) {
+  //       link.textContent = textContent.replace('/us/en', '/us');
+  //     }
+  //   });
+  // }
 
   decorateButtons(main);
   decorateIcons(main);
@@ -397,10 +397,10 @@ async function loadAnnouncementPopup() {
     const closedVersion = localStorage.getItem('announcementClosedVersion') || '';
     if (announcementVersion && announcementVersion !== closedVersion) {
       currentAnnc.classList.add('popup-show');
-      document.body.style.overflow = 'hidden';
+      // document.body.style.overflow = 'hidden';
     } else {
       currentAnnc.classList.remove('popup-show');
-      document.body.style.overflow = 'auto';
+      // document.body.style.overflow = 'auto';
     }
 
     return true;

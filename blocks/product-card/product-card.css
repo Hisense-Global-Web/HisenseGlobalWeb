@@ -332,6 +332,17 @@
   display:  none !important;
 }
 
+.product-card .plp-where-to-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku[data-price-spider-force-visible="true"] {
+  display: block !important;
+}
+
+.product-card .plp-where-to-buy-btn.ps-widget[ps-sku][data-price-spider-force-visible="true"][data-fallback-label="Coming Soon"] {
+  background: var(--color-primary-grey-40);
+  border-color: var(--color-primary-grey-40);
+  color: var(--white-alpha-80);
+  cursor: not-allowed;
+}
+
 .product-card .plp-where-to-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku + .plp-product-btn {
   /* margin-top: var(--size-16); */
 }

@@ -95,10 +95,15 @@
       "recall-info-list",
       "gray-tips",
       "guide-list",
+      "request-service",
+      "recall-text-info",
+      "promotional-text",
+      "campaign-collection",
       "related-news",
       "resource-list",
       "search-box",
       "search-result-module",
+      "sitemap",
       "support-module-title",
       "slide",
       "social-media-list",
@@ -120,6 +125,7 @@
       "parters-container",
       "information-list-module",
       "job-cards",
+      "job-detail",
       "job-list",
       "quick-action-card",
       "category-support-card",
@@ -239,6 +245,13 @@
     "id": "campaign-bundle-banner",
     "components": [
       "campaign-bundle-promo"
+    ]
+  },
+  {
+    "id": "campaign-collection",
+    "components": [
+      "campaign-collection-card",
+      "associated-products"
     ]
   },
   {
@@ -517,6 +530,18 @@
     ]
   },
   {
+    "id": "recall-text-info",
+    "components": [
+      "recall-text-info-item"
+    ]
+  },
+  {
+    "id": "request-service",
+    "components": [
+      "request-service-item"
+    ]
+  },
+  {
     "id": "resource-list",
     "components": [
       "resource-list-item"
@@ -544,6 +569,12 @@
     "id": "search-result-module",
     "components": [
       "search-result-item"
+    ]
+  },
+  {
+    "id": "sitemap",
+    "components": [
+      "sitemap-item"
     ]
   },
   {

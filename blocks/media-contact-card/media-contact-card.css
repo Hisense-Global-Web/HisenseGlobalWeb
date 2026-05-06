@@ -53,7 +53,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
       .media-contact-card-text-group {
         display: flex;
         flex-direction: column;
-        max-width: min(calc(400 / var(--breakpoint-pc) * 100vw), 400px);
+        max-width: min(calc(426 / var(--breakpoint-pc) * 100vw), 426px);
         gap: var(--size-8);
         
         @media (width < 860px) {
@@ -109,8 +109,9 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
       .media-contact-card-group {
         display: flex;
         flex-direction: column;
+        justify-content: center;
         gap: var(--size-12);
-        width: min(calc(257 / var(--breakpoint-pc) * 100vw), 257px);
+        width: min(calc(230 / var(--breakpoint-pc) * 100vw), 230px);
         
         @media (width < 860px) {
           width: 100%;
@@ -129,6 +130,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
           background: var(--color-primary-green-60);
           border-radius: var(--size-100);
           cursor: pointer;
+          padding: 0 var(--size-32);
           
           &:hover {
             background-color: var(--color-primary-green-50);
