@@ -4,11 +4,15 @@ main:has(.section.sitemap-container) {
   justify-content: center;
   align-items: center;
   
-  .region-page-title-container {
+  .region-page-title-container, .page-header-container {
     width: 100%;
     
     @media (width < 860px)  {
       margin-top: var(--size-56);
+      
+      .page-header {
+        margin-top: 0 !important;
+      }
     }
   }
 }
