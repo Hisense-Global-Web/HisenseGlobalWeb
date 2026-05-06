@@ -4046,8 +4046,7 @@
         "component": "boolean",
         "name": "mask-layer",
         "label": "Mask Layer",
-        "valueType": "boolean",
-        "hidden": true
+        "valueType": "boolean"
       }
     ]
   },
