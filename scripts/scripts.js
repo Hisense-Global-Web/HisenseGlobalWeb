@@ -227,8 +227,12 @@ async function loadLazy(doc) {
 function loadDelayedImages() {
   const currentHostname = window.location.hostname;
 
-  if (currentHostname.includes('hisense-stage') || currentHostname.includes('hisense-dev') || currentHostname.includes('localhost')) {
-    const domainPrefix = currentHostname.includes('hisense-stage')
+  if (currentHostname.includes('hisense-stage')
+    || currentHostname.includes('hisensesitestage')
+    || currentHostname.includes('hisense-dev')
+    || currentHostname.includes('hisensesitedev')
+    || currentHostname.includes('localhost')) {
+    const domainPrefix = currentHostname.includes('hisense-stage') || currentHostname.includes('hisensesitestage')
       ? 'https://publish-p174152-e1855674.adobeaemcloud.com'
       : 'https://publish-p174152-e1855821.adobeaemcloud.com';
 
