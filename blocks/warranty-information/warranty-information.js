@@ -93,6 +93,7 @@ export default async function decorate(block) {
   let currentPage = 1; // 当前页码
   let loadMoreStep = 9; // 分布数量
   let loadMoreTextContent = null;
+  let tipsTextContent = null;
   let allCategoryTabLabel = null;
   let originData = []; // 原始数据
   let showWarrantyData = []; // 当前展示的数据
@@ -114,6 +115,12 @@ export default async function decorate(block) {
       if (text) {
         loadMoreTextContent = text;
       }
+    } else if (index === 2) {
+      // 获取 tips 文案
+      const text = row.textContent && row.textContent.trim();
+      if (text) {
+        tipsTextContent = text;
+      }
     }
   });
 
@@ -121,7 +128,11 @@ export default async function decorate(block) {
   moreSpan.textContent = loadMoreTextContent || 'Load more';
   warrantyLoadMore.append(moreSpan);
 
-  cardsBox.append(cardsGrid, warrantyLoadMore);
+  const tipsEl = document.createElement('div');
+  tipsEl.className = 'warranty-tips';
+  tipsEl.textContent = tipsTextContent;
+
+  cardsBox.append(cardsGrid, tipsEl, warrantyLoadMore);
   warrantyWrapper.append(warrantyCategoryTabs, cardsBox);
   block.replaceChildren(warrantyWrapper);
 
@@ -133,6 +144,28 @@ export default async function decorate(block) {
     } else {
       warrantyLoadMore.style.display = 'block';
     }
+  }
+
+  // 获取 card notes 的行数，动态设置显示样式
+  function getCardNotesLineCount(el) {
+    if (!el || el.nodeType !== 1) return 0;
+
+    const range = document.createRange();
+    range.selectNodeContents(el);
+
+    // 获取文本每一行的渲染矩形
+    const rects = range.getClientRects();
+    if (rects.length === 0) return 0;
+
+    // 通过 top 值去重（兼容 inline 标签、亚像素渲染抖动）
+    const lineTops = new Set();
+    // eslint-disable-next-line no-restricted-syntax
+    for (const rect of rects) {
+      if (rect.height > 0.5) { // 过滤空行/零高矩形
+        lineTops.add(Math.round(rect.top));
+      }
+    }
+    return lineTops.size || 1;
   }
 
   // 渲染 warranty card item
@@ -175,6 +208,10 @@ export default async function decorate(block) {
 
       cardTopBox.append(topLeftBox, cardIconBox);
 
+      // card content box
+      const cardContentBox = document.createElement('div');
+      cardContentBox.className = 'card-content-box';
+
       // card title
       const cardTitle = document.createElement('div');
       cardTitle.className = 'card-title';
@@ -184,8 +221,26 @@ export default async function decorate(block) {
       cardNotes.className = 'card-notes';
       cardNotes.innerHTML = item.warrantyInfoNotes;
 
-      cardItem.append(cardTopBox, cardTitle, cardNotes);
+      cardContentBox.append(cardTitle, cardNotes);
+      cardItem.append(cardTopBox, cardContentBox);
       cardsGrid.append(cardItem);
+
+      setTimeout(() => {
+        const titleTextEl = cardItem.querySelector('.card-title');
+        const cardNotesEl = cardItem.querySelector('.card-notes');
+        const titleLineCount = getCardNotesLineCount(titleTextEl);
+        if (titleLineCount === 1) {
+          cardNotesEl?.classList?.add('card-notes-line-clamp5');
+        } else if (titleLineCount === 2) {
+          cardNotesEl?.classList?.add('card-notes-line-clamp4');
+        } else if (titleLineCount === 3) {
+          cardNotesEl?.classList?.add('card-notes-line-clamp3');
+        } else if (titleLineCount === 4) {
+          cardNotesEl?.classList?.add('card-notes-line-clamp2');
+        } else {
+          cardNotesEl?.classList?.add('card-notes-line-clamp7');
+        }
+      }, 500);
     });
   }
 
