@@ -266,7 +266,10 @@ export default async function decorate(block) {
   const titleBox = createElement('div', 'carousel-title-box');
   const mediaCarouselBlocks = createElement('ul', 'media-carousel-track');
   mediaCarouselContainer.prepend(mediaCarouselBlocks);
-  console.log(block)
+
+  const isOverlayTextLeft = [...block.classList].findIndex((item) => item === 'left-style') !== -1;
+  const isOverlayTextLeftBottom = [...block.classList].findIndex((item) => item === 'left-bottom-style') !== -1;
+
   const [eyebrow, title, ...mediaItems] = block.children;
   if (!eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
   if (!title.textContent.trim() && !title.textContent.trim()) block.classList.add('no-title');
@@ -324,8 +327,12 @@ export default async function decorate(block) {
           break;
         case 4:
           textDom.className = 'mask';
-          img.src = '/resources/highlight.svg';
-          if (textDom.textContent === 'true') {
+          if (textDom.textContent === 'true' && (isOverlayTextLeft || isOverlayTextLeftBottom)) {
+            if (isOverlayTextLeft) {
+              img.src = '/resources/highlight.svg';
+            } else if (isOverlayTextLeftBottom) {
+              img.src = '/resources/recommended-carousel-shadow.svg';
+            }
             textDom.replaceChildren(img);
           } else {
             textDom.style.display = 'none';
