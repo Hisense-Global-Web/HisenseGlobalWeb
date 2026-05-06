@@ -44,6 +44,7 @@
              flex-direction: column-reverse;
              align-items: flex-start;
              gap: var(--size-8);
+             overflow: hidden;
              
            }
            
