@@ -4,6 +4,11 @@ export default function decorate(block) {
   const { country } = getLocaleFromPath();
   document.documentElement.style.setProperty('--nav-height', '100px');
   const ulEl = document.createElement('ul');
+  const blockPNode = block.closest('.sitemap-wrapper');
+  if (blockPNode) {
+    blockPNode.classList.add('hide');
+    blockPNode.parentNode.children[0].classList.remove('hide');
+  }
   [...block.children].forEach((row, index) => {
     if (!index) {
       row.classList.add('sitemap-title');

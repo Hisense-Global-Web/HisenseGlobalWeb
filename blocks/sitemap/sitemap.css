@@ -9,6 +9,10 @@ main:has(.section.sitemap-container) {
     
     @media (width < 860px)  {
       margin-top: var(--size-56);
+      
+      .page-header {
+        margin-top: 0 !important;
+      }
     }
   }
 }
