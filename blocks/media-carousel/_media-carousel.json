@@ -10,6 +10,7 @@
             "template": {
               "name": "Media Carousel",
               "model": "media-carousel",
+              "key-value": true,
               "filter": "media-carousel"
             }
           }
@@ -158,8 +159,7 @@
           "component": "boolean",
           "name": "mask-layer",
           "label": "Mask Layer",
-          "valueType": "boolean",
-          "hidden": true
+          "valueType": "boolean"
         }
       ]
     }
