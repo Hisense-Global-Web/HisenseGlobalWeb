@@ -71,7 +71,7 @@
         },
         {
           "component": "richtext",
-          "name": "content",
+          "name": "noresult",
           "label": "No Result Message",
           "value": ""
         }
