@@ -478,7 +478,9 @@ export default function decorate(block) {
       rightIcon.src = '/content/dam/hisense/us/common-icons/chevron-right.svg';
       titleSpanEl.textContent = item.jobTitle;
       titleSpanEl.append(rightIcon);
-      titleSpanEl.addEventListener('click', () => {
+      titleSpanEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!isMobileWindow()) return;
         // eslint-disable-next-line no-underscore-dangle
         const dePath = encodeURIComponent(item._path);
         window.location.href = `${window.location.pathname}/job-detail?path=${dePath}`;
@@ -538,7 +540,8 @@ export default function decorate(block) {
       const detailBtnEl = document.createElement('div');
       detailBtnEl.className = 'detail-btn';
       detailBtnEl.textContent = 'See details';
-      detailBtnEl.addEventListener('click', () => {
+      detailBtnEl.addEventListener('click', (e) => {
+        e.stopPropagation();
         // eslint-disable-next-line no-underscore-dangle
         const dePath = encodeURIComponent(item._path);
         window.location.href = `${window.location.pathname}/job-detail?path=${dePath}`;

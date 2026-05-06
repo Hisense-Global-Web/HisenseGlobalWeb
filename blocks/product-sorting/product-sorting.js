@@ -55,6 +55,9 @@ function closeMobileSortByDom() {
 }
 
 export default function decorate(block) {
+  // 给main 元素添加类名，为了给整个窗口添加灰色背景
+  const main = document.querySelector('main');
+  main.classList.add('main-plp-gray');
   const isEditMode = block.hasAttribute('data-aue-resource');
 
   const filtersBar = document.createElement('div');
