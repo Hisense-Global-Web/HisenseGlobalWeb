@@ -12,6 +12,13 @@ const generateChevronIcon = () => {
   return chevronIcon;
 };
 
+const generateNoResult = (noResult) => {
+  const noResultEl = document.createElement('div');
+  noResultEl.className = 'no-result';
+  noResultEl.innerHTML = noResult;
+  return noResultEl;
+};
+
 const generateStoreEl = (store) => {
   const storeCardEl = store.querySelector('.store-locator-card') ?? null;
   const typeSet = new Set();
@@ -136,10 +143,80 @@ const generateSelectEl = (label, placeholder) => {
   selectWrapperEl.appendChild(chevronIcon);
   setSelectOptionList(selectWrapperEl, [placeholder], placeholder);
   titleSelectWrapperEl.appendChild(selectWrapperEl);
-  selectWrapperEl.addEventListener('click', () => {
+  selectWrapperEl.addEventListener('click', (e) => {
+    e.stopPropagation();
     selectWrapperEl.classList.toggle('show');
   });
   return titleSelectWrapperEl;
+};
+
+/**
+ * 生成tag card list的html元素
+ * @param {HTMLElement} block block元素
+ * @param {Array} tagList tag的list
+ * @param {String} selectedType 当前选择的type的下拉值
+ * @param {Array} storeList 检索后的store list
+ * @returns tag card list的html元素
+ */
+const generateTagCardList = (block, tagList, selectedType, storeList) => {
+  const { placeholder2 } = block?.dataset ?? {};
+  const isEditMode = block.hasAttribute('data-aue-resource');
+  const tagCardList = [];
+  // 根据tag构建tag card
+  tagList.forEach((tag) => {
+    const tagCardWrapper = document.createElement('div');
+    tagCardWrapper.className = 'tag-card-wrapper';
+    const titleWrapperEl = document.createElement('div');
+    titleWrapperEl.className = 'title-wrapper';
+    const tagEl = document.createElement('div');
+    tagEl.textContent = tag;
+    tagEl.className = 'tag';
+    const headerIcon = generateChevronIcon();
+    titleWrapperEl.append(tagEl, headerIcon);
+    tagCardWrapper.appendChild(titleWrapperEl);
+
+    // 过滤当前tag下的store，并插入到tag card下
+    const currentTagStore = storeList.filter((store) => {
+      const hasStore = store.tag === tag;
+      if (!hasStore) { // 过滤掉不同的store
+        return false;
+      }
+      if (placeholder2 === selectedType) { // type = placeholder2时显示全部type
+        return hasStore;
+      }
+      const { typeList } = store;
+      if (typeList?.indexOf(selectedType) > -1) { // 查找相同type的store
+        return true;
+      }
+      return false;
+    });
+    const storeLocatorContentEl = document.createElement('div');
+    storeLocatorContentEl.className = 'store-locator-content';
+    const storeLocatorWrapperEl = document.createElement('div');
+    storeLocatorWrapperEl.className = 'store-locator-wrapper';
+    if (currentTagStore?.length) {
+      currentTagStore.forEach((storeInfo) => {
+        storeLocatorWrapperEl.appendChild(storeInfo.node);
+      });
+      headerIcon.addEventListener('click', () => {
+        tagCardWrapper.classList.toggle('expanded');
+      });
+      // Author端,全部展开
+      if (isEditMode) {
+        tagCardWrapper.classList.add('expanded');
+      }
+      storeLocatorContentEl.appendChild(storeLocatorWrapperEl);
+      tagCardWrapper.appendChild(storeLocatorContentEl);
+      const divideEl = document.createElement('div');
+      divideEl.className = 'divide-line';
+      tagCardWrapper.append(divideEl);
+      tagCardList.push(tagCardWrapper);
+    }
+  });
+  if (tagCardList.length > 0) { // 第一个元素展开
+    tagCardList[0].classList.add('expanded');
+  }
+  return tagCardList;
 };
 
 const generatSearchCard = (block) => {
@@ -157,16 +234,14 @@ const generatSearchCard = (block) => {
   const typeSelect = generateSelectEl(label2, placeholder2);
   typeSelect.querySelector('.select-wrapper').classList.add('type-select');
   const searchButtonEl = document.createElement('div');
-  searchButtonEl.className = 'button-search';
+  searchButtonEl.className = 'search-button';
   searchButtonEl.textContent = button;
   searchCardInnerEl.append(tagSelect, typeSelect, searchButtonEl);
-
   searchCardWrapperEl.appendChild(searchCardInnerEl);
   return searchCardWrapperEl;
 };
 
 export default function decorate(block) {
-  // eslint-disable-next-line no-unused-vars
   const { placeholder1, placeholder2, noresult } = block?.dataset ?? {};
   const storeChildren = [...block.children] ?? [];
   const searchCardWrapper = generatSearchCard(block);
@@ -177,6 +252,9 @@ export default function decorate(block) {
     const { tag, node, typeList } = generateStoreEl(store);
     storeList.push({ tag, node, typeList });
   });
+  const tagCardListWrapperEl = document.createElement('div');
+  tagCardListWrapperEl.className = 'tag-card-list-wrapper';
+  let allTagList = [];
   // 去重获取taglist和typelist
   if (storeList?.length) {
     const allTagSet = new Set();
@@ -186,51 +264,18 @@ export default function decorate(block) {
       allTagSet.add(tag);
       allTypeList = allTypeList.concat(typeList);
     });
-    const allTagList = Array.from(allTagSet).sort();
+    allTagList = Array.from(allTagSet).sort();
     allTypeList = Array.from(new Set(allTypeList)).sort();
 
     if (allTagList?.length) {
-      const tagCardListWrapperEl = document.createElement('div');
-      tagCardListWrapperEl.className = 'tag-card-list-wrapper';
-      // 根据tag构建tag card
-      allTagList.forEach((tag, index) => {
-        const tagCardWrapper = document.createElement('div');
-        tagCardWrapper.className = 'tag-card-wrapper';
-        const titleWrapperEl = document.createElement('div');
-        titleWrapperEl.className = 'title-wrapper';
-        const tagEl = document.createElement('div');
-        tagEl.textContent = tag;
-        tagEl.className = 'tag';
-        const headerIcon = generateChevronIcon();
-        titleWrapperEl.append(tagEl, headerIcon);
-        tagCardWrapper.appendChild(titleWrapperEl);
-
-        // 过滤当前tag下的store，并插入到tag card下
-        const currentTagStore = storeList.filter((store) => store.tag === tag);
-        const storeLocatorContentEl = document.createElement('div');
-        storeLocatorContentEl.className = 'store-locator-content';
-        const storeLocatorWrapperEl = document.createElement('div');
-        storeLocatorWrapperEl.className = 'store-locator-wrapper';
-        if (currentTagStore?.length) {
-          currentTagStore.forEach((storeInfo) => {
-            storeLocatorWrapperEl.appendChild(storeInfo.node);
-          });
-        }
-        headerIcon.addEventListener('click', () => {
-          tagCardWrapper.classList.toggle('expanded');
+      const tagCardList = generateTagCardList(block, allTagList, placeholder2, storeList);
+      if (tagCardList) {
+        tagCardList.forEach((tagCardEl) => {
+          tagCardListWrapperEl.appendChild(tagCardEl);
         });
-        // 第一个元素展开
-        if (index === 0) {
-          tagCardWrapper.classList.add('expanded');
-        }
-        storeLocatorContentEl.appendChild(storeLocatorWrapperEl);
-        tagCardWrapper.appendChild(storeLocatorContentEl);
-        const divideEl = document.createElement('div');
-        divideEl.className = 'divide-line';
-        tagCardWrapper.append(divideEl);
-        tagCardListWrapperEl.appendChild(tagCardWrapper);
-      });
-
+      } else {
+        tagCardListWrapperEl.appendChild(generateNoResult(noresult));
+      }
       const tagSelectEl = searchCardWrapper.querySelector('.tag-select');
       if (tagSelectEl) {
         setSelectOptionList(tagSelectEl, [placeholder1, ...allTagList], placeholder1);
@@ -240,7 +285,45 @@ export default function decorate(block) {
       if (typeSelectEl) {
         setSelectOptionList(typeSelectEl, [placeholder2, ...allTypeList], placeholder2);
       }
-      block.appendChild(tagCardListWrapperEl);
+    } else {
+      tagCardListWrapperEl.appendChild(generateNoResult(noresult));
     }
+  } else {
+    tagCardListWrapperEl.appendChild(generateNoResult(noresult));
   }
+
+  block.appendChild(tagCardListWrapperEl);
+
+  // Search button点击事件
+  searchCardWrapper.querySelector('.search-button')?.addEventListener('click', () => {
+    const tagSelectEl = searchCardWrapper.querySelector('.tag-select');
+    const selectedTag = tagSelectEl?.querySelector('.select-value')?.textContent ?? '';
+    const typeSelectEl = searchCardWrapper.querySelector('.type-select');
+    const selectedType = typeSelectEl?.querySelector('.select-value')?.textContent ?? '';
+    let selectedTagList = [];
+    if (selectedTag === placeholder1) {
+      selectedTagList = allTagList;
+    } else {
+      selectedTagList = allTagList.filter((tag) => tag === selectedTag);
+    }
+    tagCardListWrapperEl.innerHTML = '';
+    const searchTagCardList = generateTagCardList(block, selectedTagList, selectedType, storeList);
+    if (searchTagCardList?.length) {
+      searchTagCardList.forEach((tagCard) => {
+        tagCardListWrapperEl.appendChild(tagCard);
+      });
+    } else {
+      tagCardListWrapperEl.appendChild(generateNoResult(noresult));
+    }
+  });
+
+  // 点击其他地方时隐藏OptionList
+  window.document.addEventListener('click', () => {
+    const selectListEl = document.querySelectorAll('.select-wrapper.show');
+    if (selectListEl?.length) {
+      selectListEl.forEach((selectEl) => {
+        selectEl.classList.remove('show');
+      });
+    }
+  });
 }
