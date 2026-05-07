@@ -1807,7 +1807,9 @@
                 "template": {
                   "name": "Media Carousel Item",
                   "model": "media-carouselItem",
-                  "mainContent": "image"
+                  "mainContent": "image",
+                  "subtitle": "",
+                  "title": ""
                 }
               }
             }

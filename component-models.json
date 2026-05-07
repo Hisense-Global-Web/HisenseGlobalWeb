@@ -3921,7 +3921,6 @@
       {
         "component": "select",
         "name": "classes",
-        "value": "",
         "label": "Text Position",
         "description": "",
         "valueType": "string",
@@ -3955,14 +3954,12 @@
       {
         "component": "text",
         "name": "subtitle",
-        "value": "",
         "label": "Eyebrow",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "title",
-        "value": "",
         "label": "Title",
         "valueType": "string"
       }
