@@ -706,8 +706,8 @@ export default function decorate(block) {
     } else {
       noPaginationEl = document.createElement('div');
       noPaginationEl.className = 'job-list-no-pagination';
-      noPaginationEl.innerHTML = noResultMessage || '<p>no result</p>';
-      if (window.productData?.length) {
+      noPaginationEl.innerHTML = noResultMessage;
+      if (window.productData?.length || !noResultMessage) {
         noPaginationEl.style.display = 'none';
       }
     }
