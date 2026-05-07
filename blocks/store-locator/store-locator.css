@@ -15,11 +15,21 @@
       border-radius: var(--radius-pc-xl, 20px);
       background: var(--color-primary-green-10, #edfcfb);
 
+      @media (width<860px) {
+        flex-direction: column;
+        padding: var(--spacing-sm, 24px) var(--spacing-sm, 24px)
+          var(--spacing-m, 32px) var(--spacing-sm, 24px);
+      }
+
       .title-select-wrapper {
         flex: 1;
         display: flex;
         flex-direction: column;
         gap: var(--spacing-2xs, 12px);
+
+        @media (width<860px) {
+          width: 100%;
+        }
 
         .title {
           color: var(--color-primary-grey-100, #000);
@@ -27,6 +37,11 @@
           font-style: normal;
           font-weight: var(--fontweight-medium, 500);
           line-height: 150%;
+
+          @media (width<860px) {
+            font-size: var(--fontsize-body2, 14px);
+            line-height: 22px;
+          }
         }
 
         .select-wrapper {
@@ -41,10 +56,21 @@
           border-radius: var(--size-12);
           border: 1px solid var(--color-primary-grey-40, #bbb);
           background: var(--color-primary-gray-10, #fff);
-          color: var(--color-primary-grey-100, #000);
+          color: var(--color-primary-grey-70, #333);
+          font-size: var(--fontsize-body1, 16px);
+          font-weight: var(--fontweight-book, 400);
+          line-height: 1.5;
           user-select: none;
 
+          @media (width<860px) {
+            border-radius: var(--size-8);
+          }
+
           .chevron-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             img {
               transform: rotate(180deg);
             }
@@ -71,29 +97,31 @@
               background: #fff;
               width: 100%;
               flex-direction: column;
-              padding: var(--size-12) 0;
+              padding: var(--spacing-m, 32px) var(--size-20);
               font-size: var(--fontsize-body1, 16px);
-              gap: 8px;
+              gap: var(--spacing-2xs, 12px);
 
               .option {
                 height: var(--size-30);
                 line-height: var(--size-30);
                 color: var(--color-primary-grey-50, #747474);
-
-                /* padding-left: 10px; */
-                padding: 0 var(--spacing-s2, 20px);
                 display: flex;
                 align-items: center;
                 cursor: pointer;
                 font-weight: var(--fontweight-book, 400);
 
                 &:hover {
-                  /* color: var(--color-primary-grey-100, #000); */
-                  background-color: var(--color-primary-grey-20);
+                  color: var(--color-primary-grey-100, #000);
+                  font-weight: var(--fontweight-medium, 500);
                 }
 
                 &.selected {
                   color: var(--color-primary-grey-100, #000);
+                }
+
+                &:active {
+                  color: var(--color-primary-green-50, #009f9c);
+                  font-weight: var(--fontweight-medium, 500);
                 }
               }
             }
@@ -153,6 +181,12 @@
         line-height: 150%;
         min-height: var(--size-50);
 
+        @media (width<860px) {
+          width: 100%;
+          margin-top: var(--spacing-3xs, 8px);
+          padding: var(--spacing-4xs, 4px) var(--spacing-sm, 24px);
+        }
+
         &:hover {
           background-color: var(--color-primary-green-50, #009f9c);
         }
@@ -165,19 +199,26 @@
   }
 
   .tag-card-list-wrapper {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-lg, 40px);
 
     .no-result {
-      padding:var(--spacing-sm,24px) min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
-      max-width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);;
+      padding: var(--spacing-sm, 24px)
+        min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
+      max-width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
       color: var(--color-primary-grey-100, #000);
       text-align: center;
       font-size: var(--fontsize-title1, 24px);
       font-style: normal;
       font-weight: var(--fontweight-medium, 500);
       line-height: 120%;
+
+      @media (width<860px) {
+        padding: var(--spacing-sm, 24px) 0;
+        max-width: 100%;
+      }
     }
 
     .tag-card-wrapper {
@@ -189,12 +230,21 @@
         align-items: center;
         padding-bottom: var(--spacing-m, 32px);
 
+        @media (width<860px) {
+          padding-bottom: var(--spacing-xs, 16px);
+        }
+
         .tag {
           color: var(--color-primary-grey-100, #000);
           font-size: var(--fontsize-title1, 24px);
           font-style: normal;
           font-weight: var(--fontweight-medium, 500);
           line-height: 120%;
+
+          @media (width<860px) {
+            font-size: var(--fontsize-body1, 16px);
+            line-height: 120%;
+          }
         }
 
         .chevron-icon img {
@@ -220,6 +270,15 @@
           transition: padding-bottom 0.36s ease-in-out;
           padding-bottom: var(--spacing-m, 32px);
 
+          @media (width<860px) {
+            display: flex;
+            align-items: stretch;
+            padding-bottom: var(--spacing-xs, 16px);
+            gap: var(--spacing-xs, 16px);
+            overflow-x: auto;
+            scrollbar-width: none;
+          }
+
           .store-locator-card-wrapper {
             .store-locator-card {
               width: 100%;
@@ -232,6 +291,10 @@
               flex-direction: column;
               gap: var(--spacing-sm, 24px);
 
+              @media (width<860px) {
+                width: calc(300 / var(--breakpoint-mobile) * 100vw);
+              }
+
               .city-store-wrapper {
                 display: flex;
                 flex-direction: column;
@@ -243,6 +306,11 @@
                   font-style: normal;
                   font-weight: var(--fontweight-medium, 500);
                   line-height: 150%;
+
+                  @media (width<860px) {
+                    font-size: var(--fontsize-body2, 14px);
+                    line-height: 140%;
+                  }
                 }
 
                 .store {
@@ -264,6 +332,10 @@
                   font-style: normal;
                   font-weight: var(--fontweight-book, 400);
                   line-height: 22px;
+
+                  @media (width<860px) {
+                    line-height: 1.5;
+                  }
                 }
 
                 .content-wrapper p,
@@ -281,7 +353,7 @@
                   line-height: 150%;
 
                   @media (width<860px) {
-                    line-height: 130%;
+                    font-size: var(--fontsize-body2, 14px);
                   }
 
                   a {
@@ -330,6 +402,10 @@
                       font-style: normal;
                       font-weight: var(--fontweight-book, 400);
                       line-height: 150%;
+
+                      @media (width<860px) {
+                        font-size: var(--fontsize-body2, 14px);
+                      }
                     }
                   }
                 }

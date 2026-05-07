@@ -2,7 +2,7 @@ const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 const generateChevronIcon = () => {
-  const chevronIcon = document.createElement('span');
+  const chevronIcon = document.createElement('div');
   chevronIcon.className = 'chevron-icon';
   const iconImg = document.createElement('img');
   iconImg.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
