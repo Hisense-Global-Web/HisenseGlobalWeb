@@ -83,14 +83,14 @@
               ]
             },
             {
-              "component": "text",
+              "component": "number",
               "valueType": "number",
               "name": "cropWidth",
               "label": "Crop Width",
               "required": true
             },
             {
-              "component": "text",
+              "component": "number",
               "valueType": "number",
               "name": "cropHeight",
               "label": "Crop Height"
