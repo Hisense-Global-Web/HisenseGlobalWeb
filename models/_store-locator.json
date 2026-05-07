@@ -1,0 +1,151 @@
+{
+  "definitions": [
+    {
+      "title": "Store Locator",
+      "id": "store-locator",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "name": "Store Locator",
+              "model": "store-locator",
+              "filter": "store-locator",
+              "placeholder1": "All",
+              "placeholder2": "All",
+              "button": "Search"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "store-locator",
+      "fields": [
+        {
+          "component": "select",
+          "name": "style_store",
+          "value": "store-locator-container",
+          "label": "Store Locator classes",
+          "valueType": "string",
+          "description": "The class name of Store Locator",
+          "hidden": true,
+          "options": [
+            {
+              "name": "store-locator-container",
+              "value": "store-locator-container"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "label1",
+          "label": "Locator Label 1",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "placeholder1",
+          "label": "Locator Placeholder 1",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "label2",
+          "label": "Locator Label 2",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "placeholder2",
+          "label": "Locator Placeholder 2",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "button",
+          "label": "Button Copy",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "noresult",
+          "label": "No Result Message",
+          "value": ""
+        },
+        {
+          "component": "container",
+          "label": "Section Spacing",
+          "name": "container_padding",
+          "collapsible": true,
+          "fields": [
+            {
+              "component": "select",
+              "name": "style_paddingTop",
+              "label": "Padding Top",
+              "options": [
+                {
+                  "name": "None",
+                  "value": ""
+                },
+                {
+                  "name": "Small (40px)",
+                  "value": "pt-s"
+                },
+                {
+                  "name": "Medium (60px)",
+                  "value": "pt-m"
+                },
+                {
+                  "name": "Large (80px)",
+                  "value": "pt-l"
+                },
+                {
+                  "name": "Extra Large (120px)",
+                  "value": "pt-xl"
+                }
+              ]
+            },
+            {
+              "component": "select",
+              "name": "style_paddingBottom",
+              "label": "Padding Bottom",
+              "options": [
+                {
+                  "name": "None",
+                  "value": ""
+                },
+                {
+                  "name": "Small (40px)",
+                  "value": "pb-s"
+                },
+                {
+                  "name": "Medium (60px)",
+                  "value": "pb-m"
+                },
+                {
+                  "name": "Large (80px)",
+                  "value": "pb-l"
+                },
+                {
+                  "name": "Extra Large (120px)",
+                  "value": "pb-xl"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "store-locator",
+      "components": [
+        "store-locator-card"
+      ]
+    }
+  ]
+}
