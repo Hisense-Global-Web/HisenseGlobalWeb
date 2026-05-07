@@ -42,6 +42,7 @@
       "current-partnerships-list",
       "disclaimer",
       "download",
+      "dynamic-media-image",
       "enterprise-tech",
       "faq-module",
       "feature-banner",
@@ -327,6 +328,12 @@
     "id": "download",
     "components": [
       "download-item"
+    ]
+  },
+  {
+    "id": "dynamic-media-image",
+    "components": [
+      "dynamic-media-imageItem"
     ]
   },
   {
