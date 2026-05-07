@@ -12,10 +12,12 @@
     color: var(--color-primary-grey-100);
   }
   .des-body{
-    font-size: var(--size-16) !important;
-    line-height: 160%;
-    color: var(--color-primary-grey-70);
     margin-top: var(--size-8);
+    p, h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+      font-size: var(--size-16) !important;
+      line-height: 160%;
+      color: var(--color-primary-grey-70);
+    }
   }
-
 }
