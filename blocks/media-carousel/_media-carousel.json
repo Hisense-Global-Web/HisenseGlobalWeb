@@ -10,8 +10,9 @@
             "template": {
               "name": "Media Carousel",
               "model": "media-carousel",
-              "key-value": true,
-              "filter": "media-carousel"
+              "filter": "media-carousel",
+              "subtitle": "",
+              "title": ""
             }
           }
         }
@@ -28,8 +29,7 @@
               "name": "Media Carousel Item",
               "model": "media-carouselItem",
               "mainContent": "image",
-              "subtitle": "",
-              "title": ""
+
             }
           }
         }
