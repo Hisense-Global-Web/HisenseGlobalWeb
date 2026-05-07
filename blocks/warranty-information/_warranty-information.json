@@ -33,13 +33,6 @@
           "name": "loadMoreTextContent",
           "label": "Load More Text Content",
           "description": "Text content for load more button"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "tips",
-          "label": "Notes",
-          "description": "Text content for notes"
         }
       ]
     }
