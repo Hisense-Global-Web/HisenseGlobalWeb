@@ -40,13 +40,13 @@
         },
         {
           "component": "text",
-          "name": "button-to-label",
+          "name": "button_label",
           "label": "Button Label",
           "valueType": "string"
         },
         {
           "component": "aem-content",
-          "name": "button-to-link",
+          "name": "button_link",
           "label": "Download Link",
           "valueType": "string"
         }
