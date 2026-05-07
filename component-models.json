@@ -2494,11 +2494,25 @@
         "collapsible": true,
         "fields": [
           {
-            "component": "text",
+            "component": "select",
             "valueType": "string",
             "name": "cropName",
             "label": "Crop Name",
-            "required": true
+            "required": true,
+            "options": [
+              {
+                "name": "Small",
+                "value": "Small"
+              },
+              {
+                "name": "Medium",
+                "value": "Medium"
+              },
+              {
+                "name": "Large",
+                "value": "Large"
+              }
+            ]
           },
           {
             "component": "text",
