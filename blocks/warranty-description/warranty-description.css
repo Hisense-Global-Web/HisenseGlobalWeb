@@ -1,4 +1,21 @@
 .warranty-description {
-  padding: 20px;
-  background-color: #f9f9f9;
+  .des-title {
+    font-size: var(--size-34);
+    font-weight: var(--fontweight-medium);
+    color: var(--color-primary-grey-100);
+    line-height: 120%;
+  }
+  .des-subtitle {
+    font-size: var(--size-20);
+    font-weight: var(--fontweight-medium);
+    line-height: 120%;
+    color: var(--color-primary-grey-100);
+  }
+  .des-body{
+    font-size: var(--size-16) !important;
+    line-height: 160%;
+    color: var(--color-primary-grey-70);
+    margin-top: var(--size-8);
+  }
+
 }
