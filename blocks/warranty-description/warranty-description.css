@@ -10,6 +10,9 @@
     font-weight: var(--fontweight-medium);
     line-height: 120%;
     color: var(--color-primary-grey-100);
+    &.has-title {
+      margin-top: var(--size-16);
+    }
   }
   .des-body{
     margin-top: var(--size-8);
@@ -20,6 +23,34 @@
       line-height: 160%;
       color: var(--color-primary-grey-70);
     }
+  }
+  .des-button {
+    margin-top: var(--size-24);
+    padding: 0 var(--size-24);
+    height: var(--size-40);
+    line-height: var(--size-40);
+    background-color: var(--color-primary-green-60);
+    font-weight: var(--fontweight-medium);
+    color: var(--color-primary-grey-10);
+    border-radius: var(--size-20);
+    display: inline-block;
+    cursor: pointer;
+    &:hover {
+      background-color: var(--color-primary-green-50);
+    }
+    &:active {
+      background-color: var(--color-primary-green-70);
+      color: var(--white-alpha-80);
+    }
+    /* .button-container {
+      height: var(--size-40);
+    }
+    a {
+      margin: 0;
+      padding: 0 var(--size-24);
+      height: var(--size-40);
+      line-height: var(--size-40);
+    } */
   }
 }
 
@@ -36,6 +67,9 @@
       p, h1, h2, h3, h4, h5, h6, li {
         font-size: var(--size-14) !important;
       }
+    }
+    .des-button {
+      margin-top: var(--size-16);
     }
   }
 }
