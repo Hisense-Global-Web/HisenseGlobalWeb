@@ -11,16 +11,15 @@ export default async function decorate(block) {
     } else {
       item.className = 'button-box';
       const pAll = item.querySelectorAll('p');
-      pAll[1].className = 'des-button';
-      const btnLabel = pAll[1]?.textContent.trim();
-      if (btnLabel) {
-        const downloadLink = pAll[0].querySelector('a')?.href || pAll[0].querySelector('img')?.src || '';
-        pAll[0].remove();
+      const downloadLink = pAll[0].querySelector('a')?.href || pAll[0].querySelector('img')?.src || '';
+      if (pAll[1]) {
+        pAll[1].className = 'des-button';
         item.addEventListener('click', (e) => {
           e.preventDefault();
           handleCommonDownloadClick(downloadLink);
         });
       }
+      pAll[0].remove();
     }
   });
   const title = block.querySelector('.des-title')?.textContent.trim();
