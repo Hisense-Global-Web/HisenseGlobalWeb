@@ -79,12 +79,16 @@ const generateStoreEl = (store) => {
   return { tag, node: store, typeList: Array.from(typeSet) };
 };
 
-const setSelectOptionList = (selectWrapperEl, list, placeholder) => {
+const setSelectOptionList = (selectOptionListWrapperEl, list, placeholder) => {
+  const oldOptionListWrapperEl = selectOptionListWrapperEl?.querySelector('.option-list-wrapper');
+  if (oldOptionListWrapperEl) {
+    oldOptionListWrapperEl.remove();
+  }
   const optionListWrapperEl = document.createElement('div');
   optionListWrapperEl.className = 'option-list-wrapper';
   const optionListEl = document.createElement('div');
   optionListEl.className = 'option-list';
-  const currentSelectdEl = selectWrapperEl.querySelector('.select-value');
+  const currentSelectdEl = selectOptionListWrapperEl.querySelector('.select-value');
   const currentSelectedValue = currentSelectdEl?.textContent ?? null;
   if (list?.length) {
     list.forEach((option) => {
@@ -106,7 +110,7 @@ const setSelectOptionList = (selectWrapperEl, list, placeholder) => {
         selectedOption?.classList?.remove('selected');
       });
       const selectedValue = optionEl.textContent ?? null;
-      const currentClickSelectdEl = selectWrapperEl.querySelector('.select-value');
+      const currentClickSelectdEl = selectOptionListWrapperEl.querySelector('.select-value');
       const currentClickSelectedValue = currentClickSelectdEl?.textContent ?? null;
       if (currentClickSelectedValue !== selectedValue) {
         if (selectedValue) {
@@ -114,15 +118,15 @@ const setSelectOptionList = (selectWrapperEl, list, placeholder) => {
           optionEl.classList.add('selected');
         }
         if (selectedValue === placeholder) {
-          selectWrapperEl.classList.add('select-placeholder');
+          currentClickSelectdEl.classList.add('select-placeholder');
         } else {
-          selectWrapperEl.classList.remove('select-placeholder');
+          currentClickSelectdEl.classList.remove('select-placeholder');
         }
       }
     });
   });
 
-  selectWrapperEl.appendChild(optionListWrapperEl);
+  selectOptionListWrapperEl.appendChild(optionListWrapperEl);
 };
 
 const generateSelectEl = (label, placeholder) => {
@@ -133,19 +137,23 @@ const generateSelectEl = (label, placeholder) => {
   titleEl.textContent = label;
   titleSelectWrapperEl.appendChild(titleEl);
 
+  const selectOptionListWrapperEl = document.createElement('div');
+  selectOptionListWrapperEl.className = 'select-option-list-wrapper';
+
   const selectWrapperEl = document.createElement('div');
-  selectWrapperEl.classList.add('select-wrapper', 'select-placeholder');
+  selectWrapperEl.classList.add('select-wrapper');
   const selectValueEl = document.createElement('div');
-  selectValueEl.className = 'select-value';
+  selectValueEl.classList.add('select-value', 'select-placeholder');
   selectValueEl.textContent = placeholder;
   selectWrapperEl.appendChild(selectValueEl);
   const chevronIcon = generateChevronIcon();
   selectWrapperEl.appendChild(chevronIcon);
-  setSelectOptionList(selectWrapperEl, [placeholder], placeholder);
-  titleSelectWrapperEl.appendChild(selectWrapperEl);
-  selectWrapperEl.addEventListener('click', (e) => {
+  selectOptionListWrapperEl.appendChild(selectWrapperEl);
+  setSelectOptionList(selectOptionListWrapperEl, [placeholder], placeholder);
+  titleSelectWrapperEl.appendChild(selectOptionListWrapperEl);
+  selectOptionListWrapperEl.addEventListener('click', (e) => {
     e.stopPropagation();
-    selectWrapperEl.classList.toggle('show');
+    selectOptionListWrapperEl.classList.toggle('show');
   });
   return titleSelectWrapperEl;
 };
@@ -230,9 +238,9 @@ const generatSearchCard = (block) => {
   searchCardInnerEl.className = 'search-card-inner';
 
   const tagSelect = generateSelectEl(label1, placeholder1);
-  tagSelect.querySelector('.select-wrapper').classList.add('tag-select');
+  tagSelect.querySelector('.select-option-list-wrapper').classList.add('tag-select');
   const typeSelect = generateSelectEl(label2, placeholder2);
-  typeSelect.querySelector('.select-wrapper').classList.add('type-select');
+  typeSelect.querySelector('.select-option-list-wrapper').classList.add('type-select');
   const searchButtonEl = document.createElement('div');
   searchButtonEl.className = 'search-button';
   searchButtonEl.textContent = button;
@@ -319,7 +327,7 @@ export default function decorate(block) {
 
   // 点击其他地方时隐藏OptionList
   window.document.addEventListener('click', () => {
-    const selectListEl = document.querySelectorAll('.select-wrapper.show');
+    const selectListEl = document.querySelectorAll('.select-option-list-wrapper.show');
     if (selectListEl?.length) {
       selectListEl.forEach((selectEl) => {
         selectEl.classList.remove('show');

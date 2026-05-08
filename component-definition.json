@@ -2238,7 +2238,11 @@
                 "template": {
                   "name": "Price Slider",
                   "model": "price-slider",
-                  "classes": "price-slider-wrapper"
+                  "classes": "price-slider-wrapper",
+                  "filter-title": "Your Budget",
+                  "min-rangeLabel": "Min price",
+                  "max-rangeLabel": "Max price",
+                  "price-slider": "priceSliderItem"
                 }
               }
             }
