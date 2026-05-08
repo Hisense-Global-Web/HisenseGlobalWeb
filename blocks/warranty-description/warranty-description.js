@@ -9,6 +9,13 @@ export default async function decorate(block) {
       item.className = 'des-body';
     } else {
       item.className = 'des-button';
+      console.log('item', item);
+      const pAll = item.querySelectorAll('p');
+      const btnLabel = pAll[1].textContent.trim();
+      if (btnLabel) {
+        pAll[0].querySelector('a').textContent = btnLabel;
+        pAll[1].remove();
+      }
     }
   });
 }

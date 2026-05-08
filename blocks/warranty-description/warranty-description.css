@@ -13,11 +13,29 @@
   }
   .des-body{
     margin-top: var(--size-8);
-    p, h1, h2, h3, h4, h5, h6 {
+    p, h1, h2, h3, h4, h5, h6, li {
       margin: 0;
       font-size: var(--size-16) !important;
+      font-weight: var(--fontweight-book) !important;
       line-height: 160%;
       color: var(--color-primary-grey-70);
+    }
+  }
+}
+
+@media (width < 860px) {
+  .warranty-description {
+    .des-title {
+      font-size: var(--size-24);
+    }
+    .des-subtitle {
+      font-size: var(--size-16);
+    }
+    .des-body {
+      margin-top: var(--size-12);
+      p, h1, h2, h3, h4, h5, h6, li {
+        font-size: var(--size-14) !important;
+      }
     }
   }
 }
