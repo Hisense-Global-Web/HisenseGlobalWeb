@@ -7295,18 +7295,18 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "descriptionTitle",
+        "name": "description-title",
         "label": "Title"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "descriptionSubtitle",
+        "name": "description-subtitle",
         "label": "Subtitle"
       },
       {
         "component": "richtext",
-        "name": "bodyText",
+        "name": "body-text",
         "label": "Body Text",
         "valueType": "string"
       },
