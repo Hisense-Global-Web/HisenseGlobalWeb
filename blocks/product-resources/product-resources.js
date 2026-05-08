@@ -398,7 +398,12 @@ function buildTabsSection(tabConfigs, activeType) {
 
     const label = document.createElement('p');
     label.textContent = tabConfig.label;
+    label.className = 'absolute';
+    const label1 = document.createElement('p');
+    label1.textContent = tabConfig.label;
+    label1.className = 'transparent-bold';
     tab.appendChild(label);
+    tab.appendChild(label1);
     tabs.appendChild(tab);
   });
 
