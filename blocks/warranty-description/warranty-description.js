@@ -11,7 +11,8 @@ export default async function decorate(block) {
     } else {
       item.className = 'button-box';
       const pAll = item.querySelectorAll('p');
-      const downloadLink = pAll[0].querySelector('a')?.href || pAll[0].querySelector('img')?.src || '';
+      const downloadLink = pAll[0]?.querySelector('a')?.href || pAll[0]?.querySelector('img')?.src || '';
+      pAll[0].remove();
       if (pAll[1]) {
         pAll[1].className = 'des-button';
         item.addEventListener('click', (e) => {
@@ -19,7 +20,6 @@ export default async function decorate(block) {
           handleCommonDownloadClick(downloadLink);
         });
       }
-      pAll[0].remove();
     }
   });
   const title = block.querySelector('.des-title')?.textContent.trim();
