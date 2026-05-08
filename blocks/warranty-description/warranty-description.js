@@ -10,16 +10,21 @@ export default async function decorate(block) {
       item.className = 'des-body';
     } else {
       item.className = 'button-box';
-      const pAll = item.querySelectorAll('p');
-      const downloadLink = pAll[0]?.querySelector('a')?.href || pAll[0]?.querySelector('img')?.src || '';
-      pAll[0].remove();
-      if (pAll[1]) {
-        pAll[1].className = 'des-button';
-        item.addEventListener('click', (e) => {
-          e.preventDefault();
-          handleCommonDownloadClick(downloadLink);
+      let downloadLink = '';
+      [...item.children].forEach((itemChild) => {
+        [...itemChild.children].forEach((btnChild, btnIdx) => {
+          if (btnIdx === 0) {
+            downloadLink = btnChild.querySelector('a')?.href || btnChild.querySelector('img')?.src || '';
+            btnChild.remove();
+          } else {
+            btnChild.className = 'des-button';
+            btnChild.addEventListener('click', (e) => {
+              e.preventDefault();
+              handleCommonDownloadClick(downloadLink);
+            });
+          }
         });
-      }
+      });
     }
   });
   const title = block.querySelector('.des-title')?.textContent.trim();
