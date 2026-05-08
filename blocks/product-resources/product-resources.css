@@ -202,9 +202,6 @@
 }
 
 .product-resources .tab-content-wrapper {
-  overflow: hidden;
-  margin-right: calc(50% - 50vw);
-
   @media (width < 860px) {
     margin-right: 0;
   }
@@ -436,7 +433,7 @@
 
 .product-resources .tab-content[type="warranty"] .tab-content-ul .item {
   width: min(calc(548 / var(--breakpoint-pc) * 100vw), 548px);
-  height: min(calc(417 / var(--breakpoint-pc) * 100vw), 417px);
+  height: 100%;
 
   @media (width < 860px) {
     width: 100%;

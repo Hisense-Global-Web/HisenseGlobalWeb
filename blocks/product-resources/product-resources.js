@@ -474,8 +474,9 @@ function initTabsAndCarousel(block) {
 
   function getMaxIndex(content) {
     const count = getItems(content).length;
-    if (count <= VISIBLE_COUNT) return 0;
-    return count - VISIBLE_COUNT;
+    const visibleCount = content.getAttribute('type') === 'warranty' ? 2 : VISIBLE_COUNT;
+    if (count <= visibleCount) return 0;
+    return count - visibleCount;
   }
 
   function isMobile() {
@@ -486,8 +487,9 @@ function initTabsAndCarousel(block) {
     const content = getActiveContent();
     const track = getTrack(content);
     const count = getItems(content).length;
+    const visibleCount = content.getAttribute('type') === 'warranty' ? 2 : VISIBLE_COUNT;
 
-    if (isMobile() || count <= VISIBLE_COUNT) {
+    if (isMobile() || count <= visibleCount) {
       carouselNav.style.display = 'none';
       if (track) track.style.transform = 'translateX(0)';
       return;
