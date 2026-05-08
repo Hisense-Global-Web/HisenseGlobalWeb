@@ -55,13 +55,6 @@
           "valueType": "string"
         },
         {
-          "component": "reference",
-          "name": "button_icon",
-          "value": "",
-          "label": "Button Icon",
-          "valueType": "string"
-        },
-        {
           "component": "aem-content",
           "name": "button-link",
           "label": "Button Link",
