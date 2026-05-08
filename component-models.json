@@ -7290,6 +7290,41 @@
     ]
   },
   {
+    "id": "warranty-description",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description-title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description-subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "component": "richtext",
+        "name": "body-text",
+        "label": "Body Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Download Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button_label",
+        "label": "Button Label",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "warranty-information",
     "fields": [
       {
