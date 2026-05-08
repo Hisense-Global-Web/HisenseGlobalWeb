@@ -6,6 +6,7 @@ import {
 } from '../../utils/carousel-common.js';
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 
 let carouselId = 0;
 const segments = window.location.pathname.split('/').filter(Boolean);
@@ -257,6 +258,7 @@ function createScrollButton(direction) {
   return button;
 }
 export default async function decorate(block) {
+  const config = readBlockConfig(block);
   carouselId += 1;
   block.setAttribute('id', `media-carousel-${carouselId}`);
   block.dataset.slideIndex = 0;
@@ -270,13 +272,17 @@ export default async function decorate(block) {
   const isOverlayTextLeft = [...block.classList].findIndex((item) => item === 'left-style') !== -1;
   const isOverlayTextLeftBottom = [...block.classList].findIndex((item) => item === 'left-bottom-style') !== -1;
 
+  console.log([...block.children], config);
+  debugger;
   const [eyebrow, title, ...mediaItems] = block.children;
   if (!eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
-  if (!title.textContent.trim() && !title.textContent.trim()) block.classList.add('no-title');
+  if (!title || (!title.textContent.trim() && !title.textContent.trim())) block.classList.add('no-title');
   if (!eyebrow.textContent.trim() && title.textContent.trim()) titleBox.classList.add('only-title');
 
   titleBox.appendChild(eyebrow);
-  titleBox.append(title);
+  if (title) {
+    titleBox.append(title);
+  }
 
   mediaItems.forEach((item, idx) => {
     const mediaBlock = document.createElement('li');
