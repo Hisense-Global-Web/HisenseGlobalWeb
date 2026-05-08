@@ -22,11 +22,16 @@ export default function decorate(block) {
     } else if (index === 1) {
       row.classList.add('collapse-context');
     } else if (index === 2) {
+      if (row.textContent.trim() !== 'true') {
+        block.classList.add('hide');
+      }
+      row.style.display = 'none';
+    } else if (index === 3) {
       if (row.textContent.trim() === 'true') {
         showButton = true;
       }
       row.style.display = 'none';
-    } else if (index === 3) {
+    } else if (index === 4) {
       const btnEl = document.createElement('div');
       btnEl.classList.add('collapse-btn');
       if (showButton) {

@@ -7243,6 +7243,12 @@
       },
       {
         "component": "boolean",
+        "name": "expand",
+        "label": "Expand?",
+        "valueType": "boolean"
+      },
+      {
+        "component": "boolean",
         "name": "should-button",
         "label": "Should Button?",
         "valueType": "boolean"
