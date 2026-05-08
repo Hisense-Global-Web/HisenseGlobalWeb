@@ -27,6 +27,10 @@
       line-height: 160%;
       color: var(--color-primary-grey-70);
     }
+    
+    a {
+      color: var(--color-primary-green-60);
+    }
   }
 
   .des-button {
@@ -49,16 +53,6 @@
       background-color: var(--color-primary-green-70);
       color: var(--white-alpha-80);
     }
-
-    /* .button-container {
-      height: var(--size-40);
-    }
-    a {
-      margin: 0;
-      padding: 0 var(--size-24);
-      height: var(--size-40);
-      line-height: var(--size-40);
-    } */
   }
 }
 
