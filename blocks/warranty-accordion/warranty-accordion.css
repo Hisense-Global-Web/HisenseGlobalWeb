@@ -97,6 +97,7 @@
       justify-self: flex-start;
 
       /* height: var(--size-40); */
+      min-height: var(--size-40);
       margin-top: var(--size-32);
       padding: var(--size-4) var(--size-24);
       border-radius: var(--size-100);
