@@ -1,4 +1,5 @@
 import { handleCommonDownloadClick } from '../../utils/download.js';
+import wrapInRichtext from '../../utils/wrap-in-richtext.js';
 
 export default async function decorate(block) {
   [...block.children].forEach((item, index) => {
@@ -8,6 +9,8 @@ export default async function decorate(block) {
       item.className = 'des-subtitle';
     } else if (index === 2) {
       item.className = 'des-body';
+      // 富文本运行连续换行
+      wrapInRichtext(item);
     } else {
       item.className = 'button-box';
       let downloadLink = '';
