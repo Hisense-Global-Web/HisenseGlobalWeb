@@ -44,6 +44,7 @@
     border-radius: var(--size-20);
     display: inline-block;
     cursor: pointer;
+    font-size: var(--size-14);
 
     &:hover {
       background-color: var(--color-primary-green-50);
