@@ -19,6 +19,7 @@
         flex-direction: column;
         padding: var(--spacing-sm, 24px) var(--spacing-sm, 24px)
           var(--spacing-m, 32px) var(--spacing-sm, 24px);
+        gap: var(--size-24);
       }
 
       .title-select-wrapper {
@@ -152,12 +153,12 @@
       .select-option-list-wrapper.show {
         .select-wrapper {
           border: 2px solid var(--color-primary-green-50, #009f9c);
-        }
 
-        .chevron-icon {
-          img {
-            transform: rotate(0deg);
-            transition: transform 0.3s ease;
+          .chevron-icon {
+            img {
+              transform: rotate(0deg);
+              transition: transform 0.3s ease;
+            }
           }
         }
 
@@ -165,6 +166,8 @@
           transform: scaleY(1);
           opacity: 1;
           pointer-events: auto;
+
+          /* z-index: 20; */
         }
       }
 
@@ -219,6 +222,10 @@
     align-items: center;
     gap: var(--spacing-lg, 40px);
 
+    @media (width < 860px) {
+      gap: var(--size-24);
+    }
+
     .no-result {
       padding: var(--spacing-sm, 24px)
         min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
@@ -244,6 +251,7 @@
         justify-content: space-between;
         align-items: center;
         padding-bottom: var(--spacing-m, 32px);
+        cursor: pointer;
 
         @media (width<860px) {
           padding-bottom: var(--spacing-xs, 16px);
@@ -263,7 +271,6 @@
         }
 
         .chevron-icon img {
-          cursor: pointer;
           transition:
             transform 0.36s cubic-bezier(0, 0.18, 0.07, 1),
             -webkit-transform 0.36s cubic-bezier(0, 0.18, 0.07, 1);
@@ -333,6 +340,11 @@
                   font-style: normal;
                   font-weight: var(--fontweight-medium, 500);
                   line-height: 120%;
+                  margin-top: var(--size-8);
+
+                  @media (width < 860px) {
+                    font-size: var(--size-18);
+                  }
                 }
               }
 
@@ -400,6 +412,7 @@
                     .icon-text-wrapper p:first-child {
                       width: var(--size-28);
                       height: var(--size-28);
+                      flex-shrink: 0;
                     }
 
                     .icon-text-wrapper picture {
