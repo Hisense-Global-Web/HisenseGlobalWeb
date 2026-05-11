@@ -3198,6 +3198,12 @@
             "value": "only-picture"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
       }
     ]
   },
@@ -3209,14 +3215,6 @@
         "valueType": "string",
         "name": "image_pc",
         "label": "Image/Video For PC",
-        "required": true,
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image_mobile",
-        "label": "Image/Video For Mobile",
         "required": true,
         "multi": false
       },

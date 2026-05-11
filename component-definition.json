@@ -1455,7 +1455,9 @@
                   "name": "Hero Banner",
                   "model": "hero-banner",
                   "filter": "hero-banner",
-                  "classes": "hero-banner"
+                  "classes": "hero-banner",
+                  "key-value": true,
+                  "dynamic_media": false
                 }
               }
             }

@@ -12,6 +12,43 @@ let userInteracting = false;
 let isInitializing = true; // 初始化锁
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const HERO_BANNER_BLOCK_CONFIG_KEYS = new Set([
+  'classes',
+  'dynamic-media',
+]);
+
+function normalizeConfigKey(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function getCellText(cell) {
+  return cell?.textContent?.trim?.() || '';
+}
+
+function isTruthy(value) {
+  return ['true', '1', 'yes', 'on'].includes(String(value || '').trim().toLowerCase());
+}
+
+function isHeroBannerConfigRow(row) {
+  const cells = [...(row?.children || [])];
+  if (cells.length !== 2) return false;
+
+  return HERO_BANNER_BLOCK_CONFIG_KEYS.has(normalizeConfigKey(cells[0].textContent));
+}
+
+function readHeroBannerConfig(rows) {
+  return rows.reduce((config, row) => {
+    if (!isHeroBannerConfigRow(row)) return config;
+
+    const cells = [...row.children];
+    config[normalizeConfigKey(cells[0].textContent)] = getCellText(cells[1]);
+    return config;
+  }, {});
+}
 
 function updateNavTheme(block, targetSlide, heroBannerHeight) {
   const nav = document.querySelector('#navigation');
@@ -312,7 +349,7 @@ function initVideo(selector, type, theme) {
   return videoDivDom;
 }
 
-function createSlide(block, row, slideIndex) {
+function createSlide(block, row, slideIndex, options = {}) {
   const slide = createElement('li', 'hero-banner-item');
   const div = createElement('div', 'hero-banner-content h-grid-container');
   moveInstrumentation(row, slide);
@@ -332,7 +369,9 @@ function createSlide(block, row, slideIndex) {
       case 0:
         // container-reference div
         column.classList.add('hero-banner-item-image');
-        normalizeImageReferenceLinks(column, createOptimizedPicture);
+        normalizeImageReferenceLinks(column, createOptimizedPicture, {
+          dynamicMedia: options.dynamicMedia,
+        });
         // 处理image-theme联动nav
         if (column.lastElementChild?.innerHTML.length === 4) {
           theme = column.lastElementChild?.innerHTML || 'false';
@@ -427,14 +466,18 @@ function createSlide(block, row, slideIndex) {
 }
 
 export default async function decorate(block) {
-  const isSingleSlide = [...block.children].length < 2;
+  const rows = [...block.children];
+  const config = readHeroBannerConfig(rows);
+  const slideRows = rows.filter((row) => !isHeroBannerConfigRow(row));
+  const isSingleSlide = slideRows.length < 2;
+  const dynamicMedia = isTruthy(config['dynamic-media']);
   const wholeContainer = createElement('ul', 'hero-banner-items-container');
   let slideIndicators;
   if (!isSingleSlide) {
     slideIndicators = createElement('ol', 'hero-banner-item-indicators');
   }
-  [...block.children].forEach((row, idx) => {
-    const slide = createSlide(block, row, idx);
+  slideRows.forEach((row, idx) => {
+    const slide = createSlide(block, row, idx, { dynamicMedia });
     wholeContainer.append(slide);
     if (slideIndicators) {
       const indicator = createElement('li', 'hero-banner-item-indicator');
@@ -445,6 +488,7 @@ export default async function decorate(block) {
     }
     row.remove();
   });
+  rows.filter(isHeroBannerConfigRow).forEach((row) => row.remove());
   block.prepend(wholeContainer);
   // 处理轮播无缝衔接；不影响author
   if (!isSingleSlide && block.attributes['data-aue-resource'] === undefined) {
