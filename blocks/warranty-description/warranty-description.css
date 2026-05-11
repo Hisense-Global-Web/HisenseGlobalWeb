@@ -68,8 +68,6 @@
     }
 
     .des-body {
-      margin-top: var(--size-12);
-
       p, h1, h2, h3, h4, h5, h6, li {
         font-size: var(--size-14) !important;
       }

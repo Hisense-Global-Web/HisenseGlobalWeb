@@ -206,7 +206,7 @@ const generateTagCardList = (block, tagList, selectedType, storeList) => {
       currentTagStore.forEach((storeInfo) => {
         storeLocatorWrapperEl.appendChild(storeInfo.node);
       });
-      headerIcon.addEventListener('click', () => {
+      titleWrapperEl.addEventListener('click', () => {
         tagCardWrapper.classList.toggle('expanded');
       });
       // Author端,全部展开
