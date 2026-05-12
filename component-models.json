@@ -3962,6 +3962,14 @@
         "name": "title",
         "label": "Title",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "separator",
+        "label": "Separator",
+        "valueType": "string",
+        "hidden": true,
+        "readonly": true
       }
     ]
   },

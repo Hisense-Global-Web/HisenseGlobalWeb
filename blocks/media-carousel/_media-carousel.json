@@ -13,7 +13,8 @@
               "key-value": true,
               "filter": "media-carousel",
               "subtitle": "",
-              "title": ""
+              "title": "",
+              "separator": "separator"
             }
           }
         }
@@ -84,6 +85,14 @@
           "name": "title",
           "label": "Title",
           "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "separator",
+          "label": "Separator",
+          "valueType": "string",
+          "hidden": true,
+          "readonly": true
         }
       ]
     },
