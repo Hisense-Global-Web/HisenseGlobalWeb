@@ -111,7 +111,9 @@ function getSupportEndpoint(country, language, factoryModel, category, sku) {
   if (sku) {
     params.set('sku', sku);
   }
-  return `/bin/hisense/support/document.json?${params.toString()}`;
+
+  const skuParam = sku ? `&sku=${encodeURIComponent(sku)}` : '';
+  return `/bin/hisense/support/document.json?${params.toString()}${skuParam}`;
 }
 
 function normalizeProductResponse(data) {
