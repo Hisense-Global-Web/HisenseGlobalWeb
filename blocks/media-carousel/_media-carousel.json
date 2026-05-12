@@ -91,7 +91,6 @@
           "name": "separator",
           "label": "Separator",
           "valueType": "string",
-          "hidden": true,
           "readonly": true
         }
       ]
