@@ -97,7 +97,7 @@ function getProductEndpoint(country, language, sku) {
     return `/bin/hisense/productListBySku.json?path=/${country}/${language}&sku=${encodeURIComponent(sku)}`;
   }
 
-  return `/product/sku/${country}/${language}/${encodeURIComponent(sku)}.json`;
+  return `/product/sku/${country}/${language}/${sku.replace(/ /g, '+')}.json`;
 }
 
 function getSupportEndpoint(country, language, factoryModel, category, sku) {
@@ -111,7 +111,9 @@ function getSupportEndpoint(country, language, factoryModel, category, sku) {
   if (sku) {
     params.set('sku', sku);
   }
-  return `/bin/hisense/support/document.json?${params.toString()}`;
+
+  const skuParam = sku ? `&sku=${encodeURIComponent(sku)}` : '';
+  return `/bin/hisense/support/document.json?${params.toString()}${skuParam}`;
 }
 
 function normalizeProductResponse(data) {
