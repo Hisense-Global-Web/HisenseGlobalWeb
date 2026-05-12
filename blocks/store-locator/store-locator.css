@@ -1,7 +1,11 @@
 .store-locator-container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2xl, 80px);
+  gap: var(--size-48);
+
+  @media (width < 860px) {
+    gap: var(--size-32);
+  }
 
   .search-card-wrapper {
     width: 100%;
@@ -315,6 +319,7 @@
 
               @media (width<860px) {
                 width: calc(300 / var(--breakpoint-mobile) * 100vw);
+                padding: var(--size-24);
               }
 
               .city-store-wrapper {
