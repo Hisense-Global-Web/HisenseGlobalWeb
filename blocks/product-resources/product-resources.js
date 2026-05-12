@@ -94,7 +94,7 @@ function getProductEndpoint(country, language, sku) {
   if (!country || !language || !sku) return '';
 
   if (isAemEnvironment()) {
-    return `/bin/hisense/productListBySku.json?path=/${country}/${language}&sku=${sku.replace(/ /g, '+')}`;
+    return `/bin/hisense/productListBySku.json?path=/${country}/${language}&sku=${encodeURIComponent(sku)}`;
   }
 
   return `/product/sku/${country}/${language}/${sku.replace(/ /g, '+')}.json`;
