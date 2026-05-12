@@ -3968,6 +3968,7 @@
         "name": "separator",
         "label": "Separator",
         "valueType": "string",
+        "value": "separator",
         "readonly": true
       }
     ]
