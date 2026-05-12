@@ -151,10 +151,10 @@ const generateSelectEl = (label, placeholder) => {
   selectOptionListWrapperEl.appendChild(selectWrapperEl);
   setSelectOptionList(selectOptionListWrapperEl, [placeholder], placeholder);
   titleSelectWrapperEl.appendChild(selectOptionListWrapperEl);
-  selectOptionListWrapperEl.addEventListener('click', (e) => {
-    e.stopPropagation();
-    selectOptionListWrapperEl.classList.toggle('show');
-  });
+  // selectOptionListWrapperEl.addEventListener('click', (e) => {
+  //   e.stopPropagation();
+  //   selectOptionListWrapperEl.classList.toggle('show');
+  // });
   return titleSelectWrapperEl;
 };
 
@@ -326,9 +326,25 @@ export default function decorate(block) {
   });
 
   // 点击其他地方时隐藏OptionList
-  window.document.addEventListener('click', () => {
+  window.document.addEventListener('click', (e) => {
     const selectListEl = document.querySelectorAll('.select-option-list-wrapper.show');
-    if (selectListEl?.length) {
+    const { target } = e;
+    const targetWrapper = target.closest('.select-option-list-wrapper');
+    if (targetWrapper) {
+      if (targetWrapper.classList.contains('show')) {
+        targetWrapper.classList.remove('show');
+      } else {
+        const allWrappers = document.querySelectorAll('.select-option-list-wrapper');
+        // 点击当前select时，关闭其他select的option list，并切换当前select的option list显示状态
+        allWrappers.forEach((wrapper) => {
+          if (wrapper === targetWrapper) {
+            wrapper.classList.toggle('show');
+          } else if (wrapper.classList.contains('show')) {
+            wrapper.classList.remove('show');
+          }
+        });
+      }
+    } else if (selectListEl?.length) {
       selectListEl.forEach((selectEl) => {
         selectEl.classList.remove('show');
       });
