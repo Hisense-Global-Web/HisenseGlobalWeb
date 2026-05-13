@@ -151,10 +151,19 @@ const generateSelectEl = (label, placeholder) => {
   selectOptionListWrapperEl.appendChild(selectWrapperEl);
   setSelectOptionList(selectOptionListWrapperEl, [placeholder], placeholder);
   titleSelectWrapperEl.appendChild(selectOptionListWrapperEl);
-  // selectOptionListWrapperEl.addEventListener('click', (e) => {
-  //   e.stopPropagation();
-  //   selectOptionListWrapperEl.classList.toggle('show');
-  // });
+  selectOptionListWrapperEl.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const selectWrapperList = document.querySelectorAll('.select-option-list-wrapper');
+    if (selectWrapperList?.length) {
+      const currentSelectParent = e.target.closest('.select-option-list-wrapper').cloneNode(true);
+      selectWrapperList.forEach((selectEl) => {
+        if (currentSelectParent.className !== selectEl.className) {
+          selectEl.classList.remove('show');
+        }
+      });
+    }
+    selectOptionListWrapperEl.classList.toggle('show');
+  });
   return titleSelectWrapperEl;
 };
 
