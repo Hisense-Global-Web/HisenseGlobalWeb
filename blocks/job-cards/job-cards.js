@@ -288,9 +288,9 @@ export default function decorate(block) {
         graphqlResource = resource;
       }
     } else if (index === 1) {
-      // 第二行：fields
-      if (text && text.indexOf(',') >= 0) {
-        fields = text.split(',').map((s) => s.trim()).filter(Boolean);
+      // 第二行：fields 只要有一个非空文本，就使用逗号分隔的文本作为字段列表
+      if (text) {
+        fields = text.includes(',') ? text.split(',').map((s) => s.trim()).filter(Boolean) : [text];
         fieldsResource = resource;
       }
     } else if (index === 2) {
@@ -478,12 +478,16 @@ export default function decorate(block) {
       rightIcon.src = '/content/dam/hisense/us/common-icons/chevron-right.svg';
       titleSpanEl.textContent = item.jobTitle;
       titleSpanEl.append(rightIcon);
-      titleSpanEl.addEventListener('click', (e) => {
+      jobTitleEl.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (!isMobileWindow()) return;
-        // eslint-disable-next-line no-underscore-dangle
-        const dePath = encodeURIComponent(item._path);
-        window.location.href = `${window.location.pathname}/job-detail?path=${dePath}`;
+        const { target } = e;
+        // 只有点击职位标题才触发跳转
+        if (target.classList.contains('job-title') || target.closest('.job-title')) {
+          if (!isMobileWindow()) return;
+          // eslint-disable-next-line no-underscore-dangle
+          const dePath = encodeURIComponent(item._path);
+          window.location.href = `${window.location.pathname}/job-detail?path=${dePath}`;
+        }
       });
       const jobTimeTypeEl = document.createElement('span');
       jobTimeTypeEl.className = 'job-time-type';
