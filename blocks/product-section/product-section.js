@@ -684,8 +684,7 @@ export default async function decorate(block) {
   items = normalizeProductSectionProducts(transformTagStructureToProducts(json));
 
   // 根据SKU找到对应的产品
-  const currentProduct = items ? items.find((item) => item.sku.toLowerCase() === sku.toLowerCase()) : null;
-  const product = currentProduct || (items && items[0] ? items[0] : null);
+  const product = items ? items.find((item) => item.sku.toLowerCase() === sku.toLowerCase()) : null;
   const currentProductCode = getHybrisProductCode(product) || sku;
   const supportsWishlist = Boolean(currentProductCode);
   const showFavoriteControl = fields.includes('favorite') || supportsWishlist;
