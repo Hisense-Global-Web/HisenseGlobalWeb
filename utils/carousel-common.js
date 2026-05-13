@@ -54,6 +54,7 @@ export function whenElementReady(selector, callback, options = {}) {
 
 export function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
+  if (!singleItem) return 0;
   const { gap } = window.getComputedStyle(singleItem.parentElement);
   return parseFloat(singleItem.getBoundingClientRect().width) + parseFloat(gap);
 }

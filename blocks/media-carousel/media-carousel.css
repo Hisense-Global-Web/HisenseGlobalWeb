@@ -481,6 +481,7 @@
 
 .media-carousel-pagination.show {
   display: flex;
+  margin-left: auto;
 }
 
 @media (width < 860px) {
