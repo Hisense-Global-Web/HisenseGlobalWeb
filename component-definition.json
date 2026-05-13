@@ -1456,8 +1456,7 @@
                   "model": "hero-banner",
                   "filter": "hero-banner",
                   "classes": "hero-banner",
-                  "key-value": true,
-                  "dynamic_media": false
+                  "key-value": true
                 }
               }
             }
@@ -1472,7 +1471,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Hero Banner Item",
-                  "model": "hero-bannerItem"
+                  "model": "hero-bannerItem",
+                  "dynamic_media": false
                 }
               }
             }

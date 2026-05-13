@@ -14,6 +14,8 @@ const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 const HERO_BANNER_BLOCK_CONFIG_KEYS = new Set([
   'classes',
+]);
+const HERO_BANNER_LEGACY_BLOCK_CONFIG_KEYS = new Set([
   'dynamic-media',
 ]);
 
@@ -37,7 +39,9 @@ function isHeroBannerConfigRow(row) {
   const cells = [...(row?.children || [])];
   if (cells.length !== 2) return false;
 
-  return HERO_BANNER_BLOCK_CONFIG_KEYS.has(normalizeConfigKey(cells[0].textContent));
+  const configKey = normalizeConfigKey(cells[0].textContent);
+  return HERO_BANNER_BLOCK_CONFIG_KEYS.has(configKey)
+    || HERO_BANNER_LEGACY_BLOCK_CONFIG_KEYS.has(configKey);
 }
 
 function readHeroBannerConfig(rows) {
@@ -48,6 +52,37 @@ function readHeroBannerConfig(rows) {
     config[normalizeConfigKey(cells[0].textContent)] = getCellText(cells[1]);
     return config;
   }, {});
+}
+
+function getColumnConfigKey(column) {
+  const prop = column?.getAttribute?.('data-aue-prop')
+    || column?.querySelector?.('[data-aue-prop]')?.getAttribute?.('data-aue-prop')
+    || column?.dataset?.aueProp;
+
+  return normalizeConfigKey(prop);
+}
+
+function isHeroBannerItemDynamicMediaColumn(column, index, columns) {
+  if (getColumnConfigKey(column) === 'dynamic-media') return true;
+
+  return columns.length > 7 && index === 1;
+}
+
+function getHeroBannerItemDynamicMedia(row) {
+  const columns = [...(row?.children || [])];
+  const dynamicMediaColumn = columns.find((column, index) => (
+    isHeroBannerItemDynamicMediaColumn(column, index, columns)
+  ));
+
+  return dynamicMediaColumn ? isTruthy(getCellText(dynamicMediaColumn)) : undefined;
+}
+
+function getHeroBannerRenderableColumns(row) {
+  const columns = [...(row?.children || [])];
+
+  return columns.filter((column, index) => (
+    !isHeroBannerItemDynamicMediaColumn(column, index, columns)
+  ));
 }
 
 function updateNavTheme(block, targetSlide, heroBannerHeight) {
@@ -358,8 +393,10 @@ function createSlide(block, row, slideIndex, options = {}) {
   let buttonExist = true;
   const buttonDiv = createElement('div', 'hero-banner-cta-container');
   const textContent = createElement('div', 'text-content');
+  const itemDynamicMedia = getHeroBannerItemDynamicMedia(row);
+  const dynamicMedia = itemDynamicMedia ?? options.dynamicMedia;
   slide.dataset.slideIndex = slideIndex;
-  [...row.children].forEach((column, colIdx) => {
+  getHeroBannerRenderableColumns(row).forEach((column, colIdx) => {
     let theme;
     let contentType; // true is svg mode; false is text mode
     let buttonTheme;
@@ -370,7 +407,7 @@ function createSlide(block, row, slideIndex, options = {}) {
         // container-reference div
         column.classList.add('hero-banner-item-image');
         normalizeImageReferenceLinks(column, createOptimizedPicture, {
-          dynamicMedia: options.dynamicMedia,
+          dynamicMedia,
         });
         // 处理image-theme联动nav
         if (column.lastElementChild?.innerHTML.length === 4) {
@@ -470,14 +507,14 @@ export default async function decorate(block) {
   const config = readHeroBannerConfig(rows);
   const slideRows = rows.filter((row) => !isHeroBannerConfigRow(row));
   const isSingleSlide = slideRows.length < 2;
-  const dynamicMedia = isTruthy(config['dynamic-media']);
+  const legacyDynamicMedia = isTruthy(config['dynamic-media']);
   const wholeContainer = createElement('ul', 'hero-banner-items-container');
   let slideIndicators;
   if (!isSingleSlide) {
     slideIndicators = createElement('ol', 'hero-banner-item-indicators');
   }
   slideRows.forEach((row, idx) => {
-    const slide = createSlide(block, row, idx, { dynamicMedia });
+    const slide = createSlide(block, row, idx, { dynamicMedia: legacyDynamicMedia });
     wholeContainer.append(slide);
     if (slideIndicators) {
       const indicator = createElement('li', 'hero-banner-item-indicator');
