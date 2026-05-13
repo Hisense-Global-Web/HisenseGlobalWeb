@@ -49,6 +49,14 @@
           }
         }
 
+        .tag-select {
+          z-index: 20;
+        }
+
+        .type-select {
+          z-index: 10;
+        }
+
         .select-option-list-wrapper {
           position: relative;
           cursor: pointer;
