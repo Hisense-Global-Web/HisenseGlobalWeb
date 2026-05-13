@@ -3964,11 +3964,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "boolean",
         "name": "separator",
         "label": "Separator",
-        "valueType": "string",
-        "value": "separator",
+        "valueType": "boolean",
+        "value": "true",
         "readonly": true
       }
     ]

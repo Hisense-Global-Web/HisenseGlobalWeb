@@ -1793,7 +1793,7 @@
                   "filter": "media-carousel",
                   "subtitle": "",
                   "title": "",
-                  "separator": "separator"
+                  "separator": "true"
                 }
               }
             }
