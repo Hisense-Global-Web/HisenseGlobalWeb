@@ -39,8 +39,9 @@
       border-radius: var(--size-20);
       width: 100%;
       max-width: 100%;
-      height: auto;
-      aspect-ratio: 1 / 1;
+
+      /* height: auto;
+      aspect-ratio: 1 / 1; */
 
       .card-top-box {
         display: flex;
@@ -90,23 +91,47 @@
         white-space: nowrap;
       }
 
+      .card-content-box {
+        margin-top: var(--size-48);
+        height: var(--size-155);
+      }
+
       .card-title {
         font-size: var(--size-20);
         font-weight: var(--fontweight-medium);
         line-height: var(--size-24);
         color: var(--color-primary-grey-100);
-        margin-top: var(--size-48);
+        margin-bottom: var(--size-16);
       }
 
       .card-notes {
         font-size: var(--size-16);
         color: var(--color-primary-grey-70);
-        margin-top: var(--size-16);
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 4;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        &.card-notes-line-clamp7 {
+          -webkit-line-clamp: 7;
+        }
+
+        &.card-notes-line-clamp5 {
+          -webkit-line-clamp: 5;
+        }
+
+        &.card-notes-line-clamp4 {
+          -webkit-line-clamp: 4;
+        }
+
+        &.card-notes-line-clamp3 {
+          -webkit-line-clamp: 3;
+        }
+
+        &.card-notes-line-clamp2 {
+          -webkit-line-clamp: 2;
+        }
       }
     }
   }
@@ -168,16 +193,39 @@
         }
 
         .exchange-div {
-          line-height: calc(20.8 / var(--breakpoint-mobile) * 100vw);;
+          line-height: calc(20.8 / var(--breakpoint-mobile) * 100vw);
+        }
+
+        .card-content-box {
+          height: var(--size-134);
+          margin-top: var(--size-32);
         }
 
         .card-title {
-          margin-top: var(--size-32);
           line-height: var(--size-26);
+          margin-bottom: var(--size-12);
         }
 
         .card-notes {
-          margin-top: var(--size-12);
+          &.card-notes-line-clamp7 {
+            -webkit-line-clamp: 6;
+          }
+
+          &.card-notes-line-clamp5 {
+            -webkit-line-clamp: 4;
+          }
+
+          &.card-notes-line-clamp4 {
+            -webkit-line-clamp: 3;
+          }
+
+          &.card-notes-line-clamp3 {
+            -webkit-line-clamp: 2;
+          }
+
+          &.card-notes-line-clamp2 {
+            -webkit-line-clamp: 1;
+          }
         }
       }
     }

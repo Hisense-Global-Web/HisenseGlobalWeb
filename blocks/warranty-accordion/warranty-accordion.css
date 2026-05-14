@@ -18,6 +18,7 @@
   
   @media (width < 860px) {
     padding: var(--size-24) var(--size-24) var(--size-32);
+    border-radius: var(--size-16);
   }
 
   .collapse-title {
@@ -28,9 +29,17 @@
     line-height: 1.2;
     font-size: var(--fontsize-title2);
     font-weight: var(--fontweight-medium);
+
+    p {
+      width: min(calc(755 / var(--breakpoint-pc) * 100vw), 755px);
+    }
     
     @media (width < 860px) {
       font-size: var(--size-18);
+
+      p {
+        width: calc(250 / var(--breakpoint-mobile) * 100vw);;
+      }
     }
 
     > div:first-child {
@@ -54,10 +63,12 @@
   }
 
   .collapse-context {
-    max-height: 500px;
-    overflow-y: auto;
-    scrollbar-width: none;
+    /* max-height: 500px;
+    overflow-y: auto; */
+
+    /* scrollbar-width: none; */
     font-size: var(--fontsize-body1);
+    font-weight: var(--fontweight-book);
     line-height: 1.6;
     padding-right: var(--size-80);
     transition: max-height .36s ease-in-out;
@@ -66,6 +77,7 @@
     @media (width < 860px) {
       font-size: var(--size-14);
       line-height: 1.5;
+      padding-right: 0;
     }
 
     ol {
@@ -83,9 +95,11 @@
       align-items: center;
       justify-content: center;
       justify-self: flex-start;
-      height: var(--size-40);
+
+      /* height: var(--size-40); */
+      min-height: var(--size-40);
       margin-top: var(--size-32);
-      padding: 0 var(--size-24);
+      padding: var(--size-4) var(--size-24);
       border-radius: var(--size-100);
       background-color: var(--color-primary-green-60);
       color: #fff;
@@ -116,6 +130,10 @@
 
 
   &.hide {
+    &.warranty-accordion {
+      gap: 0;
+    }
+
     .collapse-title img.chevron {
       transform: rotate(180deg);
     }

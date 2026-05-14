@@ -234,6 +234,10 @@
             "value": "gray-90"
           },
           {
+            "name": "Hisense-Gradient-Green",
+            "value": "gradient-green"
+          },
+          {
             "name": "Gradient-Dark",
             "value": "gradient-gray"
           },
@@ -497,6 +501,124 @@
         "name": "id",
         "label": "Section ID",
         "description": "Enter a unique ID."
+      }
+    ]
+  },
+  {
+    "id": "store-locator",
+    "fields": [
+      {
+        "component": "select",
+        "name": "style_store",
+        "value": "store-locator-container",
+        "label": "Store Locator classes",
+        "valueType": "string",
+        "description": "The class name of Store Locator",
+        "hidden": true,
+        "options": [
+          {
+            "name": "store-locator-container",
+            "value": "store-locator-container"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "label1",
+        "label": "Locator Label 1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "placeholder1",
+        "label": "Locator Placeholder 1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "label2",
+        "label": "Locator Label 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "placeholder2",
+        "label": "Locator Placeholder 2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button",
+        "label": "Button Copy",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "noresult",
+        "label": "No Result Message",
+        "value": ""
+      },
+      {
+        "component": "container",
+        "label": "Section Spacing",
+        "name": "container_padding",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "select",
+            "name": "style_paddingTop",
+            "label": "Padding Top",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Small (40px)",
+                "value": "pt-s"
+              },
+              {
+                "name": "Medium (60px)",
+                "value": "pt-m"
+              },
+              {
+                "name": "Large (80px)",
+                "value": "pt-l"
+              },
+              {
+                "name": "Extra Large (120px)",
+                "value": "pt-xl"
+              }
+            ]
+          },
+          {
+            "component": "select",
+            "name": "style_paddingBottom",
+            "label": "Padding Bottom",
+            "options": [
+              {
+                "name": "None",
+                "value": ""
+              },
+              {
+                "name": "Small (40px)",
+                "value": "pb-s"
+              },
+              {
+                "name": "Medium (60px)",
+                "value": "pb-m"
+              },
+              {
+                "name": "Large (80px)",
+                "value": "pb-l"
+              },
+              {
+                "name": "Extra Large (120px)",
+                "value": "pb-xl"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -4112,7 +4234,15 @@
         "component": "boolean",
         "name": "mask-layer",
         "label": "Mask Layer",
-        "valueType": "boolean"
+        "valueType": "boolean",
+        "condition": {
+          "===": [
+            {
+              "var": "mainContent"
+            },
+            "image"
+          ]
+        }
       }
     ]
   },
@@ -4810,7 +4940,6 @@
         "valueType": "string",
         "name": "filter-title",
         "label": "Filter Title",
-        "value": "Your Budget",
         "required": true
       },
       {
@@ -4818,7 +4947,6 @@
         "valueType": "string",
         "name": "min-rangeLabel",
         "label": "Range Label 1",
-        "value": "Min price",
         "required": true
       },
       {
@@ -4826,7 +4954,6 @@
         "valueType": "string",
         "name": "max-rangeLabel",
         "label": "Range Label 2",
-        "value": "Max price",
         "required": true
       },
       {
@@ -4834,7 +4961,6 @@
         "valueType": "string",
         "name": "price-slider",
         "label": "Price Slider",
-        "value": "priceSliderItem",
         "readonly": true,
         "hidden": true,
         "description": "A flag for price-slider."
@@ -5533,7 +5659,8 @@
         "component": "text",
         "name": "text_title",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "richtext",
@@ -5545,13 +5672,6 @@
         "component": "text",
         "name": "button_name",
         "label": "Button Name",
-        "valueType": "string"
-      },
-      {
-        "component": "reference",
-        "name": "button_icon",
-        "value": "",
-        "label": "Button Icon",
         "valueType": "string"
       },
       {
@@ -5951,48 +6071,49 @@
     ]
   },
   {
-    "id": "store-information-card",
+    "id": "store-locator-card",
     "fields": [
       {
         "component": "text",
         "name": "state",
         "label": "State Tag",
         "valueType": "string",
+        "description": "The same tags will be grouped together.",
         "required": true
       },
       {
         "component": "text",
-        "name": "city",
+        "name": "city_name",
         "label": "City Name",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "store",
+        "name": "city_store",
         "label": "Store Name",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "info1",
+        "name": "info1_label1",
         "label": "Store Info Label 1",
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "content1",
+        "component": "richtext",
+        "name": "info1_content1",
         "label": "Store Info Content 1",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "info2",
+        "name": "info2_label1",
         "label": "Store Info Label 2",
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "content2",
+        "component": "richtext",
+        "name": "info2_content2",
         "label": "Store Info Content 2",
         "valueType": "string"
       },
@@ -6008,52 +6129,17 @@
     "id": "service-items",
     "fields": [
       {
+        "component": "reference",
+        "name": "service_icon",
+        "label": "Service Icon",
+        "valueType": "string"
+      },
+      {
         "component": "text",
         "name": "service_category",
         "label": "Service Category",
         "valueType": "string",
         "required": true
-      },
-      {
-        "component": "reference",
-        "name": "service_icon",
-        "label": "Service Icon",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "store-locator",
-    "fields": [
-      {
-        "component": "text",
-        "name": "label1",
-        "label": "Locator Label 1",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "placeholder1",
-        "label": "Locator Placeholder 1",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "label2",
-        "label": "Locator Label 2",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "placeholder2",
-        "label": "Locator Placeholder 2",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "button",
-        "label": "Button Copy",
-        "valueType": "string"
       }
     ]
   },
@@ -7227,6 +7313,12 @@
       },
       {
         "component": "boolean",
+        "name": "expand",
+        "label": "Expand?",
+        "valueType": "boolean"
+      },
+      {
+        "component": "boolean",
         "name": "should-button",
         "label": "Should Button?",
         "valueType": "boolean"
@@ -7260,6 +7352,41 @@
           ]
         },
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "warranty-description",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description-title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description-subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "component": "richtext",
+        "name": "body-text",
+        "label": "Body Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Download Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "button_label",
+        "label": "Button Label",
+        "valueType": "string"
       }
     ]
   },

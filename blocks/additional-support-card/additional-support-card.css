@@ -1,3 +1,7 @@
+.additional-support-card-wrapper {
+  width: 100%;
+}
+
 .additional-support-card {
   display: grid;
   gap: var(--spacing-xl, 48px) var(--spacing-sm, 24px);

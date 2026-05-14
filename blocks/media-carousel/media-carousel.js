@@ -12,6 +12,8 @@ const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 function bindEvent(block, type = 'normal') {
+  const mediaCarouselPagination = block.querySelector('.media-carousel-pagination');
+  if (!mediaCarouselPagination) return;
   const track = block.querySelector('.media-carousel-track');
   const videos = block.querySelectorAll('.video-autoPlay');
   const prevBtn = block.querySelector('.slide-prev');
@@ -30,7 +32,7 @@ function bindEvent(block, type = 'normal') {
   };
 
   if (cards.length * getSlideWidth(block) - gap >= maxWidth && window.innerWidth >= 860) {
-    block.querySelector('.media-carousel-pagination').classList.add('show');
+    mediaCarouselPagination.classList.add('show');
   }
 
   const step = CONFIG.itemWidth + CONFIG.gap;
@@ -270,14 +272,43 @@ export default async function decorate(block) {
   const isOverlayTextLeft = [...block.classList].findIndex((item) => item === 'left-style') !== -1;
   const isOverlayTextLeftBottom = [...block.classList].findIndex((item) => item === 'left-bottom-style') !== -1;
 
-  const [eyebrow, title, ...mediaItems] = block.children;
-  if (!eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
-  if (!title.textContent.trim() && !title.textContent.trim()) block.classList.add('no-title');
-  if (!eyebrow.textContent.trim() && title.textContent.trim()) titleBox.classList.add('only-title');
+  let firstMediaItemsIndex = -1;
+  [...block.children].some((item, index) => {
+    if (item.children.length > 2) {
+      firstMediaItemsIndex = index;
+      return true;
+    }
+    return false;
+  });
+  let eyebrow = createElement('div');
+  let title = createElement('div');
+  let mediaItems;
 
-  titleBox.appendChild(eyebrow);
-  titleBox.append(title);
+  if (firstMediaItemsIndex === 0) {
+    [...mediaItems] = block.children;
+  } else if (firstMediaItemsIndex === 1) {
+    [title, ...mediaItems] = block.children;
+  } else {
+    [eyebrow, title, ...mediaItems] = block.children;
+  }
+  console.log(firstMediaItemsIndex, block, eyebrow, title, mediaItems);
+  if (eyebrow && !eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
+  if (!title || !title.textContent.trim()) block.classList.add('no-title');
+  if ((!eyebrow || !eyebrow.textContent.trim()) && title && title.textContent.trim()) titleBox.classList.add('only-title');
 
+  if (eyebrow && eyebrow.children?.length > 1) {
+    eyebrow.children[0].style.display = 'none';
+  }
+
+  if (title && title.children?.length > 1) {
+    title.children[0].style.display = 'none';
+  }
+  if (eyebrow) {
+    titleBox.appendChild(eyebrow);
+  }
+  if (title) {
+    titleBox.append(title);
+  }
   mediaItems.forEach((item, idx) => {
     const mediaBlock = document.createElement('li');
     mediaBlock.classList.add('media-item');
@@ -371,7 +402,7 @@ export default async function decorate(block) {
   block.appendChild(titleBox);
   block.appendChild(mediaCarouselContainer);
 
-  if (mediaCarouselBlocks.children) {
+  if (mediaCarouselBlocks.children && titleBox.lastElementChild) {
     const buttonContainer = createElement('div', 'media-carousel-pagination');
     buttonContainer.appendChild(createScrollButton('prev'));
     buttonContainer.appendChild(createScrollButton('next'));

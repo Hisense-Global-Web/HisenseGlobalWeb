@@ -159,7 +159,8 @@
           "component": "boolean",
           "name": "mask-layer",
           "label": "Mask Layer",
-          "valueType": "boolean"
+          "valueType": "boolean",
+          "condition": { "===": [{ "var": "mainContent" }, "image"] }
         }
       ]
     }

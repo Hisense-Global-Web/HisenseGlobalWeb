@@ -24,9 +24,9 @@ main > .section:first-of-type {
   @media (width < 860px) {
     height: calc(438 / var(--breakpoint-mobile) * 100vw);
 
-    div {
+    /* div {
       height: 100%;
-    }
+    } */
   }
 
   &.black-font {

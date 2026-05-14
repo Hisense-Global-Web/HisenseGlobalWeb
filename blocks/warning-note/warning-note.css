@@ -4,13 +4,14 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  border-radius: var(--size-20);
+  border-radius: var(--size-10);
   background: #FFF8E5;
   padding: var(--size-24) var(--size-30);
   gap: var(--size-8);
 
   @media (width < 860px) {
     padding: var(--size-20) var(--size-24);
+    border-radius: var(--size-12);
   }
 
   .note-title {
@@ -30,6 +31,7 @@
     font-size: var(--fontsize-body2);
     line-height: 1.5;
     color: #A26311;
+    font-weight: var(--fontweight-book);
 
     @media (width < 860px) {
       font-size: var(--size-14);

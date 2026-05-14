@@ -1616,6 +1616,12 @@
           color: var(--color-primary-grey-50);
           text-decoration: none;
         }
+
+        &.current {
+          a {
+            color: var(--color-primary-green-50);
+          }
+        }
       }
     }
   }

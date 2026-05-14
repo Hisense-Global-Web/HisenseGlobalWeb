@@ -684,8 +684,7 @@ export default async function decorate(block) {
   items = normalizeProductSectionProducts(transformTagStructureToProducts(json));
 
   // 根据SKU找到对应的产品
-  const currentProduct = items ? items.find((item) => item.sku === sku) : null;
-  const product = currentProduct || (items && items[0] ? items[0] : null);
+  const product = items ? items.find((item) => item.sku.toLowerCase() === sku.toLowerCase()) : null;
   const currentProductCode = getHybrisProductCode(product) || sku;
   const supportsWishlist = Boolean(currentProductCode);
   const showFavoriteControl = fields.includes('favorite') || supportsWishlist;
@@ -767,7 +766,7 @@ export default async function decorate(block) {
         el.setAttribute('data-title', p.title);
 
         // 默认勾选当前SKU对应的尺寸
-        if (p.sku === sku) {
+        if (p.sku.toLowerCase() === sku.toLowerCase()) {
           el.classList.add('selected');
         }
 
@@ -807,7 +806,7 @@ export default async function decorate(block) {
         el.setAttribute('data-title', p.title);
 
         // 默认勾选当前SKU对应的尺寸
-        if (p.sku === sku) {
+        if (p.sku.toLowerCase() === sku.toLowerCase()) {
           el.classList.add('selected');
         }
 

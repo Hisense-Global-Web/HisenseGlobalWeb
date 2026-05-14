@@ -97,7 +97,7 @@ function getProductEndpoint(country, language, sku) {
     return `/bin/hisense/productListBySku.json?path=/${country}/${language}&sku=${encodeURIComponent(sku)}`;
   }
 
-  return `/product/sku/${country}/${language}/${encodeURIComponent(sku)}.json`;
+  return `/product/sku/${country}/${language}/${sku.replace(/ /g, '+')}.json`;
 }
 
 function getSupportEndpoint(country, language, factoryModel, category, sku) {
@@ -111,7 +111,9 @@ function getSupportEndpoint(country, language, factoryModel, category, sku) {
   if (sku) {
     params.set('sku', sku);
   }
-  return `/bin/hisense/support/document.json?${params.toString()}`;
+
+  const skuParam = sku ? `&sku=${encodeURIComponent(sku)}` : '';
+  return `/bin/hisense/support/document.json?${params.toString()}${skuParam}`;
 }
 
 function normalizeProductResponse(data) {
@@ -398,7 +400,12 @@ function buildTabsSection(tabConfigs, activeType) {
 
     const label = document.createElement('p');
     label.textContent = tabConfig.label;
+    label.className = 'absolute';
+    const label1 = document.createElement('p');
+    label1.textContent = tabConfig.label;
+    label1.className = 'transparent-bold';
     tab.appendChild(label);
+    tab.appendChild(label1);
     tabs.appendChild(tab);
   });
 
@@ -469,8 +476,9 @@ function initTabsAndCarousel(block) {
 
   function getMaxIndex(content) {
     const count = getItems(content).length;
-    if (count <= VISIBLE_COUNT) return 0;
-    return count - VISIBLE_COUNT;
+    const visibleCount = content.getAttribute('type') === 'warranty' ? 2 : VISIBLE_COUNT;
+    if (count <= visibleCount) return 0;
+    return count - visibleCount;
   }
 
   function isMobile() {
@@ -481,8 +489,9 @@ function initTabsAndCarousel(block) {
     const content = getActiveContent();
     const track = getTrack(content);
     const count = getItems(content).length;
+    const visibleCount = content.getAttribute('type') === 'warranty' ? 2 : VISIBLE_COUNT;
 
-    if (isMobile() || count <= VISIBLE_COUNT) {
+    if (isMobile() || count <= visibleCount) {
       carouselNav.style.display = 'none';
       if (track) track.style.transform = 'translateX(0)';
       return;
