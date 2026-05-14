@@ -6025,7 +6025,8 @@
         "component": "text",
         "name": "city_store",
         "label": "Store Name",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",
