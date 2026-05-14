@@ -7,9 +7,14 @@ export default function decorate(block) {
   if (isEditMode) {
     const { node } = generateStoreEl(block);
     const cloneNode = node?.cloneNode('true');
-    if (node) {
-      block.innerHTML = '';
-      block.append([...cloneNode.children]);
+    if (cloneNode) {
+      // block.append([...cloneNode.children]);
+      if (cloneNode?.children?.length) {
+        block.innerHTML = '';
+        [...cloneNode.children].forEach((child) => {
+          block.appendChild(child);
+        });
+      }
     }
     // const storeLocatorSections = block.closest('.store-locator-container');
     // if (storeLocatorSections) {
