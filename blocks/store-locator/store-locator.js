@@ -29,9 +29,13 @@ export const generateStoreEl = (store) => {
     tagEl?.remove?.();
     if (cityStoreEl) {
       cityStoreEl.className = 'city-store-wrapper';
-      const [cityEl, storeEl] = cityStoreEl?.querySelectorAll('p') ?? [];
-      cityEl?.classList?.add('city');
-      storeEl?.classList?.add('store');
+      const [text1El, text2El] = cityStoreEl?.querySelectorAll('p') ?? [];
+      if (text2El) {
+        text1El?.classList?.add('city');
+        text2El?.classList?.add('store');
+      } else {
+        text1El?.classList?.add('store');
+      }
     }
     const bottomWrapper = document.createElement('div');
     bottomWrapper.className = 'bottom-wrapper';
