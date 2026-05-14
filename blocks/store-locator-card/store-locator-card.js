@@ -6,9 +6,10 @@ export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   if (isEditMode) {
     const { node } = generateStoreEl(block);
+    const cloneNode = node?.cloneNode('true');
     if (node) {
       block.innerHTML = '';
-      block.append([...node.children]);
+      block.append([...cloneNode.children]);
     }
     // const storeLocatorSections = block.closest('.store-locator-container');
     // if (storeLocatorSections) {
