@@ -123,7 +123,7 @@
             .option-list {
               width: 100%;
               flex-direction: column;
-              padding: var(--size-72) var(--size-20) var(--spacing-m, 32px)
+              padding: var(--size-72) var(--size-20) var(--spacing-sm, 24px)
                 var(--size-20);
               font-size: var(--fontsize-body1, 16px);
               gap: var(--spacing-2xs, 12px);
