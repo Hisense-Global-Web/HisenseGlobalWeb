@@ -9,6 +9,7 @@ import {
   scheduleHybrisTask, startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
 import { isMobileWindow } from '../../scripts/device.js';
+import { processPath } from '../../utils/carousel-common.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -530,6 +531,8 @@ export default async function decorate(block) {
   let wishlistStateReady = false;
   let favoriteEnabled = false;
   let favoriteAuthenticated = Boolean(getCachedHybrisAuthState().authenticated);
+  let preOrderButtonLink = '/';
+  let preOrderButtonLabel = 'Pre-Order';
 
   // eslint-disable-next-line no-restricted-syntax
   const rows = [...block.children];
@@ -539,7 +542,20 @@ export default async function decorate(block) {
     mobileUlDiv.appendChild(row);
   });
   block.appendChild(mobileUlDiv);
-  for (let i = 0; i < rows.length; i += 1) {
+
+  const linkRow = rows[0];
+  const labelRow = rows[1];
+  if (linkRow.children.length === 2) {
+    const { href } = linkRow.children[1].querySelector('a');
+    preOrderButtonLink = processPath(href);
+  }
+  if (labelRow.children.length === 2) {
+    preOrderButtonLabel = labelRow.children[1].textContent.trim();
+  }
+  console.log(preOrderButtonLink, preOrderButtonLabel);
+  linkRow.style.display = 'none';
+  labelRow.style.display = 'none';
+  for (let i = 2; i < rows.length; i += 1) {
     const row = rows[i];
     row.classList.add('campaign-category');
     if (i === 0) row.classList.add('active');
@@ -784,8 +800,8 @@ export default async function decorate(block) {
       const link = document.createElement('a');
       link.className = 'pre-order-btn';
       link.target = '_blank';
-      link.href = 'https://www.hisense-usa.com/out-host-with-hisense#comp-mmy8bq41';
-      link.textContent = 'Pre-Order';
+      link.href = preOrderButtonLink;
+      link.textContent = preOrderButtonLabel;
       productBtnGroupEl.append(link);
     }
     if (item.productDetailPageLink && item.productDetailPageLink !== '#') {
