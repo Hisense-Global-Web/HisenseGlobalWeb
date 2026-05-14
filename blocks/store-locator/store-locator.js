@@ -20,7 +20,7 @@ const generateNoResult = (noResult) => {
 };
 
 export const generateStoreEl = (store) => {
-  const storeCardEl = store.querySelector('.store-locator-card') ?? null;
+  const storeCardEl = store.classList?.contains('store-locator-card') ?? store.querySelector('.store-locator-card');
   const typeSet = new Set();
   let tag = null;
   if (storeCardEl) {
