@@ -555,10 +555,12 @@ export default async function decorate(block) {
   console.log(preOrderButtonLink, preOrderButtonLabel);
   linkRow.style.display = 'none';
   labelRow.style.display = 'none';
-  for (let i = 2; i < rows.length; i += 1) {
+  const FIRST_ITEM_INDEX = 2;
+  for (let i = FIRST_ITEM_INDEX; i < rows.length; i += 1) {
     const row = rows[i];
     row.classList.add('campaign-category');
-    if (i === 0) row.classList.add('active');
+    if (i === FIRST_ITEM_INDEX) row.classList.add('active');
+    // eslint-disable-next-line no-loop-func
     row.addEventListener('click', (e) => {
       const elList = e.currentTarget.parentNode.querySelectorAll('.campaign-category');
       elList.forEach((el) => {
@@ -575,6 +577,7 @@ export default async function decorate(block) {
       }
       const sIndex = [...elList].indexOf(e.currentTarget);
       const targetIndex = flatList.findIndex((item) => item.seriesIndex === sIndex);
+      currentIndex = targetIndex;
       if (targetIndex !== -1) {
         // eslint-disable-next-line no-use-before-define
         scrollToIndex(targetIndex, flatList, previewListEl, btnGroupEl);
