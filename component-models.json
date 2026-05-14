@@ -1791,6 +1791,7 @@
         "component": "aem-content",
         "name": "link",
         "label": "Pre-Order Button Link",
+        "value": "",
         "required": true
       },
       {
@@ -1798,7 +1799,7 @@
         "valueType": "string",
         "name": "text",
         "label": "Pre-Order Button Label",
-        "value": "",
+        "value": "Pre-Order",
         "required": true
       }
     ]
