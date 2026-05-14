@@ -1,6 +1,6 @@
 // import { decorateStoreLocatorSection } from '../../scripts/aem.js';
 // import { loadSection } from '../../scripts/aem.js';
-import { generateStoreEl } from '../store-locator/store-locator.js'
+import { generateStoreEl } from '../store-locator/store-locator.js';
 
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
@@ -8,7 +8,7 @@ export default function decorate(block) {
     const { node } = generateStoreEl(block);
     if (node) {
       block.innerHTML = '';
-      block.appendChild(node);
+      block.append([...node.children]);
     }
     // const storeLocatorSections = block.closest('.store-locator-container');
     // if (storeLocatorSections) {
