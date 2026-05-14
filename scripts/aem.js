@@ -853,6 +853,7 @@ export {
   decorateIcons,
   decorateSections,
   decorateTemplateAndTheme,
+  decorateStoreLocatorSection,
   getMetadata,
   loadBlock,
   loadCSS,
