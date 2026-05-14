@@ -17,12 +17,12 @@
   color: var(--color-primary-green-50);
   font-family: var(--font-family);
   font-weight: var(--fontweight-medium);
-  font-size: var(--size-20);
+  font-size: var(--size-40);
   text-transform: capitalize;
   line-height: 1.2;
 
   @media (width < 860px) {
-    font-size: var(--size-18);
+    font-size: var(--size-30);
     overflow: hidden;
     width: calc(100% - 74px);
     text-align: left;

@@ -3,10 +3,6 @@ import { processPath } from '../../utils/carousel-common.js';
 export default function decorate(block) {
   const segments = window.location.pathname.split('/').filter(Boolean);
   const country = segments[segments[0] === 'content' ? 2 : 0] || '';
-  const isEditMode = block.hasAttribute('data-aue-resource');
-  if (isEditMode) {
-    return;
-  }
   let showButton = false;
   [...block.children].forEach((row, index) => {
     if (index === 0) {
@@ -26,11 +22,16 @@ export default function decorate(block) {
     } else if (index === 1) {
       row.classList.add('collapse-context');
     } else if (index === 2) {
+      if (row.textContent.trim() !== 'true') {
+        block.classList.add('hide');
+      }
+      row.style.display = 'none';
+    } else if (index === 3) {
       if (row.textContent.trim() === 'true') {
         showButton = true;
       }
-      row.remove();
-    } else if (index === 3) {
+      row.style.display = 'none';
+    } else if (index === 4) {
       const btnEl = document.createElement('div');
       btnEl.classList.add('collapse-btn');
       if (showButton) {
@@ -44,7 +45,7 @@ export default function decorate(block) {
       }
       const contextEl = block.querySelector('.collapse-context');
       contextEl.appendChild(btnEl);
-      row.remove();
+      row.style.display = 'none';
     }
   });
 }

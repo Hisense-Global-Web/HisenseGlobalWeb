@@ -18,6 +18,9 @@
     "...": "./_popup-module.json#/models"
   },
   {
+    "...": "./_store-locator.json#/models"
+  },
+  {
     "...": "./_announcement.json#/models"
   },
   {
