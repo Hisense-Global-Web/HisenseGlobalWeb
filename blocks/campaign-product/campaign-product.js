@@ -959,9 +959,7 @@ export default async function decorate(block) {
     currentIndex -= 1;
     currentX = ITEM_WIDTH * currentIndex;
     previewListEl.style.transform = `translateX(-${currentX}px)`;
-    if (currentIndex <= 0) {
-      IS_LEFTEST = true;
-    }
+    IS_LEFTEST = currentIndex <= 0;
     updatePositionBarLeft(currentIndex, flatList.length);
     btnGroupEl.className = `btn-group ${IS_LEFTEST ? 'leftest' : ''} ${IS_RIGHTEST ? 'rightest' : ''}`;
   });
@@ -973,9 +971,7 @@ export default async function decorate(block) {
     currentIndex += 1;
     currentX = ITEM_WIDTH * currentIndex;
     previewListEl.style.transform = `translateX(-${currentX}px)`;
-    if (currentIndex + 4 >= flatList.length) {
-      IS_RIGHTEST = true;
-    }
+    IS_RIGHTEST = currentIndex + 4 >= flatList.length;
     updatePositionBarLeft(currentIndex, flatList.length);
     btnGroupEl.className = `btn-group ${IS_LEFTEST ? 'leftest' : ''} ${IS_RIGHTEST ? 'rightest' : ''}`;
   });
