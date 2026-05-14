@@ -5,7 +5,11 @@ import { generateStoreEl } from '../store-locator/store-locator.js'
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   if (isEditMode) {
-    generateStoreEl(block);
+    const { node } = generateStoreEl(block);
+    if (node) {
+      block.innerHTML = '';
+      block.appendChild(node);
+    }
     // const storeLocatorSections = block.closest('.store-locator-container');
     // if (storeLocatorSections) {
     //   // decorateStoreLocatorSection(storeLocatorSections);
