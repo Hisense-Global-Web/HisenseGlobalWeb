@@ -34,7 +34,7 @@ const generateStoreEl = (store) => {
         text1El?.classList?.add('city');
         text2El?.classList?.add('store');
       } else {
-        text2El?.classList?.add('store');
+        text1El?.classList?.add('store');
       }
     }
     const bottomWrapper = document.createElement('div');
