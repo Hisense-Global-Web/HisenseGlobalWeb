@@ -549,7 +549,7 @@ export default async function decorate(block) {
         el.classList.remove('active');
       });
       e.currentTarget.classList.add('active');
-      if (isMobileWindow) {
+      if (isMobileWindow()) {
         const parentWrapper = e.currentTarget.closest('.campaign-product-wrapper');
         if (parentWrapper) {
           parentWrapper.className = parentWrapper.className.replace(/\bwrapper-series-index-\d+\b/g, '');

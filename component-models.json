@@ -1785,6 +1785,25 @@
     ]
   },
   {
+    "id": "campaign-product",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Pre-Order Button Link",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Pre-Order Button Label",
+        "value": "",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "campaign-product-list",
     "fields": [
       {
