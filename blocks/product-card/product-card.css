@@ -1109,6 +1109,7 @@
   main > .section > div.product-card-wrapper {
     padding: 0 !important;
     grid-column: 1 / -1;
+    width: 100%;
   }
 
   .plp-products-box .plp-products {
