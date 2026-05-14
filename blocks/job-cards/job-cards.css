@@ -8,6 +8,10 @@
      width: 100%;
      flex-direction: column;
      
+     &:empty ~ .job-list-pagination-mobile {
+       display: none;
+     }
+     
      .job-item-card {
        width: 100%;
        display: flex;
@@ -44,6 +48,7 @@
              flex-direction: column-reverse;
              align-items: flex-start;
              gap: var(--size-8);
+             overflow: hidden;
              
            }
            
@@ -330,6 +335,12 @@
      font-size: var(--fontsize-body1);
      line-height: 1.5;
      text-align: center;
+     color: var(--color-primary-grey-70);
+     
+     @media (width < 860px) {
+       margin-top: var(--size-12);
+       font-size: var(--size-14);
+     }
    }
 
    .page-button {

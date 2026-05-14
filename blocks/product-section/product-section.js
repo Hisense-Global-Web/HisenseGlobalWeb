@@ -684,8 +684,7 @@ export default async function decorate(block) {
   items = normalizeProductSectionProducts(transformTagStructureToProducts(json));
 
   // 根据SKU找到对应的产品
-  const currentProduct = items ? items.find((item) => item.sku === sku) : null;
-  const product = currentProduct || (items && items[0] ? items[0] : null);
+  const product = items ? items.find((item) => item.sku.toLowerCase() === sku.toLowerCase()) : null;
   const currentProductCode = getHybrisProductCode(product) || sku;
   const supportsWishlist = Boolean(currentProductCode);
   const showFavoriteControl = fields.includes('favorite') || supportsWishlist;
@@ -767,7 +766,7 @@ export default async function decorate(block) {
         el.setAttribute('data-title', p.title);
 
         // 默认勾选当前SKU对应的尺寸
-        if (p.sku === sku) {
+        if (p.sku.toLowerCase() === sku.toLowerCase()) {
           el.classList.add('selected');
         }
 
@@ -779,12 +778,12 @@ export default async function decorate(block) {
           }
 
           // 跳转到对应产品的whereToBuyLink链接
-          let productLink = (p.whereToBuyLink || p.productDetailPageLink) || '';
+          const productLink = (p.whereToBuyLink || p.productDetailPageLink) || '';
           if (productLink) {
           // 如果当前URL是hisense.com/us，把链接中的/us/en改成/us
-            if (window.location.hostname.includes('hisense.com') && window.location.pathname.startsWith('/us')) {
-              productLink = productLink.replace('/us/en', '/us');
-            }
+          //   if (window.location.hostname.includes('hisense.com') && window.location.pathname.startsWith('/us')) {
+          //     productLink = productLink.replace('/us/en', '/us');
+          //   }
             window.location.href = productLink;
           }
         });
@@ -807,7 +806,7 @@ export default async function decorate(block) {
         el.setAttribute('data-title', p.title);
 
         // 默认勾选当前SKU对应的尺寸
-        if (p.sku === sku) {
+        if (p.sku.toLowerCase() === sku.toLowerCase()) {
           el.classList.add('selected');
         }
 
@@ -819,12 +818,12 @@ export default async function decorate(block) {
           }
 
           // 跳转到对应产品的whereToBuyLink链接
-          let productLink = (p.whereToBuyLink || p.productDetailPageLink) || '';
+          const productLink = (p.whereToBuyLink || p.productDetailPageLink) || '';
           if (productLink) {
           // 如果当前URL是hisense.com/us，把链接中的/us/en改成/us
-            if (window.location.hostname.includes('hisense.com') && window.location.pathname.startsWith('/us')) {
-              productLink = productLink.replace('/us/en', '/us');
-            }
+          //   if (window.location.hostname.includes('hisense.com') && window.location.pathname.startsWith('/us')) {
+          //     productLink = productLink.replace('/us/en', '/us');
+          //   }
             window.location.href = productLink;
           }
         });

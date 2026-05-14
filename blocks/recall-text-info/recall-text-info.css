@@ -1,4 +1,17 @@
 .recall-text-info-wrapper {
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: revert;
+
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: revert;
+    }
+  }
+
   .recall-text-info {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

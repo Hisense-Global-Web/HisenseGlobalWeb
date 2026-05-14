@@ -207,10 +207,11 @@ function buildConfiguredProductCardLink(configuredLink, sku, category) {
     if (category) {
       url.searchParams.set('category', category);
     }
+    const finalSearch = url.search.replace(/\+/g, '%20');
     if (url.origin === window.location.origin) {
-      return `${url.pathname}${url.search}${url.hash}`;
+      return `${url.pathname}${finalSearch}${url.hash}`;
     }
-    return url.toString();
+    return url.toString().replace(/\+/g, '%20');
   } catch (e) {
     const params = new URLSearchParams();
     if (sku) {
@@ -219,7 +220,7 @@ function buildConfiguredProductCardLink(configuredLink, sku, category) {
     if (category) {
       params.set('category', category);
     }
-    const query = params.toString();
+    const query = params.toString().replace(/\+/g, '%20');
     if (!query) return configuredLink;
     const separator = configuredLink.includes('?') ? '&' : '?';
     return `${configuredLink}${separator}${query}`;

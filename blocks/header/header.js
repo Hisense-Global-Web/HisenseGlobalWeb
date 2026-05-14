@@ -1739,7 +1739,7 @@ export default async function decorate(block) {
           const link = document.createElement('div');
           // link.className = 'mobile-product-item';
           const { title, href } = getSupportSubMenuLinkData(item);
-          const isCurrent = window.location.pathname.includes(href) && !window.location.pathname.includes(`${href}/`);
+          const isCurrent = window.location.href.includes(href) && !window.location.pathname.includes(`${href}/`);
           link.className = `mobile-product-item ${isCurrent ? 'current' : ''}`;
           const span1 = document.createElement('span');
           span1.textContent = title;
@@ -1788,7 +1788,9 @@ export default async function decorate(block) {
       [...supportMenuLinksList.children].forEach((item) => {
         const { title, href } = getSupportSubMenuLinkData(item);
         const div = document.createElement('div');
-        div.className = 'mobile-product-item';
+        // div.className = 'mobile-product-item';
+        const isCurrent = window.location.href.includes(href) && !window.location.pathname.includes(`${href}/`);
+        div.className = `mobile-product-item ${isCurrent ? 'current' : ''}`;
         if (href && href !== '#') {
           const a = document.createElement('a');
           a.href = href;

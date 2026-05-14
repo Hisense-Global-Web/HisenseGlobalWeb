@@ -5,8 +5,12 @@
 }
 
 .job-detail-wrapper ~ .gray-tips-wrapper {
-  width: min(calc(860 / var(--breakpoint-pc) * 100vw), 860px);
+  width: min(calc(860 / var(--breakpoint-pc) * 100vw), 860px) !important;
   padding: 0 var(--common-padding) !important;
+
+  @media (width < 860px) {
+    width: 100%;
+  }
 }
 
 .job-detail {
@@ -182,6 +186,12 @@
 
   .job-rich-text {
     margin-top: var(--size-48);
+
+    a {
+      color: var(--color-primary-green-60);
+      background: inherit;
+      text-decoration: underline;
+    }
   }
 
   .key-facts-list {

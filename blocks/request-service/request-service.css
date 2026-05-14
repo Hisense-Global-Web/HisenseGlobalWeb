@@ -1,4 +1,17 @@
 .request-service-wrapper {
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: revert;
+
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: revert;
+    }
+  }
+
   .request-service {
     background-color: var(--color-primary-green-10, #edfcfb);
     border-radius: var(--radius-pc-xl, 20px);
@@ -82,6 +95,7 @@
       }
 
       .button {
+        position: relative;
         cursor: pointer;
         display: flex;
         gap: var(--spacing-4xs, 4px);
@@ -91,36 +105,39 @@
         font-style: normal;
         font-weight: var(--fontweight-medium, 500);
         line-height: 150%;
+        height: 20px;
         justify-content: center;
         align-items: center;
+
+        &:hover {
+          color: var(--color-primary-green-50, #009f9c);
+        }
+
+        &:active {
+          color: var(--color-primary-green-60, #008482);
+        }
 
         @media (width<860px) {
           line-height: 140%;
           font-size: var(--fontsize-body2, 14px);
         }
 
-        p {
+        .chevron-icon {
           display: flex;
           justify-content: center;
           align-items: center;
+          position: relative;
+          top: -1px;
 
-          @media (width<860px) {
-            height: var(--size-20);
+          img {
+            width: var(--size-12);
+            height: var(--size-12);
           }
 
-          picture {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
+          @media (width<860px) {
             img {
-              width: var(--size-12);
-              height: var(--size-12);
-
-              @media (width<860px) {
-                width: var(--size-8);
-                height: var(--size-8);
-              }
+              width: var(--size-8);
+              height: var(--size-8);
             }
           }
         }

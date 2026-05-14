@@ -1,6 +1,20 @@
 main:has(.section.sitemap-container) {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  
+  .region-page-title-container, .page-header-container {
+    width: 100%;
+    
+    @media (width < 860px)  {
+      margin-top: var(--size-56);
+      
+      .page-header {
+        margin-top: 0 !important;
+      }
+    }
+  }
 }
 
 main > .section.sitemap-container {
@@ -29,6 +43,7 @@ main > .section.sitemap-container {
   position: relative;
   padding: var(--size-48) 0 0 !important;
   flex-shrink: 0;
+  height: 100%;
 
   @media (width < 860px) {
     gap: 0;

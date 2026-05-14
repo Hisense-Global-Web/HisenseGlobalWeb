@@ -10,7 +10,11 @@
             "template": {
               "name": "Price Slider",
               "model": "price-slider",
-              "classes": "price-slider-wrapper"
+              "classes": "price-slider-wrapper",
+              "filter-title": "Your Budget",
+              "min-rangeLabel": "Min price",
+              "max-rangeLabel": "Max price",
+              "price-slider": "priceSliderItem"
             }
           }
         }
@@ -26,7 +30,6 @@
           "valueType": "string",
           "name": "filter-title",
           "label": "Filter Title",
-          "value": "Your Budget",
           "required": true
         },
         {
@@ -34,7 +37,6 @@
           "valueType": "string",
           "name": "min-rangeLabel",
           "label": "Range Label 1",
-          "value": "Min price",
           "required": true
         },
         {
@@ -42,7 +44,6 @@
           "valueType": "string",
           "name": "max-rangeLabel",
           "label": "Range Label 2",
-          "value": "Max price",
           "required": true
         },
         {
@@ -50,7 +51,6 @@
           "valueType": "string",
           "name": "price-slider",
           "label": "Price Slider",
-          "value": "priceSliderItem",
           "readonly": true,
           "hidden": true,
           "description": "A flag for price-slider."
