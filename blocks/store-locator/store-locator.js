@@ -19,7 +19,7 @@ const generateNoResult = (noResult) => {
   return noResultEl;
 };
 
-const generateStoreEl = (store) => {
+export const generateStoreEl = (store) => {
   const storeCardEl = store.querySelector('.store-locator-card') ?? null;
   const typeSet = new Set();
   let tag = null;
