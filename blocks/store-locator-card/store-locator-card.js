@@ -1,13 +1,15 @@
-import { loadSections } from '../../scripts/aem.js';
+// import { loadSections } from '../../scripts/aem.js';
 // import { loadSection } from '../../scripts/aem.js';
 // import { generateStoreEl } from '../store-locator/store-locator.js';
 // import * as parentNode from '../store-locator/store-locator.js';
+import { loadPage } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   if (isEditMode) {
-    const main = document.querySelector('main');
-    await loadSections(main);
+    loadPage();
+    // const main = document.querySelector('main');
+    // await loadSections(main);
     // const { node } = generateStoreEl(block);
     // const cloneNode = node?.cloneNode('true');
     // if (cloneNode) {

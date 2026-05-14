@@ -410,7 +410,7 @@ async function loadAnnouncementPopup() {
   }
 }
 
-async function loadPage() {
+export async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   await loadAnnouncementPopup();
