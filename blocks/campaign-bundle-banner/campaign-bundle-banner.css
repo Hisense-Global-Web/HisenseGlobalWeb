@@ -55,9 +55,10 @@
       flex: 1;
 
       .fifa-left-content {
-        width: 31%;
+        width: 31.35%;
         display: flex;
-        align-items: center;
+
+        /* align-items: center; */
         flex-direction: column;
         justify-content: center;
         color: var(--color-primary-grey-10);
@@ -95,7 +96,7 @@
       }
 
       .product-container {
-        width: 69%;
+        width: 68.65%;
         display: flex;
 
         .fifa-product-box {

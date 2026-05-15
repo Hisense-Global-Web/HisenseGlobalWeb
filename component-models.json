@@ -1580,13 +1580,13 @@
       },
       {
         "component": "aem-content",
-        "name": "product-cta",
+        "name": "bundle-cta",
         "label": "Button Link",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "product-ctaText",
+        "name": "bundle-ctaText",
         "label": "Button Text",
         "valueType": "string"
       }
