@@ -1785,6 +1785,27 @@
     ]
   },
   {
+    "id": "campaign-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile-image",
+        "label": "Image for Mobile",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "card-carousel",
     "fields": [
       {
