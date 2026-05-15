@@ -33,6 +33,7 @@
       "card-grid",
       "category-carousel",
       "category-support-card",
+      "campaign-product",
       "collection-banner",
       "collection-cards",
       "collection-title",
@@ -259,6 +260,12 @@
     "components": [
       "campaign-collection-card",
       "associated-products"
+    ]
+  },
+  {
+    "id": "campaign-product",
+    "components": [
+      "campaign-product-list"
     ]
   },
   {
