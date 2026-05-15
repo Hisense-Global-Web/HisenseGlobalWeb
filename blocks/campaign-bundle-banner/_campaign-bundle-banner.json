@@ -28,8 +28,8 @@
               "name": "Campaign Bundle Promo",
               "model": "campaign-bundle-promo",
               "classes": "bundle-promo-box",
-              "product_series": "This is the product series",
-              "product_name": "This is the product name"
+              "product-series": "This is the product series",
+              "product-name": "This is the product name"
             }
           }
         }
@@ -43,50 +43,50 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "fifa_image",
+          "name": "fifa-image",
           "label": "Background Image",
           "multi": false
         },
         {
           "component": "reference",
           "valueType": "string",
-          "name": "fifaMobile_image",
+          "name": "fifaMobile-image",
           "label": "Background Image For Mobile",
           "multi": false
         },
         {
           "component": "text",
-          "name": "top_title",
+          "name": "top-title",
           "label": "Banner Title",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "top_subtitle",
+          "name": "top-subtitle",
           "label": "Banner Subtitle",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "left_title",
+          "name": "left-title",
           "label": "Bundle Title",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "left_subtitle",
+          "name": "left-subtitle",
           "label": "Bundle Text",
           "valueType": "string"
         },
         {
           "component": "aem-content",
-          "name": "left_ctaPrimary",
+          "name": "left-ctaPrimary",
           "label": "Bundle Button Link",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "left_ctaPrimaryText",
+          "name": "left-ctaPrimaryText",
           "label": "Bundle Button Text",
           "valueType": "string"
         }
@@ -97,25 +97,25 @@
       "fields":[
         {
           "component": "text",
-          "name": "product_series",
+          "name": "product-series",
           "label": "Product Series",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "product_name",
+          "name": "product-name",
           "label": "Product Name",
           "valueType": "string"
         },
         {
           "component": "aem-content",
-          "name": "product_cta",
+          "name": "product-cta",
           "label": "Button Link",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "product_ctaText",
+          "name": "product-ctaText",
           "label": "Button Text",
           "valueType": "string"
         }
