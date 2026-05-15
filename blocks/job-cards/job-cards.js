@@ -777,6 +777,11 @@ window.lastRenderedProducts = null;
 // 当前排序状态，用于筛选时判断是否需要默认选中最大尺寸
 window.currentSortKey = '';
 
+window.addEventListener('beforeunload', (e) => {
+  e.preventDefault();
+  e.returnValue = '';
+});
+
 // 检查是否配置了默认排序
 const checkAndApplyDefaultSort = () => {
   const selectedSortOption = document.querySelector('.plp-sort-option.selected');
