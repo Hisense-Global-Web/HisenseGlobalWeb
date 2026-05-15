@@ -36,7 +36,7 @@ export default function decorate(block) {
     } else if (row.className === 'top-title' || row.className === 'top-subtitle') {
       topTitleWrapper.appendChild(row);
       bannerContentWrapper.appendChild(topTitleWrapper);
-    } else if (row.className === 'left-title' || row.className === 'left-subtitle' || row.className === 'left-btn') {
+    } else if (row.className === 'left-title' || row.className === 'left-subtitle' || row.className === 'left-cta-primary' || row.className === 'left-cta-primary-text') {
       fifaLeftContent.appendChild(row);
       bannerTextBox.appendChild(fifaLeftContent);
       bannerContentWrapper.appendChild(bannerTextBox);
