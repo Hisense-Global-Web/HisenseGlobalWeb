@@ -26,22 +26,35 @@ export default function decorate(block) {
   //   productContainer.append(row);
   // }
 
-  // [...block.children].forEach((row, idx) => {
-  //   console.log('row', row);
-  //   const key = row.children[0].textContent.trim();
-  //   row.className = key;
-  //   // row.children[0].remove();
-  //   if (row.className === 'fifa-image' || row.className === 'fifa-mobile-image') {
-  //     bannerImgWrapper.append(row);
-  //   } else if (row.className === 'top-title' || row.className === 'top-subtitle') {
-  //     topTitleWrapper.appendChild(row);
-  //     bannerContentWrapper.appendChild(topTitleWrapper);
-  //   } else if (row.className === 'left-title' || row.className === 'left-subtitle' || row.className === 'left-btn') {
-  //     fifaLeftContent.appendChild(row);
-  //     bannerTextBox.appendChild(fifaLeftContent);
-  //     bannerContentWrapper.appendChild(bannerTextBox);
-  //   }
-  // });
+  [...block.children].forEach((row) => {
+    console.log('row', row);
+    const key = row.children[0].textContent.trim();
+    row.className = key;
+    row.children[0].remove();
+    if (row.className === 'fifa-image' || row.className === 'fifa-mobile-image') {
+      bannerImgWrapper.append(row);
+    } else if (row.className === 'top-title' || row.className === 'top-subtitle') {
+      topTitleWrapper.appendChild(row);
+      bannerContentWrapper.appendChild(topTitleWrapper);
+    } else if (row.className === 'left-title' || row.className === 'left-subtitle' || row.className === 'left-btn') {
+      fifaLeftContent.appendChild(row);
+      bannerTextBox.appendChild(fifaLeftContent);
+      bannerContentWrapper.appendChild(bannerTextBox);
+    } else {
+      row.className = 'fifa-product-box';
+      [...row.children].forEach((child, subIndex) => {
+        if (subIndex === 0) {
+          child.className = 'product-series';
+        } else if (subIndex === 1) {
+          child.className = 'product-name';
+        } else {
+          child.className = 'product-btn';
+        }
+      });
+      productContainer.append(row);
+      bannerTextBox.append(productContainer);
+    }
+  });
 
   // [...block.children].forEach((row, idx) => {
   //   switch (idx) {

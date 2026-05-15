@@ -28,9 +28,7 @@
             "template": {
               "name": "Campaign Bundle Promo",
               "model": "campaign-bundle-promo",
-              "classes": "bundle-promo-box",
-              "product-series": "This is the product series",
-              "product-name": "This is the product name"
+              "classes": "bundle-promo-box"
             }
           }
         }
