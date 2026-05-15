@@ -554,7 +554,10 @@
                   "name": "Campaign Bundle Banner",
                   "model": "campaign-bundle-banner",
                   "filter": "campaign-bundle-banner",
-                  "key-value": true
+                  "key-value": true,
+                  "children": [
+                    "campaign-bundle-promo"
+                  ]
                 }
               }
             }

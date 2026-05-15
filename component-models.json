@@ -1521,7 +1521,7 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "fifaMobile-image",
+        "name": "fifa-mobile-image",
         "label": "Background Image For Mobile",
         "multi": false
       },
