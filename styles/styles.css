@@ -1035,6 +1035,11 @@ main {
 
 	/* section container type */
 
+  .section.fluid {
+    max-width: 1920px !important;
+    margin: 0 auto;
+  }
+
 	.section.fluid > div {
 		max-width: unset;
 		padding: 0;

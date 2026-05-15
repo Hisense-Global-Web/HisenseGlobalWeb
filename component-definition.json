@@ -553,7 +553,8 @@
                 "template": {
                   "name": "Campaign Bundle Banner",
                   "model": "campaign-bundle-banner",
-                  "filter": "campaign-bundle-banner"
+                  "filter": "campaign-bundle-banner",
+                  "key-value": true
                 }
               }
             }
@@ -569,7 +570,9 @@
                 "template": {
                   "name": "Campaign Bundle Promo",
                   "model": "campaign-bundle-promo",
-                  "classes": "bundle-promo-box"
+                  "classes": "bundle-promo-box",
+                  "product_series": "This is the product series",
+                  "product_name": "This is the product name"
                 }
               }
             }
