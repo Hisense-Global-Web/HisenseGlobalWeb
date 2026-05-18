@@ -12,22 +12,7 @@ export default function decorate(block) {
   const productContainer = document.createElement('div');
   productContainer.className = 'product-container';
 
-  // function imgDescriptionEl(row) {
-  //   const productAllPEl = row.querySelectorAll('p');
-  //   productAllPEl.forEach((child, subIndex) => {
-  //     if (subIndex === 0) {
-  //       child.className = 'product-series';
-  //     } else if (subIndex === 1) {
-  //       child.className = 'product-name';
-  //     } else {
-  //       child.className = 'product-btn';
-  //     }
-  //   });
-  //   productContainer.append(row);
-  // }
-
   [...block.children].forEach((row) => {
-    // console.log('row', row);
     const key = row.children[0].textContent.trim();
     row.className = key;
     if (row.className === 'fifa-image' || row.className === 'fifa-mobile-image') {
@@ -51,94 +36,31 @@ export default function decorate(block) {
         row.remove();
       }
     } else {
-      // 右侧产品信息展示，包含系列、名称和按钮
-      row.className = 'fifa-product-box';
-      const productInfoBox = document.createElement('div');
-      productInfoBox.className = 'product-info';
-      [...row.children].forEach((child, subIndex) => {
-        if (subIndex === 0) {
-          child.className = 'product-series';
-          productInfoBox.append(child);
-        } else if (subIndex === 1) {
-          child.className = 'product-name';
-          productInfoBox.append(child);
-        } else {
-          child.className = 'product-btn';
-        }
-      });
+      // 右侧产品信息展示，包含系列、名称和按钮，有且仅有两套产品信息展示
       const productBoxAll = productContainer.querySelectorAll('.fifa-product-box');
-      if (productBoxAll.length === 2) return;
-      row.prepend(productInfoBox);
-      productContainer.append(row);
-      bannerTextBox.append(productContainer);
+      if (productBoxAll.length < 2) {
+        row.className = 'fifa-product-box';
+        const productInfoBox = document.createElement('div');
+        productInfoBox.className = 'product-info';
+        [...row.children].forEach((child, subIndex) => {
+          if (subIndex === 0) {
+            child.className = 'product-series';
+            productInfoBox.append(child);
+          } else if (subIndex === 1) {
+            child.className = 'product-name';
+            productInfoBox.append(child);
+          } else {
+            child.className = 'product-btn';
+          }
+        });
+        row.prepend(productInfoBox);
+        productContainer.append(row);
+        bannerTextBox.append(productContainer);
+      } else {
+        row.remove();
+      }
     }
   });
 
-  // [...block.children].forEach((row, idx) => {
-  //   switch (idx) {
-  //     case 0:
-  //       row.className = 'fifa-pc-banner';
-  //       break;
-  //     case 1:
-  //       row.className = 'fifa-mobile-banner';
-  //       break;
-  //     case 2: {
-  //       row.className = 'fifa-top-title';
-  //       const titleAllPEl = row.querySelectorAll('p');
-  //       // titleAllPEl.forEach((child, subIndex) => {
-  //       //   if (subIndex === 0) {
-  //       //     child.className = 'top-title';
-  //       //   } else {
-  //       //     child.className = 'top-subtitle';
-  //       //   }
-  //       // });
-  //       break;
-  //     }
-  //     case 3: {
-  //       row.className = 'fifa-left-content';
-  //       console.log('row', row);
-  //       // const key = row.children[0].textContent.trim();
-  //       // row.className = key;
-  //       const leftAllPEl = row.querySelectorAll('p');
-  //       leftAllPEl.forEach((child, subIndex) => {
-  //         console.log('child', child);
-  //         // const key = child.textContent.trim();
-  //         // child.className = key;
-  //         if (subIndex === 0) {
-  //           child.className = 'left-title';
-  //         } else if (subIndex === 1) {
-  //           child.className = 'left-subtitle';
-  //         } else {
-  //           child.className = 'left-btn';
-  //         }
-  //       });
-  //       break;
-  //     }
-  //     case 4:
-  //       row.className = 'fifa-tv-box fifa-product-box';
-  //       imgDescriptionEl(row);
-  //       break;
-  //     case 5:
-  //       row.className = 'fifa-canvas-box fifa-product-box';
-  //       imgDescriptionEl(row);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   if (idx < 2) {
-  //     // 整合image 容器
-  //     bannerImgWrapper.appendChild(row);
-  //   } else if (idx === 2) {
-  //     // 将banner 顶部标题直接追加到 bannerContentWrapper 容器中
-  //     bannerContentWrapper.appendChild(row);
-  //   } else {
-  //     // 整合banner 中左右展示信息内容
-  //     if (idx === 3) {
-  //       bannerTextBox.appendChild(row);
-  //     }
-  //     bannerTextBox.append(productContainer);
-  //     bannerContentWrapper.appendChild(bannerTextBox);
-  //   }
-  // });
   block.append(bannerImgWrapper, bannerContentWrapper);
 }
