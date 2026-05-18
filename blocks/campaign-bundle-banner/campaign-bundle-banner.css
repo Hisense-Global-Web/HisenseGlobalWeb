@@ -1,9 +1,13 @@
 .campaign-bundle-banner {
   background: transparent;
   position: relative;
-  border-radius: var(--size-20);
   width: 100%;
   height: 100%;
+
+  .fifa-img-wrapper {
+    border-radius: var(--size-20);
+    overflow: hidden;
+  }
 
   .fifa-image {
     width: 100%;
@@ -76,7 +80,7 @@
           margin-top: var(--size-10);
         }
 
-        .left-cta-primary-text{
+        .left-cta-text{
           height: var(--size-50);
           margin-top: var(--size-32);
 

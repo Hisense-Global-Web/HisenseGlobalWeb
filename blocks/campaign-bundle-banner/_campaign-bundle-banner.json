@@ -79,13 +79,13 @@
         },
         {
           "component": "aem-content",
-          "name": "left_cta",
+          "name": "left-cta",
           "label": "Bundle Button Link",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "left_ctatext",
+          "name": "left-cta-text",
           "label": "Bundle Button Text",
           "valueType": "string"
         }
@@ -108,13 +108,13 @@
         },
         {
           "component": "aem-content",
-          "name": "bundle-cta",
+          "name": "bundle_cta",
           "label": "Button Link",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "bundle-cta-text",
+          "name": "bundle_ctaText",
           "label": "Button Text",
           "valueType": "string"
         }

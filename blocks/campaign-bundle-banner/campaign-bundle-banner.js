@@ -39,7 +39,7 @@ export default function decorate(block) {
       topTitleWrapper.appendChild(row);
       bannerContentWrapper.appendChild(topTitleWrapper);
       row.children[0].remove();
-    } else if (row.className === 'left-title' || row.className === 'left-subtitle' || row.className === 'left-cta-primary' || row.className === 'left-cta-primary-text') {
+    } else if (row.className === 'left-title' || row.className === 'left-subtitle' || row.className === 'left-cta' || row.className === 'left-cta-text') {
       fifaLeftContent.appendChild(row);
       bannerTextBox.appendChild(fifaLeftContent);
       bannerContentWrapper.appendChild(bannerTextBox);
