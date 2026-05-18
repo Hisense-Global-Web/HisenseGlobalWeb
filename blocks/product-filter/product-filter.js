@@ -2,7 +2,7 @@ import { currencySymbolMap } from '../../utils/currency.js';
 import { fetchHybrisProduct, getHybrisProductCode, scheduleHybrisTask } from '../../scripts/hybris-bff.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
+const DEFAULT_TAGS_ENDPOINT = '/bin/hisense/tags.json';
 const PLP_PRODUCTS_READY_EVENT = 'hisense:plp-products-ready';
 const PRICE_FILTER_STATE_KEY = '__hisensePlpPriceFilterState';
 const PRODUCT_PRICE_CACHE_KEY = '__hisensePlpProductPriceCache';

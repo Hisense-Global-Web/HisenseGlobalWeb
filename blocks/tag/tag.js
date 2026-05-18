@@ -1,4 +1,4 @@
-const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
+const DEFAULT_TAGS_ENDPOINT = '/bin/hisense/tags.json';
 
 function getTagsEndpointUrl() {
   const baseUrl = window.GRAPHQL_BASE_URL || '';
