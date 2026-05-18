@@ -3,7 +3,7 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const DEFAULT_PAGE_SIZE = 12;
-const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
+const DEFAULT_TAGS_ENDPOINT = '/bin/hisense/tags.json';
 
 // Display Type 和 endpoint + 接口类型映射
 const TYPE_CONFIG = {

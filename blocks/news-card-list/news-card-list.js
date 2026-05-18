@@ -415,7 +415,7 @@ export default async function decorate(block) {
   // result 逻辑
   const currentUrl = window.location.href;
   const url = new URL(currentUrl);
-  const fulltextValue = url.searchParams.get('fulltext');
+  const fulltextValue = url.searchParams.get('fulltext') ?? '';
   const resultTitleEl = document.createElement('div');
   resultTitleEl.className = 'section-result-title';
   const r = fulltextValue;

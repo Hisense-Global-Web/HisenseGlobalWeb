@@ -398,7 +398,6 @@
             text-decoration: none;
             color: var(--color-primary-grey-100, #000);
             background: transparent;
-            padding: 0;
             margin: 0;
             font: var(--fontsize-body2, 14px);
             cursor: pointer;
