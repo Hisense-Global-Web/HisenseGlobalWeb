@@ -46,22 +46,29 @@ export default function decorate(block) {
       bannerContentWrapper.appendChild(bannerTextBox);
       row.children[0].remove();
       // 为cta 按钮添加链接和文本
-      if (row.classList.contains('left-cta-text')) {
+      if (row.classList.contains('left-cta-text') && row.textContent.trim()) {
         fifaLeftContent.querySelector('.left-cta a').textContent = row.textContent.trim();
         row.remove();
       }
     } else {
       // 右侧产品信息展示，包含系列、名称和按钮
       row.className = 'fifa-product-box';
+      const productInfoBox = document.createElement('div');
+      productInfoBox.className = 'product-info';
       [...row.children].forEach((child, subIndex) => {
         if (subIndex === 0) {
           child.className = 'product-series';
+          productInfoBox.append(child);
         } else if (subIndex === 1) {
           child.className = 'product-name';
+          productInfoBox.append(child);
         } else {
           child.className = 'product-btn';
         }
       });
+      const productBoxAll = productContainer.querySelectorAll('.fifa-product-box');
+      if (productBoxAll.length === 2) return;
+      row.prepend(productInfoBox);
       productContainer.append(row);
       bannerTextBox.append(productContainer);
     }
