@@ -1,11 +1,15 @@
 .campaign-bundle-banner {
   background: transparent;
   position: relative;
-  border-radius: var(--size-20);
   width: 100%;
   height: 100%;
 
-  .fifa-pc-banner {
+  .fifa-img-wrapper {
+    border-radius: var(--size-20);
+    overflow: hidden;
+  }
+
+  .fifa-image {
     width: 100%;
     height: 100%;
 
@@ -18,7 +22,7 @@
     }
   }
 
-  .fifa-mobile-banner {
+  .fifa-mobile-image {
     display: none;
   }
 
@@ -53,13 +57,16 @@
     .fifa-text-box {
       display: flex;
       flex: 1;
+      gap: var(--size-24);
 
       .fifa-left-content {
-        width: 31%;
+        width: 31.34%;
         display: flex;
-        align-items: center;
+
+        /* align-items: center; */
+        flex-direction: column;
+        justify-content: center;
         color: var(--color-primary-grey-10);
-        margin-right: var(--size-24);
 
         .left-title {
           font-size: var(--size-30);
@@ -71,9 +78,14 @@
           font-size: var(--size-16);
           line-height: var(--size-24);
           margin-top: var(--size-10);
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
-        .left-btn{
+        .left-cta{
           height: var(--size-50);
           margin-top: var(--size-32);
 
@@ -93,17 +105,33 @@
       }
 
       .product-container {
-        width: 69%;
+        width: 68.66%;
         display: flex;
+        gap: var(--size-24);
 
         .fifa-product-box {
           display: flex;
-          align-items: end;
+          flex-direction: column;
+          justify-content: flex-end;
+
+          /* align-items: end; */
           font-weight: var(--fontweight-medium);
           color: var(--color-primary-grey-100);
           width: 50%;
           font-size: var(--size-16);
           line-height: min(calc(19.2 / var(--breakpoint-pc) * 100vw), 19.2px);
+
+          .product-info {
+            height: var(--size-57);
+          }
+
+          .product-name {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
 
           .product-btn{
             height: var(--size-18);
@@ -123,13 +151,9 @@
             }
           }
 
-          &.fifa-tv-box {
+          &:first-child {
             margin-left: var(--size-36);
-            margin-right: var(--size-80);
-          }
-
-          &.fifa-canvas-box {
-            padding-left: var(--size-24);
+            margin-right: var(--size-88);
           }
         }
       }
@@ -139,11 +163,11 @@
 
 @media (width < 860px) {
   .campaign-bundle-banner {
-    .fifa-pc-banner {
+    .fifa-image {
       display: none;
     }
 
-    .fifa-mobile-banner {
+    .fifa-mobile-image {
       display: block;
 
       img {
@@ -161,6 +185,7 @@
       .fifa-top-title {
         margin-bottom: 0;
         text-align: left;
+        height: calc(164 / var(--breakpoint-mobile) * 100vw);
 
         .top-title {
           font-size: var(--size-30);
@@ -176,16 +201,18 @@
 
       .fifa-text-box {
         flex-direction: column-reverse;
-        padding-top: calc(177 / var(--breakpoint-mobile) * 100vw);
+        padding-top: calc(178 / var(--breakpoint-mobile) * 100vw);
 
-        @media (width < 500px) {
+        /* @media (width < 500px) {
           padding-top: calc(160 / var(--breakpoint-mobile) * 100vw);
-        }
+        } */
 
         .fifa-left-content {
           width: 100%;
           margin-right: 0;
           margin-top: auto;
+          height: calc(165 / var(--breakpoint-mobile) * 100vw);
+          justify-content: flex-start;
 
           .left-title {
             font-size: var(--size-20);
@@ -198,7 +225,7 @@
             margin-top: var(--size-8);
           }
 
-          .left-btn{
+          .left-cta{
             height: var(--size-40);
             margin-top: var(--size-24);
 
@@ -212,25 +239,27 @@
 
         .product-container {
           width: 100%;
-          margin-bottom: var(--size-41);
+          gap: var(--size-16);
 
           .fifa-product-box {
             font-size: var(--size-14);
             line-height: calc(16.8 / var(--breakpoint-mobile) * 100vw);
-            white-space: nowrap;
+
+            .product-info {
+              height: var(--size-51);
+            }
 
             .product-btn {
               margin-top: var(--size-12);
             }
 
-            &.fifa-tv-box {
+            &:first-child {
               margin: 0;
-              width: 55%;
+              width: 55.5%;
             }
 
-            &.fifa-canvas-box {
-              padding-left: var(--size-16);
-              width: 45%;
+            &:nth-child(2) {
+              width: 44.5%;
             }
           }
         }

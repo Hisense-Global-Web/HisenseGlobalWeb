@@ -553,7 +553,11 @@
                 "template": {
                   "name": "Campaign Bundle Banner",
                   "model": "campaign-bundle-banner",
-                  "filter": "campaign-bundle-banner"
+                  "filter": "campaign-bundle-banner",
+                  "key-value": true,
+                  "children": [
+                    "campaign-bundle-promo"
+                  ]
                 }
               }
             }
