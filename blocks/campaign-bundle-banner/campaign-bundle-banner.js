@@ -29,24 +29,30 @@ export default function decorate(block) {
   [...block.children].forEach((row) => {
     // console.log('row', row);
     const key = row.children[0].textContent.trim();
-    console.log('key', key);
     row.className = key;
-    // row.children[0].remove();
     if (row.className === 'fifa-image' || row.className === 'fifa-mobile-image') {
+      // 图片部分，包含pc端和移动端图片
       bannerImgWrapper.append(row);
       row.children[0].remove();
     } else if (row.className === 'top-title' || row.className === 'top-subtitle') {
+      // 顶部标题部分，包含主标题和副标题
       topTitleWrapper.appendChild(row);
       bannerContentWrapper.appendChild(topTitleWrapper);
       row.children[0].remove();
     } else if (row.className === 'left-title' || row.className === 'left-subtitle' || row.className === 'left-cta' || row.className === 'left-cta-text') {
+      // 左侧内容展示，包含标题、描述和按钮
       fifaLeftContent.appendChild(row);
       bannerTextBox.appendChild(fifaLeftContent);
       bannerContentWrapper.appendChild(bannerTextBox);
       row.children[0].remove();
+      // 为cta 按钮添加链接和文本
+      if (row.classList.contains('left-cta-text')) {
+        fifaLeftContent.querySelector('.left-cta a').textContent = row.textContent.trim();
+        row.remove();
+      }
     } else {
+      // 右侧产品信息展示，包含系列、名称和按钮
       row.className = 'fifa-product-box';
-      // console.log('row', row);
       [...row.children].forEach((child, subIndex) => {
         if (subIndex === 0) {
           child.className = 'product-series';

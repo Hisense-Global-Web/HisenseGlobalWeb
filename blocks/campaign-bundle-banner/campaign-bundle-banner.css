@@ -80,7 +80,7 @@
           margin-top: var(--size-10);
         }
 
-        .left-cta-text{
+        .left-cta{
           height: var(--size-50);
           margin-top: var(--size-32);
 
@@ -133,14 +133,23 @@
             }
           }
 
-          &.fifa-tv-box {
+          &:first-child {
+            margin-left: var(--size-36);
+            margin-right: var(--size-80);
+          }
+
+          &:nth-child(2) {
+            padding-left: var(--size-24);
+          }
+          
+          /* &.fifa-tv-box {
             margin-left: var(--size-36);
             margin-right: var(--size-80);
           }
 
           &.fifa-canvas-box {
             padding-left: var(--size-24);
-          }
+          } */
         }
       }
     }
