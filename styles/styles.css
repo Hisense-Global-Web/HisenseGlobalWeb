@@ -643,6 +643,10 @@ footer .footer[data-block-status="loaded"] {
 	visibility: visible;
 }
 
+main .section > div:has(> .block) {
+  position: relative;
+}
+
 main .section > div > .block:not([data-block-status="loaded"]) {
   display: none;
 }
