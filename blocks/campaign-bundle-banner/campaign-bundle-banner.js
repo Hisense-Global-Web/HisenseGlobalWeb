@@ -27,21 +27,26 @@ export default function decorate(block) {
   // }
 
   [...block.children].forEach((row) => {
-    console.log('row', row);
+    // console.log('row', row);
     const key = row.children[0].textContent.trim();
+    console.log('key', key);
     row.className = key;
-    row.children[0].remove();
+    // row.children[0].remove();
     if (row.className === 'fifa-image' || row.className === 'fifa-mobile-image') {
       bannerImgWrapper.append(row);
+      row.children[0].remove();
     } else if (row.className === 'top-title' || row.className === 'top-subtitle') {
       topTitleWrapper.appendChild(row);
       bannerContentWrapper.appendChild(topTitleWrapper);
+      row.children[0].remove();
     } else if (row.className === 'left-title' || row.className === 'left-subtitle' || row.className === 'left-cta-primary' || row.className === 'left-cta-primary-text') {
       fifaLeftContent.appendChild(row);
       bannerTextBox.appendChild(fifaLeftContent);
       bannerContentWrapper.appendChild(bannerTextBox);
+      row.children[0].remove();
     } else {
       row.className = 'fifa-product-box';
+      // console.log('row', row);
       [...row.children].forEach((child, subIndex) => {
         if (subIndex === 0) {
           child.className = 'product-series';
