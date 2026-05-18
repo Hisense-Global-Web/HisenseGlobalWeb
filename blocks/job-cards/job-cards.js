@@ -767,7 +767,6 @@ export default function decorate(block) {
       renderPage();
     })
     .catch(() => {});
-  window.addEventListener('resize', renderPage);
 }
 
 // 是否使用 description_shortDescription 作为图片链接，默认使用
