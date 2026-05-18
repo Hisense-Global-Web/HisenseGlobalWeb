@@ -5905,8 +5905,7 @@
       {
         "component": "aem-content",
         "name": "link",
-        "label": "Link",
-        "required": true
+        "label": "Link"
       }
     ]
   },
