@@ -2,6 +2,7 @@ import { createElement, debounce } from '../../utils/dom-helper.js';
 import { loadScrollTrigger } from '../../utils/animation-helper.js';
 import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
 import { whenElementReady } from '../../utils/carousel-common.js';
+import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -17,7 +18,7 @@ export default async function decorate(block) {
   [...videoContent.children].forEach((row) => {
     const link = row.querySelector('a');
     if (link) {
-      videoSrc = link.href;
+      videoSrc = toDynamicMediaVideoUrl(link.href);
     }
     const img = row.querySelector('img');
     if (img) {

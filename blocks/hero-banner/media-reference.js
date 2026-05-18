@@ -1,3 +1,5 @@
+import { isDeliveryDynamicMediaUrl } from '../../utils/dynamic-media.js';
+
 const VIDEO_MEDIA_EXTENSIONS = new Set([
   'mp4',
   'webm',
@@ -50,17 +52,6 @@ function buildSmartCropUrl(src, cropName, currentLocationHref = getCurrentLocati
   }
 
   return assetUrl.toString();
-}
-
-function isDeliveryDynamicMediaUrl(assetUrl = '') {
-  if (!assetUrl) return false;
-
-  try {
-    const url = new URL(assetUrl, getCurrentLocationHref());
-    return url.protocol === 'https:' && url.hostname.startsWith('delivery');
-  } catch (error) {
-    return String(assetUrl).trim().startsWith('https://delivery');
-  }
 }
 
 function getLargeSmartCropUrl(src) {
