@@ -38,9 +38,14 @@ export default function decorate(block) {
       const liEl = document.createElement('li');
       liEl.classList.add('sitemap-item');
       const aEl = row.querySelector('a');
-      if (!aEl) return;
-      aEl.textContent = row.children[0].textContent.trim();
-      liEl.append(aEl);
+      if (aEl) {
+        aEl.textContent = row.children[0].textContent.trim();
+        liEl.append(aEl);
+      } else {
+        const a = document.createElement('a');
+        a.textContent = row.children[0].textContent.trim();
+        liEl.append(a);
+      }
       row.style.display = 'none';
       ulEl.appendChild(liEl);
     }

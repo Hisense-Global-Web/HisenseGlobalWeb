@@ -156,6 +156,10 @@ main > .section.sitemap-container {
           &:hover {
             color: var(--color-primary-green-50);
           }
+          
+          &:not([href]):hover {
+            color: var(--color-primary-grey-70);
+          }
         }
       }
     }
