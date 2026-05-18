@@ -1,4 +1,7 @@
+import { readBlockConfig } from '../../scripts/aem.js';
+
 export default function decorate(block) {
+  const config = readBlockConfig(block);
   const bannerImgWrapper = document.createElement('div');
   bannerImgWrapper.className = 'fifa-img-wrapper';
   const topTitleWrapper = document.createElement('div');
@@ -63,4 +66,9 @@ export default function decorate(block) {
   });
 
   block.append(bannerImgWrapper, bannerContentWrapper);
+
+  // 根据配置项决定是否展示左侧按钮
+  if (!Object.keys(config).includes('left-cta-text')) {
+    fifaLeftContent.querySelector('.left-cta')?.remove();
+  }
 }

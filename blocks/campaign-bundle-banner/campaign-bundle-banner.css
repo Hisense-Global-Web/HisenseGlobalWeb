@@ -185,6 +185,7 @@
       .fifa-top-title {
         margin-bottom: 0;
         text-align: left;
+        height: calc(164 / var(--breakpoint-mobile) * 100vw);
 
         .top-title {
           font-size: var(--size-30);
