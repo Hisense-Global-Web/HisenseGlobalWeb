@@ -5,6 +5,7 @@
     line-height: 120%;
     font-weight: var(--fontweight-medium);
     margin-bottom: var(--size-32);
+    text-transform: capitalize;
   }
 
   .retailer-box {

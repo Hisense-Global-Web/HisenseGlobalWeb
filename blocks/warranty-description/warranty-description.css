@@ -4,6 +4,7 @@
     font-weight: var(--fontweight-medium);
     color: var(--color-primary-grey-100);
     line-height: 120%;
+    text-transform: capitalize;
   }
 
   .des-subtitle {

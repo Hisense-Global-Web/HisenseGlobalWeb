@@ -77,17 +77,17 @@ export default function decorate(block) {
         });
       }
 
-      if (window.innerWidth < 860) {
-        const activeTab = block.querySelector('.category-tab.active');
-        if (activeTab) {
-          activeTab.scrollIntoView({ behavior: 'instant', inline: 'center' });
-        }
+      // if (window.innerWidth < 860) {
+      //   const activeTab = block.querySelector('.category-tab.active');
+      //   if (activeTab) {
+      //     activeTab.scrollIntoView({ behavior: 'instant', inline: 'center' });
+      //   }
 
-        const activeStep = block.querySelector('.guide-steps > div.active');
-        if (activeStep) {
-          activeStep.scrollIntoView({ behavior: 'instant', inline: 'center' });
-        }
-      }
+      //   const activeStep = block.querySelector('.guide-steps > div.active');
+      //   if (activeStep) {
+      //     activeStep.scrollIntoView({ behavior: 'instant', inline: 'center' });
+      //   }
+      // }
     });
   });
 
