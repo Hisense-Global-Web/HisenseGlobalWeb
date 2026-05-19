@@ -1822,8 +1822,7 @@
         "valueType": "string",
         "name": "text",
         "label": "Pre-Order Button Label",
-        "value": "Pre-Order",
-        "required": true
+        "value": "Pre-Order"
       },
       {
         "component": "aem-content",

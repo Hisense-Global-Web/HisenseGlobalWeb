@@ -945,7 +945,7 @@ export default async function decorate(block) {
   positionBarEl.classList.add('position-bar');
   const dataPositionBarEl = document.createElement('div');
   dataPositionBarEl.classList.add('data-position-bar');
-  dataPositionBarEl.style.width = `${((1600 / flatList.length) * Math.min(window.innerWidth, 1440)) / 1440}px`;
+  dataPositionBarEl.style.width = `${((1600 / Math.max(4, flatList.length)) * Math.min(window.innerWidth, 1440)) / 1440}px`;
   positionBarEl.append(dataPositionBarEl);
   const leftBtn = createScrollButton('left');
   const rightBtn = createScrollButton('right');
