@@ -68,9 +68,11 @@
       {
         "component": "checkbox",
         "valueType": "boolean",
-        "name": "tabs/advanced/items/column/items/seo/items/excludeFromSitemap",
+        "name": "excludeFromSitemap",
         "label": "Exclude from Sitemap",
-        "value": "false"
+        "value": "false",
+        "tab": "advanced",
+        "section": "seo"
       },
       {
         "component": "aem-content",
