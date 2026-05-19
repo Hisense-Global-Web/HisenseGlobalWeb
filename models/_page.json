@@ -69,7 +69,7 @@
         {
           "component": "checkbox",
           "valueType": "boolean",
-          "name": "has-download",
+          "name": "exclude-sitemap",
           "label": "Exclude from Sitemap",
           "value": false,
           "description": "Select to exclude this page from the generated sitemap.xml."
