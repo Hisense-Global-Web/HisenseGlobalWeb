@@ -66,6 +66,15 @@
         "rootPath": "/content/cq:tags/hisense"
       },
       {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "excludeFromSitemap",
+        "label": "Exclude from Sitemap",
+        "value": "false",
+        "tab": "advanced",
+        "section": "seo"
+      },
+      {
         "component": "aem-content",
         "valueType": "string",
         "name": "downloadLink",
@@ -1809,19 +1818,18 @@
     "id": "campaign-product",
     "fields": [
       {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Pre-Order Button Link",
-        "value": "",
-        "required": true
-      },
-      {
         "component": "text",
         "valueType": "string",
         "name": "text",
         "label": "Pre-Order Button Label",
         "value": "Pre-Order",
         "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Pre-Order Button Link",
+        "value": ""
       }
     ]
   },
