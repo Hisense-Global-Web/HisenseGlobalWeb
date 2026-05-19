@@ -69,10 +69,9 @@
         {
           "component": "checkbox",
           "valueType": "boolean",
-          "name": "exclude-sitemap",
+          "name": "tabs/advanced/items/column/items/seo/items/excludeFromSitemap",
           "label": "Exclude from Sitemap",
-          "value": false,
-          "description": "Select to exclude this page from the generated sitemap.xml."
+          "value": "false"
         },
         {
           "component": "aem-content",
