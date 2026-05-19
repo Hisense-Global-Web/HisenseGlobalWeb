@@ -543,19 +543,20 @@ export default async function decorate(block) {
   });
   block.appendChild(mobileUlDiv);
 
-  const linkRow = rows[0];
-  const labelRow = rows[1];
-  if (linkRow.children.length === 2) {
+  const labelRow = rows[0];
+  const linkRow = rows[1];
+  if (linkRow && linkRow.children.length === 2) {
     const { href } = linkRow.children[1].querySelector('a');
     preOrderButtonLink = processPath(href);
   }
   if (labelRow.children.length === 2) {
     preOrderButtonLabel = labelRow.children[1].textContent.trim();
   }
-  console.log(preOrderButtonLink, preOrderButtonLabel);
-  linkRow.style.display = 'none';
+  if (linkRow) {
+    linkRow.style.display = 'none';
+  }
   labelRow.style.display = 'none';
-  const FIRST_ITEM_INDEX = 2;
+  const FIRST_ITEM_INDEX = linkRow ? 2 : 1;
   for (let i = FIRST_ITEM_INDEX; i < rows.length; i += 1) {
     const row = rows[i];
     row.classList.add('campaign-category');
@@ -610,14 +611,13 @@ export default async function decorate(block) {
           // eslint-disable-next-line no-await-in-loop
           const respJson = await resp.json();
           itemAllList = respJson.data.productModelList.items;
-          // console.log(itemAllList.map((item) => item.badge));
         } catch (err) {
           console.error('请求失败', err);
         }
         item.style.display = 'none';
       } else {
         const filterSku = item.textContent.trim();
-        const currentProduct = itemAllList?.find((p) => p.sku === filterSku);
+        const currentProduct = itemAllList?.find((p) => p.sku.toLowerCase() === filterSku.toLowerCase());
         if (currentProduct) {
           category.products.push(currentProduct);
         }
