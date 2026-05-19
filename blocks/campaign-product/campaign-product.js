@@ -545,18 +545,22 @@ export default async function decorate(block) {
 
   const labelRow = rows[0];
   const linkRow = rows[1];
-  if (linkRow && linkRow.children.length === 2) {
-    const { href } = linkRow.children[1].querySelector('a');
+  if (linkRow && linkRow.querySelector('a') && linkRow.children.length === 2) {
+    const href = linkRow.children[1].querySelector('a')?.href;
     preOrderButtonLink = processPath(href);
   }
-  if (labelRow.children.length === 2) {
+  if (labelRow && labelRow.children.length === 2) {
     preOrderButtonLabel = labelRow.children[1].textContent.trim();
   }
   if (linkRow) {
     linkRow.style.display = 'none';
   }
-  labelRow.style.display = 'none';
-  const FIRST_ITEM_INDEX = linkRow ? 2 : 1;
+  if (labelRow) {
+    labelRow.style.display = 'none';
+  }
+  let FIRST_ITEM_INDEX = 0;
+  FIRST_ITEM_INDEX += labelRow ? 1 : 0;
+  FIRST_ITEM_INDEX += linkRow ? 1 : 0;
   for (let i = FIRST_ITEM_INDEX; i < rows.length; i += 1) {
     const row = rows[i];
     row.classList.add('campaign-category');
