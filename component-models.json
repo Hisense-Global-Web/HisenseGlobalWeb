@@ -66,6 +66,15 @@
         "rootPath": "/content/cq:tags/hisense"
       },
       {
+        "component": "checkbox",
+        "valueType": "boolean",
+        "name": "excludeFromSitemap",
+        "label": "Exclude from Sitemap",
+        "value": "false",
+        "tab": "advanced",
+        "section": "seo"
+      },
+      {
         "component": "aem-content",
         "valueType": "string",
         "name": "downloadLink",
