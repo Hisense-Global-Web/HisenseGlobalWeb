@@ -86,6 +86,7 @@
   font-family: var(--font-family);
   margin: 0;
   padding: var(--size-48) var(--spacing-lg);
+  flex-shrink: 0;
 
   @media (width < 860px) {
     width: 100%;
@@ -161,6 +162,7 @@
     transform 0.5s cubic-bezier(0.35, 0, 0.36, 1),
     -webkit-transform 0.5s cubic-bezier(0.35, 0, 0.36, 1);
   overflow: hidden;
+  flex-shrink: 0;
 
   @media (width < 860px) {
     border-radius: var(--fontsize-body1) var(--fontsize-body1) 0 0;
