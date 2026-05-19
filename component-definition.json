@@ -655,6 +655,7 @@
                   "name": "Campaign Product",
                   "model": "campaign-product",
                   "filter": "campaign-product",
+                  "text": "Pre-Order",
                   "key-value": true
                 }
               }
