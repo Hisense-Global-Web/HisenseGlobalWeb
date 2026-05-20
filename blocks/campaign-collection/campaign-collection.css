@@ -61,6 +61,7 @@
       .background-mobile {
         width: 100%;
         height: calc(500 / var(--breakpoint-mobile) * 100vw);
+        display: block;
 
         @media (width>=860px) {
           display: none;
