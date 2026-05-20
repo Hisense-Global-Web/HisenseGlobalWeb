@@ -42,7 +42,7 @@
           "component": "text",
           "valueType": "string",
           "name": "text",
-          "label": "Pre-Order Button Label"          
+          "label": "Pre-Order Button Label"
         },
         {
           "component": "aem-content",
