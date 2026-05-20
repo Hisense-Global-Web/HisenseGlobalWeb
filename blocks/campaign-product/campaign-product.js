@@ -545,7 +545,7 @@ export default async function decorate(block) {
   }
   if (config.link) {
     FIRST_ITEM_INDEX += 1;
-    preOrderButtonLink = config.link;
+    preOrderButtonLink = processPath(config.link);
   }
   const mobileUlDiv = document.createElement('div');
   mobileUlDiv.classList.add('campaign-product-ul');
