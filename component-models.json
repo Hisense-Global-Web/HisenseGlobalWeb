@@ -1646,7 +1646,7 @@
       {
         "component": "text",
         "name": "right_buttontext",
-        "label": "Butotn Text",
+        "label": "Button Text",
         "valueType": "string",
         "value": "",
         "required": true
@@ -2785,7 +2785,7 @@
         "component": "text",
         "name": "btntext",
         "value": "",
-        "label": "Button Copy",
+        "label": "Button Text",
         "valueType": "string"
       },
       {
