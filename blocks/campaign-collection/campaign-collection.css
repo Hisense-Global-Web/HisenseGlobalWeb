@@ -27,6 +27,7 @@
       .background-pc {
         width: 100%;
         height: min(calc(372 / var(--breakpoint-pc) * 100vw), 372px);
+
         @media (width<860px) {
           display: none;
         }
@@ -59,6 +60,7 @@
       .background-mobile {
         width: 100%;
         height: calc(500 / var(--breakpoint-mobile) * 100vw);
+
         @media (width>=860px) {
           display: none;
         }
@@ -274,6 +276,7 @@
             gap: var(--spacing-2xs, 12px);
             border: 1px solid var(--color-primary-grey-10, #fff);
             border-radius: var(--size-100);
+
             /* padding: 0 var(--spacing-sm, 24px); */
             padding: 0 var(--spacing-m, 32px) 0 var(--spacing-sm, 24px);
             height: var(--size-52);
