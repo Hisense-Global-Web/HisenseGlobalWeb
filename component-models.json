@@ -1646,7 +1646,7 @@
       {
         "component": "text",
         "name": "right_buttontext",
-        "label": "Butotn Text",
+        "label": "Button Text",
         "valueType": "string",
         "value": "",
         "required": true
