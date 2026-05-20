@@ -5542,6 +5542,13 @@
         "value": "",
         "label": "Subtitle",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
       }
     ]
   },
