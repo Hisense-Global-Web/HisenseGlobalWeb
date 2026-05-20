@@ -125,26 +125,35 @@
             font-weight: var(--fontweight-medium, 500);
             line-height: 120%;
             text-transform: capitalize;
+            overflow: hidden;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
 
             @media (width<860px) {
               font-size: var(--fontsize-pc-h4, 30px);
               width: calc(300 / var(--breakpoint-mobile) * 100vw);
+              -webkit-line-clamp: 3;
+              line-clamp: 3;
             }
           }
 
           .text {
             margin-top: var(--spacing-s2, 20px);
-            overflow: hidden;
             color: var(--color-primary-grey-10, #fff);
             text-overflow: ellipsis;
             font-size: var(--fontsize-body1, 16px);
             font-style: normal;
             font-weight: var(--fontweight-book, 400);
             line-height: 150%;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
 
             @media (width<860px) {
               margin-top: var(--spacing-xs, 16px);
               font-size: var(--fontsize-body2, 14px);
+              -webkit-line-clamp: 4;
+              line-clamp: 4;
             }
           }
 
