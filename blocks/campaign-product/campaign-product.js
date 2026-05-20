@@ -716,9 +716,6 @@ export default async function decorate(block) {
 
       try {
         const commerceProduct = await fetchHybrisProduct(productCode);
-        if (requestId !== commerceRequestId || fav.dataset.productCode !== productCode) {
-          return;
-        }
         // eslint-disable-next-line no-use-before-define
         updatePriceState(commerceProduct, variant);
         favoriteEnabled = hasInventory(commerceProduct);
