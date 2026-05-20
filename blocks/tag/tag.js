@@ -1,4 +1,4 @@
-const DEFAULT_TAGS_ENDPOINT = '/bin/hisense/tags.json';
+const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 
 function getTagsEndpointUrl() {
   const baseUrl = window.GRAPHQL_BASE_URL || '';

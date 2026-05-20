@@ -10,6 +10,7 @@ import {
 } from '../../scripts/hybris-bff.js';
 import { isMobileWindow } from '../../scripts/device.js';
 import { processPath } from '../../utils/carousel-common.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -531,32 +532,32 @@ export default async function decorate(block) {
   let wishlistStateReady = false;
   let favoriteEnabled = false;
   let favoriteAuthenticated = Boolean(getCachedHybrisAuthState().authenticated);
-  let preOrderButtonLink = '/';
-  let preOrderButtonLabel = 'Pre-Order';
+  let preOrderButtonLink = '';
+  let preOrderButtonLabel = '';
+  let FIRST_ITEM_INDEX = 0;
 
   // eslint-disable-next-line no-restricted-syntax
   const rows = [...block.children];
+  const config = readBlockConfig(block);
+  if (config.text) {
+    FIRST_ITEM_INDEX += 1;
+    preOrderButtonLabel = config.text;
+  }
+  if (config.link) {
+    FIRST_ITEM_INDEX += 1;
+    preOrderButtonLink = processPath(config.link);
+  }
   const mobileUlDiv = document.createElement('div');
   mobileUlDiv.classList.add('campaign-product-ul');
   rows.forEach((row) => {
     mobileUlDiv.appendChild(row);
   });
   block.appendChild(mobileUlDiv);
+  for (let i = 0; i < FIRST_ITEM_INDEX; i += 1) {
+    const row = rows[i];
+    row.style.display = 'none';
+  }
 
-  const labelRow = rows[0];
-  const linkRow = rows[1];
-  if (linkRow && linkRow.children.length === 2) {
-    const { href } = linkRow.children[1].querySelector('a');
-    preOrderButtonLink = processPath(href);
-  }
-  if (labelRow.children.length === 2) {
-    preOrderButtonLabel = labelRow.children[1].textContent.trim();
-  }
-  if (linkRow) {
-    linkRow.style.display = 'none';
-  }
-  labelRow.style.display = 'none';
-  const FIRST_ITEM_INDEX = linkRow ? 2 : 1;
   for (let i = FIRST_ITEM_INDEX; i < rows.length; i += 1) {
     const row = rows[i];
     row.classList.add('campaign-category');
@@ -603,17 +604,15 @@ export default async function decorate(block) {
         item.classList.add('category-title');
       } else if (index === 2) {
         const aEl = item.querySelector('a');
-        const href = aEl.getAttribute('href').trim() ?? '';
-        const fixHref = getGraphQLUrl(href);
         try {
+          const href = aEl?.getAttribute('href').trim() ?? '';
+          const fixHref = getGraphQLUrl(href);
           // eslint-disable-next-line no-await-in-loop
           const resp = await fetch(fixHref);
           // eslint-disable-next-line no-await-in-loop
           const respJson = await resp.json();
           itemAllList = respJson.data.productModelList.items;
-        } catch (err) {
-          console.error('请求失败', err);
-        }
+        } catch (err) { /* empty */ }
         item.style.display = 'none';
       } else {
         const filterSku = item.textContent.trim();
@@ -717,9 +716,6 @@ export default async function decorate(block) {
 
       try {
         const commerceProduct = await fetchHybrisProduct(productCode);
-        if (requestId !== commerceRequestId || fav.dataset.productCode !== productCode) {
-          return;
-        }
         // eslint-disable-next-line no-use-before-define
         updatePriceState(commerceProduct, variant);
         favoriteEnabled = hasInventory(commerceProduct);
@@ -799,7 +795,7 @@ export default async function decorate(block) {
     // create product button group
     const productBtnGroupEl = document.createElement('div');
     productBtnGroupEl.className = 'product-btn-group';
-    if (!index) {
+    if (!index && preOrderButtonLink && preOrderButtonLabel) {
       const link = document.createElement('a');
       link.className = 'pre-order-btn';
       link.target = '_blank';
@@ -945,18 +941,28 @@ export default async function decorate(block) {
   positionBarEl.classList.add('position-bar');
   const dataPositionBarEl = document.createElement('div');
   dataPositionBarEl.classList.add('data-position-bar');
-  dataPositionBarEl.style.width = `${((1600 / flatList.length) * Math.min(window.innerWidth, 1440)) / 1440}px`;
+  dataPositionBarEl.style.width = `${((1600 / Math.max(4, flatList.length)) * Math.min(window.innerWidth, 1440)) / 1440}px`;
   positionBarEl.append(dataPositionBarEl);
   const leftBtn = createScrollButton('left');
   const rightBtn = createScrollButton('right');
   const btnGroupEl = document.createElement('div');
+  if (flatList.length < 5) {
+    IS_RIGHTEST = true;
+  }
   btnGroupEl.className = `btn-group ${IS_LEFTEST ? 'leftest' : ''} ${IS_RIGHTEST ? 'rightest' : ''}`;
 
   leftBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    const elList = e.currentTarget.closest('.campaign-product-wrapper').querySelectorAll('.campaign-category');
     if (currentIndex <= 0) return;
     IS_RIGHTEST = false;
+    const beforeSeriesIndex = flatList[currentIndex].seriesIndex;
     currentIndex -= 1;
+    const afterSeriesIndex = flatList[currentIndex].seriesIndex;
+    if (beforeSeriesIndex !== afterSeriesIndex) {
+      elList[beforeSeriesIndex].classList.remove('active');
+      elList[afterSeriesIndex].classList.add('active');
+    }
     currentX = ITEM_WIDTH * currentIndex;
     previewListEl.style.transform = `translateX(-${currentX}px)`;
     IS_LEFTEST = currentIndex <= 0;
@@ -966,9 +972,16 @@ export default async function decorate(block) {
 
   rightBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    const elList = e.currentTarget.closest('.campaign-product-wrapper').querySelectorAll('.campaign-category');
     if (currentIndex + 4 >= flatList.length) return;
     IS_LEFTEST = false;
+    const beforeSeriesIndex = flatList[currentIndex].seriesIndex;
     currentIndex += 1;
+    const afterSeriesIndex = flatList[currentIndex].seriesIndex;
+    if (beforeSeriesIndex !== afterSeriesIndex) {
+      elList[beforeSeriesIndex].classList.remove('active');
+      elList[afterSeriesIndex].classList.add('active');
+    }
     currentX = ITEM_WIDTH * currentIndex;
     previewListEl.style.transform = `translateX(-${currentX}px)`;
     IS_RIGHTEST = currentIndex + 4 >= flatList.length;

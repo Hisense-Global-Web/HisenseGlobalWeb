@@ -70,7 +70,7 @@
       }
 
       .category-title {
-        color: #008482;
+        color: var(--color-primary-green-70);
         font-size: var(--size-16);
         line-height: 1.2;
         font-weight: var(--fontweight-medium);
