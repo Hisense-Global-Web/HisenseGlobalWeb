@@ -532,12 +532,21 @@ export default async function decorate(block) {
   let wishlistStateReady = false;
   let favoriteEnabled = false;
   let favoriteAuthenticated = Boolean(getCachedHybrisAuthState().authenticated);
-  let preOrderButtonLink = '/';
-  let preOrderButtonLabel = 'Pre-Order';
+  let preOrderButtonLink = '';
+  let preOrderButtonLabel = '';
+  let FIRST_ITEM_INDEX = 0;
 
   // eslint-disable-next-line no-restricted-syntax
   const rows = [...block.children];
   const config = readBlockConfig(block);
+  if (config.text) {
+    FIRST_ITEM_INDEX += 1;
+    preOrderButtonLabel = config.text;
+  }
+  if (config.link) {
+    FIRST_ITEM_INDEX += 1;
+    preOrderButtonLink = config.link;
+  }
   console.log(rows, config);
   const mobileUlDiv = document.createElement('div');
   mobileUlDiv.classList.add('campaign-product-ul');
@@ -546,24 +555,6 @@ export default async function decorate(block) {
   });
   block.appendChild(mobileUlDiv);
 
-  const labelRow = rows[0];
-  const linkRow = rows[1];
-  if (linkRow && linkRow.querySelector('a') && linkRow.children.length === 2) {
-    const href = linkRow.children[1].querySelector('a')?.href;
-    preOrderButtonLink = processPath(href);
-  }
-  if (labelRow && labelRow.children.length === 2) {
-    preOrderButtonLabel = labelRow.children[1].textContent.trim();
-  }
-  if (linkRow) {
-    linkRow.style.display = 'none';
-  }
-  if (labelRow) {
-    labelRow.style.display = 'none';
-  }
-  let FIRST_ITEM_INDEX = 0;
-  FIRST_ITEM_INDEX += labelRow ? 1 : 0;
-  FIRST_ITEM_INDEX += linkRow ? 1 : 0;
   for (let i = FIRST_ITEM_INDEX; i < rows.length; i += 1) {
     const row = rows[i];
     row.classList.add('campaign-category');
