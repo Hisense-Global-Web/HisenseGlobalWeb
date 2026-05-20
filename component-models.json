@@ -2785,7 +2785,7 @@
         "component": "text",
         "name": "btntext",
         "value": "",
-        "label": "Button Copy",
+        "label": "Button Text",
         "valueType": "string"
       },
       {

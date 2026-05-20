@@ -604,17 +604,15 @@ export default async function decorate(block) {
         item.classList.add('category-title');
       } else if (index === 2) {
         const aEl = item.querySelector('a');
-        const href = aEl.getAttribute('href').trim() ?? '';
-        const fixHref = getGraphQLUrl(href);
         try {
+          const href = aEl?.getAttribute('href').trim() ?? '';
+          const fixHref = getGraphQLUrl(href);
           // eslint-disable-next-line no-await-in-loop
           const resp = await fetch(fixHref);
           // eslint-disable-next-line no-await-in-loop
           const respJson = await resp.json();
           itemAllList = respJson.data.productModelList.items;
-        } catch (err) {
-          console.error('请求失败', err);
-        }
+        } catch (err) { /* empty */ }
         item.style.display = 'none';
       } else {
         const filterSku = item.textContent.trim();
@@ -951,13 +949,23 @@ export default async function decorate(block) {
   const leftBtn = createScrollButton('left');
   const rightBtn = createScrollButton('right');
   const btnGroupEl = document.createElement('div');
+  if (flatList.length < 5) {
+    IS_RIGHTEST = true;
+  }
   btnGroupEl.className = `btn-group ${IS_LEFTEST ? 'leftest' : ''} ${IS_RIGHTEST ? 'rightest' : ''}`;
 
   leftBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    const elList = e.currentTarget.closest('.campaign-product-wrapper').querySelectorAll('.campaign-category');
     if (currentIndex <= 0) return;
     IS_RIGHTEST = false;
+    const beforeSeriesIndex = flatList[currentIndex].seriesIndex;
     currentIndex -= 1;
+    const afterSeriesIndex = flatList[currentIndex].seriesIndex;
+    if (beforeSeriesIndex !== afterSeriesIndex) {
+      elList[beforeSeriesIndex].classList.remove('active');
+      elList[afterSeriesIndex].classList.add('active');
+    }
     currentX = ITEM_WIDTH * currentIndex;
     previewListEl.style.transform = `translateX(-${currentX}px)`;
     IS_LEFTEST = currentIndex <= 0;
@@ -967,9 +975,16 @@ export default async function decorate(block) {
 
   rightBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    const elList = e.currentTarget.closest('.campaign-product-wrapper').querySelectorAll('.campaign-category');
     if (currentIndex + 4 >= flatList.length) return;
     IS_LEFTEST = false;
+    const beforeSeriesIndex = flatList[currentIndex].seriesIndex;
     currentIndex += 1;
+    const afterSeriesIndex = flatList[currentIndex].seriesIndex;
+    if (beforeSeriesIndex !== afterSeriesIndex) {
+      elList[beforeSeriesIndex].classList.remove('active');
+      elList[afterSeriesIndex].classList.add('active');
+    }
     currentX = ITEM_WIDTH * currentIndex;
     previewListEl.style.transform = `translateX(-${currentX}px)`;
     IS_RIGHTEST = currentIndex + 4 >= flatList.length;
