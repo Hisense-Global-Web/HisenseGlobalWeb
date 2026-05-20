@@ -951,6 +951,9 @@ export default async function decorate(block) {
   const leftBtn = createScrollButton('left');
   const rightBtn = createScrollButton('right');
   const btnGroupEl = document.createElement('div');
+  if (flatList.length < 5) {
+    IS_RIGHTEST = true;
+  }
   btnGroupEl.className = `btn-group ${IS_LEFTEST ? 'leftest' : ''} ${IS_RIGHTEST ? 'rightest' : ''}`;
 
   leftBtn.addEventListener('click', (e) => {
