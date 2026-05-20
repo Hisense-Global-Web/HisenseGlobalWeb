@@ -284,9 +284,9 @@ export default async function decorate(block) {
 
   // 获取动态 loadMoreStep 并设置监听窗口变化
   function getDynamicLoadMoreStep() {
+    let lastScreenWidth = window.innerWidth;
     function loadMoreNum() {
-      const screenWidth = window.innerWidth;
-      if (screenWidth < 860) {
+      if (lastScreenWidth < 860) {
         loadMoreStep = 5; // 手机显示5条
       } else {
         loadMoreStep = 9; // 桌面显示9条
@@ -294,7 +294,12 @@ export default async function decorate(block) {
       resetRenderHandler();
     }
     loadMoreNum(); // 初始调用设置正确的 loadMoreStep
-    window.addEventListener('resize', () => loadMoreNum());
+    window.addEventListener('resize', () => {
+      if (window.innerWidth !== lastScreenWidth) {
+        lastScreenWidth = window.innerWidth;
+        loadMoreNum();
+      }
+    });
   }
 
   // 过滤无效 warranty 数据的函数
