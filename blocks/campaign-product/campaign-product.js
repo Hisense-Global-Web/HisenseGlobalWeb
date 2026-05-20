@@ -577,7 +577,6 @@ export default async function decorate(block) {
         }
         return;
       }
-      console.log('1111');
       const sIndex = [...elList].indexOf(e.currentTarget);
       const targetIndex = flatList.findIndex((item) => item.seriesIndex === sIndex);
       currentIndex = targetIndex;
