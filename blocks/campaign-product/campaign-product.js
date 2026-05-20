@@ -10,6 +10,7 @@ import {
 } from '../../scripts/hybris-bff.js';
 import { isMobileWindow } from '../../scripts/device.js';
 import { processPath } from '../../utils/carousel-common.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -536,6 +537,8 @@ export default async function decorate(block) {
 
   // eslint-disable-next-line no-restricted-syntax
   const rows = [...block.children];
+  const config = readBlockConfig(block);
+  console.log(rows, config);
   const mobileUlDiv = document.createElement('div');
   mobileUlDiv.classList.add('campaign-product-ul');
   rows.forEach((row) => {
