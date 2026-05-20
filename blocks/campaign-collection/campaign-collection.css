@@ -40,6 +40,7 @@
 
       .background-pc img {
         width: 100%;
+        height: min(calc(372 / var(--breakpoint-pc) * 100vw), 372px);
         border-top-left-radius: var(--spacing-s2, 20px);
         border-top-right-radius: var(--spacing-s2, 20px);
       }
@@ -60,6 +61,7 @@
       .background-mobile {
         width: 100%;
         height: calc(500 / var(--breakpoint-mobile) * 100vw);
+        display: block;
 
         @media (width>=860px) {
           display: none;
@@ -68,6 +70,7 @@
 
       .background-mobile img {
         width: 100%;
+        height: calc(500 / var(--breakpoint-mobile) * 100vw);
         border-top-left-radius: var(--spacing-xs, 16px);
         border-top-right-radius: var(--spacing-xs, 16px);
       }
@@ -76,6 +79,7 @@
         position: absolute;
         left: 0;
         top: 0;
+        bottom: 0;
         display: flex;
         padding: var(--spacing-m, 32px);
         gap: var(--spacing-m, 32px);
@@ -86,14 +90,10 @@
         @media (width<860px) {
           flex-direction: column;
           padding: var(--spacing-md, 30px) var(--spacing-sm, 24px);
+          gap: var(--spacing-xs, 16px);
 
           .left-close {
             order: 2;
-          }
-
-          .left-close img {
-            width: 100% !important;
-            height: 100% !important;
           }
 
           .right-content {
@@ -104,6 +104,11 @@
         .left-close img {
           width: min(calc(538 / var(--breakpoint-pc) * 100vw), 538px);
           height: min(calc(308 / var(--breakpoint-pc) * 100vw), 308px);
+
+          @media (width<860px) {
+            width: calc(306 / var(--breakpoint-mobile) * 100vw);
+            height: calc(175 / var(--breakpoint-mobile) * 100vw);
+          }
         }
 
         .right-content {
@@ -120,26 +125,35 @@
             font-weight: var(--fontweight-medium, 500);
             line-height: 120%;
             text-transform: capitalize;
+            overflow: hidden;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
 
             @media (width<860px) {
               font-size: var(--fontsize-pc-h4, 30px);
               width: calc(300 / var(--breakpoint-mobile) * 100vw);
+              -webkit-line-clamp: 3;
+              line-clamp: 3;
             }
           }
 
           .text {
             margin-top: var(--spacing-s2, 20px);
-            overflow: hidden;
             color: var(--color-primary-grey-10, #fff);
             text-overflow: ellipsis;
             font-size: var(--fontsize-body1, 16px);
             font-style: normal;
             font-weight: var(--fontweight-book, 400);
             line-height: 150%;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
 
             @media (width<860px) {
               margin-top: var(--spacing-xs, 16px);
               font-size: var(--fontsize-body2, 14px);
+              -webkit-line-clamp: 4;
+              line-clamp: 4;
             }
           }
 
