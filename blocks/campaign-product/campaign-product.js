@@ -547,13 +547,16 @@ export default async function decorate(block) {
     FIRST_ITEM_INDEX += 1;
     preOrderButtonLink = config.link;
   }
-  console.log(rows, config);
   const mobileUlDiv = document.createElement('div');
   mobileUlDiv.classList.add('campaign-product-ul');
   rows.forEach((row) => {
     mobileUlDiv.appendChild(row);
   });
   block.appendChild(mobileUlDiv);
+  for (let i = 0; i < FIRST_ITEM_INDEX; i += 1) {
+    const row = rows[i];
+    row.style.display = 'none';
+  }
 
   for (let i = FIRST_ITEM_INDEX; i < rows.length; i += 1) {
     const row = rows[i];
@@ -797,7 +800,7 @@ export default async function decorate(block) {
     // create product button group
     const productBtnGroupEl = document.createElement('div');
     productBtnGroupEl.className = 'product-btn-group';
-    if (!index) {
+    if (!index && preOrderButtonLink && preOrderButtonLabel) {
       const link = document.createElement('a');
       link.className = 'pre-order-btn';
       link.target = '_blank';
