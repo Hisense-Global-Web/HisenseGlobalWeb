@@ -1,9 +1,10 @@
 .promotional-text-wrapper {
+  width: 100%;
+
   .promotional-text {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-s2, 20px);
     padding: 0 var(--size-60);
 
     @media (width<860px) {
@@ -12,7 +13,7 @@
     }
 
     .title {
-      text-align: center;
+      width: 100%;
       font-size: var(--fontsize-h1, 40px);
       font-style: normal;
       font-weight: var(--fontweight-medium, 500);
@@ -20,18 +21,35 @@
       text-transform: capitalize;
 
       @media (width<860px) {
-        font-size: var(--fontsize-title1, 24px);
+        font-size: var(--fontsize-h3, 30px);
       }
     }
 
     .subtitle {
-      text-align: center;
+      margin-top: var(--spacing-2xs, 12px);
+      width: 100%;
       font-size: var(--fontsize-title1, 24px);
       font-style: normal;
       font-weight: var(--fontweight-medium, 500);
       line-height: 1.5;
 
       @media (width<860px) {
+        margin-top: var(--spacing-xs, 16px);
+        font-size: var(--fontsize-s, 18px);
+        line-height: 1.2;
+      }
+    }
+
+    .content {
+      margin-top: var(--spacing-s2, 20px);
+      width: 100%;
+      font-size: var(--fontsize-body1, 16px);
+      font-style: normal;
+      font-weight: var(--fontweight-book, 400);
+      line-height: 1.5;
+
+      @media (width<860px) {
+        margin-top: var(--spacing-2xs, 12px);
         font-size: var(--fontsize-body2, 14px);
       }
     }
@@ -42,6 +60,9 @@
   }
 
   .align-center {
-    text-align: center;
+    div,
+    p {
+      text-align: center;
+    }
   }
 }

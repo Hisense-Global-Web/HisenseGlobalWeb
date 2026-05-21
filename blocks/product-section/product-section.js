@@ -1970,7 +1970,7 @@ export default async function decorate(block) {
     pdpNavMenu.append(specsMobileBtn);
     h += 45;
   }
-  if (faqLink) {
+  if (faqLink && fields.includes('faq')) {
     pdpNavMenu.append(faqMobileBtn);
     h += 45;
   }

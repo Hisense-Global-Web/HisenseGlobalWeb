@@ -1514,50 +1514,50 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "fifa_image",
+        "name": "fifa-image",
         "label": "Background Image",
         "multi": false
       },
       {
         "component": "reference",
         "valueType": "string",
-        "name": "fifaMobile_image",
+        "name": "fifa-mobile-image",
         "label": "Background Image For Mobile",
         "multi": false
       },
       {
         "component": "text",
-        "name": "top_title",
+        "name": "top-title",
         "label": "Banner Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "top_subtitle",
+        "name": "top-subtitle",
         "label": "Banner Subtitle",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "left_title",
+        "name": "left-title",
         "label": "Bundle Title",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "left_subtitle",
+        "name": "left-subtitle",
         "label": "Bundle Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "left_ctaPrimary",
+        "name": "left-cta",
         "label": "Bundle Button Link",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "left_ctaPrimaryText",
+        "name": "left-cta-text",
         "label": "Bundle Button Text",
         "valueType": "string"
       }
@@ -1568,25 +1568,25 @@
     "fields": [
       {
         "component": "text",
-        "name": "product_series",
+        "name": "product-series",
         "label": "Product Series",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "product_name",
+        "name": "product-name",
         "label": "Product Name",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "product_cta",
+        "name": "bundle_cta",
         "label": "Button Link",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "product_ctaText",
+        "name": "bundle_ctaText",
         "label": "Button Text",
         "valueType": "string"
       }
@@ -1646,7 +1646,7 @@
       {
         "component": "text",
         "name": "right_buttontext",
-        "label": "Butotn Text",
+        "label": "Button Text",
         "valueType": "string",
         "value": "",
         "required": true
@@ -1781,6 +1781,110 @@
         "label": "Button Link",
         "valueType": "string",
         "required": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile-image",
+        "label": "Image for Mobile",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "campaign-product",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Pre-Order Button Label"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Pre-Order Button Link",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "campaign-product-list",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Category Image",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Category Text",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "graphql",
+        "label": "GraphQL Endpoint",
+        "required": true
+      },
+      {
+        "component": "container",
+        "label": "Product List",
+        "name": "product-list",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sku1",
+            "label": "SKU",
+            "required": true
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sku2",
+            "label": "SKU"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sku3",
+            "label": "SKU"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sku4",
+            "label": "SKU"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sku5",
+            "label": "SKU"
+          }
+        ]
       }
     ]
   },
@@ -2681,7 +2785,7 @@
         "component": "text",
         "name": "btntext",
         "value": "",
-        "label": "Button Copy",
+        "label": "Button Text",
         "valueType": "string"
       },
       {
@@ -5436,6 +5540,13 @@
         "value": "",
         "label": "Subtitle",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "content",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
       }
     ]
   },
@@ -5905,8 +6016,7 @@
       {
         "component": "aem-content",
         "name": "link",
-        "label": "Link",
-        "required": true
+        "label": "Link"
       }
     ]
   },
