@@ -1,4 +1,4 @@
-import { isMobileWindow } from '../../scripts/device.js';
+import {isMobileWindow} from '../../scripts/device.js';
 import {
   addHybrisCartItem,
   addHybrisWishlistItem,
@@ -15,22 +15,22 @@ import {
   startHybrisLogin,
   updateHybrisCartItem,
 } from '../../scripts/hybris-bff.js';
-import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
+import {getLocaleFromPath, localizeProductApiPath} from '../../scripts/locale-utils.js';
 import {
-  renderCompareDetailData,
   aggregateData,
-  createComparePopup,
-  createCompareLiEl,
-  compareLiAppendType,
-  setCompareProductImgTit,
   appendCompareProductUtil,
+  compareLiAppendType,
+  createCompareLiEl,
+  createComparePopup,
+  renderCompareDetailData,
+  setCompareProductImgTit,
 } from '../../utils/plp-compare-utils.js';
 import {
   resolveCommerceButtonVisibility,
   resolveCommerceCallToAction,
+  resolvePopupQuantityDisplayState,
   resolvePriceSpiderWhereToBuyState,
   resolveProductCardTagLabel,
-  resolvePopupQuantityDisplayState,
   resolveWhereToBuyButtonPresentation,
   shouldShowPlpFavoriteButton,
 } from '../../scripts/commerce-ui-utils.js';
@@ -38,6 +38,7 @@ import {
 const { country } = getLocaleFromPath();
 const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-p1-public.model-t.cc.commerce.ondemand.com';
 const STOREFRONT_CART_URL = `${STOREFRONT_BASE_URL}/cart`;
+const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 const STOREFRONT_CHECKOUT_URL = new URL('/checkout/delivery-address', STOREFRONT_BASE_URL).toString();
 const WISHLIST_CART_NAME_PREFIX = 'wishlist';
 const wishlistEntriesByCode = new Map();
@@ -45,6 +46,26 @@ let wishlistLoadPromise = null;
 let wishlistLoaded = false;
 let wishlistRequestVersion = 0;
 let wishlistPrimaryCartCode = '';
+
+function getTagsEndpointUrl() {
+  const baseUrl = window.GRAPHQL_BASE_URL || '';
+  return baseUrl ? `${baseUrl}${DEFAULT_TAGS_ENDPOINT}` : DEFAULT_TAGS_ENDPOINT;
+}
+
+function extractTags(data, tags = {}) {
+  Object.keys(data).forEach((key) => {
+    // 跳过 JCR 系统属性
+    if (!key.startsWith('jcr:') && typeof data[key] === 'object' && data[key] !== null) {
+      // 如果当前节点有 jcr:title，说明它是一个标签节点
+      if (data[key]['jcr:title']) {
+        tags[key] = data[key]['jcr:title'];
+      }
+      // 递归处理子节点
+      extractTags(data[key], tags);
+    }
+  });
+  return tags;
+}
 
 function setControlLoadingState(element, isLoading) {
   if (!element) {
@@ -2643,8 +2664,16 @@ export default function decorate(block) {
 
     return [];
   }
-
-  fetch(getGraphQLUrl(graphqlUrl))
+  fetch(getTagsEndpointUrl())
+    .then((resp) => {
+      if (!resp.ok) throw new Error('Tags network response not ok');
+      return resp.json();
+    })
+    .then((tagsData) => {
+      window.extractedTags = extractTags(tagsData);
+      // 继续原有的 GraphQL 请求
+      return fetch(getGraphQLUrl(graphqlUrl));
+    })
     .then((resp) => {
       if (!resp.ok) throw new Error('Network response not ok');
       return resp.json();
