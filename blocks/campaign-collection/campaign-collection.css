@@ -279,7 +279,7 @@
           gap: var(--spacing-xs, 16px);
 
           @media (width<860px) {
-            overflow-x: auto;
+            overflow: auto hidden;
             scrollbar-width: none;
             justify-content: flex-start;
           }
