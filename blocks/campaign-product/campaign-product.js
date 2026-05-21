@@ -496,14 +496,14 @@ function updatePositionBarLeft(currentIndex, dataListLength) {
     const barWidth = 1600 / dataListLength;
     const showItemCount = 4;
     const maxMoveDistance = totalWidth - barWidth;
-    bar.style.left = `${(maxMoveDistance / Math.max((dataListLength - showItemCount), 1) || 0) * currentIndex}px`;
+    bar.style.left = `${(maxMoveDistance / Math.max((dataListLength - showItemCount), 1) || 0) * Math.min(currentIndex, dataListLength - 4)}px`;
   }
 }
 
 function scrollToIndex(targetIndex, flatList, previewListEl, btnGroupEl) {
   const ITEM_WIDTH = 262 + 24;
   // 边界处理：不能小于0，也不能超过最大可滚动索引
-  const maxIndex = Math.max(0, flatList.length - 4);
+  const maxIndex = Math.max(0, flatList.length - 1);
   const finalIndex = Math.min(Math.max(0, targetIndex), maxIndex);
 
   // 更新滚动状态
@@ -973,9 +973,11 @@ export default async function decorate(block) {
   rightBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const elList = e.currentTarget.closest('.campaign-product-wrapper').querySelectorAll('.campaign-category');
-    if (currentIndex + 4 >= flatList.length) return;
-    IS_LEFTEST = false;
+    if (currentIndex + 1 >= flatList.length) return;
     const beforeSeriesIndex = flatList[currentIndex].seriesIndex;
+    const lastestSeriesIndex = flatList[flatList.length - 1].seriesIndex;
+    if (currentIndex + 4 >= flatList.length && beforeSeriesIndex === lastestSeriesIndex) return;
+    IS_LEFTEST = false;
     currentIndex += 1;
     const afterSeriesIndex = flatList[currentIndex].seriesIndex;
     if (beforeSeriesIndex !== afterSeriesIndex) {
@@ -984,7 +986,7 @@ export default async function decorate(block) {
     }
     currentX = ITEM_WIDTH * currentIndex;
     previewListEl.style.transform = `translateX(-${currentX}px)`;
-    IS_RIGHTEST = currentIndex + 4 >= flatList.length;
+    IS_RIGHTEST = currentIndex + 4 >= flatList.length && afterSeriesIndex === lastestSeriesIndex;
     updatePositionBarLeft(currentIndex, flatList.length);
     btnGroupEl.className = `btn-group ${IS_LEFTEST ? 'leftest' : ''} ${IS_RIGHTEST ? 'rightest' : ''}`;
   });
