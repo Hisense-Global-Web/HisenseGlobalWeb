@@ -204,7 +204,8 @@ export function resolveProductCardTagLabel(product = {}) {
   }
 
   const lastSlashIndex = targetBadge.lastIndexOf('/');
-  return lastSlashIndex > -1 ? targetBadge.slice(lastSlashIndex + 1) : targetBadge;
+  const badge = lastSlashIndex > -1 ? targetBadge.slice(lastSlashIndex + 1) : targetBadge;
+  return window.extractedTags && window.extractedTags[badge] ? window.extractedTags[badge] : badge;
 }
 
 export function resolvePopupQuantityDisplayState(options = {}) {
