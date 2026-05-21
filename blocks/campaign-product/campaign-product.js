@@ -14,6 +14,7 @@ import { readBlockConfig } from '../../scripts/aem.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 const WISHLIST_CART_NAME_PREFIX = 'wishlist';
 const wishlistEntriesByCode = new Map();
 let wishlistLoadPromise = null;
@@ -21,6 +22,25 @@ let wishlistLoaded = false;
 let wishlistRequestVersion = 0;
 let wishlistPrimaryCartCode = '';
 
+function getTagsEndpointUrl() {
+  const baseUrl = window.GRAPHQL_BASE_URL || '';
+  return baseUrl ? `${baseUrl}${DEFAULT_TAGS_ENDPOINT}` : DEFAULT_TAGS_ENDPOINT;
+}
+
+function extractTags(data, tags = {}) {
+  Object.keys(data).forEach((key) => {
+    // 跳过 JCR 系统属性
+    if (!key.startsWith('jcr:') && typeof data[key] === 'object' && data[key] !== null) {
+      // 如果当前节点有 jcr:title，说明它是一个标签节点
+      if (data[key]['jcr:title']) {
+        tags[key] = data[key]['jcr:title'];
+      }
+      // 递归处理子节点
+      extractTags(data[key], tags);
+    }
+  });
+  return tags;
+}
 function setControlLoadingState(element, isLoading) {
   if (!element) {
     return;
@@ -607,6 +627,11 @@ export default async function decorate(block) {
         try {
           const href = aEl?.getAttribute('href').trim() ?? '';
           const fixHref = getGraphQLUrl(href);
+          // eslint-disable-next-line no-await-in-loop
+          const tagResp = await fetch(getTagsEndpointUrl());
+          // eslint-disable-next-line no-await-in-loop
+          const tagsData = await tagResp.json();
+          window.extractedTags = extractTags(tagsData);
           // eslint-disable-next-line no-await-in-loop
           const resp = await fetch(fixHref);
           // eslint-disable-next-line no-await-in-loop
