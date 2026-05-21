@@ -245,7 +245,6 @@ function createFaqCard(faqItem, index, tags) {
   title.className = 'faq-title';
 
   const titleContent = document.createElement('div');
-  console.log(faqItem, tags);
   const faqTagText = getFaqTagText(faqItem, tags);
 
   if (faqTagText) {

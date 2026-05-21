@@ -1,4 +1,4 @@
-import {isMobileWindow} from '../../scripts/device.js';
+import { isMobileWindow } from '../../scripts/device.js';
 import {
   addHybrisCartItem,
   addHybrisWishlistItem,
@@ -15,7 +15,7 @@ import {
   startHybrisLogin,
   updateHybrisCartItem,
 } from '../../scripts/hybris-bff.js';
-import {getLocaleFromPath, localizeProductApiPath} from '../../scripts/locale-utils.js';
+import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
 import {
   aggregateData,
   appendCompareProductUtil,
