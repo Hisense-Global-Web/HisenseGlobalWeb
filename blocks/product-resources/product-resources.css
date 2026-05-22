@@ -153,6 +153,7 @@
 
   @media (width < 860px) {
     font-size: var(--size-18, 18px);
+    position: relative;
   }
   
   &.active {

@@ -9,7 +9,8 @@
 
     @media (width<860px) {
       padding: 0 var(--spacing-3xs, 8px);
-      gap: var(--spacing-2xs, 12px);
+
+      /* gap: var(--spacing-2xs, 12px); */
     }
 
     .title {
