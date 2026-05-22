@@ -509,8 +509,8 @@ function createScrollButton(direction) {
   return button;
 }
 
-function updatePositionBarLeft(currentIndex, dataListLength) {
-  const bar = document.querySelector('.data-position-bar');
+function updatePositionBarLeft(currentIndex, dataListLength, wrapper = document) {
+  const bar = wrapper.querySelector('.data-position-bar');
   if (bar) {
     const totalWidth = 400;
     const barWidth = 1600 / dataListLength;
@@ -536,7 +536,8 @@ function scrollToIndex(targetIndex, flatList, previewListEl, btnGroupEl) {
   previewListEl.style.transform = `translateX(-${window.currentX}px)`;
 
   // 更新按钮状态和位置条
-  updatePositionBarLeft(finalIndex, flatList.length);
+  const wrapper = btnGroupEl.closest('.campaign-product-wrapper');
+  updatePositionBarLeft(finalIndex, flatList.length, wrapper);
   btnGroupEl.className = `btn-group ${window.IS_LEFTEST ? 'leftest' : ''} ${window.IS_RIGHTEST ? 'rightest' : ''}`;
 }
 export default async function decorate(block) {
@@ -978,7 +979,8 @@ export default async function decorate(block) {
 
   leftBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const elList = e.currentTarget.closest('.campaign-product-wrapper').querySelectorAll('.campaign-category');
+    const wrapper = e.currentTarget.closest('.campaign-product-wrapper');
+    const elList = wrapper.querySelectorAll('.campaign-category');
     if (currentIndex <= 0) return;
     IS_RIGHTEST = false;
     const beforeSeriesIndex = flatList[currentIndex].seriesIndex;
@@ -991,13 +993,14 @@ export default async function decorate(block) {
     currentX = ITEM_WIDTH * currentIndex;
     previewListEl.style.transform = `translateX(-${currentX}px)`;
     IS_LEFTEST = currentIndex <= 0;
-    updatePositionBarLeft(currentIndex, flatList.length);
+    updatePositionBarLeft(currentIndex, flatList.length, wrapper);
     btnGroupEl.className = `btn-group ${IS_LEFTEST ? 'leftest' : ''} ${IS_RIGHTEST ? 'rightest' : ''}`;
   });
 
   rightBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const elList = e.currentTarget.closest('.campaign-product-wrapper').querySelectorAll('.campaign-category');
+    const wrapper = e.currentTarget.closest('.campaign-product-wrapper');
+    const elList = wrapper.querySelectorAll('.campaign-category');
     if (currentIndex + 1 >= flatList.length) return;
     const beforeSeriesIndex = flatList[currentIndex].seriesIndex;
     const lastestSeriesIndex = flatList[flatList.length - 1].seriesIndex;
@@ -1012,7 +1015,7 @@ export default async function decorate(block) {
     currentX = ITEM_WIDTH * currentIndex;
     previewListEl.style.transform = `translateX(-${currentX}px)`;
     IS_RIGHTEST = currentIndex + 4 >= flatList.length && afterSeriesIndex === lastestSeriesIndex;
-    updatePositionBarLeft(currentIndex, flatList.length);
+    updatePositionBarLeft(currentIndex, flatList.length, wrapper);
     btnGroupEl.className = `btn-group ${IS_LEFTEST ? 'leftest' : ''} ${IS_RIGHTEST ? 'rightest' : ''}`;
   });
   btnGroupEl.append(leftBtn, rightBtn);
