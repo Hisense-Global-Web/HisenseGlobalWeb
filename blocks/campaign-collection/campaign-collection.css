@@ -26,7 +26,7 @@
 
       .background-pc {
         width: 100%;
-        height: min(calc(372 / var(--breakpoint-pc) * 100vw), 372px);
+        height: min(calc(352 / var(--breakpoint-pc) * 100vw), 352px);
 
         @media (width<860px) {
           display: none;
@@ -40,7 +40,7 @@
 
       .background-pc img {
         width: 100%;
-        height: min(calc(372 / var(--breakpoint-pc) * 100vw), 372px);
+        height: min(calc(352 / var(--breakpoint-pc) * 100vw), 352px);
         border-top-left-radius: var(--spacing-s2, 20px);
         border-top-right-radius: var(--spacing-s2, 20px);
       }

@@ -10,6 +10,9 @@ export default function decorate(block) {
   }
   if (subtitleEl) {
     subtitleEl.classList.add('subtitle');
+    if (subtitleEl?.textContent?.trim() === '') {
+      subtitleEl.style.marginTop = '0';
+    }
   }
   if (contentEl) {
     contentEl.classList.add('content');
