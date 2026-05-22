@@ -1,5 +1,5 @@
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
-import { handleCommonDownloadClick } from '../../utils/download.js';
+import {createOptimizedPicture, readBlockConfig} from '../../scripts/aem.js';
+import {handleCommonDownloadClick} from '../../utils/download.js';
 
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 function getTagsEndpointUrl() {
@@ -394,7 +394,7 @@ async function fetchNewsroom(offset, limit, dataSource) {
   const basePath = `${baseUrl}/${country}/${language}/newsroom.json`;
   const url = dataSource || basePath;
 
-  const response = await fetch(url, { credentials: 'same-origin' });
+  const response = await fetch(`${url}?_t=${Math.floor(Date.now() / 3000000)}`, { credentials: 'same-origin' });
   if (!response.ok) {
     // eslint-disable-next-line no-console
     console.error('Failed to load newsroom index', response.status);
@@ -424,6 +424,7 @@ export default async function decorate(block) {
   const paginatedBtnText = config['paginated-btn-text'] || '';
   const discoverMoreText = config['discover-more-text'] || 'Discover more';
   const dataSource = config['data-source'] || '';
+  console.log(dataSource);
 
   const blockResource = block.getAttribute('data-aue-resource');
 
