@@ -1,5 +1,5 @@
-import {createOptimizedPicture, readBlockConfig} from '../../scripts/aem.js';
-import {handleCommonDownloadClick} from '../../utils/download.js';
+import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { handleCommonDownloadClick } from '../../utils/download.js';
 
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 function getTagsEndpointUrl() {
