@@ -8,6 +8,10 @@ main .section.product-gallery-container.product-section-container {
   margin: auto;
   box-sizing: border-box;
   gap: var(--size-80);
+
+  @media (width < 1180px) {
+    padding: 56px 0 var(--size-100);
+  }
 }
 
 main .section.product-gallery-container.product-section-container .product-gallery-wrapper {
