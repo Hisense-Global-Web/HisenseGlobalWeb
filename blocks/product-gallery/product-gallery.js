@@ -1,4 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -166,7 +167,7 @@ function debounce(func, delay) {
 
 // 计算并对齐到最近的item（手机端专用）
 function alignToWholeItemMobile(tabsList) {
-  const isMobile = window.innerWidth < 860;
+  const isMobile = window.innerWidth < SCREEN_POINT;
   if (!isMobile) return;
 
   const firstItem = tabsList.querySelector('.product-filter-item');
@@ -227,7 +228,7 @@ function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
   tabsList.addEventListener('scroll', () => {
     updateButtons(tabsList, leftBtn, rightBtn);
     // 手机端滚动停止后对齐
-    const isMobile = window.innerWidth < 860;
+    const isMobile = window.innerWidth < SCREEN_POINT;
     if (isMobile) {
       debounceAlignToItem();
     }
@@ -235,7 +236,7 @@ function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
 
   // ---------- 核心修复：resize 自动对齐校正 ----------
   window.addEventListener('resize', () => {
-    const isMobile = window.innerWidth < 860;
+    const isMobile = window.innerWidth < SCREEN_POINT;
     const firstItem = tabsList.querySelector('.product-filter-item');
     if (firstItem) {
       if (isMobile) {
