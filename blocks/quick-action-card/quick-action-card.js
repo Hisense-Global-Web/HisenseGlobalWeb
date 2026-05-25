@@ -1,3 +1,5 @@
+import { SCREEN_POINT } from '../../utils/constants.js';
+
 function cardClickHandler(link) {
   window.location.href = link;
 }
@@ -32,7 +34,7 @@ export default function decorate(block) {
       };
 
       // 使用 matchMedia API
-      const mediaQuery = window.matchMedia('(min-width: 860px)');
+      const mediaQuery = window.matchMedia(`(min-width: ${SCREEN_POINT}px)`);
 
       function handleMediaChange(e) {
         if (e.matches) {
@@ -51,7 +53,7 @@ export default function decorate(block) {
       mediaQuery.addEventListener('change', handleMediaChange);
     });
 
-    const meidaCardQuery = window.matchMedia('(min-width: 860px)');
+    const mediaCardQuery = window.matchMedia(`(min-width: ${SCREEN_POINT}px)`);
 
     const handleCardMediaChange = (e) => {
       if (e.matches) {
@@ -63,7 +65,7 @@ export default function decorate(block) {
       }
     };
 
-    handleCardMediaChange(meidaCardQuery);
+    handleCardMediaChange(mediaCardQuery);
   } catch (error) {
     /* eslint-disable-next-line no-console */
     console.error('Quick Action block decoration error:', error);

@@ -1,3 +1,5 @@
+import { SCREEN_POINT } from '../../utils/constants.js';
+
 const EButtonAction = Object.freeze({
   pageRedirect: 'pageRedirect',
   phoneCall: 'phoneCall',
@@ -23,7 +25,7 @@ export default function decorate(block) {
     const pcColumn = columnNumberEl?.querySelector?.('p')?.textContent || '4';
     columnNumberEl?.remove();
 
-    const meidaCardQuery = window.matchMedia('(min-width: 860px)');
+    const mediaCardQuery = window.matchMedia(`(min-width: ${SCREEN_POINT}px)`);
 
     const handleCardMediaChange = (e) => {
       if (e.matches) {
@@ -35,7 +37,7 @@ export default function decorate(block) {
       }
     };
 
-    handleCardMediaChange(meidaCardQuery);
+    handleCardMediaChange(mediaCardQuery);
 
     elementItems.forEach((element) => {
       element.classList.add('additional-support-card-item');
