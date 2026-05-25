@@ -379,6 +379,10 @@ footer footer {
       margin-bottom: 0;
     }
   }
+
+  img {
+    width: var(--size-17);
+  }
 }
 
 #footer .footer-nav-column-link {

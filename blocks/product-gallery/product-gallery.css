@@ -23,7 +23,7 @@
   /* width: 640px; */
 
   /* height: 360px; */
-  min-height: 360px;
+  min-height: min(calc(360 / var(--breakpoint-pc) * 100vw), 360px);
   margin-bottom: var(--size-30);
   position: relative;
   display: flex;
