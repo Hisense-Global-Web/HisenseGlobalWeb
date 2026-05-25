@@ -5,7 +5,7 @@
 }
 
 .job-detail-wrapper ~ .gray-tips-wrapper {
-  width: min(calc(860 / var(--breakpoint-pc) * 100vw), 640px) !important;
+  width: min(calc(640 / var(--breakpoint-pc) * 100vw), 640px) !important;
   padding: 0 var(--common-padding) !important;
 
   @media (width < 640px) {
