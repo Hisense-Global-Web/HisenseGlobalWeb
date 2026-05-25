@@ -18,5 +18,5 @@ export function isMobile() {
 // 设备检测函数
 export function isMobileWindow() {
   if (typeof window === 'undefined') return false;
-  return window.innerWidth < 860;
+  return window.innerWidth < 640;
 }

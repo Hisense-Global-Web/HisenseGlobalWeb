@@ -14,7 +14,7 @@ export default function decorate(block) {
       if (div.children.length === 1 && div.querySelector('picture')) { div.className = 'collection-cards-card-image'; } else if (div.querySelector('.button-container')) div.className = 'collection-cards-card-cta';
       else div.className = 'collection-cards-card-body';
     });
-    if (viewportWidth < 860) {
+    if (viewportWidth < 640) {
       let touchStartTime;
       let isScrolling = false;
       let startX;
@@ -58,7 +58,7 @@ export default function decorate(block) {
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
   });
-  if (viewportWidth >= 860) {
+  if (viewportWidth >= 640) {
     const coverLi = document.querySelectorAll('.cover-style > ul > li');
     coverLi.forEach((item) => {
       const link = item.querySelector('a');
