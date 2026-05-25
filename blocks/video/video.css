@@ -46,7 +46,7 @@ video{
 }
 
 
-@media (width < 860px) {
+@media (width < 640px) {
   .video {
      min-height: unset;
      padding:0;

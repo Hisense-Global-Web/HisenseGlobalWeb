@@ -111,7 +111,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .tech-information {
     flex-direction: column;
     max-height: unset;

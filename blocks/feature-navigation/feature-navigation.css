@@ -25,7 +25,7 @@
   grid-template-columns: 1fr 1px 1fr 1px 1fr;
   gap: var(--size-24);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
      grid-template-columns: 1fr;
      gap: 0;
 	}
@@ -37,7 +37,7 @@
   background-color: var(--color-primary-green-50);
   margin: auto 0;
  
-   @media (width < 860px) {
+   @media (width < 640px) {
     width: calc(100% - var(--size-86));
     height: 1px;
     margin: 0 auto;
@@ -51,7 +51,7 @@
    flex-direction: column;
    justify-content: space-between;
 
-   @media (width < 860px) {
+   @media (width < 640px) {
     padding: var(--size-48) 0;
     text-align: center;
   }
@@ -63,7 +63,7 @@
   margin: var(--spacing-sm) 0 var(--spacing-md);
   max-width: 73.33333vw;
 
-   @media (width < 860px) {
+   @media (width < 640px) {
      margin: var(--size-12) auto var(--spacing-sm);
   }
 }
@@ -73,7 +73,7 @@
   font-size: var(--fontsize-title1);
   margin-bottom: var(--size-8);
 
-   @media (width < 860px) {
+   @media (width < 640px) {
     font-size: var(--size-20);
     margin-bottom: var(--size-4);
   }
@@ -83,7 +83,7 @@
    font-weight: var(--fontweight-book);
    font-size: var(--fontsize-body2);
    
-   @media (width < 860px) {
+   @media (width < 640px) {
       font-size: var(--size-14);
       width: var(--size-240);
   }
@@ -94,7 +94,7 @@
   align-items: center;
   height: var(--size-12);
 
-   @media (width < 860px) {
+   @media (width < 640px) {
     justify-content: center;
     max-width: 73.33333vw;
     margin: auto;
@@ -118,7 +118,7 @@
   border-radius: 0;
   border: 0;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
       font-size: var(--size-14);
       color: var(--color-primary-grey-100);
       font-weight: var(--fontweight-medium);
@@ -134,7 +134,7 @@
   
   /* transform: translateY(-2px); */
 
-   @media (width < 860px) {
+   @media (width < 640px) {
       width: var(--size-8);
       height: var(--size-8);
       background: url('/content/dam/hisense/us/common-icons/right-black.svg') no-repeat;
@@ -149,7 +149,7 @@
   object-fit: contain;
   transition: transform .5s cubic-bezier(0.35, 0, 0.36, 1), -webkit-transform .5s cubic-bezier(0.35, 0, 0.36, 1);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
      width: var(--size-64);
      height: var(--size-64);
      margin: auto;

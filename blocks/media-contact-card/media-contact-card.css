@@ -18,7 +18,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
     color: var(--color-hisense-black);
     line-height: 1.2;
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       width: 100%;
       font-size: var(--size-16);
       line-height: 1.3;
@@ -32,7 +32,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
     color: var(--color-primary-grey-70);
 
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       width: 100%;
     }
 
@@ -45,7 +45,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
       border-radius: var(--radius-lg);
       gap: var(--size-48);
       
-      @media (width < 860px) {
+      @media (width < 640px) {
         flex-direction: column;
         padding: var(--size-48) var(--size-24);
       }
@@ -56,7 +56,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
         max-width: min(calc(426 / var(--breakpoint-pc) * 100vw), 426px);
         gap: var(--size-8);
         
-        @media (width < 860px) {
+        @media (width < 640px) {
           width: 100%;
           max-width: initial;
         }
@@ -67,7 +67,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
           font-weight: var(--fontweight-medium);
           line-height: 1.2;
           
-          @media (width < 860px) {
+          @media (width < 640px) {
             font-size: var(--size-24);
           }
         }
@@ -78,7 +78,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
           font-weight: var(--fontweight-book);
           line-height: 1.5;
           
-          @media (width < 860px) {
+          @media (width < 640px) {
             font-size: var(--size-16);
             line-height: 1.3;
           }
@@ -93,7 +93,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
           font-weight: var(--fontweight-book);
           line-height: var(--size-26);
           
-          @media (width < 860px) {
+          @media (width < 640px) {
             font-size: var(--size-16);
             line-height: 1.3;
           }
@@ -113,7 +113,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
         gap: var(--size-12);
         width: min(calc(230 / var(--breakpoint-pc) * 100vw), 230px);
         
-        @media (width < 860px) {
+        @media (width < 640px) {
           width: 100%;
         }
         
@@ -147,7 +147,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
             opacity: .4;
           }
           
-          @media (width < 860px) {
+          @media (width < 640px) {
             align-self: flex-start;
             width: auto;
             height: auto;
@@ -163,7 +163,7 @@ main .section.media-contact-card-container .media-contact-card-wrapper {
           line-height: 22px;
           color: var(--color-primary-grey-70);
           
-          @media (width < 860px) {
+          @media (width < 640px) {
             font-size: var(--size-14);
             line-height: 1.4;
           }

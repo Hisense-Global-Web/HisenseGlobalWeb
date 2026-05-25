@@ -34,7 +34,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .popup-title-wrapper {
     .p-title {
       font-size: var(--size-16);

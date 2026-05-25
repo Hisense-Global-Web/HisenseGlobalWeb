@@ -4,7 +4,7 @@
 }
 
 .campaign-product {
-  @media (width < 860px) {
+  @media (width < 640px) {
     width: calc(100% + 2 * var(--common-padding));
     margin-left: calc(-1 * var(--common-padding));
     overflow: auto visible;
@@ -22,7 +22,7 @@
     display: flex;
     gap: var(--size-24);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       margin-left: var(--common-padding);
       padding-right: var(--common-padding);
       gap: var(--size-12);
@@ -41,7 +41,7 @@
       background-color: #C8EFEE;
       cursor: pointer;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         flex-direction: column;
         width: var(--size-141);
         padding: var(--size-16) var(--size-12);
@@ -63,7 +63,7 @@
         width: var(--size-68);
         height: var(--size-68);
 
-        @media (width < 860px) {
+        @media (width < 640px) {
           width: var(--size-56);
           height: var(--size-56);
         }
@@ -75,7 +75,7 @@
         line-height: 1.2;
         font-weight: var(--fontweight-medium);
 
-        @media (width < 860px) {
+        @media (width < 640px) {
           color: #005a5c;
           text-align: center;
         }
@@ -87,7 +87,7 @@
 .preview-group {
   margin-top: var(--size-40);
   
-  @media (width < 860px) {
+  @media (width < 640px) {
     margin-top: var(--size-24);
   }
   
@@ -96,7 +96,7 @@
     gap: var(--size-24);
     transition: transform 0.5s ease-in-out;
     
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-14);
       flex-wrap: wrap;
     }
@@ -111,7 +111,7 @@
       display: flex;
       flex-direction: column;
       
-      @media (width < 860px) {
+      @media (width < 640px) {
         width: calc(50% - var(--size-9));
         padding: var(--size-16) var(--size-12);
         height: auto;
@@ -124,7 +124,7 @@
         justify-content: space-between;
         height: var(--size-24);
         
-        @media (width < 860px) {
+        @media (width < 640px) {
           height: var(--size-20);
         }
 
@@ -139,7 +139,7 @@
           text-transform: uppercase;
           padding-top: var(--size-6);
 
-          @media (width < 860px) {
+          @media (width < 640px) {
             padding: var(--size-4) var(--size-12) 0;
             height: var(--size-20);
             font-size: var(--size-10);
@@ -200,7 +200,7 @@
             width: var(--size-24);
             height: var(--size-24);
 
-            @media (width < 860px) {
+            @media (width < 640px) {
               width: var(--size-18);
               height: var(--size-18);
             }
@@ -214,7 +214,7 @@
         width: min(calc(222 / var(--breakpoint-pc) * 100vw), 222px);
         height: min(calc(222 / var(--breakpoint-pc) * 100vw), 222px);
         
-        @media (width < 860px) {
+        @media (width < 640px) {
           width: 100%;
           height: auto;
         }
@@ -241,7 +241,7 @@
         margin-bottom: var(--size-8);
         color: var(--color-primary-grey-100);
         
-        @media (width < 860px) {
+        @media (width < 640px) {
           margin-bottom: 0;
         }
       }
@@ -254,7 +254,7 @@
         margin-top: auto;
         margin-bottom: var(--size-16);
 
-        @media (width < 860px) {
+        @media (width < 640px) {
           margin-top: var(--size-16);
           margin-bottom: 0;
         }
@@ -291,7 +291,7 @@
         &[style*="display: none"] + .product-btn-group {
           margin-top: auto;
           
-          @media (width < 860px) {
+          @media (width < 640px) {
             padding-top: var(--size-16);
           }
         }
@@ -302,7 +302,7 @@
         justify-content: space-between;
         gap: var(--size-14);
         
-        @media (width < 860px) {
+        @media (width < 640px) {
           margin-top: var(--size-16);
           flex-direction: column;
           gap: var(--size-8);
@@ -378,7 +378,7 @@
     gap: var(--size-48);
     height: var(--size-28);
     
-    @media (width < 860px) {
+    @media (width < 640px) {
       display: none;
     }
 
@@ -438,7 +438,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .campaign-product-wrapper .product-card {
     display: none !important;
   }

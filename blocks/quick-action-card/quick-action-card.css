@@ -6,7 +6,7 @@
     grid-template-columns: repeat(5, 1fr);
     gap: var(--spacing-sm, 24px) var(--spacing-m, 32px);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       display: flex;
       flex-direction: column;
       gap: var(--spacing-s, 18px);
@@ -22,7 +22,7 @@
       border-radius: var(--border-radius-l, 20px);
       gap: var(--spacing-m, 32px);
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         cursor: default;
         padding: var(--spacing-sm, 24px);
         border-radius: var(--radius-xl, 16px);
@@ -51,7 +51,7 @@
       width: var(--size-80, 80px);
       height: var(--size-80, 80px);
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         width: calc(48 / var(--breakpoint-mobile) * 100vw);
         height: calc(48 / var(--breakpoint-mobile) * 100vw);
       }
@@ -67,7 +67,7 @@
       text-align: center;
       text-transform: capitalize;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         font-size: var(--fontsize-title3, 18px);
       }
     }
@@ -77,11 +77,11 @@
     }
 
     .quick-action-card-view-more {
-      @media (width>=860px) {
+      @media (width>=640px) {
         display: none;
       }
 
-      @media (width<860px) {
+      @media (width<640px) {
         display: block;
       }
     }

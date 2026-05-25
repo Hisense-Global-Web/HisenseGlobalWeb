@@ -96,7 +96,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .product-category-guide {
     .step-groups {
       flex-wrap: nowrap;

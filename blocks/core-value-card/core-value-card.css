@@ -21,7 +21,7 @@
   text-transform: capitalize;
   line-height: 1.2;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     font-size: var(--size-30);
     overflow: hidden;
     width: calc(100% - 74px);
@@ -43,7 +43,7 @@
   margin: var(--spacing-2xs) 0 var(--spacing-xl);
   line-height: 1.2;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     font-size: var(--size-24);
     margin: var(--spacing-3xs) 0 var(--spacing-m);
   }
@@ -57,7 +57,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     grid-template-columns: 1fr;
     gap: var(--spacing-m);
   }
@@ -76,7 +76,7 @@
   position: relative;
   aspect-ratio: 544 / 220;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     aspect-ratio: 354 / 120;
   }
 }
@@ -96,7 +96,7 @@ ul > li .card-image img {
   width: var(--size-24);
   height: var(--size-24);
 
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     display: none;
   }
 }
@@ -113,7 +113,7 @@ ul > li .card-image img {
   position: relative;
   padding: 0 var(--size-32);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     padding: 0;
   }
 }
@@ -126,7 +126,7 @@ ul > li .card-image img {
   margin: var(--spacing-sm) 0 var(--spacing-xs);
   line-height: 1.2;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     color: var(--color-primary-grey-10);
     font-size: var(--size-24);
     position: absolute;
@@ -146,7 +146,7 @@ ul > li .card-image img {
   font-size: var(--size-16);
   line-height: 1.5;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     color: var(--color-primary-grey-70);
     text-align: left;
     font-size: var(--size-14);
@@ -155,7 +155,7 @@ ul > li .card-image img {
 }
 
 .card-item:has(.arrow.hide) .card-body div:nth-child(2) {
-  @media (width < 860px) {
+  @media (width < 640px) {
     display: none;
   }
 }
@@ -195,7 +195,7 @@ ul > li .card-image img {
     background-color: var(--color-primary-grey-70);
   }
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     height: var(--size-40);
     padding: var(--size-4) var(--size-20);
     margin-top: var(--size-32);

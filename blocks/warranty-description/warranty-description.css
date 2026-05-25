@@ -58,7 +58,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .warranty-description {
     .des-title {
       font-size: var(--size-24);

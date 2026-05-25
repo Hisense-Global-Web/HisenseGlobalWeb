@@ -484,7 +484,7 @@
   margin-left: auto;
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .media-carousel-pagination.show {
     display: none;
   }

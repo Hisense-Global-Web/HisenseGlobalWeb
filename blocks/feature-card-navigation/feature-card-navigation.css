@@ -79,7 +79,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .section.feature-card-navigation-container {
     .card-navigation-wrapper {
       gap: var(--size-18);

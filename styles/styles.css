@@ -20,7 +20,7 @@ html {
 
 :root {
   --breakpoint-large: 1440px;
-  --breakpoint-normal: 860px;
+  --breakpoint-normal: 640px;
   --breakpoint-small: 390px;
   --breakpoint-pc: 1440;
   --breakpoint-mobile: 390;
@@ -427,7 +427,7 @@ html {
 	}
 }
 
-@media (width >= 860px) {
+@media (width >= 640px) {
   :root {
     /* common */
     --common-padding: 30px;
@@ -616,7 +616,7 @@ body {
 	font-size: var(--body-font-size-l);
 	line-height: var(--line-height-l);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     overflow-x: hidden;
   }
 }
@@ -628,7 +628,7 @@ body.appear {
 header {
 	height: var(--nav-height);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     height: auto;
   }
 }
@@ -680,7 +680,7 @@ h5 {
   font-size: var(--fontsize-title1);
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   h1 {
     font-size: min(var(--fontsize-h1), 6.25vh);
   }
@@ -829,7 +829,7 @@ a.button.primary:active {
     border-radius: var(--size-100);
     font-weight: var(--fontweight-medium);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       height: var(--size-40);
       padding: var(--size-4) var(--size-20);
     }
@@ -1094,7 +1094,7 @@ main {
       padding-left: calc((100% - 800px) / 2);
     }
 
-    @media (width<860px) {
+    @media (width<640px) {
       padding-left: 0;
     }
   }
@@ -1106,7 +1106,7 @@ main {
       padding-right: calc((100% - 800px) / 2);
     }
 
-    @media (width<860px) {
+    @media (width<640px) {
       padding-right: 0;
     }
   }
@@ -1122,7 +1122,7 @@ main {
       width: 100%;
     }
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-16);
     }
 	}
@@ -1136,7 +1136,7 @@ main {
       width: 100%;
     }
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-24);
     }
 	}
@@ -1150,7 +1150,7 @@ main {
       width: 100%;
     }
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-32);
     }
 	}
@@ -1164,7 +1164,7 @@ main {
       width: 100%;
     }
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-48);
     }
 	}
@@ -1178,7 +1178,7 @@ main {
       width: 100%;
     }
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-80);
     }
 	}
@@ -1194,7 +1194,7 @@ main {
 	}
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   main {
     .section.pt-s {
       padding-top: var(--spacing-sm);

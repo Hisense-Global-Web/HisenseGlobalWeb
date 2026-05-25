@@ -5,7 +5,7 @@
   overflow-x: auto;
   scrollbar-width: none;
 
-  @media (width<860px) {
+  @media (width<640px) {
     gap: var(--spacing-lg, 40px);
   }
 
@@ -27,7 +27,7 @@
       padding: var(--spacing-3xs, 8px) 0;
       text-transform: capitalize;
 
-      @media (width<860px) {
+      @media (width<640px) {
         font-size: var(--fontsize-title3, 18px);
         line-height: 1.2;
       }
@@ -56,7 +56,7 @@
   justify-content: center;
   gap: var(--spacing-pc-md, 32px);
 
-  @media (width<860px) {
+  @media (width<640px) {
     gap: var(--spacing-s, 18px);
   }
 
@@ -71,7 +71,7 @@
     align-items: center;
     align-self: stretch;
 
-    @media (width<860px) {
+    @media (width<640px) {
       padding: var(--spacing-sm, 24px);
       border-radius: var(--spacing-2xs, 12px);
     }
@@ -81,7 +81,7 @@
       align-items: center;
       gap: var(--spacing-xs, 16px);
 
-      @media (width<860px) {
+      @media (width<640px) {
         gap: var(--spacing-2xs, 12px);
       }
 
@@ -101,7 +101,7 @@
         text-overflow: ellipsis;
         max-width: min(calc(700 / var(--breakpoint-pc) * 100vw), 700px);
 
-        @media (width<860px) {
+        @media (width<640px) {
           font-size: var(--fontsize-body2, 14px);
           overflow: unset;
           white-space: normal;
@@ -151,7 +151,7 @@
       border-radius: 100px;
       height: var(--size-40, 40px);
 
-      @media (width<860px) {
+      @media (width<640px) {
         display: none;
       }
     }
@@ -176,7 +176,7 @@
     .download-button-mobile {
       display: none;
 
-      @media (width<860px) {
+      @media (width<640px) {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -187,7 +187,7 @@
     }
 
     .download-button-mobile > img {
-      @media (width<860px) {
+      @media (width<640px) {
         width: calc(24 / var(--breakpoint-mobile) * 100vw);
         height: calc(24 / var(--breakpoint-mobile) * 100vw);
       }
@@ -207,7 +207,7 @@
   gap: var(--spacing-xs, 16px);
   margin-top: var(--spacing-m, 32px);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     display: none;
   }
 
@@ -280,7 +280,7 @@
 .guide-list-pagination-mobile {
   display: none;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -345,7 +345,7 @@
     line-height: 150%;
     font-weight: var(--fontweight-book, 400);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       margin-top: var(--spacing-2xs, 12px);
       font-size: var(--size-14, 14px);
       letter-spacing: 0;

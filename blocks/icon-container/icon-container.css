@@ -15,7 +15,7 @@
   flex-wrap: wrap; 
   
 
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     gap: var(--spacing-lg);
   }
 }
@@ -33,7 +33,7 @@
 .top-space .icon-container-box{
     margin-top: var(--spacing-sm);
 
-    @media (width >= 860px) {
+    @media (width >= 640px) {
         margin-top: var(--spacing-s2);
     }
      
@@ -42,7 +42,7 @@
 .bottom-space .icon-container-box{
     margin-bottom: var(--spacing-sm);
 
-    @media (width >= 860px) {
+    @media (width >= 640px) {
         margin-bottom: var(--spacing-s2);
     }
 }
@@ -65,7 +65,7 @@
     line-height: var(--size-20);
     font-weight: var(--fontweight-medium);
 
-     @media (width >= 860px) {
+     @media (width >= 640px) {
         font-size: var(--size-24);
         line-height: 120%;
     }
@@ -78,7 +78,7 @@
     line-height: var(--size-20);
     font-weight: var(--fontweight-light);
 
-    @media (width >= 860px) {
+    @media (width >= 640px) {
         font-size: var(--size-16);
     }
 
@@ -89,7 +89,7 @@
     height: var(--size-40);
     width: auto;
 
-    @media (width >= 860px) {
+    @media (width >= 640px) {
          height: var(--size-50);
     }
 }
@@ -97,7 +97,7 @@
 .huge-icon .icon-container-item .icon-image img {
   height: var(--size-120);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     height: var(--size-60);
   }
 }
@@ -106,14 +106,14 @@
     margin: calc(-1 * min(48.71777vw,190px)) 0 min(48.71777vw,190px);
     position: relative;
     
-   @media (width >= 860px) {
+   @media (width >= 640px) {
      margin: calc(-1 * min(20.83333vw,300px)) 0 min(20.83333vw,300px);
      gap: var(--size-24);
    }
 }
 
 .large-icon .icon-container-item .icon-image img{
-   @media (width >= 860px) {
+   @media (width >= 640px) {
          height: var(--size-88);
     }
 }
@@ -121,7 +121,7 @@
 .small-icon .icon-container-item .icon-image img{
     height: var(--size-20);
 
-   @media (width >= 860px) {
+   @media (width >= 640px) {
          height: var(--size-24);
     }
 }
@@ -130,7 +130,7 @@
   align-items: center;
   justify-content: center !important;
   
-  @media (width < 860px){
+  @media (width < 640px){
     align-items: center;
     justify-content: flex-start !important;
   }
@@ -141,7 +141,7 @@
     flex-direction: column;
     gap: var(--spacing-sm);
 
-    @media (width >= 860px) {
+    @media (width >= 640px) {
         gap: var(--spacing-xl);
         flex-flow: row nowrap;
         align-items: center;
@@ -150,14 +150,14 @@
 }
 
 .fixed-width .icon-container-box .icon-container-item{
-    @media (width >= 860px) {
+    @media (width >= 640px) {
        flex-direction: column;
     }
    
 }
 
 .fixed-width .icon-container-box .icon-text{
-     @media (width >= 860px) {
+     @media (width >= 640px) {
         text-align: center;
     }
    

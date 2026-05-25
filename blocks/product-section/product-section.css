@@ -24,7 +24,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   align-items: center;
   justify-content: center;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     max-width: 100%;
     width: 100%;
     justify-content: start;
@@ -374,7 +374,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   gap: var(--size-24);
   margin-top: var(--size-16);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     display: none;
   }
 
@@ -415,7 +415,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   display: none;
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   main .section.product-gallery-container.product-section-container{
     flex-direction: column;
     align-items: center;

@@ -19,7 +19,7 @@
     gap: var(--size-48);
     height: var(--size-40);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-32);
       height: var(--size-32);
       margin-bottom: var(--size-16);
@@ -36,7 +36,7 @@
       white-space: nowrap;
       transition: color 0.2s ease;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         font-size: var(--fontsize-title3);
         height: var(--size-32);
       }
@@ -68,7 +68,7 @@
     margin-bottom: var(--size-32);
     height: var(--size-40);
     
-    @media (width < 860px) {
+    @media (width < 640px) {
       margin-bottom: var(--size-24);
     }
 
@@ -81,7 +81,7 @@
       display: flex;
       gap: var(--size-3);
       
-      @media (width < 860px) {
+      @media (width < 640px) {
         font-size: var(--fontsize-body2);
       }
     }
@@ -97,7 +97,7 @@
         height: var(--size-40);
         flex-shrink: 0;
         
-        @media (width < 860px) {
+        @media (width < 640px) {
           width: calc(203 / var(--breakpoint-mobile) * 100vw)
         }
 
@@ -195,7 +195,7 @@
     flex-wrap: wrap;
     gap: var(--size-24);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-14);
     }
 
@@ -213,7 +213,7 @@
       color: inherit;
       transition: box-shadow 0.2s ease;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         width: calc(50% - var(--size-7));
         padding: var(--size-12) var(--size-12) var(--size-16);
         border-radius: var(--radius-lg);
@@ -256,7 +256,7 @@
     flex-direction: column;
     gap: var(--size-24);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-16);
     }
   }
@@ -269,7 +269,7 @@
     border: 1px solid var(--color-primary-grey-30);
     border-radius: var(--radius-pc-xl);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       padding: var(--size-24) var(--size-24) var(--size-32);
       border-radius: var(--radius-xl, 16px);
     }
@@ -280,7 +280,7 @@
       justify-content: space-between;
       cursor: pointer;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         gap: var(--spacing-pc-md, 32px);
       }
 
@@ -294,7 +294,7 @@
         height: var(--size-24);
         flex-shrink: 0;
 
-        @media (width < 860px) {
+        @media (width < 640px) {
           width: var(--size-20);
           height: var(--size-20);
         }
@@ -310,7 +310,7 @@
         width: 100%;
         padding-top: var(--size-20);
 
-        @media (width < 860px) {
+        @media (width < 640px) {
           padding-top: var(--size-16);
         }
 
@@ -355,7 +355,7 @@
     font-weight: var(--fontweight-medium);
     height: 22px;
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       font-size: var(--fontsize-body3);
       height: auto;
     }
@@ -367,7 +367,7 @@
     font-size: var(--fontsize-title2);
     font-weight: var(--fontweight-medium);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       font-size: var(--fontsize-title3);
       line-height: 1.3;
     }
@@ -383,7 +383,7 @@
     text-align: center;
     gap: var(--size-16);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       width: 100%;
       margin: var(--size-32) auto;
       padding: var(--size-16);
@@ -399,7 +399,7 @@
         color: var(--color-primary-green-50);
       }
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         font-size: var(--fontsize-title2);
       }
     }
@@ -410,7 +410,7 @@
       line-height: 1.5;
       color: var(--color-primary-grey-70);
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         font-size: var(--fontsize-body2);
       }
     }
@@ -424,7 +424,7 @@
     gap: var(--size-8);
     margin-top: var(--size-48);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       display: none;
     }
 
@@ -501,7 +501,7 @@
   .search-pagination-mobile {
     display: none;
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -541,7 +541,7 @@
     color: var(--color-primary-grey-50);
     font-size: var(--fontsize-body1);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       padding: var(--size-32);
       font-size: var(--fontsize-body2);
     }

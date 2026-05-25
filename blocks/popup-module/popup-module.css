@@ -95,7 +95,7 @@ main .section.popup-module-container {
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   main .section.popup-module-container {
     .popup-container {
       width: calc(100vw - 36px);

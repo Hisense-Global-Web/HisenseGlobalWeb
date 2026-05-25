@@ -103,7 +103,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .strategic-card-items {
     .card-container {
       gap: var(--size-16);

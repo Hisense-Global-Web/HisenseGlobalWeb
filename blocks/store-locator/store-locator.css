@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: var(--size-48);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     gap: var(--size-32);
   }
 
@@ -19,7 +19,7 @@
       border-radius: var(--radius-pc-xl, 20px);
       background: var(--color-primary-green-10, #edfcfb);
 
-      @media (width<860px) {
+      @media (width<640px) {
         flex-direction: column;
         padding: var(--spacing-sm, 24px) var(--spacing-sm, 24px)
           var(--spacing-m, 32px) var(--spacing-sm, 24px);
@@ -32,7 +32,7 @@
         flex-direction: column;
         gap: var(--spacing-2xs, 12px);
 
-        @media (width<860px) {
+        @media (width<640px) {
           width: 100%;
         }
 
@@ -43,7 +43,7 @@
           font-weight: var(--fontweight-medium, 500);
           line-height: 150%;
 
-          @media (width<860px) {
+          @media (width<640px) {
             font-size: var(--fontsize-body2, 14px);
             line-height: 22px;
           }
@@ -79,7 +79,7 @@
             user-select: none;
             z-index: 4;
 
-            @media (width<860px) {
+            @media (width<640px) {
               border-radius: var(--size-8);
             }
 
@@ -129,7 +129,7 @@
               gap: var(--spacing-2xs, 12px);
               max-height: min(calc(432 / var(--breakpoint-pc) * 100vw), 432px);
 
-              @media (width<860px) {
+              @media (width<640px) {
                 max-height: calc(432 / var(--breakpoint-mobile) * 100vw);
               }
 
@@ -210,7 +210,7 @@
         line-height: 150%;
         min-height: var(--size-50);
 
-        @media (width<860px) {
+        @media (width<640px) {
           width: 100%;
           margin-top: var(--spacing-3xs, 8px);
           padding: var(--spacing-4xs, 4px) var(--spacing-sm, 24px);
@@ -234,7 +234,7 @@
     align-items: center;
     gap: var(--spacing-lg, 40px);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-24);
     }
 
@@ -249,7 +249,7 @@
       font-weight: var(--fontweight-medium, 500);
       line-height: 120%;
 
-      @media (width<860px) {
+      @media (width<640px) {
         padding: var(--spacing-sm, 24px) 0;
         max-width: 100%;
       }
@@ -265,7 +265,7 @@
         padding-bottom: var(--spacing-m, 32px);
         cursor: pointer;
 
-        @media (width<860px) {
+        @media (width<640px) {
           padding-bottom: var(--spacing-xs, 16px);
         }
 
@@ -276,7 +276,7 @@
           font-weight: var(--fontweight-medium, 500);
           line-height: 120%;
 
-          @media (width<860px) {
+          @media (width<640px) {
             font-size: var(--fontsize-body1, 16px);
             line-height: 120%;
           }
@@ -304,7 +304,7 @@
           transition: padding-bottom 0.36s ease-in-out;
           padding-bottom: var(--spacing-m, 32px);
 
-          @media (width<860px) {
+          @media (width<640px) {
             display: flex;
             align-items: stretch;
             padding-bottom: var(--spacing-xs, 16px);
@@ -325,7 +325,7 @@
               flex-direction: column;
               gap: var(--spacing-sm, 24px);
 
-              @media (width<860px) {
+              @media (width<640px) {
                 width: calc(300 / var(--breakpoint-mobile) * 100vw);
                 padding: var(--size-24);
               }
@@ -342,7 +342,7 @@
                   font-weight: var(--fontweight-medium, 500);
                   line-height: 150%;
 
-                  @media (width<860px) {
+                  @media (width<640px) {
                     font-size: var(--fontsize-body2, 14px);
                     line-height: 140%;
                   }
@@ -355,7 +355,7 @@
                   line-height: 120%;
                   margin-top: var(--size-8);
 
-                  @media (width < 860px) {
+                  @media (width < 640px) {
                     font-size: var(--size-18);
                   }
                 }
@@ -373,7 +373,7 @@
                   font-weight: var(--fontweight-book, 400);
                   line-height: 22px;
 
-                  @media (width<860px) {
+                  @media (width<640px) {
                     line-height: 1.5;
                   }
                 }
@@ -392,7 +392,7 @@
                   font-weight: var(--fontweight-book, 400);
                   line-height: 150%;
 
-                  @media (width<860px) {
+                  @media (width<640px) {
                     font-size: var(--fontsize-body2, 14px);
                   }
 
@@ -444,7 +444,7 @@
                       font-weight: var(--fontweight-book, 400);
                       line-height: 150%;
 
-                      @media (width<860px) {
+                      @media (width<640px) {
                         font-size: var(--fontsize-body2, 14px);
                       }
                     }
