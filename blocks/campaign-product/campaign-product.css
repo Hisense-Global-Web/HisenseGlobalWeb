@@ -218,7 +218,7 @@
 
         @media (width < 860px) {
           width: calc(144 / var(--breakpoint-mobile) * 100vw);
-          min-height: calc(144 / var(--breakpoint-mobile) * 100vw);
+          height: calc(144 / var(--breakpoint-mobile) * 100vw);
         }
 
         img {
@@ -228,7 +228,7 @@
 
           @media (width < 860px) {
             width: calc(144 / var(--breakpoint-mobile) * 100vw);
-            min-height: calc(144 / var(--breakpoint-mobile) * 100vw);
+            height: calc(144 / var(--breakpoint-mobile) * 100vw);
           }
         }
       }
