@@ -18,6 +18,8 @@
 
     img {
       border-radius: var(--border-radius-l, 20px);
+      width: 100%;
+      height: min(calc(360 / var(--breakpoint-pc) * 100vw), 360px);
     }
 
     @media (width<860px) {
@@ -29,7 +31,6 @@
     display: none;
 
     @media (width<860px) {
-      max-width: 100%;
       width: 100%;
       height: calc(500 / var(--breakpoint-mobile) * 100vw);
       vertical-align: middle;
@@ -40,6 +41,8 @@
 
       img {
         border-radius: var(--size-16);
+        width: 100%;
+        height: calc(500 / var(--breakpoint-mobile) * 100vw);
       }
     }
   }
