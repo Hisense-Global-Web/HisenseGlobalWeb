@@ -60,7 +60,7 @@
           display: block;
           height: min(calc(234 / var(--breakpoint-mobile) * 100vw), 234px);
 
-          @media (width < 860px) {
+          @media (width < 640px) {
             width: var(--size-120);
             height: var(--size-120);
           }
