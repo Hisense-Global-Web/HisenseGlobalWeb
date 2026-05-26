@@ -16,7 +16,7 @@ import {
   refreshHybrisAuthStatus,
   startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
-import { getFragmentPath, isNavPage } from '../../scripts/locale-utils.js';
+import { getFragmentPath, isNavPage, getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 import {
   buildAccountMenuLinks,
@@ -33,6 +33,22 @@ import {
 
 import { isAuthorHostname } from '../../scripts/environment.js';
 
+const LOGOUT_TEXT = {
+  en: {
+    logoutContextTitle: 'Are you sure you want to log out?',
+    logoutContextSubtitle: 'You\'ll need to sign in again to access your account, registered products, and orders.',
+    cancel: 'Cancel',
+    logOut: 'Log out',
+    profile: 'Profile',
+  },
+  fr: {
+    logoutContextTitle: 'Êtes-vous sûr de vouloir vous déconnecter?',
+    logoutContextSubtitle: 'Vous devrez vous reconnecter pour accéder à votre compte, à vos produits enregistrés et à vos commandes.',
+    cancel: 'Annuler',
+    logOut: 'Se déconnecter',
+    profile: 'Profil',
+  },
+};
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 const NAVIGATION_ACTION_TYPES = {
@@ -248,6 +264,8 @@ function ensureLogoutModal() {
 
   let popup = document.querySelector('#logout-popup');
   if (!popup) {
+    const { language } = getLocaleFromPath();
+
     popup = document.createElement('div');
     popup.id = 'logout-popup';
 
@@ -259,10 +277,10 @@ function ensureLogoutModal() {
     logoutContext.className = 'logout-context';
     const logoutContextTitle = document.createElement('div');
     logoutContextTitle.className = 'title';
-    logoutContextTitle.textContent = 'Are you sure you want to log out?';
+    logoutContextTitle.textContent = LOGOUT_TEXT[language]?.logoutContextTitle ?? LOGOUT_TEXT.en.logoutContextTitle;
     const logoutContextSubtitle = document.createElement('div');
     logoutContextSubtitle.className = 'subtitle';
-    logoutContextSubtitle.textContent = 'You\'ll need to sign in again to access your account, registered products, and orders.';
+    logoutContextSubtitle.textContent = LOGOUT_TEXT[language]?.logoutContextSubtitle ?? LOGOUT_TEXT.en.logoutContextSubtitle;
     logoutContext.append(logoutContextTitle, logoutContextSubtitle);
 
     const logoutBtnGroup = document.createElement('div');
@@ -270,12 +288,12 @@ function ensureLogoutModal() {
     const cancelBtn = document.createElement('button');
     cancelBtn.type = 'button';
     cancelBtn.className = 'cancel-btn';
-    cancelBtn.textContent = 'Cancel';
+    cancelBtn.textContent = LOGOUT_TEXT[language]?.cancel ?? LOGOUT_TEXT.en.cancel;
 
     const sureBtn = document.createElement('button');
     sureBtn.type = 'button';
     sureBtn.className = 'sure-btn';
-    sureBtn.textContent = 'Log out';
+    sureBtn.textContent = LOGOUT_TEXT[language]?.logOut ?? LOGOUT_TEXT.en.logOut;
     logoutBtnGroup.append(cancelBtn, sureBtn);
 
     popup.append(popupCloseImg, logoutContext, logoutBtnGroup);
@@ -293,6 +311,7 @@ function ensureLogoutModal() {
 }
 
 function createAccountDrawer() {
+  const { language } = getLocaleFromPath();
   const personEl = document.createElement('div');
   personEl.className = 'person-drawer';
   personEl.hidden = true;
@@ -315,7 +334,7 @@ function createAccountDrawer() {
 
   const profileEl = document.createElement('a');
   profileEl.className = 'account-secondary-link profile-group';
-  profileEl.textContent = 'Profile';
+  profileEl.textContent = LOGOUT_TEXT[language]?.profile ?? LOGOUT_TEXT.en.profile;
   profileEl.href = '/my-account/update-profile';
   profileEl.hidden = true;
   profileEl.setAttribute('aria-hidden', 'true');
@@ -325,7 +344,7 @@ function createAccountDrawer() {
 
   const logoutEl = document.createElement('div');
   logoutEl.className = 'account-secondary-link logout-group';
-  logoutEl.textContent = 'Log out';
+  logoutEl.textContent = LOGOUT_TEXT[language]?.logOut ?? LOGOUT_TEXT.en.logOut;
   logoutEl.addEventListener('click', (event) => {
     event.stopPropagation();
     setLogoutModalVisible(true);
