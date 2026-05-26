@@ -17,13 +17,6 @@ const HYBRIS_ACCOUNT_MENU_ITEMS = {
   ],
 };
 
-const ACCOUNT_COUNT_KEY_BY_LABEL = {
-  Orders: 'orders',
-  Wishlist: 'wishlist',
-  Address: 'addresses',
-  Coupons: 'coupons',
-};
-
 export const DEFAULT_HEADER_COMMERCE_COUNTS = {
   cart: 0,
   orders: 0,
@@ -142,14 +135,14 @@ export function buildAccountMenuLinks(
   }
 
   const { country = 'us', language = 'en' } = getLocaleFromPath();
-  return HYBRIS_ACCOUNT_MENU_ITEMS[language].map(({ label, suffix, showZeroCount = false, countKey }) => {
-    return {
-      label,
-      href: `${urlParts.domain}${urlParts.uri}/${country}/${language}${suffix}`,
-      count: countKey ? normalizeCount(commerceCounts?.[countKey]) : 0,
-      showZeroCount,
-    };
-  });
+  return HYBRIS_ACCOUNT_MENU_ITEMS[language].map(({
+    label, suffix, showZeroCount = false, countKey,
+  }) => ({
+    label,
+    href: `${urlParts.domain}${urlParts.uri}/${country}/${language}${suffix}`,
+    count: countKey ? normalizeCount(commerceCounts?.[countKey]) : 0,
+    showZeroCount,
+  }));
 }
 
 export function buildAccountMenuItemChildren(doc, options = {}) {
