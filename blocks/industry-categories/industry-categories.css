@@ -97,7 +97,7 @@
   transition: all 0.5s ease;
   padding: var(--size-32) var(--size-16);
   color: var(--color-primary-grey-10);
-  height: min(calc(460 / var(--breakpoint-pc) * 100vw), 460px);
+  min-height: min(calc(460 / var(--breakpoint-pc) * 100vw), 460px);
 
   /* width: min(12.85714vw, 144px); */
 
