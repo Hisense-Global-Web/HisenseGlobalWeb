@@ -139,7 +139,7 @@ export function buildAccountMenuLinks(
     label, suffix, showZeroCount = false, countKey,
   }) => ({
     label,
-    href: `${urlParts.domain}${urlParts.uri}/${country}/${language}${suffix}`,
+    href: `${urlParts.domain}/${country}/${language}${urlParts.uri}${suffix}`,
     count: countKey ? normalizeCount(commerceCounts?.[countKey]) : 0,
     showZeroCount,
   }));
