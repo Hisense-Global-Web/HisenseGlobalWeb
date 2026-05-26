@@ -3,17 +3,17 @@ import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 const HYBRIS_ACCOUNT_MENU_ITEMS = {
   en: [
     { label: 'Account Home', suffix: '' },
-    { label: 'Orders', suffix: '/orders' },
-    { label: 'Wishlist', suffix: '/wishlist' },
-    { label: 'Address', suffix: '/address-book' },
-    { label: 'Coupons', suffix: '/coupons' },
+    { label: 'Orders', suffix: '/orders', countKey: 'orders' },
+    { label: 'Wishlist', suffix: '/wishlist', countKey: 'wishlist' },
+    { label: 'Address', suffix: '/address-book', countKey: 'addresses' },
+    { label: 'Coupons', suffix: '/coupons', countKey: 'coupons' },
   ],
   fr: [
     { label: 'Accueil du compte', suffix: '' },
-    { label: 'Mes commandes', suffix: '/orders' },
-    { label: 'Ma liste d\'envies', suffix: '/wishlist' },
-    { label: 'Mes adresses', suffix: '/address-book' },
-    { label: 'Mes coupons', suffix: '/coupons' },
+    { label: 'Mes commandes', suffix: '/orders', countKey: 'orders' },
+    { label: 'Ma liste d\'envies', suffix: '/wishlist', countKey: 'wishlist' },
+    { label: 'Mes adresses', suffix: '/address-book', countKey: 'addresses' },
+    { label: 'Mes coupons', suffix: '/coupons', countKey: 'coupons' },
   ],
 };
 
@@ -141,9 +141,8 @@ export function buildAccountMenuLinks(
     return [];
   }
 
-  return HYBRIS_ACCOUNT_MENU_ITEMS.map(({ label, suffix, showZeroCount = false }) => {
-    const { country = 'us', language = 'en' } = getLocaleFromPath();
-    const countKey = ACCOUNT_COUNT_KEY_BY_LABEL[language] ? ACCOUNT_COUNT_KEY_BY_LABEL[language][label] : ACCOUNT_COUNT_KEY_BY_LABEL.en[label];
+  const { country = 'us', language = 'en' } = getLocaleFromPath();
+  return HYBRIS_ACCOUNT_MENU_ITEMS[language].map(({ label, suffix, showZeroCount = false, countKey }) => {
     return {
       label,
       href: `${urlParts.domain}${urlParts.uri}/${country}/${language}${suffix}`,
