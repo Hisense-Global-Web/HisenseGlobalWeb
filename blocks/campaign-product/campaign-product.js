@@ -226,15 +226,15 @@ function getWishlistEntryData(payload, fallbackCode = '', fallbackCartCode = '')
   const candidate = payload.product ? payload : (payload.item || payload.entry || payload);
   const code = getHybrisProductCode(candidate.product || candidate) || fallbackCode;
   const entryNumber = candidate.entryNumber
-      ?? candidate.item?.entryNumber
-      ?? candidate.entry?.entryNumber
-      ?? null;
+    ?? candidate.item?.entryNumber
+    ?? candidate.entry?.entryNumber
+    ?? null;
   const cartCode = candidate.cartCode
-      || candidate.item?.cartCode
-      || candidate.entry?.cartCode
-      || payload.cartCode
-      || fallbackCartCode
-      || '';
+    || candidate.item?.cartCode
+    || candidate.entry?.cartCode
+    || payload.cartCode
+    || fallbackCartCode
+    || '';
 
   if (code && entryNumber !== null && entryNumber !== undefined) {
     return { code, entryNumber, cartCode };
@@ -242,7 +242,7 @@ function getWishlistEntryData(payload, fallbackCode = '', fallbackCartCode = '')
 
   const wishlistItems = normalizeWishlistItems(payload);
   const matchedItem = wishlistItems.find((item) => getHybrisProductCode(item.product || item) === fallbackCode)
-      || wishlistItems[0];
+    || wishlistItems[0];
 
   if (!matchedItem) {
     return null;
@@ -431,25 +431,25 @@ function getPricingDetails(product, fallbackSource = null) {
   const pricing = product?.pricing || {};
   const fallbackPriceInfo = fallbackSource?.priceInfo || {};
   const fallbackCurrency = pricing.currency
-      || product?.price?.currencyIso
-      || product?.msrp?.currencyIso
-      || fallbackPriceInfo.currency
-      || fallbackPriceInfo.currencyIso
-      || 'USD';
+    || product?.price?.currencyIso
+    || product?.msrp?.currencyIso
+    || fallbackPriceInfo.currency
+    || fallbackPriceInfo.currencyIso
+    || 'USD';
 
   const fallbackSale = parseLoosePriceValue(
     fallbackPriceInfo.specialprice
-      || fallbackPriceInfo.specialPrice
-      || fallbackSource?.priceInfo_specialprice
-      || fallbackSource?.specialPrice
-      || fallbackSource?.price,
+    || fallbackPriceInfo.specialPrice
+    || fallbackSource?.priceInfo_specialprice
+    || fallbackSource?.specialPrice
+    || fallbackSource?.price,
     fallbackCurrency,
   );
   const fallbackMsrp = parseLoosePriceValue(
     fallbackPriceInfo.regularPrice
-      || fallbackPriceInfo.regularprice
-      || fallbackSource?.priceInfo_regularPrice
-      || fallbackSource?.regularPrice,
+    || fallbackPriceInfo.regularprice
+    || fallbackSource?.priceInfo_regularPrice
+    || fallbackSource?.regularPrice,
     fallbackCurrency,
   );
 
@@ -465,10 +465,10 @@ function getPricingDetails(product, fallbackSource = null) {
   }
   const resolvedMsrp = (msrp.value !== null || msrp.formattedValue) ? msrp : fallbackMsrp;
   const currency = pricing.currency
-      || resolvedSale.currencyIso
-      || resolvedMsrp.currencyIso
-      || fallbackCurrency
-      || 'USD';
+    || resolvedSale.currencyIso
+    || resolvedMsrp.currencyIso
+    || fallbackCurrency
+    || 'USD';
 
   return {
     sale: resolvedSale,
@@ -484,7 +484,7 @@ function hasInventory(product) {
 
   return Boolean(
     (Number.isFinite(level) && level > 0)
-      || ['instock', 'in_stock', 'available', 'lowstock', 'low_stock'].includes(status),
+    || ['instock', 'in_stock', 'available', 'lowstock', 'low_stock'].includes(status),
   );
 }
 
@@ -594,7 +594,7 @@ export default async function decorate(block) {
         const parentWrapper = e.currentTarget.closest('.campaign-product-wrapper');
         if (parentWrapper) {
           parentWrapper.className = parentWrapper.className.replace(/\bwrapper-series-index-\d+\b/g, '');
-          parentWrapper.classList.add(`wrapper-series-index-${i}`);
+          parentWrapper.classList.add(`wrapper-series-index-${i - FIRST_ITEM_INDEX}`);
         }
         return;
       }
@@ -722,7 +722,7 @@ export default async function decorate(block) {
       }
     };
     const getVariantProductCode = (variant) => getHybrisProductCode(variant)
-        || getHybrisProductCode(item);
+      || getHybrisProductCode(item);
 
     const refreshCommerceState = async (variant) => {
       const requestId = commerceRequestId + 1;
