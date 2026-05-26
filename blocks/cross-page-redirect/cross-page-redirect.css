@@ -107,7 +107,7 @@
 }
 
 
-@media (width < 860px) {
+@media (width < 640px) {
     .cross-page-redirect{
         width: 100%;
         height: calc(324 / var(--breakpoint-mobile) *100vw);

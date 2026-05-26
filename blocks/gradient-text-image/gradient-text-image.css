@@ -94,7 +94,7 @@
 	background: linear-gradient(270deg, rgb(200 239 238 / 0%) 65.59%, rgb(200 239 238 / 78%) 82.79%, #C8EFEE 100%);
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
 	.gradient-text-image {
 		height: auto;
 		width: 100%;

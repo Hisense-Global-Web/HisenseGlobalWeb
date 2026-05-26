@@ -1,3 +1,5 @@
+import { SCREEN_POINT } from '../../utils/constants.js';
+
 const EItemList = Object.freeze({
   card: 'card', // campaign collection card
   products: 'products', // associated products
@@ -211,7 +213,7 @@ export default function decorate(block) {
     window.location.href = cardLink;
   };
 
-  const meidaCardQuery = window.matchMedia('(min-width: 860px)');
+  const mediaCardQuery = window.matchMedia(`(min-width: ${SCREEN_POINT}px)`);
 
   const handleCardMediaChange = (e) => {
     const cardList = block.querySelectorAll('.product-wrapper');
@@ -224,6 +226,6 @@ export default function decorate(block) {
     });
   };
 
-  handleCardMediaChange(meidaCardQuery); // 初始调用一次
-  meidaCardQuery.addEventListener('change', handleCardMediaChange);
+  handleCardMediaChange(mediaCardQuery); // 初始调用一次
+  mediaCardQuery.addEventListener('change', handleCardMediaChange);
 }

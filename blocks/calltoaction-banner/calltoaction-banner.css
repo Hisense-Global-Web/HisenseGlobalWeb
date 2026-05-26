@@ -86,7 +86,7 @@
     }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
     .calltoaction-banner {
         height: calc(438/var(--breakpoint-mobile)* 100vw);
         padding: var(--size-48) var(--size-24);

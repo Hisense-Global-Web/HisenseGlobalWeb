@@ -26,7 +26,7 @@
   text-transform: uppercase;
   padding: 0;
 
-   @media (width >= 860px) {
+   @media (width >= 640px) {
     font-size: var(--size-20);
   }
 }
@@ -50,7 +50,7 @@
   font-weight: var(--fontweight-medium);
   line-height: 120%;
 
-   @media (width >= 860px) {
+   @media (width >= 640px) {
     font-size: var(--size-34);
     
   }

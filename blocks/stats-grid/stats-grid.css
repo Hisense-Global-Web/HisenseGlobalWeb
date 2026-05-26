@@ -42,7 +42,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .matrix-block-items {
     display: flex;
     padding: 0 var(--size-24);

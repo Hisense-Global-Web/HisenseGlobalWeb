@@ -1,9 +1,9 @@
 .legal-content-wrapper {
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     padding: 0 !important;
   }
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     width: 100%;
   }
 

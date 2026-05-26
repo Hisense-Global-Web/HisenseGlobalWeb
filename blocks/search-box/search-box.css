@@ -1,7 +1,7 @@
 .search-box-wrapper {
   width: 100%;
 
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     padding: 0 !important;
   }
 }
@@ -13,7 +13,7 @@
   width: 100%;
   gap: var(--spacing-sm, 24px);
 
-  @media (width<860px) {
+  @media (width<640px) {
     gap: var(--spacing-s, 18px);
   }
 }
@@ -28,14 +28,14 @@
   height: var(--size-66, 66px);
   background: var(--color-white, #fff);
 
-  @media (width<860px) {
+  @media (width<640px) {
     padding: 0 var(--spacing-sm, 24px);
     height: var(--size-52, 52px);
   }
 }
 
 .search-box .input-wrapper:focus-within {
-  @media (width>=860px) {
+  @media (width>=640px) {
     border: 2px solid var(--color-primary-green-50, #009f9c);
   }
 }
@@ -67,7 +67,7 @@
   line-height: 1.2;
   text-overflow: ellipsis;
 
-  @media (width<860px) {
+  @media (width<640px) {
     font-size: var(--fontsize-body1, 16px);
     line-height: 1.3;
   }
@@ -101,7 +101,7 @@
   flex-wrap: wrap;
   gap: var(--spacing-s, 18px) var(--spacing-2xs, 12px);
 
-  @media (width<860px) {
+  @media (width<640px) {
     justify-content: flex-start;
   }
 }
@@ -116,7 +116,7 @@
   letter-spacing: 0.35px;
   text-transform: capitalize;
 
-  @media (width<860px) {
+  @media (width<640px) {
     width: 100%;
     text-align: left;
   }
@@ -135,7 +135,7 @@
   color: var(--color-primary-grey-70, #333);
   padding: var(--spacing-3xs, 8px) var(--spacing-sm, 24px);
 
-  @media (width<860px) {
+  @media (width<640px) {
     font-size: var(--fontsize-body2, 14px);
     padding: var(--spacing-3xs, 8px) var(--spacing-s2, 20px);
   }

@@ -6,6 +6,7 @@ import {
 } from '../../utils/carousel-common.js';
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 let carouselId = 0;
 const segments = window.location.pathname.split('/').filter(Boolean);
@@ -31,7 +32,7 @@ function bindEvent(block, type = 'normal') {
     totalItems: cards.length,
   };
 
-  if (cards.length * getSlideWidth(block) - gap >= maxWidth && window.innerWidth >= 860) {
+  if (cards.length * getSlideWidth(block) - gap >= maxWidth && window.innerWidth >= SCREEN_POINT) {
     mediaCarouselPagination.classList.add('show');
   }
 
@@ -82,7 +83,7 @@ function bindEvent(block, type = 'normal') {
       }
     }
     track.style.transform = `translateX(${currentX}px)`;
-    if (window.innerWidth < 860) {
+    if (window.innerWidth < SCREEN_POINT) {
       track.style.transform = 'none';
     }
     block.dataset.currentIndex = currentIndex;
@@ -156,7 +157,7 @@ function bindEvent(block, type = 'normal') {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           // 监听手机端video的视口变化，进入视口开始自动播放---手机是scroll模式，不更新currentIndex
-          if (window.innerWidth < 860) {
+          if (window.innerWidth < SCREEN_POINT) {
             const videoObserver = new IntersectionObserver((e) => {
               e.forEach((ent) => {
                 if (ent.isIntersecting) {

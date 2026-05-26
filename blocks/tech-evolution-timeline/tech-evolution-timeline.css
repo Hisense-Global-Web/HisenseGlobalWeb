@@ -148,7 +148,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .tech-evolution-timeline-container {
     .module-title-wrapper {
       text-align: center;

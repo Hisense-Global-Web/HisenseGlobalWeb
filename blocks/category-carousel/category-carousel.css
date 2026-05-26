@@ -269,7 +269,7 @@ main > .product-card-container.product-sorting-container * {
 }
 
 /* mobile */
-@media (width < 860px) {
+@media (width < 640px) {
   .product-card-wrapper {
     width: 100%;
   }

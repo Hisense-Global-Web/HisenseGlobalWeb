@@ -1,5 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 export default function decorate(block) {
   /* change to ul, li */
@@ -41,7 +42,7 @@ export default function decorate(block) {
   }
 
   // 使用 matchMedia API
-  const mediaQuery = window.matchMedia('(min-width: 860px)');
+  const mediaQuery = window.matchMedia(`(min-width: ${SCREEN_POINT}px)`);
   function handleMediaChange(e) {
     if (e.matches) {
       // PC

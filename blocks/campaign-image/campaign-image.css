@@ -22,7 +22,7 @@
       height: min(calc(360 / var(--breakpoint-pc) * 100vw), 360px);
     }
 
-    @media (width<860px) {
+    @media (width<640px) {
       display: none;
     }
   }
@@ -30,7 +30,7 @@
   .mobile-image {
     display: none;
 
-    @media (width<860px) {
+    @media (width<640px) {
       width: 100%;
       height: calc(500 / var(--breakpoint-mobile) * 100vw);
       vertical-align: middle;

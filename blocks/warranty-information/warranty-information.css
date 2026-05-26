@@ -151,7 +151,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .warranty-information {
     padding: var(--size-80) 0;
 

@@ -192,7 +192,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .related-news {
     .news-container {
       .news-card-group{

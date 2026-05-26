@@ -20,7 +20,7 @@
       border-top-left-radius: var(--spacing-s2, 20px);
       border-top-right-radius: var(--spacing-s2, 20px);
 
-      @media (width<860px) {
+      @media (width<640px) {
         border-radius: var(--spacing-xs, 16px);
       }
 
@@ -28,7 +28,7 @@
         width: 100%;
         height: min(calc(352 / var(--breakpoint-pc) * 100vw), 352px);
 
-        @media (width<860px) {
+        @media (width<640px) {
           display: none;
         }
       }
@@ -53,7 +53,7 @@
         top: calc(var(--size-33) * -1);
         left: calc(var(--size-33) * -1);
 
-        @media (width<860px) {
+        @media (width<640px) {
           display: none;
         }
       }
@@ -63,7 +63,7 @@
         height: calc(500 / var(--breakpoint-mobile) * 100vw);
         display: block;
 
-        @media (width>=860px) {
+        @media (width>=640px) {
           display: none;
         }
       }
@@ -87,7 +87,7 @@
         align-items: center;
         width: 100%;
 
-        @media (width<860px) {
+        @media (width<640px) {
           flex-direction: column;
           padding: var(--spacing-md, 30px) var(--spacing-sm, 24px);
           gap: var(--spacing-xs, 16px);
@@ -105,7 +105,7 @@
           width: min(calc(538 / var(--breakpoint-pc) * 100vw), 538px);
           height: min(calc(308 / var(--breakpoint-pc) * 100vw), 308px);
 
-          @media (width<860px) {
+          @media (width<640px) {
             width: calc(306 / var(--breakpoint-mobile) * 100vw);
             height: calc(175 / var(--breakpoint-mobile) * 100vw);
           }
@@ -115,7 +115,7 @@
           width: min(calc(486 / var(--breakpoint-pc) * 100vw), 486px);
           color: var(--color-primary-grey-10, #fff);
 
-          @media (width<860px) {
+          @media (width<640px) {
             width: 100%;
           }
 
@@ -129,7 +129,7 @@
             -webkit-line-clamp: 2;
             line-clamp: 2;
 
-            @media (width<860px) {
+            @media (width<640px) {
               font-size: var(--fontsize-pc-h4, 30px);
               width: calc(300 / var(--breakpoint-mobile) * 100vw);
               -webkit-line-clamp: 3;
@@ -149,7 +149,7 @@
             -webkit-line-clamp: 3;
             line-clamp: 3;
 
-            @media (width<860px) {
+            @media (width<640px) {
               margin-top: var(--spacing-xs, 16px);
               font-size: var(--fontsize-body2, 14px);
               -webkit-line-clamp: 4;
@@ -172,7 +172,7 @@
             align-items: center;
             width: fit-content;
 
-            @media (width<860px) {
+            @media (width<640px) {
               height: var(--size-40);
               margin-top: var(--spacing-xs, 16px);
               padding: var(--spacing-4xs, 4px) var(--spacing-sm, 24px);
@@ -239,7 +239,7 @@
       flex-direction: column;
       gap: var(--spacing-lg, 40px);
 
-      @media (width<860px) {
+      @media (width<640px) {
         padding: var(--spacing-lg, 40px) var(--spacing-sm, 24px);
         border-bottom-left-radius: var(--spacing-xs, 16px);
         border-bottom-right-radius: var(--spacing-xs, 16px);
@@ -251,7 +251,7 @@
         flex-direction: column;
         gap: var(--spacing-lg, 40px);
 
-        @media (width<860px) {
+        @media (width<640px) {
           gap: var(--spacing-m, 32px);
         }
 
@@ -265,7 +265,7 @@
           line-height: 120%;
           text-transform: capitalize;
 
-          @media (width<860px) {
+          @media (width<640px) {
             text-align: left;
             font-size: var(--fontsize-title1, 24px);
           }
@@ -278,7 +278,7 @@
           align-items: center;
           gap: var(--spacing-xs, 16px);
 
-          @media (width<860px) {
+          @media (width<640px) {
             overflow: auto hidden;
             scrollbar-width: none;
             justify-content: flex-start;
@@ -295,14 +295,14 @@
             padding: 0 var(--spacing-m, 32px) 0 var(--spacing-sm, 24px);
             height: var(--size-52);
 
-            @media (width < 860px) {
+            @media (width < 640px) {
               height: var(--size-69);
               gap: var(--size-6);
               padding: 0 var(--spacing-s, 18px);
             }
 
             picture {
-              @media (width<860px) {
+              @media (width<640px) {
                 display: block;
                 width: var(--size-65);
                 height: var(--size-67);
@@ -314,7 +314,7 @@
             width: var(--size-65);
             height: var(--size-50);
 
-            @media (width<860px) {
+            @media (width<640px) {
               width: var(--size-65);
               height: var(--size-67);
             }
@@ -331,7 +331,7 @@
             font-weight: var(--fontweight-medium, 500);
             line-height: 1.5;
 
-            @media (width<860px) {
+            @media (width<640px) {
               font-size: var(--fontsize-body2, 14px);
               line-height: 1.2;
             }
@@ -344,7 +344,7 @@
         grid-template-columns: repeat(3, 1fr);
         gap: var(--spacing-sm, 24px);
 
-        @media (width<860px) {
+        @media (width<640px) {
           overflow-x: auto;
           scrollbar-width: none;
           gap: var(--spacing-xs, 16px);
@@ -359,7 +359,7 @@
           position: relative;
           aspect-ratio: 1/1;
 
-          @media (width<860px) {
+          @media (width<640px) {
             cursor: pointer;
             padding: var(--spacing-sm, 24px);
           }
@@ -375,7 +375,7 @@
             line-height: 1.2;
             height: var(--size-58);
 
-            @media (width<860px) {
+            @media (width<640px) {
               font-size: var(--fontsize-title2, 20px);
               height: var(--size-52);
               line-height: 1.3;
@@ -392,7 +392,7 @@
             width: min(calc(220 / var(--breakpoint-pc) * 100vw), 220px);
             height: min(calc(178 / var(--breakpoint-pc) * 100vw), 178px);
 
-            @media (width<860px) {
+            @media (width<640px) {
               width: calc(192 / var(--breakpoint-mobile) * 100vw);
               height: calc(132 / var(--breakpoint-mobile) * 100vw);
               padding-top: var(--spacing-3xs, 8px);
@@ -406,7 +406,7 @@
               transform 0.5s cubic-bezier(0.35, 0, 0.36, 1),
               -webkit-transform 0.5s cubic-bezier(0.35, 0, 0.36, 1);
 
-            @media (width<860px) {
+            @media (width<640px) {
               width: calc(192 / var(--breakpoint-mobile) * 100vw);
               height: calc(132 / var(--breakpoint-mobile) * 100vw);
             }
@@ -432,7 +432,7 @@
               visibility linear 0.5s,
               background-color linear 0.5s;
 
-            @media (width<860px) {
+            @media (width<640px) {
               display: none;
             }
           }
@@ -449,7 +449,7 @@
         }
 
         .product-wrapper:hover .buy-now-button {
-          @media (width >= 860px) {
+          @media (width >= 640px) {
             opacity: 1;
             visibility: visible;
             bottom: var(--spacing-m, 32px);
@@ -458,7 +458,7 @@
         }
 
         .product-wrapper:hover img {
-          @media (width >= 860px) {
+          @media (width >= 640px) {
             transform: scale(1.1);
           }
         }

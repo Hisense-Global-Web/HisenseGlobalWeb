@@ -17,7 +17,7 @@
   margin-bottom: var(--large);
   text-align: center;
 
-   @media (width < 860px) {
+   @media (width < 640px) {
     font-size: var(--size-30);
     margin-bottom: var(--size-30);
   }
@@ -30,11 +30,11 @@
   padding: 0;
   display: grid;
 
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     grid-template-columns: repeat(5, 1fr);
   }
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     overflow: auto visible;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
@@ -61,7 +61,7 @@
   box-sizing: border-box;
   background: white;
 
-   @media (width < 860px) {
+   @media (width < 640px) {
     position: relative;
 		width: 53.33333vw !important;
     height: 47.6923077vw;
@@ -92,7 +92,7 @@
   text-align: center;
   width: var(--size-134);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     font-size: var(--size-16);
   }
 }

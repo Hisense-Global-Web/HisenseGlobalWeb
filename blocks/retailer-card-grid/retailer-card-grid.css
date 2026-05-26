@@ -56,7 +56,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .retailer-card-grid {
     .retailer-tit {
       font-size: var(--size-24);

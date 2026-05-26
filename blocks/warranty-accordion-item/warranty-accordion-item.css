@@ -16,7 +16,7 @@
   padding: var(--size-32) var(--size-32) var(--size-40);
   gap: var(--size-20);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     padding: var(--size-24) var(--size-24) var(--size-32);
   }
 
@@ -29,7 +29,7 @@
     font-size: var(--fontsize-title2);
     font-weight: var(--fontweight-medium);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       font-size: var(--size-18);
     }
   }
@@ -40,7 +40,7 @@
     padding-right: var(--size-80);
     color: var(--color-primary-grey-70);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       font-size: var(--size-14);
       line-height: 1.5;
       padding-right: 0;
@@ -72,7 +72,7 @@
       font-weight: var(--fontweight-medium);
       cursor: pointer;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         margin-top: var(--size-30);
       }
 
