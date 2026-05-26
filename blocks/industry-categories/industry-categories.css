@@ -97,6 +97,7 @@
   transition: all 0.5s ease;
   padding: var(--size-32) var(--size-16);
   color: var(--color-primary-grey-10);
+  min-height: min(calc(460 / var(--breakpoint-pc) * 100vw), 460px);
 
   /* width: min(12.85714vw, 144px); */
 
@@ -108,6 +109,7 @@
     width: 33.8461vw;
     padding: var(--size-24) var(--size-12);
     border-radius: var(--size-12);
+    height: auto;
   }
   
    @media (width >= 1440px) {

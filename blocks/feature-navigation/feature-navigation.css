@@ -1,6 +1,7 @@
 
 .section.feature-navigation-container {
   max-width: unset;
+  padding: 0;
 }
 
 .feature-navigation-wrapper {
@@ -61,10 +62,13 @@
   color:var(--color-primary-grey-100);
   font-family: var(--font-family);
   margin: var(--spacing-sm) 0 var(--spacing-md);
-  max-width: 73.33333vw;
+  width: min(calc(244 / var(--breakpoint-pc) * 100vw), 244px);
+
+  /* max-width: 73.33333vw; */
 
    @media (width < 640px) {
      margin: var(--size-12) auto var(--spacing-sm);
+     width: min(calc(268 / var(--breakpoint-mobile) * 100vw), 268px);
   }
 }
 

@@ -373,9 +373,6 @@
             font-style: normal;
             font-weight: var(--fontweight-medium, 500);
             line-height: 1.2;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            -line-clamp: 2;
             height: var(--size-58);
 
             @media (width<640px) {
@@ -383,6 +380,12 @@
               height: var(--size-52);
               line-height: 1.3;
             }
+          }
+
+          .product-title p {
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
           }
 
           .product-image {

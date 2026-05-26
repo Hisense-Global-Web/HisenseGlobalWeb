@@ -83,6 +83,7 @@
         .releases-image {
           border-radius: var(--radius-lg);
           overflow: hidden;
+          height: min(calc(234 / var(--breakpoint-mobile) * 100vw), 234px);
 
           @media (width < 640px) {
             width: var(--size-120);
