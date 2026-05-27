@@ -124,6 +124,8 @@ export default function decorate(block) {
   const videoUrl = 'https://player.vimeo.com/video/1115919354?h=70aa3569b2&badge=0&autopause=0&player_id=0&…';
   const iframe = document.createElement('iframe');
   iframe.src = videoUrl;
-  iframe.style.display = 'none';
+  iframe.width = '100%';
+  iframe.height = '630';
+  iframe.style.border = '0';
   block.appendChild(iframe);
 }
