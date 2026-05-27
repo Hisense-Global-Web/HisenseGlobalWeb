@@ -3,6 +3,7 @@ export default function decorate(block) {
   let videourl;
   let imgUrl;
   [...block.children].forEach((row) => {
+    console.log('row', row);
     const link = row.querySelector('a');
     if (link) {
       videourl = link.href;

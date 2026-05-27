@@ -56,7 +56,7 @@
         },
         {
           "component": "text",
-          "name": "video-url",
+          "name": "external-url",
           "label": "Vimeo Video URL",
           "valueType": "string",
           "condition": { "===": [{"var" : "video-origin"}, "vimeo"] }
