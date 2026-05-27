@@ -7221,18 +7221,65 @@
     "id": "video",
     "fields": [
       {
+        "component": "select",
+        "name": "video-origin",
+        "label": "Video Origin",
+        "valueType": "string",
+        "value": "internal",
+        "options": [
+          {
+            "name": "Internal",
+            "value": "internal"
+          },
+          {
+            "name": "Vimeo",
+            "value": "vimeo"
+          }
+        ]
+      },
+      {
         "component": "aem-content",
         "valueType": "",
         "name": "Video",
         "label": "Video",
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "video-origin"
+            },
+            "internal"
+          ]
+        }
       },
       {
         "component": "reference",
         "valueType": "string",
         "name": "image",
         "label": "Cover Image",
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "video-origin"
+            },
+            "internal"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "video-url",
+        "label": "Vimeo Video URL",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "video-origin"
+            },
+            "vimeo"
+          ]
+        }
       }
     ]
   },
