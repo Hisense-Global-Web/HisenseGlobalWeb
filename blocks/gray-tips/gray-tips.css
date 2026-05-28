@@ -1,6 +1,6 @@
 .pl-4xl-pc .gray-tips-wrapper,
 .pr-4xl-pc .gray-tips-wrapper {
-  @media (width>=860px) {
+  @media (width>=640px) {
     padding: 0;
   }
 }
@@ -17,7 +17,7 @@
     border-radius: 10px;
     background: var(--color-primary-grey-20, #f7f7f7);
 
-    @media (width<860px) {
+    @media (width<640px) {
       padding: var(--spacing-s2, 20px) var(--spacing-sm, 24px);
     }
 

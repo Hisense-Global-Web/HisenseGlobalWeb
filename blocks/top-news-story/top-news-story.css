@@ -15,7 +15,7 @@
       color: var(--color-hisense-black);
       line-height: 1.2;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         font-size: var(--size-30);
         margin-bottom: var(--size-24);
       }
@@ -31,7 +31,7 @@
       height: 480px;
       overflow: hidden;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         grid-template-columns: 1fr;
         height: auto;
         gap: var(--size-32);
@@ -57,7 +57,7 @@
         justify-content: flex-start;
         padding: var(--size-48) var(--size-48) var(--size-48) 0;
 
-        @media (width < 860px) {
+        @media (width < 640px) {
           padding: 0 var(--size-24) var(--size-48);
         }
 
@@ -69,7 +69,7 @@
           margin-bottom: var(--size-8);
           line-height: 1.5;
 
-          @media (width < 860px) {
+          @media (width < 640px) {
             margin-bottom: var(--size-4);
             font-size: var(--size-16);
             line-height: 1.3;
@@ -87,7 +87,7 @@
           overflow: hidden;
           word-break: break-all;
 
-          @media (width < 860px) {
+          @media (width < 640px) {
             font-size: var(--size-24);
             line-height: 1.2;
           }
@@ -105,7 +105,7 @@
           overflow: hidden;
           word-break: break-all;
 
-          @media (width < 860px) {
+          @media (width < 640px) {
             font-size: var(--size-14);
             margin-bottom: var(--size-32);
           }
@@ -123,7 +123,7 @@
             line-height: 1.5;
             font-weight: var(--fontweight-medium);
 
-            @media (width < 860px) {
+            @media (width < 640px) {
               font-size: var(--size-14);
               line-height: 1.4;
             }
@@ -136,7 +136,7 @@
             line-height: var(--size-22);
             color: var(--color-primary-grey-70);
 
-            @media (width < 860px) {
+            @media (width < 640px) {
               font-size: var(--size-14);
               line-height: 1.4;
             }
@@ -194,7 +194,7 @@
           gap: var(--size-16);
           margin-top: var(--size-32);
 
-          @media (width < 860px) {
+          @media (width < 640px) {
             margin-top: var(--size-32);
           }
 
@@ -210,7 +210,7 @@
             color: var(--color-primary-grey-10);
             font-weight: var(--fontweight-medium);
 
-            @media (width < 860px) {
+            @media (width < 640px) {
               height: var(--size-40);
               font-size: var(--size-14);
               line-height: 1.4;
@@ -228,7 +228,7 @@
             justify-content: center;
             align-items: center;
 
-            @media (width < 860px) {
+            @media (width < 640px) {
               width: var(--size-40);
               height: var(--size-40);
             }
@@ -237,7 +237,7 @@
               width: var(--size-24);
               height: var(--size-24);
 
-              @media (width < 860px) {
+              @media (width < 640px) {
                 width: min(
                   calc(19.2 / var(--breakpoint-mobile) * 100vw),
                   19.2px

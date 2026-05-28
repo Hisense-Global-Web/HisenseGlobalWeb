@@ -30,7 +30,7 @@
           var(--font-size-large)
   );
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     font-size: clamp(
             var(--font-size-small),
             calc(

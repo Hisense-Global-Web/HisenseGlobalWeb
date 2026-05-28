@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     padding: var(--spacing-m, 32px) 0;
   }
 
@@ -21,7 +21,7 @@
     font-weight: 400;
     line-height: 120%;
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       font-size: var(--size-24, 24px);
     }
   }

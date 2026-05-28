@@ -3,7 +3,7 @@
 	position: relative;
 	padding-block: var(--spacing-xl);
 
-	@media (width >= 860px) {
+	@media (width >= 640px) {
 		padding-block: var(--spacing-pc-3xl);
 	}
 
@@ -64,7 +64,7 @@
 		width: 100%;
 		color: var(--color-hisense-grey-01);
 
-		@media (width >= 860px) {
+		@media (width >= 640px) {
 			border-radius: var(--border-radius-l);
 			padding: var(--spacing-xl) var(--spacing-2xl);
 		}
@@ -83,7 +83,7 @@
 			font-weight: var(--fontweight-medium);
 			color: var(--color-primary-green-50);
 
-			@media (width >= 860px) {
+			@media (width >= 640px) {
 				--number-height: calc(var(--size-46, 46px) * 1.2);
 
 				font-size: var(--size-46);
@@ -117,7 +117,7 @@
 			font-weight: var(--fontweight-book);
 			color: var(--color-primary-grey-90);
 
-			@media (width >= 860px) {
+			@media (width >= 640px) {
 				font-size: var(--size-20);
 			}
 		}
@@ -130,7 +130,7 @@
 		padding: 0;
 		overflow: hidden;
 
-		@media (width >= 860px) {
+		@media (width >= 640px) {
 			border-radius: var(--border-radius-l);
 			padding: 0;
 		}

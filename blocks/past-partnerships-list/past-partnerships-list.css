@@ -13,7 +13,7 @@
   font-weight: var(--fontweight-medium);
   line-height: 120%;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     font-size: var(--size-18);
   }
 }
@@ -25,7 +25,7 @@
   font-weight: var(--fontweight-medium, 500);
   line-height: 120%;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     font-size: var(--fontsize-title3, 18px);
   }
 }
@@ -34,7 +34,7 @@
   font-size: var(--size-20);
   margin-bottom: var(--spacing-sm, 24px);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     font-size: var(--size-18);
     margin-bottom: var(--size-30, 30px);
   }
@@ -44,7 +44,7 @@
   font-size: var(--fontsize-title1, 24px);
   margin-bottom: var(--spacing-sm, 24px);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     font-size: var(--fontsize-title3, 18px);
     margin-bottom: var(--size-30, 30px);
   }
@@ -54,7 +54,7 @@
   font-size: var(--fontsize-h1, 40px);
   margin-bottom: var(--spacing-2xs, 12px);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     font-size: var(--fontsize-h1, 40px);
     margin-bottom: var(--spacing-xs, 16px);
   }
@@ -64,7 +64,7 @@
   font-size: var(--fontsize-title1, 24px);
   margin-bottom: var(--spacing-xl, 48px);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     font-size: var(--fontsize-title3, 18px);
     margin-bottom: var(--spacing-m, 32px);
   }
@@ -77,13 +77,13 @@
   padding: 0;
   display: grid;
 
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .past-partnerships-list .mobile-tiled {
-  @media (width < 860px) {
+  @media (width < 640px) {
     overflow: auto visible;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
@@ -113,7 +113,7 @@
   padding: var(--spacing-m, 32px) var(--size-28);
   gap: var(--spacing-sm, 24px);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     border-radius: var(--radius-lg, 12px);
     position: relative;
     transition: transform 0.3s;
@@ -125,7 +125,7 @@
 }
 
 .past-partnerships-list .mobile-titled-li {
-  @media (width < 860px) {
+  @media (width < 640px) {
     width: 51.282vw !important;
   }
 }
@@ -139,7 +139,7 @@
   align-items: center;
   justify-content: center;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     width: auto;
     height: calc(130 / var(--breakpoint-mobile) * 100vw);
   }
@@ -163,7 +163,7 @@
   height: min(calc(179 / var(--breakpoint-pc) * 100vw), 179px);
   object-fit: contain;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     height: calc(130 / var(--breakpoint-mobile) * 100vw);
   }
 }
@@ -172,7 +172,7 @@
   width: 100%;
   height: min(calc(179 / var(--breakpoint-pc) * 100vw), 179px);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     height: calc(130 / var(--breakpoint-mobile) * 100vw);
   }
 }
@@ -186,7 +186,7 @@
   text-align: center;
   text-transform: capitalize;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     color: var(--color-primary-grey-70);
     line-height: 140%;
     font-size: var(--size-14);

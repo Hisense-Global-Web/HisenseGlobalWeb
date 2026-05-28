@@ -92,7 +92,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .enterprise-tech{
     .pc-image-box {
       display: none;

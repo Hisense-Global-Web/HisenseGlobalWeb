@@ -1,16 +1,20 @@
-const HYBRIS_ACCOUNT_MENU_ITEMS = [
-  { label: 'Account Home', suffix: '' },
-  { label: 'Orders', suffix: '/orders' },
-  { label: 'Wishlist', suffix: '/wishlist' },
-  { label: 'Address', suffix: '/address-book' },
-  { label: 'Coupons', suffix: '/coupons' },
-];
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
-const ACCOUNT_COUNT_KEY_BY_LABEL = {
-  Orders: 'orders',
-  Wishlist: 'wishlist',
-  Address: 'addresses',
-  Coupons: 'coupons',
+const HYBRIS_ACCOUNT_MENU_ITEMS = {
+  en: [
+    { label: 'Account Home', suffix: '' },
+    { label: 'Orders', suffix: '/orders', countKey: 'orders' },
+    { label: 'Wishlist', suffix: '/wishlist', countKey: 'wishlist' },
+    { label: 'Address', suffix: '/address-book', countKey: 'addresses' },
+    { label: 'Coupons', suffix: '/coupons', countKey: 'coupons' },
+  ],
+  fr: [
+    { label: 'Accueil du compte', suffix: '' },
+    { label: 'Mes commandes', suffix: '/orders', countKey: 'orders' },
+    { label: 'Ma liste d\'envies', suffix: '/wishlist', countKey: 'wishlist' },
+    { label: 'Mes adresses', suffix: '/address-book', countKey: 'addresses' },
+    { label: 'Mes coupons', suffix: '/coupons', countKey: 'coupons' },
+  ],
 };
 
 export const DEFAULT_HEADER_COMMERCE_COUNTS = {
@@ -130,15 +134,15 @@ export function buildAccountMenuLinks(
     return [];
   }
 
-  return HYBRIS_ACCOUNT_MENU_ITEMS.map(({ label, suffix, showZeroCount = false }) => {
-    const countKey = ACCOUNT_COUNT_KEY_BY_LABEL[label];
-    return {
-      label,
-      href: `${urlParts.domain}${urlParts.uri}${suffix}`,
-      count: countKey ? normalizeCount(commerceCounts?.[countKey]) : 0,
-      showZeroCount,
-    };
-  });
+  const { country = 'us', language = 'en' } = getLocaleFromPath();
+  return HYBRIS_ACCOUNT_MENU_ITEMS[language].map(({
+    label, suffix, showZeroCount = false, countKey,
+  }) => ({
+    label,
+    href: `${urlParts.domain}/${country}/${language}${urlParts.uri}${suffix}`,
+    count: countKey ? normalizeCount(commerceCounts?.[countKey]) : 0,
+    showZeroCount,
+  }));
 }
 
 export function buildAccountMenuItemChildren(doc, options = {}) {

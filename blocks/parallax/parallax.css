@@ -52,7 +52,7 @@
 		pointer-events: none;
 		padding: 24px 0;
 
-		@media (width >= 860px) {
+		@media (width >= 640px) {
 			padding: 40px 0;
 		}
 
@@ -68,7 +68,7 @@
 		color: var(--color-primary-grey-20);
 	}
 
-	@media (width < 860px) {
+	@media (width < 640px) {
 		.sub-image-container,
 		.sub-text-container {
 			margin-top: 20px;

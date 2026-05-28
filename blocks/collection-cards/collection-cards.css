@@ -18,7 +18,7 @@
 .collection-cards > ul {
   gap: var(--fontsize-title1);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
 		overflow: auto visible;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch; /* iOS 弹性滚动 */
@@ -36,7 +36,7 @@
    aspect-ratio: 1;
    font-family: var(--font-family);
 
-   @media (width < 860px) {
+   @media (width < 640px) {
     /* flex: 0 0 auto;  */
     position: relative;
 		width: 70.7vw !important;
@@ -54,7 +54,7 @@
 .collection-cards-card-body > h6{
   font-size: var(--size-20);
 
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     font-size: var(--size-24);
   }
 }
@@ -84,7 +84,7 @@
   position: relative;
   cursor: pointer;
 
-    @media (width >= 860px) {
+    @media (width >= 640px) {
      width: 100%;
      aspect-ratio: 262 / 250;
   }
@@ -139,7 +139,7 @@
 
 .cover-style > ul > li:hover img,
 .cover-dark > ul > li:hover img {
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     transform: scale(1.1);
   }
 }
@@ -169,7 +169,7 @@
   gap: var(--spacing-xs);
 
 
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     gap: var(--size-16);
     width: 100%;
     height:min(24.86111vw, 358px);
@@ -189,7 +189,7 @@
   height: 42.05128vw;;
   object-fit: contain;
 
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     width: min(14.7222222vw, 212px);
     height: min(14.7222222vw, 212px);
   }
@@ -202,7 +202,7 @@
 }
 
 .center-style > ul > li:hover img {
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     transform: scale(1.04)
   }
 }
@@ -239,7 +239,7 @@
 
 .center-style > ul > li:hover .collection-cards-card-cta a.button:any-link,
 .center-style button{
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     opacity: 1;
     visibility: visible;
     bottom: var(--spacing-lg);

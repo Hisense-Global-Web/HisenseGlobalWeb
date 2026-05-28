@@ -55,7 +55,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .sustainability-dashboard-list {
     flex-direction: column;
     align-items: center;

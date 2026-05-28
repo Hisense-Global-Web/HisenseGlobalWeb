@@ -23,13 +23,13 @@
   /* width: 640px; */
 
   /* height: 360px; */
-  min-height: 360px;
+  min-height: min(calc(360 / var(--breakpoint-pc) * 100vw), 360px);
   margin-bottom: var(--size-30);
   position: relative;
   display: flex;
   align-items: center;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     display: none;
   }
   
@@ -114,7 +114,7 @@
   video {
     height: min(calc(360 / var(--breakpoint-pc) * 100vw), 360px);
     
-    @media (width < 860px) {
+    @media (width < 640px) {
       height: min(calc(220 / var(--breakpoint-mobile) * 100vw), 220px);
     }
   }
@@ -206,7 +206,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .pdp-media {
     width: 100%;
     

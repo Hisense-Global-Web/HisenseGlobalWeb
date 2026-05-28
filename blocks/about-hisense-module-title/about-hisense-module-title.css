@@ -3,7 +3,7 @@
   background: var(--color-primary-grey-95);
   width: 100%;
 
-   @media (width < 860px) {
+   @media (width < 640px) {
      padding:var(--large) var(--spacing-s);
    }
 }
@@ -13,7 +13,7 @@
   width: min(47.22222vw, 680px);
   margin: auto;
 
-   @media (width < 860px) {
+   @media (width < 640px) {
      width: 100%;
    }
 }
@@ -29,7 +29,7 @@
   text-align: center;
   text-transform: capitalize;
 
-   @media (width < 860px) {
+   @media (width < 640px) {
     font-size: var(--size-24);
   }
 }
@@ -44,7 +44,7 @@
   font-family: var(--font-family);
   text-align: center;
 
-   @media (width < 860px) {
+   @media (width < 640px) {
     font-size: var(--size-14);
     margin: var(--spacing-2xs) 0 0;
     font-weight: var(--fontweight-book);

@@ -230,7 +230,7 @@ main > :not(.category-carousel-container).product-card-container.product-sorting
   display: none;
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .mobile-filter-title {
     display: flex;
     align-items: center;

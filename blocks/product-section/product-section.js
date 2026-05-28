@@ -28,7 +28,7 @@ import { processPath } from '../../utils/carousel-common.js';
 
 const { country } = getLocaleFromPath();
 const WISHLIST_CART_NAME_PREFIX = 'wishlist';
-const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-p1-public.model-t.cc.commerce.ondemand.com';
+const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com';
 const STOREFRONT_CART_URL = `${STOREFRONT_BASE_URL}/cart`;
 const STOREFRONT_CHECKOUT_URL = new URL('/checkout/delivery-address', STOREFRONT_BASE_URL).toString();
 const PRICE_SPIDER_INTEGRATION_PATTERN = /pricespider|ps-widget/i;

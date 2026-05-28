@@ -1,4 +1,5 @@
 import buildOptimizedPictureUrl from './optimized-picture-url.js';
+import { SCREEN_POINT } from '../utils/constants.js';
 
 /*
  * Copyright 2025 Adobe. All rights reserved.
@@ -320,7 +321,7 @@ function createOptimizedPicture(
   src,
   alt = '',
   eager = false,
-  breakpoints = [{ media: '(min-width: 860px)', width: '2000' }, { width: '860' }],
+  breakpoints = [{ media: `(min-width: ${SCREEN_POINT}px)`, width: '2000' }, { width: SCREEN_POINT }],
 ) {
   const url = new URL(src, window.location.href);
   const picture = document.createElement('picture');

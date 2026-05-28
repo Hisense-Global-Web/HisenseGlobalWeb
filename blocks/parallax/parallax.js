@@ -1,6 +1,7 @@
 import { createOptimizedPicture, loadScript } from '../../scripts/aem.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 import { createElement, debounce } from '../../utils/dom-helper.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 const ANIMATION_DURATION = {
   IMAGE_BRIGHTNESS: 0.3,
@@ -12,7 +13,7 @@ const ANIMATION_DURATION = {
 };
 
 const CONFIG = {
-  SMALL_VIEWPORT_MAX_WIDTH: 860,
+  SMALL_VIEWPORT_MAX_WIDTH: SCREEN_POINT,
   MEDIUM_VIEWPORT_MAX_WIDTH: 1180,
   MIN_VIEWPORT_HEIGHT: 600,
   MAX_VIEWPORT_WIDTH: 1920,
@@ -33,7 +34,7 @@ export default async function decorate(block) {
   scrollTextContainer.classList.add('scroll-text-container');
 
   const optimizedPicture = createOptimizedPicture(scaleTarget.src, scaleTarget.alt, false, [{
-    media: '(min-width: 860px)',
+    media: `(min-width: ${SCREEN_POINT}px)`,
     width: '3000',
   }, { width: '1920' }]);
   scaleTarget = optimizedPicture.querySelector('img');

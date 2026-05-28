@@ -176,7 +176,7 @@
     line-height: normal;
     margin: var(--size-10, 10px) var(--size-16, 16px) 0 var(--size-16, 16px);
 
-    @media (width<860px) {
+    @media (width<640px) {
       font-size: var(--fontsize-body2, 14px);
     }
   }
@@ -275,7 +275,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .product-filter-wrapper {
     width: 100vw;
     position: fixed;
