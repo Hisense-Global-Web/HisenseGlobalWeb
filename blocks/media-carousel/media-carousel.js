@@ -378,7 +378,12 @@ export default async function decorate(block) {
             aEl.parentElement.nextElementSibling.remove();
             aEl.addEventListener('click', (e) => {
               e.preventDefault(); // 阻止默认跳转
-              const target = document.querySelector(e.currentTarget.getAttribute('href'));
+              const href = e.currentTarget.getAttribute('href');
+              if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
+                window.location.href = href;
+                return;
+              }
+              const target = document.querySelector(href);
 
               if (target) {
                 target.scrollIntoView({
