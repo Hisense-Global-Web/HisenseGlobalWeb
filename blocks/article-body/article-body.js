@@ -5,13 +5,18 @@ const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 export default function decorate(block) {
   [...block.children].forEach((row) => {
-    const type = row.firstElementChild?.textContent?.trim() || '';
+    const typeColumn = row.firstElementChild;
+    const type = typeColumn?.textContent?.trim() || '';
+
     if (type === 'headline') {
       const headlineContent = row.children[1]?.textContent?.trim() || '';
       const headlineDiv = document.createElement('div');
       headlineDiv.className = 'text-body-headerline';
       headlineDiv.innerHTML = headlineContent;
-      row.replaceWith(headlineDiv);
+
+      // Hide the original row and append the new element after it
+      row.style.display = 'none';
+      row.insertAdjacentElement('afterend', headlineDiv);
     } else if (type === 'image') {
       const imgEl = row.querySelector('img');
       const imgSrc = imgEl?.src || '';
@@ -19,11 +24,15 @@ export default function decorate(block) {
       const imageDiv = document.createElement('div');
       imageDiv.className = 'text-body-image';
       imageDiv.innerHTML = `<img src="${imgSrc}" alt="${imgAlt}">`;
-      row.replaceWith(imageDiv);
+
+      row.style.display = 'none';
+      row.insertAdjacentElement('afterend', imageDiv);
     } else if (type === 'content') {
       const contentDiv = row.children[1];
       contentDiv.className = 'text-body-content';
-      row.replaceWith(contentDiv);
+
+      row.style.display = 'none';
+      row.insertAdjacentElement('afterend', contentDiv);
     } else if (type === 'quote') {
       const quoteDiv = row.children[1];
       quoteDiv.className = 'text-body-quote';
@@ -38,7 +47,9 @@ export default function decorate(block) {
         notesDiv.className = 'text-body-quote-notes';
         quoteDiv.appendChild(notesDiv);
       }
-      row.replaceWith(quoteDiv);
+
+      row.style.display = 'none';
+      row.insertAdjacentElement('afterend', quoteDiv);
     } else if (type === 'flexend-side-by-side') {
       const GroupDiv = document.createElement('div');
       GroupDiv.className = 'text-body-group-flexend';
@@ -67,13 +78,19 @@ export default function decorate(block) {
       if (desc) textGroupDiv.appendChild(desc);
       GroupDiv.appendChild(textGroupDiv);
 
-      row.replaceWith(GroupDiv);
+      row.style.display = 'none';
+      row.insertAdjacentElement('afterend', GroupDiv);
     } else {
-      const typeColumn = row.firstElementChild;
-      if (typeColumn && row.children.length > 1) {
-        typeColumn.remove();
+      // For unknown types, just hide the type column but keep the content
+      // eslint-disable-next-line no-lonely-if
+      if (typeColumn) {
+        typeColumn.style.display = 'none';
       }
     }
   });
+  // Remove all hidden rows from the DOM
+  const hiddenRows = block.querySelectorAll('[style*="display: none"]');
+  hiddenRows.forEach((row) => row.remove());
+
   wrapInRichtext(block);
 }
