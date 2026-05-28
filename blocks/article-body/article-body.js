@@ -108,7 +108,6 @@ export default function decorate(block) {
       }
       ArticleBodyDiv.append(quoteDiv);
     } else if (type === 'flexend-side-by-side') {
-      console.log(row)
       const GroupDiv = document.createElement('div');
       GroupDiv.className = 'text-body-group-flexend';
       // 图
