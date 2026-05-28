@@ -40,7 +40,7 @@ export default function decorate(block) {
           GroupDiv.append(imgGroupDiv);
         }
         GroupDiv.append(textGroupDiv);
-        row.children.forEach((i) => { i.style.display = 'none'; });
+        [...row.children].forEach((i) => { i.style.display = 'none'; });
         row.append(GroupDiv);
       } else {
         console.log('row');
