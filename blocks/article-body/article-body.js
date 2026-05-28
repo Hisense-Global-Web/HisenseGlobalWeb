@@ -8,15 +8,40 @@ export default function decorate(block) {
   if (isEditMode) {
     [...block.children].forEach((row) => {
       const type = row.firstElementChild?.textContent?.trim() || '';
-      console.log(type, row);
       if (type === 'headline') {
-
+        const headlineContent = row.children[1]?.textContent?.trim() || '';
+        const headlineDiv = document.createElement('div');
+        headlineDiv.className = 'text-body-headerline';
+        headlineDiv.innerHTML = headlineContent;
+        [...row.children].forEach((i) => { i.style.display = 'none'; });
+        row.append(headlineDiv);
       } else if (type === 'image') {
-
+        const imgAEl = row.querySelector('a');
+        const imgSrc = imgAEl.getAttribute('href');
+        const imgAlt = row.querySelector('[data-aue-prop="alt"]') || document.createElement('p');
+        const imageDiv = document.createElement('div');
+        imageDiv.className = 'text-body-image';
+        imageDiv.innerHTML = `<img src="${imgSrc}" alt="${imgAlt}">`;
+        [...row.children].forEach((i) => { i.style.display = 'none'; });
+        row.append(imageDiv);
       } else if (type === 'content') {
-
+        row.children[0].style.display = 'none';
+        const contentDiv = row.children[1];
+        contentDiv.className = 'text-body-content';
       } else if (type === 'quote') {
-
+        row.children[0].style.display = 'none';
+        const quoteDiv = row.children[1];
+        quoteDiv.className = 'text-body-quote';
+        const imgEl = document.createElement('img');
+        imgEl.className = 'quotation';
+        imgEl.src = `/content/dam/hisense/${country}/common-icons/quotation.svg`;
+        imgEl.alt = 'quotation';
+        quoteDiv.append(imgEl);
+        const notesDiv = row.children[2];
+        if (notesDiv) {
+          notesDiv.className = 'text-body-quote-notes';
+          quoteDiv.append(notesDiv);
+        }
       } else if (type === 'flexend-side-by-side') {
         const GroupDiv = document.createElement('div');
         GroupDiv.className = 'text-body-group-flexend';
@@ -42,8 +67,6 @@ export default function decorate(block) {
         GroupDiv.append(textGroupDiv);
         [...row.children].forEach((i) => { i.style.display = 'none'; });
         row.append(GroupDiv);
-      } else {
-        console.log('row');
       }
     });
     return;
