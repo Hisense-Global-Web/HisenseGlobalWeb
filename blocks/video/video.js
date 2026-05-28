@@ -19,10 +19,11 @@ export default function decorate(block) {
     if (row.getAttribute('data-video-origin') === 'vimeo') {
       // 处理 Vimeo 视频
       // const videoUrl = 'https://player.vimeo.com/video/1115919354?h=70aa3569b2&badge=0&autopause=0&player_id=0&…';
-      const videoUrl = row.nextElementSibling.children[1].textContent.trim() ?? '';
+      const externalUrl = row.nextElementSibling.children[1].textContent.trim() ?? '';
+      console.log(externalUrl, 'externalUrl');
       // 获取到配置项中外部链接后，移除原有的 URL 文本节点
       const iframe = document.createElement('iframe');
-      iframe.src = `https://${videoUrl}`;
+      iframe.src = `https://${externalUrl}`;
       iframe.width = '100%';
       iframe.height = '630';
       iframe.style.border = '0';

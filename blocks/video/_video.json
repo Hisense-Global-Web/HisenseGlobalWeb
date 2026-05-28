@@ -59,6 +59,7 @@
           "name": "external-url",
           "label": "Vimeo Video URL",
           "valueType": "string",
+          "format": "uri",
           "condition": { "===": [{"var" : "video-origin"}, "vimeo"] }
         }
       ]
