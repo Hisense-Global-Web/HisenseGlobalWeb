@@ -1,14 +1,11 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
-import { getLocaleFromPath } from '../../scripts/locale-utils.js';
-import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 
 function formatDate(dateStr) {
   try {
     const date = new Date(dateStr);
     if (Number.isNaN(date.getTime())) return dateStr;
-    const { language } = getLocaleFromPath();
-    return formatIsoToUtcStr(date, language);
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   } catch {
     return dateStr;
   }
