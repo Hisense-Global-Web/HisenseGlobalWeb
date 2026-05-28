@@ -5,6 +5,7 @@ export default function decorate(block) {
   // 外部视频容器
   const externalVideoBox = document.createElement('div');
   externalVideoBox.className = 'external-video-box';
+  // console.log(block, 'block');
   [...block.children].forEach((row) => {
     const key = row.firstElementChild?.textContent?.trim().toLowerCase();
     row.className = key;
@@ -17,11 +18,11 @@ export default function decorate(block) {
     }
     if (row.getAttribute('data-video-origin') === 'vimeo') {
       // 处理 Vimeo 视频
-
       // const videoUrl = 'https://player.vimeo.com/video/1115919354?h=70aa3569b2&badge=0&autopause=0&player_id=0&…';
       const videoUrl = row.nextElementSibling.children[1].textContent.trim() ?? '';
+      // 获取到配置项中外部链接后，移除原有的 URL 文本节点
       const iframe = document.createElement('iframe');
-      iframe.src = `http://${videoUrl}`;
+      iframe.src = `https://${videoUrl}`;
       iframe.width = '100%';
       iframe.height = '630';
       iframe.style.border = '0';
@@ -150,9 +151,6 @@ export default function decorate(block) {
       // 保持静音状态不变
       video.play();
     });
-    // if (block.querySelector('.vimeo-box')) {
-    //   block.querySelector('.vimeo-box').remove();
-    // }
   }
   const videoOriginDom = block.querySelector('.video-origin');
   if (videoOriginDom.getAttribute('data-video-origin') === 'vimeo') {
@@ -160,11 +158,14 @@ export default function decorate(block) {
   } else {
     internalVideo();
   }
-  // const videoUrl = 'https://player.vimeo.com/video/1115919354?h=70aa3569b2&badge=0&autopause=0&player_id=0&…';
-  // const iframe = document.createElement('iframe');
-  // iframe.src = videoUrl;
-  // iframe.width = '100%';
-  // iframe.height = '630';
-  // iframe.style.border = '0';
-  // block.appendChild(iframe);
+  // 数据处理完成后，移除原有的配置文本节点
+  block.querySelector('.video-origin').remove();
+  const externalUrlDom = block.querySelector('.external-url');
+  if (externalUrlDom) {
+    externalUrlDom.remove();
+  }
+  const internalUrlDom = block.querySelector('.video');
+  if (internalUrlDom) {
+    internalUrlDom.remove();
+  }
 }
