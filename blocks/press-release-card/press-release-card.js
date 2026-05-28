@@ -1,15 +1,14 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 
 function formatDate(iso) {
   if (!iso) return '';
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return iso;
 
-  return date.toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
+  const { language } = getLocaleFromPath();
+  return formatIsoToUtcStr(date, language);
 }
 
 function normalizeNewsroomData(json) {

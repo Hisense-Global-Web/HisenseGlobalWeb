@@ -228,6 +228,7 @@
           width: 100%;
           height: 100%;
           display: block;
+          object-fit: contain;
 
           @media (width < 640px) {
             width: calc(144 / var(--breakpoint-mobile) * 100vw);

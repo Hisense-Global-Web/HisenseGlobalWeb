@@ -3,8 +3,10 @@ import {
   whenElementReady,
   getSlideWidth,
   getChildSlideWidth,
+  formatIsoToUtcStr,
   throttle,
 } from '../../utils/carousel-common.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -13,11 +15,8 @@ function formatDate(iso) {
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return iso;
 
-  return date.toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
+  const { language } = getLocaleFromPath();
+  return formatIsoToUtcStr(date, language);
 }
 
 function normalizeNewsroomData(json) {
