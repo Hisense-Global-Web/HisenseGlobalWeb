@@ -4,11 +4,6 @@ const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
 
 export default function decorate(block) {
-  // const isEditMode = block.hasAttribute('data-aue-resource');
-  // if (isEditMode) {
-  //   return;
-  // }
-  const ArticleBodyDiv = document.createElement('div');
   [...block.children].forEach((row) => {
     const type = row.firstElementChild?.textContent?.trim() || '';
     if (type === 'headline') {
@@ -16,7 +11,7 @@ export default function decorate(block) {
       const headlineDiv = document.createElement('div');
       headlineDiv.className = 'text-body-headerline';
       headlineDiv.innerHTML = headlineContent;
-      ArticleBodyDiv.append(headlineDiv);
+      row.replaceWith(headlineDiv);
     } else if (type === 'image') {
       const imgEl = row.querySelector('img');
       const imgSrc = imgEl?.src || '';
@@ -24,11 +19,11 @@ export default function decorate(block) {
       const imageDiv = document.createElement('div');
       imageDiv.className = 'text-body-image';
       imageDiv.innerHTML = `<img src="${imgSrc}" alt="${imgAlt}">`;
-      ArticleBodyDiv.append(imageDiv);
+      row.replaceWith(imageDiv);
     } else if (type === 'content') {
       const contentDiv = row.children[1];
       contentDiv.className = 'text-body-content';
-      ArticleBodyDiv.append(contentDiv);
+      row.replaceWith(contentDiv);
     } else if (type === 'quote') {
       const quoteDiv = row.children[1];
       quoteDiv.className = 'text-body-quote';
@@ -36,39 +31,49 @@ export default function decorate(block) {
       imgEl.className = 'quotation';
       imgEl.src = `/content/dam/hisense/${country}/common-icons/quotation.svg`;
       imgEl.alt = 'quotation';
-      quoteDiv.append(imgEl);
+      quoteDiv.insertBefore(imgEl, quoteDiv.firstChild);
+
       const notesDiv = row.children[2];
       if (notesDiv) {
         notesDiv.className = 'text-body-quote-notes';
-        quoteDiv.append(notesDiv);
+        quoteDiv.appendChild(notesDiv);
       }
-      ArticleBodyDiv.append(quoteDiv);
+      row.replaceWith(quoteDiv);
     } else if (type === 'flexend-side-by-side') {
       const GroupDiv = document.createElement('div');
       GroupDiv.className = 'text-body-group-flexend';
       // 图
       const imgGroupDiv = document.createElement('div');
       const imgEl = row.querySelector('img');
-      imgGroupDiv.className = 'text-body-img-group';
-      imgGroupDiv.append(imgEl);
+      if (imgEl) {
+        imgGroupDiv.className = 'text-body-img-group';
+        imgGroupDiv.appendChild(imgEl);
+        GroupDiv.appendChild(imgGroupDiv);
+      }
+
       // 文
       const textGroupDiv = document.createElement('div');
-      const title = row.children[2] || '';
-      title.className = 'text-body-title';
-      const desc = row.children[3] || '';
-      desc.className = 'text-body-desc';
-      textGroupDiv.className = 'text-body-text-group';
-      textGroupDiv.append(title, desc);
-      if (imgEl) {
-        GroupDiv.append(imgGroupDiv);
+      const title = row.children[2];
+      const desc = row.children[3];
+
+      if (title) {
+        title.className = 'text-body-title';
       }
-      GroupDiv.append(textGroupDiv);
-      ArticleBodyDiv.append(GroupDiv);
+      if (desc) {
+        desc.className = 'text-body-desc';
+      }
+      textGroupDiv.className = 'text-body-text-group';
+      if (title) textGroupDiv.appendChild(title);
+      if (desc) textGroupDiv.appendChild(desc);
+      GroupDiv.appendChild(textGroupDiv);
+
+      row.replaceWith(GroupDiv);
     } else {
-      ArticleBodyDiv.append(row);
+      const typeColumn = row.firstElementChild;
+      if (typeColumn && row.children.length > 1) {
+        typeColumn.remove();
+      }
     }
-    row.style.display = 'none';
   });
-  block.append(...ArticleBodyDiv.children);
   wrapInRichtext(block);
 }
