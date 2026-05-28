@@ -6,7 +6,7 @@
 
 /* 为了 text 和 legal content block 组合使用时，要与legal content 内容padding 保持一致 */
 .legal-content-container .text-wrapper {
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     padding: 0;
   }
 }
@@ -134,7 +134,7 @@
   padding-top: min(calc(80 / var(--breakpoint-pc) * 100vw), 80px);
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .text-container.gap-s .text-wrapper,
   .text-container.gap-m .text-wrapper,
   .text-container.gap-md .text-wrapper,

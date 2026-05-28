@@ -188,7 +188,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .sustainability-dashboard-achievement {
     width: 100%;
     flex-direction: column !important;

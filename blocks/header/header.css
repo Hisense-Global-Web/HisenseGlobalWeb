@@ -5,7 +5,7 @@
 }
 
 .main-mobile {
-  @media (width<860px) {
+  @media (width<640px) {
     z-index: 20;
     position: relative;
   }
@@ -1652,7 +1652,7 @@
     }
   }
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     #navigation .nav-container {
       padding: 0 18px;
     }
@@ -1688,7 +1688,7 @@
       max-height 0.36s ease-in-out,
       opacity 0.36s ease-in-out;
 
-    @media (width<860px) {
+    @media (width<640px) {
       padding: var(--spacing-xl, 48px) var(--spacing-s, 18px);
     }
 
@@ -1701,13 +1701,13 @@
     }
 
     .input-wrapper-mobile:focus-within {
-      @media (width<860px) {
+      @media (width<640px) {
         border: 2px solid var(--color-primary-green-50, #009f9c);
       }
     }
   }
 
-  @media (width<860px) {
+  @media (width<640px) {
     top: 0;
   }
 }
@@ -1716,7 +1716,7 @@
 #navigation.is-company .search-box-popup {
   top: 100px;
 
-  @media (width<860px) {
+  @media (width<640px) {
     top: inherit;
   }
 }
@@ -1743,7 +1743,7 @@
   padding: var(--size-80) var(--size-120);
   box-sizing: border-box;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     width: calc(354 / var(--breakpoint-mobile) * 100vw);
     padding: var(--size-80) var(--size-24) var(--size-32);
   }
@@ -1754,7 +1754,7 @@
     right: var(--size-35);
     cursor: pointer;
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       top: var(--size-24);
       right: var(--size-24);
     }
@@ -1766,7 +1766,7 @@
     align-items: center;
     gap: 24px;
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-12);
     }
 
@@ -1784,7 +1784,7 @@
       font-weight: var(--fontweight-book);
       text-align: center;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         font-size: var(--size-14);
       }
     }
@@ -1796,7 +1796,7 @@
     justify-content: center;
     margin-top: var(--size-48);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       width: calc(100% + calc(2 * var(--size-7)));
       margin: var(--size-20) calc(-1 * var(--size-7)) 0;
     }
@@ -1818,7 +1818,7 @@
       text-align: center;
       margin: 0;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         width: unset;
         padding: 0 var(--size-24);
         height: var(--size-40);
@@ -1858,7 +1858,7 @@
       position: relative;
       transition: opacity 0.2s ease;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         width: unset;
         padding: 0 var(--size-24);
         height: var(--size-40);

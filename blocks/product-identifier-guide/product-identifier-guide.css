@@ -131,7 +131,7 @@
     }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
     .product-identifier-guide-container {
         min-height: auto;
 

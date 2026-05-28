@@ -161,7 +161,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .campaign-bundle-banner {
     .fifa-image {
       display: none;

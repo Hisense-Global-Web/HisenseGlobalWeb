@@ -9,7 +9,7 @@
   padding: var(--size-24) var(--size-30);
   gap: var(--size-8);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     padding: var(--size-20) var(--size-24);
     border-radius: var(--size-12);
   }
@@ -33,7 +33,7 @@
     color: #A26311;
     font-weight: var(--fontweight-book);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       font-size: var(--size-14);
       line-height: 1.5;
     }
@@ -64,7 +64,7 @@
       font-weight: var(--fontweight-medium);
       cursor: pointer;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         margin-top: var(--size-30);
       }
 

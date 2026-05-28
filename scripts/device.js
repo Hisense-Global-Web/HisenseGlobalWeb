@@ -1,3 +1,5 @@
+import { SCREEN_POINT } from '../utils/constants.js';
+
 export function isMobile() {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   // 检查用户代理
@@ -18,5 +20,5 @@ export function isMobile() {
 // 设备检测函数
 export function isMobileWindow() {
   if (typeof window === 'undefined') return false;
-  return window.innerWidth < 860;
+  return window.innerWidth < SCREEN_POINT;
 }

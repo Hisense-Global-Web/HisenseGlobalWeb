@@ -1,4 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
+import { isMobileWindow } from '../../scripts/device.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
 
@@ -481,17 +482,13 @@ function initTabsAndCarousel(block) {
     return count - visibleCount;
   }
 
-  function isMobile() {
-    return window.innerWidth < 860;
-  }
-
   function updateCarousel() {
     const content = getActiveContent();
     const track = getTrack(content);
     const count = getItems(content).length;
     const visibleCount = content.getAttribute('type') === 'warranty' ? 2 : VISIBLE_COUNT;
 
-    if (isMobile() || count <= visibleCount) {
+    if (isMobileWindow() || count <= visibleCount) {
       carouselNav.style.display = 'none';
       if (track) track.style.transform = 'translateX(0)';
       return;

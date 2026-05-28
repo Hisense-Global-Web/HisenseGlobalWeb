@@ -16,7 +16,7 @@ main .section.social-media-list-container .social-media-list-wrapper {
     line-height: 1.2;
     text-transform: capitalize;
     
-    @media (width < 860px) {
+    @media (width < 640px) {
       width: 100%;
       font-size: var(--size-16);
       margin: var(--size-24) 0 var(--size-16);
@@ -31,7 +31,7 @@ main .section.social-media-list-container .social-media-list-wrapper {
     gap: var(--size-16);
     color: var(--color-primary-grey-70);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       width: 100%;
       gap: var(--size-8);
     }
@@ -43,7 +43,7 @@ main .section.social-media-list-container .social-media-list-wrapper {
         width: var(--size-34);
         height: var(--size-34);
         
-        @media (width < 860px) {
+        @media (width < 640px) {
           width: var(--size-24);
           height: var(--size-24);
         }
@@ -56,7 +56,7 @@ main .section.social-media-list-container .social-media-list-wrapper {
           width: var(--size-34);
           height: var(--size-34);
 
-          @media (width < 860px) {
+          @media (width < 640px) {
             width: var(--size-24);
             height: var(--size-24);
           }

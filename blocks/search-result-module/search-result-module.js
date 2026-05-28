@@ -21,6 +21,21 @@ function simpleHash(str) {
   return Math.abs(h).toString(36);
 }
 
+function extractTags(data, tags = {}) {
+  Object.keys(data).forEach((key) => {
+    // 跳过 JCR 系统属性
+    if (!key.startsWith('jcr:') && typeof data[key] === 'object' && data[key] !== null) {
+      // 如果当前节点有 jcr:title，说明它是一个标签节点
+      if (data[key]['jcr:title']) {
+        tags[key] = data[key]['jcr:title'];
+      }
+      // 递归处理子节点
+      extractTags(data[key], tags);
+    }
+  });
+  return tags;
+}
+
 function getTagsEndpointUrl() {
   const baseUrl = window.GRAPHQL_BASE_URL || '';
   return baseUrl ? `${baseUrl}${DEFAULT_TAGS_ENDPOINT}` : DEFAULT_TAGS_ENDPOINT;
@@ -252,11 +267,25 @@ function filterItems(items, keyword, type) {
     const fields = [];
     if (type === 'product') {
       fields.push(item.title, item.series, item.sku, item.overseasModel);
+      if (item.tags && item.tags.length) {
+        const transformTags = item.tags.map((t) => {
+          const lastSlashIndex = t.lastIndexOf('/');
+          const realTag = lastSlashIndex > -1 ? t.slice(lastSlashIndex + 1) : t;
+          return window.extractedTags && window.extractedTags[realTag] ? window.extractedTags[realTag] : realTag;
+        });
+        fields.push(...transformTags);
+      }
       // eslint-disable-next-line no-underscore-dangle
       const desc = item.description_description;
       if (desc && desc.html) fields.push(desc.html);
     } else {
-      fields.push(item.title, item.description, item.subtitle, item.keywords);
+      const originalTags = item.tags.split(',') || [];
+      const transformTags = originalTags.map((t) => {
+        const lastSlashIndex = t.lastIndexOf('/');
+        const realTag = lastSlashIndex > -1 ? t.slice(lastSlashIndex + 1) : t;
+        return window.extractedTags && window.extractedTags[realTag] ? window.extractedTags[realTag] : realTag;
+      });
+      fields.push(item.title, item.description, item.subtitle, item.keywords, ...transformTags);
     }
     return fields.some((f) => f && String(f).toLowerCase().includes(kw));
   });
@@ -614,6 +643,8 @@ function renderGlobalNoResult(keyword, config, tagData) {
 export default async function decorate(block) {
   const { config, items } = parseConfig(block);
   const keyword = getSearchKeyword();
+  const tagData = await fetchTagData();
+  window.extractedTags = extractTags(tagData);
 
   block.textContent = '';
 
@@ -636,7 +667,6 @@ export default async function decorate(block) {
   }
 
   const tabDataMap = [];
-  const hasPopularTags = config.popularsearchtags && config.popularsearchtags.length > 0;
 
   const fetchPromises = items.map(async (item) => {
     const { type } = item;
@@ -676,11 +706,7 @@ export default async function decorate(block) {
     }
   });
 
-  const tagDataPromise = hasPopularTags ? fetchTagData() : Promise.resolve(null);
-  const [results, tagData] = await Promise.all([
-    Promise.all(fetchPromises),
-    tagDataPromise,
-  ]);
+  const results = await Promise.all(fetchPromises);
   results.forEach((r) => tabDataMap.push(r));
 
   const allEmpty = tabDataMap.every((t) => t.filteredItems.length === 0);

@@ -4,6 +4,7 @@ import { whenElementReady, throttle } from '../../utils/carousel-common.js';
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 import { isVideoMediaColumn, normalizeImageReferenceLinks } from './media-reference.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 let heroBannerTimer;
 let heroBannerInterval;
@@ -87,7 +88,7 @@ function showSlide(block, targetLogicalIndex, init = false) {
   });
   updateActiveSlide(block, targetSlide);
   if (init) return;
-  // 4. 如果触碰了边界，等动画结束后“瞬移”回真实位置
+  // 4. 如果触碰了边界，等动画结束后"瞬移"回真实位置
   if (isBoundary) {
     // 清除之前的定时器防止冲突
     if (heroBannerTimer) clearTimeout(heroBannerTimer);
@@ -144,100 +145,127 @@ function bindEvents(block) {
       if (entry.isIntersecting) updateActiveSlide(block, entry.target);
     });
   }, { threshold: 0.5 });
+
+  // 遍历每个 slide，独立绑定媒体查询监听
   block.querySelectorAll('.hero-banner-item').forEach((slide) => {
     slideObserver.observe(slide);
-    if (window.innerWidth < 860) {
-      let touchStartTime;
-      let isScrolling = false;
-      let startX;
-      let startY;
 
-      slide.addEventListener('touchstart', (e) => {
-        // indicate user started interacting; autoplay callback will skip slides
-        userInteracting = true;
-        touchStartTime = Date.now();
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        isScrolling = false;
-        isInitializing = true; // 开始触摸时设置初始化锁
-        slide.classList.remove('touch-end');
-        slide.classList.add('touch-start');
-      });
+    // 媒体查询对象（确认 SCREEN_POINT = 640）
+    const mediaBannerItemQuery = window.matchMedia(`(min-width: ${SCREEN_POINT}px)`);
 
-      // 触摸移动
-      slide.addEventListener('touchmove', (e) => {
-        const currentX = e.touches[0].clientX;
-        const currentY = e.touches[0].clientY;
-        const diffX = currentX - startX;
-        const diffY = currentY - startY;
-        // only prevent default if horizontal swipe dominates
-        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
-          if (e.cancelable) {
-            e.preventDefault();
-          }
-          isScrolling = true;
-        } else {
-          // vertical movement or small horizontal movement, allow page scroll
-          isScrolling = false;
-        }
-      }, { passive: false });
+    // 每个 slide 独立的 touch 变量（避免闭包污染）
+    let touchStartTime = 0;
+    let startX = 0;
+    let startY = 0;
+    let isScrolling = false;
 
-      // 触摸结束
-      slide.addEventListener('touchend', async (e) => {
-        slide.classList.remove('touch-start');
-        slide.classList.add('touch-end');
-        const touchDuration = Date.now() - touchStartTime;
-        if (!isScrolling && touchDuration < 500) {
-          // touch情况下点击button执行跳转
-          if (e.target.tagName === 'A') {
-            const url = e.target.href;
-            if (url) {
-              window.location.href = url;
-            }
-          }
-          // touch 情况下点击video暂停/播放按钮
-          if (e.target.tagName === 'IMG' && e.target.parentElement.classList.contains('video-play-icon')) {
-            e.target.click();
-          }
-        }
-        if (isScrolling) {
-          const endX = e.changedTouches[0].clientX;
-          const endY = e.changedTouches[0].clientY;
-          const diffX = startX - endX;
-          const diffY = startY - endY;
-
-          if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
-            // 水平滑动
-            if (diffX > 0) {
-              // 向左滑动，显示下一张
-              await showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
-            } else {
-              // 向右滑动，显示上一张
-              await showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
-            }
-            autoPlay(block); // 开始自动播放
-            // schedule interaction flag reset after user stops swiping
-            if (autoPlayRestartTimer) clearTimeout(autoPlayRestartTimer);
-            autoPlayRestartTimer = setTimeout(() => {
-              userInteracting = false;
-              autoPlayRestartTimer = null;
-            }, 2000);
-          }
-        }
-      });
+    // ====== 提取命名函数（支持后续解绑） ======
+    function onTouchStart(e) {
+      userInteracting = true;
+      touchStartTime = Date.now();
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isScrolling = false;
+      isInitializing = true;
+      slide.classList.remove('touch-end');
+      slide.classList.add('touch-start');
     }
+
+    function onTouchMove(e) {
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const diffX = currentX - startX;
+      const diffY = currentY - startY;
+
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
+        if (e.cancelable) e.preventDefault();
+        isScrolling = true;
+      } else {
+        isScrolling = false;
+      }
+    }
+
+    async function onTouchEnd(e) {
+      slide.classList.remove('touch-start');
+      slide.classList.add('touch-end');
+      const touchDuration = Date.now() - touchStartTime;
+
+      // 短触点击：执行链接跳转或视频播放控制
+      if (!isScrolling && touchDuration < 500) {
+        if (e.target.tagName === 'A' && e.target.href) {
+          window.location.href = e.target.href;
+          return;
+        }
+        if (
+          e.target.tagName === 'IMG'
+          && e.target.parentElement?.classList.contains('video-play-icon')
+        ) {
+          e.target.click();
+          return;
+        }
+      }
+
+      // 水平滑动：切换 Slide
+      if (isScrolling) {
+        const endX = e.changedTouches[0].clientX;
+        const endY = e.changedTouches[0].clientY;
+        const diffX = startX - endX;
+        const diffY = startY - endY;
+
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
+          const currentIndex = parseInt(block.dataset.slideIndex, 10) || 0;
+          const nextIndex = diffX > 0 ? currentIndex + 1 : currentIndex - 1;
+          await showSlide(block, nextIndex);
+          autoPlay(block);
+
+          if (autoPlayRestartTimer) clearTimeout(autoPlayRestartTimer);
+          autoPlayRestartTimer = setTimeout(() => {
+            userInteracting = false;
+            autoPlayRestartTimer = null;
+          }, 2000);
+        }
+      }
+    }
+
+    // ====== 媒体查询回调：动态绑定/解绑触摸事件 ======
+    const handleBannerItemMediaChange = (event) => {
+      if (event.matches) {
+        // >= SCREEN_POINT：解绑触摸事件，避免内存泄漏 + 防止桌面误触发
+        slide.removeEventListener('touchstart', onTouchStart);
+        slide.removeEventListener('touchmove', onTouchMove);
+        slide.removeEventListener('touchend', onTouchEnd);
+      } else {
+        // < SCREEN_POINT (如 640px)：绑定触摸事件
+        slide.addEventListener('touchstart', onTouchStart, { passive: true });
+        slide.addEventListener('touchmove', onTouchMove, { passive: false }); // preventDefault 需 passive: false
+        slide.addEventListener('touchend', onTouchEnd, { passive: true });
+      }
+    };
+    // 初始执行 + 注册 change 监听
+    handleBannerItemMediaChange(mediaBannerItemQuery);
+    mediaBannerItemQuery.addEventListener('change', handleBannerItemMediaChange);
   });
-  // -----arrow function
-  block.querySelector('.slide-left').addEventListener('click', throttle(async () => {
-    stopAutoPlay();
-    await showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
-    autoPlay(block); // 开始自动播放
-  }, 1000));
-  block.querySelector('.slide-right').addEventListener('click', throttle(async () => {
-    stopAutoPlay();
-    await showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
-    autoPlay(block); // 开始自动播放
-  }, 1000));
+
+  // ----- arrow function（左右箭头）
+  const leftArrow = block.querySelector('.slide-left');
+  const rightArrow = block.querySelector('.slide-right');
+
+  if (leftArrow) {
+    leftArrow.addEventListener('click', throttle(async () => {
+      stopAutoPlay();
+      await showSlide(block, parseInt(block.dataset.slideIndex, 10) - 1);
+      autoPlay(block);
+    }, 1000));
+  }
+
+  if (rightArrow) {
+    rightArrow.addEventListener('click', throttle(async () => {
+      stopAutoPlay();
+      await showSlide(block, parseInt(block.dataset.slideIndex, 10) + 1);
+      autoPlay(block);
+    }, 1000));
+  }
+
   // ----- indicator function
   slideIndicators.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', throttle(async (e) => {
@@ -328,6 +356,18 @@ function createSlide(block, row, slideIndex) {
     let buttonTheme;
     let videoElement;
     let videoDom;
+
+    function updateVideoSource(isPc) {
+      if (isPc) {
+        videoElement = initVideo(column, 'desktop', theme === 'true' ? 'dark' : 'light');
+        videoDom = column.querySelectorAll('a')[0]?.closest('p');
+      } else {
+        videoElement = initVideo(column, 'mobile', theme === 'true' ? 'dark' : 'light');
+        videoDom = column.querySelectorAll('a')[1]?.closest('p');
+      }
+      if (videoDom) column.replaceChild(videoElement, videoDom);
+    }
+
     switch (colIdx) {
       case 0:
         // container-reference div
@@ -342,14 +382,12 @@ function createSlide(block, row, slideIndex) {
         if (isVideoMediaColumn(column)) {
           // video mode
           column.classList.add('video-mode');
-          videoElement = initVideo(column, 'desktop', theme === 'true' ? 'dark' : 'light');
-          videoDom = column.querySelectorAll('a')[0]?.closest('p');
-          if (window.innerWidth <= 860) {
-            // mobile video
-            videoElement = initVideo(column, 'mobile', theme === 'true' ? 'dark' : 'light');
-            videoDom = column.querySelectorAll('a')[1]?.closest('p');
-          }
-          if (videoDom) column.replaceChild(videoElement, videoDom);
+          const videoMediaQuery = window.matchMedia(`(min-width: ${SCREEN_POINT}px)`);
+          // 初始化执行 + 注册 change 监听
+          updateVideoSource(videoMediaQuery.matches);
+          videoMediaQuery.addEventListener('change', (e) => {
+            updateVideoSource(e.matches);
+          });
         }
         break;
       case 1:

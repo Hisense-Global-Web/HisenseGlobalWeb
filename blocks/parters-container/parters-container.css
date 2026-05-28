@@ -4,12 +4,12 @@
   padding-top: var(--spacing-pc-3xl, 120px) !important;
   padding-bottom: var(--spacing-pc-3xl, 120px) !important;
 
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     padding-top: var(--spacing-2xl, 80px) !important;
     padding-bottom: var(--spacing-2xl, 80px) !important;
   }
@@ -23,7 +23,7 @@
     margin-bottom: var(--spacing-s2, 20px);
     color: var(--color-primary-grey-100, #000);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       font-size: var(--font-size-normal, 24px);
       margin-bottom: var(--spacing-3xs, 8px);
     }
@@ -34,7 +34,7 @@
     margin-bottom: var(--spacing-xl, 48px);
     font-weight: var(--fontweight-book, 400);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       margin-bottom: var(--spacing-lg, 40px);
     }
   }
@@ -43,7 +43,7 @@
     display: flex;
     gap: var(--spacing-sm, 24px);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--spacing-2xs, 12px);
     }
 
@@ -56,7 +56,7 @@
       width: min(calc(251 / var(--breakpoint-pc) * 100vw), 251px);
       height: min(calc(140 / var(--breakpoint-pc) * 100vw), 140px);
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         border-radius: var(--radius-xl, 16px);
         width: calc(110 / var(--breakpoint-mobile) * 100vw);
         height: calc(80 / var(--breakpoint-mobile) * 100vw);
@@ -67,7 +67,7 @@
       width: min(calc(180 / var(--breakpoint-pc) * 100vw), 180px);
       height: min(calc(80 / var(--breakpoint-pc) * 100vw), 80px);
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         width: calc(92 / var(--breakpoint-mobile) * 100vw);
         height: calc(40 / var(--breakpoint-mobile) * 100vw);
       }
@@ -80,7 +80,7 @@
     margin-top: var(--spacing-m, 32px);
     margin-bottom: var(--spacing-sm, 24px);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       margin-top: var(--spacing-sm, 24px);
       margin-bottom: var(--spacing-xs, 16px);
     }

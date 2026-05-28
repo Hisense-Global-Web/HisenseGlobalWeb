@@ -32,6 +32,7 @@ import {
 } from './header-commerce-utils.js';
 
 import { isAuthorHostname } from '../../scripts/environment.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 const LOGOUT_TEXT = {
   en: {
@@ -974,7 +975,7 @@ const setSearchBoxInput = (inputWrapperEl) => {
 };
 
 const checkMobileSearchBox = (inputWrapperEl) => {
-  if (window.innerWidth < 860) {
+  if (window.innerWidth < SCREEN_POINT) {
     const inputEl = inputWrapperEl.querySelector('input');
     inputEl.removeAttribute('readonly');
     inputWrapperEl.classList.add('input-wrapper-mobile');
@@ -1052,7 +1053,7 @@ const buildSearchBoxPopup = (mainEl) => {
 const handleChangeNavPosition = (navigation) => {
   const pdpEl = document.querySelector('.product-section-container');
   const plpEl = document.querySelector('.product-sorting');
-  if (window.innerWidth < 860 && (pdpEl || plpEl)) {
+  if (window.innerWidth < SCREEN_POINT && (pdpEl || plpEl)) {
     navigation.style.position = 'absolute';
     // navigation.style.transition = 'none';
   } else {

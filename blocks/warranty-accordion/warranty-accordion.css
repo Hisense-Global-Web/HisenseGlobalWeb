@@ -16,7 +16,7 @@
   padding: var(--size-32) var(--size-32) var(--size-40);
   gap: var(--size-20);
   
-  @media (width < 860px) {
+  @media (width < 640px) {
     padding: var(--size-24) var(--size-24) var(--size-32);
     border-radius: var(--size-16);
   }
@@ -34,7 +34,7 @@
       width: min(calc(755 / var(--breakpoint-pc) * 100vw), 755px);
     }
     
-    @media (width < 860px) {
+    @media (width < 640px) {
       font-size: var(--size-18);
 
       p {
@@ -54,7 +54,7 @@
       margin-left: var(--size-16);
       cursor: pointer;
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         width: var(--size-20);
         height: var(--size-20);
         margin-left: var(--size-12);
@@ -74,7 +74,7 @@
     transition: max-height .36s ease-in-out;
     color: var(--color-primary-grey-70);
     
-    @media (width < 860px) {
+    @media (width < 640px) {
       font-size: var(--size-14);
       line-height: 1.5;
       padding-right: 0;
@@ -108,7 +108,7 @@
       font-weight: var(--fontweight-medium);
       cursor: pointer;
       
-      @media (width < 860px) {
+      @media (width < 640px) {
         margin-top: var(--size-30);
       }
 

@@ -1,4 +1,5 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 export default function decorate(block) {
   const { country } = getLocaleFromPath();
@@ -9,7 +10,7 @@ export default function decorate(block) {
   function getDynamicScreenWidth() {
     function mobileExpandOrHide() {
       const screenWidth = window.innerWidth;
-      if (screenWidth < 860) {
+      if (screenWidth < SCREEN_POINT) {
         if (blockPNode) {
           blockPNode.classList.add('hide');
           blockPNode.parentNode.children[0].classList.remove('hide');

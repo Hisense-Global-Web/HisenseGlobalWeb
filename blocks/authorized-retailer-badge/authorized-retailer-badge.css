@@ -6,7 +6,7 @@
   justify-content: flex-start;
   flex-wrap: wrap;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     flex-direction: column;
   }
 
@@ -29,7 +29,7 @@
       padding: var(--size-10, 10px);
     }
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       height: auto;
       margin-right: 0;
       margin-bottom: 12px;
@@ -40,7 +40,7 @@
     width: calc(100% - var(--size-100, 100px) - var(--spacing-sm, 24px));
     flex: auto;
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       width: 100%;
     }
   }
@@ -58,7 +58,7 @@
       white-space: pre-wrap;
     }
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       color: var(--color-primary-green-60, #008482);
       text-align: center;
       font-size: var(--size-16, 16px);
@@ -78,7 +78,7 @@
       white-space: pre-wrap;
     }
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       text-align: center;
       font-size: var(--fontsize-title1, 24px);
       -webkit-line-clamp: none;
@@ -109,7 +109,7 @@
       line-height: 120%;
     }
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       padding: var(--spacing-lg, 40px) var(--spacing-sm, 24px);
       border-radius: var(--radius-xl, 16px);
       width: 100%;
@@ -134,7 +134,7 @@
       height: 100%;
     }
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       height: min(calc(80 / var(--breakpoint-mobile) * 100vw), 80px);
       margin-bottom: var(--spacing-m, 32px);
     }
@@ -152,7 +152,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       color: var(--color-primary-grey-60, #555);
       -webkit-line-clamp: none;
     }

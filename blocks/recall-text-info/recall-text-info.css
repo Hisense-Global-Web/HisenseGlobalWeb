@@ -17,7 +17,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-xl, 48px);
 
-    @media (width<860px) {
+    @media (width<640px) {
       grid-template-columns: repeat(1, 1fr);
       gap: var(--spacing-sm, 24px);
     }
@@ -33,7 +33,7 @@
       border-radius: var(--radius-pc-xl, 20px);
       background: var(--color-primary-green-10, #edfcfb);
 
-      @media (width<860px) {
+      @media (width<640px) {
         padding: var(--spacing-xl, 48px) var(--spacing-sm, 24px);
         gap: var(--spacing-2xs, 12px);
       }
@@ -46,7 +46,7 @@
         line-height: 120%;
         text-transform: capitalize;
 
-        @media (width<860px) {
+        @media (width<640px) {
           font-size: var(--fontsize-pc-h4, 30px);
         }
       }
@@ -72,7 +72,7 @@
         font-weight: var(--fontweight-book, 400);
         line-height: 150%;
 
-        @media (width<860px) {
+        @media (width<640px) {
           line-height: 130%;
         }
 
