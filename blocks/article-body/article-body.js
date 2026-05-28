@@ -67,7 +67,8 @@ export default function decorate(block) {
     } else {
       ArticleBodyDiv.append(row);
     }
+    row.style.display = 'none';
   });
-  block.replaceChildren(...ArticleBodyDiv.children);
+  block.append(...ArticleBodyDiv.children);
   wrapInRichtext(block);
 }
