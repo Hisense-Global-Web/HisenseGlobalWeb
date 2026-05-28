@@ -1,7 +1,6 @@
-import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
+import { localizeProductApiPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 
-const { language } = getLocaleFromPath();
 function simpleHash(str) {
   const s = String(str);
   let h = 0;
@@ -92,7 +91,7 @@ export default function decorate(block) {
     const dateIconEl = document.createElement('img');
     dateIconEl.src = `/content/dam/hisense/${country}/common-icons/time.svg`;
     const dateEl = document.createElement('span');
-    dateEl.textContent = formatIsoToUtcStr(item.jobPostedTime, language);
+    dateEl.textContent = formatIsoToUtcStr(item.jobPostedTime);
     articleDateGroup.append(dateIconEl, dateEl);
     const lineEl = document.createElement('div');
     lineEl.className = 'mate-line';
@@ -159,7 +158,7 @@ export default function decorate(block) {
       return resp.json();
     })
     .then((data) => {
-      // 转换新的标签结构为产品列表格式
+    // 转换新的标签结构为产品列表格式
       const items = transformTagStructureToProducts(data);
       // eslint-disable-next-line no-underscore-dangle
       currentItem = items.find((item) => item._path === originalPath);
@@ -167,5 +166,5 @@ export default function decorate(block) {
         renderItem(currentItem);
       }
     })
-    .catch(() => { });
+    .catch(() => {});
 }

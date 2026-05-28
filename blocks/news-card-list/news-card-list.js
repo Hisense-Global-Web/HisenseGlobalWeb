@@ -1,6 +1,4 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
-import { getLocaleFromPath } from '../../scripts/locale-utils.js';
-import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
 
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
@@ -114,8 +112,12 @@ function formatDate(iso) {
   if (!iso) return '';
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return iso;
-  const { language } = getLocaleFromPath();
-  return formatIsoToUtcStr(date, language);
+
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 }
 
 function buildCard(item) {
