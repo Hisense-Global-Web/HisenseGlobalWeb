@@ -8,30 +8,7 @@ export default function decorate(block) {
   if (isEditMode) {
     [...block.children].forEach((row) => {
       const type = row.firstElementChild?.textContent?.trim() || '';
-      if (type === 'flexend-side-by-side') {
-        const GroupDiv = document.createElement('div');
-        GroupDiv.className = 'text-body-group-flexend';
-        // 图
-        const imgGroupDiv = document.createElement('div');
-        const imgEl = row.querySelector('img');
-        imgGroupDiv.className = 'text-body-img-group';
-        imgGroupDiv.append(imgEl);
-        // 文
-        const textGroupDiv = document.createElement('div');
-        const title = row.children[2] || '';
-        title.className = 'text-body-title';
-        const desc = row.children[3] || '';
-        desc.className = 'text-body-desc';
-        textGroupDiv.className = 'text-body-text-group';
-        textGroupDiv.append(title, desc);
-        if (imgEl) {
-          GroupDiv.append(imgGroupDiv);
-        }
-        GroupDiv.append(textGroupDiv);
-        console.log(GroupDiv)
-      } else {
-        console.log(row)
-      }
+      console.log(type, row);
     });
     return;
   }
