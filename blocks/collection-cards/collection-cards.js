@@ -59,8 +59,9 @@ export default function decorate(block) {
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
   });
+  block.replaceChildren(ul);
   if (viewportWidth >= SCREEN_POINT) {
-    const coverLi = document.querySelectorAll('.cover-style > ul > li');
+    const coverLi = block.querySelectorAll('.cover-style > ul > li');
     coverLi.forEach((item) => {
       const link = item.querySelector('a');
       const url = link?.href;
@@ -69,5 +70,4 @@ export default function decorate(block) {
       });
     });
   }
-  block.replaceChildren(ul);
 }
