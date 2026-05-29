@@ -55,11 +55,10 @@
           "condition": { "===": [{"var" : "video-origin"}, "internal"] }
         },
         {
-          "component": "text",
+          "component": "aem-content",
           "name": "external-url",
           "label": "Vimeo Video URL",
           "valueType": "string",
-          "format": "uri",
           "condition": { "===": [{"var" : "video-origin"}, "vimeo"] }
         }
       ]
