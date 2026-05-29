@@ -26,16 +26,14 @@
           "valueType": "string",
           "name": "image",
           "label": "Image",
-          "multi": false,
-          "required": true
+          "multi": false
         },
         {
           "component": "reference",
           "valueType": "string",
           "name": "darkImage",
           "label": "Dark Image",
-          "multi": false,
-          "required": true
+          "multi": false
         },
         {
           "component": "text",
