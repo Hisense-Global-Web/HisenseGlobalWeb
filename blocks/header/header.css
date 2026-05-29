@@ -1303,9 +1303,14 @@
 
 #navigation .nav-logo {
   img {
-    max-width: 104px;
-    max-height: 32px;
+    max-width: 125px;
+    max-height: 60px;
     object-fit: contain;
+
+    @media (width < 1180px) {
+      max-width: 83px;
+      max-height: 40px;
+    }
   }
 
   .logo-img {
