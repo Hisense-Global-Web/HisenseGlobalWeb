@@ -2,7 +2,7 @@ import { readBlockConfig, decorateIcons } from '../../scripts/aem.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 const SEARCH_ICON = `/content/dam/hisense/${country}/common-icons/search-grey-70.svg`;
 
 const getUrlParams = (paramName) => {

@@ -51,7 +51,7 @@ const LOGOUT_TEXT = {
   },
 };
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 const NAVIGATION_ACTION_TYPES = {
   SEARCH_BOX: 'search-box',
   SHOPPING_CART: 'shopping-cart',
