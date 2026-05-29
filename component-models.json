@@ -7268,8 +7268,8 @@
         }
       },
       {
-        "component": "text",
-        "name": "external",
+        "component": "aem-content",
+        "name": "External",
         "label": "Vimeo URL",
         "valueType": "string",
         "condition": {
