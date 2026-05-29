@@ -81,18 +81,22 @@ export default function decorate(block) {
   const industryItemDom = block.querySelectorAll('.industry-categories-ul li');
   // card-body 内的 div 和 a 标签交替出现
   industryItemDom.forEach((item) => {
+    // console.log('item', item);
     const itemCardBody = item.querySelector('.card-body');
     const cardBodyChildDom = itemCardBody.children;
     [...cardBodyChildDom].forEach((card, cardIdx) => {
+      // console.log(cardIdx, 'cardIdx')
       // 如果 div 内有 a 标签，且该元素的前一个元素不包含 a 标签，则将前一个元素的文本内容移到 a 标签内，否则删除该只有链接的 div
       if (card.querySelector('a')) {
+        // console.log('card', card);
         const link = card.querySelector('a');
         const textElement = cardBodyChildDom[cardIdx - 1];
         if (textElement && textElement.textContent && textElement.querySelector('a') === null) {
+          // console.log('textElement', textElement);
           link.textContent = textElement.textContent;
-          textElement.remove();
+          textElement.style.display = 'none';
         } else {
-          card.remove();
+          card.style.display = 'none';
         }
       }
     });
