@@ -43,7 +43,7 @@ export default function decorate(block) {
         li.classList.add('touch-end');
         const touchDuration = Date.now() - touchStartTime;
         // 如果不是滑动，且按压时间小于500ms，执行跳�?
-        if (!isScrolling && touchDuration < 50) {
+        if (!isScrolling && touchDuration < 200) {
           const link = li.querySelector('a');
           const url = link?.href;
           if (url) {
@@ -59,8 +59,9 @@ export default function decorate(block) {
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
   });
+  block.replaceChildren(ul);
   if (viewportWidth >= SCREEN_POINT) {
-    const coverLi = document.querySelectorAll('.cover-style > ul > li');
+    const coverLi = block.querySelectorAll('.cover-style > ul > li');
     coverLi.forEach((item) => {
       const link = item.querySelector('a');
       const url = link?.href;
@@ -69,5 +70,4 @@ export default function decorate(block) {
       });
     });
   }
-  block.replaceChildren(ul);
 }

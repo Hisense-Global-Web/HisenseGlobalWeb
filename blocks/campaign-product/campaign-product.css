@@ -106,13 +106,14 @@
 
     .product-card {
       width: min(calc(262 / var(--breakpoint-pc) * 100vw), 262px);
-      height: min(calc(530 / var(--breakpoint-pc) * 100vw), 530px);
+      min-height: min(calc(530 / var(--breakpoint-pc) * 100vw), 530px);
       flex-shrink: 0;
       padding: var(--size-20);
       border-radius: var(--size-20);
       background: var(--color-primary-grey-10);
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
 
       @media (width < 640px) {
         min-width: calc(170 / var(--breakpoint-mobile) * 100vw);
@@ -227,6 +228,7 @@
           width: 100%;
           height: 100%;
           display: block;
+          object-fit: contain;
 
           @media (width < 640px) {
             width: calc(144 / var(--breakpoint-mobile) * 100vw);

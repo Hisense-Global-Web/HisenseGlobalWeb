@@ -668,6 +668,9 @@ export default async function decorate(block) {
     const card = document.createElement('div');
     card.className = `product-card series-index-${item.seriesIndex}`;
 
+    const topDiv = document.createElement('div');
+    topDiv.className = 'product-top';
+
     const titleDiv = document.createElement('div');
     titleDiv.className = 'product-card-title';
     const productCardTag = document.createElement('div');
@@ -957,7 +960,9 @@ export default async function decorate(block) {
       await refreshFavoriteState(productCode);
     });
 
-    card.append(titleDiv, imgDiv, seriesDiv, nameDiv, priceGroupDiv, productBtnGroupEl);
+    topDiv.append(titleDiv, imgDiv, seriesDiv, nameDiv, priceGroupDiv);
+
+    card.append(topDiv, productBtnGroupEl);
     previewListEl.appendChild(card);
   });
 
