@@ -1321,6 +1321,16 @@
   }
 }
 
+#navigation.header-dark-mode.scroll-active .nav-logo {
+  .logo-img {
+    display: block;
+  }
+
+  .logo-dark-img {
+    display: none;
+  }
+}
+
 #navigation .nav-container:hover .nav-logo {
   .logo-img {
     display: block;
