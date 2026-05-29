@@ -2,6 +2,7 @@ export default function decorate(block) {
   /* change to ul, li */
   let videourl;
   let imgUrl;
+  let externalUrl;
   // 外部视频容器
   const externalVideoBox = document.createElement('div');
   externalVideoBox.className = 'external-video-box';
@@ -19,15 +20,8 @@ export default function decorate(block) {
     if (row.getAttribute('data-video-origin') === 'vimeo') {
       // 处理 Vimeo 视频
       // const videoUrl = 'https://player.vimeo.com/video/1115919354?h=70aa3569b2&badge=0&autopause=0&player_id=0&…';
-      const externalUrl = row.nextElementSibling.children[1].textContent.trim() ?? '';
+      externalUrl = row.nextElementSibling.children[1].textContent.trim() ?? '';
       console.log(externalUrl, 'externalUrl');
-      // 获取到配置项中外部链接后，移除原有的 URL 文本节点
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://${externalUrl}`;
-      iframe.width = '100%';
-      iframe.height = '630';
-      iframe.style.border = '0';
-      externalVideoBox.appendChild(iframe);
     } else {
       // 处理 internal 视频
       const link = row.querySelector('a');
@@ -155,8 +149,17 @@ export default function decorate(block) {
   }
   const videoOriginDom = block.querySelector('.video-origin');
   if (videoOriginDom.getAttribute('data-video-origin') === 'vimeo') {
+    // 处理 Vimeo 视频
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://${externalUrl}`;
+    // iframe.src = externalUrl;
+    iframe.width = '100%';
+    iframe.height = '630';
+    iframe.style.border = '0';
+    externalVideoBox.appendChild(iframe);
     block.appendChild(externalVideoBox);
   } else {
+    // 处理 internal 视频
     internalVideo();
   }
   // 数据处理完成后，移除原有的配置文本节点
