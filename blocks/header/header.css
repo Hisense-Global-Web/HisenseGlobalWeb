@@ -1302,6 +1302,12 @@
 }
 
 #navigation .nav-logo {
+  img {
+    max-width: 104px;
+    max-height: 32px;
+    object-fit: contain;
+  }
+
   .logo-img {
     display: block;
   }
