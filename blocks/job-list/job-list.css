@@ -2,18 +2,18 @@
 .job-list {
     font-family: var(--font-family, sans-serif), sans-serif;
 
-    #BambooHR .BambooHR-ATS-board {
+    [id="BambooHR"] [class~="BambooHR-ATS-board"] {
         h2 {
             border-bottom: 1px solid var(--color-primary-grey-30, #e0e0e0) !important;
         }
 
-        .BambooHR-ATS-Jobs-List {
+        [class~="BambooHR-ATS-Jobs-List"] {
             display: flex;
             flex-direction: column;
             border-bottom: 1px solid var(--color-primary-grey-30, #e0e0e0) !important;
         }
 
-        .BambooHR-ATS-Jobs-Item {
+        [class~="BambooHR-ATS-Jobs-Item"] {
             a {
                 color: var(--color-primary-green-60, #008482);
             }
