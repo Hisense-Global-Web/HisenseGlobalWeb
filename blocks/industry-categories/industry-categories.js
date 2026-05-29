@@ -84,12 +84,18 @@ export default function decorate(block) {
     const itemCardBody = item.querySelector('.card-body');
     const cardBodyChildDom = itemCardBody.children;
     [...cardBodyChildDom].forEach((card, cardIdx) => {
+      // console.log('card', card);
       if (card.querySelector('a')) {
+        // console.log('card', card, cardIdx);
         const link = card.querySelector('a');
         const textElement = cardBodyChildDom[cardIdx - 1];
+        // console.log('textElement', textElement, cardIdx);
         if (textElement && textElement.querySelector('a') === null) {
+          // console.log(card, 'ccccccccccc')
           link.textContent = textElement.textContent;
           textElement.remove();
+        } else {
+          card.remove();
         }
       }
     });
