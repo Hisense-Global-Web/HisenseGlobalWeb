@@ -3777,6 +3777,12 @@
         "multi": false
       },
       {
+        "component": "aem-content",
+        "name": "text_first_link",
+        "label": "First Text Link",
+        "valueType": "string"
+      },
+      {
         "component": "text",
         "name": "text_first",
         "label": "First Text",
@@ -3784,8 +3790,8 @@
       },
       {
         "component": "aem-content",
-        "name": "text_firstLink",
-        "label": "First Text Link",
+        "name": "text_second_link",
+        "label": "Second Text Link",
         "valueType": "string"
       },
       {
@@ -3796,8 +3802,8 @@
       },
       {
         "component": "aem-content",
-        "name": "text_secondLink",
-        "label": "Second Text Link",
+        "name": "text_third_link",
+        "label": "Third Text Link",
         "valueType": "string"
       },
       {
@@ -3808,8 +3814,8 @@
       },
       {
         "component": "aem-content",
-        "name": "text_thirdLink",
-        "label": "Third Text Link",
+        "name": "text_fourth_link",
+        "label": "Fourth Text Link",
         "valueType": "string"
       },
       {
@@ -3820,8 +3826,8 @@
       },
       {
         "component": "aem-content",
-        "name": "text_fourthLink",
-        "label": "Fourth Text Link",
+        "name": "text_fifth_link",
+        "label": "Fifth Text Link",
         "valueType": "string"
       },
       {
@@ -3832,8 +3838,8 @@
       },
       {
         "component": "aem-content",
-        "name": "text_fifthLink",
-        "label": "Fifth Text Link",
+        "name": "text_sixth_link",
+        "label": "Sixth Text Link",
         "valueType": "string"
       },
       {
@@ -3844,20 +3850,14 @@
       },
       {
         "component": "aem-content",
-        "name": "text_sixthLink",
-        "label": "Sixth Text Link",
+        "name": "text_seventh_link",
+        "label": "Seventh Text Link",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "text_seventh",
         "label": "Seventh Text",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "text_seventhLink",
-        "label": "Seventh Text Link",
         "valueType": "string"
       }
     ]
