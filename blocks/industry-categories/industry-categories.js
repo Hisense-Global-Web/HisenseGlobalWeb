@@ -78,4 +78,22 @@ export default function decorate(block) {
   });
 
   block.replaceChildren(ul);
+  const cardBodyChildDom = block.querySelector('.card-body');
+  // card-body 内的 div 和 a 标签交替出现，偶数索引为 a 标签，奇数索引为 div 标签
+  [...cardBodyChildDom.children].forEach((card, cardIdx) => {
+    if (card.querySelector('a')) {
+      const link = card.querySelector('a');
+      const textElement = cardBodyChildDom.children[cardIdx + 1];
+      if (textElement && textElement.querySelector('a') === null) {
+        link.textContent = textElement.textContent;
+      } else {
+        // 如果没有对应的文本元素，隐藏链接
+        card.style.display = 'none';
+      }
+    }
+    // 隐藏不包含链接的 div 标签
+    if (card.querySelector('a') === null) {
+      card.style.display = 'none';
+    }
+  });
 }

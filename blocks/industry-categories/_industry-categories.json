@@ -52,7 +52,7 @@
         },
         {
           "component": "aem-content",
-          "name": "first_text_link",
+          "name": "first_textLink",
           "label": "First Text Link",
           "valueType": "string"
         },
@@ -64,7 +64,7 @@
         },
         {
           "component": "aem-content",
-          "name": "second_text_link",
+          "name": "second_textLink",
           "label": "Second Text Link",
           "valueType": "string"
         },
@@ -77,7 +77,7 @@
         },
         {
           "component": "aem-content",
-          "name": "third_text_link",
+          "name": "third_textLink",
           "label": "Third Text Link",
           "valueType": "string"
         },
@@ -90,7 +90,7 @@
         },
         {
           "component": "aem-content",
-          "name": "fourth_text_link",
+          "name": "fourth_textLink",
           "label": "Fourth Text Link",
           "valueType": "string"
         }, 
@@ -102,7 +102,7 @@
         },
         {
           "component": "aem-content",
-          "name": "fifth_text_link",
+          "name": "fifth_textLink",
           "label": "Fifth Text Link",
           "valueType": "string"
         },
@@ -114,7 +114,7 @@
         },
         {
           "component": "aem-content",
-          "name": "sixth_text_link",
+          "name": "sixth_textLink",
           "label": "Sixth Text Link",
           "valueType": "string"
         }, 
@@ -127,7 +127,7 @@
         },
         {
           "component": "aem-content",
-          "name": "seventh_text_link",
+          "name": "seventh_textLink",
           "label": "Seventh Text Link",
           "valueType": "string"
         },

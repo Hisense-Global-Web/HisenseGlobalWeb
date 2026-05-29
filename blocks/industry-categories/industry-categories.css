@@ -221,9 +221,25 @@
     padding: var(--size-8) var(--size-16);
     overflow-wrap: break-word;
 
-     @media (width >= 640px) {
+    @media (width >= 640px) {
       padding: var(--size-8);
-  }
+    }
+
+    a, a.button, .button-container {
+      height: var(--size-20);
+      color: var(--color-primary-grey-10);
+      background-color: transparent;
+      line-height: var(--size-20);
+      padding: 0;
+      margin: 0;
+      border-radius: 0;
+      border: none;
+
+      &:hover {
+        color: var(--color-primary-grey-10);
+        text-decoration: underline;
+      }
+    }
 }
 
 .industry-categories .active .card-body > div{
