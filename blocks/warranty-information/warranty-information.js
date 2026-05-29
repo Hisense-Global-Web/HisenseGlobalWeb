@@ -1,4 +1,5 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 function isAemEnvironment() {
@@ -286,7 +287,7 @@ export default async function decorate(block) {
   function getDynamicLoadMoreStep() {
     let lastScreenWidth = window.innerWidth;
     function loadMoreNum() {
-      if (lastScreenWidth < 860) {
+      if (lastScreenWidth < SCREEN_POINT) {
         loadMoreStep = 5; // 手机显示5条
       } else {
         loadMoreStep = 9; // 桌面显示9条

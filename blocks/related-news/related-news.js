@@ -7,6 +7,7 @@ import {
   throttle,
 } from '../../utils/carousel-common.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -89,7 +90,7 @@ function bindEvent(block, type = 'normal') {
   };
 
   if (cards.length * getSlideWidth(block) - gap >= viewportWidth) {
-    block.closest('.section').querySelector('.has-button').querySelector('.button-container').classList.add('show');
+    block.closest('.section')?.querySelector('.has-button')?.querySelector('.button-container')?.classList?.add('show');
   } else {
     return;
   }
@@ -111,21 +112,36 @@ function bindEvent(block, type = 'normal') {
     if (Math.abs(currentX) > maxTranslate && type === 'resize') {
       currentX = -maxTranslate;
     }
-    track.style.transform = `translateX(${currentX}px)`;
-    if (window.innerWidth < 860) {
-      track.style.transform = 'none';
-    }
+
+    const mediaQuery = window.matchMedia(`(min-width: ${SCREEN_POINT}px)`);
+    const handleMediaChange = (e) => {
+      if (e.matches) {
+        // PC
+        track.style.transform = `translateX(${currentX}px)`;
+      } else {
+        // Mobile
+        track.style.transform = 'none';
+      }
+    };
+    mediaQuery.removeEventListener('change', handleMediaChange);
+    handleMediaChange(mediaQuery);
+    mediaQuery.addEventListener('change', handleMediaChange);
+
     block.dataset.currentIndex = currentIndex;
     if (currentX === 0) {
       block.dataset.currentIndex = 0;
     }
     // 按钮禁用状态
-    prevBtn.disabled = currentX >= 0;
-    nextBtn.disabled = Math.abs(currentX) >= maxTranslate;
+    if (prevBtn) {
+      prevBtn.disabled = currentX >= 0;
+    }
+    if (nextBtn) {
+      nextBtn.disabled = Math.abs(currentX) >= maxTranslate;
+    }
   };
 
   // 按钮点击事件
-  nextBtn.addEventListener('click', () => {
+  nextBtn?.addEventListener('click', () => {
     const remaining = maxTranslate - Math.abs(currentX);
     if (remaining <= 0) return;
     // 如果剩余距离不足一个 step，则直接滑动到底对齐
@@ -138,7 +154,7 @@ function bindEvent(block, type = 'normal') {
     updateState();
   });
 
-  prevBtn.addEventListener('click', () => {
+  prevBtn?.addEventListener('click', () => {
     if (currentX >= 0) return;
     currentIndex -= 1;
     // 往回走时，如果距离起点不足一个 step，直接归零
