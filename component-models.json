@@ -3778,85 +3778,85 @@
       },
       {
         "component": "aem-content",
-        "name": "first-text_link",
+        "name": "first_text_link",
         "label": "First Text Link",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "first-text",
+        "name": "first_label",
         "label": "First Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "second-text_link",
+        "name": "second_text_link",
         "label": "Second Text Link",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "second-text",
+        "name": "second_label",
         "label": "Second Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "third-text_link",
+        "name": "third_text_link",
         "label": "Third Text Link",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "third-text",
+        "name": "third_label",
         "label": "Third Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "fourth-text_link",
+        "name": "fourth_text_link",
         "label": "Fourth Text Link",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "fourth-text",
+        "name": "fourth_label",
         "label": "Fourth Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "fifth-text_link",
+        "name": "fifth_text_link",
         "label": "Fifth Text Link",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "fifth-text",
+        "name": "fifth_label",
         "label": "Fifth Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "sixth-text_link",
+        "name": "sixth_text_link",
         "label": "Sixth Text Link",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "sixth-text",
+        "name": "sixth_label",
         "label": "Sixth Text",
         "valueType": "string"
       },
       {
         "component": "aem-content",
-        "name": "seventh-text_link",
+        "name": "seventh_text_link",
         "label": "Seventh Text Link",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "seventh-text",
+        "name": "seventh_label",
         "label": "Seventh Text",
         "valueType": "string"
       }
