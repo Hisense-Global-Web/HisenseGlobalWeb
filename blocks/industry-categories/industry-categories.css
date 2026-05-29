@@ -225,6 +225,10 @@
       display: none;
     }
 
+    &.card-item-text {
+      cursor: default;
+    }
+
     @media (width >= 640px) {
       padding: var(--size-8);
     }
