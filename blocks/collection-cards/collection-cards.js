@@ -43,7 +43,7 @@ export default function decorate(block) {
         li.classList.add('touch-end');
         const touchDuration = Date.now() - touchStartTime;
         // 如果不是滑动，且按压时间小于500ms，执行跳�?
-        if (!isScrolling && touchDuration < 50) {
+        if (!isScrolling && touchDuration < 200) {
           const link = li.querySelector('a');
           const url = link?.href;
           if (url) {
