@@ -9,7 +9,7 @@ import {
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 function formatDate(iso) {
   if (!iso) return '';
   const date = new Date(iso);

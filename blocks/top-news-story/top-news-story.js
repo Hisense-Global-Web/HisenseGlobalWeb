@@ -267,7 +267,7 @@ export default async function decorate(block) {
       button.classList.add('icon-btn');
       const iconImg = document.createElement('img');
       const segments = window.location.pathname.split('/').filter(Boolean);
-      const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+      const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
       iconImg.src = `/content/dam/hisense/${country}/common-icons/download.svg`;
       iconImg.alt = 'Download';
       button.addEventListener('click', () => handleCommonDownloadClick(data.downloadLink));

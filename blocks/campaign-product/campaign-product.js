@@ -13,7 +13,7 @@ import { processPath } from '../../utils/carousel-common.js';
 import { readBlockConfig } from '../../scripts/aem.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 const WISHLIST_CART_NAME_PREFIX = 'wishlist';
 const wishlistEntriesByCode = new Map();
