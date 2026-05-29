@@ -221,6 +221,10 @@
     padding: var(--size-8) var(--size-16);
     overflow-wrap: break-word;
 
+    &.item-hide {
+      display: none;
+    }
+
     @media (width >= 640px) {
       padding: var(--size-8);
     }
@@ -241,6 +245,7 @@
       }
     }
 }
+
 
 .industry-categories .active .card-body > div{
     z-index: 99;
