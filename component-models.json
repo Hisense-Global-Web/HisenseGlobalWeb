@@ -4526,7 +4526,16 @@
         "valueType": "string",
         "name": "image",
         "label": "Image",
-        "multi": false
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "darkImage",
+        "label": "Dark Image",
+        "multi": false,
+        "required": true
       },
       {
         "component": "text",
