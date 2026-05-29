@@ -559,7 +559,13 @@ export default async function decorate(block) {
     };
 
     const regionData = await fetchRegionData(getRegionUrl());
-    const selectedCountry = resolveRegionCountryData(regionData);
+    // TODO：中国区使用mock数据
+    const selectedCountry = regionData?.country?.code === 'cn' ? {
+      code: 'cn',
+      languages: { zh: '中文', en: 'EN' },
+      name: '全球站点',
+      selectedLanguage: 'zh',
+    } : resolveRegionCountryData(regionData);
     const generateLanguageItems = (languages, selectedLang) => {
       let languageItems = '';
       const langKeys = Object.keys(languages || {});
@@ -589,25 +595,33 @@ export default async function decorate(block) {
     const regionIcon = lanGroup.querySelector('.region-icon');
     if (regionIcon) {
       regionIcon.addEventListener('click', () => {
-        window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
+        window.location.href = selectedCountry.code === 'cn' ? 'https://www.hisense.com/global-site.html' : buildRegionSelectionPath(selectedCountry.selectedLanguage);
       });
     }
     const lanComEl = lanGroup.querySelector('.footer-lan-com');
     if (lanComEl) {
       lanComEl.addEventListener('click', () => {
-        window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
+        window.location.href = selectedCountry.code === 'cn' ? 'https://www.hisense.com/global-site.html' : buildRegionSelectionPath(selectedCountry.selectedLanguage);
       });
     }
     const langItems = lanGroup.querySelectorAll('.footer-lan-item');
-    langItems.forEach((item) => {
-      item.addEventListener('click', (e) => {
-        if (e.currentTarget.classList.contains('active')) {
-          window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
-          return;
-        }
-        window.location.href = buildLocalizedPathForLanguage(e.currentTarget.getAttribute('data-lang'));
+    if (selectedCountry.code === 'cn') {
+      langItems.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          window.location.href = e.currentTarget.getAttribute('data-lang') === 'zh' ? '/cn/zh' : '/us/en';
+        });
       });
-    });
+    } else {
+      langItems.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          if (e.currentTarget.classList.contains('active')) {
+            window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
+            return;
+          }
+          window.location.href = buildLocalizedPathForLanguage(e.currentTarget.getAttribute('data-lang'));
+        });
+      });
+    }
 
     footerLegals.appendChild(lanGroup);
 
