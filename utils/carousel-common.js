@@ -1,3 +1,6 @@
+import { isMobileWindow } from '../scripts/device.js';
+import { SCREEN_POINT } from './constants.js';
+
 export function whenElementReady(selector, callback, options = {}) {
   const {
     timeout = 5000,
@@ -71,7 +74,8 @@ export function updatePosition(block, currentIdx, type) {
   const { gap } = window.getComputedStyle(ulElement);
   const items = block.querySelectorAll('li');
   // mobile type no transform ---use overflow scroll
-  if (window.innerWidth < 860) {
+  const isMobile = isMobileWindow();
+  if (isMobile) {
     ulElement.style.transform = 'none';
     return;
   }
@@ -85,7 +89,7 @@ export function updatePosition(block, currentIdx, type) {
     block.querySelector('.slide-next').disabled
     && type === 'resize'
   ) targetIndex = maxClickCount;
-  if (window.innerWidth < 860) return;
+  if (isMobile) return;
   // computer the latest click move distance
   if (targetIndex >= maxClickCount) {
     const rightDistance = maxLength - blockWidth;
@@ -162,7 +166,7 @@ export function setupObserver(carouselRoot, selector, resolveCallBack, leaveCall
 }
 
 export function mobilePressEffect(viewport, card, callback) {
-  if (viewport >= 860) {
+  if (viewport >= SCREEN_POINT) {
     if (callback) callback();
     return;
   }
