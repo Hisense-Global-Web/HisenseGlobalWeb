@@ -1,5 +1,6 @@
 import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { isMobileWindow } from '../../scripts/device.js';
 
 const isEditing = await isUniversalEditorAsync();
 const { country } = getLocaleFromPath();
@@ -31,7 +32,7 @@ const bindEvent = (block) => {
     if (!titleWrapper || !regionList) return;
 
     const handleTitleClick = () => {
-      const isMobile = window.innerWidth < 860;
+      const isMobile = isMobileWindow();
       if (!isMobile) return;
 
       const isExpanded = region.classList.contains('expanded');
@@ -64,7 +65,7 @@ const bindEvent = (block) => {
   });
 
   window.addEventListener('resize', () => {
-    const isMobile = window.innerWidth < 860;
+    const isMobile = isMobileWindow();
 
     regions.forEach((region) => {
       const regionList = region.querySelector('.region-list');
@@ -76,16 +77,13 @@ const bindEvent = (block) => {
         region.classList.add('expanded');
         regionList.style.maxHeight = 'none';
         regionList.style.overflow = 'visible';
-
-        if (arrow) {
-          arrow.style.transform = 'rotate(180deg)';
-        }
-      } else if (!region.classList.contains('expanded')) {
+      } else {
+        region.classList.remove('expanded');
         regionList.style.maxHeight = '0';
         regionList.style.overflow = 'hidden';
 
         if (arrow) {
-          arrow.style.transform = 'rotate(0deg)';
+          arrow.style.transform = 'rotate(180deg)';
         }
       }
     });
@@ -97,7 +95,7 @@ const bindEvent = (block) => {
 
     if (!regionList) return;
 
-    if (window.innerWidth < 860) {
+    if (isMobileWindow()) {
       region.classList.remove('expanded');
       regionList.style.maxHeight = '0';
       regionList.style.overflow = 'hidden';
