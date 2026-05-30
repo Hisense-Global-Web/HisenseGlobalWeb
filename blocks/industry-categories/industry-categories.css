@@ -234,7 +234,7 @@
     }
 
     a, a.button, .button-container {
-      height: var(--size-20);
+      min-height: var(--size-20);
       color: var(--color-primary-grey-10);
       background-color: transparent;
       line-height: var(--size-20);
@@ -242,6 +242,8 @@
       margin: 0;
       border-radius: 0;
       border: none;
+      text-overflow: unset;
+      white-space: unset;
 
       &:hover {
         color: var(--color-primary-grey-10);
