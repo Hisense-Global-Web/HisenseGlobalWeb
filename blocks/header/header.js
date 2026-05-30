@@ -413,12 +413,14 @@ function applyCartActionState(actionButton, count = 0) {
 }
 
 function parseLogo(root) {
-  const logoImg = root.querySelector('.navigation-logo-wrapper img');
+  const logoImgList = root.querySelectorAll('.navigation-logo-wrapper img');
+  const altEl = root.querySelector('.navigation-logo-wrapper p:not(a)');
   const logoHref = root.querySelector('.navigation-logo-wrapper a')?.href || '';
   return {
-    src: logoImg?.src || '',
+    src: logoImgList[0]?.src || '',
+    darkSrc: logoImgList.length > 1 ? logoImgList[1]?.src : logoImgList[0]?.src,
     href: processPath(logoHref),
-    alt: logoImg?.alt || 'logo',
+    alt: altEl?.textContent?.trim() || 'logo',
   };
 }
 
@@ -1323,9 +1325,14 @@ export default async function decorate(block) {
     const a = logo.href ? document.createElement('a') : document.createElement('div');
     a.href = logo.href;
     const img = document.createElement('img');
+    img.className = 'logo-img';
     img.src = logo.src;
     img.alt = logo.alt;
-    a.append(img);
+    const darkImg = document.createElement('img');
+    darkImg.className = 'logo-dark-img';
+    darkImg.src = logo.darkSrc;
+    darkImg.alt = logo.alt;
+    a.append(img, darkImg);
     logoEl.append(a);
   }
 

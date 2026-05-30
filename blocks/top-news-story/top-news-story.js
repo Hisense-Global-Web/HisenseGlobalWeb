@@ -2,6 +2,7 @@ import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 function formatDate(dateStr) {
   try {
@@ -152,7 +153,7 @@ export default async function decorate(block) {
       data.image,
       data.subtitle || '',
       false,
-      [{ media: '(min-width: 860px)', width: '2000' }, { width: '860' }],
+      [{ media: `(min-width: ${SCREEN_POINT}px)`, width: '2000' }, { width: SCREEN_POINT }],
     );
 
     featuredImage.appendChild(picture);
