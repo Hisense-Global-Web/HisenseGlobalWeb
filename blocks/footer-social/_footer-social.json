@@ -34,6 +34,31 @@
           "name": "link",
           "label": "Link",
           "required": true
+        },
+        {
+          "component": "boolean",
+          "name": "should-popup",
+          "label": "Should Popup?",
+          "valueType": "boolean"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "popup-title",
+          "label": "Title"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "popup-subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "qr-code",
+          "label": "QR Code",
+          "multi": false
         }
       ]
     }
