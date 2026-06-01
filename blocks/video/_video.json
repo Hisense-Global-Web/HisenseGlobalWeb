@@ -56,7 +56,7 @@
         },
         {
           "component": "richtext",
-          "name": "External",
+          "name": "external-url",
           "label": "Vimeo URL",
           "valueType": "string",
           "condition": { "===": [{"var" : "video-origin"}, "vimeo"] }

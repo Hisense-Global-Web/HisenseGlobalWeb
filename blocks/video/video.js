@@ -151,8 +151,7 @@ export default function decorate(block) {
   if (videoOriginDom.getAttribute('data-video-origin') === 'vimeo') {
     // 处理 Vimeo 视频
     const iframe = document.createElement('iframe');
-    iframe.src = `https://${externalUrl}`;
-    // iframe.src = externalUrl;
+    iframe.src = externalUrl;
     iframe.width = '100%';
     iframe.height = '630';
     iframe.style.border = '0';
