@@ -681,7 +681,10 @@ export function buildHybrisCartPageUrl(baseUrl = '/cart', options = {}) {
     if (!authenticated) {
       const guestGuid = String(nextGuestCartIdentifier || '').trim();
       if (guestGuid) {
+        const { country, language } = getLocaleFromPath();
         cartUrl.searchParams.set('guid', guestGuid);
+        cartUrl.searchParams.set('country', country);
+        cartUrl.searchParams.set('language', language);
       }
     }
 
