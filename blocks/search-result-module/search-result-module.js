@@ -1,6 +1,7 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { isMobileWindow } from '../../scripts/device.js';
 
 const DEFAULT_PAGE_SIZE = 12;
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
@@ -926,7 +927,7 @@ export default async function decorate(block) {
 
   const tabItems = tabNav.querySelectorAll('.tab-item');
   function handleViewportResize() {
-    const isMobile = window.innerWidth < 860;
+    const isMobile = isMobileWindow();
     tabDataMap.forEach((tabData) => {
       const { prevIsMobile } = tabData;
       if (prevIsMobile !== isMobile) {
@@ -942,7 +943,7 @@ export default async function decorate(block) {
   }
   // 初始化移动端状态
   tabDataMap.forEach((tabData) => {
-    tabData.prevIsMobile = window.innerWidth < 860;
+    tabData.prevIsMobile = isMobileWindow();
   });
   // 添加视口监听事件（防抖处理）
   let resizeTimeout;

@@ -10,6 +10,11 @@ export default async function decorate(block) {
   script.src = 'https://hisenseusacorporation.bamboohr.com/js/embed.js';
   script.async = true;
   script.defer = true;
+  script.onload = () => {
+    // mock readyState complete
+    const event = new Event('readystatechange');
+    document.dispatchEvent(event);
+  };
   wrapper.appendChild(script);
 
   block.replaceChildren(wrapper);
