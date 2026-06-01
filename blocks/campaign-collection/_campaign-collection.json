@@ -107,8 +107,7 @@
           "name": "right_buttontext",
           "label": "Button Text",
           "valueType": "string",
-          "value": "",
-          "required": true
+          "value": ""
         },
         {
           "component": "aem-content",
