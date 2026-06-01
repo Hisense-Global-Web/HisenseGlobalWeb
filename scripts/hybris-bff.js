@@ -667,7 +667,8 @@ export function buildHybrisCartPageUrl(baseUrl = '/cart', options = {}) {
     authenticated = getCachedAuthState().authenticated,
     guestCartIdentifier: nextGuestCartIdentifier = ensureGuestCartIdentifierLoaded(),
   } = options;
-  const normalizedBaseUrl = String(baseUrl || '').trim() || '/cart';
+  const { country, language } = getLocaleFromPath();
+  const normalizedBaseUrl = `/${country}/${language}${baseUrl}`;
 
   if (typeof window === 'undefined') {
     return normalizedBaseUrl;
@@ -681,10 +682,7 @@ export function buildHybrisCartPageUrl(baseUrl = '/cart', options = {}) {
     if (!authenticated) {
       const guestGuid = String(nextGuestCartIdentifier || '').trim();
       if (guestGuid) {
-        const { country, language } = getLocaleFromPath();
         cartUrl.searchParams.set('guid', guestGuid);
-        cartUrl.searchParams.set('country', country);
-        cartUrl.searchParams.set('language', language);
       }
     }
 
