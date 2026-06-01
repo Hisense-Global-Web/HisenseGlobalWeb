@@ -45,13 +45,13 @@
           "component": "text",
           "valueType": "string",
           "name": "popup-title",
-          "label": "Title"
+          "label": "Popup Title"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "popup-subtitle",
-          "label": "Subtitle"
+          "label": "Popup Subtitle"
         },
         {
           "component": "reference",
