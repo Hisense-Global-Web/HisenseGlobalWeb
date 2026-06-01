@@ -39,7 +39,8 @@
           "name": "video_type",
           "label": "Video link is external?",
           "valueType": "boolean",
-          "description": "Switch OFF: Internal | Switch ON: External"
+          "description": "Switch OFF: Internal | Switch ON: External",
+          "value": false
         },
         {
           "component": "richtext",

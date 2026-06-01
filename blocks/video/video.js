@@ -4,6 +4,7 @@ export default function decorate(block) {
   let imgUrl;
   let externalUrl; // 新增变量存储外部链接
   [...block.children].forEach((row, index) => {
+    // console.log(row, 'rowrowrowrowrowrowrowrowrow');
     const link = row.querySelector('a');
     if (link) {
       videourl = link.href;
@@ -14,6 +15,7 @@ export default function decorate(block) {
     }
     if (index === 2) {
       const isExternalLinkFlag = row.textContent.trim();
+      // console.log(isExternalLinkFlag, 'isExternalLinkFlag88888888888888888888');
       if (isExternalLinkFlag === 'true') {
         block.setAttribute('data-link-origin', 'external');
       } else {
@@ -59,7 +61,8 @@ export default function decorate(block) {
       coverImg.style.display = 'none';
     });
 
-    block.replaceChildren(newDiv);
+    // block.replaceChildren(newDiv);
+    block.appendChild(newDiv);
 
     const videoAutoplay = {
       init() {
