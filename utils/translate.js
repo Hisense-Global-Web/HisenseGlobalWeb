@@ -7,7 +7,7 @@ const translateDictionary = {
     fr: 'Entreprise',
     es: 'Empresa',
     pt: 'Empresa',
-    zh: '集团介绍',
+    zh: '集团',
     ar: 'شركة',
     ja: '会社',
     th: 'บริษัท',
