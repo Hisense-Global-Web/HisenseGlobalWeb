@@ -141,9 +141,6 @@ function resolveShoppingCartBaseUrl(actionHref = '') {
 
   try {
     const cartUrl = new URL(normalizedHref || '/cart', window.location.origin);
-    cartUrl.pathname = '/cart';
-    cartUrl.search = '';
-    cartUrl.hash = '';
     return cartUrl.toString();
   } catch (error) {
     return '/cart';
