@@ -1,12 +1,11 @@
 export default function decorate(block) {
   /* change to ul, li */
-  let videourl;
-  let imgUrl;
-  let externalUrl;
-  // 外部视频容器
-  const externalVideoBox = document.createElement('div');
+  let videourl; // 内部视频链接
+  let imgUrl; // 内部视频封面图链接
+  let externalUrl; // 外部视频链接
+
+  const externalVideoBox = document.createElement('div'); // 外部视频容器
   externalVideoBox.className = 'external-video-box';
-  // console.log(block, 'block');
   [...block.children].forEach((row) => {
     const key = row.firstElementChild?.textContent?.trim().toLowerCase();
     row.className = key;
@@ -21,7 +20,6 @@ export default function decorate(block) {
       // 处理 Vimeo 视频
       // const videoUrl = 'https://player.vimeo.com/video/1115919354?h=70aa3569b2&badge=0&autopause=0&player_id=0&…';
       externalUrl = row.nextElementSibling.children[1].textContent.trim() ?? '';
-      console.log(externalUrl, 'externalUrl');
     } else {
       // 处理 internal 视频
       const link = row.querySelector('a');
@@ -163,7 +161,7 @@ export default function decorate(block) {
   }
   // 数据处理完成后，移除原有的配置文本节点
   block.querySelector('.video-origin').remove();
-  const externalUrlDom = block.querySelector('.external-url');
+  const externalUrlDom = block.querySelector('.external');
   if (externalUrlDom) {
     externalUrlDom.remove();
   }
