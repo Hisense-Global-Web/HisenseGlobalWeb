@@ -7281,6 +7281,28 @@
         "name": "image",
         "label": "Cover Image",
         "multi": false
+      },
+      {
+        "component": "boolean",
+        "name": "video_type",
+        "label": "Video link is external?",
+        "valueType": "boolean",
+        "description": "Switch OFF: Internal | Switch ON: External"
+      },
+      {
+        "component": "richtext",
+        "name": "external",
+        "label": "External Link",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "video_type"
+            },
+            true
+          ]
+        },
+        "required": true
       }
     ]
   },
