@@ -7318,7 +7318,7 @@
       },
       {
         "component": "richtext",
-        "name": "external-url",
+        "name": "External",
         "label": "Vimeo URL",
         "valueType": "string",
         "condition": {
