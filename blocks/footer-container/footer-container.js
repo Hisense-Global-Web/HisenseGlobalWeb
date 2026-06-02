@@ -220,34 +220,24 @@ function extractLogoData(container) {
       return;
     }
 
-    const socialPicture = innerDiv.querySelector('picture');
+    const socialImg = innerDiv.querySelector('img');
     const imgBox = document.createElement('div');
     imgBox.className = 'footer-social-imgbox';
-    if (socialPicture) {
-      const socialImg = socialPicture.querySelector('img');
-      socialImg.className = 'footer-social-width';
-      const socialLink = div.querySelector('a');
-      if (socialImg) {
-        imgBox.appendChild(socialImg);
-        if (socialLink) {
-          imgBox.appendChild(socialLink);
-        }
-        logoData.social.push(imgBox.cloneNode(true));
+    socialImg.className = 'footer-social-width';
+    const socialLink = div.children[1].querySelector('a');
+    const showPopup = div.children[2];
+    console.log(showPopup?.textContent?.trim());
+    if (socialImg) {
+      imgBox.appendChild(socialImg);
+      if (socialLink && showPopup?.textContent?.trim() === 'true') {
+        console.log('111');
+      } else if (socialLink) {
+        imgBox.appendChild(socialLink);
       }
-    } else {
-      const socialImg = innerDiv.querySelector('img');
-      socialImg.className = 'footer-social-width';
-      const socialLink = innerDiv.querySelector('a');
-      if (socialImg) {
-        imgBox.appendChild(socialImg);
-        if (socialLink) {
-          imgBox.appendChild(socialLink);
-        }
-        logoData.social.push(imgBox.cloneNode(true));
-      }
+      logoData.social.push(imgBox.cloneNode(true));
     }
   });
-
+  console.log(logoData);
   return logoData;
 }
 
