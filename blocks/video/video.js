@@ -24,6 +24,7 @@ export default function decorate(block) {
   });
   // 重置外部链接函数
   function resetExternalUrl(url) {
+    // console.log('原始链接:', url);
     let tempUrl;
     if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
       // 如果链接已经是完整的 URL，直接使用
@@ -40,6 +41,7 @@ export default function decorate(block) {
   }
   if (block.getAttribute('data-link-origin') === 'external') {
     externalUrl = resetExternalUrl(block.lastElementChild.textContent.trim());
+    // console.log('外部链接:', externalUrl);
     if (externalUrl) {
       const externalVideoBox = document.createElement('div'); // 外部视频容器
       externalVideoBox.className = 'external-video-box';
@@ -52,8 +54,12 @@ export default function decorate(block) {
       block.replaceChildren(externalVideoBox);
     } else {
       // 如果外部链接无效，隐藏外部链接开关和内部链接配置值 （如果有的话）
-      block.querySelector('a').style.display = 'none';
+      const internalLinkDom = block.querySelector('a');
+      if (internalLinkDom) {
+        internalLinkDom.style.display = 'none';
+      }
       block.querySelector('.external-link-flag').style.display = 'none';
+      block.lastElementChild.style.display = 'none';
     }
   } else {
     const newDiv = document.createElement('div');
