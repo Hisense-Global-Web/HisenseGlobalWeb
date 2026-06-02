@@ -47,7 +47,6 @@
           "name": "external",
           "label": "External Link",
           "valueType": "string",
-          "condition": { "===": [{"var" : "video_type"}, true] },
           "required": true
         }
       ]
