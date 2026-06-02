@@ -14,6 +14,7 @@ export default function decorate(block) {
     }
     if (index === 2) {
       const isExternalLinkFlag = row.textContent.trim();
+      row.classList.add('external-link-flag');
       if (isExternalLinkFlag === 'true') {
         block.setAttribute('data-link-origin', 'external');
       } else {
@@ -33,6 +34,10 @@ export default function decorate(block) {
       iframe.style.border = '0';
       externalVideoBox.appendChild(iframe);
       block.replaceChildren(externalVideoBox);
+    } else {
+      // 如果外部链接无效，隐藏外部链接开关和内部链接配置值 （如果有的话）
+      block.querySelector('a').style.display = 'none';
+      block.querySelector('.external-link-flag').style.display = 'none';
     }
   } else {
     const newDiv = document.createElement('div');
