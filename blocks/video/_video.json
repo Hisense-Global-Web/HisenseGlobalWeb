@@ -43,12 +43,17 @@
           "value": false
         },
         {
-          "component": "textarea",
+          "component": "richtext",
           "name": "external",
           "label": "External Link",
           "valueType": "string",
           "condition": { "===": [{"var" : "video_type"}, true] },
-          "required": true 
+          "required": true,
+          "forceEmptyValue": true,
+          "nullable": true,
+          "stripEmptyParagraph": true,
+          "onBlurTrimEmpty": true,
+          "rawHtmlOutput": true
         }
       ]
     }
