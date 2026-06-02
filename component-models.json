@@ -7320,7 +7320,17 @@
         "name": "external",
         "label": "External Link",
         "valueType": "string",
-        "required": true
+        "condition": {
+          "===": [
+            {
+              "var": "video_type"
+            },
+            true
+          ]
+        },
+        "required": true,
+        "forceEmptyValue": true,
+        "nullable": true
       }
     ]
   },
