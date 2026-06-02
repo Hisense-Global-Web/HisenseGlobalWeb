@@ -7316,7 +7316,7 @@
         "value": false
       },
       {
-        "component": "richtext",
+        "component": "textarea",
         "name": "external",
         "label": "External Link",
         "valueType": "string",
@@ -7328,9 +7328,7 @@
             true
           ]
         },
-        "required": true,
-        "forceEmptyValue": true,
-        "nullable": true
+        "required": true
       }
     ]
   },
