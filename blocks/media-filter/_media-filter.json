@@ -30,13 +30,6 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "filter-placeholder1",
-          "label": "Filter Placeholder 1",
-          "required": true
-        },
-        {
-          "component": "text",
-          "valueType": "string",
           "name": "filter-label2",
           "label": "Filter Label 2",
           "required": true
