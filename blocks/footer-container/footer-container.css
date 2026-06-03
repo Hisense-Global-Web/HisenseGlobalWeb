@@ -55,7 +55,7 @@ main:has([data-aue-model="footerContainer"]) ~ footer.footer-wrapper {
     margin-bottom: 32px;
 
     [data-aue-component="footerNavColumn"] {
-      width: 150px;
+      width: 180px;
       padding-left: 30px;
 
       > div:first-of-type {
