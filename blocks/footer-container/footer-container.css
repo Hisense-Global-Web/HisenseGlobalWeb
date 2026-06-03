@@ -21,6 +21,8 @@
       justify-content: space-between;
 
       > div:not([data-aue-component="footerSocial"]) {
+        margin-right: auto;
+
         &:not(:has(img)) {
           display: none;
         }
@@ -75,9 +77,19 @@
   .footer-legal-links-wrapper {
     grid-column: 1 / -1;
 
-    [data-aue-component="footerLegalLinkItem"] {
-      > div:not(:first-of-type) {
-        display: none;
+    [data-aue-component="footerLegalLinks"] {
+      > div:not([data-aue-component]) {
+        color: var(--color-primary-grey-90);
+        font-size: var(--size-12);
+        font-weight: var(--fontweight-book);
+        flex-shrink: 0;
+        order: 3;
+      }
+
+      [data-aue-component="footerLegalLinkItem"] {
+        > div:not(:first-of-type) {
+          display: none;
+        }
       }
     }
   }
