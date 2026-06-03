@@ -42,9 +42,9 @@ export default function decorate(block) {
   if (block.getAttribute('data-link-origin') === 'external') {
     externalUrl = resetExternalUrl(block.lastElementChild.textContent.trim());
     console.log('外部链接:', externalUrl);
+    const externalVideoBox = document.createElement('div'); // 外部视频容器
+    externalVideoBox.className = 'external-video-box';
     if (externalUrl) {
-      const externalVideoBox = document.createElement('div'); // 外部视频容器
-      externalVideoBox.className = 'external-video-box';
       const iframe = document.createElement('iframe');
       iframe.src = externalUrl;
       iframe.width = '100%';
@@ -53,6 +53,7 @@ export default function decorate(block) {
       externalVideoBox.appendChild(iframe);
       block.replaceChildren(externalVideoBox);
     } else {
+      console.warn('外部链接无效，无法加载视频', externalUrl);
       // 如果外部链接无效，隐藏外部链接开关和内部链接配置值 （如果有的话）
       const internalLinkDom = block.querySelector('a');
       if (internalLinkDom) {
@@ -60,6 +61,10 @@ export default function decorate(block) {
       }
       block.querySelector('.external-link-flag').style.display = 'none';
       block.lastElementChild.style.display = 'none';
+      const externalVideoBox = block.querySelector('.external-video-box');
+      if (externalVideoBox) {
+        externalVideoBox.style.display = 'none';
+      }
     }
   } else {
     const newDiv = document.createElement('div');
