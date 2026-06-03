@@ -49,7 +49,7 @@ export default function decorate(block) {
       const externalVideoBox = document.createElement('div'); // 外部视频容器
       externalVideoBox.className = 'external-video-box';
       externalVideoBox.textContent = externalUrl;
-      block.replaceChildren(externalVideoBox);
+      block.appendChild(externalVideoBox);
 
     console.log('外部链接:', externalUrl);
     // if (externalUrl) {
