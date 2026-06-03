@@ -43,8 +43,16 @@
 
   .footer-nav-column-wrapper {
     width: 150px;
+    height: 100%;
 
     [data-aue-component="footerNavColumn"] {
+      > div:first-of-type {
+        margin-bottom: var(--size-8);
+        margin-top: 0;
+        font-size: var(--fontsize-body2);
+        color: var(--color-hisense-black);
+      }
+
       [data-aue-component="footerNavColumnList"] {
         > div:not(:first-of-type) {
           display: none;
