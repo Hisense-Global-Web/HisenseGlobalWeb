@@ -7328,7 +7328,8 @@
             true
           ]
         },
-        "required": true
+        "required": true,
+        "value": ""
       }
     ]
   },
