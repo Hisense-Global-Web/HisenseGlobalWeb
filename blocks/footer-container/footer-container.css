@@ -11,13 +11,22 @@
   .footer-logo-wrapper .block.footer-logo[data-aue-model="footerLogo"] {
     display: flex;
 
-    :not([data-aue-component="footerSocial"]) {
+    div:not([data-aue-component="footerSocial"]) {
       &:not(:has(img)) {
         display: none;
+      }
+
+      img {
+        width: 164px;
+        display: block;
       }
     }
 
     [data-aue-component="footerSocial"] {
+      &:first-child {
+        margin-left: auto;
+      }
+
       div:not(:has(img)) {
         display: none;
       }
