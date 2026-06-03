@@ -226,18 +226,35 @@ function extractLogoData(container) {
     socialImg.className = 'footer-social-width';
     const socialLink = div.children[1].querySelector('a');
     const showPopup = div.children[2];
-    console.log(showPopup?.textContent?.trim());
     if (socialImg) {
       imgBox.appendChild(socialImg);
       if (socialLink && showPopup?.textContent?.trim() === 'true') {
-        console.log('111');
+        let footerSocialPopup = document.querySelector('#footer-social');
+        if (!footerSocialPopup) {
+          footerSocialPopup = document.createElement('div');
+          footerSocialPopup.id = 'footer-social';
+          document.querySelector('body').appendChild(footerSocialPopup);
+        }
+        const popupCloseImg = document.createElement('img');
+        popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+        popupCloseImg.className = 'close-icon';
+        const titleEl = document.createElement('div');
+        titleEl.className = 'footer-popup-title';
+        titleEl.textContent = '微信公众號';
+        const subtitleEl = document.createElement('div');
+        subtitleEl.className = 'footer-popup-subtitle';
+        subtitleEl.textContent = '手机微信扫二维码';
+        const imgEl = document.createElement('img');
+        imgEl.className = 'footer-popup-img';
+
+        // footerSocialPopup.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        console.log(footerSocialPopup);
       } else if (socialLink) {
         imgBox.appendChild(socialLink);
       }
       logoData.social.push(imgBox.cloneNode(true));
     }
   });
-  console.log(logoData);
   return logoData;
 }
 
