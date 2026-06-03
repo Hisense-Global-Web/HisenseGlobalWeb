@@ -1,5 +1,30 @@
 /* footer-container styles */
 
+.section[data-aue-component="footerContainer"] {
+  background: rgb(230 250 250 / 50%);
+  box-sizing: border-box;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .footer-logo-wrapper .block.footer-logo[data-aue-model="footerLogo"] {
+    display: flex;
+
+    :not([data-aue-component="footerSocial"]) {
+      &:not(:has(img)) {
+        display: none;
+      }
+    }
+
+    [data-aue-component="footerSocial"] {
+      div:not(:has(img)) {
+        display: none;
+      }
+    }
+  }
+}
+
 .section.footer-container-block,
 .section[class*="footer-container"] {
   background: rgb(230 250 250 / 50%);
