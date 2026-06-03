@@ -4431,9 +4431,24 @@
       },
       {
         "component": "text",
-        "name": "button-text",
-        "label": "Button Copy",
-        "valueType": "string"
+        "name": "search-button",
+        "label": "The text of search button",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "mobile_loadmore",
+        "label": "The text of load more button on mobile",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "number",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many items to show per page.",
+        "valueType": "number"
       }
     ]
   },
