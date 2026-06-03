@@ -7320,16 +7320,13 @@
         "name": "external",
         "label": "External Link",
         "valueType": "string",
-        "rule": {
-          "effect": "HIDE",
-          "condition": {
-            "===": [
-              {
-                "var": "video_type"
-              },
-              false
-            ]
-          }
+        "condition": {
+          "===": [
+            {
+              "var": "video_type"
+            },
+            true
+          ]
         },
         "required": true
       }
