@@ -7329,7 +7329,8 @@
           ]
         },
         "required": true,
-        "value": ""
+        "value": "",
+        "description": "Note: If an external link is not required, please disable the external link toggle."
       }
     ]
   },
