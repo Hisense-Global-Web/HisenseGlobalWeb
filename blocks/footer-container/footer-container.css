@@ -49,12 +49,15 @@ main:has([data-aue-model="footerContainer"]) ~ footer.footer-wrapper {
   }
 
   .footer-nav-column-wrapper {
-    width: 150px;
+    width: 100%;
     height: 100%;
     padding: 0;
     margin-bottom: 32px;
 
     [data-aue-component="footerNavColumn"] {
+      width: 150px;
+      padding-left: 30px;
+
       > div:first-of-type {
         margin-bottom: var(--size-8);
         margin-top: 0;
@@ -79,6 +82,7 @@ main:has([data-aue-model="footerContainer"]) ~ footer.footer-wrapper {
 
   .footer-legal-links-wrapper {
     grid-column: 1 / -1;
+    width: 100%;
 
     [data-aue-component="footerLegalLinks"] {
       display: grid;
