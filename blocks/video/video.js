@@ -44,7 +44,10 @@ export default function decorate(block) {
     return tempUrl;
   }
   if (block.getAttribute('data-link-origin') === 'external') {
-    externalUrl = resetExternalUrl(block.lastElementChild.textContent.trim());
+    // externalUrl = resetExternalUrl(block.lastElementChild.textContent.trim());
+    externalUrl = block.lastElementChild.textContent.trim();
+    
+
     console.log('外部链接:', externalUrl);
     if (externalUrl) {
       const externalVideoBox = document.createElement('div'); // 外部视频容器
