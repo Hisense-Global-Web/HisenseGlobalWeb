@@ -16,7 +16,7 @@
     .block.footer-logo[data-aue-model="footerLogo"] {
       display: flex;
 
-      div:not([data-aue-component="footerSocial"]) {
+      > div:not([data-aue-component="footerSocial"]) {
         &:not(:has(img)) {
           display: none;
         }
