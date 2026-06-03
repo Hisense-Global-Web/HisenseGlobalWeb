@@ -7328,12 +7328,7 @@
             true
           ]
         },
-        "required": true,
-        "forceEmptyValue": true,
-        "nullable": true,
-        "stripEmptyParagraph": true,
-        "onBlurTrimEmpty": true,
-        "rawHtmlOutput": true
+        "required": true
       }
     ]
   },

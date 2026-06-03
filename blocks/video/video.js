@@ -25,6 +25,10 @@ export default function decorate(block) {
   // 重置外部链接函数
   function resetExternalUrl(url) {
     console.log('原始链接:', url);
+    if (!url || url.trim().replace(/<[^>]+>/g, '') === '') {
+      console.warn('外部链接为空或仅包含 HTML 标签，无法加载视频');
+      return null;
+    }
     let tempUrl;
     if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
       // 如果链接已经是完整的 URL，直接使用
@@ -42,9 +46,9 @@ export default function decorate(block) {
   if (block.getAttribute('data-link-origin') === 'external') {
     externalUrl = resetExternalUrl(block.lastElementChild.textContent.trim());
     console.log('外部链接:', externalUrl);
-    const externalVideoBox = document.createElement('div'); // 外部视频容器
-    externalVideoBox.className = 'external-video-box';
     if (externalUrl) {
+      const externalVideoBox = document.createElement('div'); // 外部视频容器
+      externalVideoBox.className = 'external-video-box';
       const iframe = document.createElement('iframe');
       iframe.src = externalUrl;
       iframe.width = '100%';
@@ -61,10 +65,6 @@ export default function decorate(block) {
       }
       block.querySelector('.external-link-flag').style.display = 'none';
       block.lastElementChild.style.display = 'none';
-      const externalVideoBox = block.querySelector('.external-video-box');
-      if (externalVideoBox) {
-        externalVideoBox.style.display = 'none';
-      }
     }
   } else {
     const newDiv = document.createElement('div');

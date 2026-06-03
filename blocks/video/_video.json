@@ -48,12 +48,7 @@
           "label": "External Link",
           "valueType": "string",
           "condition": { "===": [{"var" : "video_type"}, true] },
-          "required": true,
-          "forceEmptyValue": true,
-          "nullable": true,
-          "stripEmptyParagraph": true,
-          "onBlurTrimEmpty": true,
-          "rawHtmlOutput": true
+          "required": true
         }
       ]
     }
