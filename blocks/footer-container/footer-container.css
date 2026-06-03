@@ -549,7 +549,7 @@ footer footer {
 #footer-social {
   width: min(calc(760 / var(--breakpoint-pc) * 100vw), 760px);
   position: fixed;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: var(--size-24);
   top: 50%;
@@ -557,9 +557,21 @@ footer footer {
   transform: translate(-50%, -50%);
   padding: var(--size-80);
   box-sizing: border-box;
+  z-index: 1000;
+  background-color: #fff;
+  align-items: center;
+  border-radius: var(--size-20);
 
   @media (width < 640px) {
     width: min(calc(354 / var(--breakpoint-mobile) * 100vw), 354px);
+  }
+
+  .close-icon {
+    position: absolute;
+    top: var(--size-32);
+    right: var(--size-32);
+    width: var(--size-32);
+    height: var(--size-32);
   }
 
   .footer-popup-title {
@@ -580,5 +592,10 @@ footer footer {
     width: min(calc(180 / var(--breakpoint-pc) * 100vw), 180px);
     height: min(calc(180 / var(--breakpoint-pc) * 100vw), 180px);
     display: block;
+
+    @media (width < 640px) {
+      width: min(calc(180 / var(--breakpoint-mobile) * 100vw), 180px);
+      height: min(calc(180 / var(--breakpoint-mobile) * 100vw), 180px);
+    }
   }
 }

@@ -238,6 +238,11 @@ function extractLogoData(container) {
         const popupCloseImg = document.createElement('img');
         popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
         popupCloseImg.className = 'close-icon';
+        popupCloseImg.addEventListener('click', (e) => {
+          e.stopPropagation();
+          footerSocialPopup.style.display = 'none';
+          document.querySelector('#logout-mask').style.display = '';
+        });
         const titleEl = document.createElement('div');
         titleEl.className = 'footer-popup-title';
         titleEl.textContent = '微信公众號';
@@ -247,8 +252,12 @@ function extractLogoData(container) {
         const imgEl = document.createElement('img');
         imgEl.className = 'footer-popup-img';
 
-        // footerSocialPopup.append(popupCloseImg, titleEl, subtitleEl, imgEl);
-        console.log(footerSocialPopup);
+        footerSocialPopup.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        imgBox.addEventListener('click', (e) => {
+          e.stopPropagation();
+          footerSocialPopup.style.display = 'flex';
+          document.querySelector('#logout-mask').style.display = 'block';
+        })
       } else if (socialLink) {
         imgBox.appendChild(socialLink);
       }
