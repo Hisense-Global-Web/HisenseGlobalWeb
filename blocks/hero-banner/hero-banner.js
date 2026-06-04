@@ -68,6 +68,12 @@ function isHeroBannerItemDynamicMediaColumn(column, index, columns) {
   return columns.length > 7 && index === 1;
 }
 
+function isHeroBannerItemMobileImageColumn(column, index, columns) {
+  if (getColumnConfigKey(column) === 'image-mobile') return true;
+
+  return columns.length > 8 && index === 2;
+}
+
 function getHeroBannerItemDynamicMedia(row) {
   const columns = [...(row?.children || [])];
   const dynamicMediaColumn = columns.find((column, index) => (
@@ -77,12 +83,34 @@ function getHeroBannerItemDynamicMedia(row) {
   return dynamicMediaColumn ? isTruthy(getCellText(dynamicMediaColumn)) : undefined;
 }
 
+function getHeroBannerItemMobileImageColumn(row) {
+  const columns = [...(row?.children || [])];
+
+  return columns.find((column, index) => (
+    isHeroBannerItemMobileImageColumn(column, index, columns)
+  ));
+}
+
 function getHeroBannerRenderableColumns(row) {
   const columns = [...(row?.children || [])];
 
   return columns.filter((column, index) => (
     !isHeroBannerItemDynamicMediaColumn(column, index, columns)
+    && !isHeroBannerItemMobileImageColumn(column, index, columns)
   ));
+}
+
+function appendHeroBannerMobileImageColumn(imageColumn, mobileImageColumn) {
+  if (!imageColumn || !mobileImageColumn?.children?.length) return;
+
+  const mobileImageContent = mobileImageColumn.firstElementChild;
+  if (mobileImageContent) {
+    moveInstrumentation(mobileImageColumn, mobileImageContent);
+  }
+
+  while (mobileImageColumn.firstChild) {
+    imageColumn.append(mobileImageColumn.firstChild);
+  }
 }
 
 function updateNavTheme(block, targetSlide, heroBannerHeight) {
@@ -406,6 +434,9 @@ function createSlide(block, row, slideIndex, options = {}) {
       case 0:
         // container-reference div
         column.classList.add('hero-banner-item-image');
+        if (!dynamicMedia) {
+          appendHeroBannerMobileImageColumn(column, getHeroBannerItemMobileImageColumn(row));
+        }
         normalizeImageReferenceLinks(column, createOptimizedPicture, {
           dynamicMedia,
         });

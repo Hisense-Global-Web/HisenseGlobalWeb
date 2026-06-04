@@ -76,6 +76,14 @@
           "valueType": "boolean"
         },
         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image_mobile",
+          "label": "Image/Video For Mobile",
+          "multi": false,
+          "condition": { "===": [{"var" : "dynamic_media"}, false] }
+        },
+        {
           "component": "boolean",
           "name": "image_theme",
           "label": "Image/Video Dark Theme",

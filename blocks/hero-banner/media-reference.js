@@ -10,9 +10,9 @@ const VIDEO_MEDIA_EXTENSIONS = new Set([
 ]);
 
 const HERO_BANNER_DYNAMIC_MEDIA_CROPS = [
-  { cropName: 'Small', cropWidth: 390 },
-  { cropName: 'Medium', cropWidth: 860 },
-  { cropName: 'Large', cropWidth: 1260 },
+  { cropName: 'Small', cropWidth: 639 },
+  { cropName: 'Medium', cropWidth: 1179 },
+  { cropName: 'Large', cropWidth: 1920 },
 ];
 
 function getCurrentLocationHref() {
@@ -37,7 +37,7 @@ function getAssetExtension(assetUrl = '') {
   }
 }
 
-function buildSmartCropUrl(src, cropName, currentLocationHref = getCurrentLocationHref()) {
+function buildSmartCropUrl(src, cropName, cropWidth, currentLocationHref = getCurrentLocationHref()) {
   if (!src || !cropName) return '';
 
   const assetUrl = new URL(src, currentLocationHref);
@@ -45,6 +45,9 @@ function buildSmartCropUrl(src, cropName, currentLocationHref = getCurrentLocati
 
   assetUrl.search = '';
   assetUrl.searchParams.set('smartcrop', String(cropName).trim());
+  if (cropWidth) {
+    assetUrl.searchParams.set('width', String(cropWidth));
+  }
   assetUrl.hash = '';
 
   if (assetUrl.origin === currentUrl.origin) {
@@ -56,7 +59,7 @@ function buildSmartCropUrl(src, cropName, currentLocationHref = getCurrentLocati
 
 function getLargeSmartCropUrl(src) {
   const largeCrop = HERO_BANNER_DYNAMIC_MEDIA_CROPS[HERO_BANNER_DYNAMIC_MEDIA_CROPS.length - 1];
-  return buildSmartCropUrl(src, largeCrop.cropName);
+  return buildSmartCropUrl(src, largeCrop.cropName, largeCrop.cropWidth);
 }
 
 export function isVideoMediaUrl(assetUrl = '') {
@@ -73,7 +76,7 @@ export function isVideoMediaColumn(column) {
 export function buildHeroBannerDynamicMediaSources(src, currentLocationHref = getCurrentLocationHref()) {
   return HERO_BANNER_DYNAMIC_MEDIA_CROPS.map(({ cropName, cropWidth }) => ({
     media: `(max-width: ${cropWidth}px)`,
-    srcset: buildSmartCropUrl(src, cropName, currentLocationHref),
+    srcset: buildSmartCropUrl(src, cropName, cropWidth, currentLocationHref),
     width: String(cropWidth),
   }));
 }
