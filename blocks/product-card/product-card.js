@@ -1941,8 +1941,7 @@ export default function decorate(block) {
         setWhereToBuyPurchaseVisibility(false);
       };
 
-      const setWhereToBuyButtonState = (state = 'whereToBuy', productCode = '', options = {}) => {
-        const normalizedState = String(state || 'whereToBuy');
+      const setWhereToBuyButtonState = (normalizedState, productCode = '', options = {}) => {
         const normalizedProductCode = String(productCode || '').trim();
         const presentation = resolveWhereToBuyButtonPresentation(normalizedState);
         const visibility = options.visibility || resolveCommerceButtonVisibility(normalizedState, {
@@ -1980,19 +1979,18 @@ export default function decorate(block) {
         observeWhereToBuyButtonPriceSpiderState();
       };
 
-      const updatePurchaseButtons = (state = 'whereToBuy', options = {}) => {
+      const updatePurchaseButtons = (state, options = {}) => {
         const addToCartCode = addToCartBtnEl.dataset.productCode || '';
         if (!addToCartCode) {
           hidePurchaseButtons();
           return;
         }
 
-        const normalizedState = String(state || 'whereToBuy');
-        const visibility = resolveCommerceButtonVisibility(normalizedState, {
+        const visibility = resolveCommerceButtonVisibility(state, {
           pageType: 'plp',
           hasHybrisData: options.hasHybrisData,
         });
-        setWhereToBuyButtonState(normalizedState, addToCartCode, {
+        setWhereToBuyButtonState(state, addToCartCode, {
           visibility,
           hasHybrisData: options.hasHybrisData,
         });
