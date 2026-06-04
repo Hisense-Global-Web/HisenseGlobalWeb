@@ -58,15 +58,15 @@ export function resolveCommerceButtonVisibility(normalizedCallToAction, options 
         });
       }
 
+      if (normalizedCallToAction === 'whereToBuy') {
+        return createCommerceButtonVisibility({
+          showWhereToBuy: true,
+          priceSpiderComingSoonMode: 'showComingSoon',
+        });
+      }
+
       return createCommerceButtonVisibility({
         showOutOfStock: true,
-      });
-    }
-
-    if (normalizedCallToAction === 'whereToBuy') {
-      return createCommerceButtonVisibility({
-        showWhereToBuy: true,
-        priceSpiderComingSoonMode: 'showComingSoon',
       });
     }
     return createCommerceButtonVisibility({})
