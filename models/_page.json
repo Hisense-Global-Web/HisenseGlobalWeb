@@ -79,6 +79,13 @@
           "name": "format-detection",
           "label": "Format Detection",
           "value": "telephone=no"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "use-third",
+          "value": false,
+          "label": "Use Third Party Integration"
         }
       ]
     }
