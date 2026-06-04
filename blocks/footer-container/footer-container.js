@@ -608,7 +608,7 @@ export default async function decorate(block) {
     if (selectedCountry?.code === 'cn') {
       langItems.forEach((item) => {
         item.addEventListener('click', (e) => {
-          window.location.href = e.currentTarget.getAttribute('data-lang') === 'zh' ? '/cn/zh' : '/us/en';
+          window.location.href = e.currentTarget.getAttribute('data-lang') === 'zh' ? '' : '/us/en';
         });
       });
     } else {
