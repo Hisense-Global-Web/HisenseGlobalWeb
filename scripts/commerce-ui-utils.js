@@ -45,8 +45,7 @@ function createCommerceButtonVisibility(options = {}) {
   };
 }
 
-export function resolveCommerceButtonVisibility(callToAction = 'whereToBuy', options = {}) {
-  const normalizedCallToAction = String(callToAction || 'whereToBuy');
+export function resolveCommerceButtonVisibility(normalizedCallToAction, options = {}) {
   const normalizedPageType = String(options.pageType || '').trim().toLowerCase();
   const hasHybrisData = Boolean(options.hasHybrisData ?? options.hasProductData);
   const hasWhereToBuyIntegration = options.hasWhereToBuyIntegration !== false;
@@ -64,10 +63,13 @@ export function resolveCommerceButtonVisibility(callToAction = 'whereToBuy', opt
       });
     }
 
-    return createCommerceButtonVisibility({
-      showWhereToBuy: true,
-      priceSpiderComingSoonMode: 'showComingSoon',
-    });
+    if (normalizedCallToAction === 'whereToBuy') {
+      return createCommerceButtonVisibility({
+        showWhereToBuy: true,
+        priceSpiderComingSoonMode: 'showComingSoon',
+      });
+    }
+    return createCommerceButtonVisibility({})
   }
 
   if (normalizedPageType === 'pdp') {
