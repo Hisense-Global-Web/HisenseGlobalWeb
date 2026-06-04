@@ -1394,6 +1394,6 @@
   }
 }
 
-.product-card-container:has(.third-party-integration-wrapper) .product-card-wrapper .plp-where-to-buy-btn {
-  display: none;
+.product-card-container:not(:has(.third-party-integration-wrapper)) .product-card-wrapper .plp-where-to-buy-btn {
+  display: none !important;
 }
