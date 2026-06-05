@@ -605,10 +605,10 @@ export default async function decorate(block) {
       });
     }
     const langItems = lanGroup.querySelectorAll('.footer-lan-item');
-    if (selectedCountry.code === 'cn') {
+    if (selectedCountry?.code === 'cn') {
       langItems.forEach((item) => {
         item.addEventListener('click', (e) => {
-          window.location.href = e.currentTarget.getAttribute('data-lang') === 'zh' ? '/cn/zh' : '/us/en';
+          window.location.href = e.currentTarget.getAttribute('data-lang') === 'zh' ? '' : '/us/en';
         });
       });
     } else {

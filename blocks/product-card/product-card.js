@@ -682,6 +682,10 @@ function applyAggregatedSort(sortProperty, direction = -1) {
   }
 }
 export default function decorate(block) {
+  const metaWTB = document.querySelector('meta[name="show-wtb"]');
+  if (metaWTB && metaWTB.content === 'false') {
+    document.body.classList.add('hide-wtb-button');
+  }
   const isEditMode = block && block.hasAttribute && block.hasAttribute('data-aue-resource');
   block.classList.add('plp-product-card');
   block.classList.remove('product-card');

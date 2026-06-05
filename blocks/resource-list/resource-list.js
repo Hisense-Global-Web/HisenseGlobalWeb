@@ -3,7 +3,7 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 import { validateEmail } from '../../utils/carousel-common.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 
 export default function decorate(block) {
   const container = document.createElement('div');

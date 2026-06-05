@@ -3,7 +3,7 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 const DEFAULT_ITEM_IMAGE = 'https://picsum.photos/90/60';
 const DEFAULT_DOWNLOAD_ICON = `/content/dam/hisense/${country}/common-icons/download.svg`;
 const DEFAULT_FOLDER_ICON = 'https://picsum.photos/80/80';

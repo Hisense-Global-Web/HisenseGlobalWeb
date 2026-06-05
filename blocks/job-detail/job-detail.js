@@ -59,7 +59,7 @@ function transformTagStructureToProducts(tagData) {
 }
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 export default function decorate(block) {
   const urlParams = new URLSearchParams(window.location.search);
   const encodedPath = urlParams.get('path');

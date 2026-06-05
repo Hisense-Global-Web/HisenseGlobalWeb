@@ -2,7 +2,7 @@ import { handleCommonDownloadClick } from '../../utils/download.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 
 const isAemEnvironment = () => {
   const hostname = window.location.hostname || '';

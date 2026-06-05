@@ -11,7 +11,7 @@ const PRICE_DATASET_SIGNATURE_KEY = '__hisensePlpPriceDatasetSignature';
 const PRICE_REQUEST_CONCURRENCY = 6;
 let CURRENCY_SYMBOL = '$';
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 
 function ensurePriceFilterState() {
   const currentState = window[PRICE_FILTER_STATE_KEY] || {};

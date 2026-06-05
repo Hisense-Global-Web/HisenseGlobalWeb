@@ -10,7 +10,7 @@ import { SCREEN_POINT } from '../../utils/constants.js';
 
 let carouselId = 0;
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 
 function bindEvent(block, type = 'normal') {
   const mediaCarouselPagination = block.querySelector('.media-carousel-pagination');
