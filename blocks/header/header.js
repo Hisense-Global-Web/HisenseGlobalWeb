@@ -33,6 +33,7 @@ import {
 
 import { isAuthorHostname } from '../../scripts/environment.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
+import translate from '../../utils/translate.js';
 
 const LOGOUT_TEXT = {
   en: {
@@ -141,9 +142,6 @@ function resolveShoppingCartBaseUrl(actionHref = '') {
 
   try {
     const cartUrl = new URL(normalizedHref || '/cart', window.location.origin);
-    cartUrl.pathname = '/cart';
-    cartUrl.search = '';
-    cartUrl.hash = '';
     return cartUrl.toString();
   } catch (error) {
     return '/cart';
@@ -1133,6 +1131,7 @@ const handleAccountActionClick = async (event) => {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  const { language } = getLocaleFromPath();
   // clean nav page content in eds side
   if (!isAuthorHostname() && isNavPage()) {
     document.head.remove();
@@ -1344,7 +1343,7 @@ export default async function decorate(block) {
   navSecond.className = `nav-second h-grid-container ${isCompanyPage || isSupportPage ? '' : 'hidden'}`;
   const CompanyEl = document.createElement('div');
   CompanyEl.className = 'route-company';
-  CompanyEl.textContent = 'Company';
+  CompanyEl.textContent = translate('COMPANY', language);
   const CompanyGroupEl = document.createElement('div');
   CompanyGroupEl.className = 'company-group';
   company.forEach((item) => {

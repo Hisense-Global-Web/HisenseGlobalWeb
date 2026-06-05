@@ -662,12 +662,13 @@ export function getHybrisGuestCartIdentifier() {
   return ensureGuestCartIdentifierLoaded();
 }
 
-export function buildHybrisCartPageUrl(baseUrl = '/cart', options = {}) {
+export function buildHybrisCartPageUrl(baseUrl, options = {}) {
   const {
     authenticated = getCachedAuthState().authenticated,
     guestCartIdentifier: nextGuestCartIdentifier = ensureGuestCartIdentifierLoaded(),
   } = options;
-  const normalizedBaseUrl = String(baseUrl || '').trim() || '/cart';
+  const { country, language } = getLocaleFromPath();
+  const normalizedBaseUrl = baseUrl ?? `/${country}/${language}/cart`;
 
   if (typeof window === 'undefined') {
     return normalizedBaseUrl;
