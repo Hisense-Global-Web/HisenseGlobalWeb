@@ -572,6 +572,7 @@ footer footer {
     right: var(--size-32);
     width: var(--size-32);
     height: var(--size-32);
+    cursor: pointer;
   }
 
   .footer-popup-title {
@@ -598,4 +599,16 @@ footer footer {
       height: min(calc(180 / var(--breakpoint-mobile) * 100vw), 180px);
     }
   }
+}
+
+#footer-social-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(0 0 0 / 60%);
+  z-index: 999;
+  display: none;
+  transition: opacity 0.3s ease;
 }

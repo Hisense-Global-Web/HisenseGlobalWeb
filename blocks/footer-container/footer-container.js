@@ -235,13 +235,19 @@ function extractLogoData(container) {
           footerSocialPopup.id = 'footer-social';
           document.querySelector('body').appendChild(footerSocialPopup);
         }
+        let footerSocialMask = document.querySelector('#footer-social-mask');
+        if (!footerSocialMask) {
+          footerSocialMask = document.createElement('div');
+          footerSocialMask.id = 'footer-social-mask';
+          document.querySelector('body').appendChild(footerSocialMask);
+        }
         const popupCloseImg = document.createElement('img');
         popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
         popupCloseImg.className = 'close-icon';
         popupCloseImg.addEventListener('click', (e) => {
           e.stopPropagation();
           footerSocialPopup.style.display = 'none';
-          document.querySelector('#logout-mask').style.display = '';
+          footerSocialMask.style.display = '';
         });
         const titleEl = document.createElement('div');
         titleEl.className = 'footer-popup-title';
@@ -256,12 +262,12 @@ function extractLogoData(container) {
         imgBox.addEventListener('click', (e) => {
           e.stopPropagation();
           footerSocialPopup.style.display = 'flex';
-          document.querySelector('#logout-mask').style.display = 'block';
+          footerSocialMask.style.display = 'block';
         })
       } else if (socialLink) {
         imgBox.appendChild(socialLink);
       }
-      logoData.social.push(imgBox.cloneNode(true));
+      logoData.social.push(imgBox);
     }
   });
   return logoData;
