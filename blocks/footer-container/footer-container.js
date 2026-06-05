@@ -220,34 +220,56 @@ function extractLogoData(container) {
       return;
     }
 
-    const socialPicture = innerDiv.querySelector('picture');
+    const socialImg = innerDiv.querySelector('img');
     const imgBox = document.createElement('div');
     imgBox.className = 'footer-social-imgbox';
-    if (socialPicture) {
-      const socialImg = socialPicture.querySelector('img');
-      socialImg.className = 'footer-social-width';
-      const socialLink = div.querySelector('a');
-      if (socialImg) {
-        imgBox.appendChild(socialImg);
-        if (socialLink) {
-          imgBox.appendChild(socialLink);
+    socialImg.className = 'footer-social-width';
+    const socialLink = div.children[1].querySelector('a');
+    const showPopup = div.children[2];
+    if (socialImg) {
+      imgBox.appendChild(socialImg);
+      if (socialLink && showPopup?.textContent?.trim() === 'true') {
+        let footerSocialPopup = document.querySelector('#footer-social');
+        if (!footerSocialPopup) {
+          footerSocialPopup = document.createElement('div');
+          footerSocialPopup.id = 'footer-social';
+          document.querySelector('body').appendChild(footerSocialPopup);
         }
-        logoData.social.push(imgBox.cloneNode(true));
-      }
-    } else {
-      const socialImg = innerDiv.querySelector('img');
-      socialImg.className = 'footer-social-width';
-      const socialLink = innerDiv.querySelector('a');
-      if (socialImg) {
-        imgBox.appendChild(socialImg);
-        if (socialLink) {
-          imgBox.appendChild(socialLink);
+        let footerSocialMask = document.querySelector('#footer-social-mask');
+        if (!footerSocialMask) {
+          footerSocialMask = document.createElement('div');
+          footerSocialMask.id = 'footer-social-mask';
+          document.querySelector('body').appendChild(footerSocialMask);
         }
-        logoData.social.push(imgBox.cloneNode(true));
+        const popupCloseImg = document.createElement('img');
+        popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+        popupCloseImg.className = 'close-icon';
+        popupCloseImg.addEventListener('click', (e) => {
+          e.stopPropagation();
+          footerSocialPopup.style.display = 'none';
+          footerSocialMask.style.display = '';
+        });
+        const titleEl = document.createElement('div');
+        titleEl.className = 'footer-popup-title';
+        titleEl.textContent = '微信公众號';
+        const subtitleEl = document.createElement('div');
+        subtitleEl.className = 'footer-popup-subtitle';
+        subtitleEl.textContent = '手机微信扫二维码';
+        const imgEl = document.createElement('img');
+        imgEl.className = 'footer-popup-img';
+
+        footerSocialPopup.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        imgBox.addEventListener('click', (e) => {
+          e.stopPropagation();
+          footerSocialPopup.style.display = 'flex';
+          footerSocialMask.style.display = 'block';
+        });
+      } else if (socialLink) {
+        imgBox.appendChild(socialLink);
       }
+      logoData.social.push(imgBox);
     }
   });
-
   return logoData;
 }
 

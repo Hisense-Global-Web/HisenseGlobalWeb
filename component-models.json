@@ -1655,8 +1655,7 @@
         "name": "right_buttontext",
         "label": "Button Text",
         "valueType": "string",
-        "value": "",
-        "required": true
+        "value": ""
       },
       {
         "component": "aem-content",
@@ -3107,6 +3106,31 @@
         "name": "link",
         "label": "Link",
         "required": true
+      },
+      {
+        "component": "boolean",
+        "name": "should-popup",
+        "label": "Should Popup?",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "popup-title",
+        "label": "Popup Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "popup-subtitle",
+        "label": "Popup Subtitle"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "qr-code",
+        "label": "QR Code",
+        "multi": false
       }
     ]
   },
@@ -7289,6 +7313,31 @@
         "name": "image",
         "label": "Cover Image",
         "multi": false
+      },
+      {
+        "component": "boolean",
+        "name": "video_type",
+        "label": "Video link is external?",
+        "valueType": "boolean",
+        "description": "Switch OFF: Internal | Switch ON: External",
+        "value": false
+      },
+      {
+        "component": "richtext",
+        "name": "external",
+        "label": "External Link",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "video_type"
+            },
+            true
+          ]
+        },
+        "required": true,
+        "value": "",
+        "description": "Note: If an external link is not required, please disable the external link toggle."
       }
     ]
   },

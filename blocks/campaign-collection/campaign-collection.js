@@ -111,7 +111,9 @@ export default function decorate(block) {
   const [titleEl, textEl, btnTextEl, btnLinkEl] = rightContentEl.children?.[0]?.children ?? [];
   titleEl?.classList?.add('title');
   textEl?.classList?.add('text');
-  btnTextEl?.classList?.add('button');
+  if (btnTextEl && !btnTextEl.querySelector('a')) {
+    btnTextEl?.classList?.add('button');
+  }
   const btnLink = btnLinkEl?.querySelector?.('a')?.href ?? null;
   btnLinkEl?.remove?.();
   if (btnLink) {
