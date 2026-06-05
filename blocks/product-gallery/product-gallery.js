@@ -1,5 +1,6 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
+import { resetExternalUrl, iframeVideoHandler } from '../../utils/video-external-url.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || '';
@@ -34,7 +35,23 @@ function buildTab(itemElement, index) {
 
   const imageCell = cells.find((cell) => cell.querySelector('picture')) || cells[0];
   const videoHref = itemElement.querySelector('a')?.href;
-  if (videoHref) {
+
+  let externalUrl; // 新增变量存储外部链接
+  if (cells.length === 4) {
+    const externalLinkFlag = cells[2].textContent.trim();
+    if (externalLinkFlag === 'true') {
+      li.setAttribute('data-video-origin', 'external');
+      // 获取原始外部链接
+      const aemOriginExternalContent = cells[3].textContent.trim();
+      // 重置外部链接
+      externalUrl = resetExternalUrl(aemOriginExternalContent);
+      li.dataset.externalUrl = externalUrl; // 存储外部链接到 data 属性
+    } else {
+      li.setAttribute('data-video-origin', 'internal');
+    }
+  }
+  // console.log(itemElement, 'itemElement');
+  if (videoHref && li.getAttribute('data-video-origin') !== 'external') {
     li.dataset.videoHref = videoHref;
   }
 
@@ -48,7 +65,7 @@ function buildTab(itemElement, index) {
   imgBox.className = 'product-filter-img-box';
   if (imageCell) {
     const picture = imageCell.querySelector('picture');
-    if (videoHref) {
+    if (videoHref && li.getAttribute('data-video-origin') !== 'external') {
       const videoM = document.createElement('video');
       videoM.classList.add('autoplay-video');
       videoM.setAttribute('data-video-autoplay', 'true');
@@ -63,6 +80,11 @@ function buildTab(itemElement, index) {
       videoM.innerHTML = '';
       videoM.appendChild(source);
       imgBox.replaceChildren(videoM);
+    }
+    // 移动端处理外部链接视频
+    if (externalUrl && li.getAttribute('data-video-origin') === 'external') {
+      const iframeVideoDom = iframeVideoHandler(`${externalUrl}&autoplay=1&muted=1&playsinline=1`);
+      imgBox.replaceChildren(iframeVideoDom);
     }
     if (picture) {
       const imgWrapper = document.createElement('div');
@@ -89,7 +111,7 @@ function buildTab(itemElement, index) {
   li.addEventListener('click', (e) => {
     const mainVideoImg = document.querySelector('.pdp-main-img');
     const videoUrl = e.currentTarget.dataset.videoHref;
-    if (videoUrl) {
+    if (videoUrl && e.currentTarget.getAttribute('data-video-origin') !== 'external') {
       const video = document.createElement('video');
       video.classList.add('autoplay-video');
       video.setAttribute('data-video-autoplay', 'true');
@@ -108,6 +130,13 @@ function buildTab(itemElement, index) {
       });
 
       mainVideoImg.replaceChildren(video);
+      return;
+    }
+    // PC端外部链接视频处理逻辑
+    const externalVideoUrl = resetExternalUrl(e.currentTarget.dataset.externalUrl);
+    if (externalVideoUrl && e.currentTarget.getAttribute('data-video-origin') === 'external') {
+      const iframeVideoDom = iframeVideoHandler(`${externalVideoUrl}&autoplay=1&muted=1&playsinline=1`);
+      mainVideoImg.replaceChildren(iframeVideoDom);
       return;
     }
     const imgUrl = e.target?.src;
@@ -312,14 +341,21 @@ export default function decorate(block) {
   if (tabs) {
     const videoList = tabs.querySelectorAll('video');
     const imgList = tabs.querySelectorAll('img');
+    const externalVideoList = tabs.querySelectorAll('.external-video-box');
     const firstImg = imgList[0];
 
     firstImg.onload = () => {
       if (videoList && videoList.length) {
         const h = firstImg.offsetHeight;
-        videoList.forEach((video) => {
-          video.style.height = `${h}px`;
-        });
+        // 防止高度过小导致视频显示异常，设置一个最小高度100px
+        if (h > 100) {
+          videoList.forEach((video) => {
+            video.style.height = `${h}px`;
+          });
+          externalVideoList.forEach((box) => {
+            box.style.height = `${h}px`;
+          });
+        }
       }
     };
   }
