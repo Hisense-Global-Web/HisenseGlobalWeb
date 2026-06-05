@@ -22,12 +22,10 @@ const translateDictionary = {
 function translate(key, lang) {
   // 参数校验
   if (!key || typeof key !== 'string') {
-    console.warn('translate: 无效的键名', key);
     return '';
   }
 
   if (!lang || typeof lang !== 'string') {
-    console.warn('translate: 无效的语言代码', lang);
     return key; // 降级返回原 key
   }
 
@@ -52,6 +50,7 @@ function translate(key, lang) {
   }
 
   // 完全找不到时，返回原 key 并给出警告
+  // eslint-disable-next-line no-console
   console.warn(`translate: 未找到键 "${key}" 或语言 "${lang}" 的翻译`);
   return key;
 }

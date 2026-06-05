@@ -263,7 +263,7 @@ function extractLogoData(container) {
           e.stopPropagation();
           footerSocialPopup.style.display = 'flex';
           footerSocialMask.style.display = 'block';
-        })
+        });
       } else if (socialLink) {
         imgBox.appendChild(socialLink);
       }

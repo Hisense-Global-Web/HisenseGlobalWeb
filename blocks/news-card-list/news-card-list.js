@@ -422,7 +422,6 @@ export default async function decorate(block) {
   const paginatedBtnText = config['paginated-btn-text'] || '';
   const discoverMoreText = config['discover-more-text'] || 'Discover more';
   const dataSource = config['data-source'] || '';
-  console.log(dataSource);
 
   const blockResource = block.getAttribute('data-aue-resource');
 
