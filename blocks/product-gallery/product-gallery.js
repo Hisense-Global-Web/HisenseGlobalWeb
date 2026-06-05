@@ -83,7 +83,7 @@ function buildTab(itemElement, index) {
     }
     // 移动端处理外部链接视频
     if (externalUrl && li.getAttribute('data-video-origin') === 'external') {
-      const iframeVideoDom = iframeVideoHandler(`${externalUrl}&autoplay=1&muted=1&playsinline=1`);
+      const iframeVideoDom = iframeVideoHandler(externalUrl);
       imgBox.replaceChildren(iframeVideoDom);
     }
     if (picture) {
@@ -135,7 +135,7 @@ function buildTab(itemElement, index) {
     // PC端外部链接视频处理逻辑
     const externalVideoUrl = resetExternalUrl(e.currentTarget.dataset.externalUrl);
     if (externalVideoUrl && e.currentTarget.getAttribute('data-video-origin') === 'external') {
-      const iframeVideoDom = iframeVideoHandler(`${externalVideoUrl}&autoplay=1&muted=1&playsinline=1`);
+      const iframeVideoDom = iframeVideoHandler(externalVideoUrl);
       mainVideoImg.replaceChildren(iframeVideoDom);
       return;
     }
