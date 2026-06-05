@@ -134,12 +134,12 @@ export function buildAccountMenuLinks(
     return [];
   }
 
-  const { country = 'us', language = 'en' } = getLocaleFromPath();
+  const { language } = getLocaleFromPath();
   return HYBRIS_ACCOUNT_MENU_ITEMS[language].map(({
     label, suffix, showZeroCount = false, countKey,
   }) => ({
     label,
-    href: `${urlParts.domain}/${country}/${language}${urlParts.uri}${suffix}`,
+    href: `${urlParts.domain}${urlParts.uri}${suffix}`,
     count: countKey ? normalizeCount(commerceCounts?.[countKey]) : 0,
     showZeroCount,
   }));

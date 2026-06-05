@@ -11,11 +11,11 @@ export function getLocaleFromPath() {
   const countryIndex = isContentPath ? 2 : 0;
   const languageIndex = isContentPath ? 3 : 1;
 
-  const country = (segments[countryIndex] || 'us').toLowerCase();
+  const country = (segments[countryIndex] || 'cn').toLowerCase();
   // US 站点无 /en 层级，固定 language=en, 其他从 path 取或默认 en
-  const language = (country === 'us')
-    ? 'en'
-    : ((segments[languageIndex] || '').toLowerCase() || 'en');
+  const language = (country === 'cn')
+    ? 'zh'
+    : ((segments[languageIndex] || '').toLowerCase() || 'zh');
 
   return { country, language };
 }
@@ -27,7 +27,7 @@ export function getFragmentPath(fragmentName) {
   const isHisenseCom = typeof window !== 'undefined' && window.location.href.includes('hisense.com');
   const isUsSite = country === 'us' && language === 'en';
   const localeSegment = (isHisenseCom && isUsSite)
-    ? `us/${fragmentName}`
+    ? `cn/zh/${fragmentName}`
     : `${country}/${language}/${fragmentName}`;
 
   return `${base}/${localeSegment}`;

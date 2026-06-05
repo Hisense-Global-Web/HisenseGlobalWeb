@@ -1393,3 +1393,7 @@
     }
   }
 }
+
+body.hide-wtb-button .product-card-container .product-card-wrapper .product-card .plp-product-btn-group .plp-where-to-buy-btn.ps-widget {
+  display: none !important;
+}
