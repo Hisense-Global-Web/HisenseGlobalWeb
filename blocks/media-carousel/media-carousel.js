@@ -292,7 +292,7 @@ export default async function decorate(block) {
   } else {
     [eyebrow, title, ...mediaItems] = block.children;
   }
-  console.log(firstMediaItemsIndex, block, eyebrow, title, mediaItems);
+
   if (eyebrow && !eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
   if (!title || !title.textContent.trim()) block.classList.add('no-title');
   if ((!eyebrow || !eyebrow.textContent.trim()) && title && title.textContent.trim()) titleBox.classList.add('only-title');
