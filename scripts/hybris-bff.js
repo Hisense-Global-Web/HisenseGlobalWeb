@@ -668,8 +668,10 @@ export function buildHybrisCartPageUrl(baseUrl, options = {}) {
     guestCartIdentifier: nextGuestCartIdentifier = ensureGuestCartIdentifierLoaded(),
   } = options;
   const { country, language } = getLocaleFromPath();
-  const normalizedBaseUrl = baseUrl ?? country === 'us' ? `/${country}/cart` : `/${country}/${language}/cart`;
-
+  let normalizedBaseUrl = baseUrl ?? `/${country}/${language}/cart`;
+  if (country === 'us') {
+    normalizedBaseUrl = baseUrl ?? `/${country}/cart`;
+  }
   if (typeof window === 'undefined') {
     return normalizedBaseUrl;
   }
