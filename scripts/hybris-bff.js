@@ -668,7 +668,7 @@ export function buildHybrisCartPageUrl(baseUrl, options = {}) {
     guestCartIdentifier: nextGuestCartIdentifier = ensureGuestCartIdentifierLoaded(),
   } = options;
   const { country, language } = getLocaleFromPath();
-  const normalizedBaseUrl = baseUrl ?? `/${country}/${language}/cart`;
+  const normalizedBaseUrl = baseUrl ?? country === 'us' ? `/${country}/cart` : `/${country}/${language}/cart`;
 
   if (typeof window === 'undefined') {
     return normalizedBaseUrl;
