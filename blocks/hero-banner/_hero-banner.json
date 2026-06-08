@@ -11,7 +11,7 @@
               "name": "Hero Banner",
               "model": "hero-banner",
               "filter": "hero-banner",
-              "classes":"hero-banner"
+              "classes": "hero-banner"
             }
           }
         }
@@ -65,7 +65,15 @@
           "name": "image_pc",
           "label": "Image/Video For PC",
           "required": true,
-          "multi": false
+          "multi": false,
+          "condition": {
+            "===": [
+              {
+                "var": "video_type"
+              },
+              false
+            ]
+          }
         },
         {
           "component": "reference",
@@ -73,7 +81,15 @@
           "name": "image_mobile",
           "label": "Image/Video For Mobile",
           "required": true,
-          "multi": false
+          "multi": false,
+          "condition": {
+            "===": [
+              {
+                "var": "video_type"
+              },
+              false
+            ]
+          }
         },
         {
           "component": "boolean",
@@ -93,7 +109,14 @@
           "label": "",
           "name": "mode_text",
           "valueType": "string",
-          "condition": { "===": [{"var" : "mode_type"}, false] },
+          "condition": {
+            "===": [
+              {
+                "var": "mode_type"
+              },
+              false
+            ]
+          },
           "fields": [
             {
               "component": "text",
@@ -117,7 +140,14 @@
           "name": "icon_text",
           "label": "Icon SVG",
           "multi": false,
-          "condition": { "===": [{"var" : "mode_type"}, true] }
+          "condition": {
+            "===": [
+              {
+                "var": "mode_type"
+              },
+              true
+            ]
+          }
         },
         {
           "component": "container",
@@ -206,6 +236,31 @@
               "value": "Required when Secondary CTA content is provided"
             }
           ]
+        },
+        {
+          "component": "boolean",
+          "name": "video_type",
+          "label": "Video link is external?",
+          "valueType": "boolean",
+          "description": "Switch OFF: Internal | Switch ON: External",
+          "value": false
+        },
+        {
+          "component": "richtext",
+          "name": "external",
+          "label": "External Link",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "video_type"
+              },
+              true
+            ]
+          },
+          "required": true,
+          "value": "",
+          "description": "Note: If an external link is not required, please disable the external link toggle."
         }
       ]
     }
