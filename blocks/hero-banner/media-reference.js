@@ -1,4 +1,7 @@
-import { isDeliveryDynamicMediaUrl } from '../../utils/dynamic-media.js';
+import {
+  isDeliveryDynamicMediaUrl,
+  isDeliveryDynamicMediaVideoUrl,
+} from '../../utils/dynamic-media.js';
 
 const VIDEO_MEDIA_EXTENSIONS = new Set([
   'mp4',
@@ -63,7 +66,8 @@ function getLargeSmartCropUrl(src) {
 }
 
 export function isVideoMediaUrl(assetUrl = '') {
-  return VIDEO_MEDIA_EXTENSIONS.has(getAssetExtension(assetUrl));
+  return isDeliveryDynamicMediaVideoUrl(assetUrl)
+    || VIDEO_MEDIA_EXTENSIONS.has(getAssetExtension(assetUrl));
 }
 
 export function isVideoMediaColumn(column) {

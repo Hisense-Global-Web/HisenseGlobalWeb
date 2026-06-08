@@ -3,6 +3,8 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 import { whenElementReady, throttle } from '../../utils/carousel-common.js';
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
+import { setVideoSource } from '../../utils/hls-video.js';
 import { isVideoMediaColumn, normalizeImageReferenceLinks } from './media-reference.js';
 
 let heroBannerTimer;
@@ -391,7 +393,7 @@ function initVideo(selector, type, theme) {
     else videoMobile = a;
   });
   if (type === 'desktop') link = videoPC; else link = videoMobile;
-  if (link) videoUrl = link.href;
+  if (link) videoUrl = toDynamicMediaVideoUrl(link.href);
   const videoDivDom = createElement('div', 'video-div-box');
   const video = createElement('video', 'video-auto-play');
   const themeClass = theme === 'dark' ? 'video-dark' : 'video-light';
@@ -400,13 +402,10 @@ function initVideo(selector, type, theme) {
   video.loop = true;
   video.preload = 'auto';
   video.autoplay = true;
-  const source = document.createElement('source');
-  source.src = videoUrl;
-  source.type = 'video/mp4';
   video.muted = true;
   video.playsInline = true;
   video.playsinline = '';
-  video.appendChild(source);
+  setVideoSource(video, videoUrl);
   videoDivDom.appendChild(video);
   videoDivDom.appendChild(span);
   return videoDivDom;
