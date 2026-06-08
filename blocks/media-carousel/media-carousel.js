@@ -7,6 +7,7 @@ import {
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
+import { resetExternalUrl, iframeVideoHandler } from '../../utils/video-external-url.js';
 
 let carouselId = 0;
 const segments = window.location.pathname.split('/').filter(Boolean);
@@ -311,10 +312,18 @@ export default async function decorate(block) {
     titleBox.append(title);
   }
   mediaItems.forEach((item, idx) => {
+    let useExternal = false;
+    let externalLink = '';
     const mediaBlock = document.createElement('li');
     mediaBlock.classList.add('media-item');
     item.className = 'item';
     mediaBlock.dataset.slideIndex = idx;
+    if (item.children.length > 8) {
+      if (item.children[8].textContent.trim() === 'true') {
+        useExternal = true;
+        externalLink = item.children[9]?.textContent?.trim();
+      }
+    }
 
     const [typeDom, mediaContent, videoCover, ...textContentDom] = item.children;
     const contentType = typeDom.textContent.trim();
@@ -326,7 +335,11 @@ export default async function decorate(block) {
 
     typeDom.remove();
     if (mediaContent.innerHTML) {
-      if (mediaContent.querySelector('a')) {
+      if (useExternal) {
+        const externalVideo = iframeVideoHandler(resetExternalUrl(externalLink));
+        mediaContent.replaceChild(externalVideo, mediaContent.firstElementChild);
+        mediaContent.classList.add('media-video');
+      } else if (mediaContent.querySelector('a')) {
         const singleVideo = createVideo(item, idx);
         mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
         mediaContent.classList.add('media-video');
@@ -369,6 +382,9 @@ export default async function decorate(block) {
           } else {
             textDom.style.display = 'none';
           }
+          break;
+        case 5: case 6:
+          textDom.style.display = 'none';
           break;
         default:
           // btn
