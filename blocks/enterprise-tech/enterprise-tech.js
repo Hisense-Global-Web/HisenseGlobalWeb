@@ -1,5 +1,5 @@
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 export default async function decorate(block) {
   // console.log(block, 'bbb');
   const enterpriseCardWrapperEl = document.createElement('div');

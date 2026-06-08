@@ -1,7 +1,7 @@
 import { createElement } from '../../utils/dom-helper.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 export default async function decorate(block) {
   // ========== CONSTRUCT DOM [START] ========== //
   const titleContainer = createElement('div', 'timeline-title-container h-grid-container');

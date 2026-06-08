@@ -226,18 +226,50 @@ function extractLogoData(container) {
     socialImg.className = 'footer-social-width';
     const socialLink = div.children[1].querySelector('a');
     const showPopup = div.children[2];
-    console.log(showPopup?.textContent?.trim());
     if (socialImg) {
       imgBox.appendChild(socialImg);
       if (socialLink && showPopup?.textContent?.trim() === 'true') {
-        console.log('111');
+        let footerSocialPopup = document.querySelector('#footer-social');
+        if (!footerSocialPopup) {
+          footerSocialPopup = document.createElement('div');
+          footerSocialPopup.id = 'footer-social';
+          document.querySelector('body').appendChild(footerSocialPopup);
+        }
+        let footerSocialMask = document.querySelector('#footer-social-mask');
+        if (!footerSocialMask) {
+          footerSocialMask = document.createElement('div');
+          footerSocialMask.id = 'footer-social-mask';
+          document.querySelector('body').appendChild(footerSocialMask);
+        }
+        const popupCloseImg = document.createElement('img');
+        popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+        popupCloseImg.className = 'close-icon';
+        popupCloseImg.addEventListener('click', (e) => {
+          e.stopPropagation();
+          footerSocialPopup.style.display = 'none';
+          footerSocialMask.style.display = '';
+        });
+        const titleEl = document.createElement('div');
+        titleEl.className = 'footer-popup-title';
+        titleEl.textContent = '微信公众號';
+        const subtitleEl = document.createElement('div');
+        subtitleEl.className = 'footer-popup-subtitle';
+        subtitleEl.textContent = '手机微信扫二维码';
+        const imgEl = document.createElement('img');
+        imgEl.className = 'footer-popup-img';
+
+        footerSocialPopup.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        imgBox.addEventListener('click', (e) => {
+          e.stopPropagation();
+          footerSocialPopup.style.display = 'flex';
+          footerSocialMask.style.display = 'block';
+        });
       } else if (socialLink) {
         imgBox.appendChild(socialLink);
       }
-      logoData.social.push(imgBox.cloneNode(true));
+      logoData.social.push(imgBox);
     }
   });
-  console.log(logoData);
   return logoData;
 }
 
@@ -595,10 +627,10 @@ export default async function decorate(block) {
       });
     }
     const langItems = lanGroup.querySelectorAll('.footer-lan-item');
-    if (selectedCountry.code === 'cn') {
+    if (selectedCountry?.code === 'cn') {
       langItems.forEach((item) => {
         item.addEventListener('click', (e) => {
-          window.location.href = e.currentTarget.getAttribute('data-lang') === 'zh' ? '/cn/zh' : '/us/en';
+          window.location.href = e.currentTarget.getAttribute('data-lang') === 'zh' ? '' : '/us/en';
         });
       });
     } else {

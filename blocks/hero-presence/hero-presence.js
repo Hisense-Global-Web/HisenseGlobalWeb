@@ -4,7 +4,7 @@ import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
 import { whenElementReady } from '../../utils/carousel-common.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 export default async function decorate(block) {
   // ========== CONSTRUCT DOM [START] ========== //
   const videoContent = block.querySelector('div:first-of-type');
