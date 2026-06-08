@@ -60,31 +60,6 @@
       "id": "hero-bannerItem",
       "fields": [
         {
-          "component": "boolean",
-          "name": "video_type",
-          "label": "Video link is external?",
-          "valueType": "boolean",
-          "description": "Switch OFF: Internal | Switch ON: External",
-          "value": false
-        },
-        {
-          "component": "richtext",
-          "name": "external",
-          "label": "External Link",
-          "valueType": "string",
-          "condition": {
-            "===": [
-              {
-                "var": "video_type"
-              },
-              true
-            ]
-          },
-          "required": true,
-          "value": "",
-          "description": "Note: If an external link is not required, please disable the external link toggle."
-        },
-        {
           "component": "reference",
           "valueType": "string",
           "name": "image_pc",
@@ -261,6 +236,31 @@
               "value": "Required when Secondary CTA content is provided"
             }
           ]
+        },
+        {
+          "component": "boolean",
+          "name": "video_type",
+          "label": "Video link is external?",
+          "valueType": "boolean",
+          "description": "Switch OFF: Internal | Switch ON: External",
+          "value": false
+        },
+        {
+          "component": "richtext",
+          "name": "external",
+          "label": "External Link",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "video_type"
+              },
+              true
+            ]
+          },
+          "required": true,
+          "value": "",
+          "description": "Note: If an external link is not required, please disable the external link toggle."
         }
       ]
     }
