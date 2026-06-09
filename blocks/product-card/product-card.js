@@ -37,7 +37,15 @@ import {
 import { isStageHostname } from '../../scripts/environment.js';
 
 const { country, language } = getLocaleFromPath();
-const STOREFRONT_BASE_URL = `https://${country}storefront.cdrwhdl6-hisenseho2-${isStageHostname() ? 'd' : 'p'}1-public.model-t.cc.commerce.ondemand.com`;
+const STOREFRONT_BASE_URL = (() => {
+  if (isStageHostname()) {
+    return `https://${country}storefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com`;
+  }
+  if (country === 'us') {
+    return 'https://eshop.hisense.com';
+  }
+  return `https://${country}storefront.cdrwhdl6-hisenseho2-p1-public.model-t.cc.commerce.ondemand.com`;
+})();
 const STOREFRONT_CART_URL = country === 'us'
   ? `${STOREFRONT_BASE_URL}/${country}/cart`
   : `${STOREFRONT_BASE_URL}/${country}/${language}/cart`;
