@@ -26,7 +26,7 @@ export function getFragmentPath(fragmentName) {
 
   const isHisenseCom = typeof window !== 'undefined' && window.location.href.includes('hisense.com');
   const isUsSite = country === 'us' && language === 'en';
-  const localeSegment = (isHisenseCom && isUsSite)
+  const localeSegment = (isHisenseCom && !isUsSite)
     ? `cn/zh/${fragmentName}`
     : `${country}/${language}/${fragmentName}`;
 
