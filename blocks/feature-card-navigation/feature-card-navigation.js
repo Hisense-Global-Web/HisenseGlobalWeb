@@ -48,19 +48,4 @@ export default async function decorate(block) {
       stepElement.remove();
     }
   });
-  // function moveCardStepBeforeTitle() {
-  // // 获取所有需要调整的卡片（如果有多个）
-  //   const cards = block.querySelectorAll('.zh-card-box');
-
-  //   cards.forEach((card) => {
-  //     const stepElement = card.querySelector('.card-step');
-  //     const titleElement = card.querySelector('.card-title');
-
-  //     // 确保两个元素都存在且在中文网站页面
-  //     if (stepElement && titleElement) {
-  //       // 将 step 移动到 title 前面
-  //       card.insertBefore(stepElement, titleElement);
-  //     }
-  //   });
-  // }
 }
