@@ -223,4 +223,31 @@ export default function decorate(block) {
 
   block.replaceChildren(container);
   block.classList.add('loaded');
+
+  const body = document.querySelector('body');
+  const mediaCenterPopup = document.createElement('div');
+  mediaCenterPopup.id = 'media-center-popup';
+  const popupCloseImg = document.createElement('img');
+  popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+  popupCloseImg.className = 'close-icon';
+  popupCloseImg.addEventListener('click', (e) => {
+    e.stopPropagation();
+    mediaCenterPopup.style.display = 'none';
+  });
+
+  const titleGroup = document.createElement('div');
+  titleGroup.className = 'title-group';
+  const titleEl = document.createElement('div');
+  titleEl.className = 'media-title';
+  titleEl.textContent = '海信电视';
+
+  const dateEl = document.createElement('div');
+  dateEl.className = 'media-date';
+  dateEl.textContent = '2025年11月11日';
+  titleGroup.append(titleEl, dateEl);
+
+  const MOCK_DATA = imageList.querySelectorAll()
+
+  mediaCenterPopup.append(popupCloseImg, titleGroup);
+  body.append(mediaCenterPopup);
 }

@@ -247,3 +247,60 @@ main .section.download-container .download-wrapper {
     }
   }
 }
+
+#media-center-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(calc(760 / var(--breakpoint-pc) * 100vw), 760px);
+  background-color: white;
+  border-radius: var(--size-20);
+  z-index: 10000;
+  display: flex;
+  padding: var(--size-80);
+  box-sizing: border-box;
+
+  @media (width < 640px) {
+    width: calc(354 / var(--breakpoint-mobile) * 100vw);
+    padding: var(--size-64) var(--size-24) var(--size-32);
+  }
+
+  .close-icon {
+    position: absolute;
+    top: var(--size-32);
+    right: var(--size-32);
+    width: var(--size-32);
+    height: var(--size-32);
+    cursor: pointer;
+
+    @media (width < 640px) {
+      top: var(--size-24);
+      right: var(--size-24);
+      width: var(--size-24);
+      height: var(--size-24);
+    }
+  }
+
+  .title-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .media-title {
+      font-size: var(--size-24);
+      color: #141414;
+      font-weight: var(--fontweight-medium);
+      line-height: var(--size-28);
+    }
+
+    .media-date {
+      font-size: var(--size-14);
+      color: #333;
+      font-weight: var(--fontweight-book);
+      line-height: var(--size-21);
+    }
+  }
+
+}
