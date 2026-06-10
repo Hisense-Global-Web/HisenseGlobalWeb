@@ -109,7 +109,8 @@ function buildTab(itemElement, index) {
     moveInstrumentation(textCell, textSpan);
   }
   li.addEventListener('click', (e) => {
-    const mainVideoImg = document.querySelector('.pdp-main-img');
+    // 从当前点击的li 父集 【.pdp-media] 中, 查找元素【.pdp-main-img】
+    const mainVideoImg = e.target.closest('.pdp-media').querySelector('.pdp-main-img');
     const videoUrl = e.currentTarget.dataset.videoHref;
     if (videoUrl && e.currentTarget.getAttribute('data-video-origin') !== 'external') {
       const video = document.createElement('video');
