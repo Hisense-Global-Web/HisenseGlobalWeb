@@ -25,10 +25,11 @@ import {
 } from '../../scripts/commerce-ui-utils.js';
 import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
+import { isStageHostname } from '../../scripts/environment.js';
 
 const { country, language } = getLocaleFromPath();
 const WISHLIST_CART_NAME_PREFIX = 'wishlist';
-const STOREFRONT_BASE_URL = `https://${country}storefront.cdrwhdl6-hisenseho2-p1-public.model-t.cc.commerce.ondemand.com`;
+const STOREFRONT_BASE_URL = `https://${country}storefront.cdrwhdl6-hisenseho2-${isStageHostname() ? 'd' : 'p'}1-public.model-t.cc.commerce.ondemand.com`;
 const STOREFRONT_CART_URL = country === 'us'
   ? `${STOREFRONT_BASE_URL}/${country}/cart`
   : `${STOREFRONT_BASE_URL}/${country}/${language}/cart`;
