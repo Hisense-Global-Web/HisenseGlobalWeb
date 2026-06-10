@@ -1,16 +1,31 @@
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+
 export default function decorate(block) {
   try {
     const elementItems = [...block.children];
     elementItems.forEach((element) => {
       element.classList.add('category-support-card-item');
-      const [icon, description, link] = element.children;
+      const [icon, description, link, iconPopup] = element.children;
       icon?.classList?.add('category-support-card-item-icon');
       description?.classList?.add('category-support-card-item-description');
       const linkUrl = link.querySelector('a') ? link.querySelector('a').href : '#';
       link?.remove();
-      element.addEventListener('click', () => {
-        window.location.href = linkUrl;
-      });
+      iconPopup?.classList?.add('icon-popup');
+      if (iconPopup && iconPopup.textContent.trim()) {
+        const qrIcon = document.createElement('img');
+        qrIcon.className = 'qr-icon';
+        const { country } = getLocaleFromPath();
+        qrIcon.src = `/content/dam/hisense/${country}/common-icons/qr-icon.png`;
+        iconPopup.prepend(qrIcon);
+        // 点击扫码配置有内容时，展示点击扫码popup
+      } else {
+        element.addEventListener('click', () => {
+          window.location.href = linkUrl;
+        });
+      }
+      // element.addEventListener('click', () => {
+      //   window.location.href = linkUrl;
+      // });
     });
   } catch (error) {
     /* eslint-disable-next-line no-console */

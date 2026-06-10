@@ -70,6 +70,18 @@
     }
   }
 
+  .icon-popup {
+    width: var(--size-112);
+    height: var(--size-30);
+    line-height: var(--size-30);
+    font-size: var(--size-12);
+    color: var(--color-primary-grey-10);
+    font-weight: var(--fontweight-medium);
+    background: var(--color-primary-green-60);
+    border-radius: var(--size-15);
+    text-align: center;
+  }
+
   .category-support-card-item-description p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
