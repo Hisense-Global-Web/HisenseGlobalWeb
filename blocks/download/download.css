@@ -313,5 +313,12 @@ main .section.download-container .download-wrapper {
       width: 100%;
       display: block;
     }
+
+    .gallery-number-group {
+      width: auto;
+      padding: var(--size-4) var(--size-8);
+      background-color: var(--grey-alpha-40);
+      border-radius: var(--size-16);
+    }
   }
 }

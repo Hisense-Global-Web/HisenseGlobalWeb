@@ -258,6 +258,15 @@ export default function decorate(block) {
   const coreMediaEl = document.createElement('div');
   coreMediaEl.className = 'core-media';
 
+  const galleryNumberGroup = document.createElement('div');
+  galleryNumberGroup.className = 'gallery-number-group';
+
+  const galleryNumberEl = document.createElement('span');
+  galleryNumberEl.className = 'gallery-number';
+  galleryNumberEl.textContent = '1'
+  const galleryTotalEl = document.createElement('span');
+  galleryTotalEl.className = 'gallery-total';
+  galleryTotalEl.innerHTML = ` / ${mediaList.length}`
 
   // todo
   const mockimg = document.createElement('img');
