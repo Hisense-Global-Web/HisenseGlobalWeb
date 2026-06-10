@@ -59,6 +59,20 @@
           "label": "Link",
           "valueType": "string",
           "value": ""
+        },
+        {
+          "component": "text",
+          "name": "qr-btn",
+          "value": "",
+          "label": "Icon Pop-up",
+          "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "name": "qr-image",
+          "value": "",
+          "label": "QR Image",
+          "valueType": "string"
         }
       ]
     }
