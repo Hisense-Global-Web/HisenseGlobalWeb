@@ -1,15 +1,9 @@
-import { getLocaleFromPath } from '../../scripts/locale-utils.js';
-
 export default async function decorate(block) {
   const cardNavigationWrapperEl = document.createElement('div');
   cardNavigationWrapperEl.className = 'card-navigation-wrapper';
-  const { language } = getLocaleFromPath();
 
   [...block.children].forEach((row) => {
     row.className = 'card-box';
-    if (language === 'zh') {
-      row.classList.add('zh-card-box');
-    }
     cardNavigationWrapperEl.append(row);
     [...row.children].forEach((column, colIndex) => {
       switch (colIndex) {
@@ -39,13 +33,13 @@ export default async function decorate(block) {
     const stepElement = card.querySelector('.card-step');
     const titleElement = card.querySelector('.card-title');
 
-    // 确保两个元素都存在且在中文网站页面
-    if (stepElement && titleElement && language === 'zh') {
+    if (stepElement && stepElement.textContent.trim()) {
+      // 如果 card-step 有值，则调整 title、description 样式
+      card.classList.add('step-card-box');
       // 将 step 移动到 title 前面
       card.insertBefore(stepElement, titleElement);
     } else {
-      // 步骤属性只在中文页面中展示
-      stepElement.remove();
+      card.classList.remove('step-card-box');
     }
   });
 }

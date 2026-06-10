@@ -68,7 +68,7 @@
         {
           "component": "text",
           "name": "step_name",
-          "label": "Feature Step",
+          "label": "Flow Step",
           "valueType": "string"
         }
       ]
