@@ -246,8 +246,24 @@ export default function decorate(block) {
   dateEl.textContent = '2025年11月11日';
   titleGroup.append(titleEl, dateEl);
 
-  const MOCK_DATA = imageList.querySelectorAll()
+  const MOCK_DATA = Array.from(imageList.querySelectorAll('.image-item')).map((el) => {
+    console.log(el);
+    return {
+      url: el.querySelector('img')?.src,
+    };
+  });
+  console.log(MOCK_DATA);
+  const mediaList = MOCK_DATA;
 
-  mediaCenterPopup.append(popupCloseImg, titleGroup);
+  const coreMediaEl = document.createElement('div');
+  coreMediaEl.className = 'core-media';
+
+
+  // todo
+  const mockimg = document.createElement('img');
+  mockimg.src = MOCK_DATA[0].url;
+  coreMediaEl.append(mockimg);
+
+  mediaCenterPopup.append(popupCloseImg, titleGroup, coreMediaEl);
   body.append(mediaCenterPopup);
 }

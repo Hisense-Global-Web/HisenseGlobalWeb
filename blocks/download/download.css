@@ -258,6 +258,8 @@ main .section.download-container .download-wrapper {
   border-radius: var(--size-20);
   z-index: 10000;
   display: flex;
+  flex-direction: column;
+  gap: var(--size-24);
   padding: var(--size-80);
   box-sizing: border-box;
 
@@ -303,4 +305,13 @@ main .section.download-container .download-wrapper {
     }
   }
 
+  .core-media {
+    width: 100%;
+    min-height: var(--size-150);
+
+    > * {
+      width: 100%;
+      display: block;
+    }
+  }
 }
