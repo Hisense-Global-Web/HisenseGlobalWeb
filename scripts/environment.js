@@ -36,7 +36,7 @@ function isDevHostname(hostname = getLocationPart('hostname')) {
     || hostname.includes('e1855821');
 }
 
-function isStageHostname(hostname = getLocationPart('hostname')) {
+export function isStageHostname(hostname = getLocationPart('hostname')) {
   return hostname.includes('hisense-stage')
     || hostname.includes('e1855674');
 }
