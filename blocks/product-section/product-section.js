@@ -41,7 +41,9 @@ const STOREFRONT_BASE_URL = (() => {
 const STOREFRONT_CART_URL = country === 'us'
   ? `${STOREFRONT_BASE_URL}/${country}/cart`
   : `${STOREFRONT_BASE_URL}/${country}/${language}/cart`;
-const STOREFRONT_CHECKOUT_URL = new URL('/checkout/delivery-address', STOREFRONT_BASE_URL).toString();
+const STOREFRONT_CHECKOUT_URL = country === 'us'
+  ? `${STOREFRONT_BASE_URL}/${country}/checkout/delivery-address`
+  : `${STOREFRONT_BASE_URL}/${country}/${language}/checkout/delivery-address`;
 const PRICE_SPIDER_INTEGRATION_PATTERN = /pricespider|ps-widget/i;
 let productSectionPopupCssPromise = null;
 
