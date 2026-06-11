@@ -1,3 +1,5 @@
+import { resetExternalUrl, iframeVideoHandler } from '../../utils/video-external-url.js';
+
 export default function decorate(block) {
   /* change to ul, li */
   let videourl;
@@ -22,36 +24,13 @@ export default function decorate(block) {
       }
     }
   });
-  // 重置外部链接函数
-  function resetExternalUrl(url) {
-    // console.log('原始链接:', url);
-    let tempUrl;
-    if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
-      // 如果链接已经是完整的 URL，直接使用
-      tempUrl = url;
-    }
-    if (url && url.includes('iframe')) {
-      // 如果链接包含 iframe 标签，尝试解析出 src 属性
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(url, 'text/html');
-      const iframe = doc.querySelector('iframe');
-      tempUrl = iframe ? iframe.getAttribute('src') : null;
-    }
-    return tempUrl;
-  }
+
   if (block.getAttribute('data-link-origin') === 'external') {
     externalUrl = resetExternalUrl(block.lastElementChild.textContent.trim());
     // console.log('外部链接:', externalUrl);
     if (externalUrl) {
-      const externalVideoBox = document.createElement('div'); // 外部视频容器
-      externalVideoBox.className = 'external-video-box';
-      const iframe = document.createElement('iframe');
-      iframe.src = externalUrl;
-      iframe.width = '100%';
-      iframe.height = '630';
-      iframe.style.border = '0';
-      externalVideoBox.appendChild(iframe);
-      block.replaceChildren(externalVideoBox);
+      const videExternalDom = iframeVideoHandler(externalUrl);
+      block.replaceChildren(videExternalDom);
     } else {
       // console.warn('外部链接无效，无法加载视频', externalUrl);
       // 如果外部链接无效，隐藏外部链接开关和内部链接配置值 （如果有的话）
