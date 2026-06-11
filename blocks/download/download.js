@@ -1,6 +1,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -27,6 +28,113 @@ function createScrollButton(direction) {
   imgClick.className = 'click-icon';
   button.appendChild(imgClick);
   return button;
+}
+
+function updateButtons(tabsList, leftBtn, rightBtn) {
+  leftBtn.disabled = tabsList.scrollLeft <= 0;
+  rightBtn.disabled = tabsList.scrollLeft + tabsList.clientWidth + 10 >= tabsList.scrollWidth;
+}
+
+// 防抖函数
+function debounce(func, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+// 计算并对齐到最近的item（手机端专用）
+function alignToWholeItemMobile(tabsList) {
+  const isMobile = window.innerWidth < SCREEN_POINT;
+  if (!isMobile) return;
+
+  const firstItem = tabsList.querySelector('.product-filter-item');
+  if (!firstItem) return;
+
+  // 手机端item宽度是100vw，间距10px（从css中获取）
+  const itemWidth = window.innerWidth + 10; // 手机端每个item占满宽度
+  const currentScroll = tabsList.scrollLeft;
+  // 计算当前滚动位置相对于item宽度的比例
+  const scrollRatio = currentScroll % itemWidth;
+  const currentItemIndex = Math.floor(currentScroll / itemWidth);
+
+  let targetScroll;
+  // 超过50%则滚动到下一个item，否则回到当前item
+  if (scrollRatio > itemWidth * 0.5) {
+    targetScroll = (currentItemIndex + 1) * itemWidth;
+    // 边界判断：不超过最大滚动值
+    const maxScroll = tabsList.scrollWidth - tabsList.clientWidth;
+    targetScroll = Math.min(targetScroll, maxScroll);
+  } else {
+    targetScroll = currentItemIndex * itemWidth;
+  }
+
+  // 滚动到目标位置
+  tabsList.scrollTo({ left: targetScroll, behavior: 'smooth' });
+  // 更新按钮状态
+  const leftBtn = document.querySelector('.scroll-left');
+  const rightBtn = document.querySelector('.scroll-right');
+  if (leftBtn && rightBtn) {
+    updateButtons(tabsList, leftBtn, rightBtn);
+  }
+}
+
+function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
+  // 左箭头
+  leftBtn.addEventListener('click', () => {
+    const SCROLL_STEP = (54 * Math.min(window.innerWidth, 1440)) / 1440;
+    tabsList.scrollBy({ left: -SCROLL_STEP, behavior: 'smooth' });
+    setTimeout(() => {
+      updateButtons(tabsList, leftBtn, rightBtn);
+    }, 300);
+  });
+
+  // 右箭头
+  rightBtn.addEventListener('click', () => {
+    const SCROLL_STEP = (54 * Math.min(window.innerWidth, 1440)) / 1440;
+    tabsList.scrollBy({ left: SCROLL_STEP, behavior: 'smooth' });
+    setTimeout(() => {
+      updateButtons(tabsList, leftBtn, rightBtn);
+    }, 300);
+  });
+
+  // 手机端滚动防抖处理（200ms延迟，确保滚动停止后触发）
+  const debounceAlignToItem = debounce(() => {
+    alignToWholeItemMobile(tabsList);
+  }, 200);
+
+  tabsList.addEventListener('scroll', () => {
+    updateButtons(tabsList, leftBtn, rightBtn);
+    // 手机端滚动停止后对齐
+    const isMobile = window.innerWidth < SCREEN_POINT;
+    if (isMobile) {
+      debounceAlignToItem();
+    }
+  });
+
+  // ---------- 核心修复：resize 自动对齐校正 ----------
+  window.addEventListener('resize', () => {
+    const isMobile = window.innerWidth < SCREEN_POINT;
+    const firstItem = tabsList.querySelector('.product-filter-item');
+    if (firstItem) {
+      if (isMobile) {
+        // 手机端item宽度为100vw
+        const itemWidth = window.innerWidth;
+        const closestScroll = Math.round(tabsList.scrollLeft / itemWidth) * itemWidth;
+        tabsList.scrollTo({ left: closestScroll, behavior: 'instant' });
+      } else {
+        // 桌面端原有逻辑
+        const itemWidth = firstItem.offsetWidth + 16; // 包含间距
+        const closestScroll = Math.round(tabsList.scrollLeft / itemWidth) * itemWidth;
+        tabsList.scrollTo({ left: closestScroll, behavior: 'instant' });
+      }
+    }
+
+    updateButtons(tabsList, leftBtn, rightBtn);
+  });
+
+  updateButtons(tabsList, leftBtn, rightBtn);
 }
 
 export default function decorate(block) {
@@ -256,6 +364,7 @@ export default function decorate(block) {
   popupCloseImg.addEventListener('click', (e) => {
     e.stopPropagation();
     mediaCenterPopup.style.display = 'none';
+    document.querySelector('#gallery-mask').style.display = 'none';
   });
 
   const titleGroup = document.createElement('div');
@@ -274,7 +383,7 @@ export default function decorate(block) {
     type: 'image',
   }));
   console.log(MOCK_DATA);
-  const mediaList = MOCK_DATA;
+  const mediaList = [...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA];
 
   const coreMediaEl = document.createElement('div');
   coreMediaEl.className = 'core-media';
@@ -335,6 +444,11 @@ export default function decorate(block) {
       }
     }
   });
+  attachScrollHandlers(tabs, leftBtn, rightBtn);
+
+  if (tabs?.childElementCount > 9) {
+    rightBtn.removeAttribute('disabled');
+  }
   tabsContainer.append(tabs);
   galleryListGroup.append(leftBtn, tabsContainer, rightBtn);
 
@@ -355,5 +469,7 @@ export default function decorate(block) {
   btnGroup.append(downloadBtn, downloadAllBtn);
 
   mediaCenterPopup.append(popupCloseImg, titleGroup, coreMediaEl, galleryListGroup, btnGroup);
-  body.append(mediaCenterPopup);
+  const mask = document.createElement('div');
+  mask.id = 'gallery-mask';
+  body.append(mediaCenterPopup, mask);
 }
