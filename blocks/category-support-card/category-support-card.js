@@ -12,10 +12,11 @@ export default function decorate(block) {
       link?.remove();
       iconPopup?.classList?.add('icon-popup');
       if (iconPopup && iconPopup.textContent.trim()) {
+        iconPopup.querySelector('p').className = 'qr-code-txt';
         const qrIcon = document.createElement('img');
         qrIcon.className = 'qr-icon';
         const { country } = getLocaleFromPath();
-        qrIcon.src = `/content/dam/hisense/${country}/common-icons/qr-icon.png`;
+        qrIcon.src = `/content/dam/hisense/${country}/common-icons/qr-icon.svg`;
         iconPopup.prepend(qrIcon);
         // 点击扫码配置有内容时，展示点击扫码popup
       } else {
