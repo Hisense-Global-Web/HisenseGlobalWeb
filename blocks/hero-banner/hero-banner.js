@@ -431,21 +431,23 @@ function createSlide(block, row, slideIndex) {
       case 8:
         if (isExternal?.toLowerCase?.() === 'true') {
           const columnPEl = column?.querySelector('p');
-          externalVideoUrl = columnPEl?.textContent ?? null;
-          if (externalVideoUrl) {
-            const resetVideoUrl = resetExternalUrl(externalVideoUrl?.trim());
-            const externalVideoEl = iframeVideoHandler(resetVideoUrl);
-            // externalVideoEl.querySelector('iframe').style.height = '780px'
-            const imageEl = slide.querySelector('.hero-banner-item-image');
-            if (imageEl) {
-              imageEl.innerHTML = '';
-              imageEl.appendChild(externalVideoEl);
-            } else {
-              column.classList.add('hero-banner-item-image');
-              column.appendChild(externalVideoEl);
+          if (columnPEl) {
+            externalVideoUrl = columnPEl?.textContent ?? null;
+            if (externalVideoUrl) {
+              const resetVideoUrl = resetExternalUrl(externalVideoUrl?.trim());
+              const externalVideoEl = iframeVideoHandler(resetVideoUrl);
+              // externalVideoEl.querySelector('iframe').style.height = '780px'
+              const imageEl = slide.querySelector('.hero-banner-item-image');
+              if (imageEl) {
+                imageEl.innerHTML = '';
+                imageEl.appendChild(externalVideoEl);
+              } else {
+                column.classList.add('hero-banner-item-image');
+                column.appendChild(externalVideoEl);
+              }
             }
+            columnPEl.textContent = '';
           }
-          columnPEl.textContent = '';
         }
         break;
       default:
