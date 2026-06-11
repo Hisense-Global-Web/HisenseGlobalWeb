@@ -263,6 +263,10 @@ main .section.download-container .download-wrapper {
   padding: var(--size-80);
   box-sizing: border-box;
 
+  * {
+    box-sizing: border-box;
+  }
+
   @media (width < 640px) {
     width: calc(354 / var(--breakpoint-mobile) * 100vw);
     padding: var(--size-64) var(--size-24) var(--size-32);
@@ -308,6 +312,7 @@ main .section.download-container .download-wrapper {
   .core-media {
     width: 100%;
     min-height: var(--size-150);
+    position: relative;
 
     > * {
       width: 100%;
@@ -315,10 +320,160 @@ main .section.download-container .download-wrapper {
     }
 
     .gallery-number-group {
+      position: absolute;
+      top: var(--size-16);
+      right: var(--size-16);
       width: auto;
       padding: var(--size-4) var(--size-8);
       background-color: var(--grey-alpha-40);
       border-radius: var(--size-16);
+      color: #fff;
+      font-size: var(--size-12);
+      line-height: var(--size-18);
+      font-family: "FZLanTingHeiS-DB1-GBK", serif;
+
+      * {
+        display: inline-block;
+      }
+
+      .gallery-total {
+        white-space: break-spaces;
+      }
+    }
+  }
+
+  .gallery-list-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .scroll-btn {
+      width: var(--size-30);
+      height: var(--size-30);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #666;
+      transition: color 0.3s;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      &:disabled {
+        color: #ddd;
+        cursor: not-allowed;
+
+        img.click-icon {
+          display: none;
+        }
+      }
+
+      &:not(:disabled) img.disabled-icon {
+        display: none;
+      }
+    }
+
+    .tabs-container {
+      overflow: hidden;
+      height: var(--size-50);
+
+      ul.gallery-tabs {
+        display: flex;
+        gap: var(--size-4);
+        max-width: min(calc(476 / var(--breakpoint-pc) * 100vw), 476px);
+        scroll-behavior: smooth;
+        overflow: scroll hidden;
+        list-style: none;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        margin: 0 0 var(--size-24);
+        padding: 0;
+
+        li.tab-item {
+          width: var(--size-50);
+          height: var(--size-50);
+          overflow: hidden;
+          border-radius: var(--size-8);
+          border: 1px solid transparent;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+
+          &.current {
+            border: 1px solid #000;
+
+            &.image img {
+              border: 1px solid transparent;
+            }
+          }
+
+          &.image img {
+            border: 1px solid red;
+            border-radius: var(--size-6);
+            width: var(--size-44);
+            height: var(--size-44);
+          }
+        }
+      }
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-16);
+
+    > div {
+      height: var(--size-50);
+      padding: 0 var(--size-32);
+      border-radius: var(--size-80);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: var(--size-14);
+      line-height: var(--size-21);
+      font-weight: var(--fontweight-medium);
+    }
+
+    .download-btn {
+      border: 1px solid #000;
+      color: #333;
+
+
+      &:hover {
+        background-color: var(--color-primary-grey-70);
+        border-color: var(--color-primary-grey-70);
+        color: #fff;
+        text-decoration: none;
+      }
+
+      &:active {
+        background-color: #000;
+        border-color: #000;
+        color: var(--white-alpha-80);
+        text-decoration: none;
+      }
+    }
+
+    .download-all-btn {
+      color: #fff;
+      background-color: #000;
+
+      &:hover {
+        background-color: var(--color-primary-grey-70);
+      }
     }
   }
 }

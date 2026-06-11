@@ -8,6 +8,27 @@ const DEFAULT_ITEM_IMAGE = 'https://picsum.photos/90/60';
 const DEFAULT_DOWNLOAD_ICON = `/content/dam/hisense/${country}/common-icons/download.svg`;
 const DEFAULT_FOLDER_ICON = 'https://picsum.photos/80/80';
 
+function createScrollButton(direction) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = `scroll-btn scroll-${direction}`;
+  button.setAttribute('aria-label', direction === 'left' ? 'Scroll left' : 'Scroll right');
+  button.disabled = direction === 'left';
+  // 创建图片元素
+  const img = document.createElement('img');
+  img.src = direction === 'left' ? `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-left-g.svg` : `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-right-g.svg`;
+  img.alt = direction === 'left' ? 'Scroll left' : 'Scroll right';
+  img.className = 'disabled-icon';
+  button.appendChild(img);
+  // 创建图片元素
+  const imgClick = document.createElement('img');
+  imgClick.src = direction === 'left' ? `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-left.svg` : `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-right.svg`;
+  imgClick.alt = direction === 'left' ? 'Scroll left' : 'Scroll right';
+  imgClick.className = 'click-icon';
+  button.appendChild(imgClick);
+  return button;
+}
+
 export default function decorate(block) {
   const config = readBlockConfig(block);
   const title = config.title || '';
@@ -224,6 +245,8 @@ export default function decorate(block) {
   block.replaceChildren(container);
   block.classList.add('loaded');
 
+  // start popup
+  let currentIndex = 0;
   const body = document.querySelector('body');
   const mediaCenterPopup = document.createElement('div');
   mediaCenterPopup.id = 'media-center-popup';
@@ -247,9 +270,9 @@ export default function decorate(block) {
   titleGroup.append(titleEl, dateEl);
 
   const MOCK_DATA = Array.from(imageList.querySelectorAll('.image-item')).map((el) => {
-    console.log(el);
     return {
       url: el.querySelector('img')?.src,
+      type: 'image',
     };
   });
   console.log(MOCK_DATA);
@@ -263,16 +286,53 @@ export default function decorate(block) {
 
   const galleryNumberEl = document.createElement('span');
   galleryNumberEl.className = 'gallery-number';
-  galleryNumberEl.textContent = '1'
+  galleryNumberEl.textContent = `${currentIndex + 1 ?? 1}`;
   const galleryTotalEl = document.createElement('span');
   galleryTotalEl.className = 'gallery-total';
   galleryTotalEl.innerHTML = ` / ${mediaList.length}`
+  galleryNumberGroup.append(galleryNumberEl, galleryTotalEl);
+  coreMediaEl.append(galleryNumberGroup);
 
-  // todo
-  const mockimg = document.createElement('img');
-  mockimg.src = MOCK_DATA[0].url;
-  coreMediaEl.append(mockimg);
+  const galleryListGroup = document.createElement('div');
+  galleryListGroup.className = 'gallery-list-group';
+  const leftBtn = createScrollButton('left');
+  const rightBtn = createScrollButton('right');
+  const tabsContainer = document.createElement('div');
+  tabsContainer.className = 'tabs-container';
 
-  mediaCenterPopup.append(popupCloseImg, titleGroup, coreMediaEl);
+  const tabs = document.createElement('ul');
+  tabs.className = 'gallery-tabs';
+
+  mediaList.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.className = `tab-item ${index === currentIndex ? 'current' : ''} ${item.type}`;
+    if (item.type === 'image') {
+      const img = document.createElement('img');
+      img.src = item.url;
+      li.appendChild(img);
+    }
+    tabs.append(li);
+    if (index === currentIndex) {
+      if (item.type === 'image') {
+        const img = document.createElement('img');
+        img.src = item.url;
+        coreMediaEl.append(img);
+      }
+    }
+  });
+  tabsContainer.append(tabs);
+  galleryListGroup.append(leftBtn, tabsContainer, rightBtn);
+
+  const btnGroup = document.createElement('div');
+  btnGroup.className = 'btn-group';
+  const downloadBtn = document.createElement('div');
+  downloadBtn.className = 'download-btn';
+  downloadBtn.textContent = '下载照片';
+  const downloadAllBtn = document.createElement('div');
+  downloadAllBtn.className = 'download-all-btn';
+  downloadAllBtn.textContent = '下载全部';
+  btnGroup.append(downloadBtn, downloadAllBtn);
+
+  mediaCenterPopup.append(popupCloseImg, titleGroup, coreMediaEl, galleryListGroup, btnGroup);
   body.append(mediaCenterPopup);
 }
