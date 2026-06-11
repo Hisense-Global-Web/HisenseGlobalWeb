@@ -382,9 +382,25 @@ export default function decorate(block) {
   const mediaImg = document.createElement('div');
   mediaImg.className = 'pdp-main-img';
   if (tabs?.childElementCount) {
-    const firstImg = tabs.querySelector('.product-filter-img-box .product-filter-img img');
-    if (firstImg) {
-      mediaImg.append(firstImg.cloneNode(true));
+    const dataVideoOrigin = tabs.firstChild.getAttribute('data-video-origin'); // 视频来源类型
+    const internalHref = tabs.firstChild.getAttribute('data-video-href'); // 内部视频链接
+    const externalUrl = tabs.firstChild.getAttribute('data-external-url'); // 外部视频链接
+    if (internalHref && dataVideoOrigin && dataVideoOrigin !== 'external') {
+      // 首次加载时，第一个缩略图中配置的是【内部链接视频】
+      const firstVideo = tabs.querySelector('.product-filter-img-box .autoplay-video');
+      firstVideo.autoplay = true;
+      firstVideo.setAttribute('muted', true);
+      mediaImg.append(firstVideo.cloneNode(true));
+    } else if (externalUrl && dataVideoOrigin && dataVideoOrigin === 'external') {
+      // 首次加载时，第一个缩略图中配置的是【外部链接视频】
+      const firstExternal = tabs.querySelector('.product-filter-img-box .external-video-box');
+      mediaImg.append(firstExternal.cloneNode(true));
+    } else {
+      // 首次加载时，第一个缩略图中配置的是【图片】
+      const firstImg = tabs.querySelector('.product-filter-img-box .product-filter-img img');
+      if (firstImg) {
+        mediaImg.append(firstImg.cloneNode(true));
+      }
     }
   }
   media.append(mediaImg);
