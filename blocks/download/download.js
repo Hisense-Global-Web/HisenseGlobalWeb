@@ -269,12 +269,10 @@ export default function decorate(block) {
   dateEl.textContent = '2025年11月11日';
   titleGroup.append(titleEl, dateEl);
 
-  const MOCK_DATA = Array.from(imageList.querySelectorAll('.image-item')).map((el) => {
-    return {
-      url: el.querySelector('img')?.src,
-      type: 'image',
-    };
-  });
+  const MOCK_DATA = Array.from(imageList.querySelectorAll('.image-item')).map((el) => ({
+    url: el.querySelector('img')?.src,
+    type: 'image',
+  }));
   console.log(MOCK_DATA);
   const mediaList = MOCK_DATA;
 
@@ -289,7 +287,7 @@ export default function decorate(block) {
   galleryNumberEl.textContent = `${currentIndex + 1 ?? 1}`;
   const galleryTotalEl = document.createElement('span');
   galleryTotalEl.className = 'gallery-total';
-  galleryTotalEl.innerHTML = ` / ${mediaList.length}`
+  galleryTotalEl.innerHTML = ` / ${mediaList.length}`;
   galleryNumberGroup.append(galleryNumberEl, galleryTotalEl);
   coreMediaEl.append(galleryNumberGroup);
 
@@ -311,6 +309,23 @@ export default function decorate(block) {
       img.src = item.url;
       li.appendChild(img);
     }
+    li.addEventListener('click', (e) => {
+      currentIndex = index;
+      e.currentTarget.parentElement.querySelector('.current').classList.remove('current');
+      e.currentTarget.classList.add('current');
+      const coreMedia = e.currentTarget.closest('#media-center-popup').querySelector('.core-media');
+      Array.from(coreMedia.children).forEach((child) => {
+        if (!child.matches('.gallery-number-group')) {
+          coreMedia.removeChild(child);
+        }
+      });
+      if (item.type === 'image') {
+        const img = document.createElement('img');
+        img.src = item.url;
+        coreMedia.append(img);
+      }
+      coreMedia.querySelector('.gallery-number-group .gallery-number').textContent = `${currentIndex + 1 ?? 1}`;
+    });
     tabs.append(li);
     if (index === currentIndex) {
       if (item.type === 'image') {
@@ -328,9 +343,15 @@ export default function decorate(block) {
   const downloadBtn = document.createElement('div');
   downloadBtn.className = 'download-btn';
   downloadBtn.textContent = '下载照片';
+  downloadBtn.addEventListener('click', () => {
+    console.log(`Download clicked ${currentIndex}`);
+  });
   const downloadAllBtn = document.createElement('div');
   downloadAllBtn.className = 'download-all-btn';
   downloadAllBtn.textContent = '下载全部';
+  downloadAllBtn.addEventListener('click', () => {
+    console.log('Download all clicked');
+  });
   btnGroup.append(downloadBtn, downloadAllBtn);
 
   mediaCenterPopup.append(popupCloseImg, titleGroup, coreMediaEl, galleryListGroup, btnGroup);
