@@ -5,6 +5,7 @@ import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 import { isVideoMediaColumn, normalizeImageReferenceLinks } from './media-reference.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
+import { iframeVideoHandler, resetExternalUrl } from '../../utils/video-external-url.js';
 
 let heroBannerTimer;
 let heroBannerInterval;
@@ -347,9 +348,12 @@ function createSlide(block, row, slideIndex) {
   let titleExist = true;
   let contentExist = true;
   let buttonExist = true;
+  let isExternal = false;
+  let externalVideoUrl = null;
   const buttonDiv = createElement('div', 'hero-banner-cta-container');
   const textContent = createElement('div', 'text-content');
   slide.dataset.slideIndex = slideIndex;
+
   [...row.children].forEach((column, colIdx) => {
     let theme;
     let contentType; // true is svg mode; false is text mode
@@ -417,6 +421,35 @@ function createSlide(block, row, slideIndex) {
         // icon-svg div
         column.setAttribute('class', 'hero-banner-item-content icon-svg');
         break;
+      case 7:
+        // check is external video
+        isExternal = column.textContent;
+        if (isExternal) {
+          column.textContent = '';
+        }
+        break;
+      case 8:
+        if (isExternal?.toLowerCase?.() === 'true') {
+          const columnPEl = column?.querySelector('p');
+          if (columnPEl) {
+            externalVideoUrl = columnPEl?.textContent ?? null;
+            if (externalVideoUrl) {
+              const resetVideoUrl = resetExternalUrl(externalVideoUrl?.trim());
+              const externalVideoEl = iframeVideoHandler(resetVideoUrl);
+              // externalVideoEl.querySelector('iframe').style.height = '780px'
+              const imageEl = slide.querySelector('.hero-banner-item-image');
+              if (imageEl) {
+                imageEl.innerHTML = '';
+                imageEl.appendChild(externalVideoEl);
+              } else {
+                column.classList.add('hero-banner-item-image');
+                column.appendChild(externalVideoEl);
+              }
+            }
+            columnPEl.textContent = '';
+          }
+        }
+        break;
       default:
         column.classList.add('hero-banner-item-cta');
         buttonTheme = column.firstElementChild?.innerHTML || 'transparent';
@@ -425,6 +458,7 @@ function createSlide(block, row, slideIndex) {
     }
 
     if (column.innerHTML === '') return;
+
     if ([2, 3, 4].includes(colIdx)) {
       // 处理svg模式下没有清除文字的情况 ---- 若两者都要再处理
       if (contentType === 'true' && column.querySelector('teal-text')) {
@@ -439,7 +473,9 @@ function createSlide(block, row, slideIndex) {
     } else if ([5, 6].includes(colIdx)) {
       // 处理button
       buttonDiv.append(column);
-    } else slide.append(column);
+    } else {
+      slide.append(column);
+    }
   });
   if (buttonDiv.children.length > 0) {
     buttonExist = true;
