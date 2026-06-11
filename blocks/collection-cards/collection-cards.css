@@ -39,8 +39,8 @@
    @media (width < 640px) {
     /* flex: 0 0 auto;  */
     position: relative;
-		width: 70.7vw !important;
-    height: 70.7vw;
+    width: calc(308 / var(--breakpoint-mobile) * 100vw);
+    height: calc(308 / var(--breakpoint-mobile) * 100vw);
     aspect-ratio: 1;
     transition: transform 0.3s;
     pointer-events: auto; /* 允许事件穿透到容器 */
@@ -148,8 +148,14 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-	grid-template-columns: repeat(3, 1fr);
+
+  /* display: grid;
+	grid-template-columns: repeat(3, 1fr); */
+  display: flex;
+
+  @media (width < 640px) {
+    display: grid;
+  }
 }
 
 .center-style > ul > li {
@@ -161,7 +167,7 @@
   overflow: hidden;
   display: flex;
   justify-content: start;
-  padding: var(--spacing-sm);
+  padding: var(--size-40) var(--size-56) 0;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
@@ -170,10 +176,10 @@
 
 
   @media (width >= 640px) {
-    gap: var(--size-16);
+    gap: var(--size-8);
     width: 100%;
-    height:min(24.86111vw, 358px);
-    padding: var(--spacing-lg) var(--size-32) var(--size-32);
+    aspect-ratio: 357 / 357;
+    padding: var(--size-40) var(--size-48) 0;
   }
 }
 
@@ -185,13 +191,20 @@
 }
 
 .center-style > ul > li .collection-cards-card-image {
-  width: 42.05128vw;
-  height: 42.05128vw;;
+  width: calc(196 / var(--breakpoint-mobile) * 100vw);
+  height: calc(196 / var(--breakpoint-mobile) * 100vw);
   object-fit: contain;
 
   @media (width >= 640px) {
-    width: min(14.7222222vw, 212px);
-    height: min(14.7222222vw, 212px);
+    width: min(calc(261 / var(--breakpoint-pc) * 100vw), 261px);
+    height: min(calc(261 / var(--breakpoint-pc) * 100vw), 261px);
+  }
+}
+
+.center-style > ul:has(li:nth-child(4)) li .collection-cards-card-image {
+  @media (width >= 640px) {
+    width: min(calc(166 / var(--breakpoint-pc) * 100vw), 166px);
+    height: min(calc(166 / var(--breakpoint-pc) * 100vw), 166px);
   }
 }
 
@@ -242,7 +255,7 @@
   @media (width >= 640px) {
     opacity: 1;
     visibility: visible;
-    bottom: var(--spacing-lg);
+    bottom: var(--size-24);
     background-color: var(--color-primary-green-50);
   }
 }
