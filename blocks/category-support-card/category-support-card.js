@@ -3,6 +3,18 @@ import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 export default function decorate(block) {
   try {
     const elementItems = [...block.children];
+    const qrMask = document.createElement('div');
+    qrMask.className = 'qr-mask';
+    const qrPopupBox = document.createElement('div');
+    qrPopupBox.className = 'qr-popup-box';
+    const qrClose = document.createElement('img');
+    qrClose.className = 'qr-close';
+    const qrPopupTit = document.createElement('div');
+    qrPopupTit.className = 'qr-popup-tit';
+    const qrPopupTip = document.createElement('div');
+    qrPopupTip.className = 'qr-popup-tip';
+    const qrPopupImg = document.createElement('img');
+    qrPopupImg.className = 'qr-popup-img';
     elementItems.forEach((element) => {
       element.classList.add('category-support-card-item');
       const [icon, description, link, iconPopup] = element.children;
@@ -28,6 +40,10 @@ export default function decorate(block) {
       //   window.location.href = linkUrl;
       // });
     });
+
+    qrPopupBox.append(qrClose, qrPopupTit, qrPopupTip, qrPopupImg);
+    qrMask.append(qrPopupBox);
+    block.closest('.category-support-card-wrapper').append(qrMask);
   } catch (error) {
     /* eslint-disable-next-line no-console */
     console.error('Category Support Card block decoration error:', error);
