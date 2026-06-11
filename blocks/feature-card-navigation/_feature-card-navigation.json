@@ -64,6 +64,12 @@
           "name": "description_name",
           "label": "Feature Description",
           "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "step_name",
+          "label": "Flow Step",
+          "valueType": "string"
         }
       ]
     }
