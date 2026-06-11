@@ -28,7 +28,7 @@
     touch-action: pan-x pan-y pinch-zoom; /* 允许水平滑动和捏合缩放 */
     overscroll-behavior-x: contain; /* 防止滚动链 */
     grid-auto-flow: column;
-    gap: var(--fontsize-body1);
+    gap: var(--size-24);
 	}
 }
 
@@ -163,7 +163,7 @@
 
   /* background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.60) 100%), #50C3C3; */
   position: relative;
-  border-radius: var(--border-radius-l);
+  border-radius: var(--size-16);
   overflow: hidden;
   display: flex;
   justify-content: start;
@@ -172,7 +172,7 @@
   align-items: center;
   box-sizing: border-box;
   aspect-ratio: 1;
-  gap: var(--spacing-xs);
+  gap: var(--size-8);
 
 
   @media (width >= 640px) {
