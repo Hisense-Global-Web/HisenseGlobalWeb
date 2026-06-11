@@ -109,6 +109,12 @@ function buildTab(itemElement, index) {
     moveInstrumentation(textCell, textSpan);
   }
   li.addEventListener('click', (e) => {
+    // 当前点击缩略图，添加当前样式
+    const productElList = e.currentTarget.parentNode.querySelectorAll('.product-filter-item');
+    productElList.forEach((el) => {
+      el.classList.remove('active');
+    });
+    e.currentTarget.classList.add('active');
     // 从当前点击的li 父集 【.pdp-media] 中, 查找元素【.pdp-main-img】
     const mainVideoImg = e.target.closest('.pdp-media').querySelector('.pdp-main-img');
     const videoUrl = e.currentTarget.dataset.videoHref;
@@ -141,11 +147,6 @@ function buildTab(itemElement, index) {
       return;
     }
     const imgUrl = e.target?.src;
-    const productElList = e.currentTarget.parentNode.querySelectorAll('.product-filter-item');
-    productElList.forEach((el) => {
-      el.classList.remove('active');
-    });
-    e.currentTarget.classList.add('active');
     if (mainVideoImg) {
       const img = document.createElement('img');
       img.src = imgUrl;
@@ -382,6 +383,8 @@ export default function decorate(block) {
   const mediaImg = document.createElement('div');
   mediaImg.className = 'pdp-main-img';
   if (tabs?.childElementCount) {
+    // 首次加载，为第一个缩略图添加当前选中样式
+    tabs.firstChild.classList.add('active');
     const dataVideoOrigin = tabs.firstChild.getAttribute('data-video-origin'); // 视频来源类型
     const internalHref = tabs.firstChild.getAttribute('data-video-href'); // 内部视频链接
     const externalUrl = tabs.firstChild.getAttribute('data-external-url'); // 外部视频链接
