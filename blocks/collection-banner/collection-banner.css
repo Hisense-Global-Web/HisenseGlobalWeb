@@ -78,6 +78,7 @@
       -webkit-line-clamp: 10;
       overflow: hidden;
       text-overflow: ellipsis;
+      color: red;
     }
 
     .body-text-line-clamp1 {
@@ -270,6 +271,7 @@
       -webkit-line-clamp: 8 !important;
       font-size: var(--size-14) !important;
       line-height: 1.4 !important;
+      color: green !important;
     }
 
     .body-text-line-clamp1 {
