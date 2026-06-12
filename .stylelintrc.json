@@ -3,6 +3,6 @@
   "rules": {
     "no-descending-specificity": null,
     "number-max-precision": 8,
-    "media-feature-range-notation": "prefix"
+    "media-feature-range-notation": null
   }
 }
