@@ -205,7 +205,7 @@
   }
 }
 
-@media (width < 640px) {
+@media (width <= 639px) {
   .block.collection-banner {
     aspect-ratio: 354 / 500;
     padding: var(--medium, 32px) var(--spacing-s2, 20px);

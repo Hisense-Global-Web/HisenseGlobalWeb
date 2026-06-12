@@ -105,7 +105,7 @@ p {
     gap: var(--size-40);
     z-index: 5;
 
-    @media (width>=640px) {
+    @media (width >= 640px) {
       padding: 0;
     }
   }
@@ -169,7 +169,7 @@ p {
     -webkit-line-clamp: 9;
     line-clamp: 9;
 
-    @media (width<640px) {
+    @media (width <= 639px) {
       -webkit-line-clamp: 5;
       line-clamp: 5;
     }
@@ -185,7 +185,7 @@ p {
     -webkit-line-clamp: 9;
     line-clamp: 9;
 
-    @media (width<640px) {
+    @media (width <= 639px) {
       -webkit-line-clamp: 6;
       line-clamp: 6;
     }
@@ -201,7 +201,7 @@ p {
     -webkit-line-clamp: 11;
     line-clamp: 11;
 
-    @media (width<640px) {
+    @media (width <= 639px) {
       -webkit-line-clamp: 6;
       line-clamp: 6;
     }
@@ -217,7 +217,7 @@ p {
     -webkit-line-clamp: 11;
     line-clamp: 11;
 
-    @media (width<640px) {
+    @media (width <= 639px) {
       -webkit-line-clamp: 7;
       line-clamp: 7;
     }
@@ -482,7 +482,7 @@ p {
   .hero-banner-items-container {
     aspect-ratio: 9 / 4;
 
-    @media (width<640px) {
+    @media (width <= 639px) {
       aspect-ratio: 39 / 48;
     }
 
@@ -511,7 +511,7 @@ p {
       .hero-banner-item-content p {
         width: min(calc(422 / var(--breakpoint-pc) * 100vw), 422px);
 
-        @media (width<640px) {
+        @media (width <= 639px) {
           -webkit-line-clamp: 3;
           line-clamp: 3;
         }
@@ -524,7 +524,7 @@ p {
   }
 }
 
-@media (width < 640px) {
+@media (width <= 639px) {
   .hero-banner .hero-banner-items-container {
     touch-action: pan-y;
     user-select: none;
