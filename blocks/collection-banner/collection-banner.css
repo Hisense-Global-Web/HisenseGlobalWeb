@@ -65,7 +65,7 @@
     }
 
     .body-text {
-      color: #fff;
+      /* color: #fff; */
       width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
       font-size: var(--fontsize-body1, 16px);
       line-height: 1.5;
