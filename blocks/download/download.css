@@ -270,6 +270,7 @@ main .section.download-container .download-wrapper {
   @media (width < 640px) {
     width: calc(354 / var(--breakpoint-mobile) * 100vw);
     padding: var(--size-64) var(--size-24) var(--size-32);
+    gap: var(--size-16);
   }
 
   .close-icon {
@@ -294,11 +295,22 @@ main .section.download-container .download-wrapper {
     justify-content: space-between;
     align-items: center;
 
+    @media (width < 640px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--size-16);
+    }
+
     .media-title {
       font-size: var(--size-24);
       color: #141414;
       font-weight: var(--fontweight-medium);
       line-height: var(--size-28);
+
+      @media (width < 640px) {
+        font-size: var(--size-18);
+        line-height: var(--size-22);
+      }
     }
 
     .media-date {
@@ -311,8 +323,12 @@ main .section.download-container .download-wrapper {
 
   .core-media {
     width: 100%;
-    min-height: var(--size-150);
+    min-height: min(calc(300 / var(--breakpoint-pc) * 100vw), 300px);
     position: relative;
+
+    @media (width < 640px) {
+      min-height: var(--size-150);
+    }
 
     > * {
       width: 100%;
@@ -398,6 +414,10 @@ main .section.download-container .download-wrapper {
         -ms-overflow-style: none;
         padding: 0;
 
+        @media (width < 640px) {
+          max-width: min(calc(212 / var(--breakpoint-mobile) * 100vw), 212px);
+        }
+
         li.tab-item {
           width: var(--size-50);
           height: var(--size-50);
@@ -413,12 +433,19 @@ main .section.download-container .download-wrapper {
           &.current {
             border: 1px solid #000;
 
-            &.image img {
+            &.image img, &.video video  {
               border: 1px solid transparent;
             }
           }
 
           &.image img {
+            border: 1px solid #bbb;
+            border-radius: var(--size-6);
+            width: var(--size-44);
+            height: var(--size-44);
+          }
+
+          &.video video {
             border: 1px solid #bbb;
             border-radius: var(--size-6);
             width: var(--size-44);
@@ -435,22 +462,31 @@ main .section.download-container .download-wrapper {
     justify-content: center;
     gap: var(--size-16);
 
+    @media (width < 640px) {
+      flex-direction: column;
+      gap: var(--size-12);
+    }
+
     > div {
       height: var(--size-50);
       padding: 0 var(--size-32);
       border-radius: var(--size-80);
       display: flex;
       align-items: center;
+      justify-content: center;
       cursor: pointer;
       font-size: var(--size-14);
       line-height: var(--size-21);
       font-weight: var(--fontweight-medium);
+
+      @media (width < 640px) {
+        width: 100%;
+      }
     }
 
     .download-btn {
       border: 1px solid #000;
       color: #333;
-
 
       &:hover {
         background-color: var(--color-primary-grey-70);
@@ -486,6 +522,7 @@ main .section.download-container .download-wrapper {
   height: 100vh;
   background-color: rgb(0 0 0 / 60%);
   z-index: 999;
-  display: none;
+
+  /* display: none; */
   transition: opacity 0.3s ease;
 }

@@ -35,55 +35,37 @@ function updateButtons(tabsList, leftBtn, rightBtn) {
   rightBtn.disabled = tabsList.scrollLeft + tabsList.clientWidth + 10 >= tabsList.scrollWidth;
 }
 
-// 防抖函数
-function debounce(func, delay) {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => func.apply(this, args), delay);
-  };
+function createImg(url) {
+  const img = document.createElement('img');
+  img.src = url;
+  return img;
 }
 
-// 计算并对齐到最近的item（手机端专用）
-function alignToWholeItemMobile(tabsList) {
-  const isMobile = window.innerWidth < SCREEN_POINT;
-  if (!isMobile) return;
-
-  const firstItem = tabsList.querySelector('.product-filter-item');
-  if (!firstItem) return;
-
-  // 手机端item宽度是100vw，间距10px（从css中获取）
-  const itemWidth = window.innerWidth + 10; // 手机端每个item占满宽度
-  const currentScroll = tabsList.scrollLeft;
-  // 计算当前滚动位置相对于item宽度的比例
-  const scrollRatio = currentScroll % itemWidth;
-  const currentItemIndex = Math.floor(currentScroll / itemWidth);
-
-  let targetScroll;
-  // 超过50%则滚动到下一个item，否则回到当前item
-  if (scrollRatio > itemWidth * 0.5) {
-    targetScroll = (currentItemIndex + 1) * itemWidth;
-    // 边界判断：不超过最大滚动值
-    const maxScroll = tabsList.scrollWidth - tabsList.clientWidth;
-    targetScroll = Math.min(targetScroll, maxScroll);
-  } else {
-    targetScroll = currentItemIndex * itemWidth;
-  }
-
-  // 滚动到目标位置
-  tabsList.scrollTo({ left: targetScroll, behavior: 'smooth' });
-  // 更新按钮状态
-  const leftBtn = document.querySelector('.scroll-left');
-  const rightBtn = document.querySelector('.scroll-right');
-  if (leftBtn && rightBtn) {
-    updateButtons(tabsList, leftBtn, rightBtn);
-  }
+function createVideo(videoUrl) {
+  const video = document.createElement('video');
+  video.classList.add('autoplay-video');
+  video.setAttribute('data-video-autoplay', 'true');
+  video.controls = true;
+  video.width = 600;
+  video.preload = 'auto';
+  video.playsInline = true;
+  video.muted = true; // iPhone 要求静音才能自动播放
+  const source = document.createElement('source');
+  source.src = videoUrl;
+  source.type = 'video/mp4';
+  video.innerHTML = '';
+  video.appendChild(source);
+  video.addEventListener('canplay', () => {
+    video.play().catch(() => {});
+  });
+  return video;
 }
 
 function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
   // 左箭头
   leftBtn.addEventListener('click', () => {
-    const SCROLL_STEP = (54 * Math.min(window.innerWidth, 1440)) / 1440;
+    const isMobile = window.innerWidth < SCREEN_POINT;
+    const SCROLL_STEP = isMobile ? ((54 * Math.min(window.innerWidth, 390)) / 390) : ((54 * Math.min(window.innerWidth, 1440)) / 1440);
     tabsList.scrollBy({ left: -SCROLL_STEP, behavior: 'smooth' });
     setTimeout(() => {
       updateButtons(tabsList, leftBtn, rightBtn);
@@ -92,25 +74,16 @@ function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
 
   // 右箭头
   rightBtn.addEventListener('click', () => {
-    const SCROLL_STEP = (54 * Math.min(window.innerWidth, 1440)) / 1440;
+    const isMobile = window.innerWidth < SCREEN_POINT;
+    const SCROLL_STEP = isMobile ? ((54 * Math.min(window.innerWidth, 390)) / 390) : ((54 * Math.min(window.innerWidth, 1440)) / 1440);
     tabsList.scrollBy({ left: SCROLL_STEP, behavior: 'smooth' });
     setTimeout(() => {
       updateButtons(tabsList, leftBtn, rightBtn);
     }, 300);
   });
 
-  // 手机端滚动防抖处理（200ms延迟，确保滚动停止后触发）
-  const debounceAlignToItem = debounce(() => {
-    alignToWholeItemMobile(tabsList);
-  }, 200);
-
   tabsList.addEventListener('scroll', () => {
     updateButtons(tabsList, leftBtn, rightBtn);
-    // 手机端滚动停止后对齐
-    const isMobile = window.innerWidth < SCREEN_POINT;
-    if (isMobile) {
-      debounceAlignToItem();
-    }
   });
 
   // ---------- 核心修复：resize 自动对齐校正 ----------
@@ -378,9 +351,9 @@ export default function decorate(block) {
   dateEl.textContent = '2025年11月11日';
   titleGroup.append(titleEl, dateEl);
 
-  const MOCK_DATA = Array.from(imageList.querySelectorAll('.image-item')).map((el) => ({
-    url: el.querySelector('img')?.src,
-    type: 'image',
+  const MOCK_DATA = Array.from(imageList.querySelectorAll('.image-item')).map((el, i) => ({
+    url: i === 1 ? '/content/dam/hisense/us/products/televisions/ux-serises/feature-video/engineered-for-the-eye/3.mp4' : el.querySelector('img')?.src,
+    type: i === 1 ? 'video' : 'image',
   }));
   console.log(MOCK_DATA);
   const mediaList = [...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA];
@@ -414,33 +387,48 @@ export default function decorate(block) {
     const li = document.createElement('li');
     li.className = `tab-item ${index === currentIndex ? 'current' : ''} ${item.type}`;
     if (item.type === 'image') {
-      const img = document.createElement('img');
-      img.src = item.url;
-      li.appendChild(img);
+      li.appendChild(createImg(item.url));
+    } else if (item.type === 'video') {
+      const video = document.createElement('video');
+      video.controls = false;
+      video.width = 44;
+      video.preload = 'auto';
+      video.playsInline = false;
+      video.muted = true; // iPhone 要求静音才能自动播放
+      const source = document.createElement('source');
+      source.src = item.url;
+      source.type = 'video/mp4';
+      video.innerHTML = '';
+      video.appendChild(source);
+      li.appendChild(video);
     }
     li.addEventListener('click', (e) => {
       currentIndex = index;
       e.currentTarget.parentElement.querySelector('.current').classList.remove('current');
       e.currentTarget.classList.add('current');
-      const coreMedia = e.currentTarget.closest('#media-center-popup').querySelector('.core-media');
+      const popup = e.currentTarget.closest('#media-center-popup');
+      const coreMedia = popup.querySelector('.core-media');
+      const dowloadbtn = popup.querySelector('.btn-group .download-btn');
       Array.from(coreMedia.children).forEach((child) => {
         if (!child.matches('.gallery-number-group')) {
           coreMedia.removeChild(child);
         }
       });
       if (item.type === 'image') {
-        const img = document.createElement('img');
-        img.src = item.url;
-        coreMedia.append(img);
+        coreMedia.append(createImg(item.url));
+        dowloadbtn.textContent = '下载照片';
+      } else if (item.type === 'video') {
+        coreMedia.append(createVideo(item.url));
+        dowloadbtn.textContent = '下载视频';
       }
       coreMedia.querySelector('.gallery-number-group .gallery-number').textContent = `${currentIndex + 1 ?? 1}`;
     });
     tabs.append(li);
     if (index === currentIndex) {
       if (item.type === 'image') {
-        const img = document.createElement('img');
-        img.src = item.url;
-        coreMediaEl.append(img);
+        coreMediaEl.append(createImg(item.url));
+      } else if (item.type === 'video') {
+        coreMediaEl.append(createVideo(item.url));
       }
     }
   });
