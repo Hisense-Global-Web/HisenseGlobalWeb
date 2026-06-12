@@ -76,6 +76,28 @@
         line-height: var(--size-24);
       }
     }
+
+    .step-card-box {
+      .card-title {
+        font-size: var(--size-20);
+        line-height: var(--size-24);
+        margin: var(--size-8) 0;
+        color: var(--color-primary-grey-90);
+      }
+
+      .card-description {
+        font-size: var(--size-16);
+        line-height: var(--size-24);
+        color: var(--color-primary-grey-90);
+      }
+
+      .card-step {
+        font-size: var(--size-14);
+        line-height: var(--size-21);
+        color: var(--color-primary-green-60);
+        font-weight: var(--fontweight-medium);
+      }
+    }
   }
 }
 
@@ -121,6 +143,20 @@
         .card-description {
           font-size: var(--size-12);
           line-height: calc(16.8 / var(--breakpoint-mobile) * 100vw);
+        }
+      }
+
+      .step-card-box {
+        width: 100%;
+        aspect-ratio: auto;
+
+        .card-title {
+          line-height: var(--size-24);
+        }
+
+        .card-description {
+          font-size: var(--size-10);
+          line-height: var(--size-14);
         }
       }
     }

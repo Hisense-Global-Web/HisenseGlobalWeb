@@ -320,22 +320,6 @@ function loadDelayed() {
   loadDelayedImages();
 }
 
-function updateUSLinks() {
-  const currentUrl = window.location.href;
-  const isUSSite = currentUrl.includes('hisense.com/us');
-
-  if (isUSSite) {
-    const links = document.querySelectorAll('a[href]');
-    links.forEach((link) => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('/us/en')) {
-        const newHref = href.replace(/^\/us\/en/, '/us');
-        link.setAttribute('href', newHref);
-      }
-    });
-  }
-}
-
 async function loadAnnouncementPopup() {
   if (isUniversalEditor()) {
     return false;
@@ -415,13 +399,6 @@ async function loadPage() {
   await loadLazy(document);
   await loadAnnouncementPopup();
   loadDelayed();
-
-  // Update US site links after page load is complete
-  if (document.readyState === 'complete') {
-    updateUSLinks();
-  } else {
-    window.addEventListener('load', updateUSLinks);
-  }
 }
 
 loadPage();

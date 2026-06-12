@@ -2955,6 +2955,12 @@
         "name": "description_name",
         "label": "Feature Description",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "step_name",
+        "label": "Flow Step",
+        "valueType": "string"
       }
     ]
   },
@@ -3406,7 +3412,15 @@
         "name": "image_pc",
         "label": "Image/Video For PC",
         "required": true,
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "video_type"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "reference",
@@ -3414,7 +3428,15 @@
         "name": "image_mobile",
         "label": "Image/Video For Mobile",
         "required": true,
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "video_type"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "boolean",
@@ -3561,6 +3583,31 @@
             "value": "Required when Secondary CTA content is provided"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "video_type",
+        "label": "Video link is external?",
+        "valueType": "boolean",
+        "description": "Switch OFF: Internal | Switch ON: External",
+        "value": false
+      },
+      {
+        "component": "richtext",
+        "name": "external",
+        "label": "External Link",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "video_type"
+            },
+            true
+          ]
+        },
+        "required": true,
+        "value": "",
+        "description": "Note: If an external link is not required, please disable the external link toggle."
       }
     ]
   },
@@ -4354,6 +4401,39 @@
             "image"
           ]
         }
+      },
+      {
+        "component": "boolean",
+        "name": "video_type",
+        "label": "Video link is external?",
+        "valueType": "boolean",
+        "description": "Switch OFF: Internal | Switch ON: External",
+        "value": false,
+        "condition": {
+          "===": [
+            {
+              "var": "mainContent"
+            },
+            "video"
+          ]
+        }
+      },
+      {
+        "component": "richtext",
+        "name": "external",
+        "label": "External Link",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "video_type"
+            },
+            true
+          ]
+        },
+        "required": true,
+        "value": "",
+        "description": "Note: If an external link is not required, please disable the external link toggle."
       }
     ]
   },
@@ -4409,6 +4489,53 @@
         "name": "button-description",
         "label": "Button Description",
         "required": true
+      }
+    ]
+  },
+  {
+    "id": "media-filter",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "filter-label1",
+        "label": "Filter Label 1",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "filter-label2",
+        "label": "Filter Label 2",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "filter-placeholder2",
+        "label": "Filter Placeholder 2",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "search-button",
+        "label": "The text of search button",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "mobile_loadmore",
+        "label": "The text of load more button on mobile",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "number",
+        "name": "page-size",
+        "label": "Items per page",
+        "description": "How many items to show per page.",
+        "valueType": "number"
       }
     ]
   },
