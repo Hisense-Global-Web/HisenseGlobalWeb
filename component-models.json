@@ -2093,14 +2093,21 @@
       },
       {
         "component": "text",
-        "name": "qr-btn",
+        "name": "btn-qr",
         "value": "",
         "label": "Icon Pop-up",
         "valueType": "string"
       },
       {
+        "component": "text",
+        "name": "qr_type",
+        "value": "",
+        "label": "QR Type",
+        "valueType": "string"
+      },
+      {
         "component": "reference",
-        "name": "qr-image",
+        "name": "qr_image",
         "value": "",
         "label": "QR Image",
         "valueType": "string"

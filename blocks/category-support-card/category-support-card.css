@@ -98,10 +98,19 @@
     }
   }
 
+}
+
+.category-support-card-wrapper {
   .qr-mask {
     position: fixed;
     inset: 0;
     background: rgb(0 0 0 / 80%);
+    display: none;
+    z-index: 10000;
+
+    &.show {
+      display: block;
+    }
 
     .qr-popup-box {
       width: min(calc(760 / var(--breakpoint-pc) * 100vw), 760px);
@@ -113,8 +122,18 @@
       top: 50%;
       transform: translate(-50%, -50%);
       padding: var(--size-80);
+      display: grid;
       gap: var(--size-24);
       text-align: center;
+
+      .qr-close {
+        position: absolute;
+        right: var(--size-32);
+        top: var(--size-32);
+        width: var(--size-32);
+        height: var(--size-32);
+        cursor: pointer;
+      }
 
       .qr-popup-tit {
         font-size: var(--size-24);
