@@ -245,7 +245,7 @@
   display: flex;
 }
 
-@media (max-width: 639px) {
+@media (width < 640px) {
   .card-carousel-pagination.show {
     display: none;
   }

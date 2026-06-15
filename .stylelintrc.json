@@ -2,7 +2,6 @@
   "extends": ["stylelint-config-standard"],
   "rules": {
     "no-descending-specificity": null,
-    "number-max-precision": 8,
-    "media-feature-range-notation": null
+    "number-max-precision": 8
   }
 }
