@@ -93,6 +93,15 @@ async function applyChanges(event) {
   return false;
 }
 
+function runCustomAfterUEChange(event, applied) {
+  const resource = event.detail?.request?.target?.resource
+    || event.detail?.request?.target?.container?.resource
+    || event.detail?.request?.to?.container?.resource
+    || event.detail?.response?.resource;
+
+  alert(`UE component changed\nEvent: ${event.type}\nApplied: ${applied}\nResource: ${resource || 'unknown'}`);
+}
+
 function attachEventListners(main) {
   [
     'aue:content-patch',
@@ -104,6 +113,7 @@ function attachEventListners(main) {
   ].forEach((eventType) => main?.addEventListener(eventType, async (event) => {
     event.stopPropagation();
     const applied = await applyChanges(event);
+    runCustomAfterUEChange(event, applied);
     if (!applied) window.location.reload();
   }));
 }
