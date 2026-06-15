@@ -5885,13 +5885,18 @@
     ]
   },
   {
-    "id": "region-countries",
+    "id": "region",
     "fields": [
       {
         "component": "text",
         "name": "region-title",
         "label": "Region Title"
-      },
+      }
+    ]
+  },
+  {
+    "id": "region-countries",
+    "fields": [
       {
         "component": "text",
         "name": "country-title",
