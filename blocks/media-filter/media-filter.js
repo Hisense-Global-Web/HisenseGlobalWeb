@@ -4,7 +4,7 @@ import { isVideoMediaUrl } from '../hero-banner/media-reference.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 
-const { country } = getLocaleFromPath();
+const { country, language } = getLocaleFromPath();
 
 const generateChevronIcon = (diabled = false) => {
   const chevronIcon = document.createElement('div');
@@ -255,7 +255,7 @@ const generateCard = (card) => {
   dateIconEl.alt = 'Publish Date';
   const dateTextEl = document.createElement('div');
   dateTextEl.className = 'date-text';
-  dateTextEl.textContent = publishDate?.length ? formatIsoToUtcStr(publishDate, country) : '';
+  dateTextEl.textContent = publishDate?.length ? formatIsoToUtcStr(publishDate, language) : '';
   dateWrapperEl.append(dateIconEl, dateTextEl);
   bottomWrapperEl.appendChild(dateWrapperEl);
   mediaCardEl.appendChild(bottomWrapperEl);
