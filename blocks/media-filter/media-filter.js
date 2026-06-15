@@ -1,17 +1,10 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
-import { MOCK_DATA } from './mockdata.js';
+import { isVideoMediaUrl } from '../hero-banner/media-reference.js';
 
-const mockOptions1 = ['商标', '园区', '活动', '视频', '产品'];
-const mockOptions2 = [
-  { options: [], parent: '商标' },
-  { options: ['海信国际中心', '海信研发中心', '海信国内工业园', '海信海外工业园'], parent: '园区' },
-  { options: ['体育营销', '展会峰会', '社会责任'], parent: '活动' },
-  { options: ['品牌视频', '体育营销', '园区视频', '产品视频', '社会责任'], parent: '视频' },
-  { options: ['智慧生活', '智慧能源', '半导体', '汽车电子', '网络信息', '海信地产'], parent: '产品' },
-];
+const FIVE_MINUTES_MS = 5 * 60 * 1000;
 
-const { country } = getLocaleFromPath();
+const { country, language } = getLocaleFromPath();
 
 const generateChevronIcon = (diabled = false) => {
   const chevronIcon = document.createElement('div');
@@ -133,9 +126,81 @@ const generateSelectEl = (label, placeholder = null) => {
   return titleSelectWrapperEl;
 };
 
-const getCardList = () => {
-  const { list } = MOCK_DATA;
-  return list;
+const getBaseUrl = () => window.GRAPHQL_BASE_URL || '';
+
+const simpleHash = (str) => {
+  const s = String(str);
+  let h = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    h = (h * 31 + s.charCodeAt(i)) % 2147483647;
+  }
+  return Math.abs(h).toString(36);
+};
+
+const toAbsoluteUrl = (path) => {
+  if (!path) return '';
+  if (/^https?:\/\//i.test(path)) return path;
+
+  const baseUrl = getBaseUrl();
+  if (!baseUrl) return path;
+  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+};
+
+const getGuideListEndpoint = () => `/bin/hisense/media/filter.json?country=${country}`;
+
+const getCacheBustedUrl = (url) => {
+  if (!url) return '';
+  const cacheBuster = simpleHash(Math.floor(Date.now() / FIVE_MINUTES_MS));
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}_t=${cacheBuster}`;
+};
+
+const fetchJson = async (path) => {
+  if (!path) return null;
+
+  const url = getCacheBustedUrl(toAbsoluteUrl(path));
+  const response = await fetch(url, { credentials: 'same-origin' });
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+  return response.json();
+};
+
+const getCardList = async () => {
+  try {
+    const data = await fetchJson(getGuideListEndpoint());
+    if (data?.media?.length) {
+      let mediaList = data.media;
+      // add category and sub-category
+      mediaList.forEach((item) => {
+        const splits = item.categoryPath ? item.categoryPath.split('/') : [];
+        item.category = splits[0] ?? null;
+        item.subCategory = splits[1] ?? null;
+        const isThumbnail = (Array.isArray(item.tags) && item.tags.includes('hisense:media/thumbnail')) || !splits[1];
+        item.isThumbnail = isThumbnail;
+        item.isVideo = isVideoMediaUrl(item.path);
+      });
+
+      // build list field for every thumbnail item
+      mediaList = mediaList.map((item) => {
+        if (item.isThumbnail) {
+          // isThumbnail true时，给子级的list赋值
+          const relatedList = mediaList.filter((i) => i.title === item.title && !i.isThumbnail);
+          return { ...item, list: relatedList };
+        }
+        return item;
+      });
+
+      // Remove all non-thumbnail items from top level
+      mediaList = mediaList.filter((item) => item.isThumbnail);
+      return mediaList;
+    }
+    return [];
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to fetch guides data:', error);
+    return [];
+  }
 };
 
 const getFilterCardList = (dataList, mainSelectValue, subSelectValue, placeholder2Text) => {
@@ -146,10 +211,10 @@ const getFilterCardList = (dataList, mainSelectValue, subSelectValue, placeholde
     let mainMatch = true;
     let subMatch = true;
     if (mainSelectValue) {
-      mainMatch = item.type === mainSelectValue;
+      mainMatch = item.category === mainSelectValue;
     }
     if (subSelectValue && subSelectValue !== placeholder2Text) {
-      subMatch = item.category === subSelectValue;
+      subMatch = item.subCategory === subSelectValue;
     }
     return mainMatch && subMatch;
   });
@@ -157,13 +222,13 @@ const getFilterCardList = (dataList, mainSelectValue, subSelectValue, placeholde
 
 const generateCard = (card) => {
   const {
-    title, category, thumbnail, publishDate,
+    title, subCategory, path, publishDate,
   } = card ?? {};
   const mediaCardEl = document.createElement('div');
   mediaCardEl.className = 'card-wrapper';
   const thumbnailEl = document.createElement('img');
   thumbnailEl.className = 'thumbnail';
-  thumbnailEl.src = thumbnail;
+  thumbnailEl.src = path;
   thumbnailEl.alt = title;
   thumbnailEl.loading = 'lazy';
   mediaCardEl.appendChild(thumbnailEl);
@@ -171,10 +236,10 @@ const generateCard = (card) => {
   bottomWrapperEl.className = 'bottom-wrapper';
   const textContentEl = document.createElement('div');
   textContentEl.className = 'text-content';
-  if (category) {
+  if (subCategory) {
     const categoryEl = document.createElement('div');
     categoryEl.className = 'category';
-    categoryEl.textContent = category;
+    categoryEl.textContent = subCategory;
     textContentEl.appendChild(categoryEl);
   }
   const titleEl = document.createElement('div');
@@ -190,7 +255,7 @@ const generateCard = (card) => {
   dateIconEl.alt = 'Publish Date';
   const dateTextEl = document.createElement('div');
   dateTextEl.className = 'date-text';
-  dateTextEl.textContent = formatIsoToUtcStr(publishDate, country);
+  dateTextEl.textContent = publishDate?.length ? formatIsoToUtcStr(publishDate, language) : '';
   dateWrapperEl.append(dateIconEl, dateTextEl);
   bottomWrapperEl.appendChild(dateWrapperEl);
   mediaCardEl.appendChild(bottomWrapperEl);
@@ -385,7 +450,33 @@ const handleSearchClick = (block, options, dataList) => {
   }, filteredData);
 };
 
-export default function decorate(block) {
+const getSelectOptions = (list) => {
+  if (!Array.isArray(list) || !list.length) return [];
+  const categoryMap = {};
+  list.forEach((item) => {
+    const { category, subCategory } = item;
+    if (!categoryMap[category]) {
+      categoryMap[category] = [];
+    }
+    if (
+      subCategory && !categoryMap[category].includes(subCategory)
+    ) {
+      categoryMap[category].push(subCategory);
+    }
+  });
+
+  const result = Object.keys(categoryMap).map((item) => ({
+    parent: item,
+    options: categoryMap[item],
+  }));
+
+  return result;
+};
+
+export default async function decorate(block) {
+  const cardList = await getCardList();
+  const categoryGroupOptions = getSelectOptions(cardList);
+  const mainOptions = categoryGroupOptions.map((item) => item.parent) ?? [];
   const [label1El, label2El, placeholder2El, buttonTextEl, loadMoreEl, pageSizeEL] = [...block.children] ?? [];
   const loadMoreText = loadMoreEl?.textContent ?? 'Load More';
   const pageSize = Number(pageSizeEL?.textContent) || 9;
@@ -400,11 +491,11 @@ export default function decorate(block) {
   const subSelectWrapperEl = generateSelectEl(label2El?.textContent ?? '', placeholder2Text);
   const subOptionListWrapperEl = subSelectWrapperEl.querySelector('.select-option-list-wrapper');
   subOptionListWrapperEl.classList.add('sub-select');
-  const subOptions = getSubOptions(block, mockOptions2, mockOptions1[0]);
+  const subOptions = getSubOptions(block, categoryGroupOptions, mainOptions[0]);
   // 初始化dropdown list
-  mainOptionListWrapperEl.querySelector('.select-value').textContent = mockOptions1[0] ?? '';
-  setSelectOptionList(mainOptionListWrapperEl, mockOptions1, null, () => {
-    const currentSubOptions = getSubOptions(block, mockOptions2);
+  mainOptionListWrapperEl.querySelector('.select-value').textContent = mainOptions[0] ?? '';
+  setSelectOptionList(mainOptionListWrapperEl, mainOptions, null, () => {
+    const currentSubOptions = getSubOptions(block, categoryGroupOptions);
     setSelectOptionList(subOptionListWrapperEl, [placeholder2Text, ...currentSubOptions], placeholder2Text);
     if (currentSubOptions?.length) {
       block.querySelector('.sub-select')?.classList.remove('disabled');
@@ -423,7 +514,6 @@ export default function decorate(block) {
   }
   searchCardInner.appendChild(mainSelectWrapperEl);
   searchCardInner.appendChild(subSelectWrapperEl);
-  const cardList = getCardList();
   const buttonEl = document.createElement('button');
   buttonEl.className = 'search-button';
   buttonEl.textContent = buttonTextEl?.textContent ?? '';
@@ -440,7 +530,7 @@ export default function decorate(block) {
   bottomWrapperEl.className = 'bottom-wrapper';
   const cardListWrapperEl = document.createElement('div');
   cardListWrapperEl.className = 'card-list-wrapper';
-  const filterDataList = getFilterCardList(cardList, mockOptions1[0], null, placeholder2Text);
+  const filterDataList = getFilterCardList(cardList, mainOptions[0], null, placeholder2Text);
   filterDataList.forEach((card) => {
     const cardEl = generateCard(card);
     cardListWrapperEl.appendChild(cardEl);
