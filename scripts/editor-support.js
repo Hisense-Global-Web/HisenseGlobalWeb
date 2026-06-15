@@ -113,8 +113,8 @@ function attachEventListners(main) {
     'aue:content-copy',
   ].forEach((eventType) => main?.addEventListener(eventType, async (event) => {
     event.stopPropagation();
+    await runCustomAfterUEChange(event);
     const applied = await applyChanges(event);
-    if (applied) await runCustomAfterUEChange(event);
     if (!applied) window.location.reload();
   }));
 }

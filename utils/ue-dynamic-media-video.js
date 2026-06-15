@@ -1,14 +1,8 @@
-import { setVideoSource as setHlsVideoSource } from './hls-video.js';
-
 const HISENSE_DAM_PREFIX = '/content/dam/hisense';
 const MP4_EXTENSION_PATTERN = /\.mp4(?:[?#].*)?$/i;
 
 function getDefaultLocation() {
   return typeof window !== 'undefined' ? window.location : undefined;
-}
-
-function getDefaultDocument() {
-  return typeof document !== 'undefined' ? document : undefined;
 }
 
 function getDefaultFetch() {
@@ -109,40 +103,50 @@ async function fetchRepositoryAsset(assetPath, options = {}) {
   return response.json();
 }
 
-function getElementSrc(element) {
-  return element?.getAttribute?.('src') || element?.src || '';
+function replaceTextValue(value, assetPath, hlsUrl) {
+  if (typeof value !== 'string') return value;
+
+  return value.split(assetPath).join(hlsUrl);
 }
 
-function sourceMatchesAssetPath(src, assetPath, locationLike) {
-  if (!src) return false;
+function rewritePatchValue(patch, assetPath, hlsUrl) {
+  if (!patch) return false;
 
-  try {
-    const locationHref = locationLike?.href || String(locationLike || 'http://localhost/');
-    return decodeURIComponent(new URL(src, locationHref).pathname) === assetPath;
-  } catch (error) {
-    return src === assetPath;
+  if (Array.isArray(patch)) {
+    return patch.reduce((patched, entry) => rewritePatchValue(entry, assetPath, hlsUrl) || patched, false);
   }
+
+  if (typeof patch.value !== 'string') return false;
+
+  const nextValue = replaceTextValue(patch.value, assetPath, hlsUrl);
+  if (nextValue === patch.value) return false;
+
+  patch.value = nextValue;
+  return true;
 }
 
-function findVideosForAsset(assetPath, options = {}) {
-  const root = options.root || getDefaultDocument();
-  const locationLike = options.location || getDefaultLocation();
-  if (!root?.querySelectorAll) return [];
+function rewriteResponseContent(detail, assetPath, hlsUrl) {
+  const updates = detail?.response?.updates;
+  if (!Array.isArray(updates)) return false;
 
-  const videos = new Set();
-  root.querySelectorAll('video').forEach((video) => {
-    if (sourceMatchesAssetPath(getElementSrc(video), assetPath, locationLike)) {
-      videos.add(video);
-    }
+  return updates.reduce((patched, update) => {
+    if (typeof update?.content !== 'string') return patched;
 
-    video.querySelectorAll?.('source').forEach((source) => {
-      if (sourceMatchesAssetPath(getElementSrc(source), assetPath, locationLike)) {
-        videos.add(video);
-      }
-    });
-  });
+    const nextContent = replaceTextValue(update.content, assetPath, hlsUrl);
+    if (nextContent === update.content) return patched;
 
-  return [...videos];
+    update.content = nextContent;
+    return true;
+  }, false);
+}
+
+function rewriteEventValue(event, assetPath, hlsUrl) {
+  const { detail } = event || {};
+  const patchPatched = rewritePatchValue(detail?.patch, assetPath, hlsUrl)
+    || rewritePatchValue(detail?.request?.patch, assetPath, hlsUrl);
+  const responsePatched = rewriteResponseContent(detail, assetPath, hlsUrl);
+
+  return patchPatched || responsePatched;
 }
 
 async function applyDynamicMediaVideoPatch(event, options = {}) {
@@ -154,14 +158,12 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
   const hlsUrl = buildDynamicMediaHlsUrl(assetId, options);
   if (!hlsUrl) return false;
 
-  const videos = findVideosForAsset(assetPath, options);
-  const setVideoSource = options.setVideoSource || setHlsVideoSource;
-  await Promise.all(videos.map((video) => setVideoSource(video, hlsUrl)));
+  const patched = rewriteEventValue(event, assetPath, hlsUrl);
 
   return {
     assetPath,
     hlsUrl,
-    videoCount: videos.length,
+    patched,
   };
 }
 
