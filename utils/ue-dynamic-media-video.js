@@ -149,6 +149,69 @@ function rewriteEventValue(event, assetPath, hlsUrl) {
   return patchPatched || responsePatched;
 }
 
+function getDefaultParentDocument() {
+  try {
+    if (typeof window === 'undefined' || !window.parent || window.parent === window) return null;
+
+    return window.parent.document;
+  } catch (error) {
+    return null;
+  }
+}
+
+function findEditorInput(parentDocument, oldValue) {
+  const fields = [...(parentDocument?.querySelectorAll?.('input, textarea') || [])];
+
+  return fields.find((field) => field.value === oldValue || field.getAttribute?.('value') === oldValue);
+}
+
+function setEditorInputValue(input, value) {
+  const valueSetter = Object.getOwnPropertyDescriptor(input?.constructor?.prototype || {}, 'value')?.set;
+  if (valueSetter) {
+    valueSetter.call(input, value);
+    return;
+  }
+
+  input.value = value;
+}
+
+function createEditorEvent(type, value, options = {}) {
+  const win = typeof window !== 'undefined' ? window : undefined;
+  const EventConstructor = options.EventConstructor || win?.Event;
+  const InputEventConstructor = options.InputEventConstructor || win?.InputEvent || EventConstructor;
+
+  if (type === 'input' && InputEventConstructor) {
+    try {
+      return new InputEventConstructor(type, {
+        bubbles: true,
+        inputType: 'insertReplacementText',
+        data: value,
+      });
+    } catch (error) {
+      // Fall through to Event for browsers that expose InputEvent but reject constructor options.
+    }
+  }
+
+  return new EventConstructor(type, { bubbles: true });
+}
+
+function updateParentEditorInput(oldValue, newValue, options = {}) {
+  if (!oldValue || !newValue || oldValue === newValue) return false;
+
+  const parentDocument = options.parentDocument || getDefaultParentDocument();
+  const input = findEditorInput(parentDocument, oldValue);
+  const win = typeof window !== 'undefined' ? window : undefined;
+  const EventConstructor = options.EventConstructor || win?.Event;
+  if (!input || !EventConstructor) return false;
+
+  setEditorInputValue(input, newValue);
+  input.dispatchEvent(createEditorEvent('input', newValue, options));
+  input.dispatchEvent(createEditorEvent('change', newValue, options));
+  input.dispatchEvent(createEditorEvent('blur', newValue, options));
+
+  return true;
+}
+
 async function applyDynamicMediaVideoPatch(event, options = {}) {
   const assetPath = getPatchValue(event);
   if (!isHisenseMp4AssetPath(assetPath)) return false;
@@ -159,9 +222,11 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
   if (!hlsUrl) return false;
 
   const patched = rewriteEventValue(event, assetPath, hlsUrl);
+  const editorInputPatched = updateParentEditorInput(assetPath, hlsUrl, options);
 
   return {
     assetPath,
+    editorInputPatched,
     hlsUrl,
     patched,
   };
@@ -172,4 +237,5 @@ export {
   buildDynamicMediaHlsUrl,
   buildRepositoryAssetUrl,
   isHisenseMp4AssetPath,
+  updateParentEditorInput,
 };
