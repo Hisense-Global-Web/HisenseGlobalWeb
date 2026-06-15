@@ -1,8 +1,9 @@
-export function runBlockEnhancement(callback, options = {}) {
+function runBlockEnhancement(callback, options = {}) {
   if (typeof callback !== 'function') return () => {};
 
   const { timeout = 3000 } = options;
   let cancelled = false;
+  const win = typeof window !== 'undefined' ? window : undefined;
 
   const run = () => {
     if (cancelled) return;
@@ -13,12 +14,12 @@ export function runBlockEnhancement(callback, options = {}) {
     });
   };
 
-  if (typeof globalThis.requestIdleCallback === 'function') {
-    const idleId = globalThis.requestIdleCallback(run, { timeout });
+  if (typeof win?.requestIdleCallback === 'function') {
+    const idleId = win.requestIdleCallback(run, { timeout });
     return () => {
       cancelled = true;
-      if (typeof globalThis.cancelIdleCallback === 'function') {
-        globalThis.cancelIdleCallback(idleId);
+      if (typeof win.cancelIdleCallback === 'function') {
+        win.cancelIdleCallback(idleId);
       }
     };
   }
@@ -29,3 +30,6 @@ export function runBlockEnhancement(callback, options = {}) {
     clearTimeout(timerId);
   };
 }
+
+export { runBlockEnhancement };
+export default runBlockEnhancement;
