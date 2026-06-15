@@ -67,6 +67,7 @@
 }
 
 .block.collection-banner .body-container .body-text {
+  color: #fff;
   width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
   font-size: var(--fontsize-body1, 16px);
   line-height: 1.5;
@@ -79,7 +80,6 @@
   -webkit-line-clamp: 10;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: red;
 }
 
 .block.collection-banner .body-container .body-text-line-clamp1 {
@@ -258,7 +258,6 @@
     -webkit-line-clamp: 8 !important;
     font-size: var(--size-14) !important;
     line-height: 1.4 !important;
-    color: green !important;
   }
 
   .block.collection-banner .body-text-line-clamp1 {
