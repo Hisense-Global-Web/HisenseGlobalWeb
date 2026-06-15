@@ -1,9 +1,21 @@
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+
+const { country } = getLocaleFromPath();
+const ARROW_ICON = `${window.GRAPHQL_BASE_URL}/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
 export default async function decorate(block) {
   const regionList = document.createElement('div');
   regionList.className = 'region-list';
   [...block.children].forEach((row, index) => {
     if (!index) {
       row.className = 'region-title';
+      const arrow = document.createElement('img');
+      arrow.classList.add('region-title-arrow');
+      arrow.src = ARROW_ICON;
+      arrow.alt = '';
+      arrow.addEventListener('click', (e) => {
+        e.currentTarget.closest('.region').classList.toggle('hide');
+      });
+      row.appendChild(arrow);
     } else {
       row.className = 'region-country';
       regionList.appendChild(row);
