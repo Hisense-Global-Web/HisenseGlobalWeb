@@ -1,0 +1,32 @@
+.region.block {
+  display: flex;
+  flex-direction: column;
+
+  .region-title {
+    padding: var(--size-48) 0 0;
+    font-size: var(--size-24);
+    line-height: 1.2;
+    color: #000;
+    font-weight: var(--fontweight-medium);
+  }
+
+  .region-list {
+    margin: var(--size-32) 0 var(--size-80);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-8) var(--size-80);
+
+    .region-country {
+      width: min(calc(220 / var(--breakpoint-pc) * 100vw), 220px);
+      color: #333;
+      font-size: var(--size-16);
+      line-height: 1.5;
+      font-weight: var(--fontweight-book);
+      cursor: pointer;
+    }
+  }
+}
+
+.region-wrapper ~ .region-wrapper .region-title {
+  border-top: 1px solid #E0E0E0;
+}
