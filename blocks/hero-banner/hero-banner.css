@@ -105,7 +105,7 @@ p {
     gap: var(--size-40);
     z-index: 5;
 
-    @media (width >= 640px) {
+    @media (width>=640px) {
       padding: 0;
     }
   }
