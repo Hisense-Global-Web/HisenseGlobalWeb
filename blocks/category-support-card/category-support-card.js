@@ -29,14 +29,15 @@ export default function decorate(block) {
     const elementItems = [...block.children];
     elementItems.forEach((element) => {
       element.classList.add('category-support-card-item');
-      const [icon, description, link, iconPopup] = element.children;
+      const [icon, description, link, iconPopup, qrImgDom] = element.children;
       icon?.classList?.add('category-support-card-item-icon');
       description?.classList?.add('category-support-card-item-description');
       const linkUrl = link.querySelector('a') ? link.querySelector('a').href : '#';
       link?.remove();
-      iconPopup?.classList?.add('icon-popup');
       // 点击扫码存在
       if (iconPopup && iconPopup.textContent.trim()) {
+        element.classList.add('qr-card-item');
+        iconPopup?.classList?.add('icon-popup');
         // 为点击扫码按钮配置data-qr-type 属性
         const currentQRType = description.textContent.trim();
         iconPopup.setAttribute('data-qr-type', currentQRType);
@@ -48,18 +49,17 @@ export default function decorate(block) {
         let authorQRImg = '';
         if (iconPopup.querySelector('img')) {
           // author 端配置的二维码
-          authorQRImg = iconPopup.querySelector('img').getAttribute('src');
+          authorQRImg = qrImgDom.querySelector('img').getAttribute('src');
+          qrImgDom.remove();
         }
         qrObject.push({
-          qrImgSrc: authorQRImg,
-          qrTitText: currentQRType,
+          qrImgSrc: authorQRImg ?? null,
+          qrTitText: currentQRType ?? '',
         });
 
         // 点击【点击扫码】按钮，展示点击扫码popup
         iconPopup.addEventListener('click', () => {
-          console.log(qrObject, 'qrObject');
           const curQRImgSrc = qrObject.find((item) => item.qrTitText === currentQRType)?.qrImgSrc ?? null;
-          console.log(curQRImgSrc, 'cccccccc');
           qrMask.querySelector('.qr-popup-tit').textContent = `回收${currentQRType}`;
           qrMask.querySelector('.qr-popup-img').src = curQRImgSrc;
           qrMask.classList.toggle('show');

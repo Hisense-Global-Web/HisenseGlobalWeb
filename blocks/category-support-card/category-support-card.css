@@ -23,6 +23,10 @@
     padding-top: var(--spacing-sm, 24px);
     padding-bottom: var(--spacing-m, 32px);
 
+    &.qr-card-item {
+      cursor: unset;
+    }
+
     @media (width < 640px) {
       cursor: default;
       border-radius: var(--radius-xl, 16px);
@@ -91,6 +95,11 @@
     align-items: center;
     justify-content: center;
     gap: var(--size-8);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--color-primary-green-50);
+    }
 
     img {
       width: var(--size-24);
@@ -150,6 +159,7 @@
       .qr-popup-img {
         width: min(calc(180 / var(--breakpoint-pc) * 100vw), 180px);
         height: min(calc(180 / var(--breakpoint-pc) * 100vw), 180px);
+        margin: 0 auto;
       }
     }
   }

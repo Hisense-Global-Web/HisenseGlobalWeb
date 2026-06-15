@@ -2099,13 +2099,6 @@
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "qr_type",
-        "value": "",
-        "label": "QR Type",
-        "valueType": "string"
-      },
-      {
         "component": "reference",
         "name": "qr_image",
         "value": "",
