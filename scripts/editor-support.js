@@ -10,6 +10,7 @@ import {
 } from './aem.js';
 import { decorateRichtext } from './editor-support-rte.js';
 import { decorateMain } from './scripts.js';
+import { applyDynamicMediaVideoPatch } from '../utils/ue-dynamic-media-video.js';
 
 async function applyChanges(event) {
   // redecorate default content and blocks on patches (in the properties rail)
@@ -93,13 +94,13 @@ async function applyChanges(event) {
   return false;
 }
 
-function runCustomAfterUEChange(event, applied) {
-  const resource = event.detail?.request?.target?.resource
-    || event.detail?.request?.target?.container?.resource
-    || event.detail?.request?.to?.container?.resource
-    || event.detail?.response?.resource;
-
-  alert(`UE component changed\nEvent: ${event.type}\nApplied: ${applied}\nResource: ${resource || 'unknown'}`);
+async function runCustomAfterUEChange(event) {
+  try {
+    await applyDynamicMediaVideoPatch(event);
+  } catch (error) {
+    /* eslint-disable-next-line no-console */
+    console.warn('Failed to apply Dynamic Media video preview:', error);
+  }
 }
 
 function attachEventListners(main) {
@@ -113,7 +114,7 @@ function attachEventListners(main) {
   ].forEach((eventType) => main?.addEventListener(eventType, async (event) => {
     event.stopPropagation();
     const applied = await applyChanges(event);
-    runCustomAfterUEChange(event, applied);
+    if (applied) await runCustomAfterUEChange(event);
     if (!applied) window.location.reload();
   }));
 }
