@@ -68,8 +68,8 @@ export default function decorate(block) {
           const curQRImgSrc = qrObject.find((item) => item.qrTitText === currentQRType)?.qrImgSrc ?? null;
           qrMask.querySelector('.qr-popup-tit').textContent = `回收${currentQRType}`;
           if (curQRImgSrc) {
+            qrPopupImg.src = curQRImgSrc;
             qrPopupBox.append(qrPopupImg);
-            qrMask.querySelector('.qr-popup-img').src = curQRImgSrc;
           }
           document.body.style.overflow = 'hidden';
           qrMask.classList.toggle('show');
