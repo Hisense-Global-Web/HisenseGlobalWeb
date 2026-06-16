@@ -420,11 +420,13 @@ const loadPage = (block, options, dataList, type = 'PC') => {
     const cardEl = generateCard(card);
     const cardWrapperEl = block.querySelector('.card-list-wrapper');
     if (cardEl) {
-      cardEl.addEventListener('click', (e) => {
-        console.log(e);
-        // eslint-disable-next-line no-use-before-define
-        buildGalleryPopup(card);
-      });
+      if (card.list.length) {
+        cardEl.style.cursor = 'pointer';
+        cardEl.addEventListener('click', () => {
+          // eslint-disable-next-line no-use-before-define
+          buildGalleryPopup(card);
+        });
+      }
       cardWrapperEl.appendChild(cardEl);
     }
   });
@@ -712,15 +714,25 @@ const buildGalleryPopup = (cardData) => {
   btnGroup.className = 'btn-group';
   const downloadBtn = document.createElement('div');
   downloadBtn.className = 'download-btn';
-  downloadBtn.textContent = '下载照片';
+  downloadBtn.textContent = mediaList[currentIndex].isVideo ? '下载视频' : '下载照片';
   downloadBtn.addEventListener('click', () => {
-    console.log(`Download clicked ${currentIndex}`);
+    const { id, path } = mediaList[currentIndex];
+    const link = document.createElement('a');
+    link.href = getCacheBustedUrl(toAbsoluteUrl(`/bin/hisense/media/download?id=${id}&path=${path}`));
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   });
   const downloadAllBtn = document.createElement('div');
   downloadAllBtn.className = 'download-all-btn';
   downloadAllBtn.textContent = '下载全部';
   downloadAllBtn.addEventListener('click', () => {
-    console.log('Download all clicked');
+    const { id, path, title } = cardData;
+    const link = document.createElement('a');
+    link.href = getCacheBustedUrl(toAbsoluteUrl(`/bin/hisense/media/download?id=${id}&path=${path}&isDownloadAll=true&title=${title}`));
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   });
   btnGroup.append(downloadBtn, downloadAllBtn);
 
