@@ -4,6 +4,7 @@ export default function decorate(block) {
   try {
     const { country } = getLocaleFromPath();
     const qrObject = []; // 所有回收分类的标题与二维码
+
     // qr popup dom
     const qrMask = document.createElement('div');
     qrMask.className = 'qr-mask';
@@ -19,12 +20,12 @@ export default function decorate(block) {
     qrPopupTip.textContent = '请使用海信爱家APP扫描二维码，查看回收相关资料';
     const qrPopupImg = document.createElement('img');
     qrPopupImg.className = 'qr-popup-img';
-    qrPopupBox.append(qrClose, qrPopupTit, qrPopupTip, qrPopupImg);
+    qrPopupBox.append(qrClose, qrPopupTit, qrPopupTip);
     qrMask.append(qrPopupBox);
     qrClose.addEventListener('click', () => {
       qrMask.classList.remove('show');
+      document.body.style.overflow = 'auto';
     });
-    block.closest('.category-support-card-wrapper').append(qrMask);
 
     const elementItems = [...block.children];
     elementItems.forEach((element) => {
@@ -47,11 +48,15 @@ export default function decorate(block) {
         qrIcon.src = `/content/dam/hisense/${country}/common-icons/qr-icon.svg`;
         iconPopup.prepend(qrIcon);
         let authorQRImg = '';
-        if (iconPopup.querySelector('img')) {
+        if (qrImgDom.querySelector('img')) {
           // author 端配置的二维码
           authorQRImg = qrImgDom.querySelector('img').getAttribute('src');
           qrImgDom.remove();
+        } else {
+          // 移除dom 元素，避免点位之后 ，item 元素不等高
+          qrImgDom.remove();
         }
+        // 整合配置的二维码图片与标题
         qrObject.push({
           qrImgSrc: authorQRImg ?? null,
           qrTitText: currentQRType ?? '',
@@ -59,15 +64,25 @@ export default function decorate(block) {
 
         // 点击【点击扫码】按钮，展示点击扫码popup
         iconPopup.addEventListener('click', () => {
+          qrPopupImg.remove();
           const curQRImgSrc = qrObject.find((item) => item.qrTitText === currentQRType)?.qrImgSrc ?? null;
           qrMask.querySelector('.qr-popup-tit').textContent = `回收${currentQRType}`;
-          qrMask.querySelector('.qr-popup-img').src = curQRImgSrc;
+          if (curQRImgSrc) {
+            qrPopupBox.append(qrPopupImg);
+            qrMask.querySelector('.qr-popup-img').src = curQRImgSrc;
+          }
+          document.body.style.overflow = 'hidden';
           qrMask.classList.toggle('show');
         });
       } else {
         element.addEventListener('click', () => {
           window.location.href = linkUrl;
         });
+      }
+      const allQRCardItem = block.querySelectorAll('.qr-card-item');
+      if (allQRCardItem.length) {
+        // 点击扫码弹窗只生成一次 dom
+        block.closest('.category-support-card-wrapper').append(qrMask);
       }
       // element.addEventListener('click', () => {
       //   window.location.href = linkUrl;
