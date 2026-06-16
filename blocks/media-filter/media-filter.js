@@ -147,7 +147,7 @@ const toAbsoluteUrl = (path) => {
   return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
 };
 
-const getGuideListEndpoint = () => `/bin/hisense/media/filter.json?country=${country}`;
+const getMediaListEndpoint = () => `/bin/hisense/media/filter.json?country=${country}`;
 
 const getCacheBustedUrl = (url) => {
   if (!url) return '';
@@ -167,9 +167,27 @@ const fetchJson = async (path) => {
   return response.json();
 };
 
+const sortCardList = (list) => {
+  if (!Array.isArray(list)) return [];
+  return list.slice().sort((a, b) => {
+    // 若 publishDate 字段为字符串类型的日期，直接比较新的在前
+    if (a.publishDate && b.publishDate) {
+      // 可按ISO格式直接比
+      if (typeof a.publishDate === 'string' && typeof b.publishDate === 'string') {
+        return b.publishDate.localeCompare(a.publishDate);
+      }
+      // 否则尝试转为数字
+      return Number(b.publishDate) - Number(a.publishDate);
+    }
+    if (a.publishDate) return -1;
+    if (b.publishDate) return 1;
+    return 0;
+  });
+};
+
 const getCardList = async () => {
   try {
-    const data = await fetchJson(getGuideListEndpoint());
+    const data = await fetchJson(getMediaListEndpoint());
     if (data?.media?.length) {
       let mediaList = data.media;
       // add category and sub-category
@@ -526,7 +544,7 @@ function createVideo(videoUrl) {
   video.innerHTML = '';
   video.appendChild(source);
   video.addEventListener('canplay', () => {
-    video.play().catch(() => {});
+    video.play().catch(() => { });
   });
   return video;
 }
@@ -752,11 +770,12 @@ export default async function decorate(block) {
   }
   searchCardInner.appendChild(mainSelectWrapperEl);
   searchCardInner.appendChild(subSelectWrapperEl);
+  const sortedCardList = sortCardList(cardList);
   const buttonEl = document.createElement('button');
   buttonEl.className = 'search-button';
   buttonEl.textContent = buttonTextEl?.textContent ?? '';
   buttonEl.addEventListener('click', () => {
-    handleSearchClick(block, { placeholder2Text, pageSize }, cardList);
+    handleSearchClick(block, { placeholder2Text, pageSize }, sortedCardList);
   });
   searchCardInner.appendChild(buttonEl);
   searchCardWrapper.appendChild(searchCardInner);
@@ -768,7 +787,7 @@ export default async function decorate(block) {
   bottomWrapperEl.className = 'bottom-wrapper';
   const cardListWrapperEl = document.createElement('div');
   cardListWrapperEl.className = 'card-list-wrapper';
-  const filterDataList = getFilterCardList(cardList, mainOptions[0], null, placeholder2Text);
+  const filterDataList = getFilterCardList(sortedCardList, mainOptions[0], null, placeholder2Text);
   const body = document.querySelector('body');
   const mediaCenterPopup = document.createElement('div');
   mediaCenterPopup.id = 'media-center-popup';
