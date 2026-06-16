@@ -581,7 +581,6 @@ function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
 }
 
 const buildGalleryPopup = (cardData) => {
-  console.log(cardData);
   // start popup
   let currentIndex = 0;
   const mediaCenterPopup = document.querySelector('#media-center-popup');
@@ -668,7 +667,8 @@ const buildGalleryPopup = (cardData) => {
         coreMedia.appendChild(createVideo(item.link));
         dowloadbtn.textContent = '下载视频';
       } else {
-        coreMedia.appendChild(createImg(item.link));
+        const link = e.currentTarget.querySelector('img').src;
+        coreMedia.appendChild(createImg(link));
         dowloadbtn.textContent = '下载照片';
       }
       coreMedia.querySelector('.gallery-number-group .gallery-number').textContent = `${currentIndex + 1 ?? 1}`;
