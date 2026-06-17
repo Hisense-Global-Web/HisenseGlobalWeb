@@ -7,6 +7,7 @@
 // and any block being loaded
 
 export function decorateRichtext(container = document) {
+  console.log('decorateRichtext');
   function deleteInstrumentation(element) {
     delete element.dataset.richtextResource;
     delete element.dataset.richtextProp;
