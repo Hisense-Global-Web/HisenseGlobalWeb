@@ -13,6 +13,7 @@ import { decorateMain } from './scripts.js';
 import { applyDynamicMediaVideoPatch } from '../utils/ue-dynamic-media-video.js';
 
 async function applyChanges(event) {
+  console.log('applyChanges');
   // redecorate default content and blocks on patches (in the properties rail)
   const { detail } = event;
 

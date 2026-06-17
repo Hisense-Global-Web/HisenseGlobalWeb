@@ -83,8 +83,9 @@ async function loadFonts() {
 /**
  * Builds all synthetic blocks in a container element.
  */
-function buildAutoBlocks() {
+function buildAutoBlocks(main) {
   try {
+    console.log(main);
     // TODO: add auto block, if needed
   } catch (error) {
     // eslint-disable-next-line no-console
