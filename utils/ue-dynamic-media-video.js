@@ -160,6 +160,7 @@ function getDefaultParentDocument() {
 }
 
 function findEditorInput(parentDocument, oldValue) {
+  console.log('findEditorInput');
   const fields = [...(parentDocument?.querySelectorAll?.('input, textarea') || [])];
 
   return fields.find((field) => field.value === oldValue || field.getAttribute?.('value') === oldValue);
@@ -176,6 +177,7 @@ function setEditorInputValue(input, value) {
 }
 
 function createEditorEvent(type, value, options = {}) {
+  console.log('createEditorEvent');
   const win = typeof window !== 'undefined' ? window : undefined;
   const EventConstructor = options.EventConstructor || win?.Event;
   const InputEventConstructor = options.InputEventConstructor || win?.InputEvent || EventConstructor;
