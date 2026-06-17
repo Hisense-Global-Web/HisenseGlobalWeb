@@ -104,6 +104,7 @@ async function runCustomAfterUEChange(event) {
 }
 
 function attachEventListners(main) {
+  console.log('attachEventListners');
   [
     'aue:content-patch',
     'aue:content-update',
@@ -112,6 +113,7 @@ function attachEventListners(main) {
     'aue:content-remove',
     'aue:content-copy',
   ].forEach((eventType) => main?.addEventListener(eventType, async (event) => {
+    console.log('main addEventListener eventType', eventType);
     event.stopPropagation();
     await runCustomAfterUEChange(event);
     const applied = await applyChanges(event);
@@ -120,7 +122,7 @@ function attachEventListners(main) {
 }
 
 attachEventListners(document.querySelector('main'));
-
+console.log('editor-support');
 // decorate rich text
 // this has to happen after decorateMain(), and everythime decorateBlocks() is called
 decorateRichtext();
