@@ -132,6 +132,45 @@ decorateRichtext();
 const observer = new MutationObserver(() => decorateRichtext());
 observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: true });
 
+function adjustAsideControls(aside) {
+  // 在这里进行你的调整
+  // 例如：隐藏某些控件、调整顺序、添加自定义按钮等
+  console.log('Adjusting aside controls...', aside);
+}
+
+function observeAside() {
+  const observer1 = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      for (const node of mutation.addedNodes) {
+        if (node.tagName === 'ASIDE') {
+          // 找到 aside 了！
+          console.log('Aside found:', node);
+          adjustAsideControls(node);
+          observer1.disconnect();
+          return;
+        }
+        // 检查子元素中是否有 aside
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          const aside = node.querySelector('aside');
+          if (aside) {
+            console.log('Aside found inside:', aside);
+            adjustAsideControls(aside);
+            observer1.disconnect();
+            return;
+          }
+        }
+      }
+    }
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+
+  // 设置超时，防止无限等待
+  setTimeout(() => observer.disconnect(), 30000);
+}
 // 在 editor-support.js 末尾添加
 window.addEventListener('aue:ui-ready', () => {
   console.log('UE UI is ready');
