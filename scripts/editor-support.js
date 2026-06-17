@@ -131,3 +131,17 @@ decorateRichtext();
 // for new richtext-instrumented elements. this happens for example when using experimentation.
 const observer = new MutationObserver(() => decorateRichtext());
 observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: true });
+
+// 在 editor-support.js 末尾添加
+window.addEventListener('aue:ui-ready', () => {
+  console.log('UE UI is ready');
+  // 此时可以尝试获取 aside
+  const aside = document.querySelector('aside');
+  if (aside) {
+    // 进行你的调整
+    adjustAsideControls(aside);
+  } else {
+    // 可能还需要等待一小会儿，使用 MutationObserver
+    observeAside();
+  }
+}, { once: true });
