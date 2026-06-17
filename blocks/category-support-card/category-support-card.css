@@ -114,6 +114,12 @@
 
 }
 
+.category-support-card p {
+  margin: 0;
+  margin-block: 0;
+  display: inline;
+}
+
 .category-support-card-wrapper {
   .qr-mask {
     position: fixed;
@@ -169,12 +175,6 @@
       }
     }
   }
-}
-
-.category-support-card p {
-  margin: 0;
-  margin-block: 0;
-  display: inline;
 }
 
 @media (width < 640px) {

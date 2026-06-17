@@ -53,7 +53,7 @@ export default function decorate(block) {
           authorQRImg = qrImgDom.querySelector('img').getAttribute('src');
           qrImgDom.remove();
         } else {
-          // 移除dom 元素，避免点位之后 ，item 元素不等高
+          // 移除dom 元素，避免空元素占位 ，item 元素不等高
           qrImgDom.remove();
         }
         // 整合配置的二维码图片与标题
