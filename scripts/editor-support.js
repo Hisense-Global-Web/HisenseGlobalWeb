@@ -133,54 +133,60 @@ const observer = new MutationObserver(() => decorateRichtext());
 observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: true });
 
 function adjustAsideControls(aside) {
-  // 在这里进行你的调整
-  // 例如：隐藏某些控件、调整顺序、添加自定义按钮等
-  console.log('Adjusting aside controls...', aside);
+  console.log('=== Aside Controls Adjustment ===');
+  console.log('Found aside:', aside);
+  
+  // 在这里进行你的调整逻辑
+  // 例如：
+  // 1. 查找特定的控件元素
+  // const controls = aside.querySelectorAll('.aue-control');
+  // 2. 隐藏不需要的控件
+  // controls.forEach(ctrl => { ... });
+  // 3. 调整控件顺序
+  // 4. 添加自定义控件
 }
 
-function observeAside() {
-  const observer1 = new MutationObserver((mutations) => {
-    for (const mutation of mutations) {
-      for (const node of mutation.addedNodes) {
-        if (node.tagName === 'ASIDE') {
-          // 找到 aside 了！
-          console.log('Aside found:', node);
-          adjustAsideControls(node);
-          observer1.disconnect();
-          return;
-        }
-        // 检查子元素中是否有 aside
-        if (node.nodeType === Node.ELEMENT_NODE) {
-          const aside = node.querySelector('aside');
-          if (aside) {
-            console.log('Aside found inside:', aside);
-            adjustAsideControls(aside);
-            observer1.disconnect();
-            return;
+function setupAsideObserver() {
+  const checkAndAdjust = () => {
+    const aside = document.querySelector('aside');
+    if (aside) {
+      adjustAsideControls(aside);
+      return true;
+    }
+    return false;
+  };
+
+  // 立即检查一次
+  if (checkAndAdjust()) return;
+
+  // 监听 aue:ui-ready 事件
+  window.addEventListener('aue:ui-ready', () => {
+    if (!checkAndAdjust()) {
+      // 使用 MutationObserver 等待 aside 出现
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          for (const node of mutation.addedNodes) {
+            if (node.tagName === 'ASIDE') {
+              adjustAsideControls(node);
+              observer.disconnect();
+              return;
+            }
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const aside = node.querySelector('aside');
+              if (aside) {
+                adjustAsideControls(aside);
+                observer.disconnect();
+                return;
+              }
+            }
           }
         }
-      }
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
+      setTimeout(() => observer.disconnect(), 30000);
     }
-  });
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-  });
-
-  // 设置超时，防止无限等待
-  setTimeout(() => observer.disconnect(), 30000);
+  }, { once: true });
 }
-// 在 editor-support.js 末尾添加
-window.addEventListener('aue:ui-ready', () => {
-  console.log('UE UI is ready');
-  // 此时可以尝试获取 aside
-  const aside = document.querySelector('aside');
-  if (aside) {
-    // 进行你的调整
-    adjustAsideControls(aside);
-  } else {
-    // 可能还需要等待一小会儿，使用 MutationObserver
-    observeAside();
-  }
-}, { once: true });
+
+setupAsideObserver();
