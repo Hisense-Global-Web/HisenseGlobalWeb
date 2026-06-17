@@ -84,9 +84,6 @@ export default function decorate(block) {
         // 点击扫码弹窗只生成一次 dom
         block.closest('.category-support-card-wrapper').append(qrMask);
       }
-      // element.addEventListener('click', () => {
-      //   window.location.href = linkUrl;
-      // });
     });
   } catch (error) {
     /* eslint-disable-next-line no-console */
