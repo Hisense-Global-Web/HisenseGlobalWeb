@@ -198,6 +198,7 @@ function createEditorEvent(type, value, options = {}) {
 }
 
 function updateParentEditorInput(oldValue, newValue, options = {}) {
+  console.log('updateParentEditorInput');
   if (!oldValue || !newValue || oldValue === newValue) return false;
 
   const parentDocument = options.parentDocument || getDefaultParentDocument();
