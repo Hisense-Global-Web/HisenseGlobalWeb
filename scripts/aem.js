@@ -589,6 +589,9 @@ function buildBlock(blockName, content) {
  */
 async function loadBlock(block) {
   console.log('loadBlock');
+  if (block.getAttribute('data-aue-model') === 'dynamic-media-image') {
+    console.log('dynamic-media-image');
+  }
   const status = block.dataset.blockStatus;
   if (status !== 'loading' && status !== 'loaded') {
     block.dataset.blockStatus = 'loading';
