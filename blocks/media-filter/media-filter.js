@@ -1,6 +1,7 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 import { isVideoMediaUrl } from '../hero-banner/media-reference.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 
@@ -146,7 +147,7 @@ const toAbsoluteUrl = (path) => {
   return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
 };
 
-const getGuideListEndpoint = () => `/bin/hisense/media/filter.json?country=${country}`;
+const getMediaListEndpoint = () => `/bin/hisense/media/filter.json?country=${country}`;
 
 const getCacheBustedUrl = (url) => {
   if (!url) return '';
@@ -166,9 +167,27 @@ const fetchJson = async (path) => {
   return response.json();
 };
 
+const sortCardList = (list) => {
+  if (!Array.isArray(list)) return [];
+  return list.slice().sort((a, b) => {
+    // 若 publishDate 字段为字符串类型的日期，直接比较新的在前
+    if (a.publishDate && b.publishDate) {
+      // 可按ISO格式直接比
+      if (typeof a.publishDate === 'string' && typeof b.publishDate === 'string') {
+        return b.publishDate.localeCompare(a.publishDate);
+      }
+      // 否则尝试转为数字
+      return Number(b.publishDate) - Number(a.publishDate);
+    }
+    if (a.publishDate) return -1;
+    if (b.publishDate) return 1;
+    return 0;
+  });
+};
+
 const getCardList = async () => {
   try {
-    const data = await fetchJson(getGuideListEndpoint());
+    const data = await fetchJson(getMediaListEndpoint());
     if (data?.media?.length) {
       let mediaList = data.media;
       // add category and sub-category
@@ -401,6 +420,13 @@ const loadPage = (block, options, dataList, type = 'PC') => {
     const cardEl = generateCard(card);
     const cardWrapperEl = block.querySelector('.card-list-wrapper');
     if (cardEl) {
+      if (card.list.length) {
+        cardEl.style.cursor = 'pointer';
+        cardEl.addEventListener('click', () => {
+          // eslint-disable-next-line no-use-before-define
+          buildGalleryPopup(card);
+        });
+      }
       cardWrapperEl.appendChild(cardEl);
     }
   });
@@ -473,6 +499,248 @@ const getSelectOptions = (list) => {
   return result;
 };
 
+function createScrollButton(direction) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = `scroll-btn scroll-${direction}`;
+  button.setAttribute('aria-label', direction === 'left' ? 'Scroll left' : 'Scroll right');
+  button.disabled = direction === 'left';
+  // 创建图片元素
+  const img = document.createElement('img');
+  img.src = direction === 'left' ? `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-left-g.svg` : `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-right-g.svg`;
+  img.alt = direction === 'left' ? 'Scroll left' : 'Scroll right';
+  img.className = 'disabled-icon';
+  button.appendChild(img);
+  // 创建图片元素
+  const imgClick = document.createElement('img');
+  imgClick.src = direction === 'left' ? `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-left.svg` : `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-right.svg`;
+  imgClick.alt = direction === 'left' ? 'Scroll left' : 'Scroll right';
+  imgClick.className = 'click-icon';
+  button.appendChild(imgClick);
+  return button;
+}
+
+function updateButtons(tabsList, leftBtn, rightBtn) {
+  leftBtn.disabled = tabsList.scrollLeft <= 0;
+  rightBtn.disabled = tabsList.scrollLeft + tabsList.clientWidth + 10 >= tabsList.scrollWidth;
+}
+
+function createImg(url) {
+  const img = document.createElement('img');
+  img.src = url;
+  return img;
+}
+
+function createVideo(videoUrl) {
+  const video = document.createElement('video');
+  video.classList.add('autoplay-video');
+  video.setAttribute('data-video-autoplay', 'true');
+  video.controls = true;
+  video.width = 600;
+  video.preload = 'auto';
+  video.playsInline = true;
+  video.muted = true; // iPhone 要求静音才能自动播放
+  const source = document.createElement('source');
+  source.src = videoUrl;
+  source.type = 'video/mp4';
+  video.innerHTML = '';
+  video.appendChild(source);
+  video.addEventListener('canplay', () => {
+    video.play().catch(() => { });
+  });
+  return video;
+}
+
+function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
+  // 左箭头
+  leftBtn.addEventListener('click', () => {
+    const isMobile = window.innerWidth < SCREEN_POINT;
+    const SCROLL_STEP = isMobile ? ((54 * Math.min(window.innerWidth, 390)) / 390) : ((54 * Math.min(window.innerWidth, 1440)) / 1440);
+    tabsList.scrollBy({ left: -SCROLL_STEP, behavior: 'smooth' });
+    setTimeout(() => {
+      updateButtons(tabsList, leftBtn, rightBtn);
+    }, 300);
+  });
+
+  // 右箭头
+  rightBtn.addEventListener('click', () => {
+    const isMobile = window.innerWidth < SCREEN_POINT;
+    const SCROLL_STEP = isMobile ? ((54 * Math.min(window.innerWidth, 390)) / 390) : ((54 * Math.min(window.innerWidth, 1440)) / 1440);
+    tabsList.scrollBy({ left: SCROLL_STEP, behavior: 'smooth' });
+    setTimeout(() => {
+      updateButtons(tabsList, leftBtn, rightBtn);
+    }, 300);
+  });
+
+  tabsList.addEventListener('scroll', () => {
+    updateButtons(tabsList, leftBtn, rightBtn);
+  });
+
+  // ---------- 核心修复：resize 自动对齐校正 ----------
+  window.addEventListener('resize', () => {
+    const isMobile = window.innerWidth < SCREEN_POINT;
+    const firstItem = tabsList.querySelector('.product-filter-item');
+    if (firstItem) {
+      if (isMobile) {
+        // 手机端item宽度为100vw
+        const itemWidth = window.innerWidth;
+        const closestScroll = Math.round(tabsList.scrollLeft / itemWidth) * itemWidth;
+        tabsList.scrollTo({ left: closestScroll, behavior: 'instant' });
+      } else {
+        // 桌面端原有逻辑
+        const itemWidth = firstItem.offsetWidth + 16; // 包含间距
+        const closestScroll = Math.round(tabsList.scrollLeft / itemWidth) * itemWidth;
+        tabsList.scrollTo({ left: closestScroll, behavior: 'instant' });
+      }
+    }
+
+    updateButtons(tabsList, leftBtn, rightBtn);
+  });
+
+  updateButtons(tabsList, leftBtn, rightBtn);
+}
+
+const buildGalleryPopup = (cardData) => {
+  // start popup
+  let currentIndex = 0;
+  const mediaCenterPopup = document.querySelector('#media-center-popup');
+  mediaCenterPopup.innerHTML = '';
+  const popupCloseImg = document.createElement('img');
+  popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+  popupCloseImg.className = 'close-icon';
+  popupCloseImg.addEventListener('click', (e) => {
+    e.stopPropagation();
+    mediaCenterPopup.style.display = 'none';
+    document.querySelector('#gallery-mask').style.display = 'none';
+  });
+
+  const titleGroup = document.createElement('div');
+  titleGroup.className = 'title-group';
+  const titleEl = document.createElement('div');
+  titleEl.className = 'media-title';
+  titleEl.textContent = cardData.title;
+
+  const dateEl = document.createElement('div');
+  dateEl.className = 'media-date';
+  dateEl.textContent = formatIsoToUtcStr(cardData.publishDate, language);
+  titleGroup.append(titleEl, dateEl);
+
+  const mediaList = cardData.list;
+
+  const coreMediaEl = document.createElement('div');
+  coreMediaEl.className = 'core-media';
+
+  const galleryNumberGroup = document.createElement('div');
+  galleryNumberGroup.className = 'gallery-number-group';
+
+  const galleryNumberEl = document.createElement('span');
+  galleryNumberEl.className = 'gallery-number';
+  galleryNumberEl.textContent = `${currentIndex + 1 ?? 1}`;
+  const galleryTotalEl = document.createElement('span');
+  galleryTotalEl.className = 'gallery-total';
+  galleryTotalEl.innerHTML = ` / ${mediaList.length}`;
+  galleryNumberGroup.append(galleryNumberEl, galleryTotalEl);
+  coreMediaEl.append(galleryNumberGroup);
+
+  const galleryListGroup = document.createElement('div');
+  galleryListGroup.className = 'gallery-list-group';
+  const leftBtn = createScrollButton('left');
+  const rightBtn = createScrollButton('right');
+  const tabsContainer = document.createElement('div');
+  tabsContainer.className = 'tabs-container';
+
+  const tabs = document.createElement('ul');
+  tabs.className = 'gallery-tabs';
+
+  mediaList.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.className = `tab-item ${index === currentIndex ? 'current' : ''} ${item.isVideo ? 'video' : 'image'}`;
+    if (item.isVideo) {
+      const video = document.createElement('video');
+      video.controls = false;
+      video.width = 44;
+      video.preload = 'auto';
+      video.playsInline = false;
+      video.muted = true; // iPhone 要求静音才能自动播放
+      const source = document.createElement('source');
+      source.src = item.link;
+      source.type = 'video/mp4';
+      video.innerHTML = '';
+      video.appendChild(source);
+      li.appendChild(video);
+    } else {
+      li.appendChild(createImg(item.link));
+    }
+    li.addEventListener('click', (e) => {
+      currentIndex = index;
+      e.currentTarget.parentElement.querySelector('.current').classList.remove('current');
+      e.currentTarget.classList.add('current');
+      const popup = e.currentTarget.closest('#media-center-popup');
+      const coreMedia = popup.querySelector('.core-media');
+      const dowloadbtn = popup.querySelector('.btn-group .download-btn');
+      Array.from(coreMedia.children).forEach((child) => {
+        if (!child.matches('.gallery-number-group')) {
+          coreMedia.removeChild(child);
+        }
+      });
+      if (item.isVideo) {
+        coreMedia.appendChild(createVideo(item.link));
+        dowloadbtn.textContent = '下载视频';
+      } else {
+        const link = e.currentTarget.querySelector('img').src;
+        coreMedia.appendChild(createImg(link));
+        dowloadbtn.textContent = '下载照片';
+      }
+      coreMedia.querySelector('.gallery-number-group .gallery-number').textContent = `${currentIndex + 1 ?? 1}`;
+    });
+    tabs.append(li);
+    if (index === currentIndex) {
+      if (item.isVideo) {
+        coreMediaEl.appendChild(createVideo(item.link));
+      } else {
+        coreMediaEl.appendChild(createImg(item.link));
+      }
+    }
+  });
+  attachScrollHandlers(tabs, leftBtn, rightBtn);
+
+  if (tabs?.childElementCount > 9) {
+    rightBtn.removeAttribute('disabled');
+  }
+  tabsContainer.append(tabs);
+  galleryListGroup.append(leftBtn, tabsContainer, rightBtn);
+
+  const btnGroup = document.createElement('div');
+  btnGroup.className = 'btn-group';
+  const downloadBtn = document.createElement('div');
+  downloadBtn.className = 'download-btn';
+  downloadBtn.textContent = mediaList[currentIndex].isVideo ? '下载视频' : '下载照片';
+  downloadBtn.addEventListener('click', () => {
+    const { id, path } = mediaList[currentIndex];
+    const link = document.createElement('a');
+    link.href = getCacheBustedUrl(toAbsoluteUrl(`/bin/hisense/media/download?id=${id}&path=${path}`));
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+  const downloadAllBtn = document.createElement('div');
+  downloadAllBtn.className = 'download-all-btn';
+  downloadAllBtn.textContent = '下载全部';
+  downloadAllBtn.addEventListener('click', () => {
+    const { id, path, title } = cardData;
+    const link = document.createElement('a');
+    link.href = getCacheBustedUrl(toAbsoluteUrl(`/bin/hisense/media/download?id=${id}&path=${path}&isDownloadAll=true&title=${title}`));
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+  btnGroup.append(downloadBtn, downloadAllBtn);
+
+  mediaCenterPopup.append(popupCloseImg, titleGroup, coreMediaEl, galleryListGroup, btnGroup);
+  mediaCenterPopup.style.display = 'flex';
+  document.querySelector('#gallery-mask').style.display = 'block';
+};
+
 export default async function decorate(block) {
   const cardList = await getCardList();
   const categoryGroupOptions = getSelectOptions(cardList);
@@ -514,11 +782,12 @@ export default async function decorate(block) {
   }
   searchCardInner.appendChild(mainSelectWrapperEl);
   searchCardInner.appendChild(subSelectWrapperEl);
+  const sortedCardList = sortCardList(cardList);
   const buttonEl = document.createElement('button');
   buttonEl.className = 'search-button';
   buttonEl.textContent = buttonTextEl?.textContent ?? '';
   buttonEl.addEventListener('click', () => {
-    handleSearchClick(block, { placeholder2Text, pageSize }, cardList);
+    handleSearchClick(block, { placeholder2Text, pageSize }, sortedCardList);
   });
   searchCardInner.appendChild(buttonEl);
   searchCardWrapper.appendChild(searchCardInner);
@@ -530,9 +799,21 @@ export default async function decorate(block) {
   bottomWrapperEl.className = 'bottom-wrapper';
   const cardListWrapperEl = document.createElement('div');
   cardListWrapperEl.className = 'card-list-wrapper';
-  const filterDataList = getFilterCardList(cardList, mainOptions[0], null, placeholder2Text);
+  const filterDataList = getFilterCardList(sortedCardList, mainOptions[0], null, placeholder2Text);
+  const body = document.querySelector('body');
+  const mediaCenterPopup = document.createElement('div');
+  mediaCenterPopup.id = 'media-center-popup';
+  const mask = document.createElement('div');
+  mask.id = 'gallery-mask';
+  body.append(mediaCenterPopup, mask);
+
   filterDataList.forEach((card) => {
     const cardEl = generateCard(card);
+    console.log(cardEl);
+    cardEl.addEventListener('click', (e) => {
+      console.log(e);
+      buildGalleryPopup(card);
+    });
     cardListWrapperEl.appendChild(cardEl);
   });
 

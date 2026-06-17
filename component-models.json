@@ -5899,6 +5899,31 @@
     ]
   },
   {
+    "id": "region",
+    "fields": [
+      {
+        "component": "text",
+        "name": "region-title",
+        "label": "Region Title"
+      }
+    ]
+  },
+  {
+    "id": "region-countries",
+    "fields": [
+      {
+        "component": "text",
+        "name": "country-title",
+        "label": "Country Name"
+      },
+      {
+        "component": "aem-content",
+        "name": "country-link",
+        "label": "Country Link"
+      }
+    ]
+  },
+  {
     "id": "related-news",
     "fields": [
       {
