@@ -113,6 +113,8 @@ function attachEventListners(main) {
     'aue:content-move',
     'aue:content-remove',
     'aue:content-copy',
+    'aue:ui-ready',
+    'aue:initialized',
   ].forEach((eventType) => main?.addEventListener(eventType, async (event) => {
     console.log('main addEventListener eventType', eventType);
     event.stopPropagation();
@@ -131,62 +133,3 @@ decorateRichtext();
 // for new richtext-instrumented elements. this happens for example when using experimentation.
 const observer = new MutationObserver(() => decorateRichtext());
 observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: true });
-
-function adjustAsideControls(aside) {
-  console.log('=== Aside Controls Adjustment ===');
-  console.log('Found aside:', aside);
-  
-  // 在这里进行你的调整逻辑
-  // 例如：
-  // 1. 查找特定的控件元素
-  // const controls = aside.querySelectorAll('.aue-control');
-  // 2. 隐藏不需要的控件
-  // controls.forEach(ctrl => { ... });
-  // 3. 调整控件顺序
-  // 4. 添加自定义控件
-}
-
-function setupAsideObserver() {
-  const checkAndAdjust = () => {
-    const aside = document.querySelector('aside');
-    if (aside) {
-      adjustAsideControls(aside);
-      return true;
-    }
-    return false;
-  };
-
-  // 立即检查一次
-  if (checkAndAdjust()) return;
-
-  // 监听 aue:ui-ready 事件
-  window.addEventListener('aue:ui-ready', () => {
-    if (!checkAndAdjust()) {
-      // 使用 MutationObserver 等待 aside 出现
-      const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-          for (const node of mutation.addedNodes) {
-            if (node.tagName === 'ASIDE') {
-              adjustAsideControls(node);
-              observer.disconnect();
-              return;
-            }
-            if (node.nodeType === Node.ELEMENT_NODE) {
-              const aside = node.querySelector('aside');
-              if (aside) {
-                adjustAsideControls(aside);
-                observer.disconnect();
-                return;
-              }
-            }
-          }
-        }
-      });
-
-      observer.observe(document.body, { childList: true, subtree: true });
-      setTimeout(() => observer.disconnect(), 30000);
-    }
-  }, { once: true });
-}
-
-setupAsideObserver();
