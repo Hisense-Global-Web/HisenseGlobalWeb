@@ -1,29 +1,41 @@
 import { getGraphQLBaseUrl } from '../scripts/scripts.js';
 
-const getFileInfo = (downloadlink) => {
-  const isAssetsContent = downloadlink?.startsWith('/content');
-  const noParamsUrl = downloadlink?.split('?')?.[0] ?? '';
-  const replaceBtnLink = noParamsUrl.replace(`${window.location.origin}/`, '');
-  const fileLink = !isAssetsContent ? noParamsUrl : getGraphQLBaseUrl() + replaceBtnLink;
-  const fileName = noParamsUrl.substring(noParamsUrl.lastIndexOf('/') + 1);
-  return { fileName, fileLink };
+const getFileInfo = (downloadlink, fileName = null) => {
+  let newFileName;
+  const newLink = downloadlink?.includes('localhost:') ? downloadlink.replace(window.location.origin, '') : downloadlink;
+  const isAssetsContent = newLink?.startsWith('/content');
+  const noParamsUrl = newLink?.split('?')?.[0] ?? '';
+  // 兼容可能存在的双斜杠问题
+  const removeOrigin = noParamsUrl.startsWith(window.location.origin)
+    ? noParamsUrl.slice(window.location.origin.length)
+    : noParamsUrl;
+  const replaceBtnLink = removeOrigin.startsWith('/') ? removeOrigin : `/${removeOrigin}`;
+  let fileLink;
+  if (!isAssetsContent) {
+    fileLink = noParamsUrl;
+  } else {
+    // 避免出现双斜杠
+    const baseUrl = getGraphQLBaseUrl().replace(/\/+$/, '');
+    const path = replaceBtnLink.replace(/^\/+/, '/');
+    fileLink = baseUrl + path;
+  }
+
+  if (fileName) {
+    // 获取 downloadlink 原始文件名的后缀
+    const originFileName = noParamsUrl.substring(noParamsUrl.lastIndexOf('/') + 1);
+    const extIndex = originFileName.lastIndexOf('.');
+    const ext = extIndex !== -1 ? originFileName.substring(extIndex) : '';
+    newFileName = fileName + ext;
+  } else {
+    // 直接使用 downloadlink 里的文件名
+    newFileName = noParamsUrl.substring(noParamsUrl.lastIndexOf('/') + 1);
+  }
+  return { fileName: newFileName, fileLink };
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export const handleCommonDownloadClick = (downloadlink) => {
-  const { fileName, fileLink } = getFileInfo(downloadlink);
-  const link = document.createElement('a');
-  link.href = fileLink;
-  link.download = fileName;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
-
-// 以文件流的形式下载文件
-export const handleDownloadFileByStream = async (downloadlink) => {
-  const newLink = downloadlink?.includes('localhost:') ? downloadlink.replace(window.location.origin, '') : downloadlink;
-  const { fileName, fileLink } = getFileInfo(newLink);
+export const handleCommonDownloadClick = async (downloadLink, downloadName = null) => {
+  const { fileName, fileLink } = getFileInfo(downloadLink, downloadName);
   try {
     // 1. 获取文件流
     const response = await fetch(fileLink);
