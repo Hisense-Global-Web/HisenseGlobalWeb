@@ -135,7 +135,7 @@ const observer = new MutationObserver(() => decorateRichtext());
 observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: true });
 
 (function () {
-  const topWindow = window.top;
+  const topWindow = window.parent || window.top;
   console.log(topWindow);
   // ---------- 核心：轮询逻辑 (每秒执行) ----------
   function ensureEditorButtons() {
