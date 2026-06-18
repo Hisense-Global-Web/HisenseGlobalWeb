@@ -307,6 +307,10 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             // ---- 2. Mode (下拉) ----
             const modeSelect = document.createElement('select');
             modeSelect.id = 'modeSelect';
+            modeSelect.style.cssText = `
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            color: #1e2a3a;`;
             ['Fill - scale then crop', 'Fit - scale to fit', 'Stretch', 'Crop only'].forEach((text) => {
               const opt = document.createElement('option');
               opt.value = text;
@@ -319,6 +323,10 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             // ---- 3. Size preset (下拉) ----
             const presetSelect = document.createElement('select');
             presetSelect.id = 'presetSelect';
+            presetSelect.style.cssText = `
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            color: #1e2a3a;`;
             ['Custom', 'Square (1:1)', 'Portrait (4:5)', 'Landscape (5:4)', 'Social (16:9)'].forEach(text => {
               const opt = document.createElement('option');
               opt.value = text;
@@ -330,12 +338,20 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
 
             // ---- 4. Width & Height (数字输入) ----
             const widthInput = document.createElement('input');
+            widthInput.style.cssText = `
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            color: #1e2a3a;`;
             widthInput.type = 'number';
             widthInput.id = 'widthInput';
             widthInput.value = 616;
             widthInput.min = 1;
 
             const heightInput = document.createElement('input');
+            heightInput.style.cssText = `
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            color: #1e2a3a;`;
             heightInput.type = 'number';
             heightInput.id = 'heightInput';
             heightInput.value = 770;
@@ -372,6 +388,35 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             sizeRow.appendChild(sizeGroup);
             editorGroup.appendChild(sizeRow);
 
+
+            // 触发 change 事件的通用函数 (更新日志)
+            function handleChange(e) {
+              const target = e.target;
+              let value = target.value;
+              // 如果是 button (scale/gravity) 则取 dataset 或 textContent
+              if (target.tagName === 'BUTTON' && target.classList.contains('scale-btn')) {
+                value = target.textContent;
+              } else if (target.tagName === 'BUTTON' && target.classList.contains('gravity-btn')) {
+                value = target.textContent;
+              }
+              const tag = target.tagName.toLowerCase();
+              const id = target.id || (target.parentElement ? target.parentElement.id : '');
+              let source = '';
+              if (tag === 'select') source = `select#${target.id}`;
+              else if (tag === 'input') source = `input#${target.id}`;
+              else if (tag === 'button') {
+                const parent = target.closest('.scale-group') ? 'scale' :
+                  target.closest('.gravity-group') ? 'gravity' : 'button';
+                source = `button[${parent}]`;
+              }
+              console.log('[change event]', source, target, value);
+            }
+
+            // 为所有可能触发表单变化的元素绑定 change 事件
+            const allInputs = editorGroup.querySelectorAll('select, input[type="number"], .scale-btn, .gravity-btn');
+            allInputs.forEach(el => {
+              el.addEventListener('change', handleChange);
+            });
             content.appendChild(closeBtn);
             content.appendChild(popupTitle);
             mediaGroup.appendChild(imgContainer);
