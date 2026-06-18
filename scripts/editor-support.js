@@ -134,9 +134,9 @@ decorateRichtext();
 const observer = new MutationObserver(() => decorateRichtext());
 observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: true });
 
-(function() {
-  "use strict";
-
+(function () {
+  const topWindow = window.top;
+  console.log(topWindow);
   // ---------- 核心：轮询逻辑 (每秒执行) ----------
   function ensureEditorButtons() {
     // 1. 查找所有 "Remove item" 按钮
@@ -150,7 +150,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
 
       // 检查该 remove 按钮之后是否存在 class="image-editor" 的兄弟元素
       let hasEditor = false;
-      let nextSibling = removeBtn.nextSibling;
+      let { nextSibling } = removeBtn;
       while (nextSibling) {
         // 只检查元素节点 (nodeType === 1)
         if (nextSibling.nodeType === 1) {
@@ -213,7 +213,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
     removeBtn.className = 'btn-remove';
     removeBtn.textContent = '✕ 移除';
     // 点击删除整行 (演示效果)
-    removeBtn.addEventListener('click', function(e) {
+    removeBtn.addEventListener('click', function (e) {
       e.stopPropagation();
       const rowToRemove = this.closest('.item-row');
       if (rowToRemove) {
@@ -244,7 +244,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
   initDemoItems();
 
   // 添加新条目 (按钮)
-  document.getElementById('addItemBtn').addEventListener('click', function() {
+  document.getElementById('addItemBtn').addEventListener('click', () => {
     const newRow = createItemRow(`📁 项目 ${Math.floor(Math.random() * 900 + 100)}`);
     demoContainer.appendChild(newRow);
     // 轮询会自动补全 editor，但为了让用户立刻看到，主动调用一次
@@ -254,7 +254,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
   // ---------- (可选) 暴露清除轮询的方法，避免内存泄漏 (但本演示不需要) ----------
   // 如果页面卸载，可以清除，但演示保持。
   // 为了干净，可以监听 beforeunload 清除，但不是必须。
-  window.addEventListener('beforeunload', function() {
+  window.addEventListener('beforeunload', () => {
     if (pollingInterval) {
       clearInterval(pollingInterval);
       pollingInterval = null;
@@ -272,4 +272,4 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
 
   // 为了更健壮：当 DOM 发生变动（比如子节点增删）时，可额外触发，但轮询已足够。
   // 此处留空，保持简洁，轮询是主力。
-})();
+}());
