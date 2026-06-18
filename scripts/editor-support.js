@@ -404,6 +404,11 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
 
             // ---- 8. Quality (数字输入) ----
             const qualityInput = document.createElement('input');
+            qualityInput.style.cssText = `
+            width: 50%;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            color: #1e2a3a;`;
             qualityInput.type = 'number';
             qualityInput.id = 'qualityInput';
             qualityInput.value = 80;
