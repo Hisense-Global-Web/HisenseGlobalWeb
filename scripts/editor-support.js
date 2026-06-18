@@ -136,7 +136,6 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
 
 (function () {
   const topWindow = window.parent || window.top;
-  console.log(topWindow);
   // ---------- 核心：轮询逻辑 (每秒执行) ----------
   function ensureEditorButtons() {
     // 1. 查找所有 "Remove item" 按钮
@@ -173,11 +172,148 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
         editorBtn.style.marginLeft = '8px';
         editorBtn.style.padding = '0 8px';
         editorBtn.style.border = 'none';
-        editorBtn.style.color = '#1a5c9e';
         editorBtn.style.fontWeight = '500';
         editorBtn.style.fontSize = '18px';
         editorBtn.style.height = '32px';
         editorBtn.style.cursor = 'pointer';
+        editorBtn.style.background = 'transparent';
+        editorBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+
+          // 找到最近的 class 为 is-item 的父级
+          const itemParent = this.closest('.is-item');
+          if (!itemParent) return;
+
+          // 在父级中寻找 img，获取 src 和 alt
+          const img = itemParent.querySelector('img');
+          if (!img) return;
+
+          const { src } = img;
+          const alt = img.alt || '图片';
+
+          // 查找或创建弹窗
+          let modal = document.getElementById('imagePreviewModal');
+          if (!modal) {
+            // 创建弹窗
+            modal = document.createElement('div');
+            modal.id = 'imagePreviewModal';
+            modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            cursor: pointer;
+        `;
+
+            const content = document.createElement('div');
+            content.style.cssText = `
+            max-width: 80%;
+            max-height: 80%;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            cursor: default;
+            position: relative;
+        `;
+
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = '✕';
+            closeBtn.style.cssText = `
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        `;
+            closeBtn.onmouseover = () => closeBtn.style.background = '#e0e0e0';
+            closeBtn.onmouseout = () => closeBtn.style.background = '#f0f0f0';
+
+            const imgContainer = document.createElement('div');
+            imgContainer.id = 'modalImageContainer';
+
+            content.appendChild(closeBtn);
+            content.appendChild(imgContainer);
+            modal.appendChild(content);
+
+            // 点击背景关闭
+            modal.addEventListener('click', (e) => {
+              if (e.target === modal) {
+                closeModal();
+              }
+            });
+
+            // 关闭按钮
+            closeBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              closeModal();
+            });
+
+            // ESC 键关闭
+            document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && modal.style.display !== 'none') {
+                closeModal();
+              }
+            });
+
+            document.body.appendChild(modal);
+          }
+
+          // 如果弹窗已存在且隐藏，显示它
+          modal.style.display = 'flex';
+
+          // 更新图片内容
+          const container = document.getElementById('modalImageContainer');
+          container.innerHTML = '';
+
+          const previewImg = document.createElement('img');
+          previewImg.src = src;
+          previewImg.alt = alt;
+          previewImg.style.cssText = `
+        max-width: 70vw;
+        max-height: 70vh;
+        object-fit: contain;
+        display: block;
+        border-radius: 4px;
+    `;
+          container.appendChild(previewImg);
+
+          // 添加图片信息
+          const info = document.createElement('p');
+          info.textContent = alt;
+          info.style.cssText = `
+        margin: 12px 0 0 0;
+        color: #333;
+        font-size: 14px;
+        text-align: center;
+        max-width: 70vw;
+        word-break: break-all;
+    `;
+          container.appendChild(info);
+
+          function closeModal() {
+            if (modal) {
+              modal.style.display = 'none';
+              const container = document.getElementById('modalImageContainer');
+              if (container) container.innerHTML = '';
+            }
+          }
+        });
         // 插入到 remove 之后 (作为下一个兄弟)
         parent.insertBefore(editorBtn, removeBtn.nextSibling);
       }
@@ -186,72 +322,6 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
 
   // ---------- 启动轮询 (每秒执行) ----------
   let pollingInterval = setInterval(ensureEditorButtons, 1000);
-
-  // ---------- 演示 UI 辅助：动态添加/删除条目 (方便测试) ----------
-  const demoContainer = topWindow.document.getElementById('demoContainer');
-
-  // 生成一个带 remove 按钮的 item 行
-  function createItemRow(label = `项目 ${Date.now().toString().slice(-4)}`) {
-    const row = topWindow.document.createElement('div');
-    row.className = 'item-row';
-
-    // 左侧标签
-    const labelSpan = topWindow.document.createElement('span');
-    labelSpan.className = 'item-label';
-    labelSpan.textContent = label;
-    row.appendChild(labelSpan);
-
-    // 按钮组 (用来放 remove 和后续 editor)
-    const btnGroup = topWindow.document.createElement('div');
-    btnGroup.className = 'btn-group';
-
-    // 移除按钮 (aria-label="Remove item")
-    const removeBtn = topWindow.document.createElement('button');
-    removeBtn.setAttribute('aria-label', 'Remove item');
-    removeBtn.className = 'btn-remove';
-    removeBtn.textContent = '✕ 移除';
-    // 点击删除整行 (演示效果)
-    removeBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      const rowToRemove = this.closest('.item-row');
-      if (rowToRemove) {
-        rowToRemove.remove();
-        // 主动触发一次检查 (轮询也会执行，但为了即时感，额外调用一次)
-        ensureEditorButtons();
-      }
-    });
-
-    btnGroup.appendChild(removeBtn);
-    row.appendChild(btnGroup);
-
-    // 注意：这里不主动添加 editor，由轮询自动补全
-    return row;
-  }
-
-  // 初始化演示数据 (3个条目)
-  function initDemoItems() {
-    demoContainer.innerHTML = '';
-    const labels = ['🖼️ 风景图', '📸 人像', '🎨 插画'];
-    labels.forEach((label) => {
-      const row = createItemRow(label);
-      demoContainer.appendChild(row);
-    });
-    // 首次渲染后立即执行一次，确保 editor 补全
-    setTimeout(ensureEditorButtons, 20);
-  }
-  initDemoItems();
-
-  // 添加新条目 (按钮)
-  topWindow.document.getElementById('addItemBtn').addEventListener('click', () => {
-    const newRow = createItemRow(`📁 项目 ${Math.floor(Math.random() * 900 + 100)}`);
-    demoContainer.appendChild(newRow);
-    // 轮询会自动补全 editor，但为了让用户立刻看到，主动调用一次
-    ensureEditorButtons();
-  });
-
-  // ---------- (可选) 暴露清除轮询的方法，避免内存泄漏 (但本演示不需要) ----------
-  // 如果页面卸载，可以清除，但演示保持。
-  // 为了干净，可以监听 beforeunload 清除，但不是必须。
   window.addEventListener('beforeunload', () => {
     if (pollingInterval) {
       clearInterval(pollingInterval);
