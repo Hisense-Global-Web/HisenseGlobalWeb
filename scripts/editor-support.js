@@ -140,7 +140,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
   // ---------- 核心：轮询逻辑 (每秒执行) ----------
   function ensureEditorButtons() {
     // 1. 查找所有 "Remove item" 按钮
-    const removeButtons = document.querySelectorAll('[aria-label="Remove item"]');
+    const removeButtons = topWindow.document.querySelectorAll('[aria-label="Remove item"]');
 
     // 2. 遍历每个 remove 按钮
     removeButtons.forEach((removeBtn) => {
@@ -165,7 +165,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
 
       // 如果没有找到 editor，则创建一个并插入到 remove 后面
       if (!hasEditor) {
-        const editorBtn = document.createElement('button');
+        const editorBtn = topWindow.document.createElement('button');
         editorBtn.className = 'image-editor';
         // 可以加一些样式或文字，方便识别
         editorBtn.textContent = '✎ 编辑';
@@ -190,25 +190,25 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
   let pollingInterval = setInterval(ensureEditorButtons, 1000);
 
   // ---------- 演示 UI 辅助：动态添加/删除条目 (方便测试) ----------
-  const demoContainer = document.getElementById('demoContainer');
+  const demoContainer = topWindow.document.getElementById('demoContainer');
 
   // 生成一个带 remove 按钮的 item 行
   function createItemRow(label = `项目 ${Date.now().toString().slice(-4)}`) {
-    const row = document.createElement('div');
+    const row = topWindow.document.createElement('div');
     row.className = 'item-row';
 
     // 左侧标签
-    const labelSpan = document.createElement('span');
+    const labelSpan = topWindow.document.createElement('span');
     labelSpan.className = 'item-label';
     labelSpan.textContent = label;
     row.appendChild(labelSpan);
 
     // 按钮组 (用来放 remove 和后续 editor)
-    const btnGroup = document.createElement('div');
+    const btnGroup = topWindow.document.createElement('div');
     btnGroup.className = 'btn-group';
 
     // 移除按钮 (aria-label="Remove item")
-    const removeBtn = document.createElement('button');
+    const removeBtn = topWindow.document.createElement('button');
     removeBtn.setAttribute('aria-label', 'Remove item');
     removeBtn.className = 'btn-remove';
     removeBtn.textContent = '✕ 移除';
@@ -244,7 +244,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
   initDemoItems();
 
   // 添加新条目 (按钮)
-  document.getElementById('addItemBtn').addEventListener('click', () => {
+  topWindow.document.getElementById('addItemBtn').addEventListener('click', () => {
     const newRow = createItemRow(`📁 项目 ${Math.floor(Math.random() * 900 + 100)}`);
     demoContainer.appendChild(newRow);
     // 轮询会自动补全 editor，但为了让用户立刻看到，主动调用一次
