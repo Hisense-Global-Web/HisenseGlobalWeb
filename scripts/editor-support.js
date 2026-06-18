@@ -260,6 +260,10 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
 
             const popupTitle = topWindow.document.createElement('div');
             popupTitle.textContent = 'Image Editor';
+            popupTitle.style.cssText = `
+            font-size: 22px;
+            margin-bottom: 16px;
+            `;
 
             const imgContainer = topWindow.document.createElement('div');
             imgContainer.id = 'modalImageContainer';
@@ -275,6 +279,72 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             editorGroup.id = 'editorContainer';
             editorGroup.style.cssText = `
             width: 380px`;
+
+            function createRow(labelText, inputElement, labelWidth = '70px') {
+              const row = document.createElement('div');
+              row.className = 'row';
+              const label = document.createElement('span');
+              label.className = 'label';
+              label.style.minWidth = labelWidth;
+              label.textContent = labelText;
+              row.appendChild(label);
+              row.appendChild(inputElement);
+              return row;
+            }
+            // ---- 2. Mode (下拉) ----
+            const modeSelect = document.createElement('select');
+            modeSelect.id = 'modeSelect';
+            ['Fill - scale then crop', 'Fit - scale to fit', 'Stretch', 'Crop only'].forEach((text) => {
+              const opt = document.createElement('option');
+              opt.value = text;
+              opt.textContent = text;
+              if (text === 'Fill - scale then crop') opt.selected = true;
+              modeSelect.appendChild(opt);
+            });
+            editorGroup.appendChild(createRow('Mode', modeSelect));
+
+            // ---- 3. Size preset (下拉) ----
+            const presetSelect = document.createElement('select');
+            presetSelect.id = 'presetSelect';
+            ['Custom', 'Square (1:1)', 'Portrait (4:5)', 'Landscape (5:4)', 'Social (16:9)'].forEach(text => {
+              const opt = document.createElement('option');
+              opt.value = text;
+              opt.textContent = text;
+              if (text === 'Custom') opt.selected = true;
+              presetSelect.appendChild(opt);
+            });
+            editorGroup.appendChild(createRow('Size preset', presetSelect));
+
+            // ---- 4. Width & Height (数字输入) ----
+            const widthInput = document.createElement('input');
+            widthInput.type = 'number';
+            widthInput.id = 'widthInput';
+            widthInput.value = 616;
+            widthInput.min = 1;
+
+            const heightInput = document.createElement('input');
+            heightInput.type = 'number';
+            heightInput.id = 'heightInput';
+            heightInput.value = 770;
+            heightInput.min = 1;
+
+            const sizeRow = document.createElement('div');
+            sizeRow.className = 'row';
+            const sizeLabel = document.createElement('span');
+            sizeLabel.className = 'label';
+            sizeLabel.textContent = 'Width / Height';
+            sizeLabel.style.minWidth = '70px';
+            sizeRow.appendChild(sizeLabel);
+
+            const sizeGroup = document.createElement('div');
+            sizeGroup.style.display = 'flex';
+            sizeGroup.style.alignItems = 'center';
+            sizeGroup.style.gap = '8px';
+            sizeGroup.appendChild(widthInput);
+            sizeGroup.appendChild(document.createTextNode('/'));
+            sizeGroup.appendChild(heightInput);
+            sizeRow.appendChild(sizeGroup);
+            editorGroup.appendChild(sizeRow);
 
             content.appendChild(closeBtn);
             content.appendChild(popupTitle);
