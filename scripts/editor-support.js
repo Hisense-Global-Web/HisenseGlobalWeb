@@ -213,8 +213,8 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
 
             const content = topWindow.document.createElement('div');
             content.style.cssText = `
-            max-width: 80%;
-            max-height: 80%;
+            width: 80%;
+            height: 80%;
             background: white;
             border-radius: 12px;
             padding: 20px;
@@ -244,11 +244,29 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             closeBtn.onmouseover = () => closeBtn.style.background = '#e0e0e0';
             closeBtn.onmouseout = () => closeBtn.style.background = '#f0f0f0';
 
+            const popupTitle = topWindow.document.createElement('div');
+            popupTitle.textContent = 'Image Editor';
+
             const imgContainer = topWindow.document.createElement('div');
             imgContainer.id = 'modalImageContainer';
+            imgContainer.style.cssText = `
+            width: calc(100% - 300px);`;
+
+            const mediaGroup = topWindow.document.createElement('div');
+            mediaGroup.style.cssText = `
+            display: flex;
+            gap: 20px;
+            `;
+            const editorGroup = topWindow.document.createElement('div');
+            editorGroup.id = 'editorContainer';
+            editorGroup.style.cssText = `
+            width: 280px`;
 
             content.appendChild(closeBtn);
-            content.appendChild(imgContainer);
+            content.appendChild(popupTitle);
+            mediaGroup.appendChild(imgContainer);
+            mediaGroup.appendChild(editorGroup);
+            content.appendChild(mediaGroup);
             modal.appendChild(content);
 
             // 点击背景关闭
