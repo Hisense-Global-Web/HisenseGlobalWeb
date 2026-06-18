@@ -283,8 +283,21 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             function createRow(labelText, inputElement, labelWidth = '70px') {
               const row = document.createElement('div');
               row.className = 'row';
+              row.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+            `;
               const label = document.createElement('span');
               label.className = 'label';
+              label.style.cssText = `
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #2c3e50;
+            min-width: 70px;
+            letter-spacing: 0.3px;
+            `;
               label.style.minWidth = labelWidth;
               label.textContent = labelText;
               row.appendChild(label);
@@ -329,9 +342,22 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             heightInput.min = 1;
 
             const sizeRow = document.createElement('div');
-            sizeRow.className = 'row';
+            sizeRow.className = 'size-row';
+            sizeRow.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+            `;
             const sizeLabel = document.createElement('span');
-            sizeLabel.className = 'label';
+            sizeLabel.className = 'size-label';
+            sizeLabel.style.cssText = `
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #2c3e50;
+            min-width: 70px;
+            letter-spacing: 0.3px;
+            `;
             sizeLabel.textContent = 'Width / Height';
             sizeLabel.style.minWidth = '70px';
             sizeRow.appendChild(sizeLabel);
