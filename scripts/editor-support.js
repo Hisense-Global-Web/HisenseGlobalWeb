@@ -345,7 +345,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             color: #1e2a3a;`;
             widthInput.type = 'number';
             widthInput.id = 'widthInput';
-            widthInput.value = 616;
+            widthInput.value = '';
             widthInput.min = 1;
 
             const heightInput = document.createElement('input');
@@ -356,7 +356,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             color: #1e2a3a;`;
             heightInput.type = 'number';
             heightInput.id = 'heightInput';
-            heightInput.value = 770;
+            heightInput.value = '';
             heightInput.min = 1;
 
             const sizeRow = document.createElement('div');
@@ -468,7 +468,10 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
           previewImg.onload = function() {
             const internalWidth = this.naturalWidth;
             const internalHeight = this.naturalHeight;
-            console.log(`内部大小: ${internalWidth} × ${internalHeight} px`);
+            const widthInput = topWindow.document.querySelector('#widthInput');
+            widthInput.value = internalWidth;
+            const heightInput = topWindow.document.querySelector('#heightInput');
+            heightInput.value = internalHeight;
           };
           container.appendChild(previewImg);
 
