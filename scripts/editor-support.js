@@ -192,10 +192,10 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
           const alt = img.alt || '图片';
 
           // 查找或创建弹窗
-          let modal = document.getElementById('imagePreviewModal');
+          let modal = topWindow.document.getElementById('imagePreviewModal');
           if (!modal) {
             // 创建弹窗
-            modal = document.createElement('div');
+            modal = topWindow.document.createElement('div');
             modal.id = 'imagePreviewModal';
             modal.style.cssText = `
             position: fixed;
@@ -211,7 +211,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             cursor: pointer;
         `;
 
-            const content = document.createElement('div');
+            const content = topWindow.document.createElement('div');
             content.style.cssText = `
             max-width: 80%;
             max-height: 80%;
@@ -223,7 +223,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             position: relative;
         `;
 
-            const closeBtn = document.createElement('button');
+            const closeBtn = topWindow.document.createElement('button');
             closeBtn.textContent = '✕';
             closeBtn.style.cssText = `
             position: absolute;
@@ -244,7 +244,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             closeBtn.onmouseover = () => closeBtn.style.background = '#e0e0e0';
             closeBtn.onmouseout = () => closeBtn.style.background = '#f0f0f0';
 
-            const imgContainer = document.createElement('div');
+            const imgContainer = topWindow.document.createElement('div');
             imgContainer.id = 'modalImageContainer';
 
             content.appendChild(closeBtn);
@@ -265,23 +265,23 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             });
 
             // ESC 键关闭
-            document.addEventListener('keydown', (e) => {
+            topWindow.document.addEventListener('keydown', (e) => {
               if (e.key === 'Escape' && modal.style.display !== 'none') {
                 closeModal();
               }
             });
 
-            document.body.appendChild(modal);
+            topWindow.document.body.appendChild(modal);
           }
 
           // 如果弹窗已存在且隐藏，显示它
           modal.style.display = 'flex';
 
           // 更新图片内容
-          const container = document.getElementById('modalImageContainer');
+          const container = topWindow.document.getElementById('modalImageContainer');
           container.innerHTML = '';
 
-          const previewImg = document.createElement('img');
+          const previewImg = topWindow.document.createElement('img');
           previewImg.src = src;
           previewImg.alt = alt;
           previewImg.style.cssText = `
@@ -294,7 +294,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
           container.appendChild(previewImg);
 
           // 添加图片信息
-          const info = document.createElement('p');
+          const info = topWindow.document.createElement('p');
           info.textContent = alt;
           info.style.cssText = `
         margin: 12px 0 0 0;
@@ -309,7 +309,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
           function closeModal() {
             if (modal) {
               modal.style.display = 'none';
-              const container = document.getElementById('modalImageContainer');
+              const container = topWindow.document.getElementById('modalImageContainer');
               if (container) container.innerHTML = '';
             }
           }
