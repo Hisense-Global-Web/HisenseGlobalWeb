@@ -390,6 +390,26 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             sizeRow.appendChild(sizeGroup);
             editorGroup.appendChild(sizeRow);
 
+            // ---- 7. Format (下拉) ----
+            const formatSelect = document.createElement('select');
+            formatSelect.id = 'formatSelect';
+            ['Original', 'JPEG', 'PNG', 'WebP', 'AVIF'].forEach(text => {
+              const opt = document.createElement('option');
+              opt.value = text;
+              opt.textContent = text;
+              if (text === 'Original') opt.selected = true;
+              formatSelect.appendChild(opt);
+            });
+            editorGroup.appendChild(createRow('Format', formatSelect));
+
+            // ---- 8. Quality (数字输入) ----
+            const qualityInput = document.createElement('input');
+            qualityInput.type = 'number';
+            qualityInput.id = 'qualityInput';
+            qualityInput.value = 80;
+            qualityInput.min = 1;
+            qualityInput.max = 100;
+            editorGroup.appendChild(createRow('Quality', qualityInput));
 
             // 触发 change 事件的通用函数 (更新日志)
             function handleChange(e) {
@@ -470,8 +490,10 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             const internalHeight = this.naturalHeight;
             const widthInput = topWindow.document.querySelector('#widthInput');
             widthInput.value = internalWidth;
+            widthInput.max = internalWidth;
             const heightInput = topWindow.document.querySelector('#heightInput');
             heightInput.value = internalHeight;
+            heightInput.max = internalHeight;
           };
           container.appendChild(previewImg);
 
