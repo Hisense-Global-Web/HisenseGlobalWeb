@@ -339,6 +339,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             // ---- 4. Width & Height (数字输入) ----
             const widthInput = document.createElement('input');
             widthInput.style.cssText = `
+            width: 50%;
             padding: 8px 14px;
             font-size: 0.9rem;
             color: #1e2a3a;`;
@@ -349,6 +350,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
 
             const heightInput = document.createElement('input');
             heightInput.style.cssText = `
+            width: 50%;
             padding: 8px 14px;
             font-size: 0.9rem;
             color: #1e2a3a;`;
@@ -463,6 +465,11 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
         display: block;
         border-radius: 4px;
     `;
+          previewImg.onload = function() {
+            const internalWidth = this.naturalWidth;
+            const internalHeight = this.naturalHeight;
+            console.log(`内部大小: ${internalWidth} × ${internalHeight} px`);
+          };
           container.appendChild(previewImg);
 
           // 添加图片信息
