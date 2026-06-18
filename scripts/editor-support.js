@@ -393,6 +393,10 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             // ---- 7. Format (下拉) ----
             const formatSelect = document.createElement('select');
             formatSelect.id = 'formatSelect';
+            formatSelect.style.cssText = `
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            color: #1e2a3a;`;
             ['Original', 'JPEG', 'PNG', 'WebP', 'AVIF'].forEach(text => {
               const opt = document.createElement('option');
               opt.value = text;
@@ -405,7 +409,6 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             // ---- 8. Quality (数字输入) ----
             const qualityInput = document.createElement('input');
             qualityInput.style.cssText = `
-            width: 50%;
             padding: 8px 14px;
             font-size: 0.9rem;
             color: #1e2a3a;`;
