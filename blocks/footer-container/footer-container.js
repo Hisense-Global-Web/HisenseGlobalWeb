@@ -220,34 +220,56 @@ function extractLogoData(container) {
       return;
     }
 
-    const socialPicture = innerDiv.querySelector('picture');
+    const socialImg = innerDiv.querySelector('img');
     const imgBox = document.createElement('div');
     imgBox.className = 'footer-social-imgbox';
-    if (socialPicture) {
-      const socialImg = socialPicture.querySelector('img');
-      socialImg.className = 'footer-social-width';
-      const socialLink = div.querySelector('a');
-      if (socialImg) {
-        imgBox.appendChild(socialImg);
-        if (socialLink) {
-          imgBox.appendChild(socialLink);
+    socialImg.className = 'footer-social-width';
+    const socialLink = div.children[1].querySelector('a');
+    const showPopup = div.children[2];
+    if (socialImg) {
+      imgBox.appendChild(socialImg);
+      if (socialLink && showPopup?.textContent?.trim() === 'true') {
+        let footerSocialPopup = document.querySelector('#footer-social');
+        if (!footerSocialPopup) {
+          footerSocialPopup = document.createElement('div');
+          footerSocialPopup.id = 'footer-social';
+          document.querySelector('body').appendChild(footerSocialPopup);
         }
-        logoData.social.push(imgBox.cloneNode(true));
-      }
-    } else {
-      const socialImg = innerDiv.querySelector('img');
-      socialImg.className = 'footer-social-width';
-      const socialLink = innerDiv.querySelector('a');
-      if (socialImg) {
-        imgBox.appendChild(socialImg);
-        if (socialLink) {
-          imgBox.appendChild(socialLink);
+        let footerSocialMask = document.querySelector('#footer-social-mask');
+        if (!footerSocialMask) {
+          footerSocialMask = document.createElement('div');
+          footerSocialMask.id = 'footer-social-mask';
+          document.querySelector('body').appendChild(footerSocialMask);
         }
-        logoData.social.push(imgBox.cloneNode(true));
+        const popupCloseImg = document.createElement('img');
+        popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+        popupCloseImg.className = 'close-icon';
+        popupCloseImg.addEventListener('click', (e) => {
+          e.stopPropagation();
+          footerSocialPopup.style.display = 'none';
+          footerSocialMask.style.display = '';
+        });
+        const titleEl = document.createElement('div');
+        titleEl.className = 'footer-popup-title';
+        titleEl.textContent = '微信公众號';
+        const subtitleEl = document.createElement('div');
+        subtitleEl.className = 'footer-popup-subtitle';
+        subtitleEl.textContent = '手机微信扫二维码';
+        const imgEl = document.createElement('img');
+        imgEl.className = 'footer-popup-img';
+
+        footerSocialPopup.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        imgBox.addEventListener('click', (e) => {
+          e.stopPropagation();
+          footerSocialPopup.style.display = 'flex';
+          footerSocialMask.style.display = 'block';
+        });
+      } else if (socialLink) {
+        imgBox.appendChild(socialLink);
       }
+      logoData.social.push(imgBox);
     }
   });
-
   return logoData;
 }
 
@@ -559,7 +581,13 @@ export default async function decorate(block) {
     };
 
     const regionData = await fetchRegionData(getRegionUrl());
-    const selectedCountry = resolveRegionCountryData(regionData);
+    // TODO：中国区使用mock数据
+    const selectedCountry = regionData?.country?.code === 'cn' ? {
+      code: 'cn',
+      languages: { zh: '中文', en: 'EN' },
+      name: '全球站点',
+      selectedLanguage: 'zh',
+    } : resolveRegionCountryData(regionData);
     const generateLanguageItems = (languages, selectedLang) => {
       let languageItems = '';
       const langKeys = Object.keys(languages || {});
@@ -589,25 +617,33 @@ export default async function decorate(block) {
     const regionIcon = lanGroup.querySelector('.region-icon');
     if (regionIcon) {
       regionIcon.addEventListener('click', () => {
-        window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
+        window.location.href = selectedCountry.code === 'cn' ? 'https://www.hisense.com/global-site.html' : buildRegionSelectionPath(selectedCountry.selectedLanguage);
       });
     }
     const lanComEl = lanGroup.querySelector('.footer-lan-com');
     if (lanComEl) {
       lanComEl.addEventListener('click', () => {
-        window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
+        window.location.href = selectedCountry.code === 'cn' ? 'https://www.hisense.com/global-site.html' : buildRegionSelectionPath(selectedCountry.selectedLanguage);
       });
     }
     const langItems = lanGroup.querySelectorAll('.footer-lan-item');
-    langItems.forEach((item) => {
-      item.addEventListener('click', (e) => {
-        if (e.currentTarget.classList.contains('active')) {
-          window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
-          return;
-        }
-        window.location.href = buildLocalizedPathForLanguage(e.currentTarget.getAttribute('data-lang'));
+    if (selectedCountry?.code === 'cn') {
+      langItems.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          window.location.href = e.currentTarget.getAttribute('data-lang') === 'zh' ? '' : '/us/en';
+        });
       });
-    });
+    } else {
+      langItems.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          if (e.currentTarget.classList.contains('active')) {
+            window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
+            return;
+          }
+          window.location.href = buildLocalizedPathForLanguage(e.currentTarget.getAttribute('data-lang'));
+        });
+      });
+    }
 
     footerLegals.appendChild(lanGroup);
 

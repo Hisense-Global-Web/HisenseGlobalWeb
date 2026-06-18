@@ -1,3 +1,5 @@
+import { SCREEN_POINT } from '../../utils/constants.js';
+
 export default async function decorate(block) {
   const containerDiv = document.createElement('div');
   containerDiv.className = 'banner-container h-grid-container';
@@ -5,7 +7,7 @@ export default async function decorate(block) {
   const updateBackgroundImage = () => {
     const { pcImg } = block.dataset;
     const { mobileImg } = block.dataset;
-    if (window.innerWidth < 860) {
+    if (window.innerWidth < SCREEN_POINT) {
       block.style.backgroundImage = `url(${mobileImg})`;
     } else {
       block.style.backgroundImage = `url(${pcImg})`;

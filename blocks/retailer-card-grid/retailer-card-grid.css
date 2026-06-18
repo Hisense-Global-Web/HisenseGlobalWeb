@@ -5,6 +5,7 @@
     line-height: 120%;
     font-weight: var(--fontweight-medium);
     margin-bottom: var(--size-32);
+    text-transform: capitalize;
   }
 
   .retailer-box {
@@ -55,7 +56,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .retailer-card-grid {
     .retailer-tit {
       font-size: var(--size-24);

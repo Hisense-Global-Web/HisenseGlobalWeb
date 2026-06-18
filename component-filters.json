@@ -10,7 +10,8 @@
       "company-page-navigation",
       "support-navigation",
       "footerContainer",
-      "search-box-navigation"
+      "search-box-navigation",
+      "store-locator"
     ]
   },
   {
@@ -32,6 +33,7 @@
       "card-grid",
       "category-carousel",
       "category-support-card",
+      "campaign-product",
       "collection-banner",
       "collection-cards",
       "collection-title",
@@ -93,12 +95,16 @@
       "region-page-title",
       "region-selection",
       "recall-info-list",
+      "region",
       "gray-tips",
       "guide-list",
       "request-service",
       "recall-text-info",
       "promotional-text",
       "campaign-collection",
+      "campaign-image",
+      "media-filter",
+      "store-locator-card",
       "related-news",
       "resource-list",
       "search-box",
@@ -113,6 +119,7 @@
       "support-search-result-module",
       "sustainability-dashboard-achievement",
       "sustainability-dashboard-list",
+      "tag",
       "tech-evolution-timeline",
       "tech-information",
       "text",
@@ -155,15 +162,14 @@
       "accessories-feature",
       "calltoaction-banner",
       "project-brief-card",
-      "store-information-card",
       "warning-note",
       "warranty-accordion",
       "warranty-accordion-item",
       "warranty-information",
       "retailer-card-grid",
-      "store-locator",
       "brand-matrix",
-      "campaign-bundle-banner"
+      "campaign-bundle-banner",
+      "warranty-description"
     ]
   },
   {
@@ -176,6 +182,12 @@
       "popup-key-stats",
       "popup-image",
       "stats-grid"
+    ]
+  },
+  {
+    "id": "store-locator",
+    "components": [
+      "store-locator-card"
     ]
   },
   {
@@ -252,6 +264,12 @@
     "components": [
       "campaign-collection-card",
       "associated-products"
+    ]
+  },
+  {
+    "id": "campaign-product",
+    "components": [
+      "campaign-product-list"
     ]
   },
   {
@@ -536,6 +554,12 @@
     ]
   },
   {
+    "id": "region",
+    "components": [
+      "region-countries"
+    ]
+  },
+  {
     "id": "request-service",
     "components": [
       "request-service-item"
@@ -596,7 +620,7 @@
     ]
   },
   {
-    "id": "store-information-card",
+    "id": "store-locator-card",
     "components": [
       "service-items"
     ]

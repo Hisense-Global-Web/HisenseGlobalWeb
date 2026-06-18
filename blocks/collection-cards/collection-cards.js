@@ -1,5 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 export default function decorate(block) {
   /* change to ul, li */
@@ -14,7 +15,7 @@ export default function decorate(block) {
       if (div.children.length === 1 && div.querySelector('picture')) { div.className = 'collection-cards-card-image'; } else if (div.querySelector('.button-container')) div.className = 'collection-cards-card-cta';
       else div.className = 'collection-cards-card-body';
     });
-    if (viewportWidth < 860) {
+    if (viewportWidth < SCREEN_POINT) {
       let touchStartTime;
       let isScrolling = false;
       let startX;
@@ -42,7 +43,7 @@ export default function decorate(block) {
         li.classList.add('touch-end');
         const touchDuration = Date.now() - touchStartTime;
         // 如果不是滑动，且按压时间小于500ms，执行跳�?
-        if (!isScrolling && touchDuration < 50) {
+        if (!isScrolling && touchDuration < 200) {
           const link = li.querySelector('a');
           const url = link?.href;
           if (url) {
@@ -58,8 +59,9 @@ export default function decorate(block) {
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
   });
-  if (viewportWidth >= 860) {
-    const coverLi = document.querySelectorAll('.cover-style > ul > li');
+  block.replaceChildren(ul);
+  if (viewportWidth >= SCREEN_POINT) {
+    const coverLi = block.querySelectorAll('.cover-style > ul > li');
     coverLi.forEach((item) => {
       const link = item.querySelector('a');
       const url = link?.href;
@@ -68,5 +70,4 @@ export default function decorate(block) {
       });
     });
   }
-  block.replaceChildren(ul);
 }

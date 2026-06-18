@@ -1,4 +1,5 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 function isAemEnvironment() {
@@ -93,7 +94,6 @@ export default async function decorate(block) {
   let currentPage = 1; // 当前页码
   let loadMoreStep = 9; // 分布数量
   let loadMoreTextContent = null;
-  let tipsTextContent = null;
   let allCategoryTabLabel = null;
   let originData = []; // 原始数据
   let showWarrantyData = []; // 当前展示的数据
@@ -115,12 +115,6 @@ export default async function decorate(block) {
       if (text) {
         loadMoreTextContent = text;
       }
-    } else if (index === 2) {
-      // 获取 tips 文案
-      const text = row.textContent && row.textContent.trim();
-      if (text) {
-        tipsTextContent = text;
-      }
     }
   });
 
@@ -128,11 +122,7 @@ export default async function decorate(block) {
   moreSpan.textContent = loadMoreTextContent || 'Load more';
   warrantyLoadMore.append(moreSpan);
 
-  const tipsEl = document.createElement('div');
-  tipsEl.className = 'warranty-tips';
-  tipsEl.textContent = tipsTextContent;
-
-  cardsBox.append(cardsGrid, tipsEl, warrantyLoadMore);
+  cardsBox.append(cardsGrid, warrantyLoadMore);
   warrantyWrapper.append(warrantyCategoryTabs, cardsBox);
   block.replaceChildren(warrantyWrapper);
 
@@ -295,9 +285,9 @@ export default async function decorate(block) {
 
   // 获取动态 loadMoreStep 并设置监听窗口变化
   function getDynamicLoadMoreStep() {
+    let lastScreenWidth = window.innerWidth;
     function loadMoreNum() {
-      const screenWidth = window.innerWidth;
-      if (screenWidth < 860) {
+      if (lastScreenWidth < SCREEN_POINT) {
         loadMoreStep = 5; // 手机显示5条
       } else {
         loadMoreStep = 9; // 桌面显示9条
@@ -305,7 +295,12 @@ export default async function decorate(block) {
       resetRenderHandler();
     }
     loadMoreNum(); // 初始调用设置正确的 loadMoreStep
-    window.addEventListener('resize', () => loadMoreNum());
+    window.addEventListener('resize', () => {
+      if (window.innerWidth !== lastScreenWidth) {
+        lastScreenWidth = window.innerWidth;
+        loadMoreNum();
+      }
+    });
   }
 
   // 过滤无效 warranty 数据的函数

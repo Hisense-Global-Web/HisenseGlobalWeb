@@ -64,7 +64,7 @@
     }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
     .exception-page {
         gap: var(--size-32);
     }

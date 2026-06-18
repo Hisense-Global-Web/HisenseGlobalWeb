@@ -1,5 +1,5 @@
 export default function decorate(block) {
-  const [fontColorEl, textAlignEl, titleEl, subtitleEl] = [...block.children] ?? [];
+  const [fontColorEl, textAlignEl, titleEl, subtitleEl, contentEl] = [...block.children] ?? [];
   const fontColor = fontColorEl?.querySelector('p')?.textContent ?? 'green60';
   const textAlign = textAlignEl?.querySelector('p')?.textContent ?? 'align-center';
   block.classList.add(fontColor, textAlign);
@@ -10,5 +10,11 @@ export default function decorate(block) {
   }
   if (subtitleEl) {
     subtitleEl.classList.add('subtitle');
+    if (subtitleEl?.textContent?.trim() === '') {
+      subtitleEl.style.marginTop = '0';
+    }
+  }
+  if (contentEl) {
+    contentEl.classList.add('content');
   }
 }

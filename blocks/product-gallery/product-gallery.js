@@ -1,7 +1,9 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
+import { resetExternalUrl, iframeVideoHandler } from '../../utils/video-external-url.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 function createScrollButton(direction) {
   const button = document.createElement('button');
   button.type = 'button';
@@ -33,7 +35,23 @@ function buildTab(itemElement, index) {
 
   const imageCell = cells.find((cell) => cell.querySelector('picture')) || cells[0];
   const videoHref = itemElement.querySelector('a')?.href;
-  if (videoHref) {
+
+  let externalUrl; // 新增变量存储外部链接
+  if (cells.length === 4) {
+    const externalLinkFlag = cells[2].textContent.trim();
+    if (externalLinkFlag === 'true') {
+      li.setAttribute('data-video-origin', 'external');
+      // 获取原始外部链接
+      const aemOriginExternalContent = cells[3].textContent.trim();
+      // 重置外部链接
+      externalUrl = resetExternalUrl(aemOriginExternalContent);
+      li.dataset.externalUrl = externalUrl; // 存储外部链接到 data 属性
+    } else {
+      li.setAttribute('data-video-origin', 'internal');
+    }
+  }
+  // console.log(itemElement, 'itemElement');
+  if (videoHref && li.getAttribute('data-video-origin') !== 'external') {
     li.dataset.videoHref = videoHref;
   }
 
@@ -47,7 +65,7 @@ function buildTab(itemElement, index) {
   imgBox.className = 'product-filter-img-box';
   if (imageCell) {
     const picture = imageCell.querySelector('picture');
-    if (videoHref) {
+    if (videoHref && li.getAttribute('data-video-origin') !== 'external') {
       const videoM = document.createElement('video');
       videoM.classList.add('autoplay-video');
       videoM.setAttribute('data-video-autoplay', 'true');
@@ -62,6 +80,11 @@ function buildTab(itemElement, index) {
       videoM.innerHTML = '';
       videoM.appendChild(source);
       imgBox.replaceChildren(videoM);
+    }
+    // 移动端处理外部链接视频
+    if (externalUrl && li.getAttribute('data-video-origin') === 'external') {
+      const iframeVideoDom = iframeVideoHandler(externalUrl);
+      imgBox.replaceChildren(iframeVideoDom);
     }
     if (picture) {
       const imgWrapper = document.createElement('div');
@@ -86,9 +109,16 @@ function buildTab(itemElement, index) {
     moveInstrumentation(textCell, textSpan);
   }
   li.addEventListener('click', (e) => {
-    const mainVideoImg = document.querySelector('.pdp-main-img');
+    // 当前点击缩略图，添加当前样式
+    const productElList = e.currentTarget.parentNode.querySelectorAll('.product-filter-item');
+    productElList.forEach((el) => {
+      el.classList.remove('active');
+    });
+    e.currentTarget.classList.add('active');
+    // 从当前点击的li 父集 【.pdp-media] 中, 查找元素【.pdp-main-img】
+    const mainVideoImg = e.target.closest('.pdp-media').querySelector('.pdp-main-img');
     const videoUrl = e.currentTarget.dataset.videoHref;
-    if (videoUrl) {
+    if (videoUrl && e.currentTarget.getAttribute('data-video-origin') !== 'external') {
       const video = document.createElement('video');
       video.classList.add('autoplay-video');
       video.setAttribute('data-video-autoplay', 'true');
@@ -109,12 +139,14 @@ function buildTab(itemElement, index) {
       mainVideoImg.replaceChildren(video);
       return;
     }
+    // PC端外部链接视频处理逻辑
+    const externalVideoUrl = resetExternalUrl(e.currentTarget.dataset.externalUrl);
+    if (externalVideoUrl && e.currentTarget.getAttribute('data-video-origin') === 'external') {
+      const iframeVideoDom = iframeVideoHandler(externalVideoUrl);
+      mainVideoImg.replaceChildren(iframeVideoDom);
+      return;
+    }
     const imgUrl = e.target?.src;
-    const productElList = e.currentTarget.parentNode.querySelectorAll('.product-filter-item');
-    productElList.forEach((el) => {
-      el.classList.remove('active');
-    });
-    e.currentTarget.classList.add('active');
     if (mainVideoImg) {
       const img = document.createElement('img');
       img.src = imgUrl;
@@ -166,7 +198,7 @@ function debounce(func, delay) {
 
 // 计算并对齐到最近的item（手机端专用）
 function alignToWholeItemMobile(tabsList) {
-  const isMobile = window.innerWidth < 860;
+  const isMobile = window.innerWidth < SCREEN_POINT;
   if (!isMobile) return;
 
   const firstItem = tabsList.querySelector('.product-filter-item');
@@ -227,7 +259,7 @@ function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
   tabsList.addEventListener('scroll', () => {
     updateButtons(tabsList, leftBtn, rightBtn);
     // 手机端滚动停止后对齐
-    const isMobile = window.innerWidth < 860;
+    const isMobile = window.innerWidth < SCREEN_POINT;
     if (isMobile) {
       debounceAlignToItem();
     }
@@ -235,7 +267,7 @@ function attachScrollHandlers(tabsList, leftBtn, rightBtn) {
 
   // ---------- 核心修复：resize 自动对齐校正 ----------
   window.addEventListener('resize', () => {
-    const isMobile = window.innerWidth < 860;
+    const isMobile = window.innerWidth < SCREEN_POINT;
     const firstItem = tabsList.querySelector('.product-filter-item');
     if (firstItem) {
       if (isMobile) {
@@ -311,14 +343,21 @@ export default function decorate(block) {
   if (tabs) {
     const videoList = tabs.querySelectorAll('video');
     const imgList = tabs.querySelectorAll('img');
+    const externalVideoList = tabs.querySelectorAll('.external-video-box');
     const firstImg = imgList[0];
 
     firstImg.onload = () => {
       if (videoList && videoList.length) {
         const h = firstImg.offsetHeight;
-        videoList.forEach((video) => {
-          video.style.height = `${h}px`;
-        });
+        // 防止高度过小导致视频显示异常，设置一个最小高度100px
+        if (h > 100) {
+          videoList.forEach((video) => {
+            video.style.height = `${h}px`;
+          });
+          externalVideoList.forEach((box) => {
+            box.style.height = `${h}px`;
+          });
+        }
       }
     };
   }
@@ -344,9 +383,27 @@ export default function decorate(block) {
   const mediaImg = document.createElement('div');
   mediaImg.className = 'pdp-main-img';
   if (tabs?.childElementCount) {
-    const firstImg = tabs.querySelector('.product-filter-img-box .product-filter-img img');
-    if (firstImg) {
-      mediaImg.append(firstImg.cloneNode(true));
+    // 首次加载，为第一个缩略图添加当前选中样式
+    tabs.firstChild.classList.add('active');
+    const dataVideoOrigin = tabs.firstChild.getAttribute('data-video-origin'); // 视频来源类型
+    const internalHref = tabs.firstChild.getAttribute('data-video-href'); // 内部视频链接
+    const externalUrl = tabs.firstChild.getAttribute('data-external-url'); // 外部视频链接
+    if (internalHref && dataVideoOrigin && dataVideoOrigin !== 'external') {
+      // 首次加载时，第一个缩略图中配置的是【内部链接视频】
+      const firstVideo = tabs.querySelector('.product-filter-img-box .autoplay-video');
+      firstVideo.autoplay = true;
+      firstVideo.setAttribute('muted', true);
+      mediaImg.append(firstVideo.cloneNode(true));
+    } else if (externalUrl && dataVideoOrigin && dataVideoOrigin === 'external') {
+      // 首次加载时，第一个缩略图中配置的是【外部链接视频】
+      const firstExternal = tabs.querySelector('.product-filter-img-box .external-video-box');
+      mediaImg.append(firstExternal.cloneNode(true));
+    } else {
+      // 首次加载时，第一个缩略图中配置的是【图片】
+      const firstImg = tabs.querySelector('.product-filter-img-box .product-filter-img img');
+      if (firstImg) {
+        mediaImg.append(firstImg.cloneNode(true));
+      }
     }
   }
   media.append(mediaImg);

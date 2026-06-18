@@ -1,11 +1,15 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 
 function formatDate(dateStr) {
   try {
     const date = new Date(dateStr);
     if (Number.isNaN(date.getTime())) return dateStr;
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    const { language } = getLocaleFromPath();
+    return formatIsoToUtcStr(date, language);
   } catch {
     return dateStr;
   }
@@ -149,7 +153,7 @@ export default async function decorate(block) {
       data.image,
       data.subtitle || '',
       false,
-      [{ media: '(min-width: 860px)', width: '2000' }, { width: '860' }],
+      [{ media: `(min-width: ${SCREEN_POINT}px)`, width: '2000' }, { width: SCREEN_POINT }],
     );
 
     featuredImage.appendChild(picture);
@@ -264,7 +268,7 @@ export default async function decorate(block) {
       button.classList.add('icon-btn');
       const iconImg = document.createElement('img');
       const segments = window.location.pathname.split('/').filter(Boolean);
-      const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+      const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
       iconImg.src = `/content/dam/hisense/${country}/common-icons/download.svg`;
       iconImg.alt = 'Download';
       button.addEventListener('click', () => handleCommonDownloadClick(data.downloadLink));

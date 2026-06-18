@@ -2,7 +2,7 @@ import { currencySymbolMap } from '../../utils/currency.js';
 import { fetchHybrisProduct, getHybrisProductCode, scheduleHybrisTask } from '../../scripts/hybris-bff.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense.-1.json';
+const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 const PLP_PRODUCTS_READY_EVENT = 'hisense:plp-products-ready';
 const PRICE_FILTER_STATE_KEY = '__hisensePlpPriceFilterState';
 const PRODUCT_PRICE_CACHE_KEY = '__hisensePlpProductPriceCache';
@@ -11,7 +11,7 @@ const PRICE_DATASET_SIGNATURE_KEY = '__hisensePlpPriceDatasetSignature';
 const PRICE_REQUEST_CONCURRENCY = 6;
 let CURRENCY_SYMBOL = '$';
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 
 function ensurePriceFilterState() {
   const currentState = window[PRICE_FILTER_STATE_KEY] || {};
@@ -464,141 +464,6 @@ export default function decorate(block) {
   const tagsEndpointPath = tagsEndpointRow ? rows[tagsEndpointRow + 1]?.textContent?.trim() || DEFAULT_TAGS_ENDPOINT
     : DEFAULT_TAGS_ENDPOINT;
 
-  const mockTags = {
-    total: 1,
-    offset: 0,
-    limit: 1,
-    columns: [
-      'jcr:description',
-      'jcr:title',
-      'tv',
-    ],
-    data: [
-      {
-        'jcr:description': '',
-        'jcr:title': 'Product',
-        tv: {
-          'jcr:title': 'TV',
-          'jcr:description': '',
-          resolution: {
-            'jcr:title': 'Resolution',
-            hd: {
-              'jcr:description': '',
-              'jcr:title': 'HD',
-            },
-            fhd: {
-              'jcr:description': '',
-              'jcr:title': 'FHD',
-            },
-            uhd: {
-              'jcr:description': '',
-              'jcr:title': 'UHD',
-            },
-          },
-          'refresh-rate': {
-            'jcr:description': '',
-            'jcr:title': 'Refresh Rate',
-            '60hz': {
-              'jcr:description': '',
-              'jcr:title': '60Hz',
-            },
-            '144hz': {
-              'jcr:description': '',
-              'jcr:title': '144Hz',
-            },
-            '165hz': {
-              'jcr:description': '',
-              'jcr:title': '165Hz',
-            },
-            '170hz': {
-              'jcr:description': '',
-              'jcr:title': '170Hz',
-            },
-            '180hz': {
-              'jcr:description': '',
-              'jcr:title': '180Hz',
-            },
-          },
-          'screen-size': {
-            'jcr:title': 'Screen Size (Range)',
-            '32-43': {
-              'jcr:description': '',
-              'jcr:title': '32" - 43"',
-            },
-            '50-65': {
-              'jcr:description': '',
-              'jcr:title': '50" - 65"',
-            },
-            '70-85': {
-              'jcr:description': '',
-              'jcr:title': '70" - 85"',
-            },
-            '98-max': {
-              'jcr:description': '',
-              'jcr:title': '98" and above',
-            },
-          },
-          type: {
-            'jcr:description': '',
-            'jcr:title': 'Type',
-            'rgb-miniled': {
-              'jcr:description': '',
-              'jcr:title': 'RGB MiniLED',
-            },
-            miniled: {
-              'jcr:description': '',
-              'jcr:title': 'MiniLED',
-            },
-            'hi-qled': {
-              'jcr:description': '',
-              'jcr:title': 'Hi-QLED',
-            },
-            oled: {
-              'jcr:description': '',
-              'jcr:title': 'OLED',
-            },
-            'lcd-led': {
-              'jcr:description': 'LCD LED\r\nFull Array',
-              'jcr:title': 'LCD LED',
-            },
-            'uhd-4k': {
-              'jcr:title': 'UHD 4K',
-              'jcr:description': 'UHD 4K',
-            },
-          },
-          'operating-system': {
-            'jcr:title': 'Operating System',
-            'fire-tv': {
-              'jcr:description': '',
-              'jcr:title': 'Fire TV',
-            },
-            'google-tv': {
-              'jcr:description': '',
-              'jcr:title': 'Google TV',
-            },
-            'roku-tv': {
-              'jcr:description': '',
-              'jcr:title': 'Roku TV',
-            },
-            'vidda-tv ': {
-              'jcr:description': '',
-              'jcr:title': 'VIDDA TV ',
-            },
-          },
-          audio: {
-            'jcr:description': '',
-            'jcr:title': 'Audio',
-            dolby: {
-              'jcr:description': '',
-              'jcr:title': 'Dolby',
-            },
-          },
-        },
-      },
-    ],
-    ':type': 'sheet',
-  };
-
   function collectTitles(obj, map) {
     if (!obj || typeof obj !== 'object') return;
     Object.keys(obj).forEach((k) => {
@@ -883,7 +748,7 @@ export default function decorate(block) {
    * 新的 GraphQL 返回格式直接在根层级包含标签树
    */
   function transformTagData(tagsData) {
-    if (!tagsData) return mockTags;
+    if (!tagsData) return {};
 
     // 如果返回的已经是旧格式（包含 tags 属性），直接返回
     if (tagsData.tags) {
@@ -918,9 +783,7 @@ export default function decorate(block) {
     .then((data) => {
       // 使用转换函数处理新的 JSON 格式
       const tagsData = transformTagData(data);
-      renderWithTitles(tagsData || mockTags);
+      renderWithTitles(tagsData);
     })
-    .catch(() => {
-      renderWithTitles(mockTags);
-    });
+    .catch(() => {});
 }

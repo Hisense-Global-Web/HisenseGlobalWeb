@@ -6,7 +6,7 @@ import {
 } from './product-sorting-utils.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 function mergeProductSortingAueAttributes(...elements) {
   return elements.reduce((attributes, element) => ({
     ...attributes,
@@ -270,6 +270,11 @@ export default function decorate(block) {
   closeImg.addEventListener('click', (e) => {
     e.stopPropagation(); // 阻止事件冒泡
     closeMobileSortByDom();
+    // 恢复导航栏的层级
+    const navigationId = document.getElementById('navigation');
+    if (navigationId) {
+      navigationId.style.removeProperty('z-index');
+    }
   });
   sort.append(sortSpan, sortImg, closeImg);
 
@@ -286,6 +291,11 @@ export default function decorate(block) {
 
   // mobile 端，Sort by 点击事件，显示sort options数据
   mobileSort.addEventListener('click', () => {
+    // 点击 sort by 时，如果是移动端，则显示全屏的排序选项，并隐藏导航栏
+    const navigationId = document.getElementById('navigation');
+    if (navigationId) {
+      navigationId.style.zIndex = '-1';
+    }
     document.body.style.overflow = 'hidden';
     const originalSortByBoxEl = document.querySelector('.plp-sort-box');
     originalSortByBoxEl.classList.add('mobile-sort-by-box');

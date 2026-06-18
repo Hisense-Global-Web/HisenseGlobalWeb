@@ -79,8 +79,15 @@
           "name": "format-detection",
           "label": "Format Detection",
           "value": "telephone=no"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "show-wtb",
+          "value": false,
+          "label": "Show Where To Buy"
         }
       ]
     }
   ]
-} 
+}

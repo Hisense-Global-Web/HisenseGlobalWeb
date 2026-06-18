@@ -89,7 +89,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .tech-item-wrapper {
     &.icon-style {
       .tech-item-box {

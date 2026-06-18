@@ -159,7 +159,27 @@
           "component": "boolean",
           "name": "mask-layer",
           "label": "Mask Layer",
-          "valueType": "boolean"
+          "valueType": "boolean",
+          "condition": { "===": [{ "var": "mainContent" }, "image"] }
+        },
+        {
+          "component": "boolean",
+          "name": "video_type",
+          "label": "Video link is external?",
+          "valueType": "boolean",
+          "description": "Switch OFF: Internal | Switch ON: External",
+          "value": false,
+          "condition": { "===": [{ "var": "mainContent" }, "video"] }
+        },
+        {
+          "component": "richtext",
+          "name": "external",
+          "label": "External Link",
+          "valueType": "string",
+          "condition": { "===": [{"var":"video_type"}, true]},
+          "required": true,
+          "value": "",
+          "description": "Note: If an external link is not required, please disable the external link toggle."
         }
       ]
     }

@@ -125,7 +125,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .feature-banner-container .feature-banner-wrapper {
     min-height: auto;
     padding-top: 0;

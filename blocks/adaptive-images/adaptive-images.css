@@ -9,7 +9,7 @@
   .pc-image {
     display: block;
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       display: none;
     }
   }
@@ -17,7 +17,7 @@
   .mobile-image {
     display: none;
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       display: block;
     }
   }

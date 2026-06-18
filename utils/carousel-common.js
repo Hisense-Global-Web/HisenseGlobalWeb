@@ -1,3 +1,6 @@
+import { isMobileWindow } from '../scripts/device.js';
+import { SCREEN_POINT } from './constants.js';
+
 export function whenElementReady(selector, callback, options = {}) {
   const {
     timeout = 5000,
@@ -8,7 +11,7 @@ export function whenElementReady(selector, callback, options = {}) {
   const element = parent.querySelector(selector);
   if (element.offsetWidth) {
     setTimeout(() => callback(element), 0);
-    return { stop: () => {} };
+    return { stop: () => { } };
   }
 
   let observer;
@@ -54,6 +57,7 @@ export function whenElementReady(selector, callback, options = {}) {
 
 export function getSlideWidth(block) {
   const singleItem = block.querySelector('li');
+  if (!singleItem) return 0;
   const { gap } = window.getComputedStyle(singleItem.parentElement);
   return parseFloat(singleItem.getBoundingClientRect().width) + parseFloat(gap);
 }
@@ -70,7 +74,8 @@ export function updatePosition(block, currentIdx, type) {
   const { gap } = window.getComputedStyle(ulElement);
   const items = block.querySelectorAll('li');
   // mobile type no transform ---use overflow scroll
-  if (window.innerWidth < 860) {
+  const isMobile = isMobileWindow();
+  if (isMobile) {
     ulElement.style.transform = 'none';
     return;
   }
@@ -84,7 +89,7 @@ export function updatePosition(block, currentIdx, type) {
     block.querySelector('.slide-next').disabled
     && type === 'resize'
   ) targetIndex = maxClickCount;
-  if (window.innerWidth < 860) return;
+  if (isMobile) return;
   // computer the latest click move distance
   if (targetIndex >= maxClickCount) {
     const rightDistance = maxLength - blockWidth;
@@ -161,7 +166,7 @@ export function setupObserver(carouselRoot, selector, resolveCallBack, leaveCall
 }
 
 export function mobilePressEffect(viewport, card, callback) {
-  if (viewport >= 860) {
+  if (viewport >= SCREEN_POINT) {
     if (callback) callback();
     return;
   }
@@ -220,10 +225,10 @@ export function validateEmail(email) {
  * @param {string} isoStr - 带Z的ISO时间字符串（如2026-02-14T00:00:00.000Z）
  * @returns {string} 格式化后的时间
  */
-export function formatIsoToUtcStr(isoStr) {
+export function formatIsoToUtcStr(isoStr, locale = 'en-US') {
   const date = new Date(isoStr);
   // 配置格式化规则：UTC时区、英文、月份缩写、数字日期、4位年份
-  const formatter = new Intl.DateTimeFormat('en-US', {
+  const formatter = new Intl.DateTimeFormat(locale, {
     timeZone: 'UTC', // 关键：指定UTC时区，匹配原时间的Z
     month: 'short', // 月份缩写（Jan/Feb/.../Nov/Dec）
     day: 'numeric', // 数字日期（1-31）

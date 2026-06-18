@@ -117,14 +117,15 @@ function emitHybrisAuthStateEvent(nextState = authState) {
 }
 
 function clearStoredAuthState() {
+  const { country } = getLocaleFromPath();
   try {
-    localStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+    localStorage.removeItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`);
   } catch (error) {
     // ignore storage failures
   }
 
   try {
-    sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+    sessionStorage.removeItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`);
   } catch (error) {
     // ignore storage failures
   }
@@ -149,41 +150,41 @@ function readStoredAuthState() {
   if (typeof window === 'undefined') {
     return null;
   }
-
+  const { country } = getLocaleFromPath();
   try {
-    const rawSharedValue = localStorage.getItem(HYBRIS_AUTH_STATE_KEY);
+    const rawSharedValue = localStorage.getItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`);
     if (!rawSharedValue) {
       throw new Error('No shared auth state');
     }
 
     const parsedState = normalizeAuthState(JSON.parse(rawSharedValue));
     if (!hasUsableAuthState(parsedState)) {
-      localStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+      localStorage.removeItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`);
       throw new Error('Shared auth state is not usable');
     }
 
     return parsedState;
   } catch (error) {
     try {
-      const rawLegacyValue = sessionStorage.getItem(HYBRIS_AUTH_STATE_KEY);
+      const rawLegacyValue = sessionStorage.getItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`);
       if (!rawLegacyValue) {
         return null;
       }
 
       const parsedLegacyState = normalizeAuthState(JSON.parse(rawLegacyValue));
       if (!hasUsableAuthState(parsedLegacyState)) {
-        sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+        sessionStorage.removeItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`);
         return null;
       }
 
       try {
-        localStorage.setItem(HYBRIS_AUTH_STATE_KEY, JSON.stringify(parsedLegacyState));
+        localStorage.setItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`, JSON.stringify(parsedLegacyState));
       } catch (storageError) {
         // ignore storage failures
       }
 
       try {
-        sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+        sessionStorage.removeItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`);
       } catch (sessionError) {
         // ignore storage failures
       }
@@ -240,19 +241,19 @@ function persistAuthState(nextState = {}) {
   }
 
   const normalizedState = normalizeAuthState(nextState);
-
+  const { country } = getLocaleFromPath();
   try {
     if (hasUsableAuthState(normalizedState)) {
-      localStorage.setItem(HYBRIS_AUTH_STATE_KEY, JSON.stringify(normalizedState));
+      localStorage.setItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`, JSON.stringify(normalizedState));
     } else {
-      localStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+      localStorage.removeItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`);
     }
   } catch (error) {
     try {
       if (hasUsableAuthState(normalizedState)) {
-        sessionStorage.setItem(HYBRIS_AUTH_STATE_KEY, JSON.stringify(normalizedState));
+        sessionStorage.setItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`, JSON.stringify(normalizedState));
       } else {
-        sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+        sessionStorage.removeItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`);
       }
     } catch (sessionError) {
       // ignore storage failures
@@ -261,7 +262,7 @@ function persistAuthState(nextState = {}) {
   }
 
   try {
-    sessionStorage.removeItem(HYBRIS_AUTH_STATE_KEY);
+    sessionStorage.removeItem(`${country}-${HYBRIS_AUTH_STATE_KEY}`);
   } catch (error) {
     // ignore storage failures
   }
@@ -334,8 +335,9 @@ function syncGuestCartIdentifierFromCart(cart = null) {
 }
 
 function readSessionToken() {
+  const { country } = getLocaleFromPath();
   try {
-    const sharedToken = localStorage.getItem(HYBRIS_SESSION_TOKEN_KEY) || '';
+    const sharedToken = localStorage.getItem(`${country}-${HYBRIS_SESSION_TOKEN_KEY}`) || '';
     if (sharedToken) {
       return sharedToken;
     }
@@ -344,19 +346,19 @@ function readSessionToken() {
   }
 
   try {
-    const legacyToken = sessionStorage.getItem(HYBRIS_SESSION_TOKEN_KEY) || '';
+    const legacyToken = sessionStorage.getItem(`${country}-${HYBRIS_SESSION_TOKEN_KEY}`) || '';
     if (!legacyToken) {
       return '';
     }
 
     try {
-      localStorage.setItem(HYBRIS_SESSION_TOKEN_KEY, legacyToken);
+      localStorage.setItem(`${country}-${HYBRIS_SESSION_TOKEN_KEY}`, legacyToken);
     } catch (storageError) {
       // ignore storage failures
     }
 
     try {
-      sessionStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
+      sessionStorage.removeItem(`${country}-${HYBRIS_SESSION_TOKEN_KEY}`);
     } catch (sessionError) {
       // ignore storage failures
     }
@@ -492,14 +494,15 @@ function setGuestCartPresence(present) {
 
 function clearSessionToken() {
   sessionToken = '';
+  const { country } = getLocaleFromPath();
   try {
-    localStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
+    localStorage.removeItem(`${country}-${HYBRIS_SESSION_TOKEN_KEY}`);
   } catch (error) {
     // ignore storage failures
   }
 
   try {
-    sessionStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
+    sessionStorage.removeItem(`${country}-${HYBRIS_SESSION_TOKEN_KEY}`);
   } catch (error) {
     // ignore storage failures
   }
@@ -510,13 +513,13 @@ function saveSessionToken(nextToken) {
   if (!nextToken) {
     return;
   }
-
+  const { country } = getLocaleFromPath();
   sessionToken = nextToken;
   try {
-    localStorage.setItem(HYBRIS_SESSION_TOKEN_KEY, nextToken);
+    localStorage.setItem(`${country}-${HYBRIS_SESSION_TOKEN_KEY}`, nextToken);
   } catch (error) {
     try {
-      sessionStorage.setItem(HYBRIS_SESSION_TOKEN_KEY, nextToken);
+      sessionStorage.setItem(`${country}-${HYBRIS_SESSION_TOKEN_KEY}`, nextToken);
     } catch (sessionError) {
       // ignore storage failures
     }
@@ -524,7 +527,7 @@ function saveSessionToken(nextToken) {
   }
 
   try {
-    sessionStorage.removeItem(HYBRIS_SESSION_TOKEN_KEY);
+    sessionStorage.removeItem(`${country}-${HYBRIS_SESSION_TOKEN_KEY}`);
   } catch (error) {
     // ignore storage failures
   }
@@ -659,13 +662,16 @@ export function getHybrisGuestCartIdentifier() {
   return ensureGuestCartIdentifierLoaded();
 }
 
-export function buildHybrisCartPageUrl(baseUrl = '/cart', options = {}) {
+export function buildHybrisCartPageUrl(baseUrl, options = {}) {
   const {
     authenticated = getCachedAuthState().authenticated,
     guestCartIdentifier: nextGuestCartIdentifier = ensureGuestCartIdentifierLoaded(),
   } = options;
-  const normalizedBaseUrl = String(baseUrl || '').trim() || '/cart';
-
+  const { country, language } = getLocaleFromPath();
+  let normalizedBaseUrl = baseUrl ?? `/${country}/${language}/cart`;
+  if (country === 'us') {
+    normalizedBaseUrl = baseUrl ?? `/${country}/cart`;
+  }
   if (typeof window === 'undefined') {
     return normalizedBaseUrl;
   }
@@ -1358,8 +1364,8 @@ function handleSharedAuthStorage(event) {
   if (typeof window === 'undefined') {
     return;
   }
-
-  if (event?.key === HYBRIS_SESSION_TOKEN_KEY) {
+  const { country } = getLocaleFromPath();
+  if (event?.key === `${country}-${HYBRIS_SESSION_TOKEN_KEY}`) {
     sessionToken = String(event.newValue || '').trim();
     if (!sessionToken) {
       authStateValidatedAt = 0;
@@ -1367,7 +1373,7 @@ function handleSharedAuthStorage(event) {
     return;
   }
 
-  if (event?.key !== HYBRIS_AUTH_STATE_KEY) {
+  if (event?.key !== `${country}-${HYBRIS_AUTH_STATE_KEY}`) {
     return;
   }
 

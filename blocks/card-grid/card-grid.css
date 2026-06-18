@@ -108,7 +108,7 @@
   }
 }
 
-@media (width < 860px ) {
+@media (width < 640px ) {
   .card-grid {
     .feature-items-wrapper {
       grid-template-columns: 1fr !important;

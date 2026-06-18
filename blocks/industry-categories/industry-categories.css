@@ -16,7 +16,7 @@
   font-weight: var(--fontweight-medium);
   font-size: var(--size-20);
 
-   @media (width < 860px) {
+   @media (width < 640px) {
    font-size: var(--size-18);
   }
 }
@@ -28,7 +28,7 @@
   font-size: var(--size-46);
   margin: var(--spacing-sm) 0 var(--spacing-xl);
 
-   @media (width < 860px) {
+   @media (width < 640px) {
     font-size: var(--size-24);
     margin: var(--spacing-3xs) 0 var(--size-32);
   }
@@ -42,7 +42,7 @@
   font-size: var(--size-46);
   margin: var(--spacing-sm) 0 var(--spacing-xl);
 
-   @media (width < 860px) {
+   @media (width < 640px) {
     font-size: var(--size-24);
     margin: var(--spacing-3xs) 0 var(--size-32);
   }
@@ -55,11 +55,11 @@
   padding: 0;
   margin: 0;
   list-style: none;
-  width: fit-content; /* 自适应宽度 */
+  width: 100%;
   transition: grid-template-columns 0.5s ease;
   grid-auto-rows: 1fr;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     width:unset;
     overflow: auto visible;
     scroll-snap-type: x mandatory;
@@ -80,7 +80,7 @@
    width: 100%;
    height: 100%;
 
-   @media (width < 860px) {
+   @media (width < 640px) {
     position: relative;
     transition: transform 0.5s;
     pointer-events: auto; 
@@ -97,17 +97,49 @@
   transition: all 0.5s ease;
   padding: var(--size-32) var(--size-16);
   color: var(--color-primary-grey-10);
-  width: min(12.85714vw, 144px);
+  min-height: min(calc(460 / var(--breakpoint-pc) * 100vw), 460px);
 
-  @media (width < 860px) {
+  /* width: min(12.85714vw, 144px); */
+
+  /* 6个卡片时的每个卡片宽度 12vw， 按照 144 / 1120 + gap总数 80 计算得出的vw值 */
+  width: min(12vw, 144px);
+
+
+  @media (width < 640px) {
     width: 33.8461vw;
     padding: var(--size-24) var(--size-12);
     border-radius: var(--size-12);
+    height: auto;
   }
   
    @media (width >= 1440px) {
      width: min(10vw, 144px);
     
+  }
+}
+
+/* 5个卡片时平铺整个内容区域 */
+.industry-categories  .card-item:first-child:nth-last-child(5),
+.industry-categories .card-item:first-child:nth-last-child(5) ~ .card-item {
+  /* vww值计算规则 ： 174 / 1120 */
+  width: min(12.08333333vw, 174px);
+  min-width: 100%;
+
+  @media (width < 640px) {
+    width: 33.8461vw;
+    padding: var(--size-24) var(--size-12);
+    border-radius: var(--size-12);
+  }
+}
+
+.industry-categories  .card-item.active:first-child:nth-last-child(5),
+.industry-categories .card-item:first-child:nth-last-child(5) ~ .card-item.active {
+  /* vww值计算规则 ： 360 / 1120 */
+  width: min(32.1428571vw, 360px);
+
+  @media (width < 640px) {
+     width: calc(76.923vw);
+     padding: var(--size-24)!important;
   }
 }
 
@@ -129,10 +161,14 @@
 
 .industry-categories .active {
   box-shadow: 0 8px 20px rgb(0 0 0 / 10%);
-  width: min(27.118644vw, 320px);
+
+  /* width: min(27.118644vw, 320px); */
+
+  /* 展开时的vw值, 计算规则：按照 320 / 1120 + gap总数 80 计算得出，不管视口如何变化都可以铺满整个内容区域 */
+  width: min(26.66666667vw, 320px);
  
 
-   @media (width < 860px) {
+   @media (width < 640px) {
      width: calc(76.923vw);
      padding: var(--size-24)!important;
   }
@@ -153,7 +189,7 @@
   display: flex;
   width: 76.923vw;
 
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     font-size: var(--size-24);
      gap: var(--size-12);
      margin:var(--size-48) 0 0;
@@ -185,10 +221,37 @@
     padding: var(--size-8) var(--size-16);
     overflow-wrap: break-word;
 
-     @media (width >= 860px) {
+    &.item-hide {
+      display: none;
+    }
+
+    &.card-item-text {
+      cursor: default;
+    }
+
+    @media (width >= 640px) {
       padding: var(--size-8);
-  }
+    }
+
+    a, a.button, .button-container {
+      min-height: var(--size-20);
+      color: var(--color-primary-grey-10);
+      background-color: transparent;
+      line-height: var(--size-20);
+      padding: 0;
+      margin: 0;
+      border-radius: 0;
+      border: none;
+      text-overflow: unset;
+      white-space: unset;
+
+      &:hover {
+        color: var(--color-primary-grey-10);
+        text-decoration: underline;
+      }
+    }
 }
+
 
 .industry-categories .active .card-body > div{
     z-index: 99;
@@ -205,7 +268,7 @@
   font-weight: var(--fontweight-medium);
   width: var(--size-120);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     margin: auto;
     width: 100%;
     font-size: var(--size-16);

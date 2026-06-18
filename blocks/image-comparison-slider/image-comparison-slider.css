@@ -10,7 +10,7 @@
   --indicator-icon-size: 16px;
   --indicator-text-size: 0.5rem;
 
-  @media (width >= 860px) {
+  @media (width >= 640px) {
     --container-row-gap: 20px;
     --dragger-line-width: 2px;
     --dragger-inner-size: 20px;

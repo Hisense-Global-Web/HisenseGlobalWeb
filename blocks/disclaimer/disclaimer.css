@@ -1,11 +1,11 @@
 /* disclaimer.css */
 .disclaimer-box {
-  padding: var(--size-120) 0;
+  padding: var(--size-40) 0 var(--size-80);
   display: flex;
   align-items: center;
   
-  @media (width < 860px) {
-    padding: var(--size-80) 0;
+  @media (width < 640px) {
+    padding: var(--size-24) 0 var(--size-48);
   }
 }
 
@@ -17,7 +17,7 @@
   padding: 0;
   line-height: 1.5;
   
-  @media (width < 860px) {
+  @media (width < 640px) {
     font-size: var(--fontsize-caption3);
     line-height: 1.4;
   }

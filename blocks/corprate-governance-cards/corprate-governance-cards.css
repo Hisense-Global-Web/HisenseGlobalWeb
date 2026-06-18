@@ -93,7 +93,7 @@ p {
     }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
     .corprate-governance-cards {
         .g-container {
             display: flex;

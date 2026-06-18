@@ -1,7 +1,8 @@
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 export default async function decorate(block) {
   const MateSpaceEl = document.createElement('div');
   MateSpaceEl.classList.add('mate-space');
@@ -22,9 +23,10 @@ export default async function decorate(block) {
       child.firstElementChild.remove();
       const iconEl = document.createElement('img');
       iconEl.src = `/content/dam/hisense/${country}/common-icons/time.svg`;
+      const { language } = getLocaleFromPath();
       const date = child.textContent.trim();
       const dateEl = document.createElement('span');
-      dateEl.textContent = formatIsoToUtcStr(date);
+      dateEl.textContent = formatIsoToUtcStr(date, language);
       child.replaceChildren(iconEl, dateEl);
       MateEl.appendChild(child);
     } else if (type === 'article-location') {

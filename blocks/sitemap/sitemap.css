@@ -7,7 +7,7 @@ main:has(.section.sitemap-container) {
   .region-page-title-container, .page-header-container {
     width: 100%;
     
-    @media (width < 860px)  {
+    @media (width < 640px)  {
       margin-top: var(--size-56);
       
       .page-header {
@@ -29,7 +29,7 @@ main > .section.sitemap-container {
   flex-shrink: 0;
   padding: 0 var(--common-padding) var(--size-80);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     gap: 0;
     margin-top: var(--size-24);
     grid-template-columns: repeat(1, 1fr);
@@ -45,7 +45,7 @@ main > .section.sitemap-container {
   flex-shrink: 0;
   height: 100%;
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     gap: 0;
     padding: var(--size-24) 0 var(--size-32) !important;
     border-bottom: 1px solid var(--color-primary-grey-30);
@@ -74,7 +74,7 @@ main > .section.sitemap-container {
     height: 1px;
     background: var(--color-primary-grey-30);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       display: none;
     }
   }
@@ -84,7 +84,7 @@ main > .section.sitemap-container {
     flex-direction: column;
     gap: var(--size-24);
     
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: 0;
     }
   
@@ -97,7 +97,7 @@ main > .section.sitemap-container {
       display: flex;
       justify-content: space-between;
   
-      @media (width < 860px) {
+      @media (width < 640px) {
         font-size: var(--size-18);
       }
   
@@ -105,7 +105,7 @@ main > .section.sitemap-container {
         display: none;
         transition: transform 0.5s cubic-bezier(0.35, 0, 0.36, 1);
   
-        @media (width < 860px) {
+        @media (width < 640px) {
           display: block;
           width: var(--size-24);
           height: var(--size-24);
@@ -128,7 +128,7 @@ main > .section.sitemap-container {
           margin-bottom: 0;
         }
   
-        @media (width < 860px) {
+        @media (width < 640px) {
           max-width: inherit;
           
           &:first-child {
@@ -155,6 +155,10 @@ main > .section.sitemap-container {
   
           &:hover {
             color: var(--color-primary-green-50);
+          }
+          
+          &:not([href]):hover {
+            color: var(--color-primary-grey-70);
           }
         }
       }

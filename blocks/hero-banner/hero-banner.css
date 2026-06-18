@@ -60,6 +60,15 @@ p {
     width: 100%;
     height: 100%;
 
+    .external-video-box {
+      display: flex;
+      height: 100%;
+
+      iframe {
+        flex: 1;
+      }
+    }
+
     picture {
       inset: 0;
       width: 100%;
@@ -94,8 +103,9 @@ p {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--size-40);
+    z-index: 5;
 
-    @media (width>=860px) {
+    @media (width>=640px) {
       padding: 0;
     }
   }
@@ -159,7 +169,7 @@ p {
     -webkit-line-clamp: 9;
     line-clamp: 9;
 
-    @media (width<860px) {
+    @media (width<640px) {
       -webkit-line-clamp: 5;
       line-clamp: 5;
     }
@@ -175,7 +185,7 @@ p {
     -webkit-line-clamp: 9;
     line-clamp: 9;
 
-    @media (width<860px) {
+    @media (width<640px) {
       -webkit-line-clamp: 6;
       line-clamp: 6;
     }
@@ -191,7 +201,7 @@ p {
     -webkit-line-clamp: 11;
     line-clamp: 11;
 
-    @media (width<860px) {
+    @media (width<640px) {
       -webkit-line-clamp: 6;
       line-clamp: 6;
     }
@@ -207,7 +217,7 @@ p {
     -webkit-line-clamp: 11;
     line-clamp: 11;
 
-    @media (width<860px) {
+    @media (width<640px) {
       -webkit-line-clamp: 7;
       line-clamp: 7;
     }
@@ -441,6 +451,7 @@ p {
   align-items: center;
   justify-content: space-between;
   z-index: 1;
+  pointer-events: none;
 }
 
 .hero-banner-navigation-buttons button {
@@ -453,6 +464,8 @@ p {
   padding: 0;
   background-color: var(--white-alpha-30);
   transition: background-color 0.2s;
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 .hero-banner-navigation-buttons button:hover,
@@ -469,7 +482,7 @@ p {
   .hero-banner-items-container {
     aspect-ratio: 9 / 4;
 
-    @media (width<860px) {
+    @media (width<640px) {
       aspect-ratio: 39 / 48;
     }
 
@@ -498,7 +511,7 @@ p {
       .hero-banner-item-content p {
         width: min(calc(422 / var(--breakpoint-pc) * 100vw), 422px);
 
-        @media (width<860px) {
+        @media (width<640px) {
           -webkit-line-clamp: 3;
           line-clamp: 3;
         }
@@ -511,7 +524,7 @@ p {
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .hero-banner .hero-banner-items-container {
     touch-action: pan-y;
     user-select: none;
@@ -685,7 +698,7 @@ p {
   }
 }
 
-@media (width >= 860px) {
+@media (width >= 640px) {
   .hero-banner-items-container.full-screen {
     max-height: 100dvh;
   }

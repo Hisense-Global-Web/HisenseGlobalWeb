@@ -188,6 +188,16 @@
         object-fit: cover;
       }
     }
+
+    .external-video-box {
+      width: 100%;
+      height: 100%;
+
+      iframe {
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 }
 
@@ -481,9 +491,10 @@
 
 .media-carousel-pagination.show {
   display: flex;
+  margin-left: auto;
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .media-carousel-pagination.show {
     display: none;
   }

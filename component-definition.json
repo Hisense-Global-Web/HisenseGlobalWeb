@@ -90,6 +90,25 @@
           }
         },
         {
+          "title": "Store Locator",
+          "id": "store-locator",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "name": "Store Locator",
+                  "model": "store-locator",
+                  "filter": "store-locator",
+                  "placeholder1": "All",
+                  "placeholder2": "All",
+                  "button": "Search"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Announcement",
           "id": "announcement",
           "plugins": {
@@ -534,7 +553,11 @@
                 "template": {
                   "name": "Campaign Bundle Banner",
                   "model": "campaign-bundle-banner",
-                  "filter": "campaign-bundle-banner"
+                  "filter": "campaign-bundle-banner",
+                  "key-value": true,
+                  "children": [
+                    "campaign-bundle-promo"
+                  ]
                 }
               }
             }
@@ -600,6 +623,55 @@
                   "model": "associated-products",
                   "item-type": "products",
                   "button_text": "Buy Now"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Campaign Image",
+          "id": "campaign-image",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Campaign Image",
+                  "model": "campaign-image",
+                  "filter": "campaign-image"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Campaign Product",
+          "id": "campaign-product",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Campaign Product",
+                  "model": "campaign-product",
+                  "filter": "campaign-product",
+                  "text": "Pre-Order",
+                  "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Campaign Product List",
+          "id": "campaign-product-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Campaign Product List",
+                  "model": "campaign-product-list"
                 }
               }
             }
@@ -1886,6 +1958,23 @@
           }
         },
         {
+          "title": "Media Filter",
+          "id": "media-filter",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Media Filter",
+                  "model": "media-filter",
+                  "mobile_loadmore": "Load More",
+                  "page-size": 9
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Minimalist Hero Banner",
           "id": "minimalist-hero-banner",
           "plugins": {
@@ -2257,7 +2346,11 @@
                 "template": {
                   "name": "Price Slider",
                   "model": "price-slider",
-                  "classes": "price-slider-wrapper"
+                  "classes": "price-slider-wrapper",
+                  "filter-title": "Your Budget",
+                  "min-rangeLabel": "Min price",
+                  "max-rangeLabel": "Max price",
+                  "price-slider": "priceSliderItem"
                 }
               }
             }
@@ -2677,6 +2770,37 @@
           }
         },
         {
+          "title": "Region",
+          "id": "region",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Region",
+                  "model": "region",
+                  "filter": "region"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Region Countries",
+          "id": "region-countries",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Region Countries",
+                  "model": "region-countries"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Related News",
           "id": "related-news",
           "plugins": {
@@ -3017,17 +3141,16 @@
           }
         },
         {
-          "title": "Store Information Card",
-          "id": "store-information-card",
+          "title": "Store Locator Card",
+          "id": "store-locator-card",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Store Information Card",
-                  "model": "store-information-card",
-                  "filter": "store-information-card",
-                  "key-value": true
+                  "name": "Store Locator Card",
+                  "model": "store-locator-card",
+                  "filter": "store-locator-card"
                 }
               }
             }
@@ -3043,24 +3166,6 @@
                 "template": {
                   "name": "Service Items",
                   "model": "service-items"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Store Locator",
-          "id": "store-locator",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Store Locator",
-                  "model": "store-locator",
-                  "filter": "store-locator",
-                  "placeholder1": "All",
-                  "placeholder2": "All"
                 }
               }
             }
@@ -3609,6 +3714,21 @@
                   "name": "Warranty Accordion",
                   "model": "warranty-accordion",
                   "classes": "warranty-accordion"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Warranty Description",
+          "id": "warranty-description",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Warranty Description",
+                  "model": "warranty-description"
                 }
               }
             }

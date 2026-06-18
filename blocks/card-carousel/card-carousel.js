@@ -5,12 +5,13 @@ import {
   throttle,
   mobilePressEffect,
 } from '../../utils/carousel-common.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 
 const cardCarouselId = 0;
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 export function bindEvent(block, type = 'normal') {
   const track = block.querySelector('.card-carousel-track');
   const cards = block.querySelectorAll('li');
@@ -46,10 +47,20 @@ export function bindEvent(block, type = 'normal') {
     if (Math.abs(currentX) > maxTranslate && type === 'resize') {
       currentX = -maxTranslate;
     }
-    track.style.transform = `translateX(${currentX}px)`;
-    if (window.innerWidth < 860) {
-      track.style.transform = 'none';
-    }
+
+    const meidaTrackQuery = window.matchMedia(`(min-width: ${SCREEN_POINT}px)`);
+    const handleTrackMediaChange = (e) => {
+      if (e.matches) {
+        // PC
+        track.style.transform = `translateX(${currentX}px)`;
+      } else {
+        // Mobile
+        track.style.transform = 'none';
+      }
+    };
+    handleTrackMediaChange(meidaTrackQuery);
+    meidaTrackQuery.addEventListener('change', handleTrackMediaChange);
+
     block.dataset.currentIndex = currentIndex;
     if (currentX === 0) {
       block.dataset.currentIndex = 0;

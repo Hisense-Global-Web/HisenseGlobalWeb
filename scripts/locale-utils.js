@@ -1,5 +1,44 @@
 import { getLocationPart } from './environment.js';
 
+const languageList = ['en', 'es', 'fr', 'pt', 'zh', 'zh-tw', 'ja', 'th', 'ar'];
+const defaultLanguageMap = {
+  us: 'en', // 美国
+  ca: 'en', // 加拿大
+  mx: 'es', // 墨西哥
+  br: 'pt', // 巴西
+  pa: 'es', // 巴拿马
+  cn: 'zh', // 中国
+  ar: 'es', // 阿根廷
+  cl: 'es', // 智利
+  co: 'es', // 哥伦比亚
+  gt: 'es', // 危地马拉
+  sv: 'es', // 萨尔瓦多
+  hn: 'es', // 洪都拉斯
+  do: 'es', // 多米尼加共和国
+  cr: 'es', // 哥斯达黎加
+  ni: 'es', // 尼加拉瓜
+  pe: 'es', // 秘鲁
+  za: 'en', // 南非
+  ae: 'en', // 迪拜（阿联酋）
+  sa: 'en', // 沙特阿拉伯
+  eg: 'en', // 埃及
+  dz: 'en', // 阿尔及利亚
+  ma: 'en', // 摩洛哥
+  tn: 'en', // 突尼斯
+  tz: 'en', // 坦桑尼亚
+  zm: 'en', // 赞比亚
+  mz: 'pt', // 莫桑比克
+  bw: 'en', // 博茨瓦纳
+  mu: 'en', // 毛里求斯
+  na: 'en', // 纳米比亚
+  in: 'en', // 印度
+  jp: 'ja', // 日本
+  hk: 'zh-tw', // 中国香港
+  pk: 'en', // 巴基斯坦
+  np: 'en', // 尼泊尔
+  lk: 'en', // 斯里兰卡
+  th: 'th', // 泰国
+};
 /**
  * hisense.com/us 没有 en 这一级目录，US 站点统一默认语言为 en（不从 path 取语言）。
  */
@@ -11,11 +50,12 @@ export function getLocaleFromPath() {
   const countryIndex = isContentPath ? 2 : 0;
   const languageIndex = isContentPath ? 3 : 1;
 
-  const country = (segments[countryIndex] || 'us').toLowerCase();
-  // US 站点无 /en 层级，固定 language=en, 其他从 path 取或默认 en
-  const language = (country === 'us')
-    ? 'en'
-    : ((segments[languageIndex] || '').toLowerCase() || 'en');
+  const country = (segments[countryIndex] || 'cn').toLowerCase();
+  const langFromSegments = segments[languageIndex]?.toLowerCase() ?? '';
+  let language = langFromSegments;
+  if (!languageList.includes(langFromSegments)) {
+    language = defaultLanguageMap[country];
+  }
 
   return { country, language };
 }
@@ -26,8 +66,8 @@ export function getFragmentPath(fragmentName) {
 
   const isHisenseCom = typeof window !== 'undefined' && window.location.href.includes('hisense.com');
   const isUsSite = country === 'us' && language === 'en';
-  const localeSegment = (isHisenseCom && isUsSite)
-    ? `us/${fragmentName}`
+  const localeSegment = (isHisenseCom && !isUsSite)
+    ? `cn/zh/${fragmentName}`
     : `${country}/${language}/${fragmentName}`;
 
   return `${base}/${localeSegment}`;
@@ -91,4 +131,39 @@ export function isNavPage() {
  */
 export function isFooterPage() {
   return /footer(\.html)?$/.test(getLocationPart('pathname'));
+}
+
+export function simpleHash(str) {
+  const s = String(str);
+  let h = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    h = (h * 31 + s.charCodeAt(i)) % 2147483647;
+  }
+  return Math.abs(h).toString(36);
+}
+/**
+ * Get GraphQL endpoint URL with base URL
+ */
+export function getGraphQLUrl(endpointPath) {
+  let path = localizeProductApiPath(endpointPath);
+  const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) ? window.location.hostname : '';
+  const isAemEnv = hostname.includes('author') || hostname.includes('publish');
+
+  if (isAemEnv && path && path.endsWith('.json')) {
+    let pathWithoutJson = path.replace(/\.json$/, '');
+    pathWithoutJson = pathWithoutJson.replace(/^\/product\/?/, '/') || '/';
+    path = `/bin/hisense/productList.json?path=${pathWithoutJson}`;
+  }
+
+  const baseUrl = window.GRAPHQL_BASE_URL || '';
+  let url;
+  if (path && (path.startsWith('http://') || path.startsWith('https://'))) {
+    url = path;
+  } else {
+    url = baseUrl ? `${baseUrl}${path}` : path;
+  }
+  const fiveMinutesMs = 5 * 60 * 1000;
+  const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
+  const sep = url.indexOf('?') >= 0 ? '&' : '?';
+  return `${url}${sep}_t=${cacheBuster}`;
 }

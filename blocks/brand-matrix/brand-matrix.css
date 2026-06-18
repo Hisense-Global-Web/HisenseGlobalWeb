@@ -37,7 +37,7 @@
   }
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   .brand-matrix {
     .brand-matrix-container {
       gap: var(--size-18) var(--size-12);

@@ -16,7 +16,7 @@ import {
   refreshHybrisAuthStatus,
   startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
-import { getFragmentPath, isNavPage } from '../../scripts/locale-utils.js';
+import { getFragmentPath, isNavPage, getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 import {
   buildAccountMenuLinks,
@@ -32,9 +32,27 @@ import {
 } from './header-commerce-utils.js';
 
 import { isAuthorHostname } from '../../scripts/environment.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
+import translate from '../../utils/translate.js';
 
+const LOGOUT_TEXT = {
+  en: {
+    logoutContextTitle: 'Are you sure you want to log out?',
+    logoutContextSubtitle: 'You\'ll need to sign in again to access your account, registered products, and orders.',
+    cancel: 'Cancel',
+    logOut: 'Log out',
+    profile: 'Profile',
+  },
+  fr: {
+    logoutContextTitle: 'Êtes-vous sûr de vouloir vous déconnecter?',
+    logoutContextSubtitle: 'Vous devrez vous reconnecter pour accéder à votre compte, à vos produits enregistrés et à vos commandes.',
+    cancel: 'Annuler',
+    logOut: 'Se déconnecter',
+    profile: 'Profil',
+  },
+};
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 const NAVIGATION_ACTION_TYPES = {
   SEARCH_BOX: 'search-box',
   SHOPPING_CART: 'shopping-cart',
@@ -124,9 +142,6 @@ function resolveShoppingCartBaseUrl(actionHref = '') {
 
   try {
     const cartUrl = new URL(normalizedHref || '/cart', window.location.origin);
-    cartUrl.pathname = '/cart';
-    cartUrl.search = '';
-    cartUrl.hash = '';
     return cartUrl.toString();
   } catch (error) {
     return '/cart';
@@ -248,6 +263,8 @@ function ensureLogoutModal() {
 
   let popup = document.querySelector('#logout-popup');
   if (!popup) {
+    const { language } = getLocaleFromPath();
+
     popup = document.createElement('div');
     popup.id = 'logout-popup';
 
@@ -259,10 +276,10 @@ function ensureLogoutModal() {
     logoutContext.className = 'logout-context';
     const logoutContextTitle = document.createElement('div');
     logoutContextTitle.className = 'title';
-    logoutContextTitle.textContent = 'Are you sure you want to log out?';
+    logoutContextTitle.textContent = LOGOUT_TEXT[language]?.logoutContextTitle ?? LOGOUT_TEXT.en.logoutContextTitle;
     const logoutContextSubtitle = document.createElement('div');
     logoutContextSubtitle.className = 'subtitle';
-    logoutContextSubtitle.textContent = 'You\'ll need to sign in again to access your account, registered products, and orders.';
+    logoutContextSubtitle.textContent = LOGOUT_TEXT[language]?.logoutContextSubtitle ?? LOGOUT_TEXT.en.logoutContextSubtitle;
     logoutContext.append(logoutContextTitle, logoutContextSubtitle);
 
     const logoutBtnGroup = document.createElement('div');
@@ -270,12 +287,12 @@ function ensureLogoutModal() {
     const cancelBtn = document.createElement('button');
     cancelBtn.type = 'button';
     cancelBtn.className = 'cancel-btn';
-    cancelBtn.textContent = 'Cancel';
+    cancelBtn.textContent = LOGOUT_TEXT[language]?.cancel ?? LOGOUT_TEXT.en.cancel;
 
     const sureBtn = document.createElement('button');
     sureBtn.type = 'button';
     sureBtn.className = 'sure-btn';
-    sureBtn.textContent = 'Log out';
+    sureBtn.textContent = LOGOUT_TEXT[language]?.logOut ?? LOGOUT_TEXT.en.logOut;
     logoutBtnGroup.append(cancelBtn, sureBtn);
 
     popup.append(popupCloseImg, logoutContext, logoutBtnGroup);
@@ -293,6 +310,7 @@ function ensureLogoutModal() {
 }
 
 function createAccountDrawer() {
+  const { language } = getLocaleFromPath();
   const personEl = document.createElement('div');
   personEl.className = 'person-drawer';
   personEl.hidden = true;
@@ -315,7 +333,7 @@ function createAccountDrawer() {
 
   const profileEl = document.createElement('a');
   profileEl.className = 'account-secondary-link profile-group';
-  profileEl.textContent = 'Profile';
+  profileEl.textContent = LOGOUT_TEXT[language]?.profile ?? LOGOUT_TEXT.en.profile;
   profileEl.href = '/my-account/update-profile';
   profileEl.hidden = true;
   profileEl.setAttribute('aria-hidden', 'true');
@@ -325,7 +343,7 @@ function createAccountDrawer() {
 
   const logoutEl = document.createElement('div');
   logoutEl.className = 'account-secondary-link logout-group';
-  logoutEl.textContent = 'Log out';
+  logoutEl.textContent = LOGOUT_TEXT[language]?.logOut ?? LOGOUT_TEXT.en.logOut;
   logoutEl.addEventListener('click', (event) => {
     event.stopPropagation();
     setLogoutModalVisible(true);
@@ -393,12 +411,14 @@ function applyCartActionState(actionButton, count = 0) {
 }
 
 function parseLogo(root) {
-  const logoImg = root.querySelector('.navigation-logo-wrapper img');
+  const logoImgList = root.querySelectorAll('.navigation-logo-wrapper img');
+  const altEl = root.querySelector('.navigation-logo-wrapper p:not(a)');
   const logoHref = root.querySelector('.navigation-logo-wrapper a')?.href || '';
   return {
-    src: logoImg?.src || '',
+    src: logoImgList[0]?.src || '',
+    darkSrc: logoImgList.length > 1 ? logoImgList[1]?.src : logoImgList[0]?.src,
     href: processPath(logoHref),
-    alt: logoImg?.alt || 'logo',
+    alt: altEl?.textContent?.trim() || 'logo',
   };
 }
 
@@ -955,7 +975,7 @@ const setSearchBoxInput = (inputWrapperEl) => {
 };
 
 const checkMobileSearchBox = (inputWrapperEl) => {
-  if (window.innerWidth < 860) {
+  if (window.innerWidth < SCREEN_POINT) {
     const inputEl = inputWrapperEl.querySelector('input');
     inputEl.removeAttribute('readonly');
     inputWrapperEl.classList.add('input-wrapper-mobile');
@@ -1033,7 +1053,7 @@ const buildSearchBoxPopup = (mainEl) => {
 const handleChangeNavPosition = (navigation) => {
   const pdpEl = document.querySelector('.product-section-container');
   const plpEl = document.querySelector('.product-sorting');
-  if (window.innerWidth < 860 && (pdpEl || plpEl)) {
+  if (window.innerWidth < SCREEN_POINT && (pdpEl || plpEl)) {
     navigation.style.position = 'absolute';
     // navigation.style.transition = 'none';
   } else {
@@ -1111,6 +1131,7 @@ const handleAccountActionClick = async (event) => {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  const { language } = getLocaleFromPath();
   // clean nav page content in eds side
   if (!isAuthorHostname() && isNavPage()) {
     document.head.remove();
@@ -1303,9 +1324,14 @@ export default async function decorate(block) {
     const a = logo.href ? document.createElement('a') : document.createElement('div');
     a.href = logo.href;
     const img = document.createElement('img');
+    img.className = 'logo-img';
     img.src = logo.src;
     img.alt = logo.alt;
-    a.append(img);
+    const darkImg = document.createElement('img');
+    darkImg.className = 'logo-dark-img';
+    darkImg.src = logo.darkSrc;
+    darkImg.alt = logo.alt;
+    a.append(img, darkImg);
     logoEl.append(a);
   }
 
@@ -1317,7 +1343,7 @@ export default async function decorate(block) {
   navSecond.className = `nav-second h-grid-container ${isCompanyPage || isSupportPage ? '' : 'hidden'}`;
   const CompanyEl = document.createElement('div');
   CompanyEl.className = 'route-company';
-  CompanyEl.textContent = 'Company';
+  CompanyEl.textContent = translate('COMPANY', language);
   const CompanyGroupEl = document.createElement('div');
   CompanyGroupEl.className = 'company-group';
   company.forEach((item) => {
@@ -1739,7 +1765,7 @@ export default async function decorate(block) {
           const link = document.createElement('div');
           // link.className = 'mobile-product-item';
           const { title, href } = getSupportSubMenuLinkData(item);
-          const isCurrent = window.location.pathname.includes(href) && !window.location.pathname.includes(`${href}/`);
+          const isCurrent = window.location.href.includes(href) && !window.location.pathname.includes(`${href}/`);
           link.className = `mobile-product-item ${isCurrent ? 'current' : ''}`;
           const span1 = document.createElement('span');
           span1.textContent = title;
@@ -1788,7 +1814,9 @@ export default async function decorate(block) {
       [...supportMenuLinksList.children].forEach((item) => {
         const { title, href } = getSupportSubMenuLinkData(item);
         const div = document.createElement('div');
-        div.className = 'mobile-product-item';
+        // div.className = 'mobile-product-item';
+        const isCurrent = window.location.href.includes(href) && !window.location.pathname.includes(`${href}/`);
+        div.className = `mobile-product-item ${isCurrent ? 'current' : ''}`;
         if (href && href !== '#') {
           const a = document.createElement('a');
           a.href = href;

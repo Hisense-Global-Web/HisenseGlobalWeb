@@ -98,6 +98,21 @@ function extractFaqList(data) {
   return [];
 }
 
+function extractTags(data, tags = {}) {
+  Object.keys(data).forEach((key) => {
+    // 跳过 JCR 系统属性
+    if (!key.startsWith('jcr:') && typeof data[key] === 'object' && data[key] !== null) {
+      // 如果当前节点有 jcr:title，说明它是一个标签节点
+      if (data[key]['jcr:title']) {
+        tags[key] = data[key]['jcr:title'];
+      }
+      // 递归处理子节点
+      extractTags(data[key], tags);
+    }
+  });
+  return tags;
+}
+
 // 获取FAQ标签数据
 async function fetchFaqTags() {
   try {
@@ -105,14 +120,7 @@ async function fetchFaqTags() {
     const resp = await fetch(url);
     const data = await resp.json();
 
-    const tags = {};
-    Object.keys(data).forEach((key) => {
-      if (!key.startsWith('jcr:') && typeof data[key] === 'object' && data[key] !== null) {
-        tags[key] = data[key]['jcr:title'] || key;
-      }
-    });
-
-    return tags;
+    return extractTags(data);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('faq-module: failed to fetch FAQ tags', err);
@@ -227,7 +235,7 @@ function getFaqTagText(faqItem, tags = {}) {
 
 function createFaqCard(faqItem, index, tags) {
   const segments = window.location.pathname.split('/').filter(Boolean);
-  const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+  const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
   const faqTags = normalizeFaqTags(faqItem.tags);
   const card = document.createElement('div');
   card.className = index === 0 ? 'faq-card' : 'faq-card hide';
@@ -319,7 +327,7 @@ function getPageNumbers(currentPage, totalPages) {
 // 创建PC端分页按钮
 function buildPaginationControls(container, state, onPageChange, config) {
   const segments = window.location.pathname.split('/').filter(Boolean);
-  const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+  const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
   const { total, pageSize, currentPage } = state;
 
   const paginationEl = container.querySelector('.faq-pagination');

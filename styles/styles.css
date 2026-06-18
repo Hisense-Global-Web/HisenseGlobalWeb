@@ -20,7 +20,7 @@ html {
 
 :root {
   --breakpoint-large: 1440px;
-  --breakpoint-normal: 860px;
+  --breakpoint-normal: 640px;
   --breakpoint-small: 390px;
   --breakpoint-pc: 1440;
   --breakpoint-mobile: 390;
@@ -427,7 +427,7 @@ html {
 	}
 }
 
-@media (width >= 860px) {
+@media (width >= 640px) {
   :root {
     /* common */
     --common-padding: 30px;
@@ -616,7 +616,7 @@ body {
 	font-size: var(--body-font-size-l);
 	line-height: var(--line-height-l);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     overflow-x: hidden;
   }
 }
@@ -628,7 +628,7 @@ body.appear {
 header {
 	height: var(--nav-height);
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     height: auto;
   }
 }
@@ -718,7 +718,7 @@ h5 {
   font-size: var(--fontsize-title1);
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   h1 {
     font-size: min(var(--fontsize-h1), 6.25vh);
   }
@@ -867,7 +867,7 @@ a.button.primary:active {
     border-radius: var(--size-100);
     font-weight: var(--fontweight-medium);
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       height: var(--size-40);
       padding: var(--size-4) var(--size-20);
     }
@@ -1049,6 +1049,11 @@ main {
     color: var(--text-dark);
   }
 
+  .section.gradient-green {
+    background: linear-gradient(180deg, #EDFCFB 0%, #FFF 80%), #FFF;
+    color: var(--text-dark);
+  }
+
   .section.green-10 {
     background: var(--color-primary-green-10, #EDFCFB);
     color: var(--text-dark);
@@ -1067,6 +1072,11 @@ main {
   }
 
 	/* section container type */
+
+  .section.fluid {
+    max-width: 1920px !important;
+    margin: 0 auto;
+  }
 
 	.section.fluid > div {
 		max-width: unset;
@@ -1122,7 +1132,7 @@ main {
       padding-left: calc((100% - 800px) / 2);
     }
 
-    @media (width<860px) {
+    @media (width<640px) {
       padding-left: 0;
     }
   }
@@ -1134,7 +1144,7 @@ main {
       padding-right: calc((100% - 800px) / 2);
     }
 
-    @media (width<860px) {
+    @media (width<640px) {
       padding-right: 0;
     }
   }
@@ -1145,8 +1155,12 @@ main {
     display: flex;
     flex-direction: column;
     gap: var(--size-24);
+    
+    > div[class$="-wrapper"] {
+      width: 100%;
+    }
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       gap: var(--size-16);
     }
 	}
@@ -1156,7 +1170,11 @@ main {
     flex-direction: column;
     gap: var(--size-32);
 
-    @media (width < 860px) {
+    > div[class$="-wrapper"] {
+      width: 100%;
+    }
+
+    @media (width < 640px) {
       gap: var(--size-24);
     }
 	}
@@ -1166,7 +1184,11 @@ main {
     flex-direction: column;
     gap: var(--size-48);
 
-    @media (width < 860px) {
+    > div[class$="-wrapper"] {
+      width: 100%;
+    }
+
+    @media (width < 640px) {
       gap: var(--size-32);
     }
 	}
@@ -1176,7 +1198,11 @@ main {
     flex-direction: column;
     gap: var(--size-80);
 
-    @media (width < 860px) {
+    > div[class$="-wrapper"] {
+      width: 100%;
+    }
+
+    @media (width < 640px) {
       gap: var(--size-48);
     }
 	}
@@ -1186,7 +1212,11 @@ main {
     flex-direction: column;
     gap: var(--size-120);
 
-    @media (width < 860px) {
+    > div[class$="-wrapper"] {
+      width: 100%;
+    }
+
+    @media (width < 640px) {
       gap: var(--size-80);
     }
 	}
@@ -1202,7 +1232,7 @@ main {
 	}
 }
 
-@media (width < 860px) {
+@media (width < 640px) {
   main {
     .section.pt-s {
       padding-top: var(--spacing-sm);

@@ -1,11 +1,74 @@
 import wrapInRichtext from '../../utils/wrap-in-richtext.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
   if (isEditMode) {
+    [...block.children].forEach((row) => {
+      const type = row.firstElementChild?.textContent?.trim() || '';
+      if (type === 'headline') {
+        const headlineContent = row.children[1]?.textContent?.trim() || '';
+        const headlineDiv = document.createElement('div');
+        headlineDiv.className = 'text-body-headerline';
+        headlineDiv.innerHTML = headlineContent;
+        [...row.children].forEach((i) => { i.style.display = 'none'; });
+        row.append(headlineDiv);
+      } else if (type === 'image') {
+        const imgAEl = row.querySelector('a');
+        const imgSrc = imgAEl.getAttribute('href');
+        const imgAlt = row.querySelector('[data-aue-prop="alt"]') || document.createElement('p');
+        const imageDiv = document.createElement('div');
+        imageDiv.className = 'text-body-image';
+        imageDiv.innerHTML = `<img src="${imgSrc}" alt="${imgAlt}">`;
+        [...row.children].forEach((i) => { i.style.display = 'none'; });
+        row.append(imageDiv);
+      } else if (type === 'content') {
+        row.children[0].style.display = 'none';
+        const contentDiv = row.children[1];
+        contentDiv.className = 'text-body-content';
+      } else if (type === 'quote') {
+        row.children[0].style.display = 'none';
+        const quoteDiv = row.children[1];
+        quoteDiv.className = 'text-body-quote';
+        const imgEl = document.createElement('img');
+        imgEl.className = 'quotation';
+        imgEl.src = `/content/dam/hisense/${country}/common-icons/quotation.svg`;
+        imgEl.alt = 'quotation';
+        quoteDiv.append(imgEl);
+        const notesDiv = row.children[2];
+        if (notesDiv) {
+          notesDiv.className = 'text-body-quote-notes';
+          quoteDiv.append(notesDiv);
+        }
+      } else if (type === 'flexend-side-by-side') {
+        const GroupDiv = document.createElement('div');
+        GroupDiv.className = 'text-body-group-flexend';
+        // 图
+        const imgGroupDiv = document.createElement('div');
+        const imgAEl = row.querySelector('p:not([data-aue-label="Title"]):not([data-aue-label="Text"]) a');
+        const imgUrl = imgAEl.getAttribute('href');
+        imgGroupDiv.className = 'text-body-img-group';
+        const imgEl = document.createElement('img');
+        imgEl.src = imgUrl;
+        imgGroupDiv.append(imgEl);
+        // 文
+        const textGroupDiv = document.createElement('div');
+        const title = row.querySelector('[data-aue-label="Title"]') || document.createElement('p');
+        title.className = 'text-body-title';
+        const desc = row.querySelector('[data-aue-label="Text"]') || document.createElement('p');
+        desc.className = 'text-body-desc';
+        textGroupDiv.className = 'text-body-text-group';
+        textGroupDiv.append(title, desc);
+        if (imgAEl) {
+          GroupDiv.append(imgGroupDiv);
+        }
+        GroupDiv.append(textGroupDiv);
+        [...row.children].forEach((i) => { i.style.display = 'none'; });
+        row.append(GroupDiv);
+      }
+    });
     return;
   }
   const ArticleBodyDiv = document.createElement('div');
@@ -18,8 +81,9 @@ export default function decorate(block) {
       headlineDiv.innerHTML = headlineContent;
       ArticleBodyDiv.append(headlineDiv);
     } else if (type === 'image') {
+      const imgAEl = row.querySelector('a');
       const imgEl = row.querySelector('img');
-      const imgSrc = imgEl?.src || '';
+      const imgSrc = imgEl?.src || imgAEl.getAttribute('href');
       const imgAlt = row.children[2]?.textContent?.trim() || '';
       const imageDiv = document.createElement('div');
       imageDiv.className = 'text-body-image';
@@ -48,9 +112,17 @@ export default function decorate(block) {
       GroupDiv.className = 'text-body-group-flexend';
       // 图
       const imgGroupDiv = document.createElement('div');
-      const imgEl = row.querySelector('img');
       imgGroupDiv.className = 'text-body-img-group';
-      imgGroupDiv.append(imgEl);
+      const imgEl = row.children[1].querySelector('img');
+      const imgAEl = row.children[1].querySelector('a');
+      if (imgEl) {
+        imgGroupDiv.append(imgEl);
+      } else if (!imgEl && imgAEl) {
+        const imgUrl = imgAEl.getAttribute('href');
+        const imgElseEl = document.createElement('img');
+        imgElseEl.src = imgUrl;
+        imgGroupDiv.append(imgElseEl);
+      }
       // 文
       const textGroupDiv = document.createElement('div');
       const title = row.children[2] || '';
@@ -59,7 +131,7 @@ export default function decorate(block) {
       desc.className = 'text-body-desc';
       textGroupDiv.className = 'text-body-text-group';
       textGroupDiv.append(title, desc);
-      if (imgEl) {
+      if (imgEl || (!imgEl && imgAEl)) {
         GroupDiv.append(imgGroupDiv);
       }
       GroupDiv.append(textGroupDiv);

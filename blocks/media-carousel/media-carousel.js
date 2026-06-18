@@ -6,12 +6,16 @@ import {
 } from '../../utils/carousel-common.js';
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { SCREEN_POINT } from '../../utils/constants.js';
+import { resetExternalUrl, iframeVideoHandler } from '../../utils/video-external-url.js';
 
 let carouselId = 0;
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 
 function bindEvent(block, type = 'normal') {
+  const mediaCarouselPagination = block.querySelector('.media-carousel-pagination');
+  if (!mediaCarouselPagination) return;
   const track = block.querySelector('.media-carousel-track');
   const videos = block.querySelectorAll('.video-autoPlay');
   const prevBtn = block.querySelector('.slide-prev');
@@ -29,8 +33,8 @@ function bindEvent(block, type = 'normal') {
     totalItems: cards.length,
   };
 
-  if (cards.length * getSlideWidth(block) - gap >= maxWidth && window.innerWidth >= 860) {
-    block.querySelector('.media-carousel-pagination').classList.add('show');
+  if (cards.length * getSlideWidth(block) - gap >= maxWidth && window.innerWidth >= SCREEN_POINT) {
+    mediaCarouselPagination.classList.add('show');
   }
 
   const step = CONFIG.itemWidth + CONFIG.gap;
@@ -80,7 +84,7 @@ function bindEvent(block, type = 'normal') {
       }
     }
     track.style.transform = `translateX(${currentX}px)`;
-    if (window.innerWidth < 860) {
+    if (window.innerWidth < SCREEN_POINT) {
       track.style.transform = 'none';
     }
     block.dataset.currentIndex = currentIndex;
@@ -154,7 +158,7 @@ function bindEvent(block, type = 'normal') {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           // 监听手机端video的视口变化，进入视口开始自动播放---手机是scroll模式，不更新currentIndex
-          if (window.innerWidth < 860) {
+          if (window.innerWidth < SCREEN_POINT) {
             const videoObserver = new IntersectionObserver((e) => {
               e.forEach((ent) => {
                 if (ent.isIntersecting) {
@@ -270,19 +274,56 @@ export default async function decorate(block) {
   const isOverlayTextLeft = [...block.classList].findIndex((item) => item === 'left-style') !== -1;
   const isOverlayTextLeftBottom = [...block.classList].findIndex((item) => item === 'left-bottom-style') !== -1;
 
-  const [eyebrow, title, ...mediaItems] = block.children;
-  if (!eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
-  if (!title.textContent.trim() && !title.textContent.trim()) block.classList.add('no-title');
-  if (!eyebrow.textContent.trim() && title.textContent.trim()) titleBox.classList.add('only-title');
+  let firstMediaItemsIndex = -1;
+  [...block.children].some((item, index) => {
+    if (item.children.length > 2) {
+      firstMediaItemsIndex = index;
+      return true;
+    }
+    return false;
+  });
+  let eyebrow = createElement('div');
+  let title = createElement('div');
+  let mediaItems;
 
-  titleBox.appendChild(eyebrow);
-  titleBox.append(title);
+  if (firstMediaItemsIndex === 0) {
+    [...mediaItems] = block.children;
+  } else if (firstMediaItemsIndex === 1) {
+    [title, ...mediaItems] = block.children;
+  } else {
+    [eyebrow, title, ...mediaItems] = block.children;
+  }
 
+  if (eyebrow && !eyebrow.textContent.trim()) eyebrow.className = 'no-subtitle';
+  if (!title || !title.textContent.trim()) block.classList.add('no-title');
+  if ((!eyebrow || !eyebrow.textContent.trim()) && title && title.textContent.trim()) titleBox.classList.add('only-title');
+
+  if (eyebrow && eyebrow.children?.length > 1) {
+    eyebrow.children[0].style.display = 'none';
+  }
+
+  if (title && title.children?.length > 1) {
+    title.children[0].style.display = 'none';
+  }
+  if (eyebrow) {
+    titleBox.appendChild(eyebrow);
+  }
+  if (title) {
+    titleBox.append(title);
+  }
   mediaItems.forEach((item, idx) => {
+    let useExternal = false;
+    let externalLink = '';
     const mediaBlock = document.createElement('li');
     mediaBlock.classList.add('media-item');
     item.className = 'item';
     mediaBlock.dataset.slideIndex = idx;
+    if (item.children.length > 8) {
+      if (item.children[8].textContent.trim() === 'true') {
+        useExternal = true;
+        externalLink = item.children[9]?.textContent?.trim();
+      }
+    }
 
     const [typeDom, mediaContent, videoCover, ...textContentDom] = item.children;
     const contentType = typeDom.textContent.trim();
@@ -294,7 +335,11 @@ export default async function decorate(block) {
 
     typeDom.remove();
     if (mediaContent.innerHTML) {
-      if (mediaContent.querySelector('a')) {
+      if (useExternal) {
+        const externalVideo = iframeVideoHandler(resetExternalUrl(externalLink));
+        mediaContent.replaceChild(externalVideo, mediaContent.firstElementChild);
+        mediaContent.classList.add('media-video');
+      } else if (mediaContent.querySelector('a')) {
         const singleVideo = createVideo(item, idx);
         mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
         mediaContent.classList.add('media-video');
@@ -338,6 +383,9 @@ export default async function decorate(block) {
             textDom.style.display = 'none';
           }
           break;
+        case 5: case 6:
+          textDom.style.display = 'none';
+          break;
         default:
           // btn
           if (textDom.querySelector('a') && textDom.querySelector('a').parentElement.nextElementSibling.textContent) {
@@ -346,7 +394,12 @@ export default async function decorate(block) {
             aEl.parentElement.nextElementSibling.remove();
             aEl.addEventListener('click', (e) => {
               e.preventDefault(); // 阻止默认跳转
-              const target = document.querySelector(e.currentTarget.getAttribute('href'));
+              const href = e.currentTarget.getAttribute('href');
+              if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
+                window.location.href = href;
+                return;
+              }
+              const target = document.querySelector(href);
 
               if (target) {
                 target.scrollIntoView({
@@ -371,7 +424,7 @@ export default async function decorate(block) {
   block.appendChild(titleBox);
   block.appendChild(mediaCarouselContainer);
 
-  if (mediaCarouselBlocks.children) {
+  if (mediaCarouselBlocks.children && titleBox.lastElementChild) {
     const buttonContainer = createElement('div', 'media-carousel-pagination');
     buttonContainer.appendChild(createScrollButton('prev'));
     buttonContainer.appendChild(createScrollButton('next'));

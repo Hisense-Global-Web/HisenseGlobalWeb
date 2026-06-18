@@ -207,10 +207,11 @@ function buildConfiguredProductCardLink(configuredLink, sku, category) {
     if (category) {
       url.searchParams.set('category', category);
     }
+    const finalSearch = url.search.replace(/\+/g, '%20');
     if (url.origin === window.location.origin) {
-      return `${url.pathname}${url.search}${url.hash}`;
+      return `${url.pathname}${finalSearch}${url.hash}`;
     }
-    return url.toString();
+    return url.toString().replace(/\+/g, '%20');
   } catch (e) {
     const params = new URLSearchParams();
     if (sku) {
@@ -219,7 +220,7 @@ function buildConfiguredProductCardLink(configuredLink, sku, category) {
     if (category) {
       params.set('category', category);
     }
-    const query = params.toString();
+    const query = params.toString().replace(/\+/g, '%20');
     if (!query) return configuredLink;
     const separator = configuredLink.includes('?') ? '&' : '?';
     return `${configuredLink}${separator}${query}`;
@@ -278,7 +279,7 @@ function createProductCard(item, config = {}) {
 // 创建 FAQ 卡片
 function createFaqCard(faqItem, index) {
   const segments = window.location.pathname.split('/').filter(Boolean);
-  const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+  const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
   const card = document.createElement('div');
   card.className = index === 0 ? 'faq-card' : 'faq-card hide';
 
@@ -352,7 +353,7 @@ function getPageNumbers(currentPage, totalPages) {
 // PC 端分页按钮
 function buildPaginationControls(paginationEl, state, onPageChange, config) {
   const segments = window.location.pathname.split('/').filter(Boolean);
-  const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+  const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
   if (!paginationEl) return;
   paginationEl.textContent = '';
 

@@ -15,54 +15,6 @@ export default function decorate(block) {
     moveInstrumentation(row, li);
     while (row.firstElementChild) li.append(row.firstElementChild);
 
-    // function getDynamicScreeWidth() {
-    //   function screenChange() {
-    //     const screenWidth = window.innerWidth;
-    //     console.log(screenWidth, 'screenWidth')
-    //     if (screenWidth <= 860) {
-    //       // 手机端时 li 添加 click 事件
-    //       li.onclick = function () {
-    //         // liClickFn()
-    //         const container = this.parentElement; // ul
-    //         const allCards = container.querySelectorAll('.card-item');
-    //         // 移除所有激活状态
-    //         allCards.forEach((card) => {
-    //           card.classList.remove('active');
-    //         });
-    //         // 设置当前激活卡片
-    //         this.classList.add('active');
-    //         function calculateWidth(vwValue, maxPx) {
-    //           return Math.min(vwValue, maxPx);
-    //         }
-    //         // 计算并设置grid列宽
-    //         const activeIndex = Array.from(allCards).indexOf(this);
-    //         let columns = '';
-    //         // eslint-disable-next-line no-shadow, no-plusplus
-    //         for (let i = 0; i < allCards.length; i++) {
-    //           columns += (i === activeIndex ? calculateWidth('22.222222vw', '320px') : calculateWidth('10vw', '144px'));
-    //         }
-    //         // 应用新的列宽
-    //         container.style.gridTemplateColumns = columns;
-    //       };
-    //     } else {
-    //       // PC 端 hover 事件
-    //       li.addEventListener('mouseenter', (e) => {
-    //         // 鼠标进入时的操作
-    //         e.stopPropagation();
-    //         console.log('mouseenter')
-    //         // liClickFn();
-    //       });
-
-    //       li.addEventListener('mouseleave', () => {
-    //         // 鼠标离开时的操作
-    //         e.stopPropagation();
-    //         console.log('mouseleave')
-    //       });
-    //     }
-    //   }
-    //   screenChange(); // 初始调用设置正确的 loadMoreStep
-    //   window.addEventListener('resize', () => screenChange());
-    // }
     [...li.children].forEach((div, index) => {
       if (div.children.length === 1 && div.querySelector('picture')) {
         div.className = 'card-image';
@@ -126,4 +78,28 @@ export default function decorate(block) {
   });
 
   block.replaceChildren(ul);
+  const industryItemDom = block.querySelectorAll('.industry-categories-ul li');
+  // card-body 内的 div 和 a 标签交替出现
+  industryItemDom.forEach((item) => {
+    const itemCardBody = item.querySelector('.card-body');
+    const cardBodyChildDom = itemCardBody.children;
+    [...cardBodyChildDom].forEach((card, cardIdx) => {
+      // 如果 div 内有 a 标签，且该元素的前一个元素不包含 a 标签，则将前一个元素的文本内容移到 a 标签内，否则删除该只有链接的 div
+      if (card.querySelector('a')) {
+        card.classList.add('card-item-link');
+        const link = card.querySelector('a');
+        const textElement = cardBodyChildDom[cardIdx - 1];
+        if (textElement && textElement.textContent && textElement.querySelector('a') === null) {
+          // 将文本内容移到 a 标签内，并隐藏原文本元素
+          link.textContent = textElement.textContent;
+          textElement.classList.add('item-hide');
+        } else {
+          // 没有文本元素，只配置了链接，隐藏该元素
+          card.classList.add('item-hide');
+        }
+      } else {
+        card.classList.add('card-item-text');
+      }
+    });
+  });
 }

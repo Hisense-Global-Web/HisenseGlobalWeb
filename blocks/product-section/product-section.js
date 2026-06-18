@@ -25,12 +25,25 @@ import {
 } from '../../scripts/commerce-ui-utils.js';
 import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
+import { isStageHostname } from '../../scripts/environment.js';
 
-const { country } = getLocaleFromPath();
+const { country, language } = getLocaleFromPath();
 const WISHLIST_CART_NAME_PREFIX = 'wishlist';
-const STOREFRONT_BASE_URL = 'https://usstorefront.cdrwhdl6-hisenseho2-p1-public.model-t.cc.commerce.ondemand.com';
-const STOREFRONT_CART_URL = `${STOREFRONT_BASE_URL}/cart`;
-const STOREFRONT_CHECKOUT_URL = new URL('/checkout/delivery-address', STOREFRONT_BASE_URL).toString();
+const STOREFRONT_BASE_URL = (() => {
+  if (isStageHostname()) {
+    return `https://${country}storefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com`;
+  }
+  if (country === 'us') {
+    return 'https://eshop.hisense.com';
+  }
+  return `https://${country}storefront.cdrwhdl6-hisenseho2-p1-public.model-t.cc.commerce.ondemand.com`;
+})();
+const STOREFRONT_CART_URL = country === 'us'
+  ? `${STOREFRONT_BASE_URL}/${country}/cart`
+  : `${STOREFRONT_BASE_URL}/${country}/${language}/cart`;
+const STOREFRONT_CHECKOUT_URL = country === 'us'
+  ? `${STOREFRONT_BASE_URL}/${country}/checkout/delivery-address`
+  : `${STOREFRONT_BASE_URL}/${country}/${language}/checkout/delivery-address`;
 const PRICE_SPIDER_INTEGRATION_PATTERN = /pricespider|ps-widget/i;
 let productSectionPopupCssPromise = null;
 
@@ -684,8 +697,7 @@ export default async function decorate(block) {
   items = normalizeProductSectionProducts(transformTagStructureToProducts(json));
 
   // 根据SKU找到对应的产品
-  const currentProduct = items ? items.find((item) => item.sku === sku) : null;
-  const product = currentProduct || (items && items[0] ? items[0] : null);
+  const product = items ? items.find((item) => item.sku.toLowerCase() === sku.toLowerCase()) : null;
   const currentProductCode = getHybrisProductCode(product) || sku;
   const supportsWishlist = Boolean(currentProductCode);
   const showFavoriteControl = fields.includes('favorite') || supportsWishlist;
@@ -767,7 +779,7 @@ export default async function decorate(block) {
         el.setAttribute('data-title', p.title);
 
         // 默认勾选当前SKU对应的尺寸
-        if (p.sku === sku) {
+        if (p.sku.toLowerCase() === sku.toLowerCase()) {
           el.classList.add('selected');
         }
 
@@ -807,7 +819,7 @@ export default async function decorate(block) {
         el.setAttribute('data-title', p.title);
 
         // 默认勾选当前SKU对应的尺寸
-        if (p.sku === sku) {
+        if (p.sku.toLowerCase() === sku.toLowerCase()) {
           el.classList.add('selected');
         }
 
@@ -1971,7 +1983,7 @@ export default async function decorate(block) {
     pdpNavMenu.append(specsMobileBtn);
     h += 45;
   }
-  if (faqLink) {
+  if (faqLink && fields.includes('faq')) {
     pdpNavMenu.append(faqMobileBtn);
     h += 45;
   }

@@ -1,0 +1,49 @@
+.campaign-image-wrapper {
+  width: 100%;
+
+  .campaign-image {
+    width: 100%;
+  }
+
+  .pc-image {
+    max-width: 100%;
+    line-height: 0;
+    width: 100%;
+    height: min(calc(360 / var(--breakpoint-pc) * 100vw), 360px);
+    vertical-align: middle;
+    display: inline-block;
+    user-select: none;
+    pointer-events: none;
+    object-fit: cover;
+
+    img {
+      border-radius: var(--border-radius-l, 20px);
+      width: 100%;
+      height: min(calc(360 / var(--breakpoint-pc) * 100vw), 360px);
+    }
+
+    @media (width<640px) {
+      display: none;
+    }
+  }
+
+  .mobile-image {
+    display: none;
+
+    @media (width<640px) {
+      width: 100%;
+      height: calc(500 / var(--breakpoint-mobile) * 100vw);
+      vertical-align: middle;
+      display: inline-block;
+      user-select: none;
+      pointer-events: none;
+      object-fit: cover;
+
+      img {
+        border-radius: var(--size-16);
+        width: 100%;
+        height: calc(500 / var(--breakpoint-mobile) * 100vw);
+      }
+    }
+  }
+}

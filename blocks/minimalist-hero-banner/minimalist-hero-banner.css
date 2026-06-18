@@ -21,12 +21,12 @@ main > .section:first-of-type {
     line-height: 1.2;
   }
 
-  @media (width < 860px) {
+  @media (width < 640px) {
     height: calc(438 / var(--breakpoint-mobile) * 100vw);
 
-    div {
+    /* div {
       height: 100%;
-    }
+    } */
   }
 
   &.black-font {
@@ -43,7 +43,7 @@ main > .section:first-of-type {
     aspect-ratio: 1440/400;
     object-fit: cover;
 
-    @media (width < 860px) {
+    @media (width < 640px) {
       aspect-ratio: 390/480;
     }
   }
@@ -78,7 +78,7 @@ main > .section:first-of-type {
 
       /* padding: 0 var(--size-32); if handle special case need aem-config */
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         font-size: var(--fontsize-h2);
       }
     }
@@ -86,7 +86,7 @@ main > .section:first-of-type {
     .text-body {
       font-size: var(--fontsize-title1);
 
-      @media (width < 860px) {
+      @media (width < 640px) {
         font-size: var(--fontsize-title3);
       }
     }
