@@ -168,18 +168,16 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
         const editorBtn = topWindow.document.createElement('button');
         editorBtn.className = 'image-editor';
         // 可以加一些样式或文字，方便识别
-        editorBtn.textContent = '✎ 编辑';
+        editorBtn.textContent = '✎';
         // 给个占位样式 (与演示风格一致)
-        editorBtn.style.marginLeft = '6px';
-        editorBtn.style.padding = '6px 16px';
-        editorBtn.style.borderRadius = '40px';
-        editorBtn.style.border = '1px solid #b8d2f0';
-        editorBtn.style.background = '#e3f0ff';
+        editorBtn.style.marginLeft = '8px';
+        editorBtn.style.padding = '0 8px';
+        editorBtn.style.border = 'none';
         editorBtn.style.color = '#1a5c9e';
         editorBtn.style.fontWeight = '500';
-        editorBtn.style.fontSize = '0.8rem';
-        editorBtn.style.cursor = 'default';
-        editorBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.02)';
+        editorBtn.style.fontSize = '18px';
+        editorBtn.style.height = '32px';
+        editorBtn.style.cursor = 'pointer';
         // 插入到 remove 之后 (作为下一个兄弟)
         parent.insertBefore(editorBtn, removeBtn.nextSibling);
       }
