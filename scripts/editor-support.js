@@ -390,6 +390,56 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             sizeRow.appendChild(sizeGroup);
             editorGroup.appendChild(sizeRow);
 
+            // ---- 6. crop (数组输入) ----
+            const cropGroup = document.createElement('div');
+            cropGroup.style.cssText = `
+            display: flex;
+            flex-wrap: wrap;
+            `;
+            const cropTopInput = document.createElement('input');
+            cropTopInput.style.cssText = `
+            width: 50%;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            color: #1e2a3a;`;
+            cropTopInput.type = 'number';
+            cropTopInput.id = 'cropTopInput';
+            cropTopInput.value = '';
+            cropTopInput.min = 0;
+            const cropLeftInput = document.createElement('input');
+            cropLeftInput.style.cssText = `
+            width: 50%;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            color: #1e2a3a;`;
+            cropLeftInput.type = 'number';
+            cropLeftInput.id = 'cropLeftInput';
+            cropLeftInput.value = '';
+            cropLeftInput.min = 0;
+            const cropWidthInput = document.createElement('input');
+            cropWidthInput.style.cssText = `
+            width: 50%;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            color: #1e2a3a;`;
+            cropWidthInput.type = 'number';
+            cropWidthInput.id = 'cropWidthInput';
+            cropWidthInput.value = '';
+            cropWidthInput.min = 1;
+            const cropHeightInput = document.createElement('input');
+            cropHeightInput.style.cssText = `
+            width: 50%;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            color: #1e2a3a;`;
+            cropHeightInput.type = 'number';
+            cropHeightInput.id = 'cropHeightInput';
+            cropHeightInput.value = '';
+            cropHeightInput.min = 1;
+
+            cropGroup.append(cropTopInput, cropLeftInput, cropWidthInput, cropHeightInput);
+            editorGroup.appendChild(createRow('Format', cropGroup));
+
             // ---- 7. Format (下拉) ----
             const formatSelect = document.createElement('select');
             formatSelect.id = 'formatSelect';
