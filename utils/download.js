@@ -2,7 +2,7 @@ import { getGraphQLBaseUrl } from '../scripts/scripts.js';
 
 const getFileInfo = (downloadlink, fileName = null) => {
   let newFileName;
-  const newLink = downloadlink?.includes('localhost:') ? downloadlink.replace(window.location.origin, '') : downloadlink;
+  const newLink = downloadlink.replace(window.location.origin, '');
   const isAssetsContent = newLink?.startsWith('/content');
   const noParamsUrl = newLink?.split('?')?.[0] ?? '';
   // 兼容可能存在的双斜杠问题
