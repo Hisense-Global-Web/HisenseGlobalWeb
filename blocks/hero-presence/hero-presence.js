@@ -7,7 +7,7 @@ import { runBlockEnhancement } from '../../utils/block-helper.js';
 import { setVideoSource } from '../../utils/hls-video.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 
 async function initScrollAnimation(block) {
   const scrollTriggerLoaded = await loadScrollTrigger();

@@ -15,7 +15,7 @@ let heroBannerInterval;
 let userInteracting = false;
 let isInitializing = true; // 初始化锁
 const segments = window.location.pathname.split('/').filter(Boolean);
-const country = segments[segments[0] === 'content' ? 2 : 0] || '';
+const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 const HERO_BANNER_BLOCK_CONFIG_KEYS = new Set([
   'classes',
 ]);
