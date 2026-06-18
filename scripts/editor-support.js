@@ -136,6 +136,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
 
 (function () {
   const topWindow = window.parent || window.top;
+  let rootSrc = '';
   // ---------- 核心：轮询逻辑 (每秒执行) ----------
   function ensureEditorButtons() {
     // 1. 查找所有 "Remove item" 按钮
@@ -189,7 +190,20 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
           if (!img) return;
 
           const { src } = img;
-          const alt = img.alt || '图片';
+          const alt = img.alt || 'image.jpg';
+          function checkUrl() {
+            const pattern1 = /urn:aaid:aem:[^\/]+\/as\/.+/;
+            const pattern2 = /urn:aaid:aem:[^\/]+(?!\/as\/)/;
+
+            if (pattern1.test(src)) {
+              return src.split('?')[0];
+            }
+            if (pattern2.test(src)) {
+              return `${src}/as/${alt}`;
+            }
+            return src;
+          }
+          rootSrc = checkUrl();
 
           // 查找或创建弹窗
           let modal = topWindow.document.getElementById('imagePreviewModal');
@@ -250,7 +264,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             const imgContainer = topWindow.document.createElement('div');
             imgContainer.id = 'modalImageContainer';
             imgContainer.style.cssText = `
-            width: calc(100% - 300px);`;
+            width: calc(100% - 400px);`;
 
             const mediaGroup = topWindow.document.createElement('div');
             mediaGroup.style.cssText = `
@@ -260,7 +274,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             const editorGroup = topWindow.document.createElement('div');
             editorGroup.id = 'editorContainer';
             editorGroup.style.cssText = `
-            width: 280px`;
+            width: 380px`;
 
             content.appendChild(closeBtn);
             content.appendChild(popupTitle);
@@ -300,11 +314,10 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
           container.innerHTML = '';
 
           const previewImg = topWindow.document.createElement('img');
-          previewImg.src = src;
+          previewImg.src = rootSrc;
           previewImg.alt = alt;
           previewImg.style.cssText = `
-        max-width: 70vw;
-        max-height: 70vh;
+        width: 100%;
         object-fit: contain;
         display: block;
         border-radius: 4px;
