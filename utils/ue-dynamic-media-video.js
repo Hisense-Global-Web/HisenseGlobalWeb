@@ -111,7 +111,7 @@ function buildDynamicMediaHlsUrlImage(assetId, options = {}) {
   const normalizedAssetId = normalizeAssetId(assetId);
   if (!authorOrigin || !normalizedAssetId) return '';
 
-  return `${buildDeliveryOrigin(authorOrigin)}/adobe/assets/${normalizedAssetId}/image.avif`;
+  return `${buildDeliveryOrigin(authorOrigin)}/adobe/assets/${normalizedAssetId}/as/image.avif`;
 }
 
 async function fetchRepositoryAsset(assetPath, options = {}) {
