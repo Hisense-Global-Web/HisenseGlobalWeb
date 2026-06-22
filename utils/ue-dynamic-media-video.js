@@ -72,6 +72,13 @@ function buildRepositoryAssetUrl(assetPath, options = {}) {
   return `${authorOrigin}/adobe/repository${encodePath(assetPath)}`;
 }
 
+function buildRepositoryAssetUrlImage(assetPath, options = {}) {
+  const authorOrigin = getAuthorOrigin(options);
+  if (!authorOrigin) return '';
+
+  return `${authorOrigin}/adobe/assets/urn:aaid:aem:${encodePath(assetPath)}`;
+}
+
 function buildDeliveryOrigin(authorOrigin) {
   const deliveryUrl = new URL(authorOrigin);
   deliveryUrl.hostname = deliveryUrl.hostname
@@ -110,6 +117,23 @@ async function fetchRepositoryAsset(assetPath, options = {}) {
 
   return response.json();
 }
+
+async function fetchRepositoryAssetImage(assetPath, options = {}) {
+  const fetchFn = options.fetch || getDefaultFetch();
+  const repositoryUrl = buildRepositoryAssetUrlImage(assetPath, options);
+  if (!fetchFn || !repositoryUrl) return null;
+
+  const response = await fetchFn(repositoryUrl, {
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+    },
+  });
+  if (!response?.ok) return null;
+
+  return response.json();
+}
+
 
 function replaceTextValue(value, assetPath, hlsUrl) {
   if (typeof value !== 'string') return value;
@@ -244,7 +268,7 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
   const assetPath = getPatchValue(event);
   if (!isHisenseImageAssetPath(assetPath)) return false;
 
-  const repositoryAsset = options.repositoryAsset || await fetchRepositoryAsset(assetPath, options);
+  const repositoryAsset = options.repositoryAsset || await fetchRepositoryAssetImage(assetPath, options);
   const assetId = repositoryAsset?.['repo:id'] || repositoryAsset?.['repo:assetId'];
   const hlsUrl = buildDynamicMediaHlsUrl(assetId, options);
   if (!hlsUrl) return false;
