@@ -112,6 +112,7 @@ function attachEventListners(main) {
     'aue:content-remove',
     'aue:content-copy',
   ].forEach((eventType) => main?.addEventListener(eventType, async (event) => {
+    console.log(event);
     event.stopPropagation();
     await runCustomAfterUEChange(event);
     const applied = await applyChanges(event);
