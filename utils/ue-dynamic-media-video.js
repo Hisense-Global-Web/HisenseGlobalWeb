@@ -134,7 +134,6 @@ async function fetchRepositoryAssetImage(assetPath, options = {}) {
   return response.json();
 }
 
-
 function replaceTextValue(value, assetPath, hlsUrl) {
   if (typeof value !== 'string') return value;
 

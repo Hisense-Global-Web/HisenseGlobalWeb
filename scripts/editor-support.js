@@ -10,7 +10,7 @@ import {
 } from './aem.js';
 import { decorateRichtext } from './editor-support-rte.js';
 import { decorateMain } from './scripts.js';
-import {applyDynamicMediaImagePatch, applyDynamicMediaVideoPatch} from '../utils/ue-dynamic-media-video.js';
+import { applyDynamicMediaImagePatch, applyDynamicMediaVideoPatch } from '../utils/ue-dynamic-media-video.js';
 
 async function applyChanges(event) {
   // redecorate default content and blocks on patches (in the properties rail)
