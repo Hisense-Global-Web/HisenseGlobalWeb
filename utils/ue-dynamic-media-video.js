@@ -32,7 +32,7 @@ function isHisenseImageAssetPath(value) {
   if (typeof value !== 'string') return false;
 
   const assetPath = value.trim();
-  return assetPath.startsWith(HISENSE_DAM_PREFIX) && IMAGE_EXTENSION_PATTERN.test(assetPath);
+  return IMAGE_EXTENSION_PATTERN.test(assetPath);
 }
 
 function encodePath(assetPath) {
