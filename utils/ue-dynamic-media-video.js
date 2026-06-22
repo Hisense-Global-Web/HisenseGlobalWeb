@@ -1,5 +1,6 @@
 const HISENSE_DAM_PREFIX = '/content/dam/hisense';
 const MP4_EXTENSION_PATTERN = /\.mp4(?:[?#].*)?$/i;
+const IMAGE_EXTENSION_PATTERN = /\.(?:jpg|jpeg|png|avif)(?:[?#].*)?$/i;
 
 function getDefaultLocation() {
   return typeof window !== 'undefined' ? window.location : undefined;
@@ -25,6 +26,13 @@ function isHisenseMp4AssetPath(value) {
 
   const assetPath = value.trim();
   return assetPath.startsWith(HISENSE_DAM_PREFIX) && MP4_EXTENSION_PATTERN.test(assetPath);
+}
+
+function isHisenseImageAssetPath(value) {
+  if (typeof value !== 'string') return false;
+
+  const assetPath = value.trim();
+  return assetPath.startsWith(HISENSE_DAM_PREFIX) && IMAGE_EXTENSION_PATTERN.test(assetPath);
 }
 
 function encodePath(assetPath) {
@@ -232,8 +240,29 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
   };
 }
 
+async function applyDynamicMediaImagePatch(event, options = {}) {
+  const assetPath = getPatchValue(event);
+  if (!isHisenseImageAssetPath(assetPath)) return false;
+
+  const repositoryAsset = options.repositoryAsset || await fetchRepositoryAsset(assetPath, options);
+  const assetId = repositoryAsset?.['repo:id'] || repositoryAsset?.['repo:assetId'];
+  const hlsUrl = buildDynamicMediaHlsUrl(assetId, options);
+  if (!hlsUrl) return false;
+
+  const patched = rewriteEventValue(event, assetPath, hlsUrl);
+  const editorInputPatched = updateParentEditorInput(assetPath, hlsUrl, options);
+
+  return {
+    assetPath,
+    editorInputPatched,
+    hlsUrl,
+    patched,
+  };
+}
+
 export {
   applyDynamicMediaVideoPatch,
+  applyDynamicMediaImagePatch,
   buildDynamicMediaHlsUrl,
   buildRepositoryAssetUrl,
   isHisenseMp4AssetPath,
