@@ -1,4 +1,4 @@
-const HISENSE_DAM_PREFIX = '/content/dam';
+const HISENSE_DAM_PREFIX = '/content/dam/';
 const MP4_EXTENSION_PATTERN = /\.mp4(?:[?#].*)?$/i;
 
 function getDefaultLocation() {
@@ -24,7 +24,7 @@ function isHisenseMp4AssetPath(value) {
   if (typeof value !== 'string') return false;
 
   const assetPath = value.trim();
-  return assetPath.startsWith(HISENSE_DAM_PREFIX) && MP4_EXTENSION_PATTERN.test(assetPath);
+  return assetPath.includes(HISENSE_DAM_PREFIX) && MP4_EXTENSION_PATTERN.test(assetPath);
 }
 
 function encodePath(assetPath) {
