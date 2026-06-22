@@ -80,7 +80,7 @@ function buildRepositoryAssetUrlImage(assetPath, options = {}) {
   const authorOrigin = getAuthorOrigin(options);
   if (!authorOrigin) return '';
 
-  return `${authorOrigin}/adobe/repository/C3%20Pro-clean.jpg`;
+  return `${authorOrigin}/adobe/repository${encodePath(assetPath)}`;
 }
 
 function buildDeliveryOrigin(authorOrigin) {
