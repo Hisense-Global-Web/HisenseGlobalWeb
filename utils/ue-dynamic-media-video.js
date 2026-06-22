@@ -106,6 +106,14 @@ function buildDynamicMediaHlsUrl(assetId, options = {}) {
   return `${buildDeliveryOrigin(authorOrigin)}/adobe/assets/${normalizedAssetId}/manifest.m3u8`;
 }
 
+function buildDynamicMediaHlsUrlImage(assetId, options = {}) {
+  const authorOrigin = getAuthorOrigin(options);
+  const normalizedAssetId = normalizeAssetId(assetId);
+  if (!authorOrigin || !normalizedAssetId) return '';
+
+  return `${buildDeliveryOrigin(authorOrigin)}/adobe/assets/${normalizedAssetId}/image.avif`;
+}
+
 async function fetchRepositoryAsset(assetPath, options = {}) {
   const fetchFn = options.fetch || getDefaultFetch();
   const repositoryUrl = buildRepositoryAssetUrl(assetPath, options);
@@ -273,7 +281,7 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
 
   const repositoryAsset = options.repositoryAsset || await fetchRepositoryAssetImage(assetPath, options);
   const assetId = repositoryAsset?.['repo:id'] || repositoryAsset?.['repo:assetId'];
-  const hlsUrl = buildDynamicMediaHlsUrl(assetId, options);
+  const hlsUrl = buildDynamicMediaHlsUrlImage(assetId, options);
   if (!hlsUrl) return false;
 
   const patched = rewriteEventValue(event, assetPath, hlsUrl);
@@ -291,6 +299,7 @@ export {
   applyDynamicMediaVideoPatch,
   applyDynamicMediaImagePatch,
   buildDynamicMediaHlsUrl,
+  buildDynamicMediaHlsUrlImage,
   buildRepositoryAssetUrl,
   isHisenseMp4AssetPath,
   updateParentEditorInput,
