@@ -1,4 +1,4 @@
-const HISENSE_DAM_PREFIX = '/content/dam/hisense';
+const HISENSE_DAM_PREFIX = '/content/dam';
 const MP4_EXTENSION_PATTERN = /\.mp4(?:[?#].*)?$/i;
 
 function getDefaultLocation() {

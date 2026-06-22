@@ -3511,11 +3511,23 @@
         "required": true,
         "multi": false,
         "condition": {
-          "===": [
+          "and": [
             {
-              "var": "video_type || dynamic_media"
+              "===": [
+                {
+                  "var": "video_type"
+                },
+                false
+              ]
             },
-            false
+            {
+              "===": [
+                {
+                  "var": "dynamic_media"
+                },
+                false
+              ]
+            }
           ]
         }
       },
