@@ -438,7 +438,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             cropHeightInput.min = 1;
 
             cropGroup.append(cropTopInput, cropLeftInput, cropWidthInput, cropHeightInput);
-            editorGroup.appendChild(createRow('Format', cropGroup));
+            editorGroup.appendChild(createRow('Crop', cropGroup));
 
             // ---- 7. Format (下拉) ----
             const formatSelect = document.createElement('select');
@@ -464,7 +464,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
             color: #1e2a3a;`;
             qualityInput.type = 'number';
             qualityInput.id = 'qualityInput';
-            qualityInput.value = 80;
+            qualityInput.value = 100;
             qualityInput.min = 1;
             qualityInput.max = 100;
             editorGroup.appendChild(createRow('Quality', qualityInput));
@@ -490,6 +490,7 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
                 source = `button[${parent}]`;
               }
               console.log('[change event]', source, target, value);
+              console.log(rootSrc, widthInput.value)
             }
 
             // 为所有可能触发表单变化的元素绑定 change 事件
