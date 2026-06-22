@@ -1,4 +1,4 @@
-const HISENSE_DAM_PREFIX = '/content/dam/hisense';
+const HISENSE_DAM_PREFIX = '/content/dam/';
 const MP4_EXTENSION_PATTERN = /\.mp4(?:[?#].*)?$/i;
 const IMAGE_EXTENSION_PATTERN = /\.(?:jpg|jpeg|png|avif)(?:[?#].*)?$/i;
 
@@ -14,11 +14,15 @@ function getDefaultFetch() {
 
 function getPatchValue(event) {
   const { patch } = event?.detail || {};
+  let pathValue = patch?.value;
   if (Array.isArray(patch)) {
-    return patch.find((entry) => typeof entry?.value === 'string')?.value;
+    pathValue = patch.find((entry) => typeof entry?.value === 'string')?.value;
   }
 
-  return patch?.value;
+  if (pathValue?.split(HISENSE_DAM_PREFIX)?.length > 1) {
+    return HISENSE_DAM_PREFIX + pathValue.split(HISENSE_DAM_PREFIX)[1];
+  }
+  return pathValue;
 }
 
 function isHisenseMp4AssetPath(value) {
