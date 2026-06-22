@@ -76,7 +76,7 @@ function buildRepositoryAssetUrlImage(assetPath, options = {}) {
   const authorOrigin = getAuthorOrigin(options);
   if (!authorOrigin) return '';
 
-  return `${authorOrigin}/adobe/assets/urn:aaid:aem:${encodePath(assetPath)}`;
+  return `${authorOrigin}/adobe/repository/C3%20Pro-clean.jpg`;
 }
 
 function buildDeliveryOrigin(authorOrigin) {
