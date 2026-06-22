@@ -13,18 +13,22 @@ function getDefaultFetch() {
 
 function getPatchValue(event) {
   const { patch } = event?.detail || {};
+  let pathValue = patch?.value;
   if (Array.isArray(patch)) {
-    return patch.find((entry) => typeof entry?.value === 'string')?.value;
+    pathValue = patch.find((entry) => typeof entry?.value === 'string')?.value;
   }
 
-  return patch?.value;
+  if (pathValue?.startsWith(window.location.href)) {
+    return pathValue.replace(window.location.href, '');
+  }
+  return pathValue;
 }
 
 function isHisenseMp4AssetPath(value) {
   if (typeof value !== 'string') return false;
 
   const assetPath = value.trim();
-  return assetPath.includes(HISENSE_DAM_PREFIX) && MP4_EXTENSION_PATTERN.test(assetPath);
+  return assetPath.startsWith(HISENSE_DAM_PREFIX) && MP4_EXTENSION_PATTERN.test(assetPath);
 }
 
 function encodePath(assetPath) {
