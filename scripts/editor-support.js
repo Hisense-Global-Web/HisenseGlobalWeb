@@ -490,7 +490,8 @@ observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: t
                 source = `button[${parent}]`;
               }
               console.log('[change event]', source, target, value);
-              console.log(rootSrc, widthInput.value)
+              console.log(rootSrc, widthInput.value, heightInput.value);
+              console.log(`${rootSrc.split('?')[0]}?width=${widthInput.value}&height=${heightInput.value}`);
             }
 
             // 为所有可能触发表单变化的元素绑定 change 事件
