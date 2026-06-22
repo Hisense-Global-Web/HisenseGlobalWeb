@@ -12,6 +12,26 @@ const translateDictionary = {
     ja: '会社',
     th: 'บริษัท',
   },
+  GOTOSHOP: {
+    en: 'Go to shop',
+    fr: 'Entreprise',
+    es: 'Empresa',
+    pt: 'Empresa',
+    zh: '去商城',
+    ar: 'شركة',
+    ja: '会社',
+    th: 'บริษัท',
+  },
+  FINDSTORE: {
+    en: 'Find store',
+    fr: 'Entreprise',
+    es: 'Empresa',
+    pt: 'Empresa',
+    zh: '找店铺',
+    ar: 'شركة',
+    ja: '会社',
+    th: 'บริษัท',
+  },
 };
 /**
  * 获取指定键和语言对应的翻译

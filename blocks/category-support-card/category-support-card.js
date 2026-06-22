@@ -1,7 +1,20 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+// TODO：*********临时code 要删除**********
+import { whereResellerPopupDomInit } from '../../utils/where-to-by-reseller.js';
 
 export default function decorate(block) {
   try {
+    // TODO：*********临时code 要删除**********
+    const btntemp = document.createElement('div');
+    btntemp.className = 'temp-btn';
+    btntemp.textContent = '999999999';
+    // 加载reseller popup dom
+    whereResellerPopupDomInit(block.closest('.category-support-card-wrapper'));
+    btntemp.addEventListener('click', () => {
+      document.querySelector('.reseller-mask').classList.add('reseller-show');
+    });
+    document.body.append(btntemp);
+    // TODO：*********临时code 要删除**********
     const { country } = getLocaleFromPath();
     const qrObject = []; // 所有回收分类的标题与二维码
 
