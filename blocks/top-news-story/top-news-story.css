@@ -85,7 +85,6 @@
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
-          word-break: break-all;
 
           @media (width < 640px) {
             font-size: var(--size-24);
@@ -103,7 +102,6 @@
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
-          word-break: break-all;
 
           @media (width < 640px) {
             font-size: var(--size-14);
