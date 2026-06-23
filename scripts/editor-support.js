@@ -128,3 +128,23 @@ decorateRichtext();
 // for new richtext-instrumented elements. this happens for example when using experimentation.
 const observer = new MutationObserver(() => decorateRichtext());
 observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: true });
+
+if (window.location.hostname.includes('author-')) {
+  // 2. 监听内层 Canvas 接收到的 UE 属性改变事件
+  document.addEventListener('aue:ui-publish', (event) => {
+    const detail = event?.detail;
+    console.log('detail', detail);
+    // // 3. 拦截特定的属性（比如你的 Cover Image for Video）
+    // if (detail && detail.changedProperties && detail.changedProperties.coverImage) {
+    //     const originalValue = detail.changedProperties.coverImage;
+
+    //     // 4. 用代码修改这个值（例如强行加上特定的后缀或转换路径）
+    //     const modifiedValue = `${originalValue}?myCustomParam=123`;
+
+    //     // 5. 覆盖写回，这样发送给 UES 服务器的就是你修改后的值了
+    //     detail.changedProperties.coverImage = modifiedValue;
+
+    //     console.log('[UE Interceptor] 成功拦截并修改封面图路径:', modifiedValue);
+    // }
+  });
+}
