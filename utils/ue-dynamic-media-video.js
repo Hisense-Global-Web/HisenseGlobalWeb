@@ -285,6 +285,48 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
   if (!hlsUrl) return false;
 
   const patched = rewriteEventValue(event, assetPath, hlsUrl);
+
+  fetch('https://universal-editor-service.adobe.io/patch', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      // Add any authentication headers if needed (e.g., Authorization)
+      // 'Authorization': 'Bearer YOUR_TOKEN_HERE'
+    },
+    body: JSON.stringify({
+      connections: [
+        {
+          name: 'aemconnection',
+          protocol: 'xwalk',
+          uri: 'https://author-p174152-e1855821.adobeaemcloud.com?ref=fix0622',
+        },
+      ],
+      patch: [
+        {
+          op: 'add',
+          path: '/image_pc',
+          value: '/content/dam/dm-smart-crop/C3 Pro-clean.jpg',
+        },
+      ],
+      target: {
+        prop: '',
+        resource: 'urn:aemconnection:/content/hisense-dev/us/en/jcr:content/root/section/hero_banner/hero_banneritem',
+        type: 'component',
+      },
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   const editorInputPatched = updateParentEditorInput(assetPath, hlsUrl, options);
 
   return {
