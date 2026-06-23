@@ -1,5 +1,6 @@
 const HISENSE_DAM_PREFIX = '/content/dam/';
 const MP4_EXTENSION_PATTERN = /\.mp4(?:[?#].*)?$/i;
+const IMAGE_EXTENSION_PATTERN = /\.(?:jpg|jpeg|png|avif)(?:[?#].*)?$/i;
 
 function getDefaultLocation() {
   return typeof window !== 'undefined' ? window.location : undefined;
@@ -29,6 +30,13 @@ function isHisenseMp4AssetPath(value) {
 
   const assetPath = value.trim();
   return assetPath.startsWith(HISENSE_DAM_PREFIX) && MP4_EXTENSION_PATTERN.test(assetPath);
+}
+
+function isHisenseImageAssetPath(value) {
+  if (typeof value !== 'string') return false;
+
+  const assetPath = value.trim();
+  return IMAGE_EXTENSION_PATTERN.test(assetPath);
 }
 
 function encodePath(assetPath) {
@@ -68,6 +76,13 @@ function buildRepositoryAssetUrl(assetPath, options = {}) {
   return `${authorOrigin}/adobe/repository${encodePath(assetPath)}`;
 }
 
+function buildRepositoryAssetUrlImage(assetPath, options = {}) {
+  const authorOrigin = getAuthorOrigin(options);
+  if (!authorOrigin) return '';
+
+  return `${authorOrigin}/adobe/repository${encodePath(assetPath)}`;
+}
+
 function buildDeliveryOrigin(authorOrigin) {
   const deliveryUrl = new URL(authorOrigin);
   deliveryUrl.hostname = deliveryUrl.hostname
@@ -91,9 +106,33 @@ function buildDynamicMediaHlsUrl(assetId, options = {}) {
   return `${buildDeliveryOrigin(authorOrigin)}/adobe/assets/${normalizedAssetId}/manifest.m3u8`;
 }
 
+function buildDynamicMediaHlsUrlImage(assetId, options = {}) {
+  const authorOrigin = getAuthorOrigin(options);
+  const normalizedAssetId = normalizeAssetId(assetId);
+  if (!authorOrigin || !normalizedAssetId) return '';
+
+  return `${buildDeliveryOrigin(authorOrigin)}/adobe/assets/${normalizedAssetId}/as/image.avif`;
+}
+
 async function fetchRepositoryAsset(assetPath, options = {}) {
   const fetchFn = options.fetch || getDefaultFetch();
   const repositoryUrl = buildRepositoryAssetUrl(assetPath, options);
+  if (!fetchFn || !repositoryUrl) return null;
+
+  const response = await fetchFn(repositoryUrl, {
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+    },
+  });
+  if (!response?.ok) return null;
+
+  return response.json();
+}
+
+async function fetchRepositoryAssetImage(assetPath, options = {}) {
+  const fetchFn = options.fetch || getDefaultFetch();
+  const repositoryUrl = buildRepositoryAssetUrlImage(assetPath, options);
   if (!fetchFn || !repositoryUrl) return null;
 
   const response = await fetchFn(repositoryUrl, {
@@ -236,9 +275,73 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
   };
 }
 
+const updateMediaFn = async (nodePath, properties) => {
+  async function getCsrfToken() {
+    const res = await fetch('/libs/granite/csrf/token.json', {
+      method: 'GET',
+      credentials: 'same-origin',
+    });
+    const json = await res.json();
+    return json.token;
+  }
+
+  const formData = new FormData();
+  Object.entries(properties).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+
+  formData.append(':http-equiv-accept', 'application/json');
+  const token = await getCsrfToken();
+  const res = await fetch(nodePath, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'CSRF-Token': token,
+    },
+    body: formData,
+  });
+
+  const text = await res.text();
+  if (!res.ok) {
+    console.error('POST failed:', res.status, res.statusText, text);
+    throw new Error(`POST failed: ${res.status} ${res.statusText}`);
+  }
+
+  console.log('Update success:', {
+    status: res.status,
+    nodePath,
+    response: text,
+  });
+  window.location.reload();
+};
+
+async function applyDynamicMediaImagePatch(event, options = {}) {
+  const assetPath = getPatchValue(event);
+  if (!isHisenseImageAssetPath(assetPath)) return false;
+
+  const repositoryAsset = options.repositoryAsset || await fetchRepositoryAssetImage(assetPath, options);
+  const assetId = repositoryAsset?.['repo:id'] || repositoryAsset?.['repo:assetId'];
+  const hlsUrl = buildDynamicMediaHlsUrlImage(assetId, options);
+  if (!hlsUrl) return false;
+
+  const str = event.detail.request.target.resource;
+  const nodePath = str.substring(str.indexOf('/') + 1);
+  const properties = {
+    [event.detail.patch.name]: hlsUrl,
+  };
+  await updateMediaFn(nodePath, properties);
+
+  return {
+    assetPath,
+    hlsUrl,
+  };
+}
+
 export {
   applyDynamicMediaVideoPatch,
+  applyDynamicMediaImagePatch,
   buildDynamicMediaHlsUrl,
+  buildDynamicMediaHlsUrlImage,
   buildRepositoryAssetUrl,
   isHisenseMp4AssetPath,
   updateParentEditorInput,
