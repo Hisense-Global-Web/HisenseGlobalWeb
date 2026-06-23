@@ -332,7 +332,7 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
   if (!hlsUrl) return false;
 
   const str = event.detail.request.target.resource;
-  const nodePath = str.substring(str.indexOf('/') + 1);
+  const nodePath = str.substring(str.indexOf('/'));
   const properties = {
     [event.detail.patch.name]: hlsUrl,
   };
