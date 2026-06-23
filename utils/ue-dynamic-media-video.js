@@ -307,7 +307,7 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
   const patched = rewriteEventValue(event, assetPath, hlsUrl);
   const editorInputPatched = updateParentEditorInput(assetPath, hlsUrl, options);
   const str = event?.detail?.request?.target?.resource;
-  const nodePath = str.substring(str.indexOf('/') + 1);
+  const nodePath = str.substring(str.indexOf('/'));
   const playUrl = hlsUrl.replace(/\/[^/]+$/, '/play');
   const properties = {
     [event.detail.patch.name]: playUrl,
