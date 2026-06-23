@@ -274,6 +274,12 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
     patched,
   };
 }
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
+}
 
 async function applyDynamicMediaImagePatch(event, options = {}) {
   const assetPath = getPatchValue(event);
@@ -291,7 +297,7 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
     headers: {
       'Content-Type': 'application/json',
       // Add any authentication headers if needed (e.g., Authorization)
-      // 'Authorization': 'Bearer YOUR_TOKEN_HERE'
+      Authorization: `Bearer ${getCookie('uinfo')}`,
     },
     body: JSON.stringify({
       connections: [
