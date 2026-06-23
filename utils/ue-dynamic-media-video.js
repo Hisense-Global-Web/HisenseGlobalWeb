@@ -297,7 +297,7 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
     headers: {
       'Content-Type': 'application/json',
       // Add any authentication headers if needed (e.g., Authorization)
-      Authorization: `Bearer ${getCookie('uinfo')}`,
+      Authorization: `Bearer ${getCookie('uinfo') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzkzNTI5MDQsImlhdCI6MTc3OTM1MjkwNCwidXNlcklkIjoiQjIxMTIxRUY2OTM2QTA5OTBBNDk1RjhEQDA3ZmUyMjBmNjkyNzJhMGQ0OTVlMTQuZSIsImF1dGhJZCI6IkIzM0IyMUNENjkzNjhFM0MwQTQ5NUU2MUBBZG9iZUlEIiwicHJpbmNpcGFsSWQiOiJjbGFyZS5qLmxpQGFjY2VudHVyZS5jbiIsImNsaWVudElkIjoiZXhjX2FwcCIsInNvdXJjZSI6Ikltc1Rva2VuIn0.9tLOrKMVEhQ4hOc3rAb8C1srX2GbHIGMjBIxjqdZVqE'}`,
     },
     body: JSON.stringify({
       connections: [
