@@ -274,12 +274,45 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
     patched,
   };
 }
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-  return null;
-}
+
+const updateMediaFn = async (nodePath, properties) => {
+  async function getCsrfToken() {
+    const res = await fetch('/libs/granite/csrf/token.json', {
+      method: 'GET',
+      credentials: 'same-origin',
+    });
+    const json = await res.json();
+    return json.token;
+  }
+
+  const formData = new FormData();
+  Object.entries(properties).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+
+  formData.append(':http-equiv-accept', 'application/json');
+  const token = await getCsrfToken();
+  const res = await fetch(nodePath, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'CSRF-Token': token,
+    },
+    body: formData,
+  });
+
+  const text = await res.text();
+  if (!res.ok) {
+    console.error('POST failed:', res.status, res.statusText, text);
+    throw new Error(`POST failed: ${res.status} ${res.statusText}`);
+  }
+
+  console.log('Update success:', {
+    status: res.status,
+    nodePath,
+    response: text,
+  });
+};
 
 async function applyDynamicMediaImagePatch(event, options = {}) {
   const assetPath = getPatchValue(event);
@@ -290,56 +323,15 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
   const hlsUrl = buildDynamicMediaHlsUrlImage(assetId, options);
   if (!hlsUrl) return false;
 
-  const patched = rewriteEventValue(event, assetPath, hlsUrl);
-
-  fetch('https://universal-editor-service.adobe.io/patch', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      // Add any authentication headers if needed (e.g., Authorization)
-      Authorization: `Bearer ${getCookie('uinfo') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzkzNTI5MDQsImlhdCI6MTc3OTM1MjkwNCwidXNlcklkIjoiQjIxMTIxRUY2OTM2QTA5OTBBNDk1RjhEQDA3ZmUyMjBmNjkyNzJhMGQ0OTVlMTQuZSIsImF1dGhJZCI6IkIzM0IyMUNENjkzNjhFM0MwQTQ5NUU2MUBBZG9iZUlEIiwicHJpbmNpcGFsSWQiOiJjbGFyZS5qLmxpQGFjY2VudHVyZS5jbiIsImNsaWVudElkIjoiZXhjX2FwcCIsInNvdXJjZSI6Ikltc1Rva2VuIn0.9tLOrKMVEhQ4hOc3rAb8C1srX2GbHIGMjBIxjqdZVqE'}`,
-    },
-    body: JSON.stringify({
-      connections: [
-        {
-          name: 'aemconnection',
-          protocol: 'xwalk',
-          uri: 'https://author-p174152-e1855821.adobeaemcloud.com?ref=fix0622',
-        },
-      ],
-      patch: [
-        {
-          op: 'add',
-          path: '/image_pc',
-          value: '/content/dam/dm-smart-crop/C3 Pro-clean.jpg',
-        },
-      ],
-      target: {
-        prop: '',
-        resource: 'urn:aemconnection:/content/hisense-dev/us/en/jcr:content/root/section/hero_banner/hero_banneritem',
-        type: 'component',
-      },
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log('Success:', data);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  const editorInputPatched = updateParentEditorInput(assetPath, hlsUrl, options);
+  const nodePath = '/content/hisense-dev/us/en/jcr:content/root/section/hero_banner/hero_banneritem_2015390586';
+  const properties = {
+    image_pc: hlsUrl,
+  };
+  await updateMediaFn(nodePath, properties);
 
   return {
     assetPath,
-    editorInputPatched,
     hlsUrl,
-    patched,
   };
 }
 
