@@ -312,6 +312,7 @@ const updateMediaFn = async (nodePath, properties) => {
     nodePath,
     response: text,
   });
+  window.location.reload();
 };
 
 async function applyDynamicMediaImagePatch(event, options = {}) {
