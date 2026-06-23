@@ -255,26 +255,6 @@ function updateParentEditorInput(oldValue, newValue, options = {}) {
   return true;
 }
 
-async function applyDynamicMediaVideoPatch(event, options = {}) {
-  const assetPath = getPatchValue(event);
-  if (!isHisenseMp4AssetPath(assetPath)) return false;
-
-  const repositoryAsset = options.repositoryAsset || await fetchRepositoryAsset(assetPath, options);
-  const assetId = repositoryAsset?.['repo:id'] || repositoryAsset?.['repo:assetId'];
-  const hlsUrl = buildDynamicMediaHlsUrl(assetId, options);
-  if (!hlsUrl) return false;
-
-  const patched = rewriteEventValue(event, assetPath, hlsUrl);
-  const editorInputPatched = updateParentEditorInput(assetPath, hlsUrl, options);
-
-  return {
-    assetPath,
-    editorInputPatched,
-    hlsUrl,
-    patched,
-  };
-}
-
 const updateMediaFn = async (nodePath, properties) => {
   async function getCsrfToken() {
     const res = await fetch('/libs/granite/csrf/token.json', {
@@ -314,6 +294,33 @@ const updateMediaFn = async (nodePath, properties) => {
   });
   window.location.reload();
 };
+
+async function applyDynamicMediaVideoPatch(event, options = {}) {
+  const assetPath = getPatchValue(event);
+  if (!isHisenseMp4AssetPath(assetPath)) return false;
+
+  const repositoryAsset = options.repositoryAsset || await fetchRepositoryAsset(assetPath, options);
+  const assetId = repositoryAsset?.['repo:id'] || repositoryAsset?.['repo:assetId'];
+  const hlsUrl = buildDynamicMediaHlsUrl(assetId, options);
+  if (!hlsUrl) return false;
+
+  const patched = rewriteEventValue(event, assetPath, hlsUrl);
+  const editorInputPatched = updateParentEditorInput(assetPath, hlsUrl, options);
+  const str = event?.detail?.request?.target?.resource;
+  const nodePath = str.substring(str.indexOf('/') + 1);
+  const playUrl = hlsUrl.replace(/\/[^/]+$/, '/play');
+  const properties = {
+    [event.detail.patch.name]: playUrl,
+  };
+  await updateMediaFn(nodePath, properties);
+
+  return {
+    assetPath,
+    editorInputPatched,
+    hlsUrl,
+    patched,
+  };
+}
 
 async function applyDynamicMediaImagePatch(event, options = {}) {
   const assetPath = getPatchValue(event);
