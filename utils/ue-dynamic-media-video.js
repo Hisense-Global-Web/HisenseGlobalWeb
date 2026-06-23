@@ -324,9 +324,9 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
   const hlsUrl = buildDynamicMediaHlsUrlImage(assetId, options);
   if (!hlsUrl) return false;
 
-  const nodePath = '/content/hisense-dev/us/en/jcr:content/root/section/hero_banner/hero_banneritem_2015390586';
+  const nodePath = event.detail.request.target.resource;
   const properties = {
-    image_pc: hlsUrl,
+    [event.detail.patch.name]: hlsUrl,
   };
   await updateMediaFn(nodePath, properties);
 
