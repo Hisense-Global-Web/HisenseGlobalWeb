@@ -311,6 +311,7 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
   const properties = {
     [event.detail.patch.name]: hlsUrl,
   };
+  event.detail.path.value = hlsUrl;
   await updateMediaFn(nodePath, properties);
 
   return {
@@ -335,6 +336,7 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
   const properties = {
     [event.detail.patch.name]: hlsUrl,
   };
+  event.detail.path.value = hlsUrl;
   await updateMediaFn(nodePath, properties);
 
   return {
