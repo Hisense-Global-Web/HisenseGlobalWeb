@@ -27,10 +27,23 @@ const getTextLineCount = (el) => {
 export default function decorate(block) {
   const [dynamicSwitch, pcInfoEl, mobileImageEl, titleEl, bodyTextEl, buttonContainerEl] = [...block.children] ?? [];
   console.log(dynamicSwitch, 'dynamicSwitch');
+  const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
+  dynamicSwitch.remove();
+
   if (pcInfoEl) {
     pcInfoEl.className = 'pc-box-img';
   }
-  if (mobileImageEl) {
+
+  // if (mobileImageEl) {
+  //   mobileImageEl.className = 'mobile-box-img';
+  // }
+
+  if (isDynamicFlag) {
+    const clonePcInfoEl = pcInfoEl.cloneNode(true);
+    clonePcInfoEl.className = 'mobile-box-img';
+    block.appendChild(clonePcInfoEl);
+    mobileImageEl.remove();
+  } else if (mobileImageEl) {
     mobileImageEl.className = 'mobile-box-img';
   }
   const conentContainerEl = document.createElement('div');
