@@ -103,7 +103,7 @@ function buildDynamicMediaHlsUrl(assetId, options = {}) {
   const normalizedAssetId = normalizeAssetId(assetId);
   if (!authorOrigin || !normalizedAssetId) return '';
 
-  return `${buildDeliveryOrigin(authorOrigin)}/adobe/assets/${normalizedAssetId}/manifest.m3u8`;
+  return `${buildDeliveryOrigin(authorOrigin)}/adobe/assets/${normalizedAssetId}/play`;
 }
 
 function buildDynamicMediaHlsUrlImage(assetId, options = {}) {
@@ -308,9 +308,8 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
   const editorInputPatched = updateParentEditorInput(assetPath, hlsUrl, options);
   const str = event?.detail?.request?.target?.resource;
   const nodePath = str.substring(str.indexOf('/'));
-  const playUrl = hlsUrl.replace(/\/[^/]+$/, '/play');
   const properties = {
-    [event.detail.patch.name]: playUrl,
+    [event.detail.patch.name]: hlsUrl,
   };
   await updateMediaFn(nodePath, properties);
 
