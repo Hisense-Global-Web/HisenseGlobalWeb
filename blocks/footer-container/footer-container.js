@@ -166,8 +166,8 @@ function extractLogoData(container) {
 
   const logoDivs = Array.from(logoBlock.children).filter((child) => child.tagName === 'DIV');
 
-  if (logoDivs.length > 0) {
-    const firstDiv = logoDivs[0];
+  if (logoDivs.length > 1) {
+    const firstDiv = logoDivs[1];
     const innerDiv = firstDiv.querySelector('div');
     if (innerDiv) {
       const logoPicture = innerDiv.querySelector('picture');
@@ -185,8 +185,8 @@ function extractLogoData(container) {
     }
   }
 
-  if (logoDivs.length > 1) {
-    const altDiv = logoDivs[1];
+  if (logoDivs.length > 2) {
+    const altDiv = logoDivs[2];
     const innerDiv = altDiv.querySelector('div');
     if (innerDiv) {
       const altP = innerDiv.querySelector('p');
@@ -196,8 +196,8 @@ function extractLogoData(container) {
     }
   }
 
-  if (logoDivs.length > 2) {
-    const linkDiv = logoDivs[2];
+  if (logoDivs.length > 3) {
+    const linkDiv = logoDivs[3];
     const innerDiv = linkDiv.querySelector('div');
     if (innerDiv) {
       const buttonContainer = innerDiv.querySelector('p.button-container');
