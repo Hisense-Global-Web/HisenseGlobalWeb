@@ -85,7 +85,7 @@ export function buildHeroBannerDynamicMediaSources(src, currentLocationHref = ge
   }));
 }
 
-function createDynamicMediaPicture(src, alt = '') {
+export function createDynamicMediaPicture(src, alt = '') {
   const picture = document.createElement('picture');
 
   buildHeroBannerDynamicMediaSources(src).forEach((sourceConfig) => {
