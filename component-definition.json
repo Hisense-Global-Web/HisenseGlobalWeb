@@ -639,7 +639,7 @@
                   "name": "Campaign Image",
                   "model": "campaign-image",
                   "filter": "campaign-image",
-                  "dynamic-media": false
+                  "dynamicMedia": false
                 }
               }
             }

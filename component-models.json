@@ -1795,7 +1795,7 @@
     "fields": [
       {
         "component": "boolean",
-        "name": "dynamic-media",
+        "name": "dynamicMedia",
         "label": "Enable Dynamic Media",
         "valueType": "boolean"
       },
