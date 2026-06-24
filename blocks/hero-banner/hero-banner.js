@@ -479,7 +479,6 @@ function createSlide(block, row, slideIndex, options = {}) {
         if (!dynamicMedia) {
           appendHeroBannerMobileImageColumn(column, getHeroBannerItemMobileImageColumn(row));
         }
-        console.log(dynamicMedia);
         normalizeImageReferenceLinks(column, createOptimizedPicture, {
           dynamicMedia,
         });
