@@ -25,7 +25,8 @@ const getTextLineCount = (el) => {
 };
 
 export default function decorate(block) {
-  const [pcInfoEl, mobileImageEl, titleEl, bodyTextEl, buttonContainerEl] = [...block.children] ?? [];
+  const [pcInfoEl, dynamicSwitch, mobileImageEl, titleEl, bodyTextEl, buttonContainerEl] = [...block.children] ?? [];
+  console.log(dynamicSwitch, 'dynamicSwitch');
   if (pcInfoEl) {
     pcInfoEl.className = 'pc-box-img';
   }
