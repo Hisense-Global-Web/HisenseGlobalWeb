@@ -11,7 +11,8 @@
               "name": "Hero Banner",
               "model": "hero-banner",
               "filter": "hero-banner",
-              "classes": "hero-banner"
+              "classes": "hero-banner",
+              "key-value": true
             }
           }
         }
@@ -26,7 +27,8 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Hero Banner Item",
-              "model": "hero-bannerItem"
+              "model": "hero-bannerItem",
+              "dynamic_media": false
             }
           }
         }
@@ -76,6 +78,12 @@
           }
         },
         {
+          "component": "boolean",
+          "name": "dynamic_media",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image_mobile",
@@ -83,11 +91,23 @@
           "required": true,
           "multi": false,
           "condition": {
-            "===": [
+            "and": [
               {
-                "var": "video_type"
+                "===": [
+                  {
+                    "var": "video_type"
+                  },
+                  false
+                ]
               },
-              false
+              {
+                "===": [
+                  {
+                    "var": "dynamic_media"
+                  },
+                  false
+                ]
+              }
             ]
           }
         },

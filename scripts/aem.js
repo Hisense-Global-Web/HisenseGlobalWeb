@@ -683,15 +683,9 @@ async function loadFooter(footer) {
  */
 async function waitForFirstImage(section) {
   const lcpCandidate = section.querySelector('img');
-  await new Promise((resolve) => {
-    if (lcpCandidate && !lcpCandidate.complete) {
-      lcpCandidate.setAttribute('loading', 'eager');
-      lcpCandidate.addEventListener('load', resolve);
-      lcpCandidate.addEventListener('error', resolve);
-    } else {
-      resolve();
-    }
-  });
+  if (lcpCandidate && !lcpCandidate.complete) {
+    lcpCandidate.setAttribute('loading', 'eager');
+  }
 }
 
 /**
@@ -713,10 +707,20 @@ async function loadSection(section, loadCallback) {
         // eslint-disable-next-line no-console
         console.error(`failed to render block ${blocks[i]?.dataset?.blockName || blocks[i]?.classList?.[0] || 'unknown'}`, error);
       }
+
+      // Show the section as soon as the first block has been processed
+      // so remaining blocks can hydrate progressively.
+      if (section.style.display === 'none') {
+        section.style.display = null;
+      }
     }
+
+    if (!blocks.length && section.style.display === 'none') {
+      section.style.display = null;
+    }
+
     if (loadCallback) await loadCallback(section);
     section.dataset.sectionStatus = 'loaded';
-    section.style.display = null;
   }
 }
 

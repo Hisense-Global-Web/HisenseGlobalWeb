@@ -643,6 +643,44 @@ footer .footer[data-block-status="loaded"] {
 	visibility: visible;
 }
 
+main .section > div:has(> .block) {
+  position: relative;
+}
+
+main .section > div > .block:not([data-block-status="loaded"]) {
+  display: none;
+}
+
+main .section > div:has(> .block:not([data-block-status="loaded"])) {
+  min-height: clamp(96px, 14vw, 160px);
+}
+
+main .section > div:has(> .block:not([data-block-status="loaded"]))::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-top: -12px;
+  margin-left: -12px;
+  border: 3px solid rgb(20 20 20 / 12%);
+  border-top-color: var(--color-primary-grey-100);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: block-loading-spin 0.75s linear infinite;
+}
+
+@keyframes block-loading-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 h1,
 h2,
 h3,

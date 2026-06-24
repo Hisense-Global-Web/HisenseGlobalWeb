@@ -1089,6 +1089,42 @@
           }
         },
         {
+          "title": "Dynamic Media Image",
+          "id": "dynamic-media-image",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Dynamic Media Image",
+                  "model": "dynamic-media-image",
+                  "filter": "dynamic-media-image",
+                  "key-value": true,
+                  "image": ""
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Dynamic Media Option",
+          "id": "dynamic-media-imageItem",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Dynamic Media Option",
+                  "model": "dynamic-media-imageItem",
+                  "cropName": "Small",
+                  "cropWidth": "480",
+                  "cropHeight": "640"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Enterprise Tech",
           "id": "enterprise-tech",
           "plugins": {
@@ -1491,7 +1527,8 @@
                   "name": "Hero Banner",
                   "model": "hero-banner",
                   "filter": "hero-banner",
-                  "classes": "hero-banner"
+                  "classes": "hero-banner",
+                  "key-value": true
                 }
               }
             }
@@ -1506,7 +1543,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Hero Banner Item",
-                  "model": "hero-bannerItem"
+                  "model": "hero-bannerItem",
+                  "dynamic_media": false
                 }
               }
             }

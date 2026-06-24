@@ -1,11 +1,78 @@
 import { createElement, debounce } from '../../utils/dom-helper.js';
 import { loadScrollTrigger } from '../../utils/animation-helper.js';
-import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
+import { isUniversalEditor } from '../../utils/ue-helper.js';
 import { whenElementReady } from '../../utils/carousel-common.js';
+import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
+import { runBlockEnhancement } from '../../utils/block-helper.js';
+import { setVideoSource } from '../../utils/hls-video.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
-export default async function decorate(block) {
+
+async function initScrollAnimation(block) {
+  const scrollTriggerLoaded = await loadScrollTrigger();
+  if (!scrollTriggerLoaded) {
+    return;
+  }
+
+  const {
+    gsap,
+    ScrollTrigger,
+  } = window;
+
+  ScrollTrigger.config({ autoRefreshEvents: 'DOMContentLoaded,load' });
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  let scrollTriggerInstance = null;
+
+  const cleanup = () => {
+    if (scrollTriggerInstance) {
+      scrollTriggerInstance.kill();
+      scrollTriggerInstance = null;
+    }
+  };
+
+  const animate = () => {
+    cleanup();
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: block,
+        start: 'top top',
+        end: '+=50%',
+        scrub: 0.1,
+        pin: true,
+        // markers: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    ScrollTrigger.observe({
+      target: block,
+      type: 'wheel,touch',
+      onUp: () => {
+        cleanup();
+      },
+      onDown: () => {
+        block.classList.add('animated');
+      },
+    });
+  };
+
+  animate();
+
+  const handleResize = debounce(() => {
+    // Refresh ScrollTrigger after a brief delay to ensure DOM has updated
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+  }, 500);
+  window.addEventListener('resize', handleResize);
+}
+
+export default function decorate(block) {
   // ========== CONSTRUCT DOM [START] ========== //
   const videoContent = block.querySelector('div:first-of-type');
   const animateContent = block.querySelector('div:nth-of-type(2)');
@@ -17,7 +84,7 @@ export default async function decorate(block) {
   [...videoContent.children].forEach((row) => {
     const link = row.querySelector('a');
     if (link) {
-      videoSrc = link.href;
+      videoSrc = toDynamicMediaVideoUrl(link.href);
     }
     const img = row.querySelector('img');
     if (img) {
@@ -50,10 +117,7 @@ export default async function decorate(block) {
   coverImg.src = videoPosterSrc;
   coverImg.classList.add('video-cover-image');
 
-  const source = createElement('source');
-  source.src = videoSrc;
-  source.type = 'video/mp4';
-  video.appendChild(source);
+  const videoReady = setVideoSource(video, videoSrc);
   block.appendChild(video);
   videoContent.remove();
 
@@ -119,79 +183,19 @@ export default async function decorate(block) {
     }
   };
 
-  playVideo();
+  videoReady.then(() => {
+    playVideo();
+  }).catch(() => {
+    playVideo();
+  });
   setupVideoPlayPause();
   const debounceScroll = debounce(handleScroll, 150);
   window.addEventListener('scroll', debounceScroll);
   // ========== VIDEO [END] ========== //
 
-  const isEditing = await isUniversalEditorAsync();
-  if (isEditing) {
-    return;
+  if (!isUniversalEditor()) {
+    runBlockEnhancement(() => initScrollAnimation(block));
   }
-
-  // ========== ANIMATION [START] ========== //
-  const scrollTriggerLoaded = await loadScrollTrigger();
-  if (!scrollTriggerLoaded) {
-    return;
-  }
-
-  const {
-    gsap,
-    ScrollTrigger,
-  } = window;
-
-  ScrollTrigger.config({ autoRefreshEvents: 'DOMContentLoaded,load' });
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  let scrollTriggerInstance = null;
-
-  const cleanup = () => {
-    if (scrollTriggerInstance) {
-      scrollTriggerInstance.kill();
-      scrollTriggerInstance = null;
-    }
-  };
-
-  const animate = () => {
-    cleanup();
-
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: block,
-        start: 'top top',
-        end: '+=50%',
-        scrub: 0.1,
-        pin: true,
-        // markers: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    ScrollTrigger.observe({
-      target: block,
-      type: 'wheel,touch',
-      onUp: () => {
-        cleanup();
-      },
-      onDown: () => {
-        block.classList.add('animated');
-      },
-    });
-  };
-
-  animate();
-
-  const handleResize = debounce(() => {
-    // Refresh ScrollTrigger after a brief delay to ensure DOM has updated
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-  }, 500);
-  window.addEventListener('resize', handleResize);
-  // ========== ANIMATION [END] ========== //
 
   whenElementReady('#navigation', () => {
     const header = document.querySelector('#navigation');

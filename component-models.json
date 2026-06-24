@@ -2717,6 +2717,67 @@
     ]
   },
   {
+    "id": "dynamic-media-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "dynamic-media-imageItem",
+    "fields": [
+      {
+        "component": "container",
+        "name": "dynamicMediaOptions",
+        "label": "Dynamic Media Options",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "select",
+            "valueType": "string",
+            "name": "cropName",
+            "label": "Crop Name",
+            "required": true,
+            "options": [
+              {
+                "name": "Small",
+                "value": "Small"
+              },
+              {
+                "name": "Medium",
+                "value": "Medium"
+              },
+              {
+                "name": "Large",
+                "value": "Large"
+              }
+            ]
+          },
+          {
+            "component": "number",
+            "valueType": "number",
+            "name": "cropWidth",
+            "label": "Crop Width",
+            "required": true
+          },
+          {
+            "component": "number",
+            "valueType": "number",
+            "name": "cropHeight",
+            "label": "Crop Height"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "enterprise-tech",
     "fields": []
   },
@@ -3437,6 +3498,12 @@
         }
       },
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image_mobile",
@@ -3444,11 +3511,23 @@
         "required": true,
         "multi": false,
         "condition": {
-          "===": [
+          "and": [
             {
-              "var": "video_type"
+              "===": [
+                {
+                  "var": "video_type"
+                },
+                false
+              ]
             },
-            false
+            {
+              "===": [
+                {
+                  "var": "dynamic_media"
+                },
+                false
+              ]
+            }
           ]
         }
       },
