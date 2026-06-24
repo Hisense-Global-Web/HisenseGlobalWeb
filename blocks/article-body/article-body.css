@@ -61,10 +61,15 @@ main .section.article-body-container .article-body-wrapper {
     .text-body-image {
       width: 100%;
 
+      picture {
+        display: block;
+      }
+
       img {
         border-radius: var(--radius-lg);
         overflow: hidden;
         width: 100%;
+        display: block;
       }
     }
 
