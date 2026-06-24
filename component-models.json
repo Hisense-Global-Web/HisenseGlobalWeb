@@ -1819,7 +1819,15 @@
         "name": "mobile-image",
         "label": "Image for Mobile",
         "multi": false,
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "dynamicMedia"
+            },
+            false
+          ]
+        }
       }
     ]
   },
