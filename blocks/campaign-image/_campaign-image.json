@@ -10,7 +10,8 @@
             "template": {
               "name": "Campaign Image",
               "model": "campaign-image",
-              "filter": "campaign-image"
+              "filter": "campaign-image",
+              "dynamic-media": false
             }
           }
         }
@@ -21,6 +22,12 @@
     {
       "id": "campaign-image",
       "fields": [
+        {
+          "component": "boolean",
+          "name": "dynamic-media",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean"
+        },
         {
           "component": "reference",
           "valueType": "string",
