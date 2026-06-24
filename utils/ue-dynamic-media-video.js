@@ -19,7 +19,7 @@ function getPatchValue(event) {
     pathValue = patch.find((entry) => typeof entry?.value === 'string')?.value;
   }
 
-  if (pathValue?.split(HISENSE_DAM_PREFIX)?.length > 1) {
+  if (pathValue?.split?.(HISENSE_DAM_PREFIX)?.length > 1) {
     return HISENSE_DAM_PREFIX + pathValue.split(HISENSE_DAM_PREFIX)[1];
   }
   return pathValue;
