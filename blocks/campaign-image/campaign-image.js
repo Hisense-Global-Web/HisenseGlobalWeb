@@ -14,9 +14,12 @@ export default function decorate(block) {
       const cloneDynamicImageEl = dynamicImageEl.cloneNode(true);
       cloneDynamicImageEl.className = 'mobile-image';
       block.append(cloneDynamicImageEl);
-      pcImageEl?.remove();
-      mobileImageEl?.remove();
+    } else {
+      /* eslint-disable-next-line no-console */
+      console.error('Dynamic image url is not found. Please check the image url.');
     }
+    pcImageEl?.remove();
+    mobileImageEl?.remove();
   } else {
     if (mobileImageEl) {
       mobileImageEl.className = 'mobile-image';
