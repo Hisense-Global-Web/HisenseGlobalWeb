@@ -46,7 +46,7 @@
           "condition": {
             "===": [
               {
-                "var": "dynamicMedia"
+                "var": "dynamic-flag"
               },
               false
             ]
