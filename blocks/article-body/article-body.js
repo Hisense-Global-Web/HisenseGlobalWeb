@@ -1,4 +1,5 @@
 import wrapInRichtext from '../../utils/wrap-in-richtext.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -87,7 +88,7 @@ export default function decorate(block) {
       const imgAlt = row.children[2]?.textContent?.trim() || '';
       const imageDiv = document.createElement('div');
       imageDiv.className = 'text-body-image';
-      imageDiv.innerHTML = `<img src="${imgSrc}" alt="${imgAlt}">`;
+      imageDiv.append(createDynamicMediaPicture(imgSrc, imgAlt));
       ArticleBodyDiv.append(imageDiv);
     } else if (type === 'content') {
       const contentDiv = row.children[1];
