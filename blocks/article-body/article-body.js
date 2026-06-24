@@ -1,5 +1,4 @@
 import wrapInRichtext from '../../utils/wrap-in-richtext.js';
-import { createOptimizedPicture } from '../../scripts/aem.js';
 import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
