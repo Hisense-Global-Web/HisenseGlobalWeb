@@ -23,18 +23,18 @@
       "id": "campaign-image",
       "fields": [
         {
+          "component": "boolean",
+          "name": "dynamicMedia",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",
           "label": "Image",
           "multi": false,
           "required": true
-        },
-        {
-          "component": "boolean",
-          "name": "dynamicMedia",
-          "label": "Enable Dynamic Media",
-          "valueType": "boolean"
         },
         {
           "component": "reference",

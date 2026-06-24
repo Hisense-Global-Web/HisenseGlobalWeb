@@ -16,7 +16,7 @@ export default function decorate(block) {
       block.append(cloneDynamicImageEl);
     } else {
       /* eslint-disable-next-line no-console */
-      console.error('Dynamic image url is not found. Please check the image url.');
+      console.warn('Dynamic image url is not found. Please check the image url.');
     }
     pcImageEl?.remove();
     mobileImageEl?.remove();
