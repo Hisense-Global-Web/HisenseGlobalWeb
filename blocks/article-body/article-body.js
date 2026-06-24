@@ -124,9 +124,9 @@ export default function decorate(block) {
       }
       // 文
       const textGroupDiv = document.createElement('div');
-      const title = row.children[2] || '';
+      const title = row.children[3] || '';
       title.className = 'text-body-title';
-      const desc = row.children[3] || '';
+      const desc = row.children[4] || '';
       desc.className = 'text-body-desc';
       textGroupDiv.className = 'text-body-text-group';
       textGroupDiv.append(title, desc);
