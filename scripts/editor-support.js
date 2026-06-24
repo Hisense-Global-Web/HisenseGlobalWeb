@@ -115,7 +115,7 @@ function attachEventListners(main) {
     'aue:content-copy',
   ].forEach((eventType) => main?.addEventListener(eventType, async (event) => {
     event.stopPropagation();
-    const dynamicMediaChecked = document.querySelector(`input[aria-label="${ENABLE_DYNAMIC_MEDIA}"]`)?.checked;
+    const dynamicMediaChecked = window?.parent?.document?.querySelector(`input[aria-label="${ENABLE_DYNAMIC_MEDIA}"]`)?.checked;
     if (dynamicMediaChecked) {
       await runCustomAfterUEChange(event);
     }
