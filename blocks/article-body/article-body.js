@@ -128,8 +128,11 @@ export default function decorate(block) {
       title.className = 'text-body-title';
       const desc = row.children[4] || '';
       desc.className = 'text-body-desc';
+      const btn = row.children[5] || '';
+      btn.className = 'text-body-btn';
+      btn.style.display = 'none';
       textGroupDiv.className = 'text-body-text-group';
-      textGroupDiv.append(title, desc);
+      textGroupDiv.append(title, desc, btn);
       if (imgEl || (!imgEl && imgAEl)) {
         GroupDiv.append(imgGroupDiv);
       }
