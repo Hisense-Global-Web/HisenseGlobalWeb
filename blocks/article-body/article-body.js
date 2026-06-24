@@ -87,12 +87,9 @@ export default function decorate(block) {
       const imgEl = row.querySelector('img');
       const imgSrc = imgEl?.src || imgAEl.getAttribute('href');
       const imgAlt = row.children[2]?.textContent?.trim() || '';
-      const picture = createOptimizedPicture(imgSrc, imgAlt);
-      const picture2 = createDynamicMediaPicture(imgSrc, imgAlt);
-      console.log(picture, picture2);
       const imageDiv = document.createElement('div');
       imageDiv.className = 'text-body-image';
-      imageDiv.innerHTML = `<img src="${imgSrc}" alt="${imgAlt}">`;
+      imageDiv.append(createDynamicMediaPicture(imgSrc, imgAlt));
       ArticleBodyDiv.append(imageDiv);
     } else if (type === 'content') {
       const contentDiv = row.children[1];
