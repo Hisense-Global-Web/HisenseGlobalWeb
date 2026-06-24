@@ -11,6 +11,7 @@ import {
 import { decorateRichtext } from './editor-support-rte.js';
 import { decorateMain } from './scripts.js';
 import { applyDynamicMediaImagePatch, applyDynamicMediaVideoPatch } from '../utils/ue-dynamic-media-video.js';
+import { ENABLE_DYNAMIC_MEDIA } from '../utils/constants.js';
 
 async function applyChanges(event) {
   // redecorate default content and blocks on patches (in the properties rail)
@@ -114,7 +115,7 @@ function attachEventListners(main) {
     'aue:content-copy',
   ].forEach((eventType) => main?.addEventListener(eventType, async (event) => {
     event.stopPropagation();
-    const dynamicMediaChecked = document.querySelector('input[aria-label="Enable Dynamic Media"]')?.checked;
+    const dynamicMediaChecked = document.querySelector(`input[aria-label="${ENABLE_DYNAMIC_MEDIA}"]`)?.checked;
     if (dynamicMediaChecked) {
       await runCustomAfterUEChange(event);
     }

@@ -292,7 +292,7 @@ const updateMediaFn = async (nodePath, properties) => {
     nodePath,
     response: text,
   });
-  window.location.reload();
+  // window.location.reload();
 };
 
 async function applyDynamicMediaVideoPatch(event, options = {}) {
