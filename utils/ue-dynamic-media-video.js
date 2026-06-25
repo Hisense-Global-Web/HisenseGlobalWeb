@@ -318,7 +318,7 @@ async function postToUniversalEditorServicePatch(data) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getImsTokenInPage()}`,
     },
-    body: data,
+    body: JSON.stringify(data),
   });
   if (!res.ok) {
     throw new Error(`Universal Editor Patch request failed: ${res.statusText}`);
