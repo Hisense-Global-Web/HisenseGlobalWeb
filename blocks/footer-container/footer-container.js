@@ -1,6 +1,6 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
-import {createDynamicMediaPicture} from "../hero-banner/media-reference.js";
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const { country, language } = getLocaleFromPath();
 const REGION = '/hisense/region-selection.json';
