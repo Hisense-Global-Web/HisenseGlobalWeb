@@ -1800,18 +1800,18 @@
     "id": "campaign-image",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamicFlag",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
         "label": "Image",
         "multi": false,
         "required": true
-      },
-      {
-        "component": "boolean",
-        "name": "dynamic-flag",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean"
       },
       {
         "component": "reference",
@@ -1823,7 +1823,7 @@
         "condition": {
           "===": [
             {
-              "var": "dynamic-flag"
+              "var": "dynamicFlag"
             },
             false
           ]
