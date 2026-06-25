@@ -639,8 +639,7 @@
                   "name": "Campaign Image",
                   "model": "campaign-image",
                   "filter": "campaign-image",
-                  "dynamicFlag": false,
-                  "booleanTest": false
+                  "mediFlag": false
                 }
               }
             }

@@ -1801,7 +1801,7 @@
     "fields": [
       {
         "component": "boolean",
-        "name": "dynamicFlag",
+        "name": "mediFlag",
         "label": "Enable Dynamic Media",
         "valueType": "boolean"
       },

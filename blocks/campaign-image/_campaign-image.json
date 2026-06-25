@@ -11,8 +11,7 @@
               "name": "Campaign Image",
               "model": "campaign-image",
               "filter": "campaign-image",
-              "dynamicFlag": false,
-              "booleanTest": false
+              "mediFlag": false
             }
           }
         }
@@ -25,7 +24,7 @@
       "fields": [
         {
           "component": "boolean",
-          "name": "dynamicFlag",
+          "name": "mediFlag",
           "label": "Enable Dynamic Media",
           "valueType": "boolean"
         },
