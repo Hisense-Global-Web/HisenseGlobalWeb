@@ -1,5 +1,6 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const { country, language } = getLocaleFromPath();
 const REGION = '/hisense/region-selection.json';
@@ -174,12 +175,15 @@ function extractLogoData(container) {
       if (logoPicture) {
         const logoImg = logoPicture.querySelector('img');
         if (logoImg) {
-          logoData.image = logoImg.cloneNode(true);
+          logoData.image = true ? createDynamicMediaPicture(logoImg.src, logoImg.alt) : logoImg.cloneNode(true);
         }
       } else {
         const logoImg = innerDiv.querySelector('img');
         if (logoImg) {
-          logoData.image = logoImg.cloneNode(true);
+          logoData.image = true ? createDynamicMediaPicture(logoImg.src, logoImg.alt) : logoImg.cloneNode(true);
+        } else {
+          const aImg = innerDiv.querySelector('a');
+          logoData.image = createDynamicMediaPicture(aImg.href);
         }
       }
     }
