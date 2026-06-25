@@ -11,7 +11,8 @@
               "name": "Campaign Image",
               "model": "campaign-image",
               "filter": "campaign-image",
-              "dynamicFlag": false
+              "dynamicFlag": false,
+              "booleanTest": false
             }
           }
         }
@@ -51,6 +52,33 @@
               false
             ]
           }
+        },
+        {
+          "component": "select",
+          "name": "cta1_classes",
+          "value": "",
+          "label": "Button Background Color",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "transparent",
+              "value": "transparent"
+            },
+            {
+              "name": "hisense-green",
+              "value": "hisense-green"
+            },
+            {
+              "name": "hisense-black",
+              "value": "hisense-black"
+            }
+          ]
+        },
+        {
+          "component": "boolean",
+          "name": "booleanTest",
+          "label": "Boolean Test",
+          "valueType": "boolean"
         }
       ]
     }
