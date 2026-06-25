@@ -406,7 +406,9 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
   };
 
   try {
-    await postToUniversalEditorServicePatch(patchData);
+    const response = await postToUniversalEditorServicePatch(patchData);
+    console.log('Normal Image to Dynamic Media success.');
+    event.detail.response.updates = response.updates;
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error('Failed to call Universal Editor Patch API:', e);
