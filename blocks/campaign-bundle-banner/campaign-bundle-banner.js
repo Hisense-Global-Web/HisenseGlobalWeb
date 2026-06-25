@@ -1,4 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default function decorate(block) {
   const config = readBlockConfig(block);
@@ -15,13 +16,37 @@ export default function decorate(block) {
   const productContainer = document.createElement('div');
   productContainer.className = 'product-container';
 
+  let isDynamicFlag = ''; // dynamic media 标识
   [...block.children].forEach((row) => {
     const key = row.children[0].textContent.trim();
     row.className = key;
-    if (row.className === 'fifa-image' || row.className === 'fifa-mobile-image') {
+    if (row.className === 'dynamic-media') {
+      isDynamicFlag = row.children[1].textContent.trim();
+      row.remove();
+    } else if (row.className === 'fifa-image' || row.className === 'fifa-mobile-image') {
       // 图片部分，包含pc端和移动端图片
-      bannerImgWrapper.append(row);
-      row.children[0].remove();
+      if (row.className === 'fifa-image' && row.querySelector('a') && isDynamicFlag === 'true') {
+        // dynamic media 图片
+        const dynamicImgSrc = row.querySelector('a').getAttribute('href');
+        row.append(createDynamicMediaPicture(dynamicImgSrc, 'collection-banner'));
+        // 移除key dom 和 author 端返回的 dynamic media 图片链接的 a 标签
+        const firstTwo = [...row.children].slice(0, 2);
+        firstTwo.forEach((child) => child.remove());
+        // PC 端 dynamic media dom 整合到 bannerImgWrapper 元素中
+        bannerImgWrapper.append(row);
+      } else if (row.className === 'fifa-mobile-image' && isDynamicFlag === 'true') {
+        // 是dynamic media 图片时， mobile 图片直接克隆PC dom 中的 IMG DOM 展示是动态图片
+        const pcImgDom = bannerImgWrapper.querySelector('.fifa-image');
+        const clonePcImgDom = pcImgDom.cloneNode(true);
+        clonePcImgDom.className = 'fifa-mobile-image';
+        bannerImgWrapper.append(clonePcImgDom);
+        // 把普通图片的mobile img dom 移除，只展示dynamic media dom
+        row.remove();
+      } else {
+        // 普通图片直接把 pc img 和mobile img 组合到dom 元素 bannerImgWrapper 中
+        bannerImgWrapper.append(row);
+        row.children[0].remove();
+      }
     } else if (row.className === 'top-title' || row.className === 'top-subtitle') {
       // 顶部标题部分，包含主标题和副标题
       topTitleWrapper.appendChild(row);
