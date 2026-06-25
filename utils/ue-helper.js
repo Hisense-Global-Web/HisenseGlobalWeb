@@ -18,3 +18,5 @@ export async function isUniversalEditorAsync() {
     setTimeout(() => resolve(!!window.UniversalEditorEmbedded), 2000);
   });
 }
+
+export const getSwitchValue = (switchEl) => switchEl?.children?.[0]?.textContent?.trim() === 'true';
