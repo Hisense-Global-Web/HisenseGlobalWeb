@@ -26,16 +26,16 @@ const getTextLineCount = (el) => {
 };
 
 export default function decorate(block) {
-  console.log(block, 'bbbbbbbb')
   const [dynamicSwitch, pcInfoEl, mobileImageEl, titleEl, bodyTextEl, buttonContainerEl] = [...block.children] ?? [];
   const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
   dynamicSwitch.remove();
-  
+
   if (pcInfoEl) {
     pcInfoEl.className = 'pc-box-img';
     if (pcInfoEl.querySelector('a')) {
+      // 容错判断（兼容之前没有设置dynamic media 的组件）
       const dynamicImgSrc = pcInfoEl.querySelector('a').getAttribute('href');
-      pcInfoEl.append(createDynamicMediaPicture(dynamicImgSrc, 'collection-banner'))
+      pcInfoEl.append(createDynamicMediaPicture(dynamicImgSrc, 'collection-banner'));
       pcInfoEl.children[0].remove();
     }
   }
@@ -46,10 +46,8 @@ export default function decorate(block) {
     clonePcInfoEl.className = 'mobile-box-img';
     block.append(clonePcInfoEl);
     mobileImageEl.remove();
-  } else {
-    if (mobileImageEl) {
-      mobileImageEl.className = 'mobile-box-img';
-    }
+  } else if (mobileImageEl) {
+    mobileImageEl.className = 'mobile-box-img';
   }
   const conentContainerEl = document.createElement('div');
   conentContainerEl.className = 'content-container';
