@@ -1,5 +1,6 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
+import {createDynamicMediaPicture} from "../hero-banner/media-reference.js";
 
 const { country, language } = getLocaleFromPath();
 const REGION = '/hisense/region-selection.json';
@@ -166,27 +167,30 @@ function extractLogoData(container) {
 
   const logoDivs = Array.from(logoBlock.children).filter((child) => child.tagName === 'DIV');
 
-  if (logoDivs.length > 1) {
-    const firstDiv = logoDivs[1];
+  if (logoDivs.length > 0) {
+    const firstDiv = logoDivs[0];
     const innerDiv = firstDiv.querySelector('div');
     if (innerDiv) {
       const logoPicture = innerDiv.querySelector('picture');
       if (logoPicture) {
         const logoImg = logoPicture.querySelector('img');
         if (logoImg) {
-          logoData.image = logoImg.cloneNode(true);
+          logoData.image = true ? createDynamicMediaPicture(logoImg.src, logoImg.alt) : logoImg.cloneNode(true);
         }
       } else {
         const logoImg = innerDiv.querySelector('img');
         if (logoImg) {
-          logoData.image = logoImg.cloneNode(true);
+          logoData.image = true ? createDynamicMediaPicture(logoImg.src, logoImg.alt) : logoImg.cloneNode(true);
+        } else {
+          const aImg = innerDiv.querySelector('a');
+          logoData.image = createDynamicMediaPicture(aImg.href);
         }
       }
     }
   }
 
-  if (logoDivs.length > 2) {
-    const altDiv = logoDivs[2];
+  if (logoDivs.length > 1) {
+    const altDiv = logoDivs[1];
     const innerDiv = altDiv.querySelector('div');
     if (innerDiv) {
       const altP = innerDiv.querySelector('p');
@@ -196,8 +200,8 @@ function extractLogoData(container) {
     }
   }
 
-  if (logoDivs.length > 3) {
-    const linkDiv = logoDivs[3];
+  if (logoDivs.length > 2) {
+    const linkDiv = logoDivs[2];
     const innerDiv = linkDiv.querySelector('div');
     if (innerDiv) {
       const buttonContainer = innerDiv.querySelector('p.button-container');
