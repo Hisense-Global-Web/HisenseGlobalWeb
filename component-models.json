@@ -1819,15 +1819,7 @@
         "name": "mobile-image",
         "label": "Image for Mobile",
         "multi": false,
-        "required": true,
-        "condition": {
-          "===": [
-            {
-              "var": "dynamicFlag"
-            },
-            false
-          ]
-        }
+        "required": true
       },
       {
         "component": "select",
@@ -1851,10 +1843,10 @@
         ]
       },
       {
-        "component": "boolean",
-        "name": "booleanTest",
-        "label": "Boolean Test",
-        "valueType": "boolean"
+        "component": "text",
+        "valueType": "string",
+        "name": "author",
+        "label": "Author"
       }
     ]
   },
