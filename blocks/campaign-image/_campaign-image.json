@@ -34,6 +34,14 @@
           "name": "image",
           "label": "Image",
           "multi": false,
+          "required": true
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "mobile-image",
+          "label": "Image for Mobile",
+          "multi": false,
           "required": true,
           "condition": {
             "===": [
@@ -43,14 +51,6 @@
               false
             ]
           }
-        },
-        {
-          "component": "reference",
-          "valueType": "string",
-          "name": "mobile-image",
-          "label": "Image for Mobile",
-          "multi": false,
-          "required": true
         }
       ]
     }
