@@ -115,8 +115,11 @@ function attachEventListners(main) {
     'aue:content-copy',
   ].forEach((eventType) => main?.addEventListener(eventType, async (event) => {
     event.stopPropagation();
+    const hostname = window.location.hostname || '';
+    const isAuthorEnv = hostname.includes('author-');
     const dynamicMediaChecked = window?.parent?.document?.querySelector(`input[aria-label="${ENABLE_DYNAMIC_MEDIA}"]`)?.checked;
-    if (dynamicMediaChecked) {
+    // 确保Author环境下调用
+    if (isAuthorEnv && dynamicMediaChecked) {
       await runCustomAfterUEChange(event);
     }
     const applied = await applyChanges(event);

@@ -10,7 +10,8 @@
             "template": {
               "name": "Campaign Image",
               "model": "campaign-image",
-              "filter": "campaign-image"
+              "filter": "campaign-image",
+              "enable-dynamicMedia": false
             }
           }
         }
@@ -21,6 +22,12 @@
     {
       "id": "campaign-image",
       "fields": [
+        {
+          "component": "boolean",
+          "name": "enable-dynamicMedia",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean"
+        },
         {
           "component": "reference",
           "valueType": "string",
@@ -35,7 +42,15 @@
           "name": "mobile-image",
           "label": "Image for Mobile",
           "multi": false,
-          "required": true
+          "required": true,
+          "condition": {
+            "===": [
+              {
+                "var": "enable-dynamicMedia"
+              },
+              false
+            ]
+          }
         }
       ]
     }

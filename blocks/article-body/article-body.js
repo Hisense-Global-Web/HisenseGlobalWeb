@@ -114,24 +114,25 @@ export default function decorate(block) {
       // 图
       const imgGroupDiv = document.createElement('div');
       imgGroupDiv.className = 'text-body-img-group';
-      const imgEl = row.children[1].querySelector('img');
-      const imgAEl = row.children[1].querySelector('a');
+      const imgEl = row.children[2].querySelector('img');
+      const imgAEl = row.children[2].querySelector('a');
       if (imgEl) {
-        imgGroupDiv.append(imgEl);
+        imgGroupDiv.append(createDynamicMediaPicture(imgEl.href));
       } else if (!imgEl && imgAEl) {
         const imgUrl = imgAEl.getAttribute('href');
-        const imgElseEl = document.createElement('img');
-        imgElseEl.src = imgUrl;
-        imgGroupDiv.append(imgElseEl);
+        imgGroupDiv.append(createDynamicMediaPicture(imgUrl));
       }
       // 文
       const textGroupDiv = document.createElement('div');
-      const title = row.children[2] || '';
+      const title = row.children[3] || '';
       title.className = 'text-body-title';
-      const desc = row.children[3] || '';
+      const desc = row.children[4] || '';
       desc.className = 'text-body-desc';
+      const btn = row.children[5] || '';
+      btn.className = 'text-body-btn';
+      btn.style.display = 'none';
       textGroupDiv.className = 'text-body-text-group';
-      textGroupDiv.append(title, desc);
+      textGroupDiv.append(title, desc, btn);
       if (imgEl || (!imgEl && imgAEl)) {
         GroupDiv.append(imgGroupDiv);
       }

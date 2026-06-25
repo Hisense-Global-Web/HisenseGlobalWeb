@@ -1206,6 +1206,12 @@
         "readonly": true
       },
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1223,6 +1229,18 @@
         "name": "text",
         "label": "Text",
         "value": ""
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string"
       }
     ]
   },
@@ -1815,6 +1833,12 @@
     "id": "campaign-image",
     "fields": [
       {
+        "component": "boolean",
+        "name": "enable-dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1828,7 +1852,15 @@
         "name": "mobile-image",
         "label": "Image for Mobile",
         "multi": false,
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "enable-dynamicMedia"
+            },
+            false
+          ]
+        }
       }
     ]
   },
@@ -3148,6 +3180,12 @@
   {
     "id": "footerLogo",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
       {
         "component": "reference",
         "valueType": "string",
@@ -4850,6 +4888,12 @@
   {
     "id": "navigationLogo",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
       {
         "component": "reference",
         "valueType": "string",

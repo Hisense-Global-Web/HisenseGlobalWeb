@@ -19,7 +19,7 @@ function getPatchValue(event) {
     pathValue = patch.find((entry) => typeof entry?.value === 'string')?.value;
   }
 
-  if (pathValue?.split(HISENSE_DAM_PREFIX)?.length > 1) {
+  if (pathValue?.split?.(HISENSE_DAM_PREFIX)?.length > 1) {
     return HISENSE_DAM_PREFIX + pathValue.split(HISENSE_DAM_PREFIX)[1];
   }
   return pathValue;
@@ -255,45 +255,36 @@ function updateParentEditorInput(oldValue, newValue, options = {}) {
   return true;
 }
 
-const updateMediaFn = async (nodePath, properties) => {
-  async function getCsrfToken() {
-    const res = await fetch('/libs/granite/csrf/token.json', {
-      method: 'GET',
-      credentials: 'same-origin',
-    });
-    const json = await res.json();
-    return json.token;
+function getImsTokenInPage() {
+  const key = Object.keys(sessionStorage).find((k) => k.startsWith('adobeid_ims_access_token/exc_app/'));
+
+  if (!key) throw new Error('No IMS token found in sessionStorage');
+
+  const tokenRecord = JSON.parse(sessionStorage.getItem(key));
+  if (!tokenRecord?.tokenValue) throw new Error('IMS tokenValue missing');
+
+  if (tokenRecord.expire && new Date(tokenRecord.expire) <= new Date()) {
+    throw new Error('IMS token expired');
   }
 
-  const formData = new FormData();
-  Object.entries(properties).forEach(([key, value]) => {
-    formData.append(key, value);
-  });
+  return tokenRecord.tokenValue;
+}
 
-  formData.append(':http-equiv-accept', 'application/json');
-  const token = await getCsrfToken();
-  const res = await fetch(nodePath, {
+async function postToUniversalEditorServicePatch(data) {
+  const url = 'https://universal-editor-service.adobe.io/patch';
+  const res = await fetch(url, {
     method: 'POST',
-    credentials: 'same-origin',
     headers: {
-      'CSRF-Token': token,
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getImsTokenInPage()}`,
     },
-    body: formData,
+    body: JSON.stringify(data),
   });
-
-  const text = await res.text();
   if (!res.ok) {
-    console.error('POST failed:', res.status, res.statusText, text);
-    throw new Error(`POST failed: ${res.status} ${res.statusText}`);
+    throw new Error(`Universal Editor Patch request failed: ${res.statusText}`);
   }
-
-  console.log('Update success:', {
-    status: res.status,
-    nodePath,
-    response: text,
-  });
-  // window.location.reload();
-};
+  return res.json();
+}
 
 async function applyDynamicMediaVideoPatch(event, options = {}) {
   const assetPath = getPatchValue(event);
@@ -306,12 +297,28 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
 
   const patched = rewriteEventValue(event, assetPath, hlsUrl);
   const editorInputPatched = updateParentEditorInput(assetPath, hlsUrl, options);
-  const str = event?.detail?.request?.target?.resource;
-  const nodePath = str.substring(str.indexOf('/'));
-  const properties = {
-    [event.detail.patch.name]: hlsUrl,
+  event.detail.patch.value = hlsUrl;
+
+  const req = event.detail.request;
+  const patchData = {
+    connections: req.connections,
+    patch: [
+      {
+        ...req.patch[0],
+        value: hlsUrl,
+      },
+    ],
+    target: req.target,
   };
-  await updateMediaFn(nodePath, properties);
+  try {
+    const response = await postToUniversalEditorServicePatch(patchData);
+    event.detail.response.updates = response.updates;
+    // eslint-disable-next-line no-console
+    console.log('Normal Video to Dynamic Video success.');
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to call Universal Editor Patch API(Video):', e);
+  }
 
   return {
     assetPath,
@@ -330,12 +337,29 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
   const hlsUrl = buildDynamicMediaHlsUrlImage(assetId, options);
   if (!hlsUrl) return false;
 
-  const str = event.detail.request.target.resource;
-  const nodePath = str.substring(str.indexOf('/'));
-  const properties = {
-    [event.detail.patch.name]: hlsUrl,
+  event.detail.patch.value = hlsUrl;
+
+  const req = event.detail.request;
+  const patchData = {
+    connections: req.connections,
+    patch: [
+      {
+        ...req.patch[0],
+        value: hlsUrl,
+      },
+    ],
+    target: req.target,
   };
-  await updateMediaFn(nodePath, properties);
+
+  try {
+    const response = await postToUniversalEditorServicePatch(patchData);
+    event.detail.response.updates = response.updates;
+    // eslint-disable-next-line no-console
+    console.log('Normal Image to Dynamic Media success.');
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to call Universal Editor Patch API(Image):', e);
+  }
 
   return {
     assetPath,
