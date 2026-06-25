@@ -34,7 +34,15 @@
           "name": "image",
           "label": "Image",
           "multi": false,
-          "required": true
+          "required": true,
+          "condition": {
+            "===": [
+              {
+                "var": "mediFlag"
+              },
+              false
+            ]
+          }
         },
         {
           "component": "reference",
@@ -43,33 +51,6 @@
           "label": "Image for Mobile",
           "multi": false,
           "required": true
-        },
-        {
-          "component": "select",
-          "name": "cta1_classes",
-          "value": "",
-          "label": "Button Background Color",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "transparent",
-              "value": "transparent"
-            },
-            {
-              "name": "hisense-green",
-              "value": "hisense-green"
-            },
-            {
-              "name": "hisense-black",
-              "value": "hisense-black"
-            }
-          ]
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "author",
-          "label": "Author"
         }
       ]
     }

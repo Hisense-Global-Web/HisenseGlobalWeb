@@ -255,46 +255,6 @@ function updateParentEditorInput(oldValue, newValue, options = {}) {
   return true;
 }
 
-// const updateMediaFn = async (nodePath, properties) => {
-//   async function getCsrfToken() {
-//     const res = await fetch('/libs/granite/csrf/token.json', {
-//       method: 'GET',
-//       credentials: 'same-origin',
-//     });
-//     const json = await res.json();
-//     return json.token;
-//   }
-
-//   const formData = new FormData();
-//   Object.entries(properties).forEach(([key, value]) => {
-//     formData.append(key, value);
-//   });
-
-//   formData.append(':http-equiv-accept', 'application/json');
-//   const token = await getCsrfToken();
-//   const res = await fetch(nodePath, {
-//     method: 'POST',
-//     credentials: 'same-origin',
-//     headers: {
-//       'CSRF-Token': token,
-//     },
-//     body: formData,
-//   });
-
-//   const text = await res.text();
-//   if (!res.ok) {
-//     console.error('POST failed:', res.status, res.statusText, text);
-//     throw new Error(`POST failed: ${res.status} ${res.statusText}`);
-//   }
-
-//   console.log('Update success:', {
-//     status: res.status,
-//     nodePath,
-//     response: text,
-//   });
-//   // window.location.reload();
-// };
-
 function getImsTokenInPage() {
   const key = Object.keys(sessionStorage).find((k) => k.startsWith('adobeid_ims_access_token/exc_app/'));
 
@@ -337,14 +297,7 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
 
   const patched = rewriteEventValue(event, assetPath, hlsUrl);
   const editorInputPatched = updateParentEditorInput(assetPath, hlsUrl, options);
-  // const str = event?.detail?.request?.target?.resource;
-  // const nodePath = str.substring(str.indexOf('/'));
-  // const properties = {
-  //   ...event.detail.response.updates[0].raw,
-  //   [event.detail.patch.name]: hlsUrl,
-  // };
   event.detail.patch.value = hlsUrl;
-  // await updateMediaFn(nodePath, properties);
 
   const req = event.detail.request;
   const patchData = {
@@ -358,10 +311,13 @@ async function applyDynamicMediaVideoPatch(event, options = {}) {
     target: req.target,
   };
   try {
-    await postToUniversalEditorServicePatch(patchData);
+    const response = await postToUniversalEditorServicePatch(patchData);
+    event.detail.response.updates = response.updates;
+    // eslint-disable-next-line no-console
+    console.log('Normal Video to Dynamic Video success.');
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error('Failed to call Universal Editor Patch API:', e);
+    console.error('Failed to call Universal Editor Patch API(Video):', e);
   }
 
   return {
@@ -381,18 +337,8 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
   const hlsUrl = buildDynamicMediaHlsUrlImage(assetId, options);
   if (!hlsUrl) return false;
 
-  // const str = event.detail.request.target.resource;
-  // const nodePath = str.substring(str.indexOf('/'));
-  // const properties = {
-  //   ...event.detail.response.updates[0].raw,
-  //   [event.detail.patch.name]: hlsUrl,
-  // };
   event.detail.patch.value = hlsUrl;
-  // await updateMediaFn(nodePath, properties);
 
-  // 使用fetch发送POST请求到universal-editor-service.adobe.io/patch
-
-  // 从event.detail.request构造POST请求入参，并调用此方法
   const req = event.detail.request;
   const patchData = {
     connections: req.connections,
@@ -407,11 +353,12 @@ async function applyDynamicMediaImagePatch(event, options = {}) {
 
   try {
     const response = await postToUniversalEditorServicePatch(patchData);
-    console.log('Normal Image to Dynamic Media success.');
     event.detail.response.updates = response.updates;
+    // eslint-disable-next-line no-console
+    console.log('Normal Image to Dynamic Media success.');
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error('Failed to call Universal Editor Patch API:', e);
+    console.error('Failed to call Universal Editor Patch API(Image):', e);
   }
 
   return {
