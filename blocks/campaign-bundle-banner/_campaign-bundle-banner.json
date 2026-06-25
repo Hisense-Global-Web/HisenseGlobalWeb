@@ -58,7 +58,15 @@
           "valueType": "string",
           "name": "fifa-mobile-image",
           "label": "Background Image For Mobile",
-          "multi": false
+          "multi": false,
+          "condition": {
+            "===": [
+              {
+                "var": "dynamic-media"
+              },
+              false
+            ]
+          }
         },
         {
           "component": "text",
