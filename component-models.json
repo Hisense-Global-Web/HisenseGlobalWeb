@@ -3063,6 +3063,13 @@
     "id": "feature-banner",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "feature-banner_image",
@@ -3074,7 +3081,15 @@
         "valueType": "string",
         "name": "featureMobile_image",
         "label": "Mobile Image",
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "dynamic-media"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "richtext",
