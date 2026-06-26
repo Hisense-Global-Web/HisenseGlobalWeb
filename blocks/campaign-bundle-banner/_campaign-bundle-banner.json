@@ -40,6 +40,13 @@
       "id": "campaign-bundle-banner",
       "fields": [
         {
+          "component": "boolean",
+          "name": "dynamic-media",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean",
+          "value": "false"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "fifa-image",
@@ -51,7 +58,15 @@
           "valueType": "string",
           "name": "fifa-mobile-image",
           "label": "Background Image For Mobile",
-          "multi": false
+          "multi": false,
+          "condition": {
+            "===": [
+              {
+                "var": "dynamic-media"
+              },
+              false
+            ]
+          }
         },
         {
           "component": "text",

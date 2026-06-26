@@ -1,3 +1,4 @@
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 /**
  * 获取 div 中文本的实际渲染行数
  * @param {HTMLElement} el - 目标 div 元素
@@ -25,11 +26,27 @@ const getTextLineCount = (el) => {
 };
 
 export default function decorate(block) {
-  const [pcInfoEl, mobileImageEl, titleEl, bodyTextEl, buttonContainerEl] = [...block.children] ?? [];
+  const [dynamicSwitch, pcInfoEl, mobileImageEl, titleEl, bodyTextEl, buttonContainerEl] = [...block.children] ?? [];
+  const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
+  dynamicSwitch.remove();
+
   if (pcInfoEl) {
     pcInfoEl.className = 'pc-box-img';
+    if (pcInfoEl.querySelector('a')) {
+      // 容错判断（兼容之前没有设置dynamic media 的组件）
+      const dynamicImgSrc = pcInfoEl.querySelector('a').getAttribute('href');
+      pcInfoEl.append(createDynamicMediaPicture(dynamicImgSrc, 'collection-banner'));
+      pcInfoEl.children[0].remove();
+    }
   }
-  if (mobileImageEl) {
+
+  if (isDynamicFlag) {
+    // 是dynamic media 的图片资源时，直接copy PC端的 img dom, 做为 mobile 的图片展示
+    const clonePcInfoEl = pcInfoEl.cloneNode(true);
+    clonePcInfoEl.className = 'mobile-box-img';
+    block.append(clonePcInfoEl);
+    mobileImageEl.remove();
+  } else if (mobileImageEl) {
     mobileImageEl.className = 'mobile-box-img';
   }
   const conentContainerEl = document.createElement('div');

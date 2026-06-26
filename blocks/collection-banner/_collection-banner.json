@@ -38,6 +38,13 @@
           ]
         },
         {
+          "component": "boolean",
+          "name": "dynamic_media",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean",
+          "value": "false"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "collection_image",
@@ -49,7 +56,15 @@
           "valueType": "string",
           "name": "collectionMobile_image",
           "label": "Mobile Image",
-          "multi": false
+          "multi": false,
+          "condition": {
+            "===": [
+              {
+                "var": "dynamic_media"
+              },
+              false
+            ]
+          }
         },
         {
           "component": "text",
