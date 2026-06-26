@@ -1,3 +1,5 @@
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 export default async function decorate(block) {
@@ -5,6 +7,7 @@ export default async function decorate(block) {
   const enterpriseCardWrapperEl = document.createElement('div');
   enterpriseCardWrapperEl.className = 'enterprise-card-wrapper';
 
+  let isDynamicFlag = ''; // dynamic media 标识
   [...block.children].forEach((row) => {
     row.className = 'enterprise-card-box info-hide';
     const infoBoxEl = document.createElement('div');
@@ -14,15 +17,24 @@ export default async function decorate(block) {
     [...row.children].forEach((column, colIndex) => {
       switch (colIndex) {
         case 0:
-          column.className = 'pc-image-box';
+          isDynamicFlag = column.textContent.trim() === 'true';
+          // column.remove();
           break;
         case 1:
-          column.className = 'mobile-image-box';
+          column.className = 'pc-image-box';
+          if (column.querySelector('a') && isDynamicFlag) {
+            const dynamicImgSrc = column.querySelector('a').getAttribute('href');
+            column.append(createDynamicMediaPicture(dynamicImgSrc, 'enterprise-card-item-img'));
+            column.children[0].remove();
+          }
           break;
         case 2:
-          column.className = 'title-box';
+          column.className = 'mobile-image-box';
           break;
         case 3:
+          column.className = 'title-box';
+          break;
+        case 4:
           column.className = 'subtitle-box';
           infoBoxEl.append(column);
           break;
@@ -30,7 +42,7 @@ export default async function decorate(block) {
           column.className = 'description-box';
           infoBoxEl.append(column);
       }
-      if (colIndex === 1) {
+      if (colIndex === 2) {
         const mobileArrowEl = document.createElement('div');
         mobileArrowEl.className = 'mobile-arrow';
         const arrowImg = document.createElement('img');

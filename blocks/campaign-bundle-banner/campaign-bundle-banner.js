@@ -28,7 +28,7 @@ export default function decorate(block) {
       if (row.className === 'fifa-image' && row.querySelector('a') && isDynamicFlag === 'true') {
         // dynamic media 图片
         const dynamicImgSrc = row.querySelector('a').getAttribute('href');
-        row.append(createDynamicMediaPicture(dynamicImgSrc, 'collection-banner'));
+        row.append(createDynamicMediaPicture(dynamicImgSrc, 'campaign-bundle-banner'));
         // 移除key dom 和 author 端返回的 dynamic media 图片链接的 a 标签
         const firstTwo = [...row.children].slice(0, 2);
         firstTwo.forEach((child) => child.remove());
