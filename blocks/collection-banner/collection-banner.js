@@ -32,7 +32,7 @@ export default function decorate(block) {
 
   if (pcInfoEl) {
     pcInfoEl.className = 'pc-box-img';
-    if (pcInfoEl.querySelector('a')) {
+    if (pcInfoEl.querySelector('a') && isDynamicFlag) {
       // 容错判断（兼容之前没有设置dynamic media 的组件）
       const dynamicImgSrc = pcInfoEl.querySelector('a').getAttribute('href');
       pcInfoEl.append(createDynamicMediaPicture(dynamicImgSrc, 'collection-banner'));
