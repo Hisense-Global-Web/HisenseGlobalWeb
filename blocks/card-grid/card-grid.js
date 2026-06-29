@@ -16,6 +16,7 @@ export default async function decorate(block) {
     if (imgDom) {
       imgDom.classList.add('item-img-box');
       if (isDynamicFlag && imgDom.querySelector('a')) {
+        // 设置dynamic media 元素
         const dynamicImgSrc = imgDom.querySelector('a').getAttribute('href');
         imgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'card-grid-img'));
         imgDom.children[0].remove();
