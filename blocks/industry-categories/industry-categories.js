@@ -1,7 +1,8 @@
 /* eslint-disable func-names */
-import { createOptimizedPicture } from '../../scripts/aem.js';
+// import { createOptimizedPicture } from '../../scripts/aem.js';
 import { isMobileWindow } from '../../scripts/device.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default function decorate(block) {
   /* change to ul, li */
@@ -16,8 +17,16 @@ export default function decorate(block) {
     while (row.firstElementChild) li.append(row.firstElementChild);
 
     [...li.children].forEach((div, index) => {
-      if (div.children.length === 2 && div.querySelector('picture')) {
+      if (div.children.length === 2 && (div.querySelector('picture') || div.querySelector('a'))) {
         div.className = 'card-image';
+        const [dynamicSwitch, imgDom] = [...div.children] ?? [];
+        const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
+        dynamicSwitch.remove();
+        if (imgDom.querySelector('a') && isDynamicFlag) {
+          const dynamicImgSrc = imgDom.querySelector('a').getAttribute('href');
+          imgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'industry-categories-img'));
+          imgDom.children[0].remove();
+        }
       } else if (div.children.length === 1 && index === 0) {
         div.className = 'card-title';
       } else {
@@ -71,11 +80,11 @@ export default function decorate(block) {
     };
     ul.append(li);
   });
-  ul.querySelectorAll('picture > img').forEach((img) => {
-    const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
-    moveInstrumentation(img, optimizedPic.querySelector('img'));
-    img.closest('picture').replaceWith(optimizedPic);
-  });
+  // ul.querySelectorAll('picture > img').forEach((img) => {
+  //   const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
+  //   moveInstrumentation(img, optimizedPic.querySelector('img'));
+  //   img.closest('picture').replaceWith(optimizedPic);
+  // });
 
   block.replaceChildren(ul);
   const industryItemDom = block.querySelectorAll('.industry-categories-ul li');
