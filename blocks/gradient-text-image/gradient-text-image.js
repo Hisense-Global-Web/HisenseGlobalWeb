@@ -9,8 +9,12 @@ export default async function decorate(block) {
       child.setAttribute('class', child.firstElementChild.textContent);
       child.firstElementChild.remove();
     }
-    if (child.querySelector('picture')) child.setAttribute('class', 'gradient-image');
-    else textContainer.append(child);
+    if (child.querySelector('picture')) {
+      child.setAttribute('class', 'gradient-image');
+    } else if (child.querySelector('a')) {
+      console.log(child);
+      textContainer.append(child);
+    } else textContainer.append(child);
   });
   textContainer.classList.add('text-container');
   block.append(textContainer);
