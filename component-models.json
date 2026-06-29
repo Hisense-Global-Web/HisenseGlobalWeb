@@ -2853,6 +2853,13 @@
     "id": "enterprise-card-item",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "pc_url",
@@ -2864,7 +2871,15 @@
         "valueType": "string",
         "name": "mobile_Url",
         "label": "Card Mobile Image",
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "dynamic-media"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",
@@ -3048,6 +3063,13 @@
     "id": "feature-banner",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "feature-banner_image",
@@ -3059,7 +3081,15 @@
         "valueType": "string",
         "name": "featureMobile_image",
         "label": "Mobile Image",
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "dynamic-media"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "richtext",
