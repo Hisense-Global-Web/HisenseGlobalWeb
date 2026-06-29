@@ -3323,6 +3323,12 @@
     "id": "global-presence",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "container_background",
@@ -5567,6 +5573,12 @@
   {
     "id": "product-gallery-item",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
       {
         "component": "reference",
         "valueType": "string",
