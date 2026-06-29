@@ -1,7 +1,7 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
-import { isVideoMediaUrl } from '../hero-banner/media-reference.js';
-import { SCREEN_POINT } from '../../utils/constants.js';
+import { createDynamicMediaPicture, isVideoMediaUrl } from '../hero-banner/media-reference.js';
+import { DYNAMIC_MEDIA_MANIFEST_M3U8, DYNAMIC_MEDIA_PLAY, SCREEN_POINT } from '../../utils/constants.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 
@@ -241,15 +241,12 @@ const getFilterCardList = (dataList, mainSelectValue, subSelectValue, placeholde
 
 const generateCard = (card) => {
   const {
-    title, subCategory, path, publishDate,
+    title, subCategory, path, dynamicMediaPath, publishDate,
   } = card ?? {};
   const mediaCardEl = document.createElement('div');
   mediaCardEl.className = 'card-wrapper';
-  const thumbnailEl = document.createElement('img');
+  const thumbnailEl = createDynamicMediaPicture(dynamicMediaPath ?? path, title);
   thumbnailEl.className = 'thumbnail';
-  thumbnailEl.src = path;
-  thumbnailEl.alt = title;
-  thumbnailEl.loading = 'lazy';
   mediaCardEl.appendChild(thumbnailEl);
   const bottomWrapperEl = document.createElement('div');
   bottomWrapperEl.className = 'bottom-wrapper';
@@ -526,8 +523,7 @@ function updateButtons(tabsList, leftBtn, rightBtn) {
 }
 
 function createImg(url) {
-  const img = document.createElement('img');
-  img.src = url;
+  const img = createDynamicMediaPicture(url);
   return img;
 }
 
@@ -541,7 +537,7 @@ function createVideo(videoUrl) {
   video.playsInline = true;
   video.muted = true; // iPhone 要求静音才能自动播放
   const source = document.createElement('source');
-  source.src = videoUrl;
+  source.src = videoUrl.replace(`/${DYNAMIC_MEDIA_PLAY}`, `/${DYNAMIC_MEDIA_MANIFEST_M3U8}`);
   source.type = 'video/mp4';
   video.innerHTML = '';
   video.appendChild(source);
@@ -663,13 +659,13 @@ const buildGalleryPopup = (cardData) => {
       video.playsInline = false;
       video.muted = true; // iPhone 要求静音才能自动播放
       const source = document.createElement('source');
-      source.src = item.link;
+      source.src = item.dynamicMediaPath?.replace(`/${DYNAMIC_MEDIA_PLAY}`, `/${DYNAMIC_MEDIA_MANIFEST_M3U8}`) ?? item.path;
       source.type = 'video/mp4';
       video.innerHTML = '';
       video.appendChild(source);
       li.appendChild(video);
     } else {
-      li.appendChild(createImg(item.link));
+      li.appendChild(createImg(item.dynamicMediaPath ?? item.path));
     }
     li.addEventListener('click', (e) => {
       currentIndex = index;
@@ -684,7 +680,7 @@ const buildGalleryPopup = (cardData) => {
         }
       });
       if (item.isVideo) {
-        coreMedia.appendChild(createVideo(item.link));
+        coreMedia.appendChild(createVideo(item.dynamicMediaPath ?? item.path));
         dowloadbtn.textContent = '下载视频';
       } else {
         const link = e.currentTarget.querySelector('img').src;
@@ -696,9 +692,9 @@ const buildGalleryPopup = (cardData) => {
     tabs.append(li);
     if (index === currentIndex) {
       if (item.isVideo) {
-        coreMediaEl.appendChild(createVideo(item.link));
+        coreMediaEl.appendChild(createVideo(item.dynamicMediaPath ?? item.path));
       } else {
-        coreMediaEl.appendChild(createImg(item.link));
+        coreMediaEl.appendChild(createImg(item.dynamicMediaPath ?? item.path));
       }
     }
   });
