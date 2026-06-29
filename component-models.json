@@ -5257,6 +5257,13 @@
     "id": "popup-image",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "popup-image-box",
