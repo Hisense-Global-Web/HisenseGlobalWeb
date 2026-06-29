@@ -1,5 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
-import {createDynamicMediaPicture} from "../hero-banner/media-reference.js";
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default async function decorate(block) {
   const config = readBlockConfig(block);
