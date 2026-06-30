@@ -3372,8 +3372,7 @@
                   "productCardLink": "",
                   "prevButtonAriaLabel": "Prev",
                   "nextButtonAriaLabel": "Next",
-                  "loadMoreLabel": "Load More",
-                  "onlyShowModel": false
+                  "loadMoreLabel": "Load More"
                 }
               }
             }

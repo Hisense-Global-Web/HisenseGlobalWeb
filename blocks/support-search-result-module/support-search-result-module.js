@@ -521,7 +521,6 @@ export default async function decorate(block) {
   }
 
   const { config, items } = parseConfig(block);
-
   const pageSize = parseInt(config.pagesize || config.pageSize || DEFAULT_PAGE_SIZE, 10);
   const keyword = getSearchKeyword();
 
@@ -533,6 +532,9 @@ export default async function decorate(block) {
   const tabNav = document.createElement('div');
   tabNav.className = 'tab-nav';
   wrapper.appendChild(tabNav);
+  if (items.length === 1) {
+    tabNav.style.display = 'none';
+  }
 
   const contentArea = document.createElement('div');
   contentArea.className = 'search-content-area';
