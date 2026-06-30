@@ -1331,13 +1331,19 @@ export default async function decorate(block) {
   const scrollThreshold = 10;
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    let mobileHeaderHeight = 56 * -1; // header height on Mobile
+    let pcHeaderHeight = 100 * -1; // header height on PC
+    if (document.body.classList.contains('has-language-aside')) {
+      mobileHeaderHeight += 72 * -1; // 72 为 header 中 dom 元素ID为【language-aside】栏高度
+      pcHeaderHeight += 72 * -1;
+    }
     if (isCompanyPage || isSupportPage) {
-      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -100)}px`;
+      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, mobileHeaderHeight)}px` : `${Math.max(scrollTop * -1, pcHeaderHeight)}px`;
       return;
     }
     if (isSupportPage) {
       if (window.innerWidth < 1180) {
-        navigation.style.top = `${Math.max(scrollTop * -1, -56)}px`;
+        navigation.style.top = `${Math.max(scrollTop * -1, mobileHeaderHeight)}px`;
         return;
       }
     }
@@ -1904,5 +1910,5 @@ export default async function decorate(block) {
   block.append(navigation);
   ensureLogoutModal();
   const languageAside = createLanguageAside();
-  block.prepend(languageAside);
+  navigation.prepend(languageAside);
 }

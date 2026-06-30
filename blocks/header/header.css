@@ -2,6 +2,7 @@
 
 :root {
   --root-header-height: 100px;
+  --root-language-header-height: 172px;
 }
 
 .main-mobile {
@@ -150,6 +151,16 @@
         padding: 0 3px;
       }
     }
+  }
+}
+
+body.has-language-aside #navigation {
+  &.hidden {
+    top: calc(-1 * var(--root-language-header-height));
+  }
+
+  @media (width >= 1180px) {
+    height: 172px;
   }
 }
 
@@ -1274,6 +1285,10 @@
   height: calc(100vh - var(--root-header-height));
   background: rgb(0 0 0 / 50%);
   z-index: 997;
+}
+
+body.has-language-aside .nav-mask {
+  top: var(--root-language-header-height);
 }
 
 .nav-link:hover .nav-dropdown,
