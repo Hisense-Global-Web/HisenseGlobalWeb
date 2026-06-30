@@ -1517,7 +1517,7 @@ export default async function decorate(block) {
         window.location.href = action.href;
       });
     }
-    if (action.title.trim().toLowerCase() === 'support') {
+    if (action.title.trim().toLowerCase() === 'support' || action.title.trim().toLowerCase() === 'soporte') {
       cloneLink.classList.add('nav-link');
       const mask = document.createElement('div');
       mask.className = 'nav-mask';
