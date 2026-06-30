@@ -1129,7 +1129,12 @@ const handleAccountActionClick = async (event) => {
   }
 };
 
+const saveLanguageToLocalStorage = (lan) => {
+  localStorage.setItem('language', lan);
+};
+
 const createLanguageAside = () => {
+  // if (localStorage.getItem('language')) return;
   document.querySelector('body').classList.add('has-language-aside');
   const languageAside = document.createElement('div');
   languageAside.id = 'language-aside';
@@ -1137,6 +1142,7 @@ const createLanguageAside = () => {
   acLsContent.className = 'ac-ls-content';
   const acLsCopy = document.createElement('div');
   acLsCopy.className = 'ac-ls-copy';
+  acLsCopy.textContent = 'Choose your location and language.';
   const acLsActions = document.createElement('div');
   acLsActions.className = 'ac-ls-actions';
   const acLsDropdown = document.createElement('div');
@@ -1153,9 +1159,25 @@ const createLanguageAside = () => {
   const acLsContinue = document.createElement('a');
   acLsContinue.id = 'ac-ls-continue';
   acLsContinue.className = 'ac-ls-continue';
-  const acLsClose = document.createElement('a');
+  acLsContinue.textContent = 'Continue';
+  const acLsClose = document.createElement('img');
   acLsClose.id = 'ac-ls-close';
   acLsClose.className = 'ac-ls-close';
+  // acLsClose.src = `/content/dam/hisense/${country}/common-icons/close-white.svg`;
+  acLsClose.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+
+  acLsContinue.addEventListener('click', (e) => {
+    console.log('click', e);
+    document.querySelector('body').classList.remove('has-language-aside');
+    saveLanguageToLocalStorage('en');
+  });
+  acLsClose.addEventListener('click', (e) => {
+    console.log('click', e);
+    document.querySelector('body').classList.remove('has-language-aside');
+    if (!localStorage.getItem('language')) {
+      saveLanguageToLocalStorage('en');
+    }
+  });
 
   acLsActions.append(acLsDropdown, acLsContinue, acLsClose);
   acLsContent.append(acLsCopy, acLsActions);

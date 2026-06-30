@@ -1990,4 +1990,60 @@ body.has-language-aside .nav-mask {
   width: 100%;
   height: 72px;
   background: #333;
+  font-size: var(--size-14);
+  line-height: var(--size-21);
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .ac-ls-content {
+    width: var(--container-max-width);
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+
+    .ac-ls-copy {
+      color: #fff;
+      font-weight: var(--fontweight-book);
+    }
+
+    .ac-ls-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+
+      .ac-ls-dropdown {
+        position: relative;
+        min-width: 280px;
+        height: 40px;
+        border: 1px solid #bbb;
+        padding: 0 18px;
+        background: #fff;
+        border-radius: 12px;
+      }
+
+      .ac-ls-continue {
+        display: flex;
+        align-items: center;
+        background: #009F9C;
+        height: 40px;
+        padding: 0 24px;
+        font-weight: var(--fontweight-medium);
+        color: #fff;
+        border-radius: 80px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .ac-ls-close {
+        margin-left: 8px;
+        cursor: pointer;
+      }
+    }
+  }
 }
