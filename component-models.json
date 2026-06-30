@@ -2695,6 +2695,54 @@
     ]
   },
   {
+    "id": "display-manual-list",
+    "fields": [
+      {
+        "component": "number",
+        "name": "page_size",
+        "label": "Items per page",
+        "description": "How many items to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "no_result",
+        "label": "no result content",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "document_icon",
+        "label": "Document Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "pc_downladicon",
+        "label": "PC: Download Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "pc_downloadtext",
+        "label": "PC: Download Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "mobile-downloadicon",
+        "label": "Mobile: Download Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobile-nexttext",
+        "label": "Mobile: Next Page Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "download",
     "fields": [
       {
@@ -6918,6 +6966,14 @@
         "valueType": "string",
         "name": "noResultSubtitle",
         "label": "No Result Subtitle"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "onlyShowModel",
+        "value": false,
+        "label": "Only Show Model",
+        "description": "The block will only show model and hide Tabs and Sort Items when you selected true."
       }
     ]
   },

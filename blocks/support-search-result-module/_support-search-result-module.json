@@ -19,7 +19,8 @@
               "productCardLink": "",
               "prevButtonAriaLabel": "Prev",
               "nextButtonAriaLabel": "Next",
-              "loadMoreLabel": "Load More"
+              "loadMoreLabel": "Load More",
+              "onlyShowModel": false
             }
           }
         }
@@ -88,6 +89,14 @@
           "valueType": "string",
           "name": "noResultSubtitle",
           "label": "No Result Subtitle"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "onlyShowModel",
+          "value": false,
+          "label": "Only Show Model",
+          "description": "The block will only show model and hide Tabs and Sort Items when you selected true."
         }
       ]
     },
