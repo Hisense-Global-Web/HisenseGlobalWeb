@@ -1134,7 +1134,7 @@ const saveLanguageToLocalStorage = (lan) => {
 };
 
 const createLanguageAside = () => {
-  // if (localStorage.getItem('language')) return;
+  if (localStorage.getItem('language')) return;
   document.querySelector('body').classList.add('has-language-aside');
   const languageAside = document.createElement('div');
   languageAside.id = 'language-aside';
@@ -1932,5 +1932,7 @@ export default async function decorate(block) {
   block.append(navigation);
   ensureLogoutModal();
   const languageAside = createLanguageAside();
-  navigation.prepend(languageAside);
+  if (languageAside) {
+    navigation.prepend(languageAside);
+  }
 }
