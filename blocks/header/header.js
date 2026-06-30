@@ -1133,6 +1133,33 @@ const createLanguageAside = () => {
   document.querySelector('body').classList.add('has-language-aside');
   const languageAside = document.createElement('div');
   languageAside.id = 'language-aside';
+  const acLsContent = document.createElement('div');
+  acLsContent.className = 'ac-ls-content';
+  const acLsCopy = document.createElement('div');
+  acLsCopy.className = 'ac-ls-copy';
+  const acLsActions = document.createElement('div');
+  acLsActions.className = 'ac-ls-actions';
+  const acLsDropdown = document.createElement('div');
+  acLsDropdown.id = 'ac-ls-dropdown';
+  acLsDropdown.className = 'ac-ls-dropdown ac-ls-actions-item select-collapsed';
+  const acLsDropdownSelect = document.createElement('div');
+  acLsDropdownSelect.id = 'ac-ls-dropdown-select';
+  acLsDropdownSelect.className = 'ac-ls-dropdown-select';
+  const acLsDropdownOptions = document.createElement('div');
+  acLsDropdownOptions.id = 'ac-ls-dropdown-options';
+  acLsDropdownOptions.className = 'ac-ls-dropdown-options';
+  acLsDropdown.append(acLsDropdownSelect, acLsDropdownOptions);
+
+  const acLsContinue = document.createElement('a');
+  acLsContinue.id = 'ac-ls-continue';
+  acLsContinue.className = 'ac-ls-continue';
+  const acLsClose = document.createElement('a');
+  acLsClose.id = 'ac-ls-close';
+  acLsClose.className = 'ac-ls-close';
+
+  acLsActions.append(acLsDropdown, acLsContinue, acLsClose);
+  acLsContent.append(acLsCopy, acLsActions);
+  languageAside.append(acLsContent);
   return languageAside;
 };
 
