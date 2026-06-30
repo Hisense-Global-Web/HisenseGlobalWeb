@@ -120,9 +120,13 @@
               left: 0;
               overflow: hidden;
               transform: scaleY(0);
-              transform-origin: top center; /* 从顶部向下展开 */
+              transform-origin: top center;
+
+              /* 从顶部向下展开 */
               opacity: 0;
-              pointer-events: none; /* 隐藏时禁用点击穿透 */
+              pointer-events: none;
+
+              /* 隐藏时禁用点击穿透 */
               transition:
                 transform 0.3s ease,
                 opacity 0.3s ease;
@@ -133,14 +137,11 @@
               .option-list {
                 width: 100%;
                 flex-direction: column;
-                padding: var(--size-72) var(--size-20) var(--spacing-sm, 24px)
-                  var(--size-20);
+                padding: var(--size-72) var(--size-20) var(--spacing-sm, 24px) var(--size-20);
                 font-size: var(--fontsize-body1, 16px);
                 gap: var(--spacing-2xs, 12px);
-                max-height: min(
-                  calc(432 / var(--breakpoint-pc) * 100vw),
-                  432px
-                );
+                max-height: min(calc(432 / var(--breakpoint-pc) * 100vw),
+                    432px);
 
                 @media (width<640px) {
                   max-height: calc(432 / var(--breakpoint-mobile) * 100vw);
@@ -302,6 +303,19 @@
             @media (width < 640px) {
               width: calc(120 / var(--breakpoint-mobile) * 100vw);
               height: calc(120 / var(--breakpoint-mobile) * 100vw);
+            }
+
+            img {
+              aspect-ratio: 352 / 235;
+              object-fit: cover;
+              border-radius: var(--radius-md, 8px);
+              width: min(calc(352 / var(--breakpoint-pc) * 100vw), 352px);
+              height: min(calc(235 / var(--breakpoint-pc) * 100vw), 235px);
+
+              @media (width < 640px) {
+                width: calc(120 / var(--breakpoint-mobile) * 100vw);
+                height: calc(120 / var(--breakpoint-mobile) * 100vw);
+              }
             }
           }
 
@@ -557,7 +571,11 @@
       min-height: var(--size-150);
     }
 
-    > * {
+    img {
+      width: 100%;
+    }
+
+    >* {
       width: 100%;
       display: block;
     }
@@ -660,7 +678,8 @@
           &.current {
             border: 1px solid #000;
 
-            &.image img, &.video video  {
+            &.image img,
+            &.video video {
               border: 1px solid transparent;
             }
           }
@@ -694,7 +713,7 @@
       gap: var(--size-12);
     }
 
-    > div {
+    >div {
       height: var(--size-50);
       padding: 0 var(--size-32);
       border-radius: var(--size-80);
