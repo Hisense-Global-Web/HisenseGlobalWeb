@@ -1129,6 +1129,13 @@ const handleAccountActionClick = async (event) => {
   }
 };
 
+const createLanguageAside = () => {
+  document.querySelector('body').classList.add('has-language-aside');
+  const languageAside = document.createElement('div');
+  languageAside.id = 'language-aside';
+  return languageAside;
+};
+
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -1869,4 +1876,6 @@ export default async function decorate(block) {
   block.textContent = '';
   block.append(navigation);
   ensureLogoutModal();
+  const languageAside = createLanguageAside();
+  block.prepend(languageAside);
 }
