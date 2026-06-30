@@ -23,6 +23,7 @@ export default function decorate(block) {
         const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
         dynamicSwitch.remove();
         if (imgDom.querySelector('a') && isDynamicFlag) {
+          // 设置dynamic media
           const dynamicImgSrc = imgDom.querySelector('a').getAttribute('href');
           imgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'industry-categories-img'));
           imgDom.children[0].remove();
@@ -80,6 +81,10 @@ export default function decorate(block) {
     };
     ul.append(li);
   });
+  /**
+   * 修改dynamic media 之前此组件有对图片做如下操作
+   * 因为此逻辑会导致createDynamicMediaPicture 方法生成的 dynamic media img 中的三个source 只会渲染一个，所以先注释掉
+   */
   // ul.querySelectorAll('picture > img').forEach((img) => {
   //   const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
   //   moveInstrumentation(img, optimizedPic.querySelector('img'));
