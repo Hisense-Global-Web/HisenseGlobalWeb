@@ -1,5 +1,6 @@
 import { handleCommonDownloadClick } from '../../utils/download.js';
 
+const GLOBAL_DISPLAY = 'display';
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -8,6 +9,15 @@ const isAemEnvironment = () => {
   const hostname = window.location.hostname || '';
   return hostname.includes('author') || hostname.includes('publish');
 };
+
+function getSearchKeyword() {
+  const urlParams = new URLSearchParams(window.location.search);
+  return {
+    sku: urlParams.get('sku') || '',
+    category: urlParams.get('category') || '',
+  };
+}
+
 const getBaseUrl = () => window.GRAPHQL_BASE_URL || '';
 
 const simpleHash = (str) => {
@@ -23,7 +33,7 @@ const toAbsoluteUrl = (path) => {
   if (!path) return '';
   if (/^https?:\/\//i.test(path)) return path;
 
-  const shouldPrefixBaseUrl = ['/bin/', '/document/']
+  const shouldPrefixBaseUrl = ['/bin/', '/product/', '/content/dam/']
     .some((prefix) => path.startsWith(prefix));
   if (!shouldPrefixBaseUrl) return path;
 
@@ -32,14 +42,14 @@ const toAbsoluteUrl = (path) => {
   return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
 };
 
-const getCacheBustedUrl = (url) => {
+function getCacheBustedUrl(url) {
   if (!url) return '';
   const cacheBuster = simpleHash(Math.floor(Date.now() / FIVE_MINUTES_MS));
   const separator = url.includes('?') ? '&' : '?';
   return `${url}${separator}_t=${cacheBuster}`;
-};
+}
 
-const fetchJson = async (path) => {
+async function fetchJson(path) {
   if (!path) return null;
 
   const url = getCacheBustedUrl(toAbsoluteUrl(path));
@@ -48,26 +58,94 @@ const fetchJson = async (path) => {
     throw new Error(`HTTP ${response.status}`);
   }
   return response.json();
-};
+}
 
-const getGuideListEndpoint = () => {
-  if (!country) return '';
+const getProductEndpoint = (sku) => {
+  if (!sku) return '';
 
   if (isAemEnvironment()) {
-    return `/bin/hisense/document/guide.json?country=${country}`;
+    return `/bin/hisense/productListBySku.json?path=/${GLOBAL_DISPLAY}&sku=${encodeURIComponent(sku)}`;
   }
-  return `/document/guide/${country}.json`;
+
+  return `/product/sku/${GLOBAL_DISPLAY}/${sku.replace(/ /g, '+')}.json`;
 };
 
-const getGuidesData = async () => {
+function getSupportEndpoint(factoryModel, category, sku) {
+  if (!factoryModel || !category) return '';
+  const params = new URLSearchParams({
+    factoryModel,
+    category,
+  });
+  if (sku) {
+    params.set('sku', sku);
+  }
+
+  const skuParam = sku ? `&sku=${encodeURIComponent(sku)}` : '';
+  return `/bin/hisense/support/document.json?${params.toString()}${skuParam}&specialPath=/global`;
+}
+
+const getProductInfoBySKU = async (sku) => {
   try {
-    const data = await fetchJson(getGuideListEndpoint());
-    return data ?? [];
+    const data = await fetchJson(getProductEndpoint(sku));
+    return data?.data?.productModelList?.items?.[0] || null;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Failed to fetch guides data:', error);
+    console.error('Failed to fetch products by sku:', error);
+    return null;
+  }
+};
+
+const getDisplayManualList = async (factoryModel, category, sku) => {
+  try {
+    const data = await fetchJson(getSupportEndpoint(factoryModel, category, sku));
+    return data?.documents || [];
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to fetch display manual list data:', error);
     return [];
   }
+};
+
+const generateProductInfo = (product) => {
+  const productInfoEl = document.createElement('div');
+  productInfoEl.className = 'product-information';
+
+  // eslint-disable-next-line no-underscore-dangle
+  const productImagePath = product?.mediaGallery_image?._path;
+  const imagePath = productImagePath ? toAbsoluteUrl(productImagePath) : '';
+  const title = product?.title || product?.subtitle || '';
+  const sku = product?.sku || '';
+
+  if (imagePath) {
+    const imageWrapper = document.createElement('div');
+    imageWrapper.className = 'product-information-image';
+
+    const image = document.createElement('img');
+    image.alt = title || sku || 'Product image';
+    image.src = imagePath;
+    imageWrapper.appendChild(image);
+    productInfoEl.appendChild(imageWrapper);
+  }
+
+  const textWrapper = document.createElement('div');
+  textWrapper.className = 'product-information-text';
+
+  if (sku) {
+    const subtitle = document.createElement('p');
+    subtitle.className = 'product-information-subtitle';
+    subtitle.textContent = sku;
+    textWrapper.appendChild(subtitle);
+  }
+
+  if (title) {
+    const titleElement = document.createElement('p');
+    titleElement.className = 'product-information-title';
+    titleElement.textContent = title;
+    textWrapper.appendChild(titleElement);
+  }
+
+  productInfoEl.appendChild(textWrapper);
+  return productInfoEl;
 };
 
 const buildPaginationControls = (container, state, onPageChange) => {
@@ -75,7 +153,7 @@ const buildPaginationControls = (container, state, onPageChange) => {
   if (total <= limit) {
     return;
   }
-  const paginationEl = container.querySelector('.guide-list-pagination');
+  const paginationEl = container.querySelector('.display-manual-list-pagination');
   if (!paginationEl) return;
 
   paginationEl.textContent = '';
@@ -185,43 +263,42 @@ const buildPaginationControls = (container, state, onPageChange) => {
   );
 };
 
-const generateGuid = (commonInfo, guideInfo) => {
+const generateDisplayManual = (commonInfo, manualInfo) => {
   const { documentIcon, pcDownloadButton, mobileDownloadIcon } = commonInfo;
   const pcDownloadButtonCopy = pcDownloadButton?.cloneNode(true);
   const mobileDownloadIconCopy = mobileDownloadIcon?.cloneNode(true);
 
-  const { path } = guideInfo ?? {};
-  const guideWrapperEl = document.createElement('div');
-  guideWrapperEl.className = 'tab-guide';
+  const { link } = manualInfo ?? {};
+  const displayManualWrapperEl = document.createElement('div');
+  displayManualWrapperEl.className = 'display-manual';
   const leftEl = document.createElement('div');
-  leftEl.className = 'guide-left';
+  leftEl.className = 'display-manual-left';
   if (documentIcon) {
     leftEl.appendChild(documentIcon.cloneNode(true));
   }
-  if (path) {
-    const noParamsUrl = path?.split('?')?.[0] ?? '';
-    const fileName = noParamsUrl.substring(path.lastIndexOf('/') + 1);
+  if (link) {
+    const noParamsUrl = link?.split('?')?.[0] ?? '';
+    const fileName = noParamsUrl.substring(link.lastIndexOf('/') + 1);
     const title = fileName.substring(0, fileName.lastIndexOf('.'));
     const titleEl = document.createElement('div');
-    titleEl.className = 'guide-title';
+    titleEl.className = 'display-manual-title';
     titleEl.textContent = title;
     leftEl.appendChild(titleEl);
-    guideWrapperEl.appendChild(leftEl);
+    displayManualWrapperEl.appendChild(leftEl);
     if (pcDownloadButtonCopy) {
-      pcDownloadButtonCopy?.addEventListener('click', () => handleCommonDownloadClick(path));
-      guideWrapperEl.appendChild(pcDownloadButtonCopy);
+      pcDownloadButtonCopy?.addEventListener('click', () => handleCommonDownloadClick(link));
+      displayManualWrapperEl.appendChild(pcDownloadButtonCopy);
     }
     if (mobileDownloadIconCopy) {
-      mobileDownloadIconCopy.addEventListener('click', () => handleCommonDownloadClick(path));
-      guideWrapperEl.appendChild(mobileDownloadIconCopy);
+      mobileDownloadIconCopy.addEventListener('click', () => handleCommonDownloadClick(link));
+      displayManualWrapperEl.appendChild(mobileDownloadIconCopy);
     }
   }
 
-  return guideWrapperEl;
+  return displayManualWrapperEl;
 };
 
 export default async function decorate(block) {
-  let tabIndex = 0;
   const [pageSizeEl, noResultEl, documentIconEl, pcDownloadEl, mobileDownloadIconEl, mobileLoadMoreEl] = [...block.children];
   const pageSize = (pageSizeEl?.textContent ?? 10) * 1;
   const noResultClone = noResultEl?.cloneNode?.(true);
@@ -242,147 +319,107 @@ export default async function decorate(block) {
   noResultEl?.remove();
   mobileLoadMoreEl?.remove();
 
+  const { sku, category } = getSearchKeyword();
+
   const getNoResultContent = () => {
     const emptyEl = noResultClone?.children?.[0] ?? document.createElement('div');
-    emptyEl.className = 'guide-list-empty-container';
+    emptyEl.className = 'display-manual-list-empty-container';
     if (emptyEl) {
       const [emptyTitleEl, emptyTextEl] = emptyEl?.children ?? [];
-      if (emptyTitleEl) emptyTitleEl.className = 'guide-list-empty-title';
-      if (emptyTextEl) emptyTextEl.className = 'guide-list-empty-text';
+      if (emptyTitleEl) emptyTitleEl.className = 'display-manual-list-empty-title';
+      if (emptyTextEl) emptyTextEl.className = 'display-manual-list-empty-text';
     } else {
       emptyEl.textContent = 'No items found.';
-      emptyEl.classList.add('guide-list-empty-title');
+      emptyEl.classList.add('display-manual-list-empty-title');
     }
     return emptyEl;
   };
 
-  const tabsWrapperEl = document.createElement('div');
-  tabsWrapperEl.className = 'guide-tabs-wrapper';
-  const tabGuidListWrapperEl = document.createElement('div');
-  const guidesData = await getGuidesData();
-  if (guidesData?.length) {
-    guidesData.forEach((item, index) => {
-      const isCurrentTab = index === tabIndex;
-      const { title, document: data } = item;
-      const tabEl = document.createElement('div');
-      tabEl.className = 'tab';
-      if (isCurrentTab) {
-        tabEl.classList.add('active');
-      }
-      const tabTitleEl = document.createElement('div');
-      tabTitleEl.className = 'tab-title';
-      tabTitleEl.textContent = title;
-      tabEl.appendChild(tabTitleEl);
-
-      const tabGuideListEl = document.createElement('div');
-      tabGuideListEl.classList.add('tab-guide-list');
-      if (!isCurrentTab) {
-        tabGuideListEl.classList.add('display-none');
-      }
-
-      if (data?.length) {
-        // PC分页器
-        const paginationEl = document.createElement('div');
-        paginationEl.className = 'guide-list-pagination';
-
-        // Mobile按钮
-        const mobilePaginationEl = document.createElement('div');
-        mobilePaginationEl.className = 'guide-list-pagination-mobile';
-        const mobileBtn = document.createElement('button');
-        mobileBtn.type = 'button';
-        mobileBtn.classList.add('page-button');
-        mobileBtn.textContent = loadMoreText;
-        mobilePaginationEl.appendChild(mobileBtn);
-
-        const noPaginationEl = document.createElement('div');
-        noPaginationEl.className = 'guide-list-no-pagination';
-
-        tabGuideListEl.appendChild(paginationEl);
-        tabGuideListEl.appendChild(mobilePaginationEl);
-
-        const loadPage = (page, type = 'PC') => {
-          const totalItems = data?.length ?? 0;
-
-          const loadInfoList = tabGuideListEl.querySelectorAll('.tab-guide');
-          if (loadInfoList?.length) {
-            loadInfoList.forEach((info) => {
-              info.remove();
-            });
-          }
-          paginationEl.textContent = '';
-          mobileBtn.style.display = 'none';
-
-          const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
-          const safePage = Math.min(Math.max(page, 1), totalPages);
-          const startIndex = (safePage - 1) * pageSize;
-          const pageItems = type === 'PC' ? data.slice(startIndex, startIndex + pageSize) : data.slice(0, startIndex + pageSize);
-
-          pageItems.forEach((guide) => {
-            const guideEl = generateGuid({
-              documentIcon, pcDownloadButton, mobileDownloadIcon,
-            }, guide);
-            if (guideEl) {
-              tabGuideListEl.insertBefore(guideEl, paginationEl);
-            }
-          });
-
-          const state = {
-            total: totalItems,
-            limit: pageSize,
-            offset: startIndex,
-          };
-
-          // 创建PC端的分页器
-          buildPaginationControls(tabGuideListEl, state, (targetPage) => {
-            if (targetPage < 1) return;
-            const maxPage = Math.ceil(state.total / state.limit);
-            if (targetPage > maxPage) return;
-            loadPage(targetPage);
-          });
-
-          // 给移动端的 Load More 按钮添加事件
-          if (page * pageSize < totalItems) {
-            mobileBtn.style.display = 'block';
-            mobileBtn.onclick = () => loadPage(safePage + 1, 'Mobile');
-          } else {
-            mobileBtn.style.display = 'none';
-          }
-        };
-        loadPage(1);
-      } else {
-        tabGuideListEl.appendChild(getNoResultContent());
-      }
-      tabsWrapperEl.appendChild(tabEl);
-      tabGuidListWrapperEl.appendChild(tabGuideListEl);
-    });
-  } else {
-    tabGuidListWrapperEl.appendChild(getNoResultContent());
+  const productInfo = await getProductInfoBySKU(sku);
+  if (!productInfo) {
+    block.appendChild(getNoResultContent());
+    return;
   }
+  const productInfoEl = generateProductInfo(productInfo);
+  block.appendChild(productInfoEl);
+  const displayManualList = await getDisplayManualList(productInfo.factoryModel, category, sku);
+  if (displayManualList?.length) {
+    const displayManualListEl = document.createElement('div');
+    displayManualListEl.classList.add('display-manual-list');
+    // PC分页器
+    const paginationEl = document.createElement('div');
+    paginationEl.className = 'display-manual-list-pagination';
+
+    // Mobile按钮
+    const mobilePaginationEl = document.createElement('div');
+    mobilePaginationEl.className = 'display-manual-list-pagination-mobile';
+    const mobileBtn = document.createElement('button');
+    mobileBtn.type = 'button';
+    mobileBtn.classList.add('page-button');
+    mobileBtn.textContent = loadMoreText;
+    mobilePaginationEl.appendChild(mobileBtn);
+
+    const noPaginationEl = document.createElement('div');
+    noPaginationEl.className = 'display-manual-list-no-pagination';
+
+    displayManualListEl.appendChild(paginationEl);
+    displayManualListEl.appendChild(mobilePaginationEl);
+
+    const loadPage = (page, type = 'PC') => {
+      const totalItems = displayManualList?.length ?? 0;
+
+      const loadInfoList = displayManualListEl.querySelectorAll('.display-manual');
+      if (loadInfoList?.length) {
+        loadInfoList.forEach((info) => {
+          info.remove();
+        });
+      }
+      paginationEl.textContent = '';
+      mobileBtn.style.display = 'none';
+
+      const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+      const safePage = Math.min(Math.max(page, 1), totalPages);
+      const startIndex = (safePage - 1) * pageSize;
+      const pageItems = type === 'PC' ? displayManualList.slice(startIndex, startIndex + pageSize) : displayManualList.slice(0, startIndex + pageSize);
+
+      pageItems.forEach((displayManualInfo) => {
+        const displayManualEl = generateDisplayManual({
+          documentIcon, pcDownloadButton, mobileDownloadIcon,
+        }, displayManualInfo);
+        if (displayManualEl) {
+          displayManualListEl.insertBefore(displayManualEl, paginationEl);
+        }
+      });
+
+      const state = {
+        total: totalItems,
+        limit: pageSize,
+        offset: startIndex,
+      };
+
+      // 创建PC端的分页器
+      buildPaginationControls(displayManualListEl, state, (targetPage) => {
+        if (targetPage < 1) return;
+        const maxPage = Math.ceil(state.total / state.limit);
+        if (targetPage > maxPage) return;
+        loadPage(targetPage);
+      });
+
+      // 给移动端的 Load More 按钮添加事件
+      if (page * pageSize < totalItems) {
+        mobileBtn.style.display = 'block';
+        mobileBtn.onclick = () => loadPage(safePage + 1, 'Mobile');
+      } else {
+        mobileBtn.style.display = 'none';
+      }
+    };
+    loadPage(1);
+    block.appendChild(displayManualListEl);
+  } else {
+    block.appendChild(getNoResultContent());
+  }
+  block.classList.add('loaded');
   documentIconEl?.remove();
   pcDownloadEl?.remove();
   mobileDownloadIconEl?.remove();
-  block.appendChild(tabsWrapperEl);
-  block.appendChild(tabGuidListWrapperEl);
-
-  // Tab切换事件
-  const tabEls = tabsWrapperEl.querySelectorAll('.tab');
-  tabEls.forEach((tabEl, index) => {
-    tabEl.addEventListener('click', () => {
-      if (index === tabIndex) return;
-      const previousActiveTab = tabsWrapperEl.querySelector('.tab.active');
-      if (previousActiveTab) {
-        previousActiveTab.classList.remove('active');
-        const previousContent = tabGuidListWrapperEl.querySelectorAll('.tab-guide-list')[tabIndex];
-        if (previousContent) {
-          previousContent.classList.add('display-none');
-        }
-      }
-      tabEl.classList.add('active');
-      const currentContent = tabGuidListWrapperEl.querySelectorAll('.tab-guide-list')[index];
-      if (currentContent) {
-        currentContent.classList.remove('display-none');
-      }
-      tabIndex = index;
-    });
-  });
 }

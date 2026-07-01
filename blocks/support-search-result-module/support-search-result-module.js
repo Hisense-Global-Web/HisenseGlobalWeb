@@ -73,6 +73,8 @@ function getEndpointUrl(endpointPath, type) {
 
 // 多国家多语言国际化接口url
 function getLocalizedEndpoint(configEndpoint) {
+  // display.json是Global的,不做国际化处理
+  if (configEndpoint.includes('/product/display.json')) return configEndpoint;
   const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) ? window.location.hostname : '';
   const isAemEnv = hostname.includes('author') || hostname.includes('publish');
 
