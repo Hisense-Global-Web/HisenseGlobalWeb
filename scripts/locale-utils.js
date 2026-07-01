@@ -1,6 +1,6 @@
 import { getLocationPart } from './environment.js';
 
-const languageList = ['en', 'es', 'fr', 'pt', 'zh', 'zh-tw', 'ja', 'th', 'ar'];
+export const languageList = ['en', 'es', 'fr', 'pt', 'zh', 'zh-tw', 'ja', 'th', 'ar'];
 const defaultLanguageMap = {
   us: 'en', // 美国
   ca: 'en', // 加拿大

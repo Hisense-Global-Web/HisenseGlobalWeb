@@ -16,7 +16,9 @@ import {
   refreshHybrisAuthStatus,
   startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
-import { getFragmentPath, isNavPage, getLocaleFromPath } from '../../scripts/locale-utils.js';
+import {
+  getFragmentPath, isNavPage, getLocaleFromPath, languageList,
+} from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 import {
   buildAccountMenuLinks,
@@ -1146,7 +1148,7 @@ function getLangItems(interval = 200) {
           return;
         }
         const result = Array.from(items).map((item) => ({
-          key: item.dataset.lang,
+          lang: item.dataset.lang,
           label: item.textContent.trim(),
         }));
         resolve(result);
@@ -1159,8 +1161,19 @@ function getLangItems(interval = 200) {
   });
 }
 
+function getNewPath(lang) {
+  const { pathname } = window.location;
+  const { search } = window.location;
+  if (segments.length >= 2 && languageList.includes(segments[1])) {
+    segments[1] = lang;
+    return `/${segments.join('/')}${search}`;
+  }
+  return pathname;
+}
+
 const createLanguageAside = async () => {
   if (localStorage.getItem('language')) return;
+  const { language } = getLocaleFromPath();
   document.querySelector('body').classList.add('has-language-aside');
   const languageAside = document.createElement('div');
   languageAside.id = 'language-aside';
@@ -1168,7 +1181,7 @@ const createLanguageAside = async () => {
   acLsContent.className = 'ac-ls-content';
   const acLsCopy = document.createElement('div');
   acLsCopy.className = 'ac-ls-copy';
-  acLsCopy.textContent = 'Choose your location and language.';
+  acLsCopy.textContent = translate('AC_LS_COPY', language);
   const acLsActions = document.createElement('div');
   acLsActions.className = 'ac-ls-actions';
   const acLsDropdown = document.createElement('div');
@@ -1182,7 +1195,6 @@ const createLanguageAside = async () => {
   acLsDropdownSelect.className = 'ac-ls-dropdown-select';
   const acLsDropdownSelectSpan = document.createElement('span');
   acLsDropdownSelectSpan.className = 'ac-ls-dropdown-select-title';
-  acLsDropdownSelectSpan.textContent = 'English';
   const chevronUpImg = document.createElement('img');
   chevronUpImg.className = 'chevron-up-img';
   chevronUpImg.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
@@ -1199,6 +1211,12 @@ const createLanguageAside = async () => {
     const acLsDropdownOption = document.createElement('li');
     acLsDropdownOption.className = 'ac-ls-dropdown-option';
     acLsDropdownOption.textContent = item.label;
+    acLsDropdownOption.dataset.lang = item.lang;
+    acLsDropdownOption.addEventListener('click', (e) => {
+      const { target } = e;
+      languageAside.dataset.lang = target.dataset.lang;
+      acLsDropdownSelectSpan.textContent = arr.find((i) => i.lang === target.dataset.lang)?.label;
+    });
     acLsDropdownOptionsList.appendChild(acLsDropdownOption);
   });
   acLsDropdownOptions.appendChild(acLsDropdownOptionsList);
@@ -1207,29 +1225,33 @@ const createLanguageAside = async () => {
   const acLsContinue = document.createElement('a');
   acLsContinue.id = 'ac-ls-continue';
   acLsContinue.className = 'ac-ls-continue';
-  acLsContinue.textContent = 'Continue';
+  acLsContinue.textContent = translate('CONTINUE', language);
   const acLsClose = document.createElement('img');
   acLsClose.id = 'ac-ls-close';
   acLsClose.className = 'ac-ls-close';
-  // acLsClose.src = `/content/dam/hisense/${country}/common-icons/close-white.svg`;
-  acLsClose.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+  acLsClose.src = `/content/dam/hisense/${country}/common-icons/close-white.svg`;
 
   acLsContinue.addEventListener('click', (e) => {
-    console.log('click', e);
+    const { lang } = e.currentTarget.closest('#language-aside').dataset;
     document.querySelector('body').classList.remove('has-language-aside');
-    saveLanguageToLocalStorage('en');
+    saveLanguageToLocalStorage(lang);
+    window.location.href = getNewPath(lang);
   });
   acLsClose.addEventListener('click', (e) => {
-    console.log('click', e);
+    const { lang } = e.currentTarget.closest('#language-aside').dataset;
     document.querySelector('body').classList.remove('has-language-aside');
     if (!localStorage.getItem('language')) {
-      saveLanguageToLocalStorage('en');
+      saveLanguageToLocalStorage(lang);
     }
   });
 
   acLsActions.append(acLsDropdown, acLsContinue, acLsClose);
   acLsContent.append(acLsCopy, acLsActions);
   languageAside.append(acLsContent);
+
+  languageAside.dataset.lang = language;
+  acLsDropdownSelectSpan.textContent = arr.find((i) => i.lang === language)?.label;
+  // eslint-disable-next-line consistent-return
   return languageAside;
 };
 

@@ -12,6 +12,28 @@ const translateDictionary = {
     ja: '会社',
     th: 'บริษัท',
   },
+  AC_LS_COPY: {
+    en: 'Choose your location and language.',
+    es: 'Elija su ubicación e idioma.',
+    fr: 'Choisissez votre emplacement et votre langue.',
+    pt: 'Escolha sua localização e idioma.',
+    zh: '选择您的位置和语言。',
+    'zh-tw': '選擇您的位置和語言。',
+    ja: '場所と言語を選択してください。',
+    th: 'เลือกตำแหน่งที่ตั้งและภาษาของคุณ',
+    ar: 'اختر موقعك ولغتك.',
+  },
+  CONTINUE: {
+    en: 'Continue',
+    es: 'Continuar',
+    fr: 'Continuer',
+    pt: 'Continuar',
+    zh: '继续',
+    'zh-tw': '繼續',
+    ja: '続行',
+    th: 'ดำเนินการต่อ',
+    ar: 'استمرار',
+  },
 };
 /**
  * 获取指定键和语言对应的翻译
