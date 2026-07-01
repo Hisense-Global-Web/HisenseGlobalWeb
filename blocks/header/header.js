@@ -1133,7 +1133,33 @@ const saveLanguageToLocalStorage = (lan) => {
   localStorage.setItem('language', lan);
 };
 
-const createLanguageAside = () => {
+function getLangItems(interval = 200) {
+  return new Promise((resolve) => {
+    const check = () => {
+      const list = document.querySelector('.footer-lan-list');
+
+      // 如果找到列表但没有 item，返回 []
+      if (list) {
+        const items = list.querySelectorAll('.footer-lan-item');
+        if (items.length === 0) {
+          resolve([]);
+          return;
+        }
+        const result = Array.from(items).map((item) => ({
+          key: item.dataset.lang,
+          label: item.textContent.trim(),
+        }));
+        resolve(result);
+        return;
+      }
+      setTimeout(check, interval);
+    };
+
+    check();
+  });
+}
+
+const createLanguageAside = async () => {
   if (localStorage.getItem('language')) return;
   document.querySelector('body').classList.add('has-language-aside');
   const languageAside = document.createElement('div');
@@ -1147,13 +1173,35 @@ const createLanguageAside = () => {
   acLsActions.className = 'ac-ls-actions';
   const acLsDropdown = document.createElement('div');
   acLsDropdown.id = 'ac-ls-dropdown';
-  acLsDropdown.className = 'ac-ls-dropdown ac-ls-actions-item select-collapsed';
+  acLsDropdown.className = 'ac-ls-dropdown';
+  acLsDropdown.addEventListener('click', (e) => {
+    e.currentTarget.classList.toggle('select-collapsed');
+  });
   const acLsDropdownSelect = document.createElement('div');
   acLsDropdownSelect.id = 'ac-ls-dropdown-select';
   acLsDropdownSelect.className = 'ac-ls-dropdown-select';
+  const acLsDropdownSelectSpan = document.createElement('span');
+  acLsDropdownSelectSpan.className = 'ac-ls-dropdown-select-title';
+  acLsDropdownSelectSpan.textContent = 'English';
+  const chevronUpImg = document.createElement('img');
+  chevronUpImg.className = 'chevron-up-img';
+  chevronUpImg.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+  acLsDropdownSelect.append(acLsDropdownSelectSpan, chevronUpImg);
   const acLsDropdownOptions = document.createElement('div');
   acLsDropdownOptions.id = 'ac-ls-dropdown-options';
   acLsDropdownOptions.className = 'ac-ls-dropdown-options';
+  const acLsDropdownOptionsList = document.createElement('ul');
+  acLsDropdownOptionsList.className = 'ac-ls-dropdown-options-list';
+  const arr = await getLangItems();
+
+  if (arr.length > 0) acLsDropdown.classList.add('ac-ls-actions-item');
+  arr.forEach((item) => {
+    const acLsDropdownOption = document.createElement('li');
+    acLsDropdownOption.className = 'ac-ls-dropdown-option';
+    acLsDropdownOption.textContent = item.label;
+    acLsDropdownOptionsList.appendChild(acLsDropdownOption);
+  });
+  acLsDropdownOptions.appendChild(acLsDropdownOptionsList);
   acLsDropdown.append(acLsDropdownSelect, acLsDropdownOptions);
 
   const acLsContinue = document.createElement('a');
@@ -1931,7 +1979,7 @@ export default async function decorate(block) {
   block.textContent = '';
   block.append(navigation);
   ensureLogoutModal();
-  const languageAside = createLanguageAside();
+  const languageAside = await createLanguageAside();
   if (languageAside) {
     navigation.prepend(languageAside);
   }
