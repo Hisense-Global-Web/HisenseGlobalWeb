@@ -76,9 +76,6 @@ function getSupportEndpoint(factoryModel, category, sku) {
     factoryModel,
     category,
   });
-  if (sku) {
-    params.set('sku', sku);
-  }
 
   const skuParam = sku ? `&sku=${encodeURIComponent(sku)}` : '';
   return `/bin/hisense/support/document.json?${params.toString()}${skuParam}&specialPath=/global`;
