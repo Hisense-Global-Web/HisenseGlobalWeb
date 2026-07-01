@@ -1245,8 +1245,8 @@ const createLanguageAside = async () => {
     }
   });
 
-  acLsActions.append(acLsDropdown, acLsContinue, acLsClose);
-  acLsContent.append(acLsCopy, acLsActions);
+  acLsActions.append(acLsDropdown, acLsContinue);
+  acLsContent.append(acLsCopy, acLsActions, acLsClose);
   languageAside.append(acLsContent);
 
   languageAside.dataset.lang = language;
