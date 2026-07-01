@@ -338,6 +338,9 @@ export default async function decorate(block) {
   const productInfo = await getProductInfoBySKU(sku);
   if (!productInfo) {
     block.appendChild(getNoResultContent());
+    documentIconEl?.remove();
+    pcDownloadEl?.remove();
+    mobileDownloadIconEl?.remove();
     return;
   }
   const productInfoEl = generateProductInfo(productInfo);
