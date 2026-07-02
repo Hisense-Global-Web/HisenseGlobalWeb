@@ -16,17 +16,17 @@ export default function getDynamicHeaderHeight(block) {
         // Mobile: navigation height already includes nav-second
         if (window.innerWidth < 1180) {
           marginTop = Math.round(header.getBoundingClientRect().height);
+          block.classList.add('mobile-dynamic-block-margin-top');
           block.style.marginTop = `${marginTop}px`;
           document.documentElement.style.removeProperty('--nav-height');
         } else {
-          marginTop += Math.round(header.getBoundingClientRect().height);
+          marginTop = Math.round(header.getBoundingClientRect().height);
           const navSecond = header.querySelector('.nav-second');
           if (navSecond && getComputedStyle(navSecond).display !== 'none') {
             marginTop += Math.round(navSecond.getBoundingClientRect().height);
           }
           block.style.marginTop = 0;
           document.documentElement.style.setProperty('--nav-height', `${marginTop}px`);
-          marginTop = 0;
         }
       };
       // 默认先计算一次header高度，设置--nav-height变量
@@ -77,5 +77,13 @@ export function closeLanguageAsideResetHeaderHeight() {
       marginTop += Math.round(navSecond.getBoundingClientRect().height);
     }
     document.documentElement.style.setProperty('--nav-height', `${marginTop}px`);
+  }
+  if (window.innerWidth < 1180) {
+    // 在移动端，当header 中 【language-aside】关闭时，要重新设置【main】元素下第一个block的margin-top为header的高度
+    const target = document.querySelector('main > :first-child .block.mobile-dynamic-block-margin-top');
+    if (target) {
+      marginTop = Math.round(header.getBoundingClientRect().height);
+      target.style.marginTop = `${marginTop}px`;
+    }
   }
 }
