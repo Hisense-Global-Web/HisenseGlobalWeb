@@ -1988,11 +1988,15 @@ body.has-language-aside .nav-mask {
 
 .has-language-aside #language-aside {
   width: 100%;
-  height: 72px;
+  height: var(--root-language-aside-height);
   background: #333;
   font-size: var(--size-14);
   line-height: var(--size-21);
   display: block;
+
+  @media (width < 1180px) {
+    height: 108px;
+  }
 
   * {
     box-sizing: border-box;
@@ -2007,9 +2011,21 @@ body.has-language-aside .nav-mask {
     justify-content: flex-end;
     gap: 24px;
 
+    @media (width < 1180px) {
+      width: 100%;
+      flex-wrap: wrap;
+      padding: 16px 18px;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
     .ac-ls-copy {
       color: #fff;
       font-weight: var(--fontweight-book);
+
+      @media (width < 1180px) {
+        order: 1;
+      }
     }
 
     .ac-ls-actions {
@@ -2017,6 +2033,12 @@ body.has-language-aside .nav-mask {
       align-items: center;
       justify-content: center;
       gap: 24px;
+
+      @media (width < 1180px) {
+        gap: 12px;
+        order: 3;
+        width: 100%;
+      }
 
       .ac-ls-dropdown {
         position: relative;
@@ -2026,6 +2048,11 @@ body.has-language-aside .nav-mask {
         padding: 0 18px;
         background: #fff;
         border-radius: 12px;
+
+        @media (width < 1180px) {
+          min-width: 200px;
+          flex: 1;
+        }
 
         .ac-ls-dropdown-select {
           position: absolute;
@@ -2056,15 +2083,29 @@ body.has-language-aside .nav-mask {
           scrollbar-width: none;
           transition: max-height .36s cubic-bezier(0.35,0,0.36,1);
 
+          @media (width < 1180px) {
+            background: rgb(255 255 255 / 60%);       /* 半透明白色基底 */
+            backdrop-filter: blur(10px);              /* 核心：背景模糊 */
+            box-shadow: 0 8px 32px rgb(0 0 0 / 10%);
+          }
+
           .ac-ls-dropdown-options-list {
             margin: 16px;
             width: calc(100% - 32px);
             height: calc(100% - 32px);
             overflow: auto;
 
+            @media (width < 1180px) {
+              margin: 10px 16px;
+            }
+
             .ac-ls-dropdown-option {
               padding: 12px 16px;
               cursor: pointer;
+
+              @media (width < 1180px) {
+                padding: 10px 6px;
+              }
 
               &.current {
                 background: #E6FAFA;
@@ -2096,10 +2137,14 @@ body.has-language-aside .nav-mask {
         text-decoration: none;
         cursor: pointer;
       }
+    }
 
-      .ac-ls-close {
-        margin-left: 8px;
-        cursor: pointer;
+    .ac-ls-close {
+      margin-left: 8px;
+      cursor: pointer;
+
+      @media (width < 1180px) {
+        order: 2;
       }
     }
   }
