@@ -33,7 +33,7 @@ export default function getDynamicHeaderHeight(block) {
 
   // Try immediately, then retry if header not loaded
   let tries = 0;
-  const maxTries = 80;
+  const maxTries = 200;
   function trySetMarginTop() {
     if (!setMarginTop() && tries < maxTries) {
       tries += 1;
