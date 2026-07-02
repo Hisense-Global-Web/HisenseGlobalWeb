@@ -34,6 +34,28 @@ const translateDictionary = {
     th: 'ดำเนินการต่อ',
     ar: 'استمرار',
   },
+  AC_LS_OTHER_COUNTRY: {
+    en: 'Other country or region',
+    es: 'Otro país o región',
+    fr: 'Autre pays ou région',
+    pt: 'Outro país ou região',
+    zh: '选择其他国家',
+    'zh-tw': '選擇其他國家',
+    ja: 'その他の国または地域',
+    th: 'ประเทศหรือภูมิภาคอื่นๆ',
+    ar: 'دولة أو منطقة أخرى',
+  },
+  LANGUAGE_NAME: {
+    en: 'English',
+    es: 'Español',
+    fr: 'Français',
+    pt: 'Português',
+    zh: '简体中文',
+    'zh-tw': '繁體中文',
+    ja: '日本語',
+    th: 'ภาษาไทย',
+    ar: 'العربية',
+  },
 };
 /**
  * 获取指定键和语言对应的翻译
