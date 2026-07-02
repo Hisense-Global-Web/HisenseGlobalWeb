@@ -1,5 +1,5 @@
-import { checkDyanmicMediaImage } from '../../utils/dynamic-media.js';
 import { getSwitchValue } from '../../utils/ue-helper.js';
+import { checkDyanmicMediaImage } from '../hero-banner/media-reference.js';
 
 export default function decorate(block) {
   const [enableDynamicMediaEl, pcImageEl, mobileImageEl] = [...block.children] ?? [];
