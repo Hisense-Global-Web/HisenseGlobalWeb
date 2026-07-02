@@ -2095,6 +2095,8 @@ body.has-language-aside .nav-mask {
             width: calc(100% - 32px);
             height: calc(100% - 32px);
             overflow: auto;
+            padding: 0;
+            list-style: none;
 
             @media (width < 1180px) {
               margin: 10px 16px;
