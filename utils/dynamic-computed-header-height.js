@@ -45,3 +45,20 @@ export default function getDynamicHeaderHeight(block) {
   // Recalculate on window resize
   window.addEventListener('resize', setMarginTop);
 }
+
+/**
+ * 关闭语言选择弹窗时，重新计算header高度，设置--nav-height变量
+ */
+export function closeLanguageAsideResetHeaderHeight() {
+  const header = document.getElementById('navigation');
+  let marginTop = 0;
+  // 当header 中 【language-aside】关闭时，只给有header的页面且也设置--nav-height属性的页面重新计算hader 的高度
+  if (header && document.documentElement.style.getPropertyValue('--nav-height')) {
+    marginTop += Math.round(header.getBoundingClientRect().height);
+    const navSecond = header.querySelector('.nav-second');
+    if (navSecond && getComputedStyle(navSecond).display !== 'none') {
+      marginTop += Math.round(navSecond.getBoundingClientRect().height);
+    }
+    document.documentElement.style.setProperty('--nav-height', `${marginTop}px`);
+  }
+}
