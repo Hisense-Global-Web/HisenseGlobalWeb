@@ -1137,23 +1137,33 @@ const saveLanguageToLocalStorage = (lan) => {
 };
 
 function getLangItems(interval = 200) {
+  const { language } = getLocaleFromPath();
   return new Promise((resolve) => {
     const check = () => {
-      const list = document.querySelector('.footer-lan-list');
+      const lanGroup = document.querySelector('.footer-lan-group');
+      if (lanGroup) {
+        const lanCom = lanGroup.querySelector('.footer-lan-com');
+        const lanList = lanGroup.querySelector('.footer-lan-list');
 
-      // 如果找到列表但没有 item，返回 []
-      if (list) {
-        const items = list.querySelectorAll('.footer-lan-item');
-        if (items.length === 0) {
-          resolve([]);
+        // 如果找到列表但没有 item，返回 []
+        if (lanCom && lanList) {
+          const lanComText = lanCom.textContent.trim();
+          const items = lanList.querySelectorAll('.footer-lan-item');
+          if (items.length === 0) {
+            resolve([]);
+            return;
+          }
+          const result = [...Array.from(items).map((item) => ({
+            lang: item.dataset.lang,
+            label: `${lanComText} (${item.textContent.trim()})`,
+          })), {
+            lang: 'region',
+            label: translate('AC_LS_OTHER_COUNTRY', language),
+            url: `/${country}/${language}/select-your-region`,
+          }];
+          resolve(result);
           return;
         }
-        const result = Array.from(items).map((item) => ({
-          lang: item.dataset.lang,
-          label: item.textContent.trim(),
-        }));
-        resolve(result);
-        return;
       }
       setTimeout(check, interval);
     };
@@ -1174,7 +1184,8 @@ function getNewPath(lang) {
 
 const createLanguageAside = async () => {
   if (localStorage.getItem('language')) return;
-  const { language } = getLocaleFromPath();
+  // eslint-disable-next-line no-shadow
+  const { country, language } = getLocaleFromPath();
   document.querySelector('body').classList.add('has-language-aside');
   const languageAside = document.createElement('div');
   languageAside.id = 'language-aside';
@@ -1205,7 +1216,15 @@ const createLanguageAside = async () => {
   acLsDropdownOptions.className = 'ac-ls-dropdown-options';
   const acLsDropdownOptionsList = document.createElement('ul');
   acLsDropdownOptionsList.className = 'ac-ls-dropdown-options-list';
-  const arr = await getLangItems();
+  // eslint-disable-next-line no-nested-ternary
+  const arr = country === 'cn' ? [
+    { lang: 'zh', label: '简体中文', url: '/cn/zh' },
+    { lang: 'en', label: 'English', url: '/us/en' },
+    { label: translate('AC_LS_OTHER_COUNTRY', 'zh'), url: 'https://www.hisense.com/global-site.html' },
+  ] : country === 'global' ? [
+    { lang: 'zh', label: '简体中文', url: '/cn/zh' },
+    { lang: 'en', label: 'English', url: '/us/en' },
+  ] : await getLangItems();
 
   if (arr.length > 0) acLsDropdown.classList.add('ac-ls-actions-item');
   arr.forEach((item) => {
