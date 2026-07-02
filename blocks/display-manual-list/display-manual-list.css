@@ -10,6 +10,33 @@
     justify-content: center;
     width: 100%;
 
+    .display-manual-list-empty-container {
+      .display-manual-list-empty-title {
+        color: var(--color-primary-grey-100, #000);
+        text-align: center;
+        font-size: var(--fontsize-title1, 24px);
+        font-style: normal;
+        font-weight: var(--fontweight-medium, 500);
+        line-height: 120%;
+      }
+
+      .display-manual-list-empty-text {
+        margin-top: var(--spacing-xs, 16px);
+        color: var(--color-primary-grey-70, #333);
+        text-align: center;
+        font-size: var(--fontsize-body1, 16px);
+        font-style: normal;
+        line-height: 150%;
+        font-weight: var(--fontweight-book, 400);
+
+        @media (width < 640px) {
+          margin-top: var(--spacing-2xs, 12px);
+          font-size: var(--size-14, 14px);
+          letter-spacing: 0;
+        }
+      }
+    }
+
     .product-information {
       display: flex;
       align-items: center;
@@ -87,33 +114,6 @@
       @media (width < 640px) {
         padding: var(--size-24) 0 var(--size-80) 0;
         gap: var(--spacing-sm, 24px);
-      }
-
-      .display-manual-list-empty-container {
-        .display-manual-list-empty-title {
-          color: var(--color-primary-grey-100, #000);
-          text-align: center;
-          font-size: var(--fontsize-title1, 24px);
-          font-style: normal;
-          font-weight: var(--fontweight-medium, 500);
-          line-height: 120%;
-        }
-
-        .display-manual-list-empty-text {
-          margin-top: var(--spacing-xs, 16px);
-          color: var(--color-primary-grey-70, #333);
-          text-align: center;
-          font-size: var(--fontsize-body1, 16px);
-          font-style: normal;
-          line-height: 150%;
-          font-weight: var(--fontweight-book, 400);
-
-          @media (width < 640px) {
-            margin-top: var(--spacing-2xs, 12px);
-            font-size: var(--size-14, 14px);
-            letter-spacing: 0;
-          }
-        }
       }
 
       .list-title {
