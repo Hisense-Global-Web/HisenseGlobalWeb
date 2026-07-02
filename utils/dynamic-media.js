@@ -1,3 +1,5 @@
+import { createDynamicMediaPicture } from '../blocks/hero-banner/media-reference.js';
+
 function getCurrentLocationHref() {
   if (typeof window !== 'undefined' && window.location?.href) {
     return window.location.href;
@@ -53,3 +55,14 @@ export function toDynamicMediaVideoUrl(assetUrl = '', currentLocationHref = getC
     return assetUrl;
   }
 }
+
+// 判断imageEl是否是a链接，如果是就创建一个Dyanmic Media Picture，否则返回原来的元素
+export const checkDyanmicMediaImage = (imageEl, alt = 'A Dinamic Media Image') => {
+  if (imageEl.querySelector('a')) {
+    const dynamicImageUrl = imageEl.querySelector('a').href;
+    const dynamicImageEl = createDynamicMediaPicture(dynamicImageUrl, alt);
+    imageEl?.remove();
+    return dynamicImageEl;
+  }
+  return imageEl;
+};
