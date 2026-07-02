@@ -10,6 +10,8 @@
             "template": {
               "name": "Display Manual List",
               "model": "display-manual-list",
+              "document-listTtile": "Resource",
+              "results-title": "Documents",
               "no_result": "No items found.",
               "page_size": 10,
               "document_icon": "/content/dam/hisense/us/common-icons/document.svg",
@@ -27,6 +29,18 @@
     {
       "id": "display-manual-list",
       "fields": [
+        {
+          "component": "text",
+          "name": "document-listTtile",
+          "label": "The title of the document list",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "results-title",
+          "label": "The title of the results",
+          "valueType": "string"
+        },
         {
           "component": "number",
           "name": "page_size",

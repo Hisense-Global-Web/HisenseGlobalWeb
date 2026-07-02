@@ -2698,6 +2698,18 @@
     "id": "display-manual-list",
     "fields": [
       {
+        "component": "text",
+        "name": "document-listTtile",
+        "label": "The title of the document list",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "results-title",
+        "label": "The title of the results",
+        "valueType": "string"
+      },
+      {
         "component": "number",
         "name": "page_size",
         "label": "Items per page",
