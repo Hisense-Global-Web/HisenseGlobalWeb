@@ -8,10 +8,21 @@
     flex-direction: column;
     align-items: center;
     gap: var(--size-80, 80px);
+    margin-top: 100px;
 
-    /* @media (width < 1180px) {
+    @media (width < 1180px) {
       margin-top: 56px;
-    } */
+    }
+  }
+}
+
+body.has-language-aside .section {
+  div.region-selection-title-wrapper {
+    margin-top: 172px;
+
+    @media (width < 1180px) {
+      margin-top: 164px;
+    }
   }
 }
 

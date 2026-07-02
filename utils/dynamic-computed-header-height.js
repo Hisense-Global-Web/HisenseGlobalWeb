@@ -12,20 +12,37 @@ export default function getDynamicHeaderHeight(block) {
     const header = document.getElementById('navigation');
     let marginTop = 0;
     if (header) {
-      // Mobile: navigation height already includes nav-second
-      if (window.innerWidth < 1180) {
-        marginTop = Math.round(header.getBoundingClientRect().height);
-        block.style.marginTop = `${marginTop}px`;
-        document.documentElement.style.removeProperty('--nav-height');
-      } else {
-        marginTop += Math.round(header.getBoundingClientRect().height);
-        const navSecond = header.querySelector('.nav-second');
-        if (navSecond && getComputedStyle(navSecond).display !== 'none') {
-          marginTop += Math.round(navSecond.getBoundingClientRect().height);
+      const calculateHeaderHeight = () => {
+        // Mobile: navigation height already includes nav-second
+        if (window.innerWidth < 1180) {
+          marginTop = Math.round(header.getBoundingClientRect().height);
+          block.style.marginTop = `${marginTop}px`;
+          document.documentElement.style.removeProperty('--nav-height');
+        } else {
+          marginTop += Math.round(header.getBoundingClientRect().height);
+          const navSecond = header.querySelector('.nav-second');
+          if (navSecond && getComputedStyle(navSecond).display !== 'none') {
+            marginTop += Math.round(navSecond.getBoundingClientRect().height);
+          }
+          block.style.marginTop = 0;
+          document.documentElement.style.setProperty('--nav-height', `${marginTop}px`);
+          marginTop = 0;
         }
-        block.style.marginTop = 0;
-        document.documentElement.style.setProperty('--nav-height', `${marginTop}px`);
-      }
+      };
+      // 默认先计算一次header高度，设置--nav-height变量
+      calculateHeaderHeight();
+
+      const languageAsideFn = () => {
+        const languageAsideId = document.getElementById('language-aside');
+        if (languageAsideId) {
+          // 当header 中 【language-aside】存在时, 重新计算header 高度，设置--nav-height变量
+          calculateHeaderHeight();
+        } else {
+          setTimeout(languageAsideFn, 100);
+        }
+      };
+      languageAsideFn();
+
       return true;
     }
     return false;
@@ -33,7 +50,7 @@ export default function getDynamicHeaderHeight(block) {
 
   // Try immediately, then retry if header not loaded
   let tries = 0;
-  const maxTries = 200;
+  const maxTries = 80;
   function trySetMarginTop() {
     if (!setMarginTop() && tries < maxTries) {
       tries += 1;
