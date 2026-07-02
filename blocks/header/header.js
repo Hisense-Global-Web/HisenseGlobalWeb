@@ -1220,7 +1220,7 @@ const createLanguageAside = async () => {
   const arr = country === 'cn' ? [
     { lang: 'zh', label: '简体中文', url: '/cn/zh' },
     { lang: 'en', label: 'English', url: '/us/en' },
-    { label: translate('AC_LS_OTHER_COUNTRY', 'zh'), url: 'https://www.hisense.com/global-site.html' },
+    { lang: 'region', label: translate('AC_LS_OTHER_COUNTRY', 'zh'), url: '/cn/zh/select-your-region' },
   ] : country === 'global' ? languageList.map((lang) => ({
     lang, label: translate('LANGUAGE_NAME', lang),
   })) : await getLangItems();
