@@ -1407,16 +1407,8 @@ export default async function decorate(block) {
   const plpEl = document.querySelector('.product-sorting');
   const isCompanyPage = window.location.pathname.includes('company');
   const isSupportPage = window.location.pathname.includes('support');
-  if (isCompanyPage) {
-    navigation.classList.add('is-company');
-    if (window.innerWidth >= 1180 && !window.location.pathname.includes('about-us')) {
-      document.documentElement.style.setProperty('--nav-height', '182px');
-    }
-  }
-  if (isSupportPage) {
-    navigation.classList.add('is-support');
-    document.documentElement.style.setProperty('--nav-height', '100px');
-  }
+  const languageAsideHeightPC = 72; // 72 为 header 中 dom 元素ID为【language-aside】栏在 PC 端高度
+  const languageAsideHeightMobile = 108; // 108 为 header 中 dom 元素ID为【language-aside】栏在 mobile 端高度
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
   });
@@ -1428,8 +1420,8 @@ export default async function decorate(block) {
     let mobileHeaderHeight = 56 * -1; // header height on Mobile
     let pcHeaderHeight = 100 * -1; // header height on PC
     if (document.body.classList.contains('has-language-aside')) {
-      mobileHeaderHeight += 108 * -1; // 108 为 header 中 dom 元素ID为【language-aside】栏在 mobile 端高度
-      pcHeaderHeight += 72 * -1; // 72 为 header 中 dom 元素ID为【language-aside】栏在 PC 端高度
+      mobileHeaderHeight += languageAsideHeightMobile * -1;
+      pcHeaderHeight += languageAsideHeightPC * -1;
     }
     if (isCompanyPage || isSupportPage) {
       navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, mobileHeaderHeight)}px` : `${Math.max(scrollTop * -1, pcHeaderHeight)}px`;
@@ -2006,5 +1998,25 @@ export default async function decorate(block) {
   const languageAside = await createLanguageAside();
   if (languageAside) {
     navigation.prepend(languageAside);
+  }
+
+  // 监听页面路径，判断是否是company页面或者support页面，当language-aside加载成功后，设置header高度变量
+  if (isCompanyPage) {
+    navigation.classList.add('is-company');
+    if (window.innerWidth >= 1180 && !window.location.pathname.includes('about-us')) {
+      let navHeight = 182; // 182 为 header 中 一级和二级菜单高度在 PC 端高度
+      if (document.body.classList.contains('has-language-aside')) {
+        navHeight += languageAsideHeightPC;
+      }
+      document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
+    }
+  }
+  if (isSupportPage) {
+    navigation.classList.add('is-support');
+    let supportNavHeight = 100; // 100 为 header 中 dom 元素ID为【navigation】栏在 PC 端高度
+    if (document.body.classList.contains('has-language-aside')) {
+      supportNavHeight += languageAsideHeightPC;
+    }
+    document.documentElement.style.setProperty('--nav-height', `${supportNavHeight}px`);
   }
 }

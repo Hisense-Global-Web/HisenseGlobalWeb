@@ -15,9 +15,6 @@ export default function getDynamicHeaderHeight(block) {
       // Mobile: navigation height already includes nav-second
       if (window.innerWidth < 1180) {
         marginTop = Math.round(header.getBoundingClientRect().height);
-        if (document.body.classList.contains('has-language-aside')) {
-          marginTop += 108; // 108 为 header 中 dom 元素ID为【language-aside】栏在 mobile 端高度
-        }
         block.style.marginTop = `${marginTop}px`;
         document.documentElement.style.removeProperty('--nav-height');
       } else {

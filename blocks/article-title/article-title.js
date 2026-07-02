@@ -1,5 +1,6 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
+import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -54,4 +55,6 @@ export default async function decorate(block) {
   } else {
     block.appendChild(MateEl);
   }
+
+  getDynamicHeaderHeight(block);
 }

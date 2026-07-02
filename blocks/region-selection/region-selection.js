@@ -1,6 +1,7 @@
 import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { isMobileWindow } from '../../scripts/device.js';
+import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
 
 const isEditing = await isUniversalEditorAsync();
 const { country } = getLocaleFromPath();
@@ -239,4 +240,6 @@ export default async function decorate(block) {
   }
 
   bindEvent(block);
+
+  getDynamicHeaderHeight(block);
 }
