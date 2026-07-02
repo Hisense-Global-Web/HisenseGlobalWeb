@@ -2095,9 +2095,17 @@ body.has-language-aside .nav-mask {
             height: calc(100% - 32px);
             overflow: auto;
 
+            @media (width < 1180px) {
+              margin: 10px 16px;
+            }
+
             .ac-ls-dropdown-option {
               padding: 12px 16px;
               cursor: pointer;
+
+              @media (width < 1180px) {
+                padding: 10px 6px;
+              }
 
               &.current {
                 background: #E6FAFA;
