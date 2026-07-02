@@ -16,7 +16,9 @@ import {
   refreshHybrisAuthStatus,
   startHybrisLogin,
 } from '../../scripts/hybris-bff.js';
-import { getFragmentPath, isNavPage, getLocaleFromPath } from '../../scripts/locale-utils.js';
+import {
+  getFragmentPath, isNavPage, getLocaleFromPath, languageList,
+} from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 import {
   buildAccountMenuLinks,
@@ -35,6 +37,7 @@ import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 import { isAuthorHostname } from '../../scripts/environment.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
 import translate from '../../utils/translate.js';
+import { closeLanguageAsideResetHeaderHeight } from '../../utils/dynamic-computed-header-height.js';
 
 const LOGOUT_TEXT = {
   en: {
@@ -1129,6 +1132,159 @@ const handleAccountActionClick = async (event) => {
   }
 };
 
+const saveLanguageToLocalStorage = (lan) => {
+  localStorage.setItem('language', lan);
+};
+
+function getLangItems(interval = 200) {
+  const { language } = getLocaleFromPath();
+  return new Promise((resolve) => {
+    const check = () => {
+      const lanGroup = document.querySelector('.footer-lan-group');
+      if (lanGroup) {
+        const lanCom = lanGroup.querySelector('.footer-lan-com');
+        const lanList = lanGroup.querySelector('.footer-lan-list');
+
+        // 如果找到列表但没有 item，返回 []
+        if (lanCom && lanList) {
+          const lanComText = lanCom.textContent.trim();
+          const items = lanList.querySelectorAll('.footer-lan-item');
+          if (items.length === 0) {
+            resolve([]);
+            return;
+          }
+          const result = [...Array.from(items).map((item) => ({
+            lang: item.dataset.lang,
+            label: `${lanComText} (${item.textContent.trim()})`,
+          })), {
+            lang: 'region',
+            label: translate('AC_LS_OTHER_COUNTRY', language),
+            url: `/${country}/${language}/select-your-region`,
+          }];
+          resolve(result);
+          return;
+        }
+      }
+      setTimeout(check, interval);
+    };
+
+    check();
+  });
+}
+
+function getNewPath(lang) {
+  const { pathname } = window.location;
+  const { search } = window.location;
+  if (segments.length >= 2 && languageList.includes(segments[1])) {
+    segments[1] = lang;
+    return `/${segments.join('/')}${search}`;
+  }
+  return pathname;
+}
+
+const createLanguageAside = async () => {
+  if (localStorage.getItem('language')) return;
+  // eslint-disable-next-line no-shadow
+  const { country, language } = getLocaleFromPath();
+  document.querySelector('body').classList.add('has-language-aside');
+  const languageAside = document.createElement('div');
+  languageAside.id = 'language-aside';
+  const acLsContent = document.createElement('div');
+  acLsContent.className = 'ac-ls-content';
+  const acLsCopy = document.createElement('div');
+  acLsCopy.className = 'ac-ls-copy';
+  acLsCopy.textContent = translate('AC_LS_COPY', language);
+  const acLsActions = document.createElement('div');
+  acLsActions.className = 'ac-ls-actions';
+  const acLsDropdown = document.createElement('div');
+  acLsDropdown.id = 'ac-ls-dropdown';
+  acLsDropdown.className = 'ac-ls-dropdown';
+  acLsDropdown.addEventListener('click', (e) => {
+    e.currentTarget.classList.toggle('select-collapsed');
+  });
+  const acLsDropdownSelect = document.createElement('div');
+  acLsDropdownSelect.id = 'ac-ls-dropdown-select';
+  acLsDropdownSelect.className = 'ac-ls-dropdown-select';
+  const acLsDropdownSelectSpan = document.createElement('span');
+  acLsDropdownSelectSpan.className = 'ac-ls-dropdown-select-title';
+  const chevronUpImg = document.createElement('img');
+  chevronUpImg.className = 'chevron-up-img';
+  chevronUpImg.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+  acLsDropdownSelect.append(acLsDropdownSelectSpan, chevronUpImg);
+  const acLsDropdownOptions = document.createElement('div');
+  acLsDropdownOptions.id = 'ac-ls-dropdown-options';
+  acLsDropdownOptions.className = 'ac-ls-dropdown-options';
+  const acLsDropdownOptionsList = document.createElement('ul');
+  acLsDropdownOptionsList.className = 'ac-ls-dropdown-options-list';
+  // eslint-disable-next-line no-nested-ternary
+  const arr = country === 'cn' ? [
+    { lang: 'zh', label: '简体中文', url: '/cn/zh' },
+    { lang: 'en', label: 'English', url: '/us/en' },
+    { lang: 'region', label: translate('AC_LS_OTHER_COUNTRY', 'zh'), url: '/cn/zh/select-your-region' },
+  ] : country === 'global' ? languageList.map((lang) => ({
+    lang, label: translate('LANGUAGE_NAME', lang),
+  })) : await getLangItems();
+
+  if (arr.length > 0) acLsDropdown.classList.add('ac-ls-actions-item');
+  arr.forEach((item) => {
+    const acLsDropdownOption = document.createElement('li');
+    acLsDropdownOption.className = 'ac-ls-dropdown-option';
+    acLsDropdownOption.textContent = item.label;
+    acLsDropdownOption.dataset.lang = item.lang;
+    if (item.url) {
+      acLsDropdownOption.dataset.url = item.url;
+    }
+    acLsDropdownOption.addEventListener('click', (e) => {
+      const { target } = e;
+      languageAside.dataset.lang = target.dataset.lang;
+      if (target.dataset.url) {
+        languageAside.dataset.url = target.dataset.url;
+      }
+      acLsDropdownSelectSpan.textContent = arr.find((i) => i.lang === target.dataset.lang)?.label;
+    });
+    acLsDropdownOptionsList.appendChild(acLsDropdownOption);
+  });
+  acLsDropdownOptions.appendChild(acLsDropdownOptionsList);
+  acLsDropdown.append(acLsDropdownSelect, acLsDropdownOptions);
+
+  const acLsContinue = document.createElement('a');
+  acLsContinue.id = 'ac-ls-continue';
+  acLsContinue.className = 'ac-ls-continue';
+  acLsContinue.textContent = translate('CONTINUE', language);
+  const acLsClose = document.createElement('img');
+  acLsClose.id = 'ac-ls-close';
+  acLsClose.className = 'ac-ls-close';
+  acLsClose.src = `/content/dam/hisense/${country}/common-icons/close-white.svg`;
+
+  acLsContinue.addEventListener('click', (e) => {
+    const { lang, url } = e.currentTarget.closest('#language-aside').dataset;
+    document.querySelector('body').classList.remove('has-language-aside');
+    if (url) {
+      window.location.href = url;
+    } else {
+      saveLanguageToLocalStorage(lang);
+      window.location.href = getNewPath(lang);
+    }
+  });
+  acLsClose.addEventListener('click', (e) => {
+    const { lang } = e.currentTarget.closest('#language-aside').dataset;
+    document.querySelector('body').classList.remove('has-language-aside');
+    closeLanguageAsideResetHeaderHeight();
+    if (!localStorage.getItem('language')) {
+      saveLanguageToLocalStorage(lang);
+    }
+  });
+
+  acLsActions.append(acLsDropdown, acLsContinue);
+  acLsContent.append(acLsCopy, acLsActions, acLsClose);
+  languageAside.append(acLsContent);
+
+  languageAside.dataset.lang = language;
+  acLsDropdownSelectSpan.textContent = arr.find((i) => i.lang === language)?.label;
+  // eslint-disable-next-line consistent-return
+  return languageAside;
+};
+
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -1279,16 +1435,8 @@ export default async function decorate(block) {
   const plpEl = document.querySelector('.product-sorting');
   const isCompanyPage = window.location.pathname.includes('company');
   const isSupportPage = window.location.pathname.includes('support');
-  if (isCompanyPage) {
-    navigation.classList.add('is-company');
-    if (window.innerWidth >= 1180 && !window.location.pathname.includes('about-us')) {
-      document.documentElement.style.setProperty('--nav-height', '182px');
-    }
-  }
-  if (isSupportPage) {
-    navigation.classList.add('is-support');
-    document.documentElement.style.setProperty('--nav-height', '100px');
-  }
+  const languageAsideHeightPC = 72; // 72 为 header 中 dom 元素ID为【language-aside】栏在 PC 端高度
+  const languageAsideHeightMobile = 108; // 108 为 header 中 dom 元素ID为【language-aside】栏在 mobile 端高度
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
   });
@@ -1297,13 +1445,19 @@ export default async function decorate(block) {
   const scrollThreshold = 10;
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    let mobileHeaderHeight = 56 * -1; // header height on Mobile
+    let pcHeaderHeight = 100 * -1; // header height on PC
+    if (document.body.classList.contains('has-language-aside')) {
+      mobileHeaderHeight += languageAsideHeightMobile * -1;
+      pcHeaderHeight += languageAsideHeightPC * -1;
+    }
     if (isCompanyPage || isSupportPage) {
-      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, -56)}px` : `${Math.max(scrollTop * -1, -100)}px`;
+      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, mobileHeaderHeight)}px` : `${Math.max(scrollTop * -1, pcHeaderHeight)}px`;
       return;
     }
     if (isSupportPage) {
       if (window.innerWidth < 1180) {
-        navigation.style.top = `${Math.max(scrollTop * -1, -56)}px`;
+        navigation.style.top = `${Math.max(scrollTop * -1, mobileHeaderHeight)}px`;
         return;
       }
     }
@@ -1869,4 +2023,28 @@ export default async function decorate(block) {
   block.textContent = '';
   block.append(navigation);
   ensureLogoutModal();
+  const languageAside = await createLanguageAside();
+  if (languageAside) {
+    navigation.prepend(languageAside);
+  }
+
+  // 监听页面路径，判断是否是company页面或者support页面，当language-aside加载成功后，设置header高度变量
+  if (isCompanyPage) {
+    navigation.classList.add('is-company');
+    if (window.innerWidth >= 1180 && !window.location.pathname.includes('about-us')) {
+      let navHeight = 182; // 182 为 header 中 一级和二级菜单高度在 PC 端高度
+      if (document.body.classList.contains('has-language-aside')) {
+        navHeight += languageAsideHeightPC;
+      }
+      document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
+    }
+  }
+  if (isSupportPage) {
+    navigation.classList.add('is-support');
+    let supportNavHeight = 100; // 100 为 header 中 dom 元素ID为【navigation】栏在 PC 端高度
+    if (document.body.classList.contains('has-language-aside')) {
+      supportNavHeight += languageAsideHeightPC;
+    }
+    document.documentElement.style.setProperty('--nav-height', `${supportNavHeight}px`);
+  }
 }
