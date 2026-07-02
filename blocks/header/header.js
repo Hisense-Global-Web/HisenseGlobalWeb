@@ -1221,10 +1221,9 @@ const createLanguageAside = async () => {
     { lang: 'zh', label: '简体中文', url: '/cn/zh' },
     { lang: 'en', label: 'English', url: '/us/en' },
     { label: translate('AC_LS_OTHER_COUNTRY', 'zh'), url: 'https://www.hisense.com/global-site.html' },
-  ] : country === 'global' ? [
-    { lang: 'zh', label: '简体中文', url: '/cn/zh' },
-    { lang: 'en', label: 'English', url: '/us/en' },
-  ] : await getLangItems();
+  ] : country === 'global' ? languageList.map((lang) => ({
+    lang, label: translate('LANGUAGE_NAME', lang),
+  })) : await getLangItems();
 
   if (arr.length > 0) acLsDropdown.classList.add('ac-ls-actions-item');
   arr.forEach((item) => {
@@ -1260,7 +1259,6 @@ const createLanguageAside = async () => {
   acLsContinue.addEventListener('click', (e) => {
     const { lang, url } = e.currentTarget.closest('#language-aside').dataset;
     document.querySelector('body').classList.remove('has-language-aside');
-    console.log(lang, url);
     if (url) {
       window.location.href = url;
     } else {

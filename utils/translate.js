@@ -45,6 +45,17 @@ const translateDictionary = {
     th: 'ประเทศหรือภูมิภาคอื่นๆ',
     ar: 'دولة أو منطقة أخرى',
   },
+  LANGUAGE_NAME: {
+    en: 'English',
+    es: 'Español',
+    fr: 'Français',
+    pt: 'Português',
+    zh: '简体中文',
+    'zh-tw': '繁體中文',
+    ja: '日本語',
+    th: 'ภาษาไทย',
+    ar: 'العربية',
+  }
 };
 /**
  * 获取指定键和语言对应的翻译
