@@ -619,10 +619,6 @@ body {
 
   @media (width < 640px) {
     overflow-x: hidden;
-
-    &.has-language-aside {
-      padding-top: var(--root-language-aside-height);
-    }
   }
 }
 

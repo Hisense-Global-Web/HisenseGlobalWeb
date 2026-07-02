@@ -37,6 +37,7 @@ import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 import { isAuthorHostname } from '../../scripts/environment.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
 import translate from '../../utils/translate.js';
+import { closeLanguageAsideResetHeaderHeight } from '../../utils/dynamic-computed-header-height.js';
 
 const LOGOUT_TEXT = {
   en: {
@@ -1240,6 +1241,7 @@ const createLanguageAside = async () => {
   acLsClose.addEventListener('click', (e) => {
     const { lang } = e.currentTarget.closest('#language-aside').dataset;
     document.querySelector('body').classList.remove('has-language-aside');
+    closeLanguageAsideResetHeaderHeight();
     if (!localStorage.getItem('language')) {
       saveLanguageToLocalStorage(lang);
     }
@@ -1426,8 +1428,8 @@ export default async function decorate(block) {
     let mobileHeaderHeight = 56 * -1; // header height on Mobile
     let pcHeaderHeight = 100 * -1; // header height on PC
     if (document.body.classList.contains('has-language-aside')) {
-      mobileHeaderHeight += 72 * -1; // 72 为 header 中 dom 元素ID为【language-aside】栏高度
-      pcHeaderHeight += 72 * -1;
+      mobileHeaderHeight += 108 * -1; // 108 为 header 中 dom 元素ID为【language-aside】栏在 mobile 端高度
+      pcHeaderHeight += 72 * -1; // 72 为 header 中 dom 元素ID为【language-aside】栏在 PC 端高度
     }
     if (isCompanyPage || isSupportPage) {
       navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, mobileHeaderHeight)}px` : `${Math.max(scrollTop * -1, pcHeaderHeight)}px`;
