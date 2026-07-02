@@ -1232,9 +1232,15 @@ const createLanguageAside = async () => {
     acLsDropdownOption.className = 'ac-ls-dropdown-option';
     acLsDropdownOption.textContent = item.label;
     acLsDropdownOption.dataset.lang = item.lang;
+    if (item.url) {
+      acLsDropdownOption.dataset.url = item.url;
+    }
     acLsDropdownOption.addEventListener('click', (e) => {
       const { target } = e;
       languageAside.dataset.lang = target.dataset.lang;
+      if (target.dataset.url) {
+        languageAside.dataset.url = target.dataset.url;
+      }
       acLsDropdownSelectSpan.textContent = arr.find((i) => i.lang === target.dataset.lang)?.label;
     });
     acLsDropdownOptionsList.appendChild(acLsDropdownOption);
@@ -1252,10 +1258,15 @@ const createLanguageAside = async () => {
   acLsClose.src = `/content/dam/hisense/${country}/common-icons/close-white.svg`;
 
   acLsContinue.addEventListener('click', (e) => {
-    const { lang } = e.currentTarget.closest('#language-aside').dataset;
+    const { lang, url } = e.currentTarget.closest('#language-aside').dataset;
     document.querySelector('body').classList.remove('has-language-aside');
-    saveLanguageToLocalStorage(lang);
-    window.location.href = getNewPath(lang);
+    console.log(lang, url);
+    if (url) {
+      window.location.href = url;
+    } else {
+      saveLanguageToLocalStorage(lang);
+      window.location.href = getNewPath(lang);
+    }
   });
   acLsClose.addEventListener('click', (e) => {
     const { lang } = e.currentTarget.closest('#language-aside').dataset;

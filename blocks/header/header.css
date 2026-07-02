@@ -2082,6 +2082,7 @@ body.has-language-aside .nav-mask {
           overflow-y: auto;
           scrollbar-width: none;
           transition: max-height .36s cubic-bezier(0.35,0,0.36,1);
+          cursor: inherit;
 
           @media (width < 1180px) {
             background: rgb(255 255 255 / 60%);       /* 半透明白色基底 */
