@@ -1,4 +1,5 @@
 import { handleCommonDownloadClick } from '../../utils/download.js';
+import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
 
 const GLOBAL_DISPLAY = 'display';
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
@@ -296,7 +297,7 @@ const generateDisplayManual = (commonInfo, manualInfo) => {
 };
 
 export default async function decorate(block) {
-  const [pageSizeEl, noResultEl, documentIconEl, pcDownloadEl, mobileDownloadIconEl, mobileLoadMoreEl] = [...block.children];
+  const [listTitleEl, resultsTitleEl, pageSizeEl, noResultEl, documentIconEl, pcDownloadEl, mobileDownloadIconEl, mobileLoadMoreEl] = [...block.children];
   const pageSize = (pageSizeEl?.textContent ?? 10) * 1;
   const noResultClone = noResultEl?.cloneNode?.(true);
   const documentIcon = documentIconEl?.querySelector('picture') || null;
@@ -335,6 +336,8 @@ export default async function decorate(block) {
   const productInfo = await getProductInfoBySKU(sku);
   if (!productInfo) {
     block.appendChild(getNoResultContent());
+    listTitleEl.remove();
+    resultsTitleEl.remove();
     documentIconEl?.remove();
     pcDownloadEl?.remove();
     mobileDownloadIconEl?.remove();
@@ -343,9 +346,15 @@ export default async function decorate(block) {
   const productInfoEl = generateProductInfo(productInfo);
   block.appendChild(productInfoEl);
   const displayManualList = await getDisplayManualList(productInfo.factoryModel, category, sku);
+  const bottomWrapperEl = document.createElement('div');
+  bottomWrapperEl.classList.add('bottom-wrapper');
+  listTitleEl.classList.add('list-title');
+  resultsTitleEl.textContent = `${displayManualList?.length ?? 0} ${resultsTitleEl.textContent}`;
+  resultsTitleEl.classList.add('results-title');
+  bottomWrapperEl.append(listTitleEl, resultsTitleEl);
   if (displayManualList?.length) {
-    const displayManualListEl = document.createElement('div');
-    displayManualListEl.classList.add('display-manual-list');
+    const documentListEl = document.createElement('div');
+    documentListEl.classList.add('document-list-wrapper');
     // PC分页器
     const paginationEl = document.createElement('div');
     paginationEl.className = 'display-manual-list-pagination';
@@ -362,13 +371,13 @@ export default async function decorate(block) {
     const noPaginationEl = document.createElement('div');
     noPaginationEl.className = 'display-manual-list-no-pagination';
 
-    displayManualListEl.appendChild(paginationEl);
-    displayManualListEl.appendChild(mobilePaginationEl);
+    documentListEl.appendChild(paginationEl);
+    documentListEl.appendChild(mobilePaginationEl);
 
     const loadPage = (page, type = 'PC') => {
       const totalItems = displayManualList?.length ?? 0;
 
-      const loadInfoList = displayManualListEl.querySelectorAll('.display-manual');
+      const loadInfoList = documentListEl.querySelectorAll('.display-manual');
       if (loadInfoList?.length) {
         loadInfoList.forEach((info) => {
           info.remove();
@@ -387,7 +396,7 @@ export default async function decorate(block) {
           documentIcon, pcDownloadButton, mobileDownloadIcon,
         }, displayManualInfo);
         if (displayManualEl) {
-          displayManualListEl.insertBefore(displayManualEl, paginationEl);
+          documentListEl.insertBefore(displayManualEl, paginationEl);
         }
       });
 
@@ -398,7 +407,7 @@ export default async function decorate(block) {
       };
 
       // 创建PC端的分页器
-      buildPaginationControls(displayManualListEl, state, (targetPage) => {
+      buildPaginationControls(documentListEl, state, (targetPage) => {
         if (targetPage < 1) return;
         const maxPage = Math.ceil(state.total / state.limit);
         if (targetPage > maxPage) return;
@@ -414,12 +423,14 @@ export default async function decorate(block) {
       }
     };
     loadPage(1);
-    block.appendChild(displayManualListEl);
+    bottomWrapperEl.appendChild(documentListEl);
   } else {
-    block.appendChild(getNoResultContent());
+    bottomWrapperEl.appendChild(getNoResultContent());
   }
+  block.appendChild(bottomWrapperEl);
   block.classList.add('loaded');
   documentIconEl?.remove();
   pcDownloadEl?.remove();
   mobileDownloadIconEl?.remove();
+  getDynamicHeaderHeight(block);
 }
