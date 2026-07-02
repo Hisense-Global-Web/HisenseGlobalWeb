@@ -589,7 +589,8 @@
                 "template": {
                   "name": "Campaign Collection",
                   "model": "campaign-collection",
-                  "filter": "campaign-collection"
+                  "filter": "campaign-collection",
+                  "enable-dynamicMedia": false
                 }
               }
             }
@@ -622,7 +623,8 @@
                   "name": "Associated Products",
                   "model": "associated-products",
                   "item-type": "products",
-                  "button_text": "Buy Now"
+                  "button_text": "Buy Now",
+                  "enable-dynamicMedia": false
                 }
               }
             }

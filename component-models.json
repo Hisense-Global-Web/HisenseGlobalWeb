@@ -1642,6 +1642,12 @@
     "id": "campaign-collection",
     "fields": [
       {
+        "component": "boolean",
+        "name": "enable-dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "background-image",
@@ -1655,7 +1661,15 @@
         "name": "background-imagemobile",
         "label": "Background Image for Mobile",
         "multi": false,
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "enable-dynamicMedia"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "reference",
@@ -1803,6 +1817,12 @@
         "valueType": "string",
         "value": "",
         "required": true
+      },
+      {
+        "component": "boolean",
+        "name": "enable-dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
       },
       {
         "component": "reference",
