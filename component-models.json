@@ -5687,6 +5687,13 @@
     "id": "product-information",
     "fields": [
       {
+        "component": "boolean",
+        "name": "image_dynamic",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "name": "image",
         "value": "",

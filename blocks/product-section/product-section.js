@@ -965,7 +965,7 @@ export default async function decorate(block) {
   preOrderPackage.className = 'pre-order-package';
   preOrderPackage.style.display = 'none';
   const infoIcon = document.createElement('img');
-  infoIcon.src = `/content/dam/hisense/${country}/common-icons/download.svg`;
+  infoIcon.src = `/content/dam/hisense/${country}/common-icons/info.svg`;
   const preOrderPackageSpan = document.createElement('span');
   preOrderPackage.append(infoIcon, preOrderPackageSpan);
   info.append(badges, price, preOrderPeriod, btnGroup, preOrderPackage, linkGroupEl, badgesMobileGroup);
