@@ -4819,6 +4819,27 @@
         "label": "Items per page",
         "description": "How many items to show per page.",
         "valueType": "number"
+      },
+      {
+        "component": "text",
+        "name": "downloadImage",
+        "label": "The text of Download Image",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "downloadVideo",
+        "label": "The text of Download Video",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "downloadAll",
+        "label": "The text of Download All",
+        "valueType": "string",
+        "required": true
       }
     ]
   },

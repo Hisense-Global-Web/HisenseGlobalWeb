@@ -11,7 +11,10 @@
               "name": "Media Filter",
               "model": "media-filter",
               "mobile_loadmore": "Load More",
-              "page-size": 9
+              "page-size": 9,
+              "downloadImage": "下载照片",
+              "downloadVideo": "下载视频",
+              "downloadAll": "下载全部"
             }
           }
         }
@@ -63,6 +66,27 @@
           "label": "Items per page",
           "description": "How many items to show per page.",
           "valueType": "number"
+        },
+        {
+          "component": "text",
+          "name": "downloadImage",
+          "label": "The text of Download Image",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "downloadVideo",
+          "label": "The text of Download Video",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "downloadAll",
+          "label": "The text of Download All",
+          "valueType": "string",
+          "required": true
         }
       ]
     }
