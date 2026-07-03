@@ -7312,7 +7312,7 @@
       },
       {
         "component": "boolean",
-        "name": "background_dynamic_media",
+        "name": "background_dynamicMedia",
         "label": "Enable Dynamic Media",
         "valueType": "boolean",
         "value": "false"
