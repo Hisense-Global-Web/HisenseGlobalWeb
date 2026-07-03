@@ -1807,7 +1807,7 @@ export default async function decorate(block) {
         hasInventory: inventoryAvailable,
       }));
 
-      if (!inventoryAvailable && !commerceProduct.isPresale) {
+      if (!inventoryAvailable && !commerceProduct?.isPresale) {
         clearWishlistState();
         return;
       }
