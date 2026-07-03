@@ -1516,7 +1516,18 @@ export default async function decorate(block) {
         window.location.href = action.href;
       });
     }
-    if (action.title.trim().toLowerCase() === 'support') {
+    const t = action.title.trim().toLowerCase();
+    if (
+      t === 'support'
+      || t === 'soporte'
+      || t === 'soutien'
+      || t === 'suporte'
+      || t === '支持'
+      || t === '支援'
+      || t === 'サポート'
+      || t === 'การสนับสนุน'
+      || t === 'الدعم'
+    ) {
       cloneLink.classList.add('nav-link');
       const mask = document.createElement('div');
       mask.className = 'nav-mask';
