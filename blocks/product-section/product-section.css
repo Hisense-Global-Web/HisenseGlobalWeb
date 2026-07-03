@@ -361,6 +361,31 @@ main .section.product-gallery-container.product-section-container .product-secti
   display: block !important;
 }
 
+.pre-order-period {
+  margin-top: var(--size-24);
+  font-size: var(--size-14);
+  line-height: var(--size-21);
+  font-weight: var(--fontweight-book);
+  color: #333;
+}
+
+.pre-order-package {
+  margin-top: var(--size-16);
+  font-size: var(--size-12);
+  line-height: var(--size-18);
+  font-weight: var(--fontweight-book);
+  color: #747474;
+  display: flex;
+  align-items: center;
+  gap: var(--size-4);
+
+  img {
+    width: var(--size-16);
+    height: var(--size-16);
+    display: block;
+  }
+}
+
 @keyframes hybris-button-spin {
   to {
     transform: rotate(360deg);
