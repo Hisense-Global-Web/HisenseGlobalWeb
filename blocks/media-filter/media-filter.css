@@ -684,6 +684,11 @@
             }
           }
 
+          &.image picture {
+            width: var(--size-44);
+            height: var(--size-44);
+          }
+
           &.image img {
             border: 1px solid #bbb;
             border-radius: var(--size-6);
