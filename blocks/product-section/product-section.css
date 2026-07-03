@@ -14,6 +14,14 @@ main .section.product-gallery-container.product-section-container {
   }
 }
 
+body.has-language-aside main .section.product-gallery-container.product-section-container {
+  padding-top: 172px;
+
+  @media (width < 1180px) {
+    padding-top: 164px;
+  }
+}
+
 main .section.product-gallery-container.product-section-container .product-gallery-wrapper {
   padding: 0;
   margin: 0;
