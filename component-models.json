@@ -7311,6 +7311,13 @@
         "readonly": true
       },
       {
+        "component": "boolean",
+        "name": "background_dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "background_img",
