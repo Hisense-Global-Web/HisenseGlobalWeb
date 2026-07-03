@@ -290,6 +290,13 @@
         ]
       },
       {
+        "component": "boolean",
+        "name": "background-dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "section-background",
