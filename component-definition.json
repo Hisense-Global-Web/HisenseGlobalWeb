@@ -1993,7 +1993,10 @@
                   "name": "Media Filter",
                   "model": "media-filter",
                   "mobile_loadmore": "Load More",
-                  "page-size": 9
+                  "page-size": 9,
+                  "downloadImage": "Download Image",
+                  "downloadVideo": "Download Video",
+                  "downloadAll": "Download All"
                 }
               }
             }
