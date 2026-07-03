@@ -1994,9 +1994,9 @@
                   "model": "media-filter",
                   "mobile_loadmore": "Load More",
                   "page-size": 9,
-                  "downloadImage": "下载照片",
-                  "downloadVideo": "下载视频",
-                  "downloadAll": "下载全部"
+                  "downloadImage": "Download Image",
+                  "downloadVideo": "Download Video",
+                  "downloadAll": "Download All"
                 }
               }
             }
