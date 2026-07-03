@@ -2,6 +2,7 @@
 
 :root {
   --root-header-height: 100px;
+  --root-language-header-height: 172px;
 }
 
 .main-mobile {
@@ -150,6 +151,16 @@
         padding: 0 3px;
       }
     }
+  }
+}
+
+body.has-language-aside #navigation {
+  &.hidden {
+    top: calc(-1 * var(--root-language-header-height));
+  }
+
+  @media (width >= 1180px) {
+    height: 172px;
   }
 }
 
@@ -1276,6 +1287,10 @@
   z-index: 997;
 }
 
+body.has-language-aside .nav-mask {
+  top: var(--root-language-header-height);
+}
+
 .nav-link:hover .nav-dropdown,
 .nav-link .nav-dropdown:hover {
   display: block;
@@ -1969,4 +1984,175 @@
   z-index: 999;
   display: none;
   transition: opacity 0.3s ease;
+}
+
+.has-language-aside #language-aside {
+  width: 100%;
+  height: var(--root-language-aside-height);
+  background: #333;
+  font-size: var(--size-14);
+  line-height: var(--size-21);
+  display: block;
+
+  @media (width < 1180px) {
+    height: 108px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .ac-ls-content {
+    width: var(--container-max-width);
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+
+    @media (width < 1180px) {
+      width: 100%;
+      flex-wrap: wrap;
+      padding: 16px 18px;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    .ac-ls-copy {
+      color: #fff;
+      font-weight: var(--fontweight-book);
+
+      @media (width < 1180px) {
+        order: 1;
+      }
+    }
+
+    .ac-ls-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+
+      @media (width < 1180px) {
+        gap: 12px;
+        order: 3;
+        width: 100%;
+      }
+
+      .ac-ls-dropdown {
+        position: relative;
+        min-width: 280px;
+        height: 40px;
+        border: 1px solid #bbb;
+        padding: 0 18px;
+        background: #fff;
+        border-radius: 12px;
+
+        @media (width < 1180px) {
+          min-width: 200px;
+          flex: 1;
+        }
+
+        .ac-ls-dropdown-select {
+          position: absolute;
+          width: calc(100% - 36px);
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          cursor: pointer;
+
+          .chevron-up-img {
+            transform: rotate(-180deg);
+            transition: transform 0.3s ease;
+          }
+        }
+
+        .ac-ls-dropdown-options {
+          background: #fff;
+          position: absolute;
+          top: 48px;
+          left: 0;
+          max-height: 0;
+          width: 100%;
+          z-index: 1;
+          box-shadow: 4px 16px 36px 0 #0000001A;
+          border-radius: 20px;
+          overflow-y: auto;
+          scrollbar-width: none;
+          transition: max-height .36s cubic-bezier(0.35,0,0.36,1);
+          cursor: inherit;
+
+          @media (width < 1180px) {
+            background: rgb(255 255 255 / 60%);       /* 半透明白色基底 */
+            backdrop-filter: blur(10px);              /* 核心：背景模糊 */
+            box-shadow: 0 8px 32px rgb(0 0 0 / 10%);
+          }
+
+          .ac-ls-dropdown-options-list {
+            margin: 16px;
+            width: calc(100% - 32px);
+            height: calc(100% - 32px);
+            overflow: auto;
+            padding: 0;
+            list-style: none;
+
+            @media (width < 1180px) {
+              margin: 10px 16px;
+            }
+
+            .ac-ls-dropdown-option {
+              padding: 12px 16px;
+              cursor: pointer;
+
+              @media (width < 1180px) {
+                padding: 10px 6px;
+              }
+
+              &.current {
+                background: #E6FAFA;
+              }
+            }
+          }
+        }
+
+        &.select-collapsed {
+          .chevron-up-img {
+            transform: rotate(0);
+          }
+
+          .ac-ls-dropdown-options {
+            max-height: 300px;
+          }
+        }
+      }
+
+      .ac-ls-continue {
+        display: flex;
+        align-items: center;
+        background: #009F9C;
+        height: 40px;
+        padding: 0 24px;
+        font-weight: var(--fontweight-medium);
+        color: #fff;
+        border-radius: 80px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+
+    .ac-ls-close {
+      margin-left: 8px;
+      cursor: pointer;
+
+      @media (width < 1180px) {
+        order: 2;
+      }
+    }
+  }
+}
+
+#language-aside {
+  display: none;
 }
