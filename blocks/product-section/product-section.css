@@ -14,6 +14,14 @@ main .section.product-gallery-container.product-section-container {
   }
 }
 
+body.has-language-aside main .section.product-gallery-container.product-section-container {
+  padding-top: 172px;
+
+  @media (width < 1180px) {
+    padding-top: 164px;
+  }
+}
+
 main .section.product-gallery-container.product-section-container .product-gallery-wrapper {
   padding: 0;
   margin: 0;
@@ -359,6 +367,31 @@ main .section.product-gallery-container.product-section-container .product-secti
 
 .pdp-btn-group .pdp-buy-btn.ps-widget[ps-sku].ps-disabled.ps-no-sku[data-price-spider-force-visible="true"] {
   display: block !important;
+}
+
+.pre-order-period {
+  margin-top: var(--size-24);
+  font-size: var(--size-14);
+  line-height: var(--size-21);
+  font-weight: var(--fontweight-book);
+  color: #333;
+}
+
+.pre-order-package {
+  margin-top: var(--size-16);
+  font-size: var(--size-12);
+  line-height: var(--size-18);
+  font-weight: var(--fontweight-book);
+  color: #747474;
+  display: flex;
+  align-items: center;
+  gap: var(--size-4);
+
+  img {
+    width: var(--size-16);
+    height: var(--size-16);
+    display: block;
+  }
 }
 
 @keyframes hybris-button-spin {

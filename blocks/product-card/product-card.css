@@ -862,6 +862,44 @@
     }
   }
 
+  .pre-time-line {
+    display: flex;
+    gap: var(--size-8);
+    align-items: center;
+    font-size: var(--size-14);
+    line-height: var(--size-21);
+    color: #333;
+    height: var(--size-45);
+    margin-top: var(--size-16);
+
+    @media (width < 640px) {
+      align-items: flex-start;
+      height: var(--size-46);
+      padding: var(--size-12) var(--size-16);
+    }
+
+    .pre-time-line-group {
+      display: flex;
+      gap: var(--size-8);
+
+      @media (width < 640px) {
+        flex-direction: column;
+      }
+    }
+
+    .pre-time-line-img {
+      width: var(--size-20);
+    }
+
+    .pre-order-period {
+      font-weight: var(--fontweight-medium);
+    }
+
+    .pre-intervals {
+      font-weight: var(--fontweight-book);
+    }
+  }
+
   img.delete-icon {
     width: var(--size-24);
     height: var(--size-24);
