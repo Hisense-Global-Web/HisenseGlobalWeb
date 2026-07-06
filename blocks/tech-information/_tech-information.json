@@ -65,7 +65,7 @@
           "condition": {
             "===": [
               {
-                "var": "dynamic_media"
+                "var": "tech_dynamicMedia"
               },
               false
             ]
