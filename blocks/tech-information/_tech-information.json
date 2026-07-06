@@ -61,7 +61,15 @@
           "valueType": "string",
           "name": "tech_mobileImage",
           "label": "Mobile Image",
-          "multi": false
+          "multi": false,
+          "condition": {
+            "===": [
+              {
+                "var": "dynamic_media"
+              },
+              false
+            ]
+          }
         },
         {
           "component": "text",
