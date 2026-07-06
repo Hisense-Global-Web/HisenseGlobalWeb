@@ -2064,6 +2064,8 @@ body.has-language-aside .nav-mask {
           cursor: pointer;
 
           .chevron-up-img {
+            width: 16px;
+            height: 16px;
             transform: rotate(-180deg);
             transition: transform 0.3s ease;
           }
@@ -2088,6 +2090,7 @@ body.has-language-aside .nav-mask {
             background: rgb(255 255 255 / 60%);       /* 半透明白色基底 */
             backdrop-filter: blur(10px);              /* 核心：背景模糊 */
             box-shadow: 0 8px 32px rgb(0 0 0 / 10%);
+            width: 250px;
           }
 
           .ac-ls-dropdown-options-list {
@@ -2107,7 +2110,10 @@ body.has-language-aside .nav-mask {
               cursor: pointer;
 
               @media (width < 1180px) {
-                padding: 10px 6px;
+                padding: 10px 8px 10px 6px;
+                font-size: 17px;
+                line-height: 20px;
+                color: #1a1a1a;
               }
 
               &.current {
@@ -2123,7 +2129,8 @@ body.has-language-aside .nav-mask {
           }
 
           .ac-ls-dropdown-options {
-            max-height: 300px;
+            width: 280px;
+            max-height: 255px;
           }
         }
       }
