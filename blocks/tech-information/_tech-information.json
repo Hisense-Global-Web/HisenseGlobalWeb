@@ -43,6 +43,13 @@
           ]
         },
         {
+          "component": "boolean",
+          "name": "tech_dynamicMedia",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean",
+          "value": "false"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "tech_image",
