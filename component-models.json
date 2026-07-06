@@ -6799,6 +6799,12 @@
     "id": "sub-menu-link-can-group",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -6847,6 +6853,12 @@
   {
     "id": "sub-menu-link",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
       {
         "component": "reference",
         "valueType": "string",
