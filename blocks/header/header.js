@@ -601,7 +601,7 @@ function parseDropdownProducts(col) {
   const children = Array.from(col.children);
 
   // 找到所有的picture元素作为分组标识
-  const pictures = children.filter((child) => child.tagName === 'P' && child.querySelector('picture'));
+  const pictures = children.filter((child, i) => child.tagName === 'P' && (child.querySelector('picture') || (child.querySelector('a') && children[i - 1].textContent.trim() === 'true')));
   const pictureIndices = pictures.map((pic) => children.indexOf(pic));
 
   // 为每个分组创建数组
