@@ -49,6 +49,7 @@ export default async function decorate(block) {
   }
   block.append(infoTextDiv);
 
+  // 为 tech-img-box 中的 p 元素添加 className
   const techImgBoxPAll = block.querySelectorAll('.tech-img-box p');
   const [dynamicSwitch, pcInfoEl, mobileImageEl] = [...techImgBoxPAll] ?? [];
   const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
