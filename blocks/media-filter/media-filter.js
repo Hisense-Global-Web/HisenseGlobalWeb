@@ -6,6 +6,9 @@ import { DYNAMIC_MEDIA_MANIFEST_M3U8, DYNAMIC_MEDIA_PLAY, SCREEN_POINT } from '.
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 
 const { country, language } = getLocaleFromPath();
+let downloadImageText = 'Download Image';
+let downloadVideoText = 'Download Video';
+let downloadAllText = 'Download All';
 
 const generateChevronIcon = (diabled = false) => {
   const chevronIcon = document.createElement('div');
@@ -170,17 +173,17 @@ const fetchJson = async (path) => {
 const sortCardList = (list) => {
   if (!Array.isArray(list)) return [];
   return list.slice().sort((a, b) => {
-    // 若 publishDate 字段为字符串类型的日期，直接比较新的在前
-    if (a.publishDate && b.publishDate) {
+    // 若 created 字段为字符串类型的日期，直接比较新的在前
+    if (a.created && b.created) {
       // 可按ISO格式直接比
-      if (typeof a.publishDate === 'string' && typeof b.publishDate === 'string') {
-        return b.publishDate.localeCompare(a.publishDate);
+      if (typeof a.created === 'string' && typeof b.created === 'string') {
+        return b.created.localeCompare(a.created);
       }
       // 否则尝试转为数字
-      return Number(b.publishDate) - Number(a.publishDate);
+      return Number(b.created) - Number(a.created);
     }
-    if (a.publishDate) return -1;
-    if (b.publishDate) return 1;
+    if (a.created) return -1;
+    if (b.created) return 1;
     return 0;
   });
 };
@@ -188,8 +191,42 @@ const sortCardList = (list) => {
 const getCardList = async () => {
   try {
     const data = await fetchJson(getMediaListEndpoint());
-    if (data?.media?.length) {
-      let mediaList = data.media;
+    // 把 data.media 拍平为 mediaList，附上 category/subCategory/thirdCategory 属性
+    const flattenMediaList = (media, level1Title = null, level2Title = null, level3Title = null) => {
+      let result = [];
+      if (!Array.isArray(media)) return [];
+
+      media.forEach((item) => {
+        if (item.isFolder) {
+          if (level1Title === null) {
+            // 第一层赋值
+            result = result.concat(flattenMediaList(item.children, item.title, null, null));
+          } else if (level2Title === null) {
+            // 第二层赋值
+            result = result.concat(flattenMediaList(item.children, level1Title, item.title, null));
+          } else if (level3Title === null) {
+            // 第三层赋值
+            result = result.concat(flattenMediaList(item.children, level1Title, level2Title, item.title));
+          }
+          // 不会有第四层，故不处理第四层情况
+        } else {
+          // 只保留 isFolder 为 false 的元素，并补充目录信息
+          result.push({
+            ...item,
+            category: level1Title,
+            subCategory: level2Title ?? null,
+            thirdCategory: level3Title ?? null,
+          });
+        }
+      });
+      return result;
+    };
+
+    let mediaList = [];
+    if (Array.isArray(data?.media)) {
+      mediaList = flattenMediaList(data.media);
+    }
+    if (mediaList?.length) {
       // add category and sub-category
       mediaList.forEach((item) => {
         const splits = item.categoryPath ? item.categoryPath.split('/') : [];
@@ -204,7 +241,7 @@ const getCardList = async () => {
       mediaList = mediaList.map((item) => {
         if (item.isThumbnail) {
           // isThumbnail true时，给子级的list赋值
-          const relatedList = mediaList.filter((i) => i.title === item.title && !i.isThumbnail);
+          const relatedList = mediaList.filter((i) => i.categoryPath === item.categoryPath && !i.isThumbnail);
           return { ...item, list: relatedList };
         }
         return item;
@@ -212,6 +249,28 @@ const getCardList = async () => {
 
       // Remove all non-thumbnail items from top level
       mediaList = mediaList.filter((item) => item.isThumbnail);
+      // 如果元素有children（即源数据是folder/thumbnail项），则为其created属性赋值为其children中created最晚（最大）的那个created（最新时间）
+      mediaList.forEach((item) => {
+        if (Array.isArray(item.list) && item.list.length > 0) {
+          // 提取所有子项的created，过滤非法，找到时间最早（最小）的created
+          const childCreateds = item.list
+            .map((child) => child.created)
+            .filter((v) => typeof v === 'string' && v.length > 0);
+          if (childCreateds.length > 0) {
+            // 将字符串转换为Date进行比较，获取最早时间
+            let minCreated = childCreateds[0];
+            let minTime = Date.parse(childCreateds[0]);
+            for (let i = 1; i < childCreateds.length; i += 1) {
+              const t = Date.parse(childCreateds[i]);
+              if (!Number.isNaN(t) && t < minTime) {
+                minCreated = childCreateds[i];
+                minTime = t;
+              }
+            }
+            item.created = minCreated;
+          }
+        }
+      });
       return mediaList;
     }
     return [];
@@ -241,7 +300,7 @@ const getFilterCardList = (dataList, mainSelectValue, subSelectValue, placeholde
 
 const generateCard = (card) => {
   const {
-    title, subCategory, path, dynamicMediaPath, publishDate,
+    title, subCategory, path, dynamicMediaPath, created,
   } = card ?? {};
   const mediaCardEl = document.createElement('div');
   mediaCardEl.className = 'card-wrapper';
@@ -268,10 +327,10 @@ const generateCard = (card) => {
   const dateIconEl = document.createElement('img');
   dateIconEl.className = 'date-icon';
   dateIconEl.src = `/content/dam/hisense/${country}/common-icons/time.svg`;
-  dateIconEl.alt = 'Publish Date';
+  dateIconEl.alt = 'created date';
   const dateTextEl = document.createElement('div');
   dateTextEl.className = 'date-text';
-  dateTextEl.textContent = publishDate?.length ? formatIsoToUtcStr(publishDate, language) : '';
+  dateTextEl.textContent = created?.length ? formatIsoToUtcStr(created, language) : '';
   dateWrapperEl.append(dateIconEl, dateTextEl);
   bottomWrapperEl.appendChild(dateWrapperEl);
   mediaCardEl.appendChild(bottomWrapperEl);
@@ -618,7 +677,7 @@ const buildGalleryPopup = (cardData) => {
 
   const dateEl = document.createElement('div');
   dateEl.className = 'media-date';
-  dateEl.textContent = formatIsoToUtcStr(cardData.publishDate, language);
+  dateEl.textContent = formatIsoToUtcStr(cardData.created, language);
   titleGroup.append(titleEl, dateEl);
 
   const mediaList = cardData.list;
@@ -681,11 +740,11 @@ const buildGalleryPopup = (cardData) => {
       });
       if (item.isVideo) {
         coreMedia.appendChild(createVideo(item.dynamicMediaPath ?? item.path));
-        dowloadbtn.textContent = '下载视频';
+        dowloadbtn.textContent = downloadVideoText;
       } else {
         const link = e.currentTarget.querySelector('img').src;
         coreMedia.appendChild(createImg(link));
-        dowloadbtn.textContent = '下载照片';
+        dowloadbtn.textContent = downloadImageText;
       }
       coreMedia.querySelector('.gallery-number-group .gallery-number').textContent = `${currentIndex + 1 ?? 1}`;
     });
@@ -710,7 +769,7 @@ const buildGalleryPopup = (cardData) => {
   btnGroup.className = 'btn-group';
   const downloadBtn = document.createElement('div');
   downloadBtn.className = 'download-btn';
-  downloadBtn.textContent = mediaList[currentIndex].isVideo ? '下载视频' : '下载照片';
+  downloadBtn.textContent = mediaList[currentIndex].isVideo ? downloadVideoText : downloadImageText;
   downloadBtn.addEventListener('click', () => {
     const { id, path } = mediaList[currentIndex];
     const link = document.createElement('a');
@@ -721,7 +780,7 @@ const buildGalleryPopup = (cardData) => {
   });
   const downloadAllBtn = document.createElement('div');
   downloadAllBtn.className = 'download-all-btn';
-  downloadAllBtn.textContent = '下载全部';
+  downloadAllBtn.textContent = downloadAllText;
   downloadAllBtn.addEventListener('click', () => {
     const { id, path, title } = cardData;
     const link = document.createElement('a');
@@ -741,9 +800,15 @@ export default async function decorate(block) {
   const cardList = await getCardList();
   const categoryGroupOptions = getSelectOptions(cardList);
   const mainOptions = categoryGroupOptions.map((item) => item.parent) ?? [];
-  const [label1El, label2El, placeholder2El, buttonTextEl, loadMoreEl, pageSizeEL] = [...block.children] ?? [];
+  const [label1El, label2El, placeholder2El, buttonTextEl, loadMoreEl, pageSizeEl, downloadImageEl, downloadVideoEl, downloadAllEl] = [...block.children] ?? [];
   const loadMoreText = loadMoreEl?.textContent ?? 'Load More';
-  const pageSize = Number(pageSizeEL?.textContent) || 9;
+  const pageSize = Number(pageSizeEl?.textContent) || 9;
+  downloadImageText = downloadImageEl?.textContent ?? 'Download Image';
+  downloadVideoText = downloadVideoEl?.textContent ?? 'Download Video';
+  downloadAllText = downloadAllEl?.textContent ?? 'Download All';
+  downloadImageEl?.remove();
+  downloadVideoEl?.remove();
+  downloadAllEl?.remove();
   const searchCardWrapper = document.createElement('div');
   searchCardWrapper.className = 'search-card-wrapper';
   const searchCardInner = document.createElement('div');
@@ -805,9 +870,7 @@ export default async function decorate(block) {
 
   filterDataList.forEach((card) => {
     const cardEl = generateCard(card);
-    console.log(cardEl);
-    cardEl.addEventListener('click', (e) => {
-      console.log(e);
+    cardEl.addEventListener('click', () => {
       buildGalleryPopup(card);
     });
     cardListWrapperEl.appendChild(cardEl);
