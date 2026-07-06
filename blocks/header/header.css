@@ -2081,10 +2081,9 @@ body.has-language-aside .nav-mask {
           z-index: 1;
           box-shadow: 4px 16px 36px 0 #0000001A;
           border-radius: 20px;
-          overflow-y: auto;
-          scrollbar-width: none;
           transition: max-height .36s cubic-bezier(0.35,0,0.36,1);
           cursor: inherit;
+          overflow: hidden;
 
           @media (width < 1180px) {
             background: rgb(255 255 255 / 60%);       /* 半透明白色基底 */
@@ -2093,9 +2092,17 @@ body.has-language-aside .nav-mask {
             width: 250px;
           }
 
+          .mid-dropdown {
+            width: calc(280px - 4px);
+            max-height: calc(255px - 32px);
+            overflow: hidden auto;
+            scrollbar-width: thin;
+            margin: 16px 0;
+          }
+
           .ac-ls-dropdown-options-list {
-            margin: 16px;
-            width: calc(100% - 32px);
+            margin-left: 16px ;
+            width: 248px;
             height: calc(100% - 32px);
             overflow: auto;
             padding: 0;
