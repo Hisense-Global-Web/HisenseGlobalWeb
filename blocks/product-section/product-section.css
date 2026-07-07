@@ -548,7 +548,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   .pdp-btn-group {
     order: 7;
     flex-direction: column;
-    padding-top: var(--size-24);
+    padding-top: var(--size-40);
 
     .pdp-buy-btn.ps-widget[ps-sku],
     .pdp-out-of-stock-btn,
