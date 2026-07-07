@@ -1,7 +1,11 @@
-import { getSwitchValue } from '../../utils/ue-helper.js';
+import { checkSwitch, getSwitchValue } from '../../utils/ue-helper.js';
 import { checkDyanmicMediaImage } from '../hero-banner/media-reference.js';
 
 export default function decorate(block) {
+  const hasDynamicMedia = checkSwitch(block.children[0]);
+  if (!hasDynamicMedia) {
+    block.prepend(document.createElement('div'));
+  }
   const [enableDynamicMediaEl, pcImageEl, mobileImageEl] = [...block.children] ?? [];
   const isEnableDynamicMedia = getSwitchValue(enableDynamicMediaEl);
   enableDynamicMediaEl?.remove();

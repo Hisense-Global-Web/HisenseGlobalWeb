@@ -19,4 +19,12 @@ export async function isUniversalEditorAsync() {
   });
 }
 
+// 判断是不是Switch开关
+export const checkSwitch = (switchEl) => {
+  if (switchEl?.children[0]?.textContent === 'true' || switchEl?.children[0]?.textContent === 'false') {
+    return true;
+  }
+  return false;
+};
+
 export const getSwitchValue = (switchEl) => switchEl?.children?.[0]?.textContent?.trim() === 'true';

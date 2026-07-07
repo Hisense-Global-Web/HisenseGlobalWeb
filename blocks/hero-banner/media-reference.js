@@ -142,7 +142,7 @@ export const checkDyanmicMediaImage = (imageEl, alt = 'A Dinamic Media Image') =
     const dynamicImageUrl = imageEl.querySelector('a').href;
     const dynamicImageEl = createDynamicMediaPicture(dynamicImageUrl, alt);
     // 将dynamicImageEl替换imageEl的内容
-    imageEl.replaceChildren(...dynamicImageEl.childNodes);
+    imageEl.replaceChildren(dynamicImageEl);
     return imageEl;
   }
   return imageEl;
