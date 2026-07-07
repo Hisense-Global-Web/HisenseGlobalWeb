@@ -1651,13 +1651,13 @@ export default async function decorate(block) {
     preTimeLineIcon.alt = '';
     const preTimeLineGroup = document.createElement('div');
     preTimeLineGroup.className = 'pre-time-line-group';
-    const preOrderPeriod = document.createElement('div');
-    preOrderPeriod.className = 'pre-order-period';
-    preOrderPeriod.textContent = 'Pre-order Period';
+    const preOrderPeriod1 = document.createElement('div');
+    preOrderPeriod1.className = 'pre-order-period';
+    preOrderPeriod1.textContent = 'Pre-order Period';
     const preIntervalsEl = document.createElement('div');
     preIntervalsEl.className = 'pre-intervals';
 
-    preTimeLineGroup.append(preOrderPeriod, preIntervalsEl);
+    preTimeLineGroup.append(preOrderPeriod1, preIntervalsEl);
     preTimeLine.append(preTimeLineIcon, preTimeLineGroup);
 
     const popupLine = document.createElement('div');
