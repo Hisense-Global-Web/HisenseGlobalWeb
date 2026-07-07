@@ -2098,6 +2098,10 @@ body.has-language-aside .nav-mask {
             overflow: hidden auto;
             scrollbar-width: thin;
             margin: 16px 0;
+
+            @media (width < 1180px) {
+              width: calc(250px - 4px);
+            }
           }
 
           .ac-ls-dropdown-options-list {
@@ -2110,6 +2114,7 @@ body.has-language-aside .nav-mask {
 
             @media (width < 1180px) {
               margin: 10px 16px;
+              width: 218px;
             }
 
             .ac-ls-dropdown-option {
@@ -2138,6 +2143,10 @@ body.has-language-aside .nav-mask {
           .ac-ls-dropdown-options {
             width: 280px;
             max-height: 255px;
+
+            @media (width < 1180px) {
+              width: 250px;
+            }
           }
         }
       }
