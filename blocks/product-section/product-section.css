@@ -387,7 +387,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 }
 
 .pre-order-package {
-  margin-top: var(--size-24);
+  margin-top: var(--size-16);
   font-size: var(--size-12);
   line-height: var(--size-18);
   font-weight: var(--fontweight-book);
@@ -403,6 +403,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   }
 
   @media (width < 640px) {
+    margin-top: var(--size-24);
     font-size: var(--size-10);
     line-height: var(--size-14);
     order: 7;
