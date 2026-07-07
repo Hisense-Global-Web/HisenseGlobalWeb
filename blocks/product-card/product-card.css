@@ -880,6 +880,7 @@
       height: var(--size-46);
       padding: var(--size-12) var(--size-16);
       margin: var(--size-16) 0 0;
+      gap: var(--size-4);
     }
 
     .pre-time-line-group {
