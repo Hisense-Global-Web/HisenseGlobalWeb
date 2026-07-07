@@ -553,7 +553,7 @@ main .section.product-gallery-container.product-section-container .product-secti
     .pdp-buy-btn.ps-widget[ps-sku],
     .pdp-out-of-stock-btn,
     .pdp-cart-btn {
-      height: var(--size-60);
+      height: var(--size-50);
       border-radius: var(--size-100);
       font-size: var(--size-18);
       line-height: 1.5;
