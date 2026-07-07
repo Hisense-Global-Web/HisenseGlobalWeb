@@ -1047,8 +1047,8 @@
     margin-top: var(--size-48);
     
     @media (width < 640px) {
-      width: calc(100% + calc(2 * var(--size-7)));
-      margin: var(--size-32) calc(-1 * var(--size-7)) 0;
+      width: 100%;
+      margin: var(--size-32) 0 0;
       gap: var(--size-12);
     }
 

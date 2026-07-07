@@ -1888,7 +1888,7 @@ export default async function decorate(block) {
         preOrderPeriod.style.display = 'block';
         preOrderPeriod.textContent = `Pre-order period: ${formatter.format(new Date(commerceProduct.presaleStartDate)).replace(',', '')} - ${formatter.format(new Date(commerceProduct.presaleEndDate)).replace(',', '')}`;
         preOrderPackage.style.display = 'flex';
-        preOrderPackage.querySelector('span').textContent = `package will be shipped after ${formatter2.format(new Date(commerceProduct.presaleDeliveryDate)).replace(',', '')}`;
+        preOrderPackage.querySelector('span').textContent = `Package will be shipped after ${formatter2.format(new Date(commerceProduct.presaleDeliveryDate)).replace(',', '')}`;
       }
     } catch (error) {
       console.warn(`Failed to load PDP commerce data for ${currentProductCode}`, error);
