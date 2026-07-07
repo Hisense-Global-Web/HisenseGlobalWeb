@@ -7068,6 +7068,13 @@
         ]
       },
       {
+        "component": "boolean",
+        "name": "image-dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
