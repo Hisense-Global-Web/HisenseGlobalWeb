@@ -967,6 +967,7 @@ export default async function decorate(block) {
   const infoIcon = document.createElement('img');
   infoIcon.src = `/content/dam/hisense/${country}/common-icons/info.svg`;
   const preOrderPackageSpan = document.createElement('span');
+  preOrderPackageSpan.style.marginTop = '1px';
   preOrderPackage.append(infoIcon, preOrderPackageSpan);
   info.append(badges, price, preOrderPeriod, btnGroup, preOrderPackage, linkGroupEl, badgesMobileGroup);
 
@@ -1837,9 +1838,9 @@ export default async function decorate(block) {
           timeZone: 'UTC', // 因为原始字符串是 +0000，建议使用 UTC 保持一致
         });
         preOrderPeriod.style.display = 'block';
-        preOrderPeriod.textContent = `Pre-order period: ${formatter.format(new Date(commerceProduct.presaleStartDate))} - ${formatter.format(new Date(commerceProduct.presaleEndDate))}`;
+        preOrderPeriod.textContent = `Pre-order period: ${formatter.format(new Date(commerceProduct.presaleStartDate)).replace(',', '')} - ${formatter.format(new Date(commerceProduct.presaleEndDate)).replace(',', '')}`;
         preOrderPackage.style.display = 'flex';
-        preOrderPackage.querySelector('span').textContent = `package will be shipped after ${formatter2.format(new Date(commerceProduct.presaleDeliveryDate))}`;
+        preOrderPackage.querySelector('span').textContent = `package will be shipped after ${formatter2.format(new Date(commerceProduct.presaleDeliveryDate)).replace(',', '')}`;
       }
     } catch (error) {
       console.warn(`Failed to load PDP commerce data for ${currentProductCode}`, error);
