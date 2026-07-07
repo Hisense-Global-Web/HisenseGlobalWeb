@@ -870,7 +870,7 @@
     line-height: var(--size-21);
     color: #333;
     height: var(--size-45);
-    margin-top: var(--size-16);
+    margin: var(--size-16) var(--size-24) 0 var(--size-16);
 
     @media (width < 640px) {
       align-items: flex-start;

@@ -1274,7 +1274,7 @@ export default function decorate(block) {
     }
     if (entry?.product && entry.product.isPresale) {
       popupElements.stockLine.style.display = 'none';
-      popupElements.presaleLine.style.display = 'block';
+      popupElements.presaleLine.style.display = 'flex';
       const formatter = new Intl.DateTimeFormat('en-US', {
         month: 'short', // 短月份，如 "Jun"
         day: '2-digit', // 两位数日期，如 "22"
@@ -1284,8 +1284,10 @@ export default function decorate(block) {
         timeZone: 'UTC', // 因为原始字符串是 +0000，建议使用 UTC 保持一致
       });
       popupElements.preIntervalsEl.textContent = `${formatter.format(new Date(entry.product.presaleStartDate))} - ${formatter.format(new Date(entry.product.presaleEndDate))}`;
+      popupElements.preTimeLine.style.display = 'flex';
     } else {
       popupElements.presaleLine.style.display = 'none';
+      popupElements.preTimeLine.style.display = 'none';
     }
 
     popupElements.countControls.forEach(({
@@ -2884,6 +2886,7 @@ export default function decorate(block) {
   popupElements.stockText = stockSpan;
   popupElements.presaleLine = presaleLine;
   popupElements.presaleText = presaleSpan;
+  popupElements.preTimeLine = preTimeLine;
   popupElements.preIntervalsEl = preIntervalsEl;
   popupElements.unitPrice = priceSpan;
   popupElements.totalLabel = totalSpan;
