@@ -870,12 +870,16 @@
     line-height: var(--size-21);
     color: #333;
     height: var(--size-45);
-    margin-top: var(--size-16);
+    margin: var(--size-16) var(--size-24) 0 0;
+    background: #F7F7F7;
+    padding-left: var(--size-16);
+    border-radius: var(--size-8);
 
     @media (width < 640px) {
       align-items: flex-start;
       height: var(--size-46);
       padding: var(--size-12) var(--size-16);
+      margin: var(--size-16) 0 0;
     }
 
     .pre-time-line-group {
@@ -883,6 +887,7 @@
       gap: var(--size-8);
 
       @media (width < 640px) {
+        gap: var(--size-4);
         flex-direction: column;
       }
     }
@@ -956,6 +961,10 @@
       user-select: none;
       padding: 0;
       box-sizing: border-box;
+
+      @media (width < 640px) {
+        height: var(--size-50);
+      }
     }
 
     .qty-input-shell {
@@ -995,6 +1004,10 @@
     height: 1px;
     background: var(--color-primary-grey-30);
     margin: var(--size-24) 0;
+
+    @media (width < 640px) {
+      margin: var(--size-16) 0;
+    }
   }
   
   .mobile-count-group {
@@ -1004,7 +1017,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: var(--size-36);
+      margin-bottom: var(--size-32);
     }
   }
   
@@ -1014,12 +1027,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: var(--fontsize-title2);
+    font-size: var(--size-20);
     line-height: 1.2;
-
-    @media (width < 640px) {
-      font-size: var(--size-18);
-    }
     
     .total-span {
       color: var(--color-primary-grey-70);
@@ -1039,8 +1048,8 @@
     margin-top: var(--size-48);
     
     @media (width < 640px) {
-      width: calc(100% + calc(2 * var(--size-7)));
-      margin: var(--size-20) calc(-1 * var(--size-7)) 0;
+      width: 100%;
+      margin: var(--size-32) 0 0;
       gap: var(--size-12);
     }
 
@@ -1062,7 +1071,7 @@
       margin: 0;
       
       @media (width < 640px) {
-        width: calc(115 / var(--breakpoint-mobile) * 100vw);
+        width: 100%;
         padding: 0;
       }
       
@@ -1101,7 +1110,7 @@
       margin: 0;
 
       @media (width < 640px) {
-        width: calc(193 / var(--breakpoint-mobile) * 100vw);;
+        width: 100%;
       }
 
       &:hover {
