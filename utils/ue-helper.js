@@ -21,7 +21,7 @@ export async function isUniversalEditorAsync() {
 
 // 判断是不是Switch开关
 export const checkSwitch = (switchEl) => {
-  if (switchEl?.children[0]?.textContent === 'true' || switchEl?.children[0]?.textContent === 'false') {
+  if (switchEl?.children[0]?.textContent === 'true' || switchEl?.children[0]?.textContent === 'false' || switchEl?.children[0]?.textContent === undefined) {
     return true;
   }
   return false;
