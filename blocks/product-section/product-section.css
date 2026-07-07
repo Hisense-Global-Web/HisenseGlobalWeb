@@ -381,6 +381,10 @@ main .section.product-gallery-container.product-section-container .product-secti
   }
 }
 
+.pre-time-line .pre-time-line-group .pre-order-period {
+  margin-top: 0;
+}
+
 .pre-order-package {
   margin-top: var(--size-16);
   font-size: var(--size-12);
