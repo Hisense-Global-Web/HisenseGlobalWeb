@@ -210,7 +210,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 }
 
 .pdp-badges-mobile-group {
-  order: 7;
+  order: 8;
   display: none;
   flex-direction: column;
   margin-top: var(--size-32);
@@ -375,6 +375,10 @@ main .section.product-gallery-container.product-section-container .product-secti
   line-height: var(--size-21);
   font-weight: var(--fontweight-book);
   color: #333;
+
+  @media (width < 640px) {
+    order: 6;
+  }
 }
 
 .pre-order-package {
@@ -391,6 +395,12 @@ main .section.product-gallery-container.product-section-container .product-secti
     width: var(--size-16);
     height: var(--size-16);
     display: block;
+  }
+
+  @media (width < 640px) {
+    font-size: var(--size-10);
+    line-height: var(--size-14);
+    order: 7;
   }
 }
 
