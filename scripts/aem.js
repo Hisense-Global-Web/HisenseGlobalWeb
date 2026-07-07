@@ -1,5 +1,6 @@
 import buildOptimizedPictureUrl from './optimized-picture-url.js';
 import { SCREEN_POINT } from '../utils/constants.js';
+import { createDynamicMediaPicture } from '../blocks/hero-banner/media-reference.js';
 
 /*
  * Copyright 2025 Adobe. All rights reserved.
@@ -504,6 +505,73 @@ function decorateIcons(element, prefix = '') {
 }
 
 /**
+ * 为 section 添加动态媒体背景图
+ * @param {*} sectionEl section 元素
+ * @param {*} dynamicMediaDom dynamic media dom
+ */
+function decorateSectionsBackgroundDynamicMedia(sectionEl, dynamicMediaDom) {
+  /**
+   * 从 picture 元素中匹配当前屏幕宽度对应的图片 URL
+   * @param {string} pictureId - picture 元素的 ID
+   * @returns {string} 匹配到的图片 URL
+   */
+  function getMatchingImageFromPicture() {
+    const picture = dynamicMediaDom.querySelector('picture');
+    if (!picture) return null;
+
+    // 获取所有 source 标签
+    const sources = picture.querySelectorAll('source');
+
+    // 遍历所有 source，检查 media 条件是否匹配
+    for (let i = 0; i < sources.length; i += 1) {
+      const mediaAttr = sources[i].getAttribute('media');
+      const srcsetAttr = sources[i].getAttribute('srcset');
+
+      // if (!mediaAttr || !srcsetAttr) continue;
+      if (mediaAttr && srcsetAttr) {
+        // 使用 matchMedia 检测当前屏幕是否满足 media 条件
+        const mediaQuery = window.matchMedia(mediaAttr);
+
+        if (mediaQuery.matches) {
+          // 提取 srcset 中的第一个 URL（如果有多个用逗号分隔）
+          const firstUrl = srcsetAttr.split(',')[0].trim().split(' ')[0];
+          return firstUrl;
+        }
+      }
+    }
+
+    // 如果所有 source 都不匹配，使用 fallback img 的 src
+    const fallbackImg = picture.querySelector('img');
+    return fallbackImg ? fallbackImg.getAttribute('src') : null;
+  }
+
+  /**
+   * 更新背景图
+   */
+  function updateBackground() {
+    // const hero = document.getElementById('hero');
+    const imageUrl = getMatchingImageFromPicture();
+
+    if (imageUrl) {
+      sectionEl.style.backgroundImage = `url(${imageUrl})`;
+    }
+  }
+
+  // 1. 初始化执行
+  updateBackground();
+
+  // 2. 窗口变化时执行（带防抖）
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updateBackground, 250);
+  });
+
+  // 3. 页面完全加载后再执行一次（确保图片资源已加载）
+  window.addEventListener('load', updateBackground);
+}
+
+/**
  * Decorates all sections in a container element.
  * @param {Element} main The container element
  */
@@ -546,7 +614,18 @@ function decorateSections(main) {
       section.id = section.dataset.id;
     }
     if (section.dataset.sectionBackground) {
-      section.style.backgroundImage = `url(${section.dataset.sectionBackground})`;
+      if (section.dataset.backgroundDynamicmedia === 'true') {
+        // If dynamic media, create a picture element and prepend it to the section
+        const dynamicMediaDom = document.createElement('div');
+        dynamicMediaDom.className = 'section-background-dynamic-media';
+        dynamicMediaDom.append(createDynamicMediaPicture(section.dataset.sectionBackground, 'section-background'));
+        section.prepend(dynamicMediaDom);
+        decorateSectionsBackgroundDynamicMedia(section, dynamicMediaDom);
+      } else {
+        // If not dynamic media, set the background image directly
+        section.style.backgroundImage = `url(${section.dataset.sectionBackground})`;
+      }
+      // section.style.backgroundImage = `url(${section.dataset.sectionBackground})`;
       section.classList.add('section-background-style');
     }
   });

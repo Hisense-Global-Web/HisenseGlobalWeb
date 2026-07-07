@@ -10,13 +10,13 @@ export default async function decorate(block) {
     itemTextBoxEl.className = 'item-text-box';
 
     const [dynamicSwitch, imgDom, subtitleDom, titDom, textDom] = [...child.children] ?? [];
-    const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
+    // const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
     dynamicSwitch.remove();
 
     if (imgDom) {
       imgDom.classList.add('item-img-box');
-      if (isDynamicFlag && imgDom.querySelector('a')) {
-        // 设置dynamic media 元素
+      if (imgDom.querySelector('a')) {
+        // 只要用户选择dynamic media, 即返回的是 a 标签，就获取其href 值， 显示图片，设置dynamic media 元素
         const dynamicImgSrc = imgDom.querySelector('a').getAttribute('href');
         imgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'card-grid-img'));
         imgDom.children[0].remove();

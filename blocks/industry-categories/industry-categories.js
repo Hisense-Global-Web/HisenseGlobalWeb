@@ -20,9 +20,9 @@ export default function decorate(block) {
       if (div.children.length === 2 && (div.querySelector('picture') || div.querySelector('a'))) {
         div.className = 'card-image';
         const [dynamicSwitch, imgDom] = [...div.children] ?? [];
-        const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
+        // const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
         dynamicSwitch.remove();
-        if (imgDom.querySelector('a') && isDynamicFlag) {
+        if (imgDom.querySelector('a')) {
           // 设置dynamic media
           const dynamicImgSrc = imgDom.querySelector('a').getAttribute('href');
           imgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'industry-categories-img'));

@@ -1,3 +1,5 @@
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
 export default async function decorate(block) {
@@ -32,6 +34,16 @@ export default async function decorate(block) {
       column.firstElementChild.remove();
       // tech card info
       if (type === 'component-tech-card') {
+        if (column.classList.contains('background-box')) {
+          // 移除 dynamic media 开关元素值
+          column.firstElementChild?.remove();
+          // 将dynamic media的图片资源，替换为dynamic media的picture dom
+          if (column.querySelector('a')) {
+            const dynamicImgSrc = column.querySelector('a').getAttribute('href');
+            column.querySelector('p').append(createDynamicMediaPicture(dynamicImgSrc, 'tech-evolution-timeline-background'));
+            column.querySelector('p').children[0].remove();
+          }
+        }
         if (colIndex > 0) {
           techCardInfoEl.append(column);
         }

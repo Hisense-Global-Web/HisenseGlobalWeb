@@ -1072,6 +1072,13 @@ main {
     min-height: var(--size-160);
   }
 
+  .section.section.section-background-style .section-background-dynamic-media {
+    position: absolute;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
 	/* section container type */
 
   .section.fluid {

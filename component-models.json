@@ -290,6 +290,13 @@
         ]
       },
       {
+        "component": "boolean",
+        "name": "background-dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "section-background",
@@ -4847,6 +4854,13 @@
     "id": "minimalist-hero-banner",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "background-image",
@@ -7339,6 +7353,13 @@
         "readonly": true
       },
       {
+        "component": "boolean",
+        "name": "background_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "background_img",
@@ -7411,6 +7432,13 @@
         ]
       },
       {
+        "component": "boolean",
+        "name": "tech_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "tech_image",
@@ -7422,7 +7450,15 @@
         "valueType": "string",
         "name": "tech_mobileImage",
         "label": "Mobile Image",
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "tech_dynamicMedia"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",

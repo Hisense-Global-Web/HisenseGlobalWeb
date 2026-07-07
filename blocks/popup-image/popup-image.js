@@ -6,9 +6,9 @@ export default function decorate(block) {
     child.firstElementChild.remove();
   });
   const [dynamicSwitch, popupImgDom] = [...block.children] ?? [];
-  const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
+  // const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
   dynamicSwitch.remove();
-  if (isDynamicFlag && popupImgDom.querySelector('a')) {
+  if (popupImgDom.querySelector('a')) {
     // 设置dynamic media
     const dynamicImgSrc = popupImgDom.querySelector('a').getAttribute('href');
     popupImgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'popup-image'));
