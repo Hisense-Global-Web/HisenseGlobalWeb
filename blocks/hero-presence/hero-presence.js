@@ -1,6 +1,6 @@
 import { createElement, debounce } from '../../utils/dom-helper.js';
 import { loadScrollTrigger } from '../../utils/animation-helper.js';
-import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { checkSwitch, isUniversalEditor } from '../../utils/ue-helper.js';
 import { whenElementReady } from '../../utils/carousel-common.js';
 import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
 import { runBlockEnhancement } from '../../utils/block-helper.js';
@@ -73,6 +73,10 @@ async function initScrollAnimation(block) {
 }
 
 export default function decorate(block) {
+  const hasDynamicMedia = checkSwitch(block.children[0]);
+  if (hasDynamicMedia) {
+    block.children[0]?.remove();
+  }
   // ========== CONSTRUCT DOM [START] ========== //
   const videoContent = block.querySelector('div:first-of-type');
   const animateContent = block.querySelector('div:nth-of-type(2)');
