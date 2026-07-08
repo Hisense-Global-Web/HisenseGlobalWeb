@@ -2486,6 +2486,13 @@
     "id": "core-value-card-item",
     "fields": [
       {
+        "component": "boolean",
+        "name": "image_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -7085,6 +7092,13 @@
             "value": "img-right"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "image-dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
       },
       {
         "component": "reference",
