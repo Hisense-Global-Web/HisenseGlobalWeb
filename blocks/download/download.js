@@ -1,10 +1,11 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
+import { checkSwitch } from '../../utils/ue-helper.js';
+import { checkDyanmicMediaImage } from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
-const DEFAULT_ITEM_IMAGE = 'https://picsum.photos/90/60';
 const DEFAULT_DOWNLOAD_ICON = `/content/dam/hisense/${country}/common-icons/download.svg`;
 const DEFAULT_FOLDER_ICON = 'https://picsum.photos/80/80';
 
@@ -66,6 +67,10 @@ export default function decorate(block) {
   let totalSize = 0;
 
   itemRows.forEach((item) => {
+    const hasDynamicMedia = checkSwitch(item.children[0]);
+    if (hasDynamicMedia) {
+      item.children[0]?.remove();
+    }
     const cells = [...item.children];
     if (cells.length < 7) return;
 
@@ -90,11 +95,7 @@ export default function decorate(block) {
     moveInstrumentation(item, imageItem);
 
     // Image
-    const imageLink = imageCell?.querySelector('a');
-    const imageImg = imageCell?.querySelector('img');
-    const img = document.createElement('img');
-    img.src = imageImg?.src || imageLink?.href || DEFAULT_ITEM_IMAGE;
-    img.alt = imageImg?.alt || imageName || '';
+    const img = checkDyanmicMediaImage(imageCell, 'product');
     imageItem.appendChild(img);
 
     // Item info
