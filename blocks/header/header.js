@@ -601,7 +601,7 @@ function parseDropdownProducts(col) {
   const children = Array.from(col.children);
 
   // 找到所有的picture元素作为分组标识
-  const pictures = children.filter((child, i) => child.tagName === 'P' && (child.querySelector('picture') || (child.querySelector('a') && children[i - 1].textContent.trim() === 'true')));
+  const pictures = children.filter((child, i) => child.tagName === 'P' && (child.querySelector('picture') || (child.querySelector('a') && children[i - 1]?.textContent.trim() === 'true')));
   const pictureIndices = pictures.map((pic) => children.indexOf(pic));
 
   // 为每个分组创建数组
@@ -613,7 +613,8 @@ function parseDropdownProducts(col) {
     const groupElements = children.slice(startIdx, endIdx);
 
     // 解析分组数据
-    const img = groupElements[0].querySelector('img')?.src || '';
+    const dymicAEl = groupElements[0].querySelector('a');
+    const img = dymicAEl ? createDynamicMediaPicture(dymicAEl.href) : groupElements[0].querySelector('picture');
     const altText = groupElements[1]?.textContent.trim() || '';
     const text = groupElements[2]?.textContent.trim() || '';
     const linkElement = groupElements[3]?.querySelector('a');
@@ -757,10 +758,7 @@ function buildDropdown(data) {
     const imgWrap = document.createElement('div');
     imgWrap.className = 'dropdown-product-img';
     if (item.img) {
-      const img = document.createElement('img');
-      img.src = item.img;
-      img.alt = item.altText || '';
-      imgWrap.append(img);
+      imgWrap.append(item.img);
     }
     if (item.href && item.href !== '#') {
       product.dataset.href = item.href;
