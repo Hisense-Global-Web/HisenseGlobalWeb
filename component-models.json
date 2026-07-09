@@ -941,7 +941,15 @@
         "name": "image-for-mobile",
         "label": "Image For Mobile",
         "multi": false,
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "dynamic_media"
+            },
+            false
+          ]
+        }
       }
     ]
   },
