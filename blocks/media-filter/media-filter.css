@@ -295,7 +295,6 @@
           .thumbnail {
             border: 1px solid var(--color-primary-grey-30, #e0e0e0);
             aspect-ratio: 352 / 235;
-            object-fit: cover;
             border-radius: var(--radius-md, 8px);
             width: min(calc(352 / var(--breakpoint-pc) * 100vw), 352px);
             height: min(calc(235 / var(--breakpoint-pc) * 100vw), 235px);
@@ -307,7 +306,6 @@
 
             img {
               aspect-ratio: 352 / 235;
-              object-fit: cover;
               border-radius: var(--radius-md, 8px);
               width: min(calc(352 / var(--breakpoint-pc) * 100vw), 352px);
               height: min(calc(235 / var(--breakpoint-pc) * 100vw), 235px);
@@ -380,8 +378,8 @@
         }
       }
 
+      /* 分页 */
       .pagination-wrapper {
-        /* 分页 */
         .card-list-pagination {
           display: flex;
           justify-content: center;
