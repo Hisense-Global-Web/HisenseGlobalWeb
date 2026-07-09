@@ -1,6 +1,7 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 import { createDynamicMediaPicture, isVideoMediaUrl } from '../hero-banner/media-reference.js';
+import { isDeliveryDynamicMediaUrl } from '../../utils/dynamic-media.js';
 import { DYNAMIC_MEDIA_MANIFEST_M3U8, DYNAMIC_MEDIA_PLAY, SCREEN_POINT } from '../../utils/constants.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
@@ -150,6 +151,18 @@ const toAbsoluteUrl = (path) => {
   return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
 };
 
+const createMediaPicture = (src, alt = '') => {
+  if (isDeliveryDynamicMediaUrl(src)) {
+    return createDynamicMediaPicture(src, alt);
+  }
+  const image = document.createElement('img');
+  image.src = src;
+  image.alt = alt;
+  image.loading = 'lazy';
+  image.decoding = 'async';
+  return image;
+};
+
 const getMediaListEndpoint = () => `/bin/hisense/media/filter.json?country=${country}`;
 
 const getCacheBustedUrl = (url) => {
@@ -172,7 +185,7 @@ const fetchJson = async (path) => {
 
 const sortCardList = (list) => {
   if (!Array.isArray(list)) return [];
-  return list.slice().sort((a, b) => {
+  const sortList = list.slice().sort((a, b) => {
     // 若 created 字段为字符串类型的日期，直接比较新的在前
     if (a.created && b.created) {
       // 可按ISO格式直接比
@@ -186,6 +199,21 @@ const sortCardList = (list) => {
     if (b.created) return 1;
     return 0;
   });
+
+  // 按照 displayOrder 从小到大排序，null 的放在最后，全部为 null 时保持原顺序
+  const allNull = list.every((item) => item.displayOrder == null);
+  if (allNull) {
+    return sortList;
+  }
+  sortList.sort((a, b) => {
+    const aOrder = a.displayOrder;
+    const bOrder = b.displayOrder;
+    if (aOrder == null && bOrder == null) return 0;
+    if (aOrder == null) return 1;
+    if (bOrder == null) return -1;
+    return aOrder - bOrder;
+  });
+  return sortList;
 };
 
 const getCardList = async () => {
@@ -225,6 +253,12 @@ const getCardList = async () => {
     let mediaList = [];
     if (Array.isArray(data?.media)) {
       mediaList = flattenMediaList(data.media);
+      // 给title赋值，如果thirdCategory有值，则赋值为thirdCategory，否则赋值为title
+      mediaList = mediaList.map((item) => ({
+        ...item,
+        title: item.thirdCategory ? item.thirdCategory : item.title.replace(/\.(png|jpe?g|gif|bmp|webp|svg)$/i, ''),
+
+      }));
     }
     if (mediaList?.length) {
       // add category and sub-category
@@ -241,7 +275,7 @@ const getCardList = async () => {
       mediaList = mediaList.map((item) => {
         if (item.isThumbnail) {
           // isThumbnail true时，给子级的list赋值
-          const relatedList = mediaList.filter((i) => i.categoryPath === item.categoryPath && !i.isThumbnail);
+          const relatedList = mediaList.filter((i) => (i.categoryPath === item.categoryPath && i.thirdCategory) || (i.thirdCategory === null && i.id === item.id));
           return { ...item, list: relatedList };
         }
         return item;
@@ -304,7 +338,7 @@ const generateCard = (card) => {
   } = card ?? {};
   const mediaCardEl = document.createElement('div');
   mediaCardEl.className = 'card-wrapper';
-  const thumbnailEl = createDynamicMediaPicture(dynamicMediaPath ?? path, title);
+  const thumbnailEl = createMediaPicture(dynamicMediaPath ?? path, title);
   thumbnailEl.className = 'thumbnail';
   mediaCardEl.appendChild(thumbnailEl);
   const bottomWrapperEl = document.createElement('div');
@@ -581,9 +615,8 @@ function updateButtons(tabsList, leftBtn, rightBtn) {
   rightBtn.disabled = tabsList.scrollLeft + tabsList.clientWidth + 10 >= tabsList.scrollWidth;
 }
 
-function createImg(url) {
-  const img = createDynamicMediaPicture(url);
-  return img;
+function createImg(url, alt = '') {
+  return createMediaPicture(url, alt);
 }
 
 function createVideo(videoUrl) {
