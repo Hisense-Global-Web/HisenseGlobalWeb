@@ -1,4 +1,5 @@
 import { createElement } from '../../utils/dom-helper.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -19,7 +20,12 @@ export default async function decorate(block) {
   const staticTitle = staticContent.querySelector('div');
   [...staticTitle.childNodes].forEach((child) => {
     if (child.textContent.trim() !== '') {
-      titleContainer.appendChild(child);
+      if (child.querySelector('a')) {
+        const picEl = createDynamicMediaPicture(child.querySelector('a').href);
+        titleContainer.appendChild(picEl);
+      } else {
+        titleContainer.appendChild(child);
+      }
     }
   });
 
@@ -31,11 +37,19 @@ export default async function decorate(block) {
       const description = createElement('div', 'timeline-phase-description');
       elements.forEach((element, index) => {
         const picture = element.querySelector('picture');
+        const aEl = element.querySelector('a');
         if (picture) {
           picture.classList.add('timeline-phase-picture');
           element.classList.add('timeline-phase-image');
           phaseImageContainer.appendChild(element);
-        } else {
+        } else if (aEl) {
+          const picEl = createDynamicMediaPicture(aEl.href);
+          picEl.classList.add('timeline-phase-picture');
+          element.classList.add('timeline-phase-image');
+          element.children[0].style.display = 'none';
+          element.appendChild(picEl);
+          phaseImageContainer.appendChild(element);
+        } else if (element.textContent.trim() !== 'true' && element.textContent.trim() !== 'false') {
           // eslint-disable-next-line default-case
           switch (index) {
             case 0:
@@ -59,10 +73,14 @@ export default async function decorate(block) {
           }
         }
       });
-      textGroup.appendChild(textGroupHeader);
-      textGroup.appendChild(description);
-      phaseTextContainer.appendChild(textGroup);
+      const isEmpty = (element) => element.childNodes.length === 0 && !element.textContent.trim();
+      if (!isEmpty(textGroupHeader)) {
+        textGroup.appendChild(textGroupHeader);
+        textGroup.appendChild(description);
+        phaseTextContainer.appendChild(textGroup);
+      }
     }
+    child.style.display = 'none';
   });
 
   block.appendChild(titleContainer);
@@ -72,27 +90,26 @@ export default async function decorate(block) {
 
   const bindEvents = () => {
     const textContainers = block.querySelectorAll('.timeline-phase-text');
-    const imageContainers = block.querySelectorAll('.timeline-phase-image');
+    const imageContainers = block.querySelectorAll('.timeline-phase-image:not(.timeline-phase-image-static)');
 
     textContainers.forEach((container, index) => {
       container.addEventListener('click', () => {
         container.classList.toggle('expanded');
       });
       container.addEventListener('mouseenter', () => {
-        imageContainers[index + 1].classList.toggle('hovering');
+        imageContainers[index].classList.toggle('hovering');
       });
       container.addEventListener('mouseleave', () => {
-        imageContainers[index + 1].classList.toggle('hovering');
+        imageContainers[index].classList.toggle('hovering');
       });
     });
 
     imageContainers.forEach((container, index) => {
-      if (index === 0) return;
       container.addEventListener('mouseenter', () => {
-        textContainers[index - 1].classList.toggle('hovering');
+        textContainers[index].classList.toggle('hovering');
       });
       container.addEventListener('mouseleave', () => {
-        textContainers[index - 1].classList.toggle('hovering');
+        textContainers[index].classList.toggle('hovering');
       });
     });
   };
