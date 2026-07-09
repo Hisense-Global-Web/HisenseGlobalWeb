@@ -1,19 +1,42 @@
 import { resetExternalUrl, iframeVideoHandler } from '../../utils/video-external-url.js';
+import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default function decorate(block) {
   /* change to ul, li */
   let videourl;
   let imgUrl;
+  let isDynamicFlag = false; // 新增变量存储是否为dynamic media
   let externalUrl; // 新增变量存储外部链接
   [...block.children].forEach((row, index) => {
-    const link = row.querySelector('a');
-    if (link) {
-      videourl = link.href;
+    if (row.querySelectorAll('p').length === 1 && row.querySelector('a')) {
+      const link = row.querySelector('a');
+      if (link) {
+        videourl = link.href;
+      }
     }
-    const img = row.querySelector('img');
-    if (img) {
-      imgUrl = img.src;
+    if (row.querySelectorAll('p').length === 2 && (row.querySelector('picture') || row.querySelector('a'))) {
+      const [dynamicSwitch, imgDom] = [...row.querySelectorAll('p')] ?? [];
+      isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
+      // dynamicSwitch.remove();
+      if (imgDom.querySelector('a') && isDynamicFlag) {
+        // 设置dynamic media
+        imgUrl = imgDom.querySelector('a').getAttribute('href');
+      } else {
+        const img = imgDom.querySelector('img');
+        if (img) {
+          imgUrl = img.src;
+        }
+      }
     }
+    // const link = row.querySelector('a');
+    // if (link) {
+    //   videourl = link.href;
+    // }
+    // const img = row.querySelector('img');
+    // if (img) {
+    //   imgUrl = img.src;
+    // }
     if (index === 2) {
       const isExternalLinkFlag = row.textContent.trim();
       row.classList.add('external-link-flag');
@@ -47,9 +70,9 @@ export default function decorate(block) {
     const video = document.createElement('video');
     video.classList.add('autoplay-video');
     video.setAttribute('data-video-autoplay', 'true');
-    const coverImg = document.createElement('img');
-    coverImg.src = imgUrl;
-    coverImg.classList.add('video-cover-image');
+    // const coverImg = document.createElement('img');
+    // coverImg.src = imgUrl;
+    // coverImg.classList.add('video-cover-image');
     video.id = 'myVideo';
     video.controls = true;
     video.width = 1120;
@@ -59,24 +82,38 @@ export default function decorate(block) {
     video.muted = true; // iPhone 要求静音才能自动播放
 
     const source = document.createElement('source');
+    if (isDynamicFlag) {
+      // 如果是dynamic media，使用toDynamicMediaVideoUrl转换视频链接
+      videourl = toDynamicMediaVideoUrl(videourl);
+    }
     source.src = videourl;
     source.type = 'video/mp4';
     video.innerHTML = '';
     video.appendChild(source);
     newDiv.appendChild(video);
-
-    newDiv.appendChild(coverImg);
+    let showCoverImgDom;
+    if (isDynamicFlag) {
+      // 如果是dynamic media，使用createDynamicMediaPicture创建图片元素
+      showCoverImgDom = createDynamicMediaPicture(imgUrl, 'video');
+    } else {
+      // 如果不是dynamic media，使用普通的img元素
+      showCoverImgDom = document.createElement('img');
+      showCoverImgDom.src = imgUrl;
+    }
+    showCoverImgDom.classList.add('video-cover-image');
+    newDiv.appendChild(showCoverImgDom);
+    // newDiv.appendChild(coverImg);
 
     // 修改1：简化封面点击事件 - 保持静音状态不变
-    coverImg.addEventListener('click', () => {
+    showCoverImgDom.addEventListener('click', () => {
     // 关键修改：不改变静音状态，直接播放
       video.play();
       video.muted = false;
-      coverImg.style.display = 'none';
+      showCoverImgDom.style.display = 'none';
     });
 
     video.addEventListener('play', () => {
-      coverImg.style.display = 'none';
+      showCoverImgDom.style.display = 'none';
     });
 
     block.replaceChildren(newDiv);
