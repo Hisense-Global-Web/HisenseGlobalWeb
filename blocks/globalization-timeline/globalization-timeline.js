@@ -50,7 +50,6 @@ export default async function decorate(block) {
           element.appendChild(picEl);
           phaseImageContainer.appendChild(element);
         } else if (element.textContent.trim() !== 'true' && element.textContent.trim() !== 'false') {
-          console.log(element);
           // eslint-disable-next-line default-case
           switch (index) {
             case 0:
@@ -74,9 +73,12 @@ export default async function decorate(block) {
           }
         }
       });
-      textGroup.appendChild(textGroupHeader);
-      textGroup.appendChild(description);
-      phaseTextContainer.appendChild(textGroup);
+      const isEmpty = (element) => element.childNodes.length === 0 && !element.textContent.trim();
+      if (!isEmpty(textGroupHeader)) {
+        textGroup.appendChild(textGroupHeader);
+        textGroup.appendChild(description);
+        phaseTextContainer.appendChild(textGroup);
+      }
     }
     child.style.display = 'none';
   });
@@ -88,27 +90,26 @@ export default async function decorate(block) {
 
   const bindEvents = () => {
     const textContainers = block.querySelectorAll('.timeline-phase-text');
-    const imageContainers = block.querySelectorAll('.timeline-phase-image');
+    const imageContainers = block.querySelectorAll('.timeline-phase-image:not(.timeline-phase-image-static)');
 
     textContainers.forEach((container, index) => {
       container.addEventListener('click', () => {
         container.classList.toggle('expanded');
       });
       container.addEventListener('mouseenter', () => {
-        imageContainers[index + 1].classList.toggle('hovering');
+        imageContainers[index].classList.toggle('hovering');
       });
       container.addEventListener('mouseleave', () => {
-        imageContainers[index + 1].classList.toggle('hovering');
+        imageContainers[index].classList.toggle('hovering');
       });
     });
 
     imageContainers.forEach((container, index) => {
-      if (index === 0) return;
       container.addEventListener('mouseenter', () => {
-        textContainers[index - 1].classList.toggle('hovering');
+        textContainers[index].classList.toggle('hovering');
       });
       container.addEventListener('mouseleave', () => {
-        textContainers[index - 1].classList.toggle('hovering');
+        textContainers[index].classList.toggle('hovering');
       });
     });
   };
