@@ -1260,7 +1260,9 @@ const createLanguageAside = async () => {
     const { lang, url } = e.currentTarget.closest('#language-aside').dataset;
     document.querySelector('body').classList.remove('has-language-aside');
     if (url) {
-      saveLanguageToLocalStorage(lang);
+      if (lang !== 'region') {
+        saveLanguageToLocalStorage(lang);
+      }
       window.location.href = url;
     } else {
       saveLanguageToLocalStorage(lang);
