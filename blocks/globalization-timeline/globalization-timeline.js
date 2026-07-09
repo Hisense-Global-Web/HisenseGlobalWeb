@@ -20,7 +20,12 @@ export default async function decorate(block) {
   const staticTitle = staticContent.querySelector('div');
   [...staticTitle.childNodes].forEach((child) => {
     if (child.textContent.trim() !== '') {
-      titleContainer.appendChild(child);
+      if (child.querySelector('a')) {
+        const picEl = createDynamicMediaPicture(child.querySelector('a').href);
+        titleContainer.appendChild(picEl);
+      } else {
+        titleContainer.appendChild(child);
+      }
     }
   });
 
@@ -44,7 +49,8 @@ export default async function decorate(block) {
           element.children[0].style.display = 'none';
           element.appendChild(picEl);
           phaseImageContainer.appendChild(element);
-        } else {
+        } else if (element.textContent.trim() !== 'true' && element.textContent.trim() !== 'false') {
+          console.log(element);
           // eslint-disable-next-line default-case
           switch (index) {
             case 0:
@@ -72,6 +78,7 @@ export default async function decorate(block) {
       textGroup.appendChild(description);
       phaseTextContainer.appendChild(textGroup);
     }
+    child.style.display = 'none';
   });
 
   block.appendChild(titleContainer);
