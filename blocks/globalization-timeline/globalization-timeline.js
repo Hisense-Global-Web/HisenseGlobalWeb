@@ -1,4 +1,5 @@
 import { createElement } from '../../utils/dom-helper.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -31,9 +32,17 @@ export default async function decorate(block) {
       const description = createElement('div', 'timeline-phase-description');
       elements.forEach((element, index) => {
         const picture = element.querySelector('picture');
+        const aEl = element.querySelector('a');
         if (picture) {
           picture.classList.add('timeline-phase-picture');
           element.classList.add('timeline-phase-image');
+          phaseImageContainer.appendChild(element);
+        } else if (aEl) {
+          const picEl = createDynamicMediaPicture(aEl.href);
+          picEl.classList.add('timeline-phase-picture');
+          element.classList.add('timeline-phase-image');
+          element.children[0].style.display = 'none';
+          element.appendChild(picEl);
           phaseImageContainer.appendChild(element);
         } else {
           // eslint-disable-next-line default-case
