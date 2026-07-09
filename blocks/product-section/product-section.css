@@ -14,6 +14,14 @@ main .section.product-gallery-container.product-section-container {
   }
 }
 
+body.has-language-aside main .section.product-gallery-container.product-section-container {
+  padding-top: 172px;
+
+  @media (width < 1180px) {
+    padding-top: 164px;
+  }
+}
+
 main .section.product-gallery-container.product-section-container .product-gallery-wrapper {
   padding: 0;
   margin: 0;
@@ -202,7 +210,7 @@ main .section.product-gallery-container.product-section-container .product-secti
 }
 
 .pdp-badges-mobile-group {
-  order: 7;
+  order: 8;
   display: none;
   flex-direction: column;
   margin-top: var(--size-32);
@@ -361,6 +369,47 @@ main .section.product-gallery-container.product-section-container .product-secti
   display: block !important;
 }
 
+.pre-order-period {
+  margin-top: var(--size-24);
+  font-size: var(--size-14);
+  line-height: var(--size-21);
+  font-weight: var(--fontweight-book);
+  color: #333;
+
+  @media (width < 640px) {
+    order: 6;
+  }
+}
+
+.pre-time-line .pre-time-line-group .pre-order-period {
+  margin-top: 0;
+  order: initial;
+}
+
+.pre-order-package {
+  margin-top: var(--size-16);
+  font-size: var(--size-12);
+  line-height: var(--size-18);
+  font-weight: var(--fontweight-book);
+  color: #747474;
+  display: flex;
+  align-items: center;
+  gap: var(--size-4);
+
+  img {
+    width: var(--size-16);
+    height: var(--size-16);
+    display: block;
+  }
+
+  @media (width < 640px) {
+    margin-top: var(--size-24);
+    font-size: var(--size-10);
+    line-height: var(--size-14);
+    order: 7;
+  }
+}
+
 @keyframes hybris-button-spin {
   to {
     transform: rotate(360deg);
@@ -500,12 +549,12 @@ main .section.product-gallery-container.product-section-container .product-secti
   .pdp-btn-group {
     order: 7;
     flex-direction: column;
-    padding-top: var(--size-24);
+    padding-top: var(--size-40);
 
     .pdp-buy-btn.ps-widget[ps-sku],
     .pdp-out-of-stock-btn,
     .pdp-cart-btn {
-      height: var(--size-60);
+      height: var(--size-50);
       border-radius: var(--size-100);
       font-size: var(--size-18);
       line-height: 1.5;
