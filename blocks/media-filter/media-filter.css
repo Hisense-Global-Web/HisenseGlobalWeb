@@ -378,9 +378,8 @@
         }
       }
 
+      /* 分页 */
       .pagination-wrapper {
-
-        /* 分页 */
         .card-list-pagination {
           display: flex;
           justify-content: center;
