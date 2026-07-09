@@ -1281,7 +1281,7 @@ export default function decorate(block) {
         hour: '2-digit', // 两位数小时
         minute: '2-digit', // 两位数分钟
         hour12: false, // 使用 24 小时制，得到 "00:00"
-        timeZone: 'UTC', // 因为原始字符串是 +0000，建议使用 UTC 保持一致
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // 浏览器当前时区
       });
       popupElements.preIntervalsEl.textContent = `${formatter.format(new Date(entry.product.presaleStartDate)).replace(',', '')} - ${formatter.format(new Date(entry.product.presaleEndDate)).replace(',', '')}`;
       popupElements.preTimeLine.style.display = 'flex';

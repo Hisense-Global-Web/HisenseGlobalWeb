@@ -1242,7 +1242,10 @@ const createLanguageAside = async () => {
     });
     acLsDropdownOptionsList.appendChild(acLsDropdownOption);
   });
-  acLsDropdownOptions.appendChild(acLsDropdownOptionsList);
+  const midDropdown = document.createElement('div');
+  midDropdown.className = 'mid-dropdown';
+  midDropdown.appendChild(acLsDropdownOptionsList);
+  acLsDropdownOptions.appendChild(midDropdown);
   acLsDropdown.append(acLsDropdownSelect, acLsDropdownOptions);
 
   const acLsContinue = document.createElement('a');
