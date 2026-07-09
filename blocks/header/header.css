@@ -2064,6 +2064,8 @@ body.has-language-aside .nav-mask {
           cursor: pointer;
 
           .chevron-up-img {
+            width: 16px;
+            height: 16px;
             transform: rotate(-180deg);
             transition: transform 0.3s ease;
           }
@@ -2079,20 +2081,32 @@ body.has-language-aside .nav-mask {
           z-index: 1;
           box-shadow: 4px 16px 36px 0 #0000001A;
           border-radius: 20px;
-          overflow-y: auto;
-          scrollbar-width: none;
           transition: max-height .36s cubic-bezier(0.35,0,0.36,1);
           cursor: inherit;
+          overflow: hidden;
 
           @media (width < 1180px) {
             background: rgb(255 255 255 / 60%);       /* 半透明白色基底 */
             backdrop-filter: blur(10px);              /* 核心：背景模糊 */
             box-shadow: 0 8px 32px rgb(0 0 0 / 10%);
+            width: 250px;
+          }
+
+          .mid-dropdown {
+            width: calc(280px - 4px);
+            max-height: calc(255px - 32px);
+            overflow: hidden auto;
+            scrollbar-width: thin;
+            margin: 16px 0;
+
+            @media (width < 1180px) {
+              width: calc(250px - 4px);
+            }
           }
 
           .ac-ls-dropdown-options-list {
-            margin: 16px;
-            width: calc(100% - 32px);
+            margin-left: 16px ;
+            width: 248px;
             height: calc(100% - 32px);
             overflow: auto;
             padding: 0;
@@ -2100,6 +2114,7 @@ body.has-language-aside .nav-mask {
 
             @media (width < 1180px) {
               margin: 10px 16px;
+              width: 218px;
             }
 
             .ac-ls-dropdown-option {
@@ -2107,7 +2122,10 @@ body.has-language-aside .nav-mask {
               cursor: pointer;
 
               @media (width < 1180px) {
-                padding: 10px 6px;
+                padding: 10px 8px 10px 6px;
+                font-size: 17px;
+                line-height: 20px;
+                color: #1a1a1a;
               }
 
               &.current {
@@ -2123,7 +2141,12 @@ body.has-language-aside .nav-mask {
           }
 
           .ac-ls-dropdown-options {
-            max-height: 300px;
+            width: 280px;
+            max-height: 255px;
+
+            @media (width < 1180px) {
+              width: 250px;
+            }
           }
         }
       }
