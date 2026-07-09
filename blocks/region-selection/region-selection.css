@@ -120,7 +120,6 @@ body.has-language-aside .section {
 
   .region-list li {
     width: calc(25% - 60px);
-    height: var(--size-24, 24px);
     line-height: var(--size-24, 24px);
     margin-right: var(--spacing-vertical-l, 80px);
     margin-bottom: var(--spacing-3xs, 8px);
