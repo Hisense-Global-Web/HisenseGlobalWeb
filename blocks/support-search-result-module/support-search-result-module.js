@@ -73,6 +73,8 @@ function getEndpointUrl(endpointPath, type) {
 
 // 多国家多语言国际化接口url
 function getLocalizedEndpoint(configEndpoint) {
+  // display.json是Global的,不做国际化处理
+  if (configEndpoint.includes('/product/display.json')) return configEndpoint;
   const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) ? window.location.hostname : '';
   const isAemEnv = hostname.includes('author') || hostname.includes('publish');
 
@@ -521,7 +523,6 @@ export default async function decorate(block) {
   }
 
   const { config, items } = parseConfig(block);
-
   const pageSize = parseInt(config.pagesize || config.pageSize || DEFAULT_PAGE_SIZE, 10);
   const keyword = getSearchKeyword();
 
@@ -533,6 +534,9 @@ export default async function decorate(block) {
   const tabNav = document.createElement('div');
   tabNav.className = 'tab-nav';
   wrapper.appendChild(tabNav);
+  if (items.length === 1) {
+    tabNav.style.display = 'none';
+  }
 
   const contentArea = document.createElement('div');
   contentArea.className = 'search-content-area';

@@ -3,6 +3,8 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 import { whenElementReady, throttle } from '../../utils/carousel-common.js';
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
+import { setVideoSource } from '../../utils/hls-video.js';
 import { isVideoMediaColumn, normalizeImageReferenceLinks } from './media-reference.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
 import { iframeVideoHandler, resetExternalUrl } from '../../utils/video-external-url.js';
@@ -14,6 +16,106 @@ let userInteracting = false;
 let isInitializing = true; // 初始化锁
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
+const HERO_BANNER_BLOCK_CONFIG_KEYS = new Set([
+  'classes',
+]);
+const HERO_BANNER_LEGACY_BLOCK_CONFIG_KEYS = new Set([
+  'dynamic-media',
+]);
+
+function normalizeConfigKey(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function getCellText(cell) {
+  return cell?.textContent?.trim?.() || '';
+}
+
+function isTruthy(value) {
+  return ['true', '1', 'yes', 'on'].includes(String(value || '').trim().toLowerCase());
+}
+
+function isHeroBannerConfigRow(row) {
+  const cells = [...(row?.children || [])];
+  if (cells.length !== 2) return false;
+
+  const configKey = normalizeConfigKey(cells[0].textContent);
+  return HERO_BANNER_BLOCK_CONFIG_KEYS.has(configKey)
+    || HERO_BANNER_LEGACY_BLOCK_CONFIG_KEYS.has(configKey);
+}
+
+function readHeroBannerConfig(rows) {
+  return rows.reduce((config, row) => {
+    if (!isHeroBannerConfigRow(row)) return config;
+
+    const cells = [...row.children];
+    config[normalizeConfigKey(cells[0].textContent)] = getCellText(cells[1]);
+    return config;
+  }, {});
+}
+
+function getColumnConfigKey(column) {
+  const prop = column?.getAttribute?.('data-aue-prop')
+    || column?.querySelector?.('[data-aue-prop]')?.getAttribute?.('data-aue-prop')
+    || column?.dataset?.aueProp;
+
+  return normalizeConfigKey(prop);
+}
+
+function isHeroBannerItemDynamicMediaColumn(column, index, columns) {
+  if (getColumnConfigKey(column) === 'dynamic-media') return true;
+
+  return columns.length > 7 && index === 1;
+}
+
+function isHeroBannerItemMobileImageColumn(column, index, columns) {
+  if (getColumnConfigKey(column) === 'image-mobile') return true;
+
+  return columns.length > 8 && index === 2;
+}
+
+function getHeroBannerItemDynamicMedia(row) {
+  const columns = [...(row?.children || [])];
+  const dynamicMediaColumn = columns.find((column, index) => (
+    isHeroBannerItemDynamicMediaColumn(column, index, columns)
+  ));
+
+  return dynamicMediaColumn ? isTruthy(getCellText(dynamicMediaColumn)) : undefined;
+}
+
+function getHeroBannerItemMobileImageColumn(row) {
+  const columns = [...(row?.children || [])];
+
+  return columns.find((column, index) => (
+    isHeroBannerItemMobileImageColumn(column, index, columns)
+  ));
+}
+
+function getHeroBannerRenderableColumns(row) {
+  const columns = [...(row?.children || [])];
+
+  return columns.filter((column, index) => (
+    !isHeroBannerItemDynamicMediaColumn(column, index, columns)
+    && !isHeroBannerItemMobileImageColumn(column, index, columns)
+  ));
+}
+
+function appendHeroBannerMobileImageColumn(imageColumn, mobileImageColumn) {
+  if (!imageColumn || !mobileImageColumn?.children?.length) return;
+
+  const mobileImageContent = mobileImageColumn.firstElementChild;
+  if (mobileImageContent) {
+    moveInstrumentation(mobileImageColumn, mobileImageContent);
+  }
+
+  while (mobileImageColumn.firstChild) {
+    imageColumn.append(mobileImageColumn.firstChild);
+  }
+}
 
 function updateNavTheme(block, targetSlide, heroBannerHeight) {
   const nav = document.querySelector('#navigation');
@@ -320,7 +422,7 @@ function initVideo(selector, type, theme) {
     else videoMobile = a;
   });
   if (type === 'desktop') link = videoPC; else link = videoMobile;
-  if (link) videoUrl = link.href;
+  if (link) videoUrl = toDynamicMediaVideoUrl(link.href);
   const videoDivDom = createElement('div', 'video-div-box');
   const video = createElement('video', 'video-auto-play');
   const themeClass = theme === 'dark' ? 'video-dark' : 'video-light';
@@ -329,19 +431,16 @@ function initVideo(selector, type, theme) {
   video.loop = true;
   video.preload = 'auto';
   video.autoplay = true;
-  const source = document.createElement('source');
-  source.src = videoUrl;
-  source.type = 'video/mp4';
   video.muted = true;
   video.playsInline = true;
   video.playsinline = '';
-  video.appendChild(source);
+  setVideoSource(video, videoUrl);
   videoDivDom.appendChild(video);
   videoDivDom.appendChild(span);
   return videoDivDom;
 }
 
-function createSlide(block, row, slideIndex) {
+function createSlide(block, row, slideIndex, options = {}) {
   const slide = createElement('li', 'hero-banner-item');
   const div = createElement('div', 'hero-banner-content h-grid-container');
   moveInstrumentation(row, slide);
@@ -352,9 +451,10 @@ function createSlide(block, row, slideIndex) {
   let externalVideoUrl = null;
   const buttonDiv = createElement('div', 'hero-banner-cta-container');
   const textContent = createElement('div', 'text-content');
+  const itemDynamicMedia = getHeroBannerItemDynamicMedia(row);
+  const dynamicMedia = itemDynamicMedia ?? options.dynamicMedia;
   slide.dataset.slideIndex = slideIndex;
-
-  [...row.children].forEach((column, colIdx) => {
+  getHeroBannerRenderableColumns(row).forEach((column, colIdx) => {
     let theme;
     let contentType; // true is svg mode; false is text mode
     let buttonTheme;
@@ -376,7 +476,12 @@ function createSlide(block, row, slideIndex) {
       case 0:
         // container-reference div
         column.classList.add('hero-banner-item-image');
-        normalizeImageReferenceLinks(column, createOptimizedPicture);
+        if (!dynamicMedia) {
+          appendHeroBannerMobileImageColumn(column, getHeroBannerItemMobileImageColumn(row));
+        }
+        normalizeImageReferenceLinks(column, createOptimizedPicture, {
+          dynamicMedia,
+        });
         // 处理image-theme联动nav
         if (column.lastElementChild?.innerHTML.length === 4) {
           theme = column.lastElementChild?.innerHTML || 'false';
@@ -501,14 +606,18 @@ function createSlide(block, row, slideIndex) {
 }
 
 export default async function decorate(block) {
-  const isSingleSlide = [...block.children].length < 2;
+  const rows = [...block.children];
+  const config = readHeroBannerConfig(rows);
+  const slideRows = rows.filter((row) => !isHeroBannerConfigRow(row));
+  const isSingleSlide = slideRows.length < 2;
+  const legacyDynamicMedia = isTruthy(config['dynamic-media']);
   const wholeContainer = createElement('ul', 'hero-banner-items-container');
   let slideIndicators;
   if (!isSingleSlide) {
     slideIndicators = createElement('ol', 'hero-banner-item-indicators');
   }
-  [...block.children].forEach((row, idx) => {
-    const slide = createSlide(block, row, idx);
+  slideRows.forEach((row, idx) => {
+    const slide = createSlide(block, row, idx, { dynamicMedia: legacyDynamicMedia });
     wholeContainer.append(slide);
     if (slideIndicators) {
       const indicator = createElement('li', 'hero-banner-item-indicator');
@@ -519,6 +628,7 @@ export default async function decorate(block) {
     }
     row.remove();
   });
+  rows.filter(isHeroBannerConfigRow).forEach((row) => row.remove());
   block.prepend(wholeContainer);
   // 处理轮播无缝衔接；不影响author
   if (!isSingleSlide && block.attributes['data-aue-resource'] === undefined) {

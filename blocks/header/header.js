@@ -32,6 +32,7 @@ import {
   shouldRefreshHeaderCommerceCountsAfterAuthInit,
   shouldRefreshHeaderCommerceCountsAfterAuthEvent,
 } from './header-commerce-utils.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 import { isAuthorHostname } from '../../scripts/environment.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
@@ -414,12 +415,14 @@ function applyCartActionState(actionButton, count = 0) {
 }
 
 function parseLogo(root) {
-  const logoImgList = root.querySelectorAll('.navigation-logo-wrapper img');
-  const altEl = root.querySelector('.navigation-logo-wrapper p:not(a)');
-  const logoHref = root.querySelector('.navigation-logo-wrapper a')?.href || '';
+  const navLogo = root.querySelector('.navigation-logo-wrapper .block');
+  const defaultImg = navLogo.children[1].children[0];
+  const darkImg = navLogo.children[2].children[0];
+  const altEl = navLogo.children[3].textContent.trim();
+  const logoHref = navLogo.children[4].textContent.trim();
   return {
-    src: logoImgList[0]?.src || '',
-    darkSrc: logoImgList.length > 1 ? logoImgList[1]?.src : logoImgList[0]?.src,
+    src: defaultImg.querySelector('a')?.href || defaultImg.querySelector('img')?.src || '',
+    darkSrc: darkImg.hasChildNodes() ? (darkImg.querySelector('a')?.href || darkImg.querySelector('img')?.src) : (defaultImg.querySelector('a')?.href || defaultImg.querySelector('img')?.src),
     href: processPath(logoHref),
     alt: altEl?.textContent?.trim() || 'logo',
   };
@@ -598,7 +601,7 @@ function parseDropdownProducts(col) {
   const children = Array.from(col.children);
 
   // 找到所有的picture元素作为分组标识
-  const pictures = children.filter((child) => child.tagName === 'P' && child.querySelector('picture'));
+  const pictures = children.filter((child, i) => child.tagName === 'P' && (child.querySelector('picture') || (child.querySelector('a') && children[i - 1]?.textContent.trim() === 'true')));
   const pictureIndices = pictures.map((pic) => children.indexOf(pic));
 
   // 为每个分组创建数组
@@ -610,7 +613,8 @@ function parseDropdownProducts(col) {
     const groupElements = children.slice(startIdx, endIdx);
 
     // 解析分组数据
-    const img = groupElements[0].querySelector('img')?.src || '';
+    const dymicAEl = groupElements[0].querySelector('a');
+    const img = dymicAEl ? createDynamicMediaPicture(dymicAEl.href) : groupElements[0].querySelector('picture');
     const altText = groupElements[1]?.textContent.trim() || '';
     const text = groupElements[2]?.textContent.trim() || '';
     const linkElement = groupElements[3]?.querySelector('a');
@@ -754,10 +758,7 @@ function buildDropdown(data) {
     const imgWrap = document.createElement('div');
     imgWrap.className = 'dropdown-product-img';
     if (item.img) {
-      const img = document.createElement('img');
-      img.src = item.img;
-      img.alt = item.altText || '';
-      imgWrap.append(img);
+      imgWrap.append(item.img);
     }
     if (item.href && item.href !== '#') {
       product.dataset.href = item.href;
@@ -1480,14 +1481,10 @@ export default async function decorate(block) {
   if (logo.src) {
     const a = logo.href ? document.createElement('a') : document.createElement('div');
     a.href = logo.href;
-    const img = document.createElement('img');
+    const img = createDynamicMediaPicture(logo.src, logo.alt);
     img.className = 'logo-img';
-    img.src = logo.src;
-    img.alt = logo.alt;
-    const darkImg = document.createElement('img');
+    const darkImg = createDynamicMediaPicture(logo.darkSrc, logo.alt);
     darkImg.className = 'logo-dark-img';
-    darkImg.src = logo.darkSrc;
-    darkImg.alt = logo.alt;
     a.append(img, darkImg);
     logoEl.append(a);
   }

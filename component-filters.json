@@ -44,6 +44,7 @@
       "current-partnerships-list",
       "disclaimer",
       "download",
+      "dynamic-media-image",
       "enterprise-tech",
       "faq-module",
       "feature-banner",
@@ -94,6 +95,7 @@
       "region-page-title",
       "region-selection",
       "recall-info-list",
+      "region",
       "gray-tips",
       "guide-list",
       "request-service",
@@ -101,6 +103,8 @@
       "promotional-text",
       "campaign-collection",
       "campaign-image",
+      "media-filter",
+      "display-manual-list",
       "store-locator-card",
       "related-news",
       "resource-list",
@@ -346,6 +350,12 @@
     ]
   },
   {
+    "id": "dynamic-media-image",
+    "components": [
+      "dynamic-media-imageItem"
+    ]
+  },
+  {
     "id": "enterprise-tech",
     "components": [
       "enterprise-card-item"
@@ -542,6 +552,12 @@
     "id": "recall-text-info",
     "components": [
       "recall-text-info-item"
+    ]
+  },
+  {
+    "id": "region",
+    "components": [
+      "region-countries"
     ]
   },
   {

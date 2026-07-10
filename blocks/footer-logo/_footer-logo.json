@@ -23,6 +23,12 @@
       "id": "footerLogo",
       "fields": [
         {
+          "component": "boolean",
+          "name": "dynamic_media",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",
