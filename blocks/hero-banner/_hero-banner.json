@@ -28,7 +28,7 @@
             "template": {
               "name": "Hero Banner Item",
               "model": "hero-bannerItem",
-              "dynamic-media": false
+              "dynamic_media": false
             }
           }
         }
@@ -63,7 +63,7 @@
       "fields": [
         {
           "component": "boolean",
-          "name": "dynamic-media",
+          "name": "dynamic_media",
           "label": "Enable Dynamic Media",
           "valueType": "boolean"
         },
@@ -103,7 +103,7 @@
               {
                 "===": [
                   {
-                    "var": "dynamic-media"
+                    "var": "dynamic_media"
                   },
                   false
                 ]
