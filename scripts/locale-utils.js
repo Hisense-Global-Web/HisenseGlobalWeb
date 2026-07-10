@@ -86,10 +86,6 @@ export function localizeProductApiPath(path) {
   const url = new URL(path, window.location.origin);
   const { pathname, search, hash } = url;
 
-  if (!pathname.startsWith('/product')) {
-    return path;
-  }
-
   const { country, language } = getLocaleFromPath();
   const matchedPath = pathname.match(/^\/product(?:\/(.*))?\.json$/i);
   if (!matchedPath) {
