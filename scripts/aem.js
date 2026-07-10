@@ -617,9 +617,7 @@ function decorateSections(main) {
       if (section.dataset.backgroundDynamicmedia === 'true') {
         // If dynamic media, create a picture element and prepend it to the section
         const dynamicMediaDom = document.createElement('div');
-        dynamicMediaDom.className = 'section-background-dynamic-media';
         dynamicMediaDom.append(createDynamicMediaPicture(section.dataset.sectionBackground, 'section-background'));
-        section.prepend(dynamicMediaDom);
         decorateSectionsBackgroundDynamicMedia(section, dynamicMediaDom);
       } else {
         // If not dynamic media, set the background image directly
