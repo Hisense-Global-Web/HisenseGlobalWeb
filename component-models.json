@@ -1408,6 +1408,13 @@
     "id": "bi-directional-content-item",
     "fields": [
       {
+        "component": "boolean",
+        "name": "image_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1511,6 +1518,13 @@
     "id": "calltoaction-banner",
     "fields": [
       {
+        "component": "boolean",
+        "name": "background_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "background_pc",
@@ -1524,7 +1538,15 @@
         "name": "background_mobile",
         "label": "Background Image For Mobile",
         "required": true,
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "background_dynamicMedia"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",
