@@ -28,7 +28,10 @@
             "template": {
               "name": "Hero Banner Item",
               "model": "hero-bannerItem",
-              "dynamic_media": false
+              "dynamic_media": false,
+              "image_theme": false,
+              "mode_type": false,
+              "video_type": false
             }
           }
         }
