@@ -1511,6 +1511,13 @@
     "id": "calltoaction-banner",
     "fields": [
       {
+        "component": "boolean",
+        "name": "background_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "background_pc",
