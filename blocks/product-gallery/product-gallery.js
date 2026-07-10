@@ -332,7 +332,6 @@ export default function decorate(block) {
   }
 
   itemElements.forEach((item, index) => {
-    console.log(item);
     const itemClone1 = item.cloneNode(true);
     const itemClone2 = item.cloneNode(true);
     const li = buildTab(itemClone1, index);

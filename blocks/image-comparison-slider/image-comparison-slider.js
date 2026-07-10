@@ -1,6 +1,7 @@
 import { loadScript } from '../../scripts/aem.js';
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const createResizeObserver = (callback, delay = 100) => {
   let timeout;
@@ -59,10 +60,14 @@ export default async function decorate(block) {
   let imagesGroup = block.querySelector('div:first-of-type');
   let iconGroup = block.querySelector('div:nth-of-type(2)');
   iconGroup.classList.add('guide-container');
-  const pictures = imagesGroup?.querySelectorAll('picture');
+  let pictures = imagesGroup?.querySelectorAll('picture');
   if (pictures.length !== 2) {
-    imagesGroup = block.querySelector('div:nth-of-type(1)');
+    block.querySelector('div:first-of-type').style.display = 'none';
+    imagesGroup = block.querySelector('div:nth-of-type(2)');
     iconGroup = block.querySelector('div:nth-of-type(3)');
+    iconGroup.classList.add('guide-container');
+    const aElList = imagesGroup?.querySelectorAll('a');
+    pictures = [...aElList].map((aEl) => createDynamicMediaPicture(aEl.href));
   }
 
   // Destructure for clarity
