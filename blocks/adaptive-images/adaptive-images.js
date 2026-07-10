@@ -1,13 +1,6 @@
 import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default function decorate(block) {
-  // [...block.children].forEach((row, index) => {
-  //   if (index === 0) {
-  //     row.classList.add('pc-image');
-  //   } else if (index === 1) {
-  //     row.classList.add('mobile-image');
-  //   }
-  // });
   const [dynamicSwitch, pcImageEl, mobileImageEl] = [...block.children] ?? [];
   const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
   dynamicSwitch.remove();
