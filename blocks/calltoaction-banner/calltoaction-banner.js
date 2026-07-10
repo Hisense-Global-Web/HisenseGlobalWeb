@@ -1,4 +1,6 @@
 import { SCREEN_POINT } from '../../utils/constants.js';
+// import { decorateSectionsBackgroundDynamicMedia } from '../../scripts/aem.js';
+// import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default async function decorate(block) {
   const containerDiv = document.createElement('div');
@@ -18,6 +20,21 @@ export default async function decorate(block) {
     switch (index) {
       case 0: {
         child.className = 'banner-img';
+        // const isDynamicFlag = child.children[0].firstElementChild?.textContent.trim();
+
+        // block.dataset.dynamicFlag = isDynamicFlag;
+        // if (isDynamicFlag === 'true') {
+        //   const dynamicImgSrc = child.querySelector('a')?.getAttribute('href');
+        //   const dynamicImgDom = createDynamicMediaPicture(dynamicImgSrc, 'calltoaction-banner');
+        //   dynamicImgDom.className = 'dynamic-media-picture';
+        //   child.append(dynamicImgDom);
+        //   decorateSectionsBackgroundDynamicMedia(block, dynamicImgDom);
+        // } else {
+        //   const [pcImg, mobileImg] = child.querySelectorAll('img');
+        //   block.dataset.pcImg = pcImg.src;
+        //   block.dataset.mobileImg = mobileImg.src;
+        //   updateBackgroundImage(); // 初始设置
+        // }
         const [pcImg, mobileImg] = child.querySelectorAll('img');
         block.dataset.pcImg = pcImg.src;
         block.dataset.mobileImg = mobileImg.src;

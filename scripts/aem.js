@@ -509,7 +509,7 @@ function decorateIcons(element, prefix = '') {
  * @param {*} sectionEl section 元素
  * @param {*} dynamicMediaDom dynamic media dom
  */
-function decorateSectionsBackgroundDynamicMedia(sectionEl, dynamicMediaDom) {
+export function decorateSectionsBackgroundDynamicMedia(sectionEl, dynamicMediaDom) {
   /**
    * 从 picture 元素中匹配当前屏幕宽度对应的图片 URL
    * @param {string} pictureId - picture 元素的 ID
