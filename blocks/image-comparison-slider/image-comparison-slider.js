@@ -56,12 +56,13 @@ function initializeDraggableSlider(wrapper, dragger, imageWrapperAfter) {
 
 export default async function decorate(block) {
   // Early return if block doesn't have exactly 2 pictures
-  const imagesGroup = block.querySelector('div:first-of-type');
-  const iconGroup = block.querySelector('div:nth-of-type(2)');
+  let imagesGroup = block.querySelector('div:first-of-type');
+  let iconGroup = block.querySelector('div:nth-of-type(2)');
   iconGroup.classList.add('guide-container');
   const pictures = imagesGroup?.querySelectorAll('picture');
   if (pictures.length !== 2) {
-    return;
+    imagesGroup = block.querySelector('div:nth-of-type(1)');
+    iconGroup = block.querySelector('div:nth-of-type(3)');
   }
 
   // Destructure for clarity
