@@ -1571,7 +1571,7 @@
                 "template": {
                   "name": "Hero Banner Item",
                   "model": "hero-bannerItem",
-                  "dynamic_media": false
+                  "dynamic-media": false
                 }
               }
             }
