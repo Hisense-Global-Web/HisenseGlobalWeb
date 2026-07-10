@@ -74,7 +74,7 @@
           "component": "reference",
           "valueType": "string",
           "name": "image_pc",
-          "label": "Image/Video For PC",
+          "label": "Media For PC",
           "required": true,
           "multi": false,
           "condition": {
@@ -90,8 +90,7 @@
           "component": "reference",
           "valueType": "string",
           "name": "image_mobile",
-          "label": "Image/Video For Mobile",
-          "required": true,
+          "label": "Media For Mobile",
           "multi": false,
           "condition": {
             "and": [
