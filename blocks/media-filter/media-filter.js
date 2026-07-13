@@ -1,7 +1,7 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 import { createDynamicMediaPicture, isVideoMediaUrl } from '../hero-banner/media-reference.js';
-import { isDeliveryDynamicMediaUrl } from '../../utils/dynamic-media.js';
+import { isDeliveryDynamicMediaUrl, toDynamicMediaVideoPosterUrl } from '../../utils/dynamic-media.js';
 import { DYNAMIC_MEDIA_MANIFEST_M3U8, DYNAMIC_MEDIA_PLAY, SCREEN_POINT } from '../../utils/constants.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
@@ -266,7 +266,7 @@ const getCardList = async () => {
         const splits = item.categoryPath ? item.categoryPath.split('/') : [];
         item.category = splits[0] ?? null;
         item.subCategory = splits[1] ?? null;
-        const isThumbnail = (Array.isArray(item.tags) && item.tags.includes('hisense:media/thumbnail')) || !splits[1];
+        const isThumbnail = (Array.isArray(item.tags) && item.tags.includes('hisense:media/thumbnail')) || !splits[1] || (!item.thirdCategory && !item.isFolder);
         item.isThumbnail = isThumbnail;
         item.isVideo = isVideoMediaUrl(item.path);
       });
@@ -275,7 +275,7 @@ const getCardList = async () => {
       mediaList = mediaList.map((item) => {
         if (item.isThumbnail) {
           // isThumbnail true时，给子级的list赋值
-          const relatedList = mediaList.filter((i) => (i.categoryPath === item.categoryPath && i.thirdCategory) || (i.thirdCategory === null && i.id === item.id));
+          const relatedList = mediaList.filter((i) => (i.categoryPath === item.categoryPath && i.thirdCategory) || (!i.thirdCategory && i.id === item.id));
           return { ...item, list: relatedList };
         }
         return item;
@@ -332,15 +332,32 @@ const getFilterCardList = (dataList, mainSelectValue, subSelectValue, placeholde
   });
 };
 
+const generateVideoPoster = (url, alt = 'video thumbnail') => {
+  const thumbnailUrl = toDynamicMediaVideoPosterUrl(url);
+  const thumbnailEl = document.createElement('img');
+  thumbnailEl.src = thumbnailUrl;
+  thumbnailEl.alt = alt;
+  thumbnailEl.loading = 'lazy';
+  return thumbnailEl;
+};
+
 const generateCard = (card) => {
   const {
     title, subCategory, path, dynamicMediaPath, created,
   } = card ?? {};
   const mediaCardEl = document.createElement('div');
   mediaCardEl.className = 'card-wrapper';
-  const thumbnailEl = createMediaPicture(dynamicMediaPath ?? path, title);
-  thumbnailEl.className = 'thumbnail';
-  mediaCardEl.appendChild(thumbnailEl);
+  if (card.isVideo) {
+    const thumbnailEl = generateVideoPoster(dynamicMediaPath ?? path);
+    thumbnailEl.className = 'thumbnail';
+    mediaCardEl.appendChild(thumbnailEl);
+  } else {
+    const thumbnailUrl = dynamicMediaPath ?? path;
+    const thumbnailEl = createMediaPicture(thumbnailUrl, title);
+    thumbnailEl.className = 'thumbnail';
+    mediaCardEl.appendChild(thumbnailEl);
+  }
+
   const bottomWrapperEl = document.createElement('div');
   bottomWrapperEl.className = 'bottom-wrapper';
   const textContentEl = document.createElement('div');
@@ -420,7 +437,14 @@ const buildPaginationControls = (container, state, onPageChange) => {
     if (disabled) {
       btn.disabled = true;
     } else {
-      btn.addEventListener('click', () => onPageChange(page));
+      btn.addEventListener('click', () => {
+        const wrapper = document.querySelector('.media-filter-wrapper');
+        if (wrapper) {
+          // 动画效果
+          wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        onPageChange(page);
+      });
     }
     return btn;
   };
@@ -742,20 +766,10 @@ const buildGalleryPopup = (cardData) => {
 
   mediaList.forEach((item, index) => {
     const li = document.createElement('li');
-    li.className = `tab-item ${index === currentIndex ? 'current' : ''} ${item.isVideo ? 'video' : 'image'}`;
+    li.className = `tab-item ${index === currentIndex ? 'current' : ''}  image`;
     if (item.isVideo) {
-      const video = document.createElement('video');
-      video.controls = false;
-      video.width = 44;
-      video.preload = 'auto';
-      video.playsInline = false;
-      video.muted = true; // iPhone 要求静音才能自动播放
-      const source = document.createElement('source');
-      source.src = item.dynamicMediaPath?.replace(`/${DYNAMIC_MEDIA_PLAY}`, `/${DYNAMIC_MEDIA_MANIFEST_M3U8}`) ?? item.path;
-      source.type = 'video/mp4';
-      video.innerHTML = '';
-      video.appendChild(source);
-      li.appendChild(video);
+      const thumbnailEl = generateVideoPoster(item.dynamicMediaPath ?? item.path);
+      li.appendChild(thumbnailEl);
     } else {
       li.appendChild(createImg(item.dynamicMediaPath ?? item.path));
     }
@@ -811,18 +825,23 @@ const buildGalleryPopup = (cardData) => {
     link.click();
     document.body.removeChild(link);
   });
-  const downloadAllBtn = document.createElement('div');
-  downloadAllBtn.className = 'download-all-btn';
-  downloadAllBtn.textContent = downloadAllText;
-  downloadAllBtn.addEventListener('click', () => {
-    const { id, path, title } = cardData;
-    const link = document.createElement('a');
-    link.href = getCacheBustedUrl(toAbsoluteUrl(`/bin/hisense/media/download?id=${id}&path=${path}&isDownloadAll=true&title=${title}`));
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
-  btnGroup.append(downloadBtn, downloadAllBtn);
+  // 多余1个时，显示下载全部
+  if (mediaList?.length > 1) {
+    const downloadAllBtn = document.createElement('div');
+    downloadAllBtn.className = 'download-all-btn';
+    downloadAllBtn.textContent = downloadAllText;
+    downloadAllBtn.addEventListener('click', () => {
+      const { id, path } = cardData;
+      const link = document.createElement('a');
+      link.href = getCacheBustedUrl(toAbsoluteUrl(`/bin/hisense/media/download?id=${id}&path=${path}&isDownloadAll=true`));
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+    btnGroup.append(downloadBtn, downloadAllBtn);
+  } else {
+    btnGroup.appendChild(downloadBtn);
+  }
 
   mediaCenterPopup.append(popupCloseImg, titleGroup, coreMediaEl, galleryListGroup, btnGroup);
   mediaCenterPopup.style.display = 'flex';

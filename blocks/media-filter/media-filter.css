@@ -9,10 +9,6 @@
     align-items: center;
     gap: var(--spacing-xl, 48px);
 
-    @media (width<640px) {
-      gap: var(--spacing-xs, 16px);
-    }
-
     /* 检索框样式 */
     .search-card-wrapper {
       width: 100%;
@@ -43,16 +39,11 @@
           }
 
           .title {
-            color: var(--color-primary-grey-100, #000);
+            color: var(--color-primary-grey-70, #333);
             font-size: var(--fontsize-body1, 16px);
             font-style: normal;
             font-weight: var(--fontweight-medium, 500);
-            line-height: 150%;
-
-            @media (width<640px) {
-              font-size: var(--fontsize-body2, 14px);
-              line-height: 22px;
-            }
+            line-height: var(--size-21);
           }
 
           .main-select {
@@ -72,7 +63,7 @@
               display: flex;
               justify-content: center;
               height: var(--size-50);
-              padding: 0 var(--spacing-s2, 20px);
+              padding: 0 var(--spacing-xs, 16px);
               align-items: center;
               align-self: stretch;
               border-radius: var(--size-12);
@@ -93,6 +84,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                width: var(--size-16);
+                height: var(--size-16);
 
                 img {
                   transform: rotate(180deg);
@@ -212,6 +205,8 @@
             }
 
             .chevron-icon-disabled {
+              width: var(--size-16);
+              height: var(--size-16);
               display: flex;
               align-items: center;
               justify-content: center;
@@ -261,7 +256,6 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-xl, 48px);
 
       @media (width<640px) {
         gap: var(--spacing-sm, 24px);
@@ -276,8 +270,9 @@
         gap: var(--spacing-m, 32px);
 
         @media (width<640px) {
+          padding: var(--spacing-sm, 24px) 0;
           grid-template-columns: repeat(1, 1fr);
-          gap: var(--spacing-sm, 24px);
+          gap: var(--spacing-xs, 16px);
         }
 
         .card-wrapper {
@@ -290,14 +285,14 @@
             flex-direction: row;
             border-bottom: 1px solid var(--color-primary-grey-40, #bbb);
             padding-bottom: var(--spacing-m, 32px);
+            gap: var(--spacing-sm, 24px);
           }
 
           .thumbnail {
             border: 1px solid var(--color-primary-grey-30, #e0e0e0);
-            aspect-ratio: 352 / 235;
             border-radius: var(--radius-md, 8px);
-            width: min(calc(352 / var(--breakpoint-pc) * 100vw), 352px);
-            height: min(calc(235 / var(--breakpoint-pc) * 100vw), 235px);
+            aspect-ratio: 143 / 94;
+            height: min(calc(231.38 / var(--breakpoint-pc) * 100vw), 231.38px);
 
             @media (width < 640px) {
               width: calc(120 / var(--breakpoint-mobile) * 100vw);
@@ -305,10 +300,9 @@
             }
 
             img {
-              aspect-ratio: 352 / 235;
               border-radius: var(--radius-md, 8px);
-              width: min(calc(352 / var(--breakpoint-pc) * 100vw), 352px);
-              height: min(calc(235 / var(--breakpoint-pc) * 100vw), 235px);
+              aspect-ratio: 143 / 94;
+              height: min(calc(231.38 / var(--breakpoint-pc) * 100vw), 231.38px);
 
               @media (width < 640px) {
                 width: calc(120 / var(--breakpoint-mobile) * 100vw);
@@ -340,6 +334,7 @@
               }
 
               .title {
+                font-family: FZLanTingHeiS-B-GB, sans-serif;
                 font-size: var(--fontsize-title2, 20px);
                 font-weight: var(--fontweight-medium, 500);
                 line-height: 1.2;
@@ -362,11 +357,12 @@
               }
 
               .date-text {
-                color: var(--color-primary-grey-60, #555);
+                color: var(--color-primary-grey-50, #747474);
                 font-size: var(--fontsize-body3, 12px);
                 font-weight: var(--fontweight-book, 400);
                 line-height: 1.5;
                 letter-spacing: 0;
+                font-family: FZLanTingHei-M-GBK, sans-serif;
 
                 @media (width < 640px) {
                   font-size: var(--fontsize-caption1, 10px);
@@ -380,12 +376,13 @@
 
       /* 分页 */
       .pagination-wrapper {
+        padding: var(--spacing-xl, 48px) 0;
+
         .card-list-pagination {
           display: flex;
           justify-content: center;
           align-items: center;
           gap: var(--spacing-xs, 16px);
-          margin-top: var(--spacing-m, 32px);
 
           @media (width < 640px) {
             display: none;
