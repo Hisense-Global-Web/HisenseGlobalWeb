@@ -338,7 +338,8 @@ const generateCard = (card) => {
   } = card ?? {};
   const mediaCardEl = document.createElement('div');
   mediaCardEl.className = 'card-wrapper';
-  const thumbnailEl = createMediaPicture(dynamicMediaPath ?? path, title);
+
+  const thumbnailEl = createDynamicMediaPicture(dynamicMediaPath ?? path, title);
   thumbnailEl.className = 'thumbnail';
   mediaCardEl.appendChild(thumbnailEl);
   const bottomWrapperEl = document.createElement('div');

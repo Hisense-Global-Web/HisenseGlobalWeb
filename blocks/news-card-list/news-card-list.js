@@ -1,7 +1,8 @@
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 function getTagsEndpointUrl() {
@@ -143,11 +144,9 @@ function buildCard(item) {
     imageWrapper.href = linkHref;
     imageWrapper.classList.add('releases-image');
 
-    const picture = createOptimizedPicture(
-      thumbnail,
-      title || '',
-      false,
-      [{ width: '750' }],
+    const picture = createDynamicMediaPicture(
+      linkHref,
+      title,
     );
 
     imageWrapper.appendChild(picture);
