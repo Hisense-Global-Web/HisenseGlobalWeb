@@ -1,10 +1,11 @@
 import { createElement, debounce } from '../../utils/dom-helper.js';
 import { loadScrollTrigger } from '../../utils/animation-helper.js';
-import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { checkSwitch, isUniversalEditor } from '../../utils/ue-helper.js';
 import { whenElementReady } from '../../utils/carousel-common.js';
 import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
 import { runBlockEnhancement } from '../../utils/block-helper.js';
 import { setVideoSource } from '../../utils/hls-video.js';
+import { checkDyanmicMediaImage } from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -73,24 +74,30 @@ async function initScrollAnimation(block) {
 }
 
 export default function decorate(block) {
+  const hasDynamicMedia = checkSwitch(block.children[0]);
+  if (hasDynamicMedia) {
+    block.children[0]?.remove();
+  }
   // ========== CONSTRUCT DOM [START] ========== //
   const videoContent = block.querySelector('div:first-of-type');
-  const animateContent = block.querySelector('div:nth-of-type(2)');
 
   let videoSrc = '';
   let videoPosterSrc = '';
 
-  // Extract video source and poster from the first div
-  [...videoContent.children].forEach((row) => {
-    const link = row.querySelector('a');
-    if (link) {
-      videoSrc = toDynamicMediaVideoUrl(link.href);
+  const [videoAllEl, overlayEl] = [...block.children];
+
+  const [videoEl, posterEl] = [...videoAllEl?.children[0]?.children ?? []];
+
+  if (videoEl) {
+    videoSrc = toDynamicMediaVideoUrl(videoEl.querySelector('a')?.href);
+  }
+
+  if (posterEl) {
+    videoPosterSrc = posterEl?.querySelector('img')?.src;
+    if (!videoPosterSrc) {
+      videoPosterSrc = posterEl?.querySelector('a')?.href;
     }
-    const img = row.querySelector('img');
-    if (img) {
-      videoPosterSrc = img.src;
-    }
-  });
+  }
 
   if (!videoSrc) {
     return;
@@ -113,8 +120,7 @@ export default function decorate(block) {
 
   video.classList.add('autoplay-video');
   video.setAttribute('data-video-autoplay', 'true');
-  const coverImg = createElement('img');
-  coverImg.src = videoPosterSrc;
+  const coverImg = checkDyanmicMediaImage(posterEl, 'poster');
   coverImg.classList.add('video-cover-image');
 
   const videoReady = setVideoSource(video, videoSrc);
@@ -131,16 +137,16 @@ export default function decorate(block) {
   block.appendChild(playBtn);
 
   // Extract animated images from the second div
-  const animatePicture = animateContent.querySelector('picture');
+  const animatePicture = overlayEl?.querySelector('picture') || overlayEl?.querySelector('a');
   if (!animatePicture) {
     return;
   }
-  const animateImg = animatePicture.querySelector('img');
+  const animateImg = checkDyanmicMediaImage(overlayEl, 'overlay');
   animateImg.classList.add('animate-target');
   const animateContainer = createElement('div', 'hero-presence-animate h-grid-container');
-  animateContainer.appendChild(animatePicture);
+  animateContainer.appendChild(animateImg);
   block.appendChild(animateContainer);
-  animateContent.remove();
+  // overlayEl.remove();
   // ========== CONSTRUCT DOM [END] ========== //
 
   // ========== VIDEO [START] ========== //
