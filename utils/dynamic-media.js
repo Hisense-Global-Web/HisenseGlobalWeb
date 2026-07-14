@@ -1,3 +1,5 @@
+import { DYNAMIC_MEDIA_PLAY, DYNAMIC_MEDIA_VIDEO_POSTER } from './constants.js';
+
 function getCurrentLocationHref() {
   if (typeof window !== 'undefined' && window.location?.href) {
     return window.location.href;
@@ -53,3 +55,6 @@ export function toDynamicMediaVideoUrl(assetUrl = '', currentLocationHref = getC
     return assetUrl;
   }
 }
+
+// 根据DynamicMedia的地址，获取视频封面图的地址
+export const toDynamicMediaVideoPosterUrl = (url) => url?.replace(`/${DYNAMIC_MEDIA_PLAY}`, `/${DYNAMIC_MEDIA_VIDEO_POSTER}`);
