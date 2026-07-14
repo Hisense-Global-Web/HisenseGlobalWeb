@@ -359,7 +359,7 @@ export default async function decorate(block) {
         //   mediaContent.children[0].remove();
         // } else {
         //   // a 标签中设置的是 video 视频链接
-        //   const singleVideo = createVideo(item, idx, isDynamicFlag);
+        //   const singleVideo = createVideo(item, idx);
         //   mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
         //   mediaContent.classList.add('media-video');
         // }
