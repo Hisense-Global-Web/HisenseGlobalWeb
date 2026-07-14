@@ -8,8 +8,8 @@ import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
 import { resetExternalUrl, iframeVideoHandler } from '../../utils/video-external-url.js';
-// import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
-// import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
 
 let carouselId = 0;
 const segments = window.location.pathname.split('/').filter(Boolean);
@@ -216,14 +216,16 @@ function createVideo(child, idx) {
   let videourl;
   const link = child.querySelector('a');
   if (link) {
-    videourl = link.href;
+    videourl = toDynamicMediaVideoUrl(link.href);
   }
-  // if (isDynamicFlag) {
-  //   // 如果是dynamic media，使用toDynamicMediaVideoUrl转换视频链接
-  //   videourl = toDynamicMediaVideoUrl(videourl);
-  // }
   const videoDivDom = createElement('div', 'video-div-box');
-  const img = child.querySelector('img');
+  let img = child.querySelector('img');
+  const videoCoverImageEl = child.children[1].querySelector('a');
+  if (videoCoverImageEl && /image\.avif/.test(videoCoverImageEl.href)) {
+    // 判断 video 封面图片是 dynamic media 资源，用 createDynamicMediaPicture 方法为 img 重新赋值
+    const videoCoverImageSrc = videoCoverImageEl.href;
+    img = createDynamicMediaPicture(videoCoverImageSrc, 'media-carousel-video-image');
+  }
   const video = createElement('video', 'video-autoPlay');
   video.id = `video-${carouselId}-carousel-${idx - 2}`;
   video.controls = true;
@@ -324,14 +326,14 @@ export default async function decorate(block) {
     mediaBlock.classList.add('media-item');
     item.className = 'item';
     mediaBlock.dataset.slideIndex = idx;
-    if (item.children.length > 8) {
-      if (item.children[8].textContent.trim() === 'true') {
+    if (item.children.length > 9) {
+      if (item.children[9].textContent.trim() === 'true') {
         useExternal = true;
-        externalLink = item.children[9]?.textContent?.trim();
+        externalLink = item.children[10]?.textContent?.trim();
       }
     }
 
-    const [typeDom, mediaContent, videoCover, ...textContentDom] = item.children;
+    const [typeDom, dynamicSwitch, mediaContent, videoCover, ...textContentDom] = item.children;
     const contentType = typeDom.textContent.trim();
 
     if (!className) className = contentType;
@@ -343,7 +345,7 @@ export default async function decorate(block) {
 
     // 获取 dynamic media 开关状态
     // const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
-    // dynamicSwitch.remove();
+    dynamicSwitch.remove();
     if (mediaContent.innerHTML) {
       if (useExternal) {
         const externalVideo = iframeVideoHandler(resetExternalUrl(externalLink));
@@ -351,21 +353,18 @@ export default async function decorate(block) {
         mediaContent.classList.add('media-video');
       } else if (mediaContent.querySelector('a')) {
         // 判断是video 还是 dynamic media 图片
-        // const aHrefStr = mediaContent.querySelector('a').getAttribute('href');
-        // if (/image\.avif/.test(aHrefStr)) {
-        //   // a 标签中设置的 dynamic media 图片
-        //   mediaContent.classList.add('media-picture');
-        //   mediaContent.append(createDynamicMediaPicture(aHrefStr, 'collection-banner'));
-        //   mediaContent.children[0].remove();
-        // } else {
-        //   // a 标签中设置的是 video 视频链接
-        //   const singleVideo = createVideo(item, idx);
-        //   mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
-        //   mediaContent.classList.add('media-video');
-        // }
-        const singleVideo = createVideo(item, idx);
-        mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
-        mediaContent.classList.add('media-video');
+        const aHrefStr = mediaContent.querySelector('a').getAttribute('href');
+        if (/image\.avif/.test(aHrefStr)) {
+          // a 标签中设置的 dynamic media 图片
+          mediaContent.classList.add('media-picture');
+          mediaContent.append(createDynamicMediaPicture(aHrefStr, 'media-carousel-image'));
+          mediaContent.children[0].remove();
+        } else {
+          // a 标签中设置的是 video 视频链接
+          const singleVideo = createVideo(item, idx);
+          mediaContent.replaceChild(singleVideo, mediaContent.firstElementChild);
+          mediaContent.classList.add('media-video');
+        }
       } else {
         mediaContent.classList.add('media-picture');
       }
