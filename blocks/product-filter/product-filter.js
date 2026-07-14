@@ -1,6 +1,7 @@
 import { currencySymbolMap } from '../../utils/currency.js';
 import { fetchHybrisProduct, getHybrisProductCode, scheduleHybrisTask } from '../../scripts/hybris-bff.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 const PLP_PRODUCTS_READY_EVENT = 'hisense:plp-products-ready';
@@ -408,6 +409,7 @@ function getTagsEndpointUrl(customPath) {
 
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
+  const { language } = getLocaleFromPath();
 
   const rows = [...block.children];
   const fragment = document.createDocumentFragment();
@@ -471,7 +473,9 @@ export default function decorate(block) {
       const v = obj[k];
       if (v && typeof v === 'object') {
         const trimmedKey = k.trim();
-        if (v['jcr:title']) map[trimmedKey] = v['jcr:title'];
+        if (v[`jcr:title.${language}`]) {
+          map[trimmedKey] = v[`jcr:title.${language}`];
+        } else if (v['jcr:title']) map[trimmedKey] = v['jcr:title'];
         collectTitles(v, map);
       }
     });
