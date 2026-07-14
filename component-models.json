@@ -865,6 +865,13 @@
     "id": "accessories-feature",
     "fields": [
       {
+        "component": "boolean",
+        "name": "title_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "title_image",
@@ -894,6 +901,13 @@
     "id": "accessories-feature-item",
     "fields": [
       {
+        "component": "boolean",
+        "name": "image_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -921,6 +935,13 @@
     "id": "adaptive-images",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -934,7 +955,15 @@
         "name": "image-for-mobile",
         "label": "Image For Mobile",
         "multi": false,
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "dynamic_media"
+            },
+            false
+          ]
+        }
       }
     ]
   },
@@ -1379,6 +1408,13 @@
     "id": "bi-directional-content-item",
     "fields": [
       {
+        "component": "boolean",
+        "name": "image_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1482,6 +1518,13 @@
     "id": "calltoaction-banner",
     "fields": [
       {
+        "component": "boolean",
+        "name": "background_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "background_pc",
@@ -1495,7 +1538,15 @@
         "name": "background_mobile",
         "label": "Background Image For Mobile",
         "required": true,
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "background_dynamicMedia"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",
@@ -6057,6 +6108,13 @@
   {
     "id": "project-brief-card-item",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
       {
         "component": "reference",
         "name": "item-Image",

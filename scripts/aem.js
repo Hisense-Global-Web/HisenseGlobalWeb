@@ -509,7 +509,7 @@ function decorateIcons(element, prefix = '') {
  * @param {*} sectionEl section 元素
  * @param {*} dynamicMediaDom dynamic media dom
  */
-function decorateSectionsBackgroundDynamicMedia(sectionEl, dynamicMediaDom) {
+export function decorateSectionsBackgroundDynamicMedia(sectionEl, dynamicMediaDom) {
   /**
    * 从 picture 元素中匹配当前屏幕宽度对应的图片 URL
    * @param {string} pictureId - picture 元素的 ID
@@ -617,9 +617,7 @@ function decorateSections(main) {
       if (section.dataset.backgroundDynamicmedia === 'true') {
         // If dynamic media, create a picture element and prepend it to the section
         const dynamicMediaDom = document.createElement('div');
-        dynamicMediaDom.className = 'section-background-dynamic-media';
         dynamicMediaDom.append(createDynamicMediaPicture(section.dataset.sectionBackground, 'section-background'));
-        section.prepend(dynamicMediaDom);
         decorateSectionsBackgroundDynamicMedia(section, dynamicMediaDom);
       } else {
         // If not dynamic media, set the background image directly

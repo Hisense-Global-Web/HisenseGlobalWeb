@@ -38,6 +38,13 @@
       "id": "accessories-feature",
       "fields": [
         {
+          "component": "boolean",
+          "name": "title_dynamicMedia",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean",
+          "value": "false"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "title_image",
@@ -66,6 +73,13 @@
     {
       "id": "accessories-feature-item",
       "fields": [
+        {
+          "component": "boolean",
+          "name": "image_dynamicMedia",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean",
+          "value": "false"
+        },
          {
           "component": "reference",
           "valueType": "string",
