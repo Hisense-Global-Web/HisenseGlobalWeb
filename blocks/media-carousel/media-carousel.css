@@ -187,10 +187,6 @@
         bottom: 0;
         object-fit: cover;
       }
-
-      picture {
-        z-index: 1;
-      }
     }
 
     .external-video-box {
