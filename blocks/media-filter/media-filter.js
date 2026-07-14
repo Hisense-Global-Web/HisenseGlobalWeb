@@ -5,6 +5,8 @@ import { isDeliveryDynamicMediaUrl, toDynamicMediaVideoPosterUrl } from '../../u
 import { DYNAMIC_MEDIA_MANIFEST_M3U8, DYNAMIC_MEDIA_PLAY, SCREEN_POINT } from '../../utils/constants.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
+const IMAGE_THUMBNAIL = 'hisense:media/image-thumbnail';
+const VIDEO_THUMBNAIL = 'hisense:media/video-thumbnail';
 
 const { country, language } = getLocaleFromPath();
 let downloadImageText = 'Download Image';
@@ -257,7 +259,6 @@ const getCardList = async () => {
       mediaList = mediaList.map((item) => ({
         ...item,
         title: item.thirdCategory ? item.thirdCategory : item.title.replace(/\.(png|jpe?g|gif|bmp|webp|svg)$/i, ''),
-
       }));
     }
     if (mediaList?.length) {
@@ -266,7 +267,12 @@ const getCardList = async () => {
         const splits = item.categoryPath ? item.categoryPath.split('/') : [];
         item.category = splits[0] ?? null;
         item.subCategory = splits[1] ?? null;
-        const isThumbnail = (Array.isArray(item.tags) && item.tags.includes('hisense:media/thumbnail')) || !splits[1] || (!item.thirdCategory && !item.isFolder);
+        // 判断该项是否为缩略图：
+        // 1. 若 tags 数组包含 IMAGE_THUMBNAIL 或 VIDEO_THUMBNAIL，则为缩略图
+        // 2. 若 splits[1] 不存在（即没有二级目录），则为缩略图
+        // 3. 若没有 thirdCategory 且不是文件夹，也为缩略图
+        const isThumbnail = (Array.isArray(item.tags) && (item.tags.includes(IMAGE_THUMBNAIL) || item.tags.includes(VIDEO_THUMBNAIL)))
+          || !splits[1] || (!item.thirdCategory && !item.isFolder);
         item.isThumbnail = isThumbnail;
         item.isVideo = isVideoMediaUrl(item.path);
       });
@@ -275,7 +281,13 @@ const getCardList = async () => {
       mediaList = mediaList.map((item) => {
         if (item.isThumbnail) {
           // isThumbnail true时，给子级的list赋值
-          const relatedList = mediaList.filter((i) => (i.categoryPath === item.categoryPath && i.thirdCategory) || (!i.thirdCategory && i.id === item.id));
+          const relatedList = mediaList.filter((i) => {
+            // 如果 tags 包含 VIDEO_THUMBNAIL，则不添加进 relatedList
+            if (Array.isArray(i.tags) && i.tags.includes(VIDEO_THUMBNAIL)) {
+              return false;
+            }
+            return (i.categoryPath === item.categoryPath && i.thirdCategory) || (!i.thirdCategory && i.id === item.id);
+          });
           return { ...item, list: relatedList };
         }
         return item;
