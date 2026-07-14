@@ -364,8 +364,7 @@ const generateCard = (card) => {
     thumbnailEl.className = 'thumbnail';
     mediaCardEl.appendChild(thumbnailEl);
   } else {
-    const thumbnailUrl = dynamicMediaPath ?? path;
-    const thumbnailEl = createMediaPicture(thumbnailUrl, title);
+    const thumbnailEl = createDynamicMediaPicture(dynamicMediaPath ?? path, title);
     thumbnailEl.className = 'thumbnail';
     mediaCardEl.appendChild(thumbnailEl);
   }

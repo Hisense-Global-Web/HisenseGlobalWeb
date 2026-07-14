@@ -1,3 +1,5 @@
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 
 function getTagsEndpointUrl() {
@@ -42,6 +44,7 @@ function getTagRoot(tagData) {
  * Get tag title from tag data
  */
 function getTagTitle(tagPath, tagData) {
+  const { language } = getLocaleFromPath();
   const pathParts = tagPath.split(':').pop().split('/').filter(Boolean);
   const fallback = pathParts[pathParts.length - 1] || tagPath;
   const tagRoot = getTagRoot(tagData);
@@ -60,7 +63,7 @@ function getTagTitle(tagPath, tagData) {
   const directResult = resolvePath(pathParts);
   const result = directResult || (pathParts.length > 1 ? resolvePath(pathParts.slice(1)) : null);
 
-  return result?.['jcr:title'] || fallback;
+  return result?.[`jcr:title.${language}`] || result?.['jcr:title'] || fallback;
 }
 
 /**
