@@ -1,4 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -120,12 +121,20 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 
 const generateCard = (info) => {
   info?.classList?.add?.('info-list-card');
-  const [documentIconEl, infoEL, titleEl, textEl, subTextEl, locationEl] = info?.children ?? [];
+  const [isDynamicFlag, documentIconEl, infoEL, titleEl, textEl, subTextEl, locationEl] = info?.children ?? [];
+  isDynamicFlag.remove();
 
   const wrapper = document.createElement('div');
 
   // card 左侧: icon
   documentIconEl?.classList?.add?.('card-image');
+
+  // 设置 dynamic media
+  if (documentIconEl.querySelector('a')) {
+    const dynamicImgSrc = documentIconEl.querySelector('a').getAttribute('href');
+    documentIconEl.append(createDynamicMediaPicture(dynamicImgSrc, 'project-brief-card'));
+    documentIconEl.children[0].remove();
+  }
 
   if (infoEL) {
     infoEL.classList.add('card-info');

@@ -1,4 +1,4 @@
-import {getGraphQLUrl, getLocaleFromPath} from '../../scripts/locale-utils.js';
+import { getGraphQLUrl, getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { resolveProductCardTagLabel, shouldShowPlpFavoriteButton } from '../../scripts/commerce-ui-utils.js';
 import {
   addHybrisWishlistItem,
