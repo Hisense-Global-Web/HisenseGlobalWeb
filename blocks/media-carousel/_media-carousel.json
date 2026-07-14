@@ -108,7 +108,7 @@
         },
         {
           "component": "boolean",
-          "name": "dynamic_media",
+          "name": "image_dynamicMedia",
           "label": "Enable Dynamic Media",
           "valueType": "boolean",
           "value": "false"
