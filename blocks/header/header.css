@@ -3,6 +3,7 @@
 :root {
   --root-header-height: 100px;
   --root-language-header-height: 172px;
+  --root-already-language-header-height: 144px;
 }
 
 .main-mobile {
@@ -1291,6 +1292,10 @@ body.has-language-aside .nav-mask {
   top: var(--root-language-header-height);
 }
 
+body.has-language-aside.already-selected-language-aside .nav-mask {
+  top: var(--root-already-language-header-height);
+}
+
 .nav-link:hover .nav-dropdown,
 .nav-link .nav-dropdown:hover {
   display: block;
@@ -2174,6 +2179,10 @@ body.has-language-aside .nav-mask {
       }
     }
   }
+}
+
+.already-selected-language-aside.has-language-aside #language-aside {
+  height: var(--root-already-aside-header-height);
 }
 
 #language-aside {

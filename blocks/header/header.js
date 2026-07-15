@@ -1180,7 +1180,12 @@ function getNewPath(lang) {
 }
 
 const createLanguageAside = async () => {
-  if (localStorage.getItem('language')) return;
+  // if (localStorage.getItem('language')) return;
+  if (localStorage.getItem('language')) {
+    document.querySelector('body').classList.add('has-language-aside');
+    document.querySelector('body').classList.add('already-selected-language-aside');
+    return;
+  };
   // eslint-disable-next-line no-shadow
   const { country, language } = getLocaleFromPath();
   document.querySelector('body').classList.add('has-language-aside');
@@ -1258,7 +1263,8 @@ const createLanguageAside = async () => {
 
   acLsContinue.addEventListener('click', (e) => {
     const { lang, url } = e.currentTarget.closest('#language-aside').dataset;
-    document.querySelector('body').classList.remove('has-language-aside');
+    // document.querySelector('body').classList.remove('has-language-aside');
+    document.querySelector('body').classList.add('already-selected-language-aside');
     if (url) {
       if (lang !== 'region') {
         saveLanguageToLocalStorage(lang);
