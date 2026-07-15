@@ -1182,7 +1182,7 @@ function getNewPath(lang) {
 const createLanguageAside = async () => {
   // if (localStorage.getItem('language')) return;
   const { language } = getLocaleFromPath();
-  const alreadySelectLanguage = localStorage.getItem('language') && country === 'cn';
+  const alreadySelectLanguage = country === 'ca';
   if (alreadySelectLanguage) {
     document.querySelector('body').classList.add('already-selected-language-aside');
   } else if (localStorage.getItem('language')) {
