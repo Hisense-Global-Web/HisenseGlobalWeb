@@ -1182,7 +1182,7 @@ function getNewPath(lang) {
 const createLanguageAside = async () => {
   // if (localStorage.getItem('language')) return;
   const { language } = getLocaleFromPath();
-  const alreadySelectLanguage = localStorage.getItem('language') && country === 'ca';
+  const alreadySelectLanguage = localStorage.getItem('language') && country === 'cn';
   if (alreadySelectLanguage) {
     document.querySelector('body').classList.add('already-selected-language-aside');
   } else if (localStorage.getItem('language')) {
@@ -1307,12 +1307,6 @@ const createLanguageAside = async () => {
     const regionIcon = lanGroup.querySelector('.region-icon');
     if (regionIcon) {
       regionIcon.addEventListener('click', () => {
-        window.location.href = `/${country}/${language}/select-your-region`;
-      });
-    }
-    const lanComEl = lanGroup.querySelector('.header-aside-lan-com');
-    if (lanComEl) {
-      lanComEl.addEventListener('click', () => {
         window.location.href = `/${country}/${language}/select-your-region`;
       });
     }
