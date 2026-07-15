@@ -1181,13 +1181,13 @@ function getNewPath(lang) {
 
 const createLanguageAside = async () => {
   // if (localStorage.getItem('language')) return;
-  if (localStorage.getItem('language')) {
-    document.querySelector('body').classList.add('has-language-aside');
+  const { language } = getLocaleFromPath();
+  const alreadySelectLanguage = localStorage.getItem('language') && country === 'cn'
+  if (alreadySelectLanguage) {
     document.querySelector('body').classList.add('already-selected-language-aside');
+  } else if (localStorage.getItem('language')) {
     return;
-  };
-  // eslint-disable-next-line no-shadow
-  const { country, language } = getLocaleFromPath();
+  }
   document.querySelector('body').classList.add('has-language-aside');
   const languageAside = document.createElement('div');
   languageAside.id = 'language-aside';
@@ -1285,7 +1285,11 @@ const createLanguageAside = async () => {
   });
 
   acLsActions.append(acLsDropdown, acLsContinue);
-  acLsContent.append(acLsCopy, acLsActions, acLsClose);
+  if (alreadySelectLanguage) {
+    console.log('alreadySelectLanguage');
+  } else {
+    acLsContent.append(acLsCopy, acLsActions, acLsClose);
+  }
   languageAside.append(acLsContent);
 
   languageAside.dataset.lang = language;
