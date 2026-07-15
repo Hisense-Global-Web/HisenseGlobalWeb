@@ -1,4 +1,4 @@
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 import {
   whenElementReady,
   getSlideWidth,
@@ -8,6 +8,7 @@ import {
 } from '../../utils/carousel-common.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -202,11 +203,9 @@ function buildCard(item) {
     imageWrapper.href = linkHref;
     imageWrapper.classList.add('news-image');
 
-    const picture = createOptimizedPicture(
-      thumbnail,
-      title || '',
-      false,
-      [{ width: '750' }],
+    const picture = createDynamicMediaPicture(
+      linkHref,
+      title,
     );
 
     imageWrapper.appendChild(picture);

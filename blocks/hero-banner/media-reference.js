@@ -74,7 +74,7 @@ export function isVideoMediaColumn(column) {
   const links = [...(column?.querySelectorAll?.('a') || [])]
     .filter((link) => link?.href);
 
-  return links.length > 0 && links.every((link) => isVideoMediaUrl(link.href));
+  return links.length > 0 && isVideoMediaUrl(links[0].href);
 }
 
 export function buildHeroBannerDynamicMediaSources(src, currentLocationHref = getCurrentLocationHref()) {
@@ -138,7 +138,7 @@ export function normalizeImageReferenceLinks(column, createPicture, options = {}
 
 // 判断imageEl是否是a链接，如果是就创建一个Dyanmic Media Picture，否则返回原来的元素
 export const checkDyanmicMediaImage = (imageEl, alt = 'A Dinamic Media Image') => {
-  if (imageEl.querySelector('a')) {
+  if (imageEl?.querySelector('a')) {
     const dynamicImageUrl = imageEl.querySelector('a').href;
     const dynamicImageEl = createDynamicMediaPicture(dynamicImageUrl, alt);
     // 将dynamicImageEl替换imageEl的内容

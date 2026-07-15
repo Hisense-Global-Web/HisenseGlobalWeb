@@ -1,11 +1,10 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { createOptimizedPicture } from '../../scripts/aem.js';
 import { whenElementReady, throttle } from '../../utils/carousel-common.js';
 import { createElement } from '../../utils/dom-helper.js';
-import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { checkSwitch, getSwitchValue, isUniversalEditor } from '../../utils/ue-helper.js';
 import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
 import { setVideoSource } from '../../utils/hls-video.js';
-import { isVideoMediaColumn, normalizeImageReferenceLinks } from './media-reference.js';
+import { checkDyanmicMediaImage, isVideoMediaColumn } from './media-reference.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
 import { iframeVideoHandler, resetExternalUrl } from '../../utils/video-external-url.js';
 
@@ -31,14 +30,6 @@ function normalizeConfigKey(value) {
     .replace(/^-+|-+$/g, '');
 }
 
-function getCellText(cell) {
-  return cell?.textContent?.trim?.() || '';
-}
-
-function isTruthy(value) {
-  return ['true', '1', 'yes', 'on'].includes(String(value || '').trim().toLowerCase());
-}
-
 function isHeroBannerConfigRow(row) {
   const cells = [...(row?.children || [])];
   if (cells.length !== 2) return false;
@@ -46,75 +37,6 @@ function isHeroBannerConfigRow(row) {
   const configKey = normalizeConfigKey(cells[0].textContent);
   return HERO_BANNER_BLOCK_CONFIG_KEYS.has(configKey)
     || HERO_BANNER_LEGACY_BLOCK_CONFIG_KEYS.has(configKey);
-}
-
-function readHeroBannerConfig(rows) {
-  return rows.reduce((config, row) => {
-    if (!isHeroBannerConfigRow(row)) return config;
-
-    const cells = [...row.children];
-    config[normalizeConfigKey(cells[0].textContent)] = getCellText(cells[1]);
-    return config;
-  }, {});
-}
-
-function getColumnConfigKey(column) {
-  const prop = column?.getAttribute?.('data-aue-prop')
-    || column?.querySelector?.('[data-aue-prop]')?.getAttribute?.('data-aue-prop')
-    || column?.dataset?.aueProp;
-
-  return normalizeConfigKey(prop);
-}
-
-function isHeroBannerItemDynamicMediaColumn(column, index, columns) {
-  if (getColumnConfigKey(column) === 'dynamic-media') return true;
-
-  return columns.length > 7 && index === 1;
-}
-
-function isHeroBannerItemMobileImageColumn(column, index, columns) {
-  if (getColumnConfigKey(column) === 'image-mobile') return true;
-
-  return columns.length > 8 && index === 2;
-}
-
-function getHeroBannerItemDynamicMedia(row) {
-  const columns = [...(row?.children || [])];
-  const dynamicMediaColumn = columns.find((column, index) => (
-    isHeroBannerItemDynamicMediaColumn(column, index, columns)
-  ));
-
-  return dynamicMediaColumn ? isTruthy(getCellText(dynamicMediaColumn)) : undefined;
-}
-
-function getHeroBannerItemMobileImageColumn(row) {
-  const columns = [...(row?.children || [])];
-
-  return columns.find((column, index) => (
-    isHeroBannerItemMobileImageColumn(column, index, columns)
-  ));
-}
-
-function getHeroBannerRenderableColumns(row) {
-  const columns = [...(row?.children || [])];
-
-  return columns.filter((column, index) => (
-    !isHeroBannerItemDynamicMediaColumn(column, index, columns)
-    && !isHeroBannerItemMobileImageColumn(column, index, columns)
-  ));
-}
-
-function appendHeroBannerMobileImageColumn(imageColumn, mobileImageColumn) {
-  if (!imageColumn || !mobileImageColumn?.children?.length) return;
-
-  const mobileImageContent = mobileImageColumn.firstElementChild;
-  if (mobileImageContent) {
-    moveInstrumentation(mobileImageColumn, mobileImageContent);
-  }
-
-  while (mobileImageColumn.firstChild) {
-    imageColumn.append(mobileImageColumn.firstChild);
-  }
 }
 
 function updateNavTheme(block, targetSlide, heroBannerHeight) {
@@ -412,16 +334,12 @@ function createScrollButton(type, direction) {
   }
   return button;
 }
-function initVideo(selector, type, theme) {
+function initVideo(selector, theme) {
   let videoUrl;
   let link;
-  let videoPC;
-  let videoMobile;
   selector.querySelectorAll('a').forEach((a, i) => {
-    if (i === 0) videoPC = a;
-    else videoMobile = a;
+    if (i === 0) link = a;
   });
-  if (type === 'desktop') link = videoPC; else link = videoMobile;
   if (link) videoUrl = toDynamicMediaVideoUrl(link.href);
   const videoDivDom = createElement('div', 'video-div-box');
   const video = createElement('video', 'video-auto-play');
@@ -440,7 +358,19 @@ function initVideo(selector, type, theme) {
   return videoDivDom;
 }
 
-function createSlide(block, row, slideIndex, options = {}) {
+function createSlide(block, row, slideIndex) {
+  let switchCount = 0;
+  [...row.children].forEach((column) => {
+    if (checkSwitch(column)) switchCount += 1;
+  });
+  // 当有4个switch开关时，说明是dynamic media模式，
+  // 有3个时则说明是旧的herobanner代码，没有添加DynamicMedia的开关
+  let dynamicMedia = false;
+  if (switchCount === 4) {
+    dynamicMedia = getSwitchValue(row.children[0]);
+    // 获取Dynamic Media的值后，删除此html元素
+    row.children[0].remove();
+  }
   const slide = createElement('li', 'hero-banner-item');
   const div = createElement('div', 'hero-banner-content h-grid-container');
   moveInstrumentation(row, slide);
@@ -451,52 +381,47 @@ function createSlide(block, row, slideIndex, options = {}) {
   let externalVideoUrl = null;
   const buttonDiv = createElement('div', 'hero-banner-cta-container');
   const textContent = createElement('div', 'text-content');
-  const itemDynamicMedia = getHeroBannerItemDynamicMedia(row);
-  const dynamicMedia = itemDynamicMedia ?? options.dynamicMedia;
   slide.dataset.slideIndex = slideIndex;
-  getHeroBannerRenderableColumns(row).forEach((column, colIdx) => {
+  [...row.children].forEach((column, colIdx) => {
     let theme;
     let contentType; // true is svg mode; false is text mode
     let buttonTheme;
     let videoElement;
     let videoDom;
 
-    function updateVideoSource(isPc) {
-      if (isPc) {
-        videoElement = initVideo(column, 'desktop', theme === 'true' ? 'dark' : 'light');
-        videoDom = column.querySelectorAll('a')[0]?.closest('p');
-      } else {
-        videoElement = initVideo(column, 'mobile', theme === 'true' ? 'dark' : 'light');
-        videoDom = column.querySelectorAll('a')[1]?.closest('p');
-      }
+    function updateVideoSource() {
+      videoElement = initVideo(column, theme === 'true' ? 'dark' : 'light');
+      videoDom = column.querySelectorAll('a')[0]?.closest('p');
       if (videoDom) column.replaceChild(videoElement, videoDom);
     }
 
     switch (colIdx) {
       case 0:
-        // container-reference div
         column.classList.add('hero-banner-item-image');
-        if (!dynamicMedia) {
-          appendHeroBannerMobileImageColumn(column, getHeroBannerItemMobileImageColumn(row));
-        }
-        normalizeImageReferenceLinks(column, createOptimizedPicture, {
-          dynamicMedia,
-        });
         // 处理image-theme联动nav
         if (column.lastElementChild?.innerHTML.length === 4) {
           theme = column.lastElementChild?.innerHTML || 'false';
-          column.lastElementChild?.remove();
+          // column.lastElementChild?.remove();
         } else theme = 'false';
         slide.classList.add(theme === 'true' ? 'dark' : 'light');
         if (isVideoMediaColumn(column)) {
           // video mode
           column.classList.add('video-mode');
-          const videoMediaQuery = window.matchMedia(`(min-width: ${SCREEN_POINT}px)`);
-          // 初始化执行 + 注册 change 监听
-          updateVideoSource(videoMediaQuery.matches);
-          videoMediaQuery.addEventListener('change', (e) => {
-            updateVideoSource(e.matches);
-          });
+          updateVideoSource();
+          column?.children?.[1]?.remove();
+        } else {
+          // eslint-disable-next-line no-case-declarations
+          const [pcImageEl, mobileImageEl] = [...column?.children ?? []];
+          if (pcImageEl) {
+            const newPCImageEl = checkDyanmicMediaImage(pcImageEl, 'PC Image');
+            pcImageEl.replaceWith(newPCImageEl);
+            if (dynamicMedia) {
+              mobileImageEl?.replaceWith(newPCImageEl.cloneNode(true));
+            } else {
+              const newMobileImageEl = checkDyanmicMediaImage(mobileImageEl, 'Mobile Image');
+              mobileImageEl?.replaceWith(newMobileImageEl);
+            }
+          }
         }
         break;
       case 1:
@@ -541,7 +466,6 @@ function createSlide(block, row, slideIndex, options = {}) {
             if (externalVideoUrl) {
               const resetVideoUrl = resetExternalUrl(externalVideoUrl?.trim());
               const externalVideoEl = iframeVideoHandler(resetVideoUrl);
-              // externalVideoEl.querySelector('iframe').style.height = '780px'
               const imageEl = slide.querySelector('.hero-banner-item-image');
               if (imageEl) {
                 imageEl.innerHTML = '';
@@ -607,17 +531,15 @@ function createSlide(block, row, slideIndex, options = {}) {
 
 export default async function decorate(block) {
   const rows = [...block.children];
-  const config = readHeroBannerConfig(rows);
   const slideRows = rows.filter((row) => !isHeroBannerConfigRow(row));
   const isSingleSlide = slideRows.length < 2;
-  const legacyDynamicMedia = isTruthy(config['dynamic-media']);
   const wholeContainer = createElement('ul', 'hero-banner-items-container');
   let slideIndicators;
   if (!isSingleSlide) {
     slideIndicators = createElement('ol', 'hero-banner-item-indicators');
   }
   slideRows.forEach((row, idx) => {
-    const slide = createSlide(block, row, idx, { dynamicMedia: legacyDynamicMedia });
+    const slide = createSlide(block, row, idx);
     wholeContainer.append(slide);
     if (slideIndicators) {
       const indicator = createElement('li', 'hero-banner-item-indicator');
