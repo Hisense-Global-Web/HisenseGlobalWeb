@@ -1493,8 +1493,8 @@ export default async function decorate(block) {
   const scrollThreshold = 10;
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    let headerElPcH = 100 * -1; // header height on PC
-    let headerElMobileH = 56 * -1; // header height on Mobile
+    const headerElPcH = 100 * -1; // header height on PC
+    const headerElMobileH = 56 * -1; // header height on Mobile
     let calculateHeaderPcH = headerElPcH; // 默认为PC 菜单高度
     let calculateHeaderMobileH = headerElMobileH; // 默认为 mobile 菜单高度
     // let mobileHeaderHeight = 56 * -1; // header height on Mobile
@@ -1506,7 +1506,7 @@ export default async function decorate(block) {
       calculateHeaderMobileH = headerElMobileH + languageAsideHeightMobile * -1;
     }
     if (document.body.classList.contains('already-selected-language-aside')) {
-      calculateHeaderPcH =  headerElPcH + alreadySelectLanguageAsideHeight * -1;
+      calculateHeaderPcH = headerElPcH + alreadySelectLanguageAsideHeight * -1;
       calculateHeaderMobileH = headerElMobileH + alreadySelectLanguageAsideHeight * -1;
     }
     if (isCompanyPage || isSupportPage) {
@@ -2105,7 +2105,7 @@ export default async function decorate(block) {
   if (isCompanyPage) {
     navigation.classList.add('is-company');
     if (window.innerWidth >= 1180 && !window.location.pathname.includes('about-us')) {
-      let navHeight = 182; // 182 为 header 中 一级和二级菜单高度在 PC 端高度
+      const navHeight = 182; // 182 为 header 中 一级和二级菜单高度在 PC 端高度
       let calculateNavHeight = navHeight; // 默认值为 一级和二级菜单PC高度
       if (document.body.classList.contains('has-language-aside')) {
         // 有语言选择栏时
@@ -2123,7 +2123,7 @@ export default async function decorate(block) {
   }
   if (isSupportPage) {
     navigation.classList.add('is-support');
-    let supportNavHeight = 100; // 100 为 header 中 dom 元素ID为【navigation】栏在 PC 端高度
+    const supportNavHeight = 100; // 100 为 header 中 dom 元素ID为【navigation】栏在 PC 端高度
     let calculateSupportNavHeight = supportNavHeight; // 默认为菜单本身高度
     if (document.body.classList.contains('has-language-aside')) {
       // 有语言选择栏时
