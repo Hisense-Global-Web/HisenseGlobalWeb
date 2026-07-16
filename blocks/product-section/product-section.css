@@ -22,6 +22,14 @@ body.has-language-aside main .section.product-gallery-container.product-section-
   }
 }
 
+body.already-selected-language-aside main .section.product-gallery-container.product-section-container {
+  padding-top: var(--root-already-language-header-height);
+
+  @media (width < 1180px) {
+    padding-top: 100px;
+  }
+}
+
 main .section.product-gallery-container.product-section-container .product-gallery-wrapper {
   padding: 0;
   margin: 0;
