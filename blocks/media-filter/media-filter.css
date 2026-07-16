@@ -322,7 +322,7 @@
               gap: var(--spacing-4xs, 4px);
 
               .category {
-                font-family: "FZLanTingHeiS-B-GB", sans-serif;
+                font-family: FZLanTingHeiS-B-GB, sans-serif;
                 color: var(--color-primary-green-60, #008482);
                 text-transform: uppercase;
                 font-weight: var(--fontweight-medium, 500);
@@ -335,7 +335,7 @@
               }
 
               .title {
-                font-family: "FZLanTingHeiS-B-GB", sans-serif;
+                font-family: FZLanTingHeiS-B-GB, sans-serif;
                 font-size: var(--fontsize-title2, 20px);
                 font-weight: var(--fontweight-medium, 500);
                 line-height: 1.2;
@@ -363,7 +363,7 @@
                 font-weight: var(--fontweight-book, 400);
                 line-height: 1.5;
                 letter-spacing: 0;
-                font-family: "FZLanTingHei-M-GBK", sans-serif;
+                font-family: FZLanTingHei-M-GBK, sans-serif;
 
                 @media (width < 640px) {
                   font-size: var(--fontsize-caption1, 10px);
