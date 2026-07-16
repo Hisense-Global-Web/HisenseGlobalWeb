@@ -257,10 +257,6 @@
       display: flex;
       flex-direction: column;
 
-      @media (width<640px) {
-        gap: var(--spacing-sm, 24px);
-      }
-
       /* 列表展示样式 */
       .card-list-wrapper {
         width: 100%;
@@ -326,11 +322,16 @@
               gap: var(--spacing-4xs, 4px);
 
               .category {
+                font-family: FZLanTingHeiS-B-GB, sans-serif;
                 color: var(--color-primary-green-60, #008482);
                 text-transform: uppercase;
                 font-weight: var(--fontweight-medium, 500);
                 font-size: var(--fontsize-body2, 14px);
                 line-height: 1.5;
+
+                @media (width<640px) {
+                  color: var(--color-primary-green-50, #009F9C);
+                }
               }
 
               .title {
@@ -377,6 +378,10 @@
       /* 分页 */
       .pagination-wrapper {
         padding: var(--spacing-xl, 48px) 0;
+
+        @media (width < 640px) {
+          padding: var(--spacing-sm, 24px) 0;
+        }
 
         .card-list-pagination {
           display: flex;
