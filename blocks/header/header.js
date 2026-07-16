@@ -1182,7 +1182,7 @@ function getNewPath(lang) {
 const createLanguageAside = async () => {
   // if (localStorage.getItem('language')) return;
   const { language } = getLocaleFromPath();
-  const alreadySelectLanguage = localStorage.getItem('language') && country === 'cn'
+  const alreadySelectLanguage = country === 'ca';
   if (alreadySelectLanguage) {
     document.querySelector('body').classList.add('already-selected-language-aside');
   } else if (localStorage.getItem('language')) {
@@ -1286,7 +1286,41 @@ const createLanguageAside = async () => {
 
   acLsActions.append(acLsDropdown, acLsContinue);
   if (alreadySelectLanguage) {
-    console.log('alreadySelectLanguage');
+    const generateLanguageItems = (languages, selectedLang) => {
+      let languageItems = '';
+      languageItems += `<div class="header-aside-lan-item active" data-lang="${selectedLang}">${languages.find((item) => item.lang === selectedLang)?.label}</div>`;
+      languages.forEach((langKey) => {
+        if (langKey.lang === selectedLang || langKey.lang === 'region') return;
+        languageItems += '<div class="header-aside-lan-line"></div>';
+        languageItems += `<div class="header-aside-lan-item" data-lang="${langKey.lang}">${langKey.label}</div>`;
+      });
+
+      return languageItems;
+    };
+    const lanGroup = document.createElement('div');
+    lanGroup.className = 'header-aside-lan-group';
+    lanGroup.innerHTML = `
+  <img class="region-icon" src="/content/dam/hisense/${country}/common-icons/global-white.svg" alt="" />
+  <div class="header-aside-lan-list">
+    ${generateLanguageItems(arr, language)}
+  </div>`;
+    const regionIcon = lanGroup.querySelector('.region-icon');
+    if (regionIcon) {
+      regionIcon.addEventListener('click', () => {
+        window.location.href = `/${country}/${language}/select-your-region`;
+      });
+    }
+    const langItems = lanGroup.querySelectorAll('.header-aside-lan-item');
+    langItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        if (e.currentTarget.classList.contains('active')) {
+          window.location.href = `/${country}/${language}/select-your-region`;
+          return;
+        }
+        window.location.href = e.currentTarget.getAttribute('data-lang');
+      });
+    });
+    acLsContent.append(lanGroup);
   } else {
     acLsContent.append(acLsCopy, acLsActions, acLsClose);
   }
