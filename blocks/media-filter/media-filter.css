@@ -532,6 +532,7 @@
 
   .title-group {
     width: 100%;
+    font-family: FZLanTingHeiS-B-GB, sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -544,7 +545,7 @@
 
     .media-title {
       font-size: var(--size-24);
-      color: #141414;
+      color: var(--color-hisense-black, #000);
       font-weight: var(--fontweight-medium);
       line-height: var(--size-28);
 
@@ -593,6 +594,10 @@
       line-height: var(--size-18);
       font-family: "FZLanTingHeiS-DB1-GBK", serif;
 
+      @media (width<640px) {
+        font-size: var(--size-10);
+      }
+
       * {
         display: inline-block;
       }
@@ -631,7 +636,7 @@
       }
 
       &:disabled {
-        color: #ddd;
+        color: var(--color-primary-grey-40, #bbb);
         cursor: not-allowed;
 
         img.click-icon {
@@ -712,6 +717,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--size-16);
+    font-family: FZLanTingHeiS-B-GB, sans-serif;
 
     @media (width < 640px) {
       flex-direction: column;
