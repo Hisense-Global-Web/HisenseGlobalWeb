@@ -275,8 +275,13 @@ function extractLogoData(container) {
         footerSocialPopup.append(divEl);
         imgBox.addEventListener('click', (e) => {
           e.stopPropagation();
-          console.log(e.getAttribute('data-index'));
           footerSocialPopup.style.display = 'flex';
+          const childDivs = footerSocialPopup.querySelectorAll(':scope > div');
+          const targetIndex = e.currentTarget.getAttribute('data-index');
+          childDivs.forEach((child) => {
+            const childIndex = child.getAttribute('index');
+            child.style.display = (childIndex === targetIndex) ? '' : 'none';
+          });
           footerSocialMask.style.display = 'block';
         });
       } else if (socialLink) {
