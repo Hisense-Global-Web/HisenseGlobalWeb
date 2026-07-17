@@ -679,6 +679,23 @@
           justify-content: center;
           cursor: pointer;
           flex-shrink: 0;
+          position: relative;
+
+          .thumbnail-overlay {
+            position: absolute;
+            inset: var(--size-2);
+            background-color: var(--grey-alpha-40, rgb(20 20 20 / 40%));
+            border-radius: var(--size-6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .thumbnail-overlay>img {
+            width: var(--size-24) !important;
+            height: var(--size-24) !important;
+            border: var(--size-1) solid transparent !important;
+          }
 
           &.current {
             border: 1px solid #000;
