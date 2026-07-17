@@ -1483,7 +1483,7 @@ export default async function decorate(block) {
   const isCompanyPage = window.location.pathname.includes('company');
   const isSupportPage = window.location.pathname.includes('support');
   const languageAsideHeightPC = 72; // 72 为 header 中 dom 元素ID为【language-aside】栏在 PC 端高度
-  const languageAsideHeightMobile = 108; // 108 为 header 中 dom 元素ID为【language-aside】栏在 mobile 端高度
+  // const languageAsideHeightMobile = 108; // 108 为 header 中 dom 元素ID为【language-aside】栏在 mobile 端高度
   const alreadySelectLanguageAsideHeight = 44; // 44 为 header 中 dom 元素ID为【language-aside】
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
@@ -1497,13 +1497,19 @@ export default async function decorate(block) {
     const headerElMobileH = 56 * -1; // header height on Mobile
     let calculateHeaderPcH = headerElPcH; // 默认为PC 菜单高度
     let calculateHeaderMobileH = headerElMobileH; // 默认为 mobile 菜单高度
-    if (document.body.classList.contains('has-language-aside')) {
-      calculateHeaderPcH = headerElPcH + languageAsideHeightPC * -1;
-      calculateHeaderMobileH = headerElMobileH + languageAsideHeightMobile * -1;
-    }
-    if (document.body.classList.contains('already-selected-language-aside')) {
-      calculateHeaderPcH = headerElPcH + alreadySelectLanguageAsideHeight * -1;
-      calculateHeaderMobileH = headerElMobileH + alreadySelectLanguageAsideHeight * -1;
+    // 获取实际的语言栏高度（如果可见）
+    const getLanguageAsideHeight = () => {
+      const aside = document.getElementById('language-aside');
+      if (!aside) return 0;
+      const rect = aside.getBoundingClientRect();
+      // 只有真正占用空间才计算
+      return rect.height > 0 && window.getComputedStyle(aside).display !== 'none'
+        ? rect.height
+        : 0;
+    };
+    if (document.body.classList.contains('has-language-aside') || document.body.classList.contains('already-selected-language-aside')) {
+      calculateHeaderPcH = headerElPcH + getLanguageAsideHeight() * -1;
+      calculateHeaderMobileH = headerElMobileH + getLanguageAsideHeight() * -1;
     }
     if (isCompanyPage || isSupportPage) {
       navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, calculateHeaderMobileH)}px` : `${Math.max(scrollTop * -1, calculateHeaderPcH)}px`;
