@@ -233,6 +233,7 @@ function extractLogoData(container) {
     const socialImg = innerDiv.querySelector('img');
     const imgBox = document.createElement('div');
     imgBox.className = 'footer-social-imgbox';
+    imgBox.setAttribute('data-index', `${index - 3 - step}`);
     socialImg.className = 'footer-social-width';
     const socialLink = div.children[1].querySelector('a');
     const showPopup = div.children[2];
@@ -261,17 +262,27 @@ function extractLogoData(container) {
         });
         const titleEl = document.createElement('div');
         titleEl.className = 'footer-popup-title';
-        titleEl.textContent = '微信公众號';
+        titleEl.textContent = div.children[3].textContent.trim();
         const subtitleEl = document.createElement('div');
         subtitleEl.className = 'footer-popup-subtitle';
-        subtitleEl.textContent = '手机微信扫二维码';
+        subtitleEl.textContent = div.children[4].textContent.trim();
         const imgEl = document.createElement('img');
         imgEl.className = 'footer-popup-img';
+        imgEl.src = div.children[5].querySelector('img').src;
 
-        footerSocialPopup.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        const divEl = document.createElement('div');
+        divEl.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        divEl.setAttribute('index', `${index - 3 - step}`);
+        footerSocialPopup.append(divEl);
         imgBox.addEventListener('click', (e) => {
           e.stopPropagation();
           footerSocialPopup.style.display = 'flex';
+          const childDivs = footerSocialPopup.querySelectorAll(':scope > div');
+          const targetIndex = e.currentTarget.getAttribute('data-index');
+          childDivs.forEach((child) => {
+            const childIndex = child.getAttribute('index');
+            child.style.display = (childIndex === targetIndex) ? '' : 'none';
+          });
           footerSocialMask.style.display = 'block';
         });
       } else if (socialLink) {

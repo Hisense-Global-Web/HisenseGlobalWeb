@@ -571,6 +571,13 @@ footer footer {
     width: min(calc(354 / var(--breakpoint-mobile) * 100vw), 354px);
   }
 
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-24);
+    align-items: center;
+  }
+
   .close-icon {
     position: absolute;
     top: var(--size-32);
