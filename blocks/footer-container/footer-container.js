@@ -167,11 +167,13 @@ function extractLogoData(container) {
 
   const logoDivs = Array.from(logoBlock.children).filter((child) => child.tagName === 'DIV');
 
+  let step = 0;
   if (logoDivs.length > 0) {
     let firstDiv = logoDivs[0];
     if (firstDiv.textContent.trim() === 'true' || firstDiv.textContent.trim() === 'false') {
+      step = 1;
       // eslint-disable-next-line prefer-destructuring
-      firstDiv = logoDivs[1];
+      firstDiv = logoDivs[step];
     }
     const innerDiv = firstDiv.querySelector('div');
     if (innerDiv) {
@@ -193,8 +195,8 @@ function extractLogoData(container) {
     }
   }
 
-  if (logoDivs.length > 1) {
-    const altDiv = logoDivs[1];
+  if (logoDivs.length > 1 + step) {
+    const altDiv = logoDivs[1 + step];
     const innerDiv = altDiv.querySelector('div');
     if (innerDiv) {
       const altP = innerDiv.querySelector('p');
@@ -204,8 +206,8 @@ function extractLogoData(container) {
     }
   }
 
-  if (logoDivs.length > 2) {
-    const linkDiv = logoDivs[2];
+  if (logoDivs.length > 2 + step) {
+    const linkDiv = logoDivs[2 + step];
     const innerDiv = linkDiv.querySelector('div');
     if (innerDiv) {
       const buttonContainer = innerDiv.querySelector('p.button-container');
@@ -219,7 +221,7 @@ function extractLogoData(container) {
   }
 
   logoDivs.forEach((div, index) => {
-    if (index < 3) {
+    if (index < 3 + step) {
       return;
     }
 
