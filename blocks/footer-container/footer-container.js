@@ -229,10 +229,11 @@ function extractLogoData(container) {
     if (!innerDiv) {
       return;
     }
-    console.log(index - 3 - step);
+
     const socialImg = innerDiv.querySelector('img');
     const imgBox = document.createElement('div');
     imgBox.className = 'footer-social-imgbox';
+    imgBox.setAttribute('data-index', `${index - 3 - step}`);
     socialImg.className = 'footer-social-width';
     const socialLink = div.children[1].querySelector('a');
     const showPopup = div.children[2];
@@ -270,10 +271,11 @@ function extractLogoData(container) {
 
         const divEl = document.createElement('div');
         divEl.append(popupCloseImg, titleEl, subtitleEl, imgEl);
-        divEl.setAttribute('index', index);
+        divEl.setAttribute('index', `${index - 3 - step}`);
         footerSocialPopup.append(divEl);
         imgBox.addEventListener('click', (e) => {
           e.stopPropagation();
+          console.log(e.getAttribute('data-index'));
           footerSocialPopup.style.display = 'flex';
           footerSocialMask.style.display = 'block';
         });
