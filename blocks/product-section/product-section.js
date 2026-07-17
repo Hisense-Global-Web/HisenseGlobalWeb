@@ -592,6 +592,8 @@ export default async function decorate(block) {
   let fields = [];
   let faqIconEl = null;
   let faqLink = '';
+  let resourcesIconEl = null;
+  let resourcesLink = '';
   let linkSku = '';
   rows.forEach((row, i) => {
     const text = row.textContent && row.textContent.trim();
@@ -608,6 +610,15 @@ export default async function decorate(block) {
       if (i === 4) {
         const str = processPath(row.textContent.trim() || '');
         faqLink = `${str}?sku=${linkSku}`;
+      }
+    }
+    if (fields.includes('resources')) {
+      if (i === 5) {
+        resourcesIconEl = row.querySelector('img');
+      }
+      if (i === 6) {
+        const str = processPath(row.textContent.trim() || '');
+        resourcesLink = `${str}?sku=${linkSku}`;
       }
     }
   });
@@ -912,6 +923,19 @@ export default async function decorate(block) {
       if (faqLink) window.location.href = faqLink;
     });
     linkGroupEl.appendChild(faqEl);
+  }
+
+  const resourcesEl = document.createElement('div');
+  resourcesEl.className = 'pdp-resources-btn';
+  if (resourcesIconEl && resourcesLink) {
+    resourcesEl.appendChild(resourcesIconEl);
+    const resourcesLinkSpan = document.createElement('span');
+    resourcesLinkSpan.textContent = 'Resources';
+    resourcesEl.appendChild(resourcesLinkSpan);
+    resourcesEl.addEventListener('click', () => {
+      if (resourcesLink) window.location.href = resourcesLink;
+    });
+    linkGroupEl.appendChild(resourcesEl);
   }
 
   const specsBtn = document.createElement('div');
