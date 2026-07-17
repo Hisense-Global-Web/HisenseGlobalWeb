@@ -262,12 +262,13 @@ function extractLogoData(container) {
         });
         const titleEl = document.createElement('div');
         titleEl.className = 'footer-popup-title';
-        titleEl.textContent = '微信公众號';
+        titleEl.textContent = div.children[3].textContent.trim();
         const subtitleEl = document.createElement('div');
         subtitleEl.className = 'footer-popup-subtitle';
-        subtitleEl.textContent = '手机微信扫二维码';
+        subtitleEl.textContent = div.children[4].textContent.trim();
         const imgEl = document.createElement('img');
         imgEl.className = 'footer-popup-img';
+        imgEl.src = div.children[5].querySelector('img').src;
 
         const divEl = document.createElement('div');
         divEl.append(popupCloseImg, titleEl, subtitleEl, imgEl);
