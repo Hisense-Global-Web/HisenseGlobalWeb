@@ -75,6 +75,30 @@
               {"===": [{"var": ""}, "faq"]}
             ]
           }
+        },
+        {
+          "component": "reference",
+          "name": "resources-icon",
+          "label": "Resources Icon",
+          "valueType": "string",
+          "condition": {
+            "some": [
+              {"var": "fields"},
+              {"===": [{"var": ""}, "resources"]}
+            ]
+          }
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "resources-link",
+          "label": "Resources Link",
+          "condition": {
+            "some": [
+              {"var": "fields"},
+              {"===": [{"var": ""}, "resources"]}
+            ]
+          }
         }
       ]
     }
