@@ -63,7 +63,7 @@ function bindEvent(block, type = 'normal') {
         v.setAttribute('playsinline', 'true');
         v.setAttribute('muted', 'true');
         v.setAttribute('autoplay', 'true');
-        v.play().catch(() => {}); // 捕获浏览器静音播放策略错误
+        v.play().catch(() => { }); // 捕获浏览器静音播放策略错误
         if (v.nextElementSibling) v.nextElementSibling.style.display = 'none'; // 隐藏封面图
       } else {
         v.pause();
@@ -318,15 +318,14 @@ export default async function decorate(block) {
     mediaBlock.classList.add('media-item');
     item.className = 'item';
     mediaBlock.dataset.slideIndex = idx;
+    const [typeDom, mediaContent, videoCover, ...textContentDom] = item.children;
+    const contentType = typeDom.textContent.trim();
     if (item.children.length > 8) {
-      if (item.children[8].textContent.trim() === 'true') {
+      if (contentType === 'video' && item.children[8].textContent.trim() === 'true') {
         useExternal = true;
         externalLink = item.children[9]?.textContent?.trim();
       }
     }
-
-    const [typeDom, mediaContent, videoCover, ...textContentDom] = item.children;
-    const contentType = typeDom.textContent.trim();
 
     if (!className) className = contentType;
     if (className && !className.includes(contentType)) {
@@ -395,7 +394,7 @@ export default async function decorate(block) {
             aEl.addEventListener('click', (e) => {
               e.preventDefault(); // 阻止默认跳转
               const href = e.currentTarget.getAttribute('href');
-              if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
+              if (!href?.startsWith('#') && !href?.startsWith('.')) {
                 window.location.href = href;
                 return;
               }
