@@ -780,16 +780,12 @@ const buildGalleryPopup = (cardData) => {
     li.className = `tab-item ${index === currentIndex ? 'current' : ''}  image`;
     if (item.isVideo) {
       const thumbnailEl = generateVideoPoster(item.dynamicMediaPath ?? item.path);
-      // const thumbnailWrapperEl = document.createElement('div');
-      // thumbnailWrapperEl.className = 'thumbnail-wrapper';
-      // thumbnailWrapperEl.appendChild(thumbnailEl);
       const thumbnailOverlayEl = document.createElement('div');
       thumbnailOverlayEl.className = 'thumbnail-overlay';
       const thumbnailOverlayIconEl = document.createElement('img');
       thumbnailOverlayIconEl.src = `/content/dam/hisense/${country}/common-icons/play-no-border.svg`;
       thumbnailOverlayIconEl.alt = 'Play';
       thumbnailOverlayEl.appendChild(thumbnailOverlayIconEl);
-      // thumbnailWrapperEl.appendChild(thumbnailOverlayEl);
       li.appendChild(thumbnailEl);
       li.appendChild(thumbnailOverlayEl);
     } else {
