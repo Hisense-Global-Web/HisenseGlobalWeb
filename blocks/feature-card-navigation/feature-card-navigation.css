@@ -82,19 +82,18 @@
         font-size: var(--size-20);
         line-height: var(--size-24);
         margin: var(--size-8) 0;
-        color: var(--color-primary-grey-90);
       }
 
       .card-description {
         font-size: var(--size-16);
         line-height: var(--size-24);
-        color: var(--color-primary-grey-90);
+        color: var(--color-primary-grey-70);
       }
 
       .card-step {
         font-size: var(--size-14);
         line-height: var(--size-21);
-        color: var(--color-primary-green-60);
+        color: var(--color-primary-green-50);
         font-weight: var(--fontweight-medium);
       }
     }
