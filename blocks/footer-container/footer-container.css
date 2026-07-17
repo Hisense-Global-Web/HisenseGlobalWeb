@@ -278,6 +278,18 @@ footer footer {
     height: var(--size-24);
     gap: var(--size-8);
   }
+
+  > div {
+    display: flex;
+    gap: var(--size-16);
+    height: var(--size-36);
+    overflow: hidden;
+
+    @media (width < 640px) {
+      height: var(--size-24);
+      gap: var(--size-8);
+    }
+  }
 }
 
 .footer-social-imgbox {
