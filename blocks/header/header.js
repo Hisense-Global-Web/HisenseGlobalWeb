@@ -1497,11 +1497,7 @@ export default async function decorate(block) {
     const headerElMobileH = 56 * -1; // header height on Mobile
     let calculateHeaderPcH = headerElPcH; // 默认为PC 菜单高度
     let calculateHeaderMobileH = headerElMobileH; // 默认为 mobile 菜单高度
-    // let mobileHeaderHeight = 56 * -1; // header height on Mobile
-    // let pcHeaderHeight = 100 * -1; // header height on PC
     if (document.body.classList.contains('has-language-aside')) {
-      // mobileHeaderHeight += languageAsideHeightMobile * -1;
-      // pcHeaderHeight += languageAsideHeightPC * -1;
       calculateHeaderPcH = headerElPcH + languageAsideHeightPC * -1;
       calculateHeaderMobileH = headerElMobileH + languageAsideHeightMobile * -1;
     }
@@ -2109,12 +2105,10 @@ export default async function decorate(block) {
       let calculateNavHeight = navHeight; // 默认值为 一级和二级菜单PC高度
       if (document.body.classList.contains('has-language-aside')) {
         // 有语言选择栏时
-        // navHeight += languageAsideHeightPC;
         calculateNavHeight = navHeight + languageAsideHeightPC;
       }
       if (document.body.classList.contains('already-selected-language-aside')) {
         // 有已选择语言选择栏时
-        // calculateNavHeight = navHeight + alreadySelectLanguageAsideHeight;
         calculateNavHeight = navHeight + alreadySelectLanguageAsideHeight;
       }
       // document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
@@ -2127,14 +2121,12 @@ export default async function decorate(block) {
     let calculateSupportNavHeight = supportNavHeight; // 默认为菜单本身高度
     if (document.body.classList.contains('has-language-aside')) {
       // 有语言选择栏时
-      // supportNavHeight += languageAsideHeightPC;
       calculateSupportNavHeight = supportNavHeight + languageAsideHeightPC;
     }
     if (document.body.classList.contains('already-selected-language-aside')) {
       // 有已选择语言选择栏时
       calculateSupportNavHeight = supportNavHeight + alreadySelectLanguageAsideHeight;
     }
-    // document.documentElement.style.setProperty('--nav-height', `${supportNavHeight}px`);
     document.documentElement.style.setProperty('--nav-height', `${calculateSupportNavHeight}px`);
   }
 }
