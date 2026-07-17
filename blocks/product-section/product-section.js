@@ -715,6 +715,7 @@ export default async function decorate(block) {
   const showBuyButton = fields.includes('buttons') || Boolean(sku);
   if (product.category) {
     faqLink += `&category=${product.category}`;
+    resourcesLink += `&category=${product.category}`;
   }
 
   // 将当前产品数据保存到window中供spec组件使用
@@ -2080,9 +2081,20 @@ export default async function decorate(block) {
     if (faqLink) window.location.href = faqLink;
   });
 
+  const resourcesMobileBtn = document.createElement('div');
+  resourcesMobileBtn.classList.add('pdp-nav-menu-item');
+  resourcesMobileBtn.textContent = 'Resources';
+  resourcesMobileBtn.addEventListener('click', () => {
+    if (resourcesLink) window.location.href = resourcesLink;
+  });
+
   const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');
   pdpNavMenu.append(overviewMobileBtn);
   let h = 61;
+  if (resourcesLink && fields.includes('resources')) {
+    pdpNavMenu.append(resourcesMobileBtn);
+    h += 45;
+  }
   if (showSpecsControls) {
     pdpNavMenu.append(specsMobileBtn);
     h += 45;
