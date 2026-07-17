@@ -229,7 +229,7 @@ function extractLogoData(container) {
     if (!innerDiv) {
       return;
     }
-
+    console.log(index - 3 - step);
     const socialImg = innerDiv.querySelector('img');
     const imgBox = document.createElement('div');
     imgBox.className = 'footer-social-imgbox';
@@ -268,7 +268,10 @@ function extractLogoData(container) {
         const imgEl = document.createElement('img');
         imgEl.className = 'footer-popup-img';
 
-        footerSocialPopup.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        const divEl = document.createElement('div');
+        divEl.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        divEl.setAttribute('index', index);
+        footerSocialPopup.append(divEl);
         imgBox.addEventListener('click', (e) => {
           e.stopPropagation();
           footerSocialPopup.style.display = 'flex';
