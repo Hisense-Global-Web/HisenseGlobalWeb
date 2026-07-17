@@ -89,7 +89,7 @@
   .icon-popup {
     width: var(--size-112);
     height: var(--size-30);
-    line-height: var(--size-30);
+    line-height: var(--size-18);
     font-size: var(--size-12);
     color: var(--color-primary-grey-10);
     font-weight: var(--fontweight-medium);
@@ -109,6 +109,11 @@
     img {
       width: var(--size-24);
       height: var(--size-24);
+    }
+
+    .qr-code-txt {
+      position: relative;
+      top: var(--size-2);
     }
   }
 
@@ -166,6 +171,7 @@
         font-size: var(--size-16);
         line-height: var(--size-24);
         font-weight: var(--fontweight-book);
+        color: var(--color-primary-grey-70);
       }
 
       .qr-popup-img {
