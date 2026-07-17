@@ -168,7 +168,11 @@ function extractLogoData(container) {
   const logoDivs = Array.from(logoBlock.children).filter((child) => child.tagName === 'DIV');
 
   if (logoDivs.length > 0) {
-    const firstDiv = logoDivs[0];
+    let firstDiv = logoDivs[0];
+    if (firstDiv.textContent.trim() === 'true' || firstDiv.textContent.trim() === 'false') {
+      // eslint-disable-next-line prefer-destructuring
+      firstDiv = logoDivs[1];
+    }
     const innerDiv = firstDiv.querySelector('div');
     if (innerDiv) {
       const logoPicture = innerDiv.querySelector('picture');
