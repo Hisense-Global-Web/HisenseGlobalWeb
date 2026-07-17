@@ -5471,6 +5471,10 @@
           {
             "name": "FAQ",
             "value": "faq"
+          },
+          {
+            "name": "Resources",
+            "value": "resources"
           }
         ]
       },

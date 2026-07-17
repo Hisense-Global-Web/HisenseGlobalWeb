@@ -48,7 +48,8 @@
             { "name": "Size", "value": "buttons" },
             { "name": "Awards", "value": "awards" },
             { "name": "Spec", "value": "position" },
-            { "name": "FAQ", "value": "faq" }
+            { "name": "FAQ", "value": "faq" },
+            { "name": "Resources", "value": "resources" }
           ]
         },
         {
