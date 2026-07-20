@@ -1,5 +1,6 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const { country, language } = getLocaleFromPath();
 const REGION = '/hisense/region-selection.json';
@@ -166,27 +167,36 @@ function extractLogoData(container) {
 
   const logoDivs = Array.from(logoBlock.children).filter((child) => child.tagName === 'DIV');
 
+  let step = 0;
   if (logoDivs.length > 0) {
-    const firstDiv = logoDivs[0];
+    let firstDiv = logoDivs[0];
+    if (firstDiv.textContent.trim() === 'true' || firstDiv.textContent.trim() === 'false') {
+      step = 1;
+      // eslint-disable-next-line prefer-destructuring
+      firstDiv = logoDivs[step];
+    }
     const innerDiv = firstDiv.querySelector('div');
     if (innerDiv) {
       const logoPicture = innerDiv.querySelector('picture');
       if (logoPicture) {
         const logoImg = logoPicture.querySelector('img');
         if (logoImg) {
-          logoData.image = logoImg.cloneNode(true);
+          logoData.image = true ? createDynamicMediaPicture(logoImg.src, logoImg.alt) : logoImg.cloneNode(true);
         }
       } else {
         const logoImg = innerDiv.querySelector('img');
         if (logoImg) {
-          logoData.image = logoImg.cloneNode(true);
+          logoData.image = true ? createDynamicMediaPicture(logoImg.src, logoImg.alt) : logoImg.cloneNode(true);
+        } else {
+          const aImg = innerDiv.querySelector('a');
+          logoData.image = createDynamicMediaPicture(aImg.href);
         }
       }
     }
   }
 
-  if (logoDivs.length > 1) {
-    const altDiv = logoDivs[1];
+  if (logoDivs.length > 1 + step) {
+    const altDiv = logoDivs[1 + step];
     const innerDiv = altDiv.querySelector('div');
     if (innerDiv) {
       const altP = innerDiv.querySelector('p');
@@ -196,8 +206,8 @@ function extractLogoData(container) {
     }
   }
 
-  if (logoDivs.length > 2) {
-    const linkDiv = logoDivs[2];
+  if (logoDivs.length > 2 + step) {
+    const linkDiv = logoDivs[2 + step];
     const innerDiv = linkDiv.querySelector('div');
     if (innerDiv) {
       const buttonContainer = innerDiv.querySelector('p.button-container');
@@ -211,7 +221,7 @@ function extractLogoData(container) {
   }
 
   logoDivs.forEach((div, index) => {
-    if (index < 3) {
+    if (index < 3 + step) {
       return;
     }
 
@@ -223,6 +233,7 @@ function extractLogoData(container) {
     const socialImg = innerDiv.querySelector('img');
     const imgBox = document.createElement('div');
     imgBox.className = 'footer-social-imgbox';
+    imgBox.setAttribute('data-index', `${index - 3 - step}`);
     socialImg.className = 'footer-social-width';
     const socialLink = div.children[1].querySelector('a');
     const showPopup = div.children[2];
@@ -251,17 +262,27 @@ function extractLogoData(container) {
         });
         const titleEl = document.createElement('div');
         titleEl.className = 'footer-popup-title';
-        titleEl.textContent = '微信公众號';
+        titleEl.textContent = div.children[3].textContent.trim();
         const subtitleEl = document.createElement('div');
         subtitleEl.className = 'footer-popup-subtitle';
-        subtitleEl.textContent = '手机微信扫二维码';
+        subtitleEl.textContent = div.children[4].textContent.trim();
         const imgEl = document.createElement('img');
         imgEl.className = 'footer-popup-img';
+        imgEl.src = div.children[5].querySelector('img').src;
 
-        footerSocialPopup.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        const divEl = document.createElement('div');
+        divEl.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        divEl.setAttribute('index', `${index - 3 - step}`);
+        footerSocialPopup.append(divEl);
         imgBox.addEventListener('click', (e) => {
           e.stopPropagation();
           footerSocialPopup.style.display = 'flex';
+          const childDivs = footerSocialPopup.querySelectorAll(':scope > div');
+          const targetIndex = e.currentTarget.getAttribute('data-index');
+          childDivs.forEach((child) => {
+            const childIndex = child.getAttribute('index');
+            child.style.display = (childIndex === targetIndex) ? '' : 'none';
+          });
           footerSocialMask.style.display = 'block';
         });
       } else if (socialLink) {

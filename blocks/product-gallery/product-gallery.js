@@ -1,6 +1,8 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
 import { resetExternalUrl, iframeVideoHandler } from '../../utils/video-external-url.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -33,8 +35,9 @@ function buildTab(itemElement, index) {
 
   const cells = [...itemElement.children];
 
-  const imageCell = cells.find((cell) => cell.querySelector('picture')) || cells[0];
-  const videoHref = itemElement.querySelector('a')?.href;
+  const imageCell = cells.find((cell) => cell.querySelector('picture') || cell.querySelector('p:not(.button-container) a'));
+  let videoHref = itemElement.querySelector('p.button-container a')?.href;
+  let isDynamicFlag = false;
 
   let externalUrl; // 新增变量存储外部链接
   if (cells.length === 4) {
@@ -49,6 +52,13 @@ function buildTab(itemElement, index) {
     } else {
       li.setAttribute('data-video-origin', 'internal');
     }
+  }
+  if (cells[1].children.length > 1) {
+    isDynamicFlag = cells[1].children[0].textContent.trim() === 'true';
+  }
+  if (isDynamicFlag) {
+    // 如果是dynamic media，使用toDynamicMediaVideoUrl转换视频链接
+    videoHref = toDynamicMediaVideoUrl(videoHref);
   }
   // console.log(itemElement, 'itemElement');
   if (videoHref && li.getAttribute('data-video-origin') !== 'external') {
@@ -65,6 +75,7 @@ function buildTab(itemElement, index) {
   imgBox.className = 'product-filter-img-box';
   if (imageCell) {
     const picture = imageCell.querySelector('picture');
+    const aImg = imageCell.querySelector('a');
     if (videoHref && li.getAttribute('data-video-origin') !== 'external') {
       const videoM = document.createElement('video');
       videoM.classList.add('autoplay-video');
@@ -91,6 +102,12 @@ function buildTab(itemElement, index) {
       imgWrapper.className = 'product-filter-img';
       moveInstrumentation(imageCell, imgWrapper);
       imgWrapper.appendChild(picture);
+      imgBox.append(imgWrapper);
+    } else if (aImg) {
+      const imgWrapper = document.createElement('div');
+      imgWrapper.className = 'product-filter-img';
+      moveInstrumentation(imageCell, imgWrapper);
+      imgWrapper.appendChild(createDynamicMediaPicture(aImg.href));
       imgBox.append(imgWrapper);
     } else {
       const placeholder = document.createElement('div');

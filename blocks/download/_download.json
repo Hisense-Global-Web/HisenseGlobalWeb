@@ -96,6 +96,12 @@
       "id": "download-item",
       "fields": [
         {
+          "component": "boolean",
+          "name": "enable-dynamicMedia",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean"
+        },
+        {
           "component": "reference",
           "name": "image",
           "label": "Image",

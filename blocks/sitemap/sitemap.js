@@ -1,9 +1,10 @@
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
+import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
 
 export default function decorate(block) {
   const { country } = getLocaleFromPath();
-  document.documentElement.style.setProperty('--nav-height', '100px');
+  // document.documentElement.style.setProperty('--nav-height', '100px');
   const ulEl = document.createElement('ul');
   const blockPNode = block.closest('.sitemap-wrapper');
   // 根据屏幕宽度动态设置初始状态，并监听窗口大小变化（只有在移动设备上有展开收起）
@@ -52,4 +53,5 @@ export default function decorate(block) {
     }
   });
   block.appendChild(ulEl);
+  getDynamicHeaderHeight(block);
 }

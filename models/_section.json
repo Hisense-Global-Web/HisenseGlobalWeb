@@ -114,6 +114,13 @@
           ]
         },
         {
+          "component": "boolean",
+          "name": "background-dynamicMedia",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean",
+          "value": "false"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "section-background",
@@ -320,6 +327,7 @@
         "current-partnerships-list",
         "disclaimer",
         "download",
+        "dynamic-media-image",
         "enterprise-tech",
         "faq-module",
         "feature-banner",
@@ -379,6 +387,7 @@
         "campaign-collection",
         "campaign-image",
         "media-filter",
+        "display-manual-list",
         "store-locator-card",
         "related-news",
         "resource-list",

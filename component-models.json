@@ -290,6 +290,13 @@
         ]
       },
       {
+        "component": "boolean",
+        "name": "background-dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "section-background",
@@ -858,6 +865,13 @@
     "id": "accessories-feature",
     "fields": [
       {
+        "component": "boolean",
+        "name": "title_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "title_image",
@@ -887,6 +901,13 @@
     "id": "accessories-feature-item",
     "fields": [
       {
+        "component": "boolean",
+        "name": "image_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -914,6 +935,13 @@
     "id": "adaptive-images",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -927,7 +955,15 @@
         "name": "image-for-mobile",
         "label": "Image For Mobile",
         "multi": false,
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "dynamic_media"
+            },
+            false
+          ]
+        }
       }
     ]
   },
@@ -1108,6 +1144,12 @@
         "readonly": true
       },
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1200,6 +1242,12 @@
         "readonly": true
       },
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1217,6 +1265,18 @@
         "name": "text",
         "label": "Text",
         "value": ""
+      },
+      {
+        "component": "text",
+        "name": "button_text",
+        "label": "Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "button_link",
+        "label": "Button Link",
+        "valueType": "string"
       }
     ]
   },
@@ -1348,6 +1408,13 @@
     "id": "bi-directional-content-item",
     "fields": [
       {
+        "component": "boolean",
+        "name": "image_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1451,6 +1518,13 @@
     "id": "calltoaction-banner",
     "fields": [
       {
+        "component": "boolean",
+        "name": "background_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "background_pc",
@@ -1464,7 +1538,15 @@
         "name": "background_mobile",
         "label": "Background Image For Mobile",
         "required": true,
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "background_dynamicMedia"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",
@@ -1519,6 +1601,13 @@
     "id": "campaign-bundle-banner",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "fifa-image",
@@ -1530,7 +1619,15 @@
         "valueType": "string",
         "name": "fifa-mobile-image",
         "label": "Background Image For Mobile",
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "dynamic-media"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",
@@ -1603,6 +1700,12 @@
     "id": "campaign-collection",
     "fields": [
       {
+        "component": "boolean",
+        "name": "enable-dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "background-image",
@@ -1616,7 +1719,15 @@
         "name": "background-imagemobile",
         "label": "Background Image for Mobile",
         "multi": false,
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "enable-dynamicMedia"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "reference",
@@ -1766,6 +1877,12 @@
         "required": true
       },
       {
+        "component": "boolean",
+        "name": "enable-dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1794,6 +1911,12 @@
     "id": "campaign-image",
     "fields": [
       {
+        "component": "boolean",
+        "name": "enable-dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1807,7 +1930,15 @@
         "name": "mobile-image",
         "label": "Image for Mobile",
         "multi": false,
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "enable-dynamicMedia"
+            },
+            false
+          ]
+        }
       }
     ]
   },
@@ -2000,6 +2131,13 @@
     "id": "feature-items",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "feature-img",
@@ -2127,6 +2265,13 @@
         ]
       },
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "collection_image",
@@ -2138,7 +2283,15 @@
         "valueType": "string",
         "name": "collectionMobile_image",
         "label": "Mobile Image",
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "dynamic_media"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",
@@ -2384,6 +2537,13 @@
     "id": "core-value-card-item",
     "fields": [
       {
+        "component": "boolean",
+        "name": "image_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -2620,6 +2780,66 @@
     ]
   },
   {
+    "id": "display-manual-list",
+    "fields": [
+      {
+        "component": "text",
+        "name": "document-listTtile",
+        "label": "The title of the document list",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "results-title",
+        "label": "The title of the results",
+        "valueType": "string"
+      },
+      {
+        "component": "number",
+        "name": "page_size",
+        "label": "Items per page",
+        "description": "How many items to show per page.",
+        "valueType": "number"
+      },
+      {
+        "component": "richtext",
+        "name": "no_result",
+        "label": "no result content",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "document_icon",
+        "label": "Document Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "pc_downladicon",
+        "label": "PC: Download Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "pc_downloadtext",
+        "label": "PC: Download Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "mobile-downloadicon",
+        "label": "Mobile: Download Icon",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobile-nexttext",
+        "label": "Mobile: Next Page Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "download",
     "fields": [
       {
@@ -2667,6 +2887,12 @@
   {
     "id": "download-item",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "enable-dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
       {
         "component": "reference",
         "name": "image",
@@ -2717,12 +2943,80 @@
     ]
   },
   {
+    "id": "dynamic-media-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "dynamic-media-imageItem",
+    "fields": [
+      {
+        "component": "container",
+        "name": "dynamicMediaOptions",
+        "label": "Dynamic Media Options",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "select",
+            "valueType": "string",
+            "name": "cropName",
+            "label": "Crop Name",
+            "required": true,
+            "options": [
+              {
+                "name": "Small",
+                "value": "Small"
+              },
+              {
+                "name": "Medium",
+                "value": "Medium"
+              },
+              {
+                "name": "Large",
+                "value": "Large"
+              }
+            ]
+          },
+          {
+            "component": "number",
+            "valueType": "number",
+            "name": "cropWidth",
+            "label": "Crop Width",
+            "required": true
+          },
+          {
+            "component": "number",
+            "valueType": "number",
+            "name": "cropHeight",
+            "label": "Crop Height"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "enterprise-tech",
     "fields": []
   },
   {
     "id": "enterprise-card-item",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
       {
         "component": "reference",
         "valueType": "string",
@@ -2735,7 +3029,15 @@
         "valueType": "string",
         "name": "mobile_Url",
         "label": "Card Mobile Image",
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "dynamic-media"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",
@@ -2919,6 +3221,13 @@
     "id": "feature-banner",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "feature-banner_image",
@@ -2930,7 +3239,15 @@
         "valueType": "string",
         "name": "featureMobile_image",
         "label": "Mobile Image",
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "dynamic-media"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "richtext",
@@ -3052,6 +3369,12 @@
     "id": "footerLogo",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -3158,6 +3481,12 @@
     "id": "global-presence",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "container_background",
@@ -3234,6 +3563,12 @@
         "required": true
       },
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "container_image",
@@ -3271,6 +3606,12 @@
         "required": true
       },
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "phase_image",
@@ -3283,6 +3624,12 @@
   {
     "id": "gradient-text-image",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
       {
         "component": "reference",
         "valueType": "string",
@@ -3421,10 +3768,16 @@
     "id": "hero-bannerItem",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image_pc",
-        "label": "Image/Video For PC",
+        "label": "Media For PC",
         "required": true,
         "multi": false,
         "condition": {
@@ -3440,15 +3793,26 @@
         "component": "reference",
         "valueType": "string",
         "name": "image_mobile",
-        "label": "Image/Video For Mobile",
-        "required": true,
+        "label": "Media For Mobile",
         "multi": false,
         "condition": {
-          "===": [
+          "and": [
             {
-              "var": "video_type"
+              "===": [
+                {
+                  "var": "video_type"
+                },
+                false
+              ]
             },
-            false
+            {
+              "===": [
+                {
+                  "var": "dynamic_media"
+                },
+                false
+              ]
+            }
           ]
         }
       },
@@ -3628,6 +3992,12 @@
   {
     "id": "hero-presence",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "enable-dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
       {
         "component": "aem-content",
         "valueType": "",
@@ -3820,6 +4190,12 @@
     "id": "image-comparison-slider",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image_before",
@@ -3860,6 +4236,13 @@
         "name": "title",
         "label": "Title",
         "valueType": "string"
+      },
+      {
+        "component": "boolean",
+        "name": "image_dynamic",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
       },
       {
         "component": "reference",
@@ -4347,6 +4730,13 @@
         ]
       },
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -4550,12 +4940,40 @@
         "label": "Items per page",
         "description": "How many items to show per page.",
         "valueType": "number"
+      },
+      {
+        "component": "text",
+        "name": "downloadImage",
+        "label": "The text of Download Image",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "downloadVideo",
+        "label": "The text of Download Video",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "downloadAll",
+        "label": "The text of Download All",
+        "valueType": "string",
+        "required": true
       }
     ]
   },
   {
     "id": "minimalist-hero-banner",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
       {
         "component": "reference",
         "valueType": "string",
@@ -4736,6 +5154,12 @@
     "id": "navigationLogo",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -4869,6 +5293,12 @@
   {
     "id": "parallax",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
       {
         "component": "reference",
         "valueType": "string",
@@ -5054,6 +5484,13 @@
   {
     "id": "popup-image",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
       {
         "component": "reference",
         "valueType": "string",
@@ -5379,6 +5816,12 @@
     "id": "product-gallery-item",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -5398,6 +5841,13 @@
   {
     "id": "product-information",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "image_dynamic",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
       {
         "component": "reference",
         "name": "image",
@@ -5682,6 +6132,13 @@
   {
     "id": "project-brief-card-item",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
       {
         "component": "reference",
         "name": "item-Image",
@@ -6483,6 +6940,12 @@
     "id": "sub-menu-link-can-group",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -6531,6 +6994,12 @@
   {
     "id": "sub-menu-link",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic_media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
       {
         "component": "reference",
         "valueType": "string",
@@ -6729,6 +7198,13 @@
             "value": "img-right"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "image-dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
       },
       {
         "component": "reference",
@@ -7023,6 +7499,13 @@
         "readonly": true
       },
       {
+        "component": "boolean",
+        "name": "background_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "background_img",
@@ -7095,6 +7578,13 @@
         ]
       },
       {
+        "component": "boolean",
+        "name": "tech_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "tech_image",
@@ -7106,7 +7596,15 @@
         "valueType": "string",
         "name": "tech_mobileImage",
         "label": "Mobile Image",
-        "multi": false
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "tech_dynamicMedia"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "text",
@@ -7298,6 +7796,12 @@
         "placeholder": "Featured"
       },
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -7472,6 +7976,13 @@
         "name": "Video",
         "label": "Video",
         "multi": false
+      },
+      {
+        "component": "boolean",
+        "name": "image_dynamicMedia",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean",
+        "value": "false"
       },
       {
         "component": "reference",

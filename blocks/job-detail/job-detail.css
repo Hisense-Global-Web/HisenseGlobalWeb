@@ -5,11 +5,12 @@
 }
 
 .job-detail-wrapper ~ .gray-tips-wrapper {
-  width: min(calc(640 / var(--breakpoint-pc) * 100vw), 640px) !important;
-  padding: 0 var(--common-padding) !important;
+  width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px) !important;
+  padding: 0;
 
   @media (width < 640px) {
     width: 100% !important;
+    padding: 0 var(--common-padding) !important;
   }
 }
 

@@ -1,4 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default async function decorate(block) {
   const config = readBlockConfig(block);
@@ -9,8 +10,14 @@ export default async function decorate(block) {
       child.setAttribute('class', child.firstElementChild.textContent);
       child.firstElementChild.remove();
     }
-    if (child.querySelector('picture')) child.setAttribute('class', 'gradient-image');
-    else textContainer.append(child);
+    if (child.querySelector('picture')) {
+      child.setAttribute('class', 'gradient-image');
+    } else if (child.querySelector('a')) {
+      const aEl = child.querySelector('a');
+      child.setAttribute('class', 'gradient-image');
+      const picEl = createDynamicMediaPicture(aEl.href);
+      child.children[0].replaceWith(picEl);
+    } else textContainer.append(child);
   });
   textContainer.classList.add('text-container');
   block.append(textContainer);

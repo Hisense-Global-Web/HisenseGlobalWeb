@@ -278,7 +278,7 @@
 @media (width < 640px) {
   .product-filter-wrapper {
     width: 100vw;
-    position: fixed;
+    position: fixed !important;
     inset: 0;
     background: #fff;
     overflow: hidden;

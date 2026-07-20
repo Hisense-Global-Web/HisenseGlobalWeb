@@ -53,6 +53,12 @@
           "required": true
         },
         {
+          "component": "boolean",
+          "name": "dynamic-media",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "container_image",
@@ -88,6 +94,12 @@
           "label": "Phase Description",
           "value": "",
           "required": true
+        },
+        {
+          "component": "boolean",
+          "name": "dynamic-media",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean"
         },
         {
           "component": "reference",

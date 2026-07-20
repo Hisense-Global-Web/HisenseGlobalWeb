@@ -958,7 +958,18 @@ export default async function decorate(block) {
   } else if (hasSizeValue) {
     info.append(sizesWrapper);
   }
-  info.append(badges, price, btnGroup, linkGroupEl, badgesMobileGroup);
+  const preOrderPeriod = document.createElement('div');
+  preOrderPeriod.className = 'pre-order-period';
+  preOrderPeriod.style.display = 'none';
+  const preOrderPackage = document.createElement('div');
+  preOrderPackage.className = 'pre-order-package';
+  preOrderPackage.style.display = 'none';
+  const infoIcon = document.createElement('img');
+  infoIcon.src = `/content/dam/hisense/${country}/common-icons/info.svg`;
+  const preOrderPackageSpan = document.createElement('span');
+  preOrderPackageSpan.style.marginTop = '1px';
+  preOrderPackage.append(infoIcon, preOrderPackageSpan);
+  info.append(badges, price, preOrderPeriod, btnGroup, preOrderPackage, linkGroupEl, badgesMobileGroup);
 
   block.replaceChildren(info);
 
@@ -1250,6 +1261,23 @@ export default async function decorate(block) {
       const inStock = hasInventory(stockSource);
       popupElements.stockText.textContent = inStock ? 'In Stock' : 'Out of stock';
       popupElements.stockLine.classList.toggle('is-unavailable', !inStock);
+    }
+    if (entry?.product && entry.product.isPresale) {
+      popupElements.stockLine.style.display = 'none';
+      popupElements.presaleLine.style.display = 'flex';
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        month: 'short', // 短月份，如 "Jun"
+        day: '2-digit', // 两位数日期，如 "22"
+        hour: '2-digit', // 两位数小时
+        minute: '2-digit', // 两位数分钟
+        hour12: false, // 使用 24 小时制，得到 "00:00"
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // 浏览器当前时区
+      });
+      popupElements.preIntervalsEl.textContent = `${formatter.format(new Date(entry.product.presaleStartDate)).replace(',', '')} - ${formatter.format(new Date(entry.product.presaleEndDate)).replace(',', '')}`;
+      popupElements.preTimeLine.style.display = 'flex';
+    } else {
+      popupElements.presaleLine.style.display = 'none';
+      popupElements.preTimeLine.style.display = 'none';
     }
 
     popupElements.countControls.forEach(({
@@ -1593,8 +1621,18 @@ export default async function decorate(block) {
     stockSpan.textContent = 'In Stock';
     stockLine.append(stockImg, stockSpan);
 
+    const presaleLine = document.createElement('div');
+    presaleLine.className = 'stock-line';
+    const presaleImg = document.createElement('img');
+    presaleImg.className = 'stock-img';
+    presaleImg.src = `/content/dam/hisense/${country}/common-icons/presale.svg`;
+    presaleImg.alt = '';
+    const presaleSpan = document.createElement('span');
+    presaleSpan.textContent = 'Pre-order item';
+    presaleLine.append(presaleImg, presaleSpan);
+
     modelLine.append(popupInfoModelSpan, popupInfoModelValueSpan);
-    popupInfoModel.append(modelLine, stockLine);
+    popupInfoModel.append(modelLine, stockLine, presaleLine);
 
     const popupInfoPrice = document.createElement('div');
     popupInfoPrice.className = 'popup-info-price';
@@ -1604,6 +1642,23 @@ export default async function decorate(block) {
     popupInfoPrice.append(priceSpan, desktopCountChangeEl);
     popupInfo.append(popupInfoTitle, popupInfoModel, popupInfoPrice);
     popupList.append(img, popupInfo);
+
+    const preTimeLine = document.createElement('div');
+    preTimeLine.className = 'pre-time-line';
+    const preTimeLineIcon = document.createElement('img');
+    preTimeLineIcon.className = 'pre-time-line-img';
+    preTimeLineIcon.src = `/content/dam/hisense/${country}/common-icons/time.svg`;
+    preTimeLineIcon.alt = '';
+    const preTimeLineGroup = document.createElement('div');
+    preTimeLineGroup.className = 'pre-time-line-group';
+    const preOrderPeriod1 = document.createElement('div');
+    preOrderPeriod1.className = 'pre-order-period';
+    preOrderPeriod1.textContent = 'Pre-order Period';
+    const preIntervalsEl = document.createElement('div');
+    preIntervalsEl.className = 'pre-intervals';
+
+    preTimeLineGroup.append(preOrderPeriod1, preIntervalsEl);
+    preTimeLine.append(preTimeLineIcon, preTimeLineGroup);
 
     const popupLine = document.createElement('div');
     popupLine.className = 'popup-line';
@@ -1636,7 +1691,7 @@ export default async function decorate(block) {
     checkoutBtn.hidden = true;
     popupBtnGroup.append(viewCartBtn, checkoutBtn);
 
-    popup.append(popupTitle, popupList, popupLine, mobileCountEl, totalEl, popupBtnGroup);
+    popup.append(popupTitle, popupList, preTimeLine, popupLine, mobileCountEl, totalEl, popupBtnGroup);
     const mask = document.createElement('div');
     mask.id = 'product-card-mask';
     mask.addEventListener('click', closeProductCardPopup);
@@ -1649,6 +1704,10 @@ export default async function decorate(block) {
     popupElements.modelValue = popupInfoModelValueSpan;
     popupElements.stockLine = stockLine;
     popupElements.stockText = stockSpan;
+    popupElements.presaleLine = presaleLine;
+    popupElements.presaleText = presaleSpan;
+    popupElements.preTimeLine = preTimeLine;
+    popupElements.preIntervalsEl = preIntervalsEl;
     popupElements.unitPrice = priceSpan;
     popupElements.totalLabel = totalSpan;
     popupElements.totalPrice = totalPriceSpan;
@@ -1797,7 +1856,7 @@ export default async function decorate(block) {
         hasInventory: inventoryAvailable,
       }));
 
-      if (!inventoryAvailable) {
+      if (!inventoryAvailable && !commerceProduct?.isPresale) {
         clearWishlistState();
         return;
       }
@@ -1809,6 +1868,27 @@ export default async function decorate(block) {
         preloadProductCardCart().catch((cartError) => {
           console.warn('Failed to preload PDP cart after inventory check', cartError);
         });
+      }
+      if (commerceProduct && commerceProduct.isPresale) {
+        cart.textContent = 'Pre-order';
+        const formatter = new Intl.DateTimeFormat('en-US', {
+          month: 'short', // 短月份，如 "Jun"
+          day: '2-digit', // 两位数日期，如 "22"
+          hour: '2-digit', // 两位数小时
+          minute: '2-digit', // 两位数分钟
+          hour12: false, // 使用 24 小时制，得到 "00:00"
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // 浏览器当前时区
+        });
+        const formatter2 = new Intl.DateTimeFormat('en-US', {
+          month: 'short', // 短月份，如 "Jun"
+          day: '2-digit', // 两位数日期，如 "22"
+          hour12: false, // 使用 24 小时制，得到 "00:00"
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // 浏览器当前时区
+        });
+        preOrderPeriod.style.display = 'block';
+        preOrderPeriod.textContent = `Pre-order period: ${formatter.format(new Date(commerceProduct.presaleStartDate)).replace(',', '')} - ${formatter.format(new Date(commerceProduct.presaleEndDate)).replace(',', '')}`;
+        preOrderPackage.style.display = 'flex';
+        preOrderPackage.querySelector('span').textContent = `Package will be shipped after ${formatter2.format(new Date(commerceProduct.presaleDeliveryDate)).replace(',', '')}`;
       }
     } catch (error) {
       console.warn(`Failed to load PDP commerce data for ${currentProductCode}`, error);

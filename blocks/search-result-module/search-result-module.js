@@ -2,6 +2,7 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { isMobileWindow } from '../../scripts/device.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const DEFAULT_PAGE_SIZE = 12;
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
@@ -23,11 +24,14 @@ function simpleHash(str) {
 }
 
 function extractTags(data, tags = {}) {
+  const { language } = getLocaleFromPath();
   Object.keys(data).forEach((key) => {
     // 跳过 JCR 系统属性
     if (!key.startsWith('jcr:') && typeof data[key] === 'object' && data[key] !== null) {
       // 如果当前节点有 jcr:title，说明它是一个标签节点
-      if (data[key]['jcr:title']) {
+      if (data[key][`jcr:title.${language}`]) {
+        tags[key] = data[key][`jcr:title.${language}`];
+      } else if (data[key]['jcr:title']) {
         tags[key] = data[key]['jcr:title'];
       }
       // 递归处理子节点
@@ -376,7 +380,7 @@ function createArticleCard(item) {
   const imgWrap = document.createElement('div');
   imgWrap.className = 'article-img';
   if (item.thumbnail) {
-    const picture = createOptimizedPicture(item.thumbnail, item.title || '', false);
+    const picture = createDynamicMediaPicture(item.thumbnail, item.title);
     imgWrap.appendChild(picture);
   }
 

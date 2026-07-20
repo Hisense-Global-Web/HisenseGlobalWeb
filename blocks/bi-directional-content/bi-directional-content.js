@@ -1,6 +1,7 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
+// import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const ETextAreaStyle = Object.freeze({
   green20: 'green20',
@@ -9,8 +10,18 @@ const ETextAreaStyle = Object.freeze({
 });
 
 const generateTextArea = (itemEl, textAreaStyleEl, buyNowEl, downloadEl) => {
-  if (itemEl.querySelector('picture')) itemEl.className = 'card-image';
-  else {
+  if (itemEl.querySelector('picture') || itemEl.querySelector('a')) {
+    itemEl.className = 'card-image';
+    const [dynamicSwitch, imgDom] = [...itemEl.children] ?? [];
+    // const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
+    dynamicSwitch.remove();
+    if (imgDom && imgDom.querySelector('a')) {
+      // 设置dynamic media
+      const dynamicImgSrc = imgDom.querySelector('a').getAttribute('href');
+      imgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'bi-directional-content'));
+      imgDom.children[0].remove();
+    }
+  } else {
     const textAreaStyle = textAreaStyleEl?.querySelector?.('p')?.textContent ?? ETextAreaStyle.green20;
     textAreaStyleEl?.remove();
     itemEl.classList.add('card-body');
@@ -110,10 +121,10 @@ export default function decorate(block) {
       ul.append(li);
     }
   });
-  ul.querySelectorAll('picture > img').forEach((img) => {
-    const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
-    moveInstrumentation(img, optimizedPic.querySelector('img'));
-    img.closest('picture').replaceWith(optimizedPic);
-  });
+  // ul.querySelectorAll('picture > img').forEach((img) => {
+  //   const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
+  //   moveInstrumentation(img, optimizedPic.querySelector('img'));
+  //   img.closest('picture').replaceWith(optimizedPic);
+  // });
   block.replaceChildren(title, ul);
 }

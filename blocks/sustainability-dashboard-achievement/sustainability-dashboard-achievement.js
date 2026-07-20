@@ -1,6 +1,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { whenElementReady } from '../../utils/carousel-common.js';
 import popupShowUtils from '../../utils/popup-module-utils.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 function bindEvent(block) {
   const triggerBtn = block.querySelector('.btn-label > div > p'); // 触发按钮
@@ -28,13 +29,21 @@ export default function decorate(block) {
       child.firstElementChild.remove();
     }
     if (!child.classList.contains('image')) {
-      if (!child.className.includes('btn')) {
+      if (child.classList.contains('image-dynamic-media')) {
+        // 移除dynamic media 标识的dom
+        child.remove();
+      } else if (!child.className.includes('btn')) {
         titleArea.append(child);
       } else if (child.className.includes('btn')) {
         btnDiv.append(child);
       } else {
         textContainer.append(child);
       }
+    } else if (child.querySelector('a') && child.classList.contains('image')) {
+      // 处理dynamic media 图片
+      const dynamicImgSrc = child.querySelector('a').getAttribute('href');
+      child.append(createDynamicMediaPicture(dynamicImgSrc, 'sustainability-dashboard-achievement'));
+      child.children[0].remove();
     }
   });
   textContainer.append(textArea);

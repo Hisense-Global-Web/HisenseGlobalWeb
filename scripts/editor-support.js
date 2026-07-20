@@ -10,6 +10,8 @@ import {
 } from './aem.js';
 import { decorateRichtext } from './editor-support-rte.js';
 import { decorateMain } from './scripts.js';
+import { applyDynamicMediaImagePatch, applyDynamicMediaVideoPatch } from '../utils/ue-dynamic-media-video.js';
+import { ENABLE_DYNAMIC_MEDIA } from '../utils/constants.js';
 
 async function applyChanges(event) {
   // redecorate default content and blocks on patches (in the properties rail)
@@ -93,6 +95,16 @@ async function applyChanges(event) {
   return false;
 }
 
+async function runCustomAfterUEChange(event) {
+  try {
+    await applyDynamicMediaVideoPatch(event);
+    await applyDynamicMediaImagePatch(event);
+  } catch (error) {
+    /* eslint-disable-next-line no-console */
+    console.warn('Failed to apply Dynamic Media video preview:', error);
+  }
+}
+
 function attachEventListners(main) {
   [
     'aue:content-patch',
@@ -103,6 +115,13 @@ function attachEventListners(main) {
     'aue:content-copy',
   ].forEach((eventType) => main?.addEventListener(eventType, async (event) => {
     event.stopPropagation();
+    const hostname = window.location.hostname || '';
+    const isAuthorEnv = hostname.includes('author-');
+    const dynamicMediaChecked = window?.parent?.document?.querySelector(`input[aria-label="${ENABLE_DYNAMIC_MEDIA}"]`)?.checked;
+    // 确保Author环境下调用
+    if (isAuthorEnv && dynamicMediaChecked) {
+      await runCustomAfterUEChange(event);
+    }
     const applied = await applyChanges(event);
     if (!applied) window.location.reload();
   }));

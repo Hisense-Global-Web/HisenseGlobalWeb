@@ -2,6 +2,7 @@ import { createOptimizedPicture, loadScript } from '../../scripts/aem.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 import { createElement, debounce } from '../../utils/dom-helper.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const ANIMATION_DURATION = {
   IMAGE_BRIGHTNESS: 0.3,
@@ -23,12 +24,18 @@ const CONFIG = {
 };
 
 export default async function decorate(block) {
-  const scrollContainer = block.querySelector('div:first-child');
+  let scrollContainer = block.querySelector('div:first-child');
   scrollContainer.className = 'scroll-container';
-  const subContainer = block.querySelector('div:nth-child(2)');
+  let subContainer = block.querySelector('div:nth-child(2)');
 
   let scaleTarget = scrollContainer.querySelector('img');
-  if (!scaleTarget) return;
+  if (!scaleTarget && (scrollContainer.textContent.trim() === 'true' || scrollContainer.textContent.trim() === 'false')) {
+    block.querySelector('div:nth-child(1)').style.display = 'none';
+    scrollContainer = block.querySelector('div:nth-child(2)');
+    scrollContainer.className = 'scroll-container';
+    scaleTarget = createDynamicMediaPicture(scrollContainer.querySelector('a').href).querySelector('img');
+    subContainer = block.querySelector('div:nth-child(3)');
+  }
 
   const scrollTextContainer = scrollContainer.querySelector('div');
   scrollTextContainer.classList.add('scroll-text-container');
@@ -55,7 +62,12 @@ export default async function decorate(block) {
 
     if (subImage) {
       const subImageContainer = createElement('div', 'sub-image-container');
-      subImageContainer.appendChild(subImage);
+      if (subImage.querySelector('img')) {
+        subImageContainer.appendChild(subImage);
+      } else {
+        subImage.querySelector('a').style.display = 'none';
+        subImageContainer.appendChild(createDynamicMediaPicture(subImage.querySelector('a').href));
+      }
       subContainer.appendChild(subImageContainer);
       subContainer.appendChild(subTextContainer);
     }

@@ -1,0 +1,13 @@
+.dynamic-media-image {
+  margin: 0;
+}
+
+.dynamic-media-image picture,
+.dynamic-media-image img {
+  display: block;
+  width: 100%;
+}
+
+.dynamic-media-image img {
+  height: auto;
+}

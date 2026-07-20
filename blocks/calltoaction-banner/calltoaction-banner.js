@@ -1,4 +1,6 @@
 import { SCREEN_POINT } from '../../utils/constants.js';
+import { decorateSectionsBackgroundDynamicMedia } from '../../scripts/aem.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default async function decorate(block) {
   const containerDiv = document.createElement('div');
@@ -18,10 +20,25 @@ export default async function decorate(block) {
     switch (index) {
       case 0: {
         child.className = 'banner-img';
-        const [pcImg, mobileImg] = child.querySelectorAll('img');
-        block.dataset.pcImg = pcImg.src;
-        block.dataset.mobileImg = mobileImg.src;
-        updateBackgroundImage(); // 初始设置
+        const isDynamicFlag = child.children[0].firstElementChild?.textContent.trim();
+        block.dataset.dynamicFlag = isDynamicFlag;
+        if (isDynamicFlag === 'true' && child.querySelector('a')) {
+          // 设计 dynamic media 背景图
+          const dynamicImgSrc = child.querySelector('a')?.getAttribute('href');
+          const dynamicMediaDom = document.createElement('div');
+          dynamicMediaDom.append(createDynamicMediaPicture(dynamicImgSrc, 'calltoaction-banner'));
+          decorateSectionsBackgroundDynamicMedia(block, dynamicMediaDom);
+        } else {
+          // 普通图片显示逻辑
+          const [pcImg, mobileImg] = child.querySelectorAll('img');
+          block.dataset.pcImg = pcImg.src;
+          block.dataset.mobileImg = mobileImg.src;
+          updateBackgroundImage(); // 初始设置
+        }
+        // const [pcImg, mobileImg] = child.querySelectorAll('img');
+        // block.dataset.pcImg = pcImg.src;
+        // block.dataset.mobileImg = mobileImg.src;
+        // updateBackgroundImage(); // 初始设置
         child.remove();
         break;
       }

@@ -3,10 +3,6 @@
   display: flex;
   justify-content: center;
 
-  @media (width < 640px) {
-    margin-top: calc(112px);
-  }
-
   .article-title {
     width: min(calc(800 / var(--breakpoint-pc) * 100vw), 800px);
     padding: 0;

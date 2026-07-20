@@ -27,6 +27,13 @@
           "label": "Video",
           "multi": false
         },
+        {
+          "component": "boolean",
+          "name": "image_dynamicMedia",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean",
+          "value": "false"
+        },
          {
           "component": "reference",
           "valueType": "string",

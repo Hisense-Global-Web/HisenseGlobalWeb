@@ -1,4 +1,4 @@
-import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
+import { isUniversalEditor } from '../../utils/ue-helper.js';
 import { loadScript } from '../../scripts/aem.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import {
@@ -79,7 +79,7 @@ function buildIframeContent(blockData) {
   };
 }
 
-export default async function decorate(block) {
+export default function decorate(block) {
   const blockData = buildBlockData(block);
   const { isIframe, iframeEle } = buildIframeContent(blockData);
 
@@ -91,8 +91,8 @@ export default async function decorate(block) {
     return;
   }
 
-  // handle default content in editing mode
-  const isEditing = await isUniversalEditorAsync();
+  // handle default content
+  const isEditing = isUniversalEditor();
   if (isEditing) {
     const wrapper = document.createElement('div');
     wrapper.innerText = 'Third Party Integration';

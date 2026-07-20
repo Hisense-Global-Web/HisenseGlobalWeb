@@ -21,13 +21,19 @@
       "id": "hero-presence",
       "fields": [
         {
+          "component": "boolean",
+          "name": "enable-dynamicMedia",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean"
+        },
+        {
           "component": "aem-content",
           "valueType": "",
           "name": "hero_video",
           "label": "Video",
           "multi": false
         },
-         {
+        {
           "component": "reference",
           "valueType": "string",
           "name": "hero_image",

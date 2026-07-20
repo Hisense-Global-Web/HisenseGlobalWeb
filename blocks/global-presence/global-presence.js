@@ -1,21 +1,31 @@
 import { createElement, debounce } from '../../utils/dom-helper.js';
 import { loadScrollTrigger } from '../../utils/animation-helper.js';
 import { isUniversalEditorAsync } from '../../utils/ue-helper.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default async function decorate(block) {
   // ========== CONSTRUCT DOM [START] ========== //
-  const container = block.querySelector('div:first-child');
+  const container = block.querySelector('div:nth-child(2)');
   const elements = container.querySelectorAll('p');
 
   const contentContainer = createElement('div', 'global-presence-content h-grid-container');
-
-  elements.forEach((row) => {
+  elements.forEach((row, index) => {
     const picture = row.querySelector('picture');
+    const aImg = !index && row.querySelector('a');
     if (picture) {
       picture.classList.add('h-picture');
       const backgroundImage = createElement('div', 'global-presence-background');
       const gradientOverlay = createElement('div', 'global-presence-gradient-overlay');
       backgroundImage.appendChild(picture);
+      block.appendChild(backgroundImage);
+      block.appendChild(gradientOverlay);
+      row.remove();
+    } else if (aImg) {
+      const pic = createDynamicMediaPicture(aImg.href);
+      pic.classList.add('h-picture');
+      const backgroundImage = createElement('div', 'global-presence-background');
+      const gradientOverlay = createElement('div', 'global-presence-gradient-overlay');
+      backgroundImage.appendChild(pic);
       block.appendChild(backgroundImage);
       block.appendChild(gradientOverlay);
       row.remove();
@@ -84,11 +94,17 @@ export default async function decorate(block) {
   });
   contentContainer.appendChild(statsList);
 
+  const picContainer = block.querySelector('div:nth-child(2)');
   const contentPicture = block.querySelector('picture:not(.h-picture)');
+  const contentA = picContainer.querySelector('a');
   if (contentPicture) {
     contentPicture.classList.add('h-picture');
     const contentImage = createElement('div', 'global-presence-image');
     contentImage.appendChild(contentPicture);
+    contentContainer.appendChild(contentImage);
+  } else if (contentA) {
+    const contentImage = createElement('div', 'global-presence-image');
+    contentImage.appendChild(createDynamicMediaPicture(contentA.href));
     contentContainer.appendChild(contentImage);
   }
 
