@@ -2035,6 +2035,10 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
 
       &.thin {
         padding: 12px 18px;
+
+        .header-aside-lan-group {
+          height: 20px;
+        }
       }
     }
 
