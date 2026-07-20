@@ -1192,7 +1192,7 @@ const createLanguageAside = async () => {
   const languageAside = document.createElement('div');
   languageAside.id = 'language-aside';
   const acLsContent = document.createElement('div');
-  acLsContent.className = 'ac-ls-content';
+  acLsContent.className = `ac-ls-content ${country === 'ca' ? 'thin' : ''}`;
   const acLsCopy = document.createElement('div');
   acLsCopy.className = 'ac-ls-copy';
   acLsCopy.textContent = translate('AC_LS_COPY', language);

@@ -2032,6 +2032,10 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
       padding: 16px 18px;
       gap: 12px;
       justify-content: space-between;
+
+      &.thin {
+        padding: 12px 18px;
+      }
     }
 
     .ac-ls-copy {
@@ -2207,7 +2211,7 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
         cursor: pointer;
       }
 
-      @media (width < 640px) {
+      @media (width < 1180px) {
         height: var(--size-30);
         width: 100%;
         order: 1;
@@ -2226,7 +2230,7 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
         color: var(--color-primary-grey-50);
         align-items: center;
 
-        @media (width < 640px) {
+        @media (width < 1180px) {
           height: var(--size-20);
           line-height: var(--size-20);
           margin-left: var(--size-8);
@@ -2235,8 +2239,8 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
         .header-aside-lan-item {
           cursor: pointer;
 
-          @media (width < 640px) {
-            font-size: var(--size-14);
+          @media (width < 1180px) {
+            font-size: var(--size-10);
           }
 
           &.active {
@@ -2246,13 +2250,13 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
 
         .header-aside-lan-line {
           width: 1px;
-          height: 100%;
+          height: 14px;
           background-color: #e0e0e0;
         }
       }
 
       .header-aside-lan-com {
-        @media (width < 640px) {
+        @media (width < 1180px) {
           font-size: var(--size-14);
           height: var(--size-20);
           line-height: 1.4;
