@@ -2038,6 +2038,10 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
 
         .header-aside-lan-group {
           height: 20px;
+
+          .header-aside-lan-line {
+            height: 10px;
+          }
         }
       }
     }
