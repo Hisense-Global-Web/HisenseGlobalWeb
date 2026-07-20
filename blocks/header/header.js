@@ -1317,7 +1317,7 @@ const createLanguageAside = async () => {
           window.location.href = `/${country}/${language}/select-your-region`;
           return;
         }
-        window.location.href = e.currentTarget.getAttribute('data-lang');
+        window.location.href = getNewPath(e.currentTarget.getAttribute('data-lang'));
       });
     });
     acLsContent.append(lanGroup);
