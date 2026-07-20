@@ -481,7 +481,13 @@ function createSlide(block, row, slideIndex) {
         break;
       default:
         column.classList.add('hero-banner-item-cta');
-        buttonTheme = column.firstElementChild?.innerHTML || 'transparent';
+        // eslint-disable-next-line no-case-declarations
+        const buttonThemeEl = column.firstElementChild;
+        if (!buttonThemeEl || buttonThemeEl.children?.length) {
+          buttonTheme = 'transparent';
+        } else {
+          buttonTheme = buttonThemeEl.textContent;
+        }
         column.querySelector('a')?.classList.add(buttonTheme);
         if (column.firstElementChild?.innerHTML.length <= 13) column.firstElementChild?.remove();
     }
