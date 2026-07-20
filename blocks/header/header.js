@@ -1133,7 +1133,7 @@ const saveLanguageToLocalStorage = (lan) => {
   localStorage.setItem('language', lan);
 };
 
-function getLangItems(interval = 200) {
+function getLangItems(interval = 200, onlyLanguage = false) {
   const { language } = getLocaleFromPath();
   return new Promise((resolve) => {
     const check = () => {
@@ -1152,7 +1152,7 @@ function getLangItems(interval = 200) {
           }
           const result = [...Array.from(items).map((item) => ({
             lang: item.dataset.lang,
-            label: `${lanComText} (${item.textContent.trim()})`,
+            label: onlyLanguage ? item.textContent.trim() : `${lanComText} (${item.textContent.trim()})`,
           })), {
             lang: 'region',
             label: translate('AC_LS_OTHER_COUNTRY', language),
@@ -1225,7 +1225,7 @@ const createLanguageAside = async () => {
     { lang: 'region', label: translate('AC_LS_OTHER_COUNTRY', 'zh'), url: '/cn/zh/select-your-region' },
   ] : country === 'global' ? languageList.map((lang) => ({
     lang, label: translate('LANGUAGE_NAME', lang),
-  })) : await getLangItems();
+  })) : await getLangItems(undefined, country === 'ca');
 
   if (arr.length > 0) acLsDropdown.classList.add('ac-ls-actions-item');
   arr.forEach((item) => {
