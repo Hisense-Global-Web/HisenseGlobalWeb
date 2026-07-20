@@ -4190,6 +4190,12 @@
     "id": "image-comparison-slider",
     "fields": [
       {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image_before",
@@ -5287,6 +5293,12 @@
   {
     "id": "parallax",
     "fields": [
+      {
+        "component": "boolean",
+        "name": "dynamic-media",
+        "label": "Enable Dynamic Media",
+        "valueType": "boolean"
+      },
       {
         "component": "reference",
         "valueType": "string",
