@@ -614,7 +614,14 @@ export default async function decorate(block) {
     }
     if (fields.includes('resources')) {
       if (i === 5) {
-        resourcesIconEl = row.querySelector('img');
+        const imgEl = row.querySelector('img');
+        if (imgEl) {
+          resourcesIconEl = row.querySelector('img');
+        } else {
+          const createImgEl = document.createElement('img');
+          createImgEl.src = '/resources/resources.svg';
+          resourcesIconEl = createImgEl;
+        }
       }
       if (i === 6) {
         const str = processPath(row.textContent.trim() || '');
@@ -921,7 +928,7 @@ export default async function decorate(block) {
     faqLinkSpan.textContent = 'FAQ';
     faqEl.appendChild(faqLinkSpan);
     faqEl.addEventListener('click', () => {
-      if (faqLink) window.location.href = faqLink;
+      if (faqLink) window.open(faqLink, '_blank');
     });
     linkGroupEl.appendChild(faqEl);
   }
@@ -934,7 +941,7 @@ export default async function decorate(block) {
     resourcesLinkSpan.textContent = 'Resources';
     resourcesEl.appendChild(resourcesLinkSpan);
     resourcesEl.addEventListener('click', () => {
-      if (resourcesLink) window.location.href = resourcesLink;
+      if (resourcesLink) window.open(resourcesLink, '_blank');
     });
     linkGroupEl.appendChild(resourcesEl);
   }
