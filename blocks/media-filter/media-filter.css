@@ -289,7 +289,6 @@
             border-radius: var(--radius-md, 8px);
             aspect-ratio: 143 / 94;
             height: min(calc(231.38 / var(--breakpoint-pc) * 100vw), 231.38px);
-            width: 100%;
 
             @media (width < 640px) {
               width: calc(120 / var(--breakpoint-mobile) * 100vw);
@@ -301,6 +300,7 @@
               border-radius: var(--radius-md, 8px);
               aspect-ratio: 143 / 94;
               height: min(calc(231.38 / var(--breakpoint-pc) * 100vw), 231.38px);
+              width: 100%;
 
               @media (width < 640px) {
                 width: calc(120 / var(--breakpoint-mobile) * 100vw);
