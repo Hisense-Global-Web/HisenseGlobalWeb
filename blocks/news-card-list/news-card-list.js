@@ -148,7 +148,7 @@ function buildCard(item) {
     imageWrapper.classList.add('releases-image');
 
     const picture = createDynamicMediaPicture(
-      linkHref,
+      thumbnail,
       title,
     );
 

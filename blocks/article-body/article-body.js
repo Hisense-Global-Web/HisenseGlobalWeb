@@ -114,10 +114,10 @@ export default function decorate(block) {
       // 图
       const imgGroupDiv = document.createElement('div');
       imgGroupDiv.className = 'text-body-img-group';
-      const imgEl = row.children[2].querySelector('img');
+      const imgEl = row.children[2].querySelector('picture');
       const imgAEl = row.children[2].querySelector('a');
       if (imgEl) {
-        imgGroupDiv.append(createDynamicMediaPicture(imgEl.href));
+        imgGroupDiv.append(imgEl);
       } else if (!imgEl && imgAEl) {
         const imgUrl = imgAEl.getAttribute('href');
         imgGroupDiv.append(createDynamicMediaPicture(imgUrl));

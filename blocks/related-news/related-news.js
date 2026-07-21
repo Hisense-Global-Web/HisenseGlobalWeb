@@ -204,7 +204,7 @@ function buildCard(item) {
     imageWrapper.classList.add('news-image');
 
     const picture = createDynamicMediaPicture(
-      linkHref,
+      thumbnail,
       title,
     );
 
