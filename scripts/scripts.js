@@ -25,7 +25,8 @@ import {
   isNavPage,
   isFooterPage,
   getFragmentPath,
-  getLocaleFromPath, switchDir,
+  getLocaleFromPath,
+  switchDir,
 } from './locale-utils.js';
 
 import { injectExternalScript } from './integration-utils.js';

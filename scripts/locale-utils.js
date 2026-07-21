@@ -39,7 +39,7 @@ const defaultLanguageMap = {
   lk: 'en', // 斯里兰卡
   th: 'th', // 泰国
 };
-const rtlCountryList = ['sa'];
+const rtlCountryList = [''];
 export const switchDir = (country) => {
   if (rtlCountryList.includes(country)) return 'rtl';
   return 'ltr';
