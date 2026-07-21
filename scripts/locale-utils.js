@@ -42,8 +42,8 @@ const defaultLanguageMap = {
 const rtlCountryList = ['sa'];
 export const switchDir = (country) => {
   if (rtlCountryList.includes(country)) return 'rtl';
-  return 'ltr'
-}
+  return 'ltr';
+};
 /**
  * hisense.com/us 没有 en 这一级目录，US 站点统一默认语言为 en（不从 path 取语言）。
  */
