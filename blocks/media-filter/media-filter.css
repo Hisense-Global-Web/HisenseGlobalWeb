@@ -567,13 +567,22 @@
     width: 100%;
     min-height: min(calc(300 / var(--breakpoint-pc) * 100vw), 300px);
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (width < 640px) {
       min-height: var(--size-150);
     }
 
     img {
-      width: 100%;
+      width: auto;
+      max-width: 100%;
+      height: min(calc(338 / var(--breakpoint-pc) * 100vw), 338px);
+
+      @media (width < 640px) {
+        height: calc(172.39 / var(--breakpoint-mobile) * 100vw);
+      }
     }
 
     >* {
