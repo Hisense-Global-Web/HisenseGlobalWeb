@@ -25,7 +25,7 @@ import {
   isNavPage,
   isFooterPage,
   getFragmentPath,
-  getLocaleFromPath,
+  getLocaleFromPath, switchDir,
 } from './locale-utils.js';
 
 import { injectExternalScript } from './integration-utils.js';
@@ -190,8 +190,9 @@ async function loadEager(doc) {
     // eslint-disable-next-line no-console
     console.warn('Failed to initialize Hybris auth', error);
   });
-
-  document.documentElement.lang = 'en';
+  const { country, language } = getLocaleFromPath();
+  document.documentElement.dir = switchDir(country);
+  document.documentElement.lang = language;
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
