@@ -239,7 +239,7 @@ function extractLogoData(container) {
     const showPopup = div.children[2];
     if (socialImg) {
       imgBox.appendChild(socialImg);
-      if (socialLink && showPopup?.textContent?.trim() === 'true') {
+      if (showPopup?.textContent?.trim() === 'true') {
         let footerSocialPopup = document.querySelector('#footer-social');
         if (!footerSocialPopup) {
           footerSocialPopup = document.createElement('div');
