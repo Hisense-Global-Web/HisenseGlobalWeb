@@ -3633,6 +3633,13 @@
         "label": "Phase Image",
         "multi": false,
         "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_more",
+        "label": "Learn more",
+        "value": ""
       }
     ]
   },
