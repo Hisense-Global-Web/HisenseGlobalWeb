@@ -1156,7 +1156,6 @@ function getLangItems(interval = 200, onlyLanguage = false) {
           })), {
             lang: 'region',
             label: translate('AC_LS_OTHER_COUNTRY', language),
-            url: `/${country}/${language}/select-your-region`,
           }];
           resolve(result);
           return;
@@ -1222,7 +1221,7 @@ const createLanguageAside = async () => {
   const arr = country === 'cn' ? [
     { lang: 'zh', label: '简体中文', url: '/cn/zh' },
     { lang: 'en', label: 'English', url: '/us/en' },
-    { lang: 'region', label: translate('AC_LS_OTHER_COUNTRY', 'zh'), url: '/cn/zh/select-your-region' },
+    { lang: 'region', label: translate('AC_LS_OTHER_COUNTRY', 'zh') },
   ] : country === 'global' ? languageList.map((lang) => ({
     lang, label: translate('LANGUAGE_NAME', lang),
   })) : await getLangItems(undefined, country === 'ca');
@@ -1263,12 +1262,11 @@ const createLanguageAside = async () => {
 
   acLsContinue.addEventListener('click', (e) => {
     const { lang, url } = e.currentTarget.closest('#language-aside').dataset;
+    if (lang === 'region') return;
     // document.querySelector('body').classList.remove('has-language-aside');
     document.querySelector('body').classList.add('already-selected-language-aside');
     if (url) {
-      if (lang !== 'region') {
-        saveLanguageToLocalStorage(lang);
-      }
+      saveLanguageToLocalStorage(lang);
       window.location.href = url;
     } else {
       saveLanguageToLocalStorage(lang);
@@ -1304,17 +1302,10 @@ const createLanguageAside = async () => {
   <div class="header-aside-lan-list">
     ${generateLanguageItems(arr, language)}
   </div>`;
-    const regionIcon = lanGroup.querySelector('.region-icon');
-    if (regionIcon) {
-      regionIcon.addEventListener('click', () => {
-        window.location.href = `/${country}/${language}/select-your-region`;
-      });
-    }
     const langItems = lanGroup.querySelectorAll('.header-aside-lan-item');
     langItems.forEach((item) => {
       item.addEventListener('click', (e) => {
         if (e.currentTarget.classList.contains('active')) {
-          window.location.href = `/${country}/${language}/select-your-region`;
           return;
         }
         window.location.href = getNewPath(e.currentTarget.getAttribute('data-lang'));
