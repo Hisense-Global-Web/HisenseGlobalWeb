@@ -239,7 +239,7 @@ function extractLogoData(container) {
     const showPopup = div.children[2];
     if (socialImg) {
       imgBox.appendChild(socialImg);
-      if (socialLink && showPopup?.textContent?.trim() === 'true') {
+      if (showPopup?.textContent?.trim() === 'true') {
         let footerSocialPopup = document.querySelector('#footer-social');
         if (!footerSocialPopup) {
           footerSocialPopup = document.createElement('div');
@@ -605,7 +605,7 @@ export default async function decorate(block) {
     // TODO：中国区使用mock数据
     const selectedCountry = regionData?.country?.code === 'cn' ? {
       code: 'cn',
-      languages: { zh: '中文', en: 'EN' },
+      languages: { zh: '中文', en: 'English' },
       name: '全球站点',
       selectedLanguage: 'zh',
     } : resolveRegionCountryData(regionData);
