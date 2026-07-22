@@ -592,6 +592,8 @@ export default async function decorate(block) {
   let fields = [];
   let faqIconEl = null;
   let faqLink = '';
+  let resourcesIconEl = null;
+  let resourcesLink = '';
   let linkSku = '';
   rows.forEach((row, i) => {
     const text = row.textContent && row.textContent.trim();
@@ -608,6 +610,22 @@ export default async function decorate(block) {
       if (i === 4) {
         const str = processPath(row.textContent.trim() || '');
         faqLink = `${str}?sku=${linkSku}`;
+      }
+    }
+    if (fields.includes('resources')) {
+      if (i === 5) {
+        const imgEl = row.querySelector('img');
+        if (imgEl) {
+          resourcesIconEl = row.querySelector('img');
+        } else {
+          const createImgEl = document.createElement('img');
+          createImgEl.src = '/resources/resources.svg';
+          resourcesIconEl = createImgEl;
+        }
+      }
+      if (i === 6) {
+        const str = processPath(row.textContent.trim() || '');
+        resourcesLink = `${str}?sku=${linkSku}`;
       }
     }
   });
@@ -704,6 +722,7 @@ export default async function decorate(block) {
   const showBuyButton = fields.includes('buttons') || Boolean(sku);
   if (product.category) {
     faqLink += `&category=${product.category}`;
+    resourcesLink += `&category=${product.category}`;
   }
 
   // 将当前产品数据保存到window中供spec组件使用
@@ -909,9 +928,22 @@ export default async function decorate(block) {
     faqLinkSpan.textContent = 'FAQ';
     faqEl.appendChild(faqLinkSpan);
     faqEl.addEventListener('click', () => {
-      if (faqLink) window.location.href = faqLink;
+      if (faqLink) window.open(faqLink, '_blank');
     });
     linkGroupEl.appendChild(faqEl);
+  }
+
+  const resourcesEl = document.createElement('div');
+  resourcesEl.className = 'pdp-resources-btn';
+  if (resourcesIconEl && resourcesLink) {
+    resourcesEl.appendChild(resourcesIconEl);
+    const resourcesLinkSpan = document.createElement('span');
+    resourcesLinkSpan.textContent = 'Resources';
+    resourcesEl.appendChild(resourcesLinkSpan);
+    resourcesEl.addEventListener('click', () => {
+      if (resourcesLink) window.open(resourcesLink, '_blank');
+    });
+    linkGroupEl.appendChild(resourcesEl);
   }
 
   const specsBtn = document.createElement('div');
@@ -2056,9 +2088,20 @@ export default async function decorate(block) {
     if (faqLink) window.location.href = faqLink;
   });
 
+  const resourcesMobileBtn = document.createElement('div');
+  resourcesMobileBtn.classList.add('pdp-nav-menu-item');
+  resourcesMobileBtn.textContent = 'Resources';
+  resourcesMobileBtn.addEventListener('click', () => {
+    if (resourcesLink) window.location.href = resourcesLink;
+  });
+
   const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');
   pdpNavMenu.append(overviewMobileBtn);
   let h = 61;
+  if (resourcesLink && fields.includes('resources')) {
+    pdpNavMenu.append(resourcesMobileBtn);
+    h += 45;
+  }
   if (showSpecsControls) {
     pdpNavMenu.append(specsMobileBtn);
     h += 45;
