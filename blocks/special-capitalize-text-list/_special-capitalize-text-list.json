@@ -24,7 +24,8 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Special Capitalize Text List Item",
-              "model": "special-capitalize-text-list-item"
+              "model": "special-capitalize-text-list-item",
+              "isCapitalized": true
             }
           }
         }
@@ -43,12 +44,26 @@
           "required": true
         },
         {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "isCapitalized",
+          "label": "Enable Capitalization"
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "item_headline",
           "label": "Initial letter in capital letters",
           "description": "Which initial letter needs to be capitalized",
-          "required": true
+          "required": true,
+          "condition": {
+            "===": [
+              {
+                "var": "isCapitalized"
+              },
+              true
+            ]
+          }
         }
       ]
     }

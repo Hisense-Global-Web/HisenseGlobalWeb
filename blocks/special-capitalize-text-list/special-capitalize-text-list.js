@@ -4,12 +4,17 @@ export default function decorate(block) {
   const rows = [...block.children];
   if (rows?.length) {
     rows.forEach((row) => {
+      let isCapitalized = true;
+      if (row.children.length > 2) {
+        isCapitalized = row.children[1]?.children?.[0]?.textContent === 'true';
+        row.children[1].remove();
+      }
       const [titleEl, SpecialLetterEl] = row.children;
       const capitalizeLetter = SpecialLetterEl?.querySelector?.('p')?.textContent?.toUpperCase() ?? '';
       row.classList.add('list-item-wrapper');
       const titleText = titleEl?.querySelector('p')?.textContent ?? '';
       const titleTextList = titleText.trim().split(/\s+/) ?? [];
-      if (titleTextList?.length) {
+      if (isCapitalized && titleTextList?.length) {
         const titleWrapperEl = document.createElement('div');
         titleWrapperEl.className = 'title-wrapper';
         titleTextList.forEach((word, index) => {

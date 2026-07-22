@@ -6822,12 +6822,26 @@
         "required": true
       },
       {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "isCapitalized",
+        "label": "Enable Capitalization"
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "item_headline",
         "label": "Initial letter in capital letters",
         "description": "Which initial letter needs to be capitalized",
-        "required": true
+        "required": true,
+        "condition": {
+          "===": [
+            {
+              "var": "isCapitalized"
+            },
+            true
+          ]
+        }
       }
     ]
   },
@@ -6919,6 +6933,12 @@
         "label": "Icon",
         "required": true,
         "multi": false
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "isCapitalized",
+        "label": "Enable Capitalization"
       },
       {
         "component": "text",
