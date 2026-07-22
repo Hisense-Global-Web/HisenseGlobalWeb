@@ -605,7 +605,7 @@ export default async function decorate(block) {
     // TODO：中国区使用mock数据
     const selectedCountry = regionData?.country?.code === 'cn' ? {
       code: 'cn',
-      languages: { zh: '中文', en: 'EN' },
+      languages: { zh: '中文', en: 'English' },
       name: '全球站点',
       selectedLanguage: 'zh',
     } : resolveRegionCountryData(regionData);
