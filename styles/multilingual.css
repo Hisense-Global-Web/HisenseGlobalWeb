@@ -33,3 +33,7 @@
 :root:lang(ar) {
   /* 多语言css适配 */
 }
+
+:root:dir(rtl) {
+  --transform-x-coefficient: -1;
+}

@@ -75,7 +75,7 @@
     top: 0;
     bottom: 0;
     inset-inline-start: 50%;
-    transform: translateX(-50%);
+    transform: translateX(calc(-50% * var(--transform-x-coefficient)));
     row-gap: var(--dragger-inner-size);
   }
 

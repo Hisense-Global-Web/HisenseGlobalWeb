@@ -239,7 +239,7 @@
     inset-inline-start: 50%;
 
     /* -webkit-transform: translateX(-50%); */
-    transform: translateX(-50%);
+    transform: translateX(calc(-50% * var(--transform-x-coefficient)));
     
     /* -webkit-transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s; */
     transition: bottom cubic-bezier(0.35, 0, 0.36, 1) .5s, opacity linear .5s, visibility linear .5s, background-color linear .5s;

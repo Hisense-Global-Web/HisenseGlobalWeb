@@ -1084,7 +1084,7 @@ body.has-language-aside #navigation {
   z-index: 999;
   width: 100%;
   inset-inline-start: 50%;
-  transform: translateX(-50%);
+  transform: translateX(calc(-50% * var(--transform-x-coefficient)));
   box-sizing: border-box;
 }
 

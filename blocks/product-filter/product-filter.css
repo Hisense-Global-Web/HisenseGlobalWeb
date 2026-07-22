@@ -183,7 +183,7 @@
 
   .price-tag {
     position: absolute;
-    transform: translateX(-50%);
+    transform: translateX(calc(-50% * var(--transform-x-coefficient)));
     transition: left 0.1s;
     white-space: nowrap;
   }

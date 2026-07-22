@@ -435,7 +435,7 @@
   z-index: 23456;
   bottom: var(--size-30);
   inset-inline-start: 50%;
-  transform: translateX(-50%);
+  transform: translateX(calc(-50% * var(--transform-x-coefficient)));
   align-items: center;
 
   &.compare-bar-show {
@@ -570,7 +570,7 @@
     position: absolute;
     inset-inline-start: 50%;
     bottom:0;
-    transform: translateX(-50%);
+    transform: translateX(calc(-50% * var(--transform-x-coefficient)));
     background: var(--color-primary-grey-10);
     border-radius: var(--size-20);
     overflow: hidden;
