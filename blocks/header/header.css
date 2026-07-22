@@ -2038,6 +2038,8 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
 
         .header-aside-lan-group {
           height: 20px;
+          padding: 0;
+          justify-content: flex-end;
 
           .header-aside-lan-line {
             height: 10px;
@@ -2203,7 +2205,6 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
 
     .header-aside-lan-group {
       display: flex;
-      width: min(calc(234 / var(--breakpoint-pc) * 100vw), 234px);
       height: var(--size-20);
       align-items: center;
       font-weight: var(--fontweight-book);
@@ -2213,6 +2214,7 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
       color: var(--color-hisense-black);
       order: 2;
       flex-shrink: 0;
+      padding-inline-end: 34px;
 
       * {
         box-sizing: border-box;
@@ -2241,7 +2243,6 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
         @media (width < 1180px) {
           height: var(--size-20);
           line-height: var(--size-20);
-          margin-left: var(--size-8);
         }
 
         .header-aside-lan-item {
