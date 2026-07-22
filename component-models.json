@@ -3637,7 +3637,14 @@
         "component": "text",
         "valueType": "string",
         "name": "phase_more",
-        "label": "Learn more",
+        "label": "Button Label",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_popupId",
+        "label": "Popup SectionId",
         "value": ""
       }
     ]
