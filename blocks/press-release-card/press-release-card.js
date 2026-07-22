@@ -125,7 +125,7 @@ function buildCard(item) {
     imageWrapper.classList.add('pr-card-image');
 
     const picture = createDynamicMediaPicture(
-      linkHref,
+      thumbnail,
       title,
     );
 

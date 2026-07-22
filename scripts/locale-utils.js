@@ -62,13 +62,8 @@ export function getLocaleFromPath() {
 
 export function getFragmentPath(fragmentName) {
   const base = (typeof window !== 'undefined' && window.hlx?.codeBasePath) ? window.hlx.codeBasePath : '';
-  const { country, language } = getLocaleFromPath();
-
-  const isHisenseCom = typeof window !== 'undefined' && window.location.href.includes('hisense.com');
-  const isUsSite = country === 'us' && language === 'en';
-  const localeSegment = (isHisenseCom && !isUsSite)
-    ? `cn/zh/${fragmentName}`
-    : `${country}/${language}/${fragmentName}`;
+  const { country = 'cn', language = 'zh' } = getLocaleFromPath();
+  const localeSegment = `${country}/${language}/${fragmentName}`;
 
   return `${base}/${localeSegment}`;
 }
