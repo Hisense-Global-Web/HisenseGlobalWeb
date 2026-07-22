@@ -2038,6 +2038,8 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
 
         .header-aside-lan-group {
           height: 20px;
+          padding: 0;
+          justify-content: flex-end;
 
           .header-aside-lan-line {
             height: 10px;
@@ -2241,7 +2243,6 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
         @media (width < 1180px) {
           height: var(--size-20);
           line-height: var(--size-20);
-          margin-left: var(--size-8);
         }
 
         .header-aside-lan-item {
