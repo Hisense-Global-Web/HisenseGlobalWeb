@@ -79,7 +79,7 @@
           font-size: var(--fontsize-body1, 16px);
           font-weight: var(--fontweight-book);
           line-height: 150%; /* 24px */
-          text-align: left;
+          text-align: start;
           margin: 0;
         }
 
@@ -216,7 +216,7 @@
         padding: 0;
         margin: 0;
         line-height: unset;
-        text-align: left;
+        text-align: start;
       }
 
       .text-area {

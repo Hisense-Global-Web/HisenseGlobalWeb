@@ -20,12 +20,12 @@
   .quotation {
     position: absolute;
     top: var(--size-30);
-    left: var(--size-32);
+    inset-inline-start: var(--size-32);
     width: var(--size-24);
 
     @media (width < 640px) {
       top: var(--size-24);
-      left: var(--size-24);
+      inset-inline-start: var(--size-24);
     }
   }
   

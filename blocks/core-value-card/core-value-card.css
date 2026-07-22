@@ -25,7 +25,7 @@
     font-size: var(--size-30);
     overflow: hidden;
     width: calc(100% - 74px);
-    text-align: left;
+    text-align: start;
     line-height: 1.3;
   }
 }
@@ -92,7 +92,7 @@ ul > li .card-image img {
     -webkit-transform 0.36s cubic-bezier(0, 0.18, 0.07, 1);
   position: absolute;
   bottom: var(--spacing-2xs);
-  right: var(--spacing-sm);
+  inset-inline-end: var(--spacing-sm);
   width: var(--size-24);
   height: var(--size-24);
 
@@ -131,11 +131,11 @@ ul > li .card-image img {
     font-size: var(--size-24);
     position: absolute;
     top: calc(-1 * (var(--size-28) + var(--spacing-2xs)));
-    left: var(--spacing-sm);
+    inset-inline-start: var(--spacing-sm);
     margin: 0;
     width: calc(100% - var(--size-72));
     overflow: hidden;
-    text-align: left;
+    text-align: start;
   }
 }
 
@@ -148,7 +148,7 @@ ul > li .card-image img {
 
   @media (width < 640px) {
     color: var(--color-primary-grey-70);
-    text-align: left;
+    text-align: start;
     font-size: var(--size-14);
     padding: var(--spacing-m) 0 0 var(--spacing-sm);
   }

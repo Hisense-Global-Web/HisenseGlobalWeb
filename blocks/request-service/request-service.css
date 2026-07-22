@@ -91,7 +91,7 @@
 
       .title-wrapper ul,
       .title-wrapper ol {
-        padding-left: var(--size-20);
+        padding-inline-start: var(--size-20);
       }
 
       .button {

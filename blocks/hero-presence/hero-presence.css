@@ -52,7 +52,7 @@
 	padding: 0;
   position: absolute;
   bottom: var(--video-btn-offset);
-  right: var(--video-btn-offset);
+  inset-inline-end: var(--video-btn-offset);
   z-index: 10;
   background: transparent;
   border: none;
@@ -100,7 +100,7 @@
   img {
     position: absolute;
     top: 50%;
-    left: 50%;
+    inset-inline-start: 50%;
     opacity: 0;
     transform: translate(-50%, 150%);
     transition: transform 1.2s ease-out;

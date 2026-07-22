@@ -110,7 +110,7 @@
               background: #fff;
               width: 100%;
               top: 0;
-              left: 0;
+              inset-inline-start: 0;
               overflow: hidden;
               transform: scaleY(0);
               transform-origin: top center;
@@ -492,7 +492,7 @@
 #media-center-popup {
   position: fixed;
   top: 50%;
-  left: 50%;
+  inset-inline-start: 50%;
   transform: translate(-50%, -50%);
   width: min(calc(760 / var(--breakpoint-pc) * 100vw), 760px);
   background-color: white;
@@ -517,14 +517,14 @@
   .close-icon {
     position: absolute;
     top: var(--size-32);
-    right: var(--size-32);
+    inset-inline-end: var(--size-32);
     width: var(--size-32);
     height: var(--size-32);
     cursor: pointer;
 
     @media (width < 640px) {
       top: var(--size-24);
-      right: var(--size-24);
+      inset-inline-end: var(--size-24);
       width: var(--size-24);
       height: var(--size-24);
     }
@@ -593,7 +593,7 @@
     .gallery-number-group {
       position: absolute;
       top: var(--size-16);
-      right: var(--size-16);
+      inset-inline-end: var(--size-16);
       width: auto;
       padding: var(--size-4) var(--size-8);
       background-color: var(--grey-alpha-40);
@@ -800,7 +800,7 @@
 #gallery-mask {
   position: fixed;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgb(0 0 0 / 60%);

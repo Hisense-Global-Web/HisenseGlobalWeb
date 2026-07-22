@@ -18,7 +18,7 @@
       .tech-item-icon {
         width: var(--size-40);
         height: var(--size-40);
-        margin-right: var(--size-16);
+        margin-inline-end: var(--size-16);
         flex-shrink: 0;
         align-self: start;
 

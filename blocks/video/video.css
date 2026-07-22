@@ -27,8 +27,8 @@ video{
 }
 
 .video h1 {
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
   color: var(--background-color);
 }
 

@@ -21,7 +21,7 @@
     width: var(--size-100, 100px);
     height: var(--size-100, 100px);
     text-align: center;
-    margin-right: var(--spacing-sm, 24px);
+    margin-inline-end: var(--spacing-sm, 24px);
 
     img {
       display: block;
@@ -31,7 +31,7 @@
 
     @media (width < 640px) {
       height: auto;
-      margin-right: 0;
+      margin-inline-end: 0;
       margin-bottom: 12px;
     }
   }

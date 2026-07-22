@@ -51,13 +51,13 @@
       width: var(--size-24);
       height: var(--size-24);
       flex-shrink: 0;
-      margin-left: var(--size-16);
+      margin-inline-start: var(--size-16);
       cursor: pointer;
 
       @media (width < 640px) {
         width: var(--size-20);
         height: var(--size-20);
-        margin-left: var(--size-12);
+        margin-inline-start: var(--size-12);
       }
     }
   }
@@ -70,18 +70,18 @@
     font-size: var(--fontsize-body1);
     font-weight: var(--fontweight-book);
     line-height: 1.6;
-    padding-right: var(--size-80);
+    padding-inline-end: var(--size-80);
     transition: max-height .36s ease-in-out;
     color: var(--color-primary-grey-70);
     
     @media (width < 640px) {
       font-size: var(--size-14);
       line-height: 1.5;
-      padding-right: 0;
+      padding-inline-end: 0;
     }
 
     ol {
-      padding-left: var(--size-16);
+      padding-inline-start: var(--size-16);
     }
 
     a {

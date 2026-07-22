@@ -49,7 +49,7 @@
 .nav-links {
   display: flex;
   height: 100%;
-  padding-left: calc(75.5px - 12px);
+  padding-inline-start: calc(75.5px - 12px);
 }
 
 .nav-section {
@@ -282,7 +282,7 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  margin-right: 38px;
+  margin-inline-end: 38px;
 }
 
 .navigation-logo-wrapper .navigation-logo {
@@ -316,11 +316,11 @@
   order: 2;
   display: inline-flex;
   height: 100%;
-  padding-left: 0;
+  padding-inline-start: 0;
 }
 
 .navigation-item-wrapper:first-of-type {
-  padding-left: 38px;
+  padding-inline-start: 38px;
 }
 
 .transparent-bold {
@@ -370,7 +370,7 @@
 }
 
 .navigation-item-wrapper + .navigation-action-wrapper {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .navigation-action-wrapper picture,
@@ -382,7 +382,7 @@
 }
 
 .navigation-action-wrapper:not(:last-child) {
-  margin-right: 30px;
+  margin-inline-end: 30px;
 }
 
 .navigation-action-wrapper .navigation-action {
@@ -409,7 +409,7 @@
   display: flex;
   gap: 26px;
   align-items: center;
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .nav-action-btn {
@@ -430,7 +430,7 @@
 }
 
 .nav-action-btn.mobile-close-icon {
-  margin-left: 8px;
+  margin-inline-start: 8px;
   display: none;
 }
 
@@ -439,7 +439,7 @@
 }
 
 .nav-action-btn:not(:last-child) {
-  margin-right: 4px;
+  margin-inline-end: 4px;
 }
 
 
@@ -538,7 +538,7 @@
   overflow: hidden;
   max-height: 500px;
   transition: max-height .36s ease-in-out, padding .36s ease-in-out;
-  padding-right: 12px;
+  padding-inline-end: 12px;
 }
 
 #navigation .mobile-menu .mobile-links .mobile-link .mobile-link-second-list:empty {
@@ -585,9 +585,9 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  border-left: 1px solid #D9D9D9;
-  padding-left: 40px;
-  margin-left: 60px;
+  border-inline-start: 1px solid #D9D9D9;
+  padding-inline-start: 40px;
+  margin-inline-start: 60px;
   color: #666;
   font-weight: 500;
 }
@@ -705,11 +705,11 @@
   
   #navigation .nav-container .nav-actions .nav-action-btn.mobile-menu-icon {
     display: block;
-    margin-left: 8px;
+    margin-inline-start: 8px;
   }
 
   #navigation .nav-container .nav-actions .nav-action-btn.mobile-close-icon {
-    margin-left: 8px;
+    margin-inline-start: 8px;
   }
   
   #navigation.show-menu .nav-container .nav-actions .nav-action-btn.mobile-menu-icon {

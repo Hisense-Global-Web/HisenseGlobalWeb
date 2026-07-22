@@ -17,7 +17,7 @@
     height: var(--size-220, 220px);
     padding: 0 var(--spacing-3xs, 8px);
     text-align: center;
-    margin-right: var(--spacing-m, 32px);
+    margin-inline-end: var(--spacing-m, 32px);
 
     img {
       display: block;
@@ -27,7 +27,7 @@
     @media (width < 640px) {
       width: min(calc(320/var(--breakpoint-mobile)*100vw), 320px);
       height: min(calc(320/var(--breakpoint-mobile)*100vw), 320px);
-      margin-right: 0;
+      margin-inline-end: 0;
       margin-bottom: var(--spacing-2xs, 12px);
     }
   }

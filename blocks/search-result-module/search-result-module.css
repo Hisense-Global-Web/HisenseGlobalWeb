@@ -106,7 +106,7 @@
             padding: 0 var(--size-24) !important;
 
             span {
-              margin-right: var(--size-10) !important;
+              margin-inline-end: var(--size-10) !important;
             }
           }
         }
@@ -129,7 +129,7 @@
 
           span {
             white-space: nowrap;
-            margin-right: var(--size-8);
+            margin-inline-end: var(--size-8);
           }
 
           .sort-arrow {
@@ -142,7 +142,7 @@
 
         .plp-sort-options {
           top: 0;
-          left: 0;
+          inset-inline-start: 0;
           position: absolute;
           background: #fff;
           width: 100%;
@@ -164,7 +164,7 @@
             line-height: var(--size-30);
             border-radius: var(--size-30);
             color: var(--color-primary-grey-50);
-            padding-left: 10px;
+            padding-inline-start: 10px;
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -410,7 +410,7 @@
       font-weight: var(--fontweight-book);
       line-height: 1.6;
       color: var(--color-primary-grey-70);
-      text-align: left;
+      text-align: start;
       display: flex;
       justify-content: center;
 

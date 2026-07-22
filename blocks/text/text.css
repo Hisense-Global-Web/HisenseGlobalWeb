@@ -111,11 +111,11 @@
 }
 
 .block.text.text-align-left {
-  text-align: left;
+  text-align: start;
 }
 
 .block.text.text-align-right {
-  text-align: right;
+  text-align: end;
 }
 
 .block.text.pb-40 {

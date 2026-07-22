@@ -131,7 +131,7 @@
       gap: var(--spacing-3xs);
       height: 100%;
       width: 100%;
-      text-align: left;
+      text-align: start;
 
       .item-picture {
         width: min(calc(70/var(--breakpoint-pc)*100vw), 70px);
@@ -192,7 +192,7 @@
     }
 
     p {
-      text-align: left;
+      text-align: start;
     }
 
   }

@@ -41,7 +41,7 @@
   content: attr(data-aue-label);
   position: absolute;
   top: -10px;
-  left: 10px;
+  inset-inline-start: 10px;
   background: #fff;
   padding: 2px 8px;
   font-size: 11px;
@@ -119,22 +119,22 @@
 
 .section.footer-container-block[data-aue-resource] .footer-nav-column-wrapper .footer-nav-column > div:first-child,
 .section[class*="footer-container"][data-aue-resource] .footer-nav-column-wrapper .footer-nav-column > div:first-child {
-  border-left: 3px solid #0ea5e9;
+  border-inline-start: 3px solid #0ea5e9;
 }
 
 .section.footer-container-block[data-aue-resource] .footer-nav-column-wrapper .footer-nav-column > div:not(:first-child),
 .section[class*="footer-container"][data-aue-resource] .footer-nav-column-wrapper .footer-nav-column > div:not(:first-child) {
-  border-left: 3px solid #a855f7;
+  border-inline-start: 3px solid #a855f7;
 }
 
 .section.footer-container-block[data-aue-resource] .footer-legal-links-wrapper .footer-legal-links > div:first-child,
 .section[class*="footer-container"][data-aue-resource] .footer-legal-links-wrapper .footer-legal-links > div:first-child {
-  border-left: 3px solid #22c55e;
+  border-inline-start: 3px solid #22c55e;
 }
 
 .section.footer-container-block[data-aue-resource] .footer-legal-links-wrapper .footer-legal-links > div:not(:first-child),
 .section[class*="footer-container"][data-aue-resource] .footer-legal-links-wrapper .footer-legal-links > div:not(:first-child) {
-  border-left: 3px solid #f97316;
+  border-inline-start: 3px solid #f97316;
 }
 
 .section.footer-container-block[data-aue-resource] .footer-legal-links-wrapper .button-container a.button,
@@ -166,7 +166,7 @@
   content: attr(data-aue-label);
   position: absolute;
   top: -8px;
-  left: 8px;
+  inset-inline-start: 8px;
   background: #f8f8f8;
   padding: 1px 6px;
   font-size: 10px;
@@ -476,7 +476,7 @@ footer footer {
       @media (width < 640px) {
         height: var(--size-20);
         line-height: var(--size-20);
-        margin-left: var(--size-8);
+        margin-inline-start: var(--size-8);
       }
       
       .footer-lan-item {
@@ -558,7 +558,7 @@ footer footer {
   flex-direction: column;
   gap: var(--size-24);
   top: 50%;
-  left: 50%;
+  inset-inline-start: 50%;
   transform: translate(-50%, -50%);
   padding: var(--size-80);
   box-sizing: border-box;
@@ -581,7 +581,7 @@ footer footer {
   .close-icon {
     position: absolute;
     top: var(--size-32);
-    right: var(--size-32);
+    inset-inline-end: var(--size-32);
     width: var(--size-32);
     height: var(--size-32);
     cursor: pointer;
@@ -616,7 +616,7 @@ footer footer {
 #footer-social-mask {
   position: fixed;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgb(0 0 0 / 60%);
