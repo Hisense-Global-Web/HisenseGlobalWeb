@@ -634,9 +634,8 @@ p {
     width: var(--size-24);
     height: var(--size-24);
     border-radius: 100%;
-    inset-inline-end: var(--size-24);
+    inset-inline: auto var(--size-24);
     bottom: var(--size-52);
-    inset-inline-start: auto;
     backdrop-filter: blur(calc(var(--size-20) / 2));
   }
 

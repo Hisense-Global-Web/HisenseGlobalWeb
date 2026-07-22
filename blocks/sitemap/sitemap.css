@@ -68,8 +68,7 @@ main > .section.sitemap-container {
   &:nth-child(3n)::after {
     content: "";
     position: absolute;
-    inset-inline-start: calc(-200% - calc(2 * var(--size-80)));
-    inset-inline-end: 0;
+    inset-inline: calc(-200% - calc(2 * var(--size-80))) 0;
     bottom: calc(-1 * var(--size-80));
     height: 1px;
     background: var(--color-primary-grey-30);

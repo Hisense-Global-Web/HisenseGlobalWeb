@@ -5,8 +5,7 @@
   padding-bottom: var(--spacing-pc-3xl, 120px) !important;
 
   @media (width >= 640px) {
-    padding-inline-start: 0 !important;
-    padding-inline-end: 0 !important;
+    padding-inline: 0 !important;
   }
 
   @media (width < 640px) {

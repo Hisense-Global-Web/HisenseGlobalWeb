@@ -152,8 +152,7 @@
           }
 
           &:first-child {
-            margin-inline-start: var(--size-36);
-            margin-inline-end: var(--size-88);
+            margin-inline: var(--size-36) var(--size-88);
           }
         }
       }
