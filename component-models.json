@@ -5541,13 +5541,13 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "info_title",
+        "name": "info-title",
         "label": "Title"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "info_text",
+        "name": "info-text",
         "label": "Text"
       }
     ]
