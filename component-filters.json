@@ -500,6 +500,12 @@
     ]
   },
   {
+    "id": "popup-info-card",
+    "components": [
+      "popup-info-card-item"
+    ]
+  },
+  {
     "id": "popup-key-stats",
     "components": [
       "tech-items"

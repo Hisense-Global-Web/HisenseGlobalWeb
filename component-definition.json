@@ -2292,7 +2292,23 @@
                 "template": {
                   "name": "Popup Info Card",
                   "model": "popup-info-card",
+                  "filter": "popup-info-card",
                   "key-value": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Popup Info Card Item",
+          "id": "popup-info-card-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Popup Info Card Item",
+                  "model": "popup-info-card-item"
                 }
               }
             }

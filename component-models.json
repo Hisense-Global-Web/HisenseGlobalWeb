@@ -5529,7 +5529,7 @@
     ]
   },
   {
-    "id": "popup-info-card",
+    "id": "popup-info-card-item",
     "fields": [
       {
         "component": "reference",
