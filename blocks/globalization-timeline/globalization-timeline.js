@@ -35,6 +35,7 @@ export default async function decorate(block) {
       const textGroup = createElement('div', 'timeline-phase-text');
       const textGroupHeader = createElement('div', 'timeline-phase-text-header');
       const description = createElement('div', 'timeline-phase-description');
+      const learnMore = createElement('div', 'timeline-phase-learn-more');
       elements.forEach((element, index) => {
         const picture = element.querySelector('picture');
         const aEl = element.querySelector('a');
@@ -70,6 +71,9 @@ export default async function decorate(block) {
             case 2:
               description.appendChild(element);
               break;
+            case 4:
+              learnMore.appendChild(element);
+              break;
           }
         }
       });
@@ -77,6 +81,7 @@ export default async function decorate(block) {
       if (!isEmpty(textGroupHeader)) {
         textGroup.appendChild(textGroupHeader);
         textGroup.appendChild(description);
+        textGroup.appendChild(learnMore);
         phaseTextContainer.appendChild(textGroup);
       }
     }
