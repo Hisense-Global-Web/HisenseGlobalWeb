@@ -1,5 +1,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+import {getLocaleFromPath} from "../../scripts/locale-utils.js";
+import translate from "../../utils/translate.js";
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -236,7 +238,8 @@ export default function decorate(block) {
 
         infoListContainer.appendChild(emptyEl);
       } else {
-        emptyEl.textContent = 'No items found.';
+        const { language } = getLocaleFromPath();
+        emptyEl.textContent = translate('NO_ITEMS_FOUND', language);
         emptyEl.classList.add('info-list-empty-title');
       }
       return;

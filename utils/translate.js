@@ -24,6 +24,7 @@ const translateDictionary = {
     ja: '場所と言語を選択してください。',
     th: 'เลือกตำแหน่งที่ตั้งและภาษาของคุณ',
     ar: 'اختر موقعك ولغتك.',
+    ko: '지역과 언어를 선택하세요.',
   },
   AC_LS_OTHER_COUNTRY: {
     en: 'Other country or region',
@@ -35,6 +36,7 @@ const translateDictionary = {
     ja: 'その他の国または地域',
     th: 'ประเทศหรือภูมิภาคอื่นๆ',
     ar: 'دولة أو منطقة أخرى',
+    ko: '다른 국가 또는 지역',
   },
   LANGUAGE_NAME: {
     en: 'English',
@@ -46,6 +48,7 @@ const translateDictionary = {
     ja: '日本語',
     th: 'ภาษาไทย',
     ar: 'العربية',
+    ko: '한국어',
   },
   NO_ITEMS_FOUND: {
     en: 'No items found.',
@@ -395,18 +398,6 @@ const translateDictionary = {
     ar: 'قارن الميزات واعثر على الأنسب لك.',
     ko: '기능을 비교하여 나에게 맞는 제품을 찾아보세요.',
   },
-  CHOOSE_YOUR_LOCATION_AND_LANGUAGE: {
-    en: 'Choose your location and language.',
-    es: 'Elige tu ubicación y idioma.',
-    fr: 'Choisissez votre pays et votre langue.',
-    pt: 'Escolha sua localização e idioma.',
-    zh: '选择您的地区和语言。',
-    'zh-tw': '選擇您的地點與語言。',
-    ja: 'お住まいの地域と言語を選択してください。',
-    th: 'เลือกสถานที่และภาษา',
-    ar: 'اختر موقعك ولغتك.',
-    ko: '지역과 언어를 선택하세요.',
-  },
   CONTINUE: {
     en: 'Continue',
     es: 'Continuar',
@@ -418,18 +409,6 @@ const translateDictionary = {
     th: 'ดำเนินการต่อ',
     ar: 'متابعة',
     ko: '계속',
-  },
-  OTHER_COUNTRY_OR_REGION: {
-    en: 'Other country or region',
-    es: 'Otro país o región',
-    fr: 'Autre pays ou région',
-    pt: 'Outro país ou região',
-    zh: '其他国家或地区',
-    'zh-tw': '其他國家或地區',
-    ja: 'その他の国または地域',
-    th: 'ประเทศหรือภูมิภาคอื่น',
-    ar: 'دولة أو منطقة أخرى',
-    ko: '다른 국가 또는 지역',
   },
 };
 /**
