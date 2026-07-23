@@ -1501,7 +1501,13 @@ export default async function decorate(block) {
   navSecond.className = `nav-second h-grid-container ${isCompanyPage || isSupportPage ? '' : 'hidden'}`;
   const CompanyEl = document.createElement('div');
   CompanyEl.className = 'route-company';
-  CompanyEl.textContent = translate('COMPANY', language);
+  const CompanyElSpan = document.createElement('span');
+  CompanyElSpan.textContent = translate('COMPANY', language);
+  CompanyElSpan.className = 'route-company-pc';
+  const CompanyElMobileSpan = document.createElement('span');
+  CompanyElMobileSpan.className = 'route-company-mobile';
+  CompanyElMobileSpan.textContent = translate('COMPANY', language);
+  CompanyEl.append(CompanyElSpan, CompanyElMobileSpan);
   const CompanyGroupEl = document.createElement('div');
   CompanyGroupEl.className = 'company-group';
   company.forEach((item) => {
@@ -1514,6 +1520,9 @@ export default async function decorate(block) {
     span2.innerHTML = item.title;
     span1.className = 'absolute';
     span2.className = 'transparent-bold';
+    if (isCurrent) {
+      CompanyElMobileSpan.innerHTML = item.title;
+    }
     CompanyItemEl.append(span1, span2);
     CompanyItemEl.dataset.href = item.href;
     CompanyItemEl.addEventListener('click', (e) => {
