@@ -1,5 +1,6 @@
 import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
+import translate from '../../utils/translate';
 
 const { language } = getLocaleFromPath();
 function simpleHash(str) {
@@ -114,7 +115,7 @@ export default function decorate(block) {
     keyFactsEl.classList.add('key-facts-list');
     const keyFactsTitleEl = document.createElement('div');
     keyFactsTitleEl.className = 'article-title-list-title';
-    keyFactsTitleEl.textContent = 'Key Information';
+    keyFactsTitleEl.textContent = translate('KEY_INFORMATION', language);
     const keyFactsListEl = document.createElement('div');
     keyFactsListEl.className = 'article-body-list';
 
@@ -122,7 +123,7 @@ export default function decorate(block) {
     keyFactsItem1El.classList.add('article-body-list-item');
     const keyFactsTitle1El = document.createElement('div');
     keyFactsTitle1El.classList.add('article-body-list-item-title');
-    keyFactsTitle1El.textContent = 'Job Title';
+    keyFactsTitle1El.textContent = translate('JOB_TITLE', language);
     const keyFactsValue1El = document.createElement('div');
     keyFactsValue1El.classList.add('article-body-list-item-headline');
     keyFactsValue1El.textContent = item.jobTitle;
@@ -132,7 +133,7 @@ export default function decorate(block) {
     keyFactsItem2El.classList.add('article-body-list-item');
     const keyFactsTitle2El = document.createElement('div');
     keyFactsTitle2El.classList.add('article-body-list-item-title');
-    keyFactsTitle2El.textContent = 'Work Location';
+    keyFactsTitle2El.textContent = translate('WORK_LOCATION', language);
     const keyFactsValue2El = document.createElement('div');
     keyFactsValue2El.classList.add('article-body-list-item-headline');
     keyFactsValue2El.textContent = item.workLocation;
@@ -142,7 +143,7 @@ export default function decorate(block) {
     keyFactsItem3El.classList.add('article-body-list-item');
     const keyFactsTitle3El = document.createElement('div');
     keyFactsTitle3El.classList.add('article-body-list-item-title');
-    keyFactsTitle3El.textContent = 'Job Types';
+    keyFactsTitle3El.textContent = translate('JOB_TYPES', language);
     const keyFactsValue3El = document.createElement('div');
     keyFactsValue3El.classList.add('article-body-list-item-headline');
     keyFactsValue3El.textContent = item.jobType;

@@ -1,7 +1,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
-import {getLocaleFromPath} from "../../scripts/locale-utils.js";
-import translate from "../../utils/translate.js";
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import translate from '../../utils/translate.js';
 
 const EModuleType = Object.freeze({
   download: 'download',

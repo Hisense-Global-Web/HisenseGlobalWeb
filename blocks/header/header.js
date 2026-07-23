@@ -836,7 +836,8 @@ function buildSupportDropdown(mainEl) {
   supportRouteEl.className = 'support-route';
   const supportRouteTitleEl = document.createElement('div');
   supportRouteTitleEl.className = 'support-route-title';
-  supportRouteTitleEl.innerHTML = 'Support';
+  const { language } = getLocaleFromPath();
+  supportRouteTitleEl.innerHTML = translate('SUPPORT', language);
   supportRouteEl.append(supportRouteTitleEl);
 
   // support route group
@@ -1541,7 +1542,7 @@ export default async function decorate(block) {
 
   const SupportEl = document.createElement('div');
   SupportEl.className = 'route-support';
-  SupportEl.textContent = 'Support';
+  SupportEl.textContent = translate('SUPPORT', language);
 
   const supportArrow = document.createElement('img');
   supportArrow.className = 'support-arrow';
@@ -1678,13 +1679,14 @@ export default async function decorate(block) {
     if (
       t === 'support'
       || t === 'soporte'
-      || t === 'soutien'
+      || t === 'assistance'
       || t === 'suporte'
       || t === '支持'
       || t === '支援'
       || t === 'サポート'
       || t === 'การสนับสนุน'
       || t === 'الدعم'
+      || t === '지원'
     ) {
       cloneLink.classList.add('nav-link');
       const mask = document.createElement('div');

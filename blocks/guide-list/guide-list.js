@@ -1,6 +1,6 @@
 import { handleCommonDownloadClick } from '../../utils/download.js';
-import {getLocaleFromPath} from "../../scripts/locale-utils.js";
-import translate from "../../utils/translate.js";
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import translate from '../../utils/translate.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 const segments = window.location.pathname.split('/').filter(Boolean);

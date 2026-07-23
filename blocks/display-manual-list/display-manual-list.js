@@ -1,7 +1,7 @@
 import { handleCommonDownloadClick } from '../../utils/download.js';
 import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
-import translate from "../../utils/translate.js";
-import {getLocaleFromPath} from "../../scripts/locale-utils.js";
+import translate from '../../utils/translate.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const GLOBAL_DISPLAY = 'display';
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
