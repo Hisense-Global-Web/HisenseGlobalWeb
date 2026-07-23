@@ -417,7 +417,7 @@ export default async function decorate(block) {
             aEl.addEventListener('click', (e) => {
               e.preventDefault(); // 阻止默认跳转
               const href = e.currentTarget.getAttribute('href');
-              if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
+              if (!href?.startsWith('#') && !href?.startsWith('.')) {
                 window.location.href = href;
                 return;
               }

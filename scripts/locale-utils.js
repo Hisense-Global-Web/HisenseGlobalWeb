@@ -81,7 +81,7 @@ export function localizeProductApiPath(path) {
   const url = new URL(path, window.location.origin);
   const { pathname, search, hash } = url;
 
-  if (!pathname.startsWith('/product')) {
+  if (pathname.startsWith('/product')) {
     return path;
   }
 
