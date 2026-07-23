@@ -540,7 +540,7 @@ function getFirmwareState(config) {
   const icon = (config.firmwareicon || '').trim();
 
   return {
-    hasContent: Boolean(title || buttonText || link || icon),
+    hasContent: Boolean(title && link),
     title,
     buttonText,
     link,
@@ -559,29 +559,30 @@ function buildTabConfigs(config, supportData, country) {
   const warrantyItems = supportData.warranty.length
     ? supportData.warranty.map((item) => createWarrantyItem(item, country))
     : [createEmptyStateItem(DEFAULT_WARRANTY_EMPTY)];
+  const tabs = [{
+    type: 'documentation',
+    label: formatTabLabel(supportData.documentationTitle, 'Documentation'),
+    items: documents,
+    hasData: supportData.documents.length > 0,
+  }];
+  if (firmwareState.hasContent) {
+    tabs.push({
+      type: 'firmware',
+      label: 'Firmware',
+      items: firmwareItems,
+      hasData: firmwareState.hasContent,
+    });
+  }
+  tabs.push({
+    type: 'warranty',
+    label: formatTabLabel(supportData.warrantyTitle, 'Warranty'),
+    items: warrantyItems,
+    hasData: supportData.warranty.length > 0,
+  });
 
   return {
     hasAnyTabData: supportData.documents.length > 0 || supportData.warranty.length > 0 || firmwareState.hasContent,
-    tabs: [
-      {
-        type: 'documentation',
-        label: formatTabLabel(supportData.documentationTitle, 'Documentation'),
-        items: documents,
-        hasData: supportData.documents.length > 0,
-      },
-      {
-        type: 'firmware',
-        label: 'Firmware',
-        items: firmwareItems,
-        hasData: firmwareState.hasContent,
-      },
-      {
-        type: 'warranty',
-        label: formatTabLabel(supportData.warrantyTitle, 'Warranty'),
-        items: warrantyItems,
-        hasData: supportData.warranty.length > 0,
-      },
-    ],
+    tabs,
   };
 }
 
