@@ -836,7 +836,8 @@ function buildSupportDropdown(mainEl) {
   supportRouteEl.className = 'support-route';
   const supportRouteTitleEl = document.createElement('div');
   supportRouteTitleEl.className = 'support-route-title';
-  supportRouteTitleEl.innerHTML = 'Support';
+  const { language } = getLocaleFromPath();
+  supportRouteTitleEl.innerHTML = translate('SUPPORT', language);
   supportRouteEl.append(supportRouteTitleEl);
 
   // support route group
@@ -1557,7 +1558,13 @@ export default async function decorate(block) {
   navSecond.className = `nav-second h-grid-container ${isCompanyPage || isSupportPage ? '' : 'hidden'}`;
   const CompanyEl = document.createElement('div');
   CompanyEl.className = 'route-company';
-  CompanyEl.textContent = translate('COMPANY', language);
+  const CompanyElSpan = document.createElement('span');
+  CompanyElSpan.textContent = translate('COMPANY', language);
+  CompanyElSpan.className = 'route-company-pc';
+  const CompanyElMobileSpan = document.createElement('span');
+  CompanyElMobileSpan.className = 'route-company-mobile';
+  CompanyElMobileSpan.textContent = translate('COMPANY', language);
+  CompanyEl.append(CompanyElSpan, CompanyElMobileSpan);
   const CompanyGroupEl = document.createElement('div');
   CompanyGroupEl.className = 'company-group';
   company.forEach((item) => {
@@ -1570,6 +1577,9 @@ export default async function decorate(block) {
     span2.innerHTML = item.title;
     span1.className = 'absolute';
     span2.className = 'transparent-bold';
+    if (isCurrent) {
+      CompanyElMobileSpan.innerHTML = item.title;
+    }
     CompanyItemEl.append(span1, span2);
     CompanyItemEl.dataset.href = item.href;
     CompanyItemEl.addEventListener('click', (e) => {
@@ -1598,7 +1608,7 @@ export default async function decorate(block) {
 
   const SupportEl = document.createElement('div');
   SupportEl.className = 'route-support';
-  SupportEl.textContent = 'Support';
+  SupportEl.textContent = translate('SUPPORT', language);
 
   const supportArrow = document.createElement('img');
   supportArrow.className = 'support-arrow';
@@ -1735,13 +1745,14 @@ export default async function decorate(block) {
     if (
       t === 'support'
       || t === 'soporte'
-      || t === 'soutien'
+      || t === 'assistance'
       || t === 'suporte'
       || t === '支持'
       || t === '支援'
       || t === 'サポート'
       || t === 'การสนับสนุน'
       || t === 'الدعم'
+      || t === '지원'
     ) {
       cloneLink.classList.add('nav-link');
       const mask = document.createElement('div');

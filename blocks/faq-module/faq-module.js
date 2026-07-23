@@ -1,5 +1,6 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import translate from '../../utils/translate.js';
 
 const DEFAULT_FAQ_ENDPOINT = '/faq/us/en/television.json';
 const DEFAULT_TAGS_ENDPOINT = '/content/cq:tags/hisense/faq.-1.json';
@@ -435,7 +436,8 @@ function renderFaqList(faqData, container, state, onPageChange, onLoadMore, conf
   if (!faqData || faqData.length === 0) {
     const emptyMessage = document.createElement('div');
     emptyMessage.className = 'faq-empty';
-    emptyMessage.textContent = 'No FAQ items available.';
+    const { language } = getLocaleFromPath();
+    emptyMessage.textContent = translate('NO_FAQ_ITEMS_AVAILABLE', language);
     faqGrid.appendChild(emptyMessage);
     return;
   }

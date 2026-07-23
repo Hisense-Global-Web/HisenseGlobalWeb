@@ -1,5 +1,7 @@
 import { handleCommonDownloadClick } from '../../utils/download.js';
 import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.js';
+import translate from '../../utils/translate.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const GLOBAL_DISPLAY = 'display';
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
@@ -327,7 +329,8 @@ export default async function decorate(block) {
       if (emptyTitleEl) emptyTitleEl.className = 'display-manual-list-empty-title';
       if (emptyTextEl) emptyTextEl.className = 'display-manual-list-empty-text';
     } else {
-      emptyEl.textContent = 'No items found.';
+      const { language } = getLocaleFromPath();
+      emptyEl.textContent = translate('NO_ITEMS_FOUND', language);
       emptyEl.classList.add('display-manual-list-empty-title');
     }
     return emptyEl;
