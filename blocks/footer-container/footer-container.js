@@ -126,6 +126,10 @@ function buildLocalizedPathForLanguage(nextLanguage) {
   return `/${normalizedSegments.join('/')}${window.location.search}`;
 }
 
+function buildRegionSelectionPath(selectedLanguage) {
+  return `/${country}/${selectedLanguage}/select-your-region`;
+}
+
 function isInternalLink(href) {
   if (!href || href === '#' || href === '/') {
     return true;
@@ -632,15 +636,15 @@ export default async function decorate(block) {
     ${generateLanguageItems(selectedCountry.languages, selectedCountry.selectedLanguage)}
   </div>` : '';
     const regionIcon = lanGroup.querySelector('.region-icon');
-    if (regionIcon && selectedCountry?.code === 'cn') {
+    if (regionIcon) {
       regionIcon.addEventListener('click', () => {
-        window.location.href = 'https://www.hisense.com/global-site.html';
+        window.location.href = selectedCountry.code === 'cn' ? 'https://www.hisense.com/global-site.html' : buildRegionSelectionPath(selectedCountry.selectedLanguage);
       });
     }
     const lanComEl = lanGroup.querySelector('.footer-lan-com');
-    if (lanComEl && selectedCountry?.code === 'cn') {
+    if (lanComEl) {
       lanComEl.addEventListener('click', () => {
-        window.location.href = 'https://www.hisense.com/global-site.html';
+        window.location.href = selectedCountry.code === 'cn' ? 'https://www.hisense.com/global-site.html' : buildRegionSelectionPath(selectedCountry.selectedLanguage);
       });
     }
     const langItems = lanGroup.querySelectorAll('.footer-lan-item');
@@ -654,6 +658,7 @@ export default async function decorate(block) {
       langItems.forEach((item) => {
         item.addEventListener('click', (e) => {
           if (e.currentTarget.classList.contains('active')) {
+            window.location.href = '';
             return;
           }
           window.location.href = buildLocalizedPathForLanguage(e.currentTarget.getAttribute('data-lang'));
