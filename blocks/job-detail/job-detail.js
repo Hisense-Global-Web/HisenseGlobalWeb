@@ -1,6 +1,6 @@
 import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
-import translate from '../../utils/translate';
+import translate from '../../utils/translate.js';
 
 const { language } = getLocaleFromPath();
 function simpleHash(str) {
