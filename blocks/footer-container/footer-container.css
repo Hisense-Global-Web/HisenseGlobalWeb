@@ -531,6 +531,11 @@ footer footer {
   font-weight: var(--fontweight-book);
   width: min(calc(234 / var(--breakpoint-pc) * 100vw), 234px);
 
+  * {
+    color: var(--color-primary-grey-90);
+    text-decoration: none;
+  }
+
 	@media (width < 640px) {
 		width: 100%;
 	}

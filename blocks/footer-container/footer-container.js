@@ -576,10 +576,12 @@ export default async function decorate(block) {
 
       data.legalLinks.links.forEach((linkData) => {
         const a = document.createElement('a');
-        a.className = 'footer-legal-link';
+        const span = document.createElement('span');
+        span.className = 'footer-legal-link';
         a.href = processPath(linkData.link);
         a.textContent = linkData.text;
-        legalLinksDiv.appendChild(a);
+        span.appendChild(a);
+        legalLinksDiv.appendChild(span);
       });
 
       footerLegals.appendChild(legalLinksDiv);
