@@ -3023,15 +3023,7 @@
         "valueType": "string",
         "name": "mobile_Url",
         "label": "Card Mobile Image",
-        "multi": false,
-        "condition": {
-          "===": [
-            {
-              "var": "dynamic-media"
-            },
-            false
-          ]
-        }
+        "multi": false
       },
       {
         "component": "text",
