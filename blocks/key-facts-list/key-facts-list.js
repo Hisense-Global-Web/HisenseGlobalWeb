@@ -1,7 +1,11 @@
+import translate from '../../utils/translate.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+
 export default function decorate(block) {
   const TitleEl = document.createElement('div');
   TitleEl.className = 'article-title-list-title';
-  TitleEl.textContent = 'Key Facts';
+  const { language } = getLocaleFromPath();
+  TitleEl.textContent = translate('KEY_FACTS', language);
 
   const AtBodyEl = document.createElement('div');
   AtBodyEl.className = 'article-body-list';
