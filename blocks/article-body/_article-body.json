@@ -182,6 +182,13 @@
           "label": "Do you want to enable text centering?",
           "valueType": "boolean",
           "value": false
+        },
+        {
+          "component": "text",
+          "name": "color",
+          "label": "Color",
+          "value": "",
+          "description": "Accept color name or hex color code (e.g. #000)"
         }
       ]
     },
