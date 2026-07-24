@@ -35,6 +35,7 @@ import {
   shouldShowPlpFavoriteButton,
 } from '../../scripts/commerce-ui-utils.js';
 import { isStageHostname } from '../../scripts/environment.js';
+import { fetchResellerData } from '../../utils/where-to-by-reseller.js';
 
 const { country, language } = getLocaleFromPath();
 const STOREFRONT_BASE_URL = (() => {
@@ -1872,6 +1873,9 @@ export default function decorate(block) {
       let favoriteEnabled = false;
       let favoriteAuthenticated = Boolean(getCachedHybrisAuthState().authenticated);
 
+      let resellerData = null; // 缓存 reseller 数据
+      let isResellerMode = false; // 是否处于 reseller 模式
+
       const getVariantProductCode = (variant) => getHybrisProductCode(variant)
         || getHybrisProductCode(item)
         || getHybrisProductCode(group.representative);
@@ -1980,6 +1984,26 @@ export default function decorate(block) {
       const setWhereToBuyButtonState = (state = 'whereToBuy', productCode = '', options = {}) => {
         const normalizedState = String(state || 'whereToBuy');
         const normalizedProductCode = String(productCode || '').trim();
+        // ============ 新增：处理 reseller 状态 ============
+        if (normalizedState === 'reseller' || options.isReseller) {
+          // 显示 "Find Reseller" 按钮
+          whereToBuyBtnEl.textContent = 'Find Reseller';
+          whereToBuyBtnEl.classList.remove('ps-widget');
+          whereToBuyBtnEl.style.pointerEvents = 'auto';
+          whereToBuyBtnEl.setAttribute('aria-label', 'Find a reseller near you');
+          whereToBuyBtnEl.removeAttribute('ps-sku');
+
+          // 存储 reseller 数据到 dataset，供点击事件使用
+          if (resellerData) {
+            whereToBuyBtnEl.dataset.hasReseller = 'true';
+            whereToBuyBtnEl.dataset.resellerData = JSON.stringify(resellerData);
+          }
+
+          // 显示按钮
+          setPurchaseButtonVisibility(whereToBuyBtnEl, true);
+          return;
+        }
+        // ============ 新增：处理 reseller 状态 ============
         const presentation = resolveWhereToBuyButtonPresentation(normalizedState);
         const visibility = options.visibility || resolveCommerceButtonVisibility(normalizedState, {
           pageType: 'plp',
@@ -2016,6 +2040,16 @@ export default function decorate(block) {
         observeWhereToBuyButtonPriceSpiderState();
       };
 
+      // 重置 reseller 状态
+      const resetResellerData = () => {
+        // 在更新 Where to Buy 之前，先重置 reseller 状态
+        resellerData = null;
+        isResellerMode = false;
+        // 清除按钮上的 reseller 标记
+        whereToBuyBtnEl.dataset.hasReseller = 'false';
+        delete whereToBuyBtnEl.dataset.resellerData;
+      };
+
       const updatePurchaseButtons = (state = 'whereToBuy', options = {}) => {
         const addToCartCode = addToCartBtnEl.dataset.productCode || '';
         if (!addToCartCode) {
@@ -2028,6 +2062,24 @@ export default function decorate(block) {
           pageType: 'plp',
           hasHybrisData: options.hasHybrisData,
         });
+        // ============ 新增：根据是否有 reseller 数据决定按钮行为 ============
+        const hasReseller = options.hasResellerData === true;
+
+        // 如果有 reseller 数据，覆盖 visibility 的 showWhereToBuy
+        // 或者单独控制 reseller 按钮的显示
+        if (hasReseller) {
+          // 方式1：复用 whereToBuy 按钮，改变其行为
+          setWhereToBuyButtonState('reseller', addToCartCode, { // ← 新增 'reseller' 状态
+            visibility: { ...visibility, showWhereToBuy: true },
+            hasHybrisData: options.hasHybrisData,
+            isReseller: true,
+          });
+          setPurchaseButtonVisibility(addToCartBtnEl, false);
+          setPurchaseButtonVisibility(outOfStockBtnEl, false);
+          setWhereToBuyPurchaseVisibility(true); // 显示按钮，但行为改为 reseller
+          return;
+        }
+        // ============ 新增：根据是否有 reseller 数据决定按钮行为 ============
         setWhereToBuyButtonState(normalizedState, addToCartCode, {
           visibility,
           hasHybrisData: options.hasHybrisData,
@@ -2103,6 +2155,17 @@ export default function decorate(block) {
             return;
           }
 
+          // 并行获取 commerce 数据和 reseller 数据，不阻塞主流程
+          const resellerResult = await fetchResellerData(productCode);
+          console.log(resellerResult, 'rrrrrrrrrr');
+          resellerData = resellerResult;
+          isResellerMode = Boolean(resellerData);
+          // if (requestId === commerceRequestId) {
+          //   console.log('kkkkkkkkkkkk')
+          //   resellerData = resellerResult;
+          //   isResellerMode = Boolean(resellerData);
+          // }
+
           const inventoryAvailable = hasInventory(commerceProduct);
           const hasPrice = updatePriceState(commerceProduct, variant);
           const hasProductData = Boolean(
@@ -2118,6 +2181,7 @@ export default function decorate(block) {
             hasInventory: inventoryAvailable,
           }), {
             hasHybrisData: hasProductData,
+            hasResellerData: isResellerMode,
           });
           updateFavoriteState(productCode);
           if (commerceProduct && commerceProduct.isPresale) {
@@ -2296,6 +2360,9 @@ export default function decorate(block) {
         if (wishlistLoaded) {
           syncWishlistFavoriteElements();
         }
+
+        // 重置 reseller 状态
+        resetResellerData();
 
         // 为 where to buy 按钮设置商品对应属性
         setWhereToBuyButtonState('whereToBuy', variantProductCode);

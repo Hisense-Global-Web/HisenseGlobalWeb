@@ -1,6 +1,88 @@
 import { getLocaleFromPath } from '../scripts/locale-utils.js';
 import translate from './translate.js';
 
+const FIVE_MINUTES_MS = 5 * 60 * 1000;
+function isAemEnvironment() {
+  const hostname = window.location.hostname || '';
+  return hostname.includes('author') || hostname.includes('publish');
+}
+
+function getWarrantyEndpoint(country, language) {
+  if (!country || !language) return '';
+  const params = new URLSearchParams({
+    country,
+    language,
+  });
+  if (isAemEnvironment()) {
+    return `/bin/hisense/warranty?${params.toString()}`;
+  }
+
+  return `/warranty/${country}/${language}.json`;
+}
+
+function simpleHash(str) {
+  const s = String(str);
+  let h = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    h = (h * 31 + s.charCodeAt(i)) % 2147483647;
+  }
+  return Math.abs(h).toString(36);
+}
+
+function getCacheBustedUrl(url) {
+  if (!url) return '';
+  const cacheBuster = simpleHash(Math.floor(Date.now() / FIVE_MINUTES_MS));
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}_t=${cacheBuster}`;
+}
+
+function getBaseUrl() {
+  return window.GRAPHQL_BASE_URL || '';
+}
+
+function toAbsoluteUrl(path) {
+  if (!path) return '';
+  if (/^https?:\/\//i.test(path)) return path;
+
+  const shouldPrefixBaseUrl = ['/bin/', '/warranty/']
+    .some((prefix) => path.startsWith(prefix));
+  if (!shouldPrefixBaseUrl) return path;
+
+  const baseUrl = getBaseUrl();
+  if (!baseUrl) return path;
+  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
+async function fetchJson(path) {
+  if (!path) return null;
+
+  const url = getCacheBustedUrl(toAbsoluteUrl(path));
+  const response = await fetch(url, { credentials: 'same-origin' });
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+  return response.json();
+}
+
+// 新增：获取 reseller 数据
+export const fetchResellerData = async (productCode) => {
+  if (!productCode) return null;
+
+  const { country, language } = getLocaleFromPath();
+  try {
+    const warrantyEndpoint = getWarrantyEndpoint(
+      country,
+      language,
+    );
+    const resellerDataRes = await fetchJson(warrantyEndpoint);
+    return resellerDataRes?.data || [];
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('product-resources: failed to fetch reseller data', error);
+    throw error;
+  }
+};
+
 /**
  *
  * @param {*} showResellerData 展示经销商数据
