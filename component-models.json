@@ -1877,12 +1877,6 @@
         "required": true
       },
       {
-        "component": "boolean",
-        "name": "enable-dynamicMedia",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
