@@ -189,6 +189,13 @@
           "label": "Color",
           "value": "",
           "description": "Accept color name or hex color code (e.g. #000)"
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "font-size",
+          "label": "Font Size",
+          "value": "16"
         }
       ]
     },
