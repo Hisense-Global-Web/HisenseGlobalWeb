@@ -2997,13 +2997,6 @@
     "id": "enterprise-card-item",
     "fields": [
       {
-        "component": "boolean",
-        "name": "dynamic-media",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "pc_url",
@@ -7529,13 +7522,6 @@
         "value": "background-box",
         "hidden": true,
         "readonly": true
-      },
-      {
-        "component": "boolean",
-        "name": "background_dynamicMedia",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
       },
       {
         "component": "reference",
