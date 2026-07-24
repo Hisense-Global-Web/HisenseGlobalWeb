@@ -379,6 +379,8 @@ function extractLegalLinksData(container) {
   const legalLinksData = {
     links: [],
     copyright: '',
+    icon1: '',
+    icon2: '',
   };
 
   const legalLinksBlock = container.querySelector('.footer-legal-links');
@@ -391,6 +393,16 @@ function extractLegalLinksData(container) {
   legalItemRows.forEach((row, index) => {
     if (index === 0) {
       legalLinksData.copyright = row.textContent.trim();
+      return;
+    }
+
+    if (index === 1 && row.querySelector('img')) {
+      legalLinksData.icon1 = row.querySelector('img').src;
+      return;
+    }
+
+    if (index === 2 && row.querySelector('img')) {
+      legalLinksData.icon2 = row.querySelector('img').src;
       return;
     }
 
@@ -574,7 +586,18 @@ export default async function decorate(block) {
 
     const footerLegalsRight = document.createElement('div');
     footerLegalsRight.className = 'footer-legals footer-legals-item-right h-grid-container';
-    footerLegalsRight.textContent = 'aaa';
+    if (data.legalLinks.icon1) {
+      const icon1 = document.createElement('img');
+      icon1.className = 'footer-legals-icon';
+      icon1.src = data.legalLinks.icon1;
+      footerLegalsRight.appendChild(icon1);
+    }
+    if (data.legalLinks.icon2) {
+      const icon2 = document.createElement('img');
+      icon2.className = 'footer-legals-icon';
+      icon2.src = data.legalLinks.icon2;
+      footerLegalsRight.appendChild(icon2);
+    }
 
     if (data.legalLinks.links.length > 0) {
       const legalLinksDiv = document.createElement('div');
