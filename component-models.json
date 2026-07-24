@@ -1132,19 +1132,6 @@
     ]
   },
   {
-    "id": "article-body",
-    "classes": "text-body",
-    "fields": [
-      {
-        "component": "number",
-        "valueType": "number",
-        "name": "gap",
-        "label": "Gap",
-        "value": ""
-      }
-    ]
-  },
-  {
     "id": "article-body-image",
     "classes": "text-body-image",
     "fields": [
