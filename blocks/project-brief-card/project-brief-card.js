@@ -1,5 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
-import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+// import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import translate from '../../utils/translate.js';
 
@@ -123,20 +123,23 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
 
 const generateCard = (info) => {
   info?.classList?.add?.('info-list-card');
-  const [isDynamicFlag, documentIconEl, infoEL, titleEl, textEl, subTextEl, locationEl] = info?.children ?? [];
-  isDynamicFlag.remove();
+  const [documentIconEl, infoEL, titleEl, textEl, subTextEl, locationEl] = info?.children ?? [];
+  // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+  // const [isDynamicFlag, documentIconEl, infoEL, titleEl, textEl, subTextEl, locationEl] = info?.children ?? [];
+  // isDynamicFlag.remove();
 
   const wrapper = document.createElement('div');
 
   // card 左侧: icon
   documentIconEl?.classList?.add?.('card-image');
 
+  // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
   // 设置 dynamic media
-  if (documentIconEl.querySelector('a')) {
-    const dynamicImgSrc = documentIconEl.querySelector('a').getAttribute('href');
-    documentIconEl.append(createDynamicMediaPicture(dynamicImgSrc, 'project-brief-card'));
-    documentIconEl.children[0].remove();
-  }
+  // if (documentIconEl.querySelector('a')) {
+  //   const dynamicImgSrc = documentIconEl.querySelector('a').getAttribute('href');
+  //   documentIconEl.append(createDynamicMediaPicture(dynamicImgSrc, 'project-brief-card'));
+  //   documentIconEl.children[0].remove();
+  // }
 
   if (infoEL) {
     infoEL.classList.add('card-info');

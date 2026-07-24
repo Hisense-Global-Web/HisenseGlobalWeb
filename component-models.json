@@ -1877,12 +1877,6 @@
         "required": true
       },
       {
-        "component": "boolean",
-        "name": "enable-dynamicMedia",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -2130,13 +2124,6 @@
   {
     "id": "feature-items",
     "fields": [
-      {
-        "component": "boolean",
-        "name": "dynamic-media",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
-      },
       {
         "component": "reference",
         "valueType": "string",
@@ -2536,13 +2523,6 @@
   {
     "id": "core-value-card-item",
     "fields": [
-      {
-        "component": "boolean",
-        "name": "image_dynamicMedia",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
-      },
       {
         "component": "reference",
         "valueType": "string",
@@ -3010,13 +2990,6 @@
   {
     "id": "enterprise-card-item",
     "fields": [
-      {
-        "component": "boolean",
-        "name": "dynamic-media",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
-      },
       {
         "component": "reference",
         "valueType": "string",
@@ -4250,13 +4223,6 @@
         "name": "title",
         "label": "Title",
         "valueType": "string"
-      },
-      {
-        "component": "boolean",
-        "name": "image_dynamic",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
       },
       {
         "component": "reference",
@@ -6193,13 +6159,6 @@
     "id": "project-brief-card-item",
     "fields": [
       {
-        "component": "boolean",
-        "name": "dynamic_media",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
-      },
-      {
         "component": "reference",
         "name": "item-Image",
         "label": "Item Image",
@@ -7557,13 +7516,6 @@
         "value": "background-box",
         "hidden": true,
         "readonly": true
-      },
-      {
-        "component": "boolean",
-        "name": "background_dynamicMedia",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
       },
       {
         "component": "reference",
