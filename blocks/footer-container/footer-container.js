@@ -1,6 +1,7 @@
-import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { getLocaleFromPath, languageList } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+import translate from '../../utils/translate.js';
 
 const { country, language } = getLocaleFromPath();
 const REGION = '/hisense/region-selection.json';
@@ -665,7 +666,14 @@ export default async function decorate(block) {
   <div class="footer-lan-com">${selectedCountry.name}</div>
   <div class="footer-lan-list">
     ${generateLanguageItems(selectedCountry.languages, selectedCountry.selectedLanguage)}
-  </div>` : '';
+  </div>` : `
+  <img class="region-icon" src="/content/dam/hisense/${country}/common-icons/global.svg" alt="" />
+  <div class="footer-lan-list">
+    ${generateLanguageItems(languageList.reduce((acc, l) => {
+    acc[l] = translate('LANGUAGE_NAME', l);
+    return acc;
+  }, {}), language)}
+  </div>`;
     const regionIcon = lanGroup.querySelector('.region-icon');
     if (regionIcon) {
       regionIcon.addEventListener('click', () => {
