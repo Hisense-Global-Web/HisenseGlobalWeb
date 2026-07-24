@@ -427,18 +427,38 @@ footer footer {
 .footer-bottom .footer-legals {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-	flex-wrap: wrap;
-	gap: var(--size-16) var(--size-32);
+  justify-content: space-between;
 
-  @media (width < 640px) {
-    gap: var(--size-30);
+  &.footer-legals-item-left {
+    padding: 0;
+    width: min(calc(739 / var(--breakpoint-pc) * 100vw), 739px);
+    margin: initial;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--size-16) var(--size-32);
+
+    @media (width < 640px) {
+      gap: var(--size-30);
+    }
+  }
+
+  &.footer-legals-item-right {
+    width: min(calc(357 / var(--breakpoint-pc) * 100vw), 357px);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    .footer-legals-icon {
+      width: min(calc(167 / var(--breakpoint-pc) * 100vw), 167px);
+    }
   }
 
   .footer-lan-group {
     display: flex;
-    width: min(calc(234 / var(--breakpoint-pc) * 100vw), 234px);
     height: var(--size-20);
     align-items: center;
     font-weight: var(--fontweight-book);
@@ -529,7 +549,6 @@ footer footer {
 	font-size: var(--size-12);
 	text-decoration: none;
   font-weight: var(--fontweight-book);
-  width: min(calc(234 / var(--breakpoint-pc) * 100vw), 234px);
 
   * {
     color: var(--color-primary-grey-90);
