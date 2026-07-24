@@ -1202,6 +1202,13 @@
         "name": "content",
         "label": "Content",
         "value": ""
+      },
+      {
+        "component": "boolean",
+        "name": "text-center",
+        "label": "Do you want to enable text centering?",
+        "valueType": "boolean",
+        "value": false
       }
     ]
   },
