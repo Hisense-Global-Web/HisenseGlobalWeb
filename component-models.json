@@ -1222,7 +1222,7 @@
         "valueType": "number",
         "name": "font-size",
         "label": "Font Size",
-        "value": "16"
+        "value": ""
       }
     ]
   },

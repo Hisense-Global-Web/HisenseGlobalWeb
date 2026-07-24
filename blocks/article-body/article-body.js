@@ -105,6 +105,9 @@ export default function decorate(block) {
       if (row.children[3] && row.children[3].textContent.trim()) {
         contentDiv.style.color = row.children[3].textContent.trim();
       }
+      if (row.children[4] && row.children[4].textContent.trim()) {
+        contentDiv.style.fontSize = `${row.children[4].textContent.trim()}px`;
+      }
       ArticleBodyDiv.append(contentDiv);
     } else if (type === 'quote') {
       const quoteDiv = row.children[1];
