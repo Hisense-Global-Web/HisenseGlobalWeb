@@ -1,5 +1,126 @@
+:root {
+  /* font size */
+  --display-xl-font-size: var(--size-72);
+  --display-xl-line-height: var(--size-80);
+  --display-l-font-size: var(--size-46);
+  --display-l-line-height: var(--size-56);
+  --display-m-font-size: var(--size-40);
+  --display-m-line-height: var(--size-48);
+  --heading-l-font-size: var(--size-34);
+  --heading-l-line-height: var(--size-40);
+  --heading-m-font-size: var(--size-30);
+  --heading-m-line-height: var(--size-36);
+  --heading-s-font-size: var(--size-24);
+  --heading-s-line-height: var(--size-28);
+  --title-l-font-size: var(--size-20);
+  --title-l-line-height: var(--size-24);
+  --title-m-font-size: var(--size-18);
+  --title-m-line-height: var(--size-22);
+  --title-s-font-size: var(--size-16);
+  --title-s-line-height: var(--size-21);
+  --body-l-font-size: var(--size-20);
+  --body-l-line-height: var(--size-24);
+  --body-m-font-size: var(--size-16);
+  --body-m-line-height: var(--size-24);
+  --body-font-size: var(--size-14);
+  --body-line-height: var(--size-21);
+  --caption-regular-font-size: var(--size-12);
+  --caption-regular-line-height: var(--size-18);
+  --label-m-font-size: var(--size-10);
+  --label-m-line-height: var(--size-14);
+
+  /* Color */
+  --color-green-10: #F6FDFD;
+  --color-green-50: #EDFCFB;
+  --color-green-100: #E6FAFA;
+  --color-green-200: #C8EFEE;
+  --color-green-300: #85D6D4;
+  --color-green-400: #50C3C3;
+  --color-green-hisense-logo: #00AAA6;
+  --color-green-500: #009F9C;
+  --color-green-600: #008482;
+  --color-green-700: #005A5C;
+  --color-green-800: #003033;
+  --color-white: #fff;
+  --color-gray-50: #F7F7F7;
+  --color-gray-100: #EBEBEB;
+  --color-gray-200: #E0E0E0;
+  --color-gray-300: #BBB;
+  --color-gray-400: #747474;
+  --color-gray-500: #555;
+  --color-gray-600: #333;
+  --color-gray-700: #242424;
+  --color-gray-800: #141414;
+  --color-black: #000;
+  --color-accents-red-50: #FFF4F2;
+  --color-accents-red-100: #FFE3DF;
+  --color-accents-red-200: #F09F96;
+  --color-accents-red-300: #FFE3DF;
+  --color-accents-red-400: #F06151;
+  --color-accents-red-500: #E03F2D;
+  --color-accents-red-600: #B82D28;
+  --color-accents-wishlist-red: #FE4B4B;
+  --color-accents-orange-50: #FFF8E5;
+  --color-accents-orange-100: #FFEEC2;
+  --color-accents-orange-200: #FFDC8F;
+  --color-accents-orange-300: #FFC55C;
+  --color-accents-orange-400: #FAB041;
+  --color-accents-orange-500: #D98F1E;
+  --color-accents-orange-600: #A26311;
+  --color-accents-orange-700: #6E4007;
+  --color-accents-gold-50: #FAF4E8;
+  --color-accents-gold-100: #F5E6CC;
+  --color-accents-gold-200: #EDD1A3;
+  --color-accents-gold-300: #E7B974;
+  --color-accents-gold-400: #E19E47;
+  --color-accents-gold-500: #C6822B;
+  --color-accents-gold-600: #915F1C;
+  --color-accents-gold-700: #4F330B;
+  --color-accents-blue-50: #EAF7FE;
+  --color-accents-blue-100: #C3E6FC;
+  --color-accents-blue-200: #9ACFFA;
+  --color-accents-blue-300: #71B4F4;
+  --color-accents-blue-400: #4B93DB;
+  --color-accents-blue-500: #256EB8;
+  --color-accents-blue-600: #1B5491;
+  --color-accents-blue-700: #123B6B;
+
+  @media (width < 640px) {
+    /* font size */
+    --display-xl-font-size: var(--size-46);
+    --display-xl-line-height: var(--size-56);
+    --display-l-font-size: var(--size-34);
+    --display-l-line-height: var(--size-40);
+    --display-m-font-size: var(--size-30);
+    --display-m-line-height: var(--size-36);
+    --heading-l-font-size: var(--size-30);
+    --heading-l-line-height: var(--size-36);
+    --heading-m-font-size: var(--size-24);
+    --heading-m-line-height: var(--size-28);
+    --heading-s-font-size: var(--size-18);
+    --heading-s-line-height: var(--size-22);
+    --title-l-font-size: var(--size-20);
+    --title-l-line-height: var(--size-24);
+    --title-m-font-size: var(--size-18);
+    --title-m-line-height: var(--size-22);
+    --title-s-font-size: var(--size-16);
+    --title-s-line-height: var(--size-21);
+    --body-l-font-size: var(--size-20);
+    --body-l-line-height: var(--size-24);
+    --body-m-font-size: var(--size-16);
+    --body-m-line-height: var(--size-24);
+    --body-font-size: var(--size-14);
+    --body-line-height: var(--size-21);
+    --caption-regular-font-size: var(--size-12);
+    --caption-regular-line-height: var(--size-18);
+    --label-m-font-size: var(--size-10);
+    --label-m-line-height: var(--size-14);
+  }
+}
+
 :root:lang(en) {
   /* 多语言css适配 */
+  
 }
 
 :root:lang(es) {
@@ -16,14 +137,17 @@
 
 :root:lang(zh) {
   /* 多语言css适配 */
+  
 }
 
 :root:lang(zh-tw) {
   /* 多语言css适配 */
+  --font-family: "Noto Sans TC";
 }
 
 :root:lang(ja) {
   /* 多语言css适配 */
+  --font-family: "Noto Sans JP";
 }
 
 :root:lang(th) {
@@ -32,6 +156,7 @@
 
 :root:lang(ar) {
   /* 多语言css适配 */
+  --font-family: "IBM Plex Sans Arabic";
 }
 
 :root:dir(rtl) {
