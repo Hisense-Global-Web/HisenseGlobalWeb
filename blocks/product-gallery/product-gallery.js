@@ -163,11 +163,9 @@ function buildTab(itemElement, index) {
       mainVideoImg.replaceChildren(iframeVideoDom);
       return;
     }
-    const imgUrl = e.target?.src;
     if (mainVideoImg) {
-      const img = document.createElement('img');
-      img.src = imgUrl;
-      mainVideoImg.replaceChildren(img);
+      const picEl = e.currentTarget.querySelector('picture');
+      mainVideoImg.replaceChildren(picEl);
     }
   });
 
@@ -417,7 +415,7 @@ export default function decorate(block) {
       mediaImg.append(firstExternal.cloneNode(true));
     } else {
       // 首次加载时，第一个缩略图中配置的是【图片】
-      const firstImg = tabs.querySelector('.product-filter-img-box .product-filter-img img');
+      const firstImg = tabs.querySelector('.product-filter-img-box .product-filter-img picture');
       if (firstImg) {
         mediaImg.append(firstImg.cloneNode(true));
       }
