@@ -66,8 +66,17 @@ export default async function decorate(block) {
     imagesGroup = block.querySelector('div:nth-of-type(2)');
     iconGroup = block.querySelector('div:nth-of-type(3)');
     iconGroup.classList.add('guide-container');
-    const aElList = imagesGroup?.querySelectorAll('a');
-    pictures = [...aElList].map((aEl) => createDynamicMediaPicture(aEl.href));
+    const aElList = imagesGroup?.querySelectorAll('p');
+    pictures = [...aElList].map((pEl) => {
+      if (pEl.querySelector('a')) {
+        const aEl = pEl.querySelector('a');
+        return createDynamicMediaPicture(aEl.href);
+      }
+      if (pEl.querySelector('picture')) {
+        return pEl.querySelector('picture');
+      }
+      return pEl;
+    });
   }
 
   // Destructure for clarity
