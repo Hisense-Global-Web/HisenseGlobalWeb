@@ -15,10 +15,12 @@ export default function decorate(block) {
         videourl = link.href;
       }
     }
-    if (row.querySelectorAll('p').length === 2 && (row.querySelector('picture') || row.querySelector('a'))) {
+    // 判断 dynamic media 开关与封面图元素
+    if (index === 1) {
       const [dynamicSwitch, imgDom] = [...row.querySelectorAll('p')] ?? [];
       isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
       // dynamicSwitch.remove();
+      if (!imgDom) return;
       if (imgDom.querySelector('a') && isDynamicFlag) {
         // 设置dynamic media
         imgUrl = imgDom.querySelector('a').getAttribute('href');
