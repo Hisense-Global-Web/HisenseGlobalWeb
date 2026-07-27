@@ -29,6 +29,12 @@ export default function decorate(block) {
         row.children[0].style.display = 'none';
         const contentDiv = row.children[1];
         contentDiv.className = 'text-body-content';
+        if (row.children[2] && row.children[2].textContent.trim() === 'true') {
+          contentDiv.style.textAlign = 'center';
+        }
+        if (row.children[3] && row.children[3].textContent.trim()) {
+          contentDiv.style.color = row.children[3].textContent.trim();
+        }
       } else if (type === 'quote') {
         row.children[0].style.display = 'none';
         const quoteDiv = row.children[1];
@@ -93,6 +99,15 @@ export default function decorate(block) {
     } else if (type === 'content') {
       const contentDiv = row.children[1];
       contentDiv.className = 'text-body-content';
+      if (row.children[2] && row.children[2].textContent.trim() === 'true') {
+        contentDiv.style.textAlign = 'center';
+      }
+      if (row.children[3] && row.children[3].textContent.trim()) {
+        contentDiv.style.color = row.children[3].textContent.trim();
+      }
+      if (row.children[4] && row.children[4].textContent.trim()) {
+        contentDiv.style.fontSize = `${row.children[4].textContent.trim()}px`;
+      }
       ArticleBodyDiv.append(contentDiv);
     } else if (type === 'quote') {
       const quoteDiv = row.children[1];
@@ -114,10 +129,10 @@ export default function decorate(block) {
       // 图
       const imgGroupDiv = document.createElement('div');
       imgGroupDiv.className = 'text-body-img-group';
-      const imgEl = row.children[2].querySelector('img');
+      const imgEl = row.children[2].querySelector('picture');
       const imgAEl = row.children[2].querySelector('a');
       if (imgEl) {
-        imgGroupDiv.append(createDynamicMediaPicture(imgEl.href));
+        imgGroupDiv.append(imgEl);
       } else if (!imgEl && imgAEl) {
         const imgUrl = imgAEl.getAttribute('href');
         imgGroupDiv.append(createDynamicMediaPicture(imgUrl));

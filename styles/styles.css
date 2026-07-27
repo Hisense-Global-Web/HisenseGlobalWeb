@@ -168,6 +168,7 @@ html {
 	--header-active-color: var(--header-light-color);
 	--header-backgroundcolor: rgb(244 248 247 / 100%);
   --root-language-aside-height: 72px;
+  --root-already-aside-header-height: 44px;
 
   /* common */
   --common-padding: 18px;

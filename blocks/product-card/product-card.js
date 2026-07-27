@@ -35,6 +35,7 @@ import {
   shouldShowPlpFavoriteButton,
 } from '../../scripts/commerce-ui-utils.js';
 import { isStageHostname } from '../../scripts/environment.js';
+import translate from '../../utils/translate.js';
 
 const { country, language } = getLocaleFromPath();
 const STOREFRONT_BASE_URL = (() => {
@@ -904,7 +905,7 @@ export default function decorate(block) {
     // add compare button and compare bar close button
     const compareBtnEl = document.createElement('div');
     compareBtnEl.className = 'plp-compare-btn';
-    compareBtnEl.textContent = 'Compare';
+    compareBtnEl.textContent = translate('COMPARE', language);
     // 显示对比详细信息弹窗
     compareBtnEl.addEventListener('click', () => {
       // 对比数据小于2条时，不展示对比弹窗
@@ -1159,7 +1160,7 @@ export default function decorate(block) {
     entry: null,
     variant: null,
     representative: null,
-    message: 'Item added to your cart',
+    message: translate('ITEM_ADDED_TO_YOUR_CART', language),
     processing: false,
     quantityLoading: false,
     pendingQuantityAction: '',
@@ -1271,7 +1272,7 @@ export default function decorate(block) {
     popupElements.stockLine.classList.remove('is-unavailable');
     if (hasStockInfo) {
       const inStock = hasInventory(stockSource);
-      popupElements.stockText.textContent = inStock ? 'In Stock' : 'Out of stock';
+      popupElements.stockText.textContent = inStock ? translate('IN_STOCK', language) : translate('OUT_OF_STOCK', language);
       popupElements.stockLine.classList.toggle('is-unavailable', !inStock);
     }
     if (entry?.product && entry.product.isPresale) {
@@ -1457,7 +1458,7 @@ export default function decorate(block) {
         returnUrl: window.location.href,
       });
       await refreshProductCardPopupCart();
-      popupState.message = previousQuantity > 0 ? 'Cart updated' : 'Item added to your cart';
+      popupState.message = previousQuantity > 0 ? 'Cart updated' : translate('ITEM_ADDED_TO_YOUR_CART', language);
     } catch (error) {
       /* eslint-disable-next-line no-console */
       console.warn(`Failed to increase cart quantity for ${popupState.productCode}`, error);
@@ -1549,7 +1550,7 @@ export default function decorate(block) {
 
     const qtySpan = document.createElement('span');
     qtySpan.className = 'qty-span';
-    qtySpan.textContent = 'Qty:';
+    qtySpan.textContent = translate('QTY', language);
 
     const btnMinus = document.createElement('button');
     btnMinus.type = 'button';
@@ -1795,7 +1796,7 @@ export default function decorate(block) {
       const discountsDiv = document.createElement('div');
       discountsDiv.className = 'plp-product-discounts';
       const discountsTitle = document.createElement('span');
-      discountsTitle.textContent = 'Save';
+      discountsTitle.textContent = translate('SAVE', language);
       const discountsCurrency = document.createElement('span');
       const discountsValue = document.createElement('span');
       discountsDiv.append(discountsTitle, discountsCurrency, discountsValue);
@@ -1836,11 +1837,11 @@ export default function decorate(block) {
       // where to by
       const addToCartBtnEl = document.createElement('div');
       addToCartBtnEl.className = 'plp-add-to-cart-btn plp-purchase-hidden';
-      addToCartBtnEl.textContent = 'Add to Cart';
+      addToCartBtnEl.textContent = translate('ADD_TO_CART', language);
 
       const outOfStockBtnEl = document.createElement('div');
       outOfStockBtnEl.className = 'plp-out-of-stock-btn disabled plp-purchase-hidden';
-      outOfStockBtnEl.textContent = 'Out of stock';
+      outOfStockBtnEl.textContent = translate('OUT_OF_STOCK', language);
 
       const whereToBuyBtnEl = document.createElement('div');
       whereToBuyBtnEl.className = 'plp-where-to-buy-btn ps-widget plp-purchase-hidden';
@@ -1853,7 +1854,7 @@ export default function decorate(block) {
       compareIcon.innerHTML = `<img class="icon-unchecked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox-empty.svg" alt="" />
         <img class="icon-checked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox.svg" alt="" />`;
       const labelSpan = document.createElement('span');
-      labelSpan.textContent = 'Compare';
+      labelSpan.textContent = translate('COMPARE', language);
       compareEl.append(compareIcon, labelSpan);
 
       const colorsArray = (Array.isArray(group.colors) && group.colors.length)
@@ -1927,7 +1928,7 @@ export default function decorate(block) {
           noSku: whereToBuyBtnEl.classList.contains('ps-no-sku'),
           ariaLabel: whereToBuyBtnEl.getAttribute('aria-label'),
           buttonLabel: whereToBuyBtnEl.getAttribute('ps-button-label'),
-          fallbackText: whereToBuyBtnEl.getAttribute('data-fallback-label') || 'Where to buy',
+          fallbackText: whereToBuyBtnEl.getAttribute('data-fallback-label') || translate('WHERE_TO_BUY', language),
           comingSoonMode: whereToBuyBtnEl.dataset.priceSpiderComingSoonMode || 'hide',
         });
         const shouldShowWhereToBuy = requestedVisible && priceSpiderState.showWhereToBuy;
@@ -2290,7 +2291,7 @@ export default function decorate(block) {
         const variantProductCode = getVariantProductCode(variant);
         addToCartBtnEl.dataset.productCode = variantProductCode || '';
         fav.dataset.productCode = variantProductCode || '';
-        addToCartBtnEl.textContent = 'Add to Cart';
+        addToCartBtnEl.textContent = translate('ADD_TO_CART', language);
         setControlLoadingState(addToCartBtnEl, false);
         setControlLoadingState(fav, false);
         if (wishlistLoaded) {
@@ -2312,7 +2313,7 @@ export default function decorate(block) {
             productBtnGroupEl.append(link);
           }
           link.href = productDetailPageLink;
-          link.textContent = 'Learn more';
+          link.textContent = translate('LEARN_MORE', language);
         } else {
           const existingLink = card.querySelector && card.querySelector('.plp-product-btn');
           if (existingLink) existingLink.remove();
@@ -2768,7 +2769,7 @@ export default function decorate(block) {
 
   const popupTitle = document.createElement('div');
   popupTitle.className = 'popup-title';
-  popupTitle.textContent = 'Item added to your cart';
+  popupTitle.textContent = translate('ITEM_ADDED_TO_YOUR_CART', language);
 
   const popupList = document.createElement('div');
   popupList.className = 'popup-list';
@@ -2789,7 +2790,7 @@ export default function decorate(block) {
   popupInfoModel.className = 'popup-info-model';
   const modelLine = document.createElement('div');
   const popupInfoModelSpan = document.createElement('span');
-  popupInfoModelSpan.textContent = 'Model:';
+  popupInfoModelSpan.textContent = translate('MODEL', language);
   const popupInfoModelValueSpan = document.createElement('span');
   popupInfoModelValueSpan.className = 'model-value';
   const stockLine = document.createElement('div');
@@ -2799,7 +2800,7 @@ export default function decorate(block) {
   stockImg.src = `/content/dam/hisense/${country}/common-icons/correct.svg`;
   stockImg.alt = '';
   const stockSpan = document.createElement('span');
-  stockSpan.textContent = 'In Stock';
+  stockSpan.textContent = translate('IN_STOCK', language);
   stockLine.append(stockImg, stockSpan);
 
   const presaleLine = document.createElement('div');
@@ -2865,11 +2866,11 @@ export default function decorate(block) {
   const viewCartBtn = document.createElement('button');
   viewCartBtn.type = 'button';
   viewCartBtn.className = 'view-cart-btn';
-  viewCartBtn.textContent = 'View cart';
+  viewCartBtn.textContent = translate('VIEW_CART', language);
   const checkoutBtn = document.createElement('button');
   checkoutBtn.type = 'button';
   checkoutBtn.className = 'checkout-btn';
-  checkoutBtn.textContent = 'Proceed to checkout';
+  checkoutBtn.textContent = translate('PROCEED_TO_CHECKOUT', language);
   checkoutBtn.hidden = true;
   btnGroup.append(viewCartBtn, checkoutBtn);
 

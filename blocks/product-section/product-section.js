@@ -26,6 +26,7 @@ import {
 import { getLocaleFromPath, localizeProductApiPath } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 import { isStageHostname } from '../../scripts/environment.js';
+import translate from '../../utils/translate.js';
 
 const { country, language } = getLocaleFromPath();
 const WISHLIST_CART_NAME_PREFIX = 'wishlist';
@@ -592,6 +593,8 @@ export default async function decorate(block) {
   let fields = [];
   let faqIconEl = null;
   let faqLink = '';
+  let resourcesIconEl = null;
+  let resourcesLink = '';
   let linkSku = '';
   rows.forEach((row, i) => {
     const text = row.textContent && row.textContent.trim();
@@ -608,6 +611,22 @@ export default async function decorate(block) {
       if (i === 4) {
         const str = processPath(row.textContent.trim() || '');
         faqLink = `${str}?sku=${linkSku}`;
+      }
+    }
+    if (fields.includes('resources')) {
+      if (i === 5) {
+        const imgEl = row.querySelector('img');
+        if (imgEl) {
+          resourcesIconEl = row.querySelector('img');
+        } else {
+          const createImgEl = document.createElement('img');
+          createImgEl.src = '/resources/resources.svg';
+          resourcesIconEl = createImgEl;
+        }
+      }
+      if (i === 6) {
+        const str = processPath(row.textContent.trim() || '');
+        resourcesLink = `${str}?sku=${linkSku}`;
       }
     }
   });
@@ -704,6 +723,7 @@ export default async function decorate(block) {
   const showBuyButton = fields.includes('buttons') || Boolean(sku);
   if (product.category) {
     faqLink += `&category=${product.category}`;
+    resourcesLink += `&category=${product.category}`;
   }
 
   // 将当前产品数据保存到window中供spec组件使用
@@ -854,7 +874,7 @@ export default async function decorate(block) {
   badgesMobile.className = 'pdp-badges-mobile';
   const badgesMobileTitle = document.createElement('div');
   badgesMobileTitle.className = 'pdp-badges-mobile-title';
-  badgesMobileTitle.textContent = 'award winning';
+  badgesMobileTitle.textContent = translate('AWARD_WINNING', language);
   badgesMobileGroup.appendChild(badgesMobileTitle);
   if (product && Array.isArray(product.awards) && product.awards.length) {
     product.awards.forEach((award) => {
@@ -878,7 +898,7 @@ export default async function decorate(block) {
 
   const buy = document.createElement('button');
   buy.className = 'pdp-buy-btn ps-widget';
-  buy.setAttribute('ps-button-label', 'where to buy');
+  buy.setAttribute('ps-button-label', translate('WHERE_TO_BUY', language));
   buy.setAttribute('ps-sku', sku);
   // const buyLink = (product && (product.whereToBuyLink || product.productDetailPageLink)) || '';
   // if (buyLink) {
@@ -887,11 +907,11 @@ export default async function decorate(block) {
 
   const cart = document.createElement('button');
   cart.className = 'pdp-cart-btn';
-  cart.textContent = 'Add to Cart';
+  cart.textContent = translate('ADD_TO_CART', language);
   cart.style.display = 'none';
   const outOfStockBtn = document.createElement('button');
   outOfStockBtn.className = 'pdp-out-of-stock-btn';
-  outOfStockBtn.textContent = 'Out of stock';
+  outOfStockBtn.textContent = translate('OUT_OF_STOCK', language);
   outOfStockBtn.disabled = true;
   outOfStockBtn.style.display = 'none';
   const btnGroup = document.createElement('div');
@@ -906,12 +926,25 @@ export default async function decorate(block) {
   if (faqIconEl && faqLink) {
     faqEl.appendChild(faqIconEl);
     const faqLinkSpan = document.createElement('span');
-    faqLinkSpan.textContent = 'FAQ';
+    faqLinkSpan.textContent = translate('FAQ', language);
     faqEl.appendChild(faqLinkSpan);
     faqEl.addEventListener('click', () => {
-      if (faqLink) window.location.href = faqLink;
+      if (faqLink) window.open(faqLink, '_blank');
     });
     linkGroupEl.appendChild(faqEl);
+  }
+
+  const resourcesEl = document.createElement('div');
+  resourcesEl.className = 'pdp-resources-btn';
+  if (resourcesIconEl && resourcesLink) {
+    resourcesEl.appendChild(resourcesIconEl);
+    const resourcesLinkSpan = document.createElement('span');
+    resourcesLinkSpan.textContent = 'Resources';
+    resourcesEl.appendChild(resourcesLinkSpan);
+    resourcesEl.addEventListener('click', () => {
+      if (resourcesLink) window.open(resourcesLink, '_blank');
+    });
+    linkGroupEl.appendChild(resourcesEl);
   }
 
   const specsBtn = document.createElement('div');
@@ -921,7 +954,7 @@ export default async function decorate(block) {
   specsImg.alt = 'specs';
   specsBtn.appendChild(specsImg);
   const specsSpan = document.createElement('span');
-  specsSpan.textContent = 'SPECS';
+  specsSpan.textContent = translate('SPECS', language);
   specsBtn.appendChild(specsSpan);
   specsBtn.addEventListener('click', () => {
     const targetElement = document.getElementById('specifications');
@@ -943,7 +976,7 @@ export default async function decorate(block) {
     series.classList.add('hide');
   }
   setElementHidden(buy, !showBuyButton);
-  buy.textContent = 'Where to buy';
+  buy.textContent = translate('WHERE_TO_BUY', language);
   setElementHidden(price, true);
   if (!fields.includes('buttons')) {
     sizesWrapper.classList.add('hide');
@@ -986,7 +1019,7 @@ export default async function decorate(block) {
     entry: null,
     variant: null,
     representative: null,
-    message: 'Item added to your cart',
+    message: translate('ITEM_ADDED_TO_YOUR_CART', language),
     processing: false,
     quantityLoading: false,
     pendingQuantityAction: '',
@@ -1056,7 +1089,7 @@ export default async function decorate(block) {
       noSku: buy.classList.contains('ps-no-sku'),
       ariaLabel: buy.getAttribute('aria-label'),
       buttonLabel: buy.getAttribute('ps-button-label'),
-      fallbackText: buy.getAttribute('data-fallback-label') || 'Where to buy',
+      fallbackText: buy.getAttribute('data-fallback-label') || translate('WHERE_TO_BUY', language),
       comingSoonMode: buy.dataset.priceSpiderComingSoonMode || 'hide',
     });
     const shouldShowBuy = requestedVisible && priceSpiderState.showWhereToBuy;
@@ -1259,7 +1292,7 @@ export default async function decorate(block) {
     popupElements.stockLine.classList.remove('is-unavailable');
     if (hasStockInfo) {
       const inStock = hasInventory(stockSource);
-      popupElements.stockText.textContent = inStock ? 'In Stock' : 'Out of stock';
+      popupElements.stockText.textContent = inStock ? translate('IN_STOCK', language) : translate('OUT_OF_STOCK', language);
       popupElements.stockLine.classList.toggle('is-unavailable', !inStock);
     }
     if (entry?.product && entry.product.isPresale) {
@@ -1440,7 +1473,7 @@ export default async function decorate(block) {
       });
       await refreshProductCardPopupCart();
       // popupState.message = previousQuantity > 0 ? 'Cart updated' : 'Item added to your cart';
-      popupState.message = 'Item added to your cart';
+      popupState.message = translate('ITEM_ADDED_TO_YOUR_CART', language);
     } catch (error) {
       console.warn(`Failed to increase PDP cart quantity for ${popupState.productCode}`, error);
       popupState.message = previousMessage;
@@ -1477,7 +1510,7 @@ export default async function decorate(block) {
       });
       await refreshProductCardPopupCart();
       // popupState.message = 'Cart updated';
-      popupState.message = 'Item added to your cart';
+      popupState.message = translate('ITEM_ADDED_TO_YOUR_CART', language);
     } catch (error) {
       console.warn(`Failed to decrease PDP cart quantity for ${popupState.productCode}`, error);
     } finally {
@@ -1528,7 +1561,7 @@ export default async function decorate(block) {
 
     const qtySpan = document.createElement('span');
     qtySpan.className = 'qty-span';
-    qtySpan.textContent = 'Qty:';
+    qtySpan.textContent = translate('QTY', language);
 
     const btnMinus = document.createElement('button');
     btnMinus.type = 'button';
@@ -1587,7 +1620,7 @@ export default async function decorate(block) {
 
     const popupTitle = document.createElement('div');
     popupTitle.className = 'popup-title';
-    popupTitle.textContent = 'Item added to your cart';
+    popupTitle.textContent = translate('ITEM_ADDED_TO_YOUR_CART', language);
 
     const popupList = document.createElement('div');
     popupList.className = 'popup-list';
@@ -1608,7 +1641,7 @@ export default async function decorate(block) {
     popupInfoModel.className = 'popup-info-model';
     const modelLine = document.createElement('div');
     const popupInfoModelSpan = document.createElement('span');
-    popupInfoModelSpan.textContent = 'Model:';
+    popupInfoModelSpan.textContent = translate('MODEL', language);
     const popupInfoModelValueSpan = document.createElement('span');
     popupInfoModelValueSpan.className = 'model-value';
     const stockLine = document.createElement('div');
@@ -1618,7 +1651,7 @@ export default async function decorate(block) {
     stockImg.src = `/content/dam/hisense/${country}/common-icons/correct.svg`;
     stockImg.alt = '';
     const stockSpan = document.createElement('span');
-    stockSpan.textContent = 'In Stock';
+    stockSpan.textContent = translate('IN_STOCK', language);
     stockLine.append(stockImg, stockSpan);
 
     const presaleLine = document.createElement('div');
@@ -1683,11 +1716,11 @@ export default async function decorate(block) {
     const viewCartBtn = document.createElement('button');
     viewCartBtn.type = 'button';
     viewCartBtn.className = 'view-cart-btn';
-    viewCartBtn.textContent = 'View cart';
+    viewCartBtn.textContent = translate('VIEW_CART', language);
     const checkoutBtn = document.createElement('button');
     checkoutBtn.type = 'button';
     checkoutBtn.className = 'checkout-btn';
-    checkoutBtn.textContent = 'Proceed to checkout';
+    checkoutBtn.textContent = translate('PROCEED_TO_CHECKOUT', language);
     checkoutBtn.hidden = true;
     popupBtnGroup.append(viewCartBtn, checkoutBtn);
 
@@ -2020,7 +2053,7 @@ export default async function decorate(block) {
   });
   const overviewMobileBtn = document.createElement('div');
   overviewMobileBtn.classList.add('pdp-nav-menu-item');
-  overviewMobileBtn.textContent = 'Overview';
+  overviewMobileBtn.textContent = translate('OVERVIEW', language);
   overviewMobileBtn.addEventListener('click', () => {
     // const targetElement = document.getElementById('overview');
     // if (!targetElement) {
@@ -2034,7 +2067,7 @@ export default async function decorate(block) {
   });
   const specsMobileBtn = document.createElement('div');
   specsMobileBtn.classList.add('pdp-nav-menu-item');
-  specsMobileBtn.textContent = 'Specs';
+  specsMobileBtn.textContent = translate('SPECS', language);
   specsMobileBtn.addEventListener('click', (e) => {
     const targetElement = document.getElementById('specifications');
     const headerTop = document.querySelector('.pdp-nav').getBoundingClientRect().height || 0;
@@ -2051,14 +2084,25 @@ export default async function decorate(block) {
 
   const faqMobileBtn = document.createElement('div');
   faqMobileBtn.classList.add('pdp-nav-menu-item');
-  faqMobileBtn.textContent = 'FAQ';
+  faqMobileBtn.textContent = translate('FAQ', language);
   faqMobileBtn.addEventListener('click', () => {
     if (faqLink) window.location.href = faqLink;
+  });
+
+  const resourcesMobileBtn = document.createElement('div');
+  resourcesMobileBtn.classList.add('pdp-nav-menu-item');
+  resourcesMobileBtn.textContent = 'Resources';
+  resourcesMobileBtn.addEventListener('click', () => {
+    if (resourcesLink) window.location.href = resourcesLink;
   });
 
   const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');
   pdpNavMenu.append(overviewMobileBtn);
   let h = 61;
+  if (resourcesLink && fields.includes('resources')) {
+    pdpNavMenu.append(resourcesMobileBtn);
+    h += 45;
+  }
   if (showSpecsControls) {
     pdpNavMenu.append(specsMobileBtn);
     h += 45;

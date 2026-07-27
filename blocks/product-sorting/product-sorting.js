@@ -4,6 +4,8 @@ import {
   collectProductSortingAueAttributes,
   splitProductSortingAueAttributes,
 } from './product-sorting-utils.js';
+import translate from '../../utils/translate.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -229,7 +231,8 @@ export default function decorate(block) {
   const mobileFilterTit = document.createElement('div');
   mobileFilterTit.className = 'mobile-filter-title';
   const mobileFiltersSpan = document.createElement('span');
-  mobileFiltersSpan.textContent = 'FILTERS';
+  const { language } = getLocaleFromPath();
+  mobileFiltersSpan.textContent = translate('FILTERS', language);
   const mobileFiltersImg = document.createElement('img');
   mobileFiltersImg.src = `/content/dam/hisense/${country}/common-icons/mobile-filters-title.svg`;
   mobileFiltersImg.alt = 'Filters title';

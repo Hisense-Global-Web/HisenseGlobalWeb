@@ -11,6 +11,7 @@ import {
 import { isMobileWindow } from '../../scripts/device.js';
 import { processPath } from '../../utils/carousel-common.js';
 import { readBlockConfig } from '../../scripts/aem.js';
+import translate from '../../utils/translate.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -818,7 +819,8 @@ export default async function decorate(block) {
     const discountsDiv = document.createElement('div');
     discountsDiv.className = 'product-discounts';
     const discountsTitle = document.createElement('span');
-    discountsTitle.textContent = 'Save';
+    const { language } = getLocaleFromPath();
+    discountsTitle.textContent = translate('SAVE', language);
     const discountsCurrency = document.createElement('span');
     const discountsValue = document.createElement('span');
     discountsDiv.append(discountsTitle, discountsCurrency, discountsValue);
@@ -840,7 +842,7 @@ export default async function decorate(block) {
       link.className = 'product-btn';
       link.target = '_blank';
       link.href = item.productDetailPageLink;
-      link.textContent = 'Learn more';
+      link.textContent = translate('LEARN_MORE', language);
       productBtnGroupEl.append(link);
     }
 

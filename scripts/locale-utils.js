@@ -1,6 +1,6 @@
 import { getLocationPart } from './environment.js';
 
-export const languageList = ['en', 'es', 'fr', 'pt', 'zh', 'zh-tw', 'ja', 'th', 'ar'];
+export const languageList = ['en', 'es', 'fr', 'pt', 'zh', 'zh-tw', 'ja', 'th', 'ar', 'ko'];
 const defaultLanguageMap = {
   us: 'en', // 美国
   ca: 'en', // 加拿大
@@ -34,10 +34,12 @@ const defaultLanguageMap = {
   in: 'en', // 印度
   jp: 'ja', // 日本
   hk: 'zh-tw', // 中国香港
+  tw: 'zh-tw', // 中国台湾
   pk: 'en', // 巴基斯坦
   np: 'en', // 尼泊尔
   lk: 'en', // 斯里兰卡
   th: 'th', // 泰国
+  kr: 'ko', // 韩国
 };
 const rtlCountryList = [''];
 export const switchDir = (country) => {
@@ -67,13 +69,8 @@ export function getLocaleFromPath() {
 
 export function getFragmentPath(fragmentName) {
   const base = (typeof window !== 'undefined' && window.hlx?.codeBasePath) ? window.hlx.codeBasePath : '';
-  const { country, language } = getLocaleFromPath();
-
-  const isHisenseCom = typeof window !== 'undefined' && window.location.href.includes('hisense.com');
-  const isUsSite = country === 'us' && language === 'en';
-  const localeSegment = (isHisenseCom && !isUsSite)
-    ? `cn/zh/${fragmentName}`
-    : `${country}/${language}/${fragmentName}`;
+  const { country = 'cn', language = 'zh' } = getLocaleFromPath();
+  const localeSegment = `${country}/${language}/${fragmentName}`;
 
   return `${base}/${localeSegment}`;
 }
@@ -91,7 +88,7 @@ export function localizeProductApiPath(path) {
   const url = new URL(path, window.location.origin);
   const { pathname, search, hash } = url;
 
-  if (!pathname.startsWith('/product')) {
+  if (pathname.startsWith('/product')) {
     return path;
   }
 
