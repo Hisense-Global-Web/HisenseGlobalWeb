@@ -103,13 +103,6 @@
     {
       "id": "core-value-card-item",
       "fields": [
-        {
-          "component": "boolean",
-          "name": "image_dynamicMedia",
-          "label": "Enable Dynamic Media",
-          "valueType": "boolean",
-          "value": "false"
-        },
          {
           "component": "reference",
           "valueType": "string",

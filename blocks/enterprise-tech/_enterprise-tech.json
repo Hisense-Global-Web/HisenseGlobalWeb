@@ -45,13 +45,6 @@
       "id": "enterprise-card-item",
       "fields": [
         {
-          "component": "boolean",
-          "name": "dynamic-media",
-          "label": "Enable Dynamic Media",
-          "valueType": "boolean",
-          "value": "false"
-        },
-        {
           "component": "reference",
           "valueType": "string",
           "name": "pc_url",
@@ -63,15 +56,7 @@
           "valueType": "string",
           "name": "mobile_Url",
           "label": "Card Mobile Image",
-          "multi": false,
-          "condition": {
-            "===": [
-              {
-                "var": "dynamic-media"
-              },
-              false
-            ]
-          }
+          "multi": false
         },
         {
           "component": "text",

@@ -2,6 +2,7 @@ import { currencySymbolMap } from '../../utils/currency.js';
 import { fetchHybrisProduct, getHybrisProductCode, scheduleHybrisTask } from '../../scripts/hybris-bff.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import translate from '../../utils/translate.js';
 
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 const PLP_PRODUCTS_READY_EVENT = 'hisense:plp-products-ready';
@@ -722,7 +723,7 @@ export default function decorate(block) {
       const mobileProdctTagTit = document.createElement('div');
       mobileProdctTagTit.className = 'mobile-filter-title';
       const mobileFiltersSpan = document.createElement('span');
-      mobileFiltersSpan.textContent = 'FILTERS';
+      mobileFiltersSpan.textContent = translate('FILTERS', language);
       const mobileFiltersImg = document.createElement('img');
       mobileFiltersImg.src = `/content/dam/hisense/${country}/common-icons/mobile-filters-title.svg`;
       mobileFiltersImg.alt = 'Filters title';
