@@ -175,7 +175,7 @@ function buildTab(itemElement, index) {
     }
     if (mainVideoImg) {
       const picEl = e.currentTarget.querySelector('picture');
-      mainVideoImg.replaceChildren(picEl);
+      mainVideoImg.replaceChildren(picEl.cloneNode(true));
     }
   });
 
