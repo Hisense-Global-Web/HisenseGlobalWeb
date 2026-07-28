@@ -267,7 +267,8 @@
 .section.gray-90,
 .section.gray-95,
 .section.gradient-gray,
-.section.gradient-warm-dark {
+.section.gradient-warm-dark,
+.mode-dark {
   /* Action Color */
   --action-primary-color-default: var(--color-green-500);
   --action-primary-color-hovered: var(--color-green-200);
