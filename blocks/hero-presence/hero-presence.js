@@ -2,10 +2,13 @@ import { createElement, debounce } from '../../utils/dom-helper.js';
 import { loadScrollTrigger } from '../../utils/animation-helper.js';
 import { checkSwitch, isUniversalEditor } from '../../utils/ue-helper.js';
 import { whenElementReady } from '../../utils/carousel-common.js';
-import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
+import { isDeliveryDynamicMediaUrl, toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
 import { runBlockEnhancement } from '../../utils/block-helper.js';
 import { setVideoSource } from '../../utils/hls-video.js';
-import { checkDyanmicMediaImage } from '../hero-banner/media-reference.js';
+import {
+  checkDyanmicMediaImage,
+  getHeroBannerSmartCropUrl,
+} from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -83,6 +86,7 @@ export default function decorate(block) {
 
   let videoSrc = '';
   let videoPosterSrc = '';
+  let dynamicMediaPosterBaseSrc = '';
 
   const [videoAllEl, overlayEl] = [...block.children];
 
@@ -96,6 +100,11 @@ export default function decorate(block) {
     videoPosterSrc = posterEl?.querySelector('img')?.src;
     if (!videoPosterSrc) {
       videoPosterSrc = posterEl?.querySelector('a')?.href;
+    }
+
+    if (videoPosterSrc && isDeliveryDynamicMediaUrl(videoPosterSrc)) {
+      dynamicMediaPosterBaseSrc = videoPosterSrc;
+      videoPosterSrc = getHeroBannerSmartCropUrl(dynamicMediaPosterBaseSrc);
     }
   }
 
@@ -126,6 +135,16 @@ export default function decorate(block) {
   const videoReady = setVideoSource(video, videoSrc);
   block.appendChild(video);
   videoContent.remove();
+
+  if (dynamicMediaPosterBaseSrc) {
+    const updatePoster = debounce(() => {
+      const nextPoster = getHeroBannerSmartCropUrl(dynamicMediaPosterBaseSrc);
+      if (video.getAttribute('poster') !== nextPoster) {
+        video.setAttribute('poster', nextPoster);
+      }
+    }, 150);
+    window.addEventListener('resize', updatePoster);
+  }
 
   const playBtn = createElement('button', 'hero-presence-video-play-btn');
   const playIcon = createElement('img', 'hero-presence-video-play-icon');
