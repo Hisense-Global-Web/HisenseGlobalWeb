@@ -130,7 +130,9 @@ export default function decorate(block) {
   video.classList.add('autoplay-video');
   video.setAttribute('data-video-autoplay', 'true');
   const coverImg = checkDyanmicMediaImage(posterEl, 'poster');
-  coverImg.classList.add('video-cover-image');
+  if (coverImg) {
+    coverImg.classList.add('video-cover-image');
+  }
 
   const videoReady = setVideoSource(video, videoSrc);
   block.appendChild(video);
