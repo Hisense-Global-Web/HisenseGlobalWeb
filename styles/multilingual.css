@@ -24,10 +24,16 @@
   --body-m-line-height: var(--size-24);
   --body-font-size: var(--size-14);
   --body-line-height: var(--size-21);
+  --body-s-bold-font-size: var(--size-14);
+  --body-s-line-height: var(--size-14);
   --caption-regular-font-size: var(--size-12);
   --caption-regular-line-height: var(--size-18);
+  --caption-bold-font-size: var(--size-12);
+  --caption-bold-line-height: var(--size-18);
   --label-m-font-size: var(--size-10);
   --label-m-line-height: var(--size-14);
+  --label-eyebrow-font-size: var(--size-14);
+  --label-eyebrow-line-height: var(--size-21);
 
   /* Color */
   --color-green-10: #F6FDFD;
@@ -59,6 +65,7 @@
   --color-accents-red-400: #F06151;
   --color-accents-red-500: #E03F2D;
   --color-accents-red-600: #B82D28;
+  --color-accents-red-700: #801A16;
   --color-accents-wishlist-red: #FE4B4B;
   --color-accents-orange-50: #FFF8E5;
   --color-accents-orange-100: #FFEEC2;
@@ -111,10 +118,16 @@
     --body-m-line-height: var(--size-24);
     --body-font-size: var(--size-14);
     --body-line-height: var(--size-21);
+    --body-s-bold-font-size: var(--size-14);
+    --body-s-line-height: var(--size-21);
     --caption-regular-font-size: var(--size-12);
     --caption-regular-line-height: var(--size-18);
+    --caption-bold-font-size: var(--size-12);
+    --caption-bold-line-height: var(--size-18);
     --label-m-font-size: var(--size-10);
     --label-m-line-height: var(--size-14);
+    --label-eyebrow-font-size: var(--size-14);
+    --label-eyebrow-line-height: var(--size-21);
   }
 }
 
@@ -152,6 +165,34 @@
 
 :root:lang(th) {
   /* 多语言css适配 */
+  --display-xl-font-size: var(--size-80);
+  --display-xl-line-height: var(--size-80);
+  --display-l-font-size: var(--size-54);
+  --display-l-line-height: var(--size-56);
+  --display-m-font-size: var(--size-48);
+  --display-m-line-height: var(--size-48);
+  --heading-l-font-size: var(--size-42);
+  --heading-l-line-height: var(--size-40);
+  --heading-m-font-size: var(--size-36);
+  --heading-m-line-height: var(--size-36);
+  --heading-s-font-size: var(--size-26);
+  --heading-s-line-height: var(--size-28);
+  --title-l-font-size: var(--size-20);
+  --title-l-line-height: var(--size-24);
+  --title-m-font-size: var(--size-18);
+  --title-m-line-height: var(--size-22);
+  --title-s-font-size: var(--size-16);
+  --title-s-line-height: var(--size-21);
+  --body-l-font-size: var(--size-20);
+  --body-l-line-height: var(--size-24);
+  --body-m-font-size: var(--size-16);
+  --body-m-line-height: var(--size-24);
+  --body-font-size: var(--size-14);
+  --body-line-height: var(--size-21);
+  --caption-regular-font-size: var(--size-12);
+  --caption-regular-line-height: var(--size-18);
+  --label-m-font-size: var(--size-10);
+  --label-m-line-height: var(--size-14);
 }
 
 :root:lang(ar) {
