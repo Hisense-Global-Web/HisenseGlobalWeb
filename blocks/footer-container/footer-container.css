@@ -613,7 +613,7 @@ footer footer {
 
     @media (width < 640px) {
       top: var(--size-24);
-      right: var(--size-24);
+      inset-inline-end: var(--size-24);
       width: var(--size-24);
       height: var(--size-24);
     }
