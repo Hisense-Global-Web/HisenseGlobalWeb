@@ -32,5 +32,6 @@ export default async function decorate(block) {
       row.appendChild(countryEl);
     }
   });
+  block.classList.add('hide');
   block.appendChild(regionList);
 }
