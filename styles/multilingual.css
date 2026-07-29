@@ -369,6 +369,7 @@
 :root:lang(zh) {
   /* 多语言css适配 */
   --font-family: "FZLanTingHei-M-GBK";
+
   /* 加粗字体 */
   --font-family-bold: "FZLanTingHeiS-B-GB"; 
 }
@@ -385,6 +386,7 @@
 
 :root:lang(th) {
   /* 多语言css适配 */
+
   /* Font Size */
   --display-xl-font-size: var(--size-80);
   --display-xl-line-height: var(--size-80);
@@ -414,7 +416,6 @@
   --caption-regular-line-height: var(--size-18);
   --label-m-font-size: var(--size-10);
   --label-m-line-height: var(--size-14);
-
   --font-family: "Noto Sans Thai";
 }
 
