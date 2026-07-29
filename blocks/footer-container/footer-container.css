@@ -609,6 +609,11 @@ footer footer {
     width: var(--size-32);
     height: var(--size-32);
     cursor: pointer;
+
+    @media (width < 640px) {
+      width: var(--size-24);
+      height: var(--size-24);
+    }
   }
 
   .footer-popup-title {
