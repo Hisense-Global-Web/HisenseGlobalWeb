@@ -70,7 +70,9 @@ export default async function decorate(block) {
     const clonePcInfoEl = pcInfoEl.cloneNode(true);
     clonePcInfoEl.className = 'tech-mobile-img';
     block.querySelector('.tech-img-box').append(clonePcInfoEl);
-    mobileImageEl.remove();
+    if (mobileImageEl) {
+      mobileImageEl.remove();
+    }
   } else if (mobileImageEl) {
     mobileImageEl.className = 'tech-mobile-img';
   }
@@ -104,7 +106,7 @@ export default async function decorate(block) {
     // console.log(blockEl, 'blockEl');
     const techItemBoxAll = blockEl.querySelectorAll('.tech-item-wrapper .tech-item-box');
     const techItemWrapperEl = blockEl.querySelector('.tech-item-wrapper');
-    let techItemStyle = '';
+    let techItemStyle = 'default-class';
     techItemBoxAll.forEach((box) => {
       const itemBoxChildren = [...box.children];
       itemBoxChildren.forEach((item, idx) => {

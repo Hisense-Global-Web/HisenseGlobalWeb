@@ -1,4 +1,4 @@
-import { createOptimizedPicture, loadScript } from '../../scripts/aem.js';
+import { loadScript } from '../../scripts/aem.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 import { createElement, debounce } from '../../utils/dom-helper.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
@@ -40,10 +40,7 @@ export default async function decorate(block) {
   const scrollTextContainer = scrollContainer.querySelector('div');
   scrollTextContainer.classList.add('scroll-text-container');
 
-  const optimizedPicture = createOptimizedPicture(scaleTarget.src, scaleTarget.alt, false, [{
-    media: `(min-width: ${SCREEN_POINT}px)`,
-    width: '3000',
-  }, { width: '1920' }]);
+  const optimizedPicture = createDynamicMediaPicture(scaleTarget.src, scaleTarget.alt);
   scaleTarget = optimizedPicture.querySelector('img');
   scrollTextContainer.children[0].remove();
 
