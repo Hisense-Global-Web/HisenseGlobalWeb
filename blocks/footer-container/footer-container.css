@@ -593,6 +593,7 @@ footer footer {
 
   @media (width < 640px) {
     width: min(calc(354 / var(--breakpoint-mobile) * 100vw), 354px);
+    padding: var(--size-72) var(--size-24) var(--size-24);
   }
 
   > div {
@@ -611,6 +612,8 @@ footer footer {
     cursor: pointer;
 
     @media (width < 640px) {
+      top: var(--size-24);
+      right: var(--size-24);
       width: var(--size-24);
       height: var(--size-24);
     }
