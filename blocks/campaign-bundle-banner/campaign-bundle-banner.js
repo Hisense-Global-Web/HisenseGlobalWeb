@@ -17,6 +17,14 @@ export default function decorate(block) {
   productContainer.className = 'product-container';
 
   let isDynamicFlag = ''; // dynamic media 标识
+  // 创建 Mobile 端 DM 图片 dom
+  const createMobileImageDom = () => {
+    // 是dynamic media 图片时， mobile 图片直接克隆PC dom 中的 IMG DOM 展示是动态图片
+    const pcImgDom = bannerImgWrapper.querySelector('.fifa-image');
+    const clonePcImgDom = pcImgDom.cloneNode(true);
+    clonePcImgDom.className = 'fifa-mobile-image';
+    bannerImgWrapper.append(clonePcImgDom);
+  };
   [...block.children].forEach((row) => {
     const key = row.children[0].textContent.trim();
     row.className = key;
@@ -36,10 +44,7 @@ export default function decorate(block) {
         bannerImgWrapper.append(row);
       } else if (row.className === 'fifa-mobile-image' && isDynamicFlag === 'true') {
         // 是dynamic media 图片时， mobile 图片直接克隆PC dom 中的 IMG DOM 展示是动态图片
-        const pcImgDom = bannerImgWrapper.querySelector('.fifa-image');
-        const clonePcImgDom = pcImgDom.cloneNode(true);
-        clonePcImgDom.className = 'fifa-mobile-image';
-        bannerImgWrapper.append(clonePcImgDom);
+        createMobileImageDom();
         // 把普通图片的mobile img dom 移除，只展示dynamic media dom
         row.remove();
       } else {
@@ -89,6 +94,12 @@ export default function decorate(block) {
       }
     }
   });
+
+  // 当author 端第一次编辑block 时，直接打开 dm 开关，mobile image 配置项隐藏，会导致元素 .fifa-mobile-image 不渲染，找不到该元素，无法创建克隆PC dom 的 DM 元素
+  if (!bannerImgWrapper.querySelector('.fifa-mobile-image') && isDynamicFlag === 'true') {
+    // 是dynamic media 图片时， mobile 图片直接克隆PC dom 中的 IMG DOM 展示是动态图片
+    createMobileImageDom();
+  }
 
   block.append(bannerImgWrapper, bannerContentWrapper);
 

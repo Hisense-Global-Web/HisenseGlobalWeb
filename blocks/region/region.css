@@ -63,13 +63,15 @@
     }
   }
 
-  &.hide {
-    .region-list {
-      max-height: 0;
-    }
+  @media (width < 640px) {
+    &.hide {
+      .region-list {
+        max-height: 0;
+      }
 
-    .region-title-arrow {
-      transform: rotate(180deg);
+      .region-title-arrow {
+        transform: rotate(180deg);
+      }
     }
   }
 }
