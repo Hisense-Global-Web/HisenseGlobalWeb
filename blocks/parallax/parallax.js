@@ -1,4 +1,4 @@
-import { createOptimizedPicture, loadScript } from '../../scripts/aem.js';
+import { loadScript } from '../../scripts/aem.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
 import { createElement, debounce } from '../../utils/dom-helper.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
