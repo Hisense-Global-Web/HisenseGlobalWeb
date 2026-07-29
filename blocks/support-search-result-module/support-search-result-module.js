@@ -68,7 +68,7 @@ function getEndpointUrl(endpointPath, type) {
   const fiveMinutesMs = 5 * 60 * 1000;
   const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
   const sep = path.indexOf('?') >= 0 ? '&' : '?';
-  return `${path}${sep}_t=${cacheBuster}`;
+  return `${path}${sep}_t=${cacheBuster}&showDisabledProduct=${true}`;
 }
 
 // 多国家多语言国际化接口url
