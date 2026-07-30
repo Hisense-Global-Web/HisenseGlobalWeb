@@ -88,7 +88,6 @@ export default async function decorate(block) {
         textGroup.appendChild(description);
         textGroup.appendChild(learnMore);
         phaseTextContainer.appendChild(textGroup);
-        console.log(learnMore, 'learnMore');
         learnMore.setAttribute('data-id', sectionPopupId);
         textGroup.querySelector('.timeline-phase-learn-more').addEventListener('click', popupShowUtils);
       }
