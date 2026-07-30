@@ -422,12 +422,21 @@ footer footer {
   @media (width < 640px) {
     padding: var(--size-30) 0;
   }
+
+  > .footer-legals {
+    gap: var(--size-32);
+  }
 }
 
 .footer-bottom .footer-legals {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
+
+  @media (width < 640px) {
+    flex-direction: column;
+  }
 
   &.footer-legals-item-left {
     padding: 0;
@@ -441,6 +450,7 @@ footer footer {
 
     @media (width < 640px) {
       gap: var(--size-30);
+      width: 100%;
     }
   }
 
@@ -451,9 +461,20 @@ footer footer {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
+    align-items: flex-start;
+
+    @media (width < 640px) {
+      width: 100%;
+      flex-direction: row;
+    }
 
     .footer-legals-icon {
       width: min(calc(167 / var(--breakpoint-pc) * 100vw), 167px);
+      object-fit: contain;
+
+      @media (width < 640px) {
+        width: min(calc(169 / var(--breakpoint-mobile) * 100vw), 169px);
+      }
     }
   }
 
