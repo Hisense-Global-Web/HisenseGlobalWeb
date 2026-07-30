@@ -424,7 +424,7 @@ footer footer {
   }
 
   > .footer-legals {
-    flex-direction: column;
+    flex-direction: column !important;
     gap: var(--size-32);
   }
 }
