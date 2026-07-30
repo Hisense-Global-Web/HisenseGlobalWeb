@@ -451,9 +451,11 @@ footer footer {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
+    align-items: flex-start;
 
     .footer-legals-icon {
       width: min(calc(167 / var(--breakpoint-pc) * 100vw), 167px);
+      object-fit: contain;
     }
   }
 
