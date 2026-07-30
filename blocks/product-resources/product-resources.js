@@ -88,7 +88,7 @@ function getCacheBustedUrl(url) {
   if (!url) return '';
   const cacheBuster = simpleHash(Math.floor(Date.now() / FIVE_MINUTES_MS));
   const separator = url.includes('?') ? '&' : '?';
-  return `${url}${separator}_t=${cacheBuster}`;
+  return `${url}${separator}_t=${cacheBuster}&showDisabledProduct=${true}`;
 }
 
 function getProductEndpoint(country, language, sku) {
