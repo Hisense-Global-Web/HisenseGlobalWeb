@@ -420,7 +420,11 @@ footer footer {
   box-sizing: border-box;
 
   @media (width < 640px) {
-    padding: var(--size-30) 0;
+    padding: var(--size-24) 0 var(--size-32);
+  }
+
+  > .footer-legals {
+    gap: var(--size-32);
   }
 
   > .footer-legals {
