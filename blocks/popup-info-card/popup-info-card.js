@@ -1,7 +1,4 @@
-import { getLocaleFromPath } from '../../scripts/locale-utils.js';
-
 export default function decorate(block) {
-  const { country } = getLocaleFromPath();
   [...block.children].forEach((item) => {
     item.classList = 'info-card-item';
     const columns = [...item.children];
@@ -11,7 +8,7 @@ export default function decorate(block) {
           col.classList = 'card-image';
           if (!col.querySelector('img')) {
             const defaultImg = document.createElement('img');
-            defaultImg.src = `/content/dam/hisense/${country}/common-icons/default-info-card.png`;
+            defaultImg.src = '/resources/default-popup-info-card-img.svg';
             defaultImg.alt = 'default-info-card-img';
             col.append(defaultImg);
           }
