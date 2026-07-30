@@ -1151,7 +1151,7 @@ export default async function decorate(block) {
     buy.disabled = false;
     buy.classList.toggle('ps-widget', presentation.usePriceSpiderWidget);
     buy.style.pointerEvents = '';
-    buy.style.display = '';
+    buy.style.display = 'none';
     buy.setAttribute('aria-label', presentation.fallbackText || '');
     buy.dataset.priceSpiderComingSoonMode = visibility.priceSpiderComingSoonMode || 'hide';
 
