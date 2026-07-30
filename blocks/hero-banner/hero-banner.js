@@ -120,7 +120,7 @@ function showSlide(block, targetLogicalIndex, init = false) {
 
     heroBannerTimer = setTimeout(() => {
       heroBannerContainer.scrollTo({
-        left: slides[jumpIndex].offsetLeft,
+        left: slides[jumpIndex]?.offsetLeft,
         behavior: 'instant', // 瞬间跳转，用户无感知
       });
       if (slides[jumpIndex].querySelector('video') && slides[jumpIndex].querySelector('.video-play-icon').classList.contains('is-paused')) {
