@@ -112,20 +112,17 @@ export default function decorate(block) {
     return;
   }
 
-  // Create the video element
+  // Create the video element (IDL props, same approach as hero-banner)
   const video = createElement('video', 'hero-presence-video');
-  const videoAttr = {
-    loop: 'true',
-    preload: 'auto',
-    poster: videoPosterSrc,
-    autoplay: 'true',
-    muted: 'true',
-    playsinline: 'true',
-    'webkit-playsinline': 'true',
-  };
-  Object.entries(videoAttr).forEach(([key, value]) => {
-    video.setAttribute(key, value);
-  });
+  video.loop = true;
+  video.preload = 'auto';
+  video.autoplay = true;
+  video.muted = true;
+  video.playsInline = true;
+  video.setAttribute('webkit-playsinline', 'true');
+  if (videoPosterSrc) {
+    video.poster = videoPosterSrc;
+  }
 
   video.classList.add('autoplay-video');
   video.setAttribute('data-video-autoplay', 'true');
@@ -157,17 +154,17 @@ export default function decorate(block) {
   playBtn.appendChild(pauseIcon);
   block.appendChild(playBtn);
 
-  // Extract animated images from the second div
+  // Overlay is optional — missing it must not skip video playback setup
   const animatePicture = overlayEl?.querySelector('picture') || overlayEl?.querySelector('a');
-  if (!animatePicture) {
-    return;
+  if (animatePicture) {
+    const animateImg = checkDyanmicMediaImage(overlayEl, 'overlay');
+    if (animateImg) {
+      animateImg.classList.add('animate-target');
+      const animateContainer = createElement('div', 'hero-presence-animate h-grid-container');
+      animateContainer.appendChild(animateImg);
+      block.appendChild(animateContainer);
+    }
   }
-  const animateImg = checkDyanmicMediaImage(overlayEl, 'overlay');
-  animateImg.classList.add('animate-target');
-  const animateContainer = createElement('div', 'hero-presence-animate h-grid-container');
-  animateContainer.appendChild(animateImg);
-  block.appendChild(animateContainer);
-  // overlayEl.remove();
   // ========== CONSTRUCT DOM [END] ========== //
 
   // ========== VIDEO [START] ========== //
