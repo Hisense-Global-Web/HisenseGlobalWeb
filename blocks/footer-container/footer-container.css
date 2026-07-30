@@ -424,7 +424,6 @@ footer footer {
   }
 
   > .footer-legals {
-    flex-direction: column !important;
     gap: var(--size-32);
   }
 }
@@ -434,6 +433,10 @@ footer footer {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+
+  @media (width < 640px) {
+    flex-direction: column;
+  }
 
   &.footer-legals-item-left {
     padding: 0;
