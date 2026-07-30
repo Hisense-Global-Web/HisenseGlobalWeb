@@ -165,15 +165,14 @@ main > .product-card-container.product-sorting-container * {
   height: 80px; */
   width: var(--size-110);
   height: var(--size-110);
-  padding: min(calc(14 / var(--breakpoint-pc) * 100vw), 14px) min(calc(12 / var(--breakpoint-pc) * 100vw), 12px);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .category-carousel .product-filter-img {
-  width: min(calc(86 / var(--breakpoint-pc) * 100vw), 86px);
-  height: min(calc(52 / var(--breakpoint-pc) * 100vw), 52px);
+  width: var(--size-110);
+  height: var(--size-110);
   background: #f0f0f0;
   display: flex;
   align-items: center;
