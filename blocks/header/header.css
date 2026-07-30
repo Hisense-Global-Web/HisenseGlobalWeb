@@ -633,7 +633,7 @@ body.already-selected-language-aside #navigation {
 
 .nav-actions {
   display: flex;
-  gap: 26px;
+  gap: 24px;
   align-items: center;
   margin-inline-start: auto;
 }
@@ -1462,7 +1462,7 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
   }
 
   #navigation .nav-container .nav-actions {
-    gap: 8px;
+    gap: 16px;
   }
 
   #navigation .nav-container .nav-actions .nav-section {
@@ -1481,7 +1481,6 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
   }
 
   #navigation .nav-container .nav-actions .nav-action-btn.mobile-menu-icon {
-    margin-inline-start: 8px;
     height: 100%;
     display: flex;
     justify-content: center;
