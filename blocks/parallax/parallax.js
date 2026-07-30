@@ -33,7 +33,8 @@ export default async function decorate(block) {
     block.querySelector('div:nth-child(1)').style.display = 'none';
     scrollContainer = block.querySelector('div:nth-child(2)');
     scrollContainer.className = 'scroll-container';
-    scaleTarget = createDynamicMediaPicture(scrollContainer.querySelector('a').href).querySelector('img');
+    const picEl = scrollContainer.querySelector('picture img');
+    scaleTarget = picEl || createDynamicMediaPicture(scrollContainer.querySelector('a').href).querySelector('img');
     subContainer = block.querySelector('div:nth-child(3)');
   }
 
