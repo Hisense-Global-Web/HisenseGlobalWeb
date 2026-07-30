@@ -335,8 +335,8 @@ main > .product-card-container.product-sorting-container * {
       border-color: var(--color-primary-grey-40);
       
       .product-filter-img-box {
-        width: var(--size-52);
-        height: var(--size-34);
+        width: var(--size-40);
+        height: var(--size-40);
         padding: 0;
       }
 
@@ -348,8 +348,8 @@ main > .product-card-container.product-sorting-container * {
     }
 
     .product-filter-img {
-      width: var(--size-52);
-      height: var(--size-34);
+      width: var(--size-40);
+      height: var(--size-40);
       margin-bottom: calc(4 / var(--breakpoint-mobile) * 100vw);
     }
 
