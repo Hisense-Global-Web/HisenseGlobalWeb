@@ -422,6 +422,11 @@ footer footer {
   @media (width < 640px) {
     padding: var(--size-30) 0;
   }
+
+  > .footer-legals {
+    flex-direction: column;
+    gap: var(--size-32);
+  }
 }
 
 .footer-bottom .footer-legals {
@@ -441,6 +446,7 @@ footer footer {
 
     @media (width < 640px) {
       gap: var(--size-30);
+      width: 100%;
     }
   }
 
@@ -453,9 +459,18 @@ footer footer {
     justify-content: space-between;
     align-items: flex-start;
 
+    @media (width < 640px) {
+      width: 100%;
+      flex-direction: row;
+    }
+
     .footer-legals-icon {
       width: min(calc(167 / var(--breakpoint-pc) * 100vw), 167px);
       object-fit: contain;
+
+      @media (width < 640px) {
+        width: min(calc(169 / var(--breakpoint-mobile) * 100vw), 169px);
+      }
     }
   }
 
