@@ -198,6 +198,11 @@ main > .product-card-container.product-sorting-container * {
   font-weight: var(--fontweight-medium);
   line-height: 1.5;
   color: var(--color-primary-grey-50);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .product-filter-item.selected .product-filter-text {
@@ -338,6 +343,7 @@ main > .product-card-container.product-sorting-container * {
       .product-filter-text {
         font-size: calc(10 / var(--breakpoint-mobile) * 100vw);
         text-align: center;
+        -webkit-line-clamp: 2;
       }
     }
 
