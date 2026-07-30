@@ -433,6 +433,7 @@ footer footer {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
 
   &.footer-legals-item-left {
     padding: 0;
