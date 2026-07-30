@@ -426,10 +426,6 @@ footer footer {
   > .footer-legals {
     gap: var(--size-32);
   }
-
-  > .footer-legals {
-    gap: var(--size-32);
-  }
 }
 
 .footer-bottom .footer-legals {
