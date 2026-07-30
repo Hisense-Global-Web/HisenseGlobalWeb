@@ -208,6 +208,10 @@
 	margin-top: var(--size-6);
 	text-align: center;
 
+	@media (width < 640px) {
+		display: none;
+	}
+
 	@media (width >= 640px) {
 		opacity: 0;
 		transition: opacity 0.5s ease-in-out;
