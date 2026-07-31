@@ -1004,68 +1004,96 @@ main {
 	/* section theme */
 
 	.section.light {
-		background-color: var(--background-light);
-		color: var(--text-light);
+		/* background-color: var(--background-light);
+		color: var(--text-light); */
+		background-color: var(--color-white);
+		color: var(--color-black);
 	}
 
 	.section.grey {
-		background-color: var(--background-grey);
-		color: var(--text-light);
+		/* background-color: var(--background-grey);
+		color: var(--text-light); */
+		background-color: var(--color-gray-50);
+		color: var(--color-black);
 	}
 
 	.section.dark {
-		background-color: var(--background-dark);
-		color: var(--text-dark);
+		/* background-color: var(--background-dark);
+		color: var(--text-dark); */
+		background-color: var(--color-black);
+		color: var(--color-white);
 	}
 
 	.section.gray-90 {
-		background: var(--color-primary-grey-90);
-		color: var(--text-dark);
+		/* background: var(--color-primary-grey-90);
+		color: var(--text-dark); */
+		background: var(--color-gray-800);
+		color: var(--color-white);
 	}
 
   .section.gray-95 {
+		/* background: var(--color-primary-grey-95);
+		color: var(--text-dark); */
 		background: var(--color-primary-grey-95);
-		color: var(--text-dark);
+		color: var(--color-white);
 	}
 
 	.section.gradient-gray {
 		background: linear-gradient(to bottom, #000, var(--color-primary-grey-90), var(--color-primary-grey-90));
-		color: var(--text-dark);
+
+		/* color: var(--text-dark); */
+		color: var(--color-white);
 	}
 
   .section.gradient-light {
     background: linear-gradient(0deg, #EAEAEA 0%, #FFF 41.69%);
-    color: var(--text-light);
+
+    /* color: var(--text-light); */
+    color: var(--color-black);
   }
 
   .section.gradient-cold-light {
     background: linear-gradient(180deg, #EBF5FB 0%, #FFF 100%);
-    color: var(--text-light);
+
+    /* color: var(--text-light); */
+    color: var(--color-black);
   }
 
   .section.gradient-warm-light {
     background: linear-gradient(180deg, #F9F6F1 0%, #FFF 100%);
-    color: var(--text-light);
+
+    /* color: var(--text-light); */
+    color: var(--color-black);
   }
 
   .section.gradient-warm-dark {
     background: linear-gradient(180deg, #100B08 0%, #291D14 100%);
-    color: var(--text-dark);
+
+    /* color: var(--text-dark); */
+    color: var(--color-white);
   }
 
   .section.gradient-green {
     background: linear-gradient(180deg, #EDFCFB 0%, #FFF 80%), #FFF;
-    color: var(--text-dark);
+
+    /* color: var(--text-dark); */
+    color: var(--color-white);
   }
 
   .section.green-10 {
-    background: var(--color-primary-green-10, #EDFCFB);
-    color: var(--text-dark);
+    /* background: var(--color-primary-green-10, #EDFCFB); */
+
+    /* color: var(--text-dark); */
+    background: var(--color-green-50, #EDFCFB);
+    color: var(--color-white);
   }
   
 	.section.green {
-		background-color: var(--color-hisense-green-04);
-		color: var(--text-light);
+		/* background-color: var(--color-hisense-green-04); */
+
+		/* color: var(--text-light); */
+		background-color: var(--color-green-100);
+		color: var(--color-black);
 	}
 
   .section.section-background-style {
@@ -1239,27 +1267,33 @@ main {
 @media (width < 640px) {
   main {
     .section.pt-s {
-      padding-top: var(--spacing-sm);
+      /* padding-top: var(--spacing-sm); */
+      padding-top: var(--spacing-l);
     }
 
     .section.pt-l {
-      padding-top: var(--spacing-xl);
+      /* padding-top: var(--spacing-xl); */
+      padding-top: var(--spacing-3-xl);
     }
 
     .section.pt-xl {
-      padding-top: var(--spacing-xl);
+      /* padding-top: var(--spacing-xl); */
+      padding-top: var(--spacing-3-xl);
     }
 
     .section.pb-s {
-      padding-bottom: var(--spacing-sm);
+      /* padding-bottom: var(--spacing-sm); */
+      padding-bottom: var(--spacing-l);
     }
 
     .section.pb-l {
-      padding-bottom: var(--spacing-xl);
+      /* padding-bottom: var(--spacing-xl); */
+      padding-bottom: var(--spacing-3-xl);
     }
 
     .section.pb-xl {
-      padding-bottom: var(--spacing-xl);
+      /* padding-bottom: var(--spacing-xl); */
+      padding-bottom: var(--spacing-3-xl);
     }
   }
 }
