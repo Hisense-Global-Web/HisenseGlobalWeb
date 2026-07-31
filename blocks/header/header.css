@@ -2308,7 +2308,30 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
             font-weight: unset !important;
             font-family: var(--font-family-bold);
           }
-        }}}}
+        }
+      }
+
+      .nav-actions {
+        .nav-section {
+          &:hover {
+            font-weight: unset !important;
+            font-family: var(--font-family-bold);
+          }
+        }
+      }
+    }
+  }
+
+  #navigation .nav-second {
+     .company-group {
+       .company-item {
+        &:hover {
+          font-weight: unset !important;
+          font-family: var(--font-family-bold);
+        }
+       }
+     }
+  }
 
   .transparent-bold {
     font-weight: unset !important;
