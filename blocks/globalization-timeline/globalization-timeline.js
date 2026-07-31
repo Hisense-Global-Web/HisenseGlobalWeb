@@ -88,6 +88,10 @@ export default async function decorate(block) {
         textGroup.appendChild(description);
         textGroup.appendChild(learnMore);
         phaseTextContainer.appendChild(textGroup);
+        if (!sectionPopupId) {
+          // 如果没设置 sectionPopupId，则不展示 learnMore 按钮
+          learnMore.style.display = 'none';
+        }
         learnMore.setAttribute('data-id', sectionPopupId);
         textGroup.querySelector('.timeline-phase-learn-more').addEventListener('click', popupShowUtils);
       }
