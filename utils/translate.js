@@ -410,6 +410,18 @@ const translateDictionary = {
     ar: 'متابعة',
     ko: '계속',
   },
+  READ_NOW: {
+    en: 'Read Now',
+    es: 'Leer Ahora',
+    fr: 'Lire Maintenant',
+    pt: 'Ler Agora',
+    zh: '立即阅读',
+    'zh-tw': '立即閱讀',
+    ja: '今すぐ読む',
+    th: 'อ่านเลย',
+    ar: 'اقرأ الآن',
+    ko: '지금 읽기'
+  }
 };
 /**
  * 获取指定键和语言对应的翻译
