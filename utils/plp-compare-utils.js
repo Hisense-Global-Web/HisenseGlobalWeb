@@ -2,6 +2,9 @@
  * 比较商品popup 相关逻辑 --- start
  */
 
+import translate from './translate.js';
+import { getLocaleFromPath } from '../scripts/locale-utils.js';
+
 /**
  * 强化版属性名标准化：统一小写 + 移除前后空格
  * @param {string} key - 原始属性名
@@ -363,10 +366,11 @@ export function createComparePopup() {
   comparePopupTitBoxEl.className = 'compare-popup-tit-box';
   const comparePopupTitEl = document.createElement('div');
   comparePopupTitEl.className = 'popup-tit';
-  comparePopupTitEl.textContent = 'Compare TV Models';
+  comparePopupTitEl.textContent = 'Compare Product Models';
   const comparePopupTitTipsEl = document.createElement('div');
   comparePopupTitTipsEl.className = 'popup-tit-tip';
-  comparePopupTitTipsEl.textContent = 'Compare features and find your fit.';
+  const { language } = getLocaleFromPath();
+  comparePopupTitTipsEl.textContent = translate('COMPARE_FEATURES_AND_FIND_YOUR_FIT', language);
   comparePopupTitBoxEl.append(comparePopupTitEl, comparePopupTitTipsEl);
   // popup compare product name
   const compareProductNameBoxEl = document.createElement('div');

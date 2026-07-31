@@ -1,9 +1,10 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { createOptimizedPicture } from '../../scripts/aem.js';
 import { whenElementReady, throttle } from '../../utils/carousel-common.js';
 import { createElement } from '../../utils/dom-helper.js';
-import { isUniversalEditor } from '../../utils/ue-helper.js';
-import { isVideoMediaColumn, normalizeImageReferenceLinks } from './media-reference.js';
+import { checkSwitch, getSwitchValue, isUniversalEditor } from '../../utils/ue-helper.js';
+import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
+import { setVideoSource } from '../../utils/hls-video.js';
+import { checkDyanmicMediaImage, isVideoMediaColumn } from './media-reference.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
 import { iframeVideoHandler, resetExternalUrl } from '../../utils/video-external-url.js';
 
@@ -14,6 +15,29 @@ let userInteracting = false;
 let isInitializing = true; // 初始化锁
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
+const HERO_BANNER_BLOCK_CONFIG_KEYS = new Set([
+  'classes',
+]);
+const HERO_BANNER_LEGACY_BLOCK_CONFIG_KEYS = new Set([
+  'dynamic-media',
+]);
+
+function normalizeConfigKey(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function isHeroBannerConfigRow(row) {
+  const cells = [...(row?.children || [])];
+  if (cells.length !== 2) return false;
+
+  const configKey = normalizeConfigKey(cells[0].textContent);
+  return HERO_BANNER_BLOCK_CONFIG_KEYS.has(configKey)
+    || HERO_BANNER_LEGACY_BLOCK_CONFIG_KEYS.has(configKey);
+}
 
 function updateNavTheme(block, targetSlide, heroBannerHeight) {
   const nav = document.querySelector('#navigation');
@@ -96,7 +120,7 @@ function showSlide(block, targetLogicalIndex, init = false) {
 
     heroBannerTimer = setTimeout(() => {
       heroBannerContainer.scrollTo({
-        left: slides[jumpIndex].offsetLeft,
+        left: slides[jumpIndex]?.offsetLeft,
         behavior: 'instant', // 瞬间跳转，用户无感知
       });
       if (slides[jumpIndex].querySelector('video') && slides[jumpIndex].querySelector('.video-play-icon').classList.contains('is-paused')) {
@@ -310,17 +334,13 @@ function createScrollButton(type, direction) {
   }
   return button;
 }
-function initVideo(selector, type, theme) {
+function initVideo(selector, theme) {
   let videoUrl;
   let link;
-  let videoPC;
-  let videoMobile;
   selector.querySelectorAll('a').forEach((a, i) => {
-    if (i === 0) videoPC = a;
-    else videoMobile = a;
+    if (i === 0) link = a;
   });
-  if (type === 'desktop') link = videoPC; else link = videoMobile;
-  if (link) videoUrl = link.href;
+  if (link) videoUrl = toDynamicMediaVideoUrl(link.href);
   const videoDivDom = createElement('div', 'video-div-box');
   const video = createElement('video', 'video-auto-play');
   const themeClass = theme === 'dark' ? 'video-dark' : 'video-light';
@@ -329,19 +349,28 @@ function initVideo(selector, type, theme) {
   video.loop = true;
   video.preload = 'auto';
   video.autoplay = true;
-  const source = document.createElement('source');
-  source.src = videoUrl;
-  source.type = 'video/mp4';
   video.muted = true;
   video.playsInline = true;
   video.playsinline = '';
-  video.appendChild(source);
+  setVideoSource(video, videoUrl);
   videoDivDom.appendChild(video);
   videoDivDom.appendChild(span);
   return videoDivDom;
 }
 
 function createSlide(block, row, slideIndex) {
+  let switchCount = 0;
+  [...row.children].forEach((column) => {
+    if (checkSwitch(column)) switchCount += 1;
+  });
+  // 当有4个switch开关时，说明是dynamic media模式，
+  // 有3个时则说明是旧的herobanner代码，没有添加DynamicMedia的开关
+  let dynamicMedia = false;
+  if (switchCount === 4) {
+    dynamicMedia = getSwitchValue(row.children[0]);
+    // 获取Dynamic Media的值后，删除此html元素
+    row.children[0].remove();
+  }
   const slide = createElement('li', 'hero-banner-item');
   const div = createElement('div', 'hero-banner-content h-grid-container');
   moveInstrumentation(row, slide);
@@ -353,7 +382,6 @@ function createSlide(block, row, slideIndex) {
   const buttonDiv = createElement('div', 'hero-banner-cta-container');
   const textContent = createElement('div', 'text-content');
   slide.dataset.slideIndex = slideIndex;
-
   [...row.children].forEach((column, colIdx) => {
     let theme;
     let contentType; // true is svg mode; false is text mode
@@ -361,37 +389,39 @@ function createSlide(block, row, slideIndex) {
     let videoElement;
     let videoDom;
 
-    function updateVideoSource(isPc) {
-      if (isPc) {
-        videoElement = initVideo(column, 'desktop', theme === 'true' ? 'dark' : 'light');
-        videoDom = column.querySelectorAll('a')[0]?.closest('p');
-      } else {
-        videoElement = initVideo(column, 'mobile', theme === 'true' ? 'dark' : 'light');
-        videoDom = column.querySelectorAll('a')[1]?.closest('p');
-      }
+    function updateVideoSource() {
+      videoElement = initVideo(column, theme === 'true' ? 'dark' : 'light');
+      videoDom = column.querySelectorAll('a')[0]?.closest('p');
       if (videoDom) column.replaceChild(videoElement, videoDom);
     }
 
     switch (colIdx) {
       case 0:
-        // container-reference div
         column.classList.add('hero-banner-item-image');
-        normalizeImageReferenceLinks(column, createOptimizedPicture);
         // 处理image-theme联动nav
         if (column.lastElementChild?.innerHTML.length === 4) {
           theme = column.lastElementChild?.innerHTML || 'false';
-          column.lastElementChild?.remove();
+          // column.lastElementChild?.remove();
         } else theme = 'false';
         slide.classList.add(theme === 'true' ? 'dark' : 'light');
         if (isVideoMediaColumn(column)) {
           // video mode
           column.classList.add('video-mode');
-          const videoMediaQuery = window.matchMedia(`(min-width: ${SCREEN_POINT}px)`);
-          // 初始化执行 + 注册 change 监听
-          updateVideoSource(videoMediaQuery.matches);
-          videoMediaQuery.addEventListener('change', (e) => {
-            updateVideoSource(e.matches);
-          });
+          updateVideoSource();
+          column?.children?.[1]?.remove();
+        } else {
+          // eslint-disable-next-line no-case-declarations
+          const [pcImageEl, mobileImageEl] = [...column?.children ?? []];
+          if (pcImageEl) {
+            const newPCImageEl = checkDyanmicMediaImage(pcImageEl, 'PC Image');
+            pcImageEl.replaceWith(newPCImageEl);
+            if (dynamicMedia) {
+              mobileImageEl?.replaceWith(newPCImageEl.cloneNode(true));
+            } else {
+              const newMobileImageEl = checkDyanmicMediaImage(mobileImageEl, 'Mobile Image');
+              mobileImageEl?.replaceWith(newMobileImageEl);
+            }
+          }
         }
         break;
       case 1:
@@ -436,7 +466,6 @@ function createSlide(block, row, slideIndex) {
             if (externalVideoUrl) {
               const resetVideoUrl = resetExternalUrl(externalVideoUrl?.trim());
               const externalVideoEl = iframeVideoHandler(resetVideoUrl);
-              // externalVideoEl.querySelector('iframe').style.height = '780px'
               const imageEl = slide.querySelector('.hero-banner-item-image');
               if (imageEl) {
                 imageEl.innerHTML = '';
@@ -452,7 +481,13 @@ function createSlide(block, row, slideIndex) {
         break;
       default:
         column.classList.add('hero-banner-item-cta');
-        buttonTheme = column.firstElementChild?.innerHTML || 'transparent';
+        // eslint-disable-next-line no-case-declarations
+        const buttonThemeEl = column.firstElementChild;
+        if (!buttonThemeEl || buttonThemeEl.children?.length) {
+          buttonTheme = 'transparent';
+        } else {
+          buttonTheme = buttonThemeEl.textContent;
+        }
         column.querySelector('a')?.classList.add(buttonTheme);
         if (column.firstElementChild?.innerHTML.length <= 13) column.firstElementChild?.remove();
     }
@@ -501,13 +536,15 @@ function createSlide(block, row, slideIndex) {
 }
 
 export default async function decorate(block) {
-  const isSingleSlide = [...block.children].length < 2;
+  const rows = [...block.children];
+  const slideRows = rows.filter((row) => !isHeroBannerConfigRow(row));
+  const isSingleSlide = slideRows.length < 2;
   const wholeContainer = createElement('ul', 'hero-banner-items-container');
   let slideIndicators;
   if (!isSingleSlide) {
     slideIndicators = createElement('ol', 'hero-banner-item-indicators');
   }
-  [...block.children].forEach((row, idx) => {
+  slideRows.forEach((row, idx) => {
     const slide = createSlide(block, row, idx);
     wholeContainer.append(slide);
     if (slideIndicators) {
@@ -519,6 +556,7 @@ export default async function decorate(block) {
     }
     row.remove();
   });
+  rows.filter(isHeroBannerConfigRow).forEach((row) => row.remove());
   block.prepend(wholeContainer);
   // 处理轮播无缝衔接；不影响author
   if (!isSingleSlide && block.attributes['data-aue-resource'] === undefined) {

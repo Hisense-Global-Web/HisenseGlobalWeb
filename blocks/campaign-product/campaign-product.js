@@ -1,4 +1,4 @@
-import { getGraphQLUrl } from '../../scripts/locale-utils.js';
+import { getGraphQLUrl, getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { resolveProductCardTagLabel, shouldShowPlpFavoriteButton } from '../../scripts/commerce-ui-utils.js';
 import {
   addHybrisWishlistItem,
@@ -11,6 +11,7 @@ import {
 import { isMobileWindow } from '../../scripts/device.js';
 import { processPath } from '../../utils/carousel-common.js';
 import { readBlockConfig } from '../../scripts/aem.js';
+import translate from '../../utils/translate.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -28,11 +29,14 @@ function getTagsEndpointUrl() {
 }
 
 function extractTags(data, tags = {}) {
+  const { language } = getLocaleFromPath();
   Object.keys(data).forEach((key) => {
     // 跳过 JCR 系统属性
     if (!key.startsWith('jcr:') && typeof data[key] === 'object' && data[key] !== null) {
       // 如果当前节点有 jcr:title，说明它是一个标签节点
-      if (data[key]['jcr:title']) {
+      if (data[key][`jcr:title.${language}`]) {
+        tags[key] = data[key][`jcr:title.${language}`];
+      } else if (data[key]['jcr:title']) {
         tags[key] = data[key]['jcr:title'];
       }
       // 递归处理子节点
@@ -815,7 +819,8 @@ export default async function decorate(block) {
     const discountsDiv = document.createElement('div');
     discountsDiv.className = 'product-discounts';
     const discountsTitle = document.createElement('span');
-    discountsTitle.textContent = 'Save';
+    const { language } = getLocaleFromPath();
+    discountsTitle.textContent = translate('SAVE', language);
     const discountsCurrency = document.createElement('span');
     const discountsValue = document.createElement('span');
     discountsDiv.append(discountsTitle, discountsCurrency, discountsValue);
@@ -837,7 +842,7 @@ export default async function decorate(block) {
       link.className = 'product-btn';
       link.target = '_blank';
       link.href = item.productDetailPageLink;
-      link.textContent = 'Learn more';
+      link.textContent = translate('LEARN_MORE', language);
       productBtnGroupEl.append(link);
     }
 

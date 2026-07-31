@@ -1,6 +1,8 @@
 import { currencySymbolMap } from '../../utils/currency.js';
 import { fetchHybrisProduct, getHybrisProductCode, scheduleHybrisTask } from '../../scripts/hybris-bff.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import translate from '../../utils/translate.js';
 
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 const PLP_PRODUCTS_READY_EVENT = 'hisense:plp-products-ready';
@@ -408,6 +410,7 @@ function getTagsEndpointUrl(customPath) {
 
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
+  const { language } = getLocaleFromPath();
 
   const rows = [...block.children];
   const fragment = document.createDocumentFragment();
@@ -471,7 +474,9 @@ export default function decorate(block) {
       const v = obj[k];
       if (v && typeof v === 'object') {
         const trimmedKey = k.trim();
-        if (v['jcr:title']) map[trimmedKey] = v['jcr:title'];
+        if (v[`jcr:title.${language}`]) {
+          map[trimmedKey] = v[`jcr:title.${language}`];
+        } else if (v['jcr:title']) map[trimmedKey] = v['jcr:title'];
         collectTitles(v, map);
       }
     });
@@ -718,7 +723,7 @@ export default function decorate(block) {
       const mobileProdctTagTit = document.createElement('div');
       mobileProdctTagTit.className = 'mobile-filter-title';
       const mobileFiltersSpan = document.createElement('span');
-      mobileFiltersSpan.textContent = 'FILTERS';
+      mobileFiltersSpan.textContent = translate('FILTERS', language);
       const mobileFiltersImg = document.createElement('img');
       mobileFiltersImg.src = `/content/dam/hisense/${country}/common-icons/mobile-filters-title.svg`;
       mobileFiltersImg.alt = 'Filters title';

@@ -32,6 +32,7 @@ import {
   shouldRefreshHeaderCommerceCountsAfterAuthInit,
   shouldRefreshHeaderCommerceCountsAfterAuthEvent,
 } from './header-commerce-utils.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 import { isAuthorHostname } from '../../scripts/environment.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
@@ -414,12 +415,14 @@ function applyCartActionState(actionButton, count = 0) {
 }
 
 function parseLogo(root) {
-  const logoImgList = root.querySelectorAll('.navigation-logo-wrapper img');
-  const altEl = root.querySelector('.navigation-logo-wrapper p:not(a)');
-  const logoHref = root.querySelector('.navigation-logo-wrapper a')?.href || '';
+  const navLogo = root.querySelector('.navigation-logo-wrapper .block');
+  const defaultImg = navLogo.children[1].children[0];
+  const darkImg = navLogo.children[2].children[0];
+  const altEl = navLogo.children[3].textContent.trim();
+  const logoHref = navLogo.children[4].textContent.trim();
   return {
-    src: logoImgList[0]?.src || '',
-    darkSrc: logoImgList.length > 1 ? logoImgList[1]?.src : logoImgList[0]?.src,
+    src: defaultImg.querySelector('a')?.href || defaultImg.querySelector('img')?.src || '',
+    darkSrc: darkImg.hasChildNodes() ? (darkImg.querySelector('a')?.href || darkImg.querySelector('img')?.src) : (defaultImg.querySelector('a')?.href || defaultImg.querySelector('img')?.src),
     href: processPath(logoHref),
     alt: altEl?.textContent?.trim() || 'logo',
   };
@@ -598,7 +601,7 @@ function parseDropdownProducts(col) {
   const children = Array.from(col.children);
 
   // 找到所有的picture元素作为分组标识
-  const pictures = children.filter((child) => child.tagName === 'P' && child.querySelector('picture'));
+  const pictures = children.filter((child, i) => child.tagName === 'P' && (child.querySelector('picture') || (child.querySelector('a') && children[i - 1]?.textContent.trim() === 'true')));
   const pictureIndices = pictures.map((pic) => children.indexOf(pic));
 
   // 为每个分组创建数组
@@ -610,7 +613,8 @@ function parseDropdownProducts(col) {
     const groupElements = children.slice(startIdx, endIdx);
 
     // 解析分组数据
-    const img = groupElements[0].querySelector('img')?.src || '';
+    const dymicAEl = groupElements[0].querySelector('a');
+    const img = dymicAEl ? createDynamicMediaPicture(dymicAEl.href) : groupElements[0].querySelector('picture');
     const altText = groupElements[1]?.textContent.trim() || '';
     const text = groupElements[2]?.textContent.trim() || '';
     const linkElement = groupElements[3]?.querySelector('a');
@@ -754,10 +758,7 @@ function buildDropdown(data) {
     const imgWrap = document.createElement('div');
     imgWrap.className = 'dropdown-product-img';
     if (item.img) {
-      const img = document.createElement('img');
-      img.src = item.img;
-      img.alt = item.altText || '';
-      imgWrap.append(img);
+      imgWrap.append(item.img);
     }
     if (item.href && item.href !== '#') {
       product.dataset.href = item.href;
@@ -835,7 +836,8 @@ function buildSupportDropdown(mainEl) {
   supportRouteEl.className = 'support-route';
   const supportRouteTitleEl = document.createElement('div');
   supportRouteTitleEl.className = 'support-route-title';
-  supportRouteTitleEl.innerHTML = 'Support';
+  const { language } = getLocaleFromPath();
+  supportRouteTitleEl.innerHTML = translate('SUPPORT', language);
   supportRouteEl.append(supportRouteTitleEl);
 
   // support route group
@@ -1156,6 +1158,7 @@ function getLangItems(interval = 200, onlyLanguage = false) {
           })), {
             lang: 'region',
             label: translate('AC_LS_OTHER_COUNTRY', language),
+            url: `/${country}/${language}/select-your-region`,
           }];
           resolve(result);
           return;
@@ -1221,7 +1224,7 @@ const createLanguageAside = async () => {
   const arr = country === 'cn' ? [
     { lang: 'zh', label: '简体中文', url: '/cn/zh' },
     { lang: 'en', label: 'English', url: '/us/en' },
-    { lang: 'region', label: translate('AC_LS_OTHER_COUNTRY', 'zh') },
+    { lang: 'region', label: translate('AC_LS_OTHER_COUNTRY', 'zh'), url: '/cn/zh/select-your-region' },
   ] : country === 'global' ? languageList.map((lang) => ({
     lang, label: translate('LANGUAGE_NAME', lang),
   })) : await getLangItems(undefined, country === 'ca');
@@ -1262,11 +1265,12 @@ const createLanguageAside = async () => {
 
   acLsContinue.addEventListener('click', (e) => {
     const { lang, url } = e.currentTarget.closest('#language-aside').dataset;
-    if (lang === 'region') return;
     // document.querySelector('body').classList.remove('has-language-aside');
     document.querySelector('body').classList.add('already-selected-language-aside');
     if (url) {
-      saveLanguageToLocalStorage(lang);
+      if (lang !== 'region') {
+        saveLanguageToLocalStorage(lang);
+      }
       window.location.href = url;
     } else {
       saveLanguageToLocalStorage(lang);
@@ -1302,10 +1306,17 @@ const createLanguageAside = async () => {
   <div class="header-aside-lan-list">
     ${generateLanguageItems(arr, language)}
   </div>`;
+    const regionIcon = lanGroup.querySelector('.region-icon');
+    if (regionIcon) {
+      regionIcon.addEventListener('click', () => {
+        window.location.href = `/${country}/${language}/select-your-region`;
+      });
+    }
     const langItems = lanGroup.querySelectorAll('.header-aside-lan-item');
     langItems.forEach((item) => {
       item.addEventListener('click', (e) => {
         if (e.currentTarget.classList.contains('active')) {
+          window.location.href = '';
           return;
         }
         window.location.href = getNewPath(e.currentTarget.getAttribute('data-lang'));
@@ -1531,14 +1542,10 @@ export default async function decorate(block) {
   if (logo.src) {
     const a = logo.href ? document.createElement('a') : document.createElement('div');
     a.href = logo.href;
-    const img = document.createElement('img');
+    const img = createDynamicMediaPicture(logo.src, logo.alt);
     img.className = 'logo-img';
-    img.src = logo.src;
-    img.alt = logo.alt;
-    const darkImg = document.createElement('img');
+    const darkImg = createDynamicMediaPicture(logo.darkSrc, logo.alt);
     darkImg.className = 'logo-dark-img';
-    darkImg.src = logo.darkSrc;
-    darkImg.alt = logo.alt;
     a.append(img, darkImg);
     logoEl.append(a);
   }
@@ -1551,7 +1558,13 @@ export default async function decorate(block) {
   navSecond.className = `nav-second h-grid-container ${isCompanyPage || isSupportPage ? '' : 'hidden'}`;
   const CompanyEl = document.createElement('div');
   CompanyEl.className = 'route-company';
-  CompanyEl.textContent = translate('COMPANY', language);
+  const CompanyElSpan = document.createElement('span');
+  CompanyElSpan.textContent = translate('COMPANY', language);
+  CompanyElSpan.className = 'route-company-pc';
+  const CompanyElMobileSpan = document.createElement('span');
+  CompanyElMobileSpan.className = 'route-company-mobile';
+  CompanyElMobileSpan.textContent = translate('COMPANY', language);
+  CompanyEl.append(CompanyElSpan, CompanyElMobileSpan);
   const CompanyGroupEl = document.createElement('div');
   CompanyGroupEl.className = 'company-group';
   company.forEach((item) => {
@@ -1564,6 +1577,9 @@ export default async function decorate(block) {
     span2.innerHTML = item.title;
     span1.className = 'absolute';
     span2.className = 'transparent-bold';
+    if (isCurrent) {
+      CompanyElMobileSpan.innerHTML = item.title;
+    }
     CompanyItemEl.append(span1, span2);
     CompanyItemEl.dataset.href = item.href;
     CompanyItemEl.addEventListener('click', (e) => {
@@ -1592,7 +1608,7 @@ export default async function decorate(block) {
 
   const SupportEl = document.createElement('div');
   SupportEl.className = 'route-support';
-  SupportEl.textContent = 'Support';
+  SupportEl.textContent = translate('SUPPORT', language);
 
   const supportArrow = document.createElement('img');
   supportArrow.className = 'support-arrow';
@@ -1729,13 +1745,14 @@ export default async function decorate(block) {
     if (
       t === 'support'
       || t === 'soporte'
-      || t === 'soutien'
+      || t === 'assistance'
       || t === 'suporte'
       || t === '支持'
       || t === '支援'
       || t === 'サポート'
       || t === 'การสนับสนุน'
       || t === 'الدعم'
+      || t === '지원'
     ) {
       cloneLink.classList.add('nav-link');
       const mask = document.createElement('div');

@@ -1,3 +1,6 @@
+import { getLocaleFromPath } from './locale-utils.js';
+import translate from '../utils/translate.js';
+
 export default function shouldShowAddToCartButton(options = {}) {
   const {
     hasPrice = false,
@@ -118,20 +121,22 @@ export function resolveCommerceButtonVisibility(callToAction = 'whereToBuy', opt
 }
 
 export function resolveWhereToBuyButtonPresentation() {
+  const { language } = getLocaleFromPath();
   return {
     text: '',
-    fallbackText: 'Where to buy',
+    fallbackText: translate('WHERE_TO_BUY', language),
     usePriceSpiderWidget: true,
-    buttonLabel: 'where to buy',
+    buttonLabel: translate('WHERE_TO_BUY', language),
   };
 }
 
 export function resolvePriceSpiderWhereToBuyState(options = {}) {
+  const { language } = getLocaleFromPath();
   const {
     noSku = false,
     ariaLabel = '',
     buttonLabel = '',
-    fallbackText = 'Where to buy',
+    fallbackText = translate('WHERE_TO_BUY', language),
     comingSoonMode = 'hide',
   } = options;
   const text = String(buttonLabel || fallbackText || '').trim();

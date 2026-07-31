@@ -1,6 +1,8 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { SCREEN_POINT } from '../../utils/constants.js';
 import { resetExternalUrl, iframeVideoHandler } from '../../utils/video-external-url.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -32,12 +34,14 @@ function buildTab(itemElement, index) {
   moveInstrumentation(itemElement, li);
 
   const cells = [...itemElement.children];
+  const isVideo = cells.length > 3 && (cells[0].textContent.trim() !== 'true' || cells[0].textContent.trim() !== 'false');
 
-  const imageCell = cells.find((cell) => cell.querySelector('picture')) || cells[0];
-  const videoHref = itemElement.querySelector('a')?.href;
+  let imageCell = cells.find((cell) => cell.querySelector('picture') || cell.querySelector('p:not(.button-container) a'));
+  let videoHref = itemElement.querySelector('p.button-container a')?.href;
+  let isDynamicFlag = false;
 
   let externalUrl; // 新增变量存储外部链接
-  if (cells.length === 4) {
+  if (isVideo) {
     const externalLinkFlag = cells[2].textContent.trim();
     if (externalLinkFlag === 'true') {
       li.setAttribute('data-video-origin', 'external');
@@ -49,6 +53,22 @@ function buildTab(itemElement, index) {
     } else {
       li.setAttribute('data-video-origin', 'internal');
     }
+
+    // eslint-disable-next-line prefer-destructuring
+    const picBox = cells[1].querySelector('p:nth-child(2)');
+    const divEl = document.createElement('div');
+    if (picBox) {
+      const picEl = picBox.querySelector('picture') ? picBox.querySelector('picture') : createDynamicMediaPicture(picBox.querySelector('a').href);
+      divEl.append(picEl);
+    }
+    imageCell = divEl;
+  }
+  if (cells[1].children.length >= 1) {
+    isDynamicFlag = cells[1].children[0].textContent.trim() === 'true';
+  }
+  if (isDynamicFlag) {
+    // 如果是dynamic media，使用toDynamicMediaVideoUrl转换视频链接
+    videoHref = toDynamicMediaVideoUrl(cells[0].querySelector('a')?.href);
   }
   // console.log(itemElement, 'itemElement');
   if (videoHref && li.getAttribute('data-video-origin') !== 'external') {
@@ -65,6 +85,7 @@ function buildTab(itemElement, index) {
   imgBox.className = 'product-filter-img-box';
   if (imageCell) {
     const picture = imageCell.querySelector('picture');
+    const aImg = imageCell.querySelector('a');
     if (videoHref && li.getAttribute('data-video-origin') !== 'external') {
       const videoM = document.createElement('video');
       videoM.classList.add('autoplay-video');
@@ -91,6 +112,12 @@ function buildTab(itemElement, index) {
       imgWrapper.className = 'product-filter-img';
       moveInstrumentation(imageCell, imgWrapper);
       imgWrapper.appendChild(picture);
+      imgBox.append(imgWrapper);
+    } else if (aImg) {
+      const imgWrapper = document.createElement('div');
+      imgWrapper.className = 'product-filter-img';
+      moveInstrumentation(imageCell, imgWrapper);
+      imgWrapper.appendChild(createDynamicMediaPicture(aImg.href));
       imgBox.append(imgWrapper);
     } else {
       const placeholder = document.createElement('div');
@@ -146,11 +173,9 @@ function buildTab(itemElement, index) {
       mainVideoImg.replaceChildren(iframeVideoDom);
       return;
     }
-    const imgUrl = e.target?.src;
     if (mainVideoImg) {
-      const img = document.createElement('img');
-      img.src = imgUrl;
-      mainVideoImg.replaceChildren(img);
+      const picEl = e.currentTarget.querySelector('picture');
+      mainVideoImg.replaceChildren(picEl.cloneNode(true));
     }
   });
 
@@ -346,20 +371,22 @@ export default function decorate(block) {
     const externalVideoList = tabs.querySelectorAll('.external-video-box');
     const firstImg = imgList[0];
 
-    firstImg.onload = () => {
-      if (videoList && videoList.length) {
-        const h = firstImg.offsetHeight;
-        // 防止高度过小导致视频显示异常，设置一个最小高度100px
-        if (h > 100) {
-          videoList.forEach((video) => {
-            video.style.height = `${h}px`;
-          });
-          externalVideoList.forEach((box) => {
-            box.style.height = `${h}px`;
-          });
+    if (firstImg) {
+      firstImg.onload = () => {
+        if (videoList && videoList.length) {
+          const h = firstImg.offsetHeight;
+          // 防止高度过小导致视频显示异常，设置一个最小高度100px
+          if (h > 100) {
+            videoList.forEach((video) => {
+              video.style.height = `${h}px`;
+            });
+            externalVideoList.forEach((box) => {
+              box.style.height = `${h}px`;
+            });
+          }
         }
-      }
-    };
+      };
+    }
   }
 
   tabs.addEventListener('scroll', updateActiveDot);
@@ -400,7 +427,7 @@ export default function decorate(block) {
       mediaImg.append(firstExternal.cloneNode(true));
     } else {
       // 首次加载时，第一个缩略图中配置的是【图片】
-      const firstImg = tabs.querySelector('.product-filter-img-box .product-filter-img img');
+      const firstImg = tabs.querySelector('.product-filter-img-box .product-filter-img picture');
       if (firstImg) {
         mediaImg.append(firstImg.cloneNode(true));
       }

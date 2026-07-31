@@ -1,5 +1,7 @@
-import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { getLocaleFromPath, languageList } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+import translate from '../../utils/translate.js';
 
 const { country, language } = getLocaleFromPath();
 const REGION = '/hisense/region-selection.json';
@@ -125,6 +127,10 @@ function buildLocalizedPathForLanguage(nextLanguage) {
   return `/${normalizedSegments.join('/')}${window.location.search}`;
 }
 
+function buildRegionSelectionPath(selectedLanguage) {
+  return `/${country}/${selectedLanguage}/select-your-region`;
+}
+
 function isInternalLink(href) {
   if (!href || href === '#' || href === '/') {
     return true;
@@ -162,27 +168,36 @@ function extractLogoData(container) {
 
   const logoDivs = Array.from(logoBlock.children).filter((child) => child.tagName === 'DIV');
 
+  let step = 0;
   if (logoDivs.length > 0) {
-    const firstDiv = logoDivs[0];
+    let firstDiv = logoDivs[0];
+    if (firstDiv.textContent.trim() === 'true' || firstDiv.textContent.trim() === 'false') {
+      step = 1;
+      // eslint-disable-next-line prefer-destructuring
+      firstDiv = logoDivs[step];
+    }
     const innerDiv = firstDiv.querySelector('div');
     if (innerDiv) {
       const logoPicture = innerDiv.querySelector('picture');
       if (logoPicture) {
         const logoImg = logoPicture.querySelector('img');
         if (logoImg) {
-          logoData.image = logoImg.cloneNode(true);
+          logoData.image = true ? createDynamicMediaPicture(logoImg.src, logoImg.alt) : logoImg.cloneNode(true);
         }
       } else {
         const logoImg = innerDiv.querySelector('img');
         if (logoImg) {
-          logoData.image = logoImg.cloneNode(true);
+          logoData.image = true ? createDynamicMediaPicture(logoImg.src, logoImg.alt) : logoImg.cloneNode(true);
+        } else {
+          const aImg = innerDiv.querySelector('a');
+          logoData.image = createDynamicMediaPicture(aImg.href);
         }
       }
     }
   }
 
-  if (logoDivs.length > 1) {
-    const altDiv = logoDivs[1];
+  if (logoDivs.length > 1 + step) {
+    const altDiv = logoDivs[1 + step];
     const innerDiv = altDiv.querySelector('div');
     if (innerDiv) {
       const altP = innerDiv.querySelector('p');
@@ -192,8 +207,8 @@ function extractLogoData(container) {
     }
   }
 
-  if (logoDivs.length > 2) {
-    const linkDiv = logoDivs[2];
+  if (logoDivs.length > 2 + step) {
+    const linkDiv = logoDivs[2 + step];
     const innerDiv = linkDiv.querySelector('div');
     if (innerDiv) {
       const buttonContainer = innerDiv.querySelector('p.button-container');
@@ -207,7 +222,7 @@ function extractLogoData(container) {
   }
 
   logoDivs.forEach((div, index) => {
-    if (index < 3) {
+    if (index < 3 + step) {
       return;
     }
 
@@ -219,12 +234,13 @@ function extractLogoData(container) {
     const socialImg = innerDiv.querySelector('img');
     const imgBox = document.createElement('div');
     imgBox.className = 'footer-social-imgbox';
+    imgBox.setAttribute('data-index', `${index - 3 - step}`);
     socialImg.className = 'footer-social-width';
     const socialLink = div.children[1].querySelector('a');
     const showPopup = div.children[2];
     if (socialImg) {
       imgBox.appendChild(socialImg);
-      if (socialLink && showPopup?.textContent?.trim() === 'true') {
+      if (showPopup?.textContent?.trim() === 'true') {
         let footerSocialPopup = document.querySelector('#footer-social');
         if (!footerSocialPopup) {
           footerSocialPopup = document.createElement('div');
@@ -247,17 +263,27 @@ function extractLogoData(container) {
         });
         const titleEl = document.createElement('div');
         titleEl.className = 'footer-popup-title';
-        titleEl.textContent = '微信公众號';
+        titleEl.textContent = div.children[3].textContent.trim();
         const subtitleEl = document.createElement('div');
         subtitleEl.className = 'footer-popup-subtitle';
-        subtitleEl.textContent = '手机微信扫二维码';
+        subtitleEl.textContent = div.children[4].textContent.trim();
         const imgEl = document.createElement('img');
         imgEl.className = 'footer-popup-img';
+        imgEl.src = div.children[5].querySelector('img').src;
 
-        footerSocialPopup.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        const divEl = document.createElement('div');
+        divEl.append(popupCloseImg, titleEl, subtitleEl, imgEl);
+        divEl.setAttribute('index', `${index - 3 - step}`);
+        footerSocialPopup.append(divEl);
         imgBox.addEventListener('click', (e) => {
           e.stopPropagation();
           footerSocialPopup.style.display = 'flex';
+          const childDivs = footerSocialPopup.querySelectorAll(':scope > div');
+          const targetIndex = e.currentTarget.getAttribute('data-index');
+          childDivs.forEach((child) => {
+            const childIndex = child.getAttribute('index');
+            child.style.display = (childIndex === targetIndex) ? '' : 'none';
+          });
           footerSocialMask.style.display = 'block';
         });
       } else if (socialLink) {
@@ -354,6 +380,8 @@ function extractLegalLinksData(container) {
   const legalLinksData = {
     links: [],
     copyright: '',
+    icon1: '',
+    icon2: '',
   };
 
   const legalLinksBlock = container.querySelector('.footer-legal-links');
@@ -366,6 +394,16 @@ function extractLegalLinksData(container) {
   legalItemRows.forEach((row, index) => {
     if (index === 0) {
       legalLinksData.copyright = row.textContent.trim();
+      return;
+    }
+
+    if (index === 1 && row.querySelector('img')) {
+      legalLinksData.icon1 = row.querySelector('img').src;
+      return;
+    }
+
+    if (index === 2 && row.querySelector('img')) {
+      legalLinksData.icon2 = row.querySelector('img').src;
       return;
     }
 
@@ -544,6 +582,23 @@ export default async function decorate(block) {
     footerBottom.className = 'footer-bottom';
     const footerLegals = document.createElement('div');
     footerLegals.className = 'footer-legals  h-grid-container';
+    const footerLegalsLeft = document.createElement('div');
+    footerLegalsLeft.className = 'footer-legals footer-legals-item-left h-grid-container';
+
+    const footerLegalsRight = document.createElement('div');
+    footerLegalsRight.className = 'footer-legals footer-legals-item-right h-grid-container';
+    if (data.legalLinks.icon1) {
+      const icon1 = document.createElement('img');
+      icon1.className = 'footer-legals-icon';
+      icon1.src = data.legalLinks.icon1;
+      footerLegalsRight.appendChild(icon1);
+    }
+    if (data.legalLinks.icon2) {
+      const icon2 = document.createElement('img');
+      icon2.className = 'footer-legals-icon';
+      icon2.src = data.legalLinks.icon2;
+      footerLegalsRight.appendChild(icon2);
+    }
 
     if (data.legalLinks.links.length > 0) {
       const legalLinksDiv = document.createElement('div');
@@ -551,20 +606,22 @@ export default async function decorate(block) {
 
       data.legalLinks.links.forEach((linkData) => {
         const a = document.createElement('a');
-        a.className = 'footer-legal-link';
+        const span = document.createElement('span');
+        span.className = 'footer-legal-link';
         a.href = processPath(linkData.link);
         a.textContent = linkData.text;
-        legalLinksDiv.appendChild(a);
+        span.appendChild(a);
+        legalLinksDiv.appendChild(span);
       });
 
-      footerLegals.appendChild(legalLinksDiv);
+      footerLegalsLeft.appendChild(legalLinksDiv);
     }
 
     if (data.legalLinks.copyright) {
       const copyrightDiv = document.createElement('div');
       copyrightDiv.className = 'footer-copyright';
       copyrightDiv.textContent = data.legalLinks.copyright;
-      footerLegals.appendChild(copyrightDiv);
+      footerLegalsLeft.appendChild(copyrightDiv);
     }
 
     const getRegionUrl = () => {
@@ -609,17 +666,24 @@ export default async function decorate(block) {
   <div class="footer-lan-com">${selectedCountry.name}</div>
   <div class="footer-lan-list">
     ${generateLanguageItems(selectedCountry.languages, selectedCountry.selectedLanguage)}
-  </div>` : '';
+  </div>` : `
+  <img class="region-icon" src="/content/dam/hisense/${country}/common-icons/global.svg" alt="" />
+  <div class="footer-lan-list">
+    ${generateLanguageItems(languageList.reduce((acc, l) => {
+    acc[l] = translate('LANGUAGE_NAME', l);
+    return acc;
+  }, {}), language)}
+  </div>`;
     const regionIcon = lanGroup.querySelector('.region-icon');
-    if (regionIcon && selectedCountry?.code === 'cn') {
+    if (regionIcon) {
       regionIcon.addEventListener('click', () => {
-        window.location.href = 'https://www.hisense.com/global-site.html';
+        window.location.href = selectedCountry.code === 'cn' ? 'https://www.hisense.com/global-site.html' : buildRegionSelectionPath(selectedCountry.selectedLanguage);
       });
     }
     const lanComEl = lanGroup.querySelector('.footer-lan-com');
-    if (lanComEl && selectedCountry?.code === 'cn') {
+    if (lanComEl) {
       lanComEl.addEventListener('click', () => {
-        window.location.href = 'https://www.hisense.com/global-site.html';
+        window.location.href = selectedCountry.code === 'cn' ? 'https://www.hisense.com/global-site.html' : buildRegionSelectionPath(selectedCountry.selectedLanguage);
       });
     }
     const langItems = lanGroup.querySelectorAll('.footer-lan-item');
@@ -633,6 +697,7 @@ export default async function decorate(block) {
       langItems.forEach((item) => {
         item.addEventListener('click', (e) => {
           if (e.currentTarget.classList.contains('active')) {
+            window.location.href = '';
             return;
           }
           window.location.href = buildLocalizedPathForLanguage(e.currentTarget.getAttribute('data-lang'));
@@ -640,8 +705,9 @@ export default async function decorate(block) {
       });
     }
 
-    footerLegals.appendChild(lanGroup);
+    footerLegalsLeft.appendChild(lanGroup);
 
+    footerLegals.append(footerLegalsLeft, footerLegalsRight);
     footerBottom.appendChild(footerLegals);
     container.appendChild(footerBottom);
   }

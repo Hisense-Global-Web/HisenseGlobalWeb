@@ -32,8 +32,7 @@
         {
           "component": "aem-content",
           "name": "link",
-          "label": "Link",
-          "required": true
+          "label": "Link"
         },
         {
           "component": "boolean",
@@ -42,23 +41,38 @@
           "valueType": "boolean"
         },
         {
-          "component": "text",
-          "valueType": "string",
-          "name": "popup-title",
-          "label": "Popup Title"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "popup-subtitle",
-          "label": "Popup Subtitle"
-        },
-        {
-          "component": "reference",
-          "valueType": "string",
-          "name": "qr-code",
-          "label": "QR Code",
-          "multi": false
+          "component": "container",
+          "label": "Popup Details",
+          "name": "popup-details",
+          "collapsible":  {
+            "===": [
+              {
+                "var": "should-popup"
+              },
+              false
+            ]
+          },
+          "fields": [
+            {
+              "component": "text",
+              "valueType": "string",
+              "name": "popup-title",
+              "label": "Popup Title"
+            },
+            {
+              "component": "text",
+              "valueType": "string",
+              "name": "popup-subtitle",
+              "label": "Popup Subtitle"
+            },
+            {
+              "component": "reference",
+              "valueType": "string",
+              "name": "qr-code",
+              "label": "QR Code",
+              "multi": false
+            }
+          ]
         }
       ]
     }

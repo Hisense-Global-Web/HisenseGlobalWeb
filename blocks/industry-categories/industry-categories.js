@@ -2,6 +2,7 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { isMobileWindow } from '../../scripts/device.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+// import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default function decorate(block) {
   /* change to ul, li */
@@ -16,8 +17,20 @@ export default function decorate(block) {
     while (row.firstElementChild) li.append(row.firstElementChild);
 
     [...li.children].forEach((div, index) => {
+      // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+      // if (div.children.length === 2 && (div.querySelector('picture') || div.querySelector('a'))) {
       if (div.children.length === 1 && div.querySelector('picture')) {
         div.className = 'card-image';
+        // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+        // const [dynamicSwitch, imgDom] = [...div.children] ?? [];
+        // // const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
+        // dynamicSwitch.remove();
+        // if (imgDom.querySelector('a')) {
+        //   // 设置dynamic media
+        //   const dynamicImgSrc = imgDom.querySelector('a').getAttribute('href');
+        //   imgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'industry-categories-img'));
+        //   imgDom.children[0].remove();
+        // }
       } else if (div.children.length === 1 && index === 0) {
         div.className = 'card-title';
       } else {
@@ -71,6 +84,10 @@ export default function decorate(block) {
     };
     ul.append(li);
   });
+  /**
+   * 修改dynamic media 之前此组件有对图片做如下操作
+   * 因为此逻辑会导致createDynamicMediaPicture 方法生成的 dynamic media img 中的三个source 只会渲染一个，所以先注释掉
+   */
   ul.querySelectorAll('picture > img').forEach((img) => {
     const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
     moveInstrumentation(img, optimizedPic.querySelector('img'));

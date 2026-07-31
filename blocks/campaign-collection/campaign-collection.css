@@ -54,7 +54,10 @@
         left: calc(var(--size-33) * -1);
 
         @media (width<640px) {
-          display: none;
+          top: var(--size-50);
+          left: calc(270 / var(--breakpoint-mobile) * 100vw);
+          width: var(--size-75);
+          height: var(--size-75);
         }
       }
 
@@ -202,7 +205,7 @@
       background-color: #00d265;
     }
 
-    .background-green-active > div {
+    .background-green-active>div {
       background-color: #00d26540;
     }
 
@@ -214,7 +217,7 @@
       background-color: #0e00a5;
     }
 
-    .background-blue-active > div {
+    .background-blue-active>div {
       background-color: #0e00a5bf;
     }
 
@@ -226,13 +229,12 @@
       background-color: #ff162e;
     }
 
-    .background-red-active > div {
+    .background-red-active>div {
       background-color: #ff162e80;
     }
 
     .second-part {
-      padding: var(--spacing-lg, 40px) var(--spacing-lg, 40px) var(--size-64)
-        var(--spacing-lg, 40px);
+      padding: var(--spacing-lg, 40px) var(--spacing-lg, 40px) var(--size-64) var(--spacing-lg, 40px);
       border-bottom-left-radius: var(--spacing-s2, 20px);
       border-bottom-right-radius: var(--spacing-s2, 20px);
       display: flex;
@@ -284,7 +286,7 @@
             justify-content: flex-start;
           }
 
-          .button-wrapper > div:first-child {
+          .button-wrapper>div:first-child {
             cursor: pointer;
             display: flex;
             gap: var(--spacing-2xs, 12px);
@@ -449,7 +451,7 @@
         }
 
         .product-wrapper:hover .buy-now-button {
-          @media (width >= 640px) {
+          @media (width >=640px) {
             opacity: 1;
             visibility: visible;
             bottom: var(--spacing-m, 32px);
@@ -458,7 +460,7 @@
         }
 
         .product-wrapper:hover img {
-          @media (width >= 640px) {
+          @media (width >=640px) {
             transform: scale(1.1);
           }
         }

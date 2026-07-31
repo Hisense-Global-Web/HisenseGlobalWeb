@@ -1,6 +1,7 @@
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 function formatDate(iso) {
   if (!iso) return '';
@@ -123,11 +124,9 @@ function buildCard(item) {
     imageWrapper.href = linkHref;
     imageWrapper.classList.add('pr-card-image');
 
-    const picture = createOptimizedPicture(
+    const picture = createDynamicMediaPicture(
       thumbnail,
-      title || '',
-      false,
-      [{ width: '750' }],
+      title,
     );
 
     imageWrapper.appendChild(picture);

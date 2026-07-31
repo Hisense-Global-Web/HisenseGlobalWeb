@@ -1,8 +1,8 @@
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
-import { SCREEN_POINT } from '../../utils/constants.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 function formatDate(dateStr) {
   try {
@@ -101,7 +101,7 @@ export default async function decorate(block) {
           date: fetched.date ? formatDate(fetched.date) : '',
           location: fetched.location || '',
           author: fetched.author || '',
-          image: config.image || '/resources/490120ecff332a924ab425cce8dbe8a57ec0bbbf.jpg',
+          image: config.image,
           ctaText: fetched['cta-text'] || '',
           ctaLink: config['cta-link'] || '',
           hasDownload: !!fetched.downloadLink,
@@ -121,7 +121,7 @@ export default async function decorate(block) {
       date: config.date || '',
       location: config.location || '',
       author: config.author || '',
-      image: config.image || '/resources/490120ecff332a924ab425cce8dbe8a57ec0bbbf.jpg',
+      image: config.image,
       ctaText: config['cta-text'] || '',
       ctaLink: config['cta-link'] || '',
       hasDownload: config['has-download'] === true || config['has-download'] === 'true' || false,
@@ -149,11 +149,9 @@ export default async function decorate(block) {
     const featuredImage = document.createElement('div');
     featuredImage.classList.add('featured-image');
 
-    const picture = createOptimizedPicture(
+    const picture = createDynamicMediaPicture(
       data.image,
       data.subtitle || '',
-      false,
-      [{ media: `(min-width: ${SCREEN_POINT}px)`, width: '2000' }, { width: SCREEN_POINT }],
     );
 
     featuredImage.appendChild(picture);

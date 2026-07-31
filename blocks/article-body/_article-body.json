@@ -117,6 +117,12 @@
           "readonly": true
         },
         {
+          "component": "boolean",
+          "name": "dynamic_media",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",
@@ -169,6 +175,27 @@
           "name": "content",
           "label": "Content",
           "value": ""
+        },
+        {
+          "component": "boolean",
+          "name": "text-center",
+          "label": "Do you want to enable text centering?",
+          "valueType": "boolean",
+          "value": false
+        },
+        {
+          "component": "text",
+          "name": "color",
+          "label": "Color",
+          "value": "",
+          "description": "Accept color name or hex color code (e.g. #000)"
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "font-size",
+          "label": "Font Size",
+          "value": ""
         }
       ]
     },
@@ -209,6 +236,12 @@
           "readonly": true
         },
         {
+          "component": "boolean",
+          "name": "dynamic_media",
+          "label": "Enable Dynamic Media",
+          "valueType": "boolean"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",
@@ -226,6 +259,18 @@
           "name": "text",
           "label": "Text",
           "value": ""
+        },
+        {
+          "component": "text",
+          "name": "button_text",
+          "label": "Button Text",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "button_link",
+          "label": "Button Link",
+          "valueType": "string"
         }
       ]
     }

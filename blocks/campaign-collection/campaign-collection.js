@@ -1,4 +1,6 @@
 import { SCREEN_POINT } from '../../utils/constants.js';
+import { checkSwitch, getSwitchValue } from '../../utils/ue-helper.js';
+import { checkDyanmicMediaImage } from '../hero-banner/media-reference.js';
 
 const EItemList = Object.freeze({
   card: 'card', // campaign collection card
@@ -86,9 +88,20 @@ const getItemListEl = (itemListEl, isEditMode = false) => {
 };
 
 const generateProduct = (productEl) => {
-  const [titleEL, imageEL, buttonEl] = [...productEl.children] ?? [];
+  const [titleEL, imageEl, buttonEl] = [...productEl.children] ?? [];
+  // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+  // const hasDynamicMedia = checkSwitch(productEl?.children?.[2]);
+  // if (!hasDynamicMedia) {
+  //   productEl.children[2].prepend(document.createElement('div'));
+  // }
+
+  // const [titleEL, dynamicMediaEl, imageEl, buttonEl] = [...productEl.children] ?? [];
+  // dynamicMediaEl?.remove();
   titleEL.classList.add('product-title');
-  imageEL.classList.add('product-image');
+  // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+  // const dynamicMediaImageEl = checkDyanmicMediaImage(imageEl, 'productImage');
+  // dynamicMediaImageEl.classList.add('product-image');
+  imageEl.classList.add('product-image');
   const [btnText, btnLink] = [...buttonEl.children] ?? [];
   if (btnLink?.querySelector('a')) {
     btnText?.remove();
@@ -100,13 +113,26 @@ const generateProduct = (productEl) => {
 
 export default function decorate(block) {
   const isEditMode = block.hasAttribute('data-aue-resource');
-  const [bgPCEl, bgMobileEl, footballEl, leftCloseEl, rightContentEl, secondTitleEl, ...itemListEl] = [...block.children] ?? [];
+  const hasDynamicMedia = checkSwitch(block.children[0]);
+  if (!hasDynamicMedia) {
+    block.prepend(document.createElement('div'));
+  }
+  const [enableDynamicMediaEl, bgPCEl, bgMobileEl, footballEl, leftCloseEl, rightContentEl, secondTitleEl, ...itemListEl] = [...block.children] ?? [];
+  const isEnableDynamicMedia = getSwitchValue(enableDynamicMediaEl);
+  enableDynamicMediaEl?.remove();
+  const dynamicMediaPCEl = checkDyanmicMediaImage(bgPCEl, 'PCBackground');
+  if (isEnableDynamicMedia) {
+    const cloneDynamicMediaPCEl = dynamicMediaPCEl.cloneNode(true);
+    bgPCEl.innerHTML = dynamicMediaPCEl.innerHTML;
+    dynamicMediaPCEl.classList.add('background-pc');
+    bgMobileEl.innerHTML = cloneDynamicMediaPCEl.innerHTML;
+  }
   bgPCEl.classList.add('background-pc');
   bgMobileEl.classList.add('background-mobile');
-  footballEl?.classList?.add('football');
+  checkDyanmicMediaImage(footballEl, 'football')?.classList?.add('football');
   const contentWrapperEl = document.createElement('div');
   contentWrapperEl.classList.add('content-wrapper');
-  leftCloseEl?.classList?.add('left-close');
+  checkDyanmicMediaImage(leftCloseEl, 'leftClose')?.classList?.add('left-close');
   rightContentEl.classList.add('right-content');
   const [titleEl, textEl, btnTextEl, btnLinkEl] = rightContentEl.children?.[0]?.children ?? [];
   titleEl?.classList?.add('title');

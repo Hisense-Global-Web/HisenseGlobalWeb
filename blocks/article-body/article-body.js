@@ -1,4 +1,5 @@
 import wrapInRichtext from '../../utils/wrap-in-richtext.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -28,6 +29,12 @@ export default function decorate(block) {
         row.children[0].style.display = 'none';
         const contentDiv = row.children[1];
         contentDiv.className = 'text-body-content';
+        if (row.children[2] && row.children[2].textContent.trim() === 'true') {
+          contentDiv.style.textAlign = 'center';
+        }
+        if (row.children[3] && row.children[3].textContent.trim()) {
+          contentDiv.style.color = row.children[3].textContent.trim();
+        }
       } else if (type === 'quote') {
         row.children[0].style.display = 'none';
         const quoteDiv = row.children[1];
@@ -87,11 +94,20 @@ export default function decorate(block) {
       const imgAlt = row.children[2]?.textContent?.trim() || '';
       const imageDiv = document.createElement('div');
       imageDiv.className = 'text-body-image';
-      imageDiv.innerHTML = `<img src="${imgSrc}" alt="${imgAlt}">`;
+      imageDiv.append(createDynamicMediaPicture(imgSrc, imgAlt));
       ArticleBodyDiv.append(imageDiv);
     } else if (type === 'content') {
       const contentDiv = row.children[1];
       contentDiv.className = 'text-body-content';
+      if (row.children[2] && row.children[2].textContent.trim() === 'true') {
+        contentDiv.style.textAlign = 'center';
+      }
+      if (row.children[3] && row.children[3].textContent.trim()) {
+        contentDiv.style.color = row.children[3].textContent.trim();
+      }
+      if (row.children[4] && row.children[4].textContent.trim()) {
+        contentDiv.style.fontSize = `${row.children[4].textContent.trim()}px`;
+      }
       ArticleBodyDiv.append(contentDiv);
     } else if (type === 'quote') {
       const quoteDiv = row.children[1];
@@ -113,24 +129,25 @@ export default function decorate(block) {
       // 图
       const imgGroupDiv = document.createElement('div');
       imgGroupDiv.className = 'text-body-img-group';
-      const imgEl = row.children[1].querySelector('img');
-      const imgAEl = row.children[1].querySelector('a');
+      const imgEl = row.children[2].querySelector('picture');
+      const imgAEl = row.children[2].querySelector('a');
       if (imgEl) {
         imgGroupDiv.append(imgEl);
       } else if (!imgEl && imgAEl) {
         const imgUrl = imgAEl.getAttribute('href');
-        const imgElseEl = document.createElement('img');
-        imgElseEl.src = imgUrl;
-        imgGroupDiv.append(imgElseEl);
+        imgGroupDiv.append(createDynamicMediaPicture(imgUrl));
       }
       // 文
       const textGroupDiv = document.createElement('div');
-      const title = row.children[2] || '';
+      const title = row.children[3] || '';
       title.className = 'text-body-title';
-      const desc = row.children[3] || '';
+      const desc = row.children[4] || '';
       desc.className = 'text-body-desc';
+      const btn = row.children[5] || '';
+      btn.className = 'text-body-btn';
+      btn.style.display = 'none';
       textGroupDiv.className = 'text-body-text-group';
-      textGroupDiv.append(title, desc);
+      textGroupDiv.append(title, desc, btn);
       if (imgEl || (!imgEl && imgAEl)) {
         GroupDiv.append(imgGroupDiv);
       }

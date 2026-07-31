@@ -1,4 +1,5 @@
 import popupShowUtils from '../../utils/popup-module-utils.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default async function decorate(block) {
   // console.log(block, 'bb');
@@ -48,14 +49,44 @@ export default async function decorate(block) {
   }
   block.append(infoTextDiv);
 
+  // 为 tech-img-box 中的 p 元素添加 className
   const techImgBoxPAll = block.querySelectorAll('.tech-img-box p');
-  techImgBoxPAll.forEach((imgP, imgIdx) => {
-    if (imgIdx === 0) {
-      imgP.className = 'tech-pc-img';
-    } else {
-      imgP.className = 'tech-mobile-img';
+  const [dynamicSwitch, pcInfoEl, mobileImageEl] = [...techImgBoxPAll] ?? [];
+  const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
+  dynamicSwitch.remove();
+
+  if (pcInfoEl) {
+    pcInfoEl.className = 'tech-pc-img';
+    if (pcInfoEl.querySelector('a') && isDynamicFlag) {
+      // 容错判断（兼容之前没有设置dynamic media 的组件）
+      const dynamicImgSrc = pcInfoEl.querySelector('a').getAttribute('href');
+      pcInfoEl.append(createDynamicMediaPicture(dynamicImgSrc, 'tech-information'));
+      pcInfoEl.children[0].remove();
     }
-  });
+  }
+
+  if (isDynamicFlag) {
+    // 是dynamic media 的图片资源时，直接copy PC端的 img dom, 做为 mobile 的图片展示
+    const clonePcInfoEl = pcInfoEl.cloneNode(true);
+    clonePcInfoEl.className = 'tech-mobile-img';
+    block.querySelector('.tech-img-box').append(clonePcInfoEl);
+    if (mobileImageEl) {
+      mobileImageEl.remove();
+    }
+  } else if (mobileImageEl) {
+    mobileImageEl.className = 'tech-mobile-img';
+  }
+
+  // Assign class names to p elements in tech-img-box
+  // const techImgBoxPAll = block.querySelectorAll('.tech-img-box p');
+  // console.log(techImgBoxPAll, 'techImgBoxPAll');
+  // techImgBoxPAll.forEach((imgP, imgIdx) => {
+  //   if (imgIdx === 0) {
+  //     imgP.className = 'tech-pc-img';
+  //   } else {
+  //     imgP.className = 'tech-mobile-img';
+  //   }
+  // });
 
   // Assign class names to p elements in tech-text-wrapper
   const textWrapperPAll = block.querySelectorAll('.tech-text-wrapper p');
@@ -75,7 +106,7 @@ export default async function decorate(block) {
     // console.log(blockEl, 'blockEl');
     const techItemBoxAll = blockEl.querySelectorAll('.tech-item-wrapper .tech-item-box');
     const techItemWrapperEl = blockEl.querySelector('.tech-item-wrapper');
-    let techItemStyle = '';
+    let techItemStyle = 'default-class';
     techItemBoxAll.forEach((box) => {
       const itemBoxChildren = [...box.children];
       itemBoxChildren.forEach((item, idx) => {

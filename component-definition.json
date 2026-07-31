@@ -589,7 +589,8 @@
                 "template": {
                   "name": "Campaign Collection",
                   "model": "campaign-collection",
-                  "filter": "campaign-collection"
+                  "filter": "campaign-collection",
+                  "enable-dynamicMedia": false
                 }
               }
             }
@@ -622,7 +623,8 @@
                   "name": "Associated Products",
                   "model": "associated-products",
                   "item-type": "products",
-                  "button_text": "Buy Now"
+                  "button_text": "Buy Now",
+                  "enable-dynamicMedia": false
                 }
               }
             }
@@ -638,7 +640,8 @@
                 "template": {
                   "name": "Campaign Image",
                   "model": "campaign-image",
-                  "filter": "campaign-image"
+                  "filter": "campaign-image",
+                  "enable-dynamicMedia": false
                 }
               }
             }
@@ -1044,6 +1047,30 @@
           }
         },
         {
+          "title": "Display Manual List",
+          "id": "display-manual-list",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Display Manual List",
+                  "model": "display-manual-list",
+                  "document-listTtile": "Resource",
+                  "results-title": "Documents",
+                  "no_result": "No items found.",
+                  "page_size": 10,
+                  "document_icon": "/content/dam/hisense/us/common-icons/document.svg",
+                  "pc_downloadtext": "Download",
+                  "pc_downladicon": "/content/dam/hisense/us/common-icons/download-white.svg",
+                  "mobile-downloadicon": "/content/dam/hisense/us/common-icons/download.svg",
+                  "mobile-nexttext": "Load More"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Download",
           "id": "download",
           "plugins": {
@@ -1083,6 +1110,42 @@
                   "image-size": "2.5MB",
                   "download-icon": "/content/dam/hisense/us/common-icons/download.svg",
                   "download-link": ""
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Dynamic Media Image",
+          "id": "dynamic-media-image",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Dynamic Media Image",
+                  "model": "dynamic-media-image",
+                  "filter": "dynamic-media-image",
+                  "key-value": true,
+                  "image": ""
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Dynamic Media Option",
+          "id": "dynamic-media-imageItem",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Dynamic Media Option",
+                  "model": "dynamic-media-imageItem",
+                  "cropName": "Small",
+                  "cropWidth": "480",
+                  "cropHeight": "640"
                 }
               }
             }
@@ -1491,7 +1554,8 @@
                   "name": "Hero Banner",
                   "model": "hero-banner",
                   "filter": "hero-banner",
-                  "classes": "hero-banner"
+                  "classes": "hero-banner",
+                  "key-value": true
                 }
               }
             }
@@ -1506,7 +1570,11 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Hero Banner Item",
-                  "model": "hero-bannerItem"
+                  "model": "hero-bannerItem",
+                  "dynamic_media": false,
+                  "image_theme": false,
+                  "mode_type": false,
+                  "video_type": false
                 }
               }
             }
@@ -1521,7 +1589,8 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Hero Presence",
-                  "model": "hero-presence"
+                  "model": "hero-presence",
+                  "enable-dynamicMedia": false
                 }
               }
             }
@@ -1914,6 +1983,26 @@
                   "name": "Media Contact Card Item",
                   "model": "media-contact-card-item",
                   "classes": "media-contact-card-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Media Filter",
+          "id": "media-filter",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Media Filter",
+                  "model": "media-filter",
+                  "mobile_loadmore": "Load More",
+                  "page-size": 9,
+                  "downloadImage": "Download Image",
+                  "downloadVideo": "Download Video",
+                  "downloadAll": "Download All"
                 }
               }
             }
@@ -2709,6 +2798,37 @@
                   "name": "Region Selection",
                   "model": "region-selection",
                   "classes": "region-selection"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Region",
+          "id": "region",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Region",
+                  "model": "region",
+                  "filter": "region"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Region Countries",
+          "id": "region-countries",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Region Countries",
+                  "model": "region-countries"
                 }
               }
             }

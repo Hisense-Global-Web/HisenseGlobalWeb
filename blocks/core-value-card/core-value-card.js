@@ -1,5 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+// import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -32,8 +33,20 @@ export default function decorate(block) {
       moveInstrumentation(row, li);
       while (row.firstElementChild) li.append(row.firstElementChild);
       [...li.children].forEach((div, index) => {
+        // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+        // if (div.children.length === 2 && (div.querySelector('picture') || div.querySelector('a'))) {
         if (div.children.length === 1 && div.querySelector('picture')) {
           div.className = 'card-image';
+          // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+          // const [dynamicSwitch, imgDom] = [...div.children] ?? [];
+          // // const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
+          // dynamicSwitch.remove();
+          // if (imgDom.querySelector('a')) {
+          //   // 设置dynamic media
+          //   const dynamicImgSrc = imgDom.querySelector('a').getAttribute('href');
+          //   imgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'industry-categories-img'));
+          //   imgDom.children[0].remove();
+          // }
           div.setAttribute('data-card-index', index);
           const arrow = document.createElement('img');
           if (i === 3) {

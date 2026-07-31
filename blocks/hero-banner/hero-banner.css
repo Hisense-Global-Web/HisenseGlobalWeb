@@ -605,6 +605,16 @@ p {
         p:nth-child(2) {
           display: block;
         }
+
+        &.dynamic-media-enabled {
+          p:nth-child(1) {
+            display: block;
+          }
+
+          p:nth-child(2) {
+            display: none;
+          }
+        }
       }
     }
 

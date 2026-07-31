@@ -1,6 +1,7 @@
 import { loadScript } from '../../scripts/aem.js';
 import { createElement } from '../../utils/dom-helper.js';
 import { isUniversalEditor } from '../../utils/ue-helper.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const createResizeObserver = (callback, delay = 100) => {
   let timeout;
@@ -56,12 +57,26 @@ function initializeDraggableSlider(wrapper, dragger, imageWrapperAfter) {
 
 export default async function decorate(block) {
   // Early return if block doesn't have exactly 2 pictures
-  const imagesGroup = block.querySelector('div:first-of-type');
-  const iconGroup = block.querySelector('div:nth-of-type(2)');
+  let imagesGroup = block.querySelector('div:first-of-type');
+  let iconGroup = block.querySelector('div:nth-of-type(2)');
   iconGroup.classList.add('guide-container');
-  const pictures = imagesGroup?.querySelectorAll('picture');
+  let pictures = imagesGroup?.querySelectorAll('picture');
   if (pictures.length !== 2) {
-    return;
+    block.querySelector('div:first-of-type').style.display = 'none';
+    imagesGroup = block.querySelector('div:nth-of-type(2)');
+    iconGroup = block.querySelector('div:nth-of-type(3)');
+    iconGroup.classList.add('guide-container');
+    const aElList = imagesGroup?.querySelectorAll('p');
+    pictures = [...aElList].map((pEl) => {
+      if (pEl.querySelector('a')) {
+        const aEl = pEl.querySelector('a');
+        return createDynamicMediaPicture(aEl.href);
+      }
+      if (pEl.querySelector('picture')) {
+        return pEl.querySelector('picture');
+      }
+      return pEl;
+    });
   }
 
   // Destructure for clarity

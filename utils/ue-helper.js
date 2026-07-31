@@ -18,3 +18,19 @@ export async function isUniversalEditorAsync() {
     setTimeout(() => resolve(!!window.UniversalEditorEmbedded), 2000);
   });
 }
+
+// 判断是不是Switch开关
+export const checkSwitch = (switchEl) => {
+  if (switchEl?.children) {
+    let isSwitch = false;
+    [...switchEl.children].forEach((child) => {
+      if (child.textContent === 'true' || child.textContent === 'false') {
+        isSwitch = true;
+      }
+    });
+    return isSwitch;
+  }
+  return false;
+};
+
+export const getSwitchValue = (switchEl) => switchEl?.children?.[0]?.textContent?.trim() === 'true';

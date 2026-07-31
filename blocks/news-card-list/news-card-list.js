@@ -1,7 +1,9 @@
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
+import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+import translate from '../../utils/translate.js';
 
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 function getTagsEndpointUrl() {
@@ -10,11 +12,14 @@ function getTagsEndpointUrl() {
 }
 
 function extractTags(data, tags = {}) {
+  const { language } = getLocaleFromPath();
   Object.keys(data).forEach((key) => {
     // 跳过 JCR 系统属性
     if (!key.startsWith('jcr:') && typeof data[key] === 'object' && data[key] !== null) {
       // 如果当前节点有 jcr:title，说明它是一个标签节点
-      if (data[key]['jcr:title']) {
+      if (data[key][`jcr:title.${language}`]) {
+        tags[key] = data[key][`jcr:title.${language}`];
+      } else if (data[key]['jcr:title']) {
         tags[key] = data[key]['jcr:title'];
       }
       // 递归处理子节点
@@ -143,11 +148,9 @@ function buildCard(item) {
     imageWrapper.href = linkHref;
     imageWrapper.classList.add('releases-image');
 
-    const picture = createOptimizedPicture(
+    const picture = createDynamicMediaPicture(
       thumbnail,
-      title || '',
-      false,
-      [{ width: '750' }],
+      title,
     );
 
     imageWrapper.appendChild(picture);
@@ -420,7 +423,8 @@ export default async function decorate(block) {
   // const emptyText = config['empty-text'] || 'No news items match your filters.';
   const shouldPaginated = true;
   const paginatedBtnText = config['paginated-btn-text'] || '';
-  const discoverMoreText = config['discover-more-text'] || 'Discover more';
+  const { language } = getLocaleFromPath();
+  const discoverMoreText = config['discover-more-text'] || translate('DISCOVER_MORE', language);
   const dataSource = config['data-source'] || '';
 
   const blockResource = block.getAttribute('data-aue-resource');
