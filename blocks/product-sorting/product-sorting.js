@@ -236,6 +236,9 @@ export default function decorate(block) {
   const mobileFiltersImg = document.createElement('img');
   mobileFiltersImg.src = `/content/dam/hisense/${country}/common-icons/mobile-filters-title.svg`;
   mobileFiltersImg.alt = 'Filters title';
+  mobileFiltersImg.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   mobileFilterTit.append(mobileFiltersImg, mobileFiltersSpan);
   mobileFilters.append(mobileFilterTit);
   const filterDetailEl = document.querySelector('.product-filter-wrapper');
@@ -264,11 +267,17 @@ export default function decorate(block) {
   sortImg.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   sortImg.alt = 'Sort options';
   sortImg.className = 'sort-arrow';
+  sortImg.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   // 移动端 sort by close btn
   const closeImg = document.createElement('img');
   closeImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
   closeImg.alt = 'mobile-close-sort-by';
   closeImg.className = 'mobile-sort-by-close';
+  closeImg.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   // 移动端 sort by close 点击事件
   closeImg.addEventListener('click', (e) => {
     e.stopPropagation(); // 阻止事件冒泡
@@ -290,6 +299,9 @@ export default function decorate(block) {
   const mobileSortImg = document.createElement('img');
   mobileSortImg.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   mobileSortImg.alt = 'Sort options';
+  mobileSortImg.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   mobileSort.append(mobileSortSpan, mobileSortImg);
 
   // mobile 端，Sort by 点击事件，显示sort options数据

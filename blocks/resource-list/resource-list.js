@@ -90,6 +90,9 @@ export default function decorate(block) {
       clearEl.className = 'clear-icon';
       const imgEl = document.createElement('img');
       imgEl.src = `/content/dam/hisense/${country}/common-icons/close-70.svg`;
+      imgEl.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       clearEl.appendChild(imgEl);
       clearEl.addEventListener('click', (e) => {
         const targetInputEl = e.currentTarget.parentNode.querySelector('input');

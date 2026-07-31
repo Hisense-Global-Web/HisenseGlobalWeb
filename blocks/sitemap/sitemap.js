@@ -31,6 +31,9 @@ export default function decorate(block) {
       row.classList.add('sitemap-title');
       const img = document.createElement('img');
       img.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+      img.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       img.addEventListener('click', (e) => {
         const pNode = e.currentTarget.closest('.sitemap-wrapper');
         pNode.classList.toggle('hide');

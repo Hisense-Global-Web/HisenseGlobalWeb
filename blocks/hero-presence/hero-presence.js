@@ -148,9 +148,15 @@ export default function decorate(block) {
   const playBtn = createElement('button', 'hero-presence-video-play-btn');
   const playIcon = createElement('img', 'hero-presence-video-play-icon');
   playIcon.src = `/content/dam/hisense/${country}/common-icons/play-dark-mode.svg`;
+  playIcon.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   playBtn.appendChild(playIcon);
   const pauseIcon = createElement('img', 'hero-presence-video-pause-icon');
   pauseIcon.src = `/content/dam/hisense/${country}/common-icons/pause-dark-mode.svg`;
+  pauseIcon.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   playBtn.appendChild(pauseIcon);
   block.appendChild(playBtn);
 

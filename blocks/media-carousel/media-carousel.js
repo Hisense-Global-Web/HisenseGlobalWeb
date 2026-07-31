@@ -259,12 +259,18 @@ function createScrollButton(direction) {
   img.src = direction === 'prev' ? `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-left-g.svg` : `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-right-g.svg`;
   img.alt = direction === 'prev' ? 'slide-prev' : 'slide-next';
   img.className = 'disabled-icon';
+  img.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   button.appendChild(img);
   // 创建图片元素
   const imgClick = document.createElement('img');
   imgClick.src = direction === 'prev' ? `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-left.svg` : `/content/dam/hisense/${country}/common-icons/icon-carousel/nav-right.svg`;
   imgClick.alt = direction === 'prev' ? 'slide-prev' : 'slide-next';
   imgClick.className = 'click-icon';
+  imgClick.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   button.appendChild(imgClick);
   return button;
 }

@@ -743,10 +743,16 @@ export default async function decorate(block) {
   const likeEmpty = document.createElement('img');
   likeEmpty.className = 'pdp-like-empty';
   likeEmpty.src = `/content/dam/hisense/${country}/common-icons/like-empty.svg`;
+  likeEmpty.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   fav.appendChild(likeEmpty);
   const like = document.createElement('img');
   like.className = 'pdp-like';
   like.src = `/content/dam/hisense/${country}/common-icons/like.svg`;
+  like.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   fav.appendChild(like);
 
   const series = document.createElement('div');
@@ -952,6 +958,9 @@ export default async function decorate(block) {
   const specsImg = document.createElement('img');
   specsImg.src = `/content/dam/hisense/${country}/common-icons/specs.svg`;
   specsImg.alt = 'specs';
+  specsImg.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   specsBtn.appendChild(specsImg);
   const specsSpan = document.createElement('span');
   specsSpan.textContent = translate('SPECS', language);
@@ -999,6 +1008,9 @@ export default async function decorate(block) {
   preOrderPackage.style.display = 'none';
   const infoIcon = document.createElement('img');
   infoIcon.src = `/content/dam/hisense/${country}/common-icons/info.svg`;
+  infoIcon.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   const preOrderPackageSpan = document.createElement('span');
   preOrderPackageSpan.style.marginTop = '1px';
   preOrderPackage.append(infoIcon, preOrderPackageSpan);
@@ -1595,6 +1607,9 @@ export default async function decorate(block) {
     deleteIcon.src = `/content/dam/hisense/${country}/common-icons/delete.svg`;
     deleteIcon.className = 'delete-icon is-disabled';
     deleteIcon.alt = '';
+    deleteIcon.addEventListener('error', function () {
+      this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+    });
     deleteIcon.setAttribute('aria-disabled', 'true');
     return deleteIcon;
   }
@@ -1615,6 +1630,9 @@ export default async function decorate(block) {
     closeImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
     closeImg.className = 'close-icon';
     closeImg.alt = 'Close';
+    closeImg.addEventListener('error', function () {
+      this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+    });
     closeImg.addEventListener('click', closeProductCardPopup);
     popup.append(closeImg);
 
@@ -1650,6 +1668,9 @@ export default async function decorate(block) {
     stockImg.className = 'stock-img';
     stockImg.src = `/content/dam/hisense/${country}/common-icons/correct.svg`;
     stockImg.alt = '';
+    stockImg.addEventListener('error', function () {
+      this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+    });
     const stockSpan = document.createElement('span');
     stockSpan.textContent = translate('IN_STOCK', language);
     stockLine.append(stockImg, stockSpan);
@@ -1660,6 +1681,9 @@ export default async function decorate(block) {
     presaleImg.className = 'stock-img';
     presaleImg.src = `/content/dam/hisense/${country}/common-icons/presale.svg`;
     presaleImg.alt = '';
+    presaleImg.addEventListener('error', function () {
+      this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+    });
     const presaleSpan = document.createElement('span');
     presaleSpan.textContent = 'Pre-order item';
     presaleLine.append(presaleImg, presaleSpan);
@@ -1682,6 +1706,9 @@ export default async function decorate(block) {
     preTimeLineIcon.className = 'pre-time-line-img';
     preTimeLineIcon.src = `/content/dam/hisense/${country}/common-icons/time.svg`;
     preTimeLineIcon.alt = '';
+    preTimeLineIcon.addEventListener('error', function () {
+      this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+    });
     const preTimeLineGroup = document.createElement('div');
     preTimeLineGroup.className = 'pre-time-line-group';
     const preOrderPeriod1 = document.createElement('div');
@@ -2050,6 +2077,9 @@ export default async function decorate(block) {
 
   pdpNav.querySelector('.pdp-nav-content-btn').addEventListener('click', () => {
     document.querySelector('.pdp-nav-menu').classList.toggle('hide');
+  });
+  pdpNav.querySelector('.pdp-nav-content-btn').addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
   });
   const overviewMobileBtn = document.createElement('div');
   overviewMobileBtn.classList.add('pdp-nav-menu-item');

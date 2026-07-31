@@ -120,7 +120,7 @@ export default function decorate(block) {
       imgEl.src = `/content/dam/hisense/${country}/common-icons/quotation.svg`;
       imgEl.alt = 'quotation';
       imgEl.addEventListener('error', function () {
-        this.src = '/content/dam/hisense/global/common-icons/quotation.svg';
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
       });
       quoteDiv.append(imgEl);
       const notesDiv = row.children[2];

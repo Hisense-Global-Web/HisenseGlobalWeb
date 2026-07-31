@@ -62,6 +62,9 @@ export default async function decorate(block) {
               text.appendChild(element);
               const icon = createElement('img', 'timeline-phase-text-group-icon');
               icon.src = `/content/dam/hisense/${country}/common-icons/chevron-down-black.svg`;
+              icon.addEventListener('error', function () {
+                this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+              });
               group.appendChild(text);
               group.appendChild(icon);
               textGroupHeader.appendChild(group);

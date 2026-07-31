@@ -925,6 +925,9 @@ export default function decorate(block) {
     const compareBarCloseBtn = document.createElement('img');
     compareBarCloseBtn.className = 'plp-compare-bar-close';
     compareBarCloseBtn.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
+    compareBarCloseBtn.addEventListener('error', function () {
+      this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+    });
     compareBarCloseBtn.alt = 'Close';
     // 底部固定栏上的关闭按钮点击事件
     compareBarCloseBtn.addEventListener('click', () => {
@@ -1585,6 +1588,9 @@ export default function decorate(block) {
     deleteIcon.className = 'delete-icon is-disabled';
     deleteIcon.alt = '';
     deleteIcon.setAttribute('aria-disabled', 'true');
+    deleteIcon.addEventListener('error', function () {
+      this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+    });
     return deleteIcon;
   }
 
@@ -1713,10 +1719,16 @@ export default function decorate(block) {
       const likeEmpty = document.createElement('img');
       likeEmpty.className = 'plp-like-empty';
       likeEmpty.src = `/content/dam/hisense/${country}/common-icons/like-empty.svg`;
+      likeEmpty.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       fav.appendChild(likeEmpty);
       const like = document.createElement('img');
       like.className = 'plp-like';
       like.src = `/content/dam/hisense/${country}/common-icons/like.svg`;
+      like.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       fav.appendChild(like);
       titleDiv.append(fav);
 
@@ -1855,6 +1867,11 @@ export default function decorate(block) {
         <img class="icon-checked" src="/content/dam/hisense/${country}/common-icons/icon-carousel/checkbox.svg" alt="" />`;
       const labelSpan = document.createElement('span');
       labelSpan.textContent = translate('COMPARE', language);
+      compareIcon.querySelectorAll('img').forEach((img) => {
+        img.addEventListener('error', function () {
+          this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+        });
+      });
       compareEl.append(compareIcon, labelSpan);
 
       const colorsArray = (Array.isArray(group.colors) && group.colors.length)

@@ -270,6 +270,9 @@ export default async function decorate(block) {
       const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
       iconImg.src = `/content/dam/hisense/${country}/common-icons/download.svg`;
       iconImg.alt = 'Download';
+      iconImg.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       button.addEventListener('click', () => handleCommonDownloadClick(data.downloadLink));
       button.appendChild(iconImg);
       actionsEl.appendChild(button);

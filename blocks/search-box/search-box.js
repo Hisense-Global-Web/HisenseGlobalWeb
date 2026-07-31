@@ -33,6 +33,9 @@ const getSearchInput = (block) => {
   const icon = document.createElement('img');
   icon.className = 'icon icon-search';
   icon.src = SEARCH_ICON;
+  icon.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   inputWrapper.appendChild(icon);
 
   const input = document.createElement('input');
@@ -50,7 +53,7 @@ const getSearchInput = (block) => {
   clearBtn.className = 'search-box-clear';
   clearBtn.setAttribute('aria-label', 'Clear search');
   clearBtn.type = 'button';
-  clearBtn.style.backgroundImage = `url("/content/dam/hisense/${country}/common-icons/close-50.svg")`;
+  clearBtn.style.backgroundImage = `url("/content/dam/hisense/${country}/common-icons/close-50.svg"), url("/content/dam/hisense/global/common-icons/close-50.svg")`;
   clearBtn.style.backgroundSize = 'contain';
   clearBtn.style.backgroundPosition = 'center';
   clearBtn.style.backgroundRepeat = 'no-repeat';
@@ -145,6 +148,9 @@ const generateAuthorSearchBox = (block) => {
   const searchIconEl = document.createElement('img');
   searchIconEl.classList.add('icon-search');
   searchIconEl.src = SEARCH_ICON;
+  searchIconEl.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   inputWrapperEl.appendChild(searchIconEl);
   const inputEl = placeholderEl.children[0].querySelector('p');
   inputEl.classList.add('search-box-input');

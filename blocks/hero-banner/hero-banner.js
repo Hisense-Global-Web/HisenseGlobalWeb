@@ -323,6 +323,9 @@ function createScrollButton(type, direction) {
     img.alt = direction === 'video-dark' ? 'video-dark' : 'video-light';
     img.className = 'pause-icon';
   }
+  img.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   button.appendChild(img);
   // 创建图片元素
   if (type === 'video') {
@@ -330,6 +333,9 @@ function createScrollButton(type, direction) {
     imgClick.src = direction === 'video-dark' ? `/content/dam/hisense/${country}/common-icons/play-dark-mode.svg` : `/content/dam/hisense/${country}/common-icons/play-light-mode.svg`;
     imgClick.alt = direction === 'video-dark' ? 'video-dark' : 'video-light';
     imgClick.className = 'play-icon';
+    imgClick.addEventListener('error', function () {
+      this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+    });
     button.appendChild(imgClick);
   }
   return button;

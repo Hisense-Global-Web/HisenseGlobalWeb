@@ -138,6 +138,9 @@ const createRegionElement = (region) => {
   arrow.classList.add('region-title-arrow');
   arrow.src = ARROW_ICON;
   arrow.alt = '';
+  arrow.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
 
   titleWrapper.append(title, arrow);
 

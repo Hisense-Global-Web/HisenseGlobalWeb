@@ -267,6 +267,9 @@ function createFaqCard(faqItem, index, tags) {
   icon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   icon.alt = '';
   icon.className = 'chevron';
+  icon.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   iconWrapper.appendChild(icon);
 
   title.appendChild(titleContent);
@@ -352,6 +355,9 @@ function buildPaginationControls(container, state, onPageChange, config) {
   prevIcon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   prevIcon.alt = '';
   prevIcon.className = 'page-arrow-icon';
+  prevIcon.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   prevBtn.appendChild(prevIcon);
   if (currentPage === 1) {
     prevBtn.disabled = true;
@@ -393,6 +399,9 @@ function buildPaginationControls(container, state, onPageChange, config) {
   nextIcon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   nextIcon.alt = '';
   nextIcon.className = 'page-arrow-icon';
+  nextIcon.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   nextBtn.appendChild(nextIcon);
   if (currentPage === totalPages) {
     nextBtn.disabled = true;

@@ -36,18 +36,30 @@ function buildPaginationControls(container, state, onPageChange, isEditMode) {
       const icon = document.createElement('img');
       icon.src = `/content/dam/hisense/${country}/common-icons/left.svg`;
       icon.className = 'page-arrow is-prev normal';
+      icon.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       const disabledIcon = document.createElement('img');
       disabledIcon.src = `/content/dam/hisense/${country}/common-icons/left-disabled.svg`;
       disabledIcon.className = 'page-arrow is-prev disabled';
+      disabledIcon.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       btn.setAttribute('aria-label', 'Previous page');
       btn.append(icon, disabledIcon);
     } else if (label === 'next') {
       const icon = document.createElement('img');
       icon.src = `/content/dam/hisense/${country}/common-icons/right.svg`;
       icon.className = 'page-arrow is-next normal';
+      icon.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       const disabledIcon = document.createElement('img');
       disabledIcon.src = `/content/dam/hisense/${country}/common-icons/right-disabled.svg`;
       disabledIcon.className = 'page-arrow is-next disabled';
+      disabledIcon.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       btn.setAttribute('aria-label', 'Next page');
       btn.append(icon, disabledIcon);
     } else {
