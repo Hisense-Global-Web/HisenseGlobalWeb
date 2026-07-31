@@ -24,6 +24,9 @@ export default async function decorate(block) {
       child.firstElementChild.remove();
       const iconEl = document.createElement('img');
       iconEl.src = `/content/dam/hisense/${country}/common-icons/time.svg`;
+      iconEl.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       const { language } = getLocaleFromPath();
       const date = child.textContent.trim();
       const dateEl = document.createElement('span');
@@ -38,6 +41,9 @@ export default async function decorate(block) {
       child.firstElementChild.remove();
       const iconEl = document.createElement('img');
       iconEl.src = `/content/dam/hisense/${country}/common-icons/address.svg`;
+      iconEl.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       const address = child.textContent.trim();
       const addressEl = document.createElement('span');
       addressEl.textContent = address;

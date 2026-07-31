@@ -679,6 +679,9 @@ export default async function decorate(block) {
       regionIcon.addEventListener('click', () => {
         window.location.href = selectedCountry.code === 'cn' ? 'https://www.hisense.com/global-site.html' : buildRegionSelectionPath(selectedCountry.selectedLanguage);
       });
+      regionIcon.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
     }
     const lanComEl = lanGroup.querySelector('.footer-lan-com');
     if (lanComEl) {

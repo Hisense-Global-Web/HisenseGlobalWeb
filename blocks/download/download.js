@@ -153,6 +153,9 @@ export default function decorate(block) {
       const downloadIcon = document.createElement('img');
       downloadIcon.src = downloadIconImg?.src || DEFAULT_DOWNLOAD_ICON;
       downloadIcon.alt = 'Download';
+      downloadIcon.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       downloadLinkWrapper.appendChild(downloadIcon);
       downloadIconWrapper.appendChild(downloadLinkWrapper);
     } else {
@@ -161,6 +164,9 @@ export default function decorate(block) {
       const downloadIcon = document.createElement('img');
       downloadIcon.src = downloadIconImg?.src || DEFAULT_DOWNLOAD_ICON;
       downloadIcon.alt = 'Download';
+      downloadIcon.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       downloadIconWrapper.appendChild(downloadIcon);
     }
 
