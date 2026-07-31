@@ -508,7 +508,7 @@ function createSlide(block, row, slideIndex) {
     } else if ([5, 6].includes(colIdx)) {
       // 处理button
       const btnHref = column.querySelector('a')?.href?.replace?.(window.location.origin, '');
-      if (btnHref && btnHref !== '/') {
+      if (btnHref && btnHref !== '/' && btnHref !== '/.html') {
         buttonDiv.append(column);
       }
     } else {
