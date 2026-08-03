@@ -1,5 +1,11 @@
 /* product-filter styles */
 
+.product-filter-wrapper {
+  .init-hide {
+    display: none;
+  }
+}
+
 .plp-sidebar {
   width: min(calc(262 / var(--breakpoint-pc) * 100vw), 262px);
   flex-shrink: 0;
