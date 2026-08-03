@@ -409,6 +409,8 @@ function getTagsEndpointUrl(customPath) {
 }
 
 export default function decorate(block) {
+  // 默认隐藏，避免出现配置初始信息
+  block.classList.add('init-hide');
   const isEditMode = block.hasAttribute('data-aue-resource');
   const { language } = getLocaleFromPath();
 
@@ -789,6 +791,8 @@ export default function decorate(block) {
       // 使用转换函数处理新的 JSON 格式
       const tagsData = transformTagData(data);
       renderWithTitles(tagsData);
+      // 移除初始化隐藏类，显示已经设置好样式的过滤器
+      document.querySelector('.product-filter')?.classList.remove('init-hide');
     })
     .catch(() => {});
 }
