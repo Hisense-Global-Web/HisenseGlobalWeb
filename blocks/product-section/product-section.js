@@ -2086,14 +2086,14 @@ export default async function decorate(block) {
   faqMobileBtn.classList.add('pdp-nav-menu-item');
   faqMobileBtn.textContent = translate('FAQ', language);
   faqMobileBtn.addEventListener('click', () => {
-    if (faqLink) window.location.href = faqLink;
+    if (faqLink) window.open(faqLink, '_blank');
   });
 
   const resourcesMobileBtn = document.createElement('div');
   resourcesMobileBtn.classList.add('pdp-nav-menu-item');
   resourcesMobileBtn.textContent = 'Resources';
   resourcesMobileBtn.addEventListener('click', () => {
-    if (resourcesLink) window.location.href = resourcesLink;
+    if (resourcesLink) window.open(resourcesLink, '_blank');
   });
 
   const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');
