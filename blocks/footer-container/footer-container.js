@@ -626,7 +626,7 @@ export default async function decorate(block) {
 
     const getRegionUrl = () => {
       const baseUrl = window.GRAPHQL_BASE_URL || '';
-      const isEditMode = block.hasAttribute('data-aue-resource');
+      const isEditMode = block.hasAttribute('data-aue-resource') || window.location.hostname.startsWith('author');
       const fiveMinutesMs = 5 * 60 * 1000;
       const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
       const localizedPath = processPath(buildLocalizedFooterPath(window.location.pathname));
