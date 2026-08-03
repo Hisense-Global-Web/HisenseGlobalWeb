@@ -9,7 +9,7 @@
   display: flex;
   height: min(calc(440 / var(--breakpoint-pc) * 100vw), 440px);
   align-items: center;
-  border-radius: var(--radius-xl);
+  border-radius: var(--border-radius-xl);
   overflow: hidden;
   position: relative;
 
