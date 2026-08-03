@@ -629,7 +629,7 @@ export default async function decorate(block) {
       const isEditMode = block.hasAttribute('data-aue-resource');
       const fiveMinutesMs = 5 * 60 * 1000;
       const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
-      const localizedPath = buildLocalizedFooterPath(window.location.pathname);
+      const localizedPath = processPath(buildLocalizedFooterPath(window.location.pathname));
       return `${baseUrl}${isEditMode ? '/bin' : '/api'}${REGION}?path=${localizedPath}&_t=${cacheBuster}`;
     };
 
