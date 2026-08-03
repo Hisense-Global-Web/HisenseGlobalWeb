@@ -214,14 +214,14 @@
   --icon-2-xl: var(--size-64);
   --icon-3-xl: var(--size-80);
 
-  /* Radius */
-  --radius-xs: var(--size-2);
-  --radius-s: var(--size-4);
-  --radius-m: var(--size-8);
-  --radius-m-l: var(--size-12);
-  --radius-l: var(--size-16);
-  --radius-xl: var(--size-20);
-  --radius-xxl: var(--size-80);
+  /* Border Radius */
+  --border-radius-xs: var(--size-2);
+  --border-radius-s: var(--size-4);
+  --border-radius-m: var(--size-8);
+  --border-radius-m-l: var(--size-12);
+  --border-radius-l: var(--size-16);
+  --border-radius-xl: var(--size-20);
+  --border-radius-xxl: var(--size-80);
 
 
 
