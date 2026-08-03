@@ -5,11 +5,11 @@
 }
 
 .block.collection-banner {
-  padding: var(--size-48);
+  padding: 0 var(--spacing-3-xl);
   display: flex;
   height: min(calc(440 / var(--breakpoint-pc) * 100vw), 440px);
   align-items: center;
-  border-radius: min(calc(20 / var(--breakpoint-pc) * 100vw), 20px);
+  border-radius: var(--radius-xl);
   overflow: hidden;
   position: relative;
 
