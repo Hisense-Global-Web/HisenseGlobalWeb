@@ -5922,6 +5922,52 @@
         ]
       },
       {
+        "component": "container",
+        "name": "warrantyContainer",
+        "label": "Warranty Settings",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "reference",
+            "name": "warrantyIcon",
+            "label": "Warranty Icon",
+            "valueType": "string",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "name": "warranty",
+            "label": "Warranty Title",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "warrantyInfo",
+            "label": "Warranty Info",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "warrantyButton",
+            "label": "Warranty Button Text",
+            "valueType": "string"
+          },
+          {
+            "component": "aem-content",
+            "name": "warrantyLink",
+            "label": "Warranty Link",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "warrantyTips",
+            "label": "Warranty Tips",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
         "component": "richtext",
         "name": "noResultContent",
         "label": "No Result Content",
