@@ -70,4 +70,8 @@ export default function decorate(block) {
       });
     });
   }
+  // dark 模式时，文字为白色
+  if (block.classList.contains('cover-style')) {
+    block.classList.add('mode-dark');
+  }
 }
