@@ -5960,7 +5960,7 @@
             "valueType": "string"
           },
           {
-            "component": "reference",
+            "component": "text",
             "name": "warrantyTips",
             "label": "Warranty Tips",
             "valueType": "string"
