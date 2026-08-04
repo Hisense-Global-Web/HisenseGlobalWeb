@@ -46,12 +46,12 @@
   .body-container {
     display: flex;
     flex-direction: column;
-    gap: var(--size-16);
+    gap: var(--spacing-xs);
 
     .title {
-      color: #fff;
+      color: var(--text-black-title);
       width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
-      font-size: var(--fontsize-pc-h2, 40px);
+      font-size: var(--display-m-font-size);
       line-height: 1.2;
       font-weight: var(--fontweight-medium);
       display: -webkit-box;
@@ -65,9 +65,9 @@
     }
 
     .body-text {
-      color: #fff;
+      color: var(--text-black-title);
       width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
-      font-size: var(--fontsize-body1, 16px);
+      font-size: var(--body-font-size);
       line-height: 1.5;
       font-weight: var(--fontweight-light);
       position: relative;
@@ -99,16 +99,16 @@
     height: min(calc(50 / var(--breakpoint-pc) * 100vw), 50px);
 
     .button {
-      padding: 0 min(calc(32 / var(--breakpoint-pc) * 100vw), 32px);
+      padding: 0 var(--spacing-1-xl);
       height: 100%;
-      border-radius: min(calc(25 / var(--breakpoint-pc) * 100vw), 25px);
+      border-radius: var(--border-radius-xxl);
       background-color: transparent;
-      color: #fff;
-      font-size: var(--size-14);
+      color: var(--action-secondary-content-default);
+      font-size: var(--body-s-bold-font-size);
       font-weight: var(--fontweight-medium);
       line-height: min(calc(50 / var(--breakpoint-pc) * 100vw), 50px);
       text-align: center;
-      border: 1px solid #fff;
+      border: 1px solid var(--action-secondary-color-default);
       margin: 0;
       position: relative;
       z-index: 6;
@@ -119,8 +119,8 @@
 
       &:hover,
       &:active {
-        background-color: #fff;
-        color: #000;
+        background-color: var(--action-secondary-color-hovered);
+        color: var(--action-secondary-content-hovered);
       }
     }
   }
@@ -140,7 +140,7 @@
     display: none;
   }
 
-  h1,
+  /* h1,
   h2,
   h3,
   h4,
@@ -157,6 +157,7 @@
   .button-container {
     .button {
       border: 1px solid #000;
+      color: var(--action-secondary-content-default);
 
       &:hover,
       &:active {
@@ -164,21 +165,21 @@
         color: #fff;
       }
     }
-  }
+  } */
 }
 
 .collection-banner.block {
   .content-container {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-pc-md, 32px);
+    gap: var(--spacing-1-xl);
   }
 
-  .body-container {
+  /* .body-container {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs, 16px);
-  }
+  } */
 
   .cta-container {
     display: flex;
@@ -188,17 +189,17 @@
     .green-btn {
       .button {
         border: none;
-        background-color: var(--color-primary-green-60);
-        color: #fff;
+        background-color: var(--action-primary-color-default);
+        color: var(--action-primary-content-default);
 
         &:hover {
-          background-color: var(--color-primary-green-40);
-          color: #fff;
+          background-color: var(--action-primary-color-hovered);
+          color: var(--action-primary-content-hovered);
         }
 
         &:active {
-          color: var(--white-alpha-80);
-          background-color: var(--color-primary-green-70);
+          color: var(--action-primary-content-pressed);
+          background-color: var(--action-primary-color-pressed);
         }
       }
     }
@@ -208,11 +209,11 @@
 @media (width < 640px) {
   .block.collection-banner {
     aspect-ratio: 354 / 500;
-    padding: var(--medium, 32px) var(--spacing-s2, 20px);
+    padding: var(--spacing-1-xl) var(--spacing-l);
     height: auto;
     min-height: unset;
     align-items: self-start;
-    border-radius: calc(16 / var(--breakpoint-mobile) * 100vw);
+    border-radius: var(--border-radius-l);
 
     &::after {
       width: 100%;
@@ -220,7 +221,7 @@
       background: linear-gradient(to bottom, rgb(0 0 0 / 60%), rgb(0 0 0 / 0%));
     }
 
-    h1 + p,
+    /* h1 + p,
     h2 + p,
     h3 + p,
     h4 + p,
@@ -248,21 +249,21 @@
       font-size: calc(30 / var(--breakpoint-mobile) * 100vw);
       width: 100%;
       line-height: var(--size-36);
-    }
+    } */
 
     .content-container {
       max-width: 100%;
       width: 100%;
     }
 
-    .body-container {
-      gap: var(--size-12);
-    }
+    /* .body-container {
+      gap: var(--spacing-xs);
+    } */
 
     .title {
       width: 100% !important;
       -webkit-line-clamp: 3 !important;
-      font-size: var(--size-30) !important;
+      font-size: var(--display-m-font-size) !important;
     }
 
     .body-text {

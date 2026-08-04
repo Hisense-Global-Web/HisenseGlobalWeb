@@ -50,7 +50,11 @@ export default function decorate(block) {
     mobileImageEl.className = 'mobile-box-img';
   }
   const conentContainerEl = document.createElement('div');
-  conentContainerEl.className = 'content-container';
+  // dark mode 的背景色和文字颜色，默认是白底黑字，dark mode 是黑底白字
+  conentContainerEl.className = 'content-container mode-dark';
+  if (block.classList.contains('text-color-black')) {
+    conentContainerEl.classList.remove('mode-dark');
+  }
 
   const bodyContainerEl = document.createElement('div');
   bodyContainerEl.className = 'body-container';
