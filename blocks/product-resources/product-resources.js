@@ -350,37 +350,39 @@ function createWarrantyItem(warrantyItem, country) {
   const item = document.createElement('div');
   item.className = 'item';
 
-  const defaultIcon = `/content/dam/hisense/${country}/common-icons/global.svg`;
-  const warrantyIcon = toAbsoluteUrl(
-    warrantyItem?.warrantyInfoIcon || defaultIcon,
-  );
-  item.appendChild(createPictureContainer(warrantyIcon, 'Warranty'));
+  const warrantyIcon = `/content/dam/hisense/${country}/common-icons/compliance.svg`;
+  item.appendChild(createPictureContainer(warrantyItem?.icon || warrantyIcon, 'Warranty'));
 
   const title = document.createElement('p');
   title.className = 'item-title';
-  title.textContent = warrantyItem?.warrantyInfoTitle || 'Warranty';
+  title.textContent = warrantyItem?.title || 'Warranty';
   item.appendChild(title);
 
-  const warrantyInfo = Array.isArray(warrantyItem?.warrantyInfo)
-    ? warrantyItem.warrantyInfo
-    : [];
-  if (warrantyInfo.length > 0) {
-    item.appendChild(
-      createDescriptionList(
-        warrantyInfo,
-        true,
-        toAbsoluteUrl('/resources/warranty-check.svg'),
-      ),
-    );
+  if (warrantyItem?.info?.length) {
+    const warrantyInfoEl = document.createElement('span');
+    warrantyInfoEl.className = 'item-description-text';
+    warrantyInfoEl.textContent = warrantyItem.info;
+    item.appendChild(warrantyInfoEl);
   }
 
-  if (warrantyItem?.warrantyInfoNotes) {
+  if (warrantyItem?.link) {
+    const ctaLink = createCtaLink(
+      warrantyItem?.buttonText || warrantyItem?.link || 'Go to Warranty Page',
+      toAbsoluteUrl(warrantyItem?.link),
+    );
+    const ctaLinkWrapper = document.createElement('div');
+    ctaLinkWrapper.className = 'warranty-cta-wrapper';
+    ctaLinkWrapper.appendChild(ctaLink);
+    item.appendChild(ctaLinkWrapper);
+  }
+
+  if (warrantyItem?.tips) {
     const reminder = document.createElement('div');
     reminder.className = 'item-reminder';
 
     const reminderText = document.createElement('p');
     reminderText.className = 'item-reminder-text';
-    reminderText.textContent = warrantyItem.warrantyInfoNotes;
+    reminderText.textContent = warrantyItem.tips;
     reminder.appendChild(reminderText);
 
     item.appendChild(reminder);
@@ -583,12 +585,12 @@ function getFirmwareState(config) {
 }
 
 function getWarrantyState(config) {
-  const icon = (config.warrantyIcon || '').trim();
-  const title = (config.warrantyTitle || '').trim();
-  const info = (config.warrantryInfo || '').trim();
-  const buttonText = (config.warrantyButton || '').trim();
-  const link = (config.warrantyLink || '').trim();
-  const tips = (config.warrantyTips || '').trim();
+  const icon = (config.warrantyicon || '').trim();
+  const title = (config.warranty || '').trim();
+  const info = (config.warrantyinfo || '').trim();
+  const buttonText = (config.warrantybutton || '').trim();
+  const link = (config.warrantylink || '').trim();
+  const tips = (config.warrantytips || '').trim();
 
   return {
     hasContent: Boolean(title && link),
