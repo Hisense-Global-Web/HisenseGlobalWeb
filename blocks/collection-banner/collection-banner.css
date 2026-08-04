@@ -52,7 +52,7 @@
       color: var(--text-black-title);
       width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
       font-size: var(--display-m-font-size);
-      line-height: 1.2;
+      line-height: var(--display-m-line-height);
       font-weight: var(--fontweight-medium);
       display: -webkit-box;
       -webkit-box-orient: vertical;
@@ -68,7 +68,7 @@
       color: var(--text-black-title);
       width: min(calc(428 / var(--breakpoint-pc) * 100vw), 428px);
       font-size: var(--body-font-size);
-      line-height: 1.5;
+      line-height: var(--body-line-height);
       font-weight: var(--fontweight-light);
       position: relative;
       z-index: 6;
@@ -106,7 +106,9 @@
       color: var(--action-secondary-content-default);
       font-size: var(--body-s-bold-font-size);
       font-weight: var(--fontweight-medium);
-      line-height: min(calc(50 / var(--breakpoint-pc) * 100vw), 50px);
+      line-height: var(--body-s-bold-line-height);
+      display: flex;
+      align-items: center;
       text-align: center;
       border: 1px solid var(--action-secondary-color-default);
       margin: 0;
@@ -256,21 +258,14 @@
       width: 100%;
     }
 
-    /* .body-container {
-      gap: var(--spacing-xs);
-    } */
-
     .title {
       width: 100% !important;
       -webkit-line-clamp: 3 !important;
-      font-size: var(--display-m-font-size) !important;
     }
 
     .body-text {
       width: 100% !important;
       -webkit-line-clamp: 8 !important;
-      font-size: var(--size-14) !important;
-      line-height: 1.4 !important;
     }
 
     .body-text-line-clamp1 {
@@ -286,7 +281,6 @@
     }
 
     .cta-container {
-      gap: calc(16 / var(--breakpoint-mobile) * 100vw);
       bottom: 0;
     }
 
@@ -294,11 +288,8 @@
       height: calc(40 / var(--breakpoint-mobile) * 100vw);
 
       .button {
-        padding: 0 calc(24 / var(--breakpoint-mobile) * 100vw);
+        padding: 0 var(--spacing-l);
         height: calc(40 / var(--breakpoint-mobile) * 100vw);
-        line-height: calc(40 / var(--breakpoint-mobile) * 100vw);
-        border-radius: calc(20 / var(--breakpoint-mobile) * 100vw);
-        font-size: calc(14 / var(--breakpoint-mobile) * 100vw);
       }
     }
 
