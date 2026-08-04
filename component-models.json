@@ -1202,6 +1202,27 @@
         "name": "content",
         "label": "Content",
         "value": ""
+      },
+      {
+        "component": "boolean",
+        "name": "text-center",
+        "label": "Do you want to enable text centering?",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
+        "component": "text",
+        "name": "color",
+        "label": "Color",
+        "value": "",
+        "description": "Accept color name or hex color code (e.g. #000)"
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "font-size",
+        "label": "Font Size",
+        "value": ""
       }
     ]
   },
@@ -1877,12 +1898,6 @@
         "required": true
       },
       {
-        "component": "boolean",
-        "name": "enable-dynamicMedia",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -2130,13 +2145,6 @@
   {
     "id": "feature-items",
     "fields": [
-      {
-        "component": "boolean",
-        "name": "dynamic-media",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
-      },
       {
         "component": "reference",
         "valueType": "string",
@@ -2536,13 +2544,6 @@
   {
     "id": "core-value-card-item",
     "fields": [
-      {
-        "component": "boolean",
-        "name": "image_dynamicMedia",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
-      },
       {
         "component": "reference",
         "valueType": "string",
@@ -3011,13 +3012,6 @@
     "id": "enterprise-card-item",
     "fields": [
       {
-        "component": "boolean",
-        "name": "dynamic-media",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "pc_url",
@@ -3029,15 +3023,7 @@
         "valueType": "string",
         "name": "mobile_Url",
         "label": "Card Mobile Image",
-        "multi": false,
-        "condition": {
-          "===": [
-            {
-              "var": "dynamic-media"
-            },
-            false
-          ]
-        }
+        "multi": false
       },
       {
         "component": "text",
@@ -3344,6 +3330,20 @@
         "name": "copyright",
         "label": "Copyright Text",
         "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon1",
+        "label": "Footer Icon1",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon2",
+        "label": "Footer Icon2",
+        "multi": false
       }
     ]
   },
@@ -4250,13 +4250,6 @@
         "name": "title",
         "label": "Title",
         "valueType": "string"
-      },
-      {
-        "component": "boolean",
-        "name": "image_dynamic",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
       },
       {
         "component": "reference",
@@ -6042,6 +6035,10 @@
           {
             "name": "FAQ",
             "value": "faq"
+          },
+          {
+            "name": "Resources",
+            "value": "resources"
           }
         ]
       },
@@ -6082,6 +6079,48 @@
                   "var": ""
                 },
                 "faq"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "name": "resources-icon",
+        "label": "Resources Icon",
+        "valueType": "string",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "resources"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "resources-link",
+        "label": "Resources Link",
+        "condition": {
+          "some": [
+            {
+              "var": "fields"
+            },
+            {
+              "===": [
+                {
+                  "var": ""
+                },
+                "resources"
               ]
             }
           ]
@@ -6192,13 +6231,6 @@
   {
     "id": "project-brief-card-item",
     "fields": [
-      {
-        "component": "boolean",
-        "name": "dynamic_media",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
-      },
       {
         "component": "reference",
         "name": "item-Image",
@@ -7557,13 +7589,6 @@
         "value": "background-box",
         "hidden": true,
         "readonly": true
-      },
-      {
-        "component": "boolean",
-        "name": "background_dynamicMedia",
-        "label": "Enable Dynamic Media",
-        "valueType": "boolean",
-        "value": "false"
       },
       {
         "component": "reference",

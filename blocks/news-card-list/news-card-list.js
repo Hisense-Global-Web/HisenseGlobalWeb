@@ -3,6 +3,7 @@ import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
 import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+import translate from '../../utils/translate.js';
 
 const DEFAULT_TAGS_ENDPOINT = `/bin/hisense/tags.json?_t=${Date.now()}`;
 function getTagsEndpointUrl() {
@@ -422,7 +423,8 @@ export default async function decorate(block) {
   // const emptyText = config['empty-text'] || 'No news items match your filters.';
   const shouldPaginated = true;
   const paginatedBtnText = config['paginated-btn-text'] || '';
-  const discoverMoreText = config['discover-more-text'] || 'Discover more';
+  const { language } = getLocaleFromPath();
+  const discoverMoreText = config['discover-more-text'] || translate('DISCOVER_MORE', language);
   const dataSource = config['data-source'] || '';
 
   const blockResource = block.getAttribute('data-aue-resource');

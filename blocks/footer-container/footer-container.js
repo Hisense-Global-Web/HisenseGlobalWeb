@@ -1,6 +1,7 @@
-import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import { getLocaleFromPath, languageList } from '../../scripts/locale-utils.js';
 import { processPath } from '../../utils/carousel-common.js';
 import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+import translate from '../../utils/translate.js';
 
 const { country, language } = getLocaleFromPath();
 const REGION = '/hisense/region-selection.json';
@@ -379,6 +380,8 @@ function extractLegalLinksData(container) {
   const legalLinksData = {
     links: [],
     copyright: '',
+    icon1: '',
+    icon2: '',
   };
 
   const legalLinksBlock = container.querySelector('.footer-legal-links');
@@ -391,6 +394,16 @@ function extractLegalLinksData(container) {
   legalItemRows.forEach((row, index) => {
     if (index === 0) {
       legalLinksData.copyright = row.textContent.trim();
+      return;
+    }
+
+    if (index === 1 && row.querySelector('img')) {
+      legalLinksData.icon1 = row.querySelector('img').src;
+      return;
+    }
+
+    if (index === 2 && row.querySelector('img')) {
+      legalLinksData.icon2 = row.querySelector('img').src;
       return;
     }
 
@@ -569,6 +582,23 @@ export default async function decorate(block) {
     footerBottom.className = 'footer-bottom';
     const footerLegals = document.createElement('div');
     footerLegals.className = 'footer-legals  h-grid-container';
+    const footerLegalsLeft = document.createElement('div');
+    footerLegalsLeft.className = 'footer-legals footer-legals-item-left h-grid-container';
+
+    const footerLegalsRight = document.createElement('div');
+    footerLegalsRight.className = 'footer-legals footer-legals-item-right h-grid-container';
+    if (data.legalLinks.icon1) {
+      const icon1 = document.createElement('img');
+      icon1.className = 'footer-legals-icon';
+      icon1.src = data.legalLinks.icon1;
+      footerLegalsRight.appendChild(icon1);
+    }
+    if (data.legalLinks.icon2) {
+      const icon2 = document.createElement('img');
+      icon2.className = 'footer-legals-icon';
+      icon2.src = data.legalLinks.icon2;
+      footerLegalsRight.appendChild(icon2);
+    }
 
     if (data.legalLinks.links.length > 0) {
       const legalLinksDiv = document.createElement('div');
@@ -576,20 +606,22 @@ export default async function decorate(block) {
 
       data.legalLinks.links.forEach((linkData) => {
         const a = document.createElement('a');
-        a.className = 'footer-legal-link';
+        const span = document.createElement('span');
+        span.className = 'footer-legal-link';
         a.href = processPath(linkData.link);
         a.textContent = linkData.text;
-        legalLinksDiv.appendChild(a);
+        span.appendChild(a);
+        legalLinksDiv.appendChild(span);
       });
 
-      footerLegals.appendChild(legalLinksDiv);
+      footerLegalsLeft.appendChild(legalLinksDiv);
     }
 
     if (data.legalLinks.copyright) {
       const copyrightDiv = document.createElement('div');
       copyrightDiv.className = 'footer-copyright';
       copyrightDiv.textContent = data.legalLinks.copyright;
-      footerLegals.appendChild(copyrightDiv);
+      footerLegalsLeft.appendChild(copyrightDiv);
     }
 
     const getRegionUrl = () => {
@@ -634,7 +666,14 @@ export default async function decorate(block) {
   <div class="footer-lan-com">${selectedCountry.name}</div>
   <div class="footer-lan-list">
     ${generateLanguageItems(selectedCountry.languages, selectedCountry.selectedLanguage)}
-  </div>` : '';
+  </div>` : `
+  <img class="region-icon" src="/content/dam/hisense/${country}/common-icons/global.svg" alt="" />
+  <div class="footer-lan-list">
+    ${generateLanguageItems(languageList.reduce((acc, l) => {
+    acc[l] = translate('LANGUAGE_NAME', l);
+    return acc;
+  }, {}), language)}
+  </div>`;
     const regionIcon = lanGroup.querySelector('.region-icon');
     if (regionIcon) {
       regionIcon.addEventListener('click', () => {
@@ -658,7 +697,7 @@ export default async function decorate(block) {
       langItems.forEach((item) => {
         item.addEventListener('click', (e) => {
           if (e.currentTarget.classList.contains('active')) {
-            window.location.href = buildRegionSelectionPath(selectedCountry.selectedLanguage);
+            window.location.href = '';
             return;
           }
           window.location.href = buildLocalizedPathForLanguage(e.currentTarget.getAttribute('data-lang'));
@@ -666,8 +705,9 @@ export default async function decorate(block) {
       });
     }
 
-    footerLegals.appendChild(lanGroup);
+    footerLegalsLeft.appendChild(lanGroup);
 
+    footerLegals.append(footerLegalsLeft, footerLegalsRight);
     footerBottom.appendChild(footerLegals);
     container.appendChild(footerBottom);
   }

@@ -3,6 +3,7 @@ import { handleCommonDownloadClick } from '../../utils/download.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 import { formatIsoToUtcStr } from '../../utils/carousel-common.js';
 import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+import translate from '../../utils/translate.js';
 
 function formatDate(dateStr) {
   try {
@@ -74,7 +75,7 @@ async function fetchChildPageData(sourcePathInfo) {
     location: item.location || '',
     author: item.author || '',
     thumbnail: item.thumbnail || '',
-    'cta-text': item['cta-text'] || 'Read now',
+    'cta-text': translate('READ_NOW', language),
     downloadLink: item.downloadlink || '',
     matchPath,
   };

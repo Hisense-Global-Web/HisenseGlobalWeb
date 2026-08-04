@@ -836,7 +836,8 @@ function buildSupportDropdown(mainEl) {
   supportRouteEl.className = 'support-route';
   const supportRouteTitleEl = document.createElement('div');
   supportRouteTitleEl.className = 'support-route-title';
-  supportRouteTitleEl.innerHTML = 'Support';
+  const { language } = getLocaleFromPath();
+  supportRouteTitleEl.innerHTML = translate('SUPPORT', language);
   supportRouteEl.append(supportRouteTitleEl);
 
   // support route group
@@ -1134,7 +1135,7 @@ const saveLanguageToLocalStorage = (lan) => {
   localStorage.setItem('language', lan);
 };
 
-function getLangItems(interval = 200) {
+function getLangItems(interval = 200, onlyLanguage = false) {
   const { language } = getLocaleFromPath();
   return new Promise((resolve) => {
     const check = () => {
@@ -1153,7 +1154,7 @@ function getLangItems(interval = 200) {
           }
           const result = [...Array.from(items).map((item) => ({
             lang: item.dataset.lang,
-            label: `${lanComText} (${item.textContent.trim()})`,
+            label: onlyLanguage ? item.textContent.trim() : `${lanComText} (${item.textContent.trim()})`,
           })), {
             lang: 'region',
             label: translate('AC_LS_OTHER_COUNTRY', language),
@@ -1181,14 +1182,19 @@ function getNewPath(lang) {
 }
 
 const createLanguageAside = async () => {
-  if (localStorage.getItem('language')) return;
-  // eslint-disable-next-line no-shadow
-  const { country, language } = getLocaleFromPath();
+  // if (localStorage.getItem('language')) return;
+  const { language } = getLocaleFromPath();
+  const alreadySelectLanguage = country === 'ca';
+  if (alreadySelectLanguage) {
+    document.querySelector('body').classList.add('already-selected-language-aside');
+  } else if (localStorage.getItem('language')) {
+    return;
+  }
   document.querySelector('body').classList.add('has-language-aside');
   const languageAside = document.createElement('div');
   languageAside.id = 'language-aside';
   const acLsContent = document.createElement('div');
-  acLsContent.className = 'ac-ls-content';
+  acLsContent.className = `ac-ls-content ${country === 'ca' ? 'thin' : ''}`;
   const acLsCopy = document.createElement('div');
   acLsCopy.className = 'ac-ls-copy';
   acLsCopy.textContent = translate('AC_LS_COPY', language);
@@ -1221,7 +1227,7 @@ const createLanguageAside = async () => {
     { lang: 'region', label: translate('AC_LS_OTHER_COUNTRY', 'zh'), url: '/cn/zh/select-your-region' },
   ] : country === 'global' ? languageList.map((lang) => ({
     lang, label: translate('LANGUAGE_NAME', lang),
-  })) : await getLangItems();
+  })) : await getLangItems(undefined, country === 'ca');
 
   if (arr.length > 0) acLsDropdown.classList.add('ac-ls-actions-item');
   arr.forEach((item) => {
@@ -1259,7 +1265,8 @@ const createLanguageAside = async () => {
 
   acLsContinue.addEventListener('click', (e) => {
     const { lang, url } = e.currentTarget.closest('#language-aside').dataset;
-    document.querySelector('body').classList.remove('has-language-aside');
+    // document.querySelector('body').classList.remove('has-language-aside');
+    document.querySelector('body').classList.add('already-selected-language-aside');
     if (url) {
       if (lang !== 'region') {
         saveLanguageToLocalStorage(lang);
@@ -1280,7 +1287,45 @@ const createLanguageAside = async () => {
   });
 
   acLsActions.append(acLsDropdown, acLsContinue);
-  acLsContent.append(acLsCopy, acLsActions, acLsClose);
+  if (alreadySelectLanguage) {
+    const generateLanguageItems = (languages, selectedLang) => {
+      let languageItems = '';
+      languageItems += `<div class="header-aside-lan-item active" data-lang="${selectedLang}">${languages.find((item) => item.lang === selectedLang)?.label}</div>`;
+      languages.forEach((langKey) => {
+        if (langKey.lang === selectedLang || langKey.lang === 'region') return;
+        languageItems += '<div class="header-aside-lan-line"></div>';
+        languageItems += `<div class="header-aside-lan-item" data-lang="${langKey.lang}">${langKey.label}</div>`;
+      });
+
+      return languageItems;
+    };
+    const lanGroup = document.createElement('div');
+    lanGroup.className = 'header-aside-lan-group';
+    lanGroup.innerHTML = `
+  <img class="region-icon" src="/content/dam/hisense/${country}/common-icons/global-white.svg" alt="" />
+  <div class="header-aside-lan-list">
+    ${generateLanguageItems(arr, language)}
+  </div>`;
+    const regionIcon = lanGroup.querySelector('.region-icon');
+    if (regionIcon) {
+      regionIcon.addEventListener('click', () => {
+        window.location.href = `/${country}/${language}/select-your-region`;
+      });
+    }
+    const langItems = lanGroup.querySelectorAll('.header-aside-lan-item');
+    langItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        if (e.currentTarget.classList.contains('active')) {
+          window.location.href = '';
+          return;
+        }
+        window.location.href = getNewPath(e.currentTarget.getAttribute('data-lang'));
+      });
+    });
+    acLsContent.append(lanGroup);
+  } else {
+    acLsContent.append(acLsCopy, acLsActions, acLsClose);
+  }
   languageAside.append(acLsContent);
 
   languageAside.dataset.lang = language;
@@ -1440,7 +1485,8 @@ export default async function decorate(block) {
   const isCompanyPage = window.location.pathname.includes('company');
   const isSupportPage = window.location.pathname.includes('support');
   const languageAsideHeightPC = 72; // 72 为 header 中 dom 元素ID为【language-aside】栏在 PC 端高度
-  const languageAsideHeightMobile = 108; // 108 为 header 中 dom 元素ID为【language-aside】栏在 mobile 端高度
+  // const languageAsideHeightMobile = 108; // 108 为 header 中 dom 元素ID为【language-aside】栏在 mobile 端高度
+  const alreadySelectLanguageAsideHeight = 44; // 44 为 header 中 dom 元素ID为【language-aside】
   window.addEventListener('resize', () => {
     handleChangeNavPosition(navigation);
   });
@@ -1449,19 +1495,31 @@ export default async function decorate(block) {
   const scrollThreshold = 10;
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    let mobileHeaderHeight = 56 * -1; // header height on Mobile
-    let pcHeaderHeight = 100 * -1; // header height on PC
-    if (document.body.classList.contains('has-language-aside')) {
-      mobileHeaderHeight += languageAsideHeightMobile * -1;
-      pcHeaderHeight += languageAsideHeightPC * -1;
+    const headerElPcH = 100 * -1; // header height on PC
+    const headerElMobileH = 56 * -1; // header height on Mobile
+    let calculateHeaderPcH = headerElPcH; // 默认为PC 菜单高度
+    let calculateHeaderMobileH = headerElMobileH; // 默认为 mobile 菜单高度
+    // 获取实际的语言栏高度（如果可见）
+    const getLanguageAsideHeight = () => {
+      const aside = document.getElementById('language-aside');
+      if (!aside) return 0;
+      const rect = aside.getBoundingClientRect();
+      // 只有真正占用空间才计算
+      return rect.height > 0 && window.getComputedStyle(aside).display !== 'none'
+        ? rect.height
+        : 0;
+    };
+    if (document.body.classList.contains('has-language-aside') || document.body.classList.contains('already-selected-language-aside')) {
+      calculateHeaderPcH = headerElPcH + getLanguageAsideHeight() * -1;
+      calculateHeaderMobileH = headerElMobileH + getLanguageAsideHeight() * -1;
     }
     if (isCompanyPage || isSupportPage) {
-      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, mobileHeaderHeight)}px` : `${Math.max(scrollTop * -1, pcHeaderHeight)}px`;
+      navigation.style.top = window.innerWidth < 1180 ? `${Math.max(scrollTop * -1, calculateHeaderMobileH)}px` : `${Math.max(scrollTop * -1, calculateHeaderPcH)}px`;
       return;
     }
     if (isSupportPage) {
       if (window.innerWidth < 1180) {
-        navigation.style.top = `${Math.max(scrollTop * -1, mobileHeaderHeight)}px`;
+        navigation.style.top = `${Math.max(scrollTop * -1, calculateHeaderMobileH)}px`;
         return;
       }
     }
@@ -1500,7 +1558,13 @@ export default async function decorate(block) {
   navSecond.className = `nav-second h-grid-container ${isCompanyPage || isSupportPage ? '' : 'hidden'}`;
   const CompanyEl = document.createElement('div');
   CompanyEl.className = 'route-company';
-  CompanyEl.textContent = translate('COMPANY', language);
+  const CompanyElSpan = document.createElement('span');
+  CompanyElSpan.textContent = translate('COMPANY', language);
+  CompanyElSpan.className = 'route-company-pc';
+  const CompanyElMobileSpan = document.createElement('span');
+  CompanyElMobileSpan.className = 'route-company-mobile';
+  CompanyElMobileSpan.textContent = translate('COMPANY', language);
+  CompanyEl.append(CompanyElSpan, CompanyElMobileSpan);
   const CompanyGroupEl = document.createElement('div');
   CompanyGroupEl.className = 'company-group';
   company.forEach((item) => {
@@ -1513,6 +1577,9 @@ export default async function decorate(block) {
     span2.innerHTML = item.title;
     span1.className = 'absolute';
     span2.className = 'transparent-bold';
+    if (isCurrent) {
+      CompanyElMobileSpan.innerHTML = item.title;
+    }
     CompanyItemEl.append(span1, span2);
     CompanyItemEl.dataset.href = item.href;
     CompanyItemEl.addEventListener('click', (e) => {
@@ -1541,7 +1608,7 @@ export default async function decorate(block) {
 
   const SupportEl = document.createElement('div');
   SupportEl.className = 'route-support';
-  SupportEl.textContent = 'Support';
+  SupportEl.textContent = translate('SUPPORT', language);
 
   const supportArrow = document.createElement('img');
   supportArrow.className = 'support-arrow';
@@ -1678,13 +1745,14 @@ export default async function decorate(block) {
     if (
       t === 'support'
       || t === 'soporte'
-      || t === 'soutien'
+      || t === 'assistance'
       || t === 'suporte'
       || t === '支持'
       || t === '支援'
       || t === 'サポート'
       || t === 'การสนับสนุน'
       || t === 'الدعم'
+      || t === '지원'
     ) {
       cloneLink.classList.add('nav-link');
       const mask = document.createElement('div');
@@ -2047,19 +2115,32 @@ export default async function decorate(block) {
   if (isCompanyPage) {
     navigation.classList.add('is-company');
     if (window.innerWidth >= 1180 && !window.location.pathname.includes('about-us')) {
-      let navHeight = 182; // 182 为 header 中 一级和二级菜单高度在 PC 端高度
+      const navHeight = 182; // 182 为 header 中 一级和二级菜单高度在 PC 端高度
+      let calculateNavHeight = navHeight; // 默认值为 一级和二级菜单PC高度
       if (document.body.classList.contains('has-language-aside')) {
-        navHeight += languageAsideHeightPC;
+        // 有语言选择栏时
+        calculateNavHeight = navHeight + languageAsideHeightPC;
       }
-      document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
+      if (document.body.classList.contains('already-selected-language-aside')) {
+        // 有已选择语言选择栏时
+        calculateNavHeight = navHeight + alreadySelectLanguageAsideHeight;
+      }
+      // document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
+      document.documentElement.style.setProperty('--nav-height', `${calculateNavHeight}px`);
     }
   }
   if (isSupportPage) {
     navigation.classList.add('is-support');
-    let supportNavHeight = 100; // 100 为 header 中 dom 元素ID为【navigation】栏在 PC 端高度
+    const supportNavHeight = 100; // 100 为 header 中 dom 元素ID为【navigation】栏在 PC 端高度
+    let calculateSupportNavHeight = supportNavHeight; // 默认为菜单本身高度
     if (document.body.classList.contains('has-language-aside')) {
-      supportNavHeight += languageAsideHeightPC;
+      // 有语言选择栏时
+      calculateSupportNavHeight = supportNavHeight + languageAsideHeightPC;
     }
-    document.documentElement.style.setProperty('--nav-height', `${supportNavHeight}px`);
+    if (document.body.classList.contains('already-selected-language-aside')) {
+      // 有已选择语言选择栏时
+      calculateSupportNavHeight = supportNavHeight + alreadySelectLanguageAsideHeight;
+    }
+    document.documentElement.style.setProperty('--nav-height', `${calculateSupportNavHeight}px`);
   }
 }
