@@ -5937,7 +5937,7 @@
           },
           {
             "component": "text",
-            "name": "warrantyTitle",
+            "name": "warranty",
             "label": "Warranty Title",
             "valueType": "string"
           },
