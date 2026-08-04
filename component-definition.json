@@ -2545,7 +2545,13 @@
                   "firmwareLink": "",
                   "firmwareIcon": "",
                   "noResultContent": "",
-                  "productNotFoundMessage": "<p>Product not found.</p>"
+                  "productNotFoundMessage": "<p>Product not found.</p>",
+                  "warrantyIcon": "/content/dam/hisense/us/common-icons/compliance.svg",
+                  "warrantyTitle": "Limited Warranty Coverage",
+                  "warrantryInfo": "Find your warranty information",
+                  "warrantyButton": "Go to Warranty Page",
+                  "warrantyLink": "",
+                  "warrantyTips": "Register your product within 30 days of purchase to activate extended warranty benefits."
                 }
               }
             }

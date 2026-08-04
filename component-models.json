@@ -5936,9 +5936,22 @@
         "collapsible": true,
         "fields": [
           {
+            "component": "reference",
+            "name": "warrantyIcon",
+            "label": "Warranty Icon",
+            "valueType": "string",
+            "multi": false
+          },
+          {
             "component": "text",
-            "name": "warranty",
+            "name": "warrantyTitle",
             "label": "Warranty Title",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "warrantyInfo",
+            "label": "Warranty Info",
             "valueType": "string"
           },
           {
@@ -5955,10 +5968,9 @@
           },
           {
             "component": "reference",
-            "name": "warrantyIcon",
-            "label": "Warranty Icon",
-            "valueType": "string",
-            "multi": false
+            "name": "warrantyTips",
+            "label": "Warranty Tips",
+            "valueType": "string"
           }
         ]
       },

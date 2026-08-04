@@ -17,7 +17,13 @@
               "firmwareLink": "",
               "firmwareIcon": "",
               "noResultContent": "",
-              "productNotFoundMessage": "<p>Product not found.</p>"
+              "productNotFoundMessage": "<p>Product not found.</p>",
+              "warrantyIcon": "/content/dam/hisense/us/common-icons/compliance.svg",
+              "warrantyTitle": "Limited Warranty Coverage",
+              "warrantryInfo": "Find your warranty information",
+              "warrantyButton": "Go to Warranty Page",
+              "warrantyLink": "",
+              "warrantyTips": "Register your product within 30 days of purchase to activate extended warranty benefits."
             }
           }
         }
@@ -76,9 +82,22 @@
           "collapsible": true,
           "fields": [
             {
+              "component": "reference",
+              "name": "warrantyIcon",
+              "label": "Warranty Icon",
+              "valueType": "string",
+              "multi": false
+            },
+            {
               "component": "text",
-              "name": "warranty",
+              "name": "warrantyTitle",
               "label": "Warranty Title",
+              "valueType": "string"
+            },
+            {
+              "component": "text",
+              "name": "warrantyInfo",
+              "label": "Warranty Info",
               "valueType": "string"
             },
             {
@@ -95,10 +114,9 @@
             },
             {
               "component": "reference",
-              "name": "warrantyIcon",
-              "label": "Warranty Icon",
-              "valueType": "string",
-              "multi": false
+              "name": "warrantyTips",
+              "label": "Warranty Tips",
+              "valueType": "string"
             }
           ]
         },
