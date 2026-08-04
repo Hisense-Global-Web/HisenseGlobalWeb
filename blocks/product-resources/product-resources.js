@@ -632,12 +632,14 @@ function buildTabConfigs(config, supportData, country) {
       hasData: firmwareState.hasContent,
     });
   }
-  tabs.push({
-    type: 'warranty',
-    label: formatTabLabel(supportData.warrantyTitle, 'Warranty'),
-    items: warrantyItems,
-    hasData: supportData.warranty.length > 0,
-  });
+  if (warrantyState.hasContent) {
+    tabs.push({
+      type: 'warranty',
+      label: formatTabLabel(supportData.warrantyTitle, 'Warranty'),
+      items: warrantyItems,
+      hasData: supportData.warranty.length > 0,
+    });
+  }
 
   return {
     hasAnyTabData:
