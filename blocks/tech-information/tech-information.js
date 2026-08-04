@@ -25,10 +25,10 @@ export default async function decorate(block) {
       case 2: {
         techCtaDom.appendChild(row);
         techCtaDom.querySelector('p:first-child').className = 'cta-button';
-        if (techCtaDom.querySelector('p:nth-child(2')) {
-          const popupId = techCtaDom.querySelector('p:nth-child(2').innerText;
+        if (techCtaDom.querySelector('p:nth-child(2)')) {
+          const popupId = techCtaDom.querySelector('p:nth-child(2)').innerText;
           techCtaDom.querySelector('p:first-child').setAttribute('data-id', popupId);
-          techCtaDom.querySelector('p:nth-child(2').remove();
+          techCtaDom.querySelector('p:nth-child(2)').remove();
         }
         techCtaDom.querySelector('p:first-child').addEventListener('click', popupShowUtils);
         break;
