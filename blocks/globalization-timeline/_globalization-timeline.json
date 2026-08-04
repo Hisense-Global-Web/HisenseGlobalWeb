@@ -108,6 +108,20 @@
           "label": "Phase Image",
           "multi": false,
           "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "phase_more",
+          "label": "Button Label",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "phase_popupId",
+          "label": "Popup SectionId",
+          "value": ""
         }
       ]
     }
