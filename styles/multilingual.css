@@ -25,7 +25,7 @@
   --body-font-size: var(--size-14);
   --body-line-height: var(--size-21);
   --body-s-bold-font-size: var(--size-14);
-  --body-s-line-height: var(--size-21);
+  --body-s-bold-line-height: var(--size-21);
   --caption-regular-font-size: var(--size-12);
   --caption-regular-line-height: var(--size-18);
   --caption-bold-font-size: var(--size-12);
