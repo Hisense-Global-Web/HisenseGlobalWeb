@@ -43,7 +43,9 @@ function readRichtextConfig(block, fieldName) {
   const normalizedFieldName = normalizeConfigKey(fieldName);
   const row = [...block.querySelectorAll(':scope > div')].find((item) => {
     const keyCell = item.children?.[0];
-    return normalizeConfigKey(keyCell?.textContent || '') === normalizedFieldName;
+    return (
+      normalizeConfigKey(keyCell?.textContent || '') === normalizedFieldName
+    );
   });
 
   return row?.children?.[1]?.innerHTML?.trim() || '';
@@ -75,8 +77,9 @@ function toAbsoluteUrl(path) {
   if (!path) return '';
   if (/^https?:\/\//i.test(path)) return path;
 
-  const shouldPrefixBaseUrl = ['/bin/', '/product/', '/content/dam/']
-    .some((prefix) => path.startsWith(prefix));
+  const shouldPrefixBaseUrl = ['/bin/', '/product/', '/content/dam/'].some(
+    (prefix) => path.startsWith(prefix),
+  );
   if (!shouldPrefixBaseUrl) return path;
 
   const baseUrl = getBaseUrl();
@@ -88,7 +91,7 @@ function getCacheBustedUrl(url) {
   if (!url) return '';
   const cacheBuster = simpleHash(Math.floor(Date.now() / FIVE_MINUTES_MS));
   const separator = url.includes('?') ? '&' : '?';
-  return `${url}${separator}_t=${cacheBuster}`;
+  return `${url}${separator}_t=${cacheBuster}&showDisabledProduct=${true}`;
 }
 
 function getProductEndpoint(country, language, sku) {
@@ -298,11 +301,13 @@ function createDocumentationItem(documentItem) {
   item.appendChild(createDescriptionList(metadata));
 
   if (documentItem?.link) {
-    item.appendChild(createCtaLink(
-      'Download',
-      toAbsoluteUrl(documentItem.link),
-      toAbsoluteUrl('/resources/download-arrow.svg'),
-    ));
+    item.appendChild(
+      createCtaLink(
+        'Download',
+        toAbsoluteUrl(documentItem.link),
+        toAbsoluteUrl('/resources/download-arrow.svg'),
+      ),
+    );
   }
 
   listItem.appendChild(item);
@@ -314,7 +319,9 @@ function createFirmwareItem(config) {
   const item = document.createElement('div');
   item.className = 'item';
 
-  const iconSrc = toAbsoluteUrl(config.firmwareicon || '/resources/news-pagination-arrow.svg');
+  const iconSrc = toAbsoluteUrl(
+    config.firmwareicon || '/resources/news-pagination-arrow.svg',
+  );
   item.appendChild(createPictureContainer(iconSrc, 'Firmware'));
 
   const title = document.createElement('p');
@@ -322,11 +329,16 @@ function createFirmwareItem(config) {
   title.textContent = config.firmware || config.firmwaretitle || 'Find Latest Firmware Update';
   item.appendChild(title);
 
-  if (config.firmwarelink && (config.firmwarebutton || config.firmwarebuttontext)) {
-    item.appendChild(createCtaLink(
-      config.firmwarebutton || config.firmwarebuttontext,
-      toAbsoluteUrl(config.firmwarelink),
-    ));
+  if (
+    config.firmwarelink
+    && (config.firmwarebutton || config.firmwarebuttontext)
+  ) {
+    item.appendChild(
+      createCtaLink(
+        config.firmwarebutton || config.firmwarebuttontext,
+        toAbsoluteUrl(config.firmwarelink),
+      ),
+    );
   }
 
   listItem.appendChild(item);
@@ -338,31 +350,39 @@ function createWarrantyItem(warrantyItem, country) {
   const item = document.createElement('div');
   item.className = 'item';
 
-  const defaultIcon = `/content/dam/hisense/${country}/common-icons/global.svg`;
-  const warrantyIcon = toAbsoluteUrl(warrantyItem?.warrantyInfoIcon || defaultIcon);
-  item.appendChild(createPictureContainer(warrantyIcon, 'Warranty'));
+  const warrantyIcon = `/content/dam/hisense/${country}/common-icons/compliance.svg`;
+  item.appendChild(createPictureContainer(warrantyItem?.icon || warrantyIcon, 'Warranty'));
 
   const title = document.createElement('p');
   title.className = 'item-title';
-  title.textContent = warrantyItem?.warrantyInfoTitle || 'Warranty';
+  title.textContent = warrantyItem?.title || 'Warranty';
   item.appendChild(title);
 
-  const warrantyInfo = Array.isArray(warrantyItem?.warrantyInfo) ? warrantyItem.warrantyInfo : [];
-  if (warrantyInfo.length > 0) {
-    item.appendChild(createDescriptionList(
-      warrantyInfo,
-      true,
-      toAbsoluteUrl('/resources/warranty-check.svg'),
-    ));
+  if (warrantyItem?.info?.length) {
+    const warrantyInfoEl = document.createElement('span');
+    warrantyInfoEl.className = 'item-description-text';
+    warrantyInfoEl.textContent = warrantyItem.info;
+    item.appendChild(warrantyInfoEl);
   }
 
-  if (warrantyItem?.warrantyInfoNotes) {
+  if (warrantyItem?.link) {
+    const ctaLink = createCtaLink(
+      warrantyItem?.buttonText || warrantyItem?.link || 'Go to Warranty Page',
+      toAbsoluteUrl(warrantyItem?.link),
+    );
+    const ctaLinkWrapper = document.createElement('div');
+    ctaLinkWrapper.className = 'warranty-cta-wrapper';
+    ctaLinkWrapper.appendChild(ctaLink);
+    item.appendChild(ctaLinkWrapper);
+  }
+
+  if (warrantyItem?.tips) {
     const reminder = document.createElement('div');
     reminder.className = 'item-reminder';
 
     const reminderText = document.createElement('p');
     reminderText.className = 'item-reminder-text';
-    reminderText.textContent = warrantyItem.warrantyInfoNotes;
+    reminderText.textContent = warrantyItem.tips;
     reminder.appendChild(reminderText);
 
     item.appendChild(reminder);
@@ -432,7 +452,13 @@ function buildTabsSection(tabConfigs, activeType) {
   contentWrapper.className = 'tab-content-wrapper';
 
   tabConfigs.forEach((tabConfig) => {
-    contentWrapper.appendChild(createTabContent(tabConfig.type, tabConfig.items, tabConfig.type === activeType));
+    contentWrapper.appendChild(
+      createTabContent(
+        tabConfig.type,
+        tabConfig.items,
+        tabConfig.type === activeType,
+      ),
+    );
   });
 
   wrapper.appendChild(contentWrapper);
@@ -446,7 +472,13 @@ function initTabsAndCarousel(block) {
   const prevBtn = block.querySelector('.carousel-prev');
   const nextBtn = block.querySelector('.carousel-next');
 
-  if (!tabs.length || !tabContents.length || !carouselNav || !prevBtn || !nextBtn) return;
+  if (
+    !tabs.length
+    || !tabContents.length
+    || !carouselNav
+    || !prevBtn
+    || !nextBtn
+  ) return;
 
   let currentIndex = 0;
 
@@ -535,12 +567,16 @@ function initTabsAndCarousel(block) {
 
 function getFirmwareState(config) {
   const title = (config.firmware || config.firmwaretitle || '').trim();
-  const buttonText = (config.firmwarebutton || config.firmwarebuttontext || '').trim();
+  const buttonText = (
+    config.firmwarebutton
+    || config.firmwarebuttontext
+    || ''
+  ).trim();
   const link = (config.firmwarelink || '').trim();
   const icon = (config.firmwareicon || '').trim();
 
   return {
-    hasContent: Boolean(title || buttonText || link || icon),
+    hasContent: Boolean(title && link),
     title,
     buttonText,
     link,
@@ -548,45 +584,78 @@ function getFirmwareState(config) {
   };
 }
 
+function getWarrantyState(config) {
+  const icon = (config.warrantyicon || '').trim();
+  const title = (config.warranty || '').trim();
+  const info = (config.warrantyinfo || '').trim();
+  const buttonText = (config.warrantybutton || '').trim();
+  const link = (config.warrantylink || '').trim();
+  const tips = (config.warrantytips || '').trim();
+
+  return {
+    hasContent: Boolean(title && link),
+    icon,
+    title,
+    info,
+    buttonText,
+    link,
+    tips,
+  };
+}
+
 function buildTabConfigs(config, supportData, country) {
   const firmwareState = getFirmwareState(config);
-  const documents = supportData.documents.length
+  const documents = supportData?.documents?.length
     ? supportData.documents.map((item) => createDocumentationItem(item))
     : [createEmptyStateItem(DEFAULT_DOCUMENTATION_EMPTY)];
   const firmwareItems = firmwareState.hasContent
     ? [createFirmwareItem(config)]
     : [createEmptyStateItem(DEFAULT_FIRMWARE_EMPTY)];
-  const warrantyItems = supportData.warranty.length
-    ? supportData.warranty.map((item) => createWarrantyItem(item, country))
+  // 2026/0804 Warranty修改：需要根据config中的warrantyTitle、warrantryInfo、warrantyButton、warrantyLink、warrantyTips来创建warrantyItem
+  const warrantyState = getWarrantyState(config);
+  const warrantyItems = warrantyState.hasContent
+    ? [createWarrantyItem(warrantyState, country)]
     : [createEmptyStateItem(DEFAULT_WARRANTY_EMPTY)];
+  const tabs = [
+    {
+      type: 'documentation',
+      label: formatTabLabel(supportData.documentationTitle, 'Documentation'),
+      items: documents,
+      hasData: supportData.documents.length > 0,
+    },
+  ];
+  if (firmwareState.hasContent) {
+    tabs.push({
+      type: 'firmware',
+      label: 'Firmware',
+      items: firmwareItems,
+      hasData: firmwareState.hasContent,
+    });
+  }
+  if (warrantyState.hasContent) {
+    tabs.push({
+      type: 'warranty',
+      label: formatTabLabel(supportData?.warrantyTitle, 'Warranty'),
+      items: warrantyItems,
+      hasData: supportData?.warranty?.length > 0,
+    });
+  }
 
   return {
-    hasAnyTabData: supportData.documents.length > 0 || supportData.warranty.length > 0 || firmwareState.hasContent,
-    tabs: [
-      {
-        type: 'documentation',
-        label: formatTabLabel(supportData.documentationTitle, 'Documentation'),
-        items: documents,
-        hasData: supportData.documents.length > 0,
-      },
-      {
-        type: 'firmware',
-        label: 'Firmware',
-        items: firmwareItems,
-        hasData: firmwareState.hasContent,
-      },
-      {
-        type: 'warranty',
-        label: formatTabLabel(supportData.warrantyTitle, 'Warranty'),
-        items: warrantyItems,
-        hasData: supportData.warranty.length > 0,
-      },
-    ],
+    hasAnyTabData:
+      supportData?.documents?.length > 0
+      || firmwareState.hasContent
+      || warrantyState.hasContent,
+    tabs,
   };
 }
 
 function getInitialActiveTab(tabConfigs) {
-  return tabConfigs.find((tab) => tab.hasData)?.type || tabConfigs[0]?.type || 'documentation';
+  return (
+    tabConfigs.find((tab) => tab.hasData)?.type
+    || tabConfigs[0]?.type
+    || 'documentation'
+  );
 }
 
 function renderMessageState(block, titleText, messageHtml, modifierClass) {
@@ -606,8 +675,12 @@ function renderNoResultState(block, product, titleText, messageHtml) {
 
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  config.noresultcontent = readRichtextConfig(block, 'noResultContent') || config.noresultcontent || '';
-  config.productnotfoundmessage = readRichtextConfig(block, 'productNotFoundMessage') || config.productnotfoundmessage || '';
+  config.noresultcontent = readRichtextConfig(block, 'noResultContent')
+    || config.noresultcontent
+    || '';
+  config.productnotfoundmessage = readRichtextConfig(block, 'productNotFoundMessage')
+    || config.productnotfoundmessage
+    || '';
 
   const titleText = config.title || 'Resources';
   const sku = getSkuFromUrl();
@@ -674,7 +747,9 @@ export default async function decorate(block) {
   block.textContent = '';
   block.appendChild(buildProductInformation(product));
   block.appendChild(buildSectionTitle(titleText));
-  block.appendChild(buildTabsSection(tabState.tabs, getInitialActiveTab(tabState.tabs)));
+  block.appendChild(
+    buildTabsSection(tabState.tabs, getInitialActiveTab(tabState.tabs)),
+  );
 
   initTabsAndCarousel(block);
   block.classList.add('loaded');

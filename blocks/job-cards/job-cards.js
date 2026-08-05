@@ -7,6 +7,7 @@ import {
   createCompareLiEl,
   compareLiAppendType,
 } from '../../utils/plp-compare-utils.js';
+import translate from '../../utils/translate.js';
 
 const { country } = getLocaleFromPath();
 function applyAggregatedSort(sortProperty, direction = -1) {
@@ -394,7 +395,8 @@ export default function decorate(block) {
     // add compare button and compare bar close button
     const compareBtnEl = document.createElement('div');
     compareBtnEl.className = 'plp-compare-btn';
-    compareBtnEl.textContent = 'Compare';
+    const { language } = getLocaleFromPath();
+    compareBtnEl.textContent = translate('COMPARE', language);
     // 显示对比详细信息弹窗
     compareBtnEl.addEventListener('click', () => {
       document.body.style.overflow = 'hidden';
@@ -543,7 +545,8 @@ export default function decorate(block) {
 
       const detailBtnEl = document.createElement('div');
       detailBtnEl.className = 'detail-btn';
-      detailBtnEl.textContent = 'See details';
+      const { language } = getLocaleFromPath();
+      detailBtnEl.textContent = translate('SEE_DETAILS', language);
       detailBtnEl.addEventListener('click', (e) => {
         e.stopPropagation();
         // eslint-disable-next-line no-underscore-dangle

@@ -48,7 +48,8 @@
             { "name": "Size", "value": "buttons" },
             { "name": "Awards", "value": "awards" },
             { "name": "Spec", "value": "position" },
-            { "name": "FAQ", "value": "faq" }
+            { "name": "FAQ", "value": "faq" },
+            { "name": "Resources", "value": "resources" }
           ]
         },
         {
@@ -72,6 +73,30 @@
             "some": [
               {"var": "fields"},
               {"===": [{"var": ""}, "faq"]}
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "name": "resources-icon",
+          "label": "Resources Icon",
+          "valueType": "string",
+          "condition": {
+            "some": [
+              {"var": "fields"},
+              {"===": [{"var": ""}, "resources"]}
+            ]
+          }
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "resources-link",
+          "label": "Resources Link",
+          "condition": {
+            "some": [
+              {"var": "fields"},
+              {"===": [{"var": ""}, "resources"]}
             ]
           }
         }

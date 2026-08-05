@@ -1,6 +1,6 @@
 import { getLocationPart } from './environment.js';
 
-export const languageList = ['en', 'es', 'fr', 'pt', 'zh', 'zh-tw', 'ja', 'th', 'ar'];
+export const languageList = ['en', 'es', 'fr', 'pt', 'zh', 'zh-tw', 'ja', 'th', 'ar', 'ko'];
 const defaultLanguageMap = {
   us: 'en', // 美国
   ca: 'en', // 加拿大
@@ -34,10 +34,12 @@ const defaultLanguageMap = {
   in: 'en', // 印度
   jp: 'ja', // 日本
   hk: 'zh-tw', // 中国香港
+  tw: 'zh-tw', // 中国台湾
   pk: 'en', // 巴基斯坦
   np: 'en', // 尼泊尔
   lk: 'en', // 斯里兰卡
   th: 'th', // 泰国
+  kr: 'ko', // 韩国
 };
 /**
  * hisense.com/us 没有 en 这一级目录，US 站点统一默认语言为 en（不从 path 取语言）。
@@ -81,7 +83,7 @@ export function localizeProductApiPath(path) {
   const url = new URL(path, window.location.origin);
   const { pathname, search, hash } = url;
 
-  if (!pathname.startsWith('/product')) {
+  if (pathname.startsWith('/product')) {
     return path;
   }
 

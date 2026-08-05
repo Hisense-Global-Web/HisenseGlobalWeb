@@ -74,7 +74,7 @@
   }
 
   .card-btn {
-    margin-top: var(--size-12);
+    margin-top: auto;
 
     .btn-label {
       display: inline-block;

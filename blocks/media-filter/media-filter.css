@@ -582,6 +582,8 @@
       width: auto;
       max-width: 100%;
       height: min(calc(338 / var(--breakpoint-pc) * 100vw), 338px);
+      display: block;
+      margin: 0 auto;
 
       @media (width < 640px) {
         height: calc(172.39 / var(--breakpoint-mobile) * 100vw);

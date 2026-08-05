@@ -88,15 +88,20 @@ const getItemListEl = (itemListEl, isEditMode = false) => {
 };
 
 const generateProduct = (productEl) => {
-  const hasDynamicMedia = checkSwitch(productEl?.children?.[2]);
-  if (!hasDynamicMedia) {
-    productEl.children[2].prepend(document.createElement('div'));
-  }
-  const [titleEL, dynamicMediaEl, imageEl, buttonEl] = [...productEl.children] ?? [];
-  dynamicMediaEl?.remove();
+  const [titleEL, imageEl, buttonEl] = [...productEl.children] ?? [];
+  // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+  // const hasDynamicMedia = checkSwitch(productEl?.children?.[2]);
+  // if (!hasDynamicMedia) {
+  //   productEl.children[2].prepend(document.createElement('div'));
+  // }
+
+  // const [titleEL, dynamicMediaEl, imageEl, buttonEl] = [...productEl.children] ?? [];
+  // dynamicMediaEl?.remove();
   titleEL.classList.add('product-title');
-  const dynamicMediaImageEl = checkDyanmicMediaImage(imageEl, 'productImage');
-  dynamicMediaImageEl.classList.add('product-image');
+  // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+  // const dynamicMediaImageEl = checkDyanmicMediaImage(imageEl, 'productImage');
+  // dynamicMediaImageEl.classList.add('product-image');
+  imageEl.classList.add('product-image');
   const [btnText, btnLink] = [...buttonEl.children] ?? [];
   if (btnLink?.querySelector('a')) {
     btnText?.remove();
