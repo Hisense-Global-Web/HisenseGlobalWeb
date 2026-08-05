@@ -727,7 +727,8 @@
             height: var(--size-44);
           }
 
-          &.image img {
+          &.image img,
+          &.image video {
             border: 1px solid #bbb;
             border-radius: var(--size-6);
             width: var(--size-44);
