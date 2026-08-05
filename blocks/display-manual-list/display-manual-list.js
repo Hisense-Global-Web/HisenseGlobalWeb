@@ -67,7 +67,7 @@ const getProductEndpoint = (sku) => {
   if (!sku) return '';
 
   if (isAemEnvironment()) {
-    return `/bin/hisense/productListBySku.json?path=/${GLOBAL_DISPLAY}&sku=${encodeURIComponent(sku)}`;
+    return `/bin/hisense/productListBySku.json?path=/${GLOBAL_DISPLAY}&sku=${encodeURIComponent(sku)}&showDisabledProduct=${true}`;
   }
 
   return `/product/sku/${GLOBAL_DISPLAY}/${sku.replace(/ /g, '+')}.json`;
