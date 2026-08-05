@@ -1,5 +1,6 @@
 import { whenElementReady } from '../../utils/carousel-common.js';
 import popupShowUtils from '../../utils/popup-module-utils.js';
+import { checkSwitch, getSwitchValue } from '../../utils/ue-helper.js';
 
 function bindEvent(block) {
   const triggerBtns = block.querySelectorAll('.btn-label'); // 触发按钮
@@ -19,9 +20,17 @@ export default function decorate(block) {
   [...block.children].forEach((child) => {
     child.className = 'strategic-card-item';
     if (!child.children.length) return;
+    let disableCapitalized = false;
+    if (checkSwitch(child.children[1])) {
+      disableCapitalized = getSwitchValue(child.children[1]);
+      child.children[1].remove();
+    }
     const [iconDiv, textDiv, bodyCopy, btnDiv] = child.children;
     iconDiv.className = 'card-icon';
     textDiv.className = 'card-text';
+    if (!disableCapitalized) {
+      textDiv.classList.add('strategic-card-first-letter');
+    }
     bodyCopy.className = 'card-description';
     btnDiv.className = 'card-btn';
     if (!bodyCopy.textContent.trim()) bodyCopy.remove();

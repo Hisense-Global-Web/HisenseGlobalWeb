@@ -3189,7 +3189,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Special Capitalize Text List Item",
-                  "model": "special-capitalize-text-list-item"
+                  "model": "special-capitalize-text-list-item",
+                  "disableCapitalized": false
                 }
               }
             }
@@ -3268,7 +3269,8 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Strategic Card Item",
-                  "model": "strategic-card-item"
+                  "model": "strategic-card-item",
+                  "disableCapitalized": false
                 }
               }
             }

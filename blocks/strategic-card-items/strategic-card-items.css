@@ -16,10 +16,14 @@
   .strategic-card-item {
     display: flex;
     flex: 1;
-    width: min(calc(173/var(--breakpoint-pc)*100vw),173px);
+    width: min(calc(173/var(--breakpoint-pc)*100vw), 173px);
     height: stretch;
-    align-items: center; /* Center items vertically */
-    justify-content: center; /* Center items horizontally */
+    align-items: center;
+
+    /* Center items vertically */
+    justify-content: center;
+
+    /* Center items horizontally */
     padding: var(--size-24) var(--size-24) var(--size-32) var(--size-24);
     flex-direction: column;
     gap: var(--size-12);
@@ -45,16 +49,18 @@
       text-align: center;
       font-size: var(--size-16);
       font-weight: var(--fontweight-medium);
-      line-height: 120%; /* 28.8px */
+      line-height: 120%;
+
+      /* 28.8px */
       text-transform: capitalize;
       word-break: keep-all;
       hyphens: none;
+    }
 
-      &::first-letter {
-        text-transform: uppercase;
-        color: var(--color-primary-green-50);
-        font-size: var(--size-24);
-      }
+    .strategic-card-first-letter::first-letter {
+      text-transform: uppercase;
+      color: var(--color-primary-green-50);
+      font-size: var(--size-24);
     }
   }
 
@@ -113,7 +119,9 @@
       overflow-x: scroll;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      scroll-snap-type: x mandatory; /* 强制水平吸附 */
+      scroll-snap-type: x mandatory;
+
+      /* 强制水平吸附 */
       scroll-behavior: smooth;
     }
 
@@ -147,6 +155,11 @@
         &::first-letter {
           font-size: var(--size-24);
         }
+      }
+
+      .card-description,
+      .card-btn {
+        margin-top: 0;
       }
 
       .btn-cta {
