@@ -7,7 +7,7 @@ export default async function decorate(block) {
   [...block.children].forEach((child) => {
     child.className = 'feature-item-box';
     const itemTextBoxEl = document.createElement('div');
-    itemTextBoxEl.className = 'item-text-box';
+    itemTextBoxEl.className = 'item-text-box mode-dark';
 
     const [imgDom, subtitleDom, titDom, textDom] = [...child.children] ?? [];
     // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
