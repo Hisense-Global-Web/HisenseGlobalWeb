@@ -12,6 +12,7 @@ export default function decorate(block) {
       const [titleEl, SpecialLetterEl] = row.children;
       const capitalizeLetter = SpecialLetterEl?.querySelector?.('p')?.textContent?.toUpperCase() ?? '';
       row.classList.add('list-item-wrapper');
+      titleEl.classList.add('title-wrapper');
       const titleText = titleEl?.querySelector('p')?.textContent ?? '';
       const titleTextList = titleText.trim().split(/\s+/) ?? [];
       if (!disableCapitalized && titleTextList?.length) {
@@ -41,6 +42,7 @@ export default function decorate(block) {
         row.innerHTML = '';
         row.appendChild(titleWrapperEl);
       }
+      SpecialLetterEl?.remove?.();
     });
   }
 }
