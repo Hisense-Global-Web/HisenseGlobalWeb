@@ -538,7 +538,8 @@
     font-family: FZLanTingHeiS-B-GB, sans-serif;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap:var(--fontsize-body1, 16px);
 
     @media (width < 640px) {
       flex-direction: column;
@@ -563,6 +564,7 @@
       color: #333;
       font-weight: var(--fontweight-book);
       line-height: var(--size-21);
+      white-space: nowrap;
     }
   }
 
@@ -725,7 +727,8 @@
             height: var(--size-44);
           }
 
-          &.image img {
+          &.image img,
+          &.image video {
             border: 1px solid #bbb;
             border-radius: var(--size-6);
             width: var(--size-44);

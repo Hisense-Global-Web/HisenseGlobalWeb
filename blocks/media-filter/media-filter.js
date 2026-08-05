@@ -779,7 +779,13 @@ const buildGalleryPopup = (cardData) => {
     const li = document.createElement('li');
     li.className = `tab-item ${index === currentIndex ? 'current' : ''}  image`;
     if (item.isVideo) {
-      const thumbnailEl = generateVideoPoster(item.dynamicMediaPath ?? item.path);
+      let thumbnailEl = null;
+      if (item.dynamicMediaPath) {
+        thumbnailEl = generateVideoPoster(item.dynamicMediaPath);
+      } else {
+        thumbnailEl = document.createElement('video');
+        thumbnailEl.src = item.path;
+      }
       const thumbnailOverlayEl = document.createElement('div');
       thumbnailOverlayEl.className = 'thumbnail-overlay';
       const thumbnailOverlayIconEl = document.createElement('img');
