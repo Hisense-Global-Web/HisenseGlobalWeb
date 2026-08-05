@@ -279,9 +279,9 @@
   --action-primary-color-pressed: var(--color-green-300);
   --action-primary-color-disable: var(--color-green-300);
   --action-primary-content-default: var(--color-white);
-  --action-primary-content-hovered: var(--color-white);
-  --action-primary-content-pressed: var(--color-white);
-  --action-primary-content-disable: var(--color-white);
+  --action-primary-content-hovered: var(--color-green-600);
+  --action-primary-content-pressed: var(--color-green-600);
+  --action-primary-content-disable: var(--color-green-500);
   --action-secondary-color-default: var(--color-white);
   --action-secondary-color-hovered: var(--color-white);
   --action-secondary-color-pressed: var(--color-gray-50);
