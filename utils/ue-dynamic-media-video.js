@@ -1,6 +1,6 @@
 const HISENSE_DAM_PREFIX = '/content/dam/';
 const MP4_EXTENSION_PATTERN = /\.mp4(?:[?#].*)?$/i;
-const IMAGE_EXTENSION_PATTERN = /\.(?:jpg|jpeg|png|avif)(?:[?#].*)?$/i;
+const IMAGE_EXTENSION_PATTERN = /\.(?:jpg|jpeg|png|avif|webp)(?:[?#].*)?$/i;
 
 function getDefaultLocation() {
   return typeof window !== 'undefined' ? window.location : undefined;

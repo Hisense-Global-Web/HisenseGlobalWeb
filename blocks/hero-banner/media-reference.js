@@ -12,7 +12,7 @@ const VIDEO_MEDIA_EXTENSIONS = new Set([
   'ogv',
 ]);
 
-const HERO_BANNER_DYNAMIC_MEDIA_CROPS = [
+export const HERO_BANNER_DYNAMIC_MEDIA_CROPS = [
   { cropName: 'Small', cropWidth: 639 },
   { cropName: 'Medium', cropWidth: 1179 },
   { cropName: 'Large', cropWidth: 1920 },
@@ -63,6 +63,16 @@ function buildSmartCropUrl(src, cropName, cropWidth, currentLocationHref = getCu
 function getLargeSmartCropUrl(src) {
   const largeCrop = HERO_BANNER_DYNAMIC_MEDIA_CROPS[HERO_BANNER_DYNAMIC_MEDIA_CROPS.length - 1];
   return buildSmartCropUrl(src, largeCrop.cropName, largeCrop.cropWidth);
+}
+
+export function getHeroBannerSmartCropUrl(src, viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1920) {
+  if (!src || !isDeliveryDynamicMediaUrl(src)) return src;
+
+  const matchedCrop = HERO_BANNER_DYNAMIC_MEDIA_CROPS.find(
+    ({ cropWidth }) => viewportWidth <= cropWidth,
+  ) || HERO_BANNER_DYNAMIC_MEDIA_CROPS[HERO_BANNER_DYNAMIC_MEDIA_CROPS.length - 1];
+
+  return buildSmartCropUrl(src, matchedCrop.cropName, matchedCrop.cropWidth);
 }
 
 export function isVideoMediaUrl(assetUrl = '') {

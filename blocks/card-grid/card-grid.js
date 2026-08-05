@@ -1,4 +1,4 @@
-import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+// import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 export default async function decorate(block) {
   const featureItemsWrapperEl = document.createElement('div');
@@ -9,18 +9,21 @@ export default async function decorate(block) {
     const itemTextBoxEl = document.createElement('div');
     itemTextBoxEl.className = 'item-text-box';
 
-    const [dynamicSwitch, imgDom, subtitleDom, titDom, textDom] = [...child.children] ?? [];
+    const [imgDom, subtitleDom, titDom, textDom] = [...child.children] ?? [];
+    // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+    // const [dynamicSwitch, imgDom, subtitleDom, titDom, textDom] = [...child.children] ?? [];
     // const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true';
-    dynamicSwitch.remove();
+    // dynamicSwitch.remove();
 
     if (imgDom) {
       imgDom.classList.add('item-img-box');
-      if (imgDom.querySelector('a')) {
-        // 只要用户选择dynamic media, 即返回的是 a 标签，就获取其href 值， 显示图片，设置dynamic media 元素
-        const dynamicImgSrc = imgDom.querySelector('a').getAttribute('href');
-        imgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'card-grid-img'));
-        imgDom.children[0].remove();
-      }
+      // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+      // if (imgDom.querySelector('a')) {
+      //   // 只要用户选择dynamic media, 即返回的是 a 标签，就获取其href 值， 显示图片，设置dynamic media 元素
+      //   const dynamicImgSrc = imgDom.querySelector('a').getAttribute('href');
+      //   imgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'card-grid-img'));
+      //   imgDom.children[0].remove();
+      // }
     }
 
     if (subtitleDom) {

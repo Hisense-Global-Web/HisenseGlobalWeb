@@ -68,7 +68,7 @@
   }
 
   .card-btn {
-    margin-top: var(--size-12);
+    margin-top: auto;
 
     .btn-label {
       display: inline-block;
@@ -147,10 +147,6 @@
         &::first-letter {
           font-size: var(--size-24);
         }
-      }
-
-      .card-description,.card-btn {
-        margin-top: 0;
       }
 
       .btn-cta {

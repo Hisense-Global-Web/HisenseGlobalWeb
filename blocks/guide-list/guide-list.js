@@ -1,4 +1,6 @@
 import { handleCommonDownloadClick } from '../../utils/download.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import translate from '../../utils/translate.js';
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 const segments = window.location.pathname.split('/').filter(Boolean);
@@ -250,7 +252,8 @@ export default async function decorate(block) {
       if (emptyTitleEl) emptyTitleEl.className = 'guide-list-empty-title';
       if (emptyTextEl) emptyTextEl.className = 'guide-list-empty-text';
     } else {
-      emptyEl.textContent = 'No items found.';
+      const { language } = getLocaleFromPath();
+      emptyEl.textContent = translate('NO_ITEMS_FOUND', language);
       emptyEl.classList.add('guide-list-empty-title');
     }
     return emptyEl;

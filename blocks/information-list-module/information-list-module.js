@@ -1,5 +1,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { handleCommonDownloadClick } from '../../utils/download.js';
+import { getLocaleFromPath } from '../../scripts/locale-utils.js';
+import translate from '../../utils/translate.js';
 
 const EModuleType = Object.freeze({
   download: 'download',
@@ -293,7 +295,8 @@ export default function decorate(block) {
 
         infoListContainer.appendChild(emptyEl);
       } else {
-        emptyEl.textContent = 'No items found.';
+        const { language } = getLocaleFromPath();
+        emptyEl.textContent = translate('NO_ITEMS_FOUND', language);
         emptyEl.classList.add('info-list-empty-title');
       }
       return;

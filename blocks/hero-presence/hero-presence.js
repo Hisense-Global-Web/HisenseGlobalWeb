@@ -2,10 +2,13 @@ import { createElement, debounce } from '../../utils/dom-helper.js';
 import { loadScrollTrigger } from '../../utils/animation-helper.js';
 import { checkSwitch, isUniversalEditor } from '../../utils/ue-helper.js';
 import { whenElementReady } from '../../utils/carousel-common.js';
-import { toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
+import { isDeliveryDynamicMediaUrl, toDynamicMediaVideoUrl } from '../../utils/dynamic-media.js';
 import { runBlockEnhancement } from '../../utils/block-helper.js';
 import { setVideoSource } from '../../utils/hls-video.js';
-import { checkDyanmicMediaImage } from '../hero-banner/media-reference.js';
+import {
+  checkDyanmicMediaImage,
+  getHeroBannerSmartCropUrl,
+} from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -83,6 +86,7 @@ export default function decorate(block) {
 
   let videoSrc = '';
   let videoPosterSrc = '';
+  let dynamicMediaPosterBaseSrc = '';
 
   const [videoAllEl, overlayEl] = [...block.children];
 
@@ -97,35 +101,49 @@ export default function decorate(block) {
     if (!videoPosterSrc) {
       videoPosterSrc = posterEl?.querySelector('a')?.href;
     }
+
+    if (videoPosterSrc && isDeliveryDynamicMediaUrl(videoPosterSrc)) {
+      dynamicMediaPosterBaseSrc = videoPosterSrc;
+      videoPosterSrc = getHeroBannerSmartCropUrl(dynamicMediaPosterBaseSrc);
+    }
   }
 
   if (!videoSrc) {
     return;
   }
 
-  // Create the video element
+  // Create the video element (IDL props, same approach as hero-banner)
   const video = createElement('video', 'hero-presence-video');
-  const videoAttr = {
-    loop: 'true',
-    preload: 'auto',
-    poster: videoPosterSrc,
-    autoplay: 'true',
-    muted: 'true',
-    playsinline: 'true',
-    'webkit-playsinline': 'true',
-  };
-  Object.entries(videoAttr).forEach(([key, value]) => {
-    video.setAttribute(key, value);
-  });
+  video.loop = true;
+  video.preload = 'auto';
+  video.autoplay = true;
+  video.muted = true;
+  video.playsInline = true;
+  video.setAttribute('webkit-playsinline', 'true');
+  if (videoPosterSrc) {
+    video.poster = videoPosterSrc;
+  }
 
   video.classList.add('autoplay-video');
   video.setAttribute('data-video-autoplay', 'true');
   const coverImg = checkDyanmicMediaImage(posterEl, 'poster');
-  coverImg.classList.add('video-cover-image');
+  if (coverImg) {
+    coverImg.classList.add('video-cover-image');
+  }
 
   const videoReady = setVideoSource(video, videoSrc);
   block.appendChild(video);
   videoContent.remove();
+
+  if (dynamicMediaPosterBaseSrc) {
+    const updatePoster = debounce(() => {
+      const nextPoster = getHeroBannerSmartCropUrl(dynamicMediaPosterBaseSrc);
+      if (video.getAttribute('poster') !== nextPoster) {
+        video.setAttribute('poster', nextPoster);
+      }
+    }, 150);
+    window.addEventListener('resize', updatePoster);
+  }
 
   const playBtn = createElement('button', 'hero-presence-video-play-btn');
   const playIcon = createElement('img', 'hero-presence-video-play-icon');
@@ -136,17 +154,17 @@ export default function decorate(block) {
   playBtn.appendChild(pauseIcon);
   block.appendChild(playBtn);
 
-  // Extract animated images from the second div
+  // Overlay is optional — missing it must not skip video playback setup
   const animatePicture = overlayEl?.querySelector('picture') || overlayEl?.querySelector('a');
-  if (!animatePicture) {
-    return;
+  if (animatePicture) {
+    const animateImg = checkDyanmicMediaImage(overlayEl, 'overlay');
+    if (animateImg) {
+      animateImg.classList.add('animate-target');
+      const animateContainer = createElement('div', 'hero-presence-animate h-grid-container');
+      animateContainer.appendChild(animateImg);
+      block.appendChild(animateContainer);
+    }
   }
-  const animateImg = checkDyanmicMediaImage(overlayEl, 'overlay');
-  animateImg.classList.add('animate-target');
-  const animateContainer = createElement('div', 'hero-presence-animate h-grid-container');
-  animateContainer.appendChild(animateImg);
-  block.appendChild(animateContainer);
-  // overlayEl.remove();
   // ========== CONSTRUCT DOM [END] ========== //
 
   // ========== VIDEO [START] ========== //

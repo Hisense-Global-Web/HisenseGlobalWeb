@@ -1,4 +1,4 @@
-import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+// import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -13,29 +13,33 @@ export default async function decorate(block) {
     infoBoxEl.className = 'info-box';
     const mobileTitWrapperEl = document.createElement('div');
     mobileTitWrapperEl.className = 'mobile-tit-wrapper';
-    const [dynamicSwitch, pcImgDom, mobileImgDom, titleBox, subtitleBox, descriptionBox] = [...row.children] ?? [];
-    const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true'; // dynamic media 标识
-    dynamicSwitch.remove();
+    const [pcImgDom, mobileImgDom, titleBox, subtitleBox, descriptionBox] = [...row.children] ?? [];
+    // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+    // const [dynamicSwitch, pcImgDom, mobileImgDom, titleBox, subtitleBox, descriptionBox] = [...row.children] ?? [];
+    // const isDynamicFlag = dynamicSwitch.textContent.trim() === 'true'; // dynamic media 标识
+    // dynamicSwitch.remove();
 
     if (pcImgDom) {
       pcImgDom.className = 'pc-image-box';
-      if (pcImgDom.querySelector('a') && isDynamicFlag) {
-        const dynamicImgSrc = pcImgDom.querySelector('a').getAttribute('href');
-        pcImgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'enterprise-card-item-img'));
-        pcImgDom.children[0].remove();
-      }
+      // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+      // if (pcImgDom.querySelector('a') && isDynamicFlag) {
+      //   const dynamicImgSrc = pcImgDom.querySelector('a').getAttribute('href');
+      //   pcImgDom.append(createDynamicMediaPicture(dynamicImgSrc, 'enterprise-card-item-img'));
+      //   pcImgDom.children[0].remove();
+      // }
     }
 
     if (mobileImgDom) {
       // mobile 端最终展示的 dom
-      let showMobileDom = mobileImgDom;
+      const showMobileDom = mobileImgDom;
       showMobileDom.className = 'mobile-image-box';
-      if (isDynamicFlag) {
-        // 如果启用dynamic media, 直接clone PC 端 img dom 元素，用来动态展示mobile 的图片
-        showMobileDom = pcImgDom.cloneNode(true);
-        showMobileDom.className = 'mobile-image-box';
-        mobileImgDom.remove();
-      }
+      // card image 暂时不需要同步 dynamic media, 先注释 ---20260724
+      // if (isDynamicFlag) {
+      //   // 如果启用dynamic media, 直接clone PC 端 img dom 元素，用来动态展示mobile 的图片
+      //   showMobileDom = pcImgDom.cloneNode(true);
+      //   showMobileDom.className = 'mobile-image-box';
+      //   mobileImgDom.remove();
+      // }
       // 移动端图片处理
       const mobileArrowEl = document.createElement('div');
       mobileArrowEl.className = 'mobile-arrow';
