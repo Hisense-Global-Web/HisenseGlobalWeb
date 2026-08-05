@@ -4,12 +4,12 @@
   .quick-action-card {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: var(--spacing-sm, 24px) var(--spacing-m, 32px);
+    gap: var(--spacing-l, 24px) var(--spacing-1-xl, 32px);
 
     @media (width < 640px) {
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-s, 18px);
+      gap: var(--spacing-l, 24px);
     }
 
     .quick-action-card-item {
@@ -17,59 +17,54 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: var(--spacing-xl, 48px) var(--spacing-m, 32px);
-      background-color: var(--color-primary-green-50, #009f9c);
-      border-radius: var(--border-radius-l, 20px);
-      gap: var(--spacing-m, 32px);
+      padding: var(--spacing-2-xl, 40px) var(--spacing-1-xl, 32px);
+      background-color: var(--background-dark-green-subtle, #009f9c);
+      border-radius: var(--border-radius-xl, 20px);
+      gap: var(--spacing-1-xl, 32px);
 
       @media (width < 640px) {
         cursor: default;
-        padding: var(--spacing-sm, 24px);
-        border-radius: var(--radius-xl, 16px);
-        gap: var(--spacing-xs, 16px);
+        padding: var(--spacing-1-xl, 32px) var(--spacing-l, 24px);
+        gap: var(--spacing-l, 24px);
       }
     }
 
     @media (hover: hover) {
       .quick-action-card-item:hover {
-        background-color: var(--color-primary-green-60, #008482);
+        background-color: var(--action-primary-color-default, #008482);
       }
 
       .quick-action-card-item:active {
-        background-color: var(--color-primary-green-70, #005a5c);
+        background-color: var(--action-primary-color-pressed, #005a5c);
       }
     }
 
     .quick-action-card-image {
-      line-height: 1.2;
+      line-height: var(--title-l-line-height, 24px);
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
     .quick-action-card-image img {
-      width: var(--size-80, 80px);
-      height: var(--size-80, 80px);
+      width: var(--size-100, 100px);
+      height: var(--size-100, 100px);
 
       @media (width < 640px) {
-        width: calc(48 / var(--breakpoint-mobile) * 100vw);
-        height: calc(48 / var(--breakpoint-mobile) * 100vw);
+        width: var(--size-64, 64px);
+        height: var(--size-64, 64px);
       }
     }
 
     .quick-action-card-description {
       margin-top: 0;
-      font-size: var(--fontsize-title2, 20px);
-      color: var(--color-white);
+      font-size: var(--title-l-font-size, 20px);
+      color: var(--text-white, #fff);
       font-weight: var(--fontweight-medium, 500);
-      line-height: 1.2;
+      line-height:var(--title-l-line-height, 24px);
       font-style: normal;
       text-align: center;
       text-transform: capitalize;
-
-      @media (width < 640px) {
-        font-size: var(--fontsize-title3, 18px);
-      }
     }
 
     .quick-action-card-description > p {
@@ -94,22 +89,22 @@
     }
 
     .quick-action-card-view-more a {
-      border: 1px solid var(--color-white);
-      border-radius: var(--size-100);
+      border: 1px solid var(--action-secondary-content-default, #fff);
+      border-radius: var(--border-radius-xxl, 80px);
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      padding: var(--size-4) var(--size-18);
-      color: var(--color-white);
-      font-size: var(--fontsize-body3, 12px);
+      padding: var(--spacing-xxxs, 0) var(--spacing-l, 24px);
+      color: var(--action-secondary-content-default, #fff);
+      font-size: var(--body-s-bold-font-size,14px);
       font-weight: var(--fontweight-medium, 500);
       text-decoration: none;
       text-align: center;
     }
 
     .quick-action-card-view-more a:active {
-      background-color: var(--color-primary-green-70, #005a5c);
-      color: var(--color-primary-grey-10, rgb(255 255 255 / 80%));
+      background-color: var(--action-primary-color-pressed, #005a5c);
+      color: var(--action-primary-content-pressed, #fff);
     }
   }
 }
