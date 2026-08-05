@@ -32,7 +32,7 @@ const { country, language } = getLocaleFromPath();
 const WISHLIST_CART_NAME_PREFIX = 'wishlist';
 const STOREFRONT_BASE_URL = (() => {
   if (isStageHostname()) {
-    return `https://${country}storefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com`;
+    return 'https://globalstorefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com';
   }
   if (country === 'us') {
     return 'https://eshop.hisense.com';
