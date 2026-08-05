@@ -151,9 +151,12 @@ html {
 	--gap: 16px;
 
 	/* border-radius */
-	--border-radius-l: 20px;
-	--border-radius-m: 8px;
-	--border-radius-s: 6px;
+
+	/* --border-radius-l: 20px; */
+
+	/* --border-radius-m: 8px; */
+
+	/* --border-radius-s: 6px; */
 
 	/* spacing */
 	--spacing-vertical-s: 40px;
@@ -206,12 +209,15 @@ html {
   --spacing-4xs: var(--size-4);
   --spacing-3xs: var(--size-8);
   --spacing-2xs: var(--size-12);
-  --spacing-xs: var(--size-16);
-  --spacing-s: var(--size-18);
+
+  /* --spacing-xs: var(--size-16); */
+
+  /* --spacing-s: var(--size-18); */
   --spacing-s2: var(--size-20);
   --spacing-sm: var(--size-24);
   --spacing-md: var(--size-30);
-  --spacing-m: var(--size-32);
+
+  /* --spacing-m: var(--size-32); */
   --spacing-lg: var(--size-40);
   --spacing-xl: var(--size-48);
   --spacing-2xl: var(--size-80);
