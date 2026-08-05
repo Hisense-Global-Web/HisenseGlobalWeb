@@ -616,14 +616,15 @@ function buildTabConfigs(config, supportData, country) {
   const warrantyItems = warrantyState.hasContent
     ? [createWarrantyItem(warrantyState, country)]
     : [createEmptyStateItem(DEFAULT_WARRANTY_EMPTY)];
-  const tabs = [
-    {
+  const tabs = [];
+  if (supportData?.documents?.length > 0) {
+    tabs.push({
       type: 'documentation',
       label: formatTabLabel(supportData.documentationTitle, 'Documentation'),
       items: documents,
       hasData: supportData.documents.length > 0,
-    },
-  ];
+    });
+  }
   if (firmwareState.hasContent) {
     tabs.push({
       type: 'firmware',
