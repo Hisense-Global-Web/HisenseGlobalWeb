@@ -26,7 +26,7 @@
             "template": {
               "name": "Strategic Card Item",
               "model": "strategic-card-item",
-              "isCapitalized": true
+              "disableCapitalized": false
             }
           }
         }
@@ -52,8 +52,8 @@
         {
           "component": "boolean",
           "valueType": "boolean",
-          "name": "isCapitalized",
-          "label": "Enable Capitalization"
+          "name": "disableCapitalized",
+          "label": "Disable Capitalization"
         },
         {
           "component": "text",

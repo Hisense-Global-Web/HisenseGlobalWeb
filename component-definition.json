@@ -3190,7 +3190,7 @@
                 "template": {
                   "name": "Special Capitalize Text List Item",
                   "model": "special-capitalize-text-list-item",
-                  "isCapitalized": true
+                  "disableCapitalized": false
                 }
               }
             }
@@ -3270,7 +3270,7 @@
                 "template": {
                   "name": "Strategic Card Item",
                   "model": "strategic-card-item",
-                  "isCapitalized": true
+                  "disableCapitalized": false
                 }
               }
             }

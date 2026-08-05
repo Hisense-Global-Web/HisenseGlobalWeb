@@ -25,7 +25,7 @@
             "template": {
               "name": "Special Capitalize Text List Item",
               "model": "special-capitalize-text-list-item",
-              "isCapitalized": true
+              "disableCapitalized": false
             }
           }
         }
@@ -46,8 +46,8 @@
         {
           "component": "boolean",
           "valueType": "boolean",
-          "name": "isCapitalized",
-          "label": "Enable Capitalization"
+          "name": "disableCapitalized",
+          "label": "Disable Capitalization"
         },
         {
           "component": "text",
@@ -57,9 +57,9 @@
           "description": "Which initial letter needs to be capitalized",
           "required": true,
           "condition": {
-            "===": [
+            "!==": [
               {
-                "var": "isCapitalized"
+                "var": "disableCapitalized"
               },
               true
             ]

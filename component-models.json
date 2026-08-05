@@ -6940,8 +6940,8 @@
       {
         "component": "boolean",
         "valueType": "boolean",
-        "name": "isCapitalized",
-        "label": "Enable Capitalization"
+        "name": "disableCapitalized",
+        "label": "Disable Capitalization"
       },
       {
         "component": "text",
@@ -6951,9 +6951,9 @@
         "description": "Which initial letter needs to be capitalized",
         "required": true,
         "condition": {
-          "===": [
+          "!==": [
             {
-              "var": "isCapitalized"
+              "var": "disableCapitalized"
             },
             true
           ]
@@ -7053,8 +7053,8 @@
       {
         "component": "boolean",
         "valueType": "boolean",
-        "name": "isCapitalized",
-        "label": "Enable Capitalization"
+        "name": "disableCapitalized",
+        "label": "Disable Capitalization"
       },
       {
         "component": "text",

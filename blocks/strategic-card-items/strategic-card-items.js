@@ -20,15 +20,15 @@ export default function decorate(block) {
   [...block.children].forEach((child) => {
     child.className = 'strategic-card-item';
     if (!child.children.length) return;
-    let isCapitalized = true;
+    let disableCapitalized = false;
     if (checkSwitch(child.children[1])) {
-      isCapitalized = getSwitchValue(child.children[1]);
+      disableCapitalized = getSwitchValue(child.children[1]);
       child.children[1].remove();
     }
     const [iconDiv, textDiv, bodyCopy, btnDiv] = child.children;
     iconDiv.className = 'card-icon';
     textDiv.className = 'card-text';
-    if (isCapitalized) {
+    if (!disableCapitalized) {
       textDiv.classList.add('strategic-card-first-letter');
     }
     bodyCopy.className = 'card-description';
