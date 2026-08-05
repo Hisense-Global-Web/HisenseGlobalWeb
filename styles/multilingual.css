@@ -190,6 +190,7 @@
   --stroke-dark-green: var(--color-green-600); 
 
   /* Spacing */
+  --spacing-xxxs: 0;
   --spacing-xxs: var(--size-4);
   --spacing-xs: var(--size-8);
   --spacing-s: var(--size-12);
