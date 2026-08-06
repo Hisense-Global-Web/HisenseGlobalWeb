@@ -26,6 +26,18 @@ const translateDictionary = {
     ar: 'اختر موقعك ولغتك.',
     ko: '지역과 언어를 선택하세요.',
   },
+  AC_LS_COPY_ONLY_LANGUAGE: {
+    en: 'Choose your location and language.',
+    es: 'Elija su ubicación e idioma.',
+    fr: 'Choisissez votre emplacement et votre langue.',
+    pt: 'Escolha sua localização e idioma.',
+    zh: '选择您的位置和语言。',
+    'zh-tw': '選擇您的位置和語言。',
+    ja: '場所と言語を選択してください。',
+    th: 'เลือกตำแหน่งที่ตั้งและภาษาของคุณ',
+    ar: 'اختر موقعك ولغتك.',
+    ko: '지역과 언어를 선택하세요.',
+  },
   AC_LS_OTHER_COUNTRY: {
     en: 'Other country or region',
     es: 'Otro país o región',
