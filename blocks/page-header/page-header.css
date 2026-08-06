@@ -16,7 +16,7 @@
   }
 
   .page-header-title {
-    font-size: var(--display-xl-font-size, 46px);
+    font-size: var(--display-l-font-size, 46px);
     font-weight: var(--fontweight-medium, 500);
     line-height: var(--display-l-line-height, 56px);
     text-transform: capitalize;
@@ -29,9 +29,9 @@
   .page-header-subtitle {
     margin-top: var(--spacing-l, 24px);
     color: var(--text-dark-gray-body-text, #333);
-    font-size: var(--heading-s-font-size, 18px);
+    font-size: var(--heading-s-font-size, 24px);
     font-weight: var(--fontweight-medium, 500);
-    line-height: var(--heading-s-line-height, 22px);
+    line-height: var(--heading-s-line-height, 28px);
 
     @media (width<640px) {
       margin-top: var(--spacing-m, 16px);
