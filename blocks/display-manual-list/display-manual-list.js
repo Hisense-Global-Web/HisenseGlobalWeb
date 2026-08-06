@@ -268,7 +268,7 @@ const generateDisplayManual = (commonInfo, manualInfo) => {
   const pcDownloadButtonCopy = pcDownloadButton?.cloneNode(true);
   const mobileDownloadIconCopy = mobileDownloadIcon?.cloneNode(true);
 
-  const { link } = manualInfo ?? {};
+  const { link, title } = manualInfo ?? {};
   const displayManualWrapperEl = document.createElement('div');
   displayManualWrapperEl.className = 'display-manual';
   const leftEl = document.createElement('div');
@@ -279,10 +279,10 @@ const generateDisplayManual = (commonInfo, manualInfo) => {
   if (link) {
     const noParamsUrl = link?.split('?')?.[0] ?? '';
     const fileName = noParamsUrl.substring(link.lastIndexOf('/') + 1);
-    const title = fileName.substring(0, fileName.lastIndexOf('.'));
+    const fileTitle = fileName.substring(0, fileName.lastIndexOf('.'));
     const titleEl = document.createElement('div');
     titleEl.className = 'display-manual-title';
-    titleEl.textContent = title;
+    titleEl.textContent = title ?? fileTitle;
     leftEl.appendChild(titleEl);
     displayManualWrapperEl.appendChild(leftEl);
     if (pcDownloadButtonCopy) {
