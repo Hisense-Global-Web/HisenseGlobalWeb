@@ -1193,6 +1193,7 @@ const createLanguageAside = async () => {
   document.querySelector('body').classList.add('has-language-aside');
   const languageAside = document.createElement('div');
   languageAside.id = 'language-aside';
+  languageAside.classList.add('mode-dark');
   const acLsContent = document.createElement('div');
   acLsContent.className = `ac-ls-content ${country === 'ca' ? 'thin' : ''}`;
   const acLsCopy = document.createElement('div');
@@ -1256,7 +1257,7 @@ const createLanguageAside = async () => {
 
   const acLsContinue = document.createElement('a');
   acLsContinue.id = 'ac-ls-continue';
-  acLsContinue.className = 'ac-ls-continue';
+  acLsContinue.className = 'ac-ls-continue mode-light';
   acLsContinue.textContent = translate('CONTINUE', language);
   const acLsClose = document.createElement('img');
   acLsClose.id = 'ac-ls-close';
