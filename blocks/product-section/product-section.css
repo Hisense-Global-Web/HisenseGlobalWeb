@@ -127,7 +127,7 @@ main .section.product-gallery-container.product-section-container .product-secti
   font-weight: var(--fontweight-medium);
 	line-height: 1.3;
   margin: var(--size-4) 0 0;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .rating-wrapper {
