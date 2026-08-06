@@ -30,6 +30,8 @@ export default function decorate(block) {
     textDiv.className = 'card-text';
     if (!disableCapitalized) {
       textDiv.classList.add('strategic-card-first-letter');
+    } else {
+      textDiv.classList.remove('strategic-card-first-letter');
     }
     bodyCopy.className = 'card-description';
     btnDiv.className = 'card-btn';

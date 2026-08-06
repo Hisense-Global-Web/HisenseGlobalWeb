@@ -52,7 +52,6 @@
       line-height: 120%;
 
       /* 28.8px */
-      text-transform: capitalize;
       word-break: keep-all;
       hyphens: none;
     }
@@ -150,7 +149,6 @@
         width: 100%;
         line-height: 130%;
         font-size: var(--size-20);
-        text-transform: capitalize;
 
         &::first-letter {
           font-size: var(--size-24);
