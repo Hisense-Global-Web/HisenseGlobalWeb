@@ -3632,6 +3632,20 @@
         "label": "Phase Image",
         "multi": false,
         "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_more",
+        "label": "Button Label",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "phase_popupId",
+        "label": "Popup SectionId",
+        "value": ""
       }
     ]
   },
@@ -5508,6 +5522,30 @@
     ]
   },
   {
+    "id": "popup-info-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "card-image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "info_title",
+        "label": "Title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "info_text",
+        "label": "Text"
+      }
+    ]
+  },
+  {
     "id": "popup-quote",
     "fields": [
       {
@@ -5918,6 +5956,52 @@
             "label": "Firmware Icon",
             "valueType": "string",
             "multi": false
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "warrantyContainer",
+        "label": "Warranty Settings",
+        "valueType": "string",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "reference",
+            "name": "warrantyIcon",
+            "label": "Warranty Icon",
+            "valueType": "string",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "name": "warranty",
+            "label": "Warranty Title",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "warrantyInfo",
+            "label": "Warranty Info",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "warrantyButton",
+            "label": "Warranty Button Text",
+            "valueType": "string"
+          },
+          {
+            "component": "aem-content",
+            "name": "warrantyLink",
+            "label": "Warranty Link",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "warrantyTips",
+            "label": "Warranty Tips",
+            "valueType": "string"
           }
         ]
       },
@@ -6854,12 +6938,26 @@
         "required": true
       },
       {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "disableCapitalized",
+        "label": "Disable Capitalization"
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "item_headline",
         "label": "Initial letter in capital letters",
         "description": "Which initial letter needs to be capitalized",
-        "required": true
+        "required": true,
+        "condition": {
+          "!==": [
+            {
+              "var": "disableCapitalized"
+            },
+            true
+          ]
+        }
       }
     ]
   },
@@ -6951,6 +7049,12 @@
         "label": "Icon",
         "required": true,
         "multi": false
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "disableCapitalized",
+        "label": "Disable Capitalization"
       },
       {
         "component": "text",

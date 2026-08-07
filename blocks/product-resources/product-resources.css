@@ -451,6 +451,12 @@
   margin-bottom: var(--spacing-s2, 20px);
 }
 
+.product-resources .tab-content[type="warranty"]
+.warranty-cta-wrapper {
+  margin-top: var(--spacing-sm, 24px);
+  margin-bottom: var(--spacing-md, 32px);
+}
+
 .product-resources .tab-content[type="warranty"] .item-description {
   gap: var(--spacing-2xs, 12px);
   margin-bottom: var(--spacing-md, 32px);

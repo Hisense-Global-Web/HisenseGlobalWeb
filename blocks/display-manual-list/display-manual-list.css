@@ -95,7 +95,7 @@
       .product-information-title {
         color: var(--color-primary-grey-100, #000);
         font-size: var(--size-34, 34px);
-        font-weight: 400;
+        font-weight: var(--fontweight-medium, 500);
         line-height: 120%;
 
         @media (width < 640px) {
@@ -182,7 +182,7 @@
             }
 
             .display-manual-title {
-              color: var(--color-primary-grey-70, #333);
+              color: var(--color-primary-grey-100, #000);
               font-size: var(--fontsize-body1, 16px);
               font-style: normal;
               font-weight: var(--fontweight-medium, 500);

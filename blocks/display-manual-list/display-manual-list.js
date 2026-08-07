@@ -3,10 +3,10 @@ import getDynamicHeaderHeight from '../../utils/dynamic-computed-header-height.j
 import translate from '../../utils/translate.js';
 import { getLocaleFromPath } from '../../scripts/locale-utils.js';
 
-const GLOBAL_DISPLAY = 'display';
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
+const { language } = getLocaleFromPath();
 
 const isAemEnvironment = () => {
   const hostname = window.location.hostname || '';
@@ -65,12 +65,12 @@ async function fetchJson(path) {
 
 const getProductEndpoint = (sku) => {
   if (!sku) return '';
-
+  const GLOBAL_DISPLAY = `global/${language}/display`;
   if (isAemEnvironment()) {
-    return `/bin/hisense/productListBySku.json?path=/${GLOBAL_DISPLAY}&sku=${encodeURIComponent(sku)}`;
+    return `/bin/hisense/productListBySku.json?path=/${GLOBAL_DISPLAY}&sku=${encodeURIComponent(sku)}&showDisabledProduct=${true}`;
   }
 
-  return `/product/sku/${GLOBAL_DISPLAY}/${sku.replace(/ /g, '+')}.json`;
+  return `/product/sku/${GLOBAL_DISPLAY}/${sku.replace(/ /g, '+')}.json?showDisabledProduct=${true}`;
 };
 
 function getSupportEndpoint(factoryModel, category, sku) {
@@ -148,7 +148,7 @@ const generateProductInfo = (product) => {
   return productInfoEl;
 };
 
-const buildPaginationControls = (container, state, onPageChange) => {
+const buildPaginationControls = (block, container, state, onPageChange) => {
   const { total, limit, offset } = state;
   if (total <= limit) {
     return;
@@ -196,7 +196,14 @@ const buildPaginationControls = (container, state, onPageChange) => {
     if (disabled) {
       btn.disabled = true;
     } else {
-      btn.addEventListener('click', () => onPageChange(page));
+      btn.addEventListener('click', () => {
+        // 平滑跳转到 '.bottom-wrapper' 元素
+        const bottomWrapper = block.querySelector('.bottom-wrapper');
+        if (bottomWrapper) {
+          bottomWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        onPageChange(page);
+      });
     }
     return btn;
   };
@@ -268,7 +275,7 @@ const generateDisplayManual = (commonInfo, manualInfo) => {
   const pcDownloadButtonCopy = pcDownloadButton?.cloneNode(true);
   const mobileDownloadIconCopy = mobileDownloadIcon?.cloneNode(true);
 
-  const { link } = manualInfo ?? {};
+  const { link, title } = manualInfo ?? {};
   const displayManualWrapperEl = document.createElement('div');
   displayManualWrapperEl.className = 'display-manual';
   const leftEl = document.createElement('div');
@@ -279,10 +286,10 @@ const generateDisplayManual = (commonInfo, manualInfo) => {
   if (link) {
     const noParamsUrl = link?.split('?')?.[0] ?? '';
     const fileName = noParamsUrl.substring(link.lastIndexOf('/') + 1);
-    const title = fileName.substring(0, fileName.lastIndexOf('.'));
+    const fileTitle = fileName.substring(0, fileName.lastIndexOf('.'));
     const titleEl = document.createElement('div');
     titleEl.className = 'display-manual-title';
-    titleEl.textContent = title;
+    titleEl.textContent = title ?? fileTitle;
     leftEl.appendChild(titleEl);
     displayManualWrapperEl.appendChild(leftEl);
     if (pcDownloadButtonCopy) {
@@ -329,7 +336,6 @@ export default async function decorate(block) {
       if (emptyTitleEl) emptyTitleEl.className = 'display-manual-list-empty-title';
       if (emptyTextEl) emptyTextEl.className = 'display-manual-list-empty-text';
     } else {
-      const { language } = getLocaleFromPath();
       emptyEl.textContent = translate('NO_ITEMS_FOUND', language);
       emptyEl.classList.add('display-manual-list-empty-title');
     }
@@ -410,7 +416,7 @@ export default async function decorate(block) {
       };
 
       // 创建PC端的分页器
-      buildPaginationControls(documentListEl, state, (targetPage) => {
+      buildPaginationControls(block, documentListEl, state, (targetPage) => {
         if (targetPage < 1) return;
         const maxPage = Math.ceil(state.total / state.limit);
         if (targetPage > maxPage) return;

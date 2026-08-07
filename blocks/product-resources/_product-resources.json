@@ -17,7 +17,13 @@
               "firmwareLink": "",
               "firmwareIcon": "",
               "noResultContent": "",
-              "productNotFoundMessage": "<p>Product not found.</p>"
+              "productNotFoundMessage": "<p>Product not found.</p>",
+              "warrantyIcon": "/content/dam/hisense/us/common-icons/compliance.svg",
+              "warranty": "Limited Warranty Coverage",
+              "warrantyInfo": "Find your warranty information",
+              "warrantyButton": "Go to Warranty Page",
+              "warrantyLink": "",
+              "warrantyTips": "Register your product within 30 days of purchase to activate extended warranty benefits."
             }
           }
         }
@@ -65,6 +71,52 @@
               "label": "Firmware Icon",
               "valueType": "string",
               "multi": false
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "name": "warrantyContainer",
+          "label": "Warranty Settings",
+          "valueType": "string",
+          "collapsible": true,
+          "fields": [
+            {
+              "component": "reference",
+              "name": "warrantyIcon",
+              "label": "Warranty Icon",
+              "valueType": "string",
+              "multi": false
+            },
+            {
+              "component": "text",
+              "name": "warranty",
+              "label": "Warranty Title",
+              "valueType": "string"
+            },
+            {
+              "component": "text",
+              "name": "warrantyInfo",
+              "label": "Warranty Info",
+              "valueType": "string"
+            },
+            {
+              "component": "text",
+              "name": "warrantyButton",
+              "label": "Warranty Button Text",
+              "valueType": "string"
+            },
+            {
+              "component": "aem-content",
+              "name": "warrantyLink",
+              "label": "Warranty Link",
+              "valueType": "string"
+            },
+            {
+              "component": "text",
+              "name": "warrantyTips",
+              "label": "Warranty Tips",
+              "valueType": "string"
             }
           ]
         },

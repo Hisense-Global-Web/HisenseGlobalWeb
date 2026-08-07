@@ -496,7 +496,7 @@ footer footer {
     }
 
     @media (width < 640px) {
-      height: var(--size-30);
+      height: auto;
       width: 100%;
       order: 1;
     }
@@ -513,9 +513,10 @@ footer footer {
       gap: var(--size-10);
       color: var(--color-primary-grey-50);
       align-items: center;
+      flex-wrap: wrap;
 
       @media (width < 640px) {
-        height: var(--size-20);
+        height: auto;
         line-height: var(--size-20);
         margin-left: var(--size-8);
       }
@@ -534,7 +535,7 @@ footer footer {
       
       .footer-lan-line {
         width: 1px;
-        height: 100%;
+        height: var(--size-18);
         background-color: var(--color-hisense-black);
       }
     }
