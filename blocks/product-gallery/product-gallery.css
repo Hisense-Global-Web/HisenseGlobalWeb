@@ -182,11 +182,8 @@
   width: 100%;
   height: 100%;
   display: flex;
-}
-
-.pdp-media .product-filter-item img {
-  width: 100%;
-  height: 100%;
+  object-fit: cover;
+  justify-content: center;
 }
 
 .pdp-media .product-carousel {
