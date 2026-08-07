@@ -513,7 +513,10 @@ function createSlide(block, row, slideIndex) {
       else div.append(textContent);
     } else if ([5, 6].includes(colIdx)) {
       // 处理button
-      buttonDiv.append(column);
+      const btnHref = column.querySelector('a')?.href?.replace?.(window.location.origin, '');
+      if (btnHref && btnHref !== '/' && btnHref !== '/.html') {
+        buttonDiv.append(column);
+      }
     } else {
       slide.append(column);
     }

@@ -25,7 +25,8 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Strategic Card Item",
-              "model": "strategic-card-item"
+              "model": "strategic-card-item",
+              "disableCapitalized": false
             }
           }
         }
@@ -35,8 +36,7 @@
   "models": [
     {
       "id": "strategic-card-items",
-      "fields": [
-      ]
+      "fields": []
     },
     {
       "id": "strategic-card-item",
@@ -48,7 +48,13 @@
           "label": "Icon",
           "required": true,
           "multi": false
-        }, 
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "disableCapitalized",
+          "label": "Disable Capitalization"
+        },
         {
           "component": "text",
           "name": "title",

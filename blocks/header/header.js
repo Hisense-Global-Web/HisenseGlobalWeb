@@ -1197,7 +1197,7 @@ const createLanguageAside = async () => {
   acLsContent.className = `ac-ls-content ${country === 'ca' ? 'thin' : ''}`;
   const acLsCopy = document.createElement('div');
   acLsCopy.className = 'ac-ls-copy';
-  acLsCopy.textContent = translate('AC_LS_COPY', language);
+  acLsCopy.textContent = country === 'global' ? translate('AC_LS_COPY_ONLY_LANGUAGE', language) : translate('AC_LS_COPY', language);
   const acLsActions = document.createElement('div');
   acLsActions.className = 'ac-ls-actions';
   const acLsDropdown = document.createElement('div');
@@ -1717,6 +1717,9 @@ export default async function decorate(block) {
 
   const actionsEl = document.createElement('div');
   actionsEl.className = 'nav-actions';
+  if (country === 'global') {
+    actionsEl.style.display = 'none';
+  }
   navLinks.forEach((action) => {
     const link = document.createElement('div');
     link.className = 'nav-section';

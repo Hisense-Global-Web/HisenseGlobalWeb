@@ -32,7 +32,7 @@ const { country, language } = getLocaleFromPath();
 const WISHLIST_CART_NAME_PREFIX = 'wishlist';
 const STOREFRONT_BASE_URL = (() => {
   if (isStageHostname()) {
-    return `https://${country}storefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com`;
+    return 'https://globalstorefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com';
   }
   if (country === 'us') {
     return 'https://eshop.hisense.com';
@@ -2116,14 +2116,14 @@ export default async function decorate(block) {
   faqMobileBtn.classList.add('pdp-nav-menu-item');
   faqMobileBtn.textContent = translate('FAQ', language);
   faqMobileBtn.addEventListener('click', () => {
-    if (faqLink) window.location.href = faqLink;
+    if (faqLink) window.open(faqLink, '_blank');
   });
 
   const resourcesMobileBtn = document.createElement('div');
   resourcesMobileBtn.classList.add('pdp-nav-menu-item');
   resourcesMobileBtn.textContent = 'Resources';
   resourcesMobileBtn.addEventListener('click', () => {
-    if (resourcesLink) window.location.href = resourcesLink;
+    if (resourcesLink) window.open(resourcesLink, '_blank');
   });
 
   const pdpNavMenu = pdpNav.querySelector('.pdp-nav-menu');

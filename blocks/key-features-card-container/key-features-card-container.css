@@ -28,10 +28,15 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
+
+  /* display: grid; */
+  display: flex;
+  justify-content: center;
+  
 
   @media (width >= 640px) {
-    grid-template-columns: repeat(5, 1fr);
+    /* grid-template-columns: repeat(5, 1fr); */
+    flex-wrap: wrap;
   }
 
   @media (width < 640px) {
@@ -43,8 +48,11 @@
     -ms-overflow-style: none; /* IE/Edge */
     touch-action: pan-x pan-y pinch-zoom; /* 允许水平滑动和捏合缩放 */
     overscroll-behavior-x: contain; /* 防止滚动链 */
-    grid-auto-flow: column;
+
+    /* grid-auto-flow: column; */
     gap: var(--small);
+    flex-wrap: nowrap;
+    justify-content: flex-start;
 	}
 }
 
@@ -60,6 +68,8 @@
   align-items: center;
   box-sizing: border-box;
   background: white;
+  width: calc((100% - 4 * var(--size-20)) / 5);
+  flex-shrink: 0;
 
    @media (width < 640px) {
     position: relative;

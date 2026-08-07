@@ -1,5 +1,6 @@
 import { createElement } from '../../utils/dom-helper.js';
 import { createDynamicMediaPicture } from '../hero-banner/media-reference.js';
+import popupShowUtils from '../../utils/popup-module-utils.js';
 
 const segments = window.location.pathname.split('/').filter(Boolean);
 const country = segments[segments[0] === 'content' ? 2 : 0] || 'cn';
@@ -35,6 +36,8 @@ export default async function decorate(block) {
       const textGroup = createElement('div', 'timeline-phase-text');
       const textGroupHeader = createElement('div', 'timeline-phase-text-header');
       const description = createElement('div', 'timeline-phase-description');
+      const learnMore = createElement('div', 'timeline-phase-learn-more');
+      let sectionPopupId = '';
       elements.forEach((element, index) => {
         const picture = element.querySelector('picture');
         const aEl = element.querySelector('a');
@@ -73,6 +76,12 @@ export default async function decorate(block) {
             case 2:
               description.appendChild(element);
               break;
+            case 4:
+              learnMore.textContent = element.textContent.trim();
+              break;
+            case 5:
+              sectionPopupId = element.textContent.trim();
+              break;
           }
         }
       });
@@ -80,7 +89,14 @@ export default async function decorate(block) {
       if (!isEmpty(textGroupHeader)) {
         textGroup.appendChild(textGroupHeader);
         textGroup.appendChild(description);
+        textGroup.appendChild(learnMore);
         phaseTextContainer.appendChild(textGroup);
+        if (!sectionPopupId) {
+          // 如果没设置 sectionPopupId，则不展示 learnMore 按钮
+          learnMore.style.display = 'none';
+        }
+        learnMore.setAttribute('data-id', sectionPopupId);
+        textGroup.querySelector('.timeline-phase-learn-more').addEventListener('click', popupShowUtils);
       }
     }
     child.style.display = 'none';

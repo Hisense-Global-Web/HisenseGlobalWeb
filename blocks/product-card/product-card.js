@@ -40,7 +40,7 @@ import translate from '../../utils/translate.js';
 const { country, language } = getLocaleFromPath();
 const STOREFRONT_BASE_URL = (() => {
   if (isStageHostname()) {
-    return `https://${country}storefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com`;
+    return 'https://globalstorefront.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com';
   }
   if (country === 'us') {
     return 'https://eshop.hisense.com';

@@ -635,10 +635,10 @@ export default async function decorate(block) {
 
     const getRegionUrl = () => {
       const baseUrl = window.GRAPHQL_BASE_URL || '';
-      const isEditMode = block.hasAttribute('data-aue-resource');
+      const isEditMode = block.hasAttribute('data-aue-resource') || window.location.hostname.startsWith('author');
       const fiveMinutesMs = 5 * 60 * 1000;
       const cacheBuster = simpleHash(Math.floor(Date.now() / fiveMinutesMs));
-      const localizedPath = buildLocalizedFooterPath(window.location.pathname);
+      const localizedPath = processPath(buildLocalizedFooterPath(window.location.pathname));
       return `${baseUrl}${isEditMode ? '/bin' : '/api'}${REGION}?path=${localizedPath}&_t=${cacheBuster}`;
     };
 
@@ -683,6 +683,9 @@ export default async function decorate(block) {
     return acc;
   }, {}), language)}
   </div>`;
+    if (country === 'global') {
+      lanGroup.style.alignItems = 'flex-start';
+    }
     const regionIcon = lanGroup.querySelector('.region-icon');
     if (regionIcon) {
       regionIcon.addEventListener('click', () => {

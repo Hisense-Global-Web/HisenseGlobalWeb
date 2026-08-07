@@ -369,10 +369,10 @@ export function createComparePopup() {
   comparePopupTitBoxEl.className = 'compare-popup-tit-box';
   const comparePopupTitEl = document.createElement('div');
   comparePopupTitEl.className = 'popup-tit';
-  comparePopupTitEl.textContent = 'Compare Product Models';
+  const { language } = getLocaleFromPath();
+  comparePopupTitEl.textContent = translate('COMPARE_PRODUCT_MODELS', language);
   const comparePopupTitTipsEl = document.createElement('div');
   comparePopupTitTipsEl.className = 'popup-tit-tip';
-  const { language } = getLocaleFromPath();
   comparePopupTitTipsEl.textContent = translate('COMPARE_FEATURES_AND_FIND_YOUR_FIT', language);
   comparePopupTitBoxEl.append(comparePopupTitEl, comparePopupTitTipsEl);
   // popup compare product name
