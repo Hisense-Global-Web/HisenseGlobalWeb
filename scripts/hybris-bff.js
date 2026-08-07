@@ -386,8 +386,8 @@ function getCachedAuthState() {
       syncWindowAuthState();
     }
   }
-
-  return { ...authState };
+  const { country, language } = getLocaleFromPath();
+  return { ...authState, country, language };
 }
 
 function resolveHybrisBffBaseUrl() {
