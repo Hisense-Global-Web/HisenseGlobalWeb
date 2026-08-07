@@ -387,6 +387,10 @@ function getCachedAuthState() {
     }
   }
   const { country, language } = getLocaleFromPath();
+  const { myAccountUrl } = authState;
+  if (language !== authState.language) {
+    authState.myAccountUrl = myAccountUrl.replace(`/${authState.language}/`, `/${language}/`);
+  }
   return { ...authState, country, language };
 }
 
