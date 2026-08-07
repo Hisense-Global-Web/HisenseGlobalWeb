@@ -674,6 +674,9 @@ export default async function decorate(block) {
     return acc;
   }, {}), language)}
   </div>`;
+    if (country === 'global') {
+      lanGroup.style.alignItems = 'flex-start';
+    }
     const regionIcon = lanGroup.querySelector('.region-icon');
     if (regionIcon) {
       regionIcon.addEventListener('click', () => {
