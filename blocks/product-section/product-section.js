@@ -894,6 +894,8 @@ export default async function decorate(block) {
       badgesMobile.appendChild(badgesMobileItem);
     });
     badgesMobileGroup.appendChild(badgesMobile);
+  } else {
+    badgesMobileGroup.style.display = 'none';
   }
 
   const buy = document.createElement('button');
