@@ -148,7 +148,7 @@ const generateProductInfo = (product) => {
   return productInfoEl;
 };
 
-const buildPaginationControls = (container, state, onPageChange) => {
+const buildPaginationControls = (block, container, state, onPageChange) => {
   const { total, limit, offset } = state;
   if (total <= limit) {
     return;
@@ -198,9 +198,9 @@ const buildPaginationControls = (container, state, onPageChange) => {
     } else {
       btn.addEventListener('click', () => {
         // 平滑跳转到 '.bottom-wrapper' 元素
-        const listTitleEl = document.querySelector('.bottom-wrapper');
-        if (listTitleEl) {
-          listTitleEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const bottomWrapper = block.querySelector('.bottom-wrapper');
+        if (bottomWrapper) {
+          bottomWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         onPageChange(page);
       });
@@ -416,7 +416,7 @@ export default async function decorate(block) {
       };
 
       // 创建PC端的分页器
-      buildPaginationControls(documentListEl, state, (targetPage) => {
+      buildPaginationControls(block, documentListEl, state, (targetPage) => {
         if (targetPage < 1) return;
         const maxPage = Math.ceil(state.total / state.limit);
         if (targetPage > maxPage) return;
