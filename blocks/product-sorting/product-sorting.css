@@ -63,7 +63,7 @@ main > :not(.category-carousel-container).product-card-container.product-sorting
 
 .product-sorting .plp-results-box {
   /* width: 110px; */
-  padding-left: var(--size-12);
+  padding-inline-start: var(--size-12);
   height: var(--size-24);
   display: flex;
   justify-content: center;
@@ -140,7 +140,7 @@ main > :not(.category-carousel-container).product-card-container.product-sorting
 
 .product-sorting .plp-sort span {
   white-space: nowrap;
-  margin-right: var(--size-8);
+  margin-inline-end: var(--size-8);
 }
 
 .product-sorting .plp-sort .sort-arrow {
@@ -158,7 +158,7 @@ main > :not(.category-carousel-container).product-card-container.product-sorting
 
 .product-sorting .plp-sort-options {
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   position: absolute;
   background: #fff;
   width: 100%;
@@ -188,7 +188,7 @@ main > :not(.category-carousel-container).product-card-container.product-sorting
   line-height: var(--size-30);
   border-radius: var(--size-30);
   color: var(--color-primary-grey-50);
-  padding-left: 10px;
+  padding-inline-start: 10px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -237,14 +237,14 @@ main > :not(.category-carousel-container).product-card-container.product-sorting
     font-size: var(--size-14);
     font-weight: var(--fontweight-book);
     height: var(--size-40);
-    margin-left: var(--size-12);
+    margin-inline-start: var(--size-12);
     cursor: pointer;
 
     img {
       width: var(--size-24);
       height: var(--size-24);
       display: inline-block;
-      margin-right: var(--size-8);
+      margin-inline-end: var(--size-8);
     }
 
     span {
@@ -270,7 +270,7 @@ main > :not(.category-carousel-container).product-card-container.product-sorting
       display: none;
       position: fixed;
       top: 0;
-      left: 0;
+      inset-inline-start: 0;
       width: 100%;
       height: 100vh;
       background: rgb(0 0 0 / 50%);
@@ -285,7 +285,7 @@ main > :not(.category-carousel-container).product-card-container.product-sorting
       /* height: 100vh; */
       height: auto;
       max-height: calc(300 / var(--breakpoint-mobile) * 100vw);
-      left: 0;
+      inset-inline-start: 0;
 
       /* top: -100vh; */
       top: -600px;
@@ -310,7 +310,7 @@ main > :not(.category-carousel-container).product-card-container.product-sorting
 
       .plp-sort-options {
         box-shadow: none;
-        padding-left: var(--size-32);
+        padding-inline-start: var(--size-32);
         padding-bottom: 0;
         border-radius: 0;
         display: block;
@@ -323,7 +323,7 @@ main > :not(.category-carousel-container).product-card-container.product-sorting
           line-height: var(--size-37);
           height: var(--size-37);
           margin-bottom: var(--size-8);
-          padding-left: 0;
+          padding-inline-start: 0;
           font-size: var(--size-14);
 
           &:last-child {
@@ -348,7 +348,7 @@ main > :not(.category-carousel-container).product-card-container.product-sorting
 
       span {
         white-space: nowrap;
-        margin-right: var(--size-8);
+        margin-inline-end: var(--size-8);
         font-weight: var(--fontweight-book);
       }
 

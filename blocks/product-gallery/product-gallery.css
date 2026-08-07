@@ -280,7 +280,7 @@
           }
   
           .product-filter-item:last-child {
-            /* margin-right: 18px; */
+            /* margin-inline-end: 18px; */
           }
         }
       }

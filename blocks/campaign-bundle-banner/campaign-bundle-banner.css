@@ -152,8 +152,7 @@
           }
 
           &:first-child {
-            margin-left: var(--size-36);
-            margin-right: var(--size-88);
+            margin-inline: var(--size-36) var(--size-88);
           }
         }
       }
@@ -184,7 +183,7 @@
 
       .fifa-top-title {
         margin-bottom: 0;
-        text-align: left;
+        text-align: start;
         height: calc(164 / var(--breakpoint-mobile) * 100vw);
 
         .top-title {
@@ -209,7 +208,7 @@
 
         .fifa-left-content {
           width: 100%;
-          margin-right: 0;
+          margin-inline-end: 0;
           margin-top: auto;
           height: calc(165 / var(--breakpoint-mobile) * 100vw);
           justify-content: flex-start;

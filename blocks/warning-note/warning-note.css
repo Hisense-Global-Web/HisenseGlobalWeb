@@ -39,7 +39,7 @@
     }
 
     ol {
-      padding-left: var(--size-16);
+      padding-inline-start: var(--size-16);
     }
 
     a {

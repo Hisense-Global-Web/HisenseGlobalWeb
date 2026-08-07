@@ -143,7 +143,7 @@
       background: var(--color-primary-grey-10);
       border-radius: var(--size-20);
       position: absolute;
-      left: 50%;
+      inset-inline-start: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
       padding: var(--size-80);
@@ -154,7 +154,7 @@
 
       .qr-close {
         position: absolute;
-        right: var(--size-32);
+        inset-inline-end: var(--size-32);
         top: var(--size-32);
         width: var(--size-32);
         height: var(--size-32);

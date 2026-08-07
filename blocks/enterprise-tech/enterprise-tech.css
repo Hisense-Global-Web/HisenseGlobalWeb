@@ -63,7 +63,7 @@
       }
 
       /* h1, h2, h3, h4, h5, h6, p {
-        padding-left: var(--size-12);
+        padding-inline-start: var(--size-12);
       }
 
       h1::before, h2::before, h3::before, h4::before, h5::before, h6::before, p::before {
@@ -73,14 +73,14 @@
         content: '';
         background-color: var(--color-primary-grey-50);
         border-radius: 50%;
-        margin-right: var(--size-12);
+        margin-inline-end: var(--size-12);
         position: relative;
         top: max(calc(-2 / var(--breakpoint-pc) * 100vw), -2px);
       } */
 
       ul, ol {
-        padding-left: var(--size-12);
-        margin-left: var(--size-12);
+        padding-inline-start: var(--size-12);
+        margin-inline-start: var(--size-12);
         line-height: var(--size-21);
 
         li {

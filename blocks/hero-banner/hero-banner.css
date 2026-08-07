@@ -79,7 +79,7 @@ p {
       position: absolute;
       top: 0;
       bottom: 0;
-      left: 0;
+      inset-inline-start: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -93,7 +93,7 @@ p {
   .hero-banner-content {
     position: absolute;
     top: 50%;
-    left: calc(
+    inset-inline-start: calc(
       50% - min(calc(1120 / var(--breakpoint-pc) * 100vw), 1120px) / 2
     );
     transform: translate(0, -50%);
@@ -307,7 +307,7 @@ p {
   .video-play-icon {
     position: absolute;
     bottom: var(--size-24);
-    left: min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
+    inset-inline-start: min(calc(160 / var(--breakpoint-pc) * 100vw), 160px);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -490,7 +490,7 @@ p {
       .hero-banner-content {
         height: auto;
         width: 100%;
-        left: calc(
+        inset-inline-start: calc(
           50% - min(calc(1120 / var(--breakpoint-pc) * 100vw), 1120px) / 2
         );
       }
@@ -548,7 +548,7 @@ p {
         bottom: var(--size-54);
         transform: none;
         font-weight: var(--fontweight-medium);
-        left: 0;
+        inset-inline-start: 0;
         gap: var(--size-18);
         padding: 0 var(--size-24);
         max-height: calc(272 / var(--breakpoint-mobile) * 100vw);
@@ -634,9 +634,8 @@ p {
     width: var(--size-24);
     height: var(--size-24);
     border-radius: 100%;
-    right: var(--size-24);
+    inset-inline: auto var(--size-24);
     bottom: var(--size-52);
-    left: auto;
     backdrop-filter: blur(calc(var(--size-20) / 2));
   }
 
@@ -645,7 +644,7 @@ p {
 
     .hero-banner-item .hero-banner-content {
       line-height: 1.2;
-      left: 0;
+      inset-inline-start: 0;
       bottom: 0;
       padding: 0 var(--size-24) var(--size-32);
       font-size: var(--size-34);

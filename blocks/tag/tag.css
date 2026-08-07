@@ -48,8 +48,8 @@ main .section.tag-container .tag-wrapper {
         
         @media (width < 640px) {
           width: calc(100% + var(--common-padding) * 2);
-          margin-left: calc(var(--common-padding) * -1);
-          padding-left: calc(var(--common-padding) * 1);
+          margin-inline-start: calc(var(--common-padding) * -1);
+          padding-inline-start: calc(var(--common-padding) * 1);
           overflow-x: auto;
           scrollbar-width: none;
           flex-wrap: nowrap;
@@ -78,7 +78,7 @@ main .section.tag-container .tag-wrapper {
             height: var(--size-36);
 
             &:last-child {
-              margin-right: calc(var(--common-padding) * 1);
+              margin-inline-end: calc(var(--common-padding) * 1);
             }
           }
         }

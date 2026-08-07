@@ -19,7 +19,7 @@ export default function decorate(block) {
       description.classList.add('quick-action-card-description');
       // Link连接
       const buttonDiv = element.children[2];
-      buttonDiv.classList.add('quick-action-card-view-more');
+      buttonDiv.classList.add('quick-action-card-view-more', 'mode-dark');
       const buttonLink = buttonDiv.querySelector('a');
       buttonLink.classList.remove('button');
       // Mobile端的按钮文案

@@ -115,7 +115,7 @@
 
           span {
             white-space: nowrap;
-            margin-right: var(--size-8);
+            margin-inline-end: var(--size-8);
             color: var(--color-primary-grey-100);
           }
 
@@ -129,7 +129,7 @@
 
         .plp-sort-options {
           top: 0;
-          left: 0;
+          inset-inline-start: 0;
           position: absolute;
           background: #fff;
           width: 100%;
@@ -151,7 +151,7 @@
             line-height: var(--size-30);
             border-radius: var(--size-30);
             color: var(--color-primary-grey-50);
-            padding-left: 10px;
+            padding-inline-start: 10px;
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -321,7 +321,7 @@
 
         ul,
         ol {
-          margin-left: var(--size-24);
+          margin-inline-start: var(--size-24);
           margin-bottom: var(--size-16);
 
           li {

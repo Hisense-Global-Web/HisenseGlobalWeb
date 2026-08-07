@@ -37,17 +37,17 @@
   .collapse-context {
     font-size: var(--fontsize-body1);
     line-height: 1.6;
-    padding-right: var(--size-80);
+    padding-inline-end: var(--size-80);
     color: var(--color-primary-grey-70);
 
     @media (width < 640px) {
       font-size: var(--size-14);
       line-height: 1.5;
-      padding-right: 0;
+      padding-inline-end: 0;
     }
 
     ol {
-      padding-left: var(--size-16);
+      padding-inline-start: var(--size-16);
     }
 
     a {

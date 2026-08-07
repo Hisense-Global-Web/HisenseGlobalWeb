@@ -107,7 +107,7 @@
             background: #fff;
             width: 100%;
             top: 0;
-            left: 0;
+            inset-inline-start: 0;
             overflow: hidden;
             transform: scaleY(0);
             transform-origin: top center; /* 从顶部向下展开 */
@@ -403,7 +403,7 @@
 
                 .content-wrapper ul,
                 .content-wrapper ol {
-                  padding-left: var(--size-20);
+                  padding-inline-start: var(--size-20);
                 }
 
                 .type-wrapper {

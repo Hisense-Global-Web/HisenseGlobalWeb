@@ -131,17 +131,17 @@ body.already-selected-language-aside .section {
   .region-list li {
     width: calc(25% - 60px);
     line-height: var(--size-24, 24px);
-    margin-right: var(--spacing-vertical-l, 80px);
+    margin-inline-end: var(--spacing-vertical-l, 80px);
     margin-bottom: var(--spacing-3xs, 8px);
     display: flex;
 
     &:nth-child(4n) {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
 
     @media (width < 640px) {
       width: 100%;
-      margin-right: 0;
+      margin-inline-end: 0;
 
       &:first-child {
         margin-top: var(--spacing-sm, 24px);

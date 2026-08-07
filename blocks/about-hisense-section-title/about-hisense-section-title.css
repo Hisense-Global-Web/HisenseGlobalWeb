@@ -11,7 +11,7 @@
   text-align: center ;
 
    @media (width < 640px) {
-     text-align: left;
+     text-align: start;
   }
 }
 

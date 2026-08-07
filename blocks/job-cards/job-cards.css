@@ -76,7 +76,7 @@
                
                @media (width < 640px) {
                  display: inline-block;
-                 margin-left: var(--size-8);
+                 margin-inline-start: var(--size-8);
                }
              }
            }

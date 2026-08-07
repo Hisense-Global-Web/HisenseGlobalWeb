@@ -84,7 +84,7 @@
       }
 
       .operate-button-container {
-        margin-left: auto;
+        margin-inline-start: auto;
 
         .green-60 {
           background: var(--color-primary-green-60, #008482);
