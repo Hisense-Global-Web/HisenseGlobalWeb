@@ -2,9 +2,9 @@
 
 .tech-information {
   display: flex;
-  border-radius: var(--size-20);
+  border-radius: var(--border-radius-xl);
   overflow: hidden;
-  max-height: min(calc(730 / var(--breakpoint-pc) * 100vw), 730px);
+  max-height: min(calc(787 / var(--breakpoint-pc) * 100vw), 787px);
   flex-direction: row-reverse;
 
    &.img-left {
@@ -45,8 +45,8 @@
   .tech-info-container {
     /* width: min(calc(600 / var(--breakpoint-pc) * 100vw), 600px); */
     width: 53.571%;
-    background: var(--color-primary-grey-20);
-    padding: var(--size-48);
+    background: var(--background-light-gray-subtle);
+    padding: var(--spacing-2-xl) var(--spacing-1-xl);
     display: flex;
     flex-direction: column;
 
@@ -54,53 +54,54 @@
       max-width: 100%;
 
       .tech-info-title {
-        font-size: var(--size-16);
+        font-size: var(--label-eyebrow-font-size);
         font-weight: var(--fontweight-medium);
-        line-height: var(--size-24);
-        color: var(--color-primary-green-60);
-        margin-bottom: var(--size-8);
+        line-height: var(--label-eyebrow-line-height);
+        color: var(--text-green);
+        margin-bottom: var(--spacing-xs);
         text-transform: uppercase;
       }
 
       .tech-info-subtitle {
-        font-size: var(--size-30);
+        font-size: var(--heading-l-font-size);
         font-weight: var(--fontweight-medium);
-        color: var(--color-primary-grey-100);
-        margin-bottom: var(--size-20);
-        line-height: var(--size-36);
+        color: var(--text-black-title);
+        margin-bottom: var(--spacing-m);
+        line-height: var(--heading-l-line-height);
       }
 
       .tech-info-text {
-        font-size: var(--size-16);
+        font-size: var(--body-l-font-size);
         font-weight: var(--fontweight-book);
-        color: var(--color-primary-grey-80);
-        line-height: var(--size-24);
+        color: var(--text-dark-gray-body-text);
+        line-height: var(--body-l-line-height);
       }
     }
 
     .tech-cta-wrapper {
-      margin-top: var(--size-32);
+      margin-top: var(--spacing-1-xl);
 
       .cta-button {
-        display: inline-block;
-        padding: 0 var(--size-32);
+        padding: 0 var(--spacing-1-xl);
         height: var(--size-50);
-        line-height: var(--size-50);
-        background-color: var(--color-primary-green-60);
-        color: #fff;
-        font-size: var(--size-14);
+        line-height: var(--body-s-bold-line-height);
+        display: inline-flex;
+        align-items: center;
+        background-color: var(--action-primary-color-default);
+        color: var(--action-primary-content-default);
+        font-size: var(--body-s-bold-font-size);
         font-weight: var(--fontweight-medium);
-        border-radius: var(--size-25);
+        border-radius: var(--border-radius-xxl);
         text-align: center;
         cursor: pointer;
 
         &:hover {
-          background-color: var(--color-primary-green-40);
+          background-color: var(--action-primary-color-hovered);
         }
 
         &:active {
-          background-color: var(--color-primary-green-70);
-          color: var(--white-alpha-80);
+          background-color: var(--action-primary-color-pressed);
+          color: var(--action-primary-content-pressed);
         }
       }
     }
@@ -115,11 +116,11 @@
   .tech-information {
     flex-direction: column;
     max-height: unset;
-    border-radius: var(--size-16);
+    border-radius: var(--border-radius-l);
 
     .tech-img-wrapper {
       width: 100%;
-      height: calc(246 / var(--breakpoint-mobile) * 100vw);
+      height: calc(236 / var(--breakpoint-mobile) * 100vw);
 
       .tech-mobile-img {
         display: block;
@@ -133,29 +134,14 @@
     .tech-info-container {
       width: 100%;
       height: auto;
-      padding: var(--size-32) var(--size-24);
-
-      .tech-text-wrapper {
-        .tech-info-title {
-          font-size: var(--size-16);
-          margin-bottom: var(--size-4);
-        }
-
-        .tech-info-subtitle {
-          font-size: var(--size-24);
-        }
-
-        .tech-info-text {
-          font-size: var(--size-14);
-          line-height: var(--size-21);
-        }
-      }
+      padding: var(--spacing-l) var(--spacing-m-l) var(--spacing-1-xl);
 
       .tech-cta-wrapper {
+        margin-top: var(--spacing-l);
+
         .cta-button {
-          padding: 0 var(--size-24);
-          height: var(--size-40);
-          line-height: var(--size-40);
+          display: flex;
+          justify-content: center;
         }
       }
     }

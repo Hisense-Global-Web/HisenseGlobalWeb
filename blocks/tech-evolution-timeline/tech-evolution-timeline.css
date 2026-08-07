@@ -204,7 +204,6 @@
         padding: var(--spacing-2-xl) var(--spacing-m-l);
         width: calc(308 / var(--breakpoint-mobile) * 100vw);
         height: calc(300 / var(--breakpoint-mobile) * 100vw);
-        border-radius: var(--border-radius-l);
 
         .background-box {
           img {
@@ -217,10 +216,6 @@
           .image-box {
             width: var(--icon-2-xl);
             height: var(--icon-2-xl);
-          }
-
-          .category-title {
-            margin-bottom: var(--size-8);
           }
 
         }
