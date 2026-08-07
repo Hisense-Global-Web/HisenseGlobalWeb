@@ -196,7 +196,14 @@ const buildPaginationControls = (container, state, onPageChange) => {
     if (disabled) {
       btn.disabled = true;
     } else {
-      btn.addEventListener('click', () => onPageChange(page));
+      btn.addEventListener('click', () => {
+        // 平滑跳转到 '.bottom-wrapper' 元素
+        const listTitleEl = document.querySelector('.bottom-wrapper');
+        if (listTitleEl) {
+          listTitleEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        onPageChange(page);
+      });
     }
     return btn;
   };
