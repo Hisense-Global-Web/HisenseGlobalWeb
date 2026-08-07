@@ -149,10 +149,6 @@
         width: 100%;
         line-height: 130%;
         font-size: var(--size-20);
-
-        &::first-letter {
-          font-size: var(--size-24);
-        }
       }
 
       .card-description,
