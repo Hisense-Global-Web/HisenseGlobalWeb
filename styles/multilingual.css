@@ -1,4 +1,4 @@
-:root {
+:root, .mode-dark .mode-light {
   /* Font Size */
   --display-xl-font-size: var(--size-72);
   --display-xl-line-height: var(--size-80);

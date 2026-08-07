@@ -57,10 +57,10 @@
 
   &.is-company {
     transition: none;
-    background: var(--color-primary-grey-10);
+    background: var(--background-primary);
 
     .nav-container {
-      background: var(--color-primary-grey-10);
+      background: var(--background-primary);
     }
   }
 
@@ -70,7 +70,7 @@
     }
 
     .nav-container {
-      background: var(--color-primary-grey-10);
+      background: var(--background-primary);
     }
   }
 
@@ -178,7 +178,7 @@ body.already-selected-language-aside #navigation {
   #navigation:has(.nav-container:hover, .search-box-outer:hover) {
     background: #fff;
     border-color: #fff;
-    color: rgb(51 51 51 / 100%);
+    color: var(--text-black-title);
     transition: none;
 
     .nav-link,
@@ -215,7 +215,7 @@ body.already-selected-language-aside #navigation {
 
       .count-span {
         background: var(--text-green);
-        color: var(--color-primary-grey-10);
+        color: var(--background-primary);
       }
     }
   }
@@ -277,7 +277,7 @@ body.already-selected-language-aside #navigation {
 }
 
 #navigation .nav-second {
-  height: 82px;
+  height: 86px;
   display: flex;
   justify-content: space-between;
   gap: 58px;
@@ -337,7 +337,7 @@ body.already-selected-language-aside #navigation {
 
     .company-item {
       padding: 0 0 8px;
-      font-size: 14px;
+      font-size: var(--body-s-bold-font-size);
       font-weight: var(--fontweight-book);
       text-transform: capitalize;
       cursor: pointer;
@@ -654,7 +654,7 @@ body.already-selected-language-aside #navigation {
     top: calc(50% + -12px + -7px);
     inset-inline-start: 12px;
     background: var(--text-green);
-    color: var(--color-primary-grey-10);
+    color: var(--background-primary);
     font-size: 12px;
     font-weight: var(--fontweight-medium);
     line-height: 1.4;
@@ -667,7 +667,7 @@ body.already-selected-language-aside #navigation {
     .person-drawer {
       /* display: flex; */
       max-height: 800px;
-      padding: 24px 16px 16px;
+      padding: 16px;
     }
 
     @media (width < 1180px) {
@@ -684,7 +684,7 @@ body.already-selected-language-aside #navigation {
 
     /* padding: 34px 16px; */
     flex-direction: column;
-    background: var(--color-primary-grey-10);
+    background: var(--background-primary);
     border-radius: var(--size-20);
     top: calc(100px - 14px);
     inset-inline-end: 0;
@@ -1029,10 +1029,10 @@ body.already-selected-language-aside #navigation {
         gap: var(--size-16);
 
         .support-route-title {
-          font-size: var(--fontsize-body2);
-          color: var(--color-primary-grey-70);
+          font-size: var(--body-s-bold-font-size);
+          color: var(--text-black-title);
           font-weight: var(--fontweight-medium);
-          line-height: 1.5;
+          line-height: var(--body-s-bold-line-height);
         }
 
         .support-route-group {
@@ -1042,10 +1042,10 @@ body.already-selected-language-aside #navigation {
 
           .nav-link {
             padding: 0;
-            color: var(--color-primary-grey-70);
-            font-size: var(--size-12);
+            color: var(--text-black-title);
+            font-size: var(--caption-regular-font-size);
             font-weight: var(--fontweight-book);
-            line-height: 1.5;
+            line-height: var(--caption-regular-line-height);
 
             &:hover {
               cursor: pointer;
@@ -1065,27 +1065,28 @@ body.already-selected-language-aside #navigation {
         gap: var(--size-16);
 
         .support-product-title {
-          font-size: var(--fontsize-body2);
-          color: var(--color-primary-grey-70);
+          font-size: var(--body-s-bold-font-size);
+          color: var(--text-black-title);
           font-weight: var(--fontweight-medium);
-          line-height: 1.5;
+          line-height: var(--body-s-bold-line-height);
         }
 
         .support-product-list {
           display: flex;
-          gap: var(--size-80);
+          gap: var(--size-16);
 
           .support-product-item {
             display: flex;
             flex-direction: column;
             gap: var(--size-16);
+            width: var(--size-142);
 
             .nav-link {
               padding: 0;
-              color: var(--color-primary-grey-70);
-              font-size: var(--size-12);
+              color: var(--text-black-title);
+              font-size: var(--caption-regular-font-size);
               font-weight: var(--fontweight-book);
-              line-height: 1.5;
+              line-height: var(--caption-regular-line-height);
 
               &:hover {
                 cursor: pointer;
@@ -1123,7 +1124,7 @@ body.already-selected-language-aside #navigation {
 
 .dropdown-products {
   display: flex;
-  gap: 48px;
+  gap: var(--spacing-3-xl);
   flex-wrap: wrap;
 }
 
@@ -1533,7 +1534,7 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
     overscroll-behavior: contain;
     margin-top: 56px;
     box-sizing: border-box;
-    background: var(--color-primary-grey-10);
+    background: var(--background-primary);
     transition: height 0.36s ease-in-out;
     display: flex;
     flex-direction: column;
@@ -1908,7 +1909,7 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
       border: 1px solid var(--color-hisense-black);
       border-radius: var(--size-50);
       background: var(--color-hisense-black);
-      color: var(--color-primary-grey-10);
+      color: var(--background-primary);
       cursor: pointer;
       font-size: var(--fontsize-body2);
       font-weight: var(--fontweight-medium);
@@ -2018,9 +2019,9 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
 .has-language-aside #language-aside {
   width: 100%;
   height: var(--root-language-aside-height);
-  background: #333;
-  font-size: var(--size-14);
-  line-height: var(--size-21);
+  background: var(--background-dark-gray);
+  font-size: var(--body-s-bold-font-size);
+  line-height: var(--body-s-bold-line-height);
   display: block;
 
   @media (width < 1180px) {
@@ -2197,14 +2198,27 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
       .ac-ls-continue {
         display: flex;
         align-items: center;
-        background: #009F9C;
+        background: var(--action-primary-color-default);
         height: 40px;
-        padding: 0 24px;
+        padding: var(--spacing-xxxs) var(--spacing-l);
         font-weight: var(--fontweight-medium);
-        color: #fff;
-        border-radius: 80px;
+        color: var(--action-primary-content-default);
+        border-radius: var(--border-radius-xxl);
         text-decoration: none;
         cursor: pointer;
+
+        &:hover {
+          background: var(--action-primary-color-hovered);
+        }
+
+        &:active {
+          color: var(--action-primary-content-pressed);
+          background: var(--action-primary-color-pressed);
+        }
+
+        &[disabled] {
+          background: var(--action-primary-color-disable);
+        }
       }
     }
 
@@ -2322,14 +2336,44 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
     }
 
     .nav-second {
+       .route-company, .route-support {
+         font-weight: unset !important;
+         font-family: var(--font-family-bold);
+       }
+
        .company-group {
          .company-item {
-          &:hover {
+          &:hover, &.current {
             font-weight: unset !important;
             font-family: var(--font-family-bold);
+
+            * {
+              font-weight: unset !important;
+              font-family: var(--font-family-bold);
+            }
           }
          }
        }
+    }
+
+    .nav-section.nav-link .nav-dropdown {
+      .dropdown-main {
+        .dropdown-products {
+          .support-route {
+            .support-route-title {
+              font-weight: unset !important;
+              font-family: var(--font-family-bold);
+            }
+          }
+
+          .support-product {
+            .support-product-title {
+              font-weight: unset !important;
+              font-family: var(--font-family-bold);
+            }
+          }
+        }
+      }
     }
   }
 
@@ -2340,6 +2384,17 @@ body.has-language-aside.already-selected-language-aside .nav-mask {
     * {
       font-weight: unset !important;
       font-family: var(--font-family-bold);
+    }
+  }
+
+  .has-language-aside #language-aside {
+    .ac-ls-content {
+      .ac-ls-actions {
+        .ac-ls-continue {
+          font-weight: unset !important;
+          font-family: var(--font-family-bold);
+        }
+      }
     }
   }
 }
