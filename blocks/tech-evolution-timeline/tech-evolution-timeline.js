@@ -27,7 +27,7 @@ export default async function decorate(block) {
     row.firstElementChild.remove();
 
     const techCardInfoEl = document.createElement('div');
-    techCardInfoEl.className = 'tech-card-info';
+    techCardInfoEl.className = 'tech-card-info mode-dark';
     [...row.children].forEach((column, colIndex) => {
       const columnType = column.firstElementChild?.textContent?.trim() || '';
       column.className = columnType;

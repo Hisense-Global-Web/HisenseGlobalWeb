@@ -41,7 +41,7 @@ const defaultLanguageMap = {
   th: 'th', // 泰国
   kr: 'ko', // 韩国
 };
-const rtlCountryList = ['us'];
+const rtlCountryList = [''];
 export const switchDir = (country) => {
   if (rtlCountryList.includes(country)) return 'rtl';
   return 'ltr';
