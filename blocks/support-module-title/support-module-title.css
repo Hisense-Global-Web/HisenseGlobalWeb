@@ -1,9 +1,9 @@
 .support-module-title.block {
   font-family: var(--font-family);
-  margin-bottom: var(--spacing-xl, 48px);
+  margin-bottom: var(--spacing-1-xl, 32px);
 
   @media (width < 640px) {
-    margin-bottom: var(--spacing-m, 32px);
+    margin-bottom: var(--spacing-l, 24px);
   }
 
   .text-center {
@@ -12,30 +12,25 @@
 
   .support-module-title-title {
     margin: 0;
-    font-size: var(--fontsize-h2, 34px);
+    font-size: var(--heading-l-font-size, 34px);
     font-weight: var(--fontweight-medium);
-    line-height: var(--line-height-m, 1.2);
+    line-height: var(--heading-l-line-height, 40px);
     text-transform: capitalize;
+    color: var(--text-black-title, #000);
 
     @media (width < 640px) {
-      font-size: var(--fontsize-title1, 24px);
-      line-height: var(--line-height-m, 1.2);
+      font-size: var(--heading-l-font-size, 24px);
+      line-height: var(--heading-l-line-height, 36px);
     }
   }
 
   .support-module-title-subtitle {
-    margin-top: var(--spacing-3xs);
+    margin-top: var(--spacing-m, 16px);
     margin-bottom: 0;
-    font-size: var(--fontsize-body1, 16px);
+    font-size: var(--body-font-size, 14px);
     color: var(--color-primary-grey-70, #333);
     font-weight: var(--fontweight-book, 400);
-    line-height: var(--line-height-m, 1.2);
+    line-height: var(--body-line-height, 21px);
     font-family: var(--font-family);
-
-    @media (width < 640px) {
-      margin-top: var(--spacing-3xs, 8px);
-      font-size: var(--fontsize-body2, 14px);
-      line-height: var(--line-height-m, 1.2);
-    }
   }
 }
