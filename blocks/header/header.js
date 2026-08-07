@@ -1717,6 +1717,9 @@ export default async function decorate(block) {
 
   const actionsEl = document.createElement('div');
   actionsEl.className = 'nav-actions';
+  if (country === 'global') {
+    actionsEl.style.display = 'none';
+  }
   navLinks.forEach((action) => {
     const link = document.createElement('div');
     link.className = 'nav-section';
