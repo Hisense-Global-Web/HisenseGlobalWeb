@@ -86,6 +86,7 @@
     font-size: min(calc(20 / var(--breakpoint-pc) * 100vw), 20px);
     margin: 0 0 var(--size-8);
     line-height: min(calc(22 / var(--breakpoint-pc) * 100vw), 22px);
+    text-transform: uppercase;
   }
 
   h1, h2, h3, h4,h5,h6 {
