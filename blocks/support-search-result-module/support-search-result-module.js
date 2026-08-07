@@ -309,6 +309,9 @@ function createFaqCard(faqItem, index) {
   icon.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
   icon.alt = '';
   icon.className = 'chevron';
+  icon.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   iconWrapper.appendChild(icon);
 
   title.appendChild(titleContent);
@@ -372,9 +375,15 @@ function buildPaginationControls(paginationEl, state, onPageChange, config) {
   prevIcon.src = `/content/dam/hisense/${country}/common-icons/left.svg`;
   prevIcon.alt = '';
   prevIcon.className = 'page-arrow';
+  prevIcon.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   const prevDisabledIcon = document.createElement('img');
   prevDisabledIcon.src = `/content/dam/hisense/${country}/common-icons/left-disabled.svg`;
   prevDisabledIcon.className = 'page-arrow is-prev disabled';
+  prevDisabledIcon.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   prevBtn.appendChild(prevIcon);
   prevBtn.appendChild(prevDisabledIcon);
   if (currentPage === 1) {

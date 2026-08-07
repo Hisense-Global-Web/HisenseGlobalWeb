@@ -92,6 +92,9 @@ export default function decorate(block) {
     articleDateGroup.classList.add('article-date');
     const dateIconEl = document.createElement('img');
     dateIconEl.src = `/content/dam/hisense/${country}/common-icons/time.svg`;
+    dateIconEl.addEventListener('error', function () {
+      this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+    });
     const dateEl = document.createElement('span');
     dateEl.textContent = formatIsoToUtcStr(item.jobPostedTime, language);
     articleDateGroup.append(dateIconEl, dateEl);

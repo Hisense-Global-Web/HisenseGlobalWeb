@@ -351,7 +351,11 @@ function createWarrantyItem(warrantyItem, country) {
   item.className = 'item';
 
   const warrantyIcon = `/content/dam/hisense/${country}/common-icons/compliance.svg`;
-  item.appendChild(createPictureContainer(warrantyItem?.icon || warrantyIcon, 'Warranty'));
+  const warrantyIconEl = createPictureContainer(warrantyItem?.icon || warrantyIcon, 'Warranty');
+  warrantyIconEl.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
+  item.appendChild(warrantyIconEl);
 
   const title = document.createElement('p');
   title.className = 'item-title';

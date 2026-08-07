@@ -13,6 +13,9 @@ export default function decorate(block) {
     const qrClose = document.createElement('img');
     qrClose.className = 'qr-close';
     qrClose.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
+    qrClose.addEventListener('error', function () {
+      this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+    });
     const qrPopupTit = document.createElement('div');
     qrPopupTit.className = 'qr-popup-tit';
     const qrPopupTip = document.createElement('div');
@@ -46,6 +49,9 @@ export default function decorate(block) {
         const qrIcon = document.createElement('img');
         qrIcon.className = 'qr-icon';
         qrIcon.src = `/content/dam/hisense/${country}/common-icons/qr-icon.svg`;
+        qrIcon.addEventListener('error', function () {
+          this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+        });
         iconPopup.prepend(qrIcon);
         let authorQRImg = '';
         if (qrImgDom.querySelector('img')) {

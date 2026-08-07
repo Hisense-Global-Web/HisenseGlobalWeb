@@ -146,6 +146,9 @@ export default async function decorate(block) {
           headerIcon.className = 'properties-header-icon';
           const iconImg = document.createElement('img');
           iconImg.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+          iconImg.addEventListener('error', function () {
+            this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+          });
           iconImg.setAttribute('aria-hidden', 'true');
           iconImg.loading = 'lazy';
           headerIcon.appendChild(iconImg);

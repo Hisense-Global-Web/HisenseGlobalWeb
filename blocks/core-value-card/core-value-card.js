@@ -56,6 +56,9 @@ export default function decorate(block) {
           }
           arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-white-up.svg`;
           arrow.setAttribute('data-target-index', index);
+          arrow.addEventListener('error', function () {
+            this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+          });
           arrow.addEventListener('click', (e) => {
             e.stopPropagation();
             const targetIndex = e.target.getAttribute('data-target-index');

@@ -7,6 +7,9 @@ const generateChevronIcon = () => {
   iconImg.src = `/content/dam/hisense/${country}/common-icons/chevron-right.svg`;
   iconImg.setAttribute('aria-hidden', 'true');
   iconImg.loading = 'lazy';
+  iconImg.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   chevronIcon.appendChild(iconImg);
   return chevronIcon;
 };

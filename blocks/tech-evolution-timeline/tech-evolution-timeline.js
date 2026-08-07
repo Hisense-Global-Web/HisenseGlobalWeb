@@ -58,6 +58,9 @@ export default async function decorate(block) {
       const circleImg = document.createElement('img');
       circleImg.src = `/content/dam/hisense/${country}/common-icons/custom-icons/timeline-circle.svg`;
       circleImg.alt = 'Timeline dot';
+      circleImg.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       timelineDotEl.append(circleImg);
       row.prepend(timelineDotEl);
       timelineWrapper.append(row);

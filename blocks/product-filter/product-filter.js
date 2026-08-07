@@ -604,6 +604,9 @@ export default function decorate(block) {
       titleSpan.textContent = titleText;
       const arrow = document.createElement('img');
       arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+      arrow.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
 
       const toggleExpand = (e) => {
         e.stopPropagation();
@@ -659,6 +662,11 @@ export default function decorate(block) {
           const labelSpan = document.createElement('span');
           labelSpan.textContent = (matchedTitle && String(matchedTitle).trim()) ? matchedTitle : lastPart.replace(/\b\w(.+)?\b/g, (match, rest) => match[0].toUpperCase() + (rest || ''));
 
+          InputIcon.querySelectorAll('img').forEach((img) => {
+            img.addEventListener('error', function () {
+              this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+            });
+          });
           label.append(InputIcon, labelSpan);
           li.append(input, label);
           list.append(li);
@@ -729,6 +737,9 @@ export default function decorate(block) {
       const mobileFiltersImg = document.createElement('img');
       mobileFiltersImg.src = `/content/dam/hisense/${country}/common-icons/mobile-filters-title.svg`;
       mobileFiltersImg.alt = 'Filters title';
+      mobileFiltersImg.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       mobileProdctTagTit.append(mobileFiltersImg, mobileFiltersSpan);
 
       const closeBtn = document.createElement('div');
@@ -736,6 +747,9 @@ export default function decorate(block) {
       const closeImg = document.createElement('img');
       closeImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
       closeImg.alt = 'mobile-filter';
+      closeImg.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       closeBtn.addEventListener('click', () => {
         filterTagWrapperEl.classList.remove('mobile-filter-show');
         document.body.style.overflow = 'auto';

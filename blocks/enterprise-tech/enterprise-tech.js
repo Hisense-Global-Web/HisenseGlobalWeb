@@ -46,6 +46,9 @@ export default async function decorate(block) {
       const arrowImg = document.createElement('img');
       arrowImg.src = `/content/dam/hisense/${country}/common-icons/chevron-white-up.svg`;
       arrowImg.alt = 'Arrow image';
+      arrowImg.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+      });
       mobileArrowEl.append(arrowImg);
 
       const mobileTitBoxEl = document.createElement('div');

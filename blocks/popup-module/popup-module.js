@@ -9,6 +9,9 @@ export default function decorate(block) {
   const closeImgEl = document.createElement('img');
   closeImgEl.src = `/content/dam/hisense/${country}/common-icons/close-50.svg`;
   closeImgEl.alt = 'Close Image';
+  closeImgEl.addEventListener('error', function () {
+    this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+  });
   closeDivEl.append(closeImgEl);
 
   // close popup

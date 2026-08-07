@@ -256,6 +256,9 @@ function extractLogoData(container) {
         const popupCloseImg = document.createElement('img');
         popupCloseImg.src = `/content/dam/hisense/${country}/common-icons/close.svg`;
         popupCloseImg.className = 'close-icon';
+        popupCloseImg.addEventListener('error', function () {
+          this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+        });
         popupCloseImg.addEventListener('click', (e) => {
           e.stopPropagation();
           footerSocialPopup.style.display = 'none';
@@ -532,6 +535,9 @@ export default async function decorate(block) {
         mobileFooterTitle.textContent = columnData.title;
         const arrow = document.createElement('img');
         arrow.src = `/content/dam/hisense/${country}/common-icons/chevron-up.svg`;
+        arrow.addEventListener('error', function () {
+          this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+        });
         const mobileFooterTitleLine = document.createElement('div');
         mobileFooterTitleLine.className = 'mobile-footer-title-line';
         mobileFooterTitleLine.addEventListener('click', (e) => {
@@ -561,6 +567,9 @@ export default async function decorate(block) {
           if (!isInternalLink(itemData.link)) {
             const img = document.createElement('img');
             img.src = `/content/dam/hisense/${country}/common-icons/share.svg`;
+            img.addEventListener('error', function () {
+              this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
+            });
             li.appendChild(img);
           }
           ul.appendChild(li);
@@ -681,6 +690,9 @@ export default async function decorate(block) {
     if (regionIcon) {
       regionIcon.addEventListener('click', () => {
         window.location.href = selectedCountry.code === 'cn' ? 'https://www.hisense.com/global-site.html' : buildRegionSelectionPath(selectedCountry.selectedLanguage);
+      });
+      regionIcon.addEventListener('error', function () {
+        this.src = this.src.replace(/(\/content\/dam\/hisense\/)[^/]+(\/)/, '$1global$2');
       });
     }
     const lanComEl = lanGroup.querySelector('.footer-lan-com');
